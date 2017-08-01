@@ -9,6 +9,8 @@
 \usepackage{latexsym}
 \usepackage{amsmath,amssymb,amsthm}
 
+\usepackage[utf8]{inputenc}
+
 \newcommand{\hide}[1]{}  %per commentare intere porzioni di testo
 
 \newtheorem{theorem}{Teorema}
@@ -195,7 +197,7 @@ Infatti, per $x\in \overline{\B_\rho(x_0)}$, si ha
         |T(x)-x_0|&\le |T(x)-T(x_0)|+|T(x_0)-x_0|\\
         &\le \frac 1 2 |x-x_0| + |A (y-y_0)|
         \le \frac \rho 2 + \Vert A\Vert  r
-        \le \rho.
+        = \rho.
         \end{align*}
 
 Dunque $T\colon\overline{\B_\rho(x_0)}\to \overline{\B_\rho(x_0)}$ \`e una
@@ -203,18 +205,42 @@ contrazione, $\overline{\B_\rho(x_0)}$ \`e uno spazio metrico completo
 e quindi, per il Teorema delle contrazioni, 
 esiste un unica soluzione dell'equazione
         \[
-        T(x)=x,
+        T(x)=x.
         \]
-cio\`e esiste un unico punto $x$ in $\overline{\B_\rho(x_0)}$ per cui $f(x)=y$.
 
-Dato $y\in \B_r(y_0)$ possiamo dunque trovare un
+Dato $y\in \B_r(y_0)$ possiamo dunque trovare un unico 
 $x\in \overline{\B_\rho(x_0)}$ che risolve $f(x)=y$, chiamiamo
 $g$ l'applicazione $y\mapsto x$
         \[
         g\colon \B_r(y_0) \to \overline{\B_\rho(x_0)}, \qquad f(g(y))=y.
         \]
-Poniamo dunque $V=\B_r(y_0)$ e $U=g(V)$. Chiaramente $f_{|U}\colon U\to V$ \`e
-bigettiva e ha $g$ come inversa. 
+
+Consideriamo ora l'insieme $\Sigma = f(\partial B_\rho(x_0))$. Essendo
+$f$ continua sappiamo che $\Sigma$ è compatto.
+Inoltre $y_0 \not \in \Sigma$ in quanto c'è un unico punto
+$x\in \overline{B_\rho(x_0)}$ per cui $f(x)=y_0$ e tale punto è $x_0$.
+Dunque $V = B_r(y_0)\setminus \Sigma$ è aperto.
+Posto $U = g(V)$
+risulta quindi che $f_{|U}\colon U\to V$ \`e
+bigettiva e ha $g$ come inversa.
+Inoltre per costruzione abbiamo evitato che $U$ possa contenere punti
+di $\partial \B_\rho(x_0)$ e dunque risulta $U \subset \B_\rho(x_0)$.
+
+Vogliamo ora mostrare che $U$ è aperto.
+Dato un qualunque $x \in U$ poniamo $y= f(x)$. Visto
+che $U=g(V)$ sappiamo che $y \in V$. Siccome $V$ è aperto esiste
+$\epsilon>0$ tale che $\B_\epsilon(y)\subset V$
+ed essendo $f$
+continua possiamo trovare $\delta>0$ tale che
+$f(\B_\delta(x)) \subset \B_\epsilon(y) \subset V$.
+Essendo inoltre $x\in U \subset \B_\rho(x_0)$, pur di rimpicciolire
+ulteriormente $\delta$ possiamo supporre anche che
+$\B_\delta(x)\subset B_\rho(x_0)$.
+Risulta dunque che $f(B_\delta(x))\subset V$ da cui $B_\delta
+=g(f(B_\delta)) \subset U$.
+Dunque $U$ contiene un'intorno
+di ogni suo punto, ed è dunque aperto.
+
 
 Vogliamo ora dimostrare che $g$ \`e differenziabile in ogni punto
 $y\in \B_r(y_0)$ e che il suo differenziale $Dg(y)$ \`e uguale a
@@ -243,7 +269,7 @@ che per la differenziabilit\`a di $f$ in $x$ possiamo scrivere come
 \end{equation}
 Vogliamo ora dimostrare che per $y'\to y$ si ha $x'\to x$ cosicch\'e 
 il primo termine di quest'ultimo prodotto tende
-a zero per la definizione di $o$ "<piccolo">. Contemporaneamente 
+a zero per la definizione di $o$ ``piccolo''. Contemporaneamente 
 dimostreremo che il secondo termine \`e limitato.
 
 Per fare questo consideriamo la mappa $T$ definita in
@@ -266,24 +292,12 @@ Dunque la quantit\`a in~\eqref{eq_inv_diff} tende a zero,
 la funzione $g$ \`e differenziabile in $y$ e il suo
 differenziale \`e $Dg(y)=Df(x)^{-1}$.
 
-
 Per concludere che $g\in \CC^1$ rimane solo da provare che il 
 differenziale $Dg$ \`e una funzione continua. Ma dato che
 $Dg(y)=Df(g(y))^{-1}$, si osserva che essendo $g$ continua (in quanto
 differenziabile), essendo $Df$ continua (per ipotesi) ed essendo
 continua anche l'operazione di inversione di una matrice, la funzione
 $Dg$ deve essere continua.
-
-L'ultima osservazione da fare \`e che $U$ risulta essere un aperto.
-Dato un qualunque $\bar x \in U$ poniamo $\bar y= f(\bar x)$. Visto
-che $U=g(V)$ sappiamo che $\bar y \in U$. Siccome $U$ aperto esiste
-$\epsilon>0$ tale che $\B_\epsilon(\bar y)\subset U$ ed essendo $f$
-continua possiamo trovare $\delta>0$ tale che $f(\B_\delta(\bar x))
-\subset \B_\epsilon(\bar y)$. Vogliamo verificare che $\B_\delta(\bar
-x) \subset U$. Visto che $f(g(y))=y$ per ogni $y\in V$ e visto che 
-$f(\B_\delta(\bar x))\subset V$ concludiamo immediatamente che
-$\B_\delta(\bar x) \subset g(V) = U$. Dunque $U$ contiene un'intorno
-di ogni suo punto, cio\`e \`e aperto.
 \end{proof}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -363,7 +377,10 @@ da cui la tesi.
 \item[15.5.2006] Nell'equazione \eqref{erro} c'era erroneamente
   scritto $Df(x)$ invece che $A=Df(x_0)^{-1}$.
 \item[29.4.2008] 
-Aggiunti teoremi di tipo Cauchy-Schwarz.
-Sistemata la verifica che $U$ \`e aperto. Mancava una
+  Aggiunti teoremi di tipo Cauchy-Schwarz.
+  Sistemata la verifica che $U$ \`e aperto. Mancava una
   tilde nella dimostrazione del teorema del Dini.
+\item[31.7.2017]
+  Sistemato errore nella dimostrazione che l'insieme $U$ è aperto
+  (segnalazione Tortorelli).
 \end{description}
