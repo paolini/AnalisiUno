@@ -10,7 +10,11 @@
 \usepackage{xcolor}
 \usepackage{tikz,fancybox}
 
+\newcommand{\NN}{{\mathbb N}}
+\newcommand{\ZZ}{{\mathbb Z}}
+\newcommand{\QQ}{{\mathbb Q}}
 \newcommand{\RR}{{\mathbb R}}
+\newcommand{\CC}{{\mathbb CC}}
 \newcommand{\C}{{\mathcal C}}
 \renewcommand{\P}{{\mathcal P}}
 \newcommand{\defeq}{=}
@@ -38,14 +42,14 @@ shaded={rulecolor=pink!30,rulewidth=1pt,bgcolor=pink!10}
 ]{mystyle}
 
 \declaretheorem[numberwithin=section,name=Teorema]{theorem}
+\declaretheorem[sibling=theorem,name=Definizione]{definition}
 \declaretheorem[sibling=theorem,name=Lemma]{lemma}
 \declaretheorem[style=mystyle,sibling=theorem,name=Esercizio]{exercise}
 \declaretheorem[style=mystyle,sibling=theorem,name=Esempio]{example}
 \declaretheorem[sibling=theorem,name=Paradosso]{paradox}
 
-\title{Cenni di logica}
+\title{Cenni di logica e teoria degli insiemi}
 \author{E. Paolini}
-\date{14 settembre 2015}
 
 \begin{document}
 \maketitle
@@ -69,32 +73,32 @@ si può dedurre
 \end{align*}
 Quello che abbiamo fatto è una
 \emph{deduzione} (anche detta \emph{derivazione}).
-Nelle notazioni dei \emph{sistemi formali}
-$P,Q,R$ si chiamano \emph{formule}.
+Nelle notazioni dei \myemph{sistemi formali}
+$P,Q,R$ si chiamano \myemph{formule}.
 Una volta aggiunta $R$ alle informazioni note, si potranno fare
 ulteriori derivazioni in cui oltre a $P$ e $Q$ si potrà usare anche
 $R$. Questo permette di estendere l'insieme delle conoscenze, a
 partire da un nucleo iniziale di conoscenze primitive che chiameremo
-\emph{assiomi}.
+\myemph{assiomi}.
 
 Le regole che ci permettono di passare da una o più formule ad una
-nuova formula, si chiamano \emph{regole di inferenza}. Normalmente le
-formule sono composte da una sequenza di \emph{simboli} che possono
+nuova formula, si chiamano \myemph{regole di inferenza}. Normalmente le
+formule sono composte da una sequenza di \myemph{simboli} che possono
 essere scelti tra lettere, cifre o altro. Eventualmente una
-\emph{grammatica} determinerà come i simboli possono essere utilizzati
+\myemph{grammatica} determinerà come i simboli possono essere utilizzati
 per comporre le formule (in tal caso le sequenze ammissibili vengono
-chiamate \emph{formule ben formate}). Le regole di inferenza
+chiamate \myemph{formule ben formate}). Le regole di inferenza
 devono essere le più semplici possibile, di preferenza dovrebbero
 essere delle regole \emph{meccaniche} in modo che non ci possano
 essere dubbi su come vadano applicate.
 
 Nell'esempio che abbiamo fatto all'inizio del paragrafo le formule (P), (Q) e (R)
-sono espresse nel \emph{linguaggio naturale} ovvero nella lingua che
+sono espresse nel \myemph{linguaggio naturale} ovvero nella lingua che
 siamo abituati ad utilizzare ogni giorno. Formalizzare il linguaggio
 naturale risulta un compito improbo: sono troppe le ambiguità, i
 sottointesi, le interpretazioni soggettive, perché si possa pensare di
 trovare le regole di inferenza di tale linguaggio. Quello che si può fare è
-costruire un \emph{linguaggio artificiale} che sia  sufficientemente
+costruire un \myemph{linguaggio artificiale} che sia  sufficientemente
 semplice da poter essere formalizzato in modo non ambiguo. Normalmente
 il linguaggio artificiale sarà comunque ispirato al linguaggio
 naturale. E' però possibile costruire dei linguaggi che non abbiano
@@ -158,11 +162,12 @@ rappresentino numeri romani... come vanno interpretati i simboli
 
 \section{Modello, verità, completezza}
 
-Nel sistema formale \texttt{IVXPU} che abbiamo considerato nel paragrafo precedente i simboli possono essere interpretati
+Nel sistema formale \texttt{IVXPU}
+che abbiamo considerato nel paragrafo precedente i simboli possono essere interpretati
 come operazioni su numeri naturali. Si dice allora che l'insieme dei
-numeri naturali fornisce un \emph{modello} per questo sistema
-formale. Se nel modello abbiamo un concetto di \emph{verità} tale per
-cui ogni assioma viene interpretato come un fatto vero, e ogni regola
+numeri naturali fornisce un \myemph{modello} per questo sistema
+formale. Il modello associa un valore di \myemph{verità} ad ogni formula.
+Se ogni assioma viene interpretato come un fatto vero, e ogni regola
 formale mantiene il valore di \emph{verità} delle formule (cioè
 partendo da una formula vera e applicando una qualunque regola formale
 si ottiene un'altra formula vera) allora ogni derivazione del sistema
@@ -176,15 +181,12 @@ la prima regola di inferenza corrisponde alla seguente verità:
 \]
 E' dunque chiaro che ogni formula ottenuta con questo sistema formale
 sarà interpretata come vera. Ci chiediamo: è possibile, in questo
-sistema, derivare qualunque formula vera? La risposta è negativa, in
-quanto si può osservare che la formula: \texttt{VIUIIIPII} potrebbe
+sistema, derivare qualunque formula vera? La risposta è negativa
+in quanto si può osservare che la formula: \texttt{VIUIIIPII} potrebbe
 essere interpretata come $6 = 3\cdot 2$ che è vera, ma non può essere
 dimostrata mediante le regole formali che abbiamo scelto.
-In questo caso si dice che il sistema è \emph{incompleto} in quanto ci sono
+In questo caso si dice che il sistema è \myemph{incompleto} in quanto ci sono
 formule vere che non possono essere dimostrate.
-Comprendere il concetto di incompletezza, anche su esempi così semplici,
-è fondamentale per dare significato
-al teorema di G\"odel che enunceremo più avanti.
 
 Si potrebbero aggiungere delle regole \emph{grammaticali}
 per mettere dei vincoli su quali siano le formule ben formate. Si
@@ -192,19 +194,21 @@ potrebbe ad esempio richiedere che la formula contenga una sola
 \texttt{P} e una sola \texttt{U} e che la \texttt{P} si trovi sempre
 prima della \texttt{U}. In questo modo si escludono tutte le formule
 vere che non posso essere derivate e il sistema si dice \emph{completo}.
+Il concetto di \myemph{completezza} è fondamentale per capire il significato
+del teorema di G\"odel, di cui parleremo brevemente più avanti.
 
-Il teorema di incompletezza di G\"odel afferma (purtroppo?) che ogni
-sistema formale sufficientemente potente (diciamo che sia in grado di
-descrivere i numeri naturali) è incompleto.
+
+
+
 
 \section{Logica delle proposizioni}
 
 Nella \emph{logica delle proposizioni} si aggiunge il concetto di
 \emph{verità} all'interno del sistema formale.
-Le formule prendono il nome di \emph{proposizioni} e possono assumere un valore
+Le formule prendono il nome di \myemph{proposizioni} e possono assumere un valore
 di verità:
-\texttt{V}=\emph{vero} o \texttt{F}=\emph{falso}.
-Si introducono quindi i \emph{connettivi logici} ovvero gli operatori
+\texttt{V}=\myemph{vero} o \texttt{F}=\myemph{falso}.
+Si introducono quindi i \myemph{connettivi logici} ovvero gli operatori
 $\neg$ (negazione: non), $\land$ (congiunzione: e), $\lor$ (disgiunzione:
 o), $\Rightarrow$ (implicazione: solo se), $\Leftarrow$ (implicazione
 inversa: se), $\Leftrightarrow$ (doppia implicazione: se e solo se) che
@@ -237,7 +241,7 @@ connettivi logici hanno una interpretazione che in molti casi dipende
 dal contesto e che è quindi molto più complessa e ambigua di quanto
 non sia il corrispondente connettivo logico. Ma è proprio per evitare
 le ambiguità e per rendere la verifica di una derivazione un fatto
-puramente meccanico indipendente dal significato (o \emph{semantica})
+puramente meccanico indipendente dal significato (o \myemph{semantica})
 delle proposizioni coinvolte, che abbiamo introdotto i linguaggi
 formali.
 
@@ -328,15 +332,17 @@ se la porta viene aperta allora siamo in una situazione di pericolo.
 Come si collega il calcolo delle proposizioni ai sistemi formali?
 Innanzitutto se c'è una formula che corrisponde ad una
 tautologia essa può essere sempre derivata.
-Inoltre si può applicare la regola chiamata \emph{modus ponens}
+Inoltre si può applicare la regola chiamata \myemph{modus ponens}
 ovvero la possibilità di
 poter dedurre la formula $Q$ se si hanno a disposizione entrambe le
 formule $P$ e $P\Rightarrow Q$.
 Le formule della forma $P\Rightarrow Q$
-possono essere chiamate \emph{teoremi} e in tal caso $P$ viene
-chiamata \emph{ipotesi} e $Q$ viene chiamata \emph{tesi}. La
+possono essere chiamate \myemph{teoremi} e in tal caso $P$ viene
+chiamata \myemph{ipotesi} e $Q$ viene chiamata \myemph{tesi}. La
 derivazione che ci permette di ottenere un teorema viene chiamata
-\emph{dimostrazione} del teorema.
+\myemph{dimostrazione} del teorema.
+
+
 
 \section{Albero di valutazione}
 
@@ -402,18 +408,19 @@ cui l'uso delle parentesi sarebbe invece auspicabile:
 
 \section{Calcolo dei predicati, quantificatori}
 
-Possiamo pensare ai \emph{predicati} come a proposizioni in cui
+Possiamo pensare ai \myemph{predicati} come a proposizioni in cui
 compaiono delle variabili.
 Se una proposizione ha un valore di verità ben definito, il predicato
 ha invece un valore di verità che dipende dal valore assegnato alle sue
 variabili. Le variabili da cui dipende un predicato vengono chiamate
-\emph{variabili libere}. Le variabili libere possono venire \emph{chiuse}
+\myemph{variabili libere}. Le variabili libere possono venire \emph{chiuse}
 (rese \emph{mute}) mediante operatori che agiscono
 (estraendo un dato di sintesi) al variare della variabile su tutti i
 suoi possibili valori.
 Per quanto riguarda il calcolo proposizionale la chiusura delle variabili
-di un predicato può essere fatta tramite i quantificatori
-universale $\forall$ (leggi: ``per ogni'') ed esistenziale $\exists$ (leggi: ``esiste'').
+di un predicato può essere fatta tramite i \myemph{quantificatori}
+\emph{universale} $\forall$ (leggi: ``per ogni'') ed
+\emph{esistenziale} $\exists$ (leggi: ``esiste'').
 Ad esempio il predicato
 $n>5 \Rightarrow n>m$ ha due variabili libere: $n$ ed $m$.
 Possiamo chiudere la variabile $n$ con il quantificatore universale ottenendo:
@@ -422,7 +429,7 @@ Possiamo chiudere la variabile $n$ con il quantificatore universale ottenendo:
 \]
 che è un predicato con una unica variabile libera $m$. Il valore di verità di questo
 predicato dipende infatti dal valore assegnato ad $m$.
-Più precisamente il predicato è vero se $m>5$ ed è falso altrimenti.
+Più precisamente il predicato è vero se $m\le 5$ ed è falso altrimenti.
 La variabile $n$ è invece diventata muta, che significa che non ha più senso
 assegnare dei valori alla variabile $n$ in quanto tale predicato non dipende
 più da $n$.
@@ -475,7 +482,7 @@ Vedremo però che tutti questi enti matematici potranno essere ricondotti al
 concetto di insieme: sarà dunque questo il concetto fondamentale che vogliamo
 descrivere.
 
-Intuitivamente gli insiemi sono collezioni di elementi.
+Intuitivamente gli \myemph{insiemi} sono collezioni di elementi.
 Per costruire un sistema formale che descriva gli insiemi sarà sufficiente
 introdurre l'unico predicato che mette in relazione un elemento con l'insieme
 che lo contiene:
@@ -491,7 +498,7 @@ Sarà utile poter costruire insiemi di insiemi, quindi in realtà nel predicato 
 $x$ potrebbe a sua volta essere un insieme. Dunque, per semplicità, supporremo
 che tutti gli oggetti siano insiemi.
 
-A partire dalla relazione di \emph{appartenenza} $\in$ potremo definire le altre
+A partire dalla relazione di \myemph{appartenenza} $\in$ potremo definire le altre
 relazioni tra insiemi:
 \begin{align*}
   A \subset B &\iff \forall x\colon (x \in A \Rightarrow x \in B)\\
@@ -499,22 +506,22 @@ relazioni tra insiemi:
   A = B & \iff A\subset B \,\wedge\, B\subset A.
 \end{align*}
 
-Il simbolo $\subset$ rappresenta l'\emph{inclusione} tra insiemi.
+Il simbolo $\subset$ rappresenta l'\myemph{inclusione} tra insiemi.
 Osserviamo che in altri testi potrà essere invece utilizzato il simbolo $\subseteq$
 per rappresentare la stessa relazione
 rendendo esplicito il fatto che non si esclude che i due insiemi siano
 uguali (inclusione larga).
 
 La terza delle regole precedenti si chiama \emph{assioma di estensionalità}
-e definisce il fondamentale concetto di \emph{uguaglianza}.
+e definisce il fondamentale concetto di \myemph{uguaglianza}.
 Il nostro sistema formale sarà dotato di opportune regole di inferenza che
 garantiscano che se due oggetti sono uguali
 potranno essere liberamente sostituiti uno con l'altro in qualunque
 altra formula. Questo garantisce la proprietà transitiva dell'uguaglianza.
-Si definirà la disuguaglianza $\not =$ come negazione dell'uguaglianza.
+Si definirà la \myemph{disuguaglianza} $\not =$ come negazione dell'uguaglianza.
 
-Vogliamo anche introdurre le usuali operazioni di \emph{intersezione} $A\cap B$,
-\emph{unione}  $A\cup B$ e \emph{differenza} $A \setminus B$
+Vogliamo anche introdurre le usuali operazioni di \myemph{intersezione} $A\cap B$,
+\myemph{unione}  $A\cup B$ e \myemph{differenza} $A \setminus B$
 che possono essere codificate dai seguenti assiomi:
 \begin{align*}
   x \in A \cap B &\iff (x \in A \wedge x \in B)\\
@@ -522,30 +529,26 @@ che possono essere codificate dai seguenti assiomi:
   x \in A \setminus B &\iff x \in A \wedge x \not \in B.
 \end{align*}
 
-Per avere un primo oggetto su cui agire definiamo l'insieme vuoto, denotato
+Per avere un primo oggetto su cui agire definiamo l'\myemph{insieme vuoto},
+denotato
 dal simbolo $\emptyset$, mediante il seguente assioma
 \[
 \neg \exists x \colon x \in \emptyset.
 \]
 Osserviamo che le operazioni definite in precedenza, se applicate all'insieme vuoto,
 non ci permettono di ottenere nuovi insiemi.
-Per avere insiemi con un solo elemento introduciamo l'insieme \emph{singoletto}
+Per avere insiemi con un solo elemento introduciamo l'insieme \myemph{singoletto}
 $\{ y \}$ cioè un insieme contenente un unico oggetto $y$:
 \[
   x \in \{ y \} \iff x = y.
 \]
-A questo punto utilizzando l'unione possiamo già ottenere insiemi con un numero
-arbitrario (ma finito) di elementi:
+A questo punto utilizzando l'unione possiamo già ottenere,
+per elencazione,
+insiemi con un numero
+arbitrario (ma finito) di elementi, ad esempio:
 \[
-  \{x_1, \dots, x_n\} = \{x_1\} \cup \dots \cup \{x_n\}.
+  \{a, b, c\} = \{ a \} \cup \{ b\} \cup \{c\}.
 \]
-Osserviamo che nella formula precedente il simbolo $\dots$ non fa parte dell'alfabeto
-del nostro sistema formale, ma viene utilizzato, per semplicità, per
-esprimere il fatto che nella formula ci può essere un numero arbitrario (ma finito)
-di oggetti separati da virgola\footnote{è possibile implementare una regola di inferenza
-che permette di ricondurre la definizione di un insieme tramite elencazione di $n$
-oggetti ricorsivamente tramite
-l'unione dell'elenco dei primi $n-1$ con il singoletto dell'$n$-esimo.}.
 
 Con le operazioni che abbiamo introdotto è già possibile descrivere infiniti insiemi
 tra loro diversi. Ad esempio questi sono quattro insiemi diversi:
@@ -561,22 +564,12 @@ mentre ognuno dei seguenti coincide con uno (quale?) dei precedenti:
  \{\{\emptyset, \{\emptyset\}\}, \{\{\emptyset\}, \emptyset\}\}.
 \]
 
-\begin{comment}
-Sarà utile poter applicare le seguenti operazioni anche ad un numero arbitrario
-(eventualmente infinito) di oggetti. Introduciamo quindi l'unione e l'intersezione di
-insiemi di insiemi:
-\begin{align*}
-  x \in \bigcap A &\iff \forall B\in A\colon x \in B\\
-  x \in \bigcup A &\iff \exists B\in A\colon x \in B.
-\end{align*}
-\end{comment}
-
 Possiamo anche definire un insieme mediante una qualunque
 proprietà che caratterizzi
 i suoi elementi. Se $A$ è un insieme e $P(x)$ un predicato, allora
 possiamo definire un insieme $B = \{x\in A\colon P(x)\}$ in modo
 che si abbia
-(assioma di specificazione):
+(\myemph{assioma di specificazione}):
 \[
   b \in \{x\in A \colon P(x)\} \iff (b \in A) \wedge P(b).
 \]
@@ -609,15 +602,15 @@ assurdo che $R\not \in R$, infatti in tal caso potrà essere (anzi, dovrà esser
 $R\not \in U$.
 Non abbiamo ottenuto un paradosso, ma abbiamo scoperto che dato
 un qualunque insieme $U$ esiste un insieme $R$ che non sta in $U$.
-Questo significa che non esiste l'insieme \emph{universo}, cioè un insieme che
+Questo significa che non esiste l'insieme \myemph{universo}, cioè un insieme che
 contiene tutti gli insiemi. Osserviamo che l'insieme universo sarebbe il complementare
 dell'insieme vuoto, e questo è il motivo per cui non è possibile definire
 il complementare di un insieme ma ci si limita a definire la differenza tra insiemi.
 
 La relazione $x\in x$ potrebbe di per se sembrare contraddittoria.
 Come è possibile che un insieme contenga se stesso come elemento?
-Se ad esempio avessimo $x=\{ x\}$ si avrebbe $x=\{\{x\}\} = \{\{\{ x\}\}\}$ e
-così via in una discesa infinita che non avrebbe mai termine.
+Se ad esempio avessimo $x=\{ x\}$ si avrebbe $x=\{\{x\}\} = \{\{\{ x\}\}\} \dots$
+e così via in una discesa infinita che non avrebbe mai termine.
 La possibilità che esistano insiemi di questo tipo è piuttosto fastidiosa ed è per questo
 che si pone l'assioma di \emph{fondazione} (o di \emph{regolarità}) che afferma
 in particolare che non esistono insiemi $x$ tali che $x\in x$.
@@ -637,7 +630,7 @@ insieme \emph{più grande} di un insieme dato si ottiene dall'insieme potenza
 (che vediamo subito) tramite il teorema di Cantor (che vedremo più avanti).
 
 L'assioma dell'insieme potenza, serve
-a garantire l'esistenza del\-l'\emph{insieme delle parti}.
+a garantire l'esistenza del\-l'\myemph{insieme delle parti}.
 Se $X$ è un qualunque insieme si può considerare $\P(X)$ come l'insieme dei
 sottoinsiemi di $X$:
 \[
@@ -651,13 +644,13 @@ ha otto elementi:
  \P(X) = \{ \{\}, \{a\}, \{b\}, \{c\}, \{a,b\},
    \{a,c\}, \{b,c\}, \{a,b,c\}\}.
 \]
-Ricordiamo che $\{\}=\emptyset$ e che l'insieme vuoto è sottoinsieme di
+Inteso che $\{\}=\emptyset$ osserviamo che l'insieme vuoto è sottoinsieme di
 qualunque altro insieme (verificarlo tramite la definizione),
-dunque è sempre elemento dell'insieme delle parti.
+dunque appartiene sempre all'insieme delle parti.
 L'insieme delle parti risulta fondamentale per poter esprimere
 la \emph{logica del secondo ordine} ovvero la possibilità di poter
-formulare predicati sui
-sottoinsiemi di un insieme invece che solamente sui suoi elementi.
+formulare predicati sui sottoinsiemi di un insieme invece che solamente
+sui suoi elementi.
 
 \section{Relazioni e funzioni}
 
@@ -856,6 +849,144 @@ che valgano le seguenti notazioni:
   A \le B &\iff (\forall x\in A, \forall y\in B\colon x\le y).
 \end{align*}
 
+\section{numeri naturali}
+
+Abbiamo in precedenza affermato che tutti gli oggetti matematici di cui abbiamo
+bisogno potranno essere rappresentati tramite gli insiemi.
+Abbiamo visto, ad esempio, come le relazioni e le funzioni possono essere definite
+utilizzando gli insiemi. Allo stesso modo possiamo procedere per definire i numeri
+naturali: anch'essi saranno particolari insiemi.
+
+Ci possono essere diversi modi per scegliere gli insiemi che definiscono i numeri
+naturali, ma la definizione normalmente utilizzata è la seguente.
+Si definisce il numero $0$ tramite l'insieme vuoto $\emptyset$ e si definisce
+il successivo di $n$ come l'insieme $n^+ = n \cup \{ n \}$. Si avrà quindi
+\begin{align*}
+  0 &= \emptyset = \{\}, \\
+  1 &= \emptyset^+ = 0 \cup \{0\} = \emptyset \cup \{0\} = \{0\}, \\
+  2 &= \emptyset^{++} = 1 \cup \{1\} = \{0, 1\}, \\
+  3 &= \emptyset^{+++} = 2 \cup \{2\} = \{0, 1, 2\},\\
+  \vdots \\
+  n &= \emptyset^{+\dots +} = \{ 0, 1, \dots, n-1\}, \\
+  \vdots
+\end{align*}
+In particolare l'insieme che rappresenta il numero $n$ è un insieme di $n$
+elementi (che sono i numeri più piccoli di $n$).
+
+Osserviamo però che se è vero che riusciamo a definire i singoli numeri naturali,
+nessuno degli assiomi che fin'ora abbiamo introdotto ci permette di definire
+l'insieme di tutti questi numeri naturali.
+In effetti, a bene riflettere, un \emph{universo} di insiemi formato solamente
+dagli insiemi finiti (concetto che ancora non abbiamo definito ma che usiamo ora
+in maniera intuitiva) soddisferebbe tutti gli assiomi fin'ora introdotti e non
+potrebbe contenere l'insieme dei numeri naturali, che intuitivamente deve essere
+infinito.
+Sarà quindi necessario introdurre un nuovo assioma per il quale
+introduciamo una apposita definizione.
+Diremo che un insieme $A$ è \emph{induttivo} se $\emptyset \in A$
+e $\forall n\in A\colon n^+\in A$.
+
+Assioma dell'infinito:
+\marginpar{assioma dell'infinito}
+esiste un insieme $\NN$ \marginpar{$\NN$}
+induttivo
+tale che\footnote{%
+In realtà sarebbe sufficiente garantire per assioma che esista un qualunque insieme induttivo
+senza ulteriori specificazioni. Infatti se esiste almeno un insieme induttivo
+$X$ chiameremo $\mathbb N$
+l'intersezione degli insiemi induttivi contenuti in $X$. Si potrebbe infatti
+verificare che l'intersezione di insiemi induttivi è induttivo ed essendo
+l'intersezione contenuta in ogni insieme induttivo non può contenere strettamente
+altri sottoinsiemi induttivi.
+}
+se $A\subset \NN$ è anch'esso induttivo allora $A=\NN$.
+Chiameremo l'insieme $\NN$
+\myemph{insieme dei numeri naturali}.
+
+Essendo $\NN$ un insieme induttivo esso contiene tutti i numeri naturali come
+li abbiamo definiti nel paragrafo precedente.
+Inoltre $\NN$ è il più piccolo insieme induttivo
+(non ci sono insiemi induttivi strettamente contenuti in $\NN$) e questo
+serve a garantire che $\NN$ non contenga altri elementi al di fuori dei numeri
+naturali.
+
+Su $\NN$ possiamo definire la funzione $\sigma \colon \NN \to \NN$
+tale che $\sigma(n) = n^+$. Formalmente si definisce $\sigma$ come relazione:
+\[
+  \sigma = \{(n,m) \in \NN \times \NN\colon m = n^+\}
+\]
+e si verifica facilmente che tale relazione è, effettivamente, una funzione.
+Si può allora verificare che $\NN$ soddisfa le seguenti proprietà:
+\begin{theorem}[assiomi di Peano]
+Esiste $0\in \NN$ e $\sigma\colon \NN \to \NN$ tali che:
+\begin{enumerate}
+\item $\sigma$ è iniettiva;
+\item non esiste $n\in \NN$ tale che $\sigma(n)=0$;
+\item per ogni $A\subset \NN$ se
+\begin{enumerate}
+   \item $0\in A$;
+   \item $n\in A \implies \sigma(n) \in A$;
+\end{enumerate}
+allora $A= \NN$.
+\end{enumerate}
+\end{theorem}
+
+La proprietà induttiva dei numeri naturali permette di definire le funzioni su
+$\NN$ utilizzando le \emph{definizioni per induzione}, come nel seguente.
+\begin{theorem}[definizione per induzione]
+Sia $X$ un insieme, $\alpha \in X$ e $g\colon \NN\times X \to X$.
+Allora esiste un unica funzione $f\colon \NN \to X$ tale che
+\[
+\begin{cases}
+  f(0) = \alpha,
+  \forall n\in \NN\colon f(\sigma(n)) = g(n, f(n)).
+\end{cases}
+\]
+\end{theorem}
+
+Intuitivamente dopo aver definito $f(0) = \alpha$ si potrà definire
+$f(1) = g(1, \alpha)$, $f(2) = g(2, f(1))$, $f(3) = g(3, f(2))$ etc.
+Per la proprietà induttiva dei numeri naturali la funzione $f$ risulterà
+definita univocamente su tutti i numeri naturali.
+
+Con questo tipo di definizioni è possibile definire per induzione
+l'operazione $+$ (addizione)
+facendo in modo che valga la seguente proprietà:
+\[
+\begin{cases}
+  n + 0 = n\\
+  n + \sigma(m) = \sigma(n+m)
+\end{cases}
+\]
+(in particolare si ottiene $\sigma(n)=n+1$)
+e sarà possibile definire la moltiplicazione $\cdot$ in modo che
+valga
+\[
+\begin{cases}
+  n\cdot 0 = 0 \\
+  n \cdot \sigma(m) = n\cdot m + n.
+\end{cases}
+\]
+Si potrà poi verificare (cosa elementare ma non semplice)
+che le operazioni così definite soddisfano le ben
+note proprietà:
+\begin{enumerate}
+\item $n+0=n$, $n\cdot 1 = n$ (esistenza degli elementi neutri);
+\item $n+m = m+n$, $n\cdot m = m\cdot n$ (proprietà commutativa);
+\item $n\cdot (a+b) = n\cdot a + n\cdot b$ (proprietà associativa).
+\end{enumerate}
+
+Si potrà anche definire una relazione d'ordine $\le$ tramite la condizione
+\[
+  n \le m \iff \exists k \in \NN \colon m = n+k.
+\]
+La relazione $\ge$ è la relazione inversa di $\le$. La relazione $<$ si
+definisce richiedendo che $x<y$ valga se $x\le y \land x\neq y$ e la relazione $>$
+è definita come l'inversa di $<$.
+Osserviamo che per come abbiamo costruito i numeri naturali (ci potrebbero essere
+altre costruzioni che portano agli assiomi di Peano) si ha $n\le m \iff n \subset m$
+e $n < m \iff n\in m$.
+
 \section{cardinalità}
 
 La teoria degli insiemi è nata con l'intento di formalizzare l'utilizzo degli
@@ -864,6 +995,16 @@ di elementi non ci sono dubbi sulle loro proprietà. L'utilizzo di insiemi con
 infiniti elementi, invece, ci pone di fronte a questioni che possono sembrare
 paradossali.
 
+Per confrontare gli insiemi finiti è sufficiente contare il numero degli elementi.
+Diremo che un insieme è \emph{più grande} se ha un numero di elementi maggiore.
+Ma se gli insiemi sono infiniti, non siamo in grado di effettuare un conteggio
+degli elementi. Possiamo però osservare che non è necessario contare il numero
+di elementi per poter dire che due insiemi hanno la stessa numerosità.
+Ad esempio in un parcheggio pieno posso dire che il numero di automobili
+è uguale al numero di posti, senza dover contare né l'uno né l'altro ma semplicemente
+osservando che c'è una corrispondenza biunivoca tra i posti e le auto. Faremo
+lo stesso per confrontare insiemi infiniti.
+
 Diciamo che due insiemi $A$ e $B$ sono equipotenti e scriveremo $\#A = \#B$
 se esiste una funzione bigettiva $f\colon A \to B$.
 Il simbolo $\#A$ si chiama \myemph{cardinalità} di $A$ e quindi due insiemi
@@ -871,36 +1012,57 @@ sono equipotenti se hanno la stessa cardinalità.
 In tal caso la funzione
 $f$ è invertibile e l'inversa è anch'essa bigettiva,
 quindi se $\#A = \#B$ risulta anche $\#B = \#A$.
-Tramite la composizione è inoltre facile verificare che se $\#A = \#B$ e
-$\#B = \#C$
+Tramite la composizione è inoltre facile verificare che se $\#A = \#B$ e $\#B = \#C$
 allora $\#A = \#C$.
+Nel caso degli insiemi finiti vedremo che la cardinalità coincide con il
+numero di elementi dell'insieme, ma ci potranno essere anche cardinalità
+\emph{infinite}.
 
-La relazione di equipotenza definisce implicitamente
-il concetto di cardinalità, specificando
+La relazione di equipotenza definisce il concetto di cardinalità, specificando
 quali sono gli insiemi che hanno la stessa cardinalità. Possiamo anche mettere
 un ordinamento tra gli insiemi, specificando che un insieme $A$ ha cardinalità
 minore o uguale a quella di $B$, $\#A\le \#B$, se esiste una funzione
-iniettiva $f\colon A \to B$.
+iniettiva $f\colon A \to B$. Scriveremo $\#A < \#B$ per indicare che
+$\#A \le \#B$ ma non $\#A = \#B$ (dunque esistono funzioni iniettive da $A$ in $B$
+ma nessuna di queste risulta essere surgettiva).
+
 Non è difficile verificare che se esiste una funzione iniettiva $f\colon A\to B$
 allora esiste anche una funzione surgettiva $g\colon B\to A$
 (basta osservare che una funzione iniettiva $f$ è invertibile sulla propria
 immagine $f\colon A \to f(A)$ e la funzione inversa può essere estesa a
 tutto $B$ in maniera arbitraria).
 
-Osserviamo che il paradosso di Russel utilizza la stessa idea della dimostrazione
-del seguente teorema.
+Sugli insiemi finiti, di nuovo, questo concetto
+si traduce con la corrispondente
+disuguaglianza tra il numero degli elementi dei due insiemi.
+Sugli insiemi infiniti, invece, abbiamo un concetto nuovo e i seguenti teoremi
+non sono scontati.
+
+\begin{theorem}[Cantor-Bernstein]
+Se $\#A \le \#B$ e $\#B \le \#A$ allora $\#A = \#B$.
+\end{theorem}
+
+\begin{theorem}
+Almeno una delle due relazioni è valida: $\#A \le \#B$ o $\#B \le \#A$.
+\end{theorem}
+
+Il seguente teorema è rilevante in quanto ci dice che gli insiemi infiniti
+non sono sempre tra loro equipotenti, ma ci sono infiniti più grandi e più piccoli.
+Osserviamo inoltre che la dimostrazione è
+analoga al paradosso di Russel.
 
 \begin{theorem}[Cantor]
-Per ogni insieme $X$ si ha $\#X < \#\P(X)$.
+Per qualunque insieme $X$ si ha $\# X < \# \P(X)$.
 \end{theorem}
 %
 \begin{proof}
 Che sia $\#X\le \#\P(X)$ è facile, basta prendere la funzione
-$f\colon X\colon \P(X)$ definita da $f(x) = \{x\}$ e verificarne
+$f\colon X\to \P(X)$ definita da $f(x) = \{x\}$ e verificarne
 l'iniettività.
 
-Sia $f\colon X \to \P(X)$ una qualunque funzione
-e consideriamo l'insieme
+Per mostrare che $\# \neq \#P(X)$ consideriamo
+$f\colon X \to \P(X)$ una qualunque funzione
+e definiamo l'insieme
 \[
    C = \{x \in X \colon x \not \in f(x) \}.
 \]
@@ -911,47 +1073,64 @@ Dunque la funzione $f$ non può essere surgettiva e questo significa che
 non è $\#X \le \#P(X)$.
 \end{proof}
 
+\section{insiemi finiti/infiniti}
 
-\section{i numeri naturali}
+Diremo che un insieme $A$ ha $n$ elementi e scriveremo $\# A = n$,
+se $A$ può essere messo in corrispondenza
+biunivoca con l'insieme $n= \{0, \dots, n-1\}$ cioè se $\# A = \# n$.
+Gli insiemi che possono essere messi in corrispondenza biunivoca con
+un numero naturale si diranno \myemph{insiemi finiti}.
+Tutti gli altri insiemi si diranno \myemph{insiemi infiniti}.
 
-Vogliamo ora catturare il concetto di \emph{insieme infinito}.
-Il modo più semplice sarebbe quello di definire \emph{finito}
-qualunque insieme che abbia la stessa cardinalità dell'insieme
-$\{1,2, \dots, n\}$ per qualche numero naturale $n$.
-Il difetto di questa definizione è che ci costringe a legare il
-concetto di infinito al concetto di numero naturale quando 
+Si potrebbe dimostrare che non esistono insiemi infiniti di cardinalità
+inferiore a quella di $\NN$, dunque un insieme $A$ è finito se $\# A < \#\NN$
+ed è infinito se $\# A \ge \# \NN$.
 
-\begin{definition}[insieme infinito]
-\marginpar{insieme infinito}
-Diremo che un insieme $X$ è \emph{infinito}
-se esiste una funzione $f\colon X \to X$ che sia iniettiva ma non
-surgettiva.
-\end{definition}
-
-
-Gli assiomi che abbiamo fin'ora introdotto non sono sufficienti a garantire
-l'esistenza dei numeri naturali. In effetti un universo in cui tutti gli insiemi
-sono finiti (cosa che ancora non abbiamo definito ma vedremo a breve) soddisfa
-tutti gli assiomi che abbiamo fin'ora enunciato.
-
-Dobbiamo quindi aggiungere un assioma che garantisca l'esistenza di almeno un
-insieme infinito, e vedremo che questo sarà sufficiente per poi costruire, con
-le operazioni che abbiamo già introdotto, tutti gli insiemi infiniti di cui
-abbiamo bisogno.
-
-L'assioma di infinito asserisce che esiste un insieme $\N$,
-una funzione $\sigma\colon \N \to \N$ ed un elemento $0\in \N$
-che soddisfano le seguenti proprietà (assiomi di Peano):
+Valgono poi i seguenti
+\begin{theorem}[caratterizzazione degli insiemi finiti]
+Sia $A$ un insieme. Le seguenti condizioni sono equivalenti:
 \begin{enumerate}
-\item $\sigma$ è iniettiva;
-\item $0 \not \in \sigma(\N)$ (in particolare: $\sigma$ non è surgettiva);
-\item se $A\subset \N$ ha le seguenti proprietà:
-  \begin{enumerate}
-  \item $0\in A$;
-  \item $n\in A \implies \sigma(n)\in A$
-  \end{enumerate}
-  allora $A=\N$.
+\item $A$ è finito;
+\item ogni funzione iniettiva $f\colon A \to A$ è suriettiva;
+\item ogni funzione suriettiva $f\colon A \to A$ è iniettiva;
 \end{enumerate}
+\end{theorem}
+
+\begin{theorem}[caratterizzazione degli insiemi infiniti]
+Sia $A$ un insieme. Le seguenti condizioni sono equivalenti:
+\begin{enumerate}
+\item $A$ è infinito;
+\item esiste $f\colon A\to A$ iniettiva ma non suriettiva;
+\item esiste $f\colon A\to A$ suriettiva ma non iniettiva.
+\end{enumerate}
+\end{theorem}
+
+\section{il teorema di incompletezza di G\"odel}
+
+Il teorema di incompletezza di G\"odel afferma che ogni
+sistema formale sufficientemente potente (diciamo che sia in grado di
+descrivere i numeri naturali come abbiamo fatto noi) è incompleto.
+La dimostrazione di tale risultato rivoluzionario richiederebbe un intero
+corso di logica, ma possiamo solo accennare al fatto che l'idea della
+dimostrazione consiste nell'associare un numero naturale ad ogni formula
+del sistema, tradurre tutte le regole di inferenza in operazioni aritmetiche
+in modo tale da poter formalizzare le dimostrazioni all'interno del sistema
+stesso. Dopodiché ``basterà'' trovare un numero $G$ tale per cui
+l'enunciato corrispondente a $G$ significa:
+"l'enunciato corrispondente al numero $G$ non può essere dimostrato",
+ovvero: "\emph{questo} enunciato non può essere dimostrato".
+E' chiara l'analogia con il paradosso di Epimenide: "questa frase è falsa".
+
+Si osservi che l'enunciato $G$ di G\"odel non parla direttamente di verità,
+che è un concetto esterno al sistema formale
+(dipende dal modello che noi diamo al sistema).
+Ma se vogliamo attaccare un valore di verità ad ogni enunciato dovremo decidere
+se $G$ è vero o falso. Se è vero avremmo un sistema in cui un enunciato vero
+non può essere dimostrato e quindi tale sistema sarebbe incompleto.
+Se invece $G$ è falso avremmo un sistema in cui un enunciato falso può essere
+dimostrato e quindi tale sistema sarebbe \myemph{incoerente} (ci sono degli assiomi
+falsi oppure delle regole di inferenza che permettono di dedurre enunciati falsi
+a partire da enunciati veri).
 
 \section{Appendice: Asse del tempo}
 Asse del tempo:
