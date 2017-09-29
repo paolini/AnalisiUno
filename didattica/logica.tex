@@ -918,7 +918,8 @@ tale che $\sigma(n) = n^+$. Formalmente si definisce $\sigma$ come relazione:
 e si verifica facilmente che tale relazione è, effettivamente, una funzione.
 Si può allora verificare che $\NN$ soddisfa le seguenti proprietà:
 \begin{theorem}[assiomi di Peano]
-Esiste $0\in \NN$ e $\sigma\colon \NN \to \NN$ tali che:
+Esistono $0\in \NN$
+e $\sigma\colon \NN \to \NN$ tali che:
 \begin{enumerate}
 \item $\sigma$ è iniettiva;
 \item non esiste $n\in \NN$ tale che $\sigma(n)=0$;
@@ -933,12 +934,12 @@ allora $A= \NN$.
 
 La proprietà induttiva dei numeri naturali permette di definire le funzioni su
 $\NN$ utilizzando le \emph{definizioni per induzione}, come nel seguente.
-\begin{theorem}[definizione per induzione]
+\begin{theorem}\label{th:def_induction}[definizione per induzione]
 Sia $X$ un insieme, $\alpha \in X$ e $g\colon \NN\times X \to X$.
 Allora esiste un unica funzione $f\colon \NN \to X$ tale che
 \[
 \begin{cases}
-  f(0) = \alpha,
+  f(0) = \alpha,\\
   \forall n\in \NN\colon f(\sigma(n)) = g(n, f(n)).
 \end{cases}
 \]
@@ -976,17 +977,83 @@ note proprietà:
 \item $n\cdot (a+b) = n\cdot a + n\cdot b$ (proprietà associativa).
 \end{enumerate}
 
+Diremo che un numero $n\in \NN$ è divisibile per $m\in \NN$ se esiste $k\in \NN$
+tale che $n = k \cdot m$. In tal caso scriveremo $k = n/m$.
+
 Si potrà anche definire una relazione d'ordine $\le$ tramite la condizione
 \[
   n \le m \iff \exists k \in \NN \colon m = n+k.
 \]
-La relazione $\ge$ è la relazione inversa di $\le$. La relazione $<$ si
-definisce richiedendo che $x<y$ valga se $x\le y \land x\neq y$ e la relazione $>$
+La relazione $\ge$ si definisce come la relazione inversa di $\le$.
+La relazione $<$ si
+definisce richiedendo che sia $x\le y \land x\neq y$ e la relazione $>$
 è definita come l'inversa di $<$.
 Osserviamo che per come abbiamo costruito i numeri naturali (ci potrebbero essere
 altre costruzioni che portano agli assiomi di Peano) si ha $n\le m \iff n \subset m$
 e $n < m \iff n\in m$.
 
+Come esempio di applicazione della definizione per induzione definiamo
+il \emph{fattoriale} $n! = 1 \cdot 2 \dots n$ (il prodotto dei numeri naturali
+da $1$ a $n$).
+Per definire tale funzione
+$\NN \to \NN$ in maniera rigorosa osserviamo che il prodotto dei numeri da $1$
+a $n+1$ può essere definito come il prodotto dei numeri da $1$ a $n$ moltiplicato
+per $n+1$. Imponendo poi che\footnote{%
+E' chiaro che deve essere $1!=1$ e di conseguenza se vale $(n+1)! = (n+1)\cdot n!$
+dovrà essere $0!=1$.
+D'altra parte è naturale che il prodotto di un insieme vuoto di numeri sia
+l'elemento neutro del prodotto, così come la somma di zero numeri è l'elemento
+neutro della somma.
+}
+$0!=1$, si ottiene una caratterizzazione univoca:
+\[
+ \begin{cases}
+  0! = 1 \\
+  (n+1)! = (n+1) \cdot n!
+ \end{cases}
+\]
+Si tratta di applicare il Teorema~\ref{th:def_induction}
+con $X=\NN$, $\alpha = 1$, $g(n, x) = (n+1)\cdot x$ per garantire che esiste
+una unica funzione $\NN\to\NN$, $n\mapsto n!$, che soddisfa queste proprietà.
+
+In maniera simile si potrà definire per ogni $n,m \in \NN$ l'elevamento a potenza $n^m$
+in modo che valga\footnote{%
+Si noti che stiamo definendo $0^0=1$.
+Alcuni testi lasciano indefinita questa operazione ma in realtà la formula
+è giustificata dal fatto che $0^0$ è un prodotto di $0$ fattori e quindi,
+come $0!$, deve valere $1$.
+Questo viene confermato dal fatto che $n^m$ è il numero di funzioni da un
+insieme con $m$ elementi in un insieme con $n$ elementi e
+su un dominio vuoto è definita una unica funzione (la funzione vuota), anche
+se il codominio è vuoto.
+}
+\[
+\begin{cases}
+  n^0 = 1\\
+  n^{m+1} = n\cdot n^m.
+\end{cases}
+\]
+
+\begin{exercise}
+La somma $S(n) = 1 + 2 + \dots +n$
+dei naturali da $1$ fino a $n$ può essere definita come quella unica funzione
+che soddisfa le proprietà
+\[
+\begin{cases}
+  S(0) = 0 \\
+  S(n+1) = S(n) + (n+1).
+\end{cases}
+\]
+Dimostrare che $S(n) = n \cdot (n+1) / 2$.
+\end{exercise}
+
+\begin{exercise}
+Dimostrare che per la somma
+$Q(n) = 1^2 + 2^2 + \dots + n^2$
+(somma dei quadrati dei naturali da $1$ a $n$)
+vale la formula
+$Q(n) = n \cdot (n+1)\cdot (2n + 1) / 6$.
+\end{exercise}
 \section{cardinalità}
 
 La teoria degli insiemi è nata con l'intento di formalizzare l'utilizzo degli
@@ -1060,7 +1127,7 @@ Che sia $\#X\le \#\P(X)$ è facile, basta prendere la funzione
 $f\colon X\to \P(X)$ definita da $f(x) = \{x\}$ e verificarne
 l'iniettività.
 
-Per mostrare che $\# \neq \#P(X)$ consideriamo
+Per mostrare che $\# X \neq \#P(X)$ consideriamo
 $f\colon X \to \P(X)$ una qualunque funzione
 e definiamo l'insieme
 \[
@@ -1072,6 +1139,17 @@ $c\in C$ risulterebbe equivalente a $c\not \in C$ il che è impossibile.
 Dunque la funzione $f$ non può essere surgettiva e questo significa che
 non è $\#X \le \#P(X)$.
 \end{proof}
+
+\begin{exercise}
+Utilizzando il principio di induzione dimostrare che se $\# A = n$ allora:
+\begin{enumerate}
+    \item $\# \P(A) = 2^n$;
+    \item $\# \{f\colon A \to A\colon \text{$f$ biettiva}\} = n!$
+      (le funzioni biettive di un insieme in sé si chiamano anche
+      \emph{permutazioni}).
+\end{enumerate}
+\end{exercise}
+
 
 \section{insiemi finiti/infiniti}
 
