@@ -1,0 +1,297 @@
+\documentclass[italian,a4paper,oneside,headinclude]{scrbook}
+\usepackage{amsmath,amssymb,amsthm,thmtools}
+\usepackage{babel,a4}
+\usepackage[nochapters,pdfspacing]{classicthesis}
+\usepackage[utf8]{inputenc}
+\usepackage{comment} % for the comment environment
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{pst-node}
+\usetikzlibrary{cd} % commutative diagrams
+\usepackage{eucal}
+\AfterPreamble{\hypersetup{hidelinks=true,}}
+
+%\usepackage{showkeys}
+
+\usetikzlibrary{arrows}
+
+
+\newcommand{\eps}{\varepsilon}
+\renewcommand{\phi}{\varphi}
+\newcommand{\loc}{\mathit{loc}}
+\newcommand{\weakto}{\rightharpoonup}
+
+% calligraphic letters
+\newcommand{\A}{\mathcal A}
+\newcommand{\B}{\mathcal B}
+\newcommand{\C}{\mathcal C}
+\newcommand{\D}{\mathcal D}
+\newcommand{\E}{\mathcal E}
+\newcommand{\F}{\mathcal F}
+\newcommand{\FL}{\mathcal F\!\mathcal L}
+\renewcommand{\L}{\mathcal L}
+\newcommand{\M}{\mathcal M}
+\renewcommand{\P}{\mathcal P}
+\renewcommand{\S}{\mathcal S}
+
+% blackboard letters
+\newcommand{\CC}{\mathbb C}
+\newcommand{\HH}{\mathbb H}
+\newcommand{\KK}{\mathbb K}
+\newcommand{\NN}{\mathbb N}
+\newcommand{\QQ}{\mathbb Q}
+\newcommand{\RR}{\mathbb R}
+\newcommand{\TT}{\mathbb T}
+\newcommand{\ZZ}{\mathbb Z}
+
+\newcommand{\abs}[1]{{\left|#1\right|}}
+\newcommand{\Abs}[1]{{\left\Vert #1\right\Vert}}
+
+\renewcommand{\vec}[1]{\mathbf #1}
+\newcommand{\defeq}{:=}
+\DeclareMathOperator{\spt}{spt}
+\DeclareMathOperator{\divergence}{div}
+\renewcommand{\div}{\divergence}
+% \DeclareMathOperator{\ker}{ker}  %% already defined
+\DeclareMathOperator{\Imaginarypart}{Im}
+\renewcommand{\Im}{\Imaginarypart}
+\DeclareMathOperator{\Realpart}{Re}
+\renewcommand{\Re}{\Realpart}
+
+\newtheorem{theorem}{Teorema}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{exercise}[theorem]{Esercizio}
+\newtheorem{proposition}[theorem]{Proposizione}
+\newtheorem{corollary}[theorem]{Corollario}
+\newtheorem{example}[theorem]{Esempio}
+\newtheorem{definition}[theorem]{Definizione}
+\newtheorem{axiom}[theorem]{Assioma}
+
+\title{Appunti di Analisi Matematica I\\(ver. 0.0.1)}
+\author{E. Paolini}
+
+\begin{document}
+\maketitle
+
+% \tableofcontents
+
+\chapter{I numeri reali}
+
+Supponiamo esista un insieme $\RR$ su cui sono definite le operazioni $+$ e $\cdot$
+e la relazione d'ordine $\le$ che soddisfano i seguenti assiomi.
+
+\begin{axiom}\label{axiom_field}[$\RR$ è un campo]
+Sull'insieme $\RR$ dei numeri reali sono definite le operazioni di somma $+$ e
+prodotto $\cdot$ che soddisfano le proprietà:
+\begin{enumerate}
+\item associativa: $(x+y)+z = x + (y+z)$, $(x\cdot y)\cdot z = x \cdot (x \cdot z)$);
+\item commutativa: $x+y=y+x$, $x\cdot y = y \cdot x$;
+\item distributiva: $x\cdot (y+z) = x\cdot y + x \cdot z$;
+\item esistenza degli elementi neutri: $0,1\in \RR$, $0+x = x$, $1\cdot x = x$;
+\item esistenza di opposto: per ogni $x$ esiste $y$ tale che $x+y = 0$;
+\item esistenza del reciproco: per ogni $x\neq 0$ esiste $y$ tale che $x \cdot y = 1$.
+\end{enumerate}
+\end{axiom}
+
+Denotiamo con $-x$ l'opposto di $x$ e definiamo $x-y = x+(-y)$.
+Denotiamo con $y^{-1}$ il reciproco di $y\neq 0$ e
+definiamo $x / y = x\cdot y^{-1}$.
+
+\begin{axiom}\label{axiom_order}[$\RR$ è totalmente ordinato]
+Su $\RR$ è definita una relazione $\le$ con le seguenti proprietà
+\begin{enumerate}
+\item dicotomia: $x \le y$ o $y \le x$;
+\item riflessiva: $x \le x$;
+\item antisimmetrica: se $ x\le y$ e $y \le x$ allora $x=y$;
+\item transitiva: se $x\le y $ e $ y \le z$ allora $x\le z$.
+\end{enumerate}
+\end{axiom}
+
+Definiamo $x<y$ se $x\le y$ e $x \neq y$ e definiamo le relazioni
+inverse $x \ge y$ se $y\le x$ e $x>y$ se $y<x$.
+
+\begin{axiom}[$\RR$ è un campo ordinato]
+Le operazioni di campo e l'ordinamento sono compatibili nel senso che
+valgono le seguenti proprietà:
+\begin{enumerate}
+\item positività: se $x\ge 0$ e $y \ge 0$ allora $x+y \ge 0$ e $x\cdot y\ge 0$;
+\item monotonia: se $x \ge y$ allora $x+z \ge y+z$.
+\end{enumerate}
+\end{axiom}
+
+\begin{axiom}\label{axiom_complete}[completezza]
+Se $A$ e $B$ sono sottoinsiemi non vuoti di $\RR$ tali che $A \le B$
+(cioè: per ogni $a \in A$ e per ogni $b\in B$ vale $a\le b$) allora esiste
+$x\in \RR$ tale che $A\le x \le B$ (cioè per ogni $a\in A$ e per ogni $b\in B$
+vale $a\le x \le b$).
+\end{axiom}
+
+Si potrebbe verificare che $\QQ$ è un campo ordinato che però non soddisfa l'assioma
+di completezza. Ad esempio i seguenti due insiemi:
+\[
+  A= \{x\in \QQ\colon x\ge 0, x^2 < 2\},
+  B = \{x\in \QQ\colon x\ge 0, x^2 > 2\}
+\]
+sono insiemi non vuoti con la proprietà $A\le B$.
+Non esiste però nessun $x\in \QQ$ tale che $A\le x$ e $x\le B$.
+
+
+\begin{definition}
+Siano $x \in \RR$ e $A \subset \RR$. Se $A\le x$ (ovvero $a\le x$ per ogni $a\in A$)
+diremo che $x$ è un \emph{maggiorante} di $A$.
+Se $x \le A$ diremo invece che $x$ è un \emph{minorante} di $A$.
+Se $A$ ammette un maggiorante diremo che $A$ è \emph{superiormente limitato},
+se $A$ ammette un minorante diremo che $A$ è \emph{inferiormente limitato},
+se $A$ ammette sia maggiorante che minorante diremo che $A$ è \emph{limitato}.
+
+Se $A \le x$ e $x\in A$ diremo che $x$ è un massimo di $A$,
+se $x\le A$ e $x\in A$ diremo che $x$ è un minimo di $A$
+
+Se $x$ è il minimo dei maggioranti di $A$ diremo che $x$ è
+un \emph{estremo superiore}
+di $A$ se invece $x$ è il massimo dei minoranti diremo che $x$ è
+un \emph{estremo inferiore} di $A$.
+\end{definition}
+
+Il massimo e il minimo di un insieme $A$, se esistono, sono unici.
+Infatti se $x$ e $y$ fossero due massimi di $A$ si avrebbe $x\le y$ in
+quanto $x\le A$ e $y\in A$. Analogamente si avrebbe $y\le x$ e
+quindi $x=y$.
+Anche l'estremo superiore e l'estremo inferiore se esistono sono
+unici in quanto sono essi stessi un minimo ed un massimo
+(rispettivamente dei maggioranti e dei minoranti).
+
+Useremo quindi le notazioni:
+\[
+ \max A, \qquad
+ \min A, \qquad
+ \sup A, \qquad
+ \inf A
+\]
+per denotare univocamente (quando esistono) il massimo, il minimo,
+l'estremo superiore e l'estremo inferiore di un insieme $A$.
+
+\begin{theorem}
+Se $A$ è un insieme non vuoto,
+superiormente limitato, allora esiste l'estremo superiore di $A$.
+Tale numero $x=\sup A$ è caratterizzato dalle seguenti proprietà
+\begin{enumerate}
+\item $\forall a\in A\colon x \ge a$;
+\item $\forall \eps>0 \exists a\in A \colon x < a + \eps$.
+\end{enumerate}
+
+Risultato analogo vale per l'estremo inferiore.
+\end{theorem}
+%
+\begin{proof}
+Consideriamo l'insieme dei maggioranti
+$B = \{ b\in \RR \colon b \ge A\}$.
+Per ipotesi $B$ è non vuoto e per come è definito risulta $A\le B$.
+Dunque dall'assioma di completezza deduciamo l'esistenza di un numero $x\in \RR$
+tale che $A\le x \le B$. La prima disuguaglianza $A\le x$ ci dice che $x$ è un
+maggiorante e quindi $x\in B$, la seconda $x\le B$ ci dice che $x$ è il minimo
+di $B$ e quindi concludiamo che $x$ è l'estremo superiore di $A$.
+La prima delle due proprietà caratterizzanti il $\sup$ traduce la condizione
+che $x$ sia un maggiorante di $A$. La seconda delle due proprietà esprime il
+fatto che $x$ sia il minimo dei maggioranti, infatti se $x$ è il minimo
+dei maggioranti significa che nessun numero minore di $x$ è un maggiorante, ovvero
+che ogni $x-\eps$ con $\eps>0$ non è un maggiorante, ovvero
+che esiste $a\in A$ tale che $a > x-\eps$.
+\end{proof}
+
+E' molto comodo avere gli operatori $\sup$ e $\inf$ che si applicando a qualunque
+insieme limitato e non vuoto. Ancora più comodo sarebbe poter applicare tali operatori
+indistintamente ad qualunque sottoinsieme di $\RR$. Per fare ciò consideriamo la seguente
+estensione dei numeri reali.
+
+\begin{definition}[reali estesi]
+Denotiamo con $\bar \RR=\RR \cup \{+\infty, -\infty\}$ l'insieme dei numeri reali
+a cui vengono aggiunti due ulteriori \emph{quantità} che chiameremo
+\emph{infinite} e che denotiamo con $+\infty$ e $-\infty$.
+Estendiamo la relazione d'ordine imponendo che valga
+\[
+  -\infty < x < +\infty, \qquad \forall x \in \RR.
+\]
+
+Estendiamo anche la somma e il prodotto tra reali estesi imponendo che valga
+per ogni $x\in \RR$
+\[
+  x + \infty = +\infty, \qquad
+  x - \infty = -\infty, \qquad
+  +\infty + \infty = +\infty, \qquad
+  -\infty -\infty = -\infty
+\]
+e per ogni $x > 0$:
+\[
+  x \cdot (+\infty) = +\infty, \qquad
+  x \cdot (-\infty) = -\infty, \qquad
+  +\infty \cdot (+\infty) = +\infty, \qquad
+  +\infty \cdot (-\infty) = -\infty
+\]
+e definizioni analoghe (con i segni cambiati) per $x<0$.
+Possiamo anche definire per ogni $x\in \RR$
+\[
+x / (+\infty) = x / (-\infty) = 0.
+\]
+
+Si lasciano di norma  indefinite
+le operazioni $+\infty - \infty$, $0 \cdot +\infty$ e divisione tra infiniti.
+\end{definition}
+% \bibliographystyle{plain}
+% \bibliography{biblio}
+
+\begin{comment}
+\section{numeri naturali, induzione}
+Vogliamo identificare, all'interno di $\RR$, l'insieme dei numeri naturali.
+Per fare ciò daremo la seguente definizione.
+\begin{definition}[insieme induttivo]
+Un sottoinsieme $A$ di $\RR$ si dice essere \emph{induttivo}
+se valgono le seguenti proprietà:
+\begin{enumerate}
+\item $0\in A$;
+\item $n\in A \implies n+1 \in A$.
+\end{enumerate}
+\end{definition}
+
+Definiamo l'insieme dei numeri naturali $\NN$ come il più piccolo sottoinsieme
+induttivo di $\RR$:
+\[
+  \NN = \bigcap\{ A \subset \RR\colon \text{$A$ induttivo}\}.
+\]
+
+\begin{theorem}[principio di induzione]
+Sia $P(n)$ un predicato nella variabile $n\in \NN$. Se
+\begin{enumerate}
+\item $P(0)$,
+\item $\forall n\in \NN\colon P(n) \implies P(n+1)$
+\end{enumerate}
+allora $\forall n\colon P(n)$.
+\end{theorem}
+%
+\begin{proof}
+Consideriamo l'insieme $A=\{n\in \NN\colon P(n)\}$ (i numeri naturali che
+rendono valido il predicato $P$). Le ipotesi del teorema sono equivalenti a
+dire che l'insieme $A$ è induttivo. Essendo $\NN$ definito come l'intersezione
+di tutti gli insiemi induttivi dovrà dunque essere $\NN \subset A$.
+Ma per costruzione $A\subset \NN$ e quindi concludiamo che $A=\NN$.
+Ciò significa che $P(n)$ è valida per ogni $n\in \NN$.
+\end{proof}
+
+\begin{theorem}
+Per ogni $n\in \NN$ si ha $n\ge 0$. Inoltre se $n\neq 0$ allora $n-1\in \NN$.
+\end{theorem}
+%
+\begin{proof}
+La proprietà $n\ge 0$ può essere dimostrata per induzione osservando che $0\ge 0$
+e se $n\ge 0$ allora (sapendo che $1\ge 0$) si ha $n+1 \ge n+0 = n\ge 0$.
+
+Anche la proprietà $n>0 \implies n-1\in \NN$
+\end{proof}
+
+
+% \begin{theorem}[buon ordinamento dei numeri naturali]
+% Sia $B$ un sottoinsieme non vuoto di $\NN$. Allora $B$ ammette minimo.
+% \end{theorem}
+\end{comment}
+
+\end{document}
