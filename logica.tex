@@ -1,5 +1,5 @@
 %-*-coding: utf-8;-*-
-\documentclass[italian,a4paper,hidelinks]{scrartcl}
+\documentclass[italian,a4paper,hidelinks,headinclude]{scrartcl}
 \usepackage{amsmath,amssymb,amsthm,thmtools}
 \usepackage{eucal,babel,a4}
 \usepackage[nochapters,pdfspacing]{classicthesis}
@@ -16,6 +16,7 @@
 \newcommand{\RR}{{\mathbb R}}
 \newcommand{\CC}{{\mathbb CC}}
 \newcommand{\C}{{\mathcal C}}
+\newcommand{\F}{{\mathcal F}}
 \renewcommand{\P}{{\mathcal P}}
 \newcommand{\defeq}{=}
 \DeclareMathOperator{\diag}{diag}
@@ -532,6 +533,19 @@ che possono essere codificate dai seguenti assiomi:
   x \in A \setminus B &\iff x \in A \wedge x \not \in B.
 \end{align*}
 
+Più in generale possiamo richiedere di poter fare l'unione o l'intersezione
+di una famiglia $\F$ non vuota di insiemi (una \emph{famiglia} di insiemi non è altro che un insieme di insiemi):
+\begin{align*}
+  x \in \bigcap \F &\iff \forall A \in \F\colon x \in A \\
+  x \in \bigcup \F &\iff \exists A \in \F\colon x \in A.
+\end{align*}
+Spesso si usano le seguenti notazioni più espressive:
+\[
+ \bigcap \F = \bigcap_{A \in \F} A,\qquad
+ \bigcup \F = \bigcup_{A \in \F} A.
+\]
+
+
 Per avere un primo oggetto su cui agire definiamo l'\myemph{insieme vuoto},
 denotato
 dal simbolo $\emptyset$, mediante il seguente assioma
@@ -1037,6 +1051,23 @@ se il codominio è vuoto.
 \end{cases}
 \]
 
+La proprietà induttiva dei numeri naturali è equivalente al seguente.
+\begin{theorem}[principio di induzione]
+Sia $P(n)$ un predicato sui numeri naturali $n\in \NN$.
+Se valgono le seguenti condizioni
+\begin{enumerate}
+\item $P(0)$ è vera
+\item $P(n) \implies P(n+1)$
+\end{enumerate}
+allora $P(n)$ è vera per ogni $n\in \NN$.
+\end{theorem}
+%
+\begin{proof}
+Si consideri l'insieme $A=\{n\in \NN\colon \text{$P(n)$ è vera}\}$ e si
+applichi il terzo assioma di Peano per verificare che $A=\NN$.
+\end{proof}
+
+
 \begin{exercise}
 La somma $S(n) = 1 + 2 + \dots +n$
 dei naturali da $1$ fino a $n$ può essere definita come quella unica funzione
@@ -1057,6 +1088,32 @@ $Q(n) = 1^2 + 2^2 + \dots + n^2$
 vale la formula
 $Q(n) = n \cdot (n+1)\cdot (2n + 1) / 6$.
 \end{exercise}
+
+Potrà risultare utile utilizzare le seguenti varianti del principio di
+induzione
+\begin{theorem}[principio di induzione (variante)]
+Sia $P(n)$ un predicato definito sui numeri naturali $n$
+non inferiori a $n_0\in \NN$.
+Se
+\begin{enumerate}
+\item $P(n_0)$ è vero
+\item $P(n) \implies P(n+1)$ per ogni $n\ge n_0$
+\end{enumerate}
+allora $P(n)$ è vero per ogni $n\ge n_0$.
+\end{theorem}
+
+\begin{theorem}[principio di induzione forte]
+Sia $P(n)$ un predicato definito sui numeri naturali $n\in \NN$.
+Se
+\begin{enumerate}
+\item $P(0)$ è vero
+\item $(\forall k\le n\colon P(k))\implies P(n+1)$
+\end{enumerate}
+Allora $P(n)$ è vero per ogni $n\in \NN$.
+\end{theorem}
+
+
+
 \section{cardinalità}
 
 La teoria degli insiemi è nata con l'intento di formalizzare l'utilizzo degli
@@ -1111,15 +1168,95 @@ non sono scontati.
 \begin{theorem}[Cantor-Bernstein]
 Se $\#A \le \#B$ e $\#B \le \#A$ allora $\#A = \#B$.
 \end{theorem}
+%
+\begin{figure}
+  \centering
+  \input{CantorBernstein.tikz}
+  \caption{
+  Nella dimostrazione del teorema di Cantor-Bernstein
+  $A$ è rappresentato da un quadrato e $B$ da un cerchio contenuto
+  in $A$. L'immagine di $A$ in $B$ è rappresentata da un quadrato contenuto
+  in $B$ e così via. La parte ombreggiata è l'insieme $D$.
+  }
+  \label{fig:omotetia}
+\end{figure}
+%
+\begin{proof}
+Per prima cosa al posto dell'ipotesi $\# B \le \#A$ prendiamo
+l'ipotesi apparentemente più forte $B\subset A$.
+Vedremo alla fine che questa ipotesi non ci fa perdere di generalità.
 
-\begin{theorem}
-Almeno una delle due relazioni è valida: $\#A \le \#B$ o $\#B \le \#A$.
-\end{theorem}
+Essendo per ipotesi $\#A \le \#B$ esiste $f\colon A \to B$ iniettiva.
+Intuitivamente l'idea è quella di definire l'insieme
+\[
+ D = (A\setminus B)  \cup f(A\setminus B) \cup f^2(A\setminus B) \cup \dots
+\]
+e di definire la biezione $\phi \colon A \to B$ mandando ogni "buccia"
+$f^n(A\setminus B)$ in $f^{n+1}(A\setminus B)$ e lasciando fisso
+il resto di $B$.
+
+Per farlo in maniera rigorosa
+consideriamo allora la famiglia di insiemi $\F = \{X \subset A \colon X \supset A \setminus B, f(X) \subset X\}$ e definiamo $D = \bigcap \F$.
+Osserviamo che $A \in \F$ quindi $\F\neq \emptyset$.
+
+E' facile verificare che $f(D) \subset D$ infatti dato $x\in D$ per ogni $X\in \F$ deve essere $x\in X$ ma allora $f(x) \in X$ (per come è definito $\F$), dunque $f(x) \in D$. In modo analogo si dimostra che $D\supset A\setminus B$ e dunque concludiamo che $D\in \F$.
+
+Verifichiamo ora che $f(D)=D\cap B$. Da un lato se $x\in D$ allora
+$f(x) \in f(D)\subset D$ e $f(x)\subset f(A)\subset B$ da cui $f(x) \in D\cap B$.
+Dall'altro lato se $y\in D \cap B$ e non fosse $y \in f(D)$
+allora potremmo considerare l'insieme $X=D\setminus\{y\}$
+e osservare che $X\in \F$.
+Infatti in primo luogo $X \supset A \setminus B$ in quanto $D$ ha questa proprietà e $y \in B$.
+Inoltre dato qualunque $x \in X$ visto che $X\subset D$ allora
+$f(x) \in f(D)$ e, per ipotesi,
+$y\not \in f(D)$ dunque $f(x)\neq y$ da cui $f(x) \in X$.
+Dunque $X\in \F$ ma allora dovrebbe essere $D\subset X$ mentre
+per costruzione abbiamo $y\in D$ ma non in $X$.
+
+% Avendo visto che $f(D)=D\cap B$ possiamo facilmente
+% osservare che $f(A\setminus D) \subset A \setminus D$.
+% Infatti $f(A\setminus D)\subset f(A)=B$ e quindi
+% $f(A\setminus D)\cap D \subset D \cap B = f(D)$
+% ma essendo $f$ iniettiva si deve avere
+% $f(A\setminus D) \cap f(D)=\emptyset$.
+
+Possiamo allora definire $\phi \colon A \to B$
+\[
+\phi(x) =
+\begin{cases}
+   f(x) & \text{se $x\in D$}, \\
+   x & \text{altrimenti.}
+\end{cases}
+\]
+Chiaramente $\phi$ è iniettiva in quanto $f$ è iniettiva e manda $D$ in $D$
+e l'identità è iniettiva e manda $A\setminus D$ in $A\setminus D$.
+
+Per dimostrare che $\phi$ è suriettiva consideriamo qualunque $y \in B$.
+Se $y\not \in D$ allora $\phi(y)=y$.
+Se invece $y\in D$ essendo $y\in D\cap B = f(D)$ esisterà $x\in D$ tale
+che $\phi(x) = f(x) = y$.
+
+Abbiamo dimostrato il teorema nel caso $B\subset A$.
+Nel caso generale sappiamo che esiste $f\colon A\to B$ iniettiva
+ed esiste $g\colon B\to A$ iniettiva. Definiamo $\tilde B=g(B)$ e
+definiamo $\tilde f\colon A\to \tilde B$ tramite $\tilde f(x) = g(f(x))$.
+Chiaramente $\tilde B\subset A$ e $\tilde f$ è iniettiva.
+Dunque ci siamo ricondotti alle ipotesi particolari e sappiamo che esiste
+$\tilde \phi \colon A \to \tilde B$ biettiva. Ma allora possiamo definire
+$\phi\colon A\to B$ come $\phi(x) = g^{-1}(\tilde \phi(x))$.
+Essendo $\tilde \phi(A)=\tilde B$ ed essendo $g\colon B\to \tilde B$
+invertibile, risulta che anche $\phi$ sia biettiva.
+\end{proof}
+
+% Il seguente teorema è vero se assumiamo l'assioma della scelta.
+% \begin{theorem}
+% Almeno una delle due relazioni è valida: $\#A \le \#B$ o $\#B \le \#A$.
+% \end{theorem}
 
 Il seguente teorema è rilevante in quanto ci dice che gli insiemi infiniti
 non sono sempre tra loro equipotenti, ma ci sono infiniti più grandi e più piccoli.
-Osserviamo inoltre che la dimostrazione è
-analoga al paradosso di Russel.
+Osserviamo inoltre che il paradosso di Russel
+ricalca la dimostrazione di questo teorema.
 
 \begin{theorem}[Cantor]
 Per qualunque insieme $X$ si ha $\# X < \# \P(X)$.
@@ -1212,6 +1349,11 @@ Se invece $G$ è falso avremmo un sistema in cui un enunciato falso può essere
 dimostrato e quindi tale sistema sarebbe \myemph{incoerente} (ci sono degli assiomi
 falsi oppure delle regole di inferenza che permettono di dedurre enunciati falsi
 a partire da enunciati veri).
+
+\section{i numeri interi}
+
+Sui numeri naturali $\NN$ sono definite le operazioni di addizione e moltiplicazione.
+Risulta utile estendere $\NN$ in modo che ogni numero abbia anche un opposto, cioè in modo che per ogni $n$ esista $m$ tale che $n+m=0$.
 
 \section{Appendice: Asse del tempo}
 Asse del tempo:
