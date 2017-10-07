@@ -16,6 +16,8 @@
 \usetikzlibrary{arrows}
 
 
+\renewcommand{\subset}{\subseteq}
+
 \newcommand{\eps}{\varepsilon}
 \renewcommand{\phi}{\varphi}
 \newcommand{\loc}{\mathit{loc}}
@@ -144,34 +146,45 @@ familiari proprietà:
   \item $(-1)\cdot(-1) = 1$
   \item $x\cdot x \ge 0$
   \item $1 > 0$
-  \item se $x>0$ e  $y>0$  allora $x\cdot y > 0$
   \item se $x\cdot y = 0$ allora $x = 0$ o $y = 0$
+  \item se $x>0$ e $y>0$  allora $x\cdot y > 0$
 \end{enumerate}
 \end{theorem}
 %
 \begin{proof}
+\begin{enumerate}
+\item
 Supponiamo $y$ e $z$ siano due opposti di $x$ cioè $x+y=0$, $x+z=0$.
 Allora da un lato $x+y+z = 0+z = z$, dall'altro $x+y+z = y+x+z= y+ 0 = y$.
 Dunque $y=z$. Dimostrazione analoga si può fare per il reciproco.
 
+\item
 Se $x$ è opposto di $y$ allora $y$ è opposto di $x$ in quanto la somma
 è commutativa. Dunque l'opposto di $-x$ è $x$ cioè $-(-x)=x$. Lo stesso
 vale per il reciproco.
 
+\item
 Si ha
 \[
 x\cdot 0 = x \cdot 0 + x + (-x) %= x\cdot 0 + x\cdot 1 + (-x)
 =x\cdot(0+1) + (-x) = x + (-x) = 0.
 \]
 
+\item
 Se $x\ge 0$ sommando ad ambo i membri $-x$ si ottiene $x+(-x) \ge 0 + (-x)$
 cioè $0 \ge -x$. Sommando $x$ ad ambo i membri si riottiene $x\ge 0$.
 
 
+\item
 Osserviamo che $(-x)\cdot y + x\cdot y = ((-x)+x)\cdot y = 0$ dunque $(-x)\cdot y$ è l'opposto di $x\cdot y$.
-Dunque $(-1)\cdot x = - (1 \cdot x) = - x$.
-E per $x=-1$ si ottiene $(-1)\cdot(-1) = -(-1) = 1$.
 
+\item
+Dunque $(-1)\cdot x = - (1 \cdot x) = - x$
+
+\item
+e per $x=-1$ si ottiene $(-1)\cdot(-1) = -(-1) = 1$.
+
+\item
 Si ha
 \[
 (-x)\cdot(-x) = (-1)\cdot x \cdot (-1)\cdot x = x\cdot x.
@@ -179,9 +192,12 @@ Si ha
 Dunque se $x\ge 0$ per assioma di positività
 abbiamo $x\cdot x\ge 0$ e se $x\le 0$ abbiamo $-x\ge 0$ e quindi
 $x\cdot x = (-x)\cdot(-x) \ge 0$.
+
+\item
 In particolare per $x=1$ otteniamo $1\ge 0$.
 Essendo inoltre per assioma $0\neq 1$ otteniamo $1> 0$.
 
+\item
 Se fosse $x\cdot y = 0$ e $x\neq 0$ allora $x$ avrebbe inverso $x^{-1}$
 e avremmo:
 \[
@@ -189,7 +205,14 @@ e avremmo:
 \]
 Dunque o $x=0$ oppure $y=0$.
 
+\item
+Se $x>0$ e $y>0$ allora $x\ge 0$ e $y\ge 0$ da cui $x\cdot y\ge 0$.
+Se fosse $x\cdot y=0$ uno dei due fattori si dovrebbe annullare
+cosa che abbiamo escluso per ipotesi.
+\end{enumerate}
 \end{proof}
+
+\section{i numeri naturali, interi e razionali}
 
 \begin{definition}[numeri naturali]
 Un sottoinsieme $A\subset \RR$ si dice essere \emph{induttivo}
@@ -203,11 +226,21 @@ Non è difficile dimostrare che l'insieme $\NN$ così definito
 soddisfa gli assiomi di Peano (si vedano gli appunti di logica).
 
 A partire da $\NN$ si può costruire l'insieme $\ZZ$ dei numeri interi
-e l'insieme $\QQ$ dei numeri razionali. Si avrà dunque $\NN \subset \ZZ \subset \QQ \subset \RR$.
+e l'insieme $\QQ$ dei numeri razionali:
+\begin{align*}
+  \ZZ
+    &= \NN \cup (-\NN)
+    = \{x\in \RR\colon \exists n\in\NN\colon (x=n) \lor (x=-n)\}, \\
+  \QQ
+    &= \frac{\ZZ}{\NN\setminus\{0\}}
+    = \left\{x \in \RR\colon \exists p\in \ZZ\colon \exists q \in \NN\setminus\{0\}\colon x = \frac{p}{q}\right\}
+\end{align*}
+
+Si avrà dunque $\NN \subset \ZZ \subset \QQ \subset \RR$.
 Si può verificare che $\QQ$ è un campo ordinato che però non soddisfa l'assioma di completezza.
 Ad esempio i seguenti due insiemi:
 \[
-  A= \{x\in \QQ\colon x\ge 0, x^2 < 2\},
+  A= \{x\in \QQ\colon x\ge 0, x^2 < 2\},\qquad
   B = \{x\in \QQ\colon x\ge 0, x^2 > 2\}
 \]
 sono insiemi non vuoti con la proprietà $A\le B$.
@@ -235,6 +268,8 @@ Dunque anche $q$ è pari. Ma avevamo supposto che $p$ e $q$ non avessero
 fattori in comune quindi questo non può accadere.
 \end{proof}
 
+\section{estremo superiore}
+
 \begin{definition}
 Siano $x \in \RR$ e $A \subset \RR$. Se $A\le x$ (ovvero $a\le x$ per ogni $a\in A$)
 diremo che $x$ è un \emph{maggiorante} di $A$.
@@ -243,16 +278,16 @@ Se $A$ ammette un maggiorante diremo che $A$ è \emph{superiormente limitato},
 se $A$ ammette un minorante diremo che $A$ è \emph{inferiormente limitato},
 se $A$ ammette sia maggiorante che minorante diremo che $A$ è \emph{limitato}.
 
-Se $A \le x$ e $x\in A$ diremo che $x$ è un massimo di $A$,
-se $x\le A$ e $x\in A$ diremo che $x$ è un minimo di $A$
+Se $A \le x$ e $x\in A$ diremo che $x$ è il massimo di $A$,
+se $x\le A$ e $x\in A$ diremo che $x$ è il minimo di $A$
 
-Se $x$ è il minimo dei maggioranti di $A$ diremo che $x$ è
-un \emph{estremo superiore}
-di $A$ se invece $x$ è il massimo dei minoranti diremo che $x$ è
-un \emph{estremo inferiore} di $A$.
+Se $x$ è minimo dei maggioranti di $A$ diremo che $x$ è
+\emph{estremo superiore}
+di $A$ se invece $x$ è massimo dei minoranti diremo che $x$ è
+\emph{estremo inferiore} di $A$.
 \end{definition}
 
-Il massimo e il minimo di un insieme $A$, se esistono, sono unici.
+Massimo e minimo di un insieme $A$, se esistono, sono unici.
 Infatti se $x$ e $y$ fossero due massimi di $A$ si avrebbe $x\le y$ in
 quanto $x\le A$ e $y\in A$. Analogamente si avrebbe $y\le x$ e
 quindi $x=y$.
@@ -276,7 +311,7 @@ superiormente limitato, allora esiste l'estremo superiore di $A$.
 Tale numero $x=\sup A$ è caratterizzato dalle seguenti proprietà
 \begin{enumerate}
 \item $\forall a\in A\colon x \ge a$;
-\item $\forall \eps>0 \exists a\in A \colon x < a + \eps$.
+\item $\forall \eps>0\colon \exists a\in A \colon x < a + \eps$.
 \end{enumerate}
 
 Risultato analogo vale per l'estremo inferiore.
@@ -298,55 +333,144 @@ che ogni $x-\eps$ con $\eps>0$ non è un maggiorante, ovvero
 che esiste $a\in A$ tale che $a > x-\eps$.
 \end{proof}
 
-E' molto comodo avere gli operatori $\sup$ e $\inf$ che si applicando a qualunque
-insieme limitato e non vuoto. Ancora più comodo sarebbe poter applicare tali operatori
-indistintamente ad qualunque sottoinsieme di $\RR$. Per fare ciò consideriamo la seguente
-estensione dei numeri reali.
+La seguente proprietà dei numeri reali esprime il fatto
+che non esistono gli \emph{infinitesimi} ovvero numeri reali positivi
+che siano più piccoli di ogni $1/n$ con $n\in \NN$.
 
-\begin{definition}[reali estesi]
-Denotiamo con $\bar \RR=\RR \cup \{+\infty, -\infty\}$ l'insieme dei numeri reali
-a cui vengono aggiunti due ulteriori \emph{quantità} che chiameremo
-\emph{infinite} e che denotiamo con $+\infty$ e $-\infty$.
-Estendiamo la relazione d'ordine imponendo che valga
-\[
-  -\infty < x < +\infty, \qquad \forall x \in \RR.
-\]
-
-Estendiamo anche la somma e il prodotto tra reali estesi imponendo che valga
-per ogni $x\in \RR$
-\[
-  x + \infty = +\infty, \qquad
-  x - \infty = -\infty, \qquad
-  +\infty + \infty = +\infty, \qquad
-  -\infty -\infty = -\infty
-\]
-e per ogni $x > 0$:
-\[
-  x \cdot (+\infty) = +\infty, \qquad
-  x \cdot (-\infty) = -\infty, \qquad
-  +\infty \cdot (+\infty) = +\infty, \qquad
-  +\infty \cdot (-\infty) = -\infty
-\]
-e definizioni analoghe (con i segni cambiati) per $x<0$.
-Possiamo anche definire per ogni $x\in \RR$
-\[
-x / (+\infty) = x / (-\infty) = 0.
-\]
-
-Si lasciano di norma  indefinite
-le operazioni $+\infty - \infty$, $0 \cdot +\infty$ e divisione tra infiniti.
-\end{definition}
-% \bibliographystyle{plain}
-% \bibliography{biblio}
-
-\begin{theorem}[proprietà archimedea]
+\begin{theorem}[proprietà archimedea dei numeri reali]
 Dato $x\in \RR$ esiste $n\in \NN$ tale che $n > x$.
 E se $x>0$ esiste $m\in \NN$ tale che $1/m < x$.
 \end{theorem}
 %
 \begin{proof}
+Se esistesse $x\in \RR$ tale che $x \ge \NN$
+allora $\NN$ sarebbe superiormente limitato.
+Dunque avrebbe un estremo superiore $m= \sup \NN$.
+Siccome $m$ è il minimo dei maggioranti di $\NN$
+e $m-1$ è più piccolo di $m$, allora $m-1$ non è un maggiorante
+di $\NN$. Dunque deve esistere $n\in \NN$ tale che $n>m-1$.
+Ma allora $n+1 > m$ ed essendo $n+1\in \NN$ troviamo che $m$
+non poteva essere un maggiorante di $\NN$.
 
+Dunque per ogni $y\in \RR$ esiste $n\in \NN$ tale che $n>y$.
+Se $x\in \RR$ e $x>0$ allora posto $y=1/x$ possiamo trovare
+$n\in \NN$ con $n>y = 1/x$ da cui $x > 1/n$.
 \end{proof}
 
+\begin{theorem}[parte intera]
+Dato $x\in \RR$ esiste un unico $m\in \ZZ$ tale che $m-1 \le x < m$.
+\end{theorem}
+%
+\begin{proof}
+Supponiamo per un attimo che sia $x\ge 1$.
+In tal caso consideriamo l'insieme $A=\{n\in \NN\colon n > x\}$.
+Per la proprietà archimedea tale insieme non può essere vuoto e,
+per il buon ordinamento di $\NN$,
+deve avere un minimo $m$.
+Dunque $m>x$ (in quanto $m\in a$) e $m\ge 1$ (in quanto $x\ge 1$).
+Quindi necessariamente $m-1 \le x$ altrimenti avremmo che $m-1\in A$ e $m$
+non poteva essere il minimo. Si ottiene dunque $m-1\le x < m$ come volevamo
+dimostrare.
+
+Nel caso fosse $x<1$ possiamo trovare un $N\in \NN$ (sempre per la proprietà archimedea) per cui $x+N \ge 1$. Applicando il ragionamento precedente a $x+N$ si trova comunque il risultato desiderato.
+\end{proof}
+
+\begin{definition}[parte intera]
+Dato $x\in \RR$ denotiamo con $\lfloor x\rfloor$ l'unico intero
+che soddisfa
+\[
+  x - 1 < \lfloor x \rfloor \le x
+\]
+e denotiamo con $\lceil x \rceil = - \lfloor -x \rfloor$ l'unico intero che soddisfa (verificare!)
+\[
+  x \le \lceil x \rceil \le x + 1.
+\]
+Si ha dunque
+\[
+  \lfloor x \rfloor \le x \le \lceil x \rceil
+\]
+con entrambe le uguaglianze che si realizzano quando $x\in \ZZ$.
+I due interi $\lfloor x \rfloor$ e $\lceil x \rceil$
+sono la migliore approssimazione intera di $x$ rispettivamente
+per difetto e per eccesso.
+L'intero più vicino ad $x$ (approssimazione per arrotondamento)
+è
+\[
+  \left\lfloor x + \frac 1 2 \right\rfloor
+\quad \text{ossia} \quad
+  \left\lceil x-\frac 1 2 \right\rceil
+\]
+(le due espressioni differiscono solamente quando $x$ si trova nel punto medio tra due interi consecutivi, nel qual caso la prima approssima per eccesso e la seconda per difetto).
+\end{definition}
+In alcuni testi si usa la notazione $[x]$ per denotare la parte intera $\lfloor x \rfloor$ e si definisce
+anche la \emph{parte frazionaria}
+\[
+   \{x\} = x - [x]
+\]
+noi preferiamo evitare queste notazioni che possono risultare ambigue.
+
+\begin{theorem}[densità di $\QQ$ in $\RR$]
+Dati $x,y \in \RR$ con $x<y$ esiste $q\in \QQ$ tale che $x<q<y$.
+\end{theorem}
+%
+\begin{proof}
+Per la proprietà archimedea dei numeri naturali essendo $y-x>0$
+deve esistere $n\in \NN$ tale che $y-x > 1/n$ così si avrà
+\[
+    nx + 1 < ny.
+\]
+Prendiamo allora $m=\lceil nx \rceil$ cosicché si abbia
+\[
+  m \le nx
+\]
+\end{proof}
+
+\section{reali estesi}
+
+\begin{definition}[reali estesi]
+Denotiamo con $\bar \RR=\RR \cup \{+\infty, -\infty\}$ l'insieme dei numeri reali
+a cui vengono aggiunti due ulteriori \emph{quantità} che chiameremo
+\emph{infinite} e che denotiamo con $+\infty$ e $-\infty$.
+\end{definition}
+
+
+Estendiamo la relazione d'ordine imponendo che valga
+\[
+  -\infty \le x \le +\infty, \qquad \forall x \in \bar\RR.
+\]
+
+Estendiamo anche la addizione e moltiplicazione
+tra reali estesi imponendo che valga per ogni $x\in \bar \RR$
+\begin{gather*}
+  x + (+\infty) = +\infty, \qquad \text{se $x\neq -\infty$}\\
+  x + (-\infty) = -\infty, \qquad \text{se $x\neq +\infty$}\\
+  x \cdot (+\infty) = +\infty, \qquad
+  x \cdot (-\infty) = -\infty, \qquad \text{se $x>0$} \\
+  x \cdot (+\infty) = -\infty, \qquad
+  x \cdot (-\infty) = +\infty, \qquad \text{se $x<0$}.
+\end{gather*}
+
+Si definiscono anche:
+\[
+ -(+\infty) = -\infty, \qquad
+ -(-\infty) = +\infty, \qquad
+ \frac{1}{+\infty} = \frac{1}{-\infty}=0
+\]
+facendo però attenzione che
+questi formalmente non sono \emph{opposto}
+e \emph{reciproco} in quanto
+su $\bar R$ non sono più garantite
+le regole: $x + (-x) = 0$ e $x \cdot (1/x) = 1$.
+Infatti
+le operazioni $(+\infty) + (-\infty)$ e $+\infty \cdot 0$ vengono lasciate indefinite.
+
+Possiamo infine definire la sottrazione e la divisione tramite
+addizione e moltiplicazione:
+\[
+  x - y = x + (-y), \qquad \frac{x}{y} = x \cdot \frac{1}{y}.
+\]
+
+% \bibliographystyle{plain}
+% \bibliography{biblio}
 
 \end{document}
