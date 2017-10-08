@@ -238,16 +238,66 @@ e l'insieme $\QQ$ dei numeri razionali:
 
 Si avrà dunque $\NN \subset \ZZ \subset \QQ \subset \RR$.
 Si può verificare che $\QQ$ è un campo ordinato che però non soddisfa l'assioma di completezza.
-Ad esempio i seguenti due insiemi:
+
+
+\begin{theorem}[radice quadrata]
+Dato $y\ge 0$ esiste un unico $x\ge 0$ tale che $x^2=y$.
+Tale $x$ verrà denotato con $\sqrt y$, \emph{radice quadrata} di $y$.
+\end{theorem}
+\begin{proof}
+Se $y=0$ allora è facile verificare che $x^2=y$ ha come unica soluzione $x=0$.
+Supponiamo allora $y>0$ e
+consideriamo i seguenti due insiemi
 \[
-  A= \{x\in \QQ\colon x\ge 0, x^2 < 2\},\qquad
-  B = \{x\in \QQ\colon x\ge 0, x^2 > 2\}
+  A = \{x\ge 0 \colon x^2 \le y\},\qquad
+  B = \{x\ge 0 \colon x^2 \ge y\}
 \]
-sono insiemi non vuoti con la proprietà $A\le B$.
-Non esiste nessun $x\in \QQ$ tale che $A\le x$ e $x\le B$.
-Si può infatti dimostrare (ma lo faremo più avanti, quando avremo il concetto di \emph{continuità}) che se tale $x$ esistesse dovrebbe
-soddisfare l'equazione $x^2=2$ e questo non è possibile per il seguente
-teorema.
+e verifichiamo che soddisfino le ipotesi dell'assioma di completeza.
+Innanzitutto $0\in A$ e quindi $A$ non è vuoto.
+Neanche $B$ è vuoto in quanto $y+1\in B$,
+infatti essendo $y+1\ge 1$ si ha
+$(y+1)^2 \ge y+1$. Verifichiamo inoltre che $A \le B$.
+Preso $a\in A$ e $b\in B$ si ha $a^2 \le y \le b^2$.
+Se fosse $a>b$ dovremmo avere $a^2>b^2$, dunque $a \le b$.
+
+Dunque possiamo applicare l'assioma di completezza
+che ci garantisce l'esistenza di $z\in \RR$ tale che $A \le z \le B$.
+Vogliamo ora verificare che $z^2 = y$.
+
+Ci servirà innanzitutto sapere che $z>0$. Se $y\ge 1$ si avrebbe $1\in A$
+e dunque $z\ge 1$ essendo $z\ge A$. Se $y<1$ allora $y^2 < y$ e dunque $y^2 \in A$
+da cui si ottiene $z\ge y^2 > 0$.
+
+Se fosse $z^2 < y$ vorremmo dimostrare che esiste $\eps>0$ tale che
+$(z+\eps)^2 \le y$.
+Questo succede se $(z+\eps)^2 = z^2 + 2 \eps z + \eps^2 \le y$.
+Questo si può ottenere, ad esempio,
+imponendo che sia $2\eps z \le (y-z^2)/2$ e $\eps^2 \le (y-z^2)/2$.
+Cioè (ricordiamo che $z>0$) se $\eps \le (y-z^2)/(4z)$ e $\eps \le 1$
+(in modo che $\eps^2 \le \eps$)
+e $\eps \le (y-z^2)/2$. Dunque scegliendo
+\[
+\eps = \min\left\{ \frac{y-z^2}{4z}, 1, \frac{y-z^2}/2\right\}
+\]
+si osserva che $\eps>0$ e vale $(z+\eps)^2\le y$.
+Dunque $z+\eps \in A$ e dunque non può essere $z\ge A$.
+
+Se fosse $z^2 > y$ vorremmo dimostrare che esiste $\eps>0$ tale che
+$(z-\eps)^2 \ge y$.
+Questo succede se $(z-\eps)^2 = z^2 - 2\eps z + \eps^2 \le y$.
+E' quindi sufficiente che sia $z^2 - 2 \eps z \le y$ ovvero basta scegliere
+\[
+  \eps = \frac{y-z^2}{2z}.
+\]
+Ma allora se $(z-\eps)^2\ge y$ si ha $z-\eps \in B$ e dunque non può
+essere $z \le B$.
+
+Rimane dunque l'unica possibilità che sia $z^2 = y$, come volevamo dimostrare.
+
+Se ci fosse un altro $w\ge 0$ tale che $w^2 = y$ si avrebbe $w^2 - z^2=0$ ovvero
+$(w-z)(w+z)=0$ da cui (ricordando che $z>0$ e quindi $w+z\neq 0$)
+si ottiene $w-z=0$. Dunque $w=z$.
+\end{proof}
 
 \begin{theorem}[Pitagora]
 L'equazione $x^2=2$ non ha soluzioni in $\QQ$.
@@ -365,7 +415,7 @@ Dato $x\in \RR$ esiste un unico $m\in \ZZ$ tale che $m-1 \le x < m$.
 Supponiamo per un attimo che sia $x\ge 1$.
 In tal caso consideriamo l'insieme $A=\{n\in \NN\colon n > x\}$.
 Per la proprietà archimedea tale insieme non può essere vuoto e,
-per il buon ordinamento di $\NN$,
+per il buon ordinamento di $\NN$ (si vedano gli appunti di logica),
 deve avere un minimo $m$.
 Dunque $m>x$ (in quanto $m\in a$) e $m\ge 1$ (in quanto $x\ge 1$).
 Quindi necessariamente $m-1 \le x$ altrimenti avremmo che $m-1\in A$ e $m$
@@ -419,9 +469,14 @@ deve esistere $n\in \NN$ tale che $y-x > 1/n$ così si avrà
 \[
     nx + 1 < ny.
 \]
-Prendiamo allora $m=\lceil nx \rceil$ cosicché si abbia
+Prendiamo allora $m=\lfloor nx + 1\rfloor$ cosicché si abbia
 \[
-  m \le nx
+  nx < m \le nx + 1.
+\]
+Mettendo insieme le due disuguaglianze e dividendo per n si ottiene,
+come volevamo dimostrare,
+\[
+ x < \frac{m}{n} < y.
 \]
 \end{proof}
 
