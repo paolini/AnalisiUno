@@ -35,6 +35,7 @@
 \newcommand{\M}{\mathcal M}
 \renewcommand{\P}{\mathcal P}
 \renewcommand{\S}{\mathcal S}
+\newcommand{\U}{\mathcal U}
 
 % blackboard letters
 \newcommand{\CC}{\mathbb C}
@@ -808,6 +809,326 @@ In pratica il numero $z\cdot w$ in coordinate polari è quel numero
 complesso il cui argomento è la somma degli argomenti dei due fattori
 e il cui modulo è il prodotto dei moduli.
 
+Anche lo spazio dei numeri complessi può essere esteso all'infinito.
+A differenza dei reali, su cui era presente un ordinamento che era utile conservare,
+nel caso dei numeri complessi è più usuale utilizzare un unico infinito.
+Definiamo lo spazio dei complessi estesi $\bar \CC$ come
+\[
+\bar \CC = \CC \cup \{\infty\}.
+\]
+Definiamo $\abs{\infty} = +\infty \in \bar \RR$. Inoltre
+definiamo
+\begin{align*}
+   z + \infty = \infty \qquad \forall z \in \CC\\
+   z\cdot \infty = \infty \qquad \forall z \in \bar\CC\setminus\{0\} \\
+   -\infty = \infty \\
+   1 / \infty = 0.
+\end{align*}
+
+\chapter{successioni e serie}
+
+Una \myemph{successione} numerica è una
+funzione $a\colon \NN \to \bar\RR$.
+I valori della successione vengono usualmente indicati
+con gli indici in basso:
+\[
+   a_n = a(n)
+\]
+e si chiamano \emph{termini} della successione. L'intera
+successione viene indicata con $(a_n)_{n=0}^\infty$,
+oppure $(a_n)_n$ oppure
+più semplicemente con $a_n$ dove sia chiaro che si intende l'intera
+successione e non un singolo termine della stessa.
+
+Le successioni vengono spesso considerate nei procedimenti di approssimazione.
+Spesso infatti siamo interessati a capire qual è il numero (se esiste) a cui
+la successione si avvicina al crescere di $n$.
+
+Diremo che una successione $a_n$ converge ad un numero $\ell$
+e scriveremo:
+\[
+  \lim_{n\to +\infty} a_n = \ell,
+  \qquad
+  \text{o più semplicemente}
+  \qquad
+  a_n \to \ell
+\]
+se scelto comunque un errore $\eps>0$ ogni termine della successione,
+da un certo punto in poi, si trova a distanza inferiore di $\eps$
+dal punto limite $\ell$. Formalmente:
+\[
+a_n \to \ell
+\qquad \iff \qquad
+\forall \eps>0\colon \exists N\in\NN \colon \forall n>N\colon \abs{a_n - \ell}
+< \eps.
+\]
+
+\begin{example}
+La successione $a_n = \frac{n}{n+1}$ converge a $\ell=1$:
+\[
+  \lim_{n\to +\infty} a_n = 1.
+\]
+\end{example}
+\begin{proof}
+Dato $\eps>0$ ci chiediamo quali siano gli indici $n$
+per i quali risulta $\abs{a_n -1}<\eps$ e troviamo
+che devono valere due disequazioni:
+\[
+  1- \eps < \frac{n}{n+1} < 1+\eps.
+\]
+Facilmente possiamo osservare che $n/(n+1)<1$ per ogni $n$, dunque
+la seconda disequazione è sempre verificata. La prima disequazione
+si riconduce a
+\[
+ n + 1 > \frac{1}{\eps}.
+\]
+Dunque qualunque sia $\eps>0$, scelto $N = \lceil 1 / \eps\rceil$
+sappiamo che per ogni $n>N$
+si ha $n+1 > \frac{1}{\eps}$ e quindi $1-\eps < a_n$.
+Inoltre la disuguaglianza $a_n < 1 < 1+\eps$ è verificata per ogni $n$.
+Abbiamo quindi verificato la definizione di limite.
+\end{proof}
+
+
+Le successioni possono anche avere limite infinito, in tal
+caso si dice che divergono. Una successione ha limite $+\infty$
+se comunque si scelga un numero reale, anche molto grande,
+ogni termine della successione, da un certo punto in poi,
+risulta essere maggiore di tale numero scelto. Formalmente
+\[
+  a_n \to +\infty
+  \qquad \iff \qquad
+  \forall M\in \RR\colon \exists N\in \NN \colon \forall n>N\colon
+  a_n >M.
+\]
+Definizione analoga si ha per il limite $-\infty$:
+\[
+  a_n \to -\infty
+  \qquad \iff \qquad
+  \forall M\in \RR\colon \exists N\in \NN \colon \forall n>N\colon
+  a_n < M.
+\]
+
+\begin{example}
+Si ha
+\[
+  \lim_{n\to+\infty} 1000-n^2 = -\infty.
+\]
+\end{example}
+%
+\begin{proof}
+Per dimostrare che $1000-n^2\to -\infty$ dobbiamo è
+necessario trovare per ogni $M\in \RR$
+dei valori di $n$ per i quali si abbia $1000-n^2 < M$.
+Questo avviene se $n^2 > 1000-M$. Visto che per ogni $n\in \NN$
+si ha $n^2 \ge n$ (verificare!) sappiamo che se $n> 1000-M$ allora
+anche $n^2 > 1000-M$. Dunque per ogni $M$ sarà sufficiente considerare
+un numero intero $N \ge 1000-M$
+(ad esempio si potrebbe scegliere $N = \max\{0, \lceil 1000-M\rceil\}$)
+cosicché per ogni $n>N$ si avrebbe:
+\[
+ a_n = 1000 - n^2 \le 1000 - n < 1000 - N \le 1000 - (1000 -M) = M
+\]
+come richiesto dalla definizione di limite $-\infty$.
+\end{proof}
+
+Volendo esprimere il concetto di limite in maniera uniforme
+(senza dover distinguere limiti finiti e infiniti) possiamo
+rendere la definizione un po' più astratta introducendo il concetto
+di \emph{intorno}.
+La condizione $\abs{a_n - \ell}< \eps$ può essere scritta in
+modo equivalente come
+$a_n \in (\ell-\eps, \ell+\eps)$. L'insieme $B_\eps(\ell) = (\ell-\eps, \ell+\eps)$
+si chiama \myemph{intorno} di raggio $\eps$ centrato in $\ell$. La famiglia
+di tutti questi insiemi si può definire in questo modo:
+\[
+ \U_\ell = \{B_\eps(\ell)\colon \eps>0 \}
+\]
+e si chiama \myemph{base di intorni} del punto $\ell$. La definizione
+di limite finito si può dunque riscrivere così:
+\[
+  a_n\to \ell
+  \qquad \iff \qquad
+  \forall U \in \U_\ell\colon \exists N\in \NN\colon \forall n>N\colon a_n\in U.
+\]
+Il vantaggio di questa \emph{astrazione} è che ora possiamo definire
+gli intorni di $+\infty$ e di $-\infty$ nel modo seguente:
+\[
+  \U_{+\infty} = \{ (M,+\infty]\colon M\in \RR\}\\
+  \U_{-\infty} = \{ [-\infty, M)\colon M \in \RR\}
+\]
+e la definizione data per il caso $\ell$ finito risulta valida anche nel
+caso in cui $\ell$ sia infinito. Anzi, possiamo utilizzare gli intorni di
+$+\infty$ anche per l'indice $n$, ottenendo questa definizione generale:
+\[
+  a_n \to \ell
+  \qquad \iff \qquad
+  \forall U \in \U_\ell\colon \exists V \in \U_{+\infty} \colon \forall n\in \NN,
+  n \in V \implies a_n\in U.
+\]
+
+\begin{theorem}[unicità del limite]
+Sia $a_n$ una successione che ammette come limite sia $\ell_1\in \bar \RR$
+che $\ell_2 \in \bar \RR$. Allora $\ell_1=\ell_2$.
+\end{theorem}
+%
+\begin{proof}
+La dimostrazione si basa sul fatto che se $\ell_1 \neq \ell_2$ allora
+esistono due intorni $U_1\in \U_{\ell_1}$ e $U_2 \in \U_{\ell_2}$
+che sono tra loro disgiunti: $U_1 \cap U_2 = \emptyset$.
+
+La verifica di questo fatto è piuttosto elementare.
+Se $\ell_1$ ed $\ell_2$ sono entrambi finiti, è sufficiente
+considerare $\eps = \abs{\ell_2-\ell1}/2$ e si osserva immediatamente
+che gli intervalli $(\ell_1-\eps, \ell_1+\eps)$ e $(\ell_2-\eps, \ell_2+\eps)$
+sono disgiunti. Se $\ell_1$ ed $\ell_2$ sono entrambi finiti e sono diversi,
+possiamo supporre $\ell_1=-\infty$ e $\ell_2=+\infty$. In tal caso gli
+intorni $U_1= [-\infty,0)$ e $U_2=(0,+\infty]$ sono disgiunti.
+Se $\ell_1$ è finito e $\ell_2 = +\infty$, basterà prendere
+$U_1 = (\ell_1-1, \ell_1+1)$ ed $U_2 = (\ell_1+1,+\infty]$ per avere due
+intorni disgiunti. Analogamente si procederà nel caso $\ell_2=-\infty$.
+
+Una volta appurato che punti diversi $\ell_1\neq \ell_2$
+ammettono intorni disgiunti $U_1$, $U_2$ sarà sufficiente
+applicare la definizione di limite con entrambi gli intorni
+per ottenere che da un lato esiste $N_1$ tale che per ogni
+$n>N_1$ si ha $a_n \in U_1$, dall'altro esiste $N_2$ tale che per ogni
+$n>N_2$ si ha $a_n \in U_2$. Ma allora per ogni $N> \max\{ N_1, N_2\}$
+si dovrebbe avere $a_n \in U_1 \cap U_2 = \emptyset$ il che è impossibile.
+\end{proof}
+
+Osserviamo che non è detto che un limite esista, come si vede dal seguente
+esempio.
+
+\begin{example}
+Sia $a_n = (-1)^n$. Non esiste $\ell \in \bar \RR$ che sia il limite
+di tale successione.
+\end{example}
+\begin{proof}
+La successione $a_n$ ha come valori solamente i numeri $1$ e $-1$,
+infatti se $n$ è pari si ha $(-1)^n=1$ e se $n$ è dispari $(-1)^n=-1$.
+Supponiamo per assurdo che la successione abbia limite $\ell$
+e consideriamo l'intorno $U = (\ell - 1, \ell + 1)$.
+Se $\ell\ge 0$ certamente $-1 \not\in U$ in quanto $\ell-1\ge -1$.
+Se invece $\ell \le 0$ certamente $1\not\in U$ in quanto $\ell+1\le 1$.
+Dunque, in ogni caso, comunque io scelga $N\in \NN$ esisteranno degli
+$n>N$ tali che $a_n \not \in U$.
+\end{proof}
+
+\begin{theorem}[criterio del confronto]
+\begin{enumerate}
+\item
+Se abbiamo due successioni $a_n$ e $b_n$, se per ogni $n$ si ha $a_n \le b_n$
+e se entrambe le successioni ammettono limite $a_n \to a$ e $b_n \to b$
+allora $a \le b$.
+
+\item
+Se abbiamo tre successioni $a_n$, $b_n$ e $c_n$,
+se per ogni $n$ vale $a_n \le b_n \le c_n$ e se le due
+successioni $a_n$ e $c_n$ hanno lo stesso limite $a_n \to \ell$, $c_n\to \ell$
+allora anche la successione $b_n$ ha limite $\ell$.
+\end{enumerate}
+\end{theorem}
+%
+\begin{proof}
+\begin{enumerate}
+\item
+Se per assurdo fosse $a > b$ esisterebbero degli intorni disgiunti $U_a\in \U_a$
+e $U_b \in \U_b$.
+Inoltre si avrebbe $U_a > U_b$ (cioè: ogni punto di $U_a$ è maggiore
+di ogni punto di $U_b$) visto che $a>b$.
+Ma, dalla definizione di limite,
+dovrebbero anche esistere $N_a$ e $N_b$ tali che per ogni $n>N_a$ si avrebbe
+$a_n \in U_a$ e per ogni $n>N_b$ si avrebbe $b_n \in U_b$.
+Ma allora per ogni $n> \max\{N_a, N_b\}$ si avrebbe
+contemporaneamente $a_n \in U_a$ e $b_n \in U_b$ da cui $a_n > b_n$
+contro l'ipotesi.
+
+\item
+(teorema dei carabinieri)
+Se $a_n$ e $c_n$ hanno lo stesso limite $\ell$ significa che per ogni
+$U \in \U_\ell$ esistono $N_a$ ed $N_c$ tali che per ogni $n>N_a$ si ha
+$a_n\in U$ e per ogni $n > N_c$ si ha $c_n\in U$.
+Prendendo allora (al solito!) $N=\max\{N_a, N_b\}$ si trova che per
+ogni $n>N$ si ha $a_n\in U$ e $c_n \in U$.
+Visto che $U$ è un intervallo e visto che $a_n \le b_n  \le c_n$,
+deduciamo che anche $b_n \in U$. Dunque la definizione di limite è verificata.
+\end{enumerate}
+\end{proof}
+
+\begin{corollary}[permanenza del segno]
+Sia $a_n$ una successione e $c\in \bar\RR$.
+Se per ogni $n$ si ha $a_n \ge c$ e se $a_n$ ha limite $\ell \in \bar \RR$
+allora $\ell \ge c$.
+In particolare se una successione non è negativa ed ammette limite, allora
+il limite non è negativo.
+\end{corollary}
+\begin{proof}
+E' sufficiente considerare la successione costante $b_n = c$
+cosicché si ha $b_n \le a_n$ per ogni $n$. Ma ovviamente
+la successione $b_n$ ha limite $c$ e dunque, per confronto,
+deve essere $c\le \ell$.
+\end{proof}
+
+\begin{corollary}
+Se per ogni $n$ si sa che $a_n \ge b_n$ e se $b_n$ tende a $+\infty$
+allora anche $a_n$ tende a $+\infty$.
+Viceversa se $a_n \le b_n$ e $b_n$ tende a $-\infty$ allora
+anche $a_n$ tende a $-\infty$.
+\end{corollary}
+\begin{proof}
+Si applichi la seconda parte del teorema di confronto
+utilizzando la successione costante $c_n = +\infty$.
+\end{proof}
+
+\begin{theorem}[successioni che differiscono su un numero finito di termini]
+Se $a_n$ e $b_n$ sono due successioni tali che l'insieme degli indici
+$n$ su cui differiscono sia finito
+(cioè $\#\{n\in \NN\colon a_n \neq b_n\} < \# \NN$)
+allora se il limite di $a_n$ esiste e vale $\ell$ allora
+anche il limite di $b_n$ esiste e vale $\ell$.
+Viceversa se il limite di $a_n$ non esiste, non esiste neanche il limite
+di $b_n$.
+\end{theorem}
+%
+\begin{proof}
+Un insieme finito di numeri naturali è anche limitato.
+Cioè esiste $K\in \NN$ tale che per ogni $n>K$ si ha $a_n = b_n$.
+Se $a_n$ ha limite $\ell$ soddisfa la proprietà
+\[
+ \forall U \in \U_\ell \colon
+ \exists N\in \NN\colon \forall n > N \colon a_n \in U.
+\]
+Se al posto di $N$ mettiamo $N' = \max\{N,K\}$ sappiamo che per $n>N$
+si ha anche $n>K$ e quindi $a_n=b_n$. Dunque anche la successione $b_n$
+soddisfa la stessa proprietà.
+
+Se la successione $a_n$ non ha limite allora $b_n$ non porebbe avere limite
+perché, se ce lo avesse, potremmo scambiare i ruoli di $a_n$ e $b_n$
+e applicare il teorema già dimostrato concludendo che anche $a_n$ avrebbe limite.
+\end{proof}
+
+Il teorema precedente è molto utile perché ci permette in molti casi di applicare
+un criterio di convergenza anche nel caso in cui le ipotesi siano violate
+su un numero finito di termini, come nel seguente esempio.
+
+\begin{example}
+Sapendo che la successione $a_n = n$ tende a $+\infty$ dimostrare
+che la anche la successione $b_n = n^2-10$ tende a $+\infty$.
+\end{example}
+%
+\begin{proof}
+E' sufficiente osservare che $n^2-10 > n$ se $n\ge 4$ infatti
+se $n\ge 4$ si ha
+\[
+n^2 - 10 \ge 4 n -10 \ge n + 3n - 10 \ge n + 12 -10 \ge n+2 \ge n.
+\]
+Dunque se consideriamo la successione $c_n$ ottenuta modificando
+i primi quattro termini di $b_n$ (ponendo ad esempio $c_0 = a_0$,
+$c_1=a_1$, $c_2=a_2$ e $c_3=a_3$) si ottiene $c_n\ge a_n$ per ogni $n$.
+Ma allora $c_n \to +\infty$ (per confronto con $a_n$) ma visto che
+$b_n$ differisce da $c_n$ solo nei primi 4 termini anche $b_n\to +\infty$.
+\end{proof}
 
 % \bibliographystyle{plain}
 % \bibliography{biblio}
