@@ -49,6 +49,7 @@
 
 \newcommand{\abs}[1]{{\left|#1\right|}}
 \newcommand{\Abs}[1]{{\left\Vert #1\right\Vert}}
+\newcommand{\enclose}[1]{{\left( #1 \right)}}
 
 \renewcommand{\vec}[1]{\mathbf #1}
 \newcommand{\defeq}{:=}
@@ -148,7 +149,7 @@ In un campo ordinato valgono le seguenti
 familiari proprietà:
 \begin{enumerate}
   \item l'opposto e il reciproco sono unici (denotiamo con $-x$ l'unico opposto di $x$ e con $x^{-1}$ l'unico inverso di $x\neq 0$)
-  \item $-(-x) = x$, $\left(x^{-1}\right)^{-1}$
+  \item $-(-x) = x$, $\enclose{x^{-1}}^{-1}$
   \item $x \cdot 0 = 0$
   \item $x\ge 0 \iff -x \le 0$
   \item $(-x)\cdot y = -(x\cdot y)$
@@ -242,6 +243,7 @@ Si ha
 \item $\abs{x\cdot y} = \abs{x}\cdot \abs{y}$ (omogenità)
 \item $\abs{x+y} \le \abs{x} + \abs{y}$ (convessità)
 \item $\abs{x-y} \le \abs{x-z} + \abs{z-y}$ (disuguaglianza triangolare)
+\item $\big\lvert\abs{x}-\abs{y}\big\rvert \le \abs{x-y}$ (disuguaglianza triangolare inversa)
 \end{enumerate}
 Useremo inoltre spesso la seguente equivalenza (valida
 anche con $<$ al posto di $\le$). Se $r\ge 0$ allora
@@ -262,7 +264,7 @@ Se $x<y$ allora $x-y<0$ e quindi $\abs{x-y} \le r$ è
 equivalente a $y-x \le r$ cioè $x\ge y-r$.
 Viceversa se $y-r \le x \le y+r$ allora vale sia $x-y \le r$ che $y-x \le r$ e dunque $\abs{x-y}\le r$.
 
-Osseviamo allora che per la precedente osservazione applicata
+Osserviamo allora che per la precedente osservazione applicata
 a $\abs{x-0} \le \abs{x}$ si ottiene
 \[
   -\abs{x} \le x \le \abs{x}
@@ -277,10 +279,28 @@ che è equivalente alla proprietà di convessità:
   \abs{x+y} \le \big\lvert\abs{x} + \abs{y}\big\rvert = \abs{x} + \abs{y}.
 \]
 
+Ponendo $y=z-x$ nella disuguaglianza precedente, si ottiene
+\[
+  \abs{z} \le \abs{x} + \abs{z-x}
+\]
+da cui
+\[
+  \abs{z} - \abs{x} \le \abs{z-x}.
+\]
+Scambiando $z$ con $x$ si ottiene la disuguaglianza opposta
+e mettendole assieme si ottiene
+la disuguaglianza triangolare inversa:
+\[
+\big\lvert \abs{z}-\abs{x} \big\rvert  \le \abs{z-x}.
+\]
+
 La disuguaglianza triangolare segue dalla convessità:
 \[
  \abs{x-y} = \abs{x-z + z-y} \le \abs{x-z} + \abs{z-y}.
 \]
+
+
+
 \end{proof}
 
 Osserviamo che dal punto di vista geometrico
@@ -565,7 +585,7 @@ Dati $x,y \in \RR$ con $x<y$ esiste $q\in \QQ$ tale che $x<q<y$.
 \end{theorem}
 %
 \begin{proof}
-Per la proprietà archimedea dei numeri naturali essendo $y-x>0$
+Per la proprietà archimedea dei numeri reali essendo $y-x>0$
 deve esistere $n\in \NN$ tale che $y-x > 1/n$ così si avrà
 \[
     nx + 1 < ny.
@@ -581,11 +601,48 @@ come volevamo dimostrare,
 \]
 \end{proof}
 
+\begin{definition}[potenza intera]
+\marginpar{potenza intera}
+\marginpar{$x^n$}
+Dato $x \in \RR$ possiamo definire la potenza $x^n$ per ogni
+$n\in \NN$ come l'unica funzione che soddisfa
+la seguente definizione per induzione (si vedano appunti di logica)
+\[
+\begin{cases}
+  x^0 = 1\\
+  x^{n+1} = x\cdot x^n.
+\end{cases}
+\]
+\end{definition}
+
+\begin{theorem}[proprietà delle potenze intere]
+Per ogni $x,y\in \RR$, $y\neq 0$ e per ogni $n,m \in \NN$
+valgono le seguenti proprietà:
+\begin{enumerate}
+  \item  $x^{n+m} = x^n \cdot x^m$
+  \item $(x^n)^m = x^{n\cdot m}$
+  \item $(x\cdot y)^n = x^n \cdot y^n$
+  \item $\displaystyle \enclose{\frac{x}{y}}^n = \frac{x^n}{y^n}$
+\end{enumerate}
+\end{theorem}
+%
+\begin{proof}
+Dimostriamo, come esempio, solamente la prima proprietà: $x^{n+m} = x^n \cdot x^m$.
+Fissato $m\in \NN$ procediamo per induzione su $n$.
+Se $n=0$ si ha $x^{0+m} = x^m = x^m \cdot 1 = x^m \cdot x^0$.
+Supponendo la proprietà sia stata verificata per $n$, verifichiamo
+che vale anche con $n+1$ al posto di $n$. Si ha infatti
+\[
+ x^{(n+1)+m} = x^{n+m+1} = x \cdot x^{n+m} = x \cdot x^n \cdot x^m
+  = x^{n+1} \cdot x^m.
+\]
+\end{proof}
+
 \section{reali estesi}
 
 \begin{definition}[reali estesi]
 \marginpar{$\bar \RR$}
-\marginpar{$+\infty$ $-\infty$}
+\marginpar{$+\infty$, $-\infty$}
 Denotiamo con $\bar \RR=\RR \cup \{+\infty, -\infty\}$ l'insieme dei numeri reali
 a cui vengono aggiunti due ulteriori \emph{quantità} che chiameremo
 \emph{infinite} e che denotiamo con $+\infty$ e $-\infty$.
@@ -622,6 +679,8 @@ le regole: $x + (-x) = 0$ e $x \cdot (1/x) = 1$.
 Infatti
 le operazioni $(+\infty) + (-\infty)$ e $+\infty \cdot 0$ vengono
 lasciate indefinite.
+
+Definiamo anche il valore assoluto: $\abs{+\infty} = \abs{-\infty} = +\infty$.
 
 Possiamo infine definire la sottrazione e la divisione tramite
 addizione e moltiplicazione:
@@ -930,6 +989,20 @@ una intera successione e non un singolo valore,
   \lim_n a_n \qquad \text{oppure} \qquad \lim_{n\to+\infty} a_n.
 \]
 
+\begin{definition}[carattere di una successione]
+Sia $a_n$ una successione. Se $a_n$ non ammette limite
+si dice anche che $a_n$ è \myemph{indeterminata}
+(si intende che è indeterminato il suo limite!).
+Abbiamo dunque le seguenti alternative
+\begin{enumerate}
+ \item la successione è convergente (ha limite finito);
+ \item la successione è divergente (ha limite infinito);
+ \item la successione è indeterminata (non ha limite).
+\end{enumerate}
+Determinare il \myemph{carattere} di una successione
+significa specificare a quale delle tre categorie appartiene.
+\end{definition}
+
 \begin{theorem}[criteri di confronto]
 \begin{enumerate}
 \item
@@ -1004,12 +1077,29 @@ allora $\ell \ge c$.
 In particolare se una successione ha valori non negativi
 ed ammette limite, allora
 il limite è non negativo.
+
+Viceversa, se una successione $a_n$ ha limite positivo:
+$a_n \to a >0$ allora $a_n>0$ per ogni $n$ tranne
+al più un numero finito di termini.
+ Risultato analogo vale se $a_n \to a <0$: a parte un numero
+ finito di termini, i valori della successione sono negativi.
 \end{corollary}
+%
 \begin{proof}
+Prima parte.
 E' sufficiente considerare la successione costante $c_n = c$
 cosicché si ha $c_n \le a_n$ per ogni $n$. Ma ovviamente
 la successione $c_n$ ha limite $c$ e dunque, per confronto,
 deve essere $c\le \ell$.
+
+Seconda parte. Se $a>0$ e $a\in \RR$
+per definizione di limite esiste $N$
+tale che per ogni $n>N$ si ha $a_n> a/2 > 0$. Dunque solo
+un numero finito di termini (quelli con indice $n\le N$)
+possono essere negativi. Se $a=+\infty$ il ragionamento
+si ripete a maggior ragione sapendo che esiste $N$
+tale che $a_n>1$ per $n>N$.
+Cambiando segno alla successione si ottiene il caso $a<0$.
 \end{proof}
 
 Si presti molta attenzione al fatto che se $a_n$ è a termini positivi
@@ -1017,6 +1107,10 @@ non è detto che il limite sia positivo, possiamo solo affermare
 che non è negativo. Ad esempio $1/(n+1)>0$ ma $1/(n+1) \to 0$ (verificare!).
 In generale se una successione ha valori in un intervallo il suo limite,
 se esiste, deve essere un punto del corrispondente intervallo chiuso.
+
+Se una successione ha limite $0$ può avere infiniti termini
+positivi e infiniti termini negativi, come nel caso
+della successione $a_n = 1/(-2)^n$.
 
 \begin{theorem}[successioni che differiscono su un numero finito di termini]
 Se $a_n$ e $b_n$ sono due successioni tali che l'insieme degli indici
@@ -1082,8 +1176,10 @@ si potrà usare la notazione $(a_n)_{n=1}^\infty$.
 Per la cronaca: $1/n \to 0$.
 \end{example}
 
-Data una successione $a_n$ potremo considerare l'insieme
-dei suoi valori: $\{a_n\colon n\in \NN\}$.
+Data una successione $a_n$ potremo considerare l'\emph{insieme
+dei suoi valori}: $\{a_n\colon n\in \NN\}$.
+Si tratta dell'immagine della funzione $n\mapsto a_n$
+e a volte si chiama \myemph{supporto} della successione.
 Si faccia attenzione al fatto che l'insieme dei valori
 non descrive completamente la successione perché
 viene persa l'informazione sull'ordine in cui vengono elencati
@@ -1229,6 +1325,23 @@ Per dimostrare la seconda parte (il limite della differenza è uguale alla diffe
 differenza è la somma con l'opposto.
 \end{proof}
 
+\begin{theorem}[limite del valore assoluto]
+Se $a_n \to a$, $a \in \bar \RR$ allora
+\[
+  \abs{a_n} \to \abs{a}.
+\]
+
+Se $\abs{a_n} \to 0$ allora $a_n \to 0$.
+\end{theorem}
+%
+\begin{proof}
+Per la prima parte è sufficiente osservare che
+(disuguaglianza triangolare inversa)
+\[
+  \big\lvert\abs{a_n} - \abs{a}\big\rvert \le \abs{a_n -a}
+\]
+\end{proof}
+
 \begin{theorem}[prodotto di limitata per infinitesima]
 Se $a_n$ è una successione limitata e $b_n\to 0$ allora
 $a_n\cdot b_n \to 0$.
@@ -1352,7 +1465,30 @@ Possiamo ricondurci ai teoremi precedenti osservando che
 \]
 \end{proof}
 
-\begin{definition}[successioni monotòne]
+\begin{definition}[funzioni monotòne]
+Una funzione $f\colon A \to \RR$ con $A\subset \RR$, si
+dice essere
+\begin{enumerate}
+\item \myemph{crescente} se $x < y \implies f(x) \le f(y)$;
+\item \myemph{decrescente} se $x < y \implies f(x) \ge f(y)$;
+\item \myemph{monotòna} se crescente o decrescente;
+\item \myemph{costante} se crescente e decrescente;
+\item \myemph{strettamente crescente} se $x<y \implies f(x) < f(y)$;
+\item \myemph{strettamente decrescente} se $x<y \implies f(x) > f(y)$;
+\item \myemph{strettamente monotòna} se strettamente crescente o strettamente decrescente.
+\end{enumerate}
+\end{definition}
+
+Si osservi che se $f\colon A \to \RR$ è costante allora esiste $c$ tale che
+$f(x)=c$ per ogni $x\in A$.
+
+Le successioni sono funzioni $\NN \to \RR$ dunque le precedenti definizioni
+si applicano anche alle successioni.
+Per le successioni, tuttavia, si possono dare delle definizioni
+equivalenti utilizzando il principio di induzione, come nel seguente
+teorema la cui dimostrazione è immediata.
+
+\begin{theorem}[successioni monotòne]
 Una successione $a_n$ si dice essere
 \begin{enumerate}
 \item \myemph{crescente}: se per ogni $n\in \NN$ si ha $a_{n+1} \ge a_n$;
@@ -1364,7 +1500,7 @@ Una successione $a_n$ si dice essere
 $a_{n+1}<a_n$;
 \item \emph{strettamente monotòna}: se strettamente crescente o strettamente decrescente.
 \end{enumerate}
-\end{definition}
+\end{theorem}
 
 In una successione crescente la condizione $a_{n+1} \ge a_n$,
 se utilizzata per induzione, ci permette
@@ -1590,6 +1726,195 @@ ogni $n\in \NN$ si ha $\ell \neq a_n$.
 Dunque il numero $\ell$ non è un termine della successione $a_n$
 ovvero la funzione $a\colon \NN \to [0,1]$ non è suriettiva.
 \end{proof}
+
+
+
+
+\begin{comment}
+\section{radici $n$-esime}
+Fissato $y>0$ e $n\in \NN$, consideriamo la seguente successione
+definita per ricorrenza
+\[
+  \begin{cases}
+    a_0 = y\\
+    a_{k+1} = \frac{n-1}{n} a_k + \frac{y}{n a_k^{n-1}}.
+  \end{cases}
+\]
+\end{comment}
+
+
+\section{la funzione esponenziale}
+
+In base al criterio del rapporto (o della radice) è facile osservare che
+per ogni $z \in \CC$
+la serie
+\[
+\sum_{k=0}^\infty \frac{z^k}{k!}
+\]
+è assolutamente convergente.
+
+\begin{definition}[funzione esponenziale]
+Definiamo la \myemph{funzione esponenziale} (complessa)
+$\exp \colon \CC \to \CC$ come
+\[
+  \exp (z) = \sum_{k=0}^\infty \frac{z^k}{k!}.
+\]
+Definiamo il \myemph{numero di Nepero} (o di Eulero)
+\[
+  e = \exp (1).
+\]
+\end{definition}
+
+\begin{theorem}[limite di Bernoulli]
+Si ha
+\[
+  \lim_{n\to \infty} \enclose{1+\frac 1 n}^n = \sum_{k=0}^\infty \frac{1}{k!} = e.
+\]
+\end{theorem}
+%
+\begin{proof}
+Utilizzando lo sviluppo del binomio osserviamo che si ha
+\[
+ \enclose{1+\frac 1 n}^n
+ = \sum_{k=0}^n \binom{n}{k} \frac{1}{n^k}
+ = \sum_{k=0}^n \frac{1}{k!} \frac{n!}{n^k\cdot (n-k)!}.
+\]
+Posto per ogni $n\ge k$
+\begin{align*}
+ c(n,k)
+  &= \frac{n!}{n^k\cdot (n-k)!}
+  = \frac{n \cdot (n-1) \cdot \ldots \cdot(n-k)}{n^k} \\
+  &= \frac{n}{n}\cdot {\frac {n-1} n} \cdot \frac {n-2} {n} \cdot \ldots \cdot \frac{n-k}{n}
+\end{align*}
+osserviamo che $c(n,k)\le 1$ in quanto prodotto di numeri minori o uguali ad $1$.
+Inoltre, fissato $k$, si ha $c(n,k)  \stackrel n\to 1$ in quanto ogni fattore tende
+a $1$ per $n\to +\infty$ (si noti che a $k$ fissato il numero di fattori è
+fissato ed è $k-1$).
+Dunque da un lato abbiamo una stima facile
+\[
+  \enclose{1+\frac 1 n}^n
+  = \sum_{k=0}^n \frac{c(n,k)}{k!}
+  \le \sum_{k=0}^n \frac{1}{k!}
+  < e.
+\]
+Per ottenere la stima dal lato opposto consideriamo un qualunque $\eps>0$.
+Consideriamo $M\in \NN$ tale che
+\[
+\sum_{k=0}^M \frac 1 {k!} > e - \eps.
+\]
+Fissato $k$ visto che $c(n,k)\to 1$ esiste $N_k$ tale che per ogni $n>N_k$
+si ha $c(n,k) > 1- \eps$. Prendiamo $\displaystyle N=\max_{k=0}^M N_k$
+cosicchè per ogni $n>N$ e per ogni $k\le M$ si avrà $c(n,k)> 1-\eps$.
+Allora, per ogni $n>N$, si avrà
+\begin{align*}
+\enclose{1+\frac 1 n}^n
+&= \sum_{k=0}^n  \frac{c(n,k)}{k!}
+\ge \sum_{k=0}^{M} \frac{c(n,k) }{k!}
+\ge  (1-\eps) \sum_{k=0}^M \frac{1}{k!}\\
+&\ge (1-\eps)(e-\eps)
+= e - \eps (e-1) + \eps^2 \ge e - \eps(e-1).
+\end{align*}
+Visto che $\eps(e-1)$ può essere reso arbitrariamente piccolo
+abbiamo dimostrato che $\enclose{1+\frac 1 n}^n \to e$.
+\end{proof}
+
+
+\begin{comment}
+
+Consideriamo la crescita di una popolazione (o di un capitale): sia $P(t)$ la popolazione al tempo $t$. La crescita nell'intervallo
+temporale $[t_1,t_2]$ è $P(t_2)-P(t_1)$.
+La velocità di crescita è $\frac{P(t_2)-P(t_1)}{t_2 - t_1}$ e il
+tasso di crescita è la velocità di crescita rapportata
+alla popolazione:
+\[
+  c = \frac{1}{P(t_1)}\cdot \frac{P(t_2) - P(t_1)}{t_2- t_1}.
+\]
+
+Se una popolazione cresce senza impedimenti (risorse illimitate)
+è sensato considerare
+che il tasso di crescita sia costante. Infatti la crescita sarà proporzionale al numero di individui che compongono alla popolazione,
+in quanto ognuno contribuisce indipendentemente alla crescita.
+
+Dividiamo l'intervallo temporale $[0,1]$ in $n$ intervalli ognuno
+di ampiezza $1/n$ e denotiamo con $p_k$ la popolazione al $k$-esimo
+istante. Allora si avrà
+\[
+  c = \frac{p_{k+1} - p_k}{p_k\enclose{\frac{k+1}{n} - \frac{k}{n}}}
+\]
+da cui
+\[
+  p_{k+1} = \enclose{1+\frac{c}{n}} p_k.
+\]
+Iterando si ottiene:
+\[
+ p_n = \enclose{1+\frac{c}{n}}^n p_0.
+\]
+Posto quindi
+\[
+  E_n(x) = \enclose{1+\frac{x}{n}}^n
+\]
+il limite di tale successione a $x$ fissato, se esiste,
+rappresenterà
+l'aumento percentuale effettivo in una unità di tempo per una
+popolazione con tasso istantaneo di crescita pari a $x$.
+
+\begin{theorem}[disuguaglianza di Bernoulli]
+Se $x > -1$ e $n\in \NN$ si ha
+\[
+(1+x)^n \ge 1 + nx.
+\]
+\end{theorem}
+%
+\begin{proof}
+Lo dimostriamo per induzione su $n$. Per $n=0$, sostituendo si ottiene $1\ge 1$.
+Supponendo che sia verificata la disuguaglianza per un certo $n$:
+\[
+(1+x)^n \ge 1 + nx
+\]
+moltiplicando ambo i membri per $1+x > 0$ si ottiene
+\[
+(1+x)^n+1 \ge (1+x) (1+nx) = 1 + (n+1)x + n x^2
+\ge 1 + (n+1)x
+\]
+che è proprio quello che volevamo dimostrare.
+\end{proof}
+
+\begin{theorem}[successione di Nepero]
+La successione
+\[
+  a_n = \enclose{1 + \frac 1 n}^n
+\]
+è crescente e limitata.
+\end{theorem}
+%
+\begin{proof}
+Dimostriamo innanzitutto, per induzione, che $a_n$ è crescente, cioè che
+per ogni $n\ge 2$ si ha $a_n \ge a_{n-1}$.
+E' chiaro che $a_n>0$,
+quindi è sufficiente verificare che $\frac{a_n}{a_{n-1}} \ge 1$.
+
+Si ha
+\begin{align*}
+\frac{a_n}{a_{n-1}}
+&= \frac{\enclose{1+\frac 1 n}^n}{\enclose{1+\frac 1 {n-1}}^{n-1}}
+= \frac{\enclose{\frac{n+1}{n}}^n}{\enclose{\frac{n}{n-1}}^{n-1}}\\
+&= \enclose{\frac{n+1}{n}\cdot\frac{n-1}{n}}^n \cdot \frac{n}{n-1}
+= \enclose{\frac{n^2- 1}{n^2}}^n \cdot \frac{n}{n-1}
+\end{align*}
+Osserviamo ora che la disuguaglianza di Bernoulli garantisce
+\[
+  \enclose{\frac{n^2 -1}{n^2}}^n
+  = \enclose{1-\frac{1}{n^2}}^n
+  \ge 1 - \frac{n}{n^2} = 1 - \frac{1}{n} = \frac{n-1}{n}
+\]
+da cui si ottiene, come volevamo, $a_n / a_{n-1} \ge 1$. Inoltre possiamo
+osservare che
+\[
+
+\]
+
+\end{proof}
+\end{comment}
 
 %
 %
