@@ -601,43 +601,6 @@ come volevamo dimostrare,
 \]
 \end{proof}
 
-\begin{definition}[potenza intera]
-\marginpar{potenza intera}
-\marginpar{$x^n$}
-Dato $x \in \RR$ possiamo definire la potenza $x^n$ per ogni
-$n\in \NN$ come l'unica funzione che soddisfa
-la seguente definizione per induzione (si vedano appunti di logica)
-\[
-\begin{cases}
-  x^0 = 1\\
-  x^{n+1} = x\cdot x^n.
-\end{cases}
-\]
-\end{definition}
-
-\begin{theorem}[proprietà delle potenze intere]
-Per ogni $x,y\in \RR$, $y\neq 0$ e per ogni $n,m \in \NN$
-valgono le seguenti proprietà:
-\begin{enumerate}
-  \item  $x^{n+m} = x^n \cdot x^m$
-  \item $(x^n)^m = x^{n\cdot m}$
-  \item $(x\cdot y)^n = x^n \cdot y^n$
-  \item $\displaystyle \enclose{\frac{x}{y}}^n = \frac{x^n}{y^n}$
-\end{enumerate}
-\end{theorem}
-%
-\begin{proof}
-Dimostriamo, come esempio, solamente la prima proprietà: $x^{n+m} = x^n \cdot x^m$.
-Fissato $m\in \NN$ procediamo per induzione su $n$.
-Se $n=0$ si ha $x^{0+m} = x^m = x^m \cdot 1 = x^m \cdot x^0$.
-Supponendo la proprietà sia stata verificata per $n$, verifichiamo
-che vale anche con $n+1$ al posto di $n$. Si ha infatti
-\[
- x^{(n+1)+m} = x^{n+m+1} = x \cdot x^{n+m} = x \cdot x^n \cdot x^m
-  = x^{n+1} \cdot x^m.
-\]
-\end{proof}
-
 \section{reali estesi}
 
 \begin{definition}[reali estesi]
@@ -1605,7 +1568,10 @@ allora
 Osserviamo innanzitutto che essendo $n_k$ strettamente crescente
 e a valori in $\NN$, deve necessariamente essere $n_k\to +\infty$.
 Notiamo infatti che $n_k$ vista come funzione $n\colon \NN\to \NN$
-è iniettiva (per la stretta monotonia) e dunque rappresenta una corrispondenza biunivoca tra il suo dominio $\NN$ e l'insieme dei suoi valori $\{n_k \colon k \in \NN\}$. Significa dunque che l'insieme dei valori è un insieme infinito di numeri naturali che quindi non può che
+è iniettiva (per la stretta monotonia) e dunque rappresenta una
+corrispondenza biunivoca tra il suo dominio $\NN$ e l'insieme dei
+suoi valori $\{n_k \colon k \in \NN\}$. Significa dunque che l'insieme
+dei valori è un insieme infinito di numeri naturali che quindi non può che
 essere illimitato. Dunque $\sup n_k = +\infty$ e dalla monotonia
 otteniamo $\lim n_k = \sup n_k = +\infty$.
 
@@ -1728,21 +1694,245 @@ ovvero la funzione $a\colon \NN \to [0,1]$ non è suriettiva.
 \end{proof}
 
 
+\begin{definition}[continuità sequenziale]
+Una funzione $f\colon A \subset \RR \to \RR$ si dice essere
+\emph{sequenzialmente continua} se per ogni successione
+convergente $a_n \to a$ con $a_n\in A$, $a \in A$ si ha
+$f(a_n)\to f(a)$.
+\end{definition}
 
+Quando discuteremo più in dettaglio i limiti di funzione
+daremo la definizione di \emph{funzione continua} e verificheremo
+che la continuità sequenziale è in effetti equivalente alla continuità.
+
+\begin{theorem}[degli zeri]
+Sia $I\subset \RR$ un intervallo, $f\colon I \to \RR$ una funzione
+sequenzialmente continua, $a,b\in I$ tali che $f(a)\le 0$ e $f(b)\ge 0$.
+Allora esiste $c\in I$ tale che $f(c)=0$.
+\end{theorem}
+
+\begin{proof}
+La dimostrazione che adottiamo è di particolare rilevanza in quanto
+non solo permette di dimostrare l'esistenza del punto $c$ che risolve
+$f(x)=0$
+ma ci presenta
+un algoritmo, il \myemph{metodo di bisezione},
+che può essere effettivamente utilizzato per approssimare
+tale soluzione.
+
+Possiamo supporre senza perdere di  generalità che sia $a<b$.
+Poniamo $A_0 = a$, $B_0= b$ e consideriamo il punto medio $C_0 = (A_0+B_0)/2$.
+Scegliamo tra i due intervalli $[A_0, C_0]$ e $[C_0,B_0]$ quello per cui
+il segno ai due estremi è discorde (o, caso fortunato, nullo).
+Più precisamente se $f(C_0)\ge 0$ poniamo $[A_1,B_1] = [A_0,C_0]$ altrimenti
+scegliamo $[A_1,B_1] = [C_0,B_0]$ così si ha, in ogni caso,
+$f(A_1)\le 0$, $f(B_1)\ge 0$.
+
+Consideriamo il punto medio $C_1$ del nuovo intervallo $[A_1,B_1]$ e ripetiamo
+il procedimento indefinitamente. Quello che otteniamo sono due successioni
+$A_n$, $B_n$ con queste proprietà (che potrebbero essere dimostrate per induzione):
+\begin{enumerate}
+\item $A_n > B_n$, $B_n - A_n = (b-a)/2^n$;
+\item $A_n$ è crescente, $B_n$ è decrescente;
+\item $f(A_n)\le 0$, $f(B_n)\ge 0$.
+\end{enumerate}
+
+Essendo $A_n$ monotòna sappiamo che $A_n$ converge $A_n\to c$.
+Inoltre visto che $A_n \in [a,b]$ anche $c\in [a,b]$ (per la permanenza del
+segno delle successione $A_n-a$ e $b-A_n$).
+Passando al limite nell'uguaglianza $B_n = A_n + (b-a)/2^n$
+si ottiene che anche $B_n \to c$. Essendo $f$ sequenzialmente continua
+avremo
+\[
+f(A_n) \to f(c), \qquad
+f(B_n) \to f(c).
+\]
+Ma $f(A_n)\le 0$ e quindi per la permanenza del segno anche $f(c)\le 0$.
+D'altra parte $f(B_n) \ge 0$ e quindi $f(c)\ge 0$. Per dicotomia si
+ottiene dunque $f(c) = 0$, come volevamo dimostrare.
+\end{proof}
+
+%
+%
+\section{potenze e radici $n$-esime}
+
+\begin{definition}[potenza intera]
+\marginpar{potenza intera}
+\marginpar{$x^n$}
+Dato $x \in \RR$ possiamo definire la potenza $x^n$ per ogni
+$n\in \NN$ come l'unica funzione che soddisfa
+la seguente definizione per induzione (si vedano appunti di logica)
+\[
+\begin{cases}
+  x^0 = 1\\
+  x^{n+1} = x\cdot x^n.
+\end{cases}
+\]
+Per $x\in \RR\setminus\{0\}$ possiamo definire $x^n$ con $n\in \ZZ$, $n<0$
+come
+\[
+x^n = \frac{1}{x^{-n}}.
+\]
+\end{definition}
+
+In base alla definizione si ha $x^0 = 1$, $x^1=x$, $x^2=x\cdot x$,
+$x^3=x\cdot x \cdot x$ e così via. Dunque in generale
+$x^n$ è il prodotto di $n$ fattori tutti uguali a $x$.
+
+\begin{theorem}[proprietà delle potenze intere]
+Per ogni $x,y\in \RR$, $y\neq 0$ e per ogni $n,m \in \NN$
+valgono le seguenti proprietà:
+\begin{enumerate}
+  \item  $x^{n+m} = x^n \cdot x^m$,
+  \item $(x^n)^m = x^{n\cdot m}$,
+  \item $(x\cdot y)^n = x^n \cdot y^n$,
+  \item $\displaystyle \enclose{\frac{x}{y}}^n = \frac{x^n}{y^n}$.
+\end{enumerate}
+Le stesse proprietà valgono per $n,m \in\ZZ$ con $x\neq 0$.
+\end{theorem}
+%
+\begin{proof}
+Dimostriamo, come esempio, solamente la prima proprietà: $x^{n+m} = x^n \cdot x^m$.
+Fissato $m\in \NN$ procediamo per induzione su $n$.
+Se $n=0$ si ha $x^{0+m} = x^m = x^m \cdot 1 = x^m \cdot x^0$.
+Supponendo la proprietà sia stata verificata per $n$, verifichiamo
+che vale anche con $n+1$ al posto di $n$. Si ha infatti
+\[
+ x^{(n+1)+m} = x^{n+m+1} = x \cdot x^{n+m} = x \cdot x^n \cdot x^m
+  = x^{n+1} \cdot x^m.
+\]
+\end{proof}
+
+\begin{theorem}[invertibilità della funzione potenza]
+Per ogni $n\in \NN\setminus\{0\}$, la funzione
+\begin{align*}
+  f\colon [0,+\infty) &\to [0,+\infty)\\
+   x &\mapsto x^n
+\end{align*}
+è strettamente crescente e biettiva.
+Inoltre, se $n$ è dispari, la funzione
+\begin{align*}
+  f\colon \RR & \to \RR\\
+    x &\mapsto x^n
+\end{align*}
+è strettamente crescente e biettiva.
+\end{theorem}
+%
+\begin{proof}
+La funzione $f$ è strettamente crescente perché
+per l'assioma di monotonia del prodotto di numeri reali si
+osserva che
+se $x>y\ge 0$ allora $x^2 > y^2$, $x^3 > y^3$ e così via
+(la dimostrazione andrebbe formalizzata, al solito, utilizzando il principio di
+induzione).
+Essendo strettamente crescente $f$ è anche iniettiva.
+Per mostrare che $f\colon [0,+\infty) \to [0,+\infty)$ è suriettiva, consideriamo
+un qualunque $y\in[0,+\infty)$ e prendiamo la funzione $g(x)=f(x)-y$.
+Chiaramente $g(0) = 0^n - y = -y \le 0$. Se $y\le 1$ allora $g(1) = 1^n - y \ge 0$
+altrimenti, se $y>1$, si ha $y^n>y$ e quindi $g(y) = y^n-y \ge 0$.
+In ogni caso abbiamo verificato che esistono $a,b$ tali che $g(a)\le 0$ e $g(b)\ge 0$
+
+La funzione $g$ è sequenzialmente continua in base ai teoremi sui limiti
+della somma e del prodotto. Dunque possiamo applicare il teorema degli zeri
+per determinare l'esistenza di un $x\in[0,+\infty)$ tale che $g(x)=0$.
+Dunque $x$ risolve $f(x)=y$ e la surgettività è dimostrata.
+
+Se $n$ è dispari si ha $(-x)^n = -(x^n)$.
+In particolare per $x<0$ si ha $x^n<0$. Dunque se $x> y \ge 0$ si
+ha $-x < y \le 0$ e
+\[
+  (-x)^n = -x^n < -y^n \le 0.
+\]
+E' quindi facile verificare che la funzione $x^n$ anche definita
+su tutto $\RR$ risulta strettamente crescente e bigettiva.
+\end{proof}
+
+\begin{definition}[radice $n$-esima]
+Se $n\in \NN$ è pari e non nullo
+chiamiamo $\sqrt[n]{x}$ la funzione
+inversa di $x^n$ come funzione $[0,+\infty)\to [0,+\infty)$.
+Se $n\in \NN$ è dispari chiamiamo $\sqrt[n]{x}$
+la funzione inversa di $x^n$ come funzione $\RR \to \RR$.
+\end{definition}
+
+\begin{theorem}[proprietà della radice $n$-esima]
+\begin{enumerate}
+\item $\displaystyle \sqrt[nm]{a} = \sqrt[n]{\sqrt[m]{a}}$;
+\item $\displaystyle \sqrt[n]{a\cdot b} = \sqrt[n]{a}\sqrt[n]{b}$;
+\item $\displaystyle \sqrt[n]{\frac a b} = \frac{\sqrt[n]{a}}{\sqrt[n]{b}}$.
+\end{enumerate}
+\end{theorem}
+
+\begin{theorem}[disuguaglianza di Bernoulli]
+Se $x > -1$ e $n\in \NN$ si ha
+\[
+(1+x)^n \ge 1 + nx.
+\]
+\end{theorem}
+%
+\begin{proof}
+Lo dimostriamo per induzione su $n$. Per $n=0$, sostituendo si ottiene $1\ge 1$.
+Supponendo che sia verificata la disuguaglianza per un certo $n$:
+\[
+(1+x)^n \ge 1 + nx
+\]
+moltiplicando ambo i membri per $1+x > 0$ si ottiene
+\[
+(1+x)^n+1 \ge (1+x) (1+nx) = 1 + (n+1)x + n x^2
+\ge 1 + (n+1)x
+\]
+che è proprio quello che volevamo dimostrare.
+\end{proof}
+
+\begin{theorem}[limite della radice $n$-esima]
+Se $a>0$
+\[
+   \lim_{n\to +\infty} \sqrt[n]{a} = 1
+\]
+\end{theorem}
+%
+\begin{proof}
+Consideriamo innanzitutto il caso $a\ge 1$.
+Posto $x=\sqrt[n]{a}-1$ nella disuguaglianza di Bernoulli, si ha
+\[
+a
+= (1+x)^n
+\ge 1 + nx
+= 1 + n (\sqrt[n]{a}-1)
+\]
+da cui
+\[
+ \sqrt[n]{a} \le 1 + \frac{a-1}{n} \to 0.
+\]
+D'altra parte se $a\ge 1$ si ha $\sqrt[n]{a} \ge 1$
+e dal confronto tra limiti si ottiene la tesi.
+
+Se $a<1$ basta osservare che
+\[
+\sqrt[n]{a} = \frac{1}{\sqrt[n]{\frac 1 a}} \to 1
+\]
+per il caso precedente applicato con $1/a$ al posto di $a$.
+\end{proof}
+
+\begin{definition}[esponenziale]
+Per $a>1$ definiamo $\exp_a \colon \RR \to\RR$ come
+\[
+\exp_a(x) = \sup \left\{\sqrt[q]{a^p}\colon p\in \ZZ ,q\in \NN,\ q\neq 0,\ \frac{p}{q} < x\right\}.
+\]
+per $a=1$ definiamo $\exp_1(x)=1$ e per $0<a<1$ definiamo
+\[
+  \exp_a(x) = \exp_{\frac 1 a}(-x).
+\]
+\end{definition}
+
+\begin{theorem}[proprietà esponenziale]
+\begin{enumerate}
+\item se $a>1$ la funzione $\exp_a$ è strettamente crescente
+
+\end{enumerate}
+\end{theorem}
 
 \begin{comment}
-\section{radici $n$-esime}
-Fissato $y>0$ e $n\in \NN$, consideriamo la seguente successione
-definita per ricorrenza
-\[
-  \begin{cases}
-    a_0 = y\\
-    a_{k+1} = \frac{n-1}{n} a_k + \frac{y}{n a_k^{n-1}}.
-  \end{cases}
-\]
-\end{comment}
-
-
 \section{la funzione esponenziale}
 
 In base al criterio del rapporto (o della radice) è facile osservare che
@@ -1817,10 +2007,9 @@ Allora, per ogni $n>N$, si avrà
 Visto che $\eps(e-1)$ può essere reso arbitrariamente piccolo
 abbiamo dimostrato che $\enclose{1+\frac 1 n}^n \to e$.
 \end{proof}
-
+\end{comment}
 
 \begin{comment}
-
 Consideriamo la crescita di una popolazione (o di un capitale): sia $P(t)$ la popolazione al tempo $t$. La crescita nell'intervallo
 temporale $[t_1,t_2]$ è $P(t_2)-P(t_1)$.
 La velocità di crescita è $\frac{P(t_2)-P(t_1)}{t_2 - t_1}$ e il
@@ -1857,27 +2046,6 @@ il limite di tale successione a $x$ fissato, se esiste,
 rappresenterà
 l'aumento percentuale effettivo in una unità di tempo per una
 popolazione con tasso istantaneo di crescita pari a $x$.
-
-\begin{theorem}[disuguaglianza di Bernoulli]
-Se $x > -1$ e $n\in \NN$ si ha
-\[
-(1+x)^n \ge 1 + nx.
-\]
-\end{theorem}
-%
-\begin{proof}
-Lo dimostriamo per induzione su $n$. Per $n=0$, sostituendo si ottiene $1\ge 1$.
-Supponendo che sia verificata la disuguaglianza per un certo $n$:
-\[
-(1+x)^n \ge 1 + nx
-\]
-moltiplicando ambo i membri per $1+x > 0$ si ottiene
-\[
-(1+x)^n+1 \ge (1+x) (1+nx) = 1 + (n+1)x + n x^2
-\ge 1 + (n+1)x
-\]
-che è proprio quello che volevamo dimostrare.
-\end{proof}
 
 \begin{theorem}[successione di Nepero]
 La successione
