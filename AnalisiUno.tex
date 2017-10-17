@@ -1937,24 +1937,69 @@ per $a=1$ definiamo $\exp_1(x)=1$ e per $0<a<1$ definiamo
 \]
 \end{definition}
 
-\begin{theorem}[proprietà esponenziale]
+\begin{theorem}[funzione esponenziale]
+Per ogni $a>1$ esiste una unica funzione $f\colon \RR \to \RR$
+con le seguenti proprietà:
 \begin{enumerate}
-\item $\exp_a(x)\in \RR$ (è finito);
-\item se $a>1$ la funzione $\exp_a$ è strettamente crescente;
-\item se $a>1$
+\item $f$ è crescente;
+\item $f(1) = a$;
+\item per ogni $x,y\in \RR$
 \[
-  \exp_a(x) = \inf\left\{\sqrt[q]{a^p}\colon p\in \ZZ, q \in \NN\setminus\{0\},
-  \frac p q > x\right\};
+f(x+y) = f(x)\cdot f(y).
 \]
-\item $\exp_a(p/q) = \sqrt[q]{a^p}$ se $p\in \ZZ$, $q\in \NN\setminus\{0\}$;
-\item $\exp_a$ è sequenzialmente continua;
-\item $\exp_a(x+y) = \exp_a(x) \cdot \exp_a(y)$ per ogni $x,y\in \RR$.
 \end{enumerate}
+Tale funzione risulta inoltre essere
+strettamente crescente e
+sequenzialmente continua.
+Inoltre se $p\in \ZZ$ e $q\in \NN\setminus\{0\}$ risulta
+\[
+  f(p/q) = \sqrt[q]{a^p}.
+\]
 \end{theorem}
-
+%
 \begin{proof}
-Fissato $a>1$ consideriamo la funzione $f\colon \QQ \to \RR$ definita da
-$f(p/q) =  \sqrt[q]{a^p}$.
+Se $f\colon \RR \to \RR$ è una funzione con le proprietà richieste
+osserviamo che si deve avere $f(x) = f(0+x) = f(0)\cdot f(x)$.
+Dimostriamo innanzitutto che $f$ non si annulla mai.
+Infatti per ogni $x\in \RR$
+\[
+   a = f(1) = f(x+1-x) = f(x)\cdot f(1-x)
+\]
+e dunque se fosse $f(x)=0$ si avrebbe $a=0$ che abbiamo escluso per ipotesi.
+Possiamo anzi dire che $f$ non è mai negativa in quanto
+\[
+  f(x) = f(x/2 + x/2) = f(x/2)^2 \ge 0.
+\]
+Osserviamo anche che
+\[
+  f(x) = f(x+0) = f(x)\cdot f(0)
+\]
+da cui, dividendo per $f(x)$ si ottiene $f(0)=1$.
+E' anche facile verificare, per induzione, che
+per ogni $n\in \NN$ si ha
+\[
+ f(nx) = (f(x))^n
+\]
+infatti $f((n+1)x) = f(nx+x)=f(nx)\cdot f(x)$.
+In particolare se $n\in \NN$ si ha
+\[
+  f(n) = f(1)^n = a^n.
+\]
+Ma poi
+\[
+1=f(0) = f(x-x) = f(x)\cdot f(-x)
+\]
+e quindi $f(nx) = (f(x))^n$ per ogni $n\in \ZZ$.
+Se poi $p\in \ZZ$ e $q \in \NN\setminus\{0\}$ si ha
+\[
+ a^p = f(p) = f(q\cdot p/q) = f(p/q)^q
+\]
+da cui
+\begin{equation}\label{eq:def_pow_0}
+ f(p/q) = \sqrt[q]{a^p}.
+\end{equation}
+
+Dunque la funzione $f(x)$ è univocamente determinata per ogni $x\in \QQ$.
 Osserviamo che, per le proprietà delle radici, se $p/q = n/m$ allora
 \[
  \sqrt[m]{a^n}
@@ -1962,11 +2007,13 @@ Osserviamo che, per le proprietà delle radici, se $p/q = n/m$ allora
  = \sqrt[nq]{a^{np}}
  = \sqrt[q]{a^p}
 \]
-dunque la definizione di $f(x)$ è ben posta perché dipende
-solo da $x\in \QQ$
-e non da come $x$ viene rappresentato tramite frazioni equivalenti.
+e questo significa che $f$ può effettivamente essere definita
+coerentemente su tutto $\QQ$
+tramite
+la \eqref{eq:def_pow_0}.
 
-Verifichiamo ora che $f$ è strettamente crescente. Se $x,y \in \QQ$
+Verifichiamo ora che $f$ è strettamente crescente su $\QQ$.
+Se $x,y \in \QQ$
 con $x<y$ si avra $x=p/q$, $y=n/m$ con $pm < nq$ allora
 $a^{pm} < a^{nq}$ e quindi
 \[
@@ -1978,60 +2025,28 @@ f(x)
 = f(y).
 \]
 
-Inoltre per $x,y\in \QQ$ vale
-\[
-  f(x+y) = f(x)\cdot f(y)
-\]
-infatti
-posto $x=p/q$, $y=n/m$ si ha
-\begin{align*}
-f(x+y)
-&=a^{\frac{pm+nq}{qm}}
-=\sqrt[qm]{a^{pm+nq}}
-=\sqrt[qm]{a^{pm}\cdot a^{nq}}
-=\sqrt[qm]{a^{pm}}\cdot \sqrt[qm]{a^{nq}}\\
-&=\sqrt[q]{a^p}\cdot \sqrt[m]{a^n}
-=f(x)\cdot f(y).
-\end{align*}
-Analogamente
-\[
-f(-x) = \frac{1}{f(x)}
-\]
-in quanto
-\[
-f(-p/q)
- = \sqrt[q]{a^{-p}}
- = \sqrt[q]{\frac 1 {a^p}}
- = \frac{1}{\sqrt[q]{a^p}}
- = \frac{1}{f(p/q)}
-\]
-e quindi $f(x-y)=f(x)f(-y)=f(x)/f(y)$.
-
 Definiamo ora
 \begin{align*}
   A_x &= \{t\in \QQ\colon t<x\} = \QQ \cap (-\infty,x),
   \\
   B_x &= \{t\in \QQ\colon t>x\} = \QQ \cap (x,+\infty).
 \end{align*}
-Ovviamente $A_x < B_x$ (nel senso che per ogni $\alpha \in A$ e per ogni $\beta \in B$ si ha $\alpha < \beta$). Essendo $f$ strettamente crescente si
-ottiene di conseguenza che $f(A_x) < f(B_x)$
-e quindi $\sup f(A_x) \le \inf f(B_x)$.
+Ovviamente $A_x < x < B_x$ (nel senso che per ogni $\alpha \in A$
+e per ogni $\beta \in B$ si ha $\alpha < x < \beta$).
+Se vogliamo che $f$ sia crescente si dovrà quindi avere
+$f(A_x) \le f(x) \le f(B_x)$.
 
-Osserviamo che per definizione abbiamo posto
-\[
- \exp_a(x) = \sup f(A_x)
-\]
-e che una delle proprietà che vogliamo dimostrare è
-$\exp_a(x) = \inf f(B_x)$.
+Vogliamo ora mostrare che $\sup f(A_x) = \inf f(B_x)$
+cosicché $f(x)$ sarà univocamente determinata
+per ogni $x\in \RR$ da:
+\begin{equation}\label{eq:def_pow_2}
+  f(x) = \sup f(A_x) = \inf f(B_x).
+\end{equation}
+(ricordiamo infatti che su $\QQ$ $f$ è già stata univocamente determinata
+e $A_x$ e $B_x$ sono sottoinsiemi di $\QQ$).
 
-Vogliamo quindi mostrare che $\sup f(A_x) = \inf f(B_x)$.
 Dato qualunque $x\in \RR$ esiste $k\in \NN$ tale che $x < k$.
-Essendo $k\in B_x$ e $f(x) < f(k)$
-otteniamo immediatamente che
-\[
-  \exp_a(x) = \sup f(A_x) \le \inf f(B_x) \le f(k) = a^k < +\infty.
-\]
-Inoltre scelto comunque $n \in \NN$, per la densità dei razionali
+Scelto comunque $n \in \NN$, per la densità dei razionali
 esistono $y,z\in \QQ$ tali che
 \[
   y < x < z < k
@@ -2050,54 +2065,67 @@ Chiaramente $y\in A_x$ e $z\in B_x$ dunque
 Ricordiamo ora che $f(1/n) = \sqrt[n]{a} \to 1$ (teorema precedente)
 dunque il lato destro della precedente disuguaglianza può essere reso
 arbitrariamente piccolo e quindi, come voluto,
-$\inf B_x = \sup A_x$.
+dovrà essere $\inf B_x = \sup A_x$.
 
-In particolare se $x\in \QQ$ e $y<x<z$ allora $f(y)< f(x) < f(z)$ e quindi
-\[
- x \in \QQ \implies  \inf B_x = f(x) = \sup A_x
-\]
-che significa che $\exp_a(p/q) = \sqrt[q]{a^p}$.
-
-Mostriamo ora che $\exp_a$ è strettamente crescente.
-Presi $x,y\in \RR$ con $x<y$ esistono $z,w\in \QQ$ tale che $x<z<w<y$.
+Mostriamo ora che $f(x)$ deve essere strettamente crescente su tutto $\RR$,
+ricordando
+che abbiamo già verificato che $f$ è strettamente crescente su $\QQ$.
+Ma presi $x,y\in \RR$ con $x<y$ esistono $z,w\in \QQ$ tale che $x<z<w<y$.
 Allora $z\in B_x$ e $w\in A_y$, dunque
 \[
-  \exp_a(x) = \inf f(B_x) \le f(z) < f(w) \le \sup A_y = \exp_a(y).
+  f(x) = \inf f(B_x) \le f(z) < f(w) \le \sup A_y = f(y).
 \]
 
-Per mostrare che $\exp_a$ è sequenzialmente continua dobbiamo
+Per mostrare che $f(x)$ è sequenzialmente continua dobbiamo
 considerare una generica successione convergente $x_n \to x$
-e mostrare che $\exp_a(x_n)\to \exp_a(x)$.
-Dato $\eps>0$ essendo $\exp_a(x) = \sup f(A_x)$ deve esistere $t<x$
-tale che $f(t) > \exp_a(x) -\eps$. Ma essendo $x_n\to x$ deve anche
+e mostrare che $f(x_n)\to f(x)$.
+Dato $\eps>0$ essendo $f(x) = \sup f(A_x)$ deve esistere $t<x$
+tale che $f(t) > f(x) -\eps$. Ma essendo $x_n\to x$ deve anche
 esistere $N\in \NN$ tale che per ogni $n>N$ si ha $x_n>t$ e quindi
-$f(x_n) > f(t) > \exp_a(x) -\eps$.
-Analogamente essendo $\exp_a(x) = \inf f(B_x)$ deve esistere $s>x$
-tale che $f(s) < \exp_a(x) + \eps$. Ma essendo $x_n\to x$ deve
+$f(x_n) > f(t) > f(x) -\eps$.
+Analogamente essendo $f(x) = \inf f(B_x)$ deve esistere $s>x$
+tale che $f(s) < f(x) + \eps$. Ma essendo $x_n\to x$ deve
 esistere $M\in \NN$ tale che per ogni $n>M$ si ha $x_n<s$
-e quindi $f(x_n) < f(s) < \exp_a(x) + \eps$. Risulta quindi
-verificata la definizione di limite $\exp_a(x_n)\to \exp_a(x)$.
+e quindi $f(x_n) < f(s) < f(x) + \eps$. Risulta quindi
+verificata la definizione di limite $f(x_n)\to f(x)$.
 
 La relazione
 \[
-  \exp_a(x+y) = \exp_a(x) \cdot \exp_a(y)
+  f(x+y) = f(x) \cdot f(y)
 \]
-è verificata se $x,y \in \QQ$ (l'abbiamo già osservato).
-Ma se $x,y\in \RR$ per densità esisteranno $x_n, y_n\in \QQ$ tali
+è verificata se $x,y \in \QQ$ (abbiamo costruito $f$ su $\QQ$ in modo
+che questa relazione fosse valida).
+Dobbiamo però verificare che tale proprietà è vera anche per ogni $x,y \in \RR$.
+Ma se $x,y \in \RR$ per densità esisteranno $x_n, y_n\in \QQ$ tali
 che $x_n\to x$ e $y_n\to y$. Allora passando al limite
 nella relazione
 \[
   \exp_a(x_n+y_n) = \exp_a(x_n)\cdot \exp_a(y_n)
 \]
 si ottiene il risultato voluto.
-
-Abbiamo fatto tutte le dimostrazioni nel caso $a>1$. Nel caso
-$a<1$ i risultati si ottengono immediatamente usando la definizione
-\[
-  \exp_a(x) = \exp_{\frac 1 a}(-x)
-\]
-e riconducendosi quindi al caso $a>1$.
 \end{proof}
+
+\begin{definition}[potenze con esponente reale]
+Per ogni $a>1$ e $x\in \RR$ definiamo $a^x$ come
+l'unica funzione definita dal teorema precedente.
+Per $a=1$ definiamo $a^x = 1^x = 1$ per ogni $x\in \RR$.
+Per $0<a<1$ definiamo $a^x = (1/a)^{-x}$.
+\end{definition}
+
+Osserviamo che abbiamo dato due diverse definizioni di $x^y$.
+La prima è quella delle potenze intere, valida se $x\in \RR$ e $y\in \ZZ$
+e se $x\neq 0$ quando $y<0$. La seconda, quella delle potenze con esponente
+reale è valida per $x>0$ e $y\in \RR$. Il teorema precedente ci garantisce
+che le due definizioni coincidono quando $x>0$ e $y\in \ZZ$.
+
+\section{serie}
+
+Data una successione $a_n$ possiamo considerare la successione
+delle \myemph{somme parziali}
+\[
+  S_n = \sum_{k=0}^n a_k$.
+\]
+Potremmo scrivere più brevemente $S_n = \sum a_n$.  
 
 \begin{comment}
 \section{la funzione esponenziale}
