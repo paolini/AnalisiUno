@@ -307,8 +307,12 @@ Osserviamo che dal punto di vista geometrico
 $\abs{x-y}$ rappresenta la \emph{distanza} tra i punti
 $x$ e $y$ sulla retta reale.
 
+Come applicazione dell'assioma di completezza possiamo mostrare l'esistenza
+della \myemph{radice quadrata}.
+Più avanti, con qualche strumento in più, rivedremo più in generale
+la costruzione della radice $n$-esima.
+
 \begin{theorem}[radice quadrata]
-\marginpar{radice quadrata}
 Dato $y\ge 0$ esiste un unico $x\ge 0$ tale che $x^2=y$.
 Tale $x$ verrà denotato con $\sqrt y$, \emph{radice quadrata} di $y$.
 \marginpar{$\sqrt{\cdot}$}
@@ -1443,7 +1447,12 @@ dice essere
 \end{definition}
 
 Si osservi che se $f\colon A \to \RR$ è costante allora esiste $c$ tale che
-$f(x)=c$ per ogni $x\in A$.
+$f(x)=c$ per ogni $x\in A$. Si osservi anche che ogni funzione strettamente monotona è anche iniettiva. Si osservi infine (fare un esempio!) che esistono funzioni che non rientrano in nessuna delle categorie sopra elencate (cioè che non sono né crescenti né decrescenti).
+
+Si faccia attenzione alla terminologia. In alcuni testi (in particolare nei testi anglosassoni) si utilizza il termine \emph{crescente} con il significato di \emph{strettamente crescente} e si usa la dizione \emph{non decrescente} per indicare il concetto che noi abbiamo definito con \emph{crescente}. In
+effetti con le nostre definizioni una funzione crescente può essere costante
+e quindi non crescere affatto! E' questo uno dei casi in cui il termine utilizzato nelle definizioni non corrisponde esattamente alla dizione utilizzata
+nel linguaggio comune.
 
 Le successioni sono funzioni $\NN \to \RR$ dunque le precedenti definizioni
 si applicano anche alle successioni.
@@ -1697,20 +1706,20 @@ ovvero la funzione $a\colon \NN \to [0,1]$ non è suriettiva.
 \begin{definition}[continuità sequenziale]
 \marginpar{continuità sequenziale}
 Una funzione $f\colon A \subset \RR \to \RR$ si dice essere
-\emph{sequenzialmente continua} se per ogni successione
+\emph{(sequenzialmente) continua} se per ogni successione
 convergente $a_n \to a$ con $a_n\in A$, $a \in A$ si ha
 $f(a_n)\to f(a)$.
 \end{definition}
 
-Quando discuteremo più in dettaglio i limiti di funzione
-daremo la definizione di \emph{funzione continua} e verificheremo
-che la continuità sequenziale è in effetti equivalente alla continuità
-usuale.
-
+Nel seguito ometteremo l'avverbio "sequenzialmente" e parleremo
+più semplicemente di \emph{funzioni continue}. Più avanti daremo
+infatti una definizione ``più naturale'' di funzione continua
+e dimostreremo che nel nostro ambito
+la contintuità sequenziale è equivalente alla continuità.
 
 \begin{theorem}[degli zeri]
 Sia $I\subset \RR$ un intervallo, $f\colon I \to \RR$ una funzione
-sequenzialmente continua, $a,b\in I$ tali che $f(a)\le 0$ e $f(b)\ge 0$.
+continua, $a,b\in I$ tali che $f(a)\le 0$ e $f(b)\ge 0$.
 Allora esiste $c\in I$ tale che $f(c)=0$.
 \end{theorem}
 
@@ -1744,7 +1753,7 @@ Essendo $A_n$ monotòna sappiamo che $A_n$ converge $A_n\to c$.
 Inoltre visto che $A_n \in [a,b]$ anche $c\in [a,b]$ (per la permanenza del
 segno delle successione $A_n-a$ e $b-A_n$).
 Passando al limite nell'uguaglianza $B_n = A_n + (b-a)/2^n$
-si ottiene che anche $B_n \to c$. Essendo $f$ sequenzialmente continua
+si ottiene che anche $B_n \to c$. Essendo $f$ continua
 avremo
 \[
 f(A_n) \to f(c), \qquad
@@ -1755,9 +1764,125 @@ D'altra parte $f(B_n) \ge 0$ e quindi $f(c)\ge 0$. Per dicotomia si
 ottiene dunque $f(c) = 0$, come volevamo dimostrare.
 \end{proof}
 
+\begin{corollary}[proprietà dei valori intermedi]
+Sia $I\subset \RR$ un intervallo e $f\colon I \to \RR$ una
+funzione continua.
+Allora se $f$ assume due valori $y_1$ e $y_2$ allora $f$
+assume anche tutti i valori intermedi tra $y_1$ e $y_2$.
+Detto altrimenti: una funzione continua
+manda intervalli in intervalli.
+\end{corollary}
 %
+\begin{proof}
+Se $y_1$ e $y_2$ sono valori assunti da $f$ significa
+che esistono $x_1,x_2 \in I$ tali che $f(x_1)= y_1$ e $f(x_2)=y_2$.
+Allora scelto $y$ si consideri la funzione $g(x) = f(x)-y$.
+Se $y$ è intermedio tra $y_1$ e $y_2$ la funzione $g$ assumerà
+segni opposti in $x_1$ e $x_2$ e dunque, per il teorema degli zeri,
+dovrà esserci un punto $x$ in cui $g$ si annulla. In tale punto
+si avrà dunque $f(x)=y$, come volevamo dimostrare.
+\end{proof}
+
+\begin{exercise}
+Si dimostri che se $I$ è un intervallo di $\RR$ ogni funzione $f\colon I \to \RR$
+iniettiva e continua è strettamente monotona.
+\end{exercise}
+
+\begin{lemma}[caratterizzazione delle funzioni crescenti continue]
+Sia $I\subset\RR$ un intervallo e sia $f\colon I \to \RR$ una
+funzione crescente. Allora sono equivalenti
+\begin{enumerate}
+\item $f$ è continua;
+\item per ogni $x\in I$
+  \begin{enumerate}
+    \item se $x\neq \inf I$ allora $f(x) = \sup f(\{y \in I\colon y<x\})$,
+    \item e se $x\neq \sup I$ allora $f(x) = \inf f(\{y \in I \colon y>x\})$.
+  \end{enumerate}
+\end{enumerate}
+\end{lemma}
 %
+\begin{proof}
+Sia $A_x = \{y \in I\colon y<x \}$ e $B_x = \{y\in I \colon y>x\}$.
+Se $f$ è crescente risulta sempre
+\[
+f(A_x) \le f(x) \le f(B_x)
+\]
+in quanto se $a\in A_x$ e $b\in B_x$ allora $a<x<b$ e quindi $f(a)\le f(x) \le f(b)$. Dunque
+\[
+\sup f(A_x) \le f(x) \le f(B_x).
+\]
+
+Supponiamo che $f$ sia continua e consideriamo un
+qualunque $x\in I$.
+Se $x\neq \inf I$ dobbiamo mostrare che $f(A_x)\ge f(x)$.
+La successione $x_n = x - 1/n$ sta in $A_x$ per $n$
+sufficientemente grande, dunque $\sup A_x \ge f(x_n)$.
+Ma visto che $f(x_n)\to f(x)$ per confronto si ottiene $\sup A_x \ge f(x)$.
+Analogamente se $x\neq \sup I$ prendendo la successione $x_n = x+1/n$
+si trova che $\inf B_x \le f(x)$. Dunque $\sup f(A_x) = f(x) = \inf f(B_x)$ come volevamo dimostrare.
+
+Supponiamo ora di sapere che
+per ogni $x \in I$, tolti gli estremi di $I$, si abbia
+$\sup f(A_x) = f(x) = \inf f(B_x)$.
+Per ogni $\eps>0$, per la caratterizzazione di $\sup$ e $\inf$
+dovranno allora esistere $y\in A_x$ e $z\in B_x$ tali che
+$f(x) = \sup f(A_x) < f(y) +\eps$ e $f(x) = \inf f(B_x) > f(z)-\eps$.
+Se $x_n\in I$ e $x_n \to x$ per $n$ abbastanza grande si dovrà avere
+$y < x_n < z$ e quindi, per la monotonia di $f$: $f(y)\le f(x_n)\le f(z)$
+da cui
+\[
+  f(x)-\eps < f(x_n) < f(x)+\eps.
+\]
+Significa allora che $f(x_n)\to f(x)$.
+Se $x$ fosse un estremo di $I$, ad esempio se $x=\inf I$, si ripete
+lo stesso ragionamento ma solo sul lato destro di $x$: per ogni $\eps>0$
+esisterà $z\in B_x$ tale che $f(x) = \inf f(B_x) \ge f(z)-\eps$.
+Ma se $x_n\in I$ dovrà essere $x_n\ge x$ (in quanto $x$ è l'estremo inferiore
+di $I$) e quindi si avrà comunque
+\[
+  f(x) \le f(x_n) < f(x) + \eps
+\]
+da cui segue, per l'arbitrarietà di $\eps$, $f(x_n)\to f(x)$.
+\end{proof}
+
+\begin{theorem}[continuità della funzione inversa]
+Sia $I\subset \RR$ un intervallo e sia $f\colon I \to \RR$ una
+funzione continua strettamente crescente.
+Allora posto $J=f(I)$ anche $J$ è un intervallo, $f\colon I\to J$ è
+invertibile e $f^{-1}\colon J\to I$ è anch'essa
+continua e strettamente crescente.
+\end{theorem}
+%
+\begin{proof}
+Che $J=f(I)$ sia un intervallo segue direttamente dal teorema dei valori intermedi, essendo $f$ continua. Essendo $f$ strettamente
+crescente $f$ risulta essere iniettiva e quindi $f\colon I \to J$ è biettiva.
+Esiste dunque la funzione inversa $f^{-1}\colon J \to I$.
+
+Mostriamo ora che la stretta monotonia di $f^{-1}$ segue dalla stretta
+monotonia di $f$. Presi $y_1 < y_2$ in $J$ poniamo $x_1=f^{-1}(y_1)$ e $x_2=f^{-1}(y_2)$ cosicché $y_1=f(x_1)$ e $y_2=f(x_2)$.
+Se per assurdo fosse $f^{-1}(y_1)\ge f^{-1}(y_2)$ si avrebbe $x_1 \ge x_2$
+e quindi $f(x_1)\ge f(x_2)$ cioè $y_1\ge y_2$, contro l'ipotesi $y_1 < y_2$.
+
+Per mostrare che $f^{-1}$ è continua utilizziamo
+il lemma precedente.
+Dato $y \in J$ con $y\neq \inf J$, consideriamo l'insieme
+$A'_y=\{t \in J\colon t<y\}$.
+Essendo $f$ monotona e invertibile,
+posto $x=f^{-1}(y)$ e $A_x=\{ s\in I\colon s<x\}$
+si ha $f^{-1}(A'_y) = A_x$ e chiaramente $\sup A_x = x$.
+Dunque $\sup f^{-1}(A'y) = x = f^{-1}(y)$. In maniera analoga
+si dimostra che $\inf f^{-1}(\{t\in J \colon t>y\}) = f^{-1}(y)$
+quando $y\neq \sup J$. Dunque $f^{-1}$ è continua,
+come volevamo dimostrare.
+\end{proof}
+
+%%%%%%%%%%%%%
+%%%%%%%%%%%%%
+
 \section{potenze e radici $n$-esime}
+
+%%%%%%%%%%%%%
+%%%%%%%%%%%%%
 
 \begin{definition}[potenza intera]
 \marginpar{potenza intera}
@@ -1771,11 +1896,12 @@ la seguente definizione per induzione (si vedano appunti di logica)
   x^{n+1} = x\cdot x^n.
 \end{cases}
 \]
-Per $x\in \RR\setminus\{0\}$ possiamo definire $x^n$ con $n\in \ZZ$, $n<0$
+Per $x\in \RR\setminus\{0\}$ possiamo anche definire $x^{-n}$ con $n\in \NN$
 come
 \[
-x^n = \frac{1}{x^{-n}}.
+x^{-n} = \frac{1}{x^n}.
 \]
+Risulta quindi che $x^n$ è definito per ogni $n\in \ZZ$ se $x\neq 0$.
 \end{definition}
 
 In base alla definizione si ha $x^0 = 1$, $x^1=x$, $x^2=x\cdot x$,
@@ -1791,7 +1917,7 @@ valgono le seguenti proprietà:
   \item $(x\cdot y)^n = x^n \cdot y^n$;
   \item $\displaystyle \enclose{\frac{x}{y}}^n = \frac{x^n}{y^n}$ se $y\neq 0$.
 \end{enumerate}
-Le stesse proprietà valgono per $n,m \in\ZZ$ con $x\neq 0$.
+Le stesse proprietà valgono per $n,m \in\ZZ$ se $x\neq 0$, $y\neq 0$.
 \end{theorem}
 %
 \begin{proof}
@@ -1835,10 +1961,15 @@ Chiaramente $g(0) = 0^n - y = -y \le 0$. Se $y\le 1$ allora $g(1) = 1^n - y \ge 
 altrimenti, se $y>1$, si ha $y^n>y$ e quindi $g(y) = y^n-y \ge 0$.
 In ogni caso abbiamo verificato che esistono $a,b$ tali che $g(a)\le 0$ e $g(b)\ge 0$
 
-La funzione $g$ è sequenzialmente continua in base ai teoremi sui limiti
-della somma e del prodotto. Dunque possiamo applicare il teorema degli zeri
+Osserviamo che, per il teorema sul limite del prodotto,
+se $x_k \to x$ allora $x_k^2 = x_k\cdot x_k \to x\cdot x = x^2$.
+Questo dimostra che la funzione $x^2$ è (sequenzialmente) continua.
+Per induzione si dimostra che $x^n$ è continua per ogni $n\in \NN$.
+Per il teorema sul limite della differenza risulta che anche $g$ è
+continua.
+Dunque possiamo applicare il teorema degli zeri
 per determinare l'esistenza di un $x\in[0,+\infty)$ tale che $g(x)=0$.
-Dunque $x$ risolve $f(x)=y$ e la surgettività è dimostrata.
+Visto che $x$ risolve l'equazione $f(x)=y$ e la surgettività è dimostrata.
 
 Se $n$ è dispari si ha $(-x)^n = -(x^n)$.
 In particolare per $x<0$ si ha $x^n<0$. Dunque se $x> y \ge 0$ si
@@ -1846,8 +1977,8 @@ ha $-x < y \le 0$ e
 \[
   (-x)^n = -x^n < -y^n \le 0.
 \]
-E' quindi facile verificare che la funzione $x^n$ anche definita
-su tutto $\RR$ risulta strettamente crescente e bigettiva.
+E' quindi facile verificare che la funzione $x^n$
+risulta strettamente crescente e bigettiva su tutto $\RR$.
 \end{proof}
 
 \begin{definition}[radice $n$-esima]
@@ -1924,18 +2055,8 @@ Se $a<1$ basta osservare che
 per il caso precedente applicato con $1/a$ al posto di $a$.
 \end{proof}
 
-\begin{definition}[esponenziale]
-Per $a>1$ e $x\in \RR$ definiamo
-\[
-\exp_a(x) = \sup \left\{\sqrt[q]{a^p}\colon
-  p\in \ZZ ,q\in \NN\setminus\{0\},
-  \ \frac{p}{q} < x\right\}.
-\]
-per $a=1$ definiamo $\exp_1(x)=1$ e per $0<a<1$ definiamo
-\[
-  \exp_a(x) = \exp_{\frac 1 a}(-x).
-\]
-\end{definition}
+Siamo ora intenzionati a definire le potenze $x^y$ con esponente $y\in \RR$.
+La funzione $f(x) = a^x$ si ottiene dal seguente teorema.
 
 \begin{theorem}[funzione esponenziale]
 Per ogni $a>1$ esiste una unica funzione $f\colon \RR \to \RR$
@@ -1948,19 +2069,19 @@ con le seguenti proprietà:
 f(x+y) = f(x)\cdot f(y).
 \]
 \end{enumerate}
-Tale funzione risulta inoltre essere
+Tale funzione risulta inoltre essere positiva,
 strettamente crescente e
-sequenzialmente continua.
-Inoltre se $p\in \ZZ$ e $q\in \NN\setminus\{0\}$ risulta
+continua, soddisfa la relazione $f(-x)= 1/f(x)$ e
+se $p\in \ZZ$ e $q\in \NN\setminus\{0\}$ risulta
 \[
-  f(p/q) = \sqrt[q]{a^p}.
+  f\enclose{\frac p q} = \sqrt[q]{a^p}.
 \]
 \end{theorem}
 %
 \begin{proof}
 Se $f\colon \RR \to \RR$ è una funzione con le proprietà richieste
 osserviamo che si deve avere $f(x) = f(0+x) = f(0)\cdot f(x)$.
-Dimostriamo innanzitutto che $f$ non si annulla mai.
+Dimostriamo innanzitutto che $f$ non si può annullare mai.
 Infatti per ogni $x\in \RR$
 \[
    a = f(1) = f(x+1-x) = f(x)\cdot f(1-x)
@@ -1989,10 +2110,10 @@ Ma poi
 \[
 1=f(0) = f(x-x) = f(x)\cdot f(-x)
 \]
-e quindi $f(nx) = (f(x))^n$ per ogni $n\in \ZZ$.
-Se poi $p\in \ZZ$ e $q \in \NN\setminus\{0\}$ si ha
+e quindi $f(-x)=1/f(x)$ e quindi $f(nx) = (f(x))^n$ per ogni $n\in \ZZ$.
+In particolare se $p\in \ZZ$ e $q \in \NN\setminus\{0\}$ si ha
 \[
- a^p = f(p) = f(q\cdot p/q) = f(p/q)^q
+ a^p = f(p) = f(q\cdot p/q) = (f(p/q))^q
 \]
 da cui
 \begin{equation}\label{eq:def_pow_0}
@@ -2012,7 +2133,7 @@ coerentemente su tutto $\QQ$
 tramite
 la \eqref{eq:def_pow_0}.
 
-Verifichiamo ora che $f$ è strettamente crescente su $\QQ$.
+Verifichiamo ora che $f$ deve essere strettamente crescente su $\QQ$.
 Se $x,y \in \QQ$
 con $x<y$ si avra $x=p/q$, $y=n/m$ con $pm < nq$ allora
 $a^{pm} < a^{nq}$ e quindi
@@ -2034,9 +2155,11 @@ Definiamo ora
 Ovviamente $A_x < x < B_x$ (nel senso che per ogni $\alpha \in A$
 e per ogni $\beta \in B$ si ha $\alpha < x < \beta$).
 Se vogliamo che $f$ sia crescente si dovrà quindi avere
-$f(A_x) \le f(x) \le f(B_x)$.
+$f(A_x) \le f(x) \le f(B_x)$ da cui in particolare
+$\sup f(A_x) \le f(x) \le \inf f(B_x)$.
 
-Vogliamo ora mostrare che $\sup f(A_x) = \inf f(B_x)$
+Vogliamo ora mostrare che deve essere
+$\sup f(A_x) = \inf f(B_x)$
 cosicché $f(x)$ sarà univocamente determinata
 per ogni $x\in \RR$ da:
 \begin{equation}\label{eq:def_pow_2}
@@ -2051,7 +2174,7 @@ esistono $y,z\in \QQ$ tali che
 \[
   y < x < z < k
 \]
-e $z-y< \frac 1 n$. Allora si avrà
+e tali che $z-y< \frac 1 n$. Allora si avrà
 \begin{align*}
   0 \le f(z) - f(y)
   &= f(y)\cdot\enclose{\frac{f(z)}{f(y)}-1}
@@ -2064,7 +2187,8 @@ Chiaramente $y\in A_x$ e $z\in B_x$ dunque
 \]
 Ricordiamo ora che $f(1/n) = \sqrt[n]{a} \to 1$ (teorema precedente)
 dunque il lato destro della precedente disuguaglianza può essere reso
-arbitrariamente piccolo e quindi, come voluto,
+minore di qualunque $\eps>0$
+e quindi, come voluto,
 dovrà essere $\inf B_x = \sup A_x$.
 
 Mostriamo ora che $f(x)$ deve essere strettamente crescente su tutto $\RR$,
@@ -2076,41 +2200,54 @@ Allora $z\in B_x$ e $w\in A_y$, dunque
   f(x) = \inf f(B_x) \le f(z) < f(w) \le \sup A_y = f(y).
 \]
 
-Per mostrare che $f(x)$ è sequenzialmente continua dobbiamo
+Il teorema di caratterizzazione delle funzioni monotone e continue
+ci garantisce che le condizione $f(x) = \sup A_x$ e $f(x)= \inf B_x$
+garantiscono la continuità di $f$.
+
+\begin{comment}
+Per mostrare che $f(x)$ è continua dobbiamo
 considerare una generica successione convergente $x_n \to x$
 e mostrare che $f(x_n)\to f(x)$.
 Dato $\eps>0$ essendo $f(x) = \sup f(A_x)$ deve esistere $t<x$
 tale che $f(t) > f(x) -\eps$. Ma essendo $x_n\to x$ deve anche
-esistere $N\in \NN$ tale che per ogni $n>N$ si ha $x_n>t$ e quindi
+esistere $N\in \NN$ tale che per ogni $n>N$ si abbia $x_n>t$ e quindi
 $f(x_n) > f(t) > f(x) -\eps$.
 Analogamente essendo $f(x) = \inf f(B_x)$ deve esistere $s>x$
 tale che $f(s) < f(x) + \eps$. Ma essendo $x_n\to x$ deve
-esistere $M\in \NN$ tale che per ogni $n>M$ si ha $x_n<s$
+esistere $M\in \NN$ tale che per ogni $n>M$ si abbia $x_n<s$
 e quindi $f(x_n) < f(s) < f(x) + \eps$. Risulta quindi
 verificata la definizione di limite $f(x_n)\to f(x)$.
+\end{comment}
 
-La relazione
+Infine, la relazione
 \[
   f(x+y) = f(x) \cdot f(y)
 \]
 è verificata se $x,y \in \QQ$ (abbiamo costruito $f$ su $\QQ$ in modo
 che questa relazione fosse valida).
-Dobbiamo però verificare che tale proprietà è vera anche per ogni $x,y \in \RR$.
 Ma se $x,y \in \RR$ per densità esisteranno $x_n, y_n\in \QQ$ tali
 che $x_n\to x$ e $y_n\to y$. Allora passando al limite
 nella relazione
 \[
-  \exp_a(x_n+y_n) = \exp_a(x_n)\cdot \exp_a(y_n)
+  f(x_n+y_n) = f(x_n)\cdot f(y_n)
 \]
-si ottiene il risultato voluto.
+sfruttando la continuità di $f$ si ottiene il risultato voluto.
 \end{proof}
 
 \begin{definition}[potenze con esponente reale]
-Per ogni $a>1$ e $x\in \RR$ definiamo $a^x$ come
+Sia $a\in \RR$ e $x\in \RR$.
+\marginpar{$a^x$}
+Se $a>1$ definiamo $a^x$ come
 l'unica funzione definita dal teorema precedente.
 Per $a=1$ definiamo $a^x = 1^x = 1$ per ogni $x\in \RR$.
 Per $0<a<1$ definiamo $a^x = (1/a)^{-x}$.
 \end{definition}
+
+\begin{exercise}
+Si dimostri che $a^{xy} = (a^x)^y$
+e $(a\cdot b)^x = a^x \cdot b^x$.
+(sfruttare l'unicità data dal teorema della funzione esponenziale).
+\end{exercise}
 
 Osserviamo che abbiamo dato due diverse definizioni di $x^y$.
 La prima è quella delle potenze intere, valida se $x\in \RR$ e $y\in \ZZ$
@@ -2118,14 +2255,151 @@ e se $x\neq 0$ quando $y<0$. La seconda, quella delle potenze con esponente
 reale è valida per $x>0$ e $y\in \RR$. Il teorema precedente ci garantisce
 che le due definizioni coincidono quando $x>0$ e $y\in \ZZ$.
 
+\begin{theorem}[limite dell'esponenziale]
+Se $a>1$:
+\[
+  x_n \to +\infty \implies a^{x_n} \to +\infty
+\]
+mentre
+\[
+  x_n \to -\infty \implies a^{x_n} \to 0.
+\]
+\end{theorem}
+%
+\begin{proof}
+La disuguaglianza di Bernoulli garantisce che
+\[
+  a^n = (1+(a-1))^n \ge 1 + n(a-1).
+\]
+Ma allora se $x_n \to +\infty$
+\[
+  a^{x_n} \ge a^{\lfloor x_n \rfloor} \ge 1 + \lfloor x_n \rfloor (a-1)
+  \ge 1 + (x_n-1)\cdot(a-1)
+  \to +\infty.
+\]
+Se $x_n \to -\infty$ allora $-x_n \to +\infty$ ed essendo
+$a^{-x_n} = 1/ a^{x_n}$ si ottiene il risultato voluto.
+\end{proof}
+
+\section{il logaritmo}
+Fissato $a>1$ consideriamo la funzione esponenziale
+$f\colon \RR \to \RR$, $f(x) = a^x$.
+Sappiamo che $f$, essendo strettamente crescente, è iniettiva.
+Il teorema sulla funzione esponenziale ci dice che $f(x)>0$ e quindi $f(\RR) \subset (0,+\infty)$. Visto però che $a^n\to +\infty$ e $a^{-n} \to 0$ scopriamo che $\sup f(\RR)=+\infty$ e $\inf f(\RR)=0$.
+Per la continuità di $f$ risulta però che $f(\RR)$ sia un intervallo
+e dunque necessariamente $f(\RR) = (0,+\infty)$.
+Dunque $f\colon \RR \to (0,+\infty)$ è biettiva.
+Lo stesso vale nel caso $0<a<1$ (semplicemente per il fatto che $a^x = (1/a)^{-x}$).
+
+\begin{definition}[logaritmo]
+Per $a>0$, $a\neq 1$ definiamo $\log_a\colon (0,+\infty)\to \RR$,
+chiamato \myemph{logaritmo in base} $a$, la funzione inversa di $a^x$.
+Si ha dunque
+\[
+  \log_a x = y \iff a^y = x.
+\]
+\end{definition}
+
+\begin{theorem}[proprietà del logaritmo]
+Se $a>0$, $a\neq 1$
+\begin{enumerate}
+  \item $\log_a(x\cdot y)= \log_a x + \log_a y$;
+  \item $\log_a(x^y) = y \log_a (x)$;
+  \item $\log_a(1) = 0$, $\log_a(a)=1$;
+  \item se $a>1$ la funzione $\log_a(x)$ è strettamente crescente,
+  se $0<a<1$ è strettamente decrescente;
+  \item $\log_a(x)$ è una funzione continua;
+  \item se $x_n \to +\infty$ allora $\log_a(x_n)\to +\infty$;
+  \item se $x_n \to 0$, $x_n>0$ allora $\log_a(x_n)\to -\infty$.
+\end{enumerate}
+%
+\begin{proof}
+Tutte queste proprietà si ricavano direttamente dalle analoghe proprietà
+dell'esponenziale.
+\end{proof}
+\end{theorem}
+
+\section{la costante di Nepero}
+
+\begin{definition}[costante di Nepero]
+Definiamo la \myemph{costante di Nepero}
+\[
+  e = \lim_n \enclose{1+\frac 1 n}^n.
+\]
+\end{definition}
+La precedente definizione è giustificata dal seguente teorema.
+\begin{theorem}[costante di Nepero]
+La successione
+\[
+  a_n = \enclose{1+\frac 1 n}^n
+\]
+è crescente e limitata, dunque è convergente.
+\end{theorem}
+%
+\begin{proof}
+Dimostriamo innanzitutto, $a_n$ è crescente, cioè che
+per ogni $n\ge 2$ si ha $a_n \ge a_{n-1}$.
+E' chiaro che $a_n>0$,
+quindi è sufficiente verificare che $\frac{a_n}{a_{n-1}} \ge 1$.
+
+Si ha
+\begin{align*}
+\frac{a_n}{a_{n-1}}
+&= \frac{\enclose{1+\frac 1 n}^n}{\enclose{1+\frac 1 {n-1}}^{n-1}}
+= \frac{\enclose{\frac{n+1}{n}}^n}{\enclose{\frac{n}{n-1}}^{n-1}}\\
+&= \enclose{\frac{n+1}{n}\cdot\frac{n-1}{n}}^n \cdot \frac{n}{n-1}
+= \enclose{\frac{n^2- 1}{n^2}}^n \cdot \frac{n}{n-1}
+\end{align*}
+Osserviamo ora che la disuguaglianza di Bernoulli garantisce
+\[
+  \enclose{\frac{n^2 -1}{n^2}}^n
+  = \enclose{1-\frac{1}{n^2}}^n
+  \ge 1 - \frac{n}{n^2} = 1 - \frac{1}{n} = \frac{n-1}{n}
+\]
+da cui si ottiene, come volevamo, $a_n / a_{n-1} \ge 1$ cioè
+$a_n$ è crescente.
+
+Se ora consideriamo la successione
+\[
+  b_n = \enclose{1+\frac 1 n}^{n+1}
+\]
+osserviamo che si ha
+\[
+  b_n = \enclose{1+\frac 1 n}^n \cdot \enclose{1+\frac 1 n}
+   = a_n\cdot \enclose{1+\frac 1 n} > a_n.
+\]
+Per dimostrare che $a_n$ è limitata sarà quindi sufficiente dimostrare
+che $b_n$ è superiormente limitata. Vedremo ora che $b_n$ è decrescente (e quindi $a_n \le b_n \le b_1$ è superiormente limitata).
+
+Procediamo in maniera analoga a quanto fatto per $a_n$:
+\begin{align*}
+\frac{b_{n-1}}{b_n}
+& = \frac{\enclose{1+\frac{1}{n-1}}^n}{\enclose{1+\frac{1}{n}}^{n+1}}
+  = \frac{\enclose{\frac{n}{n-1}}^n}{\enclose{\frac{n+1}{n}}^{n+1}}
+  = \enclose{\frac{n}{n-1}\cdot\frac{n}{n+1}}^n\cdot\frac{n}{n+1} \\
+& = \enclose{\frac{n^2}{n^2-1}}^n \frac{n}{n+1}
+  = \enclose{1 + \frac{1}{n^2-1}}^n \frac{n}{n+1}.
+\end{align*}
+In base alla disuguaglianza di Bernoulli otteniamo
+\[
+  \enclose{1 + \frac{1}{n^2-1}}^n
+  \ge 1 + n \frac{1}{n^2-1}
+  \ge 1 + n\frac{1}{n^2}  = 1+\frac{1}{n} = \frac{n+1}{n}.
+\]
+Mettendo insieme le due stime si ottiene dunque $b_{n-1}/b_n \ge 1$
+che è quanto ci rimaneva da dimostrare.
+\end{proof}
+
+\begin{comment}
 \section{serie}
 
 Data una successione $a_n$ possiamo considerare la successione
 delle \myemph{somme parziali}
 \[
-  S_n = \sum_{k=0}^n a_k$.
+  S_n = \sum_{k=0}^n a_k.
 \]
-Potremmo scrivere più brevemente $S_n = \sum a_n$.  
+Potremmo scrivere più brevemente $S_n = \sum a_n$.
+\end{comment}
 
 \begin{comment}
 \section{la funzione esponenziale}
@@ -2242,41 +2516,6 @@ rappresenterà
 l'aumento percentuale effettivo in una unità di tempo per una
 popolazione con tasso istantaneo di crescita pari a $x$.
 
-\begin{theorem}[successione di Nepero]
-La successione
-\[
-  a_n = \enclose{1 + \frac 1 n}^n
-\]
-è crescente e limitata.
-\end{theorem}
-%
-\begin{proof}
-Dimostriamo innanzitutto, per induzione, che $a_n$ è crescente, cioè che
-per ogni $n\ge 2$ si ha $a_n \ge a_{n-1}$.
-E' chiaro che $a_n>0$,
-quindi è sufficiente verificare che $\frac{a_n}{a_{n-1}} \ge 1$.
-
-Si ha
-\begin{align*}
-\frac{a_n}{a_{n-1}}
-&= \frac{\enclose{1+\frac 1 n}^n}{\enclose{1+\frac 1 {n-1}}^{n-1}}
-= \frac{\enclose{\frac{n+1}{n}}^n}{\enclose{\frac{n}{n-1}}^{n-1}}\\
-&= \enclose{\frac{n+1}{n}\cdot\frac{n-1}{n}}^n \cdot \frac{n}{n-1}
-= \enclose{\frac{n^2- 1}{n^2}}^n \cdot \frac{n}{n-1}
-\end{align*}
-Osserviamo ora che la disuguaglianza di Bernoulli garantisce
-\[
-  \enclose{\frac{n^2 -1}{n^2}}^n
-  = \enclose{1-\frac{1}{n^2}}^n
-  \ge 1 - \frac{n}{n^2} = 1 - \frac{1}{n} = \frac{n-1}{n}
-\]
-da cui si ottiene, come volevamo, $a_n / a_{n-1} \ge 1$. Inoltre possiamo
-osservare che
-\[
-
-\]
-
-\end{proof}
 \end{comment}
 
 %
