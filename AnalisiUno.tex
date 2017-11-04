@@ -1821,7 +1821,7 @@ Consideriamo il punto medio $C_1$ del nuovo intervallo $[A_1,B_1]$ e ripetiamo
 il procedimento indefinitamente. Quello che otteniamo sono due successioni
 $A_n$, $B_n$ con queste proprietà (che potrebbero essere dimostrate per induzione):
 \begin{enumerate}
-\item $A_n > B_n$, $B_n - A_n = (b-a)/2^n$;
+\item $A_n < B_n$, $B_n - A_n = (b-a)/2^n$;
 \item $A_n$ è crescente, $B_n$ è decrescente;
 \item $f(A_n)\le 0$, $f(B_n)\ge 0$.
 \end{enumerate}
@@ -2052,7 +2052,7 @@ Supponendo che sia verificata la disuguaglianza per un certo $n$:
 \]
 moltiplicando ambo i membri per $1+x > 0$ si ottiene
 \[
-(1+x)^n+1 \ge (1+x) (1+nx) = 1 + (n+1)x + n x^2
+(1+x)^{n+1} \ge (1+x) (1+nx) = 1 + (n+1)x + n x^2
 \ge 1 + (n+1)x
 \]
 che è proprio quello che volevamo dimostrare.
@@ -2076,7 +2076,7 @@ a
 \]
 da cui
 \[
- \sqrt[n]{a} \le 1 + \frac{a-1}{n} \to 0.
+ \sqrt[n]{a} \le 1 + \frac{a-1}{n} \to 1 + 0 = 1.
 \]
 D'altra parte se $a\ge 1$ si ha $\sqrt[n]{a} \ge 1$
 e dal confronto tra limiti si ottiene la tesi.
@@ -2892,7 +2892,7 @@ e cioè
 Si può procedere con il criterio del rapporto, come nei casi precedenti:
 \[
 \frac{(n+1)^\alpha}{n^\alpha}\cdot \frac{a^n}{a^{n+1}}
-= a \cdot \enclose{\frac{n+1}{n}}^\alpha \to \frac 1 a \cdot 1^\alpha = \frac 1 a < 1
+= \frac 1 a \cdot \enclose{\frac{n+1}{n}}^\alpha \to \frac 1 a \cdot 1^\alpha = \frac 1 a < 1
 \]
 da cui $n^\alpha / a^n \to 0$.
 
@@ -3177,6 +3177,29 @@ Dunque $\arg(z\cdot w) = \arg z + \arg w$ e $\abs{z\cdot w} = \abs{z}\cdot\abs{w
 il prodotto $z\cdot w$ dei numeri complessi $z$ e $w$ si ottiene moltiplicando
 i moduli e sommando gli argomenti.
 
+In particolare moltiplicando un numero complesso unitario $\cos \alpha + i \sin \alpha$ per un altro numero complesso unitario
+$\cos \beta + i \sin \beta$ si deve ottenere il numero complesso unitario
+ $\cos(\alpha+\beta) + i \sin(\alpha + \beta)$.
+ Dunque
+ \[
+ \cos(\alpha+\beta) + i \sin(\alpha + beta)
+ = (\cos \alpha + i \sin \alpha) \cdot (\cos \beta + i \sin \beta)
+ = \cos \alpha \cos \beta - \sin \alpha \sin \beta + i (\sin alpha \cos \beta + \cos \alpha \sin \beta)
+ \]
+ da cui seguono le \myemph{formule di addizione}:
+ \begin{align*}
+  \cos(\alpha + \beta) &= \cos\alpha \cos \beta - \sin \alpha \sin \beta\\
+  \sin(\alpha + \beta) &= \sin \alpha \cos \beta + \cos \alpha \sin \beta
+ \end{align*}
+ e, nel caso particolare $\alpha=\beta$
+ le \myemph{formule di duplicazione}:
+\begin{align*}
+  \cos(2\alpha) &= \cos^2 \alpha - \sin^2 \alpha \\
+  \sin(2\alpha) &= 2 \sin \alpha \cos \alpha.
+\end{align*}
+
+\section{successioni di numeri complessi}
+
 Se abbiamo una successione $z_n$ di numeri complessi
 (ovvero una funzione $\NN \to \CC$) e un numero $z\in \CC$
 diremo che $z_n$ converge
@@ -3240,6 +3263,159 @@ se e solo se
 \[
  \forall U\in \U_z\colon \exists V \in \U_{+\infty}\colon n\in V \implies z_n \in U.
 \]
+
+\section{esponenziale complesso}
+
+\begin{definition}[esponenziale complesso]
+\mymargin{esponenziale complesso}
+Per ogni $z \in \CC$ definiamo
+\mymargin{$\exp(z)$}
+\[
+  \exp(z) = \lim_{n\to +\infty}\enclose{1+\frac z n}^n.
+\]
+Si userà anche la notazione $e^z = \exp(z)$.
+\end{definition}
+
+Che il limite nella definizione precedente esista non è affatto ovvio:
+lo dimostreremo (si spera!) nel prossimo capitolo. Per ora supponiamo
+che tale limite esista e supponiamo anche che l'esponenziale complesso
+soddisfi l'usuale proprietà:
+\[
+  \exp(z+w) = \exp z \cdot \exp w.
+\]
+
+Dunque se $z=x+iy$ con $x,y \in \RR$, dovrà essere $e^z = e^x \cdot e^{iy}$.
+Il fattore $e^x$ è l'usuale esponenziale reale, vogliamo ora dare
+un significato geometrico all'esponenziale della parte immaginaria
+$e^{iy} = \lim (1+iy/n)^n$.
+
+Possiamo osservare che se $y\in \RR$
+i punti $(1+iy/n)^k$ per $k=1\dots n$
+sono i vertici di una spezzata
+formata da $n$ segmenti
+di lunghezza
+\begin{align*}
+ \abs{\enclose{1+\frac{iy}n}^{k+1}\!\!\! - \enclose{1+ \frac{iy}n}^k}
+ &= \abs{\enclose{1+\frac{iy}n}^k\cdot \enclose{1+\frac{iy}n -1}}\\
+ &= \enclose{\sqrt{1+\frac{y^2}{n^2}}}^{\!\!k} \cdot \frac{\abs y}{n}
+ \le \enclose{1+\frac{y^2}{n^2}}^{\frac n 2}\cdot \frac{\abs{y}}{n}.
+\end{align*}
+In particolare la lunghezza totale della spezzata $\ell_n$ può essere stimata
+come segue
+\[
+  \abs{y}
+  \le \ell_n
+  \le \enclose{1+\frac{y^2}{n^2}}^{\frac n 2} \cdot \abs{y}
+\]
+da cui osservando che
+\[
+ \enclose{1+\frac{y^2}{n^2}}^{\frac n 2} \to 1
+\]
+e utilizzando il criterio del confronto
+si ottiene $\ell_n \to \abs{y}$.
+
+Si osserva anche che i punti di tale spezzata si avvicinano
+sempre di più alla circonferenza unitaria, infatti:
+\[
+  1
+  \le \abs{\enclose{1 + \frac i n}^k}
+  \le \abs{1+\frac i n}^n
+  = \enclose{1 + \frac 1 {n^2}}^{\frac n 2}
+  \to 1.
+\]
+
+E' dunque sensato pensare che il punto $e^{iy}$ sia il punto
+della circonferenza unitaria che identifica un arco di lunghezza $\abs y$
+a partire dal punto $1$ sull'asse reale.
+Se $y>0$ l'arco è misurato in senso antiorario, altrimenti in senso orario.
+Avremo dunque $\arg(\exp(iy)) = y$ essendo $y$ la lunghezza dell'arco
+ovvero la misura in radianti dell'angolo corrispondente.
+Supponendo d'ora in poi che le funzioni $\cos$ e $\sin$
+abbiano come argomento la misura in radianti dell'angolo
+si avrà dunque la \myemph{formula di Eulero}:
+\[
+  e^{iy} = \cos y + i \sin y.
+\]
+Potremo quindi definire la lunghezza
+della semicirconferenza unitaria, come il più piccolo numero reale positivo
+\myemph{$\pi$} tale che
+\[
+  e^{i \pi} = -1
+\]
+Ovvero il primo zero positivo della funzione $y \mapsto \sin y$
+(vedremo più avanti che tale funzione è continua e cambia segno).
+
+Osserviamo ora che si ha $e^{2i\pi} = (e^{i\pi})^2 = (-1)^2 = 1$ e quindi
+\[
+  e^{i{y+2k\pi}} = e^{iy}\cdot \enclose{e^{2i\pi}}^k = e^{iy}
+\]
+da cui in particolare
+\[
+  \cos(y+2 k\pi) = \cos y,
+  \qquad
+  \sin(y+2 k \pi) = \sin y.
+\]
+Ovvero le funzioni $e^{iy}$, $\cos y$ e $\sin y$ sono
+\myemph{funzioni periodiche} di \myemph{periodo} $2\pi$.
+
+Possiamo utilizzare l'esponenziale complesso per esprimere in forma
+più compatta la rappresentazione polare dei numeri complessi.
+Infatti se $\rho = \abs{z}$ e $\alpha = \arg z$ si avrà
+\[
+  z = \rho (\cos \alpha + i \sin \alpha) = \rho e^{i\alpha}.
+\]
+
+
+\section{radici complesse $n$-esime}
+
+Sia $c\in \CC$ un numero
+complesso $c\neq 0$.
+Ci poniamo il problema di determinare le soluzioni complesse
+dell'equazione
+\[
+  z^n = c.
+\]
+Tali soluzioni saranno chiamate \myemph{radici $n$-esime} di $c$.
+
+Scriviamo $c$ e $z$ in forma esponenziale:
+\[
+  c = r e^{i\alpha}, \qquad
+  z = \rho e^{i\theta}.
+\]
+Si avrà allora
+\[
+  z^n = \rho^n (e^{i\theta})^n = \rho^n e^{i n \theta}.
+\]
+Affinche sia $z^n = c$ si dovrà avere l'uguaglianza dei moduli, cioè $\rho^n = r$ e l'uguaglianza a meno di multipli interi di $2\pi$ degli argomenti:
+$n \theta = \alpha + 2 k \pi$ con $k\in \ZZ$.
+Dunque si trova
+\[
+  \theta = \frac{\alpha}{n} + k\frac{2\pi}{n}
+\qquad k \in \ZZ.
+\]
+Osserviamo ora che per $k=0,\dots, n-1$ il secondo addendo
+$k 2\pi /n$ assume $n$ valori distinti compresi in $[0,2\pi)$.
+Per gli altri valori di $k$ si ottengono degli angoli che differiscono
+da questi di un multiplo di $2\pi$ e quindi non si trovano
+altre soluzioni.
+
+Dunque l'equazione $z^n = c$ per $c\neq 0$ ha $n$ soluzioni distinte date
+da
+\[
+z_k = \sqrt[n]{r} \cdot \exp(i\alpha/n + 2k\pi i /n),
+\qquad k=0,1, \dots, n-1
+\]
+dove $\alpha = \arg(c)$ e $r = \abs{c}$.
+Dal punto di vista geometrico si osserva che
+$z_0$ è il numero complesso con modulo la radice $n$-esima del numero
+dato $c$ e argomento pari ad un $n$-esimo dell'argomento di $c$.
+Tutte le altre soluzioni si trovano sulla circonferenza centrata in $0$
+e passante per $z_0$ e risultano essere, insieme ad $z_0$, i vertici
+di un $n$-agono regolare.
+
+In particolare nel caso $c=1$ si osserva che le radici $n$-esime dell'unità
+si rappresentano geometricamente come i vertici dell'$n$-agono regolare iscritto
+nella circonferenza unitaria e con un vertice in $z_0=1$.
 
 %%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%
@@ -3547,7 +3723,7 @@ abbiamo dimostrato che $\enclose{1+\frac 1 n}^n \to e$.
 \section{Contributi}
 
 Hanno segnalato errori e correzioni:
-Luca Casagrande, Bianca Turini.
+Alessandro Canzonieri, Luca Casagrande, Bianca Turini.
 % \bibliographystyle{plain}
 % \bibliography{biblio}
 
