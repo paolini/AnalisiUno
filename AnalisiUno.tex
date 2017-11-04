@@ -3423,12 +3423,14 @@ nella circonferenza unitaria e con un vertice in $z_0=1$.
 %%%%%%%%%%%%%%%%%%%
 \chapter{serie}
 
-Data una successione $a_n$ di numeri reali possiamo considerare la successione
+Data una successione $a_n$ di numeri reali o complessi
+possiamo considerare la successione
 delle cosiddette \myemph{somme parziali}
 \[
   S_n = \sum_{k=0}^{n} a_k.
 \]
 Scrivere più brevemente $S_n = \sum a_n$.
+I numeri $a_n$ si chiamano \myemph{termini della serie}
 La serie si dirà convergente, divergente o indeterminata se la
 successione delle somme parziale è convergente, divergente o indeterminata.
 Se la successione delle somme parziali ammette limite il limite viene chiamato
@@ -3436,6 +3438,36 @@ Se la successione delle somme parziali ammette limite il limite viene chiamato
 \[
   \sum_{k=0}^\infty a_k = \lim_{n\to +\infty} S_n = \lim_{n\to\infty} \sum_{k=0}^n a_k.
 \]
+
+La terminologia già introdotta per le successioni si applica anche alle
+serie che sono in effetti anch'esse delle successioni.
+In particolare una serie può essere convergente, divergente o indeterminata.
+Questo si chiama il carattere della serie.
+
+\begin{theorem}[linearità della somma]
+Se $\sum a_n$ e $\sum b_n$ sono convergenti
+allora per ogni $\lambda,\mu\in \CC$
+anche $\sum (\lambda a_n + \mu b_n)$ è convergente
+e si ha
+\[
+ \sum_{k=0}^\infty (\lambda a_n + \mu b_n)
+ = \lambda \sum_{k=0}^\infty a_n  + \mu \sum_{k=0}^\infty b_n.
+\]
+\end{theorem}
+%
+\begin{proof}
+Se $S_n$ e $R_n$ sono le somme parziali delle serie $\sum a_n$ e $\sum b_n$
+allora le somme parziali della serie $\sum (\lambda a_n + \mu b_n)$ sono
+$\lambda S_n + \mu R_n$ (in quanto sulle somme finite vale la proprietà distributiva e commutativa). Ma se $S_n \to S$ e $R_n \to R$ allora
+$\lambda S_n + \mu R_n \to \lambda S + \mu R$.
+\end{proof}
+
+Osserviamo che le serie (così come le successioni) formano uno spazio
+vettoriale in cui le operazioni di somma e prodotto per scalare vengono
+eseguite termine a termine: $\sum a_n + \sum b_n = \sum (a_n + b_n)$,
+$\lambda \sum a_n = \sum (\lambda a_n)$.
+Il teorema precedente ci dice allora che le serie (così come le successioni)
+convergenti sono un sottospazio vettoriale e che la somma della serie (così come il limite della successione) è un'operatore lineare definito su tale sottospazio.
 
 \begin{example}[la serie geometrica]
 Fissato $q \in \RR$ alla successione (cosiddetta geometrica)
@@ -3463,7 +3495,7 @@ le cui somme parziali sono
 \end{example}
 
 Il seguente teorema ci mostra come per diversi valori di $q$
-il \emph{carattere} della serie geometrica assume
+la serie geometrica assume
 tutti i caratteri: convergente, divergente, indeterminato.
 
 \begin{theorem}[somma della serie geometrica]
@@ -3535,8 +3567,17 @@ $S_n = \sum_{k=0}^n a_k$ convergono: $S_n \to S$. Ma allora
 \]
 \end{proof}
 
+\section{serie a termini positivi}
+
+Nel seguito considereremo serie i cui termini sono numeri reali
+positivi (o almeno non negativi).
+Quando scriveremo $a_n >0$ (o $a_n \ge 0$) sarà sempre
+sottointeso che $a_n\in \RR$ visto che per i numeri complessi non
+reali non abbiamo definito la relazione d'ordine.
+
 \begin{theorem}[serie a termini positivi]
-Se $a_n\ge 0$ la serie $\sum a_n$ non può essere indeterminata:
+Se $a_n\ge 0$ (sottointeso $a_n \in \RR$)
+la serie $\sum a_n$ non può essere indeterminata:
 o converge oppure diverge a $+\infty$.
 \end{theorem}
 %
@@ -3563,25 +3604,31 @@ parziali di $\sum b_n$ si ha $S_n \le R_n$ e il risultato
 si riconduce al confronto tra successioni.
 \end{proof}
 
-\begin{corollary}[criterio del confronto asintotico]
-Se $a_n$ e $b_n$ sono successioni positive $a_n > 0$,
-$b_n > 0$ e se
+\begin{definition}[equivalenza asintotica]
+Due successioni a termini positivi $a_n$ e $b_n$ si dicono essere
+\myemph{asintoticamente equivalenti} e si scrive $a_n \sim b_n$
+se, per $n\to +\infty$
 \[
-   \frac{a_n}{b_n} \to 1
+  \frac{a_n}{b_n} \to 1.
 \]
+\end{definition}
+
+\begin{corollary}[criterio del confronto asintotico]
+Se $a_n$ e $b_n$ sono successioni positive
+asintoticamente equivalenti
 allora le serie corrispondenti $\sum a_n$ e $\sum b_n$
-hanno lo stesso carattere
+hanno lo stesso carattere.
 \end{corollary}
 %
 \begin{proof}
-Le serie a termini positive non possono essere indeterminate
+Le serie a termini positivi non possono essere indeterminate
 quindi è sufficiente verificare che se una serie converge, converge anche l'altra.
 Essendo $a_n / b_n$ convergente tale rapporto deve anche essere
 limitato, quindi esiste $C\in \RR$ tale che
 \[
-   a_n \le C b_n.
+   a_n \le C \cdot b_n.
 \]
-Se la serie $\sum b_n$ converge anche $\sum C b_n$ converge e, per confronto,
+Se la serie $\sum b_n$ converge anche $\sum C \cdot b_n$ converge e, per confronto,
 converge anche $\sum a_n$.
 
 Viceversa, scambiando il ruolo di $a_n$ e $b_n$ si verifica che se $a_n$
@@ -3589,16 +3636,20 @@ converge, converge anche $b_n$.
 \end{proof}
 
 \begin{theorem}[criterio della radice]
-Sia $\sum a_n$ una serie a termini positivi (cioè $a_n\ge 0$).
-Se $\sqrt[n]{a_n} \to \ell $ con $\ell<1$ allora la serie converge.
+Sia $\sum a_n$ una serie a termini non negativi
+(cioè $a_n\ge 0$) tale che
+$\sqrt[n]{a_n} \to \ell \in [0,+\infty]$.
+Se $\ell<1$ allora la serie converge.
+Se $\ell>1$ allora la serie diverge.
 \end{theorem}
 %
 \begin{proof}
-Prendiamo $q$ con $\ell < q < 1$ e poniamo $\eps = q-\ell$.
+Nel caso $\ell < 1$
+prendiamo $q$ con $\ell < q < 1$ e poniamo $\eps = q-\ell$.
 Per la definizione di limite $\sqrt[n]{a_n}\to \ell$ sappiamo
 esistere $N$ tale che per ogni $n > N$ si abbia
 \[
-  \sqrt[n]{a_n} < \ell + \eps < q
+  \sqrt[n]{a_n} < \ell + \eps = q
 \]
 cioè
 \[
@@ -3607,11 +3658,15 @@ cioè
 Sapendo che $\sum q^n$ converge, sapendo anche che il carattere
 della serie non cambia modificando un numero finito di termini,
 per confronto possiamo concludere che anche la serie $\sum a_n$ converge.
+
+Il caso $\ell > 1$ si tratta in maniera analoga.
 \end{proof}
 
 \begin{theorem}[criterio del rapporto]
-Sia $\sum a_n$ una serie a termini positivi.
-Se $a_{n+1} / a_n \to \ell$ e $\ell <1$ allora la serie converge.
+Sia $\sum a_n$ una serie a termini positivi
+tale che $a_{n+1} / a_n \to \ell \in [0,+\infty]$.
+Se $\ell <1$ allora la serie converge.
+Se $\ell > 1$ la serie diverge.
 \end{theorem}
 %
 \begin{proof}
@@ -3620,7 +3675,7 @@ quindi ci riconduciamo al criterio della radice.
 \end{proof}
 
 \begin{example}
-Per ogni $x\ge $ la serie
+Per ogni $x\ge 0$ la serie
 \[
   \sum \frac{x^n}{n!}
 \]
@@ -3635,6 +3690,50 @@ Applichiamo il criterio del rapporto. Posto $a_n = x^n / n!$ si ha
 = \frac{x}{n+1} \to 0 < 1.
 \]
 Dunque la serie converge.
+\end{proof}
+
+Per le serie a termini positivi abbiamo molti criteri di convergenza
+che invece, in generale, non si applicano alle serie di segno qualunque
+o alle serie di numeri complessi.
+La convergenza di queste ultime, però, può a volte ricondursi alla
+convergenza delle serie a termini positivi, passando al modulo
+ogni termine.
+
+\begin{definition}[convergenza assoluta]
+Diremo che una serie (a termini reali o complessi) $\sum a_n$
+è \myemph{assolutamente convergente} se la serie $\sum \abs{a_n}$
+è convergente.
+\end{definition}
+
+\begin{theorem}[convergenza assoluta]
+Se una serie (reale o complessa)
+è assolutamente convergente allora è convergente.
+\end{theorem}
+%
+\begin{proof}
+Supponiamo inizialmente che $a_n$ siano termini reali.
+Definiamo $a_n^+ = \max\{0, a_n\}$ e $a_n^- = -\min \{0, a_n\}$.
+Cioè se $a_n\ge 0$ si ha $a_n^+ = a_n$ e $a_n^-=0$ se invece $a_n\le 0$
+si ha $a_n^+ =0$ e $a_n^- = -a_n$.
+Allora $a_n^+\ge 0$, $a_n^-\ge 0$,
+\[
+   a_n = a_n^+  - a_n^-
+   \qquad\text{e}\qquad
+   \abs{a_n} = a_n^+ + a_n^-.
+\]
+Allora se se $\sum \abs{a_n}$ converge,
+per confronto anche $\sum a_n^+$ e $\sum a_n^-$ convergono.
+Dunque, per il teorema sulla somma dei limiti,
+anche $\sum a_n$ converge.
+
+Se abbiamo una successione di complessi $a_n = x_n + i y_n$
+e se
+$\sum \abs{a_n}$ converge allora, per confronto,
+anche $\sum \abs{x_n}$ e $\sum\abs{y_n}$ convergono
+(si osservi infatti che $\abs{x} \le \abs{x+iy}$ e $\abs{y}\le \abs{x+iy}$).
+Dunque $\sum x_n$ e $\sum y_n$ convergono per quanto
+già dimostrato sulle serie a termini reali.
+Ma allora anche $\sum i y_n$ e $\sum a_n = \sum (x + iy_n)$ convergono.
 \end{proof}
 
 \begin{comment}
