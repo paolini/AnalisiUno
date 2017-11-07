@@ -4149,50 +4149,76 @@ Per ogni $z\in \CC$ si ha
 Utilizzando lo sviluppo del binomio osserviamo che si ha
 \[
  \enclose{1+\frac z n}^n
- = \sum_{k=0}^n \binom{n}{k} \frac{z}{n^k}
- = \sum_{k=0}^n \frac{z}{k!} \cdot \frac{n!}{n^k\cdot (n-k)!}.
+ = \sum_{k=0}^n \binom{n}{k} \frac{z^k}{n^k}
+ = \sum_{k=0}^n \frac{z^k}{k!} \cdot \frac{n!}{n^k\cdot (n-k)!}.
 \]
-Posto per ogni $n\ge k$
+Posto per ogni $k\le n$
 \begin{align*}
  c(n,k)
   &= \frac{n!}{n^k\cdot (n-k)!}
   = \frac{n \cdot (n-1) \cdot \ldots \cdot(n-k)}{n^k} \\
   &= \frac{n}{n}\cdot {\frac {n-1} n} \cdot \frac {n-2} {n} \cdot \ldots \cdot \frac{n-k}{n}
 \end{align*}
-osserviamo che $c(n,k)\le 1$ in quanto
-prodotto di numeri minori o uguali ad $1$.
+osserviamo che $0\le c(n,k)\le 1$ in quanto
+prodotto di numeri non negativi minori o uguali ad $1$.
 Inoltre, fissato $k$, si ha $c(n,k)  \to 1$ per $n\to +\infty$
-in quanto ogni fattore tende
-a $1$ per $n\to +\infty$ (si noti che a $k$ fissato il numero di fattori è
-fissato ed è $k-1$).
-Dunque da un lato abbiamo una stima facile
+in quanto ogni fattore $\frac{n-j}{n}$ tende
+a $1$ per $n\to +\infty$ (si noti che a $k$ fissato il numero di fattori $k$ è
+fissato).
+
+Sia $z\in \CC$ fissato e sia
 \[
-  \enclose{1+\frac 1 n}^n
-  = \sum_{k=0}^n \frac{c(n,k)}{k!}
-  \le \sum_{k=0}^n \frac{1}{k!}
-  < e.
+  S_M = \sum_{k=0}^{M} \frac{\abs{z}^k}{k!}.
 \]
-Per ottenere la stima dal lato opposto consideriamo un qualunque $\eps>0$.
-Consideriamo $M\in \NN$ tale che
+Abbiamo già osservato che $S_M$ converge: sia
 \[
-\sum_{k=0}^M \frac 1 {k!} > e - \eps.
+  E = \lim_{M\to +\infty} S_M
+    = \sum_{k=0}^{+\infty} \frac{\abs{z}^k}{k!}.
 \]
-Fissato $k$ visto che $c(n,k)\to 1$ esiste $N_k$ tale che per ogni $n>N_k$
-si ha $c(n,k) > 1- \eps$. Prendiamo $\displaystyle N=\max_{k=0}^M N_k$
-cosicchè per ogni $n>N$ e per ogni $k\le M$ si avrà $c(n,k)> 1-\eps$.
-Allora, per ogni $n>N$, si avrà
+
+Consideriamo ora un qualunque $\eps \in (0,1]$, e scegliamo un $M$
+(grazie alla definizione di limite $S_M \to E$) tale
+che
+\[
+\abs{S_M - E} = \sum_{k=M+1}^{+\infty} \frac{\abs{z}^k} {k!} < \eps.
+\]
+Fissato $k\le M$ visto che $c(n,k)\to 1$
+esiste $N_k > M$ tale che per ogni $n>N_k$
+si ha $\abs{1-c(n,k)} < \eps$.
+Prendiamo allora
+\[
+  N=\max_{k=0}^M N_k
+\]
+cosicchè per ogni $n>N$ e per ogni $k\le M$ si avrà $\abs{1-c(n,k)} < \eps$.
+Allora, per ogni $n>N$
 \begin{align*}
-\enclose{1+\frac 1 n}^n
-&= \sum_{k=0}^n  \frac{c(n,k)}{k!}
-\ge \sum_{k=0}^{M} \frac{c(n,k) }{k!}
-\ge  (1-\eps) \sum_{k=0}^M \frac{1}{k!}\\
-&\ge (1-\eps)(e-\eps)
-= e - \eps (e-1) + \eps^2 \ge e - \eps(e-1).
+\abs{\sum_{k=0}^n \frac{z^k}{k!} - \enclose{1+\frac z n}^n}
+&= \abs{\sum_{k=0}^n \enclose{\frac{z^k}{k!} - c(n,k)\frac{z^k}{k!}}} \\
+&= \abs{\sum_{k=0}^n  (1-c(n,k))\frac{z^k}{k!}} \\
+&\le \sum_{k=0}^{N} \abs{1-c(n,k)} \frac{\abs{z}^k}{k!}
+   + \sum_{k=N+1}^n \frac{\abs{z}^k}{k!} \\
+&\le  \eps \sum_{k=0}^{+\infty} \frac{\abs{z}^k}{k!}
+    + \sum_{k=N+1}^{+\infty} \frac{\abs{z}^k}{k!} \\
+&\le \eps E + \eps
+= \eps (E+1).
 \end{align*}
-Visto che $\eps(e-1)$ può essere reso arbitrariamente piccolo
-abbiamo dimostrato che $\enclose{1+\frac 1 n}^n \to e$.
+
+Visto che $\eps>0$ era arbitrario abbiamo verificato
+tramite la definizione che
+\[
+\sum_{k=0}^n \frac{z^k}{k!} - \enclose{1+\frac z n}^n \to 0
+\]
+cioè
+\[
+\lim_{n\to +\infty} \enclose{1+\frac z n}^n = \sum_{k=0}^{+\infty} \frac{z^k}{k!}.
+\]
 \end{proof}
 
+\begin{theorem}[proprietà dell'esponenziale complesso]
+Si ha
+\[
+\]
+\end{theorem}
 
 \begin{comment}
 \section{operatori $\Sigma$ e $\Delta$}
