@@ -4123,6 +4123,77 @@ già dimostrato sulle serie a termini reali.
 Ma allora anche $\sum i y_n$ e $\sum a_n = \sum (x + iy_n)$ convergono.
 \end{proof}
 
+\section{la serie esponenziale}
+
+Utilizzando il  criterio del rapporto
+abbiamo già osservato che
+per ogni $z \in \CC$
+la serie
+\[
+\sum_{k=0}^\infty \frac{z^k}{k!}
+\]
+è assolutamente convergente.
+Vogliamo mostrare che la somma di questa
+serie coincide con la funzione esponenziale $e^z$
+cioè
+che vale il seguente.
+
+\begin{theorem}[serie esponenziale]
+Per ogni $z\in \CC$ si ha
+\[
+  \lim_{n \to +\infty} \enclose{1+\frac z n}^n = \sum_{k=0}^\infty \frac{z^k}{k!}.
+\]
+\end{theorem}
+%
+\begin{proof}
+Utilizzando lo sviluppo del binomio osserviamo che si ha
+\[
+ \enclose{1+\frac z n}^n
+ = \sum_{k=0}^n \binom{n}{k} \frac{z}{n^k}
+ = \sum_{k=0}^n \frac{z}{k!} \cdot \frac{n!}{n^k\cdot (n-k)!}.
+\]
+Posto per ogni $n\ge k$
+\begin{align*}
+ c(n,k)
+  &= \frac{n!}{n^k\cdot (n-k)!}
+  = \frac{n \cdot (n-1) \cdot \ldots \cdot(n-k)}{n^k} \\
+  &= \frac{n}{n}\cdot {\frac {n-1} n} \cdot \frac {n-2} {n} \cdot \ldots \cdot \frac{n-k}{n}
+\end{align*}
+osserviamo che $c(n,k)\le 1$ in quanto
+prodotto di numeri minori o uguali ad $1$.
+Inoltre, fissato $k$, si ha $c(n,k)  \to 1$ per $n\to +\infty$
+in quanto ogni fattore tende
+a $1$ per $n\to +\infty$ (si noti che a $k$ fissato il numero di fattori è
+fissato ed è $k-1$).
+Dunque da un lato abbiamo una stima facile
+\[
+  \enclose{1+\frac 1 n}^n
+  = \sum_{k=0}^n \frac{c(n,k)}{k!}
+  \le \sum_{k=0}^n \frac{1}{k!}
+  < e.
+\]
+Per ottenere la stima dal lato opposto consideriamo un qualunque $\eps>0$.
+Consideriamo $M\in \NN$ tale che
+\[
+\sum_{k=0}^M \frac 1 {k!} > e - \eps.
+\]
+Fissato $k$ visto che $c(n,k)\to 1$ esiste $N_k$ tale che per ogni $n>N_k$
+si ha $c(n,k) > 1- \eps$. Prendiamo $\displaystyle N=\max_{k=0}^M N_k$
+cosicchè per ogni $n>N$ e per ogni $k\le M$ si avrà $c(n,k)> 1-\eps$.
+Allora, per ogni $n>N$, si avrà
+\begin{align*}
+\enclose{1+\frac 1 n}^n
+&= \sum_{k=0}^n  \frac{c(n,k)}{k!}
+\ge \sum_{k=0}^{M} \frac{c(n,k) }{k!}
+\ge  (1-\eps) \sum_{k=0}^M \frac{1}{k!}\\
+&\ge (1-\eps)(e-\eps)
+= e - \eps (e-1) + \eps^2 \ge e - \eps(e-1).
+\end{align*}
+Visto che $\eps(e-1)$ può essere reso arbitrariamente piccolo
+abbiamo dimostrato che $\enclose{1+\frac 1 n}^n \to e$.
+\end{proof}
+
+
 \begin{comment}
 \section{operatori $\Sigma$ e $\Delta$}
 
@@ -4197,84 +4268,6 @@ Infatti per $n>0$ si ha
 \end{proof}
 
 \end{comment}
-
-\begin{comment}
-\section{la funzione esponenziale}
-
-In base al criterio del rapporto (o della radice) è facile osservare che
-per ogni $z \in \CC$
-la serie
-\[
-\sum_{k=0}^\infty \frac{z^k}{k!}
-\]
-è assolutamente convergente.
-
-\begin{definition}[funzione esponenziale]
-Definiamo la \myemph{funzione esponenziale} (complessa)
-$\exp \colon \CC \to \CC$ come
-\[
-  \exp (z) = \sum_{k=0}^\infty \frac{z^k}{k!}.
-\]
-Definiamo il \myemph{numero di Nepero} (o di Eulero)
-\[
-  e = \exp (1).
-\]
-\end{definition}
-
-\begin{theorem}[limite di Bernoulli]
-Si ha
-\[
-  \lim_{n\to \infty} \enclose{1+\frac 1 n}^n = \sum_{k=0}^\infty \frac{1}{k!} = e.
-\]
-\end{theorem}
-%
-\begin{proof}
-Utilizzando lo sviluppo del binomio osserviamo che si ha
-\[
- \enclose{1+\frac 1 n}^n
- = \sum_{k=0}^n \binom{n}{k} \frac{1}{n^k}
- = \sum_{k=0}^n \frac{1}{k!} \frac{n!}{n^k\cdot (n-k)!}.
-\]
-Posto per ogni $n\ge k$
-\begin{align*}
- c(n,k)
-  &= \frac{n!}{n^k\cdot (n-k)!}
-  = \frac{n \cdot (n-1) \cdot \ldots \cdot(n-k)}{n^k} \\
-  &= \frac{n}{n}\cdot {\frac {n-1} n} \cdot \frac {n-2} {n} \cdot \ldots \cdot \frac{n-k}{n}
-\end{align*}
-osserviamo che $c(n,k)\le 1$ in quanto prodotto di numeri minori o uguali ad $1$.
-Inoltre, fissato $k$, si ha $c(n,k)  \stackrel n\to 1$ in quanto ogni fattore tende
-a $1$ per $n\to +\infty$ (si noti che a $k$ fissato il numero di fattori è
-fissato ed è $k-1$).
-Dunque da un lato abbiamo una stima facile
-\[
-  \enclose{1+\frac 1 n}^n
-  = \sum_{k=0}^n \frac{c(n,k)}{k!}
-  \le \sum_{k=0}^n \frac{1}{k!}
-  < e.
-\]
-Per ottenere la stima dal lato opposto consideriamo un qualunque $\eps>0$.
-Consideriamo $M\in \NN$ tale che
-\[
-\sum_{k=0}^M \frac 1 {k!} > e - \eps.
-\]
-Fissato $k$ visto che $c(n,k)\to 1$ esiste $N_k$ tale che per ogni $n>N_k$
-si ha $c(n,k) > 1- \eps$. Prendiamo $\displaystyle N=\max_{k=0}^M N_k$
-cosicchè per ogni $n>N$ e per ogni $k\le M$ si avrà $c(n,k)> 1-\eps$.
-Allora, per ogni $n>N$, si avrà
-\begin{align*}
-\enclose{1+\frac 1 n}^n
-&= \sum_{k=0}^n  \frac{c(n,k)}{k!}
-\ge \sum_{k=0}^{M} \frac{c(n,k) }{k!}
-\ge  (1-\eps) \sum_{k=0}^M \frac{1}{k!}\\
-&\ge (1-\eps)(e-\eps)
-= e - \eps (e-1) + \eps^2 \ge e - \eps(e-1).
-\end{align*}
-Visto che $\eps(e-1)$ può essere reso arbitrariamente piccolo
-abbiamo dimostrato che $\enclose{1+\frac 1 n}^n \to e$.
-\end{proof}
-\end{comment}
-
 
 
 \backmatter
