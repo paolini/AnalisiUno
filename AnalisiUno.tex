@@ -3334,11 +3334,10 @@ se e solo se
 \begin{definition}[esponenziale complesso]
 \mymargin{esponenziale complesso}
 Per ogni $z \in \CC$ definiamo
-\mymargin{$\exp(z)$}
+\mymargin{$e^z$}
 \[
-  \exp(z) = \lim_{n\to +\infty}\enclose{1+\frac z n}^n.
+  e^z = \lim_{n\to +\infty}\enclose{1+\frac z n}^n.
 \]
-Si userà anche la notazione $e^z = \exp(z)$.
 \end{definition}
 
 Che il limite nella definizione precedente esista non è affatto ovvio:
@@ -3346,7 +3345,7 @@ lo dimostreremo (si spera!) nel prossimo capitolo. Per ora supponiamo
 che tale limite esista e supponiamo anche che l'esponenziale complesso
 soddisfi l'usuale proprietà:
 \[
-  \exp(z+w) = \exp z \cdot \exp w.
+  e^{z+w} = e^z \cdot e^w.
 \]
 
 Dunque se $z=x+iy$ con $x,y \in \RR$, dovrà essere $e^z = e^x \cdot e^{iy}$.
@@ -3393,7 +3392,7 @@ E' dunque sensato pensare che il punto $e^{iy}$ sia il punto
 della circonferenza unitaria che identifica un arco di lunghezza $\abs y$
 a partire dal punto $1$ sull'asse reale.
 Se $y>0$ l'arco è misurato in senso antiorario, altrimenti in senso orario.
-Avremo dunque $\arg(\exp(iy)) = y$ essendo $y$ la lunghezza dell'arco
+Avremo dunque $\arg\enclose{e^{iy}} = y$ essendo $y$ la lunghezza dell'arco
 ovvero la misura in radianti dell'angolo corrispondente.
 Supponendo d'ora in poi che le funzioni $\cos$ e $\sin$
 abbiano come argomento la misura in radianti dell'angolo
@@ -3467,7 +3466,7 @@ altre soluzioni.
 Dunque l'equazione $z^n = c$ per $c\neq 0$ ha $n$ soluzioni distinte date
 da
 \[
-z_k = \sqrt[n]{r} \cdot \exp(i\alpha/n + 2k\pi i /n),
+z_k = \sqrt[n]{r} \cdot e^{i\alpha/n + 2k\pi i /n},
 \qquad k=0,1, \dots, n-1
 \]
 dove $\alpha = \arg(c)$ e $r = \abs{c}$.
@@ -3719,6 +3718,27 @@ ad esempio si potrebbe definire (ma non lo faremo):
 \]
 quando $a_k$ è definita per ogni $k\in \ZZ$ e le due serie al lato destro
 dell'uguaglianza esistono entrambe e non hanno somme infinite di segno opposto.
+
+\begin{theorem}[coda di una serie convergente]
+Sia $\sum a_n$ una serie convergente. Allora
+\[
+  \lim_{n\to +\infty} \sum_{k=n+1}^{+\infty} a_k = 0.
+\]
+\end{theorem}
+%
+\begin{proof}
+Posto
+\[
+  S_n = \sum_{k=0}^n a_k,
+\]
+per definizione di serie convergente sappiamo che esiste $S$ finito
+tale che $S_n \to S$. Osserviamo allora che
+\[
+  \sum_{k=n+1}^{+\infty} a_k = \lim_{N\to+\infty} \sum_{k=n+1}^N a_k
+   = \lim_{N\to +\infty} S_N - S_n = S - S_n
+\]
+e, per $n\to +\infty$ si ha ovviamente $S - S_n \to S - S = 0$.
+\end{proof}
 
 \section{serie telescopiche}
 
@@ -4074,7 +4094,7 @@ se invece $\alpha \le $ allora $q\ge 1$ e la serie
 armonica è divergente.
 \end{proof}
 
-\section{serie a termini complessi o di segno variabile}
+\section{convergenza assoluta}
 
 Per le serie a termini positivi abbiamo molti criteri di convergenza
 che invece, in generale, non si applicano alle serie di segno qualunque
@@ -4092,8 +4112,11 @@ Diremo che una serie (a termini reali o complessi) $\sum a_n$
 \end{definition}
 
 \begin{theorem}[convergenza assoluta]
-Se una serie (reale o complessa)
-è assolutamente convergente allora è convergente.
+Se una serie $\sum a_n$ (reale o complessa)
+è assolutamente convergente allora è convergente e vale
+\[
+  \abs{\sum_{k=0}^\infty a_k} \le \sum_{k=0}^\infty \abs{a_k}.
+\]
 \end{theorem}
 %
 \begin{proof}
@@ -4121,27 +4144,106 @@ anche $\sum \abs{x_n}$ e $\sum\abs{y_n}$ convergono
 Dunque $\sum x_n$ e $\sum y_n$ convergono per quanto
 già dimostrato sulle serie a termini reali.
 Ma allora anche $\sum i y_n$ e $\sum a_n = \sum (x + iy_n)$ convergono.
+
+Poniamo ora
+\[
+  S_n  = \sum_{k=0}^n a_k.
+\]
+Per la convessità del modulo sappiamo che (essendo la somma finita)
+\[
+ \abs{S_n} \le \sum_{k=0}^n \abs{a_k} \le \sum_{k=0}^{+\infty} \abs{a_k}.
+\]
+E per continuità del modulo, posto $S= \lim S_n$ si ha
+\[
+  \abs{\sum_{k=0}^{+\infty} a_k}
+  = \abs{S}
+  = \lim_{n\to +\infty} \abs{S_n}
+  \le \sum_{k=0}^{+\infty} \abs{a_k}.
+\]
+\end{proof}
+
+\begin{theorem}[riordinamento delle serie assolutamente convergenti]
+Se $\sum a_n$ è una serie assolutamente convergente e $\sigma\colon \NN \to \NN$
+è una qualunque funzione biettiva (permutazione dei numeri naturali)
+si ha
+\[
+  \sum_{n=0}^{+\infty} a_n = \sum_{n=0}^{+\infty} a_{\sigma(n)}.
+\]
+\end{theorem}
+%
+\begin{proof}
+Posto
+\[
+  S_n = \sum_{k=0}^n a_k
+  \qquad\text{e}\qquad
+  R_n = \sum_{k=0}^{n} a_{\sigma(k)}
+\]
+consideriamo, per ogni $n\in \NN$ il più grande numero
+$m_n\in \NN$ tale per cui
+l'insieme di indici $A_n = \{ \sigma(0), \sigma(1), \dots, \sigma(n)\}$
+contiene l'insieme dei primi $m_n$ naturali $\{0, 1, \dots, m_n -1 \}$.
+Formalmente si può definire
+\[
+  m_n = \min (\NN \setminus A_n).
+\]
+
+Osserviamo che $m_n\to +\infty$ perché altrimenti ci sarebbero dei
+numeri naturali che non vengono mai assunti dalla successione $\sigma(k)$.
+
+Allora si osserva che ogni addendo nella somma che definisce
+$S_{m_n}$ è presente anche
+nella somma che definisce $R_n$ e quindi
+facendo la differenza $R_n - S_{m_n}$ si ottiene la somma di tutti
+gli $a_{\sigma(k)}$ per $k=0,\dots,n$ tali che $\sigma(k) > m_n$.
+Dunque, stimando il valore assoluto della somma con la somma dei valori
+assoluti e aggiungendo alla somma anche tutti gli altri valori $a_k$ con $k>m_n$, si ottiene:
+\begin{align*}
+\abs{R_n - S_{m_n}}
+\le \sum_{k=m_n}^\infty \abs{a_k}.
+\end{align*}
+Ma, essendo la serie $\sum a_k$ assolutamente convergente, la coda della serie dei valori assoluti tende a zero e quindi anche la sottosuccessione
+delle code che partono dall'indice $m_n$ tende a zero (cambio di variabile
+nel limite). Dunque
+\[
+  \lim_{n\to +\infty} R_n - S_{m_n} = 0.
+\]
+D'altra parte $S_n\to S$ dove $S$ è la somma della serie convergente
+$\sum a_k$ e di conseguenza anche $S_{m_n} \to S$.
+Dunque si ottiene, come volevamo dimostrare:
+\[
+ R_n = (R_n - S_{m_n}) + S_{m_n} \to 0 + S = S.
+\]
 \end{proof}
 
 \section{la serie esponenziale}
 
-Utilizzando il  criterio del rapporto
-abbiamo già osservato che
-per ogni $z \in \CC$
-la serie
+Definiamo la funzione $\exp \colon \CC \to \CC$
+\mymargin{$\exp z$}
+come
 \[
-\sum_{k=0}^\infty \frac{z^k}{k!}
+\exp(z) = \sum_{k=0}^\infty \frac{z^k}{k!}.
 \]
-è assolutamente convergente.
-Vogliamo mostrare che la somma di questa
-serie coincide con la funzione esponenziale $e^z$
-cioè
-che vale il seguente.
-
-\begin{theorem}[serie esponenziale]
-Per ogni $z\in \CC$ si ha
+Abbiamo già osservato che (grazie al criterio del rapporto)
+la serie converge assolutamente per ogni $z \in \CC$, dunque
+la funzione $\exp$ è ben definita.
+Vedremo in questo capitolo che la definizione data sopra coincide con
+la definizione di esponenziale
 \[
-  \lim_{n \to +\infty} \enclose{1+\frac z n}^n = \sum_{k=0}^\infty \frac{z^k}{k!}.
+e^z = \lim_{n\to +\infty}\enclose{1 + \frac 1 n}^n
+\]
+data nel capitolo sui numeri complessi che a sua volta coincide con
+la potenza $e^x$ definita nel capitolo sui numeri reali.
+Anzi, il seguente teorema giustifica l'esistenza del limite nella
+definizione di $e^z$ (questione che avevamo lasciato in sospeso).
+
+\begin{theorem}[collegamento tra le due definizioni di esponenziale]
+\mymargin{collegamento tra le due definizioni di esponenziale}
+Per ogni $z\in \CC$ la successione
+$  \enclose{1+\frac z n}^n $
+è convergente
+e si ha
+\[
+  \lim_{n \to +\infty} \enclose{1+\frac z n}^n  = \sum_{k=0}^\infty \frac{z^k}{k!}.
 \]
 \end{theorem}
 %
@@ -4166,35 +4268,40 @@ in quanto ogni fattore $\frac{n-j}{n}$ tende
 a $1$ per $n\to +\infty$ (si noti che a $k$ fissato il numero di fattori $k$ è
 fissato).
 
+
 Sia $z\in \CC$ fissato e sia
 \[
   S_M = \sum_{k=0}^{M} \frac{\abs{z}^k}{k!}.
 \]
-Abbiamo già osservato che $S_M$ converge: sia
+Abbiamo già osservato che $S_M$ converge per $M\to +\infty$.
+Poniamo
 \[
   E = \lim_{M\to +\infty} S_M
     = \sum_{k=0}^{+\infty} \frac{\abs{z}^k}{k!}.
 \]
 
-Consideriamo ora un qualunque $\eps \in (0,1]$, e scegliamo un $M$
+Consideriamo ora un qualunque $\eps > 0 $, e scegliamo un $M$
 (grazie alla definizione di limite $S_M \to E$) tale
 che
 \[
-\abs{S_M - E} = \sum_{k=M+1}^{+\infty} \frac{\abs{z}^k} {k!} < \eps.
+\sum_{k=M+1}^{+\infty} \frac{\abs{z}^k} {k!}
+= E - S_M < \eps.
 \]
 Fissato $k\le M$ visto che $c(n,k)\to 1$
 esiste $N_k > M$ tale che per ogni $n>N_k$
-si ha $\abs{1-c(n,k)} < \eps$.
+si abbia $1-c(n,k) < \eps$
+(ricordiamo che $c(n,k)\le 1$).
 Prendiamo allora
 \[
   N=\max_{k=0}^M N_k
 \]
-cosicchè per ogni $n>N$ e per ogni $k\le M$ si avrà $\abs{1-c(n,k)} < \eps$.
+cosicchè per ogni $n>N$ e per ogni $k\le M$ si avrà $1-c(n,k) < \eps$.
 Allora, per ogni $n>N$
 \begin{align*}
 \abs{\sum_{k=0}^n \frac{z^k}{k!} - \enclose{1+\frac z n}^n}
-&= \abs{\sum_{k=0}^n \enclose{\frac{z^k}{k!} - c(n,k)\frac{z^k}{k!}}} \\
-&= \abs{\sum_{k=0}^n  (1-c(n,k))\frac{z^k}{k!}} \\
+&= \abs{\sum_{k=0}^n \enclose{\frac{z^k}{k!} - c(n,k)\frac{z^k}{k!}}}
+= \abs{\sum_{k=0}^n  (1-c(n,k))\frac{z^k}{k!}} \\
+&\le \sum_{k=0}^n  (1-c(n,k))\frac{\abs{z}^k}{k!} \\
 &\le \sum_{k=0}^{N} \abs{1-c(n,k)} \frac{\abs{z}^k}{k!}
    + \sum_{k=N+1}^n \frac{\abs{z}^k}{k!} \\
 &\le  \eps \sum_{k=0}^{+\infty} \frac{\abs{z}^k}{k!}
@@ -4214,11 +4321,30 @@ cioè
 \]
 \end{proof}
 
+Aver distinto le due definizioni di $e^z$ (tramite limite)
+e di $\exp(z)$ (tramite somma della serie) è puramente strumentale.
+C'è una unica funzione esponenziale che può essere definita in
+un modo o nell'altro. Non ci si fissi quindi con l'identificare
+le due diverse notazioni $e^z$ ed $\exp(z)$ con le due diverse definizioni.
+Ogni testo avrà una sua definizione di funzione esponenziale che può
+essere per certi versi arbitraria salvo poi ritrovare le proprietà
+caratterizzanti di tale funzione.
+
 \begin{theorem}[proprietà dell'esponenziale complesso]
-Si ha
+Per ogni $z,w \in \CC$ si ha
 \[
+  \exp(z+w) = \exp(z) \cdot \exp(w).
 \]
 \end{theorem}
+%
+\begin{proof}
+\begin{align*}
+\sum_{k=0}^N \frac{z^k}{k!} \cdot \sum_{j=0}^N \frac{w^j}{j!}
+- \sum_{n=0}^N \frac{(z+w)^n}{n!}
+&=
+ \sum_{k\le n, j\le n}
+\end{align*}
+\end{proof}
 
 \begin{comment}
 \section{operatori $\Sigma$ e $\Delta$}
