@@ -662,6 +662,81 @@ che vale anche con $n+1$ al posto di $n$. Si ha infatti
 Si dimostri che $2^n > n$ per ogni $n\in \NN$.
 \end{exercise}
 
+
+\section{il coefficiente binomiale}
+
+\begin{definition}[coefficiente binomiale]
+Definiamo per ogni $n\in \NN$ e per ogni $k\in \ZZ$
+il \myemph{coefficiente binomiale}
+\[
+  {n \choose k}
+  = \begin{cases}
+    \frac{n!}{k!(n-k)!} & \text{se $0 \le k \le n$} \\
+    0 & \text{altrimenti}.
+  \end{cases}
+\]
+\end{definition}
+
+\begin{theorem}[triangolo di Tartaglia]
+Per ogni $n\in \NN$ e $k \in \ZZ$ si ha
+\[
+  {n+1 \choose k} = {n \choose k-1} + {n \choose k}.
+\]
+\end{theorem}
+%
+\begin{proof}
+\begin{align*}
+{n \choose k-1} + {n \choose k}
+&= \frac{n!}{(k-1)!(n-k+1)!} + \frac{n!}{k!(n-k)!} \\
+&= \frac{k\cdot n! + (n-k+1)\cdot n!}{k!(n-k+1)!} \\
+&= \frac{(n+1)\cdot n!}{k!(n+1-k)!}
+= {n+1 \choose k}.
+\end{align*}
+\end{proof}
+
+\begin{theorem}[sviluppo binomiale]
+Se $a,b\in \RR$ e $n\in \NN$ si ha:
+\[
+(a+b)^n = \sum_{k=0}^n {n \choose k} a^k \cdot b^{n-k}.
+\]
+\end{theorem}
+%
+\begin{proof}
+Lo dimostriamo per induzione su $n$.
+Per $n=0$ l'uguaglianza è soddisfatta per verifica diretta (ambo i membri sono uguali ad $1$).
+
+Supponendo valida l'uguaglianza per un certo $n\in \NN$ proviamo a verificarla
+per $n+1$:
+\begin{align*}
+(a+b)^{n+1}
+&= (a+b)\cdot (a+b)^n
+ = (a+b) \sum_{k=0}^n {n \choose k} a^k \cdot b^{n-k}\\
+&= \sum_{k=0}^n {n \choose k} a^{k+1}\cdot b^{n-k}
+   + \sum_{k=0}^n {n \choose k} a^k \cdot b^{n-k+1} \\
+&= \sum_{k=1}^{n+1} {n \choose k-1} a^k \cdot b^{n-k+1}
+   + \sum_{k=0}^n {n \choose k}a^k \cdot b^{n-k+1} \\
+&= \sum_{k=0}^{n+1} \enclose{{n \choose k-1} + {n \choose k}} a^k \cdot b^{n+1-k}.
+\end{align*}
+Nell'ultimo passaggio abbiamo sfruttato il fatto che per $k<0$ e per $k>n$ il coefficiente binomiale è nullo.
+Sfruttando la relazione del triangolo di Tartaglia si ottiene infine,
+come volevamo dimostrare
+\[
+  = \sum_{k=0}^{n+1}{n+1 \choose k} a^k \cdot b^{n+1-k}.
+\]
+\end{proof}
+
+\begin{exercise}[interpretazione combinatoria del coefficiente binomiale]
+Il numero di sottoinsiemi di $k$ elementi di un insieme con $n$ elementi
+è ${n\choose k}$.
+\end{exercise}
+
+\begin{exercise}
+Provare che
+\[
+ \sum_{k=0}^n {n \choose k} = 2^n.
+\]
+\end{exercise}
+
 %%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%
@@ -3757,16 +3832,13 @@ si semplificano uno con l'altro permettendo al cannocchiale di chiudersi:
   = a_0 - a_{n+1}.
 \]
 
-Ad esempio per calcolare la somma della serie geometrica abbiamo
-sfruttato questa relazione
+Ad esempio per calcolare la somma della serie geometrica
+potevamo
+sfruttare questa relazione
 \[
   \frac{1-q^{n+1}}{1-q} - \frac{1-q^n}{1-q}
   = \frac{q^n - q^{n+1}}{1-q} = q^n \cdot \frac{1-q}{1-q} = q^n
 \]
-
-In generale data una qualunque successione $a_n$ possiamo dunque trovare una
-serie di cui $a_n$ risultano essere le somme parziali.
-Nel seguente esempio si considera la successione $a_n = 1/(n+1)$.
 
 \begin{example}[serie di Mengoli]
 Si ha
@@ -3781,7 +3853,7 @@ Infatti
   \sum_{k=1}^n \frac{1}{k(k+1)}
   = \sum_{k=1}^n \enclose{\frac{1}{k} - \frac{1}{k+1}}
   = \sum_{k=1}^n \frac{1}{k} - \sum_{k=2}^{n+1} \frac{1}{k}
-  = 1 - \frac{1}{n+2} \to 1.
+  = 1 - \frac{1}{n+1} \to 1.
 \]
 \end{proof}
 
@@ -4073,7 +4145,7 @@ di conseguenza (essendo una serie a termini positivi) è convergente.
 \begin{exercise}
 Utilizzare il criterio di condensazione per dimostrare che la serie
 \[
-  \sum \frac{1}{n \ln n}
+  \sum \frac{1}{n \cdot \ln n}
 \]
 diverge.
 \end{exercise}
@@ -4235,11 +4307,11 @@ si ottengono associando i termini di $a_k$ a gruppi
 consecutivi delimitati dalla successione di indici
 $k_n$.
 
-Se la serie $\sum a_k$ è convergente
-allora anche la serie $\sum b_n$ è convergente e
+Se la serie $\sum a_k$ non è indeterminata
+allora neanche la serie $\sum b_n$ è indeterminata e si ha
 \[
-\sum_{n=0}^\infty b_n
-= \sum_{k=0}^\infty a_k.
+\sum_{n=0}^{+\infty} b_n
+= \sum_{k=0}^{+\infty} a_k.
 \]
 
 Inoltre se $\sum a_k$ è a termini positivi e se
@@ -4262,7 +4334,21 @@ devono coincidere e se una delle due serie è convergente
 anche l'altra lo è.
 \end{proof}
 
+\begin{comment}
 
+\section{le serie di potenze}
+Se $a_k$ è una successione di numeri complessi, la serie
+\[
+ \sum a_k \cdot z^k
+\]
+dipendente da un parametro $z$ si chiama \myemph{serie di potenze}
+di coefficienti $a_k$.
+Se chiamiamo $A\subset \CC$ l'insieme dei numeri complessi $z$
+per i quali la serie di potenze converge, si otterrà una funzione
+$f \colon A \to \CC$ definita da
+\[
+  f(z) = \sum_{k=0}^{+\infty} \frac{z^k}{k!}
+\]
 
 \section{la serie esponenziale}
 
@@ -4380,52 +4466,67 @@ essere per certi versi arbitraria salvo poi ritrovare le proprietà
 caratterizzanti di tale funzione.
 
 \begin{theorem}[proprietà dell'esponenziale complesso]
-Per ogni $z,w \in \CC$ si ha
+Si ha:
+\begin{enumerate}
+\item
+$\displaystyle \exp(0) = 1$;
+\item
+per ogni $z,w \in \CC$
 \[
-  \exp(z+w) = \exp(z) \cdot \exp(w).
+  \exp(z+w) = \exp(z) \cdot \exp(w);
 \]
+\item
+per ogni $z\in \CC$ si ha $\exp(z) \neq 0$ e
+\[
+ \exp(-z) = \frac{1}{\exp(z)};
+\]
+\item la funzione $\exp\colon \CC \to \CC$ è (sequenzialmente) continua.
+\end{enumerate}
 \end{theorem}
 %
 \begin{proof}
-Consideriamo la matrice
-\[
-m_{jk}  = \frac{z^k}{k!} \cdot \frac{w^j}{j!}.
-\]
-Se sommiamo tutti gli elementi nel quadrato
-$0 \le j,k \le N$ e facciamo
-tendere $N\to +\infty$ si ottiene
-\[
-  \sum_{k=0}^N \sum_{j=0}^N \frac{z^k}{k!} \frac{w^j}{j!}
-  = \sum_{k=0}^N \frac{z^k}{k!} \sum_{j=0}^N \frac{w^k}{j!}
-  \to \exp(z) \cdot \exp(w).
-\]
-Se invece sommiamo gli elementi nel triangolo
-$0\le k+j \le N$ e facciamo tendere $N\to +\infty$
-si ottiene
-\[
-\sum_{n=0}^N \sum_{k=0}^n \frac{z^k}{k!} \frac{w^{n-k}}{(n-k)!}
-= \sum_{n=0}^N \sum_{k=0}^n {n \choose k} \frac{z^k w^{n-k}}{n!}
-= \sum_{n=0}^N \frac{(z+w)^n}{n!}
-\to \exp(z+w).
-\]
-Per concludere la dimostrazione è sufficiente notare
-che i due diversi modi di sommare gli elementi della
-matrice $m_{jk}$ corrispondono a due diverse sotto
+\begin{enumerate}
+\item
+La proprietà $\exp(0)=1$ segue per verifica diretta (ricordiamo che $0^0=1$).
 
-
+\item
+Consideriamo la matrice infinita
 \[
- \exp(z+w)
- = \sum_{n=0}^\infty \frac{(z+w)^k}{k!}
- = \sum_{n=0}^\infty
+m_{k,j}  = \frac{z^k}{k!} \cdot \frac{w^j}{j!}.
 \]
-
+Allora da un lato
 \begin{align*}
-\sum_{k=0}^N \frac{z^k}{k!} \cdot \sum_{j=0}^N \frac{w^j}{j!}
-- \sum_{n=0}^N \frac{(z+w)^n}{n!}
-&=
- \sum_{k\le n, j\le n}
+ \exp(z+w)
+ &= \sum_{n=0}^{+\infty} \frac{(z+w)^n}{n!}\\
+ &= \sum_{n=0}^{+\infty} \frac{1}{n!}\sum_{k=0}^n \frac{n!}{k!(n-k)!} z^k\cdot w^{n-k}\\
+ &= \sum_{n=0}^{+\infty} \sum_{k=0}^n m_{k, n-k}
 \end{align*}
+e dall'altro
+\begin{align*}
+ \exp(z) \cdot \exp(w)
+ &= \sum_{k=0}^{+\infty}\frac{z^k}{k!} \sum_{j=0}^{+\infty}\frac{w^j}{j!} \\
+ &= \lim_{n\to+\infty} \sum_{k=0}^n \frac{z^k}{k!} \sum_{j=0}^n \frac{w^j}{j!} \\
+ &= \lim_{n\to+\infty} \sum_{k=0}^n \sum_{j=0}^n m_{k,j}.
+\end{align*}
+
+In entrambi i casi stiamo dunque sommando tutti i termini della
+matrice $m_{k,j}$ in un ordine diverso: nel primo caso stiamo associando i termini lungo le diagonali, nel secondo caso stiamo associando i termini
+lungo le cornici quadrate.
+
+Ma la serie $\sum m_{k,j}$ è assolutamente convergente e quindi
+la sua somma non dipende dall'ordine in cui prendiamo gli addendi.
+\item
+Visto che
+\[
+  1 = \exp( 0) = \exp(z-z) = \exp(z) \cdot \exp(-z)
+\]
+ricaviamo che $\exp(z)\neq 0$ e $\exp(-z) =  1 / \exp(z)$.
+\item
+...
+\end{enumerate}
 \end{proof}
+
+\end{comment}
 
 \begin{comment}
 \section{operatori $\Sigma$ e $\Delta$}
@@ -4512,6 +4613,7 @@ Infatti per $n>0$ si ha
 Hanno segnalato errori e correzioni:
 Alessandro Canzonieri,
 Luca Casagrande,
+Michele Monti,
 Maria Antonella Secondo,
 Bianca Turini,
 Piero Viscone.
