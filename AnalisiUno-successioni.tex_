@@ -1,0 +1,2239 @@
+%
+%
+%
+%
+\chapter{successioni}
+
+
+Una \myemph{successione} numerica reale è una
+funzione\footnote{%
+Nella scrittura a mano si
+sottolineano i caratteri invece di utilizzare il grassetto:
+scriveremo $\underline a$ invece che $\vec a$.}
+$\vec a\colon \NN \to \RR$.
+L'insieme delle funzioni $\NN \to \RR$ viene usualmente indicato
+con $\RR^\NN$. In effetti una successione $\vec a$ può essere interpretata
+come un vettore con infinite componenti:
+\[
+  \vec a = (a_0, a_1, a_2, \dots)
+\]
+dove si intende
+\[
+   a_n = \vec a(n).
+\]
+Le componenti $a_n$ si chiamano \emph{termini} della successione.
+I valori di $n$ si chiamano, invece, \emph{indici}.
+L'intera
+successione $\vec a$ può essere indicata con $(a_n)_{n=0}^\infty$
+oppure $(a_n)_n$ oppure,
+più semplicemente, con $a_n$ quando sia chiaro che si intende l'intera
+successione $\vec a$ e non un singolo termine della stessa.
+
+Le successioni vengono usualmente
+considerate nei procedimenti di approssimazione.
+Spesso infatti siamo interessati a capire qual è il numero (se esiste) a cui
+la successione si avvicina al crescere di $n$.
+
+\begin{definition}[successione convergente]
+Diremo che una successione $a_n$ converge
+\mymargin{convergenza}
+\index{successione convergente}
+ad un numero $\ell \in \RR$
+ovvero ha limite finito
+e scriveremo:
+\mymargin{$a_n\to \ell$}
+\[
+  a_n \to \ell \qquad\text{(per $n\to +\infty$)}
+\]
+se scelto comunque un errore $\eps>0$ ogni termine della successione,
+da un certo punto in poi, si trova a distanza inferiore di $\eps$
+dal punto limite $\ell$. Formalmente:
+\[
+\forall \eps>0\colon \exists N\in\NN \colon \forall n\in \NN\colon
+n>N \implies \abs{a_n - \ell}
+< \eps.
+\]
+\end{definition}
+
+\begin{example}
+La successione $a_n = \frac{n}{n+1}$ converge a $\ell=1$:
+\[
+  \frac{n}{n+1}\to 1.
+\]
+\end{example}
+\begin{proof}
+Dato $\eps>0$ ci chiediamo quali siano gli indici $n$
+per i quali risulta $\abs{a_n -1}<\eps$ e troviamo
+che devono valere due disequazioni:
+\[
+  1- \eps < \frac{n}{n+1} < 1+\eps.
+\]
+Facilmente possiamo osservare che $n/(n+1)<1$ per ogni $n$, dunque
+la seconda disequazione è sempre verificata. La prima disequazione
+si riconduce a
+\[
+ n + 1 > \frac{1}{\eps}.
+\]
+Dunque qualunque sia $\eps>0$, scelto $N = \lceil 1 / \eps\rceil$
+sappiamo che per ogni $n>N$
+si ha $n+1 > n > N \ge \frac{1}{\eps}$ e quindi $1-\eps < a_n$.
+Inoltre la disuguaglianza $a_n < 1 < 1+\eps$ è verificata per ogni $n$.
+Abbiamo quindi verificato che vale la condizione che definisce
+la convergenza.
+\end{proof}
+
+
+Le successioni possono anche avere limite infinito,
+ in tal
+caso si dice che divergono.
+\begin{definition}[successione divergente]
+\mymargin{divergente}
+\index{successione divergente}
+Una successione $a_n$ si dice avere limite $+\infty$
+o divergere a $+\infty$
+\mymargin{$a_n\to +\infty$}
+\[
+  a_n \to +\infty \qquad\text{(per $n\to +\infty$)}
+\]
+se comunque si scelga un numero reale, anche molto grande,
+ogni termine della successione, da un certo punto in poi,
+risulta essere maggiore di tale numero scelto. Formalmente
+\[
+  \forall M\in \RR\colon \exists N\in \NN \colon \forall n\in \NN\colon
+  n>N \implies a_n >M.
+\]
+Definizione analoga si ha per il limite $-\infty$. Scriveremo
+\mymargin{$a_n\to -\infty$}
+\[
+  a_n \to -\infty \qquad \text{(per $n\to +\infty$)}
+\]
+se
+\[
+  \forall M\in \RR\colon \exists N\in \NN \colon \forall n\in \NN\colon
+  n>N\implies a_n < -M.
+\]
+\end{definition}
+
+\begin{example}
+Si ha
+\[
+  1000-n^2 \to -\infty.
+\]
+\end{example}
+%
+\begin{proof}
+Per dimostrare che $1000-n^2\to -\infty$ sarà
+necessario trovare per ogni $M\in \RR$
+dei valori di $n$ per i quali si abbia $1000-n^2 < -M$.
+Questo avviene se $n^2 > 1000 + M$. Visto che per ogni $n\in \NN$
+si ha $n^2 \ge n$ (verificare!) sappiamo che se $n> 1000+M$ allora
+anche $n^2 > 1000+M$. Dunque per ogni $M$ sarà sufficiente considerare
+un numero intero $N \ge 1000 + M$
+(ad esempio si potrebbe scegliere $N = \max\{0, \lceil 1000 + M\rceil\}$)
+cosicché per ogni $n>N$ si avrebbe:
+\[
+ a_n = 1000 - n^2 \le 1000 - n < 1000 - N \le 1000 - (1000  + M) = -M
+\]
+come richiesto dalla definizione di limite $-\infty$.
+\end{proof}
+
+Volendo esprimere il concetto di limite in maniera uniforme
+(senza dover distinguere limiti finiti e infiniti) possiamo
+rendere la definizione un poco più astratta introducendo il concetto
+di \emph{intorno}.
+La condizione $\abs{a_n - \ell}< \eps$ può essere scritta in
+modo equivalente come
+$a_n \in (\ell-\eps, \ell+\eps)$. L'insieme $B_\eps(\ell) = (\ell-\eps, \ell+\eps)$
+si chiama \myemph{intorno} di raggio $\eps$ centrato in $\ell$.
+Possiamo quindi considerare la famiglia
+di tutti questi intorni del punto $\ell$:
+\[
+ \U_\ell = \{B_\eps(\ell)\colon \eps>0 \}.
+\]
+Questa famiglia di insiemi si chiama \myemph{base di intorni} del punto $\ell$.
+La definizione
+di limite finito si può dunque riscrivere così:
+\[
+  a_n\to \ell
+  \qquad \iff \qquad
+  \forall U \in \U_\ell\colon \exists N\in \NN\colon \forall n>N\colon a_n\in U.
+\]
+Il vantaggio di questa \emph{astrazione} è che ora possiamo definire
+gli intorni di $+\infty$ e di $-\infty$ nel modo seguente:
+\begin{align*}
+  \U_{+\infty} &= \{ (M,+\infty]\colon M\in \RR\}\\
+  \U_{-\infty} &= \{ [-\infty, -M)\colon M \in \RR\}
+\end{align*}
+e la definizione data per il caso $\ell$ finito risulta valida anche nel
+caso in cui $\ell$ sia infinito. Anzi, possiamo utilizzare gli intorni di
+$+\infty$ anche per l'indice $n$, ottenendo questa definizione
+generale
+valida per ogni $\ell\in \bar \RR$:
+
+\begin{definition}[definizione topologica di limite]
+\mymargin{definizione topologica di limite}
+\index{limite definizione topologica}
+Sia $a_n$ una successione e sia $\ell \in \bar \RR$.
+Diremo che $a_n$ ha limite $\ell$ e scriveremo
+\[
+  a_n \to \ell
+\]
+se
+\[
+  \forall U \in \U_\ell\colon \exists V \in \U_{+\infty} \colon \forall n\in \NN\colon
+  n \in V \implies a_n\in U.
+\]
+\end{definition}
+
+\begin{theorem}[unicità del limite]
+\mymargin{unicità del limite}
+Sia $a_n$ una successione e siano $\ell_1, \ell_2 \in \bar \RR$
+tali che $a_n \to \ell_1$ e $a_n \to \ell_2$. Allora $\ell_1 = \ell_2$.
+\end{theorem}
+%
+\begin{proof}
+La dimostrazione si basa sul fatto che se $\ell_1 \neq \ell_2$ allora
+esistono due intorni $U_1\in \U_{\ell_1}$ e $U_2 \in \U_{\ell_2}$
+che sono tra loro disgiunti: $U_1 \cap U_2 = \emptyset$.
+
+La verifica di questo fatto è piuttosto elementare.
+Se $\ell_1$ ed $\ell_2$ sono entrambi finiti, è sufficiente
+considerare $\eps = \abs{\ell_2-\ell_1}/2$ e si osserva immediatamente
+che gli intervalli $(\ell_1-\eps, \ell_1+\eps)$ e $(\ell_2-\eps, \ell_2+\eps)$
+sono disgiunti. Se $\ell_1$ ed $\ell_2$ sono entrambi finiti e sono diversi,
+possiamo supporre $\ell_1=-\infty$ e $\ell_2=+\infty$. In tal caso gli
+intorni $U_1= [-\infty,0)$ e $U_2=(0,+\infty]$ sono disgiunti.
+Se $\ell_1$ è finito e $\ell_2 = +\infty$, basterà prendere
+$U_1 = (\ell_1-1, \ell_1+1)$ ed $U_2 = (\ell_1+1,+\infty]$ per avere due
+intorni disgiunti. Analogamente si procederà nel caso $\ell_2=-\infty$.
+
+Una volta appurato che punti diversi $\ell_1\neq \ell_2$
+ammettono intorni disgiunti $U_1$, $U_2$ sarà sufficiente
+applicare la definizione di limite con entrambi i valori $\ell_1$
+e $\ell_2$
+per ottenere che da un lato esiste $N_1$ tale che per ogni
+$n>N_1$ si ha $a_n \in U_1$, dall'altro esiste $N_2$ tale che per ogni
+$n>N_2$ si ha $a_n \in U_2$. Ma allora per ogni $N> \max\{ N_1, N_2\}$
+si dovrebbe avere $a_n \in U_1 \cap U_2 = \emptyset$ il che è impossibile.
+\end{proof}
+
+Osserviamo che non è detto che un limite esista, come si vede dal seguente
+esempio.
+
+\begin{example}
+Sia $a_n = (-1)^n$. Non esiste $\ell \in \bar \RR$
+tale che $a_n \to \ell$.
+\end{example}
+\begin{proof}
+La successione $a_n$ ha come valori solamente i numeri $1$ e $-1$,
+infatti se $n$ è pari si ha $(-1)^n=1$ e se $n$ è dispari $(-1)^n=-1$.
+Supponiamo per assurdo che la successione abbia limite $\ell$
+e consideriamo l'intorno $U = (\ell - 1, \ell + 1)$.
+Se $\ell\ge 0$ certamente $-1 \not\in U$ in quanto $\ell-1\ge -1$.
+Se invece $\ell \le 0$ certamente $1\not\in U$ in quanto $\ell+1\le 1$.
+Dunque, in ogni caso, comunque si scelga $N\in \NN$ esisteranno degli
+$n>N$ tali che $a_n \not \in U$.
+\end{proof}
+
+Abbiamo dunque osservato che in generale il limite di una successione può
+non esistere ma se esiste è unico. Questo ci permette di definire
+l'operatore di limite
+che associa ad ogni successione che ammette limite
+il suo (unico) limite in $\bar \RR$:
+\mymargin{$\lim a_n$}
+\[
+   \lim a_n = \ell \qquad \text{se}\qquad a_n \to \ell.
+\]
+Per esplicitare il fatto che $a_n$ rappresenta
+una intera successione e non un singolo valore,
+(cioè $n$ è una variabile muta) si potrà anche scrivere
+\[
+  \lim_n a_n \qquad \text{oppure} \qquad \lim_{n\to+\infty} a_n.
+\]
+
+\begin{definition}[carattere di una successione]
+Sia $a_n$ una successione. Se $a_n$ non ammette limite
+si dice anche che $a_n$ è \emph{indeterminata}
+\mymargin{successione indeterminata}
+(si intende che è indeterminato il suo limite!).
+Abbiamo dunque le seguenti alternative
+\begin{enumerate}
+ \item la successione è convergente (ha limite finito);
+ \item la successione è divergente (ha limite infinito);
+ \item la successione è indeterminata (non ha limite).
+\end{enumerate}
+Determinare il \emph{carattere}
+\mymargin{carattere di una successione}
+di una successione
+significa specificare a quale delle tre categorie appartiene.
+\end{definition}
+
+\begin{theorem}[criteri di confronto]
+\mymargin{confronto tra limiti}
+\begin{enumerate}
+\item
+Se abbiamo due successioni $a_n$ e $b_n$, se per ogni $n$ si ha
+\[
+a_n \le b_n
+\]
+e se entrambe le successioni ammettono limite: $a_n \to a$ e $b_n \to b$
+allora
+\[
+a \le b.
+\]
+
+\item
+Siano $a_n$ e $b_n$ due successioni tali che per ogni $n$
+si abbia
+\[
+a_n \le b_n\]
+Se $a_n \to +\infty$ allora $b_n \to +\infty$.
+Se $b_n \to -\infty$ allora $a_n \to -\infty$.
+
+\item
+(teorema dei carabinieri)
+\mymargin{teorema dei carabinieri}
+Se abbiamo tre successioni $a_n$, $b_n$ e $c_n$,
+se per ogni $n$ vale
+\[
+a_n \le b_n \le c_n
+\]
+ e se le due
+successioni $a_n$ e $c_n$ hanno lo stesso limite: $a_n \to \ell$ e $c_n\to \ell$
+allora anche $b_n \to \ell$.
+\end{enumerate}
+
+
+\end{theorem}
+%
+\begin{proof}
+\begin{enumerate}
+\item
+Se per assurdo fosse $a > b$ esisterebbero degli intorni disgiunti $U_a\in \U_a$
+e $U_b \in \U_b$.
+Inoltre si avrebbe $U_a > U_b$ (cioè: ogni punto di $U_a$ è maggiore
+di ogni punto di $U_b$) visto che $a>b$.
+Ma, dalla definizione di limite,
+dovrebbero anche esistere $N_a$ e $N_b$ tali che per ogni $n>N_a$ si abbia
+$a_n \in U_a$ e per ogni $n>N_b$ si abbia $b_n \in U_b$.
+Ma allora per ogni $n> \max\{N_a, N_b\}$ si avrebbe
+contemporaneamente $a_n \in U_a$ e $b_n \in U_b$ da cui $a_n > b_n$
+contro l'ipotesi.
+
+\item
+Se $a_n \to +\infty$ per ogni $M\in \RR$ esiste $N\in \NN$ tale che
+per ogni $n>N$ si ha $a_n > M$. Ma se $b_n>a_n$ si ha anche $b_n >M$
+dunque anche $b_n \to +\infty$.
+Dimostrazione analoga si ottiene nel caso $b_n \to -\infty$.
+
+\item
+Se $a_n$ e $c_n$ hanno lo stesso limite $\ell$ significa che per ogni
+$U \in \U_\ell$ esistono $N_a$ ed $N_c$ tali che per ogni $n>N_a$ si ha
+$a_n\in U$ e per ogni $n > N_c$ si ha $c_n\in U$.
+Prendendo allora (al solito!) $N=\max\{N_a, N_b\}$ si trova che per
+ogni $n>N$ si ha $a_n\in U$ e $c_n \in U$.
+Visto che $U$ è un intervallo e visto che $a_n \le b_n  \le c_n$,
+deduciamo che anche $b_n \in U$. Dunque la definizione di limite è verificata.
+\end{enumerate}
+\end{proof}
+
+\begin{corollary}[permanenza del segno]
+\mymargin{permanenza del segno}
+Sia $a_n$ una successione e $c\in \RR$.
+Se per ogni $n\in \NN$ si ha $a_n \ge c$ e se $a_n$ ha limite $\ell \in \bar \RR$
+allora $\ell \ge c$.
+In particolare se una successione ha valori non negativi
+ed ammette limite, allora
+il limite è non negativo.
+
+Viceversa, se una successione $a_n$ ha limite positivo:
+$a_n \to a >0$ allora $a_n>0$ per ogni $n$ tranne
+al più un numero finito di termini.
+ Risultato analogo vale se $a_n \to a <0$: a parte un numero
+ finito di termini, i valori della successione sono negativi.
+\end{corollary}
+%
+\begin{proof}
+Prima parte.
+E' sufficiente considerare la successione costante $c_n = c$
+cosicché si ha $c_n \le a_n$ per ogni $n$. Ma ovviamente
+la successione $c_n$ ha limite $c$ e dunque, per confronto,
+deve essere $c\le \ell$.
+
+Seconda parte. Se $a>0$ e $a\in \RR$
+per definizione di limite esiste $N$
+tale che per ogni $n>N$ si ha $a_n> a/2 > 0$. Dunque solo
+un numero finito di termini (quelli con indice $n\le N$)
+possono essere negativi. Se $a=+\infty$ il ragionamento
+si ripete a maggior ragione sapendo che esiste $N$
+tale che $a_n>1$ per $n>N$.
+Cambiando segno alla successione si ottiene il caso $a<0$.
+\end{proof}
+
+Si presti molta attenzione al fatto che se $a_n$ è a termini positivi
+non è detto che il limite sia positivo, possiamo solo affermare
+che non è negativo. Ad esempio $1/(n+1)>0$ ma $1/(n+1) \to 0$ (verificare!).
+In generale se una successione ha valori in un intervallo il suo limite,
+se esiste, deve essere un punto del corrispondente intervallo chiuso.
+
+Se una successione ha limite $0$ può avere infiniti termini
+positivi e infiniti termini negativi, come nel caso
+della successione $a_n = 1/(-2)^n$.
+
+\begin{theorem}[successioni che differiscono su un numero finito di termini]
+\mymargin{successioni che differiscono su un numero finito di termini}
+Se $a_n$ e $b_n$ sono due successioni tali che l'insieme degli indici
+$n$ su cui differiscono sia finito
+(cioè $\#\{n\in \NN\colon a_n \neq b_n\} < \# \NN$)
+allora se il limite di $a_n$ esiste e vale $\ell$ allora
+anche il limite di $b_n$ esiste e vale $\ell$.
+Viceversa se il limite di $a_n$ non esiste, non esiste neanche il limite
+di $b_n$.
+\end{theorem}
+%
+\begin{proof}
+Un insieme di numeri naturali è finito se e solo se è limitato.
+Dunque esiste $K\in \NN$ tale che per ogni $n>K$ si ha $a_n = b_n$.
+Se $a_n$ ha limite $\ell$ soddisfa la proprietà
+\[
+ \forall U \in \U_\ell \colon
+ \exists N\in \NN\colon \forall n > N \colon a_n \in U.
+\]
+Se al posto di $N$ mettiamo $N' = \max\{N,K\}$ sappiamo che per $n>N$
+si ha anche $n>K$ e quindi $a_n=b_n$. Dunque anche la successione $b_n$
+soddisfa la stessa proprietà.
+
+Se la successione $a_n$ non ha limite allora pure $b_n$ non può avere limite
+perché, se ce lo avesse, potremmo scambiare i ruoli di $a_n$ e $b_n$
+e applicare il teorema già dimostrato concludendo che anche $a_n$ avrebbe limite.
+\end{proof}
+
+Il teorema precedente è molto utile perché ci permette di applicare
+i criteri di confronto anche nel caso in cui le ipotesi siano violate
+su un numero finito di termini, come nel seguente esempio.
+
+\begin{example}
+Sapendo che la successione $a_n = n$ tende a $+\infty$ dimostrare
+che anche la successione $b_n = n^2-10$ tende a $+\infty$.
+\end{example}
+%
+\begin{proof}
+E' sufficiente osservare che $n^2-10 > n$ se $n\ge 4$ infatti
+se $n\ge 4$ si ha
+\[
+n^2 - 10 \ge 4 n -10 = n + 3n - 10 \ge n + 12 -10 \ge n+2 > n.
+\]
+Dunque se consideriamo la successione $c_n$ ottenuta da $b_n$
+modificando i primi quattro termini (ponendo ad esempio $c_0 = a_0$,
+$c_1=a_1$, $c_2=a_2$ e $c_3=a_3$) si ottiene $c_n\ge a_n$ per ogni $n$.
+Ma allora $c_n \to +\infty$ (per confronto con $a_n$) ma visto che
+$b_n$ differisce da $c_n$ solo nei primi 4 termini anche $b_n\to +\infty$.
+\end{proof}
+
+Il teorema precedente garantisce inoltre
+che per quanto riguarda lo studio del limite possiamo considerare
+successioni che siano definite solamente da un certo indice in poi.
+Ad esempio è molto frequente considerare successioni il cui primo indice sia
+$n=1$ invece che $n=0$. Questo non cambia nulla per quanto riguarda il limite
+della successione.
+
+\begin{example}
+La successione $a_n = 1/n$ è definita per $n\in \NN$ ma $n\neq 0$.
+Ciò non toglie che possiamo studiarne il limite come qualunque altra
+successione. Per evidenziare il fatto che il primo indice è $n=1$
+si potrà usare la notazione $(a_n)_{n=1}^\infty$.
+Per la cronaca: $1/n \to 0$.
+\end{example}
+
+Data una successione $a_n$ potremo considerare l'\emph{insieme
+dei suoi valori}: $\{a_n\colon n\in \NN\}$.
+Si tratta dell'immagine della funzione $n\mapsto a_n$
+e a volte si chiama \myemph{supporto} della successione.
+Si faccia attenzione al fatto che l'insieme dei valori
+non descrive completamente la successione perché
+viene persa l'informazione sull'ordine in cui vengono elencati
+i termini della successione e sulla loro molteplicità (ogni valore
+potrebbe essere assunti su molti indici diversi). Ad esempio
+l'insieme dei valori della successione $a_n = (-1)^n$ è l'insieme $\{-1, 1\}$. Ma anche la successione
+\[
+ b_n = \begin{cases}
+   -1 & \text{se $n\le 42$}\\
+   1  & \text{altrimenti}
+ \end{cases}
+\]
+ha lo stesso insieme dei valori. Si osservi però
+che la prima successione non ammette limite mentre la seconda
+è convergente (verificare!).
+
+Le operazioni $\sup$, $\inf$, $\max$ e $\min$ che abbiamo
+definito sugli insiemi, si intenderanno definite anche
+sulle successioni, considerando l'insieme dei valori della successione.
+Queste operazioni potrebbero essere sensibili anche ai primi termini della
+successione (a differenza dell'operazione di limite) dunque potrebbe
+essere necessario, per chiarezza, specificare qual è il primo indice
+da cui si intende cominciare a considerare i valori. Ad esempio
+se la successione $a_n$ è definita sui naturali tranne lo zero
+si avrà:
+\[
+  \sup a_n = \sup_{n=1}^\infty a_n = \sup\{a_n \colon n \in \NN, n \ge 1\}.
+\]
+
+\begin{example}
+Si consideri $a_n = \frac{1}{n+1}$ definita per $n\in \NN$.
+Allora
+\[
+  \sup a_n = \max a_n = 1, \qquad
+  \inf a_n = 0, \qquad \text{non esiste }\min a_n.
+\]
+\end{example}
+\begin{proof}
+Per ogni $n \in \NN$ si ha $n+1\ge 1$ e quindi $a_n = 1/(n+1) \le 1$.
+Visto poi che $a_0 = 1$ si ottiene immediatamente che $\max a_n = 1$
+e di conseguenza $\sup a_n = 1$.
+
+Per verificare che $\inf a_n = 0$ dobbiamo verificare innanzitutto
+che $0$ è minorante, e questo è vero in quanto $a_n = 1/(n+1)> 0$ essendo $n+1\ge 1 \ge 0$.
+Inoltre dobbiamo verificare che per ogni $\eps >0$ esiste $n\in \NN$ tale
+che $a_n < 0 + \eps = \eps$. Questo succede se $1/(n+1) < \eps$ ovvero
+se $n > 1/\eps -1$ ad esempio per $n=\lceil 1/\eps\rceil$.
+Abbiamo dunque verificato che $\inf a_n = 0$.
+Il minimo di $a_n$ non esiste perché se esistesse dovrebbe essere uguale
+all'estremo inferiore cioè dovrebbe essere $0$. Ma questo è impossibile
+perché per ogni $n\in \NN$ si ha $a_n = 1/(n+1)\neq 0$.
+\end{proof}
+
+Diremo che una successione è limitata (superiormente / inferiormente) se
+\mymargin{successioni limitate}
+ l'insieme dei suoi valori
+è un insieme limitato (superiormente / inferiormente).
+Una successione $a_n$ è superiormente limitata se ammette un maggiorante:
+\[
+  \exists M\in \RR\colon \forall n \in \NN\colon a_n \le M
+\]
+ovvero il minimo dei maggioranti è finito:
+\[
+  \sup a_n < +\infty.
+\]
+Caratterizzazioni analoghe valgono per la limitatezza inferiore.
+
+Una successione $a_n$
+è limitata se la successione dei suoi valori assoluti $\abs{a_n}$ è superioremente limitata, ovvero:
+\[
+  \sup \abs{a_n} < +\infty.
+\]
+Questo discende dalla proprietà $-\abs{x} \le x \le \abs{x}$ valida
+per ogni $x\in \RR$.
+
+\begin{theorem}[limitatezza delle successioni convergenti]
+\mymargin{limitatezza delle successioni convergenti}
+Se $a_n$ è convergente allora $a_n$ è limitata.
+Se $a_n\to +\infty$ allora $a_n$ è inferiormente limitata.
+Se $a_n\to -\infty$ allora $a_n$ è superiormente limitata.
+\end{theorem}
+%
+\begin{proof}
+Sia $\ell \in \RR$ il limite di $a_n$.
+Se $\ell$ è finito,
+dalla definizione di limite (ponendo $\eps=1$) sappiamo che esiste $N\in \NN$
+tale che per ogni $n> N$ si ha $\ell -1 < a_n < \ell+ 1$.
+Prendiamo allora $M=\max\{a_0, a_1, \dots, a_N, \ell +1\}$
+e $m =\min \{a_0, a_1, \dots, a_N, \ell-1\}$. Si avrà allora
+che per ogni $n\in \NN$ vale
+\[
+  m \le a_n \le M
+\]
+e dunque $a_n$ è limitata.
+
+Se $a_n \to +\infty$ allora, per definizione di limite, deve
+esistere un $N$ tale che per ogni $n>N$ si abbia $a_n \ge 0$ (abbiamo
+scelto arbitrariamente $M=0$ nella definizione). Ma allora
+ponendo $K=\min\{a_0, a_1, \dots, a_N, 0\}$ si avrà che $a_n\ge K$ per ogni $n\in \NN$ dunque $a_n$ è inferiormente limitata.
+
+Dimostrazione analoga si fa nel caso $a_n \to -\infty$.
+\end{proof}
+
+
+\begin{theorem}[limite della somma]
+\mymargin{limite della somma}
+Siano $a_n \to a$ e $b_n \to b$ con $a,b\in \bar \RR$.
+Se $a$ e $b$ non sono
+infiniti di segno opposto (nel qual caso $a+b$ non è stato definito),
+allora
+\[
+    a_n + b_n \to a+b.
+\]
+Se $a$ e $b$ non sono infiniti con lo stesso segno allora
+\[
+   a_n - b_n \to a-b.
+\]
+\end{theorem}
+%
+\begin{proof}
+Consideriamo inizialmente il caso in cui $a,b$ siano entrambi limiti finiti.
+Allora per ogni $\eps>0$ esiste un $N$ (che, al solito, sarà il massimo tra un $N_a$ ed un $N_b$) tale per cui per ogni $n> N$ si ha
+$\abs{a_n -a} < \eps$ e $\abs{b_n - b} < \eps/2$.
+
+Risulta allora che per ogni $n> N$ si ha
+\[
+  \abs{(a_n + b_n) - (a+b)} \le \abs{a_n -a} + \abs{b_n -b} < \eps/2 + \eps/2 = \eps.
+\]
+Cioè $a_n+b_n \to a+b$, come volevamo dimostrare.
+
+Se $a =+\infty$ e $b\neq -\infty$ allora la successione $b_n$ è inferiormente limitata cioè esiste $K\in \RR$ tale che $b_n \ge K$ per ogni $n$ e quindi $a_n+b_n \ge a_n + K$.
+Visto che $a_n \to +\infty$ sappiamo che per ogni $M\in \RR$ esiste
+$N\in \NN$ tal che per $n>N$ si ha $a_n > K - M$.
+Ma allora $a_n + b_n >M$ da cui si ottiene la validità della definizione
+di limite $a_n + b_n \to +\infty$.
+
+Per completare la dimostrazione osserviamo che se $a_n\to \ell$ con $\ell \in \bar \RR$, allora $-a_n \to -\ell$. Si tratta semplicemente di cambiare
+i segni nella definizione di limite.
+
+Dunque se $a=-\infty$ e $b\neq +\infty$ possiamo cambiare segno a entrambe
+le successioni e ricondurci al caso precedente. Questo completa la prima
+parte della dimostrazione.
+
+Per dimostrare la seconda parte (il limite della differenza è uguale alla differenza dei limiti) ci si riconduce alla prima parte, ricordando che la
+differenza è la somma con l'opposto.
+\end{proof}
+
+\begin{theorem}[limite del valore assoluto]
+\mymargin{limite del valore assoluto}
+Se $a_n \to a$, $a \in \bar \RR$ allora
+\[
+  \abs{a_n} \to \abs{a}.
+\]
+
+Se $\abs{a_n} \to 0$ allora $a_n \to 0$.
+\end{theorem}
+%
+\begin{proof}
+Per la prima parte è sufficiente osservare che
+(disuguaglianza triangolare inversa)
+\[
+  \big\lvert\abs{a_n} - \abs{a}\big\rvert \le \abs{a_n -a}
+\]
+\end{proof}
+
+\begin{theorem}[prodotto di limitata per infinitesima]
+\mymargin{prodotto limitata per infinitesima}
+Se $a_n$ è una successione limitata e $b_n\to 0$ allora
+$a_n\cdot b_n \to 0$.
+\end{theorem}
+%
+\begin{proof}
+Se $a_n$ è limitata esiste $M>0$ tale che $\abs{a_n}\le M$ per ogni $n\in\NN$.
+Per la definizione di limite applicata a $b_n$, per ogni $\eps>0$
+esiste $N\in \NN$ tale che per ogni $n>N$ si ha $\abs{b_n -0}=\abs{b_n} < \eps / M$. Allora per ogni $n>N$ si ha
+\[
+  \abs{a_n\cdot b_n - 0} = \abs{a_n\cdot b_n} \le M \abs{b_n} < M \eps /M = \eps.
+\]
+Dunque è verificata la definizione di limite $a_n \cdot b_n \to 0$.
+\end{proof}
+
+\begin{theorem}[limite del prodotto]
+\mymargin{limite del prodotto}
+Se $a_n \to a$ e $b_n \to b$
+e se escludiamo il caso in cui uno dei due limiti
+è zero e l'altro è infinito
+allora
+\[
+  a_n \cdot b_n \to a\cdot b.
+\]
+\end{theorem}
+\begin{proof}
+Se $a$ e $b$ sono entrambi finiti si osserva che
+\begin{align*}
+  a_n \cdot b_n - a\cdot b
+  &= a_n \cdot b_n - a_n \cdot b + a_n \cdot b - a\cdot b\\
+  &\le a_n \cdot(b_n - b) + (a_n -a) \cdot b.
+\end{align*}
+Sappiamo che $b_n - b \to 0$ e $a_n - a \to 0$ (limite della differenza)
+e sappiamo che $a_n$ è limitata e ovviamente la successione costante $b$ è anch'essa limitata.
+Dunque (prodotto di limitata per infinitesima) si ha $a_n(b_n-b)\to 0$ e $(a_n-a)b\to 0$. E ancora applicando il limite della somma si ottiene
+infine che $a_n b_n - ab\to 0$ il che è equivalente (sommo $ab$) ad $a_n b_n\to ab$, come volevamo dimostrare.
+
+Se $a = +\infty$ e $b>0$ allora per la definizione di limite applicata a $b_n$
+esiste $N_b\in \NN$ tale che per ogni $n>N$ si ha $b_n > b/2$. La definizione
+di limite applicata ad $a_n$ ci dice invece che per ogni $M\in \RR$
+esiste $N_a\in \NN$ tale che per ogni $n>N_a$ si ha $a_n > 2M/b$.
+Deduciamo che per ogni $n> N=\max\{N_a, N_b\}$ si ha
+\[
+  a_n\cdot b_n > \frac{2M}{b}\frac{b}{2} = M.
+\]
+Si ottiene dunque la validità della definizione di limite $a_n b_n\to +\infty$.
+Se $a= +\infty$ e $b<0$ oppure $a=-\infty$ e $b>0$ si può cambiare segno
+ad una delle due successioni e ricondursi al caso precedente.
+\end{proof}
+
+\begin{theorem}[limite del reciproco]
+\mymargin{limite del reciproco}
+Sia $a_n \to a$.
+Se $a\neq 0$ allora
+\[
+  \frac{1}{a_n} \to \frac{1}{a}.
+\]
+Se $a = 0$ ma $a_n>0$ per ogni $n\in \NN$ allora
+\[
+  \frac{1}{a_n} \to +\infty.
+\]
+Se $a=0$ ma $a_n<0$ per ogni $n\in \NN$ allora
+\[
+  \frac{1}{a_n} \to -\infty.
+\]
+\end{theorem}
+%
+\begin{proof}
+Se $a$ è infinito allora
+(che sia $a=+\infty$ o $a=-\infty$)
+per ogni $\eps > 0$ esiste $N\in \NN$ tale che per ogni $n>N$ si ha
+$\abs{a_n} > 1/\eps$. E dunque per ogni $n>N$
+\[
+\abs{\frac{1}{a_n}} < \eps
+\]
+che significa che $1/a_n \to 0$, come volevamo dimostrare.
+
+Nel caso $0 < a < +\infty$ si ha
+\begin{equation}\label{eq:lim_reciproco}
+ \abs{\frac{1}{a_n} - \frac{1}{a}}
+ = \abs{\frac{a - a_n}{a_n \cdot a}}
+ = \abs{a_n -a} \cdot \frac{1}{\abs{a_n}\cdot a}
+\end{equation}
+Essendo $a_n \to a > 0$ esiste $N_a\in \NN$ tale
+che per ogni $n>N_a$ si ha $a_n > a/2$. Dunque si ha
+per ogni $n>N_a$:
+\[
+\frac{1}{\abs{a_n}\cdot a} \le \frac{2}{a^2}.
+\]
+Modificando un numero finito di termini possiamo dunque supporre
+che la stima precedente sia valida per ogni $n\in \NN$
+e dunque sul lato destro di \eqref{eq:lim_reciproco} abbiamo
+il prodotto di una successione infinitesima per una successone limitata e dunque il limite è zero. Questo significa che $1/a_n \to 1/a$.
+
+Il caso $-\infty < a < 0$ che può essere ricondotto al precedente cambiando segno ad $a_n$.
+
+Consideriamo il caso $a=0$ con $a_n>0$ per ogni $n\in \NN$. In tal caso
+dalla definizione di limite $a_n \to 0$ sappiamo che
+per ogni $M>0$ esiste $N\in \NN$ tale che per $n>N$ si ha
+$a_n = \abs{a_n} < 1/M$. Dunque per $n>N$ si ha $a_n > M$ ed
+abbiamo ottenuto la validità della definizione di limite $a_n \to +\infty$.
+
+Il caso $a=0$ con $a_n<0$ si riconduce al precedente cambiando
+segno ad $a_n$.
+\end{proof}
+
+\begin{theorem}[limite del rapporto]
+\mymargin{limite del rapporto}
+Se $a_n \to a$ e $b_n\to b$ allora
+\mymargin{limite del rapporto}
+\[
+  \frac{a_n}{b_n} \to \frac{a}{b}
+\]
+escludendo il caso in cui
+$a$ e $b$ siano entrambi infiniti o entrambi nulli
+e, nel caso in cui $b=0$ e $a\neq 0$, richiedendo che $b_n$
+abbia sempre lo stesso segno (a meno di un numero finito di termini).
+\end{theorem}
+%
+\begin{proof}
+Possiamo ricondurci ai teoremi precedenti osservando che
+\[
+   \frac{a_n}{b_n} = a_n \cdot \frac{1}{b_n}.
+\]
+\end{proof}
+
+\begin{definition}[funzioni monotòne]
+\mymargin{funzioni monotòne}
+\index{monotonia}
+Una funzione $f\colon A \to \RR$ con $A\subset \RR$, si
+dice essere
+\begin{enumerate}
+\item \myemph{crescente} se $x < y \implies f(x) \le f(y)$;
+\item \myemph{decrescente} se $x < y \implies f(x) \ge f(y)$;
+\item \myemph{monotòna} se crescente o decrescente;
+\item \myemph{costante} se crescente e decrescente;
+\item \myemph{strettamente crescente} se $x<y \implies f(x) < f(y)$;
+\item \myemph{strettamente decrescente} se $x<y \implies f(x) > f(y)$;
+\item \myemph{strettamente monotòna} se strettamente crescente o strettamente decrescente.
+\end{enumerate}
+\end{definition}
+
+Si osservi che se $f\colon A \to \RR$ è costante allora esiste $c$ tale che
+$f(x)=c$ per ogni $x\in A$. Si osservi anche che ogni funzione strettamente monotona è anche iniettiva. Si osservi infine (fare un esempio!) che esistono funzioni che non rientrano in nessuna delle categorie sopra elencate (cioè che non sono né crescenti né decrescenti).
+
+Si faccia attenzione alla terminologia. In alcuni testi (in particolare nei testi anglosassoni) si utilizza il termine \emph{crescente} con il significato di \emph{strettamente crescente} e si usa la dizione \emph{non decrescente} per indicare il concetto che noi abbiamo definito con \emph{crescente}. In
+effetti con le nostre definizioni una funzione crescente può essere costante
+e quindi non crescere affatto! E' questo uno dei casi in cui il termine utilizzato nelle definizioni non corrisponde esattamente alla dizione utilizzata
+nel linguaggio comune.
+
+Le successioni sono funzioni $\NN \to \RR$ dunque le precedenti definizioni
+si applicano anche alle successioni.
+Per le successioni, tuttavia, si possono dare delle definizioni
+equivalenti utilizzando il principio di induzione, come nel seguente
+teorema la cui dimostrazione è immediata.
+
+\begin{theorem}[successioni monotòne]
+Una successione $a_n$ è
+\begin{enumerate}
+\item \emph{crescente}: se per ogni $n\in \NN$ si ha $a_{n+1} \ge a_n$;
+\item \emph{decrescente}: se per ogni $n\in \NN$ si ha $a_{n+1} \le a_n$;
+\item \emph{monotòna}: se crescente o decrescente;
+\item \emph{costante}: se crescente e decrescente;
+\item \emph{strettamente crescente}: se per ogni $n\in \NN$ si ha $a_{n+1}>a_n$;
+\item \emph{strettamente decrescente}: se per ogni $n\in \NN$ si ha
+$a_{n+1}<a_n$;
+\item \emph{strettamente monotòna}: se strettamente crescente o strettamente decrescente.
+\end{enumerate}
+\end{theorem}
+
+In una successione crescente la condizione $a_{n+1} \ge a_n$,
+se utilizzata per induzione, ci permette
+di ottenere che per ogni $m\ge n$ si ha $a_m \ge a_n$.
+Lo stesso vale (mutando le relazioni) per le altre condizioni sopra definite.
+
+\begin{theorem}[limite di successioni monotòne]
+\mymargin{limite di successioni monotòne}
+Ogni successione monotòna ammette limite.
+Più precisamente: se $a_n$ è crescente allora $\lim a_n = \sup a_n$,
+se $a_n$ è decrescente allora $\lim a_n = \inf a_n$.
+\end{theorem}
+%
+\begin{proof}
+Supponiamo sia $a_n$ crescente e sia $\ell = \sup a_n$.
+Se $\ell$ è finito sappiamo che (caratterizzazione del $\sup$)
+per ogni $\eps>0$ esiste $N\in \NN$ tale che $a_N> \ell -\eps$.
+Ma siccome $a_n$ è crescente si avrà che per ogni $n>N$ vale
+$a_n \ge a_N > \ell-\eps$.
+D'altra parte sappiamo anche che $\ell\ge a_n$ per ogni $n\in \NN$
+e dunque, mettendo insieme le due cose, si ottiene
+\[
+  \forall \eps>0 \colon \exists N\in \NN \colon \forall n\in \NN\colon
+   n>N \implies \ell-\eps < a_n \le \ell < \ell + \eps.
+\]
+Abbiamo dunque verificato la definizione di limite $a_n \to \ell$.
+
+Se  $\ell=+\infty$ sappiamo che $a_n$ non è superiormente limitata, cioè per ogni $M\in \RR$ esiste $N\in \NN$ tale che $a_N \ge M+1 > M$.
+Essendo però $a_n$ crescente otteniamo anche che per ogni $n>N$ si
+ ha $a_n \ge A_N > M$. Dunque si ottiene
+ \[
+ \forall M\in \RR\colon\forall N\in \NN\colon \forall n \in \NN\colon
+  n>N \implies a_n > M
+ \]
+ che è la definizione di limite $a_n \to +\infty$.
+
+Non può essere $\ell = -\infty$ in quanto il $\sup a_n \ge a_0 > -\infty$.
+\end{proof}
+
+\begin{definition}[sottosuccessione]
+Se $a_n$ è una successione e $n_k$ è una successione strettamente crescente i cui valori sono numeri naturali, allora la successione
+$b_k = a_{n_k}$ si dice essere una \myemph{sottosuccessione} di $a_n$
+(o anche \emph{successione estratta} da $a_n$).
+\end{definition}
+
+Ricordando che una successione $a_n$ non è altro che una funzione
+$a\colon \NN \to \NN$, la successione $n_k$ corrisponde ad una funzione
+$n\colon \NN \to \NN$ e la sottosuccessione $a_{n_k}$ corrisponde alla funzione composta $a \circ n$.
+
+Si osservi che nella definizione precedente la variabile $n$ rappresenta
+una variabile muta quando scriviamo la successione $a_n$, ma
+rappresenta anche il nome della successione fissata $n_k$.
+Questo sovraccarico
+di significato è voluto e se usato correttamente rende più semplice
+le notazioni, in quanto la successione $n_k$ viene sostituita alla
+variabile $n$, con lo stesso nome, nella successione $a_n$.
+La sottosuccessione $a_{n_k}$ risulta essere una successione nella variabile $k$, non nella variabile $n$.
+
+\begin{example}
+Sia $a_n = n^2$ la successione dei quadrati perfetti:
+\[
+  a_0 = 0,\
+  a_1 = 1,\
+  a_2 = 4,\
+  a_3 =9, \dots
+\]
+Consideriamo la successione dei numeri pari $n_k = 2k$:
+\[
+ n_0 = 0,\
+ n_1 = 2,\
+ n_2=4,\
+ n_3=6, \dots
+\]
+la corrispondente sottosuccessione dei quadrati perfetti $b_k = a_{n_k}$
+rappresenta la successione dei quadrati dei numeri pari:
+\[
+b_0 = a_0 = 0,\
+b_1 = a_2 = 4,\
+b_2 = a_4 = 16,\
+b_3 = a_6 = 36, \dots
+\]
+
+Abbiamo in effetti \emph{estratto} alcuni dei termini della successione
+originaria.
+\end{example}
+
+\begin{example}
+Se $a_n = (-1)^n$ e $n_k=2k$ allora $a_{n_k} = 1$.
+Vediamo quindi che una successione che non ammette limite
+può contenere una sottosuccessione che invece ha limite.
+\end{example}
+
+\begin{theorem}[cambio di variabile nei limiti]
+\mymargin{cambio di variabile nei limiti}
+Se $n_k$ è una successione di numeri naturali con $n_k\to +\infty$
+e se $a_n$ è una qualunque successione che ammette limite
+\[
+  \lim_k a_{n_k} = \lim_n a_n.
+\]
+
+Lo stesso vale se $a_{n_k}$ è una sottosuccessione
+di $a_n$ (cioè nel caso in cui $n_k$ sia strettamente crescente).
+\end{theorem}
+%
+\begin{proof}
+Le definizioni di $a_n \to \ell$ e $n_k \to +\infty$ sono le seguenti
+(usiamo la notazione con gli intorni per non dover distinguere
+i casi di $\ell$ finito / infinito ma si potrebbe ugualmente
+procedere con le definizioni usuali):
+\begin{gather*}
+ \forall U \in \U_\ell \colon \exists V \in \U_{+\infty} \colon
+  a(V) \subset U,\\
+ \forall V \in \U_{+\infty} \colon \exists W \in \U_{+\infty} \colon
+  n(W) \subset V.
+\end{gather*}
+Mettendo insieme le due definizioni si ottiene
+\[
+  \forall U \in \U_\ell \colon
+  \exists V \in \U_{+\infty} \colon
+  \exists W \in \U_{+\infty} \colon
+  n(W) \subset V \text{ e }
+  a(V) \subset U
+\]
+e dunque
+\[
+  \forall U \in \U_\ell \colon \exists W \in \U_{+\infty} \colon
+  a(n(W)) \subset U
+\]
+che corrisponde esattamente alla definizione di limite $a_{n_k} = a(n(k)) \to \ell$.
+
+Per la seconda parte è sufficiente verificare che se $n_k$
+è strettamente crescente
+e a valori in $\NN$, deve necessariamente essere $n_k\to +\infty$.
+Notiamo infatti che $n_k$ vista come funzione $n\colon \NN\to \NN$
+è iniettiva (per la stretta monotonia) e dunque rappresenta una
+corrispondenza biunivoca tra il suo dominio $\NN$ e l'insieme dei
+suoi valori $\{n_k \colon k \in \NN\}$. Significa dunque che l'insieme
+dei valori è un insieme infinito di numeri naturali che quindi non può che
+essere illimitato. Dunque $\sup n_k = +\infty$ e dalla monotonia
+otteniamo $\lim n_k = \sup n_k = +\infty$.
+\end{proof}
+
+\begin{theorem}[Bolzano-Weierstrass]
+\mymargin{Bolzano-Weierstrass}
+\index{teorema di Bolzano-Weierstrass}
+Se $a_n$ è limitata allora esiste una sottosuccessione
+$a_{n_k}$ convergente.
+\end{theorem}
+%
+\begin{proof}
+Sia $A_0=\inf a_n$ e $B_0=\sup a_n$. Essendo $a_n$ limitata sia $A_0$
+che $B_0$ sono finiti e ogni termine della successione sta
+nell'intervallo $[A_0,B_0]$. Definiamo $n_0$: ovviamente si avrà $a_{n_0} = a_0 \in [A_0, B_0]$.
+
+Consideriamo il punto medio $M_0 = (A_0+B_0)/2$ dell'intervallo $[A_0,B_0]$ e consideriamo i due mezzi intervalli $[A_0,M_0]$ e $[M_0,B_0]$. Tutti i termini della successione stanno in almeno
+uno di questi due intervalli.
+Se consideriamo gli indici $n\in \NN$ della successione $a_n$, uno dei due sotto-intervalli deve contenere termini
+della successione per infiniti indici.
+Chiamiamo $[A_1, B_1]$
+tale sottointervallo,
+chiamiamo $n_1$ il più piccolo naturale maggiore di $n_0=0$
+per cui $a_{n_1} \in [A_1,  B_1]$.
+
+Ripetiamo il procedimento.
+Consideriamo il punto medio $M_1$ dell'intervallo $[A_1,B_1]$.
+Per costruzione l'intervallo contiene termini della successione
+per infiniti indici dunque uno dei due sotto-intervalli $[A_1,M_1]$
+o $[M_1,A_2]$ deve anche lui
+contenere termini della successione per infiniti indici. Chiamiamo
+$[A_2, B_2]$ tale intervallo e definiamo $n_2$ come il più piccolo
+naturale maggiore di $n_1$ per cui $a_{n_2}\in [A_2, B_2]$.
+
+Si può procedere così all'infinito (formalmente: tramite una definizione per induzione)
+e ottenere quindi le successioni $A_k$, $B_k$ e $n_k$ che soddisfano le seguenti proprietà (da verificare con il principio di induzione):
+\begin{enumerate}
+\item $A_k$ è crescente, $B_k$ è decrescente, $A_k \le B_k$;
+\item $B_k - A_k = (B_0-A_0)/2^k$;
+\item $a_{n_k} \in [A_k, B_k]$.
+\end{enumerate}
+
+Essendo $A_k$ monotona sappiamo che esiste $\ell = \lim A_k$. Essendo poi $A_0 \le A_k \le B_k \le B_0$ sappiamo che $A_k$ è limitata, quindi $\ell$ è finito.
+Inoltre
+\[
+ \lim B_k = \lim A_k + \frac{B_0-A_0}{2^k} = \lim A_k = \ell
+ \]
+ e dunque
+passando al limite nelle disuguaglianze
+\[
+   A_k \le a_{n_k} \le B_k
+\]
+si ottiene (teorema dei carabinieri)
+\[
+  a_{n_k} \to \ell.
+\]
+\end{proof}
+
+\begin{theorem}[Cantor: secondo metodo diagonale]
+\mymargin{non numerabilità dei reali}
+\index{secondo metodo diagonale di Cantor}
+\index{Cantor}
+\index{teorema di Cantor}
+L'insieme dei numeri reali non è numerabile: $\#\RR > \#\NN$.
+\end{theorem}
+%
+\begin{proof}
+(si vedano gli appunti di logica per i concetti sulla cardinalità).
+E' sufficiente dimostrare che $\#[0,1] > \#\NN$ in quanto
+chiaramente $\#\RR \ge \#[0,1]$.
+Supponiamo per assurdo che esista una funzione biettiva $a\colon \NN \to [0,1]$.
+Questa funzione corrisponde dunque ad una successione $a_n$.
+Consideriamo l'intervallo $[0,1]$ e dividiamolo in tre intervalli  di lunghezza $1/3$: $[0,1/3]$, $[1/3,2/3]$, $[2/3,1]$. Il punto $a_0$ non può stare in tutti e tre questi intervalli. Sia $[A_0,B_0]$ un intervallo (dei tre) che non contiene $a_0$: $a_0 \not \in [A_0,B_0]$.
+Dividiamo anche $[A_0,B_0]$ in tre intervalli di lunghezza $1/9$.
+Almeno uno di questi tre intervalli, che chiamiamo $[A_1,B_1]$,
+non contiene $a_1$: $a_1 \not \in [A_1,B_1]$.
+Procediamo così all'infinito in maniera simile al teorema precedente.
+Otterremo due successioni $A_n$, $B_n$ che soddisfano queste proprietà:
+\begin{enumerate}
+\item $A_n$ crescente, $B_n$ decrescente;
+\item $0\le A_n \le B_n \le 1$;
+\item $a_n \not \in [A_n, B_n]$;
+\item $B_n - A_n = 1/3^{n+1}$.
+\end{enumerate}
+
+Essendo $A_n$ monotona e limitata, essa ha limite finito $\lim A_n = \ell$.
+Fissato $n$ osserviamo che per ogni $k\ge n$ si ha
+\[
+  A_n \le A_k \le B_n
+\]
+passando al limite in $k$ (con $n$ fissato) si ottiene
+\[
+  A_n \le \ell \le B_n
+\]
+che significa che $\ell \in [A_n, B_n]$ per ogni $n\in \NN$
+(in particolare $\ell \in [0,1]$).
+Visto che invece $a_n \not \in [A_n, B_n]$ risulta che per
+ogni $n\in \NN$ si ha $\ell \neq a_n$.
+Dunque il numero $\ell$ non è un termine della successione $a_n$
+ovvero la funzione $a\colon \NN \to [0,1]$ non è suriettiva.
+\end{proof}
+
+
+\begin{definition}[continuità sequenziale]
+\mymargin{continuità sequenziale}
+Una funzione $f\colon A \subset \RR \to \RR$ si dice essere
+\emph{(sequenzialmente) continua} se per ogni successione
+convergente $a_n \to a$ con $a_n\in A$, $a \in A$ si ha
+$f(a_n)\to f(a)$.
+\end{definition}
+
+Nel seguito potremo omettere l'avverbio "sequenzialmente" e parleremo
+più semplicemente di \emph{funzioni continue}. Più avanti daremo
+infatti una definizione ``più naturale'' di funzione continua
+e dimostreremo che nel nostro ambito
+la contintuità sequenziale è equivalente alla continuità.
+
+\begin{example}
+La funzione $f\colon \RR \to \RR$, $f(x) = x^2$ è sequenzialmente continua.
+Infatti se $x_n\to x$ allora per il teorema sul limite del prodotto si ha
+\[
+  x_n^2 = x_n \cdot x_n \to x\cdot x = x^2.
+\]
+\end{example}
+
+\begin{theorem}[degli zeri]
+\mymargin{teorema degli zeri}
+Sia $I\subset \RR$ un intervallo, $f\colon I \to \RR$ una funzione
+continua, $a,b\in I$ tali che $f(a)\le 0$ e $f(b)\ge 0$.
+Allora esiste $c\in I$ tale che $f(c)=0$.
+\end{theorem}
+
+\begin{proof}
+La dimostrazione che adottiamo è di particolare rilevanza in quanto
+non solo permette di dimostrare l'esistenza del punto $c$ che risolve
+$f(x)=0$
+ma ci presenta
+un algoritmo, il \myemph{metodo di bisezione},
+che può essere effettivamente utilizzato per approssimare
+tale soluzione.
+
+Possiamo supporre senza perdere di  generalità che sia $a<b$.
+Poniamo $A_0 = a$, $B_0= b$ e consideriamo il punto medio $C_0 = (A_0+B_0)/2$.
+Scegliamo tra i due intervalli $[A_0, C_0]$ e $[C_0,B_0]$ quello per cui
+il segno ai due estremi è discorde (o, caso fortunato, nullo).
+Più precisamente se $f(C_0)\ge 0$ poniamo $[A_1,B_1] = [A_0,C_0]$ altrimenti
+scegliamo $[A_1,B_1] = [C_0,B_0]$ così si ha, in ogni caso,
+$f(A_1)\le 0$, $f(B_1)\ge 0$.
+
+Consideriamo il punto medio $C_1$ del nuovo intervallo $[A_1,B_1]$ e ripetiamo
+il procedimento indefinitamente. Quello che otteniamo sono due successioni
+$A_n$, $B_n$ con queste proprietà (che potrebbero essere dimostrate per induzione):
+\begin{enumerate}
+\item $A_n < B_n$, $B_n - A_n = (b-a)/2^n$;
+\item $A_n$ è crescente, $B_n$ è decrescente;
+\item $f(A_n)\le 0$, $f(B_n)\ge 0$.
+\end{enumerate}
+
+Essendo $A_n$ monotòna sappiamo che $A_n$ converge $A_n\to c$.
+Inoltre visto che $A_n \in [a,b]$ anche $c\in [a,b]$ (per la permanenza del
+segno delle successione $A_n-a$ e $b-A_n$).
+Passando al limite nell'uguaglianza $B_n = A_n + (b-a)/2^n$
+si ottiene che anche $B_n \to c$. Essendo $f$ continua
+avremo
+\[
+f(A_n) \to f(c), \qquad
+f(B_n) \to f(c).
+\]
+Ma $f(A_n)\le 0$ e quindi per la permanenza del segno anche $f(c)\le 0$.
+D'altra parte $f(B_n) \ge 0$ e quindi $f(c)\ge 0$.
+Si ottiene dunque $f(c) = 0$, come volevamo dimostrare.
+\end{proof}
+
+\begin{corollary}[proprietà dei valori intermedi]
+\mymargin{proprietà dei valori intermedi}
+Sia $I\subset \RR$ un intervallo e $f\colon I \to \RR$ una
+funzione continua.
+Allora se $f$ assume due valori $y_1$ e $y_2$ allora $f$
+assume anche tutti i valori intermedi tra $y_1$ e $y_2$.
+Detto altrimenti: una funzione continua
+manda intervalli in intervalli.
+\end{corollary}
+%
+\begin{proof}
+Se $y_1$ e $y_2$ sono valori assunti da $f$ significa
+che esistono $x_1,x_2 \in I$ tali che $f(x_1)= y_1$ e $f(x_2)=y_2$.
+Allora scelto $y$ si consideri la funzione $g(x) = f(x)-y$.
+Se $y$ è intermedio tra $y_1$ e $y_2$ la funzione $g$ assumerà
+segni opposti in $x_1$ e $x_2$ e dunque, per il teorema degli zeri,
+dovrà esserci un punto $x$ in cui $g$ si annulla. In tale punto
+si avrà dunque $f(x)=y$, come volevamo dimostrare.
+\end{proof}
+
+\begin{exercise}
+Si dimostri che se $I$ è un intervallo di $\RR$ ogni funzione $f\colon I \to \RR$
+iniettiva e continua è strettamente monotona.
+\end{exercise}
+
+\begin{lemma}[caratterizzazione delle funzioni crescenti continue]
+Sia $I\subset\RR$ un intervallo e sia $f\colon I \to \RR$ una
+funzione crescente. Allora sono equivalenti
+\begin{enumerate}
+\item $f$ è continua;
+\item per ogni $x\in I$
+  \begin{enumerate}
+    \item se $x\neq \inf I$ allora $f(x) = \sup f(\{y \in I\colon y<x\})$,
+    \item e se $x\neq \sup I$ allora $f(x) = \inf f(\{y \in I \colon y>x\})$.
+  \end{enumerate}
+\end{enumerate}
+\end{lemma}
+%
+\begin{proof}
+Sia $A_x = \{y \in I\colon y<x \}$ e $B_x = \{y\in I \colon y>x\}$.
+Se $f$ è crescente risulta sempre
+\[
+f(A_x) \le f(x) \le f(B_x)
+\]
+in quanto se $a\in A_x$ e $b\in B_x$ allora $a<x<b$ e quindi $f(a)\le f(x) \le f(b)$. Dunque
+\[
+\sup f(A_x) \le f(x) \le f(B_x).
+\]
+
+Supponiamo che $f$ sia continua e consideriamo un
+qualunque $x\in I$.
+Se $x\neq \inf I$ dobbiamo mostrare che $f(A_x)\ge f(x)$.
+La successione $x_n = x - 1/n$ sta in $A_x$ per $n$
+sufficientemente grande, dunque $\sup A_x \ge f(x_n)$.
+Ma visto che $f(x_n)\to f(x)$ per confronto si ottiene $\sup A_x \ge f(x)$.
+Analogamente se $x\neq \sup I$ prendendo la successione $x_n = x+1/n$
+si trova che $\inf B_x \le f(x)$. Dunque $\sup f(A_x) = f(x) = \inf f(B_x)$ come volevamo dimostrare.
+
+Supponiamo ora di sapere che
+per ogni $x \in I$, tolti gli estremi di $I$, si abbia
+$\sup f(A_x) = f(x) = \inf f(B_x)$.
+Per ogni $\eps>0$, per la caratterizzazione di $\sup$ e $\inf$
+dovranno allora esistere $y\in A_x$ e $z\in B_x$ tali che
+$f(x) = \sup f(A_x) < f(y) +\eps$ e $f(x) = \inf f(B_x) > f(z)-\eps$.
+Se $x_n\in I$ e $x_n \to x$ per $n$ abbastanza grande si dovrà avere
+$y < x_n < z$ e quindi, per la monotonia di $f$: $f(y)\le f(x_n)\le f(z)$
+da cui
+\[
+  f(x)-\eps < f(x_n) < f(x)+\eps.
+\]
+Significa allora che $f(x_n)\to f(x)$.
+
+Se $x$ fosse un estremo di $I$, ad esempio se $x=\inf I$, si ripete
+lo stesso ragionamento ma solo sul lato destro di $x$: per ogni $\eps>0$
+esisterà $z\in B_x$ tale che $f(x) = \inf f(B_x) \ge f(z)-\eps$.
+Ma se $x_n\in I$ dovrà essere $x_n\ge x$ (in quanto $x$ è l'estremo inferiore
+di $I$) e quindi si avrà comunque
+\[
+  f(x) \le f(x_n) < f(x) + \eps
+\]
+da cui segue, per l'arbitrarietà di $\eps$, $f(x_n)\to f(x)$.
+\end{proof}
+
+\begin{theorem}[continuità della funzione inversa]
+\mymargin{continuità della funzione inversa}
+Sia $I\subset \RR$ un intervallo e sia $f\colon I \to \RR$ una
+funzione continua strettamente crescente.
+Allora posto $J=f(I)$ anche $J$ è un intervallo, $f\colon I\to J$ è
+invertibile e $f^{-1}\colon J\to I$ è anch'essa
+continua e strettamente crescente.
+\end{theorem}
+%
+\begin{proof}
+Che $J=f(I)$ sia un intervallo segue direttamente dal teorema dei valori intermedi, essendo $f$ continua. Essendo $f$ strettamente
+crescente $f$ risulta essere iniettiva e quindi $f\colon I \to J$ è biettiva.
+Esiste dunque la funzione inversa $f^{-1}\colon J \to I$.
+
+Mostriamo ora che la stretta monotonia di $f^{-1}$ segue dalla stretta
+monotonia di $f$. Presi $y_1 < y_2$ in $J$ poniamo $x_1=f^{-1}(y_1)$ e $x_2=f^{-1}(y_2)$ cosicché $y_1=f(x_1)$ e $y_2=f(x_2)$.
+Se per assurdo fosse $f^{-1}(y_1)\ge f^{-1}(y_2)$ si avrebbe $x_1 \ge x_2$
+e quindi $f(x_1)\ge f(x_2)$ cioè $y_1\ge y_2$, contro l'ipotesi $y_1 < y_2$.
+
+Per mostrare che $f^{-1}$ è continua utilizziamo
+il lemma precedente.
+Dato $y \in J$ con $y\neq \inf J$, consideriamo l'insieme
+$A'_y=\{t \in J\colon t<y\}$.
+Essendo $f$ monotona e invertibile,
+posto $x=f^{-1}(y)$ e $A_x=\{ s\in I\colon s<x\}$
+si ha $f^{-1}(A'_y) = A_x$ e chiaramente $\sup A_x = x$.
+Dunque $\sup f^{-1}(A'_y) = x = f^{-1}(y)$. In maniera analoga
+si dimostra che $\inf f^{-1}(\{t\in J \colon t>y\}) = f^{-1}(y)$
+quando $y\neq \sup J$. Dunque $f^{-1}$ è continua,
+come volevamo dimostrare.
+\end{proof}
+
+%%%%%%%%%%%%%
+%%%%%%%%%%%%%
+%%%%%%%%%%%%%
+\section{potenze e radici $n$-esime}
+%%%%%%%%%%%%%
+%%%%%%%%%%%%%
+%%%%%%%%%%%%%
+\index{potenza}
+\index{radice}
+
+\begin{theorem}[invertibilità della funzione potenza]
+\mymargin{invertibilità della funzione potenza}
+Per ogni $n\in \NN\setminus\{0\}$, la funzione
+\begin{align*}
+  f\colon [0,+\infty) &\to [0,+\infty)\\
+   x &\mapsto x^n
+\end{align*}
+è strettamente crescente e biettiva.
+Inoltre, se $n$ è dispari, la funzione
+\begin{align*}
+  f\colon \RR & \to \RR\\
+    x &\mapsto x^n
+\end{align*}
+è strettamente crescente e biettiva.
+\end{theorem}
+%
+\begin{proof}
+La funzione $f$ è strettamente crescente perché
+per l'assioma di monotonia del prodotto di numeri reali si
+osserva che
+se $x>y\ge 0$ allora $x^2 > y^2$, $x^3 > y^3$ e così via
+(la dimostrazione andrebbe formalizzata, al solito, utilizzando il principio di
+induzione).
+Essendo strettamente crescente $f$ è anche iniettiva.
+Per mostrare che $f\colon [0,+\infty) \to [0,+\infty)$ è suriettiva, consideriamo
+un qualunque $y\in[0,+\infty)$ e prendiamo la funzione $g(x)=f(x)-y$.
+Chiaramente $g(0) = 0^n - y = -y \le 0$. Se $y\le 1$ allora $g(1) = 1^n - y \ge 0$
+altrimenti, se $y>1$, si ha $y^n>y$ e quindi $g(y) = y^n-y \ge 0$.
+In ogni caso abbiamo verificato che esistono $a,b$ tali che $g(a)\le 0$ e $g(b)\ge 0$
+
+Osserviamo che, per il teorema sul limite del prodotto,
+se $x_k \to x$ allora $x_k^2 = x_k\cdot x_k \to x\cdot x = x^2$.
+Questo dimostra che la funzione $x^2$ è (sequenzialmente) continua.
+Per induzione si dimostra che $x^n$ è continua per ogni $n\in \NN$.
+Per il teorema sul limite della differenza risulta che anche $g$ è
+continua.
+Dunque possiamo applicare il teorema degli zeri
+per determinare l'esistenza di un $x\in[0,+\infty)$ tale che $g(x)=0$.
+Visto che $x$ risolve l'equazione $f(x)=y$ e la surgettività è dimostrata.
+
+Se $n$ è dispari si ha $(-x)^n = -(x^n)$.
+In particolare per $x<0$ si ha $x^n<0$. Dunque se $x> y \ge 0$ si
+ha $-x < y \le 0$ e
+\[
+  (-x)^n = -x^n < -y^n \le 0.
+\]
+E' quindi facile verificare che la funzione $x^n$
+risulta strettamente crescente e bigettiva su tutto $\RR$.
+\end{proof}
+
+\begin{definition}[radice $n$-esima]
+\mymargin{radice $n$-esima}
+Se $n\in \NN$ è pari e non nullo
+chiamiamo $\sqrt[n]{x}$ la funzione
+inversa di $x^n$ come funzione $[0,+\infty)\to [0,+\infty)$.
+Se $n\in \NN$ è dispari chiamiamo $\sqrt[n]{x}$
+la funzione inversa di $x^n$ come funzione $\RR \to \RR$.
+
+Si pone inoltre $\sqrt{x} = \sqrt[2]{x}$.
+\end{definition}
+
+\begin{theorem}[proprietà della radice $n$-esima]
+\mymargin{proprietà della radice}
+Per ogni $n,m \in \NN\setminus\{0\}$, $a\ge 0$, $b>0$ si ha:
+\begin{enumerate}
+\item $\sqrt[n]{a^n} = a$;
+\item $\displaystyle \sqrt[nm]{a} = \sqrt[n]{\sqrt[m]{a}}$;
+\item $\displaystyle \sqrt[n]{a\cdot b} = \sqrt[n]{a}\sqrt[n]{b}$;
+\item $\displaystyle \sqrt[n]{\frac a b} = \frac{\sqrt[n]{a}}{\sqrt[n]{b}}$;
+\item la funzione $x\mapsto \sqrt[n]{x}$ è continua e strettamente crescente.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Le proprietà della radice vengono dedotte dalle corrispondenti proprietà
+della potenza intera, sfruttando il fatto che la radice è la funzione inversa.
+\end{proof}
+
+\begin{theorem}[disuguaglianza di Bernoulli]
+\mymargin{disuguaglianza di Bernoulli}
+\index{Bernoulli}
+Se $x > -1$ e $n\in \NN$ si ha
+\[
+(1+x)^n \ge 1 + nx.
+\]
+\end{theorem}
+%
+\begin{proof}
+Lo dimostriamo per induzione su $n$. Per $n=0$, sostituendo si ottiene $1\ge 1$.
+Supponendo che sia verificata la disuguaglianza per un certo $n$:
+\[
+(1+x)^n \ge 1 + nx
+\]
+moltiplicando ambo i membri per $1+x > 0$ si ottiene
+\[
+(1+x)^{n+1} \ge (1+x) (1+nx) = 1 + (n+1)x + n x^2
+\ge 1 + (n+1)x
+\]
+che è proprio quello che volevamo dimostrare.
+\end{proof}
+
+\begin{theorem}[limite della radice $n$-esima]
+\mymargin{limite della radice $n$-esima}
+Se $a>0$
+\[
+   \lim_{n\to +\infty} \sqrt[n]{a} = 1
+\]
+\end{theorem}
+%
+\begin{proof}
+Consideriamo innanzitutto il caso $a\ge 1$.
+Posto $x=\sqrt[n]{a}-1$ nella disuguaglianza di Bernoulli, si ha
+\[
+a
+= (1+x)^n
+\ge 1 + nx
+= 1 + n (\sqrt[n]{a}-1)
+\]
+da cui
+\[
+ \sqrt[n]{a} \le 1 + \frac{a-1}{n} \to 1 + 0 = 1.
+\]
+D'altra parte se $a\ge 1$ si ha $\sqrt[n]{a} \ge 1$
+e dal confronto tra limiti si ottiene la tesi.
+
+Se $a<1$ basta osservare che
+\[
+\sqrt[n]{a} = \frac{1}{\sqrt[n]{\frac 1 a}} \to 1
+\]
+per il caso precedente applicato con $1/a$ al posto di $a$.
+\end{proof}
+
+Siamo ora intenzionati a definire le potenze $x^y$ con esponente $y\in \RR$.
+La funzione $f(x) = a^x$ si ottiene dal seguente teorema.
+
+\begin{theorem}[funzione esponenziale]
+\mymargin{funzione esponenziale}
+Per ogni $a>1$ esiste una unica funzione $f\colon \RR \to \RR$
+con le seguenti proprietà:
+\begin{enumerate}
+\item $f$ è crescente;
+\item $f(1) = a$;
+\item per ogni $x,y\in \RR\colon f(x+y) = f(x)\cdot f(y)$.
+\end{enumerate}
+Tale funzione risulta inoltre essere positiva,
+strettamente crescente e
+continua, soddisfa la relazione $f(-x)= 1/f(x)$ e
+se $p\in \ZZ$ e $q\in \NN\setminus\{0\}$ risulta
+\[
+  f\enclose{\frac p q} = \sqrt[q]{a^p}.
+\]
+\end{theorem}
+%
+\begin{proof}
+Dimostriamo innanzitutto che $f$ non si può annullare mai.
+Infatti per ogni $x\in \RR$
+\[
+   a = f(1) = f(x+1-x) = f(x)\cdot f(1-x)
+\]
+e dunque se fosse $f(x)=0$ si avrebbe $a=0$ che abbiamo escluso per ipotesi.
+Possiamo anzi dire che $f$ non è mai negativa in quanto
+\[
+  f(x) = f(x/2 + x/2) = f(x/2)^2 \ge 0.
+\]
+Osserviamo anche che
+\[
+  f(0) = f(0+0) = f(0)\cdot f(0)
+\]
+da cui, dividendo per $f(0)$ si ottiene $f(0)=1$.
+E' anche facile verificare, per induzione, che
+per ogni $n\in \NN$ si ha
+\[
+ f(nx) = (f(x))^n
+\]
+infatti $f((n+1)x) = f(nx+x)=f(nx)\cdot f(x)$.
+In particolare se $n\in \NN$ si ha
+\[
+  f(n) = f(1)^n = a^n.
+\]
+Ma poi
+\[
+1=f(0) = f(x-x) = f(x)\cdot f(-x)
+\]
+e quindi $f(-x)=1/f(x)$ e quindi $f(nx) = (f(x))^n$ per ogni $n\in \ZZ$.
+In particolare se $p\in \ZZ$ e $q \in \NN\setminus\{0\}$ si ha
+\[
+ a^p = f(p) = f(q\cdot p/q) = (f(p/q))^q
+\]
+da cui
+\begin{equation}\label{eq:def_pow_0}
+ f(p/q) = \sqrt[q]{a^p}.
+\end{equation}
+
+Dunque la funzione $f(x)$ è univocamente determinata per ogni $x\in \QQ$.
+Osserviamo che, per le proprietà delle radici, se $p/q = n/m$ allora
+\[
+ \sqrt[m]{a^n}
+ = \sqrt[mp]{a^{np}}
+ = \sqrt[nq]{a^{np}}
+ = \sqrt[q]{a^p}
+\]
+e questo significa che $f$ può effettivamente essere definita
+coerentemente su tutto $\QQ$
+tramite
+la \eqref{eq:def_pow_0}.
+
+Verifichiamo ora che $f$ deve essere strettamente crescente su $\QQ$.
+Se $x,y \in \QQ$
+con $x<y$ si avra $x=p/q$, $y=n/m$ con $pm < nq$ allora
+$a^{pm} < a^{nq}$ e quindi
+\[
+f(x)
+= \sqrt[q]{a^p}
+= \sqrt[qm]{a^{pm}}
+< \sqrt[qm]{a^{nq}}
+= \sqrt[m]{a^n}
+= f(y).
+\]
+
+Definiamo ora
+\begin{align*}
+  A_x &= \{t\in \QQ\colon t<x\} = \QQ \cap (-\infty,x),
+  \\
+  B_x &= \{t\in \QQ\colon t>x\} = \QQ \cap (x,+\infty).
+\end{align*}
+Ovviamente $A_x < x < B_x$ (nel senso che per ogni $\alpha \in A$
+e per ogni $\beta \in B$ si ha $\alpha < x < \beta$).
+Se vogliamo che $f$ sia crescente si dovrà quindi avere
+$f(A_x) \le f(x) \le f(B_x)$ da cui in particolare
+$\sup f(A_x) \le f(x) \le \inf f(B_x)$.
+
+Vogliamo ora mostrare che deve essere
+$\sup f(A_x) = \inf f(B_x)$
+cosicché $f(x)$ sarà univocamente determinata
+per ogni $x\in \RR$ da:
+\begin{equation}\label{eq:def_pow_2}
+  f(x) = \sup f(A_x) = \inf f(B_x).
+\end{equation}
+(ricordiamo infatti che su $\QQ$ $f$ è già stata univocamente determinata
+e $A_x$ e $B_x$ sono sottoinsiemi di $\QQ$).
+
+Dato qualunque $x\in \RR$ esiste $k\in \NN$ tale che $x < k$.
+Scelto comunque $n \in \NN$, per la densità dei razionali
+esistono $y,z\in \QQ$ tali che
+\[
+  y < x < z < k
+\]
+e tali che $z-y< \frac 1 n$. Allora si avrà
+\begin{align*}
+  0 \le f(z) - f(y)
+  &= f(y)\cdot\enclose{\frac{f(z)}{f(y)}-1}
+  \le f(k)\cdot \enclose{f(z-y)-1}\\
+  &\le f(k)\cdot \enclose{f(1/n)-1}.
+\end{align*}
+Chiaramente $y\in A_x$ e $z\in B_x$ dunque
+\[
+\inf B_x - \sup A_x \le f(z) - f(y) \le f(k) \cdot (f(1/n)-1).
+\]
+Ricordiamo ora che $f(1/n) = \sqrt[n]{a} \to 1$ (teorema precedente)
+dunque il lato destro della precedente disuguaglianza può essere reso
+minore di qualunque $\eps>0$
+e quindi, come voluto,
+dovrà essere $\inf B_x = \sup A_x$.
+
+Mostriamo ora che $f(x)$ deve essere strettamente crescente su tutto $\RR$,
+ricordando
+che abbiamo già verificato che $f$ è strettamente crescente su $\QQ$.
+Ma presi $x,y\in \RR$ con $x<y$ esistono $z,w\in \QQ$ tale che $x<z<w<y$.
+Allora $z\in B_x$ e $w\in A_y$, dunque
+\[
+  f(x) = \inf f(B_x) \le f(z) < f(w) \le \sup A_y = f(y).
+\]
+
+Il teorema di caratterizzazione delle funzioni monotone e continue
+ci assicura che le condizione $f(x) = \sup A_x$ e $f(x)= \inf B_x$
+garantiscono la continuità di $f$.
+
+Infine, la relazione
+\[
+  f(x+y) = f(x) \cdot f(y)
+\]
+è verificata se $x,y \in \QQ$ (abbiamo costruito $f$ su $\QQ$ in modo
+che questa relazione fosse valida).
+Ma se $x,y \in \RR$ per densità esisteranno $x_n, y_n\in \QQ$ tali
+che $x_n\to x$ e $y_n\to y$. Allora passando al limite
+nella relazione
+\[
+  f(x_n+y_n) = f(x_n)\cdot f(y_n)
+\]
+sfruttando la continuità di $f$ si ottiene il risultato voluto.
+\end{proof}
+
+\begin{definition}[potenze con esponente reale]
+\mymargin{potenze con esponente reale}
+Sia $a\in \RR$ e $x\in \RR$.
+\mymargin{$a^x$}
+Se $a>1$ definiamo $a^x$ come
+l'unica funzione definita dal teorema precedente.
+Per $a=1$ definiamo $a^x = 1^x = 1$ per ogni $x\in \RR$.
+Per $0<a<1$ definiamo $a^x = (1/a)^{-x}$.
+\end{definition}
+
+\begin{exercise}
+Si dimostri che $a^{xy} = (a^x)^y$
+e $(a\cdot b)^x = a^x \cdot b^x$.
+(sfruttare l'unicità data dal teorema della funzione esponenziale).
+\end{exercise}
+
+Osserviamo che abbiamo dato due diverse definizioni di $x^y$.
+La prima è quella delle potenze intere, valida se $x\in \RR$ e $y\in \ZZ$
+e se $x\neq 0$ quando $y<0$. La seconda, quella delle potenze con esponente
+reale è valida per $x>0$ e $y\in \RR$. Il teorema precedente ci garantisce
+che le due definizioni coincidono quando $x>0$ e $y\in \ZZ$.
+
+\begin{theorem}[limite dell'esponenziale]
+\mymargin{limite dell'esponenziale}
+Sia $a>1$ e $b>0$.
+\begin{enumerate}
+\item se $b_n \to +\infty$ allora $a^{b_n} \to +\infty$;
+\item se $b_n \to -\infty$ allora $a^{b_n} \to 0$;
+% \item se $a_n \to +\infty$ allora $(a_n)^b \to +\infty$.
+\end{enumerate}
+\end{theorem}
+%
+\begin{proof}
+La disuguaglianza di Bernoulli garantisce che
+\[
+  a^n = (1+(a-1))^n \ge 1 + n(a-1).
+\]
+Ma allora se $x_n \to +\infty$
+\[
+  a^{x_n} \ge a^{\lfloor x_n \rfloor} \ge 1 + \lfloor x_n \rfloor (a-1)
+  \ge 1 + (x_n-1)\cdot(a-1)
+  \to +\infty.
+\]
+Se $x_n \to -\infty$ allora $-x_n \to +\infty$ ed essendo
+$a^{-x_n} = 1/ a^{x_n}$ si ottiene il risultato voluto.
+\end{proof}
+
+%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%
+\section{il logaritmo}
+%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%
+
+Fissato $a>1$ consideriamo la funzione esponenziale
+$f\colon \RR \to \RR$, $f(x) = a^x$.
+Sappiamo che $f$, essendo strettamente crescente, è iniettiva.
+Il teorema sulla funzione esponenziale ci dice che $f(x)>0$ e quindi
+$f(\RR) \subset (0,+\infty)$.
+Visto però che $a^n\to +\infty$ e $a^{-n} \to 0$ scopriamo che
+$\sup f(\RR)=+\infty$ e $\inf f(\RR)=0$.
+Per la continuità di $f$ risulta però che $f(\RR)$ sia un intervallo
+e dunque necessariamente $f(\RR) = (0,+\infty)$.
+Dunque $f\colon \RR \to (0,+\infty)$ è biettiva.
+Lo stesso vale nel caso $0<a<1$ (semplicemente per il fatto che $a^x = (1/a)^{-x}$).
+
+\begin{definition}[logaritmo]
+Per $a>0$, $a\neq 1$ definiamo $\log_a\colon (0,+\infty)\to \RR$,
+chiamato \emph{logaritmo in base $a$}\mymargin{logaritmo},
+la funzione inversa di $a^x$.
+Si ha dunque
+\[
+  \log_a x = y \iff a^y = x.
+\]
+\end{definition}
+
+\begin{theorem}[proprietà del logaritmo]
+\mymargin{proprietà del logaritmo}
+Se $a>0$, $a\neq 1$
+\begin{enumerate}
+  \item $\log_a(a^x) = x$;
+  \item $\log_a(x\cdot y)= \log_a x + \log_a y$;
+  \item $\log_a(x^y) = y \log_a (x)$;
+  \item $\log_a(1) = 0$, $\log_a(a)=1$;
+  \item  $\displaystyle  \log_a x = \frac{\log_b x}{\log_b a}$;
+  \item se $a>1$ la funzione $\log_a(x)$ è strettamente crescente,
+  se $0<a<1$ è strettamente decrescente;
+  \item $\log_a(x)$ è una funzione continua;
+  \item se $x_n \to +\infty$ allora $\log_a(x_n)\to +\infty$;
+  \item se $x_n \to 0$, $x_n>0$ allora $\log_a(x_n)\to -\infty$.
+\end{enumerate}
+%
+\begin{proof}
+Tutte queste proprietà si ricavano direttamente dalle analoghe proprietà
+dell'esponenziale.
+\end{proof}
+\end{theorem}
+
+Per completezza enunciamo il seguente teorema che però
+probabilmente non conviene memorizzare.
+L'idea veramente rilevante, che si usa nella dimostrazione,
+è il fatto che quando in una potenza variano sia la base
+che l'esponente conviene riscrivere la potenza fissando
+una base $c>1$ qualunque
+tramite la seguente identità:
+\[
+  a^b = c^{b \log_c a}.
+\]
+In questo modo la base rimane fissata e quello
+che varia è solo l'esponente.
+
+\begin{theorem}[limite della potenza]
+\mymargin{limite della potenza}
+Siano $a_n$ e $b_n$ successioni
+Se $a_n\to a$ e $b_n \to b$
+sono successioni convergenti e $a>0$
+allora
+\[
+  (a_n)^{b_n} \to a^b.
+\]
+Inoltre se $a_n \to a$, $a_n>0$, $b_n \to b$:
+\begin{enumerate}
+\item se $a<1$ e $b=+\infty$ allora ${a_n}^{b_n} \to 0$;
+\item se $a<1$ e $b=-\infty$ allora ${a_n}^{b_n} \to +\infty$;
+\item se $a>1$ e $b=+\infty$ allora ${a_n}^{b_n} \to +\infty$;
+\item se $a>1$ e $b=-\infty$ allora ${a_n}^{b_n} \to 0$;
+\item se $a=+\infty$ e $b>0$ allora ${a_n}^{b_n} \to +\infty$.
+\end{enumerate}
+
+\end{theorem}
+%
+\begin{proof}
+Scelto un qualunque numero $c>1$ (ad esempio $c=2$)
+si ha
+\[
+  a_n^{b_n} = c^{\log_c a_n^{b_n}}
+   = c^{b_n \cdot \log_c a_n}.
+\]
+
+Per la continuità del logaritmo si ha $\log_c a_n \to \log_c a$
+(oppure $\log_c a_n \to +\infty$ se $a=+\infty$),
+per il teorema sul limite del prodotto si ha $b_n\cdot \log_c a_n \to b\cdot \log_c a$
+e infine, per la continuità dell'esponenziale si ottiene
+\[
+  c^{b_n \cdot \log_c a_n} \to c^{b\log_c a} = a^b.
+\]
+
+Negli altri casi si procede con la stessa dimostrazione
+e si osserva che il prodotto $b_n \cdot \log a_n$ non risulta essere
+una forma indeterminata.
+\end{proof}
+
+Rimangono esclusi i seguenti casi (forme indeterminate):
+\begin{enumerate}
+\item $a=0$, $b=0$ forma indeterminata ``$0^0$'';
+\item $a=1$, $b=+\infty$ forma indeterminata ``$1^{+\infty}$'';
+\item $a=1$, $b=-\infty$ forma indeterminata ``$1^{-\infty}$'';
+\item $a=+\infty$, $b=0$ forma indeterminata ``$(+\infty)^0$''.
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%
+\section{La costante di Nepero}
+
+La funzione esponenziale è legata ad un modello di crescita che si trova spesso
+in natura: la \myemph{crescita esponenziale}.
+Prendiamo come esempio una popolazione di batteri che cresce senza
+limitazioni di spazio e di nutrimento\footnote{Esempi analoghi si potrebbero fare
+con la crescita di un capitale tramite una rendita di interesse
+o con il decadimento radioattivo.}.
+
+Se $q(t)$ indica la numerosità della popolazione al tempo $t$ al tempo
+$t+s$ ho una popolazione $q(t+s)$ che, fissato $s$, è proporzionale a $q(t)$,
+perché ogni batterio avrà avuto la sua discendenza moltiplicata per un fattore
+$k(s)$ indipendentemente dalla numerosità dei batteri.
+Si avrà dunque
+\[
+  q(t+s) = q(t) \cdot k(s).
+\]
+In particolare fissato $q_0=q(0)$ si avrà
+\[
+ q(t) = q(0+t) = q_0 \cdot k(t)
+\]
+e ponendo $t=0$ si trova $k(0)=1$.
+Inoltre da un lato
+$  q(x+y) = q_0\cdot k(x+y) $
+ma dall'altro
+$q(x+y) = q(x) \cdot k(y) = q_0 \cdot k(x)\cdot k(y) $
+da cui
+\[
+k(x+y) = k(x)\cdot k(y).
+\]
+Posto $a=k(1)$ e supponendo (cosa naturale)
+che $q(t)$ sia crescente e quindi anche $k(t)$ sia crescente, dal
+teorema di unicità della funzione esponenziale si ottiene che
+\[
+  k(t) = a^t
+  \qquad\text{e
+   quindi}
+   \qquad q(t) = q_0 \cdot a^t.
+\]
+
+La costante $a$ nella formula $q_0\cdot a^t$ rappresenta
+il coefficiente di crescita
+di $q$ nel tempo unitario: $a = q(1) / q(0)$: questa costante dipende
+però dall'unità di tempo scelta.
+Sarebbe invece più naturale considerare la velocità di crescita relativa
+\emph{istantanea} al tempo t:
+\[
+  c = \frac{q(t+\Delta t) - q(t) }{q(t) \cdot \Delta t}.
+\]
+Supponendo di conoscere $c$ possiamo cercare di calcolare $a=k(1)=q(1)/q_0$.
+La definizione di $c$ può essere rivoltata per ottenere
+\[
+  q(t+\Delta t)
+   = q(t) + c \cdot q(t) \cdot \Delta t
+   = q(t)\enclose{1 + c \cdot \Delta t}.
+\]
+Scegliendo $t=0$ e $\Delta t = 1/n$ si ha
+\[
+    q(\Delta t)
+    = q_0 + c \cdot q_0 \cdot \Delta t
+    = q_0(1 + c \cdot \Delta t)
+\]
+poi
+\[
+  q(\Delta t + \Delta t) = q(\Delta t) (1+ c\cdot \Delta t) = q_0 (1+c\cdot \Delta t)^2
+\]
+e iterando
+\[
+  q\enclose{m \cdot \Delta t} = q_0 \enclose{1+ c \cdot \Delta t}^m.
+\]
+Dunque per calcolare $q(1)$ prendiamo $n\in \NN$ molto grande e poniamo
+$\Delta t = 1/n$ cosicché:
+\[
+  q(1) = q( n\cdot \Delta t) = q_0 \enclose{1+{\frac c n}}^n.
+\]
+
+Nel caso $c=1$ quello che si ottiene per il coefficiente $a$ è la costante $e$
+di Nepero, introdotta
+nella definizione seguente. Vedremo che per $c$ generico ci si riconduce
+comunque alla costante $e$ ottenendo $a=e^c$.
+
+\begin{definition}[costante di Nepero]
+Definiamo la \myemph{costante di Nepero}
+\[
+  e = \lim_{n\to +\infty} \enclose{1+\frac 1 n}^n.
+\]
+\end{definition}
+La precedente definizione è giustificata dal seguente teorema.
+
+
+\begin{theorem}[costante di Nepero]
+La successione
+\[
+  a_n = \enclose{1+\frac 1 n}^n
+\]
+è crescente e limitata, dunque è convergente.
+\end{theorem}
+%
+\begin{proof}
+Dimostriamo innanzitutto che $a_n$ è crescente, cioè che
+per ogni $n\ge 2$ si ha $a_n \ge a_{n-1}$.
+E' chiaro che $a_n>0$ per ogni $n$,
+quindi ci riconduciamo a
+verificare che $\frac{a_n}{a_{n-1}} \ge 1$.
+
+Si ha
+\begin{align*}
+\frac{a_n}{a_{n-1}}
+&= \frac{\enclose{1+\frac 1 n}^n}{\enclose{1+\frac 1 {n-1}}^{n-1}}
+= \frac{\enclose{\frac{n+1}{n}}^n}{\enclose{\frac{n}{n-1}}^{n-1}}\\
+&= \enclose{\frac{n+1}{n}\cdot\frac{n-1}{n}}^n \cdot \frac{n}{n-1}
+= \enclose{\frac{n^2- 1}{n^2}}^n \cdot \frac{n}{n-1}
+\end{align*}
+Osserviamo ora che la disuguaglianza di Bernoulli garantisce
+\[
+  \enclose{\frac{n^2 -1}{n^2}}^n
+  = \enclose{1-\frac{1}{n^2}}^n
+  \ge 1 - \frac{n}{n^2} = 1 - \frac{1}{n} = \frac{n-1}{n}
+\]
+da cui si ottiene, come volevamo, $a_n / a_{n-1} \ge 1$ cioè
+$a_n$ è crescente.
+
+Se ora consideriamo la successione
+\[
+  b_n = \enclose{1+\frac 1 n}^{n+1}
+\]
+osserviamo che si ha
+\[
+  b_n = \enclose{1+\frac 1 n}^n \cdot \enclose{1+\frac 1 n}
+   = a_n\cdot \enclose{1+\frac 1 n} > a_n.
+\]
+Per dimostrare che $a_n$ è limitata sarà quindi sufficiente dimostrare
+che $b_n$ è superiormente limitata. Vedremo ora che $b_n$ è decrescente (e quindi $a_n \le b_n \le b_1$ è superiormente limitata).
+
+Procediamo in maniera analoga a quanto fatto per $a_n$:
+\begin{align*}
+\frac{b_{n-1}}{b_n}
+& = \frac{\enclose{1+\frac{1}{n-1}}^n}{\enclose{1+\frac{1}{n}}^{n+1}}
+  = \frac{\enclose{\frac{n}{n-1}}^n}{\enclose{\frac{n+1}{n}}^{n+1}}
+  = \enclose{\frac{n}{n-1}\cdot\frac{n}{n+1}}^n\cdot\frac{n}{n+1} \\
+& = \enclose{\frac{n^2}{n^2-1}}^n \frac{n}{n+1}
+  = \enclose{1 + \frac{1}{n^2-1}}^n \frac{n}{n+1}.
+\end{align*}
+In base alla disuguaglianza di Bernoulli otteniamo
+\[
+  \enclose{1 + \frac{1}{n^2-1}}^n
+  \ge 1 + n \frac{1}{n^2-1}
+  \ge 1 + n\frac{1}{n^2}  = 1+\frac{1}{n} = \frac{n+1}{n}.
+\]
+Mettendo insieme le due stime si ottiene dunque $b_{n-1}/b_n \ge 1$
+che è quanto ci rimaneva da dimostrare.
+\end{proof}
+
+\begin{exercise}
+Posto $a_n = n! / n^n$ mostrare che $a_{n+1} / a_n \to e$.
+\end{exercise}
+
+\begin{theorem}[limiti che si riconducono al numero $e$]
+\mymargin{limiti che si riconducono al numero $e$}
+Se $a_k \to 0$, $a_k\neq 0$ allora, per $k\to +\infty$,
+\[
+  \enclose{1+a_k}^{\frac 1 {a_k}} \to e.
+\]
+\end{theorem}
+%
+\begin{proof}
+Caso 1. Se $a_k > 0$ allora consideriamo la successione di naturali
+$n_k = \lfloor 1/a_k \rfloor$ cosicché
+\[
+  n_k \le \frac{1}{a_k} \le n_k + 1
+\qquad
+\text{e}
+\qquad
+ \frac{1}{n_k+1} \le a_k \le \frac 1 {n_k}.
+\]
+dunque
+\[
+\enclose{1+\frac 1 {n_k+1} }^{n_k}
+  \le \enclose{1+a_k}^{\frac 1 {a_k}}
+  \le \enclose{1+\frac 1 {n_k}}^{n_k + 1}.
+\]
+Osserviamo ora che essendo che per $k\to +\infty$ anche
+$n_k \to +\infty$ si deve
+avere (in base al teorema di cambio di variabile nei limiti)
+\[
+ \lim_k \enclose{1 + \frac{1} {n_k}}^{n_k+1}\!\!\!
+ = \lim_n \enclose{1+ \frac 1 n}^{n+1}\!\!\!
+ = \lim_n \enclose{1+ \frac 1 n}^n\!\cdot\enclose{1+\frac 1 n}
+ = e
+\]
+ed essendo anche $n_k + 1 \to \infty$
+\[
+  \lim_k \enclose{1 + \frac 1 {n_k+1}}^{n_k}
+  = \lim_n \enclose{1+\frac 1 n}^{n-1}
+  = \lim_n \frac{\enclose{1+\frac 1 n}^{n}}{1+\frac 1 n}
+  = e.
+\]
+Dunque, per confronto tra i limiti, si ottiene $(1+a_k)^{\frac 1 {a_k}}\to e$.
+
+Caso 2. Se $a_k<0$ possiamo scrivere $a_k = -\abs{a_k}$ da cui
+\[
+  \enclose{1+a_k}^{\frac 1 {a_k}}
+  = \frac{1}{\enclose{1-a_k}^{\frac 1{a_k}}}
+\]
+e, procedendo come nel caso precedente, ci si riconduce al limite
+\[
+  \lim_n \frac{1}{\enclose{1-\frac 1 n}^n}.
+\]
+Per quest'ultimo osserviamo che si ha
+\[
+ \frac{1}{\enclose{1-\frac 1 n}^n}
+ = \frac{1}{\enclose{\frac{n-1}{n}}^n}
+ = \enclose{\frac{n}{n-1}}^n
+ = \enclose{1 + \frac{1}{n-1}}^n
+\]
+che per quanto visto in precedenza (mettendo $n+1$ al posto di $n$)
+ha anch'esso limite $e$.
+
+Caso generale. Se $a_k$ ha segno variabile posso considerare
+le due sottosuccessione dei termini di segno positivo e dei termini di segno
+negativo. Per quanto visto nei casi precedenti entrambe le successioni
+convergono ad $e$ e quindi è immediato verificare che l'intera
+successione converge ad $e$.
+\end{proof}
+
+\begin{corollary}
+Per ogni $x\in \RR$ si ha
+\[
+  \lim_{n\to +\infty} \enclose{1+ \frac x n}^n = e^x.
+\]
+\end{corollary}
+%
+\begin{proof}
+Infatti, per il teorema precedente, posto $a_n = x/n$ si ha
+\[
+\lim_{n\to +\infty}\enclose{1+\frac x n}^{\frac n x} = e.
+\]
+Ma allora
+\[
+\enclose{1+ \frac x n}^n = \enclose{\enclose{1+\frac x n}^{\frac n x}}^x
+\to e^x
+\]
+\end{proof}
+
+\begin{corollary}
+Se $a_n \to 0$, $a_n>0$ allora
+\[
+ \lim_{n\to +\infty} \frac{\ln \enclose{1+ a_n}}{a_n} = 1.
+\]
+\end{corollary}
+%
+\begin{proof}
+Per ricondursi al teorema precedente basta osservare che
+\[
+  \frac{\ln(1+a_n)}{a_n}
+  = \ln \enclose{(1+a_n)^{\frac 1 {a_n}}}.
+\]
+\end{proof}
+
+\begin{exercise}
+Mostrare che
+\[
+  \lim n^n\cdot \enclose{\frac{n+1}{n^2+1}}^n = e.
+\]
+\end{exercise}
+
+\begin{exercise}
+Mostrare che
+\[
+\lim n\cdot \ln\enclose{1 + \frac 1 n} = 1.
+\]
+\end{exercise}
+
+\begin{definition}[logaritmi naturali]
+Vedremo che il numero $e$ risulta essere una base naturale per la funzione
+esponenziale e di conseguenza per il logaritmo. Il logaritmo in base
+$e$ viene chiamato \myemph{logaritmo naturale} e viene indicato con $\ln = \log_e$.
+\end{definition}
+
+In alcuni testi si utilizza l'operatore $\log$, indicato senza una base esplicita,
+ma la definizione non è completamente condivisa.
+In certi testi (per lo più in ambito matematico)
+si definisce $\log  = \ln = \log_e$,
+in altri testi si considera $\log = \log_{10}$.
+
+%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%
+\section{ordini di infinito}
+
+\begin{theorem}[criterio del rapporto alla Cesàro]
+\mymargin{criterio del rapporto alla Cesàro}
+\index{Cesàro}
+Sia $a_n$ una successione a termini positivi.
+Se
+\[
+  \frac{a_{n+1}}{a_n} \to \ell \in \RR
+\]
+allora
+\[
+ \sqrt[n]{a_n}\to \ell.
+\]
+\end{theorem}
+%
+\begin{proof}
+Chiaramente deve essere $\ell\ge 0$. Supponiamo inizialmente
+che sia $\ell>0$ e scegliamo qualunque $\eps>0$, con $\eps < \min\{1,\ell\}$.
+Per la definizione di limite $a_{n+1}/a_n \to \ell$ esisterà $N$ tale che per $n>N-1$ si abbia
+\[
+  \ell -\eps < \frac{a_{n+1}}{a_n} < \ell + \eps.
+\]
+Osserviamo che in generale, per ogni $n\ge N$ si ha
+\[
+ a_n  = \frac{a_n}{a_{n-1}}\cdot\frac{a_{n-1}}{a_{n-2}}
+ \cdot\cdots\cdot
+     \frac{a_{N+2}}{a_{N+1}}\cdot\frac{a_{N+1}}{a_N}
+     \cdot a_N.
+\]
+Dunque potendo stimare,
+dall'alto e dal basso,
+ognuno degli $n-N$ fattori di questo
+prodotto di rapporti, si ottiene
+\[
+(\ell -\eps)^{n-N} \cdot a_N < a_n < (\ell +\eps)^{n-N} \cdot a_N
+\]
+da cui
+\[
+(\ell -\eps)^{\frac{n-N}{n}} \cdot \sqrt[n]{a_N}
+< \sqrt[n]{a_n}
+< (\ell +\eps)^{\frac{n-N}{n}} \cdot \sqrt[n]{a_N}
+\]
+ovvero
+\[
+(\ell -\eps) \cdot \sqrt[n]{\frac{a_N}{(\ell -\eps)^N}}
+< \sqrt[n]{a_n}
+< (\ell +\eps) \cdot \sqrt[n]{\frac{a_N}{(\ell -\eps)^N}}.
+\]
+Ricordiamo ora che per $n\to +\infty$
+\[
+\sqrt[n]{\frac{a_N}{(\ell -\eps)^N}} \to 1
+\]
+e quindi esisterà un $K>N$ tale che per ogni $n>K$ si ha
+\[
+ 1-\eps < \sqrt[n]{\frac{a_N}{(\ell -\eps)^N}} < 1+\eps.
+\]
+Mettendo insieme le cose abbiamo ottenuto che
+\[
+ (\ell - \eps)(1-\eps)
+ < \sqrt[n]{a_n}
+ < (\ell + \eps)(1+\eps)
+ \]
+che garantisce la validità del limite $\sqrt[n]{a_n}\to \ell$.
+
+Nel caso $\ell = 0$
+non potremo richiedere $\eps < \ell$
+e quindi le stime dal basso andranno rimpiazzate
+dalla stima ovvia
+$\sqrt[n]{a_n}\ge 0$.
+\end{proof}
+
+\begin{exercise}
+Si applichi il risultato precedente per
+verificare che
+\[
+   \lim \sqrt[n]{n} = 1
+\]
+e (più difficile)
+\[
+  \lim \frac{n}{\sqrt[n]{n!}} = e.
+\]
+\end{exercise}
+
+\begin{corollary}[criterio del rapporto]
+\mymargin{criterio del rapporto}
+Sia $a_n$ è una successione a termini positivi tale che
+il rapporto dei termini consecutivi abbia limite $\ell\in [0,+\infty]$:
+\[
+  \frac{a_{n+1}}{a_n} \to \ell.
+\]
+Se $\ell < 1$ allora $a_n \to 0$. Se $\ell>1$ allora $a_n \to +\infty$.
+
+\end{corollary}
+%
+\begin{proof}
+Applicando il teorema precedente sappiamo che $b_n = \sqrt[n]{a_n}\to \ell$. Ma allora
+\[
+  a_n = \enclose{b_n}^n \to
+  \begin{cases}
+    0 & \text{se $\ell < 1$}\\
+    +\infty & \text{se $\ell > 1$}
+  \end{cases}
+\]
+in quanto $b_n = \to \ell$ e $\ell^n \to 0$ se $\ell<1$ mentre $\ell^n \to +\infty$
+se $\ell>1$.
+\end{proof}
+
+Osserviamo che, nel teorema precedente, non si può concludere niente nel
+caso in cui sia $\ell = 1$. Infatti le due successioni $a_n = 1/n$ e $b_n = n$
+hanno limiti diversi ($a_n \to 0$, $b_n\to +\infty$) ma per entrambe
+il limite del rapporto di termini consecutivi tende ad $\ell=1$.
+
+
+\begin{comment}
+\begin{proof}
+Per la definizione di limite $a_{n+1}/a_n \to \ell$
+scelto $q$ con $\ell < q < 1$ e posto $\eps = q-\ell$
+esiste $N\in \NN$ tale che per ogni $n>N-1$
+si ha
+\[
+  \frac{a_{n+1}}{a_n} \le \ell+\eps = q
+\]
+cosicché $a_{n+1} \le q \cdot a_n$. Alla seconda
+iterazione
+\[
+  a_{n+2} \le q a_{n+1} \le q^2 a_n
+\]
+e per induzione si può mostrare quindi che
+per ogni $n\ge N$ si ha
+\[
+ a_{n+k} \le q^k a_n
+\]
+ovvero
+\[
+ a_{N+k} \le q^k a_N.
+\]
+Ponendo
+\[
+  c = \max \enclose{\{1\}\cup \left\{\frac{a_n}{q^n}\colon n=0,\dots,N\right\}}
+\]
+si ottiene che vale (per forza) per ogni $n\in \NN$
+\[
+  a_n \le c \cdot q^n.
+\]
+In particolare essendo $a_n \ge 0$ e $c\cdot q^n \to 0$ per $n\to +\infty$
+per confronto  si ottiene
+che $a_n \to 0$.
+\end{proof}
+\end{comment}
+
+\begin{definition}[ordine di infinito/infinitesimo]
+\mymargin{ordine di infinito/infinitesimo}
+Se $a_n$ e $b_n$ sono successioni a termini positivi, diremo che
+per $n\to +\infty$ la successione $a_n$ è \emph{molto più piccola}
+della successione $b_n$ e scriveremo $a_n \ll b_n$ se vale
+\mymargin{$\ll$}
+\[
+\frac{a_n}{b_n} \to 0.
+\]
+Se $a_n \ll b_n$ diremo anche che $b_n$ è \myemph{molto più grande}
+di $a_n$ e scriveremo $b_n \gg a_n$.
+\mymargin{$\gg$}
+\end{definition}
+
+\begin{theorem}[ordini di infinito]
+\mymargin{ordini di infinito}
+Per ogni $a>1$ si ha, per $n\to +\infty$
+\[
+a^n \ll n! \ll n^n.
+\]
+Se $a>1$, $\alpha>0$ e $x_n \to +\infty$ si ha,
+per $n\to+\infty$
+\[
+\log_a(x_n) \ll (x_n)^\alpha \ll a^{x_n}.
+\]
+\end{theorem}
+%
+\begin{proof}
+Cominciamo col mostrare che $a^n \ll n!$
+applicando il criterio del rapporto alla successione $\frac{a^n}{n!}$:
+\[
+\frac{\displaystyle \frac{a^{n+1}}{(n+1)!}}{\displaystyle \frac{a^n}{n!}}
+= \frac{a^{n+1}}{a^n}\cdot \frac{n!}{(n+1)!}
+= a \cdot \frac {1}{n + 1} \to 0 < 1.
+\]
+Dunque si ha, come richiesto $a^n / n! \to 0$.
+Si procede in modo analogo per mostrare che $n! \ll n^n$:
+\begin{align*}
+\frac{(n+1)!}{n!}\cdot \frac{n^n}{(n+1)^{n+1}}
+&= (n+1) \cdot \enclose{\frac{n}{n+1}}^n \frac {1}{n+1}\\
+&= \frac{1}{\enclose{1+\frac 1 n}^n} \to \frac 1 e < 1.
+\end{align*}
+
+Per la seconda parte del teorema cominciamo col dimostrare un caso particolare
+e cioè
+\[
+  n^\alpha \ll a^n.
+\]
+Si può procedere con il criterio del rapporto, come nei casi precedenti:
+\[
+\frac{(n+1)^\alpha}{n^\alpha}\cdot \frac{a^n}{a^{n+1}}
+= \frac 1 a \cdot \enclose{\frac{n+1}{n}}^\alpha \to \frac 1 a \cdot 1^\alpha = \frac 1 a < 1
+\]
+da cui $n^\alpha / a^n \to 0$.
+
+Se ora $x_n\to +\infty$ è qualunque
+cerchiamo di ricondurci ad una successione a valori interi.
+Osserviamo che si ha
+\[
+\lfloor x_n \rfloor
+\le x_n
+\le \lfloor x_n \rfloor + 1
+\]
+da cui, per monotonia,
+\[
+\lfloor x_n \rfloor^\alpha
+\le x_n^\alpha
+\le (\lfloor x_n \rfloor + 1)^\alpha
+= \lfloor x_n \rfloor^\alpha \enclose{1+ \frac{1}{\lfloor x_n \rfloor}}^\alpha
+\]
+e
+\[
+a^{\lfloor x_n \rfloor}
+\le a^{x_n}
+\le a^{\lfloor x_n \rfloor + 1}
+= a \cdot a^{\lfloor x_n \rfloor}.
+\]
+Dunque
+\[
+\frac{\lfloor x_n \rfloor^\alpha}{a \cdot a^{\lfloor x_n \rfloor}}
+\le \frac{x_n^\alpha}{a^{x_n}}
+\le \frac{\lfloor x_n \rfloor^\alpha \enclose{1+ \frac{1}{\lfloor x_n \rfloor}}^\alpha}
+    {a^{\lfloor x_n \rfloor}}.
+\]
+Ma ora, se $n\to +\infty$ sapendo che $\lfloor x_n\rfloor \to +\infty$ si ha
+che (per il teorema di sostituzione del limite)
+\[
+\lim \frac{\lfloor x_n \rfloor^\alpha}{a^{\lfloor x_n \rfloor}} = 0
+\qquad
+\text{e}
+\qquad
+\lim \frac{\lfloor x_n \rfloor^\alpha }
+    {a^{\lfloor x_n \rfloor}} = 0
+\]
+da cui segue che $\frac{x_n^\alpha}{a^{x_n}}\to 0$.
+
+Per dimostrare l'ultima relazione, $\log_a(x_n)\ll (x_n)^\alpha$,
+consideriamo la successione $y_n = \alpha \cdot \log_a x_n$
+cosicché $a^{y_n} = x_n^\alpha$.
+Notiamo che se $x_n\to +\infty$
+anche $y_n \to +\infty$.
+Dunque, per le proprietà precedenti,
+sappiamo che $y_n \ll a^{y_n}$ e dunque
+\[
+\frac{\log_a x_n}{x_n^\alpha}
+= \frac{1}{\alpha}\cdot\frac{y_n}{a^{y_n}} \to 0.
+\]
+\end{proof}
+
+\begin{exercise}
+Calcolare
+\[
+  \lim_{n\to +\infty} \frac{\displaystyle \ln\sqrt{n^2+n^n}}{\displaystyle e^{1 + \ln n}\cdot \ln(n^2-n\sqrt n)}.
+\]
+\end{exercise}
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%
