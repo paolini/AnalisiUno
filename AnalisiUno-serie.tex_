@@ -756,6 +756,183 @@ anche l'altra lo è.
 \end{proof}
 
 
+\section{serie a segni alterni}
+
+La serie $\sum \frac{(-1)^k}{k+1}$ i cui termini sono
+\[
+1,\ -\frac{1}{2},\ \frac{1}{3},\ -\frac{1}{4},\ \frac{1}{5},\ \dots
+\]
+non è assolutamente convergente
+(in quanto la serie $\sum \frac 1 {k+1}$ è divergente) ma ha il termine generico
+infinitesimo. Non abbiamo quindi nessun criterio che ci permetta di
+determinarne il carattere.
+Possiamo però sfruttare il fatto che i segni sono \emph{alterni} cioè
+che i termini di indice pari e i termini di indice dispari hanno tutti
+lo stesso segno. Si nota infatti che posto
+\[
+  S_n = \sum_{k=0}^n \frac{(-1)^k}{k+1}
+\]
+si ha
+\begin{align*}
+S_{2n+2}
+  &= S_{2n+1} + \frac{1}{2n+3}
+  = S_{2n} - \frac{1}{2n+2} + \frac{1}{2n+3}
+  < S_{2n}\\
+S_{2n+3}
+  &= S_{2n+2} - \frac{1}{2n+4}
+  = S_{2n+1} + \frac{1}{2n+3} - \frac{1}{2n+4}
+  > S_{2n+1} \\
+\end{align*}
+Dunque la successione delle somme parziali di indice pari è decrescente mentre
+sui termini di indice dispari è crescente. Avremo quindi che entrambe
+le sottosuccessioni convergono: $S_{2n} \to S$, $S_{2n+1} \to R$.
+
+Ma
+\[
+  S - R = \lim_{n\to +\infty} (S_{2n} - S_{2n+1}) = \lim_{n\to+\infty}\frac{1}{2n+2} = 0.
+\]
+Dunque $S=R$ e l'intera successione ha limite $S$. D'altra parte $S \le S_0$ in quanto $S_{2n}$ è decrescente e $S\ge S_1$ in quanto $S_{2n+1}$ è crescente. Concludiamo che $S$ è finito e dunque la serie è convergente.
+
+Questa dimostrazione può essere resa più in generale nel seguente.
+
+\begin{theorem}[serie a segni alterni: criterio di Leibniz]
+\mymargin{criterio di Leibniz}
+Sia $b_n$ una successione monotòna e infinitesima. Allora
+la serie
+\[
+  \sum (-1)^{n} b_n
+\]
+è convergente.
+\end{theorem}
+%
+\begin{proof}
+Senza perdere di generalità possiamo supporre che la successione $b_n$ sia decrescente e quindi $b_n \ge 0$ (visto che il limite è zero).
+Posto
+\[
+ S_n = \sum_{k=0}^n (-1)^k b_k
+\]
+si ha
+\begin{align*}
+  S_{2n+2} &= S_{2n} - b_{2n+1} + b_{2n+2} \\
+  S_{2n+3} &= S_{2n+1} + b_{2n+2} - b_{2n+3}.
+\end{align*}
+Essendo $b_n$ decrescente si ha $b_{2n+2} < b_{2n+1}$ e $b_{2n+3} < b_{2n+2}$ da cui
+\[
+  S_{2n+2} < S_{2n}, \qquad S_{2n+3} > S_{2n+1}.
+\]
+Dunque le successioni $S_{2n}$ e $S_{2n+1}$ sono monotone e di conseguenza
+hanno limite:
+\[
+  S_{2n} \to S, \qquad S_{2n+1} \to R
+\]
+con $S, R  \in [-\infty, +\infty]$.
+D'altronde, essendo $b_n$ infinitesima
+\[
+  S - R
+  = \lim_{n\to +\infty} S_{2n} - S_{2n+1}
+  = \lim_{n\to +\infty} b_{2n+1} = 0.
+\]
+Dunque $S=R$. Inoltre essendo $S_{2n}$ decrescente si ha
+$S \le S_0$ ed essendo $S_{2n+1}$ crescente si ha $S\ge S_1$.
+Dunque $S$ è finito e la serie converge.
+\end{proof}
+
+\begin{theorem}[somma per parti]
+\mymargin{somma per parti}
+Siano $a_k$ e $B_k$ successioni. Posto
+\[
+  A_n = \sum_{k=0}^{n-1} a_k
+\]
+si ha
+\[
+ \sum_{k=m}^n a_k B_k = A_{n+1} B_{n+1} - A_n B_n + \sum_{k=m}^n A_{k+1}(B_k - B_{k+1}).
+\]
+\end{theorem}
+%
+\begin{proof}
+Osserviamo che
+\[
+  A_{k+1} - A_k = \sum_{j=0}^k a_j - \sum_{j=0}^{k-1} a_j = a_k
+\]
+dunque
+\begin{align*}
+ A_{k+1} B_{k+1} - A_k B_k
+ &= A_{k+1} B_{k+1} - A_{k+1}B_k + A_{k+1} B_k - A_k B_k \\
+ &= A_{k+1} (B_{k+1} - B_k) + a_k B_k
+\end{align*}
+da cui
+\[
+ a_k B_k =  A_{k+1} B_{k+1} - A_k B_k + A_{k+1}(B_k - B_{k+1}).
+\]
+Sommando si ottiene
+\begin{align*}
+\sum_{k=m}^n a_k B_k
+ &= \sum_{k=m}^n A_{k+1} B_{k+1} - \sum_{k=m}^n A_k B_k
+     + \sum_{k=m}^n A_{k+1}(B_k - B_{k+1}) \\
+ &= A_{n+1} B_{n+1} - A_n B_n + \sum_{k=m^n} A_{k+1}(B_k - B_{k+1}).
+\end{align*}
+\end{proof}
+
+Il seguente corollario generalizza il criterio di Leibniz.
+
+\begin{corollary}
+Siano $a_k$ e $B_k$ successioni tali che
+\begin{enumerate}
+\item $\displaystyle A_n = \sum_{k=0}^{n-1} a_k$ è limitata;
+\item $B_k$ monotona e infinitesima.
+\end{enumerate}
+Allora la serie
+$
+  \sum a_k B_k
+$
+è convergente.
+\end{corollary}
+%
+\begin{proof}
+Per la formula precedente si ha
+\[
+ \sum_{k=0}^n a_k B_k
+ = A_{n+1} B_{n+1} - A_0 B_0 + \sum_{k=0}^n A_{k+1}(B_k -B_{k+1}).
+\]
+Il primo addendo $A_{n+1} B_{n+1}$ tende a zero per $n\to +\infty$
+in quanto prodotto di una successione limitata per una infinitesima.
+Il secondo addendo è costante.
+La serie $\sum A_{k+1} (B_k - B_{k+1})$ è assolutamente convergente
+in quanto $\abs{A_{k+1}}$ è limitato e $\sum (B_k - B_{k+1})$ è una
+serie telescopica a termini positivi (supponiamo $B_k$ sia decrescente e positiva, altrimenti basta cambiarne il segno).
+
+Dunque il limite della somma sul lato destro converge e quindi la serie sul lato sinistro è convergente.
+\end{proof}
+
+\begin{exercise}
+La serie
+\[
+ \sum_{k=1}^\infty \frac{\sin k}{k}
+\]
+è convergente.
+
+Applichiamo il corollario precedente.
+Posto $a_k = \sin k$ e $B_k=1/k$
+si ha
+\[
+  A_n = \sum_{k=0}^{n-1} \sin k = \Im \sum_{k=0}^{n-1} e^{ik}.
+\]
+Osserviamo allora che $e^{ik}=(e^i)^k$ e dunque $A_n$ è la parte immaginaria
+di una somma di una serie geometria. Si può quindi calcolare esplicitamente
+\[
+  A_n = \Im \frac{1-(e^i)^n}{1-e^i}
+\]
+da cui
+\[
+ \abs{A_n} \le \abs{\frac{1-e^{in}}{1-e^i}} \le \frac{1+\abs{e^{in}}}{\abs{1-e^i}}
+ = \frac{2}{\abs{1-e^i}}
+\]
+e dunque $A_n$ è limitata.
+
+D'altro canto posto $B_k = 1/k$ è chiaro che $B_k$ è
+decrescente e infinitesima.
+\end{exercise}
+
 \section{le serie di potenze}
 
 
