@@ -962,13 +962,15 @@ e dunque $A_n$ è limitata.
 D'altro canto posto $B_k = 1/k$ è chiaro che $B_k$ è
 decrescente e infinitesima.
 \end{exercise}
-
+%%%
 \section{le serie di potenze}
+%%%
+
 Se $a_k$ è una successione di numeri complessi, la serie
 \[
  \sum a_k z^k
 \]
-dipendente da un parametro $z$ si chiama \myemph{serie di potenze}
+dipendente dal parametro $z$ si chiama \myemph{serie di potenze}
 di coefficienti $a_k$.
 Se chiamiamo $A\subset \CC$ l'insieme dei numeri complessi $z$
 per i quali la serie di potenze converge, si otterrà una funzione
@@ -976,33 +978,66 @@ $f \colon A \to \CC$ definita da
 \[
   f(z) = \sum_{k=0}^{+\infty} a_k z^k.
 \]
-L'insieme $A$ si chiama \myemph{insieme di convergenza} della serie
+L'insieme $A$ si chiama \myemph{insieme di convergenza} (o \emph{dominio di convergenza}) della serie
 di potenze $\sum a_k z^k$.
 
 \begin{definition}[raggio di convergenza]
 Il \myemph{raggio di convergenza} di una serie di potenze $\sum a_k z^k$
-è il più grande $R\in [0,+\infty]$ tale che la serie converge per ogni $z$ con $\abs{z} < R$.
+è il più grande $R\in [0,+\infty]$ tale che per ogni $r\in [0,R)$ la  serie $\sum a_k \cdot r^k$ risulti essere convergente.
+Ovvero, se $A$ è l'insieme di convergenza della serie, si ha
+\[
+  R = \sup (A \cap [0, +\infty)).
+\]
 \end{definition}
 
 \begin{example}[la serie geometrica]
 La serie di potenze di coefficienti $a_k=1$ è la
-serie geometrica $\sum z^k$
-che risulta essere assolutamente convergente sul cerchio $\abs{z} < 1$.
-Su tale cerchio si ha
+serie geometrica $\sum z^k$.
+L'insieme di convergenza è il cerchio
+$A=\{z\in \CC \colon \abs{z}<1\}$.
+Per $z\in A$ si ha
 \[
  f(z) = \sum_{k=0}^{+\infty} z^k  = \frac{1}{1-z}.
 \]
 Se $\abs{z}\ge 1$ la serie non può convergere perché il termine $z^k$ non è infinitesimo: $\abs{z^k} = \abs{z}^k \ge 1$.
-Dunque la serie geometrica ha raggio di convergenza $R=1$.
+In particolare la serie geometrica ha raggio di convergenza $R=1$.
 \end{example}
 
 \begin{example}
 La serie di potenze $\sum \frac{z^k}{k^k}$ (ottenuta ponendo $a_k=1/k^k$)
 ha raggio di convergenza $R=+\infty$
-in quanto converge assolutamente per ogni $z\in \CC$.
+in quanto $\sum \frac{r^k}{k^k}$ converge assolutamente per ogni $r \in [0, +\infty)$.
 Viceversa la serie $\sum k^k z^k$ ha raggio di convergenza $R=0$ in quanto
 converge solamente se $z=0$.
 \end{example}
+
+\begin{theorem}[calcolo del raggio di convergenza]
+Sia $\sum a_n z^n$ una serie di potenze. Se esiste il limite
+\[
+  \lim_{n\to+\infty}\sqrt[n]{\abs{a_n}} =\ell
+\]
+allora $R=1/\ell$ è il raggio di convergenza della serie (si intende $R=+\infty$ se $\ell = 0$ e $R=0$ se $\ell=+\infty$).
+
+Lo stesso accade se esiste il limite
+\[
+  \lim_{n\to +\infty} \frac{\abs{a_{n+1}}}{\abs{a_n}} = \ell.
+\]
+\end{theorem}
+%
+\begin{proof}
+Applicando il criterio della radice alla serie $\sum \abs{a_n} r^n$ si ha
+\[
+  \sqrt[n]{\abs{a_n} r^n}
+  = r \sqrt[n]{\abs{a_n}} \to r\ell.
+\]
+Dunque se $r < 1/\ell$ si ha $r \ell<1$ e dunque la serie converge
+assolutamente in $z=r$. Se invece $r > 1/\ell$ si ha $r \ell > 1$ e dunque $\abs{a_n} r^n \to +\infty$ e la serie non può essere convergente.
+
+Nel caso esiste il limite del rapporto $\abs{a_{n+1}} / \abs{a_n}$
+sappiamo (grazie al criterio del rapporto alla Cesàro) che
+il limite della radice coincide con il limite del rapporto e quindi
+ci si riconduce al caso precedente.
+\end{proof}
 
 \begin{theorem}[convergenza delle serie di potenze]
 Se la serie di potenze $\sum a_k z^k$ converge in un punto $z_0\in \CC$ allora converge assolutamente per ogni $z$ tale che $\abs{z}< \abs{z_0}$.
@@ -1035,27 +1070,32 @@ Allora $\sum a_k z^k$ non può convergere perché se  convergesse allora per il 
 \end{proof}
 
 Se $R$ è il raggio di convergenza della serie di potenze $\sum a_k z^k$
-il teorema precedente garantisce che l'insieme di convergenza $A$ coincide,
+il teorema precedente dice che la serie converge assolutamente per ogni $z$ con $\abs{z} < R$ e non converge per nessun $z$ con $\abs{z} > R$.
+Dunque l'insieme $A$ coincide,
 a meno dei punti di frontiera, con il cerchio di raggio $R$:
 \[
    \{z\in \CC\colon \abs{z}< R\} \subset A \subset \{z\in \CC\colon \abs{z} \le R\}.
 \]
 
-\begin{theorem}
-Sia $\sum a_n z^n$ una serie di potenze. Se esiste il limite
-\[
-  \lim_{n\to+\infty}\sqrt[n]{\abs{a_n}} =\ell
-\]
-allora $R=1/\ell$ è il raggio di convergenza della serie (si intende $R=+\infty$ se $\ell = 0$ e $R=0$ se $\ell=+\infty$).
+\begin{theorem}[stabilità del raggio di convergenza]
+Le serie di potenze $\sum a_k z^k$ e $\sum k a_k z^k$ hanno
+lo stesso raggio di convergenza.
 \end{theorem}
 %
 \begin{proof}
-Applicando il criterio della radice alla serie $\sum \abs{a_n z^n}$ si ha
-\[
-  \sqrt[n]{\abs{a_n z^n}} = \sqrt[n]{\abs{a_n}} \abs{z} \to \ell \abs{z}.
-\]
-Dunque se $\abs{z} < 1/\ell$ si ha $\ell \abs{z}<1$ e dunque la serie converge
-assolutamente in $z$. Se invece $\abs{z} > 1/\ell$ si ha $\ell\abs{z}>1$ e dunque $\abs{a_n z^n} \to +\infty$ e la serie non può essere convergente.
+Supponiamo che $R$ sia il raggio di convergenza della serie $\sum a_k z^k$.
+Consideriamo allora un qualunque $r\in [0,+\infty)$ e
+verifichiamo se $\sum a_k r^k$ converge o meno.
+Se $r<R$ esisterà un $\rho$ tale che $r < \rho <R$ e allora si osserva
+che $k \abs{a_k} r^k \ll \abs{a_k}\rho^k$
+essendo $k \ll (\rho / r)^k$.
+Visto che $\rho < R$ sappiamo (per il teorema precedente) che la serie $\sum a_k z^k$ converge assolutamente in $z=\rho$ cioè la serie $\sum \abs{a_k}\rho^k$ è convergente. Per confronto anche la serie $\sum k \abs{a_k}r^k$ è convergente.
+Dunque se $r< R$ la serie $\sum k a_k r^k$ è convergente.
+Viceversa se la serie $\sum k a_k r^k$ fosse convergente per qualche $r>R$
+allora sarebbe assolutamente convergente per ogni $\rho$ con $R < \rho < r$.
+Ma $\abs{a_k} \rho^k \le k \abs{a_k} \rho^k$ (almeno per $k\ge 1$)
+e dunque anche la serie $\sum a_k \rho^k$ dovrebbe essere assolutamente convergente, assurdo
+visto che $\rho > R$.
 \end{proof}
 
 \begin{theorem}(continuità delle serie di potenze)
@@ -1068,8 +1108,39 @@ definita da
 \]
 è (sequenzialmente) continua (su $B$).
 \end{theorem}
+%
 \begin{proof}
-...
+Per mostrare che $f$ è continua dobbiamo mostrare che presa qualunque successione
+$z_n\in B$ se $z_n \to z$ con $z\in B$ allora $f(z_n)\to f(z)$.
+
+Osserviamo che se $z,w \in \CC$
+con $\abs{z} \le \rho$ e $\abs{w} \le \rho$
+si ha
+\begin{align*}
+ \abs{z^k - w^k}
+ &= \abs{(z - w)\cdot(z^{k-1} + z^{k-2}w + \dots + z w^{k-2}+ w^{k-1})} \\
+ &\le \abs{z-w}\cdot \enclose{\abs{z}^{k-1} + \abs{z}^{k-2}\abs{w} + \dots + \abs{z} \abs{w}^{k-2} + \abs{w}^{k-1}} \\
+ &\le \abs{z-w}\cdot n \rho^{k-1}.
+\end{align*}
+
+Data la successione $z_n\to z$ si prenda qualunque $\rho$ tale che
+$\abs{z} < \rho < R$. Senza perdita di generalità (si scartano
+un numero finito di termini della successione)
+possiamo supporre che $\abs{z_n} < \rho$ e che $\abs{z-z_n} < \rho$.
+Ma allora
+\begin{align*}
+\abs{f(z_n) - f(z)}
+&= \abs{\sum_{k=0}^{+\infty} a_k z_n^k - \sum_{k=0}^\infty a_k z^k}
+= \abs{\sum_{k=0}^{+\infty} a_k (z_n^k - z^k)} \\
+&\le \sum_{k=0}^{+\infty} \abs{a_k} \cdot \abs{z_n^k - z^k}
+\le \sum_{k=0}^{+\infty} \abs{a_k} \cdot \abs{z_k - z} k \rho^{k-1}\\
+&= \abs{z_k -z}\cdot \sum_{k=0}^{+\infty} k \abs{a_k} \rho^{k-1}.
+\end{align*}
+
+Per il teorema precedente sappiamo che la serie $\sum k a_k \rho^{k-1}$
+è assolutamente convergente, dunque se $\abs{z_k - z} \to 0$ anche il lato
+destro della precedente disuguaglianza tende a zero e quindi,
+come volevamo dimostrare $f(z_n)-f(z) \to 0$.
 \end{proof}
 
 
@@ -1077,13 +1148,14 @@ definita da
 
 Definiamo la funzione $\exp \colon \CC \to \CC$
 \mymargin{$\exp z$}
-come
+tramite la serie di potenze
 \[
 \exp(z) = \sum_{k=0}^\infty \frac{z^k}{k!}.
 \]
-Abbiamo già osservato che (grazie al criterio del rapporto)
-la serie converge assolutamente per ogni $z \in \CC$, dunque
-la funzione $\exp$ è ben definita.
+La funzione è definita su tutto $\CC$ in quanto (grazie al criterio del rapporto)
+è facile verificare che il raggio di convergenza di questa serie è $R=+\infty$
+e dunque l'insieme di convergenza è $A=\CC$.
+
 Vedremo in questo capitolo che la definizione data sopra coincide con
 la definizione di esponenziale
 \[
@@ -1093,6 +1165,8 @@ data nel capitolo sui numeri complessi che a sua volta coincide con
 la potenza $e^x$ definita nel capitolo sui numeri reali.
 Anzi, il seguente teorema giustifica l'esistenza del limite nella
 definizione di $e^z$ (questione che avevamo lasciato in sospeso).
+Estenderemo quindi le proprietà della funzione esponenziale alla funzione
+definita su tutto il piano complesso.
 
 \begin{theorem}[collegamento tra le due definizioni di esponenziale]
 \mymargin{collegamento tra le due definizioni di esponenziale}
@@ -1245,81 +1319,7 @@ Visto che
 \]
 ricaviamo che $\exp(z)\neq 0$ e $\exp(-z) =  1 / \exp(z)$.
 \item
-...
+La continuità discende dal risultato generale sulla continuità delle
+serie di potenze.
 \end{enumerate}
 \end{proof}
-
-\begin{comment}
-\section{operatori $\Sigma$ e $\Delta$}
-
-Sullo spazio vettoriale $V = \RR^\NN$ delle successioni
-reali (o più in generale $V=\CC^\NN$ delle successioni complesse)
-possiamo definire due
-operatori lineari $\Sigma\colon V \to V$ e $\Delta\colon V \to V$
-che sono gli operatori
-che mandano una successione nella serie corrispondente (cioè nella successione
-delle somme parziali) e l'operatore inverso che manda la successione
-delle somme parziali nella successione dei corrispondenti termini
-della serie.
-
-Formalmente, per ogni successione $\vec a \in V$
-definiamo $\Sigma \vec a \in V$ e $\Delta \vec a \in V$
-come segue:
-\begin{align*}
-  \enclose{\Sigma \vec a}_n &= \sum_{k=0}^n a_k\\
-  \enclose{\Delta \vec a}_n &=
-  \begin{cases}
-    a_n - a_{n-1} & \text{se $n>0$,}\\
-    a_0 & \text{se $n=0$.}
-  \end{cases}
-\end{align*}
-Verifichiamo che $\Delta \Sigma \vec a = \vec a$.
-Se $n>0$
-\[ \enclose{\Delta \Sigma \vec a}_n
- = \enclose{\Sigma \vec a}_n
- - \enclose{\Sigma \vec a}_{n-1}
- = \sum_{k=0}^n a_k - \sum_{k=0}^{n-1} a_k
- = a_n
-\]
-e se $n=0$:
-\[
-\enclose{\Delta \Sigma \vec a}_0
-= \enclose{\Sigma \vec a}_0
-= \sum_{k=0}^0 a_k
-= a_0.
-\]
-
-Viceversa si ha anche $\Sigma \Delta \vec a = \vec a$
-infatti:
-\begin{align*}
-\enclose{\Sigma \Delta \vec a}_n
-&= \sum_{k=0}^n \enclose{\Delta \vec a}_k
-= a_0 + \sum_{k=1}^n (a_k - a_{k-1}) \\
-&= a_0 + \sum_{k=1}^n a_k - \sum_{k=1}^n a_{k-1}
-= \sum_{k=0}^n a_k - \sum_{k=0}^{n-1} a_k
-= a_n.
-\end{align*}
-
-Introduciamo anche l'operatore di traslazione $\tau \colon V\to V$
-\[
-(\tau \vec a)_n = a_{n+1}.
-\]
-
-\begin{theorem}[differenza del prodotto]
-Se $\vec a$ e $\vec b$ sono successioni allora
-\[
-  \Delta (\vec a \cdot \vec b) = a \cdot \Delta b + \Delta a\cdot \tau b.
-\]
-\end{theorem}
-%
-\begin{proof}
-Infatti per $n>0$ si ha
-\[
-\enclose{\Delta (\vec a \cdot \vec b)}_n
-= a_n\cdot b_n - a_{n-1}\cdot b_{n-1}
-= a_n \cdot b_n - a_n \cdot b_{n-1} + a_n \cdot b_{n-1} - a_{n-1}\cdot b_{n-1}
-= a_n \cdot (\Delta \vec b)_n + (\Delta \vec a \cdot)_n \cdot b_{n-1}
-\]
-\end{proof}
-
-\end{comment}
