@@ -310,12 +310,24 @@ Allora
 \]
 In particolare se $\sum b_n$ converge anche $\sum a_n$ converge
 e se $\sum a_n$ diverge anche $\sum b_n$ diverge.
+
+Lo stesso risultato vale se $0 \le a_n \ll b_n$.
 \end{theorem}
 %
 \begin{proof}
 Se $S_n$ sono le somme parziali di $\sum a_n$ e $R_n$ sono le somme
 parziali di $\sum b_n$ si ha $S_n \le R_n$ e il risultato
 si riconduce al confronto tra successioni.
+
+Nel caso in cui $a_n \ll b_n$ per definizione sappiamo che $\frac{a_n}{b_n}\to 0$
+e quindi dalla definizione di limite sappiamo che
+esiste $N$ tale che per ogni $n>N$ si ha (avendo scelto $\eps=1$)
+\[
+  \frac{a_n}{b_n} < 1.
+\]
+Dunque si ottiene $a_n \le b_n$ per tutti gli $n$ tranne al più un numero
+finito. Sapendo che il carattere della serie non cambia se si modifica
+la serie su un numero finito di termini ci si riconduce al caso precedente.
 \end{proof}
 
 \begin{example}
@@ -1267,24 +1279,44 @@ Si ha:
 \begin{enumerate}
 \item
 $\displaystyle \exp(0) = 1$;
+
+\item
+$\displaystyle \exp(\bar z) = \overline{\exp(z)}$;
+
 \item
 per ogni $z,w \in \CC$
 \[
   \exp(z+w) = \exp(z) \cdot \exp(w);
 \]
+
 \item
 per ogni $z\in \CC$ si ha $\exp(z) \neq 0$ e
 \[
  \exp(-z) = \frac{1}{\exp(z)};
 \]
+
 \item la funzione $\exp\colon \CC \to \CC$ è (sequenzialmente) continua.
+
+\item Se $z_n\to 0$ allora
+\[
+   \lim_{n\to +\infty}\frac{\exp(z_n)-1}{z_n} = 1.
+\]
 \end{enumerate}
 \end{theorem}
 %
 \begin{proof}
 \begin{enumerate}
 \item
-La proprietà $\exp(0)=1$ segue per verifica diretta (ricordiamo che $0^0=1$).
+La proprietà $\exp(0)=1$ segue per verifica diretta (ricordiamo che $0^0=1$
+e $0!=1$).
+
+\item La proprietà $\exp(\bar z) = \overline{\exp z}$ si ottiene
+passando al limite nelle somme parziali la seguente uguaglianza
+che sfrutta le proprietà del coniugio di somma e prodotto:
+\[
+\sum_{k=0}^{n} \frac{\bar z^k}{k!} = \overline{\sum_{k=0} \frac{z^k}{k!}}.
+\]
+
 
 \item
 Consideriamo la matrice infinita
@@ -1318,8 +1350,211 @@ Visto che
   1 = \exp( 0) = \exp(z-z) = \exp(z) \cdot \exp(-z)
 \]
 ricaviamo che $\exp(z)\neq 0$ e $\exp(-z) =  1 / \exp(z)$.
+
 \item
-La continuità discende dal risultato generale sulla continuità delle
-serie di potenze.
+La continuità discende dal risultato generale sulla continuità della
+somma di una serie di potenze.
+
+\item
+Da
+\[
+\exp(z) = 1 + \sum_{k=1}^\infty \frac{z^k}{k!}
+\]
+si ottiene
+\[
+ \exp(z) - 1 \le \sum_{k=1}^\infty \frac{z^k}{k!}
+ = z \cdot \sum_{k=0}^\infty \frac{z^k}{(k+1)!}.
+\]
+Osserviamo ora che la serie $\sum \frac{z^k}{(k+1)!}$ ha raggio di
+convergenza infinito e quindi è assolutamente convergente per ogni $z\in \CC$.
+In particolare la somma di tale serie è continua e
+quindi se $z_n \to 0$ si ha
+\[
+\lim_{n\to+\infty }\frac{\exp(z_n) - 1}{z_n}
+   =  \lim_{n\to+\infty} \sum_{k=0}^{+\infty} \frac{z_n^k}{(k+1)!}
+   = \sum_{k=0}^{+\infty}\frac{0^k}{(k+1)!} = 1.
+\]
+\end{enumerate}
+\end{proof}
+
+\begin{theorem}[proprietà delle funzioni seno e coseno]
+Le funzioni $\cos(x)$ e $\sin(x)$ sono rispettivamente la
+a parte reale e la parte immaginaria della funzione $\exp(ix)$
+per $x\in \RR$. Soddisfano le seguenti proprietà.
+\begin{enumerate}
+\item
+$\cos^2 x + \sin^2 x =1$;
+\item
+$\sin(-x) = \sin x$, $\cos(-x) = \cos x$;
+\item
+$
+\cos(\alpha+\beta) = \cos \alpha \cos \beta - \sin \alpha \sin \beta
+$,
+$\sin(\alpha+\beta)= \sin \alpha \cos \beta + \cos \beta \sin \alpha$;
+\item
+le funzioni $\cos\colon \RR\to\RR$ e $\sin \colon \RR \to \RR$
+sono (sequenzialmente) continue;
+\item si ha
+\begin{align*}
+\cos x &= \sum_{k=0}^{+\infty} (-1)^k\frac{x^{2k}}{(2k)!}
+  = 1 - \frac{x^2}{2} + \frac{x^4}{4!} - \frac{x^6}{6!} + \dots
+\\
+\sin x &= \sum_{k=0}^{+\infty} (-1)^k\frac{x^{2k+1}}{(2k+1)!}
+  = x - \frac{x^3}{6} + \frac{x^5}{5!} - \frac{x^7}{7!} + \dots
+\end{align*}
+\item
+esiste $\pi \in [2.8,3.2]$ che è il più piccolo reale positivo
+tale che $\cos(\pi/2)=0$. Risulta $\sin(\pi/2)=1$ e le funzioni
+seno e coseno risultano essere periodiche di periodo $2\pi$;
+per $x\in [0,\pi/2]$ si ha $\sin x \ge 0$, $\cos x \ge 0$;
+
+\item
+per $x\in [-\pi/2, \pi/2]$ la funzione $\sin x$ è strettamente crescente;
+per $x\in [0,\pi]$ la funzione $\cos x$ è strettamente decrescente;
+
+\item
+se $a_n \to 0$ ($a_n\in \RR$) per $n\to +\infty$ si ha
+\[
+ \lim_{n\to +\infty} \frac{\sin a_n}{a_n} = 1.
+\]
+\end{enumerate}
+
+\end{theorem}
+%
+\begin{proof}
+\begin{enumerate}
+\item
+Per $x\in \RR$ si ha da una lato
+\[
+ \abs{\exp (ix)}^2 = \exp(ix)\cdot \overline{\exp(ix)}
+  = \exp(ix)\cdot \exp(-ix)
+  = \exp(0) = 1
+\]
+e dall'altro
+\[
+  \abs{\exp(ix)}^2 = \abs{\cos x + i \sin x}^2
+   = \cos^2 x + \sin^2 x.
+\]
+
+\item
+Le formule di addizione si ricavano dalla proprietà corrispondente della funzione esponenziale, come abbiamo già osservato
+ nel capitolo sui numeri complessi.
+
+\item
+Visto che la funzione $\exp\colon \CC \to \CC$ è sequenzialmente continua
+anche la sua restrizione all'asse immaginario lo è.
+E dunque anche parte reale (coseno) e parte immaginaria (seno) lo sono.
+
+\item
+Sia $x\in \RR$.
+Osservando che $i^{2k} = (i^2)^k = (-1)^k$ e $i^{2k+1}= i \cdot i^{2k} = i\cdot(-1)^k$ suddividendo i termini pari e dispari
+della serie che definisce l'esponenziale si ha:
+\begin{align*}
+  \exp(ix)
+  &= \sum_{k=0}^{+\infty} \frac{i^k x^k}{k!}
+  = \sum_{k=0}^{+\infty}\frac{i^{2k} x^{2k}}{(2k)!}
+    + \sum_{k=0}^{+\infty}\frac{i^{2k+1} x^{2k+1}}{(2k+1)!}\\
+  &= \sum_{k=0}^{+\infty}\frac{(-1)^k x^{2k}}{(2k)!}
+    +  i \sum_{k=0}^{+\infty}\frac{(-1)^k x^{2k+1}}{(2k+1)!}.
+\end{align*}
+Osserviamo ora che le due serie che compaiono a destra dell'uguaglianza
+sono a termini reali e quindi la loro somma è reale.
+Dunque queste due serie coincidono con la parte reale e la parte immaginaria di $\exp(ix) = \cos x + i \sin x$.
+
+\item
+Le serie di potenze che definiscono le funzioni seno e coseno
+sono serie a segni alterni.
+Nella dimostrazione del criterio di Leibniz per la convergenza delle serie
+a segni alterni abbiamo osservato che se i termini della serie a segni
+alterni sono decrescenti in valore assoluto, allora le somme parziali della
+serie risultano alternativamente stime per eccesso e per difetto della serie intera.
+Vogliamo applicare questa osservazione alla serie che definisce il coseno.
+Siamo quindi interessati a capire per quali $x\ge 0$ possiamo affermare
+che la successione $x^{2k}/(2k)!$ è decrescente.
+Osserviamo che la relazione $x^{2(k+1)}/(2(k+1))! \le x^{2k}/(2k)!$ è equivalente a $x^2 \le (2k+2)(2k+1)$ che è certamente vera se $x^2 \le 2$ ovvero quando $x\le \sqrt{2}$. Dunque, per $x\le \sqrt{2}$ si ha
+\[
+ \cos x \ge 1 - \frac{x^2}{2} \ge 0.
+\]
+La relazione $x^2 \le (2k+2)(2k+1)$ è vera anche quando $x^2 \le 4k^2$.
+Se $k\ge 2$ questo risulta vero per ogni $x\in [0,4]$.
+Dunque fermando la serie al termine $k=2$ per ogni $x\in [0,4]$ risulta
+valida la seguente stima
+\[
+  \cos x \le 1- \frac{x^2}{2} + \frac{x^4}{24}.
+\]
+Risolvendo la disequazione biquadratica $1- x^2/2 + x^4/24 < 0$
+si trova che $\cos(x)<0$ per ogni $x\in [\sqrt{6-2\sqrt{3}}, 3]$.
+Per il teorema degli zeri deve dunque esistere almeno un $x \in$
+$ [\sqrt{2}, \sqrt{6-2\sqrt{3}}] $
+$ \subset [1.4, 1.6]$ tale per cui $\cos(x)=0$.
+Sia
+\[
+  x_0 = \inf\{x>0\colon \cos(x)=0\}.
+\]
+Per quanto detto prima dovrà essere $x_0 \in [1.4, 1.6]$.
+Dovrà essere $\cos x_0 = 0$ in quanto il limite di una successione
+su cui una funzione continua si annulla è anch'esso un punto in cui
+la funzione si annulla.
+Si definisce $\pi = 2x_0$ cosicché scopriamo che $2.8 \le \pi \le 3.2$.
+Chiaramente $cos x \ge 0$ per $x \in [0, \pi/2]$.
+In maniera simile a quanto fatto per il coseno
+possiamo osservare che per $x \in [0,\sqrt 6]$
+la successione $x^{2k+1}/(2k+1)!$ risulta essere decrescente e vale
+quindi la stima
+\[
+  \sin x
+  \ge x - \frac{x^3}{6}
+  = x \enclose{1-\frac{x^2}{6}}
+\]
+da cui si deduce che $\sin(x)\ge 0 $ se $x\in [0, \sqrt 6]$.
+Essendo $\pi/2 = x_0 < \sqrt{6}$ otteniamo in particolare $\sin(x) \ge 0$ per $x \in [0, \pi/2]$.
+Sapendo che $\cos^2(\pi/2) + \sin^2(\pi/2)=1$ otteniamo dunque $\sin(\pi/2)=1$.
+Abbiamo quindi
+\[
+  e^{i\frac \pi 2} = \cos(x_0) + i \sin(x_0) = i
+\]
+da cui
+\[
+ e^{2\pi i} = \enclose{e^{i \frac \pi 2 }} ^4 = i^4 = 1.
+\]
+Risulta quindi che la funzione $\exp(ix)$ è $2\pi$-periodica
+in quanto
+\[
+  e^{ix + 2ik\pi} = e^{ix}\cdot \enclose{e^{2\pi i}}^k = e^{ix}.
+\]
+
+\item
+Se prendiamo $x,y \in [0, \pi/2]$ con $y>x$ e poniamo $h=y-x$ si ha $h \in [0,\pi/2]$. Dunque $\sin h\ge 0$, $\sin x \ge 0$ e $\cos h\le 1$
+da cui
+\[
+\cos(y) = \cos(x+h) = \cos x \cos h - \sin x \sin h
+ \le \cos x.
+\]
+Risulta quindi che la funzione coseno è decrescente su $[0,\pi/2]$.
+Ma dalle formule di addizione si verifica facilmente che
+\[
+  \cos(\pi-x) = -\cos x
+\]
+e quindi se la funzione è decrescente in $[0,\pi/2]$ lo è anche
+in $[\pi/2,\pi]$.
+
+\item
+Per la corrispondente proprietà dell'esponenziale
+sappiamo che per $a_n \to 0$ si ha
+\[
+  \frac{e^{ia_n}}{i a_n} \to 1.
+\]
+Ma
+\[
+  \frac{e^{ia_n}}{i a_n}
+  = \frac{\cos a_n + i \sin a_n}{i a_n}
+  = -i\frac{\cos a_n}{a_n} + \frac{\sin a_n}{a_n}.
+\]
+Scopriamo dunque che
+\[
+  \frac{\cos a_n}{a_n} \to 0
+  \qquad\text{e}\qquad
+  \frac{\sin a_n}{a_n} \to 1.
+\]
 \end{enumerate}
 \end{proof}
