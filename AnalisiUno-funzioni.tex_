@@ -1,0 +1,328 @@
+\chapter{calcolo differenziale}
+
+\section{limite di funzione}
+
+\begin{definition}[intorno]
+Per $x\in \RR$ definiamo la famiglia degli \myemph{intorni} (basilari) di $x$
+come l'insieme di tutti gli intervallini aperti, simmetrici, centrati in $x$:
+\[
+  \U_x = \{ (x-\eps, x+\eps) \colon \eps>0\}.
+\]
+Definiamo poi gli intorni \myemph{intorni destri} e \myemph{intorni sinistri}
+di $x$ come
+\[
+  \U_{x^+} = \{ [x, x+\eps) \colon \eps>0\},
+  \qquad
+  \U_{x^-} = \{ (x-\eps , x] \colon \eps>0\}.
+\]
+Definiamo poi gli intorni di $+\infty$ e $-\infty$ come segue
+\[
+  \U_{+\infty} = \{ (a,+\infty], \colon a \in \RR \},\qquad
+  \U_{-\infty} = \{ [-\infty, b), \colon b\in \RR\}.
+\]
+
+Per ogni $x\in \bar \RR = [-\infty, +\infty]$ risultano quindi definiti gli intorni $\U_x$.
+\end{definition}
+
+\begin{definition}[punto di accumulazione]
+Siano $A\subset  \RR$ un insieme e $x\in [-\infty, +\infty]$.
+Diremo che $x$ è un \myemph{punto di accumulazione} di $A$
+se ogni intorno di $x$ contiene punti di $A$ diversi da $x$, ovvero:
+\[
+ \forall U \in \U_x\colon (A\setminus \{x\}) \cap U \neq \emptyset.
+\]
+\end{definition}
+
+\begin{definition}[limite di funzione]
+Sia $A\subset \RR$ e $f\colon A \to \RR$. Sia $x_0\in [-\infty,+\infty]$
+un punto di accumulazione
+di $A$ e sia $\ell \in [-\infty,+\infty]$.
+Allora diremo che la funzione $f$ ha limite $\ell$ in $x_0$ e Scriveremo
+\mymargin{limite di funzione}
+\[
+  \lim_{x\to x_0} f(x) = \ell
+\]
+o anche
+\[
+  f(x) \to \ell \qquad \text{per $x\to x_0$}
+\]
+se per ogni intorno di $\ell$ esiste un intorno di $x_0$ tale che
+la funzione valutata nell'intorno di $x_0$, tolto eventualmente $x_0$,
+assume valori
+nell'intorno di $\ell$:
+\[
+  \forall U \in \U_\ell \colon \exists V \in \U_{x_0} \colon f(V\setminus\{x_0\}) \subset U.
+\]
+
+La stessa definizione può essere data restringendosi agli intorni destri/sinistri del punto $x_0$ (nel caso $x_0 \in \RR$). Si otterranno quindi le definizioni
+di \myemph{limite destro} e \myemph{limite sinistro} semplicemente
+sostituendo $\U_{x_0^+}$ o $\U_{x_0^-}$ al posto di $\U_{x_0}$ nella definizione precedente:
+\[
+  \lim_{x\to x_0^+}f(x) = \ell, \qquad \lim_{x\to x_0^-} f(x) = \ell.
+\]
+\end{definition}
+
+Osserviamo che se $A=\NN$ e $x_0=+\infty$ la definizione di limite di funzione
+per $x\to +\infty$ coincide con la definizione di limite della successione $a_n = f(n)$.
+Non c'è quindi ambiguità nell'usare gli stessi simboli per i limiti di funzione e i limiti di successione.
+
+\begin{theorem}[località del limite]
+Il limite di una funzione per $x\to x_0$ dipende solamente dai valori di $f$
+in un intorno di $x_0$ e non dipende dal valore di $f$ in $x_0$.
+Più precisamente se $f\colon A \to \RR$ è una funzione,
+$x_0\in[-\infty,+\infty]$ è un punto di accumulazione di $A$,
+$g\colon B\to \RR$ è un'altra funzione tale che esiste un intorno $U$ di $x_0$
+per cui $(A\setminus\{x_0\})\cap U = (B\setminus\{x_0\})\cap U$ e $f(x)=g(x)$ per ogni
+$x\in (A\setminus\{x_0\})\cap U$,
+allora si ha
+\[
+  \lim_{x\to x_0} g(x) = \lim_{x\to x_0} f(x)
+\]
+dove si intende che basta che uno dei due limiti (di $f$ o di $g$) esista
+perché esista anche l'altro.
+\end{theorem}
+%
+\begin{proof}
+La dimostrazione segue immediatamente dal fatto che nella definizione di limite
+gli intorni di $x_0$
+possono essere scelti arbitrariamente piccoli, in particolare si potranno scegliere intorni contenuti in $U$ in cui le due funzioni quindi coincidono.
+\end{proof}
+
+\begin{theorem}[restrizione del limite]
+Se una funzione ha limite $\ell$ per $x\to x_0$ e se restringiamo l'insieme di definizione della funzione (in modo che $x_0$ rimanga punto di accumulazione) allora il limite della funzione non cambia. Più precisamente
+se $f\colon A \to \RR$ è una funzione, $x_0$ è un punto di accumulazione di $A$
+e $B\subset A$ ha ancora $x_0$ come punto di accumulazione e se $g\colon B\to \RR$ coincide con $f$ su $B$, allora se esiste il limite di $f$ per $x\to x_0$
+si ha
+\[
+  \lim_{x\to x_0} g(x) = \lim_{x\to x_0} f(x).
+\]
+\end{theorem}
+
+Si osservi che a differenza del teorema sulla località del limite è
+possibile che la funzione ristretta $g$ abbia limite quando la funzione
+$f$ non aveva limite.
+
+\begin{proof}
+Il teorema segue immediatamente dalla definizione di limite se si osserva
+che restringendo il dominio la condizione di validità del limite si indebolisce
+in quanto gli intorni di $x_0$ vengono intersecati con il dominio della funzione.
+\end{proof}
+
+\begin{theorem}[legame tra limite, limite destro e limite sinistro]
+Sia $A\subset \RR$, $f\colon A \to \RR$ una funzione e $x_0$ un punto di accumulazione
+di $A$. Sia $A^+ = A \cap [x_0,+\infty)$ e $A^- = A \cap (-\infty, x_0]$.
+
+Se $x_0$ è punto di accumulazione sia di $A^+$ che di $A^-$
+allora si ha
+\[
+  \lim_{x\to x_0} f(x) = \ell
+\]
+se e solo se
+\[
+  \lim_{x\to x_0^+} f(x) = \lim_{x\to x_0^-} f(x) = \ell.
+\]
+
+Se $x_0$ è punto di accumulazione di $A^+$ ma non di $A^-$ allora
+i limiti
+\[
+  \lim_{x\to x_0} f(x) \qquad \text{e}\qquad \lim_{x\to x_0^+} f(x)
+\]
+sono equivalenti. Analogamente se $x_0$ è punto di accumulazione
+di $A^-$ ma non di $A^+$ risultano equivalenti
+\[
+  \lim_{x\to x_0} f(x) \qquad \text{e}\qquad \lim_{x\to x_0^-} f(x).
+\]
+\end{theorem}
+
+\begin{theorem}[limite della funzione composta/cambio di variabile]
+Siano $A\subset \RR$, $B\subset \RR$,
+$x_0\in [-\infty,+\infty]$ un punto di accumulazione di $A$,
+$y_0\in [-\infty,+\infty]$ un punto di accumulazione di $B$,
+$\ell\in [-\infty,+\infty]$.
+Siano $f\colon A \to B\setminus\{y_0\}$, $g\colon B\to \RR$
+funzioni tali che
+\[
+  \lim_{x\to x_0} f(x) = y_0
+\qquad
+\text{e}
+\qquad
+  \lim_{y\to y_0} g(y) = \ell.
+\]
+Allora
+\[
+ \lim_{x\to x_0} g(f(x)) = \ell.
+\]
+\end{theorem}
+%
+\begin{proof}
+Visto che $g(y)\to \ell$
+per ogni $U$ intorno di $\ell$ deve esistere un $V$ intorno di $y_0$
+tale che $g((B\setminus\{y_0\})\cap V) \subset U$
+e visto  che $f(x)\to y_0$ deve esistere un intorno $W$ di $x_0$
+tale che $f((A\setminus\{x_0\})\cap W) \subset V$.
+Ma visto che per ipotesi $f$ assume valori in $B\setminus\{y_0\}$
+si ha anche $f((A\setminus\{x_0\})\cap W)\subset (B\setminus\{y_0\}) \cap V$
+e quindi
+\[
+  g(f((A\setminus\{x_0\})\cap W)) \subset g((B\setminus \{y_0\}) \cap V)
+  \subset U
+\]
+che significa che $g(f(x)) \to \ell$.
+\end{proof}
+
+\begin{theorem}[collegamento tra limiti di funzione e limiti di successione]
+Sia $A \subset \RR$, $f\colon A \to \RR$, sia $x_0$ un punto di accumulazione di $A$ e sia
+$\ell \in [-\infty, +\infty]$.
+Le due seguenti condizioni sono equivalenti:
+\begin{enumerate}
+\item $\displaystyle \lim_{x\to x_0} f(x) = \ell$;
+\item per ogni successione $a_n\to x_0$ con $a_n\in A\setminus\{x_0\}$ risulta
+\[
+\lim_{n\to+\infty} f(a_n) = \ell.
+\]
+\end{enumerate}
+\end{theorem}
+%
+\begin{proof}
+Se per $x\to x_0$ si ha $f(x)\to \ell$ e se $a_n \to x_0$ con $a_n\in A\setminus\{x_0\}$ la successione $f(a_n)$ non è altro che la composizione
+della funzione $f$ con la funzione $n\mapsto a_n$. Si può quindi applicare
+il teorema sul limite della funzione composta per ottenere che $f(a_n)\to \ell$.
+
+Supponiamo viceversa di sapere che per ogni successione $a_n\to x_0$ si ha $f(a_n)\to \ell$. Vogliamo mostrare allora che $f(x)\to \ell$. Lo facciamo per assurdo: supponiamo che esista un intorno $U$ di $\ell$ tale che preso un qualunque intorno $V$ di $x_0$ non si abbia $f((A\setminus\{x_0\})\cap V)\subset U$.
+Possiamo considerare per ogni $n\in \NN$ degli intorni $V_n$ sempre più piccoli. Ad esempio nel caso $x_0 \in \RR$ potremo scegliere $V_n = (x_0-1/n, x_0+1/n)$, nel caso $x_0 = +\infty$ si potrà scegliere $V_n = (n,+\infty]$ e nel caso $x_0=-\infty$ si sceglierà $V_n = [-\infty, -n)$.
+Se per assurdo $f((A\setminus\{x_0\}\cap V_n))$ non fosse contenuto in $U$
+significherebbe che per ogni $n\in\NN$ esisterebbe $a_n \in (A\setminus\{x_0\})\cap V_n$ tale che $f(a_n)\not \in U$. Ma allora $a_n$ risulterebbe essere una successione in
+$A\setminus \{x_0\}$ con limite $x_0$
+(in quanto per ogni intorno di $x_0$ esiste un $N$ tale che $V_N$ sia contenuto in tale intorno e per ogni $n>N$ si ha $V_n\subset V_N$)
+ma $f(a_n)$ non potrebbe avere limite $\ell$
+(essendo fuori dall'intorno $V$).
+Ma questo nega l'ipotesi e conclude quindi la dimostrazione del teorema.
+\end{proof}
+
+\begin{example}
+Sia $f(x) = \sin(x)$. Sappiamo che per ogni successione $a_n\to 0$, $a_n\neq 0$ si ha il limite notevole
+\[
+  \frac{\sin a_n}{a_n} \to 1.
+\]
+Allora possiamo concludere che vale
+\[
+  \lim_{x\to 0} \frac{\sin x}{x} = 1.
+\]
+
+Analogamente, per quanto visto con i limiti di successione,
+si ha
+\[
+  \lim_{x\to 0}\frac{\ln(1+x)}{x} = 1,
+  \qquad
+  \lim_{x\to 0}\frac{e^x-1}{x} = 1,
+  \qquad
+  \lim_{x\to 0}\frac{1-\cos x}{x^2} = \frac 1 2.
+\]
+
+Valgono anche i seguenti confronti tra ordini di infinito.
+Se $\alpha>0$, $a>1$ si ha
+\[
+  \lim_{x\to +\infty}\frac{x^\alpha}{a^x} = 0,
+  \qquad
+  \lim_{x\to +\infty}\frac{\log_a x}{x^\alpha} = 0.
+\]
+\end{example}
+
+\section{continuità}
+\begin{definition}
+Sia $A\subset \RR$, $f\colon A \to \RR$, $x_0 \in A$. Se $x_0$ è punto di
+accumulazione di $A$ diremo che $f$ è \myemph{continua nel punto} $x_0$ quando
+\[
+  \lim_{x\to x_0}f(x) = f(x_0).
+\]
+Se $x_0$ non è punto di accumulazione di $A$ (e quindi $x_0$ è un \myemph{punto isolato} di $A$) diremo, senz'altro,
+che $f$ è continua in $x_0$.
+
+La funzione $f\colon A\to \RR$ si dice essere \myemph{continua}
+se $f$ è continua in ogni punto $x_0\in A$.
+\end{definition}
+
+Nel capitolo precedente abbiamo introdotto il concetto di \emph{continuità sequenziale}: una funzione è sequenzialmente continua se manda successioni convergenti in successioni convergenti. Verifichiamo che la continuità sequenziale è equivalente alla continuità.
+
+\begin{theorem}[continuità vs sequenziale continuità]
+Sia $A\subset \RR$, $f\colon A \to \RR$. Allora sono equivalenti
+\begin{enumerate}
+\item $f$ è sequenzialmente continua;
+\item $f$ è continua.
+\end{enumerate}
+\end{theorem}
+%
+\begin{proof}
+Se la funzione $f$ è sequenzialmente continua significa che per ogni
+successione $a_n \in A$ tale che $a_n\to a$ con $a\in A$ si ha $f(a_n)\to f(a)$. Fissato un qualunque punto $x_0\in A$ vogliamo dimostrare che
+$f$ è continua nel punto $x_0$.
+Se $x_0$ è un punto isolato (un punto di $A$ che non è punto di accumulazione) allora la funzione $f$ è automaticamente
+continua (per definizione).
+Se $x_0$ invece è un punto di accumulazione dobbiamo mostrare che
+\[
+  \lim_{x\to x_0} f(x) = f(x_0).
+\]
+Usando il teorema di collegamento tra limite di funzione e limite di successione basterà dimostrare che per ogni successione $a_n\to x_0$ con $a_n\neq x_0$ si ha $f(x_n) \to f(x_0)$. Ma questo è garantito dalla
+definizione di continuità sequenziale.
+
+Viceversa supponiamo che $f$ sia continua. Per dimostrare che $f$
+è anche sequenzialmente continua dobbiamo considerare una qualunque
+successione $a_n \to a$ con $a_n,a\in A$.
+Per la continuità di $f$ sappiamo che $\lim_{x\to a} f(x) = f(a)$.
+Se $a_n \neq a$ allora possiamo applicare il teorema di collegamento tra limite di successione e limite di funzione
+e concludere che $f(a_n)\to f(a)$.
+Ma $a_n$ potrebbe coincidere con $a$ su uno o più indici $n\in \NN$.
+Sia $N=\{n \in \NN \colon a_n = a\}$ l'insieme degli indici su cui
+$a_n=a$. Se $N$ è finito sappiamo che il limite di $a_n$ non cambia rimuovendo un numero finito di termini quindi ci si riconduce al caso precedente. Se $N$ è infinito possiamo considerare la successione $a_n$ ristretta ai due insiemi $N$ e $\NN \setminus N$.
+La prima sottosuccessione è costante $a_n = a$ e quindi banalmente $f(a_n) = f(a) \to f(a)$ per $n\in N$.
+La seconda sottosuccessione verifica $a_n \neq a$ e quindi su di essa  possiamo procedere come prima e ottenere che $f(a_n) \to f(a)$ anche per $n\in \NN\setminus N$.
+Dunque l'intera successione $f(a_n)$ converge ad $a$, come volevamo dimostrare.
+\end{proof}
+
+\section{massimi e minimi di una funzione}
+
+\begin{definition}[massimi e minimi]
+Sia $A \subset \RR$ e sia $f\colon A \to \RR$.
+Il \myemph{massimo} $M$ e il \myemph{minimo} $m$ di $f$ su $A$ sono,
+se esistono, i valori
+\begin{align*}
+  M &= \max f(A) = \max\{f(x)\colon x \in A\} \\
+  m &= \min f(A) = \min\{f(x)\colon x \in A\}.
+\end{align*}
+Si indicano anche con
+\[
+  M = \max_{x\in A} f(x), \qquad m = \min_{x\in A} f(x).
+\]
+
+Diremo inoltre che $x_0$ è un \myemph{punto di massimo assoluto}
+per $f$ se $f(x_0) = M$ e diremo che $x_0$ è un \myemph{punto di minimo assoluto} per $f$ se $f(x_0) = m$.
+
+Equivalentemente $x_0$ è un massimo assoluto se $f(x_0) \ge f(x)$ per ogni $x\in A$ e invece $x_0$ è un minimo assoluto se $f(x_1) \le f(x)$ per ogni $x\in A$.
+\end{definition}
+
+Si faccia attenzione a non confondere i valori massimo e minimo con i punti di massimo e minimo. I valori sono elementi della immagine della funzione, i punti sono elementi del dominio.
+
+\begin{theorem}[Weierstrass]
+Sia $f\colon [a,b]\to \RR$ una funzione continua.
+Allora la funzione $f$ ha massimo e minimo su $[a,b]$.
+\end{theorem}
+%
+\begin{proof}
+Dimostriamo che $f$ ha minimo.
+Rimpiazzando poi $f$ con $-f$ si potrà ottenere l'esistenza del massimo.
+
+Sia $m= \inf f([a,b])$,
+l'estremo inferiore dei valori assunti dalla funzione.
+Vogliamo innanzitutto dimostrare che esiste una successione $a_n\in [a,b]$ tale che $f(a_n)\to m$. Questo discende immediatamente dalle proprietà dell'estremo inferiore. Ad esempio se $m$ è finito sappiamo che per ogni
+$\eps>0$ esiste $y\in f([a,b])$ tale che $y<m+\eps$. Scegliendo $\eps=1/n$ e scegliendo $a_n$ tale che $f(a_n) = y$ si ottiene $f(a_n) < m +1/n$. D'altra parte essendo $f(x)\ge m$ per ogni $x\in [a,b]$ (in quanto $m$ è l'estremo inferiore di $f([a,b])$) si ottiene $m \le f(a_n) < m +1/n$ da cui,
+per i teoremi di confronto: $f(a_n)\to m$.
+
+Ragionamento analogo si può fare nel caso $m=-\infty$. In tal caso
+per ogni $n$ esiste $y\in f([a,b])$ tale che $y< -n$ e posto $y=f(a_n)$ si ha dunque $f(a_n) < -n$ da cui $f(a_n)\to -\infty$.
+
+Per il teorema di Bolzando Weierstrass dalla successione $a_n$ possiamo estrarre una sottosuccessione $a_{n_k}$ convergente: $a_{n_k} \to x_0$.
+Visto che $a_{n_k} \in [a,b]$ si avrà, per il teorema della permanenza del segno, anche $x_0 \in [a,b]$ (si applichi la permanenza del segno alle successioni $a_{n_k}-a$ e $b-a_{n_k}$).
+
+Dunque abbiamo una successione $a_{n_k}\to x_0$ con $a_{n_k}\in [a,b]$ e
+$x_0 \in [a,b]$. Essendo $f$ sequenzialmente continua si avrà dunque $f(a_{n_k}) \to f(x_0)$. Ma noi sapevamo che $f(a_n)\to m$ e dunque anche $f(a_{n_k}) \to m$. Concludiamo dunque che $f(x_0) = m$ cioè $m$, l'estremo inferiore, è un valore assunto dalla funzione ed è quindi un minimo. Dal canto suo $x_0$ è un punto di minimo assoluto.
+\end{proof}
