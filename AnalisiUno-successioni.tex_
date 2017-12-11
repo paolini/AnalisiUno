@@ -1968,6 +1968,28 @@ in altri testi si considera $\log = \log_{10}$.
 %%%%%%%%%%%%%%%%%%%
 \section{ordini di infinito}
 
+\begin{theorem}[criterio della radice]
+\mymargin{criterio della radice}
+Sia $a_n$ una successione a termini positivi tale che
+\[
+  \sqrt[n]{a_n} \to \ell.
+\]
+Allora se $\ell<1$ si ha $a_n \to 0$ se invece $\ell > 1$ si ha $a_n \to +\infty$.
+\end{theorem}
+%
+\begin{proof}
+Se $\ell < 1$ la successione $\sqrt[n]{a_n}$ è convergente e dunque limitata.
+Esiste cioè una costante $q$ tale che
+\[
+  \sqrt[n]{a_n} \le q
+\]
+ovvero
+\[
+  0\le a_n \le q^n.
+\]
+Sa
+\end{proof}
+
 \begin{theorem}[criterio del rapporto alla Cesàro]
 \mymargin{criterio del rapporto alla Cesàro}
 \index{Cesàro}
@@ -2050,8 +2072,9 @@ e (più difficile)
 \]
 \end{exercise}
 
-\begin{corollary}[criterio del rapporto]
+\begin{corollary}[criterio del rapporto/radice]
 \mymargin{criterio del rapporto}
+\mymargin{criterio della radice}
 Sia $a_n$ è una successione a termini positivi tale che
 il rapporto dei termini consecutivi abbia limite $\ell\in [0,+\infty]$:
 \[
@@ -2059,26 +2082,30 @@ il rapporto dei termini consecutivi abbia limite $\ell\in [0,+\infty]$:
 \]
 Se $\ell < 1$ allora $a_n \to 0$. Se $\ell>1$ allora $a_n \to +\infty$.
 
+Stessa conclusione si ha nel caso in cui
+\[
+ \sqrt[n]{a_n} \to \ell.
+\]
 \end{corollary}
 %
 \begin{proof}
-Applicando il teorema precedente sappiamo che $b_n = \sqrt[n]{a_n}\to \ell$. Ma allora
+Applicando il teorema precedente sappiamo che $\sqrt[n]{a_n}\to \ell$. Ma allora
 \[
-  a_n = \enclose{b_n}^n \to
+  a_n = \big(\!\sqrt[n]{a_n}\big)^n \to
   \begin{cases}
     0 & \text{se $\ell < 1$}\\
     +\infty & \text{se $\ell > 1$}
   \end{cases}
 \]
-in quanto $b_n = \to \ell$ e $\ell^n \to 0$ se $\ell<1$ mentre $\ell^n \to +\infty$
+in quanto $\ell^n \to 0$ se $\ell<1$ mentre $\ell^n \to +\infty$
 se $\ell>1$.
 \end{proof}
 
-Osserviamo che, nel teorema precedente, non si può concludere niente nel
-caso in cui sia $\ell = 1$. Infatti le due successioni $a_n = 1/n$ e $b_n = n$
+Osserviamo che, nel teorema precedente, non si può concludere alcunché nel
+caso in cui sia $\ell = 1$.
+Ad esempio le due successioni $a_n = 1/n$ e $b_n = n$
 hanno limiti diversi ($a_n \to 0$, $b_n\to +\infty$) ma per entrambe
 il limite del rapporto di termini consecutivi tende ad $\ell=1$.
-
 
 \begin{comment}
 \begin{proof}
@@ -2116,6 +2143,31 @@ per confronto  si ottiene
 che $a_n \to 0$.
 \end{proof}
 \end{comment}
+
+\begin{theorem}[somma alla Cesàro]
+Se $a_n \to \ell \in [-\infty, +\infty]$ allora
+\[
+  \lim_{n\to +\infty} \frac 1 n \sum_{k=1}^n a_k = \ell.
+\]
+\end{theorem}
+%
+\begin{proof}
+Definiamo
+\[
+  S_n = \sum_{k=1}^n a_k,
+  \qquad b_n = e^{S_n}.
+\]
+Si ha allora
+\[
+  \frac{b_{n+1}}{b_n} = e^{S_{n+1} - S_n} = e^{a_{k+1}} \to e^\ell.
+\]
+Dunque per il criterio del rapporto alla Cesàro si ha $\sqrt[n]{b_n} \to e^\ell$
+ma
+\[
+  \frac{1}{n}\sum_{k=1}^n a_k = \frac{S_n}{n} = \frac{\ln b_n}{n}
+   = \ln \sqrt[n]{b_n} \to \ln e^\ell = \ell.
+\]
+\end{proof}
 
 \begin{definition}[ordine di infinito/infinitesimo]
 \mymargin{ordine di infinito/infinitesimo}
@@ -2233,6 +2285,16 @@ Calcolare
 \]
 \end{exercise}
 
+\section{esercizi}
+
+Calcolare
+\begin{gather*}
+  \lim_{n\to +\infty} \frac{\sqrt{n! + 2^n}}{3^n}, \qquad
+  \lim_{n\to +\infty} \frac{\sqrt{(2n)!}}{n^n}, \\
+  \lim_{n\to +\infty} \sqrt[n]{e^n + \pi^n}.
+\end{gather*}
+
+Dimostrare che il limite $\lim_n \sin n$ non esiste.
 %%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%
