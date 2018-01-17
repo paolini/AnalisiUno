@@ -892,8 +892,15 @@ Una funzione $f\colon I\to \RR$
 si dice essere \emph{convessa} \mymargin{funzione convessa}
 se per ogni $x,y\in I$ e per ogni $t\in [0,1]$ si ha
 \[
-  f((1-t)x + ty) \le (1-t) f(x) + t f(y).
+f((1-t)x + ty) \le (1-t) f(x) + t f(y).
 \]
+
+Analogamente diremo che $f$ è \emph{concava} \mymargin{funzione concava}
+se vale la disuguaglianza inversa:
+\[
+f((1-t)x + ty) \ge (1-t) f(x) + t f(y)
+\]
+(o, equivalentemente, se $-f$ è convessa).
 \end{definition}
 
 Osserviamo che la retta del piano passante per i punti $(x,f(x))$ e $(y,f(y))$ può essere parametrizzata in maniera uniforme per $t\in \RR$
@@ -919,6 +926,8 @@ Allora sono equivalenti:
 \]
 è convesso.
 \end{enumerate}
+
+Per le funzioni concave sarà il \emph{sottografico} $\{(x,y)\colon y\le f(x)\}$ ad essere convesso.
 \end{theorem}
 %
 \begin{proof}
@@ -1022,6 +1031,8 @@ Allora sono equivalenti:
 (geometricamente: il grafico della funzione sta sopra la retta tangente);
 \item $f'$ è crescente.
 \end{enumerate}
+
+Analogamente per le funzioni concave si avrà che il grafico ``sta sotto'' la retta tangente e che la derivata è decrescente.
 \end{theorem}
 %
 \begin{proof}
@@ -1056,6 +1067,75 @@ In base al lemma precedente dovrebbero allora esistere tre punti $x<y<z$ tali ch
 $f'(c) > f'(d)$ nonostante sia $c<d$ e dunque $f'$ non poteva essere crescente.
 \end{proof}
 
+\begin{corollary}[criterio di convessità tramite derivata seconda]
+Sia $I\subset \RR$ un intervallo e sia $f\colon I \to \RR$ una funzione derivabile due volte (cioè $f$ è derivabile e anche $f'$ è derivabile).
+Allora $f$ è convessa se e solo se $f''(x)\ge 0$ per ogni $x\in I$.
+Analogamente $f$ è concava se e solo se $f''\le 0$.
+\end{corollary}
+\begin{proof}
+Per il criterio precedente $f$ è convessa se e solo se $f'$ è crescente. Per il criterio di monotonia $f'$ è crescente se e solo se $f'' \ge 0$. Considerazioni analoghe valgono per la concavità.
+\end{proof}
+
+\begin{theorem}[combinazioni baricentriche]
+Se $f$ è una funzione convessa definita su un intervallo $I$, dati $x_1, \dots, x_n \in I$ e $\lambda_1, \dots, \lambda_n\in \RR$ tali che $\sum_{k=1}^n \lambda_k = 1$ e $\lambda_k \ge 0$ per ogni $k=1, \dots, n$ allora
+\[
+  f\enclose{\sum_{k=1}^n \lambda_k x_k}
+  \le \sum_{k=1}^n \lambda_k f(x_k).
+\]
+Per le funzioni concave vale la disuguaglianza inversa.
+\end{theorem}
+%
+\begin{proof}
+Procediamo per induzione su $n$. Nel caso $n=1$ si ha $\lambda_1=1$ e i due lati della disuguaglianza sono effettivamente uguali. Supponendo il teorema dimostrato per un certo $n$, procediamo a dimostrarlo per $n+1$.
+Osserviamo che
+\begin{align*}
+  \sum_{k=1}^{n+1} \lambda_k x_k
+  &= \sum_{k=1}^n \lambda_k x_k  + \lambda_{n+1} x_{n+1} \\
+  &= (1-\lambda_{k+1})\sum_{k=1}^n\frac{\lambda_k}{1-\lambda_{n+1}} x_k + \lambda_{n+1} x_{n+1}.
+\end{align*}
+Notiamo allora che se
+\[
+  \sum_{k=1}^{n+1} \lambda_k = 1
+\]
+allora
+\[
+  \sum_{k=1}^n \frac{\lambda_k}{1-\lambda_{n+1}}
+  = \frac{1-\lambda_{n+1}}{1-\lambda_{n+1}} = 1.
+\]
+Dunque, per ipotesi induttiva si ha allora
+\[
+  f\enclose{\sum_{k=1}^n\frac{\lambda_k}{1-\lambda_{n+1}} x_k}
+  \le \sum_{k=1}^n \frac{\lambda_k}{1-\lambda_{n+1}}f(x_k).
+\]
+Usando di nuovo la convessità di $f$ con $t=\lambda_{n+1}$ si ha
+\begin{align*}
+f\enclose{\sum_{k=1}^{n+1} \lambda_k x_k}
+&=f\enclose{(1-\lambda_{n+1})\sum_{k=1}^n \frac{\lambda_k}{1-\lambda_{n+1}}x_k + \lambda_{n+1}x_{n+1}}\\
+&\le (1-\lambda_{n+1})f\enclose{\sum_{k=1}^n \frac{\lambda_k}{1-\lambda_{n+1}}x_k} + \lambda_{n+1}f(x_{n+1}) \\
+&\le (1-\lambda_{n+1})\sum_{k=1}^n \frac{\lambda_k}{1-\lambda_{n+1}} f(x_k) + \lambda_{n+1} x_{n+1}\\
+&= \sum_{k=1}^{n+1}\lambda_k f(x_k).
+\end{align*}
+come volevamo dimostrare.
+\end{proof}
+
+
+\begin{example}[disuguaglianza media aritmetica, media geometrica]
+Osserviamo che la funzione $f(x) = \ln x$ è concava, infatti si ha
+$f''(x) = -1/x^2 < 0$. Dunque, per il teorema precedente, se $\lambda_1 + \dots + \lambda_n =1$, $\lambda_k \ge 0$ si ha
+\[
+    \ln\enclose{\sum_{k=1}^n \lambda_k x_k}
+    \ge \sum_{k=1}^n \lambda_k \ln x_k.
+\]
+Facendo l'esponenziale di ambo i membri si ottiene
+\[
+  \sum_{k=1}^n \lambda_k x_k \ge \prod_{k=1}^n x_k^{\lambda_k}.
+\]
+Nel caso particolare $\lambda_k = 1/n$ si ottiene
+la disuguaglianza tra \myemph{media aritmetica} (AM per gli anglofoni) e \myemph{media geometrica}:
+\[
+  \frac{x_1 + \dots + x_n}{n} \ge \sqrt[n]{x_1\cdots x_n}.
+\]
+\end{example}
 
 \section{teorema di de l'Hospital}
 \begin{theorem}[Cauchy]
