@@ -1250,47 +1250,182 @@ Ma necessariamente anche $g(b) - g(a)\neq 0$ perché altrimenti potremmo applica
 Dunque possiamo dividere ambo i membri per $(g(b)-g(a))$ e per $g'(x_0)$ per ottenere l'uguaglianza enunciata nel teorema.
 \end{proof}
 
-\begin{theorem}[de l'Hospital]
+\begin{theorem}[de l'Hospital $0/0$]
 \index{teorema!di de l'Hospital}
 \mymargin{de l'Hospital}
-Sia $I\subset \RR$ un intervallo e sia $x_0$ un punto di accumulazione di $I$ (quindi $x_0 \in [\inf I, \sup I]$). Se
+Siano $a,b\in [-\infty,+\infty]$ con $a<b$.
+Siano $f,g \colon (a,b)\to \RR$ funzioni derivabili.
+Se
 \[
- \lim_{x\to x_0} f(x) = 0 \qquad
+ \lim_{x\to a^+} f(x) = 0 \qquad
  \text{e}\qquad
- \lim_{x\to x_0} g(x) = 0
+ \lim_{x\to a^+} g(x) = 0,
 \]
+se $g'(x) \neq 0$ per ogni $x\in (a,b)$
 e se esiste il limite
 \[
-  \ell = \lim_{x\to x_0}\frac{f'(x)}{g'(x)}
+  \ell = \lim_{x\to a^+}\frac{f'(x)}{g'(x)}
 \]
 allora
+si ha
 \[
- \lim_{x\to x_0}\frac{f(x)}{g(x)} = \ell.
+ \lim_{x\to a^+}\frac{f(x)}{g(x)} = \ell.
 \]
+
+Risultato analogo si ha facendo i limiti per $x\to b^-$ invece che per $x\to a^+$ e di conseguenza anche nel caso in cui la funzione sia definita su un intervallo ``bucato`` $f\colon (a,b)\setminus\{x_0\} \to \RR$ e si considerino i limiti ``pieni'' per $x\to x_0$.
 \end{theorem}
 %
 \begin{proof}
-Se consideriamo l'insieme $\tilde A = A \cup \{x_0\}$ possiamo considerare le funzioni $\tilde f, \tilde g \colon \tilde A \to \RR$ ottenute estendendo \emph{per continuità} $f$ e $g$:
+Notiamo innanzitutto che la funzione $g$ può annullarsi al più in un punto di $(a,b)$ in quanto per il teorema di Rolle se si annullasse in due punti anche la derivata si dovrebbe annullare in un punto intermedio, cosa che abbiamo escluso per ipotesi. Eventualmente rimpiazzando l'intervallo $(a,b)$ con un intervallo più piccolo $(a,b')$ possiamo dunque supporre, senza perdere di generalità, che la funzione $g$ non si annulli mai in $(a,b)$.
+
+Consideriamo ora una generica successione $a_k \in (a,b)$, $a_k \to a$. Per il teorema di collegamento tra limiti di funzione e limiti di successione sarà sufficiente dimostrare che $f(a_k)/g(a_k)\to \ell$.
+
+Osserviamo ora che, fissato $k$, per $x\to a$ si ha
 \[
-\tilde f(x) =
-  \begin{cases}
-  f(x) & \text{se $x\neq x_0$}, \\
-  0 & \text{se $x = x_0$},
+\frac{f(a_k) - f(x)}{g(a_k) - g(x)} \to \frac{f(a_k)}{g(a_k)}
+\]
+in quanto, per ipotesi, $f(x)\to 0$ e $g(x)\to 0$.
+Dunque per ogni $k$
+possiamo trovare un punto $x_k \in (a,a_k)$ tale che
+\[
+\abs{\frac{f(a_k) - f(x_k)}{g(a_k) - g(x_k)} - \frac{f(a_k)}{g(a_k)}}
+< \frac 1 k.
+\]
+Ma sull'intervallo $[x_k,a_k]$ possiamo applicare il teorema di Cauchy
+e trovare quindi un punto $y_k\in (x_k,a_k)$ tale che
+\[
+\frac{f(a_k) - f(x_k)}{g(a_k)-g(x_k)} = \frac{f'(y_k)}{g'(y_k)}
+\]
+ottenendo quindi:
+\[
+\abs{\frac{f'(y_k)}{g'(y_k)}-\frac{f(a_k)}{g(a_k)}} < \frac 1 k.
+\]
+Visto che $y_k \in (a,a_k)$ e visto che $a_k \to a$  certamente anche $y_k\to a$ per $k\to +\infty$ e quindi sappiamo, per ipotesi che
+\[
+  \frac{f'(y_k)}{g'(y_k)} \to \ell, \qquad \text{per $k\to +\infty$}
+\]
+e visto che la differenza tende a zero, necessariamente si deve avere anche
+\[
+  \frac{f(a_k)}{g(a_k)} \to \ell.
+\]
+\end{proof}
+
+\begin{proposition}[criterio di derivabilità]
+Sia $I\subset \RR$ un intervallo, $x_0\in I$
+$f\colon I \to \RR$ una funzione continua su tutto $I$ e derivabile in $I\setminus\{x_0\}$.
+Se il limite della derivata
+\[
+  \lim_{x\to x_0} f'(x) = m
+\]
+esiste ed è finito la funzione $f$ è derivabile anche in $x_0$ e vale $f'(x_0) = m$.
+\end{proposition}
+%
+\begin{proof}
+Consideriamo il limite del rapporto incrementale
+\[
+  \lim_{x\to x_0} \frac{f(x) - f(x_0)}{x - x_0}.
+\]
+Visto che la funzione è continua in $x_0$ si ha $f(x)-f(x_0) \to 0$
+per $x\to x_0$ e chiaramente si ha anche $x-x_0 \to 0$
+come richiesto nelle ipotesi del teorema di De L'Hospital.
+Se facciamo il limite del rapporto delle derivate si ha
+\[
+ \lim_{x\to x_0} \frac{f'(x)}{1} = m
+\]
+e dunque applicando il teorema si trova che anche il limite del rapporto incrementale è uguale ad $m$ e dunque $f'(x_0) = m$.
+\end{proof}
+
+La proposizione precedente dice che la derivata di una funzione in un punto non può avere un valore diverso dal suo limite. Nonostante questo esistono però funzioni derivabili la cui derivata non è continua, come nel seguente esempio.
+
+\begin{example}
+[funzione derivabile con derivata non continua]
+\index{funzione derivabile con derivata non continua}
+\index{derivata non continua}
+La funzione $f\colon \RR \to \RR$ definita da
+\[
+  f(x)
+  = \begin{cases}
+    x^2 \sin(1/x) & \text{se $x \neq 0$} \\
+    0 & \text{se $x=0$.}
   \end{cases}
-  \qquad
-  \tilde g(x) =
-    \begin{cases}
-    g(x) & \text{se $x\neq x_0$}, \\
-    0 & \text{se $x = x_0$}.
-    \end{cases}
 \]
-Visto che $f(x) \to 0$ e $g(x)\to 0$ per $x\to x_0$, le funzioni $\tilde f$ e $\tilde g$ risultano essere funzioni continue.
-Preso qualunque $x\in A$ è possibile applicare il teorema di Cauchy
-alle funzioni $\tilde f$ e $\tilde g$
-sull'intervallo $[x_0,x]$ (se $x>x_0$) o sull'intervallo $[x,x_0]$ (se $x < x_0$).
-Per ogni $x$ si trova quindi un punto $y$ con $\abs{y-x_0} < \abs{x-x_0]}$ tale che
+è derivabile su tutto $\RR$, $f'(0)=0$ ma il limite
 \[
-  \frac{f(x) - 0}{g(x) - 0} = \frac{f'(y)}{g'(y)}.
+\lim_{x\to 0} f(x)
 \]
-Per $x\to x_0$ anche $y\to x_0$ e il lato destro dell'uguaglianza precedente tende necessariamente al limite $\ell$. Ma allora anche il lato sinistro tende ad $\ell$ e questo è quanto volevamo dimostrare.
+non esiste (e dunque $f'\colon \RR\to\RR$ non è continua in $x=0$).
+\end{example}
+%
+\begin{proof}
+La funzione $x^2 \sin(1/x)$ è derivabile infinite volte su tutto il suo dominio $\RR\setminus\{0\}$ in quanto composizione di funzioni elementari derivabili infinite volte.
+Dunque, per la località della derivata, anche la funzione $f$ è derivabile infinite su $\RR\setminus\{0\}$.
+Per $x\neq 0$ possiamo quindi calcolare $f'(x)$ utilizzando le regole di derivazione
+\[
+  f'(x)
+  = D \enclose{x^2\sin \frac 1 x}
+  = 2x \sin \frac 1 x + x^2 \enclose{\cos \frac 1 x} \cdot\frac{-1}{x^2}
+  = 2x \sin \frac 1 x - \cos \frac 1 x.
+\]
+
+Verifichiamo ora che $f$ è continua e derivabile anche in $0$.
+Si ha infatti
+\[
+ \lim_{h\to 0}\frac{f(0+h)-f(0)}{h}
+ = \lim_{h\to 0} h \sin \frac 1 h = 0
+\]
+e dunque $f'(0) = 0$.
+Osserviamo però che $f'(x)$ non ammette limite per $x\to 0$
+in quanto per $x \to 0$ si ha $2x \sin(1/x) \to 0$ ma il limite di $\cos (1/x)$ invece non esiste. Dunque $f'(x)$ è la somma di una funzione che ha limite zero e di una funzione il cui limite non esiste per $x\to 0$. Dunque $f'(x)$ non ammette limite per $x\to 0$.
+\end{proof}
+
+\begin{theorem}[de l'Hospital $\cdot/\infty$]
+\index{teorema!di de l'Hospital}
+\mymargin{de l'Hospital}
+Siano $a,b\in [-\infty,+\infty]$ con $a<b$.
+Siano $f,g \colon (a,b)\to \RR$ funzioni derivabili.
+Se
+\[
+ \lim_{x\to a^+} \abs{g(x)} = +\infty,
+\]
+se $g'(x) \neq 0$ per ogni $x\in (a,b)$
+e se esiste il limite (finito o infinito)
+\[
+  \ell = \lim_{x\to a^+}\frac{f'(x)}{g'(x)}
+\]
+allora
+si ha
+\[
+ \lim_{x\to a^+}\frac{f(x)}{g(x)} = \ell.
+\]
+
+Risultato analogo si ha facendo i limiti per $x\to b^-$ invece che per $x\to a^+$ e di conseguenza anche nel caso in cui la funzione sia definita su un intervallo ``bucato`` $f\colon (a,b)\setminus\{x_0\} \to \RR$ e si considerino i limiti ``pieni'' per $x\to x_0$.
+\end{theorem}
+%
+\begin{proof}
+Supponiamo per assurdo che non si abbia
+\[
+  \lim_{x\to a^+} \frac{f(x)}{g(x)} = \ell.
+\]
+Allora, per il teorema di collegamento tra limiti di funzione e limiti di successione, deve esistere una successione $a_k\in (a,b)$, $a_k\to a$ tale che non si abbia
+\[
+  \lim_{k\to +\infty} \frac{f(a_k)}{g(a_k)} = \ell.
+\]
+Se la successione $f(a_k) / g(a_k)$ è limitata allora applicando il teorema di Bolzano Weierstrass sappiamo esistere una sottosuccessione
+di $a_k$ convergente ad un valore $m\neq \ell$ (se tutte le sottosuccessioni convergesso ad $\ell$ l'intera successione convergerebbe ad $\ell$). Se invece $f(a_k) / g(a_k)$ non è limitata possiamo estrarre una sottosuccessione che converge a $+\infty$ oppure a $-\infty$. In ogni caso esiste una successione, che chiameremo ancora $a_k$, ed esiste $m\in \bar \RR$ tale che
+\[
+  \lim_{k \to +\infty} \frac{f(a_k)}{g(a_k)} = m \neq \ell.
+\]
+Consideriamo ora un intorno $U$ di $m$ e un intorno $V$ di $\ell$ itali che $U\cap V = \emptyset$.
+Siccome $f'(x) / g'(x) \to \ell$ per $x\to a$ esiste un $x_0\in (a,b)$ tale che per ogni $x\in (a,x_0)$ si ha
+\[
+  \frac{f'(x)}{g'(x)} \in V.
+\]
+Consideriamo allora il seguente rapporto incrementale
+\begin{align*}
+\frac{f(a_k) - f(x_0)}{g(a_k) - g(x_0)}
+=\frac{\frac{f(a_k)}{g(a_k)}-\frac{f(x)}{g(a_k)}}{1-\frac{g(x)}{g(a_k)}}
+\end{align*}
+e osserviamo che il lato destro tende a $m$ per $k\to +\infty$ in quanto $f(a_k)/g(a_k) \to m$ e visto che $\abs{g(a_k)}\to +\infty$ si ha $f(x)/g(a_k)\to 0$ e $g(x)/g(a_k) \to 0$.
+Dunque esisterà un $k$ per cui il lato destro sta nell'intorno $U$ di $m$. Al lato sinistro possiamo invece applicare il teorema di Cauchy e trovare quindi un punto $y\in(a_k,x_0)$ per cui tale lato risulti
+uguale a $f'(y)/g'(y)$. Ma visto che $y\in (a,x_0)$ si dovrà avere $f'(y)/g'(y) \in V$. Questo è assurdo in quanto $U\cap V = \emptyset$.
 \end{proof}
