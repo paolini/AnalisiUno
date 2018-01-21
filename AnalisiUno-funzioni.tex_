@@ -1,0 +1,1431 @@
+\chapter{calcolo differenziale}
+
+\section{limite di funzione}
+
+\begin{definition}[intorno]
+Per $x\in \RR$ definiamo la famiglia degli \myemph{intorni} (basilari) di $x$
+come l'insieme di tutti gli intervallini aperti, simmetrici, centrati in $x$:
+\[
+  \U_x = \{ (x-\eps, x+\eps) \colon \eps>0\}.
+\]
+Definiamo poi gli intorni \myemph{intorni destri} e \myemph{intorni sinistri}
+di $x$ come
+\[
+  \U_{x^+} = \{ [x, x+\eps) \colon \eps>0\},
+  \qquad
+  \U_{x^-} = \{ (x-\eps , x] \colon \eps>0\}.
+\]
+Definiamo poi gli intorni di $+\infty$ e $-\infty$ come segue
+\[
+  \U_{+\infty} = \{ (a,+\infty], \colon a \in \RR \},\qquad
+  \U_{-\infty} = \{ [-\infty, b), \colon b\in \RR\}.
+\]
+
+Per ogni $x\in \bar \RR = [-\infty, +\infty]$ risultano quindi definiti gli intorni $\U_x$.
+\end{definition}
+
+\begin{definition}[punto di accumulazione]
+Siano $A\subset  \RR$ un insieme e $x\in [-\infty, +\infty]$.
+Diremo che $x$ è un \myemph{punto di accumulazione} di $A$
+se ogni intorno di $x$ contiene punti di $A$ diversi da $x$, ovvero:
+\[
+ \forall U \in \U_x\colon (A\setminus \{x\}) \cap U \neq \emptyset.
+\]
+\end{definition}
+
+\begin{definition}[limite di funzione]
+Sia $A\subset \RR$ e $f\colon A \to \RR$. Sia $x_0\in [-\infty,+\infty]$
+un punto di accumulazione
+di $A$ e sia $\ell \in [-\infty,+\infty]$.
+Allora diremo che la funzione $f$ ha limite $\ell$ in $x_0$ e Scriveremo
+\mymargin{limite di funzione}
+\[
+  \lim_{x\to x_0} f(x) = \ell
+\]
+o anche
+\[
+  f(x) \to \ell \qquad \text{per $x\to x_0$}
+\]
+se per ogni intorno di $\ell$ esiste un intorno di $x_0$ tale che
+la funzione valutata nell'intorno di $x_0$, tolto eventualmente $x_0$,
+assume valori
+nell'intorno di $\ell$:
+\[
+  \forall U \in \U_\ell \colon \exists V \in \U_{x_0} \colon f(V\setminus\{x_0\}) \subset U.
+\]
+
+La stessa definizione può essere data restringendosi agli intorni destri/sinistri del punto $x_0$ (nel caso $x_0 \in \RR$). Si otterranno quindi le definizioni
+di \myemph{limite destro} e \myemph{limite sinistro} semplicemente
+sostituendo $\U_{x_0^+}$ o $\U_{x_0^-}$ al posto di $\U_{x_0}$ nella definizione precedente:
+\[
+  \lim_{x\to x_0^+}f(x) = \ell, \qquad \lim_{x\to x_0^-} f(x) = \ell.
+\]
+\end{definition}
+
+Osserviamo che se $A=\NN$ e $x_0=+\infty$ la definizione di limite di funzione
+per $x\to +\infty$ coincide con la definizione di limite della successione $a_n = f(n)$.
+Non c'è quindi ambiguità nell'usare gli stessi simboli per i limiti di funzione e i limiti di successione.
+
+Come nel caso dei limiti di successione, la notazione $\lim_{x\to x_0} f(x)$ risulta definita univocamente (quando il limite esiste)
+in quanto vale il seguente.
+
+\begin{theorem}[unicità del limite]
+Sia $A\subset \RR$, $f\colon A \to \RR$, $x_0$
+punto di accumulazione per $A$ e $\ell_1, \ell_2\in [-\infty,+\infty]$.
+Se per $x\to x_0$ si ha
+\[
+  f(x) \to \ell_1 \qquad\text{e}\qquad f(x) \to \ell_2
+\]
+allora $\ell_1=\ell_2$.
+Risulta quindi che $\displaystyle \lim_{x\to x_0} f(x)$ quando esiste è unico.
+\end{theorem}
+%
+\begin{proof}
+Supponiamo per assurdo che $\ell_1\neq \ell_2$.
+Allora esiste un intorno $V_1$ di $\ell_1$ ed un intorno $V_2$ di $\ell_2$
+tali che $V_1\cap V_2 = \emptyset$ (basta prendere degli intorni abbastanza piccoli). Ma per le definizioni di limite $f(x)\to \ell_1$ e $f(x)\to \ell_2$ dovranno esistere $U_1$ e $U_2$ intorni di $x_0$ su cui si ha $f(U_1)\subset V_1$ e $f(U_2)\subset V_2$. Ma allora $f((A\setminus\{x_0\})\cap U_1)\cap f((A\setminus\{x_0\})\cap U_2)\subset V_1\cap V_2 = \emptyset$... e questo è assurdo perché certamente $U_1\cap U_2$ contiene punti di $A$ diversi da $x_0$ in quanto $U_1$ e $U_2$ sono uno contenuto nell'altro e $x_0$ è un punto di accumulazione per $A$.
+\end{proof}
+
+\begin{theorem}[località del limite]
+Il limite di una funzione per $x\to x_0$ dipende solamente dai valori di $f$
+in un intorno di $x_0$ e non dipende dal valore di $f$ in $x_0$.
+Più precisamente se $f\colon A \to \RR$ è una funzione,
+$x_0\in[-\infty,+\infty]$ è un punto di accumulazione di $A$,
+$g\colon B\to \RR$ è un'altra funzione tale che esiste un intorno $U$ di $x_0$
+per cui $(A\setminus\{x_0\})\cap U = (B\setminus\{x_0\})\cap U$ e $f(x)=g(x)$ per ogni
+$x\in (A\setminus\{x_0\})\cap U$,
+allora si ha
+\[
+  \lim_{x\to x_0} g(x) = \lim_{x\to x_0} f(x)
+\]
+dove si intende che basta che uno dei due limiti (di $f$ o di $g$) esista
+perché esista anche l'altro.
+\end{theorem}
+%
+\begin{proof}
+La dimostrazione segue immediatamente dal fatto che nella definizione di limite
+gli intorni di $x_0$
+possono essere scelti arbitrariamente piccoli, in particolare si potranno scegliere intorni contenuti in $U$ in cui le due funzioni quindi coincidono.
+\end{proof}
+
+\begin{theorem}[restrizione del limite]
+Se una funzione ha limite $\ell$ per $x\to x_0$ e se restringiamo l'insieme di definizione della funzione (in modo che $x_0$ rimanga punto di accumulazione) allora il limite della funzione non cambia. Più precisamente
+se $f\colon A \to \RR$ è una funzione, $x_0$ è un punto di accumulazione di $A$
+e $B\subset A$ ha ancora $x_0$ come punto di accumulazione e se $g\colon B\to \RR$ coincide con $f$ su $B$, allora se esiste il limite di $f$ per $x\to x_0$
+si ha
+\[
+  \lim_{x\to x_0} g(x) = \lim_{x\to x_0} f(x).
+\]
+\end{theorem}
+
+Si osservi che a differenza del teorema sulla località del limite è
+possibile che la funzione ristretta $g$ abbia limite quando la funzione
+$f$ non aveva limite.
+
+\begin{proof}
+Il teorema segue immediatamente dalla definizione di limite se si osserva
+che restringendo il dominio la condizione di validità del limite si indebolisce
+in quanto gli intorni di $x_0$ vengono intersecati con il dominio della funzione.
+\end{proof}
+
+\begin{theorem}[legame tra limite, limite destro e limite sinistro]
+Sia $A\subset \RR$, $f\colon A \to \RR$ una funzione e $x_0$ un punto di accumulazione
+di $A$. Sia $A^+ = A \cap [x_0,+\infty)$ e $A^- = A \cap (-\infty, x_0]$.
+
+Se $x_0$ è punto di accumulazione sia di $A^+$ che di $A^-$
+allora si ha
+\[
+  \lim_{x\to x_0} f(x) = \ell
+\]
+se e solo se
+\[
+  \lim_{x\to x_0^+} f(x) = \lim_{x\to x_0^-} f(x) = \ell.
+\]
+
+Se $x_0$ è punto di accumulazione di $A^+$ ma non di $A^-$ allora
+i limiti
+\[
+  \lim_{x\to x_0} f(x) \qquad \text{e}\qquad \lim_{x\to x_0^+} f(x)
+\]
+sono equivalenti. Analogamente se $x_0$ è punto di accumulazione
+di $A^-$ ma non di $A^+$ risultano equivalenti
+\[
+  \lim_{x\to x_0} f(x) \qquad \text{e}\qquad \lim_{x\to x_0^-} f(x).
+\]
+\end{theorem}
+
+\begin{theorem}[limite della funzione composta/cambio di variabile]
+Siano $A\subset \RR$, $B\subset \RR$,
+$x_0\in [-\infty,+\infty]$ un punto di accumulazione di $A$,
+$y_0\in [-\infty,+\infty]$ un punto di accumulazione di $B$,
+$\ell\in [-\infty,+\infty]$.
+Siano $f\colon A \to B\setminus\{y_0\}$, $g\colon B\to \RR$
+funzioni tali che
+\[
+  \lim_{x\to x_0} f(x) = y_0
+\qquad
+\text{e}
+\qquad
+  \lim_{y\to y_0} g(y) = \ell.
+\]
+Allora
+\[
+ \lim_{x\to x_0} g(f(x)) = \ell.
+\]
+\end{theorem}
+%
+\begin{proof}
+Visto che $g(y)\to \ell$
+per ogni $U$ intorno di $\ell$ deve esistere un $V$ intorno di $y_0$
+tale che $g((B\setminus\{y_0\})\cap V) \subset U$
+e visto  che $f(x)\to y_0$ deve esistere un intorno $W$ di $x_0$
+tale che $f((A\setminus\{x_0\})\cap W) \subset V$.
+Ma visto che per ipotesi $f$ assume valori in $B\setminus\{y_0\}$
+si ha anche $f((A\setminus\{x_0\})\cap W)\subset (B\setminus\{y_0\}) \cap V$
+e quindi
+\[
+  g(f((A\setminus\{x_0\})\cap W)) \subset g((B\setminus \{y_0\}) \cap V)
+  \subset U
+\]
+che significa che $g(f(x)) \to \ell$.
+\end{proof}
+
+\begin{theorem}[collegamento tra limiti di funzione e limiti di successione]
+Sia $A \subset \RR$, $f\colon A \to \RR$, sia $x_0$ un punto di accumulazione di $A$ e sia
+$\ell \in [-\infty, +\infty]$.
+Le due seguenti condizioni sono equivalenti:
+\begin{enumerate}
+\item $\displaystyle \lim_{x\to x_0} f(x) = \ell$;
+\item per ogni successione $a_n\to x_0$ con $a_n\in A\setminus\{x_0\}$ risulta
+\[
+\lim_{n\to+\infty} f(a_n) = \ell.
+\]
+\end{enumerate}
+\end{theorem}
+%
+\begin{proof}
+Se per $x\to x_0$ si ha $f(x)\to \ell$ e se $a_n \to x_0$ con $a_n\in A\setminus\{x_0\}$ la successione $f(a_n)$ non è altro che la composizione
+della funzione $f$ con la funzione $n\mapsto a_n$. Si può quindi applicare
+il teorema sul limite della funzione composta per ottenere che $f(a_n)\to \ell$.
+
+Supponiamo viceversa di sapere che per ogni successione $a_n\to x_0$ si ha $f(a_n)\to \ell$. Vogliamo mostrare allora che $f(x)\to \ell$. Lo facciamo per assurdo: supponiamo che esista un intorno $U$ di $\ell$ tale che preso un qualunque intorno $V$ di $x_0$ non si abbia $f((A\setminus\{x_0\})\cap V)\subset U$.
+Possiamo considerare per ogni $n\in \NN$ degli intorni $V_n$ sempre più piccoli. Ad esempio nel caso $x_0 \in \RR$ potremo scegliere $V_n = (x_0-1/n, x_0+1/n)$, nel caso $x_0 = +\infty$ si potrà scegliere $V_n = (n,+\infty]$ e nel caso $x_0=-\infty$ si sceglierà $V_n = [-\infty, -n)$.
+Se per assurdo $f((A\setminus\{x_0\}\cap V_n))$ non fosse contenuto in $U$
+significherebbe che per ogni $n\in\NN$ esisterebbe $a_n \in (A\setminus\{x_0\})\cap V_n$ tale che $f(a_n)\not \in U$. Ma allora $a_n$ risulterebbe essere una successione in
+$A\setminus \{x_0\}$ con limite $x_0$
+(in quanto per ogni intorno di $x_0$ esiste un $N$ tale che $V_N$ sia contenuto in tale intorno e per ogni $n>N$ si ha $V_n\subset V_N$)
+ma $f(a_n)$ non potrebbe avere limite $\ell$
+(essendo fuori dall'intorno $V$).
+Ma questo nega l'ipotesi e conclude quindi la dimostrazione del teorema.
+\end{proof}
+
+\begin{example}
+Sia $f(x) = \sin(x)$. Sappiamo che per ogni successione $a_n\to 0$, $a_n\neq 0$ si ha il limite notevole
+\[
+  \frac{\sin a_n}{a_n} \to 1.
+\]
+Allora possiamo concludere che vale
+\[
+  \lim_{x\to 0} \frac{\sin x}{x} = 1.
+\]
+
+Analogamente, per quanto visto con i limiti di successione,
+si ha
+\[
+  \lim_{x\to 0}\frac{\ln(1+x)}{x} = 1,
+  \qquad
+  \lim_{x\to 0}\frac{e^x-1}{x} = 1,
+  \qquad
+  \lim_{x\to 0}\frac{1-\cos x}{x^2} = \frac 1 2.
+\]
+
+Valgono anche i seguenti confronti tra ordini di infinito.
+Se $\alpha>0$, $a>1$ si ha
+\[
+  \lim_{x\to +\infty}\frac{x^\alpha}{a^x} = 0,
+  \qquad
+  \lim_{x\to +\infty}\frac{\log_a x}{x^\alpha} = 0.
+\]
+\end{example}
+
+\begin{theorem}[permanenza del segno]
+\index{permanenza del segno (limite di funzione)}
+\index{teorema!della permanenza del segno (funzioni)}
+\marginpar{permanenza del segno}
+Se $f(x)\ge 0$ in un intorno di $x_0$ e se esiste il limite
+\[
+ \ell = \lim_{x\to x_0} f(x)
+\]
+allora $\ell\ge 0$.
+Analogamente se $f(x)\le 0$ allora $l \le 0$.
+
+Il risultato vale per allo stesso modo per il limite destro e il limite
+sinistro.
+\end{theorem}
+%
+\begin{proof}
+Il risultato si può dimostrare in modo analogo a come abbiamo fatto per i limiti di successione.
+
+Oppure si può ricondurre al risultato sui limiti di successione utilizzando il teorema di collegamento. Infatti se il limite di funzione esiste allora prendendo una successione $x_n\to x_0$ il limite lungo la successione coincide con il limite della funzione e lungo la successione possiamo applicare il teorema della permanenza del segno già dimostrato.
+\end{proof}
+
+\begin{theorem}[operazioni con i limiti di funzione]
+Se
+\[
+  \lim_{x\to x_0}f(x) = \ell_1,\qquad
+  \lim_{x\to x_0}g(x) = \ell_2
+\]
+allora si ha
+\begin{gather*}
+\lim_{x\to x_0} \enclose{f(x) + g(x)} = \ell_1 + \ell_2, \qquad
+\lim_{x\to x_0} \enclose{f(x) - g(x)} = \ell_1 - \ell_2, \\
+  \lim_{x\to x_0} f(x)\cdot g(x) = \ell_1 \cdot \ell_2, \qquad
+  \lim_{x\to x_0} \frac{f(x)}{g(x)} = \frac{\ell_1}{\ell_2}, \\
+\end{gather*}
+sempre che le operazioni utilizzate sul lato destro delle uguaglianze
+siano definite (cioè a meno di "forme indeterminate").
+Inoltre si ha
+\[
+  \lim_{x\to x_0} f(x) ^ {g(x)} = {\ell_1} ^ {\ell_2}
+\]
+se l'operazione $\ell_1^{\ell_2}$ è definita e se almeno uno tra $\ell_1$ e $\ell_2$ è diverso da $0$ (nonostante $0^0$ sia definito la forma $0^0$ è, per quanto concerne i limiti, una forma indeterminata).
+\end{theorem}
+%
+\begin{proof}
+Abbiamo già dimostrato questi risultati per i limiti di successione
+e potremmo ridimostrarli, con le stesse tecniche, nel contesto dei limiti di funzione.
+Ma possiamo anche risparmiare le dimostrazioni se utilizziamo
+invece il teorema di
+collegamento tra limite di funzione e limite di successione.
+\end{proof}
+
+
+\section{continuità}
+
+
+\begin{definition}
+Sia $A\subset \RR$, $f\colon A \to \RR$, $x_0 \in A$. Se $x_0$ è punto di
+accumulazione di $A$ diremo che $f$ è \myemph{continua nel punto} $x_0$ quando
+\[
+  \lim_{x\to x_0}f(x) = f(x_0).
+\]
+Se $x_0$ non è punto di accumulazione di $A$ (e quindi $x_0$ è un \myemph{punto isolato} di $A$) diremo, senz'altro,
+che $f$ è continua in $x_0$.
+
+La funzione $f\colon A\to \RR$ si dice essere \myemph{continua}
+se $f$ è continua in ogni punto $x_0\in A$.
+\end{definition}
+
+Espandendo la definizione di limite si trova che la funzione $f\colon A \to \RR$ per $A\subset \RR$ è continua nel punto $x_0\in A$ se vale la seguente
+proprietà:
+\[
+  \forall \eps>0 \colon \exists \delta>0 \colon \forall x \in A\colon \abs{x-x_0} < \delta \implies \abs{f(x) - f(x_0)} < \eps
+\]
+che a sua volta può essere riscritta con il linguaggio degli intorni
+in maniera piuttosto espressiva:
+\[
+  \forall U\in \U_{f(x_0)}\colon
+  \exists V\in \U_{x_0}\colon
+  f(V)\subset U.
+\]
+Si noti che la condizione $x\neq x_0$ presente nella definizione di limite risulta inutile in questo caso in quanto se $x=x_0$ si ha certamente $\abs{f(x)-f(x_0)} = 0 < \eps$. Osserviamo inoltre che non è necessario distinguere tra punti di accumulazione e punti isolati, la proprietà appena enunciata, infatti, è sempre valida se $x_0$ è un punto isolato.
+
+\begin{theorem}[continuità della funzione composta]
+Siano $A\subset \RR$, $B\subset \RR$. Se $f\colon A \to B$ è una funzione continua e $g\colon B\to \RR$ è una funzione continua allora $g\circ f\colon A \to \RR$ è una funzione continua.
+\end{theorem}
+%
+\begin{proof}
+Se utilizziamo la caratterizzazione delle funzioni continue tramite
+il linguaggio degli intorni, la dimostrazione risulta immediata.
+Fissato $x_0 \in A$ per ogni $U$ intorno di $g(f(x_0))$ per la continuità di $g$ esistere un intorno $V$ di $f(x_0)$ tale che $g(V)\subset U$.
+Per la continuità di $f$ esiste un intorno $W$ di $x_0$ tale che $f(W)\subset V$. E dunque $g(f(W)) \subset g(V) \subset U$.
+Dunque $g\circ f$ è continua in $x_0$.
+\end{proof}
+
+Nel capitolo precedente abbiamo introdotto il concetto di \emph{continuità sequenziale}: una funzione è sequenzialmente continua se manda successioni convergenti in successioni convergenti. Verifichiamo che la continuità sequenziale è equivalente alla continuità.
+
+\begin{theorem}[continuità vs sequenziale continuità]
+Sia $A\subset \RR$, $f\colon A \to \RR$. Allora sono equivalenti
+\begin{enumerate}
+\item $f$ è sequenzialmente continua;
+\item $f$ è continua.
+\end{enumerate}
+\end{theorem}
+%
+\begin{proof}
+Se la funzione $f$ è sequenzialmente continua significa che per ogni
+successione $a_n \in A$ tale che $a_n\to a$ con $a\in A$ si ha $f(a_n)\to f(a)$. Fissato un qualunque punto $x_0\in A$ vogliamo dimostrare che
+$f$ è continua nel punto $x_0$.
+Se $x_0$ è un punto isolato (un punto di $A$ che non è punto di accumulazione) allora la funzione $f$ è automaticamente
+continua (per definizione).
+Se $x_0$ invece è un punto di accumulazione dobbiamo mostrare che
+\[
+  \lim_{x\to x_0} f(x) = f(x_0).
+\]
+Usando il teorema di collegamento tra limite di funzione e limite di successione basterà dimostrare che per ogni successione $a_n\to x_0$ con $a_n\neq x_0$ si ha $f(x_n) \to f(x_0)$. Ma questo è garantito dalla
+definizione di continuità sequenziale.
+
+Viceversa supponiamo che $f$ sia continua. Per dimostrare che $f$
+è anche sequenzialmente continua dobbiamo considerare una qualunque
+successione $a_n \to a$ con $a_n,a\in A$.
+Per la continuità di $f$ sappiamo che $\lim_{x\to a} f(x) = f(a)$.
+Se $a_n \neq a$ allora possiamo applicare il teorema di collegamento tra limite di successione e limite di funzione
+e concludere che $f(a_n)\to f(a)$.
+Ma $a_n$ potrebbe coincidere con $a$ su uno o più indici $n\in \NN$.
+Sia $N=\{n \in \NN \colon a_n = a\}$ l'insieme degli indici su cui
+$a_n=a$. Se $N$ è finito sappiamo che il limite di $a_n$ non cambia rimuovendo un numero finito di termini quindi ci si riconduce al caso precedente. Se $N$ è infinito possiamo considerare la successione $a_n$ ristretta ai due insiemi $N$ e $\NN \setminus N$.
+La prima sottosuccessione è costante $a_n = a$ e quindi banalmente $f(a_n) = f(a) \to f(a)$ per $n\in N$.
+La seconda sottosuccessione verifica $a_n \neq a$ e quindi su di essa  possiamo procedere come prima e ottenere che $f(a_n) \to f(a)$ anche per $n\in \NN\setminus N$.
+Dunque l'intera successione $f(a_n)$ converge ad $a$, come volevamo dimostrare.
+\end{proof}
+
+\begin{definition}[operazioni sulle funzioni]
+Sia $A \subset \RR$ e siano $f,g$ funzioni $A \to \RR$.
+Possiamo allora definire $f+g$, $-f$, $f-g$, $f\cdot g$ e,
+se $g(x)\neq 0$ per ogni $x\in A$ anche $f/g$
+come funzioni $A \to \RR$ mediante le seguenti ovvie
+definizioni
+\begin{gather*}
+(f+g)(x) = f(x) + g(x), \qquad
+(f-g)(x) = f(x) - g(x), \\
+(f\cdot g)(x) = f(x) \cdot g(x), \qquad
+(f/g)(x) = f(x) / g(x),\\
+(-f)(x) = -(f(x)). \\
+\end{gather*}
+
+Se $c\in \RR$ è un numero considereremo a volte $c\colon A \to \RR$
+come una funzione $A\to \RR$ \emph{costante}, intendendo che
+\[
+ c(x) = c\qquad \forall x \in A.
+\]
+
+Risulta quindi inteso che se $c\in \RR$ e $f\colon A \to \RR$ allora $c\cdot f$ è la funzione definita da $(c\cdot f)(x) = c\cdot (f(x))$.
+
+Queste operazioni rendono l'insieme $A \to \RR$ delle funzioni definite
+su $A$ a valori in $\RR$, denotato anche come $\RR^A$, uno spazio vettoriale sul campo $\RR$.
+\end{definition}
+
+\begin{theorem}[continuità delle operazioni elementari]
+Sia $A\subset \RR$ e siano $f,g \colon A \to \RR$ funzioni continue.
+Allora $f+g$, $f-g$ e $f\cdot g$ sono funzioni continue.
+Se $g(x)\neq 0$ per ogni $x\in A$ anche $f/g$ è una funzione continua.
+
+In particolare la famiglia di tutte le funzioni continue,
+\[
+ C^0(A) = \{f\colon A \to \RR\colon \text{$f$ continua}\}
+\]
+è uno spazio vettoriale sul campo $\RR$.
+\end{theorem}
+
+\section{derivata}
+
+\begin{definition}[derivata]
+Sia $A\subset \RR$, $f\colon A \to \RR$, $x_0$ un punto di accumulazione di $A$.
+Diremo che la funzione $f$ è \emph{derivabile} nel punto $x_0$ se esiste
+ed è finito il limite:
+\[
+  \lim_{h\to 0} \frac{f(x_0+h) - f(x_0)}{h}.
+\]
+In tal caso denoteremo con $f'(x_0)$ il valore di tale limite che chiameremo \myemph{derivata} della funzione $f$ nel punto $x_0$.
+
+Se $B$ è l'insieme dei punti di accumulazione di $A$ in cui $f$ risulta essere derivabile, risulta quindi definita la funzione derivata $f'\colon B \to \RR$.
+
+Una funzione $f$ si dice essere derivabile se è derivabile in ogni punto del suo dominio.
+Se $B\subset A$ la funzione $f$ si dice essere \emph{derivabile su $B$} se è derivabile in ogni punto dell'insieme $B$.
+
+Notazioni alternative per denotare la derivata di una funzione:
+\[
+  f' = Df = \frac{d}{dx} f = \frac{df}{dx}.
+\]
+\end{definition}
+
+Il rapporto
+\[
+\frac{f(x_0+h) - f(x_0)}{h}
+\]
+si chiama \myemph{rapporto incrementale}. In effetti cambiando variabile e ponendo $x=x_0+h$ si può scrivere
+\[
+\frac{f(x_0+h) - f(x_0)}{h}
+= \frac{f(x) - f(x_0)}{x-x_0}
+= \frac{\Delta f}{\Delta x}
+\]
+che risulta essere il rapporto dell'incremento della funzione $f$ (a volte denotato con $\Delta f$) rispetto all'incremento corrispondente della variabile $x$ (a volte denotato con $\Delta x$).
+Cambiando variabile nel limite, per $h\to 0$ si avrà $x\to x_0$
+e quindi
+\[
+ f'(x_0) = \lim_{x\to x_0} \frac{f(x)-f(x_0)}{x-x_0}.
+\]
+
+\begin{example}
+Si consideri la funzione $f(x) = 1/x$ definita sull'insieme $A = \RR \setminus \{0\}$. Si ha allora per ogni $x\neq 0$:
+\[
+  f'(x) = \lim_{h\to 0} \frac{\frac{1}{x+h} - \frac{1}{x}}{h}
+        = \lim_{h\to 0} \frac{x - (x+h)}{h(x+h)x}
+        = \lim_{h\to 0} \frac{-1}{(x+h)x} = -\frac{1}{x^2}.
+\]
+Risulta quindi che la funzione $1/x$ sia derivabile e la sua derivata è la funzione $-1/x^2$.
+\end{example}
+
+\begin{theorem}[continuità delle funzioni derivabili]
+Se $f$ è derivabile nel punto $x$ allora $f$ è anche continua nel punto $x$.
+\end{theorem}
+%
+\begin{proof}
+Se $f$ è derivabile in $x$ significa che esiste ed è finito il limite
+\[
+  \lim_{h\to 0} \frac{f(x+h) - f(x)}{h}.
+\]
+Osserviamo che il denominatore $h$ di tale rapporto tende a zero e quindi affinché il limite sia finito è necessario che anche il numeratore $f(x+h)-f(x)$ tenda a zero. Ovvero: $f(x+h)\to f(x)$ per $h\to 0$ che è equivalente alla continuità di $f$ in $x$.
+\end{proof}
+
+\begin{theorem}[derivata della funzione composta]
+Sia $f$ una funzione derivabile nel punto $x_0$
+e sia $g$ una funzione derivabile nel punto $f(x_0)$.
+Allora la funzione composta $g\circ f$ è derivabile
+nel punto $x_0$ e si ha:
+\[
+  (g\circ f)'(x_0) = g'(f(x_0))\cdot f'(x_0).
+\]
+\end{theorem}
+%
+\begin{proof}
+Consideriamo la funzione
+\[
+  G(y) =
+  \begin{cases}
+   \frac{g(y) - g(f(x_0))}{y-f(x_0)} & \text{se $y \neq f(x_0)$},\\
+   g'(f(x_0)) & \text{se $y=f(x_0)$}.
+  \end{cases}
+\]
+Si avrà allora
+\begin{equation}\label{eq:47439}
+ \frac{g(f(x_0+h))-g(f(x_0))}{h}
+ = G(f(x_0+h)) \cdot \frac{f(x_0+h)-f(x_0)}{h}
+\end{equation}
+infatti se $f(x_0+h)\neq f(x_0)$ abbiamo moltiplicato e diviso
+per $f(x_0+h) - f(x_0)$ se invece $f(x_0+h)=f(x_0)$ allora anche $g(f(x_0+h))=g(f(x_0))$ e l'uguaglianza è ancora valida perché sia il lato sinistro che il lato destro si annullano (e il valore assegnato a $G$ risulta in tal caso irrilevante).
+
+Chiaramente quando $h\to 0$ il secondo fattore sul lato destro
+dell'uguaglianza \eqref{eq:47439}
+tende, per definizione, a $f'(x_0)$.
+Per quanto riguarda il primo fattore
+osserviamo che $G(y)$, per come è stata definita, risulta essere una funzione continua nel punto $y=f(x_0)$ in quanto
+\[
+\frac{g(y) - g(f(x_0))}{y-f(x_0)} \to g'(f(x_0))
+\]
+per $y\to f(x_0)$.
+Ma anche la funzione $f$ è continua nel punto $x_0$ (in quanto derivabile).
+Dunque la funzione composta $G(f(x_0+h))$ è continua nel punto $h=0$.
+Risulta quindi che $G(f(x_0+h)) \to G(f(x_0)) = g'(f(x_0))$ per $h\to 0$.
+Dunque il lato destro di \eqref{eq:47439} ha limite $g'(f(x_0)) \cdot f'(x_0)$ per $h\to 0$, come volevamo dimostrare.
+\end{proof}
+
+\begin{theorem}[derivata della funzione inversa]
+Sia $f$ una funzione invertibile derivabile in un punto $x_0$ e
+supponiamo che la funzione inversa $f^{-1}$ sia continua in $f(x_0)$.
+Se $f'(x_0)\neq 0$ allora $f^{-1}$ è derivabile in $f(x_0)$ e vale:
+\[
+  (f^{-1})'(f(x_0)) = \frac{1}{f'(x_0)}.
+\]
+Chiamato $y_0 = f(x_0)$ la formula può essere anche scritta nella forma:
+\[
+  (f^{-1})'(y_0) = \frac{1}{f'(f^{-1}(y_0))}.
+\]
+Se invece $f'(x_0)=0$ la funzione $f^{-1}$ non è derivabile in $f(x_0)$.
+\end{theorem}
+%
+\begin{proof}
+Posto $y_0 = f(x_0)$ consideriamo il rapporto incrementale di $f^{-1}$ nel punto $y_0$:
+\[
+  \frac{f^{-1}(y) - f^{-1}(y_0)}{y-y_0}.
+\]
+Per $y\to y_0$ possiamo fare il cambio di variabile
+$x=f^{-1}(y)$ in quanto avendo assunto che $f^{-1}$ sia continua in $f(x_0)$ sappiamo che se $y\to y_0$ allora $x = f^{-1}(y)\to f^{-1}(y_0) = x_0$.
+Si ha allora per $y\to y_0$ che $x\to x_0$ e,
+se $f'(x_0)\neq 0$:
+\[
+  \frac{f^{-1}(y) - f^{-1}(y_0)}{y-y_0}
+  = \frac{x-x_0}{f(x)-f(x_0)}
+  = \frac{1}{\frac{f(x)-f(x_0)}{x-x_0}} \to \frac{1}{f'(x_0)}.
+\]
+
+Se invece $f'(x_0)=0$ il rapporto incrementale della funzione inversa
+ha limite infinito e quindi la funzione inversa non è derivabile in $f(x_0)$.
+\end{proof}
+\begin{theorem}[operazioni con le derivate]
+Siano $f$ e $g$ due funzioni derivabili in uno stesso punto $x_0$.
+Allora le funzioni $f+g$, $f-g$, $f\cdot g$ e, se $g(x_0)\neq 0$ anche $f/g$ sono funzioni derivabili in $x_0$. Nei punti in cui entrambe le funzioni sono derivabili si ha
+\begin{gather*}
+  (f+g)' = f' + g', \qquad
+  (f-g)' = f' - g', \\
+  (f\cdot g)' = f' \cdot g + f g', \qquad
+  \enclose{\frac{f}{g}}' = \frac{f'g - fg'}{g^2}.
+\end{gather*}
+\end{theorem}
+%
+\begin{proof}
+Per quanto riguarda la derivata della somma (o della differenza) è sufficiente osservare che il rapporto incrementale della somma (o della differenza) è la somma (o la differenza) dei rapporti incrementali e che il limite della somma (o della differenza) è uguale alla somma (o la differenza) dei limiti.
+
+Calcoliamo la derivata del prodotto $f\cdot g$ nel punto $x_0$. Si ha
+\begin{align*}
+  \frac{f(x)g(x) - f(x_0)g(x_0)}{x-x_0}
+  &= \frac{f(x)(g(x) - g(x_0)) + (f(x)-f(x_0))g(x_0)}{x-x_0}\\
+  &= f(x) \frac{g(x)-g(x_0)}{x-x_0} + \frac{f(x)-f(x_0)}{x-x_0} g(x_0).
+\end{align*}
+Passando al limite per $x\to x_0$ ci ricordiamo che $f(x)\to f(x_0)$ in quanto $f$ è continua in $x_0$ (essendo per ipotesi derivabile). I rapporti incrementali tendono alle derivate e si ottiene quindi il risultato voluto $f(x_0) g'(x_0) + f'(x_0) g(x_0)$.
+
+Per quanto riguarda la derivata del rapporto osserviamo che
+posto $h(y)=1/y$ si ha
+\[
+  \frac{f(x)}{g(x)} = f(x) \cdot h(g(x)).
+\]
+Dall'esercizio già svolto sappiamo che $h'(y) = -1/y^2$ e dunque
+possiamo utilizzare le formule per la derivata del prodotto e la derivata della funzione composta per ottenere:
+\begin{align*}
+  \enclose{\frac{f}{g}}'(x_0)
+  &= \enclose{f \cdot (h\circ g)}'(x_0) \\
+  &= f'(x_0) \cdot h(g(x_0)) + f(x_0) \cdot h'(g(x_0))\cdot g'(x_0)\\
+  &= \frac{f'(x_0)}{g(x_0)} + f(x_0) \cdot \frac{-1}{g^2(x_0)} g'(x_0)\\
+  &= \frac{f'(x_0)g(x_0) - f(x_0)g'(x_0)}{g^2(x_0)}.
+\end{align*}
+\end{proof}
+
+\begin{theorem}[derivate delle funzioni elementari]
+Per $m,q,\alpha \in \RR$, $\alpha \neq 0$, $n\in \NN$, $n\neq 0$
+si ha
+\begin{gather*}
+D (mx + q) = m, \qquad
+D \abs{x} = \frac{x}{\abs{x}}, \qquad
+D x^n = n x^{n-1}, \\
+D x^\alpha = \alpha x^{\alpha -1}, \qquad
+D \sqrt[n]{x} = \frac{1}{n\sqrt[n]{x^{n-1}}}, \qquad
+D \sqrt{x} = \frac{1}{2\sqrt{x}}
+\\
+D e^x = e^x, \qquad D \ln x = 1/x \\
+D \sin x = \cos x, \qquad D \cos x = -\sin x\\
+D \arcsin x =  \frac{1}{\sqrt{1-x^2}}, \qquad
+D \arccos x = -\frac{1}{\sqrt{1-x^2}},\\
+D \tg x = 1+ \tg^2 x = \frac{1}{\cos^2 x},
+\qquad D \arctg x = \frac{1}{1+x^2}
+\end{gather*}
+dove le uguaglianze sono valide (e quindi le funzioni sul lato sinistro sono derivabili) nei punti in cui il lato destro è ben definito.
+La funzione $\sqrt[n]{x}$
+non è derivabile in $x=0$.
+Le funzioni $\arcsin(x)$ e $\arccos(x)$ non sono derivabili nei punti $-1$ e $1$. La funzione $\abs{x}$ non è derivabile in $0$.
+Le funzioni lineari, potenze con base positiva, potenze con esponente intero, esponenziale, logaritmo, seno, coseno, tangente, arcotangente sono invece derivabili (in tutti i punti in cui sono definite).
+\end{theorem}
+
+\begin{proof}
+Per quanto riguarda le funzioni lineari si ha:
+\begin{align*}
+(mx+q)' &= \lim_{h\to 0}\frac{m(x+h)+q - (mx+q)}{h} = \lim_{h\to 0} m = m.
+\end{align*}
+Ricordando che la derivata è un limite e che il limite in un punto dipende solo dai valori della funzione in un intorno del punto, possiamo affermare che la derivata del valore assoluto $\abs{x}$ coincide con la derivata di $x$ cioè $1$ sugli $x>0$ e coincide con la derivata di $-x$ sugli $x<0$. Dunque $D \abs{x} = x / \abs{x}$ se $x\neq 0$. Se $x=0$ i limiti destro e sinistro del rapporto incrementale di $\abs{x}$ tendono rispettivamente a $1$ e $-1$ e quindi la derivata non esiste.
+
+Dimostriamo che $Dx^n = n D x^{n-1}$ per $n\in \NN$, $n>0$, per induzione su $n$. Per $n=1$ abbiamo $x^n=x^1$ è lineare e quindi dalla formula precedente $Dx^1 = 1 = 1 \cdot x^0$. Supponendo di sapere che $D x^n = n x^{n-1}$ si ha, applicando la regola di derivazione del prodotto:
+\[
+  D x^{n+1} = D x\cdot x^n = 1 \cdot x^n + x \cdot n x^{n-1}
+   = x^n + n x^n = (n+1) x^n
+\]
+dimostrando dunque il passo induttivo.
+Ricordando la formula di derivazione del rapporto
+possiamo trovare la formula per le potenze con esponente intero negativo:
+\[
+  D x^{-n} = D \frac{1}{x^n} = \frac{-n x^{n-1}}{x^{2n}}
+   = -n x^{n-1-2n} = -n x^{-n-1}.
+\]
+
+La derivata della radice $n$-esima si trova con la formula di derivazione della funzione inversa $x^n$, che può essere applicata se $x\neq 0$:
+\[
+  D \sqrt[n]{x} = \frac{1}{n(\sqrt[n]{x}^n)^{n-1}}
+    = \frac{1}{n\sqrt[n]{x^{n-1}}}.
+\]
+Osserviamo che se $n$ è dispari la formula è valida anche per $x<0$.
+La derivata della radice quadrata si ottiene ponendo $n=2$.
+
+Per quanto riguarda la derivata dell'esponenziale
+ci riconduciamo ad un limite notevole:
+\[
+  D e^x = \lim_{h\to 0} \frac{e^{x+h-e^x}}{h}
+  = \lim_{h\to 0}\frac{e^x e^h - e^x}{h}
+  = \lim_{h\to 0}e^x \frac{e^h - 1}{h}
+  = e^x.
+\]
+La derivata del logaritmo si ottiene come derivata della funzione inversa dell'esponenziale:
+\[
+  D \ln x = \frac{1}{e^{\ln x}} = \frac{1}{x}.
+\]
+Possiamo quindi calcolare la derivata delle potenze con base positiva e esponente reale qualunque:
+\[
+D x^\alpha
+= D e^{\alpha \ln x}
+= e^{\alpha \ln x} D(\alpha \ln x)
+= x^\alpha \alpha \frac{1}{x}
+= \alpha x^{\alpha -1}.
+\]
+
+Per quanto riguarda le funzioni trigonometriche $\sin$ e $\cos$ ci ricordiamo dei limiti notevoli:
+\[
+  \lim_{h\to 0}\frac{\sin h}{h} = 1,\qquad
+  \lim_{h\to 0}\frac{1-\cos h}{h}
+  =\lim_{h\to 0}h \cdot \frac{1-\cos h}{h^2} = 0 \cdot \frac{1}{2} = 0.
+\]
+Applicando le formule di addizione si ha
+\begin{align*}
+  D \sin x
+  &= \lim_{h\to 0}\frac{\sin(x+h)-\sin(x)}{h} \\
+  &= \lim_{h\to 0}\frac{\sin(x)\cos(h) + \cos(x)\sin(h) - \sin(x)}{h} \\
+  &= \lim_{h\to 0}\sin(x) \frac{\cos h-1}{h} + \cos(x) \frac{\sin h}{h} = \cos(x).
+\end{align*}
+e similmente
+\begin{align*}
+  D \cos x
+  &= \lim_{h\to 0}\frac{\cos(x+h)-\cos(x)}{h} \\
+  &= \lim_{h\to 0}\frac{\cos(x)\cos(h) - \sin(x)\sin(h) - \cos(x)}{h} \\
+  &= \lim_{h\to 0}\cos(x) \frac{\cos h-1}{h} - \sin(x) \frac{\sin h}{h} = -\sin(x)
+\end{align*}
+\end{proof}
+
+La funzioni $\arcsin$ è definita come l'inversa della restrizione della funzione $\sin$ all'intervallo $[-\pi/2, \pi/2]$.
+Nell'intervallo aperto $(-\pi/2,$ $\pi/2)$ la funzione $\sin$ ha derivata positiva e dunque risulta che la funzione inversa (che sappiamo essere continua) è derivabile in $(-1,1)$ e la sua derivata è
+\[
+D\arcsin x
+= \frac{1}{\cos(\arcsin x)}
+= \frac{1}{\sqrt{1-\sin^2 \arcsin x}}
+= \frac{1}{\sqrt{1-x^2}}.
+\]
+Si ha infatti $\cos y = \sqrt{1-y^2}$ se $y\in [-\pi/2, \pi/2]$.
+
+Analogamente la funzione $\arccos$ è definita come l'inversa della restrizione di $\cos$ all'intervallo $[0,\pi]$ e si ha quindi,
+per $x\in (-1,1)$
+\[
+D \arccos x
+ = \frac{1}{-\sin(\arccos x)}
+ = \frac{1}{-\sqrt{1-\cos^2 \arccos x}}
+ = -\frac{1}{\sqrt{1-x^2}}.
+\]
+Si ha infatti $\sin y = \sqrt{1-\cos^2 y}$ se $y\in[0,\pi]$.
+
+Nei punti $x=1$ e $x=-1$ le funzioni $\arcsin$ e $\arccos$ non sono invece derivabili.
+
+Per la funzione tangente possiamo utilizzare la formula di derivazione del rapporto:
+\begin{align*}
+  D \tg x &= D \frac{\sin x }{\cos x}
+   = \frac{\cos x \cdot \cos x - \sin x \cdot (-\sin x)}{\cos^2 x} \\
+   &= \frac{\cos^2 x + \sin^2 x}{\cos^2 x}
+   = 1 + \tg^2 x = \frac{1}{\cos^2 x}.
+\end{align*}
+Usando la formula della derivata della funzione inversa si ha
+\[
+  D \arctg x = \frac{1}{1+\tg^2(\arctg x)}
+  = \frac{1}{1+x^2}.
+\]
+
+\begin{theorem}[Fermat]
+Sia $f\colon (a,b)\to \RR$ una funzione derivabile.
+Se $x_0\in (a,b)$ è un punto di massimo o minimo per $f$ allora
+$f'(x_0)=0$.
+\end{theorem}
+%
+\begin{proof}
+Senza perdere di generalità possiamo suppore che $x_0$ sia un punto di massimo per $f$.
+Sappiamo che
+\[
+  f'(x_0) = \lim_{x\to x_0}\frac{f(x)-f(x_0)}{x-x_0}.
+\]
+Visto che $x_0$ è un punto dell'intervallo aperto $(a,b)$ la funzione $f$ è definita in un intorno destro di $x_0$ e quindi possiamo restingere il limite ai valori $x>x_0$ ottenendo:
+\[
+  f'(x_0) = \lim_{x\to x_0^+}\frac{f(x) - f(x_0)}{x-x_0}.
+\]
+Visto che $x_0$ è un punto di massimo per $f$ sappiamo che $f(x)-f(x_0)\le 0$. Essendo $x-x_0>0$ l'intero rapporto incrementale risulta essere non positivo.
+Dunque, per il teorema della permanenza del segno,
+possiamo concludere che $f'(x_0)\le 0$.
+
+Ma possiamo anche restringere la funzione ad un intorno sinistro di $x_0$ e osservare che
+\[
+  f'(x_0) = \lim_{x\to x_0^-}\frac{f(x)-f(x_0)}{x-x_0}.
+\]
+Ma ora il numeratore è, come prima, non positivo mentre il denominatore $x-x_0$ è negativo. Dunque il rapporto incrementale stavolta è non negativo e quindi, per la permanenza del segno, $f'(x_0) \ge 0$.
+
+Abbiamo scoperto quindi che $f'(x_0)\le 0$ e $f'(x_0)\ge 0$
+da cui deduciamo $f'(x_0)=0$.
+\end{proof}
+
+\begin{theorem}[Rolle]
+\index{teorema!di Rolle}
+\mymargin{Rolle}
+Sia $f\colon [a,b]\to \RR$ una funzione continua su tutto $[a,b]$ e derivabile su $(a,b)$. Se $f(a) = f(b)$ allora esiste $x_0 \in (a,b)$ tale che $f'(x_0)=0$.
+\end{theorem}
+%
+\begin{proof}
+Essendo $f$ una funzione continua
+possiamo applicare il teorema di Weiestrass per dedurre che $f$ ha massimo e minimo sull'intervallo chiuso e limitato $[a,b]$. Se il punto di massimo o il punto di minimo sta nell'intervallo aperto $(a,b)$ possiamo applicare il teorema di Fermat per ottenere che la derivata di $f$ si annulla in tale punto.
+
+In caso contrario sia il punto di massimo che il punto di minimo sono estremi dell'intervallo, cioè sono uguali ad $a$ o a $b$. Ma visto che $f(a)=f(b)$ i valori massimo e minimo coincidono e quindi la funzione è costante. Ma in tal caso $f'(x)=0$ per ogni $x\in [a,b]$.
+\end{proof}
+
+\begin{theorem}[Lagrange]
+\index{teorema!di Lagrange}
+\mymargin{Lagrange}
+Sia $f\colon [a,b]\to \RR$ una funzione continua su $[a,b]$ e derivabile su $(a,b)$. Allora esiste un punto $x_0\in (a,b)$ tale che
+\[
+  f'(x_0) = \frac{f(b) - f(a)}{b-a}
+\]
+\end{theorem}
+%
+\begin{proof}
+Consideriamo la funzione ausiliaria:
+\[
+  g(x) = f(x) - \frac{f(b)-f(a)}{b-a} (x-a).
+\]
+Per verifica diretta si osserva che
+\[
+  g(b) = 0 = g(a).
+\]
+La funzione $g$ soddisfa quindi le ipotesi del teorema di Rolle e dunque esisterà $x_0\in (a,b)$ tale che $g'(x_0)=0$.
+Ma si osserva che
+\[
+  g'(x) = f'(x) - \frac{f(b)-f(a)}{b-a}
+\]
+e dunque se $g'(x_0)=0$ si ottiene il risultato desiderato.
+\end{proof}
+
+\begin{theorem}[criteri di monotonia]
+\mymargin{criteri di monotonia}
+Sia $f\colon I \to \RR$ una funzione derivabile definita su un intervallo $I\subset \RR$. Sia $J= (\inf I, \sup I)$ l'intervallo aperto corrispondente ad $I$. Sia $f$ continua su $I$ e derivabile su $J$. Allora valgono i seguenti criteri:
+\begin{enumerate}
+\item
+$\forall x \in J\colon f'(x)\ge 0$
+$\iff$
+$f$ è crescente;
+\item
+$\forall x \in J\colon f'(x)\le 0$
+$\iff$
+$f$ è decrescente;
+\item
+$\forall x \in J\colon f'(x)=0$
+$\iff$
+$f$ è costante;
+\item
+$\forall x \in J\colon f'(x)>0$
+$\implies$
+$f$ è strettamente crescente;
+\item
+$\forall x \in J\colon f'(x)<0$
+$\implies$
+$f$ è strettamente decrescente.
+\end{enumerate}
+\end{theorem}
+%
+\begin{proof}
+
+
+Dimostriamo innanzitutto le implicazioni da sinistra verso destra.
+
+Per la prima, se $f$ non fosse crescente ci dovrebbero essere due punti $a, b \in I$ tali che $a < b$ ma $f(a) < f(b)$. Dunque si avrebbe
+\[
+  \frac{f(b) - f(a)}{b - a} < 0.
+\]
+Applicando il teorema di Lagrange all'intervallo $[a,b]$ si troverebbe un punto $x\in (a,b)$ tale che $f'(x) < 0$. Chiaramente $(a,b)\subset J$ e quindi questo contraddice l'ipotesi $f'(x) \ge 0$.
+
+La seconda implicazione (per le funzioni decrescenti) si dimostra in maniera analoga cambiando verso alle disuguaglianze.
+
+Per la terza implicazione basta osservare che se $f'(x)=0$ allora valgono contemporaneamente $f'(x)\ge 0$ e $f'(x)\le 0$ quindi mettendo insieme le prime due implicazioni si ottiene che $f$ è contemporaneamente crescente e decrescente dunque è costante.
+
+Per la quarta implicazione si procede come per la prima. Per assurdo si  avrebbero $a<b$ con $f(b) \le f(a)$. Ma allora
+\[
+  \frac{f(b) - f(a)}{b-a} \le 0
+\]
+e applicando il teorema di Lagrange si troverebbe un punto $x\in (a,b)$ con $f'(x) \le 0$, contro l'ipotesi $f'(x) > 0$.
+
+La quinta implicazione si dimostra in maniera analoga cambiando verso alle disuguaglianze.
+
+Vediamo ora le implicazioni da destra verso sinistra.
+Per la prima, supponiamo che $f$ sia crescente e prendiamo $x\in J$. Allora è chiaro che per ogni $h>0$ si avrà $f(x+h) \ge f(x)$ e dunque
+\[
+  \frac{f(x+h)- f(x)}{h} \ge 0.
+\]
+Facendo il limite per $h \to 0^+$ si ottiene $f'(x)$ e, per la permanenza del segno, dovra essere $f'(x) \ge 0$.
+
+In maniera analoga (invertendo le disuguaglianze) si dimostra la seconda implicazione.
+
+La terza discende dalle prime due oppure, più semplicemente, dalle regole di derivazione, in quanto la derivata di una costante è zero.
+\end{proof}
+
+\begin{example}
+Si consideri la funzione
+\[
+  f(x) = \arctg x + \arctg\frac 1 x.
+\]
+Si ha
+\[
+  f'(x) = \frac{1}{1+ x^2} + \frac{1}{1 + \frac {1}{x^2}} \frac{-1}{x^2}
+    = \frac {1}{1+x^2} - \frac{1}{x^2 + 1} = 0.
+\]
+Osserviamo che la funzione $f$ è definita su $\RR\setminus \{0\}$ che non è un intervallo ma è unione di due intervalli disgiunti: $(-\infty, 0) \cup (0, +\infty)$. Possiamo allora applicare i criteri di monotonia separatamente ai due intervalli ottenendo che $f(x)$ è costante su ognuno dei due intervalli. Dunque esisteranno $c_1$ e $c_2$ tali che
+\[
+  f(x) = \begin{cases} c_1 & \text{se $x>0$,} \\
+  c_2 & \text{se $x<0$.}
+  \end{cases}
+\]
+Possiamo determinare facilmente $c_1$ e $c_2$ osservando che
+\begin{align*}
+c_1 &= f(1) = \arctg 1 + \arctg 1 = \frac{\pi}{2} \\
+c_2 &= f(-1) = \arctg (-1) + \arctg (-1) = - \frac{\pi}{2}.
+\end{align*}
+\end{example}
+In effetti la funzione $f$ pur avendo derivata nulla non è costante ma solo \emph{localmente costante}.
+
+\begin{example}
+Consideriamo la funzione $f(x) = x^3$ la cui derivata è $f'(x) = 3x^2$.
+Per ogni $x\in \RR$ si ha $f'(x)\ge 0$ dunque possiamo dedurre che $f$ è crescente.
+Scelto invece $I = [0,+\infty)$ l'intervallo aperto corrispondente è $J=(0,+\infty)$. Osserviamo che su $J$ si ha $f'(x) > 0$ quindi possiamo concludere che $f$ è strettamente crescente su tutto $I$. Lo stesso vale per l'intervallo $(-\infty,0]$. Mettendo insieme le due cose possiamo concludere che $f(x) = x^3$ è strettamente crescente su tutto $\RR$ nonostante che sia $f'(0)=0$. Questo mostra che una funzione strettamente monotona può avere derivata nulla in un punto.
+\end{example}
+
+Più in generale è facile osservare che se $f$ è monotona ma non strettamente monotona significa che ci sono due punti $a$ e $b$ per cui $f(a) = f(b)$. Ma se $f$ è monotona allora per ogni $x\in [a,b]$ si deve avere $f(x) = f(a) = f(b)$ (ad esempio: se $f$ è crescente si dovrebbe avere $f(a) \le f(x) \le f(b)$ ma se $f(a)=f(b)$ necessariamente $f(x)=f(a)=f(b)$). Dunque $f$ risulterebbe essere costante su $[a,b]$ e in particolare avremmo una infinità più che numerabile di punti in cui la derivata si annulla. Questo significa che se $f'(x)\ge 0$ su un intervallo e se $f'(x)=0$ su un numero finito o anche numerabile di punti, allora comunque $f$ è strettamente crescente. Ragionamento analogo vale per le funzioni decrescenti.
+
+\section{convessità}
+
+\begin{definition}[funzione convessa]
+Sia $I\subset \RR$ un intervallo.
+Una funzione $f\colon I\to \RR$
+si dice essere \emph{convessa} \mymargin{funzione convessa}
+se per ogni $x,y\in I$ e per ogni $t\in [0,1]$ si ha
+\[
+f((1-t)x + ty) \le (1-t) f(x) + t f(y).
+\]
+
+Analogamente diremo che $f$ è \emph{concava} \mymargin{funzione concava}
+se vale la disuguaglianza inversa:
+\[
+f((1-t)x + ty) \ge (1-t) f(x) + t f(y)
+\]
+(o, equivalentemente, se $-f$ è convessa).
+\end{definition}
+
+Osserviamo che la retta del piano passante per i punti $(x,f(x))$ e $(y,f(y))$ può essere parametrizzata in maniera uniforme per $t\in \RR$
+da
+\[
+  (1-t) (x,f(x)) + t(y,f(y)) = ((1-t)x + ty, (1-t) f(x) + tf(y)).
+\]
+Chiaramente per $t=0$ si ottiene il punto $(x,f(x))$ per $t=1$ il punto $(y,f(y))$ e per $t\in[0,1]$ il segmento congiungente tali punti. La condizione di convessità della funzione $f$ corrisponde quindi a richiedere che ogni corda (segmento) che unisce due punti del grafico si trovi "al di sopra" del grafico della funzione.
+
+\begin{definition}[insieme convesso]
+Un insieme $E\subset \RR^n$ si dice essere \myemph{convesso} se dati
+due punti qualunque $a,b\in E$ l'intero segmento $[a,b]=\{(1-t)a+tb\colon t\in [0,1]\}$ è contenuto in $E$.
+\end{definition}
+
+\begin{theorem}[epigrafico delle funzioni convesse]
+Sia $I\subset \RR$ e $f\colon I\subset \RR\to \RR$ una funzione.
+Allora sono equivalenti:
+\begin{enumerate}
+\item $I$ è un intervallo e $f$ è convessa;
+\item l'\myemph{epigrafico di $f$} ovvero l'insieme
+\[
+  E = \{(x,y)\in \RR^2\colon x\in I, y\ge f(x)\}
+\]
+è convesso.
+\end{enumerate}
+
+Per le funzioni concave sarà il \emph{sottografico} $\{(x,y)\colon y\le f(x)\}$ ad essere convesso.
+\end{theorem}
+%
+\begin{proof}
+Supponiamo che $I$ sia un intervallo e $f$ sia convessa. Per dimostrare che l'epigrafico $E$ è convesso consideriamo due punti $a,b\in E$ e un qualunque punto $p$ sul segmento $[a,b]$.
+Se $a=(x_a, y_a)$, $b=(x_b,y_b)$, $p=(x_p, y_p)$
+allora esiste un $t\in [0,1]$ tale che $x_p = (1-t)x_a + yx_b$ e $y_p=(1-t)y_a + t y_b$.
+Visto che $a,b\in E$ sappiamo che $y_a \ge f(x_a)$ e $y_b\ge f(x_b)$. Dunque necessariamente si ha
+\[
+  y_p \ge (1-t)f(x_a) + t f(y_b).
+\]
+Ma essendo $f$ convessa si ha:
+\[
+  (1-t)f(x_a) + t f(y_b) \ge f((1-t)x_a + t x_b) = f(x_p).
+\]
+Dunque $y_p\ge f(x_p)$ che significa $p\in E$.
+
+Viceversa supponiamo di sapere che $E$ è convesso. Siano $x,y\in I$ punti qualunque. Allora i punti $a=(x,f(x))$ e $b=(y,f(y))$ sono certamente punti di $E$ e quindi l'intero segmento $[a,b]$ deve essere contenuto in $E$. Dunque per ogni $t\in [0,1]$ il punto $p = ((1-t)x + t y,$ $(1-t)f(x)+ tf(y))$ deve stare in $E$. In primo luogo deve quindi essere $(1-t)x+ty\in I$ e se questo è vero per ogni $t\in[0,1]$ significa che $I$ è un intervallo. In secondo luogo se $p\in E$ significa che
+\[
+  (1-t)f(x) +t f(y) \ge f((1-t)x + t y)
+\]
+che corrisponde alla definizione di funzione convessa.
+\end{proof}
+
+
+\begin{lemma}[rapporto incrementale di una funzione convessa]
+Sia $I$ un intervallo di $\RR$ e sia $f\colon I\to \RR$.
+Dati $x,y\in I$ con $x\neq y$ definiamo il \emph{rapporto incrementale}
+di $f$ come:
+\[
+  R(x,y) = \frac{f(y) - f(x)}{y-x}.
+\]
+Allora sono condizioni equivalenti:
+\begin{enumerate}
+\item $f$ è convessa;
+\item per ogni $x,y,z\in I$ se $x<y<z$ si ha $R(x,y)\le R(y,z)$;
+\item per ogni $x,y,z\in I$ se $x<y<z$ si ha $R(x,y)\le R(x,z)$;
+\item per ogni $x,y,z\in I$ se $x<y<z$ si ha $R(x,z)\le R(y,z)$;
+\item la funzione $R(x,y)$ è crescente in ognuna delle due variabili.
+\end{enumerate}
+\end{lemma}
+%
+\begin{proof}
+Attenzione: il lemma risulta ovvio se si utilizza la giusta interpretazione geometrica (il rapporto incrementale è la pendenza della corda corrisondente). Quella che segue è la traduzione algebrica di quanto è geometricamente ovvio ma risulta inevitabilmente pesante e più difficilmente comprensibile.
+
+Siano $x,y,z\in I$ con $x<y<z$.
+Posto $t=(y-x)/(z-x)$ si ha $y=(1-t)x + tz$,
+ $y-x = t(z-x)$, $z-y = (1-t)(z-x)$.
+Si ha allora
+ \begin{equation*}
+ \begin{aligned}
+ R(x,z) - R(x,y)
+ &= \frac{f(z)-f(x)}{z-x} - \frac{f(y)-f(x)}{y-x} \\
+  &= t\frac{f(z)-f(x)}{y-z} - \frac{f(y)-f(x)}{y-x} \\
+  &= \frac{tf(z) + (1-t) f(x) - f(y)}{y-x}
+ \end{aligned}
+ \end{equation*}
+
+La condizione di convessità di $f$ è
+\[
+  f(y) \le (1-t)f(x) + tf(z)
+\]
+ed è quindi equivalente alla condizione $R(x,z) \le R(x,y)$.
+Dunque le condizioni 1 e 3 sono equivalenti.
+
+Ma con una verifica diretta si osserva che
+\[
+  R(x,z) = t R(x,y) + (1-t) R(y,z)
+\]
+da cui si ottiene
+\[
+  R(y,z) - R(x,z) = t[R(y,z) - R(x,y)]
+\]
+oppure anche
+\[
+ R(x,z) - R(x,y) = (1-t) [R(y,z) - R(x,y)].
+\]
+Risulta quindi che le quantità
+\[
+  R(y,z) - R(x,y), \qquad
+  R(x,z) - R(x,y), \qquad
+  R(y,z) - R(x,z)
+\]
+hanno tutte lo stesso segno. E quindi le condizioni 2, 3 e 4 sono tra loro equivalenti (se vale una delle tre valgono tutte e tre).
+
+Se valgono le tre condizioni 2, 3 e 4 è facile verificare che la funzione $R(x,y)$ è crescente in entrambe le variabili. Innanzitutto per simmetria, visto che $R(x,y) = R(y,x)$, è sufficiente verificare che $R(x,y)$ è crescente nella seconda variabile $y$ per ogni $x$ fissato. Quindi dato $z>y$ bisogna mostrare che $R(x,z) \ge R(x,y)$.
+Abbiamo allora tre possibilità a seconda che sia $x<y$ oppure $y<x<z$ oppure $z<x$. Nel primo caso si ha $x<y<z$ e dunque la disuguaglianza $R(x,y) \le R(x,z)$ corrisponde alla condizione 3.
+Nel secondo caso si ha $y<x<z$ e la condizione $R(x,y)\le R(x,z)$ si può scrivere come $R(y,x) \le R(x,z)$ che è, riordinando opportunamente le variabili, la condizione 2. Se, infine, $y < z < x$ la condizione $R(x,y) \le R(x,z)$ si può scrivere $R(y,x) \le R(z,x)$ che, riordinando le variabili, è la condizione 4.
+
+Viceversa (e infine) se la funzione $R(x,y)$ è crescente in entrambe le variabili in particolare è crescente nella seconda variabile e quindi se $x<y<z$ si ha $R(x,y) \le R(x,z)$. Risulta quindi che la condizione 5 implica la 3 e quindi tutte le altre condizioni.
+\end{proof}
+
+\begin{theorem}
+Sia $I\subset \RR$ un intervallo e $f\colon I \to \RR$ una funzione derivabile su tutto $I$.
+Allora sono equivalenti:
+\begin{enumerate}
+\item $f$ è convessa;
+\item per ogni $x_0 \in I$ e per ogni $x\in I$ si ha
+\[
+   f(x) \ge f'(x_0) (x-x_0) + f(x_0)
+\]
+(geometricamente: il grafico della funzione sta sopra la retta tangente);
+\item $f'$ è crescente.
+\end{enumerate}
+
+Analogamente per le funzioni concave si avrà che il grafico ``sta sotto'' la retta tangente e che la derivata è decrescente.
+\end{theorem}
+%
+\begin{proof}
+Osserviamo che
+\[
+  f'(x_0) = \lim_{x\to x_0} R(x_0,x).
+\]
+Se $f$ è convessa allora, per il lemma, il rapporto incrementale $R(x_0,x)$ è crescente e quindi  $f'(x_0) = \inf_{x>x_0} R(x_0,x)$. In particolare $f'(x_0) \le R(x_0,x)$ per ogni $x> x_0$. In maniera analoga si trova $f'(x_0) \ge R(x_0,x)$ se $x<x_0$.
+In ogni caso risulta quindi che per ogni $x$ si ha
+\[
+(R(x_0,x)- f'(x_0))(x-x_0)\ge 0
+\]
+ovvero
+\[
+  f(x) - f(x_0) - f'(x_0)(x-x_0) \ge 0.
+\]
+Dunque la condizione 1 implica la 2.
+
+Se vale la condizione 2, dati $x,y \in I$ si ha
+\[
+  f(x) - f(y) \ge f'(y)(x-y)
+\]
+se scambiamo $x$ e $y$ e cambiamo di segno ambo i membri si ottiene invece
+\[
+  f(x) - f(y) \le f'(x)(x-y)
+\]
+mettendo insieme le due disuguaglianze,
+se ora supponiamo che sia $x>y$ otteniamo proprio $f'(x) \le f'(y)$ cioè $f'$ è crescente (condizione 3).
+
+Supponiamo ora di sapere che $f'$ è crescente e supponiamo per assurdo che la funzione $f$ non sia convessa.
+In base al lemma precedente dovrebbero allora esistere tre punti $x<y<z$ tali che $R(x,y)> R(y,z)$. Per il teorema di Lagrange dovrebbe allora esistere un punto $c\in (x,y)$ tale che $f'(c) = R(x,y)$ e un punto $d \in (y,z)$ tale che $f'(d) = R(y,z)$ ma allora
+$f'(c) > f'(d)$ nonostante sia $c<d$ e dunque $f'$ non poteva essere crescente.
+\end{proof}
+
+\begin{corollary}[criterio di convessità tramite derivata seconda]
+Sia $I\subset \RR$ un intervallo e sia $f\colon I \to \RR$ una funzione derivabile due volte (cioè $f$ è derivabile e anche $f'$ è derivabile).
+Allora $f$ è convessa se e solo se $f''(x)\ge 0$ per ogni $x\in I$.
+Analogamente $f$ è concava se e solo se $f''\le 0$.
+\end{corollary}
+\begin{proof}
+Per il criterio precedente $f$ è convessa se e solo se $f'$ è crescente. Per il criterio di monotonia $f'$ è crescente se e solo se $f'' \ge 0$. Considerazioni analoghe valgono per la concavità.
+\end{proof}
+
+\begin{theorem}
+Siano $a\in \RR$, $b\in \bar \RR$, $a<b$.
+Sia $f\colon [a,b)\to \RR$ una funzione convessa in $(a,b)$ e continua in $a$. Allora $f$ è convessa su tutto $[a,b)$. Risultato analogo vale per funzioni definite su intervalli semichiusi a destra $(a,b]$ o chiusi $[a,b]$.
+\end{theorem}
+%
+\begin{proof}
+Dati $x,y \in [a,b)$ dobbiamo mostrare che per ogni $t\in[0,1]$ vale
+\[
+f((1-t) x+ t y) \le (1-t)f(x) + t f(y).
+\]
+Per ipotesi sappiamo che la disuguaglianza è valida se $x,y \in (a,b)$. Dobbiamo quindi dimostrare la disuguaglianza solamente nel caso $x=a$ e $y\in(a,b)$. Dato qualunque $t\in (0,1)$ e
+presa una successione $x_k \to a$ con $x_k\in (a,b)$ definiamo
+$t_k$ in modo che sia $z = (1-t)x + ty = (1-t_k) x_k + t_k y$
+cioè:
+\[
+  t_k = \frac{x - x_k + t(y-k)}{y-x_k}.
+\]
+Siccome $t_k\to t$ per $k\to +\infty$ se $t\in (0,1)$ per $k$ abbastanza grande anche $t_k\in(0,1)$. Inoltre per la convessità in $(a,b)$ sappiamo che vale
+\[
+  f((1-t_k)x_k + t_k y) \le (1-t_k) f(x_k) + t_k f(y)
+\]
+e passando a limite per $k\to +\infty$, dalla continuità di $f$ in $x$ si ottiene
+\[
+   f((1-t)x+ty) \le (1-t) f(x) + t f(y)
+\]
+come volevamo dimostrare. Per $t=0$ e $t=1$ la disuguaglianza è sempre banalmente verificata.
+\end{proof}
+
+\begin{example}
+La funzione $f(x) = \sqrt{x}$ è definita su $[0,+\infty)$ ma è derivabile solamente in $(0,+\infty)$. La sua derivata è $f'(x) = x^{-\frac 1 2 }/2$ e la derivata seconda è $f''(x) = -x^{-\frac 3 2}/4 < 0$. Dunque la funzione è convessa sull'intervallo aperto $(0,+\infty)$. Ma essendo continua possiamo concludere che $f$ è convessa su tutto il dominio $[0,+\infty)$.
+\end{example}
+
+\begin{theorem}[continuità delle funzioni convesse]
+Sia $f\colon (a,b) \to \RR$ una funzione convessa. Allora $f$ è continua.
+\end{theorem}
+%
+\begin{proof}
+Sia $x_0 \in (a,b)$ e siano $y,z \in (a,b)$ con $y < x_0 < z$.
+Per il lemma sui rapporti incrementali sappiamo che per ogni $x\in (y,z)$ si ha
+\[
+   R(x_0, y) \le R(x_0,x) \le R(x_0,z).
+\]
+In particolare esiste una costante $C$ tale che
+\[
+  \abs{R(x_0,x)} \le C,\qquad \forall x \in (y,z).
+\]
+Moltiplicando per $\abs{x-x_0}$ si ottiene allora
+\[
+   \abs{f(x) - f(x_0)} \le C \abs{x-x_0}
+\]
+e per $x\to x_0$ il lato destro tende a zero e quindi per confronto anche il lato sinistro deve tendere a zero. Dunque $f(x)\to f(x_0)$
+e $f$ è continua in $x_0$.
+\end{proof}
+
+\begin{theorem}[combinazioni baricentriche]
+Se $f$ è una funzione convessa definita su un intervallo $I$, dati $x_1, \dots, x_n \in I$ e $\lambda_1, \dots, \lambda_n\in \RR$ tali che $\sum_{k=1}^n \lambda_k = 1$ e $\lambda_k \ge 0$ per ogni $k=1, \dots, n$ allora
+\[
+  f\enclose{\sum_{k=1}^n \lambda_k x_k}
+  \le \sum_{k=1}^n \lambda_k f(x_k).
+\]
+Per le funzioni concave vale la disuguaglianza inversa.
+\end{theorem}
+%
+\begin{proof}
+Procediamo per induzione su $n$. Nel caso $n=1$ si ha $\lambda_1=1$ e i due lati della disuguaglianza sono effettivamente uguali. Supponendo il teorema dimostrato per un certo $n$, procediamo a dimostrarlo per $n+1$.
+Osserviamo che
+\begin{align*}
+  \sum_{k=1}^{n+1} \lambda_k x_k
+  &= \sum_{k=1}^n \lambda_k x_k  + \lambda_{n+1} x_{n+1} \\
+  &= (1-\lambda_{k+1})\sum_{k=1}^n\frac{\lambda_k}{1-\lambda_{n+1}} x_k + \lambda_{n+1} x_{n+1}.
+\end{align*}
+Notiamo allora che se
+\[
+  \sum_{k=1}^{n+1} \lambda_k = 1
+\]
+allora
+\[
+  \sum_{k=1}^n \frac{\lambda_k}{1-\lambda_{n+1}}
+  = \frac{1-\lambda_{n+1}}{1-\lambda_{n+1}} = 1.
+\]
+Dunque, per ipotesi induttiva si ha allora
+\[
+  f\enclose{\sum_{k=1}^n\frac{\lambda_k}{1-\lambda_{n+1}} x_k}
+  \le \sum_{k=1}^n \frac{\lambda_k}{1-\lambda_{n+1}}f(x_k).
+\]
+Usando di nuovo la convessità di $f$ con $t=\lambda_{n+1}$ si ha
+\begin{align*}
+f\enclose{\sum_{k=1}^{n+1} \lambda_k x_k}
+&=f\enclose{(1-\lambda_{n+1})\sum_{k=1}^n \frac{\lambda_k}{1-\lambda_{n+1}}x_k + \lambda_{n+1}x_{n+1}}\\
+&\le (1-\lambda_{n+1})f\enclose{\sum_{k=1}^n \frac{\lambda_k}{1-\lambda_{n+1}}x_k} + \lambda_{n+1}f(x_{n+1}) \\
+&\le (1-\lambda_{n+1})\sum_{k=1}^n \frac{\lambda_k}{1-\lambda_{n+1}} f(x_k) + \lambda_{n+1} x_{n+1}\\
+&= \sum_{k=1}^{n+1}\lambda_k f(x_k).
+\end{align*}
+come volevamo dimostrare.
+\end{proof}
+
+
+\begin{example}[disuguaglianza media aritmetica, media geometrica]
+Osserviamo che la funzione $f(x) = \ln x$ è concava, infatti si ha
+$f''(x) = -1/x^2 < 0$. Dunque, per il teorema precedente, se $\lambda_1 + \dots + \lambda_n =1$, $\lambda_k \ge 0$ si ha
+\[
+    \ln\enclose{\sum_{k=1}^n \lambda_k x_k}
+    \ge \sum_{k=1}^n \lambda_k \ln x_k.
+\]
+Facendo l'esponenziale di ambo i membri si ottiene
+\[
+  \sum_{k=1}^n \lambda_k x_k \ge \prod_{k=1}^n x_k^{\lambda_k}.
+\]
+Nel caso particolare $\lambda_k = 1/n$ si ottiene
+la disuguaglianza tra \myemph{media aritmetica} (AM per gli anglofoni) e \myemph{media geometrica}:
+\[
+  \frac{x_1 + \dots + x_n}{n} \ge \sqrt[n]{x_1\cdots x_n}.
+\]
+\end{example}
+
+\begin{exercise}[subadditività delle funzioni concave]
+Sia $f\colon [0,+\infty) \to \RR$ una funzione concava con $f(0)\ge 0$. Allora $f$ è subadditiva cioè:
+\[
+  f(x+y) \le f(x) + f(y),\qquad \forall x,y\ge 0.
+\]
+\end{exercise}
+%
+\begin{proof}
+Se $x=y=0$ la disuguaglianza è ovvia.
+Altrimenti $x+y>0$ e si ha
+\begin{align*}
+f(x) &= f\enclose{\frac{y}{x+y}\cdot 0 + \frac{x}{x+y}\cdot (x+y)}\\ &\ge \frac{y}{x+y}f(0) + \frac{x}{x+y}f(x+y)
+\ge \frac{x}{x+y}f(x+y).
+\end{align*}
+Scambiando $x$ con $y$ e sommando si ottiene:
+\[
+  f(x) + f(y) \ge \frac{x}{x+y}f(x+y) + \frac{y}{x+y}f(x+y) = f(x+y).
+\]
+\end{proof}
+
+
+
+\section{teorema di de l'Hospital}
+
+\begin{theorem}[Cauchy]
+\index{teorema!di Cauchy}
+\mymargin{Cauchy}
+Siano $f\colon[a,b]\to \RR$ e $g\colon[a,b]\to \RR$ funzioni continue su tutto $[a,b]$ e derivabili su $(a,b)$.
+Supponiamo inoltre che $g'(x)\neq 0$ per ogni $x\in (a,b)$.
+Allora $g(b) \neq g(a)$ ed esiste $x_0\in(a,b)$ tale che
+\[
+  \frac{f'(x_0)}{g'(x_0)} = \frac{f(b)-f(a)}{g(b)-g(a)}.
+\]
+\end{theorem}
+%
+\begin{proof}
+Si consideri la funzione ausiliaria
+\[
+ h(x) = (g(b)-g(a))f(x) - (f(b)-f(a))g(x).
+\]
+Per verifica diretta si osserva che
+\[
+  h(b) = g(b)f(a) - f(b)g(a) = h(b).
+\]
+Dunque $h$ verifica le ipotesi del teorema di Rolle ed esiste
+dunque un punto $x_0\in(a,b)$ per cui $h'(x_0) = 0$.
+Essendo però
+\[
+  h'(x) = (g(b) - g(a)) f'(x) - (f(b)-f(a)) g'(x)
+\]
+si ottiene
+\[
+ (g(b)-g(a))f'(x_0) = (f(b) - f(a))g'(x_0).
+\]
+Per ipotesi sappiamo che $g'(x_0)\neq 0$.
+Ma necessariamente anche $g(b) - g(a)\neq 0$ perché altrimenti potremmo applicare il teorema di Rolle alla funzione $g$ e ottenere che $g'$ si annulla in un punto di $(a,b)$, cosa che abbiamo escluso per ipotesi.
+Dunque possiamo dividere ambo i membri per $(g(b)-g(a))$ e per $g'(x_0)$ per ottenere l'uguaglianza enunciata nel teorema.
+\end{proof}
+
+\begin{theorem}[de l'Hospital $0/0$]
+\index{teorema!di de l'Hospital}
+\mymargin{de l'Hospital}
+Siano $a,b\in [-\infty,+\infty]$ con $a<b$.
+Siano $f,g \colon (a,b)\to \RR$ funzioni derivabili.
+Se
+\[
+ \lim_{x\to a^+} f(x) = 0 \qquad
+ \text{e}\qquad
+ \lim_{x\to a^+} g(x) = 0,
+\]
+se $g'(x) \neq 0$ per ogni $x\in (a,b)$
+e se esiste il limite
+\[
+  \ell = \lim_{x\to a^+}\frac{f'(x)}{g'(x)}
+\]
+allora
+si ha
+\[
+ \lim_{x\to a^+}\frac{f(x)}{g(x)} = \ell.
+\]
+
+Risultato analogo si ha facendo i limiti per $x\to b^-$ invece che per $x\to a^+$ e di conseguenza anche nel caso in cui la funzione sia definita su un intervallo ``bucato`` $f\colon (a,b)\setminus\{x_0\} \to \RR$ e si considerino i limiti ``pieni'' per $x\to x_0$.
+\end{theorem}
+%
+\begin{proof}
+Notiamo innanzitutto che la funzione $g$ può annullarsi al più in un punto di $(a,b)$ in quanto per il teorema di Rolle se si annullasse in due punti anche la derivata si dovrebbe annullare in un punto intermedio, cosa che abbiamo escluso per ipotesi. Eventualmente rimpiazzando l'intervallo $(a,b)$ con un intervallo più piccolo $(a,b')$ possiamo dunque supporre, senza perdere di generalità, che la funzione $g$ non si annulli mai in $(a,b)$.
+
+Consideriamo ora una generica successione $a_k \in (a,b)$, $a_k \to a$. Per il teorema di collegamento tra limiti di funzione e limiti di successione sarà sufficiente dimostrare che $f(a_k)/g(a_k)\to \ell$.
+
+Osserviamo ora che, fissato $k$, per $x\to a$ si ha
+\[
+\frac{f(a_k) - f(x)}{g(a_k) - g(x)} \to \frac{f(a_k)}{g(a_k)}
+\]
+in quanto, per ipotesi, $f(x)\to 0$ e $g(x)\to 0$.
+Dunque per ogni $k$
+possiamo trovare un punto $x_k \in (a,a_k)$ tale che
+\[
+\abs{\frac{f(a_k) - f(x_k)}{g(a_k) - g(x_k)} - \frac{f(a_k)}{g(a_k)}}
+< \frac 1 k.
+\]
+Ma sull'intervallo $[x_k,a_k]$ possiamo applicare il teorema di Cauchy
+e trovare quindi un punto $y_k\in (x_k,a_k)$ tale che
+\[
+\frac{f(a_k) - f(x_k)}{g(a_k)-g(x_k)} = \frac{f'(y_k)}{g'(y_k)}
+\]
+ottenendo quindi:
+\[
+\abs{\frac{f'(y_k)}{g'(y_k)}-\frac{f(a_k)}{g(a_k)}} < \frac 1 k.
+\]
+Visto che $y_k \in (a,a_k)$ e visto che $a_k \to a$  certamente anche $y_k\to a$ per $k\to +\infty$ e quindi sappiamo, per ipotesi che
+\[
+  \frac{f'(y_k)}{g'(y_k)} \to \ell, \qquad \text{per $k\to +\infty$}
+\]
+e visto che la differenza tende a zero, necessariamente si deve avere anche
+\[
+  \frac{f(a_k)}{g(a_k)} \to \ell.
+\]
+\end{proof}
+
+\begin{proposition}[criterio di derivabilità]
+Sia $I\subset \RR$ un intervallo, $x_0\in I$
+$f\colon I \to \RR$ una funzione continua su tutto $I$ e derivabile in $I\setminus\{x_0\}$.
+Se il limite della derivata
+\[
+  \lim_{x\to x_0} f'(x) = m
+\]
+esiste ed è finito la funzione $f$ è derivabile anche in $x_0$ e vale $f'(x_0) = m$.
+\end{proposition}
+%
+\begin{proof}
+Consideriamo il limite del rapporto incrementale
+\[
+  \lim_{x\to x_0} \frac{f(x) - f(x_0)}{x - x_0}.
+\]
+Visto che la funzione è continua in $x_0$ si ha $f(x)-f(x_0) \to 0$
+per $x\to x_0$ e chiaramente si ha anche $x-x_0 \to 0$
+come richiesto nelle ipotesi del teorema di De L'Hospital.
+Se facciamo il limite del rapporto delle derivate si ha
+\[
+ \lim_{x\to x_0} \frac{f'(x)}{1} = m
+\]
+e dunque applicando il teorema si trova che anche il limite del rapporto incrementale è uguale ad $m$ e dunque $f'(x_0) = m$.
+\end{proof}
+
+La proposizione precedente dice che la derivata di una funzione in un punto non può avere un valore diverso dal suo limite. Nonostante questo esistono però funzioni derivabili la cui derivata non è continua, come nel seguente esempio.
+
+\begin{example}
+[funzione derivabile con derivata non continua]
+\index{funzione derivabile con derivata non continua}
+\index{derivata non continua}
+La funzione $f\colon \RR \to \RR$ definita da
+\[
+  f(x)
+  = \begin{cases}
+    x^2 \sin(1/x) & \text{se $x \neq 0$} \\
+    0 & \text{se $x=0$.}
+  \end{cases}
+\]
+è derivabile su tutto $\RR$, $f'(0)=0$ ma il limite
+\[
+\lim_{x\to 0} f(x)
+\]
+non esiste (e dunque $f'\colon \RR\to\RR$ non è continua in $x=0$).
+\end{example}
+%
+\begin{proof}
+La funzione $x^2 \sin(1/x)$ è derivabile infinite volte su tutto il suo dominio $\RR\setminus\{0\}$ in quanto composizione di funzioni elementari derivabili infinite volte.
+Dunque, per la località della derivata, anche la funzione $f$ è derivabile infinite su $\RR\setminus\{0\}$.
+Per $x\neq 0$ possiamo quindi calcolare $f'(x)$ utilizzando le regole di derivazione
+\[
+  f'(x)
+  = D \enclose{x^2\sin \frac 1 x}
+  = 2x \sin \frac 1 x + x^2 \enclose{\cos \frac 1 x} \cdot\frac{-1}{x^2}
+  = 2x \sin \frac 1 x - \cos \frac 1 x.
+\]
+
+Verifichiamo ora che $f$ è continua e derivabile anche in $0$.
+Si ha infatti
+\[
+ \lim_{h\to 0}\frac{f(0+h)-f(0)}{h}
+ = \lim_{h\to 0} h \sin \frac 1 h = 0
+\]
+e dunque $f'(0) = 0$.
+Osserviamo però che $f'(x)$ non ammette limite per $x\to 0$
+in quanto per $x \to 0$ si ha $2x \sin(1/x) \to 0$ ma il limite di $\cos (1/x)$ invece non esiste. Dunque $f'(x)$ è la somma di una funzione che ha limite zero e di una funzione il cui limite non esiste per $x\to 0$. Dunque $f'(x)$ non ammette limite per $x\to 0$.
+\end{proof}
+
+\begin{theorem}[de l'Hospital $\cdot/\infty$]
+\index{teorema!di de l'Hospital}
+\mymargin{de l'Hospital}
+Siano $a,b\in [-\infty,+\infty]$ con $a<b$.
+Siano $f,g \colon (a,b)\to \RR$ funzioni derivabili.
+Se
+\[
+ \lim_{x\to a^+} \abs{g(x)} = +\infty,
+\]
+se $g'(x) \neq 0$ per ogni $x\in (a,b)$
+e se esiste il limite (finito o infinito)
+\[
+  \ell = \lim_{x\to a^+}\frac{f'(x)}{g'(x)}
+\]
+allora
+si ha
+\[
+ \lim_{x\to a^+}\frac{f(x)}{g(x)} = \ell.
+\]
+
+Risultato analogo si ha facendo i limiti per $x\to b^-$ invece che per $x\to a^+$ e di conseguenza anche nel caso in cui la funzione sia definita su un intervallo ``bucato`` $f\colon (a,b)\setminus\{x_0\} \to \RR$ e si considerino i limiti ``pieni'' per $x\to x_0$.
+\end{theorem}
+%
+\begin{proof}
+Supponiamo per assurdo che non si abbia
+\[
+  \lim_{x\to a^+} \frac{f(x)}{g(x)} = \ell.
+\]
+Allora, per il teorema di collegamento tra limiti di funzione e limiti di successione, deve esistere una successione $a_k\in (a,b)$, $a_k\to a$ tale che non si abbia
+\[
+  \lim_{k\to +\infty} \frac{f(a_k)}{g(a_k)} = \ell.
+\]
+Se la successione $f(a_k) / g(a_k)$ è limitata allora applicando il teorema di Bolzano Weierstrass sappiamo esistere una sottosuccessione
+di $a_k$ convergente ad un valore $m\neq \ell$ (se tutte le sottosuccessioni convergesso ad $\ell$ l'intera successione convergerebbe ad $\ell$). Se invece $f(a_k) / g(a_k)$ non è limitata possiamo estrarre una sottosuccessione che converge a $+\infty$ oppure a $-\infty$. In ogni caso esiste una successione, che chiameremo ancora $a_k$, ed esiste $m\in \bar \RR$ tale che
+\[
+  \lim_{k \to +\infty} \frac{f(a_k)}{g(a_k)} = m \neq \ell.
+\]
+Consideriamo ora un intorno $U$ di $m$ e un intorno $V$ di $\ell$ itali che $U\cap V = \emptyset$.
+Siccome $f'(x) / g'(x) \to \ell$ per $x\to a$ esiste un $x_0\in (a,b)$ tale che per ogni $x\in (a,x_0)$ si ha
+\[
+  \frac{f'(x)}{g'(x)} \in V.
+\]
+Consideriamo allora il seguente rapporto incrementale
+\begin{align*}
+\frac{f(a_k) - f(x_0)}{g(a_k) - g(x_0)}
+=\frac{\frac{f(a_k)}{g(a_k)}-\frac{f(x)}{g(a_k)}}{1-\frac{g(x)}{g(a_k)}}
+\end{align*}
+e osserviamo che il lato destro tende a $m$ per $k\to +\infty$ in quanto $f(a_k)/g(a_k) \to m$ e visto che $\abs{g(a_k)}\to +\infty$ si ha $f(x)/g(a_k)\to 0$ e $g(x)/g(a_k) \to 0$.
+Dunque esisterà un $k$ per cui il lato destro sta nell'intorno $U$ di $m$. Al lato sinistro possiamo invece applicare il teorema di Cauchy e trovare quindi un punto $y\in(a_k,x_0)$ per cui tale lato risulti
+uguale a $f'(y)/g'(y)$. Ma visto che $y\in (a,x_0)$ si dovrà avere $f'(y)/g'(y) \in V$. Questo è assurdo in quanto $U\cap V = \emptyset$.
+\end{proof}
