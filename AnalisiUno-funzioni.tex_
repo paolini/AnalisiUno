@@ -1684,7 +1684,10 @@ Dunque si ha $P^{(k)}(x_0) = f^{(k)}(x_0)$ se e solo se $a_k = f^{(k)}(x_0)/k!$ 
 \end{proof}
 
 \begin{theorem}[formula di Taylor]
-Sia $I\subset \RR$ un intervallo, $x_0\in I$, $f\in C^{n-1}(I)$ con $f^{(n-1)}$ derivabile in $x_0$ (in particolare è sufficiente che sia $f\in C^n(I)$). Sia $P$ il polinomio di Taylor di $f$ di ordine $n$ centrato in $x_0$. Allora si ha
+Sia $I\subset \RR$ un intervallo, $x_0\in I$, $f\in C^{n-1}(I)$ con $f^{(n-1)}$
+derivabile in $x_0$
+(in particolare è sufficiente che sia $f\in C^n(I)$).
+Sia $P$ il polinomio di Taylor di $f$ di ordine $n$ centrato in $x_0$. Allora si ha
 \[
   \lim_{x\to x_0}\frac{f(x) - P(x)}{(x-x_0)^n} = 0
 \]
@@ -1693,3 +1696,35 @@ ovvero, scritto in maniera più espressiva:
   f(x) = P(x) + o((x-x_0)^n).
 \]
 \end{theorem}
+%
+\begin{proof}
+Osserviamo che il limite
+\[
+\lim_{x\to x_0}\frac{f(x) - P(x)}{(x-x_0)^n} = 0
+\]
+è una forma indeterminata $0/0$ in quanto essendo $f$ e $P$ funzioni continue,
+ed essendo $P(X_0) = f(x_0)$ si ha $f(x)-P(x) \to f(x_0) - P(x_0) = 0$
+per $x\to x_0$. Ovviamente anche il denominatore $(x-x_0)^n \to 0$ per $x\to x_0$.
+
+Potremo quindi applicare il teorema di De L'Hospital
+se riusciamo a determinare il limite del rapporto delle derivate:
+\[
+  \lim_{x\to x_0} \frac{f'(x) - P'(x)}{n (x-x_0)^{n-1}}.
+\]
+Anche in questo caso osserviamo che il limite è una forma indeterminata $0/0$
+e dunque nuovamente potremo utilizzare De L'Hospital. Iterando il procedimento
+$n-1$ volte arriveremo al limite:
+\[
+  \lim_{x\to x_0} \frac{f^{(n-1)}(x) - P^{(n-1)}(x)}{n! (x-x_0)}.
+\]
+Osserviamo ora che $P^{(n-1)}(x) = f^{(n-1)}(x_0) + f^{(n)}(x_0) (x-x_0)$ dunque
+il limite sopra esposto è uguale a
+\[
+  \lim_{x\to x_0}\frac{1}{n!}
+  \enclose{\frac{f^{(n-1)}(x) - f^{(n-1)}(x_0)}{x-x_0} - f^{(n)}(x_0)}.
+\]
+Ma quello che compare al primo addendo non è altro che il rapporto incrementale
+della funzione $f^{(n-1)}$ nel punto $x_0$. Il suo limite è quindi uguale a $f^{(n)}(x_0)$
+che è proprio la quantità che poi viene sottratta. Il risultato di quest'ulimo limite è quindi
+$0$ e, a cascata, tutti i limiti precedenti sono uguali a zero.
+\end{proof}
