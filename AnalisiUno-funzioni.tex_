@@ -884,6 +884,42 @@ Scelto invece $I = [0,+\infty)$ l'intervallo aperto corrispondente è $J=(0,+\in
 
 Più in generale è facile osservare che se $f$ è monotona ma non strettamente monotona significa che ci sono due punti $a$ e $b$ per cui $f(a) = f(b)$. Ma se $f$ è monotona allora per ogni $x\in [a,b]$ si deve avere $f(x) = f(a) = f(b)$ (ad esempio: se $f$ è crescente si dovrebbe avere $f(a) \le f(x) \le f(b)$ ma se $f(a)=f(b)$ necessariamente $f(x)=f(a)=f(b)$). Dunque $f$ risulterebbe essere costante su $[a,b]$ e in particolare avremmo una infinità più che numerabile di punti in cui la derivata si annulla. Questo significa che se $f'(x)\ge 0$ su un intervallo e se $f'(x)=0$ su un numero finito o anche numerabile di punti, allora comunque $f$ è strettamente crescente. Ragionamento analogo vale per le funzioni decrescenti.
 
+\begin{theorem}[proprietà di Darboux]
+Sia $f\colon I \to \RR$ una funzione derivabile su un intervallo $I\subset \RR$.
+Allora la derivata soddisfa la proprietà dei valori intermedi: per ogni $x,y\in I$ e per ogni $m$
+se $f'(x) \le m \le f'(y)$ allora esiste
+$z\in I$ tale che $f'(z)=m$.
+\end{theorem}
+%
+\begin{proof}
+Siano $x,y \in I$ con $x<y$ e sia $m$ compreso tra $f(x)$ e $f(y)$.
+E' sufficiente trovare una coppia di punti $a,b\in I$ tali che
+\[
+  R(a,b) = \frac{f(b)-f(a)}{b-a} = m
+\]
+perché in tal caso, per il teorema di Lagrange, dovrà esistere un punto $z\in (a,b)$ tale che $f'(z)=m$.
+Senza perdita di generalità possiamo supporre che sia $f'(x) \le m \le R(x,y)$.
+Il caso in cui $m\ge R(x,y)$ si risolve infatti in maniera analoga.
+
+Consideriamo la funzione
+\[
+F(t)
+= \begin{cases}
+  f'(x) & \text{se $t=x$};\\
+  R(x,t) & \text{se $t\in(x,y]$}.
+\end{cases}
+\]
+La funzione $F\colon [x,y]\to \RR$ è continua in $(x,y]$ in quanto $R(x,t)$ è continua (essendo $f$ continua
+anche il rapporto incrementale lo è). E' anche continua in $x$ in quanto $f'(x)$
+per definizione è il limite del rapporto incrementale, dunque
+\[
+  F(x) = f'(x) = \lim_{t\to x} R(x,t) = \lim_{t\to x} F(t).
+\]
+Allora la funzione $F(t)$ assume i valori intermedi tra $F(x)=f'(x)$ e $F(y)=R(x,y)$.
+Ci sarà dunque un punto $t\in [x,y]$ per cui $F(t) = m$ e per il teorema di Lagrange
+esisterà un punto $z\in[x,t]$ tale che $f'(z) = R(x,t) = F(t) = m$.
+\end{proof}
+
 \section{convessità}
 
 \begin{definition}[funzione convessa]
@@ -1434,17 +1470,17 @@ uguale a $f'(y)/g'(y)$. Ma visto che $y\in (a,x_0)$ si dovrà avere $f'(y)/g'(y)
 
 \section{classi di regolarità}
 \begin{definition}[funzioni di classe $C^k$]
-\mymargin{$C^k$}
-Dato $A\subset \RR$ denotiamo con $\RR^A$ l'insieme di tutte le funzioni $f\colon A \to \RR$ (rimandiamo agli appunti di logica/insiemistica per una giustificazione di questa notazione.).
-Per ogni $k\in \NN$ definiamo (per induzione)
+Dato $A\subset \RR$ denotiamo con $\RR^A$ l'insieme di tutte le funzioni $f\colon A \to \RR$ (rimandiamo agli appunti di logica/insiemistica per una giustificazione di questa notazione).
+Per ogni $k\in \NN$ definiamo
 $C^k(A) \subset \RR^A$ nel modo seguente:
+\mymargin{$C^k$}
 \begin{enumerate}
 \item se $k=0$ poniamo
 \[
   C^0(A) = \{f\in \RR^A \colon \text{$f$ continua}\}.
 \]
 \item
-  se $k>0$ definiamo
+  se $k>0$ definiamo induttivamente
   \[
   C^{k}(A) = \{f\in \RR^A \colon \text{$f$ derivabile e $f'\in C^{k-1}(A)$}\}.
   \]
@@ -1456,7 +1492,8 @@ Chiaramente se $j\ge k$ si ha $C^j(A) \subset C^k(A)$ dunque $C^k(A)$ è una fam
 \]
 
 Le funzioni $f\in C^k(A)$ sono derivabili $k$ volte.
-Utilizziamo la notazione $f^{(j)}$ per denotare la $j$-esima derivata di una funzione $f$.
+Utilizziamo la notazione \myemph{$f^{(j)}$} per denotare la $j$-esima derivata
+di una funzione $f$.
 Dunque avremo
 \[
   f^{(0)} = f, \qquad
@@ -1466,7 +1503,192 @@ Dunque avremo
 \end{definition}
 
 Abbiamo già osservato che $\RR^A$ è uno spazio vettoriale reale.
-Gli spazi $C^k$ per $k=0, \dots, \infty$ sono una famiglia decrescente di sottospazi vettoriali di $\RR^A$.
+Gli spazi $C^k(A)$ per $k=0, \dots, \infty$ sono una famiglia decrescente di sottospazi vettoriali di $\RR^A$.
 Infatti sappiamo che la combinazione lineare di funzioni continue è continua e che la combinazione lineare di funzioni derivabili è derivabile.
 
 E' importante osservare che $C^1(A)$ non coincide con l'insieme delle funzioni derivabili su $A$. Infatti abbiamo già visto nell'esempio~\ref{ex:derivata_non_continua} che esistono funzioni derivabili la cui derivata non è continua e quindi tali funzioni, pur essendo derivabili, non sono di classe $C^1$.
+
+\begin{definition}[funzioni lipschitziane]
+\marginpar{funzione lipschitziana}
+\index{funzione!lipschitziana}
+\index{Lipschitz}
+Una funzione $f\colon A\subset \RR \to \RR$ si dice essere \emph{lipschitziana} (o anche $L$-lipschitziata se vogliamo mettere in evidenza la dipendenza da $L$) se esiste $L>0$ tale che
+\[
+  \abs{f(x) - f(y)} \le L \abs{x-y}\qquad \forall x,y\in A.
+\]
+La più piccola costante $L$ per la quale è soddisfatta la precedente relazione si chiama \myemph{costante di Lipschitz} di $f$.
+\end{definition}
+
+\begin{theorem}[criterio di Lipschitz]
+Sia $f\colon A \subset \RR$ una funzione lipschitziana
+con costante di Lipschitz $L$.
+Se $f$ è derivabile in un punto $x\in A$ allora $\abs{f'(x)}\le L$.
+Viceversa se $f\colon I \subset \RR \to \RR$ una funzione derivabile definita su un intervallo $I$
+e se esiste $L$ tale che per ogni $x\in I$ si ha $\abs{f'(x)}\le L$ allora $f$ è lipschitziana.
+\end{theorem}
+%
+\begin{proof}
+Se $f$ è Lipschitziana significa che il rapporto incrementale è limitato.
+Cioè esiste $L>0$ tale che
+\[
+  \abs{\frac{f(x) - f(y)}{x-y}} \le L \qquad \forall x,y\in A.
+\]
+Dunque la derivata, che è il limite del rapporto incrementale, se esiste è anch'essa limitata
+dalla stessa costante: $\abs{f'(x)}\le L$ per ogni $x \in A$.
+
+Viceversa se la derivata è limitata $\abs{f'(z)}\le L$ per ogni $z \in I$ e se $x,y\in I$ sono punti qualunque,
+allora, per il teorema di Lagrange, il rapporto incrementale di $f$ è uguale alla derivata in un punto $z\in(x,y)$:
+\[
+  \abs{\frac{f(x) - f(y)}{x-y}} = \abs{f'(z)} \le L.
+\]
+e dunque la funzione è $L$ lipschitziana:
+\[
+  \abs{f(x)- f(y)} \le L \abs{x-y}.
+\]
+\end{proof}
+
+\begin{definition}[funzioni Hoelderiane]
+Sia $\alpha>0$.
+\marginpar{funzione hoelderiana}
+\index{funzione!hoelderiana}
+\index{Hoelder}
+Una funzione $f\colon A \subset \RR \to \RR$ si dice essere $\alpha$-Hoelderiana se
+esiste una costante $C>0$ tale che
+
+\[
+  \abs{f(x) - f(y)} \le C \abs{x-y}^\alpha.
+\]
+\end{definition}
+
+\begin{definition}[uniforme continuità]
+Una funzione $f\colon A \subset \RR \to \RR$ si dice essere
+\myemph{uniformemente continua} se
+\[
+ \forall \eps>0\colon \exists \delta > 0 \colon
+ \forall x,y\in A \colon \abs{x-y} < \delta \implies \abs{f(x)-f(y)} < \eps.
+\]
+\end{definition}
+
+\begin{theorem}
+Ogni funzione lipschitziana è $1$-Hoelderiana.
+Ogni funzione $\alpha$-Hoelderiana è uniformemente continua.
+Ogni funzione uniformemente continua è continua.
+Ogni funzione $\alpha$-Hoelderiana con $\alpha>1$ è costante sugli intervalli.
+\end{theorem}
+
+\begin{definition}[modulo di continuità]
+Sia $f\colon A\subset \RR \to\RR$ una funzione.
+Definiamo il \myemph{modulo di continuità} di $f$ come la funzione
+$M\colon$ $[0,+\infty) \to [0,+\infty]$ definita da
+\[
+  M(r) = \sup \{\abs{f(x)-f(y)}\colon x,y \in A, \abs{x-y} \le r\}.
+\]
+\end{definition}
+
+\begin{theorem}[proprietà del modulo di continuità]
+Sia $f\colon A\to \RR$ e sia $M\colon [0,+\infty)\to [0,+\infty)$ il suo
+modulo di contintuità.
+La funzione $M(r)$ è crescente;
+
+La funzione $f$ è uniformemente continua se e solo se
+\[
+  \lim_{r\to 0} M(r) = 0.
+\]
+
+La funzione $f$ è lipschitziana se e solo se esiste $L$ tale che
+\[
+  M(r) \le Lr.
+\]
+
+La funzione $f$ è $\alpha$-Hoelderiana se e solo se esiste $C$ tale che
+\[
+  M(r) \le C r^\alpha.
+\]
+\end{theorem}
+
+\begin{theorem}[Cantor]
+Siano $a,b\in \RR$, $a<b$.
+Sia $f\colon [a,b]\to \RR$ una funzione continua.
+Allora $f$ è uniformemente continua.
+\end{theorem}
+%
+\begin{proof}
+Supponiamo per assurdo che $f$ non sia uniformemente continua. Allora
+$f$ soddisfa la negazione della proprietà
+\[
+ \forall \eps>0\colon \exists \delta > 0 \colon
+ \forall x,y\in A \colon \abs{x-y} < \delta \implies \abs{f(x)-f(y)} < \eps
+\]
+che è
+\[
+ \exists \eps>0\colon \forall \delta > 0 \colon
+ \exists x,y \in A \colon \abs{x-y} < \delta \land \abs{f(x)-f(y)} \ge \eps.
+\]
+Dunque dato $\eps>0$ che soddisfa la precedente proprietà possiamo
+prendere $\delta=1/k$
+per ogni $k\in \NN$, ottenendo quindi due successioni $x_k$, $y_k$ tali che
+\[
+  \abs{x_k-y_k} < \frac 1 k \qquad\text{e}\qquad \abs{f(x_k) - f(y_k)} \ge \eps.
+\]
+Per il teorema di Bolzano-Weierstrass esisterà una sottosuccessione convergente $x_{k_j} \to c$.
+Visto che $\abs{x_k-y_k}\to 0$ si dovrà avere anche $y_{k_j}\to c$.
+Ma allora, per la continuità di $f$:
+\[
+ \abs{f(x_{k_j})-f(y_{k_j})} \to \abs{f(c) - f(c)} = 0
+\]
+in contraddizione con la condizione $\abs{f(x_k)-f(y_k)}\ge \eps$.
+\end{proof}
+
+\section{formula di Taylor}
+
+\begin{definition}[polinomio di Taylor]
+Sia $A\subset \RR$ e $x_0$ un punto di accumulazione per $A$.
+Sia $f\colon A \to \RR$ una funzione derivabile $n$ volte nel punto $x_0$. Il \myemph{polinomio di Taylor} della funzione $f$,
+di ordine $n$, centrato in $x_0$ è il polinomio:
+\[
+  P(x) = \sum_{k=0}^n \frac{f^{k}(x_0)}{k!}(x-x_0).
+\]
+\end{definition}
+
+\begin{theorem}[caratterizzazione polinomio di Taylor]
+Il polinomio di Taylor di una funzione $f$, di ordine $n$, centrato in $x_0$ è l'unico polinomio $P$ i grado non superiore ad $n$ tale che
+\[
+  P^{(k)}(x_0) = f^{(k)}(x_0), \qquad \forall k=0,\dots,n.
+\]
+\end{theorem}
+%
+\begin{proof}
+E' facile mostrare, per induzione su $j$ che per ogni $j\in \NN$ la derivata $j$-esima di $(x-x_0)^k$ è:
+\[
+  D^j (x-x_0)^k =
+  \begin{cases}
+    \frac{k!}{(k-j)!}(x-x_0)^{k-j}& \text{se $j\le k$,}\\
+    0 & \text{se $j>k$.}
+  \end{cases}
+\]
+Ogni polinomio di grado non superiore ad $n$ può essere scritto nella forma:
+\[
+  P(x) = \sum_{k=0}^{n} a_k (x-x_0)^k
+\]
+e le sue derivate sono:
+\begin{align*}
+   P^{(j)}(x)
+   = \sum_{k=j}^n a_k \frac{k!}{(k-j)!}(x-x_0)^{k-j}
+\end{align*}
+e per $x=x_0$ l'unico addendo non nullo è quello con $k=j$, dunque
+\[
+  P^{(k)}(x_0) = k! a_k.
+\]
+Dunque si ha $P^{(k)}(x_0) = f^{(k)}(x_0)$ se e solo se $a_k = f^{(k)}(x_0)/k!$ cioè se $P$ è il polinomio di Taylor di $f$.
+\end{proof}
+
+\begin{theorem}[formula di Taylor]
+Sia $I\subset \RR$ un intervallo, $x_0\in I$, $f\in C^{n-1}(I)$ con $f^{(n-1)}$ derivabile in $x_0$ (in particolare è sufficiente che sia $f\in C^n(I)$). Sia $P$ il polinomio di Taylor di $f$ di ordine $n$ centrato in $x_0$. Allora si ha
+\[
+  \lim_{x\to x_0}\frac{f(x) - P(x)}{(x-x_0)^n} = 0
+\]
+ovvero, scritto in maniera più espressiva:
+\[
+  f(x) = P(x) + o((x-x_0)^n).
+\]
+\end{theorem}
