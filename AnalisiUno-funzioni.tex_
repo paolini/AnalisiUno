@@ -1606,6 +1606,24 @@ La funzione $f$ è $\alpha$-Hoelderiana se e solo se esiste $C$ tale che
   M(r) \le C r^\alpha.
 \]
 \end{theorem}
+%
+\begin{proof}
+Osserviamo che la condizione
+\[
+   M(r) \le c
+\]
+è equivalente a
+\[
+\forall x,y\in A \colon \abs{x-y}\le r \implies  \abs{f(x)-f(y)} \le c.
+\]
+La condizione $M(r)\to 0$ per $r \to 0$ significa
+\[
+ \forall \eps>0\colon \exists \delta>0 \colon \forall r>0\colon r<\delta \implies M(r)<\eps
+\]
+e diventa quindi la condizione di uniforme continuità.
+
+Le condizioni di lipschitzianità e di $\alpha$-hoelderianità risultano pure immediatamente.
+\end{proof}
 
 \begin{theorem}[Cantor]
 Siano $a,b\in \RR$, $a<b$.
@@ -1692,9 +1710,11 @@ Sia $P$ il polinomio di Taylor di $f$ di ordine $n$ centrato in $x_0$. Allora si
   \lim_{x\to x_0}\frac{f(x) - P(x)}{(x-x_0)^n} = 0
 \]
 ovvero, scritto in maniera più espressiva:
-\[
+\begin{equation}\label{eq:Taylor}
   f(x) = P(x) + o((x-x_0)^n).
-\]
+\end{equation}
+
+Viceversa se $P(x)$ è un polinomio di grado che non supera $n$ e vale la formula~\eqref{eq:Taylor} allora $P$ è il polinomio di Taylor di $f$.
 \end{theorem}
 %
 \begin{proof}
@@ -1727,4 +1747,257 @@ Ma quello che compare al primo addendo non è altro che il rapporto incrementale
 della funzione $f^{(n-1)}$ nel punto $x_0$. Il suo limite è quindi uguale a $f^{(n)}(x_0)$
 che è proprio la quantità che poi viene sottratta. Il risultato di quest'ulimo limite è quindi
 $0$ e, a cascata, tutti i limiti precedenti sono uguali a zero.
+
+Vogliamo ora mostrare che c'è un unico polinomio che soddisfa~\eqref{eq:Taylor}. Supponiamo che $Q$ sia
+un polinomio di grado non superiore ad $n$
+che soddisfi, come fa $P$:
+\[
+\lim_{x\to x_0}\frac{f(x) - Q(x)}{(x-x_0)^n} = 0.
+\]
+Allora si avrebbe, per $x\to x_0$
+\[
+  \frac{Q(x)-P(x)}{(x-x_0)^n}
+  =\frac{Q(x) - f(x)}{(x-x_0)^n} - \frac{P(x) -f(x)}{(x-x_0)^n} \to 0.
+\]
+Possiamo scrivere entrambi i polinomi nella forma seguente
+\[
+  P(x) = \sum_{k=0}^n a_k (x-x_0)^k,
+  \qquad
+  Q(x) = \sum_{k=0}^n b_k (x-x_0)^k
+\]
+per opportuni coefficienti $a_k$ e $b_k$.
+Quello che vogliamo dimostrare è che $a_k=b_k$ per ogni $k=0,1,\dots, n$.
+Visto che si ha
+\begin{align*}
+  0 &\leftarrow \frac{Q(x) -P(x)}{(x-x_0)^n} \\
+  &= \frac{\displaystyle \sum_{k=0}^n (b_k-a_k)(x-x_0)^k}{(x-x_0)^n} \\
+  &= \sum_{k=0}^n \frac{b_k -a_k}{(x-x_0)^{n-k}}
+  \to b_0 - a_0
+\end{align*}
+deduciamo immediatamente che $b_0 = a_0$. Ma allora si ha
+\begin{align*}
+  \frac{Q(x) -P(x)}{(x-x_0)^n}
+  &= \frac{\displaystyle \sum_{k=1}^n (b_k-a_k) (x-x_0)^k}{(x-x_0)^n} \\
+  &= \frac{\displaystyle \sum_{k=0}^{n-1} b_{k+1} (x-x_0)^{k+1} - \sum_{k=0}^{n-1} a_{k+1} (x-x_0)^k}{(x-x_0)^{n}} \\
+  &= \frac{\displaystyle \sum_{k=0}^{n-1} b_{k+1} (x-x_0)^k - \sum_{k=0}^{n-1} a_{k+1} (x-x_0)^k}{(x-x_0)^{n-1}}.
+\end{align*}
+Ci siamo dunque ricondotti ad avere due polinomi $P_1$ e $Q_1$ di grado non superiore a $n-1$ i cui coefficienti sono rispettivamente $a_1, \dots, a_n$ e $b_1,\dots b_n$
+i quali soddisfano la stessa relazione da cui eravamo partiti:
+\[
+\lim_{x\to x_0} \frac{Q_1(x) - P_1(x)}{(x-x_0)^{n-1}} = 0.
+\]
+Ripetendo
+il procedimento potremo dunque dedurre che $b_1= a_1$ e,
+iterando ulterioremente, troveremo che tutti i coefficienti sono uguali.
 \end{proof}
+
+\begin{theorem}[sviluppi di Taylor delle funzioni elementari]
+Per ogni $n\in \NN$ si ha, per $x\to 0$
+\begin{align*}
+e^x &= \sum_{k=0}^n \frac{x^k}{k!} + o(x^n) = 1 + x + \frac{x^2}{2} + \frac {x^3}{6} + \dots + \frac{x^n}{n!} + o(x^n) \\
+\sin x &= \sum_{k=0}^n (-1)^k\frac{x^{2k+1}}{(2k+1)!} + o(x^{2n+1}) \\
+ &= x - \frac{x^3}{6} + \dots + (-1)^{n} \frac{x^{2n+1}}{(2n+1)!}  + o(x^{2n+1})\\
+ \cos x &= \sum_{k=0}^n (-1)^k \frac{x^{2k}}{(2k)!} + o(x^{2n}) \\
+   &= 1 - \frac{x^2}{2} + \frac{x^4}{24}+ \dots + (-1)^n\frac{x^{2n}}{(2n)!} + o(x^{2n})\\
+   \ln (1+x) &= \sum_{k=1}^n (-1)^{k-1} \frac{x^k}{k} + o(x^n) \\
+       &= x - \frac{x^2}{2} + \frac{x^3}{3} + \dots + (-1)^{n-1}\frac{x^n}{n} + o(x^n) \\
+\end{align*}
+\end{theorem}
+%
+\begin{proof}
+
+\end{proof}
+
+\section{operazioni con i simboli di Landau}
+
+Le
+\index{simboli di Landau}
+\index{Landau}
+\index{$o$ piccolo}
+\index{$O$ grande}
+notazioni di Landau $o$-piccolo e $O$-grande sono comodissime per
+l'elaborazione di stime asintotiche. Bisogna però fare molta attenzione a come queste notazioni vengono usate, perché altrimenti si rischia di fare degli errori grossolani. Alcuni risultati controintuitivi sono ad esempio:
+\begin{enumerate}
+\item $o(x) - o(x) = o(x)$ (e non $0$),
+\item $o(x^2) = o(x)$ ma non $o(x) = o(x^2)$.
+\end{enumerate}
+
+Il secondo esempio, in particolare, ci dice che il simbolo di uguaglianza in realtà non è utilizzato in modo appropriato in questo contesto, perché non gode della proprietà simmetrica. In questa sezione proponiamo una definizione formalmente precisa dell'oggetto $o$-piccolo (e $O$-grande) e un modo rigoroso per manipolarlo e confrontarlo.
+
+\begin{definition}[$o$-piccolo, $O$-grande]
+Sia $A\subset \RR$, $x_0$ punto di accumulazione di $A$
+e sia $g\colon A \to \RR$ una funzione positiva su $A$.
+Definiamo allora gli insiemi di funzioni:
+\begin{align*}
+  o(g) &= \left\{f\in \RR^A \colon \lim_{x\to x_0}\frac{f(x)}{g(x)} = 0\right\};\\
+  O(g) &= \left\{f\in \RR^A \colon \limsup_{x\to x_0}\abs{\frac{f(x)}{g(x)}} < + \infty\right\}\\
+       &= \left\{f\in \RR^A \colon \exists U\in \U_{x_0}, C>0 \colon \forall x \in U\colon \abs{\frac{f(x)}{g(x)}}\le C\right\}.
+\end{align*}
+\end{definition}
+
+Espressioni come ad esempio:
+\[
+  \sin x - x = o(x^2), \qquad \text{per $x\to 0$}
+\]
+vanno quindi interpretate come
+\[
+  f \in o(g)
+\]
+dove $f(x) = \sin x -x $ e $g(x) = x^2$.
+In questa sezione scriveremo:
+\begin{equation}\label{eq:39523}
+  \sin x - x \in o(x^2)
+\end{equation}
+per dare risalto a questa interpretazione (e mettere in evidenza il fatto che la relazione non è affatto simmetrica).
+
+Possiamo ora procedere ad interpretare le operazioni tra insiemi. In generale se $A$ e $B$ sono insiemi di oggetti su cui è definita una operazione $*$ (che potrebbe essere la somma, il prodotto, il rapporto...) definiamo:
+\[
+  A * B = \{a*b \colon a \in A, b\in B\}.
+\]
+Analogamente se $A$ è un insieme sui cui elementi è definita una operazione $*$ con un oggetto $b$, definiremo:
+\[
+  A * b = \{a*b\colon a \in A\}, \qquad
+  b * A = \{b*a\colon a \in A\}.
+\]
+Ad esempio l'espressione
+\[
+  \sin x = x + o(x^2)
+\]
+andrebbe formalmente intesa come
+\[
+  \sin x  \in x + o(x^2)
+\]
+dove l'insieme $x+ o(x^2)$ è l'insieme di tutte le funzioni
+$f$ che possono essere scritte nella forma $f(x) = x+h(x)$ con $h\in o(x^2)$ cioè $h$ tale che $h(x)/x^2 \to 0$. Risulta quindi che tale espressione è equivalente alla \eqref{eq:39523} in quanto se $\sin x = x + h(x)$ con $h\in o(x^2)$ significa che $\sin x- x \in o(x^2)$.
+
+Possiamo allora enunciare le regole algebriche di manipolazione dei simboli di Landau.
+
+\begin{theorem}[operazioni con i simboli di Landau]
+Sia $A\subset \RR$, $x_0\in [-\infty, +\infty]$
+punto di accumulazione per $A$.
+Siano $f,g \colon A \to \RR$ funzioni positive, $c\in \RR$, $c\neq 0$, $\alpha\in \RR$, $n\in \NN$, $n\neq 0$.
+Allora, per $x\to x_0$ si ha:
+\begin{align*}
+0 \in o(f) &\subset O(f) & f&\in O(f)& \\
+c \cdot o(f) &= o(f) & c \cdot O(f) &= O(f)\\
+o(f)+o(f) &= o(f) & O(f)+O(f) &= O(f)\\
+o(f)-o(f) &= o(f) & O(f)-O(f) &= O(f)\\
+o(f\cdot g) &= f \cdot o(g) & O(f\cdot g) &= f\cdot O(g)\\
+o(g/f) &= o(g) / f & O(g/f) &= O(g) / f\\
+o(f)\cdot o(g) &\subset o(f\cdot g) & O(f)\cdot O(g) &\subset O(f\cdot g) \\
+o(f)\cdot O(g) & \subset o(f\cdot g)&  & \\
+(o(f))^n &\subset o(f^n) & (O(f))^n &\subset O(f^n)\\
+o(o(f)) &\subset o(f) & O(O(f)) &\subset O(f)\\
+o(O(f)) &\subset o(f) & O(o(f)) &\subset o(f)
+.
+\end{align*}
+Si osserva, in particolare, che $o(f)$ e $O(f)$ sono sottospazi vettoriali di $\RR^A$.
+
+E' anche possibile applicare i cambi di variabile. Se $f\in o(g)$ per $x\to x_0$ e $h(t) \to x_0$ per $t\to t_0$ allora
+\[
+  f\circ h \in o(g\circ h) \qquad \text{per $t\to t_0$}.
+\]
+\end{theorem}
+%
+\begin{proof}
+Visto che $0/f = 0$ è ovvio che $0\in o(f)$.
+L'inclusione $o(f) \subset O(f)$ discende dal fatto che se $h\in o(f)$ significa che $h/f\to 0$ per $x\to x_0$. Ma allora esiste un intorno di $x_0$ in cui $\abs{h/f}<1$ e dunque $h\in O(f)$. Ovviamente $f\in O(f)$ in quanto $f/f=1$ è una funzione limitata.
+
+Se $h\in c \cdot o(f)$ significa che $h = c \cdot (h/c)$ e $h/c \in o(f)$ ovvero $(h/c)/f \to 0$. Ma questo è equivalente a $h/f\to 0$ visto che $c$ è una costante non nulla. Il caso degli $O$ grande si svolge in modo simile.
+
+L'insieme $o(f)+o(f)$ è formato da funzione della forma $h+k$ con $h,k \in o(f)$. Ma si ha
+\[
+  \frac{h+k}{f} = \frac{h}{f} + \frac{k}{f} \to 0 + 0 = 0.
+\]
+Dunque $o(f)+o(f) \subset o(f)$. Viceversa osserviamo che se $h\in o(f)$ si può scrivere $h = h/2 + h/2$ e per quanto visto prima sappiamo che $h/2 \in o(f)$. Dunque $o(f) \subset o(f) + o(f)$.
+Ragionamento simile si può fare per $O(f)$: la somma di due funzioni localmente limitate è anch'essa localmente limitata.
+
+Osserviamo che $o(f)-o(f) = o(f) + (-1)\cdot o(f) = o(f) + o(f) = o(f)$
+per quanto già visto. Lo stesso vale per $O(f)-O(f)$.
+
+Se $h\in o(fg)$ significa che $h/(fg)\to 0$. Ma allora $h = f\cdot (h/f)$ con $h/f \in o(g)$ in quanto $(h/f)/g = h/(fg)\to 0$. Dunque $h \in fo(g)$ e di conseguenza $o(fg)\subset f o(g)$. Viceversa se $h \in fo(g)$ significa che $h = f \cdot(h/f)$ con $h/f \in o(g)$ ovvero $(h/f)/g \to 0$. Dunque $h/(fg) \to 0$ che significa $h\in o(fg)$.
+Ragionamento analogo si può fare con gli $O$ grande.
+
+I risultati per la divisione si riconducono a quelli della moltiplicazione osservando che la divisione per $f$ è uguale alla moltiplicazione per $1/f$.
+
+Se $h\in o(f)$ e $k\in o(g)$ vogliamo mostrare che $hk\in o(fg)$.
+Ma questo è ovvio essendo $(hk)/(fg) = (h/f)\cdot(k/g) \to 0\cdot 0 = 0$. Abbiamo mostrato che $o(f)o(g)\subset o(fg)$. Risultato analogo si ha negli altri due casi $O(f)O(g)\subset O(fg)$ e $o(f)O(g)\subset o(fg)$, osservando che il prodotto di due funzioni limitate è limitata e il prodotto di una limitata per una infinitesima è infinitesima.
+
+Per quanto riguarda la potenza $(o(f))^n$ osserviamo che si ha:
+\begin{align*}
+  (o(f))^n &= \{h^n \colon h\in o(f)\}
+      \subset \{h_1 \cdots h_n \colon h_1, \dots, h_n \in o(f)\}\\
+      &= o(f) \cdots o(f) \subset o(f^n).
+\end{align*}
+
+Se $h\in o(o(f))$ significa che esiste $k\in o(f)$ e $h\in o(k)$. Dunque $k/f\to 0 $ e $h/k\to 0$. Ma allora $h/f = (h/k)\cdot (k/f) \to 0\cdot 0 = 0$ dunque $h \in o(f)$. Abbiamo quindi mostrato che $o(o(f)) \subset o(f)$. Dimostrazione analoga si può fare per gli $O$ grande. Anche le inclusioni $o(O(f))\subset o(f)$ e $O(o(f))\subset o(f)$ si dimostrano in modo analogo osservando che il prodotto di una funzione limitata per una infinitesima è infinitesima.
+
+Per quanto riguarda il cambio di variabile, dobbiamo verificare che
+\[
+  \frac{f(h(t))}{g(h(t))} \to 0
+  \qquad\text{per $t\to t_0$}
+\]
+se $f\in o(g)$ e se $h(t)\to x_0$ per $t \to t_0$. Ma questo non è altro che il cambio di variabile $x=h(t)$ nel limite $f(x)/g(x)\to 0$ per $x\to x_0$.
+\end{proof}
+
+\begin{example}
+Sapendo che
+\[
+\sin x \in x + o(x^2), \qquad \cos x \in 1 - \frac {x^2}{2} + o(x^3)
+\]
+e ricordando che $x^3 \in o (x^2)$ possiamo dedurre, utilizzando le proprietà del teorema precedente:
+\begin{align*}
+2\cos x  - \sin x
+&\in 2 - x^2 + 2o(x^3) - x - o(x^2)\\
+ &= 2- x - x^2 + o(x^3) + o(x^2)\\
+ &\subset 2 - x - x^2 + o(x^2) + o(x^2)\\
+ &= 2-x-x^2 + o(x^2).
+\end{align*}
+Usualmente tutti questi passaggi vengono sottointesi, si utilizza il simbolo $=$ al posto di $\in$ e $\subset$ e spesso si preferisce scrivere sempre un solo $o(\cdot)$ alla fine di ogni espressione.
+\end{example}
+
+\begin{example}
+Con gli stessi presupposti dell'esempio precedente potremo
+scrivere:
+\begin{align*}
+(\sin^2 x)(2-2\cos x)^3
+&\in (x+o(x^2))^2 \cdot (2 - (2- x^2 - 2o(x^3))^3 \\
+&= (x+o(x^2))^2 \cdot (x^2+o(x^3))^3 \\
+&= (x^2 + 2 x o(x^2) + (o(x^2))^2) \\
+&\quad \cdot (x^6 + 3 x^4 o(x^3) + 3 x^2(o(x^3))^2 + (o(x^3))^3)\\
+&\subset (x^2 + o(x^3) + o(x^4))\cdot(x^6 + o(x^7) + o(x^8) + o(x^9)) \\
+&= (x^2 + o(x^3)) \cdot(x^6+o(x^7)) \\
+&= x^8 + x^2o(x^7) + o(x^3) x^6 + o(x^3)o(x^7)\\
+&= x^8 + o(x^9) + o(x^9) + o(x^9)
+= x^8 + o(x^9).
+\end{align*}
+\end{example}
+
+\begin{example}
+Possiamo anche fare un esercizio con il cambio di variabile.
+Osservando che $y=1-\cos x\to 0$ per $x\to 0$
+sapendo che $\sin y = y + o(y^2)$ per $y\to 0$
+e che $2-2\cos x = x^2 + o(x^2)$ per $x\to 0$
+possiamo scrivere
+che per $x\to 0$ si ha:
+\begin{align*}
+\sin(2-2\cos x)
+& \in (2-2\cos x) + o((2-2\cos x)^2) \\
+& \subset x^2 + o(x^2) + o((x^2+o(x^2))^2) \\
+& \subset x^2 + o(x^2) + o(O(x^4)) \\
+& \subset x^2 + o(x^2) + o(x^4) \\
+& = x^2 + o(x^2).
+\end{align*}
+\end{example}
+
+\begin{exercise}
+Dimostrare (per semplice curiosità) che valgono anche le inclusioni inverse a quelle enunciate nel teorema:
+\begin{gather*}
+o(f\cdot g) \subset o(f) \cdot o(g), \qquad
+O(f\cdot g) \subset O(f) \cdot o(g), \\
+o(f\cdot g) \subset o(f) \cdot O(g), \\
+o(f) \subset o(o(f)),  \qquad
+O(f) \subset O(O(f)).
+\end{gather*}
+Osservare invece che $(o(f))^2 \neq o(f)\cdot o(f)$.
+\end{exercise}
