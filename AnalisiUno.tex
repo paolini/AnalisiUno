@@ -1,5 +1,6 @@
 \documentclass[italian,a4paper,oneside,headinclude]{scrbook}
 \usepackage{amsmath,amssymb,amsthm,thmtools}
+\usepackage{mathtools} % per \MoveEqLeft
 \usepackage{babel,a4}
 \usepackage[nochapters,pdfspacing]{classicthesis}
 \usepackage[utf8]{inputenc}
@@ -9,6 +10,7 @@
 \usepackage{pst-node}
 \usetikzlibrary{cd} % commutative diagrams
 \usepackage{eucal}
+\usepackage{sidenotes}
 \AfterPreamble{\hypersetup{hidelinks=true,}}
 
 %\usepackage{showkeys}
@@ -17,8 +19,10 @@
 
 \usetikzlibrary{arrows}
 
-\newcommand{\mymargin}[1]{\marginpar{#1}\index{#1}}
-\newcommand{\myemph}[1]{\emph{#1}\marginpar{#1}\index{#1}}
+
+\newcommand{\mynote}[1]{\sidenote[\phantom{}]{#1}}
+\newcommand{\mymargin}[1]{\mynote{#1}\index{#1}}
+\newcommand{\myemph}[1]{\emph{#1}\mynote{#1}\index{#1}}
 \renewcommand{\subset}{\subseteq}
 \renewcommand{\supset}{\supseteq}
 
@@ -69,14 +73,52 @@
 \DeclareMathOperator{\tg}{tg}
 \DeclareMathOperator{\arctg}{arctg}
 
-\newtheorem{theorem}{Teorema}[chapter]
-\newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{exercise}[theorem]{Esercizio}
-\newtheorem{proposition}[theorem]{Proposizione}
-\newtheorem{corollary}[theorem]{Corollario}
-\newtheorem{example}[theorem]{Esempio}
-\newtheorem{definition}[theorem]{Definizione}
-\newtheorem{axiom}[theorem]{Assioma}
+\declaretheoremstyle[
+spaceabove=6pt, spacebelow=6pt,
+headfont=\normalfont\itshape,
+notefont=\mdseries, notebraces={(}{)},
+bodyfont=\normalfont,
+postheadspace=1em,
+qed=,
+%shaded={rulecolor=pink!30,rulewidth=1pt,bgcolor=pink!10}
+]{exercise_style}
+
+\declaretheoremstyle[
+spaceabove=6pt, spacebelow=6pt,
+postheadspace=1em,
+qed=,
+%shaded={rulecolor=blue!20,rulewidth=1pt,bgcolor=blue!5}
+]{theorem_style}
+
+\declaretheoremstyle[
+spaceabove=6pt, spacebelow=6pt,
+postheadspace=1em,
+qed=,
+%shaded={rulecolor=yellow!50,rulewidth=1pt,bgcolor=yellow!5}
+]{axiom_style}
+
+\declaretheorem[style=theorem_style,name=Teorema,numberwithin=chapter]{theorem}
+\declaretheorem[style=theorem_style,name=Lemma,numberwithin=chapter]{lemma}
+\declaretheorem[style=theorem_style,name=Proposizione,numberwithin=chapter]{proposition}
+\declaretheorem[style=theorem_style,name=Corollary,numberwithin=chapter]{corollary}
+\declaretheorem[style=axiom_style,name=Assioma,numberwithin=chapter]{axiom}
+\declaretheorem[name=Definizione,numberwithin=chapter]{definition}
+\declaretheorem[style=exercise_style,name=Esempio,numberwithin=chapter]{example}
+\declaretheorem[style=exercise_style,name=Esercizio,numberwithin=chapter]{exercise}
+
+
+%\newtheorem{theorem}{Teorema}[chapter]
+%\newtheorem{lemma}[theorem]{Lemma}
+%\newtheorem{exercise}[theorem]{Esercizio}
+%\newtheorem{proposition}[theorem]{Proposizione}
+%\newtheorem{corollary}[theorem]{Corollario}
+%\newtheorem{example}[theorem]{Esempio}
+%\newtheorem{definition}[theorem]{Definizione}
+%\newtheorem{axiom}[theorem]{Assioma}
+
+% per il capitolo: successioni ricorsive
+\newcommand{\online}[1]{\href{http://paolini.github.io/recurrence/?#1}{\underline{(click
+      me)}}}
 
 \title{Appunti di Analisi Matematica%
 \thanks{%
@@ -100,6 +142,8 @@ Puoi scaricare o contribuire a questi appunti su
 \input{AnalisiUno-serie.tex_}
 
 \input{AnalisiUno-funzioni.tex_}
+
+\input{AnalisiUno-ricorrenza.tex_}
 
 \backmatter
 \chapter{Appendici}

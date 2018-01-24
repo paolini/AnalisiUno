@@ -251,7 +251,7 @@ Se $\alpha>0$, $a>1$ si ha
 \begin{theorem}[permanenza del segno]
 \index{permanenza del segno (limite di funzione)}
 \index{teorema!della permanenza del segno (funzioni)}
-\marginpar{permanenza del segno}
+\mynote{permanenza del segno}
 Se $f(x)\ge 0$ in un intorno di $x_0$ e se esiste il limite
 \[
  \ell = \lim_{x\to x_0} f(x)
@@ -1510,7 +1510,7 @@ Infatti sappiamo che la combinazione lineare di funzioni continue è continua e 
 E' importante osservare che $C^1(A)$ non coincide con l'insieme delle funzioni derivabili su $A$. Infatti abbiamo già visto nell'esempio~\ref{ex:derivata_non_continua} che esistono funzioni derivabili la cui derivata non è continua e quindi tali funzioni, pur essendo derivabili, non sono di classe $C^1$.
 
 \begin{definition}[funzioni lipschitziane]
-\marginpar{funzione lipschitziana}
+\mynote{funzione lipschitziana}
 \index{funzione!lipschitziana}
 \index{Lipschitz}
 Una funzione $f\colon A\subset \RR \to \RR$ si dice essere \emph{lipschitziana} (o anche $L$-lipschitziata se vogliamo mettere in evidenza la dipendenza da $L$) se esiste $L>0$ tale che
@@ -1550,7 +1550,7 @@ e dunque la funzione è $L$ lipschitziana:
 
 \begin{definition}[funzioni Hoelderiane]
 Sia $\alpha>0$.
-\marginpar{funzione hoelderiana}
+\mynote{funzione hoelderiana}
 \index{funzione!hoelderiana}
 \index{Hoelder}
 Una funzione $f\colon A \subset \RR \to \RR$ si dice essere $\alpha$-Hoelderiana se
@@ -1701,7 +1701,51 @@ e per $x=x_0$ l'unico addendo non nullo è quello con $k=j$, dunque
 Dunque si ha $P^{(k)}(x_0) = f^{(k)}(x_0)$ se e solo se $a_k = f^{(k)}(x_0)/k!$ cioè se $P$ è il polinomio di Taylor di $f$.
 \end{proof}
 
-\begin{theorem}[formula di Taylor]
+\begin{theorem}[formula di Taylor con resto di Lagrange]
+Sia $I\subset \RR$ un intervallo, $x_0\in I$, $f\in C^{n+1}(I)$.
+Sia $P$ il polinomio di Taylor di $f$ di ordine $n$ centrato in $x_0$.
+Per ogni $x\in I$ esiste $y$ con $\abs{y-y_0}\le \abs{x-x_0}$ tale che
+\[
+  f(x) = P(x) + \frac{f^{(n+1)}(y)}{(n+1)!}(x-x_0)^{n+1}.
+\]
+\end{theorem}
+%
+\begin{proof}
+Posto $R(x) = f(x)-P(x)$ osserviamo che essendo $P^{(k)}(x_0) = f^{(k)}(x_0)$ per ogni $k=0,1,\dots, n$, per gli stessi $k$
+si ha $R^{(k)}(x_0) = 0$.
+In particolare $R(x) = R(x)-R(x_0)$ è l'incremento di $R$ sull'intervallo $[x_0,x]$ (supponiamo senza perdita di generalità che sia $x>_0$). Analogamente osserviamo che $(x-x_0)^{n+1}$ è anch'essa una funzione che si annulla in $x_0$ e dunque $(x-x_0)^{n+1}$ è l'incremento sullo stesso intervallo.
+
+Dunque possiamo applicare il teorema di Cauchy alle funzioni $R(x)$ e $(x-x_0)^{n+1}$ sull'intervallo $[x_0,x]$ per ottenere
+l'esistenza di un punto $x_1\in (x_0,x)$ tale che
+\[
+  \frac{R(x)}{(x-x_0)^{n+1}} = \frac{R'(x_1))}{(n+1)(x_1-x_0)^n}.
+\]
+Di nuovo applichiamo il teorema di Cauchy alle funzioni $R'(x)$ e $(n+1)(x-x_0)^n$ sull'intervallo $[x_0,x_1]$ per ottenere
+l'esistenza di un punto $x_2\in(x_0,x_1)$ tale che
+\[
+\frac{R'(x_1)}{(n+1)(x_1-x_0)^n} = \frac{R''(x_2)}{(n+1)n(x_2-x_0^{n-1})}.
+\]
+Possiamo iterare il procedimento ottenendo al passo $k$:
+\begin{align*}
+\MoveEqLeft \frac{R^{(k)}(x_{k})}{(n+1)n(n-1) \cdots (n-k+2)(x_k-x_0)^{n+1-k}}\\
+&=
+\frac{R^{(k+1)}(x_{k+1})}{(n+1)n(n-1) \cdots (n-k+1)(x_{k+1}-x_0)^{n-k}}.
+\end{align*}
+Proseguendo fino al passo $n$-esimo si ottiene dunque
+un punto $x_{n+1}\in(x_0,x)$ tale che
+\[
+  \frac{R(x)}{(x-x_0)^{n+1}} = \frac{R^{(n+1)}(x_{n+1})}{(n+1)!}.
+\]
+Ma $R^{(n+1)} = f^{(n+1)} - P^{(n+1)} = f^{(n+1)}$ in quanto
+$P$ è un polinomio di grado al più $n$ e quindi la sua derivata $(n+1)$-esima è nulla. Perciò otteniamo, ponendo $y=x_{n+1}$:
+\[
+R(x) = \frac{f^{(n+1)}(y)}{(n+1)!}(x-x_0)^{n+1}
+\]
+che è quanto volevamo dimostrare.
+\end{proof}
+
+
+\begin{theorem}[formula di Taylor con resto di Peano]
 Sia $I\subset \RR$ un intervallo, $x_0\in I$, $f\in C^{n-1}(I)$ con $f^{(n-1)}$
 derivabile in $x_0$
 (in particolare è sufficiente che sia $f\in C^n(I)$).
