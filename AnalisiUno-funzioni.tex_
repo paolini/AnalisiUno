@@ -1115,7 +1115,8 @@ Per il criterio precedente $f$ è convessa se e solo se $f'$ è crescente. Per i
 
 \begin{theorem}
 Siano $a\in \RR$, $b\in \bar \RR$, $a<b$.
-Sia $f\colon [a,b)\to \RR$ una funzione convessa in $(a,b)$ e continua in $a$. Allora $f$ è convessa su tutto $[a,b)$. Risultato analogo vale per funzioni definite su intervalli semichiusi a destra $(a,b]$ o chiusi $[a,b]$.
+Sia $f\colon [a,b)\to \RR$ una funzione convessa in $(a,b)$ e continua in $a$. Allora $f$ è convessa su tutto $[a,b)$. Risultato analogo vale per funzioni definite su intervalli aperti a sinistra $(a,b]$
+e aperti da ambo i lati $(a,b)$.
 \end{theorem}
 %
 \begin{proof}
@@ -1128,7 +1129,7 @@ presa una successione $x_k \to a$ con $x_k\in (a,b)$ definiamo
 $t_k$ in modo che sia $z = (1-t)x + ty = (1-t_k) x_k + t_k y$
 cioè:
 \[
-  t_k = \frac{x - x_k + t(y-k)}{y-x_k}.
+  t_k = \frac{x - x_k + t(y-x)}{y-x_k}.
 \]
 Siccome $t_k\to t$ per $k\to +\infty$ se $t\in (0,1)$ per $k$ abbastanza grande anche $t_k\in(0,1)$. Inoltre per la convessità in $(a,b)$ sappiamo che vale
 \[
@@ -1744,6 +1745,33 @@ R(x) = \frac{f^{(n+1)}(y)}{(n+1)!}(x-x_0)^{n+1}
 che è quanto volevamo dimostrare.
 \end{proof}
 
+\begin{example}[calcolo delle cifre di $e$]
+Consideriamo la funzione $f(x) = e^x$. Chiaramente si ha $f^{(k)}(x) = e^x$ e quindi $f^{(k)}(0) = 1$ per ogni $k\in \NN$.
+Dunque il polinomio di Taylor della funzione $e^x$ centrato in $x_0=0$ di ordine $n=5$ è:
+\[
+  P(x) = 1 + x + \frac{x^2}{2} + \frac{x^3}{3!} + \frac{x^4}{4!}
+   + \frac{x^5}{5!}.
+\]
+La formula di Taylor con resto di Lagrange calcolata in $x=1$ ci dice che esiste $y\in(0,1)$ tale che
+\[
+  e^1 = P(1) + \frac{y^6}{6!}(1-0)^6 = P(1) + \frac{e^y}{6!}.
+\]
+Sapendo che $e<3$ (si veda il capitolo in cui è stato definito $e$)
+e sapendo che $e^x$ è una funzione strettamente crescente possiamo affermare che qualunque sia $y\in (0,1)$ si ha $e^y \in (1,e) \subset (1,3)$. Dunque
+\[
+    P(1) + \frac {1}{6!} < e < P(1) + \frac{3}{6!}.
+\]
+Ma tramite calcolo diretto si trova
+\[
+   P(1) = 1 + 1 + \frac{1}{2} + \frac{1}{6} + \frac{1}{120}
+        = \frac{326}{120}
+\]
+da cui
+\begin{align*}
+   e &< P(1) + \frac{3}{720} = \frac{653}{240} < 2.721 \\
+   e &> P(1) + \frac{1}{720} = \frac{1957}{720} > 2.718.
+\end{align*}
+\end{example}
 
 \begin{theorem}[formula di Taylor con resto di Peano]
 Sia $I\subset \RR$ un intervallo, $x_0\in I$, $f\in C^{n-1}(I)$ con $f^{(n-1)}$
@@ -1842,8 +1870,11 @@ Dato $\alpha \in \RR$, $k \in \NN$ definiamo
 \]
 \end{definition}
 
-\begin{theorem}[sviluppi di Taylor delle funzioni elementari]
-Per ogni $n\in \NN$ si ha, per $x\to 0$
+\begin{theorem}[sviluppi di Taylor di alcune funzioni elementari]
+Per ogni $n\in \NN$ si hanno, per $x\to 0$
+le relazioni riportate nella tabella~\ref{tb:taylor}.
+\end{theorem}
+\begin{table}
 \begin{align*}
 e^x &= \sum_{k=0}^n \frac{x^k}{k!} + o(x^n) \\
   &= 1 + x + \frac{x^2}{2} + \frac {x^3}{6} + \dots + \frac{x^n}{n!} + o(x^n) \\
@@ -1859,7 +1890,9 @@ e^x &= \sum_{k=0}^n \frac{x^k}{k!} + o(x^n) \\
     &= x - \frac{x^3}{3} + \frac{x^5}{5} - \dots + (-1)^n \frac{x^{2n+1}}{2n +1} + o(x^{2n+1})\\
   \tg x &= x + \frac{x^3}{3} + \frac{2}{15} x^5 + o(x^5).
 \end{align*}
-\end{theorem}
+\caption{Sviluppi di Taylor di alcune funzioni elementari}
+\label{tb:taylor}
+\end{table}
 %
 \begin{proof}
 Il teorema di Taylor che ci dice che il coefficiente del termine $x^k$
