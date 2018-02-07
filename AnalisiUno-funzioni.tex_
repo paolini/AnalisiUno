@@ -1966,6 +1966,48 @@ O(f) \subset O(O(f)).
 Osservare invece che $(o(f))^2 \neq o(f)\cdot o(f)$.
 \end{exercise}
 
+La formula di Taylor può risultare molto utile per determinare il carattere di una serie, come nel seguente.
+\begin{exercise}
+Determinari i valori di $\alpha \in \RR$ per i quali la serie
+\[
+  \sum_{k=1}^{+\infty}(-1)^k \enclose{\frac 1 k - \sin \frac 1 k}^\alpha
+\]
+converge assolutamente e quelli per cui converge.
+\end{exercise}
+\begin{proof}[Soluzione.]
+Posto $f(x) = x - \sin x$,
+tramite sviluppo di Taylor sappiamo che si ha,
+per $x\to 0$:
+\begin{align*}
+   f^\alpha(x) &= \enclose{x - \sin x}^\alpha
+   =  \enclose{\frac{x^3}{6} + o(x^3)}^\alpha
+   = \frac{x^{3\alpha}}{6^\alpha}\enclose{1+o(1)}^\alpha\\
+   & = \frac{x^{3\alpha}}{6^\alpha}\enclose{1 + \alpha \cdot o(1) + o(o(1))}
+   = \frac{x^{3\alpha}}{6^\alpha}\enclose{1 + o(1)}.
+\end{align*}
+Visto che per $k\to +\infty$ si ha $x=1/k \to 0$, possiamo
+scrivere:
+\[
+  a_k = \enclose{f(1/k)}^\alpha = \enclose{\frac 1 k - \sin \frac 1 k}^\alpha
+  = \frac{1}{6^\alpha \cdot k^{3\alpha}} \enclose{1+o(1)}
+  \sim \frac{1}{6^\alpha \cdot k^{3\alpha}}.
+\]
+Osserviamo che la serie data è $\sum (-1)^k a_k$ e che $a_k>0$. Dunque per il criterio di confronto asintotico se $3\alpha > 1$, cioè se $\alpha >1/3$, la serie data converge assolutamente, se invece $\alpha \le 1/3$ la serie non converge assolutamente (ma potrebbe convergere).
+Osserviamo inoltre che se $\alpha \le 0$ il termine $a_k$ non è neanche infinitesimo e quindi la serie non può convergere.
+
+Per $\alpha \in (0,1/3]$ possiamo provare ad utilizzare il criterio di Leibniz: la successione $a_k$ è infinitesima, dobbiamo verificare che sia anche definitivamente decrescente.
+Avendo posto $a_k = \enclose{f(1/k)}^\alpha$ sarà sufficiente dimostrare che la funzione $f(x)$ è crescente in un intorno destro di $0$.
+Per le proprietà del polinomio di Taylor sappiamo che il polinomio di Taylor di ordine $2$ di $f'(x)$ è uguale alla derivata del polinomio di Taylor di $f(x)$ di ordine $3$. Dunque possiamo affermare immediatamente (ma sarebbe stato ugualmente veloce calcolare la derivata e poi svilupparla) che
+\[
+  f'(x)
+  = \enclose{\frac{x^3}{6}}'  + o(x^2)
+  = \frac{x^2}{2} + o(x^2) = x^2 \enclose{\frac 1 2 + o(1)}
+\]
+dunque, per la permanenza del segno, deve esistere un intorno di $0$ in cui $1/2 + o(1)$ è positivo e quindi in tale intorno risulta che $f'(x)\ge 0$ cioè $f$ è crescente.
+Dunque anche $f^\alpha$ è crescente e, per $k$ abbastanza grande, $a_k$ è decrescente. Si può quindi applicare il criterio di Leibniz e concludere che la serie è convergente per ogni $\alpha >0$.
+\end{proof}
+
+
 \section{classi di regolarità}
 \begin{definition}[funzioni di classe $C^k$]
 Dato $A\subset \RR$ denotiamo con $\RR^A$ l'insieme di tutte le funzioni $f\colon A \to \RR$ (rimandiamo agli appunti di logica/insiemistica per una giustificazione di questa notazione).
