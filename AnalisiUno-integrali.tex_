@@ -1,0 +1,87 @@
+\chapter{calcolo integrale}
+
+\begin{theorem}
+$\pi$ è irrazionale.
+\end{theorem}
+%
+\begin{proof}
+Posto
+\[
+ f_n(x) = x^n(\pi-x)^n
+\]
+si ha
+\[
+f_n'(x) = n x^{n-1}(\pi-x)^n - n x^n (\pi-x)^{n-1}
+\]
+e
+\begin{align*}
+f_n''(x)
+&= n(n-1) x^{n-2}(\pi-x)^n
+  - 2n^2 x^{n-1}(\pi-x)^{n-1} \\
+  &\quad + n(n-1) x^n(\pi-x)^{n-2} \\
+&= (n^2-n) [(\pi-x)^2 +x^2] x^{n-2}(\pi-x)^{n-2} \\
+  &\quad  - 2n^2 x^{n-1}(\pi-x)^{n-1}
+\end{align*}
+Osservando ora che
+\[
+ (\pi-x)^2 + x^2 = \pi^2 -2\pi x + 2x^2
+  = \pi^2 - 2x(\pi-x)
+\]
+si ottiene
+\begin{align*}
+f_n''(x)
+&= (n^2-n)\pi^2 x^{n-2}(\pi-x)^{n-2} \\
+  &\quad - 2(n^2 - n + n^2) x^{n-1}(\pi-x)^{n-1} \\
+&= (n^2-n)\pi^2 f_{n-2}(x)
+-  (4n^2-2n) f_{n-1}(x).
+\end{align*}
+
+Poniamo ora
+\[
+  I_n = \int_0^\pi f_n(x) \sin(x)\, dx.
+\]
+Per $n>0$ osserviamo che $f_n(0) = f_n(\pi)=0$
+e dunque integrando per parti due volte si ottiene:
+\[
+  I_n = \int_0^\pi f_n'(x) \cos x\, dx
+   = -\int_0^\pi f_n''(x)\sin x\, dx
+\]
+da cui
+\begin{align*}
+   I_n = -(n^2-n)\pi^2 I_{n-2} + (4n^2-2n)I_{n-1}
+\end{align*}
+Supponiamo ora per assurdo che sia $\pi = p/q$ con $p,q\in \NN$ e consideriamo la successione
+\[
+   a_n = \frac{q^{2n}}{n!} I_n.
+\]
+Possiamo calcolare i primi due termini della successione $a_n$:
+\begin{align*}
+  a_0 &= \frac{q^0}{0!}\int_0^\pi \sin x\, dx
+    = 2 \in \ZZ, \\
+  a_1 &= \frac{q^2}{1!}\int_0^\pi x(\pi -x)\sin x\, dx \\
+   &= q^2 \int_0^\pi (2x - \pi)\cos x\, dx \\
+   &= 2q^2 \int_0^\pi \sin x\, dx
+   = 4q^2 \in \ZZ.
+\end{align*}
+Inoltre la relazione di ricorrenza che abbiamo trovato per $I_n$ si traduce in:
+\begin{align*}
+  a_n &= \frac{q^{2n}}{n!}\enclose{-(n^2-n)\frac{p^2}{q^2} \frac{(n-2)!}{q^{2n-4}}a_{n-2}
+  + (4n^2-2n) \frac{(n-1)!}{q^{2n-2}}a_{n-1}} \\
+  &= - q^2 p^2 a_{n-2} + (4n-2)q^2 a_{n-1}.
+\end{align*}
+Per induzione si trova quindi che $a_n \in \ZZ$ per ogni $n\in \NN$.
+
+D'altra parte osservando che per $x\in [0,\pi]$ si ha
+\[
+  0 \le f_n(x) \sin(x) \le x^n (\pi-x)^n \le \pi^n \pi^n = \pi^{2n}
+\]
+dunque
+\[
+  0\le I_n = \int_0^\pi f_n(x) \sin x\, dx \le \pi^{2n+1}
+\]
+cioè
+\[
+  0 \le a_n \le \frac{q^{2n}}{n!}\pi^{2n+1} \to 0.
+\]
+Dunque abbiamo scoperto che $a_n\to 0$. D'altra parte abbiamo visto che $a_n \in \ZZ$ e certamente $a_n > 0$ in quanto $I_n \neq 0$ visto che $f_n$ è una funzione continua, non negativa e non identicamente nulla. Ma non è possibile che una successione di numeri interi positivi converga a zero: abbiamo quindi ottenuto l'assurdo.
+\end{proof}
