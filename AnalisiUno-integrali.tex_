@@ -1,7 +1,492 @@
 \chapter{calcolo integrale}
 
-\begin{theorem}
-$\pi$ è irrazionale.
+\begin{definition}[integrale di Riemann]
+Siano $a,b\in \RR$, $a <le b$.
+
+Un insieme $P\subset [a,b]$ si dice essere una \myemph{partizione di Riemann}
+\index{Riemann!partizione di}
+dell'intervallo $[a,b]$ se $P$ è un insieme finito tale che $a,b\in P$. In particolare se ha $N+1$ elementi $P$ si
+potrà scrivere
+\[
+ P = \{ x_0, x_1, \dots, x_N\}
+\]
+con
+\[
+  a = x_0 < x_1 < \dots < x_{N-1} < x_N = b.
+\]
+
+Sia $f\colon [a,b] \to \RR$ una funzione limitata. Data una qualunque partizione $P$ di $[a,b]$ definiamo
+rispettivamente le \myemph{somme superiori} e le \myemph{somme inferiori}
+\index{Riemann!somme superiori}
+\index{Riemann!somme inferiori}
+come
+\begin{align*}
+S^*(f,P)
+&= \sum_{k=1}^N (x_k - x_{k-1}) \cdot \sup \{f(x)\colon x \in [x_k - x_{k-1}]\} \\
+S_*(f,P)
+&= \sum_{k=1}^N (x_k - x_{k-1}) \cdot \inf \{f(x)\colon x \in [x_k - x_{k-1}]\}.
+\end{align*}
+Definiamo infine
+\begin{align*}
+  I^*(f) &= \inf \{S^*(f,P) \colon \text{$P$ partizione di $[a,b]$}\}
+  \\
+  I_*(f) &= \sup \{S_*(f,P) \colon \text{$P$ partizione di $[a,b]$}\}.
+\end{align*}
+
+Se $I^*(f) = I_*(f)$ diremo che $f$ è
+\mynote{Riemann-integrabile}
+\index{Riemann!integrabile}
+\index{integrabilità}
+\index{integrale}
+\index{integrale!definizione}
+e diremo che l'\myemph{integrale} di $f$ su $[a,b]$ è
+il valore comune $I^*(f)=I_*(f)$ che verrà denotato con
+\[
+  \int_a^b f
+  \qquad{\text{oppure con}} \qquad
+  \int_a^b f(x)\, dx.
+\]
+
+Se $b<a$ e se $f$ è Riemann integrabile su $[b,a]$
+definiamo per convenzione:
+\[
+  \int_a^b f = -\int_b^a f.
+\]
+\end{definition}
+
+\begin{theorem}[criteri di integrabilità]
+\mymargin{criteri di integrabilità}
+Sia $f\colon[a,b]\to \RR$ una funzione limitata.
+\begin{enumerate}
+\item
+Se $P$ e $Q$ sono due partizioni dell'intervallo
+$[a,b]$ si ha
+\[
+  S_*(f,P) \le S^*(f,Q).
+\]
+
+\item
+La funzione $f$ è Riemann-integrabile se e solo se
+per ogni $\eps>0$ esiste una partizione $P$
+tale che
+\[
+  S^*(f,P) - S_*(f,P) < \eps.
+\]
+
+\item
+Se esiste una successione $P_n$ di partizioni di $[a,b]$ per cui
+\begin{equation}\label{eq:93765}
+  \lim_{n\to +\infty} S^*(f,P_n)
+  = \lim_{n\to+\infty} S_*(f,P_n)
+\end{equation}
+allora la funzione $f$ è Riemann-integrabile
+e il suo integrale coincide con i limiti~\eqref{eq:93765}.
+\end{enumerate}
+\end{theorem}
+%
+\begin{proof}
+Sia $P$ una qualunque partizione di $[a,b]$ e sia $y\in [a,b]$ un punto qualunque. Posto $P' = P \cup \{y\}$ vogliamo mostrare
+che si ha
+\begin{equation}\label{eq:39543}
+  S_*(f,P) \le S_*(f,P') \le S^*(f,P') \le S^*(f,P).
+\end{equation}
+Se $y\in P$ non c'è niente da dimostrare in quanto
+risulterebbe $P'=P$ e la disuguaglianza $S_*(f,P') \le S^*(f,P')$ è sempre verificata in quanto ogni estremo superiore che compare nella definizione di $S^*$ è maggiore o uguale al corrispondente
+estremo inferiore che compare nella definizione di $S_*$.
+Supponiamo allora che $y \not \in P$ e dunque che $y$ sia compreso tra due punti consecutivi $x_{k-1}, x_k$ della partizione $P$:
+\[
+  a= x_0 < x_1 < \dots < x_{k-1} < y < x_k < \dots < x_N=b.
+\]
+Allora le somme che definiscono $S_*(f,P)$ e $S_*(f,P')$ differiscono solo sull'intervallo $[x_{k-1},x_k]$ e si ha
+\begin{align*}
+  S_*(f,P') - S_*(f,P)
+  &= (y-x_{k-1})\cdot \!\!\inf_{[x_{k-1},y]}\!\!\! f
+  + (x_k - y)\cdot\! \inf_{[y,x_k]}\! f\\
+  &\quad - (x_k - x_{k-1})\cdot \!\!\inf_{[x_{k-1}, x_k]}\!\!\!f
+\end{align*}
+ma osservando che
+\[
+\inf_{[x_{k-1}, x_k]}\!\!f
+\le\inf_{[x_{k-1},y]}\!\! f
+\qquad \text{e} \qquad
+\inf_{[x_{k-1}, x_k]}\!\!f
+\le\inf_{[y,x_k]}\!\! f
+\]
+si ottiene $S_*(f,P) \le S_*(f,P')$.
+In maniera analoga si ottiene $S^*(f,P) \ge S^*(f,P')$.
+Dunque \eqref{eq:39543} è dimostrata.
+Ma allora se $P$ e $Q$ sono partizioni qualunque osserviamo che $P\cup Q$ si può ottenere da $P$ aggiungendo uno alla volta i punti di $Q$. Iterando la \eqref{eq:39543} si può dunque concludere che
+\[
+ S_*(f,P) \le S_*(f,P\cup Q) \le S^*(f,P\cup Q) \le S^*(f,Q)
+\]
+da cui discende il primo punto del teorema: $S_*(f,P) \le S^*(f,Q)$
+
+Dimostriamo il secondo punto.
+Se esiste una partizione $P$ tale che $S^*(f,P)-S_*(f,P) < \eps$ possiamo immediatamente concludere che
+\[
+I^*(f) - I_*(f) \le S^*(f,P) - S_*(f,P) < \eps.
+\]
+Se questo è vero per ogni $\eps >0$ deduciamo che $I^*(f) - I_*(f) = 0$ e dunque che $f$ è Riemann-integrabile.
+
+Viceversa qualunque sia $f$, per le proprietà di
+di $\sup$ e $\inf$
+esistono $Q$ e $R$ partizioni tali che
+\[
+  I^*(f) \ge S^*(f,Q) - \frac\eps 2
+  \qquad\text{e}\qquad
+  I_*(f) \le S_*(f,R) + \frac\eps 2
+\]
+da cui, per il punto precedente, ponendo $P=Q\cup R$
+se $f$ è Riemann integrabile
+si ottiene
+\begin{align*}
+S^*(f,P)-S_*(f,P) &\le S^*(f,Q) - S_*(f,R) \\
+&\le I^*(f) + \frac\eps 2 - \enclose{I_*(f) - \frac \eps 2} = \eps.
+\end{align*}
+
+Per il terzo punto del teorema osserviamo che se i limiti in \eqref{eq:93765} sono uguali allora
+\[
+ \lim_{n\to +\infty} S^*(f,P_n) - S_*(f,P_n) = 0
+\]
+dunque per ogni $\eps>0$ esiste $n$ tale che
+\[
+  S^*(f,P_n) - S_*(f,P_n) < \eps.
+\]
+Per il punto precedente concludiamo che $f$ è Riemann-integrabile.
+D'altra parte sappiamo che
+\[
+  S_*(f,P_n) \le I_*(f) = I^*(f) \le S_*(f,P_n)
+\]
+e, per il teorema dei due carabinieri concludiamo quindi che $I_*(f)$ e $I^*(f)$ coincidono con i limiti in \eqref{eq:93765}.
+\end{proof}
+
+\begin{example}[calcolo dell'integrale tramite le partizioni]
+Mostriamo che per ogni $b>0$ la funzione $f(x)=x^2$ è Riemann-integrabile sull'intervallo $[0,b]$ e si ha
+\[
+ \int_0^b x^2\, dx = \frac{b^3}{3}.
+\]
+\end{example}
+\begin{proof}
+Consideriamo le partizioni \emph{equispaziate} dell'intervallo $[0,b]$, cioè dividiamo $[0,b]$ in $N$ intervalli ognuno di ampiezza $b/N$:
+\[
+P_N = \left\{\frac{kb}{N}\colon k \in 0, 1, \dots, N\right\}.
+\]
+Si ha
+\[
+  S^*(f,P_N) = \sum_{k=1}^N \sup_{[(k-1)b/N,kb/N]}f \cdot \frac b N
+   = \frac{b}{N} \sum_{k=1}^N \frac{k^2b^2}{N^2}
+   = \frac{b^3}{N^3} \sum_{k=1^N} k^2.
+\]
+Ricordiamo ora che vale
+\[
+  \sum_{k=1}^n k^2 = \frac{n(n+1)(2n+1)}{6} = \frac{2n^3+3n^2+n}{6}
+\]
+(tale formula può essere facilmente verificata per induzione, si vedano gli appunti di logica). Dunque si ha
+\[
+  S^*(f,P_N) = \frac{b^3}{N^3} \frac{2N^3+3N^2+N}{6}
+       = \frac{b^3}{6}\enclose{2 + \frac{3}{N}+\frac 1 N^2}
+       \to \frac{b^3}{3}
+\]
+per $N\to +\infty$.
+Analogamente si trova
+\[
+  S_*(f,P_N) = \sum_{k=1}^N \inf_{[(k-1)b/N,kb/N]} f \cdot \frac{b}{N}
+  = \frac{b}{N}\sum_{k=1}^N \frac{(k-1)^2b^2}{N^2}
+  = \frac{b^3}{N^3} \sum_{k=0}^{N-1} k^2
+\]
+e osservando che si ha
+\[
+ \sum_{k=0}^{N-1} k^2 = \sum_{k=1}^{N-1} k^2 = \frac{2(N-1)^3+3(N-2)^2+(N-1)}{6}
+\]
+otteniamo
+\[
+ S_*\ge \sup_N S_*(f,P_N) \ge \lim_{N\to+\infty} S_*(f,P_N) = \frac{b^3}{3} \to \frac{b^3}{3}.
+\]
+La dimostrazione si conclude quindi applicando
+il criterio \eqref{eq:93765} del teorema precedente.
+\end{proof}
+
+\begin{theorem}[monotonia dell'integrale]
+Siano $f,g\colon [a,b]\to \RR$ due funzioni Riemann-integrabili.
+Se per ogni $x\in [a,b]$ si ha $f(x) \le g(x)$ allora
+\[
+  \int_a^b f(x) \le \int_a^b g(x).
+\]
+\end{theorem}
+%
+\begin{proof}
+Chiaramente se $f \le g$ si avrà che il $\sup$ di $f$ su qualunque intervallo sarà minore o uguale al $\sup$ di $g$ sullo stesso intervallo. Dunque su ogni partizione $P$ di $[a,b]$ si avrà:
+\[
+  S^*(f,P) \le S^*(g,P)
+\]
+da cui si ottiene immediatamente $I^*(f) \le I^*(g)$ e il risultato segue.
+\end{proof}
+
+\begin{theorem}[linearità dell'integrale]
+Siano $f,g\colon [a,b]\to \RR$ due funzioni Riemann-integrabili
+e siano $\lambda, \mu \in \RR$. Allora $\lambda f + \mu g$
+è Riemann integrabile e si ha
+\[
+  \int_a^b (\lambda f + \mu g) = \lambda \int_a^b f + \mu \int_a^b g.
+\]
+
+In particolare l'insieme delle funzioni Riemann-integrabili su $[a,b]$ risulta essere uno spazio vettoriale reale e l'integrale è una
+applicazione lineare su tale spazio, a valori in $\RR$.
+\end{theorem}
+%
+\begin{proof}
+Mostriamo innanzitutto che
+\begin{equation}\label{eq:20043}
+  \int_a^b (-f) = -\int_a^b f.
+\end{equation}
+Questo deriva dal fatto che su qualunque insieme $A$ si ha
+$\sup_A (-f) = -\inf_A f$ e dunque per una qualunque partizione $P$
+si ha
+\[
+  S^*(-f,P) = -S_*(f,P).
+\]
+Se ne deduce che $I^*(-f) = -I_*(f)$ e, analogamente, $I_*(-f) = -I^*(F)$. Dunque se $f$ è Riemann-integrabile anche $-f$ lo è e vale la proprietà \eqref{eq:20043}.
+
+Ora se $\lambda \ge 0$ vogliamo mostrare che vale
+\begin{equation}\label{eq:10032}
+  \int_a^b \lambda f = \lambda \int_a^b f.
+\end{equation}
+Semplicemente si osserva che $\sup_I \lambda f = \lambda \sup_I f$ e dunque $S^*(\lambda f,P) = \lambda S^*(f,P)$ per ogni partizione $P$. Ne consegue che $I^*(\lambda f) = \lambda I^*(f)$. In maniera analoga si può mostrare che $I_*(\lambda f) = \lambda I_*(f)$. Dunque se $f$ è Riemann-integrabile anche $\lambda f$ (con $\lambda \ge 0$) lo è e vale \eqref{eq:10032}.
+
+Mettendo assieme \eqref{eq:20043} e $\eqref{eq:10032}$ si ottiene
+che $\eqref{eq:10032}$ vale per ogni $\lambda \in \RR$.
+Lo stesso sarà vero se mettiamo $g$ al posto di $f$ e $\mu$ al posto di $\lambda$. Per concludere la dimostrazione sarà dunque sufficiente
+mostrare che vale anche
+\begin{equation*}\label{eq:80003}
+\int_a^b (f+g) = \int_a^b f + \int_a^b g.
+\end{equation*}
+Osserviamo che su qualunque insieme $A$ si ha
+\[
+  \sup_A (f+g) \le \sup_A f + \sup_A g.
+\]
+Infatti per le proprietà dell'estremo superiore per ogni $\eps>0$ esiste $x\in A$ tale che
+\[
+  \sup_A (f+g) \le f(x) + g(x) + \eps.
+\]
+Ma chiaramente $f(x) \le \sup_A f$ e $g(x)\le \sup_A g$ dunque si ottiene
+\[
+  \sup_A (f+g) \le \sup_A f + \sup_A g + \eps.
+\]
+Passando al limite per $\eps \to 0^+$ si ottiene la disuguaglianza voluta. Questo significa che
+\[
+  S^*(f+g) \le S^*(f) + S^*(g).
+\]
+analogamente si potrà dimostrare che
+\[
+  S_*(f+g) \ge S_*(f) + S_*(g).
+\]
+Si ottiene dunque
+\[
+  I^*(f+g) \le I^*f(f) + I^*(g)
+  \qquad\text{e}\qquad
+  I_*(f+g) \ge I_*(f) + I_*(g)
+\]
+e dunque se $f$ e $g$ sono integrabili anche $f+g$ risulta integrabile
+e vale la \eqref{eq:80003}.
+
+Per concludere che l'insieme delle funzioni integrali sia uno spazio vettoriale è sufficiente osservare che la funzione $0$ (come ogni costante) risulta integrabile. Infatti se $f(x)=c$ si trova facilmente che $S^*(f,P) = S_*(f,P) = c(b-a)$ qualunque sia la partizione $P$ e dunque $I^*(f) = I_*(f) = c(b-a)$.
+\end{proof}
+
+\begin{theorem}[additività dell'integrale]
+\mymargin{additività dell'integrale}
+\index{integrale!additività}
+Sia $f\colon [a,b]\to \RR$ una funzione limitata e sia $c\in [a,b]$.
+Allora $f$ è Riemann-integrabile su $[a,b]$ se e solo se
+$f$ è Riemann-integrabile su $[a,c]$ e su $[c,b]$.
+E in tal caso risulta
+\begin{equation}\label{eq:36645}
+ \int_a^b f = \int_a^c f + \int_c^b f.
+\end{equation}
+
+In base alla convenzione
+\[
+   \int_b^a f = -\int_a^b f
+\]
+la formula \eqref{eq:36645} è valida non solo se $a\le c\le b$ ma anche se $a,b,c$ sono in qualunque ordine, purché la funzione $f$ sia integrabile sull'intervallo che contiene tutti e tre i punti $a,b,c$.
+
+\end{theorem}
+%
+\begin{proof}
+Supponiamo che $f$ sia integrabile su $[a,c]$ e su $[c,b]$.
+Allora, in base ai criteri di integrabilità, per ogni $\eps>0$ esisteranno una partizione $P$ di $[a,c]$ e una partizione $Q$ di $[c,b]$ tali che
+\[
+  S^*(f,P) - S_*(f,P) < \frac \eps 2,
+  \qquad
+  S^*(f,Q) - S_*(f,Q) < \frac \eps 2.
+\]
+L'insieme $R=P\cup Q$ risulta essere una partizione di $[a,b]$ su cui si avrà
+\begin{equation}\label{eq:56632}
+S^*(f,R) = S^*(f,P) + S^*(f,Q), \qquad
+S_*(f,R) = S_*(f,P) + S_*(f,Q)
+\end{equation}
+e dunque
+\[
+S^*(f,R) - S_*(f,R) \le \frac \eps 2 + \frac \eps 2 = \eps.
+\]
+Applicando nuovamente il criterio di integrabilità in senso invertito otteniamo dunque l'integrabilità di $f$ su $[a,b]$ e le equazioni
+\eqref{eq:56632} garantiscono l'additività dell'integrale rispetto al dominio.
+
+Viceversa se $f$ è integrabile su $[a,b]$ il criterio di integrabilità
+ci garantisce che per ogni $\eps>0$ esiste una partizione $R$ di $[a,b]$ tale che
+\[
+S^*(f,R) - S_*(f,R) < \eps.
+\]
+Se ora consideriamo $R' = R \cup \{c\}$ sappiamo che $S^*(f,R') \le S^*(f,R)$ e $S_*(f,R') \ge S_*(f,R)$ dunque anche $R'$ soddisfa la proprietà
+\[
+S^*(f,R') - S_*(f,R') < \eps.
+\]
+Ma ora è chiaro che posto $P=R \cap[a,c]$ e $Q=R\cap[c,b]$ risulta che $P$ e $Q$ siano partizioni di $[a,c]$ e $[c,b]$ rispettivamente e che
+\begin{align*}
+  S^*f(f,R') &= S^*f(f,P) + S^*(f,Q), \\
+  S_*f(f,R') &= S_*f(f,P) + S_*(f,Q).
+\end{align*}
+Dunque si ha
+\begin{align*}
+(S^*(f,P) - S_*(f,P)) + (S^*(f,Q) - S_*(f,Q))
+&= S^*(f,R') - S_*(f,R) \\
+&< \eps.
+\end{align*}
+Visto che entrambi gli addendi $S^*-S_*$ sono non negativi
+risulta che valgono separatamente le disuguaglianze
+\[
+S^*(f,P) - S_*(f,P) < \eps, \qquad
+S^*(f,Q) - S_*(f,Q) < \eps.
+\]
+Dunque $f$ è integrabile sia su $[a,c]$ che su $[c,b]$.
+E nuovamente possiamo osservare che l'integrale è additivo sul dominio.
+\end{proof}
+
+\begin{theorem}[integrabilità delle funzioni continue]
+\mymargin{integrabilità delle funzioni continue}
+Sia $f\colon [a,b]\to \RR$ una funzione continua.
+Allora $f$ è Riemann-integrabile.
+\end{theorem}
+%
+\begin{proof}
+Per il teorema di Weierstrass sappiamo che $f$ è limitata,
+condizione a priori per verificare se $f$ è integrabile.
+Per il teorema di Heine-Cantor sappiamo che $f$ è uniformemente continua, dunque per ogni $\eps>0$ esiste un $\delta>0$ tale che
+\[
+ \abs{x-y} < \delta \implies \abs{f(x)-f(y)} < \eps.
+\]
+Possiamo allora considerare una partizione $P_\delta$ con la proprietà che gli intervalli individuati dalla partizione abbiano tutti ampiezza minore di $\delta$ (ad esempio potremmo prendere la partizione formata da $(b-a)/\delta+2$ punti equispaziati in $[a,b]$). Su ogni intervallo $I$ di tale partizione si avrà che se $x,y\in I$ allora $\abs{f(x)-f(y)} < \eps$ da cui si deduce $\sup_I f - \inf_I f \le \eps$.
+In particolare, sommando su tutti gli intervalli, si avrà
+\begin{align*}
+  S^*(f,P_\delta) - S_*(f,P_\delta)
+  &= \sum_{k=1}^N (x_k-x_{k-1})\enclose{\sup_{[x_{k-1},x_k]} f - \inf_{[x_{k-1},x_k]} f} \\
+  &\le \eps \sum_{k=1}^N (x_k - x_{k-1})
+   = \eps (b-a).
+\end{align*}
+Visto che questa quantità può essere resa arbitrariamente piccola per $\eps \to 0$, in base ai criteri di integrabilità possiamo concludere che la funzione $f$ è integrabile.
+\end{proof}
+
+\begin{theorem}[del valor medio]
+Sia $f\colon [a,b] \to \RR$ una funzione Riemann-integrabile
+e sia $b>a$.
+Allora si ha
+\[
+  \inf_{[a,b]} f \le \frac{\int_a^b f}{b-a} \le \sup_{[a,b]} f
+\]
+e inoltre, se $f$ è anche continua, esisterà un punto $\xi \in (a,b)$
+tale che
+\[
+\frac{\int_a^b f}{b-a} = f(\xi).
+\]
+\end{theorem}
+%
+La quantità
+\[
+  \frac{\int_a^b}{b-a}
+\]
+si chiama \emph{valor medio integrale} di $f$ su $[a,b]$ e spesso
+si indica con il simbolo
+\[
+  -\!\!\!\!\!\!\int_a^b f.
+\]
+%
+\begin{proof}
+Posto $s^* = \sup f([a,b])$ e $s_* = \inf f([a,b])$ si avrà
+per ogni $x\in [a,b]$
+\[
+  s_* \le f(x) \le s^*
+\]
+e dunque, per la monotonia dell'integrale:
+\[
+  (b-a) s_* = \int_a^b s_* \le \int_a^b f \le \int_a^b s^* = (b-a)s^*
+\]
+da cui discende la prima parte del teorema.
+
+Se inoltre $f$ è continua, basterà osservare che $f$ ha massimo e minimo su $[a,b]$ dunque $s_*$ e $s^*$ sono valori assunti dalla funzione. Per il teorema dei valori intermedi anche la
+media integrale
+\[
+ \frac{\int_a^b f}{b-a}
+\]
+è un valore assunto dalla funzione.
+\end{proof}
+
+
+\begin{theorem}[fondamentale del calcolo]
+\mynote{teorema fondamentale del calcolo}
+\index{teorema!fondamentale del calcolo}
+Sia $I\subset \RR$ un intervallo, sia $x_0 \in I$
+ e sia $f\colon I\to \RR$ una funzione continua.
+Allora la \myemph{funzione integrale} $F\colon I \to \RR$
+\[
+  F(x) = \int_{x_0}^x f
+\]
+è ben definita, è derivabile e si ha per ogni $x\in I$
+\[
+  F'(x) = f(x).
+\]
+In particolare essendo $f\in C^0(I)$ si ha $F\in C^1(I)$.
+
+Inoltre se $G\colon I \to \RR$ è una qualunque funzione tale che $G'(x) = f(x)$ per ogni $x\in I$, allora per ogni $a,b \in I$ si ha
+\mymargin{formula fondamentale del calcolo}
+\[
+  \int_a^b f = G(b) - G(a).
+\]
+\end{theorem}
+%
+\begin{proof}
+Osserviamo innanzitutto che la funzione $f$, essendo continua, è integrabile su ogni intervallo chiuso e limitato contenuto in $I$. Dunque l'integrale $\int_{x_0}^x f$ è ben definito.
+
+Per ogni $h\\neq 0$, se $x+h \in I$ per l'additività dell'integrale
+si ha
+\[
+\frac{F(x+h) - F(x)}{h} = \frac{\int_{x_0}^{x+h} f - \int_{x_0}^x f}{h}
+ = \frac{\int_x^{x+h} f}{h}.
+\]
+Applicando ora il teorema del valor medio possiamo
+affermare che esiste un punto $\xi(h)$ nell'intervallo di estremi $x$ e $x+h$ tale che
+\[
+  \frac{\int_x^{x+h} f}{h} = f(\xi(h)).
+\]
+Per $h\to 0$, si ha $\xi(h) \to x$ e, per continuità di $f$, $f(\xi(h)) \to f(x)$. Dunque abbiamo mostrato che $F$ è derivabile in $x$:
+\[
+ \lim_{h\to 0}\frac{F(x+h)-f(x)}{h} = f(x)
+\]
+e $F'(x) = f(x)$.
+
+Dunque se $a,b\in I$ sono punti qualunque si ha:
+\[
+\int_a^b f = \int_{x_0}^b f - \int_{x_0}^a f = F(b) - F(a).
+\]
+E se $G\colon I \to \RR$ è una qualunque  funzione tale che $G'(x)=f(x)$ si avrà $G'(x) = F'(x)$ per ogni $x\in I$ e dunque $(G-F)' = 0$ su $I$. Per i criteri di monotonia possiamo concludere che $G-F$ è costante su $I$: $G-F = c$. Dunque si ha
+\[
+ \int_a^b f = F(b) - F(a) = (G(b) - c) - (G(a) - c) = G(b) - G(a).
+\]
+
+\end{proof}
+
+\begin{theorem}[irrazionalità di $\pi$]
+\mymargin{$\pi$ è irrazionale}
+\index{irrazionalità!di $\pi$}
+Il numero $\pi$ è irrazionale.
 \end{theorem}
 %
 \begin{proof}
