@@ -59,11 +59,12 @@ definiamo per convenzione:
 Sia $f\colon[a,b]\to \RR$ una funzione limitata.
 \begin{enumerate}
 \item
-Se $P$ e $Q$ sono due partizioni dell'intervallo
+Se $P$ e $Q$ sono due partizioni qualunque dell'intervallo
 $[a,b]$ si ha
 \[
   S_*(f,P) \le S^*(f,Q).
 \]
+Di conseguenza $I_*(f) \le I^*(f)$.
 
 \item
 La funzione $f$ è Riemann-integrabile se e solo se
@@ -74,13 +75,18 @@ tale che
 \]
 
 \item
-Se esiste una successione $P_n$ di partizioni di $[a,b]$ per cui
+Se $f$ è Riemann-integrabile su $[a,b]$ allora
+esiste una successione $P_n$ di partizioni tali che
 \begin{equation}\label{eq:93765}
   \lim_{n\to +\infty} S^*(f,P_n)
   = \lim_{n\to+\infty} S_*(f,P_n)
 \end{equation}
+e il valore dei limiti coincide con $\int_a^b f$.
+Viceversa se esiste una successione $P_n$ di partizioni di $[a,b]$
+per cui vale
+~\eqref{eq:93765}
 allora la funzione $f$ è Riemann-integrabile
-e il suo integrale coincide con i limiti~\eqref{eq:93765}.
+e il suo integrale coincide con il valore dei limiti.
 \end{enumerate}
 \end{theorem}
 %
@@ -119,7 +125,9 @@ Ma allora se $P$ e $Q$ sono partizioni qualunque osserviamo che $P\cup Q$ si pu�
 \[
  S_*(f,P) \le S_*(f,P\cup Q) \le S^*(f,P\cup Q) \le S^*(f,Q)
 \]
-da cui discende il primo punto del teorema: $S_*(f,P) \le S^*(f,Q)$
+da cui discende il primo punto del teorema: $S_*(f,P) \le S^*(f,Q)$.
+Facendo l'estremo inferiore al variare di $Q$
+si ottiene $S_*(f,P) \le I^*(f)$ e facendo l'estremo superiore al variare di $P$ si ottiene $I_*(f) \le I^*(f)$.
 
 Dimostriamo il secondo punto.
 Se esiste una partizione $P$ tale che $S^*(f,P)-S_*(f,P) < \eps$ possiamo immediatamente concludere che
@@ -144,7 +152,24 @@ S^*(f,P)-S_*(f,P) &\le S^*(f,Q) - S_*(f,R) \\
 &\le I^*(f) + \frac\eps 2 - \enclose{I_*(f) - \frac \eps 2} = \eps.
 \end{align*}
 
-Per il terzo punto del teorema osserviamo che se i limiti in \eqref{eq:93765} sono uguali allora
+Per il terzo punto del teorema
+supponiamo dapprima che $f$ sia Riemann-integrabile su $[a,b]$.
+Allora per il punto precedente per ogni $n\in \NN$ ponendo $\eps=1/n$ possiamo trovare una partizione $P_n$ tale che
+\[
+  S^*(f,P_n) - S_*(f,P_n) < \frac 1 n
+\]
+da cui
+\[
+  I^*(f) \le S^*(f,P_n) \le S_*(f,P_n) + \frac 1 n
+   \le I_*(f) + \frac 1 n
+\]
+perciò passando al limite per $n\to +\infty$,
+essendo $I^*(f) = I_*(f) = \int_a^b f$ deve valere
+\[
+  \lim S^*(f,P_n) = \lim S_*(f,P_n) = \int_a^b f.
+\]
+
+Viceversa se i limiti in \eqref{eq:93765} sono uguali allora
 \[
  \lim_{n\to +\infty} S^*(f,P_n) - S_*(f,P_n) = 0
 \]
@@ -206,12 +231,35 @@ La dimostrazione si conclude quindi applicando
 il criterio \eqref{eq:93765} del teorema precedente.
 \end{proof}
 
+\begin{theorem}[integrale di una costante]
+Se $f\colon[a,b]\to \RR$ è costante: $f(x) = c$ allora
+$f$ è Riemann-integrabile e si ha
+\[
+  \int_a^b f = c\cdot (b-a).
+\]
+\end{theorem}
+%
+\begin{proof}
+Visto che su ogni $A\subset [a,b]$ si ha
+\[
+  \sup_A f = \inf_A f = c
+\]
+è facile verificare che si ha
+\[
+  S^*(f,P) = S_*(f,P) = c\cdot (b-a)
+\]
+qualunque sia la partizione $P$ di $[a,b]$. Il risultato segue immediatamente.
+\end{proof}
+
 \begin{theorem}[monotonia dell'integrale]
-Siano $f,g\colon [a,b]\to \RR$ due funzioni Riemann-integrabili.
+Sia $a\le b$ e siano
+$f,g\colon [a,b]\to \RR$ due funzioni Riemann-integrabili.
 Se per ogni $x\in [a,b]$ si ha $f(x) \le g(x)$ allora
 \[
   \int_a^b f(x) \le \int_a^b g(x).
 \]
+
+In particolare se $f\ge 0$ allora $\int_a^b f \ge 0$.
 \end{theorem}
 %
 \begin{proof}
@@ -362,7 +410,8 @@ E nuovamente possiamo osservare che l'integrale è additivo sul dominio.
 \end{proof}
 
 \begin{theorem}[integrabilità delle funzioni continue]
-\mymargin{integrabilità delle funzioni continue}
+\mynote{integrabilità delle funzioni continue}
+\index{integrabilità!funzioni continue}
 Sia $f\colon [a,b]\to \RR$ una funzione continua.
 Allora $f$ è Riemann-integrabile.
 \end{theorem}
@@ -383,6 +432,103 @@ In particolare, sommando su tutti gli intervalli, si avrà
    = \eps (b-a).
 \end{align*}
 Visto che questa quantità può essere resa arbitrariamente piccola per $\eps \to 0$, in base ai criteri di integrabilità possiamo concludere che la funzione $f$ è integrabile.
+\end{proof}
+
+Non tutte le funzioni sono Riemann-integrabili come ci mostra il seguente esempio.
+\begin{example}[funzione di Dirichlet]
+\mynote{funzione di Dirichlet}
+\index{funzione!di Dirichlet}
+\index{integrabilità!controesempio}
+Sia $a<b$ e sia $f\colon[a,b]\to \RR$ la funzione definita da
+\[
+ f(x) =
+ \begin{cases}
+   1 & \text{se $x\in \QQ$}\\
+   0 & \text{se $x\not \in \QQ$}.
+ \end{cases}
+\]
+Allora $f$ non è Riemann-integrabile.
+\end{example}
+%
+\begin{proof}
+Sia $P=\{x_0, x_1, \dots, x_N\}$ con $a=x_0 < x_1 < \dots < x_N = b$
+una qualunque partizione di $[a,b]$.
+Allora basta osservare che, per la densità dei razionali, in qualunque intervallino $I=[x_{k-1}, x_k]$ sono presenti infiniti punti razionali e infiniti punti irrazionali. Dunque $\sup f(I)=1$ e $\inf f(I)=0$ e di conseguenza
+\begin{align*}
+  S^*(f,P) &= \sum_{k=1}^N (x_k - x_{k-1})\cdot 1 = b-a \\
+  S_*(f,P) &= \sum_{k=1}^N (x_k - x_{k-1})\cdot 0 = 0
+\end{align*}
+da cui $I^*(f) = b-a \neq 0 = I_*(f)$.
+\end{proof}
+
+\begin{theorem}[integrabilità di funzioni che differiscono su un numero finito di punti]
+\mynote{funzioni che differiscono in un numero finito di punti}
+\index{integrabilità!funzioni che differiscono in un numero finito di punti}
+Sia $f\colon [a,b]\to \RR$ una funzione limitata.
+Se $g\colon [a,b] \to \RR$ è una funzione Riemann-integrabile e $f$ differisce da $g$ solamente in un numero finito di punti, allora anche $f$ è Riemann-integrabile e vale
+\[
+\int_a^b f = \int_a^b g
+\]
+
+\end{theorem}
+%
+\begin{proof}
+Supponiamo in prima istanza che $g$ differisca da $f$ solamente in un punto $x_0 \in [a,b]$. Se $g$ è integrabile e $I=\int_a^b g$
+deve esistere una successione $P_n$ di partizioni di $[a,b]$ tali che $S^*(f,P_n) \to I$ e $S_*(f,P_n)\to I$.
+Per ogni $n$ possiamo definire la partizione
+$P'_n = (P_n \cup \{x_0-1/n,x_0+1/n\})\cap [a,b]$.
+Essendo $P'_n \supset P_n$ si avrà
+\[
+  S_*(g,P_n) \le S_*(g,P'_n) \le S^*(g,P'_n) \le S^*(g,P_n)
+\]
+e quindi avremo ancora $S_*(g,P'_n)\to I$ e $S^*(g,P'_n) \to I$ per $n\to +\infty$.
+Ma le funzioni $f$ e $g$ differiscono solamente all'interno dell'intervallo $I_\eps = [x_0-1/n, x_0+1/n]$ e su tale intervallo, essendo $f-g$ limitata (diciamo $\abs{f-g}\le M$) si avrà:
+\[
+ \sup_{I_\eps} \abs{f-g} \le M
+\]
+da cui
+\begin{gather*}
+S_*(g,P'_n) - \frac{2M}n
+\le
+S_*(f,P'_n)
+\le
+S^*(f,P'_n)
+\le
+S^*(g,P'_n) + \frac{2M}n\\
+\end{gather*}
+e per il teorema dei due carabinieri,
+passando al limite per $n\to +\infty$, si ottiene
+\[
+S_*(f,P'_n) \to I,
+\qquad
+S^*(f,P'n) \to I.
+\]
+Questo dimostra che $f$ è integrabile e che $\int_a^b f = \int_a^b g$.
+
+Possiamo ora dimostrare per induzione il caso in cui $f$ e $g$ differiscono su un insieme di $n$ punti. Il passo base dell'induzione $n=1$ lo abbiamo già dimostrato.
+Se ora $f$ e $g$ differiscono su un insieme di $n+1$ punti consideriamo uno di questi punti e chiamiamolo $x_0$. Consideriamo la funzione $h$ che coincide con $f$ in $x_0$ e con $g$ in tutti gli altri punti: chiaramente $h$ differisce in un solo punto con $g$ quindi, per il passo base, è integrabile e vale $\int_a^b h = \int_a^b g$. Ma $f$ differisce con $h$ in un insieme di $n$ punti e quindi, per ipotesi induttiva possiamo dedurre che $f$ è integrabile e $\int_a^b f = \int_a^b h = \int_a^b g$, come volevamo dimostrare.
+\end{proof}
+
+\begin{example}[funzione di Heaviside]
+\mynote{funzione di Heaviside}
+\index{funzione!di Heaviside}
+Sia $a<0<b$.
+La funzione $H\colon [a,b] \to \RR$ definita da
+\[
+H(x) =
+\begin{cases}
+1 & \text{se $x\ge 0$}\\
+0 & \text{se $x< 0$}
+\end{cases}
+\]
+è integrabile.
+\end{example}
+\begin{proof}
+La funzione $H$ coincide con la funzione costante $1$ sull'intervallo $[0,b]$, dunque è integrabile su tale intervallo.
+Sull'intervallo $[a,0]$ la funzione $H$ differisce dalla funzione costante $0$ solamente in un punto. Dunque anche su $[a,0]$ la funzione $H$ è integrabile. Ma allora, per additività rispetto al dominio, la funzione $H$ è integrabile su tutto $[a,b]$. Inoltre si ha
+\[
+  \int_a^b H = \int_a^0 H + \int_0^b H = \int_a^0 0 + \int_0^b 1 = 0 + b = b.
+\]
 \end{proof}
 
 \begin{theorem}[del valor medio]
@@ -480,9 +626,9 @@ E se $G\colon I \to \RR$ è una qualunque  funzione tale che $G'(x)=f(x)$ si avr
 \[
  \int_a^b f = F(b) - F(a) = (G(b) - c) - (G(a) - c) = G(b) - G(a).
 \]
-
 \end{proof}
 
+\begin{comment}
 \begin{theorem}[irrazionalità di $\pi$]
 \mymargin{$\pi$ è irrazionale}
 \index{irrazionalità!di $\pi$}
@@ -570,3 +716,4 @@ cioè
 \]
 Dunque abbiamo scoperto che $a_n\to 0$. D'altra parte abbiamo visto che $a_n \in \ZZ$ e certamente $a_n > 0$ in quanto $I_n \neq 0$ visto che $f_n$ è una funzione continua, non negativa e non identicamente nulla. Ma non è possibile che una successione di numeri interi positivi converga a zero: abbiamo quindi ottenuto l'assurdo.
 \end{proof}
+\end{comment}
