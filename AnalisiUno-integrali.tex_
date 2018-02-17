@@ -1,7 +1,7 @@
 \chapter{calcolo integrale}
 
 \begin{definition}[integrale di Riemann]
-Siano $a,b\in \RR$, $a <le b$.
+Siano $a,b\in \RR$, $a \le b$.
 
 Un insieme $P\subset [a,b]$ si dice essere una \myemph{partizione di Riemann}
 \index{Riemann!partizione di}
@@ -482,11 +482,14 @@ Essendo $P'_n \supset P_n$ si avrà
   S_*(g,P_n) \le S_*(g,P'_n) \le S^*(g,P'_n) \le S^*(g,P_n)
 \]
 e quindi avremo ancora $S_*(g,P'_n)\to I$ e $S^*(g,P'_n) \to I$ per $n\to +\infty$.
-Ma le funzioni $f$ e $g$ differiscono solamente all'interno dell'intervallo $I_\eps = [x_0-1/n, x_0+1/n]$ e su tale intervallo, essendo $f-g$ limitata (diciamo $\abs{f-g}\le M$) si avrà:
+Ma le funzioni $f$ e $g$ differiscono solamente all'interno dell'intervallo $I_n = [x_0-1/n, x_0+1/n]$
+di ampiezza $2/n$
+e su tale intervallo,
+essendo $f-g$ limitata (diciamo $\abs{f-g}\le M$) si avrà:
 \[
- \sup_{I_\eps} \abs{f-g} \le M
+ \sup_{I_n} \abs{f-g} \le M
 \]
-da cui
+da cui somme superiori e inferiori di $f$ e $g$ differiranno al più di $2M/n$:
 \begin{gather*}
 S_*(g,P'_n) - \frac{2M}n
 \le
@@ -532,22 +535,18 @@ Sull'intervallo $[a,0]$ la funzione $H$ differisce dalla funzione costante $0$ s
 \end{proof}
 
 \begin{theorem}[del valor medio]
-Sia $f\colon [a,b] \to \RR$ una funzione Riemann-integrabile
-e sia $b>a$.
-Allora si ha
-\[
-  \inf_{[a,b]} f \le \frac{\int_a^b f}{b-a} \le \sup_{[a,b]} f
-\]
-e inoltre, se $f$ è anche continua, esisterà un punto $\xi \in (a,b)$
+Siano $a,b\in \RR$, $a<b$ e sia
+$f\colon [a,b] \to \RR$ una funzione continua.
+Allora esiste un punto $y \in (a,b)$
 tale che
 \[
-\frac{\int_a^b f}{b-a} = f(\xi).
+\frac{\int_a^b f}{b-a} = f(y).
 \]
 \end{theorem}
 %
 La quantità
 \[
-  \frac{\int_a^b}{b-a}
+  \frac{\int_a^b}{b-a} f
 \]
 si chiama \emph{valor medio integrale} di $f$ su $[a,b]$ e spesso
 si indica con il simbolo
@@ -556,29 +555,27 @@ si indica con il simbolo
 \]
 %
 \begin{proof}
-Posto $s^* = \sup f([a,b])$ e $s_* = \inf f([a,b])$ si avrà
-per ogni $x\in [a,b]$
+Per il teorema di Weierstrass la funzione $f$ ha massimo $M$ e minimo $m$ sull'intervallo $[a,b]$ cosicché
+per ogni $x\in [a,b]$ si avrà:
 \[
-  s_* \le f(x) \le s^*
+  m \le f(x) \le M.
 \]
-e dunque, per la monotonia dell'integrale:
+Risulta quindi, per la monotonia dell'integrale:
 \[
-  (b-a) s_* = \int_a^b s_* \le \int_a^b f \le \int_a^b s^* = (b-a)s^*
+  (b-a) m = \int_a^b m \le \int_a^b f \le \int_a^b M = (b-a) M
 \]
-da cui discende la prima parte del teorema.
-
-Se inoltre $f$ è continua, basterà osservare che $f$ ha massimo e minimo su $[a,b]$ dunque $s_*$ e $s^*$ sono valori assunti dalla funzione. Per il teorema dei valori intermedi anche la
-media integrale
+ovvero
 \[
- \frac{\int_a^b f}{b-a}
+  m \le \frac{\int_a^b f}{b-a} \le M.
 \]
-è un valore assunto dalla funzione.
+Dunque la media integrale è un valore intermedio tra il minimo e il massimo della funzione e quindi, per il teorema dei valori intermedi, dovrà esistere un punto $y\in [a,b]$ dove la funzione assume tale valore.
 \end{proof}
 
+\section{la ricerca delle primitive}
 
-\begin{theorem}[fondamentale del calcolo]
-\mynote{teorema fondamentale del calcolo}
-\index{teorema!fondamentale del calcolo}
+\begin{theorem}[fondamentale del calcolo integrale]
+\mynote{teorema fondamentale del calcolo integrale}
+\index{teorema!fondamentale del calcolo integrale}
 Sia $I\subset \RR$ un intervallo, sia $x_0 \in I$
  e sia $f\colon I\to \RR$ una funzione continua.
 Allora la \myemph{funzione integrale} $F\colon I \to \RR$
@@ -592,7 +589,7 @@ Allora la \myemph{funzione integrale} $F\colon I \to \RR$
 In particolare essendo $f\in C^0(I)$ si ha $F\in C^1(I)$.
 
 Inoltre se $G\colon I \to \RR$ è una qualunque funzione tale che $G'(x) = f(x)$ per ogni $x\in I$, allora per ogni $a,b \in I$ si ha
-\mymargin{formula fondamentale del calcolo}
+\mymargin{formula fondamentale del calcolo integrale}
 \[
   \int_a^b f = G(b) - G(a).
 \]
@@ -601,7 +598,7 @@ Inoltre se $G\colon I \to \RR$ è una qualunque funzione tale che $G'(x) = f(x)$
 \begin{proof}
 Osserviamo innanzitutto che la funzione $f$, essendo continua, è integrabile su ogni intervallo chiuso e limitato contenuto in $I$. Dunque l'integrale $\int_{x_0}^x f$ è ben definito.
 
-Per ogni $h\\neq 0$, se $x+h \in I$ per l'additività dell'integrale
+Per ogni $h\neq 0$, se $x+h \in I$ per l'additività dell'integrale
 si ha
 \[
 \frac{F(x+h) - F(x)}{h} = \frac{\int_{x_0}^{x+h} f - \int_{x_0}^x f}{h}
@@ -627,6 +624,134 @@ E se $G\colon I \to \RR$ è una qualunque  funzione tale che $G'(x)=f(x)$ si avr
  \int_a^b f = F(b) - F(a) = (G(b) - c) - (G(a) - c) = G(b) - G(a).
 \]
 \end{proof}
+
+\begin{definition}[primitiva]
+Sia $A \subset \RR$ e sia $f\colon A \to \RR$ una funzione qualunque. Una funzione $F\colon A \to \RR$ si dice essere una \myemph{primitiva}
+(o \myemph{antiderivata})
+di $f$ se $F$ è derivabile e $F'(x)=f(x)$ per ogni $x\in A$.
+\end{definition}
+
+Il teorema fondamentale del calcolo integrale può dunque essere espresso nel modo seguente: ogni funzione $f$ continua, definita su un intervallo, ammette almeno una primitiva e se $F$ è una qualunque primitiva di $f$ si ha
+\[
+  \int_a^b f = F(b) - F(a).
+\]
+Per indicare la differenza $F(b)-F(a)$ si usano
+talvolta le seguenti notazioni:
+\[
+  \Enclose{F(x)}_{x=a}^b = \Enclose F_a^b
+  = F(x) \vert_{x=a}^b
+  = F \vert_a^b = F(b) - F(a).
+\]
+
+Il calcolo degli integrali si riduce quindi alla determinazione delle primitive ovvero ad invertire l'operatore di derivata.
+Risulterà quindi importante avere degli strumenti per determinare le primitive di una funzione.
+
+\begin{definition}[integrale indefinito]
+L'insieme di tutte le primitive di una funzione $f\colon A \to \RR$
+si indica con il simbolo
+\[
+  \int f
+  \qquad\text{oppure}\qquad
+  \int f(x) \, dx
+\]
+
+e si chiama \emph{integrale indefinito}.
+Il motivo di questa notazione (e del nome) deriva dal teorema fondamentale del calcolo integrale, in
+base al quale se $f\colon[a,b]\to \RR$
+è continua si ha
+\[
+  \int_a^b f = \Enclose{\int f}_a^b.
+\]
+\end{definition}
+
+Se pensiamo all'operatore lineare $D$ definito sull'insieme delle funzioni derivabili $Df = f'$
+si può pensare a $\int f$ come all'insieme delle controimmagini di $f$ tramite $D$ ovvero:
+\[
+  \int f = D^{-1}(\{f\}) = \{F \colon DF =f \}.
+\]
+
+\begin{theorem}[proprietà delle primitive]
+Sia $f\colon I \to \RR$
+una funzione continua definita su un intervallo $I\subset \RR$. Allora
+\begin{enumerate}
+\item esiste almeno una primitiva $F$ di $f$;
+\item data una primitiva $F$ di $f$ ogni altra
+primitiva $G$ differisce da $F$ per una costante: $G= F+c$.
+\end{enumerate}
+
+Detto in altri termini $\int f$ non è vuoto e se  $F\in \int f$ allora
+\[
+  \int f = \{F+c \colon c \in \RR\}.
+\]
+\end{theorem}
+
+Osserviamo che l'insieme delle funzioni costanti
+su un intervallo
+non è altro che $\ker D$ ovvero lo spazio di annullamento dell'operatore derivata. Stiamo dunque semplicemente osservando che le controimmagini di un operatore lineare sono spazi affini paralleli al nucleo dell'operatore.
+
+\begin{proof}
+Scelto un punto $x_0\in I$ possiamo
+considerare la funzione integrale
+\[
+  F(x) = \int_{x_0}^x f(t)\, dt.
+\]
+Il teorema fondamentale del calcolo integrale
+ci assicura che $F$ è una primitiva di $f$.
+
+Viceversa se $F$ e $G$ sono due primitive di $f$ allora si ha:
+\[
+  F' = G' = f.
+\]
+Posto $H=G-F$ avremo quindi $H'=0$ sull'intervallo $I$. Per i criteri di monotonia sappiamo quindi che $H$ è costante, ovvero esiste $c\in \RR$ tale che $H(x)=c$ per ogni $x\in I$. Dunque si ottiene, come voluto: $G=F+H=F+c$.
+\end{proof}
+
+\section{calcolo delle primitive}
+
+In generale quello che ci interessa è trovare una singola primitiva in quanto in genere tutte le altre si otterranno di conseguenza molto facilmente. In base alle proprietà delle primitive, infatti, sappiamo che su ogni intervallo le primitive differiscono per una costante. Osserviamo però che se la funzione è definita sull'unione di più intervalli allora ogni intervallo può avere una costante diversa, come si vede nel seguente.
+
+\begin{example}[primitive sugli insiemi non connessi]
+Consideriamo la funzione $f(x) = 1/x$. Osserviamo che $f\colon (-\infty, 0) \cup (0,+\infty)\to \RR$ è definita sull'unione di due intervalli. Per verifica diretta possiamo osservare che la funzione $F(x) = \ln \abs{x}$ è una primitiva di $f$. Per ottenere l'insieme di tutte le primitive possiamo aggiungere ad $F$ una qualunque funzione con derivata nulla sul dominio di $f$. Le funzioni con derivata nulla sono costanti su ogni intervallo e quindi troviamo che per ogni $c_1, c_2\in \RR$ la funzione
+\[
+G(x) =
+\begin{cases}
+  \ln (x) + c_1 &\text{se $x>0$},\\
+  \ln (-x) + c_2 & \text{se $x<0$}
+\end{cases}
+\]
+è una primitiva di $f$ e non ci sono altre primitive.
+
+In questo caso lo spazio delle primitive ha dimensione $2$ in quanto il nucleo dell'operatore derivata sullo spazio delle funzioni definite sull'unione di due intervalli ha dimensione $2$.
+Questo è l'esempio più semplice di un fenomeno piuttosto generale per cui gli operatori differenziali su uno spazio risultano strettamente legati alla topologia dello spazio stesso. In questo caso la dimensione del nucleo dell'operatore differenziale $D$ è uguale al numero di componenti connesse del dominio delle funzioni nel dominio di $D$.
+\end{example}
+
+Come già detto utilizzeremo la notazione $\int f$ per indicare le primitive della funzione $f$. Ma invece di scrivere $F\in \int f$
+per indicare che $F$ è una primitiva di $f$ scriveremo, più semplicemente ma con abuso di notazione $\int f = F$
+ricordando (come facevamo con la notazione degli $o$-piccolo) che tale relazione non è affatto simmetrica.
+Eviteremo invece di scrivere $\int f = F+c$ come invece si trova in molti testi in quanto nel caso in cui il dominio della funzione non sia connesso risulta molto più complicato scrivere l'insieme di tutte le primitive. Nell'esempio precedente abbiamo infatti osservato che:
+\[
+  \int \frac{1}{x}\, dx \supsetneq \{\ln \abs{x}+c\colon c \in \RR\}.
+\]
+
+\begin{theorem}[integrali delle funzioni elementari]
+Si ha
+per ogni $\alpha \in \RR$, $\alpha\neq -1$
+\begin{gather*}
+\int x^\alpha\, dx = \frac{x^{\alpha+1}}{\alpha+1},
+\qquad
+\int \frac{1}{x}\, dx = \ln\abs{x}
+\\
+\int e^x \, dx = e^x,
+\qquad
+\int \cos x\, dx = \sin x,
+\qquad
+\int \sin x\, dx = -\cos x
+\\
+\int \cosh x \, dx = \sinh x,\qquad
+\int \sinh x \, dx = \cosh x, \\
+\int \frac{1}{1+x^2}\, dx = \arctg x, \qquad
+\int \frac{1}{\sqrt{1-x^2}}\, dx = \arcsin x.
+\end{gather*}
+\end{theorem}
 
 \begin{comment}
 \begin{theorem}[irrazionalità di $\pi$]
