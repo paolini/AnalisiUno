@@ -571,8 +571,6 @@ ovvero
 Dunque la media integrale è un valore intermedio tra il minimo e il massimo della funzione e quindi, per il teorema dei valori intermedi, dovrà esistere un punto $y\in [a,b]$ dove la funzione assume tale valore.
 \end{proof}
 
-\section{la ricerca delle primitive}
-
 \begin{theorem}[fondamentale del calcolo integrale]
 \mynote{teorema fondamentale del calcolo integrale}
 \index{teorema!fondamentale del calcolo integrale}
@@ -732,7 +730,7 @@ Eviteremo invece di scrivere $\int f = F+c$ come invece si trova in molti testi 
   \int \frac{1}{x}\, dx \supsetneq \{\ln \abs{x}+c\colon c \in \RR\}.
 \]
 
-\begin{theorem}[integrali delle funzioni elementari]
+\begin{theorem}[integrali di alcune funzioni elementari]
 Si ha
 per ogni $\alpha \in \RR$, $\alpha\neq -1$
 \begin{gather*}
@@ -752,8 +750,310 @@ per ogni $\alpha \in \RR$, $\alpha\neq -1$
 \int \frac{1}{\sqrt{1-x^2}}\, dx = \arcsin x.
 \end{gather*}
 \end{theorem}
+%
+\begin{proof}
+E' sufficiente fare riferimento alla corrispondente tabella
+delle derivate delle funzioni elementari.
+\end{proof}
 
-\begin{comment}
+\begin{theorem}[linearità dell'integrale indefinito]
+Per ogni $\lambda,\mu \in \RR$ e se $f$, $g$ sono funzioni qualunque si ha:
+\[
+  \int \enclose{\lambda f + \mu g} \supset \lambda \int f + \mu \int g
+\]
+\end{theorem}
+%
+\begin{proof}
+Ogni elemento dell'insieme che si trova sul lato destro
+si scrive nella forma $\lambda F + \mu G$ con $F\in \int f$ e $G\in \int g$. Dunque si ha $F'=f$ e $G'=g$ da cui
+\[
+  (\lambda F + \mu G)' = \lambda f + \mu g
+\]
+e quindi
+\[
+  \lambda F + \mu G \in \int (\lambda f + \mu g)
+\]
+come dovevamo dimostrare.
+\end{proof}
+%
+\begin{proof}
+Dobbiamo dimostrare che se $F$ è una primitiva di $f$ allora $F(g(x))$ è una primitiva di
+$f(g(x)) g'(x)$.
+E' sufficiente applicare la regola di derivazione della funzione
+composta: $(F(g(x)))' = F'(g(x)) g'(x) = f(g(x))g'(x)$.
+\end{proof}
+
+\begin{theorem}[cambio di variabile negli integrali]
+Valgono le seguenti proprietà:
+\begin{enumerate}
+\item
+se $g\colon A \to \RR$ è derivabile e $f\colon g(A) \to \RR$
+allora
+\[
+  \int f(g(x)) g'(x)\, dx \supset
+  \Enclose{\int f(y) \, dy}_{y=g(x)}
+\]
+dove si intende
+\[
+ \Enclose{F(y)}_{y=g(x)} = F(g(x));
+\]
+
+\item
+se $g\in C^1([a,b])$ e $f\in C^0(g([a,b]))$ allora
+\[
+ \int_{g(a)}^{g(b)} f(x)\, dx = \int_a^b f(g(t))\, g'(t)\, dt;
+\]
+
+\item
+se $g\in C^1([a,b])$ è iniettiva, $f\in C^0(g([a,b]))$
+allora $g^{-1}$ è definita su $g([a,b])$
+e si ha
+\[
+  \int f(x)\, dx \supset \Enclose{\int f(g(t)) g'(t)\, dt}_{t=g^{-1}(x)}
+\]
+\end{enumerate}
+\end{theorem}
+%
+\begin{proof}
+Per la prima parte prendiamo una qualunque funzione
+$H$ appartenente all'insieme sul lato destro.
+Essa sarà della forma $H(x) = F(g(x))$ con $F\in \int f$ ovvero con $F'=f$.
+Facciamo la derivata:
+\[
+  H'(x) = (F(g(x)))' = F'(g(x)) g'(x) = f(g(x)) g'(x).
+\]
+Abbiamo quindi mostrato che $H$ è una primitiva di $f(g(x))g'(x)$ e quindi è elemento anche dell'insieme sul lato sinistro:
+era quanto dovevamo dimostrare
+
+Per la seconda parte sappiamo che $f$, essendo continua, ammette almeno una primitiva $F(x)$. Per il punto precedente sappiamo che $F(g(t))$ è una primitiva di $f(g(t))g'(t)$ (basta farne la derivata per verificarlo). Dunque, utilizzando la formula fondamentale del calcolo, si ottiene:
+\[
+\int_{g(a)}^{g(b)} f(x) \, dx
+= \Enclose{F(x)}_{g(a)}^{g(b)}
+= F(g(b)) - F(g(a))
+\]
+e
+\[
+\int_a^b f(g(t))g'(t)\, dt
+= \Enclose{F(g(t))}_a^b
+= F(g(b)) - F(g(a)).
+\]
+Le due espressioni sono uguali, come volevamo dimostrare.
+
+Per la terza parte
+sia $F$ una qualunque funzione elemento dell'insieme sul lato destro della relazione che vogliamo dimostrare.
+Si avrà $F(x) = H(g^{-1}(x))$ con $H(t)$ primitiva
+di $f(g(t))g'(t)$. Ma allora, per la formula fondamentale del calcolo integrale, si ha
+\[
+  H(t)-H(a) = \int_a^t f(g(s)) g'(s)\, ds
+\]
+da cui
+\[
+  F(x) - F(g(a))
+  = H(g^{-1}(x)) - H(a)
+  = \int_a^{g^{-1}(x)} f(g(t)) g'(t)\, dt
+\]
+utilizzando il punto precedente sappiamo però che vale
+\[
+F(x) - F(g(a)) =
+\int_a^{g^{-1}(x)} f(g(t)) g'(t)\, dt
+= \int_{g(a)} x f(t)\, dt.
+\]
+Dunque derivando ambo i membri, grazie ancora al teorema
+fondamentale otteniamo:
+\[
+  F'(x) = f(x)
+\]
+cioè $F\in \int f$, come dovevamo dimostrare.
+\end{proof}
+
+Le formule del teorema precedente si scrivono usualmente nella forma
+\[
+  \int f(g(x) g'(x)\, dx = \int f(y) \, dy
+\]
+dove si intende che le variabili $x$ e $y$ devono soddisfare la relazione $y=g(x)$ (o, viceversa, $x=g^{-1}(y)$).
+Per memorizzare tale formula si usa normalmente definire il
+\emph{differenziale} di una funzione $g$ come $dg(x) = g'(x)\, dx$
+(coerentemente con la notazione $g' = dg / dx$)
+cosicche se $y=g(x)$ si ha $dy = g'(x)\, dx$.
+Non daremo qui una definizione formale di cosa sia un differenziale
+ma senz'altro utilizzeremo questa comoda notazione, pensandola
+semplicemente come una facilitazione tipografica.
+
+\begin{exercise}
+Vogliamo calcolare
+\[
+  \int \cos^2(x)\, dx.
+\]
+
+Ricordando che $\cos(2t) = \cos^2 t - \sin^2 t = 2\cos^2 t - 1$ si
+ha $\cos^2 t = (1+\cos(2t))/2$ (formula di bisezione).
+Dunque
+\[
+\int \cos^2(t)\, dt
+= \int\frac{1+\cos(2t)}{2}\, dt
+= \int \frac 1 2 \, dt + \int \frac{\cos(2t)}{2}\, dt.
+\]
+Chiaramente $\int \frac 1 2 \, dt  = t/2$.
+Nel secondo integrale
+possiamo fare un cambio di variabile, ponendo
+$2t=s$ da cui $2dt = ds$:
+\begin{align*}
+\int \frac{\cos(2t)}{2}\, dt
+&= \frac 1 4 \int \cos(2t)\, 2dt
+= \frac 1 4 \Enclose{\int \cos s \, ds}_{s=2t}
+= \frac 1 4 \Enclose{\sin s}_{s=2t}\\
+&= \frac 1 4 \sin(2t)
+= \frac{1}{1}\sin t \cos t.
+\end{align*}
+In definitiva otteniamo
+\[
+  \int \cos^2(x)\, dx = \frac{t+\sin t \cos t}{2}.
+\]
+\end{exercise}
+
+
+\begin{example}
+Vogliamo calcolare
+\[
+ \int \sqrt{1-x^2}\, dx.
+\]
+La funzione integranda è definita per $x\in [-1,1]$.
+Ci viene in mente di operare la sostituzione $x=\sin t$
+con $t\in [-\pi/2, \pi/2]$.
+Osserviamo che su $[-\pi/2,\pi/2]$ la funzione $\sin t$ è derivabile, invertibile e la sua inversa è $t = \arcsin x$.
+Informalmente si ha
+\[
+ x= \sin t, \qquad dx = \cos t \, dt
+\]
+da cui si ottiene la formula
+\[
+ \int \sqrt{1-x^2}\, dx = \Enclose{\int \sqrt{1-\sin^2(t)} \cos t\, dt}_{t=\arcsin x}.
+\]
+Osserviamo ora che per $t\in [-\pi/2, \pi/2]$ risulta $\sqrt{1-\sin^2(t)}=\cos t$ e dunque l'integrale
+diventa
+\[
+ \int \sqrt{1-\sin^2(t)}\cos t\, dt = \int \cos^2(t)\, dt.
+\]
+Quest'ultimo integrale lo abbiamo calcolato nell'esercizio precedente. Dunque otteniamo:
+\begin{align*}
+ \int \sqrt{1-x^2}\, dx
+ &\stackrel{(x=\sin t)}= \int \cos^2(t)\, dt
+ = \frac{t + \sin t \cos t}{2} \\
+ &= \frac{t + (\sin t) \sqrt{1-\sin^2 t}}{2} \\
+ &\stackrel{(t=\arcsin x)}= \frac{\arcsin x + x \sqrt{1-x^2}}{2}.
+\end{align*}
+\end{example}
+
+\begin{theorem}[integrazione per parti]
+Sia $f\colon A\subset \RR \to \RR$ una funzione qualunque, sia $g\colon A \to\RR$ una funzione derivabile
+e sia $F \in \int f$.
+Allora
+\[
+  \int f\cdot g \supset F \cdot g - \int F \cdot g'.
+\]
+
+In particolare se $f\in C^0([a,b])$ e $g\in C^1([a,b])$
+e $F \in \int f$, si ha
+\[
+  \int_a^b f\cdot g = \Enclose{F\cdot g}_a^b - \int_a^b F \cdot g'.
+\]
+\end{theorem}
+%
+\begin{proof}
+Ogni funzione dell'insieme di destra si scrive nella forma
+$F\cdot g - H$ con $H \in \int F \cdot g'$.
+Dunque $H' = F \cdot g'$ e, per ipotesi, $F'=f$ da cui
+\[
+(F\cdot g - H)' = F' \cdot g + F \cdot g' - H' = F' \cdot g
+= f\cdot g
+\]
+che è quanto dovevamo dimostrare.
+
+La seconda parte del teorema
+deriva direttamente dalla formula fondamentale del calcolo integrale (valida in quanto sia $f\cdot g$ che $F \cdot g'$ sono funzioni continue), osservando che
+\[
+\Enclose{F\cdot g - \int F \cdot g'}_a^b
+= \Enclose{F\cdot g}_a^b - \int_a^b F \cdot g'.
+\]
+\end{proof}
+
+\begin{example}
+Si voglia calcolare
+\[
+  \int x \cos x\, dx.
+\]
+Il metodo di integrazione per parti ci permette
+di ricondurre l'integrale di un prodotto ad un integrale
+di un prodotto in cui uno dei fattori viene integrato e l'altro derivato. In questo caso sarà conveniente derivare il fattore $x$
+e integrare il fattore $\cos x$ in modo da ricondursi all'integrale di $1\cdot \sin x$, che sappiamo svolgere.
+Precisamente si ha
+\[
+ \int x \cos x\, dx = x \sin x - \int 1 \cdot \sin x \, dx
+  = x \sin x + \cos x.
+\]
+\end{example}
+
+\begin{example}
+Si voglia calcolare
+\[
+ \int e^x \cos x\, dx.
+\]
+In questo caso se utilizziamo l'integrazione per parti possiamo ricondurre questo integrale a $\int e^x \sin x$. Integrando ancora per parti ci si ricondurrà nuovamente ad $\int e^x \cos x$. Se però in questi passaggi si riottiene la quantità originale con un segno cambiato, si potrà risolvere l'equazione ottenuta per trovare il risultato cercato.
+
+Precisamente:
+\begin{align*}
+\int e^x \cos x\, dx
+&= e^x \sin x - \int e^x \sin x\, dx\\
+ &= e^x \sin x - \Enclose{e^x(-\cos x) - \int e^x(-\cos x)\, dx} \\
+ &= e^x \sin x + e^x \cos x - \int e^x \cos x \, dx
+\end{align*}
+da cui:
+\[
+ 2 \cdot \int e^x \cos x\, dx  = e^x \sin x + e^x \cos x
+\]
+ovvero
+\[
+  \int e^x \cos x\, dx = \frac{e^x(\sin x + \cos x)}{2}.
+\]
+\end{example}
+
+\begin{theorem}[ancora integrali di funzioni elementari]
+Si ha
+\begin{align*}
+  \int \ln x\, dx  &= x \ln x - x, \\
+  \int \arctg x\, dx &= x \arctg x - \ln \sqrt{1+x^2}.\\
+\end{align*}
+\end{theorem}
+%
+\begin{proof}
+In entrambi i casi l'idea è che la derivata della funzione integranda trasforma la funzione trascendente in una funzione
+razionale. Può quindi risultare utile applicare l'integrazione
+per parti nella forma:
+\[
+  \int f(x)\, dx = \int 1\cdot f(x)\, dx = x f(x) - \int x f'(x)\, dx.
+\]
+Nel primo caso si ha:
+\[
+\int \ln x\, dx = x \ln x - \int x \frac{1}{x}\, dx
+ = x \ln x - \int 1 dx = x \ln x - x.
+\]
+Nel secondo caso:
+\[
+\int \arctg x\, dx = x \arctg x - \int \frac{x}{1+x^2}\, dx.
+\]
+Operiamo quindi un cambio di variabile $y=1+x^2$:
+\begin{align*}
+\int \frac{x}{1+x^2}\, dx
+&= \frac{1}{2}\int \frac{1}{1+x^2} 2x \, dx
+\stackrel{y=1+x^2} = \frac{1}{2}\int \frac 1 y\, dy \\
+&= \frac{\ln y}{2} = \frac{1}{2}\ln\enclose{1+x^2}
+\end{align*}
+da cui, in conclusione:
+\[
+ \int \arctg x\, dx = x \arctg x - \frac 1 2 \ln\enclose{1+x^2}.
+\]
+\end{proof}
+
 \begin{theorem}[irrazionalità di $\pi$]
 \mymargin{$\pi$ è irrazionale}
 \index{irrazionalità!di $\pi$}
@@ -841,4 +1141,22 @@ cioè
 \]
 Dunque abbiamo scoperto che $a_n\to 0$. D'altra parte abbiamo visto che $a_n \in \ZZ$ e certamente $a_n > 0$ in quanto $I_n \neq 0$ visto che $f_n$ è una funzione continua, non negativa e non identicamente nulla. Ma non è possibile che una successione di numeri interi positivi converga a zero: abbiamo quindi ottenuto l'assurdo.
 \end{proof}
+
+\begin{comment}
+\section{primitive di funzioni razionali}
+
+\begin{definition}[funzione razionale]
+\mynote{funzione razionale}
+\index{funzione!razionale}
+Una funzione $f$ si dice essere \emph{razionale}
+se si può scrivere
+\[
+  f(x) = \frac{P(x)}{Q(x)}
+\]
+con $P$ e $Q$ funzioni polinomiali.
+\end{definition}
+
+Gli integrali di funzioni razionali possono sempre essere scritti mediante funzioni elementari. In questa sezione cercheremo di dare le idee generali per svolgere tali integrali almeno nei casi più semplici.
+
+
 \end{comment}
