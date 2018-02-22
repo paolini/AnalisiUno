@@ -1142,7 +1142,6 @@ cioè
 Dunque abbiamo scoperto che $a_n\to 0$. D'altra parte abbiamo visto che $a_n \in \ZZ$ e certamente $a_n > 0$ in quanto $I_n \neq 0$ visto che $f_n$ è una funzione continua, non negativa e non identicamente nulla. Ma non è possibile che una successione di numeri interi positivi converga a zero: abbiamo quindi ottenuto l'assurdo.
 \end{proof}
 
-\begin{comment}
 \section{primitive di funzioni razionali}
 
 \begin{definition}[funzione razionale]
@@ -1153,10 +1152,172 @@ se si può scrivere
 \[
   f(x) = \frac{P(x)}{Q(x)}
 \]
-con $P$ e $Q$ funzioni polinomiali.
+con $P$ e $Q$ funzioni polinomiali a coefficienti reali.
 \end{definition}
 
-Gli integrali di funzioni razionali possono sempre essere scritti mediante funzioni elementari. In questa sezione cercheremo di dare le idee generali per svolgere tali integrali almeno nei casi più semplici.
+Vedremo in questa sezione che gli integrali di funzioni razionali possono sempre essere scritti mediante funzioni elementari.
+
+Innanzitutto grazie al teorema sulla divisione dei polinomi
+ogni funzione razionale $P(x)/Q(x)$ può essere scritta nella forma
+\[
+  \frac{P(x)}{Q(x)} = S(x) + \frac{R(x)}{Q(x)}
+\]
+dove $S(x)$ e $R(x)$ sono rispettivamente i polinomi quoziente e resto della divisione di $P(x)$ per $Q(x)$. Il grado di $R(x)$ è inferiore al grado di $Q(x)$. L'integrale di $S(x)$ è immediato in quanto $S(x)$ è combinazione lineare di potenze di $x$.
+Per trovare una primitiva di $P(x)/Q(x)$ ci si riconduce quindi a cercare una primitiva di $R(x)/Q(x)$ che è una qualunque funzione razionale dove però il grado del polinomio a "numeratore" è inferiore al grado del polinomio al "denominatore".
+
+L'idea è allora quella di decomporre la funzione razionale $P/Q$ in una somma di funzioni razionali più semplici,
+come nel seguente.
+
+\begin{theorem}[decomposizione in fratti semplici]
+Siano $u_1, \dots, u_n$ funzioni complesse della forma
+\[
+  u_k(z) = \frac{1}{(z-\lambda_k)^{p_k}}
+\]
+con $\lambda_k\in \CC$, $p_k\in \NN$, $p_k>0$.
+Supponiamo che le $u_k$ siano tra loro distinte (cioè se $\lambda_k=\lambda_j$ allora $p_k \neq p_j$).
+Sia $\Omega = \CC \setminus\{\lambda_1, \dots, \lambda_k\}$ cosicché tutte le funzioni $u_k$ sono elementi dello spazio vettoriale complesso $V=\CC^\Omega$ cioè sono funzioni complesse definite su tutto $\Omega$.
+
+Allora le funzioni $u_k$ sono linearmente indipendenti come vettori di $V$ ovvero
+se esistono dei coefficienti $\alpha_1,\dots, \alpha_n \in \CC$ tali che
+\[
+\forall z \in \Omega\colon  \sum_{k=1}^n \alpha_k u_k(z) = 0
+\]
+allora ogni $\alpha_k=0$ per $k=1,\dots,n$.
+
+Di conseguenza se $Q(z) = (z-\lambda_1)^{p_1} \cdot (z-\lambda_n)^{p_n}$ con $\lambda_k\in \CC$ valori distinti
+e $p_k\in \NN$, $p_k>0$,
+per $k=1,\dots, n$
+posto $N=p_1 + \dots + p_n$
+il grado di $Q$,
+per ogni polinomio complesso $P$ di grado inferiore ad $N$
+esistono dei coefficienti $A_{kj}\in \CC$
+per $k=1,\dots,n$ e  $j=1,\dots, p_k$ tali che
+\[
+  \frac{P(z)}{Q(z)} = \sum_{k=1}^n \sum_{j=1}^{p_k} \frac{A_{kj}}{(z-\lambda_k)^j}.
+\]
+\end{theorem}
+%
+\begin{proof}
+Procediamo per induzione su $n$. Se $n=1$ abbiamo una unica funzione che non può essere identicamente nulla (anzi: non si annulla mai). Dunque è un insieme linearmente indipendente.
+
+Supponiamo allora di avere un insieme di $n$ funzioni $u_1, \dots, u_n$ e supponiamo di avere una combinazione lineare identicamente nulla: $\alpha_1 u_1 + \dots + \alpha_n u_n = 0$.
+Sia $\lambda = \lambda_n$ e sia $p$ il massimo esponente
+$p_k$ nelle funzioni che hanno $\lambda_k=\lambda$ come
+punto singolare:
+\[
+ p = \max\{p_k\colon k=1,\dots, n, p_k = p \}.
+\]
+
+Consideriamo la funzione $f\colon \Omega \to \CC$
+definita da
+\[
+  f(z) = (z-\lambda)^p\sum_{k=1}^n \frac{\alpha_k}{(z-\lambda_k)^{p_k}}.
+\]
+Questa funzione per ipotesi è identicamente nulla (in quanto ottenuta moltiplicando la combinazione lineare identicamente nulla per il fattore $(z-\lambda)^p$).
+Ma si osserva che si ha
+\[
+  \lim_{z\to \lambda} \frac{(z-\lambda)^p}{(z-\lambda_k)^{p_k}}
+  =
+  \begin{cases}
+    0 &\text{se $\lambda_k \neq \lambda$}\\
+    0 &\text{se $\lambda_k = \lambda$ ma $p_k < p$}\\
+    1 &\text{se $\lambda_k = \lambda$ e $p_k = p$}
+  \end{cases}
+\]
+e dunque, supponendo senza perdita di generalità che sia $p_n=p$,
+\[
+ 0 = \lim_{z\to \lambda} f(z)
+ = \sum_{k=1}^{n-1} \alpha_k \cdot 0 + \alpha_n \cdot 1.
+\]
+Dunque $\alpha_n = 0$ e risulta allora che
+\[
+  0 = \sum_{k=1}^n \alpha_k u_k = \sum_{k=1}^{n-1} \alpha_k u_k.
+\]
+Ci siamo quindi ricondotti ad una combinazione lineare di $n-1$ vettori $u_1,\dots, u_{n-1}$ e per induzione possiamo supporre quindi che anche $\alpha_1= \dots = \alpha_{n-1}=0$ concludendo la dimostrazione della prima parte del teorema.
+
+Per la seconda parte osserviamo che
+\begin{equation}\label{eq:43775}
+\sum_{k=1}^n \sum_{j=1}^{p_k} \frac{A_{kj}}{(z-\lambda_k)^j}
+= \frac{\displaystyle\sum_{k=1}^n \sum_{j=1}^{p_k} A_{kj} S_{kj}(z)}{Q(z)}
+\end{equation}
+dove
+\[
+  S_{kj}(z) = \frac{Q(z)}{(z-\lambda_k)^j}
+\]
+è un polinomio di grado inferiore al grado di $Q$ (visto che $(z-\lambda_k)^j$ divide $Q$).
+
+Guardando il lato sinistro dell'uguaglianza \eqref{eq:43775} vediamo una combinazione lineare con coefficienti $A_{kj}$ di fratti semplici e per la prima parte del teorema sappiamo che lo spazio $V$ di tutte le funzioni che
+si possono ottenere mediante tali combinazioni è un
+sottospazio vettoriale di dimensione $N$ di $\RR^\Omega$.
+
+Guardando il lato destro vediamo che al "numeratore" c'è
+invece una combinazione di polinomi $S_{kj}$ ognuno dei quali ha grado inferiore ad $N$. Quello che si ottiene è dunque un polinomio di grado inferiore ad $N$. Al denominatore c'è il polinomio fissato $Q$. Dunque al variare dei coefficienti $A_{kj}$ il lato destro è un sottospazio dello spazio dei polinomi di grado inferiore ad $N$ che vengono poi divisi per $Q$. Anche questo spazio ha dimensione $N$ (in quanto di polinomi di grado $N-1$ sono combinazione lineare dei monomi $1, z, z^2, \dots, z^{N-1}$) e contiene lo spazio $V$ che pure abbiamo verificato avere dimensione $N$. Dunque i due spazi coincidono e questo significa che il polinomio $P$, avendo grado inferiore ad $N$ è combinazione lineare dei polinomi $S_{kj}$ per una opportuna (unica) scelta dei coefficienti $A_{kj}$.
+\end{proof}
+
+\begin{theorem}[fattorizzazione dei polinomi a coefficienti reali]
+Sia $Q(x)$ un polinomio con coefficienti reali. Allora
+\begin{equation}\label{eq:35549}
+  Q(x) = Q_1(x) \cdot Q_2(x) \cdots Q_n(x)
+\end{equation}
+dove $Q_1, \dots, Q_n$ sono polinomi
+a coefficienti reali
+di grado uno oppure due.
+\end{theorem}
+%
+\begin{proof}
+Per il teorema fondamentale dell'algebra sappiamo che
+\begin{equation}\label{eq:45549}
+  Q(x) = a \cdot (x - \lambda_1) \cdots (x- \lambda_d)
+\end{equation}
+dove $\lambda_1, \dots, \lambda_d$ sono le radici complesse, eventualmente ripetute,
+del polinomio $Q$.
+Osserviamo ora che se $Q$ ha coefficienti allora per ogni numero complesso $z$ si ha $\overline{Q(z)} = Q(\overline z)$ in quanto il coniugio lascia invariati i coefficienti del polinomio $Q$. In particolare se $\lambda$ è una radice di $Q$ allora $Q(\bar \lambda) = \overline{Q(\lambda)} = \overline 0 = 0$ cioè anche $\bar \lambda$ è radice di $Q$.
+
+Possiamo ora dimostrare per induzione sul grado di $Q$ che ogni polinomio a coefficienti reali $Q$ ammette la fattorizzazione \eqref{eq:35549}. Se $Q$ ha grado non superiore a due il risultato è ovvio. Supponiamo quindi che $Q$ abbia grado maggiore di $2$ e consideriamo la sua fattorizzazione
+\eqref{eq:45549}. Se $\lambda_d \in \RR$ allora il polinomio $Q_1(x)=(x-\lambda_d)$ ha coefficienti reali ed ha grado non superiore a $2$. Il polinomio rimanente $S_1(x) =  Q(x) / Q_1(x)$ è ancora a coefficienti reali e quindi, per ipotesi induttiva, può essere anch'esso fattorizzato come prodotto di polinomi reali di grado non superiore a $2$.
+
+Se invece $\lambda_d \in \CC\setminus \RR$ allora anche $\bar \lambda_d$ deve essere una radice di $Q$ per quanto osservato in precedenza e dunque $\bar \lambda_d = \lambda_k$ per qualche $k<d$.
+Supponiamo, senza perdità di generalità, che sia $\lambda_{d-1} = \bar \lambda_d$. Allora vediamo che
+\[
+  Q_1(x) = (x-\lambda_d)(x-\bar \lambda_d) = x^2 - (\lambda_d + \bar \lambda_d) x + \lambda_d \bar \lambda_d.
+\]
+Ma $\lambda_d + \bar \lambda_d = 2 \Re(\lambda) \in \RR$ e anche $\lambda_d \bar \lambda_d = \abs{\lambda_d}^2 \in \RR$. Dunque anche in questo caso $Q_1(x)$ è un polinomio a coefficienti reali (questa volta di grado 2) e quindi si procede per induzione come nel caso precedente.
+\end{proof}
 
 
-\end{comment}
+\subsection{grado 1}
+
+Supponiamo ora che $Q(x)$ abbia grado 1.
+Il grado di $P(x)$ deve quindi essere $0$
+cioè $P(x)=a$ è costante.
+Possiamo anche supporre che $Q$ sia \emph{monico} ovvero che il coefficiente del termine di grado massimo sia 1 (altrimenti è sufficiente dividere $P$ e $Q$ per tale coefficiente), sarà quindi $Q(x) = x- \lambda$ per un opportuno $\lambda \in \RR$.
+Dunque $P$ è costante e quindi la funzione razionale è del tipo:
+\[
+\frac{P(x)}{Q(x)} = \frac{a}{x-\lambda}.
+\]
+L'integrale è quindi immediato:
+\[
+ \int \frac{a}{x-\lambda}\, dx = a \cdot \ln(\abs{x-\lambda}).
+\]
+
+\subsection{grado 2}
+
+Supponiamo ora che $Q(x)$ abbia grado 2.
+Come prima possiamo suppore che $Q$ sia monico e che $P$ abbia grado non superiore ad 1.
+Per il teorema fondamentale dell'algebra
+si avrà
+\[
+  Q(x) = (x-\lambda)\cdot (x-\mu)
+\]
+con $\lambda, \mu\in \CC$.
+
+Se $\lambda, \mu\in \RR$ la nostra funzione razionale
+si può scrivere nella forma:
+\[
+\frac{P(x)}{Q(x)} = \frac{ax+b}{(x-\lambda)(x-\mu)}.
+\]
+L'idea (giustificata dal teorema che segue) è che si possono trovare delle costanti $A$ e $B$ tali che
+\[
+  \frac{ax+b}{(x-\lambda)(x-\mu)} = \frac{A}{x-\lambda} + \frac{B}{x-\mu}.
+\]
+A questo punto l'integrale si riconduce al caso di funzioni razionali con denominatore di grado 1, che abbiamo già considerato.
