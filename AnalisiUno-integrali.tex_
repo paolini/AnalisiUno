@@ -1142,7 +1142,7 @@ cioè
 Dunque abbiamo scoperto che $a_n\to 0$. D'altra parte abbiamo visto che $a_n \in \ZZ$ e certamente $a_n > 0$ in quanto $I_n \neq 0$ visto che $f_n$ è una funzione continua, non negativa e non identicamente nulla. Ma non è possibile che una successione di numeri interi positivi converga a zero: abbiamo quindi ottenuto l'assurdo.
 \end{proof}
 
-\section{primitive di funzioni razionali}
+\section{integrale di una funzione razionale}
 
 \begin{definition}[funzione razionale]
 \mynote{funzione razionale}
@@ -1155,20 +1155,11 @@ se si può scrivere
 con $P$ e $Q$ funzioni polinomiali a coefficienti reali.
 \end{definition}
 
-Vedremo in questa sezione che gli integrali di funzioni razionali possono sempre essere scritti mediante funzioni elementari.
+In questa sezione cercheremo di trovare un metodo per
+calcolare esplicitamente l'integrale $\int P(x)/Q(x)\, dx$ di una qualunque funzione razionale.
+Per fare ciò vogliamo scrivere il rapporto $P(x)/Q(x)$ come combinazione lineare di funzioni più semplici, di cui saremo in grado di calcolare l'integrale.
 
-Innanzitutto grazie al teorema sulla divisione dei polinomi
-ogni funzione razionale $P(x)/Q(x)$ può essere scritta nella forma
-\[
-  \frac{P(x)}{Q(x)} = S(x) + \frac{R(x)}{Q(x)}
-\]
-dove $S(x)$ e $R(x)$ sono rispettivamente i polinomi quoziente e resto della divisione di $P(x)$ per $Q(x)$. Il grado di $R(x)$ è inferiore al grado di $Q(x)$. L'integrale di $S(x)$ è immediato in quanto $S(x)$ è combinazione lineare di potenze di $x$.
-Per trovare una primitiva di $P(x)/Q(x)$ ci si riconduce quindi a cercare una primitiva di $R(x)/Q(x)$ che è una qualunque funzione razionale dove però il grado del polinomio a "numeratore" è inferiore al grado del polinomio al "denominatore".
-
-L'idea è allora quella di decomporre la funzione razionale $P/Q$ in una somma di funzioni razionali più semplici,
-come nel seguente.
-
-\begin{theorem}[decomposizione in fratti semplici]
+\begin{theorem}[decomposizione complessa in fratti semplici]
 Siano $u_1, \dots, u_n$ funzioni complesse della forma
 \[
   u_k(z) = \frac{1}{(z-\lambda_k)^{p_k}}
@@ -1184,11 +1175,10 @@ se esistono dei coefficienti $\alpha_1,\dots, \alpha_n \in \CC$ tali che
 \]
 allora ogni $\alpha_k=0$ per $k=1,\dots,n$.
 
-Di conseguenza se $Q(z) = (z-\lambda_1)^{p_1} \cdot (z-\lambda_n)^{p_n}$ con $\lambda_k\in \CC$ valori distinti
+Di conseguenza se $Q(z) = (z-\lambda_1)^{p_1} \cdots (z-\lambda_n)^{p_n}$ con $\lambda_k\in \CC$ valori distinti
 e $p_k\in \NN$, $p_k>0$,
 per $k=1,\dots, n$
-posto $N=p_1 + \dots + p_n$
-il grado di $Q$,
+posto $N=\deg Q = p_1 + \dots + p_n$
 per ogni polinomio complesso $P$ di grado inferiore ad $N$
 esistono dei coefficienti $A_{kj}\in \CC$
 per $k=1,\dots,n$ e  $j=1,\dots, p_k$ tali che
@@ -1255,69 +1245,252 @@ invece una combinazione di polinomi $S_{kj}$ ognuno dei quali ha grado inferiore
 \end{proof}
 
 \begin{theorem}[fattorizzazione dei polinomi a coefficienti reali]
-Sia $Q(x)$ un polinomio con coefficienti reali. Allora
+Sia $Q(x)$ un polinomio a coefficienti reali. Allora
 \begin{equation}\label{eq:35549}
-  Q(x) = Q_1(x) \cdot Q_2(x) \cdots Q_n(x)
+  Q(x) = a \cdot (x-\lambda_1) \cdots (x-\lambda_k)
+  \cdot Q_1(x) \cdots Q_m(x)
 \end{equation}
-dove $Q_1, \dots, Q_n$ sono polinomi
-a coefficienti reali
-di grado uno oppure due.
+dove $a\in \CC$,
+$\lambda_1, \dots, \lambda_k$ sono le radici reali di $Q$
+(eventualmente ripetute con la loro molteplicità)
+e
+\[
+  Q_k(x) = x^2 + \alpha_k x + \beta_k
+\]
+sono polinomi monici di grado due con coefficienti $\alpha_k$ e $\beta_k$ reali e  con discriminante
+$\Delta = \alpha^2 - 4 \beta_k$ negativo i cui zeri (complessi) sono le radici non reali di $Q$.
 \end{theorem}
 %
 \begin{proof}
 Per il teorema fondamentale dell'algebra sappiamo che
 \begin{equation}\label{eq:45549}
-  Q(x) = a \cdot (x - \lambda_1) \cdots (x- \lambda_d)
+  Q(x) = a \cdot (x - \lambda_1) \cdots (x- \lambda_k)
+  \cdot (x-\lambda_{k+1}) \cdots (x-\lambda_n)
 \end{equation}
-dove $\lambda_1, \dots, \lambda_d$ sono le radici complesse, eventualmente ripetute,
-del polinomio $Q$.
-Osserviamo ora che se $Q$ ha coefficienti allora per ogni numero complesso $z$ si ha $\overline{Q(z)} = Q(\overline z)$ in quanto il coniugio lascia invariati i coefficienti del polinomio $Q$. In particolare se $\lambda$ è una radice di $Q$ allora $Q(\bar \lambda) = \overline{Q(\lambda)} = \overline 0 = 0$ cioè anche $\bar \lambda$ è radice di $Q$.
+dove $\lambda_1, \dots, \lambda_k$ sono le radici reali
+del polinomio $Q$ mentre $\lambda_{k+1}, \dots, \lambda_d$
+sono le radici non reali.
 
-Possiamo ora dimostrare per induzione sul grado di $Q$ che ogni polinomio a coefficienti reali $Q$ ammette la fattorizzazione \eqref{eq:35549}. Se $Q$ ha grado non superiore a due il risultato è ovvio. Supponiamo quindi che $Q$ abbia grado maggiore di $2$ e consideriamo la sua fattorizzazione
-\eqref{eq:45549}. Se $\lambda_d \in \RR$ allora il polinomio $Q_1(x)=(x-\lambda_d)$ ha coefficienti reali ed ha grado non superiore a $2$. Il polinomio rimanente $S_1(x) =  Q(x) / Q_1(x)$ è ancora a coefficienti reali e quindi, per ipotesi induttiva, può essere anch'esso fattorizzato come prodotto di polinomi reali di grado non superiore a $2$.
-
-Se invece $\lambda_d \in \CC\setminus \RR$ allora anche $\bar \lambda_d$ deve essere una radice di $Q$ per quanto osservato in precedenza e dunque $\bar \lambda_d = \lambda_k$ per qualche $k<d$.
-Supponiamo, senza perdità di generalità, che sia $\lambda_{d-1} = \bar \lambda_d$. Allora vediamo che
-\[
-  Q_1(x) = (x-\lambda_d)(x-\bar \lambda_d) = x^2 - (\lambda_d + \bar \lambda_d) x + \lambda_d \bar \lambda_d.
-\]
-Ma $\lambda_d + \bar \lambda_d = 2 \Re(\lambda) \in \RR$ e anche $\lambda_d \bar \lambda_d = \abs{\lambda_d}^2 \in \RR$. Dunque anche in questo caso $Q_1(x)$ è un polinomio a coefficienti reali (questa volta di grado 2) e quindi si procede per induzione come nel caso precedente.
+Osserviamo che avendo $Q$ coefficienti reali, per ogni $z\in \CC$  si ha $\overline{Q(z)} = Q(\overline z)$ in quanto il coniugio lascia invariati i coefficienti del polinomio $Q$.
+In particolare se $\lambda$ è una radice complessa di $Q$ allora $Q(\bar \lambda) = \overline{Q(\lambda)} = \overline 0 = 0$ cioè anche $\bar \lambda$ è radice di $Q$.
+Dunque se $\lambda_{k+1}$ è una radice non reale,
+anche $\bar \lambda_{k+1} \neq \lambda_{k+1}$
+deve essere una radice di $Q$ e senza perdita di generalità possiamo supporre che sia $\lambda_{k+2} = \bar\lambda_{k+1}$.
+Osserviamo allora che si ha
+\begin{align*}
+(x-\lambda_{k+1})(x-\lambda_{k+2})
+&=(x-\lambda_{k+1})(x-\bar\lambda_{k+1})\\
+&= x^2 - (\lambda_{k+1}+ \bar \lambda_{k+1}) x + \lambda_{k+1} \bar \lambda_{k+1} \\
+&= x^2 - 2(\Re \lambda_{k+1}) x + \abs{\lambda_{k+1}}^2\\
+&= Q_1(x)
+\end{align*}
+se poniamo $\alpha_1 = -2\Re \lambda_{k+1}$ e $\beta_1=\abs{\lambda_{k+1}}^2$.
+Si osservi che $\alpha_1$ e $\beta_1$ sono reali.
+Si itera quindi il procedimento finché non si esauriscono
+tutte le radici e si completa quindi la decomposizione.
 \end{proof}
 
+\begin{theorem}[decomposizione reale in fratti semplici]
+Sia $Q$ un polinomio monico a coefficienti reali che
+si fattorizzi nella forma:
+\begin{align*}
+  Q(x) &= (x-\lambda_1)^{p_1} \cdots (x-\lambda_n)^{p_n} \\
+  &\quad \cdot
+   (x^2+\alpha_1 x + \beta_1)^{q_1} \cdots (x^2+\alpha_m x + \beta_m)^{q_m}
+\end{align*}
+con $\lambda_1, \dots, \lambda_n$ le radici reali distinte di $Q$ di molteplicità rispettivamente
+$p_1,\dots, p_n$ e $(x^2+\alpha_k x + \beta_k)$ polinomi monici distinti di grado $2$
+con discriminante negativo $\alpha_k^2<4\beta_k$ con molteplicità $q_k$ per $k=1, \dots, m$.
 
-\subsection{grado 1}
+Se $P$ è un polinomio a coefficienti reali di grado inferiore
+al grado di $Q$
+allora esistono dei coefficienti reali $A_{kj}$ con $k=1,\dots,n $ e $j=1,\dots, p_k$ e coefficienti reali $B_{kj}$, $C_{kj}$ con $k=1,\dots, m$ e $j=1,\dots, q_k$
+tali che
+\begin{align*}
+\frac{P(x)}{Q(x)}
+&= \sum_{k=1}^n \sum_{j=1}^{p_k} \frac{A_{kj}}{(x-\lambda_k)^j}
+  + \sum_{k=1}^m \sum_{j=1}^{q_k} \frac{B_{kj} + C_{kj}x}{(x^2+\alpha_k x + \beta_k)^j}.
+\end{align*}
+\end{theorem}
+%
+\begin{proof}
+Diamo un nome alle funzioni coinvolte nell'enunciato del teorema:
+\begin{align*}
+ u_\lambda^j(z) &= \frac{1}{(z-\lambda)^j},\\
+ v_\lambda^j(z) &= \frac{1}{(z-\lambda)^j(z-\bar\lambda)^j},\\
+ w_\lambda^j(z) &= z\cdot v_\lambda^j(z).
+\end{align*}
+Osserviamo che
+\[
+ (z-\lambda)(z-\bar \lambda)
+ = z^2 - 2(\Re\lambda) z + \abs{\lambda}^2
+\]
+è un polinomio a coefficienti reali con discriminante negativo se $\lambda \in \CC \setminus \RR$, dunque si ha
+\[
+  \frac{B + Cx}{(x^2 + \alpha x + \beta)^j}
+  = B \cdot v_\lambda^j(x) + C \cdot w_\lambda^j(x)
+\]
+per un opportuna scelta del numero complesso $\lambda$ (per la cronaca: $\lambda = \alpha/2 + i \sqrt{\beta-\alpha^2/4}$).
 
-Supponiamo ora che $Q(x)$ abbia grado 1.
-Il grado di $P(x)$ deve quindi essere $0$
-cioè $P(x)=a$ è costante.
-Possiamo anche supporre che $Q$ sia \emph{monico} ovvero che il coefficiente del termine di grado massimo sia 1 (altrimenti è sufficiente dividere $P$ e $Q$ per tale coefficiente), sarà quindi $Q(x) = x- \lambda$ per un opportuno $\lambda \in \RR$.
-Dunque $P$ è costante e quindi la funzione razionale è del tipo:
-\[
-\frac{P(x)}{Q(x)} = \frac{a}{x-\lambda}.
-\]
-L'integrale è quindi immediato:
-\[
- \int \frac{a}{x-\lambda}\, dx = a \cdot \ln(\abs{x-\lambda}).
-\]
+Nella versione complessa di questo teorema abbiamo già mostrato che le funzioni $u_\lambda^j$ sono indipendenti. Vogliamo ora mostrare che anche le funzioni $u_\lambda^j$, $v_\lambda^j$, $w_\lambda^j$ sono indipendenti e per fare ciò cercheremo di dimostrare che per ogni $\lambda\in \CC\setminus \RR$ fissato, lo spazio generato dalle funzioni
+\begin{equation}\label{eq:43841}
+u_\lambda, u_{\bar \lambda}, u_\lambda^2, u_{\bar \lambda}^2, \dots, u_\lambda^p, u_{\bar \lambda}^p
+\end{equation}
+coincide con lo spazio generato dalle funzioni
+\begin{equation}\label{eq:43842}
+v_\lambda, w_\lambda, v_\lambda^2, w_\lambda^2, \dots, v_\lambda^p, w_\lambda^p.
+\end{equation}
+Visto che le funzioni in \eqref{eq:43841} abbiamo già dimostrato essere indipendenti, sarà sufficiente mostrare che ogni combinazione lineare delle funzioni in \eqref{eq:43841}
+si può esprimere come combinazione lineare delle funzioni in
+\eqref{eq:43842}.
 
-\subsection{grado 2}
+La dimostrazione si può fare per induzione su $p$.
+Nel caso $p=1$
+si osserva che
+\begin{align*}
+  a u_\lambda^1(z) + b u_{\bar \lambda}^1(z)
+  &= \frac{a}{z-\lambda} + \frac{b}{z-\bar \lambda}
+  = \frac{az - a \bar \lambda + b z - b \lambda}{z^2 -(\lambda + \bar \lambda)z  + \lambda \bar \lambda} \\
+  &= \frac{(a+b) z - a \bar \lambda - b \lambda}{z^2 -(\lambda + \bar \lambda)z  + \lambda \bar \lambda}\\
+  &= (a+b)\cdot w_\lambda^1(z) + (a \bar \lambda + b \lambda) v_\lambda^1(z).
+\end{align*}
 
-Supponiamo ora che $Q(x)$ abbia grado 2.
-Come prima possiamo suppore che $Q$ sia monico e che $P$ abbia grado non superiore ad 1.
-Per il teorema fondamentale dell'algebra
-si avrà
+Supponendo ora di aver fatto la dimostrazione fino a $p-1$, dimostriamo il caso generico $p$. Una qualunque combinazione lineare delle funzioni \eqref{eq:43841}
+si scrive nella forma
+\begin{align*}
+\sum_{j=1}^p \frac{a_j}{(z-\lambda)^j} + \sum_{j=1}^p \frac{b_j}{(z-\bar\lambda)^j}
+&=
+\frac{R(Z)}{(z-\lambda)^p(z-\bar \lambda)^p}
+\end{align*}
+dove $R(Z)$ è un polinomio di grado al più $2p-1$.
+Facendo la divisione tra polinomi possiamo scrivere
 \[
-  Q(x) = (x-\lambda)\cdot (x-\mu)
+R(z) = S(z) (z-\lambda)(z-\bar \lambda) + \alpha z + \beta
 \]
-con $\lambda, \mu\in \CC$.
+con $S$ opportuno polinomio di grado al massimo $2p-3$.
+Dunque
+\begin{align*}
+\sum_{j=1}^p \frac{a_j}{(z-\lambda)^j} + \sum_{j=1}^p \frac{b_j}{(z-\bar\lambda)^j}
+&=
+\frac{S(z)}{(z-\lambda)^{p-1}(z-\bar \lambda)^{p-1}}\\
+&\quad + \frac{\alpha z + \beta}{(z-\lambda)^p(z-\bar\lambda)^p}.
+\end{align*}
+Il primo addendo con numeratore $S(z)$ è una funzione razionale che può essere quindi espressa come combinazione lineare delle funzioni in \eqref{eq:43841} con $p-1$ al posto di $p$. Dunque per ipotesi induttiva tale addendo è combinazione lineare delle funzioni in \eqref{eq:43842} con $p-1$ al posto di $p$. Il secondo addendo non è altro che $\alpha w_\lambda^p + \beta v_\lambda^p$. Abbiamo quindi mostrato che qualunque combinazione lineare delle \eqref{eq:43841} si scrive come combinazione lineare delle \eqref{eq:43842}, come ci eravamo ripromessi di fare.
 
-Se $\lambda, \mu\in \RR$ la nostra funzione razionale
-si può scrivere nella forma:
+Ora, per il caso complesso che abbiamo già dimostrato,
+sappiamo che la funzione razionale $P/Q$ ammette una decomposizione in fratti semplici complessi cioè può essere scritta come combinazione lineare a coefficienti complessi delle funzioni $u_\lambda^j$ facendo variare $\lambda$ su tutte le radici, reali e complesse, del polinomio $Q$ e facendo variare $j$ fino alla molteplicità di ogni radice.
+Ma sappiamo ora che è possibile rimpiazzare le funzioni $u_\lambda^j$ e $u_{\bar \lambda}^j$ quando $\lambda$ non è reale con le funzioni $v_\lambda^j$ e $w_\lambda^j$ in quanto lo spazio generato da tali funzioni è lo stesso.
+
+Questo ci permette di concludere che la decomposizione cercata esiste, se ammettiamo di avere coefficienti $A_{kj}$, $B_{kj}$ e $C_{kj}$ nel campo complesso.
+
+Per concludere ci basta verificare che in realtà tali coefficienti non possono che essere reali.
+Questo dipende da un semplice fatto generale.
+
+Supponiamo che $u_1, \dots, u_n$ siano funzioni reali indipendenti e sia
 \[
-\frac{P(x)}{Q(x)} = \frac{ax+b}{(x-\lambda)(x-\mu)}.
+ u = \alpha_1 u_1 + \dots + \alpha_n u_n.
 \]
-L'idea (giustificata dal teorema che segue) è che si possono trovare delle costanti $A$ e $B$ tali che
+una loro combinazione lineare a coefficienti complessi  $\alpha_k$.
+Se la combinazione $u$ è anch'essa una funzione reale allora possiamo concludere che necessariamente tutti i coefficienti $\alpha_k$ sono reali. Infatti se prendiamo la parte immaginaria della combinazione lineare precedente si avrà
 \[
-  \frac{ax+b}{(x-\lambda)(x-\mu)} = \frac{A}{x-\lambda} + \frac{B}{x-\mu}.
+   0 = (\Im \alpha_1) u_1 + \dots + (\Im \alpha_n) u_n.
 \]
-A questo punto l'integrale si riconduce al caso di funzioni razionali con denominatore di grado 1, che abbiamo già considerato.
+Ma essendo le $u_1$ funzioni indipendenti, una combinazione lineare è nulla solamente quando tutti i coefficienti sono nulli: significa che la parte immaginaria di ogni $\alpha_k$ è nulla, cioè che gli $\alpha_k$ sono reali.
+
+In base a questa osservazione comprendiamo che è sufficiente
+mostrare che esistono i coefficienti $A_{kj}$, $B_{kj}$ e $C_{kj}$ nel campo complesso perché in tal caso necessariamente tali coefficienti dovranno essere reali, essendo
+\end{proof}
+
+In base ai teoremi precedenti, se $P(x)/Q(x)$ è una qualunque funzione razionale reale,
+possiamo innanzitutto
+eseguire la divisione tra polinomi e trovare quindi un
+quozionte $S(x)$ e un resto $R(x)$ con $\deg R < \deg Q$
+cosicché
+\[
+  \frac{P(x)}{Q(x)} = S(X) + \frac{R(x)}{Q(x)}.
+\]
+Dopodiché possiamo decomporre $R(x)/Q(x)$
+in fratti semplici. L'integrale di $P/Q$ si potrà quindi ricondurre (tramite combinazione lineare) agli integrali di $S$ e di ognuno dei fratti semplici. L'integrale di $S$ è banale, in quanto $S$ è un polinomio e quindi è combinazione lineare di potenze di $x$.
+
+Non ci resta quindi che trovare l'integrale dei fratti semplici, cosa che faremo nel seguente teorema.
+
+\begin{theorem}[integrale dei fratti semplici]
+Se $\lambda\in \RR$, $p\in \NN$, $p>1$, $\alpha,\beta \in \RR$, $\alpha^2-4\beta < 0$, si ha
+\begin{align*}
+  \int \frac{1}{x-\lambda}\, dx
+  &= \ln \abs{x-\lambda} \\
+  \int \frac{1}{(x-\lambda)^p}\, dx
+  &=  -\frac{1}{(p-1)(x-\lambda)^{p-1}} \\
+  \int \frac{1}{1+x^2}\, dx
+  &= \arctg x \\
+  \int \frac{1}{(1+x^2)^p}\, dx
+   &= \frac{x}{2n(1+x^2)^{p-1}} + \frac{2p-3}{2p-2}\int \frac{1}{(1+x^2)^{p-1}}\, dx \\
+  \int \frac{1}{x^2+\alpha x + \beta}\, dx
+     &=
+     \frac{2}{\sqrt{4\beta - \alpha^2}}
+     \arctg \frac{2x+\alpha}{\sqrt{4\beta-\alpha^2}}
+  \\
+  \int \frac{1}{(x^2+\alpha x + \beta)^p}\, dx
+    &=
+    \enclose{\frac{4}{4\beta - \alpha^2}}^{p-\frac 1 2}
+    \Enclose{\int \frac{1}{(1+y^2)^p}\, dy}_{y=\frac{2x+\alpha}{\sqrt{4\beta-\alpha^2}}}
+ \\
+  \int \frac{ax + b}{(x^2+\alpha x + \beta)^p}\, dx
+   &= -\frac{a}{2(p-1)(x^2+\alpha x+ \beta)^{p-1}} \\
+   &\quad + \frac{2b-a\alpha}{2}\int \frac{1}{(x^2+\alpha x+\beta)^p}\, dx \\
+\end{align*}
+\end{theorem}
+%
+\begin{proof}
+I primi tre integrali sono immediati.
+Per il quarto si ha:
+\begin{align*}
+\int \frac{1}{(1+x^2)^p}\, dx
+&= \int \frac{1+x^2-x^2}{(1+x^2)^p}\, dx \\
+&= \int \frac{1}{(1+x^2)^{p-1}}\, dx - \int\frac{x^2}{(1+x^2)^p}\, dx.
+\end{align*}
+Osservando che
+\[
+ \int \frac{2x}{(1+x^2)^p}\, dx
+  = -\frac{1}{p-1}\frac{1}{(1+x^2)^{p-1}}.
+\]
+si ottiene, integrando per parti,
+\begin{align*}
+\int \frac{x^2}{(1+x^2)^p}\, dx
+&=
+\int \frac{2x}{(1+x^2)^p}\cdot \frac{x}{2}\, dx\\
+&= -\frac{1}{p-1}\frac{1}{(1+x^2)^{p-1}} \frac{x}{2}
+ + \frac{1}{2p-2}\int \frac{1}{(1+x^2)^{p-1}}\, dx
+\end{align*}
+da cui segue il risultato enunciato nel teorema.
+
+Per quanto riguarda il quinto e il sesto integrale si opera il \emph{completamento del quadrato}:
+\begin{align*}
+  x^2 + \alpha x + \beta
+  &= \enclose{x+\frac \alpha 2}^2 + \beta - \frac{\alpha^2}{4} \\
+  &= \frac{4\beta-\alpha^2}{4}
+  \enclose{\enclose{\frac{2x+\alpha}{\sqrt{4\beta-\alpha^2}}}^2+1}
+\end{align*}
+da cui, facendo il cambio di variabile
+\begin{align*}
+y  &=\frac{2x+\alpha}{\sqrt{4\beta -\alpha^2}}\\
+dx &= \frac{\sqrt{4\beta-\alpha^2}}{2} dy
+\end{align*}
+si ottiene
+\begin{align*}
+\int \frac{1}{(x^2+\alpha x + \beta)^p}\, dx
+&=
+\frac{4^p}{\enclose{4\beta - \alpha^2}^p}
+\int \frac{1}{\enclose{y^2 + 1}^p}\,  \frac{\sqrt{4\beta-\alpha^2}}{2} dy \\
+&= \enclose{\frac{4}{4\beta - \alpha^2}}^{p-\frac 1 2}
+\int \frac{1}{(1+y^2)^p}\, dy
+\end{align*}
+che per $p=1$ può essere calcolato immediatamente, e per $p>1$ si riconduce agli integrali già calcolati.
+
+Nell'ultimo integrale dell'enunciato abbiamo semplicemente
+utilizzato l'integrale immediato:
+\[
+  \int \frac{2x+\alpha}{(x^2+\alpha x+\beta)^p}\, dx
+  = -\frac{1}{(p-1)(x^2+\alpha x + \beta)^{p-1}}
+\]
+\end{proof}
