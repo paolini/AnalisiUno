@@ -2,7 +2,66 @@
 
 \section{spazi metrici}
 
+\begin{figure}
+  \centering
+  \begin{tikzpicture}[node distance=2cm]
+    \draw node at (0,0)[name=insieme]{insieme};
+    \draw node at (-1,-1)[name=sv]{sp. vettoriale};
+    \draw node at (-1,-3)[name=sn]{sp. normato};
+    \draw node at (-1,-5)[name=euclideo]{euclideo};
+    \draw node at (2,-1)[name=st]{sp. topologico};
+    \draw node at (2,-2)[name=sm]{sp. metrico};
+    \draw node at (2,-3.5)[name=completo]{sp. completo};
+    \draw node at (1,-4.5)[name=banach]{Banach};
+    \draw node at (1,-6)[name=hilbert]{Hilbert};
+    \draw[->](sv) -- (insieme);
+    \draw[->](st) -- (insieme);
+    \draw[->](sn) -- (sv);
+    \draw[->](sm) -- (st);
+    \draw[->](euclideo) -- (sn);
+    \draw[->](hilbert) -- (euclideo);
+    \draw[->](hilbert) -- (banach);
+    \draw[->](banach) -- (completo);
+    \draw[->](completo) -- (sm);
+    \draw[->](sn) -- (sm);
+    \draw[->](banach) -- (sn);
+
+    \begin{scope}[green]
+    \draw node at (-2,0)[name=insiemeT]{$\in,\subset,\cup$};
+    \draw (insiemeT) -- (insieme);
+    \draw node at (-3,-1)[name=svT]{$+,\cdot$};
+    \draw (svT) -- (sv);
+    \draw node at (-3,-3)[name=snT]{$\abs{v}$};
+    \draw (snT) -- (sn);
+    \draw node at (-3,-4.5)[name=euclideoT]{$\langle v,w\rangle$};
+    \draw (euclideoT) -- (euclideo);
+    \draw node at (5,0)[name=stT]{$\lim, \stackrel\circ A, \bar A$};
+    \draw (stT) -- (st);
+    \draw node at (5,-1.75)[name=smT]{$d(x,y)$, Lip};
+    \draw (smT) -- (sm);
+    \end{scope}
+
+    \begin{scope}[blue]
+    \draw node at (5,-1)[name=Rbar,left]{$\bar \RR$};
+    \draw[->](Rbar) -- (st);
+      \draw node at (5,-2.5)[name=Q,left]{$\QQ$};
+      \draw[->](Q) -- (sm);
+      \draw node at (5,-4)[name=Sn,left]{$\mathbb S^n$};
+      \draw[->](Sn) -- (completo);
+      \draw node at (4.5,-5)[name=Cn,left]{$\mathbb C^n$, $L^p$, $\ell^p$};
+      \draw[->](Cn) -- (banach);
+      \draw node at (4,-6.5)[name=L2,left]{$L^2$, $\ell^2$};
+      \draw[->](L2) -- (hilbert);
+      \draw node at (1,-7)[name=Rn]{$\RR^n$};
+      \draw[->](Rn) -- (hilbert);
+    \end{scope}
+  \end{tikzpicture}
+\caption{Strutture matematiche che astraggono lo spazio $\RR^n$. La freccia nera significa: ``è un'', la freccia blu: ``è un esempio di'', la linea verde: ``è una operazione tipica di''.}
+\end{figure}
+
+
 \begin{definition}[spazio metrico]
+\label{def:distanza}
 Diremo
 che $d\colon X\times X\to\RR$ è una \myemph{distanza} su $X$
 se per ogni $x,y,z\in X$ valgono le seguenti proprietà
@@ -21,7 +80,19 @@ Se $d$ è una distanza
 diremo che $X$, o meglio $(X,d)$, è uno \myemph{spazio metrico}.
 \end{definition}
 
+Osserviamo che dalle disuguaglianze triangolari:
+\[
+  d(x,z) \le d(x,y) + d(y,z), \qquad
+  d(y,z) \le d(x,y) + d(x,z)
+\]
+si ottiene la \myemph{disuguaglianza triangolare inversa}:
+\[
+  d(x,y) \ge \abs{d(x,z) - d(y,z)}.
+\]
+
+
 \begin{definition}[spazio normato]
+\label{def:norma}
 Sia $V$ uno spazio vettoriale sul campo $\RR$.
 Una funzione $\phi \colon V\to \RR$ si
 dice essere una \myemph{norma} su $V$ se
@@ -49,6 +120,12 @@ Se $\phi$ è una norma la funzione $d(v,w) = \phi(v-w)$
 In particolare ogni spazio normato è anche uno spazio metrico rispetto alla distanza indotta dalla norma.
 \end{definition}
 
+Gli esempi più comuni di norme sono le norme indotte da un prodotto scalare, chiamate \myemph{euclidee}
+(argomento che non tratteremo):
+\[
+  \phi(v) = \sqrt{v\cdot v}.
+\]
+
 \begin{example}[norma euclidea]
 La norma euclidea di un punto $\vec x\in \RR^n$ è definita da
 \[
@@ -74,24 +151,24 @@ Se $X\subset \RR^n$ la distanza euclidea di $\RR^n$ induce
 su $X$ una struttura di spazio metrico. Se $X$ non è un sottospazio vettoriale di $\RR^n$ abbiamo quindi esempi di spazi metrici che non sono spazi normati. Ad esempio
 la \myemph{sfera $n$-dimensionale}
 \[
-  \SS^n = \{\vec x \in \RR^{n+1}\colon \abs{\vec x} = 1\}
+  \mathbb S^n = \{\vec x \in \RR^{n+1}\colon \abs{\vec x} = 1\}
 \]
 è uno spazio metrico con la distanza indotta da $\RR^n$.
 
-Per $n=1$ si osserva che $\SS^1$ è la circonferenza unitaria nel piano, per $n=2$ si ottiene l'usuale sfera unitaria nello immersa nello spazio tridimensionale.
+Per $n=1$ si osserva che $\mathbb S^1$ è la circonferenza unitaria nel piano, per $n=2$ si ottiene l'usuale sfera unitaria nello immersa nello spazio tridimensionale.
 \end{example}
 
 \begin{example}[distanza Manhattan]
 Su $\RR^2$ possiamo definire una norma, chiamata \myemph{norma Manhattan}, come segue:
 \[
-  \phi(\vec x) = \max{\abs{x_1},\abs{x_2}}.
+  \phi(\vec x) = \max\{\abs{x_1},\abs{x_2}\}.
 \]
 La distanza indotta $d(p,q)$ rappresenta la lunghezza del percorso più breve per andare da $p$ a $q$ muovendosi solamente in orizzontale o verticale (come se fossimo sulle strade di Manhattan).
 
 L'insieme dei punti di $\RR^2$ che distano meno di $R$ dall'origine è un quadrato di lato $2R$ (mentre sappiamo che con la distanza euclidea tale insieme sarebbe un cerchio di raggio $R$).
 \end{example}
 
-\begin{example}[norma $\ell^p$]
+\begin{example}[norma $p$]
 Per ogni $p\ge 1$ si può definire su $\RR^n$ la norma
 \[
   \abs{\vec x}_p = \sqrt[p]{\abs{x_1}^p + \abs{x_2}^p + \dots + \abs{x_n}^p}.
@@ -111,47 +188,7 @@ Per $p=1$ si ottiene la norma Manhattan a meno di una rotazione di 45 gradi e di
  \]
 \end{example}
 
-Osserviamo che se $d$ è una distanza su $X$ e se $A$ è un sottoinsieme di $X$
-
-\begin{definition}[distanza uniforme]
-Sia $A\subset \RR$ non vuoto e sia $V=\RR^A$ lo spazio vettoriale reale di tutte le funzioni $f\colon A \to \RR$.
-Definiamo la \myemph{norma uniforme} (o norma del $\sup$) $\Abs{\cdot}_\infty\colon V \to \RR$ come
-\[
-  \Abs{f}_\infty = \sup_{x\in A} \abs{f(x)}.
-\]
-
-Definiamo la \myemph{distanza uniforme}
-$d\colon V\times V \to \RR$ come
-\[
-  d_\infty(f,g) = \sup_{x\in A} \abs{f(x)-g(x)}.
-\]
-\end{definition}
-
-\begin{theorem}[norma uniforme]
-La norma uniforme è una norma la cui distanza
-indotta è la distanza uniforme.
-\end{theorem}
-%
-\begin{proof}
-Chiaramente la norma uniforme non è mai negativa in quanto
-estremo superiore di quantità non negative.
-L'omogenità segue dall'omogeneità del valore assoluto, in quanto si ha
-\[
-  \sup_{x\in A} \abs{(\lambda \cdot f)(x)}
-  = \sup_{x\in A}\abs{\lambda \cdot f(x)}
-  = \sup_{x\in A}\abs{\lambda}\cdot \abs{f(x)}
-  = \abs{\lambda} \cdot \sup_{x\in A}\abs{f(x)}.
-\]
-
-La distanza uniforme è ovviamente la distanza indotta dalla norma uniforme in quanto si ha
-\[
-  \Abs{f-g}_\infty
-  = \sup_{x\in A}\abs{f(x) - g(x)}
-  = d_\infty(f,g).
-\]
-\end{proof}
-
-\begin{definition}[convergenza indotta da una distanza]
+\begin{definition}[palla]
 Sia $(X,d)$ uno spazio metrico.
 Per ogni $r>0$ e per ogni $x_0\in X$
 definiamo la \myemph{palla} di raggio $r$ centrata in
@@ -159,29 +196,17 @@ $x_0$ come l'insieme
 \[
   B_r(x_0) = \{x\in X \colon d(x,x_0) < r\}.
 \]
-
-Diremo che una successione di punti $x_n \in X$ converge ad un punto $x\in X$
-e scriveremo $x_n\to x$ se
-\[
-  d(x_n, x) \to 0 \qquad \text{per $n \to +\infty$}.
-\]
 \end{definition}
 
-La precedente definizione è equivalente a considerare
-la definizione topologica di limite (tramite intorni)
-prendendo come intorni di un punto $x_0\in X$
-l'insieme delle palle centrate in $x_0$
-\[
-  \U_{x_0} = \{B_r(x_0)\colon r>0\}.
-\]
-Infatti $d(x,y) < \eps$ è equivalente a $x \in B_\eps(y)$.
+\begin{definition}[relazioni e proprietà topologiche]
+\label{def:466342}
+Sia $(X,d)$ uno spazio metrico.
+Un insieme $A\subset X$ si dirà essere un insieme
+\myemph{aperto} in $X$ se per ogni $x\in A$ esiste $r>0$
+tale che $B_r(x) \subset A$.
+Un insieme $A\subset X$ si dirà essere un insieme \myemph{chiuso} in $X$ se il suo complementare $X\setminus A$ è aperto.
 
-\begin{definition}[relazioni e operazioni topologiche]
-Un insieme
-$A\subset X$ si dirà essere un insieme \myemph{aperto}
-se per ogni $a\in A$ esiste $r>0$ tale che $B_r(a)\subset A$.
-
-Un insieme $A\subset X$ si dirà essere un insieme \myemph{chiuso} se il suo complementare $X\setminus A$ è aperto.
+La famiglia di tutti gli insiemi aperti si chiama \myemph{topologia} dello spazio metrico $X$. Tutte le definizioni che seguono non dipendono dalla distanza $d$ ma solamente dalla topologia: basterà usare aperti qualunque al posto delle palle $B_r(x)$.
 
 Se $A\subset X$ è un insieme qualunque
 $x\in X$ è un punto qualunque diremo che:
@@ -191,9 +216,10 @@ $x$ è \myemph{punto interno} ad $A$ se esiste $r>0$ tale che $B_r(x) \subset A$
 chiameremo \myemph{parte interna} di $A$ l'insieme dei punti interni di $A$
 e la denoteremo con $\stackrel\circ A$;
 \item
-$A$ è un intorno di $x$ se $x$ è punto interno ad $A$;
+$A$ è un \myemph{intorno} di $x$ se $x$ è punto interno ad $A$;
 \item
 $x$ è \myemph{punto esterno} ad $A$ se è interno al complementare di $A$ ovvero esiste $r>0$ tale che $B_r(x) \cap A = \emptyset$;
+chiameremo \myemph{parte esterna} di $A$ l'insieme dei punti esterni ad $A$;
 \item
 $x$ è \myemph{punto di frontiera} per $A$ se non è né interno né esterno ad $A$ ovvero per ogni $r>0$ l'insieme $B_r(x) \cap A$ contiene punti di $A$ e di $X\setminus A$;
 chiameremo \myemph{frontiera} (o bordo) di $A$ l'insieme dei punti di frontiera che denoteremo con $\partial A$.
@@ -205,7 +231,7 @@ $x$ è \myemph{punto di accumulazione} di $A$ se
 è punto di aderenza per $A \setminus \{x\}$ ovvero se
 per ogni $r>0$ l'insieme $A \cap B_r(x)$ contiene punti diversi da $x$, chiameremo \myemph{derivato} di $A$ l'insieme dei punti di accumulazione (che si potrebbe denotare con $A'$);
 \item
-$x$ è \myemph{punto isolato} di $A$ se è punto di aderenza ma non di accumulazione per $A$ cioè se esiste $r>0$ per cui
+$x$ è \myemph{punto isolato} di $A$ se è un punto di $A$ ma non di accumulazione per $A$ cioè se esiste $r>0$ per cui
 $B_r(x) \cap A = \{x\}$.
 \end{enumerate}
 \end{definition}
@@ -222,6 +248,89 @@ dato $z \in B_\rho(y)$ si ha
 \]
 da cui $B_\rho(y)\subset B_r(x)$ come volevamo dimostrare.
 \end{proof}
+
+\begin{theorem}[proprietà della topologia]
+Sia $X$ uno spazio metrico.
+Valgono le seguenti proprietà.
+\begin{enumerate}
+\item L'insieme vuoto $\emptyset$ e l'intero spazio $X$ sono contemporaneamente aperti e chiusi in $X$.
+\item Unione (anche infinita) di aperti è aperta, l'intersezione (anche infinita) di chiusi è chiusa.
+\item Intersezione di due (o comunque un numero finito) di aperti è aperta, l'unione di due (o comunque un numero finito) di chiusi è chiusa.
+\item Dati due punti distinti esistono due aperti disgiunti contenenti i punti: cioè dati $x,y\in X$, $x\neq y$ esistono $U$, $V$ aperti tali che $x\in U$, $y\in V$, $U \cap V = \emptyset$ (proprietà di Hausdorff,
+\index{Hausdorff!proprietà di}
+\index{separazione}
+o di separazione).
+\end{enumerate}
+
+Le proprietà precedenti sono gli assiomi della \myemph{topologia}.
+Uno \myemph{spazio topologico} è un insieme $X$ dotato
+di una topologia $\tau$ che non è altro che una famiglia di sottoinsiemi di $X$ soddisfacente le prime tre proprietà precedenti.
+L'ultima proprietà è opzionale ma quasi sempre richiesta. Se viene soddisfatta si dice che $X$ è uno \myemph{spazio di Hausdorff}
+o \myemph{$T_2$}.
+Gli elementi di $\tau$ vengono chiamati aperti e tutte le altre proprietà enunciate nella definizione~\ref{def:466342}
+vengono ricondotte a tali insiemi.
+
+Le seguenti proprietà
+degli intorni sono equivalenti alle precedenti proprietà degli aperti (e possono dunque essere utilizzate per una definizione alternativa di topologia).
+\begin{enumerate}
+\item Ogni intorno di un punto contiene il punto.
+\item Se un unsieme contiene un intorno di un punto anch'esso è un intorno di quel punto.
+\item L'intersezione di due intorni di un punto è un intorno del punto.
+\item Dato un qualunque intorno $U$ di un punto $x$ esiste un intorno $V$ di $x$ contenuto in $U$ e tale che $V$ è intorno di ogni suo punto.
+\item Punti distinti possiedono intorni disgiunti: dati $x,y\in X$ se $x\neq y$ esistono $U$ intorno di $x$ e $V$ intorno di $y$ tali che $U\cap V=\emptyset$.
+\end{enumerate}
+
+Le proprietà seguenti sono conseguenza degli assiomi precedenti e sono quindi valide in ogni spazio topologico.
+
+\begin{enumerate}
+\item
+La parte interna di un qualunque $A\subset X$ è il più grande (ovvero l'unione di ogni) aperto contenuto in $A$. La chiusura di $A$ è il più piccolo (ovvero l'intersezione di ogni) chiuso contenente $A$.
+In particolare la parte interna è sempre aperta e la parte interna di un aperto è tutto l'insieme. La chiusura è un insieme chiuso e la chiusura di un chiuso è l'insieme stesso.
+\item
+La frontiera di un insieme è chiusa. Parte interna, frontiera e parte esterna sono tre insiemi disgiunti (rispettivamente aperto, chiuso e aperto) la cui unione è tutto lo spazio.
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+L'insieme vuoto è aperto in quanto non ci sono punti su cui è necessario verificare la proprietà che definisce gli aperti. Anche l'intero spazio è aperto in quanto ogni palla è contenuta in esso. Dunque $\emptyset, X$ sono aperti e di conseguenzi i rispettivi complementari: $X, \emptyset$ sono chiusi.
+
+Che l'unione qualunque di aperti sia aperta è ovvio: preso un punto dell'unione tale punto è contenuto in uno degli aperti. Dunque c'è una palletta centrata nel punto e contenuta nell'aperto. Ma allora essa è anche contenuta nell'unione.
+Che l'intersezione di chiusi sia un chiuso si ottiene passando ai complementari: il complementare di un chiuso è un aperto e il complementare dell'intersezione è l'unione dei complementari.
+
+L'intersezione qualunque di chiusi è uguale al complementare (rispetto ad $X$) dell'unione dei complementari. Per definizione il complementare di un chiuso è aperta e dunque l'unione dei complementari è aperta. Dunque il suo complementare è un chiuso.
+
+Consideriamo ora l'intersezione $A\cap B$ di due aperti $A$ e $B$. Se $x$ è un punto dell'intersezione sappiamo che esistono due palle $B_r(x)$ e $B_s(x)$ tali che $B_r(x)\subset A$ e $B_s(x) \subset B$. La più piccola delle due è contenuta in $A\cap B$ e questo dimostra che $A\cap B$ è aperto. Passando ai complementari si ottiene che l'unione di due chiusi è un chiuso.
+
+Dati $x,y \in X$ se $x\neq y$ allora $r=d(x,y)/2>0$. Osserviamo allora che $B_r(x)$ e $B_r(y)$ sono disgiunte in quanto se se esistesse $z\in B_r(x) \cap B_r(y)$ si avrebbe $d(x,y)\le d(x,z) + d(z,y) < r + r = d(x,y)$ che è assurdo.
+
+Abbiamo quindi dimostrato le quattro proprietà degli aperti. Passiamo alle proprietà degli intorni. Per definizione un insieme $U$ è un intorno di $x$ se esiste un aperto $A$ tale che $x\in A \subset U$. Necessariamente quindi $x\in U$. E se $V\supset U$ allora $x\in A \subset V$ e dunque anche $V$ è intorno di $x$. Se $U$ e $V$ sono intorni dovranno esistere due aperti $A$ e $B$ tali che $x\in A \subset U$ e $x \in B \subset V$. Ma allora $A\cap B$ è aperto e $x \in A \cap B \subset U \cap V$ dunque $U\cap V$ è anch'esso un intorno di $x$. Per il quarto punto basta osservare che ogni intorno contiene, per definizione, un aperto che contiene il punto e un aperto è, sempre per definizione, intorno di ogni suo punto. Per il punto 5 già sappiamo che due punti distinti sono contenuti in aperti disgiunti, e gli aperti sono sempre intorni di ogni loro punto.
+
+Dimostriamo ora che la parte interna di un insieme $A$ è l'unione di tutti gli aperti contenuti in $A$. Da un lato se $x$ è un punto interno ad $A$ allora esiste $r>0$ tale che $B_r(x)\subset A$. Essendo $B_r(x)$ aperto risulta quindi che $x$ sta nell'unione degli aperti contenuti in $A$. Viceversa se $x$ sta nell'unione di tutti gli aperti contenuti in $A$ deve esistere un aperto $U$ tale che $x\in U \subset A$. Ma allora esiste $r>0$ tale che $B_r(x) \subset U \subset A$ e dunque $x$ è punto interno ad $A$. La proprietà analoga per i chiusi si ottiene passando ai complementari.
+
+La frontiera di un insieme è, per definizione, l'insieme dei punti che non sono né interni né esterni. D'altra parte è chiaro che un punto non può essere contemporaneamente interno ed esterno. Dunque la frontiera è il complementare dell'unione della parte interna e della parte esterna, ed è quindi un insieme chiuso.
+\end{proof}
+
+
+\begin{definition}[convergenza in uno spazio metrico]
+Sia $(X,d)$ uno spazio metrico.
+Diremo che una successione di punti $x_n \in X$
+\mynote{convergenza}
+\index{convergenza in uno spazio metrico}
+\index{spazio metrico!convergenza}
+converge ad un punto $x\in X$
+e scriveremo $x_n\to x$ per $n\to +\infty$ se
+\[
+  d(x_n, x) \to 0 \qquad \text{per $n \to +\infty$}.
+\]
+
+Un insieme $A\subset X$ si dice essere
+\myemph{sequenzialmente chiuso}
+\index{spazio metrico!sequenzialmente chiuso}
+se presa una successione $x_k\in A$ se $x_k\to x$ converge ad un punto $x\in X$ allora $x\in A$.
+\end{definition}
+
+Si noti che l'usuale convergenza in $\RR$ non è altro
+che la convergenza di $\RR$
+visto come spazio metrico con la distanza euclidea $d(x,y) = \abs{x-y}$.
 
 \begin{theorem}[chiusura e chiusura sequenziale]
 Sia $(X,d)$ uno spazio metrico.
@@ -243,124 +352,94 @@ In particolare $A \cap B_\eps(x) \neq \emptyset$.
 Risulta quindi che $x$ non è esterno ad $A$ e quindi, essendo $A$ chiuso, $x\in A$.
 \end{proof}
 
-\begin{definition}[continuità sequenziale]
-Sia $f\colon X \to Y$ una funzione tra due spazi metrici $(X, d_X)$ e $(Y,d_Y)$.  Diremo che $f$ è
-\emph{sequenzialmente continua}
-\mynote{continuità sequenziale}
-\index{continuità!sequenziale}
-\index{sequenzialmente continuo}
-se data una successione $x_k\in X$ convergente $x_k \to x$ ad un punto $x\in X$, la corrispondente successione $y_k=f(x_k)$
-converge al punto corrispondente $y=f(x)$:
-\[
- f(x_k) \to f(x).
-\]
+\begin{definition}[continuità]
+Una funzione $f\colon X \to Y$ definita tra due spazi metrici
+si dice essere \myemph{sequenzialmente continua} nel punto $x\in X$ se per ogni successione convergente $x_n \to x$ in risulta che $f(x_n)\to f(x)$. Diremo che $f$ è \emph{sequenzialmente continua} se è sequenzialmente continua in ogni punto $x$ del suo dominio $X$.
+
+Una funzione $f\colon X \to Y$ definita tra due spazi metrici (ma in generale questa definizione si può formulare negli spazi topologici) si dice essere \myemph{continua} in un punto $x\in X$ se  per ogni $V$ intorno di $f(x)$ in $Y$ esiste un intorno $U$ di $x$ in $X$ tale che $f(U)\subset V$.
+Diremo che $f$ è \emph{continua} se
+è continua in ogni punto $x$ del suo dominio.
 \end{definition}
+
+Anche in questo caso abbiamo considerato due diverse nozioni di continuità che in generale (in spazi topologici) potrebbero non coincidere ma nel caso degli spazi metrici sono equivalenti, come dimostriamo nel seguente teorema.
 
 \begin{theorem}[definizioni equivalenti di continuità]
-Sia $f\colon X \to Y$ una funzione tra due spazi
-metrici $(X,d_X)$ e $(Y,d_Y)$. Sono equivalenti:
-\begin{enumerate}
-\item $f$ è sequenzialmente continua;
-\item per ogni $x\in X$ per ogni intorno $V$ di $f(x)$
-esiste un intorno $U$ di $x$ tale che $f(U)\subset V$;
-\item per ogni $x\in X$
-\[
-  \forall \eps>0 \colon \exists \delta>0 \colon
-  \forall z\in X \colon
-  d_X(z,x)< \delta \implies d_Y(f(z),f(x)) < \eps.
-\]
-\end{enumerate}
+Sia $f\colon X \to Y$ una funzione definita tra due spazi metrici $X$ e $Y$. Allora $f$ è sequenzialmente continua in un punto $x\in X$ se e solo se è continua nel punto $x$.
+Inoltre $f$ è continua se e solo se
+per ogni $A$ aperto in $Y$ risulta che $f^{-1}(A)$ è aperto in $X$ (la controimmagine di un aperto è aperta).
 \end{theorem}
+%
+\begin{proof}
+Supponiamo che $f$ sia sequenzialmente continua in $x$. Per dimostrare che è continua prendiamo un qualunque intorno $V$ di $f(x)$. Per definizione di intorno esiste $\eps>0$ tale che $f(x) \in B_\eps(f(x)) \subset V$. Supponiamo per assurdo che non esiste $U$ intorno di $x$ tale che $f(U)\subset V$. Allora preso $U_k = B_{1/k}(x)$ dovrà esistere un punto $x_k \in U_k$ tale che $f(x_k)\not \in V$. Dunque $x_k \to x$ ma $f(x_k)$ non potrà convergere a $f(x)$, violando l'ipotesi che $f$ sia sequenzialmente continua.
 
-\begin{definition}[distanze equivalenti, topologia]
-La \myemph{topologia} di uno spazio metrico $(X,d)$ è la famiglia $\tau_d$ di tutti gli insiemi aperti di $X$.
+Viceversa supponiamo che $f$ sia continua in $x$ e consideriamo una qualunque successione $x_k \to x$. Per dimostrare che $f(x_k)\to f(x)$ dobbiamo verificare che per ogni $\eps>0$ esiste $K\in \NN$ tale che per ogni $k>K$ si ha $d(f(x_k),f(x)) < \eps$. Dato $\eps>0$ la palla $B_\eps(f(x))$ è un intorno di $f(x)$ dunque sappiamo che esiste un intorno $U$ di $x$ tale che $f(U)\subset B_\eps(f(x))$. Ma se $U$ è un intorno di $x$ significa che esiste $\delta>0$ per cui $B_\delta(x)\subset U$.
+Visto che $x_k \to x$ esiste $K\in \NN$ tale che per ogni $x>K$ si abbia $d(x_k,x)< \delta$. Ma allora per tali $k$ si ha $x_k\in B_\delta(x)$ e quindi $f(x_k)\in B_\eps(f(x))$. Vuol dire che $d(f(x_k),f(x))<\eps$, come dovevamo dimostrare.
 
-Siano $d_1$ e $d_2$ due distanze su uno stesso insieme $X$.
-Diremo che $d_1$ e $d_2$ sono \myemph{distanze equivalenti}
-se hanno la stessa topologia.
+Mostriamo ora che se $f$ è continua e $A$ è aperto in $Y$ allora $f^{-1}(A)$ è aperto in $X$. Dato un punto qualunque $x\in f^{-1}(A)$ sappiamo che $f(x)\in A$ dunque esiste un intorno $V$ di $f(x)$ tale che $V\subset A$. Essendo $f$ continua in $x$ sappiamo esistere $U$ intorno di $x$ tale che $f(U)\subset V$ e dunque $U\subset f^{-1}(V)$ come volevamo dimostrare.
+
+Viceversa supponiamo che la controimmagine di ogni aperto sia un aperto e dimostriamo che la funzione è continua in ogni punto. Preso un punto $x\in X$ e un intorno $V$ di $f(x)$ dobbiamo trovare un intorno di $x$ che venga mandato in $V$.
+Per definizione di intorno $V$ contiene una palla aperta $A$ centrata in $f(x)$. Dunque $U=f^{-1}(A)$ è un aperto in $X$. Ma $x\in U$ in quanto $f(x)\in A$ e quindi $U$, essendo aperto, è un intorno di $x$ tale che $f(U) = A \subset V$.
+\end{proof}
+
+
+
+\begin{definition}[spazi limitati]
+Sia $X$ uno spazio metrico o un sottoinsieme di uno sottospazio metrico. Si dirà che $X$ è
+\myemph{limitato} se è contenuto in una palla ovvero se
+esiste $x_0\in X$ e $R>0$ tale che $X\subset B_R(x_0)$.
 \end{definition}
-
-\begin{theorem}[proprietà topologiche]
-Osserviamo che i concetti di: aperto, chiuso, punto interno,
-intorno, punto esterno, punto di frontiera, punto di accumulazione, punto di aderenza, convergenza, continuità in un punto, continuità non cambiano se al posto di una distanza $d_1$ si sostituisce una distanza equivalente $d_2$.
-\end{theorem}
-%
-\begin{proof}
-Dobbiamo dimostrare che ognuno dei concetti sopra elencati può essere caratterizzato utilizzando solamente nozione di insieme aperto.
-
-L'insieme chiuso è già definito tramite l'essere aperto il complementare.
-
-Mostriamo ora che un insieme $A$ è intorno di un punto $x$ se e solo se esiste un aperto $U$ tale che $x\in U$ e $U \subset A$.
-Infatti se $A$ è intorno di $x$ significa che esiste $r>0$ tale che $B_r(x) \subset A$. Ma sappiamo che $B_r(x)$ è aperto e quindi posto $U=B_r(x)$ abbiamo la condizione $x\in U \subset A$.  Viceversa se $x\in U \subset A$ e $U$ è aperto significa che esiste $r>0$ tale che $B_r(x) \subset U$. Dunque $B_r(x)\subset A$ e quindi $x$ è interno ad $A$.
-
-Il concetto di intorno, quindi, dipende solo dalla topologia e di conseguenza anche i concetti di: punto interno, punto esterno, punto di frontiera, punto di aderenza punto di accumulazione e punto isolato, che si possono tutti esprimere tramite il concetto di punto interno.
-
-I concetti di parte interna, chiusura, derivato sono quindi anch'essi coincidenti.
-
-La convergenza $x_k \to x$ rispetto ad una distanza $d$ è stata definita da $d(x_k,x)\to 0$ ovvero:
-\[
- \forall \eps>0 \colon \exists K \colon
- \forall k>K\colon d(x_k,x)< \eps.
-\]
-E' immediato verificare che tale condizione è equivalente alla seguente:
-\[
-\forall \text{$U$ intorno di $x$}\colon \exists K \colon \forall k> K \colon x_k \in U.
-\]
-Infatti da un lato la palla $B_\eps(x)$ essendo un insieme aperto è certamente un intorno di $x$. Dall'altro lato dato un qualunque $U$ intorno di $x$ esiste, per definizione di intorno, un $\eps>0$ tale che $B_\eps(x) \subset U$ dunque se $d(x_k,x)< \eps$ si ottiene che $x_k \in B_\eps(x)\subset U$.
-\end{proof}
-%
-\begin{theorem}
-Se due distanze $d_1$ e $d_2$ su $X$ sono equivalenti allora i concetti di: aperto, chiuso, punto interno, punto di aderenza,
-
-Sia $X$ uno spazio vettoriale reale. Se
- $d_1$ e $d_2$
-sono due distanze su $X$
-indotte rispettivamente da due norme $\phi_1$ e $\phi_2$
-le distanze $d_1$ e $d_2$ sono equivalenti se e solo se
-esiste $L>0$ tale che
-\[
-  \phi_1(v) \le L \phi_2(v), \qquad
-  \phi_2(v) \le L \phi_1(v).
-\]
-\end{theorem}
-%
-\begin{proof}
-
-\end{proof}
-
-\begin{theorem}[proprietà di una topologia]
-Sia $(X,d)$ uno spazio metrico.
-\begin{enumerate}
-
-\item
-se $\mathcal A$ è una famiglia di insiemi aperti, la loro unione $\bigcup \mathcal A$ è un insieme aperto;
-
-\item
-se $\mathcal A$ è una famiglia di insiemi chiusi, la loro intersezione $\bigcap \mathcal A$ è un insieme chiuso;
-
-\item se $A,B \subset X$ sono due insiemi aperti, la loro intersezione $A \cap B$ è un insieme aperto;
-
-\item se $A,B \subset X$ sono due insiemi chiusi, la loro unione $A\cup B$ è un insieme chiuso;
-
-\item
-la chiusura $\bar A$ di un insieme $A\subset X$ è il più piccolo chiuso contenente $A$ (ovvero è l'intersezione di tutti i chiusi che contengono $A$)
-
-\item
-la parte interna $\stackrel\circ A$ di un insieme $A\subset X$ è il più grande aperto contenuto in $A$ (ovvero è l'unione di tutti gli aperti contenuti in $A$).
-\end{enumerate}
-\end{theorem}
 
 \begin{definition}[compattezza sequenziale]
-Uno spazio metrico $(X,d)$ si dice essere
+Sia $X$ uno spazio metrico o un sottoinsieme di uno
+spazio metrico. Si dirà che $X$ è
 \myemph{sequenzialmente compatto} se da ogni
-successione $x_k \in X$ è possibile estrarre una sottosuccessione $x_{k_j}$ convergente.
+successione $x_k \in X$ è possibile estrarre una sottosuccessione $x_{k_j}\to x$
+convergente ad un punto $x\in X$.
 \end{definition}
 
-\begin{theorem}[funzioni continue mandano compatti in compatti]
-Sia $f\colon X \to Y$
-\end{theorem}
+La compattezza viene definita in forma più generale negli spazi topologici (argomento che non vogliamo trattare). Sugli spazi metrici si osserva poi che la compattezza è equivalente alla compattezza sequenziale. Dunque ci capiterà di scrivere più brevemente \myemph{compatto}
+al posto di \emph{sequenzialmente compatto} e anche se formalmente la definizione di compatto è diversa (e non l'abbiamo introdotta) gli enunciati rimangono comunque validi.
 
-Il teorema di Bolzano-Weierstrass afferma che gli intervalli chiusi (e limitati) $[a,b]$ sono compatti.
+Il teorema di Bolzano-Weierstrass afferma che gli intervalli $[a,b]$ con $a,b\in \RR$ sono compatti.
+Più in generale si può dimostrare che tutti gli insiemi chiusi e limitati di $\RR^n$ sono compatti. In generale questo risultato non è vero in qualunque spazio metrico (un esempio negativo è dato dalla convergenza uniforme, come vedremo più avanti) ma l'implicazione inversa è sempre vera, come enunciato nel seguente teorema. In particolare su $\RR^n$ un insieme è compatto se e solo se è chiuso e limitato.
+
+\begin{theorem}
+Se $A$ è un sottoinsieme sequenzialmente
+compatto di uno spazio metrico $X$
+allora $A$ è chiuso e limitato.
+\end{theorem}
+%
+\begin{proof}
+Chiaramente $A$ è chiuso in quanto presa una successione $x_k\in A$ convergente a punto $x\in X$
+sappiamo che esiste una sottosuccessione convergente ad un punto di $A$. Ma necessariamente ogni sottosuccessione converge ad $x$ quindi $x\in A$. Se $A$ non fosse limitato
+fissato $a\in A$ per ogni $k\in \NN$ dovrebbe esistere un punto $x_k\in A$ tale che $x_k \not\in B_k(a)$
+cioè $d(x_k,a) > k$. Supponiamo allora che esista una sottosuccessione convergente $x_{k_j}\to x \in A$. Allora per la disuguaglianza triangolare inversa si avrebbe
+\[
+  d(x, a) \ge d(x_{k_j}, x_0) - d(x_{k_j},x)
+   \ge k_j - d(x_{k_j},x) \to +\infty - 0 = +\infty.
+\]
+Ma questo è assurdo in quanto $d(x,a)\in \RR$.
+\end{proof}
+
+\begin{theorem}[Weierstrass: le funzioni continue mandano compatti in compatti]
+Sia $f\colon X \to Y$ una funzione definita tra
+due spazi metrici $X$ e $Y$.
+Se $K\subset X$ è sequenzialmente compatto allora
+anche $f(K)$ è sequenzialmente compatto.
+\end{theorem}
+%
+\begin{proof}
+Sia $y_k \in f(K)$ una qualunque successione. Allora
+esiste $x_k \in K$ tale che $f(x_k) = y_k$.
+Essendo $K$ compatto possiamo estrarre una sottosuccessione convergente: $x_{k_j}\to x$. Essendo $f$ continua si ha
+\[
+  y_{k_j} = f(x_{k_j}) \to f(x) \in f(K).
+\]
+\end{proof}
+
+Nel caso $X=Y=\RR$ recuperiamo l'usuale teorema di Weierstrass, in quanto se $f\colon [a,b]\to \RR$ è continua essendo $[a,b]$ compatto risulta che $f([a,b])$ è compatto. Ma i compatti di $\RR$ sono chiusi e limitati quindi hanno massimo e minimo in quanto l'estremo superiore e l'estremo inferiore sono finiti e sono punti di aderenza dell'insieme.
+
+\section{completezza}
 
 \begin{definition}[successioni di Cauchy]
 \mynote{successione di Cauchy}
@@ -386,11 +465,13 @@ Sia $x_k\to x$ una successione convergente in uno spazio metrico $(X,d)$. Allora
 \begin{proof}
 Per definizione se $x_k \to x$ si ha
 \[
-  \forall \eps>0\colon \exists k>0 \colon d(x_k,x)< \eps.
+  \forall \eps>0\colon \exists n\in \NN \colon
+  \forall k>n \colon d(x_k,x)< \eps.
 \]
-Applicando la disuguaglianza triangolare
+Applicando la disuguaglianza triangolare, per ogni $j,k>n$
+si ottiene il risultato desiderato:
 \[
-  d(x_k, x_j) \le d(x_k,x) + d(x,x_j) \le 2\eps.
+  d(x_j, x_k) \le d(x_k,x) + d(x,x_j) \le 2\eps.
 \]
 \end{proof}
 
@@ -401,40 +482,526 @@ Uno spazio metrico $(X,d)$ si dice essere \myemph{completo}
 se ogni successione di Cauchy è convergente.
 \end{definition}
 
+\begin{theorem}[completezza dei compatti]
+Ogni spazio metrico compatto è completo.
+\end{theorem}
+%
+\begin{proof}
+Visto che lo spazio è compatto ogni successione di Cauchy
+ammette una sottosuccessione convergente. Ma se una sottosuccessione di una successione di Cauchy è convergente ad un punto, è facile osservare che l'intera successione di Cauchy converge a quel punto.
+\end{proof}
+
+\begin{theorem}[chiusi in spazi compatti e in spazi completi]
+Sia $(X,d)$ uno spazio metrico e sia $A\subset X$ un sottoinsieme chiuso in $X$. Se $X$ è compatto allora anche $A$ è compatto, se $X$ è completo allora anche $A$ è completo.
+\end{theorem}
+\begin{proof}
+Se $X$ è compatto da ogni successione in $A$ si può estrarre una sottosuccessione convergente ad un punto di $X$. Ma siccome $A$ è chiuso il punto sta in $A$ e dunque la sottosuccessione è convergente in $A$.
+
+Una successione di Cauchy in $A$ è di Cauchy anche in $X$. Se $X$ è completo tale successione converge ad un punto di $x$. Se $A$ è chiuso tale punto è in $A$ e dunque la successione converge in $A$.-
+\end{proof}
+
+\begin{definition}[spazio di Banach]
+Uno spazio vettoriale normato si dice essere uno
+\myemph{spazio di Banach} se, come spazio metrico, risulta essere completo.
+Se la norma è euclidea, cioè deriva da un prodotto scalare, lo spazio si dirà \myemph{spazio di Hilbert}.
+\end{definition}
+
 \begin{theorem}[completezza di $\RR$]
 \mynote{$\RR$ è completo}
 \index{completezza di $\RR$}
-$\RR$ è completo (rispetto alla distanza euclidea).
+$\RR$ è completo.
 \end{theorem}
 %
 \begin{proof}
 Sia $x_k \in \RR$ una successione di Cauchy.
-Fissato $\eps =1$ sappiamo che esiste $K\in \NN$
-per cui per ogni $k,j>K$ si ha
-$\abs{x_k - x_j} < 1$. In particolare per ogni $k>K$ si ha
+Fissato $\eps =1$ sappiamo che esiste $N\in \NN$
+per cui per ogni $k,j>N$ si ha
+$\abs{x_k - x_j} < 1$. In particolare per ogni $k>N$ si ha
 \[
-  d(x_k, x_{K+1}) < 1.
+  d(x_k, x_{N+1}) < 1.
 \]
 Dunque posto
 \[
-  M=\max\{\abs{x_0}, \abs{x_1}, \dots, \abs{x_K}, \abs{x_{K+1}} + 1
+  M=\max\{\abs{x_0}, \abs{x_1}, \dots, \abs{x_N}, \abs{x_{N+1}} + 1\}
 \]
-si osserva che per ogni $k\in \NN$ si ha $\abs{x_k}\le M$ in quanto se $k \le K$ abbiamo scelto appositamente $M$ in modo che sia più grande di $\abs{x_k}$ e se $k > K$ allora
+si osserva che per ogni $k\in \NN$ si ha $\abs{x_k}\le M$ in quanto se $k \le N$ abbiamo scelto appositamente $M$ in modo che sia più grande di $\abs{x_k}$ e se $k > N$ allora
 \[
-  \abs{x_k} \le \abs{x_k - x_{K+1}} + \abs{x_{K+1}}
-    \le 1 + \abs{x_{K+1}} \le M.
+  \abs{x_k} \le \abs{x_k - x_{N+1}} + \abs{x_{N+1}}
+    \le 1 + \abs{x_{N+1}} \le M.
 \]
 
 In pratica ogni successione di Cauchy è limitata
 (questo è un fatto generale, valido in ogni spazio metrico).
 
-A questo punto possiamo applicare il teorema di Weierstrass che ci assicura l'esistenza di una estratta convergente $x_{k_j} \to x$ con $x\in [-M,M]$.
+A questo punto possiamo applicare il teorema di Weierstrass che ci assicura l'esistenza di una estratta convergente $x_{k_j} \to x$ con $\abs{x}\le M$.
 Ma (altro fatto generale) se una successione di Cauchy ammette una estratta convergente, l'intera successione converge. Infatti per ogni $\eps>0$
-per la condizione di Cauchy per ogni $\eps>0$ esiste $n$ tale che se $k,j>n$ allora $\abs{x_k - x_j} < \eps$.
-Visto che $x_{k_j} \to x$ possiamo trovare $j$ tale che $k_j > n$ tale che $\abs{x_{k_j}-x} < \eps$. Ma allora
+per la condizione di Cauchy per ogni $\eps>0$ esiste $m$ tale che se $k,j>m$ allora $\abs{x_k - x_j} < \eps$.
+Visto che $x_{k_j} \to x$ possiamo trovare $j$ tale che $k_j > m$ tale che $\abs{x_{k_j}-x} < \eps$. Ma allora
 \[
   \abs{x_k - x} \le \abs{x_k - x_{k_j}} + \abs{x_{k_j} - x}
    \le 2 \eps.
 \]
-E questo è vero per ogni $k > n$ da cui risulta verificata la definizione di limite $x_k \to x$.
+E questo è vero per ogni $k > m$ da cui risulta verificata la definizione di limite $x_k \to x$.
 \end{proof}
+
+\begin{definition}[lipschitz]
+Sia $f\colon X \to Y$ una funzione definita tra due spazi metrici e sia $L\ge 0$. Diremo che $f$ è $L$-lipschitziana se
+per ogni $x,y \in X$ si ha
+\[
+  d(f(x),f(y)) \le d(x,y).
+\]
+Diremo che $f$ è lipschitziana se esiste $L\ge 0$ tale che $f$ sia $L$-lipschitziana.
+\end{definition}
+\begin{theorem}
+Se $f\colon X \to Y$ è lipschitziana allora
+$f$ è sequenzialmente continua, cioè
+\[
+  x_k \to x \implies f(x_k)\to f(x).
+\]
+\end{theorem}
+%
+\begin{proof}
+Se $x_k\to x$ significa che $d(x_k,x) \to 0$, quindi
+\[
+  d(f(x_k), f(x)) \le L \cdot d(x_k,x) \to 0.
+\]
+\end{proof}
+
+Osserviamo che la distanza $d(x,y)$ di uno spazio metrico $X$ risulta sempre essere una funzione $1$-lipschitziana rispetto ad ognuna delle due variabili $x$ e $y$. Infatti per la disuguaglianza triangolare inversa si ha
+\[
+  \abs{d(x_1,y) - d(x_2,y)} \le d(x_1, x_2).
+\]
+Di conseguenza la norma di uno spazio normato è anch'essa $1$-lipschitziana. In particolare la distanza e la norma risultano essere funzioni continue.
+
+\begin{theorem}[delle contrazioni o punto fisso di Banach-Caccioppoli]
+\mynote{teorema delle contrazioni}
+\index{teorema!di Banach-Caccioppoli}
+\index{teorema!delle contrazioni}
+\index{punto fisso}
+\index{contrazione}
+Sia $X$ uno spazio metrico completo non vuoto e sia $f\colon X \to X$ una funzione $L$-lipschitziana con $L<1$ (diremo che $f$ è una \myemph{contrazione}).
+Allora esiste ed è unico un punto
+$x\in X$ tale che $f(x) = x$.
+\end{theorem}
+%
+\begin{proof}
+Si consideri un qualunque punto $p \in X$ e si definisca
+la successione $x_k\in X$ tramite la definizione ricorsiva
+\[
+\begin{cases}
+  x_0 = p \\
+  x_{k+1} = f(x_k).
+\end{cases}
+\]
+Visto che $f$ è $L$-lipschitziana si avrà
+\begin{align*}
+  d(x_2, x_1) &= d(f(x_1),f(x_0)) \le L \cdot d(x_1,x_0) \\
+  d(x_3, x_2) &= d(f(x_2),f(x_0)) \le L \cdot d(x_2,x_1)
+  \le L^2 \cdot d(x_1, x_0) \\
+  d(x_4, x_3) &= d(f(x_3),f(x_2)) \le L \cdot d(x_3,x_2)
+  \le L^3 \cdot d(x_1, x_0) \\
+  &\vdots
+\end{align*}
+possiamo quindi dimostrare induttivamente che
+per ogni $m\in \NN$ si ha
+\[
+  d(x_{m+1}, x_m) \le L^m \cdot d(x_1, x_0).
+\]
+Ma allora per ogni $k\in \NN$ e per ogni $j>k$
+utilizzando la disuguaglianza triangolare e facendo la somma della progressione geometrica
+si ha
+\[
+  d(x_k,x_j) \le \sum_{m=k}^{j-1} d(x_m, x_{m+1})
+   \le \sum_{m=k}^{j-1} L^m \cdot d(x_1, x_0)
+   = \frac{L^k-L^j}{1-L} d(x_1,x_0).
+\]
+Visto che $L<1$ se $k\to +\infty$ e $j>k$ questa quantità tende a zero e quindi risulta che $x_k$ è una successione di Cauchy. Essendo per ipotesi $X$ completo sappiamo che la successione converge $x_k \to x$ ad un punto $x\in X$.
+Per la continuità di $f$, passando al limite nell'equazione
+$x_{k+1} = f(x_k)$ si ottiene $x = f(x)$.
+Abbiamo quindi trovato un punto fisso.
+Se $y\in X$ fosse un altro punto fisso si avrebbe:
+\[
+  d(x,y) = d(f(x),f(y)) \le L \cdot d(x,y)
+\]
+che è assurdo se $L<1$ e $x\neq y$.
+\end{proof}
+
+\section{convergenza uniforme}
+
+\begin{definition}[convergenza uniforme]
+Sia $A$ un insieme non vuoto e
+$f\colon A \to \RR$.
+Definiamo la \myemph{norma uniforme} (o norma del $\sup$)
+di $f$ come
+\[
+  \Abs{f}_\infty = \sup_{x\in A} \abs{f(x)}
+\]
+
+Se anche $g\colon A \to \RR$
+definiamo la \myemph{distanza uniforme}
+tra $f$ e $g$ come
+\[
+  d_\infty(f,g) = \sup_{x\in A} \abs{f(x)-g(x)}.
+\]
+
+Se $f_k$ è una successione di funzioni e $f$ è una funzione, diremo che $f_k$
+\emph{converge uniformemente}
+\mynote{convergenza uniforme}
+\index{convergenza uniforme}
+a $f$
+e scriveremo
+\[
+f_k \rightrightarrows f
+\] se
+$d_\infty(f_k,f)\to 0$.
+\end{definition}
+
+Osserviamo che in generale $\Abs{f}_\infty$ e $d_\infty(f,g)$ possono assumere il valore $+\infty$ (ad esempio se $A=\RR$, $f(x)=x$ e $g(x)=0$)
+e quindi in non è detto che siano effettivamente
+una norma e una distanza su $V$.
+
+\begin{theorem}[proprietà della norma uniforme]
+La norma uniforme soddisfa tutte le proprietà di una norma (Definizione~\ref{def:norma}), salvo il fatto che può assumere valori in $[0,+\infty]$ invece che in $[0,+\infty)$.
+\end{theorem}
+%
+\begin{proof}
+Chiaramente la norma uniforme non assume valori negativi in quanto estremo superiore di un insieme (non vuoto) di numeri reali non negativi. Inoltre se $\Abs{f}_\infty=0$ significa che $\abs{f(x)}=0$ per ogni $x$ e dunque $f=0$ (proprietà di separazione).
+
+L'omogenità segue dall'omogeneità del valore assoluto, in quanto si ha
+\[
+  \sup_{x\in A} \abs{(\lambda \cdot f)(x)}
+  = \sup_{x\in A}\abs{\lambda \cdot f(x)}
+  = \sup_{x\in A}\abs{\lambda}\cdot \abs{f(x)}
+  = \abs{\lambda} \cdot \sup_{x\in A}\abs{f(x)}.
+\]
+
+La disuguaglianza triangolare segue dalla disuguaglianza triangolare del valore assoluto, che viene preservata facendone l'estremo superiore:
+\[
+  \sup_{x\in A} \abs{f(x)+g(x)}
+  \le \sup_{x\in A} \Enclose{\abs{f(x)} + \abs{g(x)}}
+  \le \sup_{x\in A} \abs{f(x)} + \sup_{x\in A} \abs{g(x)}.
+\]
+\end{proof}
+
+\begin{theorem}
+Sia $A$ un insieme.
+Lo spazio vettoriale
+delle funzioni limitate $f\colon A \to \RR$
+(cioè delle funzioni con norma uniforme finita)
+\[
+  \B(A) = \{f\in \RR^A\colon \Abs{f}_\infty < +\infty \}
+\]
+dotato della norma uniforme $\Abs{\cdot}_\infty$ risulta essere uno spazio di Banach (ovvero uno spazio vettoriale normato e completo).
+Su tale spazio di Banach la distanza indotta dalla norma è la distanza uniforme $d_\infty$ e la convergenza indotta dalla distanza è la convergenza uniforme.
+\end{theorem}
+%
+\begin{proof}
+Per definizione risulta verificato che la norma uniforme $\Abs{\cdot}_\infty$ assume valori finiti su $\B(A)$.
+Dunque, in base al teorema precedente, $\Abs{\cdot}$ è effettivamente una norma e $\B(A)$ risulta quindi essere uno spazio normato. Dimostriamo ora che esso è completo, cioè che le successioni di Cauchy convergono.
+
+Sia $f_k$ una successione di Cauchy in $\B(A)$.
+Allora per ogni $x\in A$ risulta che $f_k(x)$ è una successione di Cauchy in $\RR$ in quanto si ha (per definizione di $\sup$)
+\[
+  \abs{f_k(x) - f_j(x)} \le \Abs{f_k - f}_\infty
+\]
+e quindi se $\Abs{f_k- f} < \eps$
+a maggior ragione per $x\in A$ fissato si ha $\abs{f_k(x)-f_j(x)} < \eps$.
+
+Dunque per ogni $x\in A$ la successione numerica $f_k(x)$ converge in quanto $\RR$ è completo. Posto $f(x) = \lim f_k(x)$ abbiamo dunque trovato un candidato limite della successione.
+Dovremo ora mostrare che $f\in \B(A)$ e che $f_k$ converge uniformemente a $f$.
+Per ogni $\eps>0$ per la condizione di Cauchy dovrà esistere $N\in \NN$ tale che se $k,j>N$ allora
+\[
+  d_\infty(f_k,f_j) < \eps.
+\]
+Ma allora per ogni $x\in A$, per ogni $k>N$ e per ogni $j>N$ si avrà:
+\[
+  \abs{f_k(x) - f(x)} \le \abs{f_k(x) - f_j(x)} +
+  \abs{f_j(x) - f(x)} < \eps + \abs{f_j(x)-f(x)}.
+\]
+Visto che per ogni $x$ si ha $f_j(x) \to f(x)$, per ogni $x$ esiste un $j$ tale che $\abs{f_j(x)-f(x)} < \eps$ e quindi possiamo concludere che
+\[
+  \abs{f_k(x)-f(x)} < 2\eps.
+\]
+Facendo il $\sup$ per $x\in A$ si ottiene dunque
+\[
+  \Abs{f_k -f}_\infty \le 2 \eps.
+\]
+Abbiamo quindi verificato la definizione di limite $\Abs{f_k -f}_\infty\to 0$. In particolare $\Abs{f}_\infty < +\infty$ in quanto vale la disuguaglianza triangolare
+\[
+  \Abs{f}_\infty \le \Abs{f-f_k}_\infty + \Abs{f_k}_\infty < +\infty
+\]
+essendo $\Abs{f-f_k}_\infty \to 0$ e $\Abs{f_k}_\infty < +\infty$.
+\end{proof}
+
+\begin{definition}[convergenza puntuale]
+Sia $f_k\colon A \to \RR$ una successione di funzioni
+e sia $f\colon A \to \RR$ una funzione.
+Se per ogni $x\in A$ si ha $f_k(x)\to f(x)$ diremo che
+la successione $f_k$
+\emph{converge puntualmente}
+\mynote{convergenza puntuale}
+\index{convergenza puntuale}
+ad $f$.
+\end{definition}
+
+\begin{theorem}[convergenza uniforme implica convergenza puntuale]
+Sia $f_k\colon A \to \RR$ una successione di funzioni.
+Se $f_k$ converge uniformemente ad una funzione $f$ allora $f_k$ converge puntualmente ad $f$.
+\end{theorem}
+%
+\begin{proof}
+E' sufficiente osservare che per ogni $x\in A$ si ha
+\[
+  \abs{f_k(x)-f(x)} \le \sup_{y\in A} \abs{f_k(y)-f(y)}
+   = \Abs{f_k-f}_\infty \to 0.
+\]
+\end{proof}
+
+\begin{example}[successione che converge puntualmente ma non uniformemente]
+Sia $f_k\colon [0,1]\to \RR$ la successione di funzioni definita da $f_k(x)=x^k$. Se $x\in[0,1)$ si ha $x^k \to 0$ mentre se $x=1$ si ha $x^k \to 1$. Dunque la successione $f_k$ converge puntualmente alla funzione
+\[
+f(x) =
+ \begin{cases}
+  0 & \text{se $x\in [0,1)$}\\
+  1 & \text{se $x=1$}.
+ \end{cases}
+\]
+Osserviamo però che
+\[
+  d_\infty(f_k,f) = \sup_{x\in [0,1]} \abs{f_k(x)-f(x)}
+  \ge lim_{x\to 1^-} \abs{f_k(x) - f(x)} = 1.
+\]
+dunque non ci può essere convergenza uniforme di $f_k$ verso $f$.
+\end{example}
+
+E' facile convincersi che la successione $f_k$ dell'esempio precedente, oltre a non convergere uniformemente non ammette nessuna estratta convergente uniformemente. Perciò tale successione non può essere contenuta in nessun compatto di $C^0([0,1])$. In particolare il disco unitario
+\[
+  D = \{f\in \C^0([0,1])\colon \Abs{f}_\infty \le 1\}
+\]
+risulta essere un insieme chiuso e limitato che però non è compatto.
+
+\begin{theorem}[continuità del limite uniforme]
+Sia $A\subset \RR$ e sia $f_k\in C^0(A)$ una successione di funzioni continue che
+convergono uniformemente ad una funzione $f\colon A \to \RR$. Allora anche $f\in C^0(A)$.
+\end{theorem}
+%
+\begin{proof}
+Fissato $x_0\in A$ basta dimostrare che per ogni $\eps>0$
+esiste $\delta>0$ tale che se $\abs{x-x_0}< \delta$ allora $\abs{f(x)-f(x_0)} < 3 \eps$.
+Per definizione di convergenza uniforme dato $\eps>0$
+esiste un $N\in \NN$ (in realtà ne esistono infiniti) per cui
+$d_\infty(f_N,f)< \eps$. Per la continuità di $f_N$ in corrispondenza dello stesso $\eps$ esiste $\delta>0$
+tale che se $\abs{x-x_0}< \delta$ allora $\abs{f(x)-f(x_0)} < \eps$. Ma allora se $\abs{x-x_0}<\delta$ si ha
+\begin{align*}
+\abs{f(x)-f(x_0)}
+&\le \abs{f(x) - f_N(x)}
+ + \abs{f_N(x)-f_N(x_0)}
+ + \abs{f_N(x_0) - f(x_0)} \\
+ &\le \Abs{f-f_N} + \eps + \Abs{f-F_N}
+  \le 3\eps.
+\end{align*}
+\end{proof}
+
+\begin{theorem}[completezza di $\C^0({[a,b]})$]
+\mynote{$\C^0([a,b])$ è completo}
+\index{completezza!di $\C^0([a,b])$}
+Lo spazio $C^0([a,b])$ delle funzioni continue definite su un intervallo chiuso e limitato, dotato della norma uniforme $\Abs{\cdot}_\infty$ risulta essere uno spazio di Banach (ovvero uno spazio vettoriale normato e completo).
+\end{theorem}
+%
+\begin{proof}
+Per il teorema di Weierstrass ogni funzione continua definita sul compatto $[a,b]$ è limitata. Dunque $C^0([a,b])$ è un sottospazio vettoriale di $\B([a,b])$. Inoltre il teorema precedente (continuità del limite) ci dice che $C^0([a,b])$ è un sottospazio chiuso di $\B([a,b])$.
+Ma $\B([a,b])$ è completo e quindi anche $C^0([a,b])$ essendo chiuso in $\B([a,b])$ è completo.
+\end{proof}
+
+\section{Divagazione sui frattali autosimili}
+
+\begin{definition}
+Siano $A$ e $B$ sottoinsiemi non vuoti di uno spazio metrico $X$ dotato di una distanza $d$.
+Definiamo la \myemph{distanza di Hausdorff} tra $A$ e $B$ come:
+\[
+  d_{\H}(A,B) = \max\big\{\sup_{a\in A}\inf_{b\in B} d(a,b), \sup_{b\in B} \inf_{a\in A} d(a,b)\big\}.
+\]
+
+Definiamo
+\[
+ \K(X) = \{A \subset X \colon \text{$A$ chiuso, limitato, non vuoto}\}.
+\]
+\end{definition}
+
+\begin{theorem}[caratterizzazione della distanza di Hausdorff]
+Se $A$ e $B$ sono compatti nello spazio metrico $X$
+per ogni $r \in \RR$
+si ha
+\[
+  d_\H(A,B) \le r
+\]
+se e solo se valgono entrambe le seguenti proprietà:
+\begin{enumerate}
+\item per ogni $a\in A$ esiste $b\in B$ tale che $d(a,b)\le r$;
+\item per ogni $b\in B$ esiste $a\in A$ tale che $d(a,b)\le r$.
+\end{enumerate}
+\end{theorem}
+%
+\begin{proof}
+Per ogni compatto non vuoto $A$ e per ogni $x\in X$ definiamo
+la distanza tra il punto $x$ e l'insieme $A$ come:
+\[
+  d(x,A) = \min_{a\in A} d(x,a).
+\]
+Il minimo esiste in quanto $A$ è compatto e $a\mapsto d(x,a)$ è una funzione continua. Fissato $A$ la funzione $x\mapsto d(x,A)$ è anch'essa continua, anzi è $1$-lipschitziana. Infatti se $x'\in X$ esiste $a'\in A$ tale che $d(x',A) = d(x',a')$ e dunque
+\[
+  d(x,A) = \min_{x\in A} d(x,a) \le d(x,a') \le d(x,x') + d(x',a')
+   = d(x,x') + d(x',A)
+\]
+da cui $d(x,A)-d(x',A)\le d(x,x')$. Scambiando $x$ e $x'$ si ottiene anche la disuguaglianza inversa da cui la $1$-lipschitzianità di $d(x,A)$. Dunque sui compatti la funzione $d(x,A)$ assume sempre massimo e si ha:
+\[
+d_\H(A,B) = \max\{\max_{a_\in A} d(a,B), \max_{b\in B} d(b,A)\}.
+\]
+
+In particolare se $d_\H(A,B) \le r$ per ogni $a\in A$ si deve avere $d(a,B) \le r$ e per ogni $b\in B$ si deve avere $d(b,A) \le r$. Ma allora valgono le due proprietà dell'enunciato.
+
+Viceversa se vale la proprietà 1.\ allora $d(a,B)\le r$ e se vale la 2.\ $d(b,A)\le r$ e di conseguenza $D_\H(A,B) \le r$.
+\end{proof}
+
+\begin{theorem}[distanza di Hausdorff]
+Sia $X$ uno spazio metrico.
+La distanza di Hausdorff $d_\H$ è una distanza su $\K(X)$.
+Inoltre se $X$ è completo anche $\K(X)$ lo è.
+\end{theorem}
+%
+\begin{proof}
+Chiaramente se $A,B$ sono non vuoti si ha $d_\H(A,B) \ge 0$.
+Inoltre, in base alla caratterizzazione del teorema precedente è facile osservare che $d_\H(A,B) < +\infty$.
+
+Se $d_\H(A,B) = 0$ significa che per ogni $a\in A$ esiste $b\in B$ tale che $d(a,b)=0$. Cioè $b=a$. Dunque $A\subset B$. Scambiando i ruoli di $A$ e $B$ si ottiene anche $B\subset A$ da cui $A=B$.
+
+Che sia $d_\H(A,B) = d_\H(B,A)$ è ovvio in quanto la definizione è simmetrica in $A$ e $B$.
+
+Verifichiamo ora la disuguaglianza triangolare. Siano $A,B,C$ tre compatti non vuoti. Per ogni $a\in A$ esiste $b\in B$ tale che $d(a,b) \le d_\H(A,B)$ e per tale $b \in B$ esiste un $c\in C$ tale che $d(b,c) \le d_\H(B,C)$. Dunque per ogni $a\in A$ esiste un $c\in C$ tale che
+\[
+  d(a,c) \le d(a,b) + d(b,c) \le d_\H(A,B) + d_\H(B,C).
+\]
+Scambiando i ruoli di $A$ e $C$ si ottiene anche la condizione simmetrica e dunque, per la caratterizzazione della distanza di Hausdorff si ottiene la disuguaglianza triangolare:
+\[
+  d_\H(A,C) \le d_\H(A,B) + d_\H(B,C).
+\]
+
+Dunque abbiamo verificato che $d_\H$ è una distanza su $\K(X)$.
+Supponendo ora che $X$ sia completo dimostriamo che anche $\K(X)$ è completo.
+
+Sia $A_k\in\K(X)$ una successione di Cauchy.
+Senza perdita di generalità possiamo supporre che
+\[
+  d_\H(A_k,A_{k+1}) \le \frac{1}{2^k}.
+\]
+Infatti essendo $A_k$ di Cauchy è possibile trovarne una sottosuccessione con tale proprietà, e se poi dimostriamo che la sottosuccessione converge allora l'intera successione, essendo di Cauchy, deve convergere.
+
+Consideriamo come candidato limite l'insieme di tutti i possibili limiti di punti degli insiemi $A_k$:
+\[
+  A = \{x\in X \colon \exists x_k \in A_k\colon x_k \to x\}.
+\]
+
+Per prima cosa vogliamo verificare che $A$ non è vuoto. Scelto un punto qualunque $a_0 \in A_0$ esiste $a_1 \in A_1$ tale che $d(a_0,a_1) = d_\H(A_0,A_1)$. Iterando otteniamo una successione di punti $a_k \in A_k$ tale che $d(a_k,a_{k+1})\le d_\H(A_k,A_{k+1}) \le 1/2^k$.
+Dunque $a_k$ è una successione di Cauchy in $X$ ed essendo $X$ completo dovrà convergere ad un punto $a$ che quindi è un punto di $A$.
+
+Avendo assunto $d_\H(A_k, A_{k+1}) < 1/2^k$ si ottiene (sommando la serie geometrica):
+\[
+ d_\H(A_k, A_n) \le \sum_{j=k}^{n-1} d_\H(A_j, A_{j+1}) \le \frac{2}{2^k}\qquad \text{se $n>k$}.
+\]
+Questo ci permette di dimostrare che per ogni $a\in A$ e per ogni $k\in \NN$ esiste $a_k \in A_k$ tale che
+$d(a,a_k)\le 4/2^k$. Infatti se a distanza $4/2^k$ non ci fossero punti di $A_k$ allora a distanza $2/2^k$ non ci potrebbero essere punti di $A_n$ per nessun $n>k$ in quanto visto che $d_\H(A_k,A_n) \le 2/2^k$ se ci fosse un punto di $A_n$ a distanza inferiore a $2/2^k$ ci dovrebbe anche essere un punto di $A_k$ a distanza inferiore a $4/2^k$. Ma questo è impossibile perché per come è definito $A$ deve esistere $x_n \in A_n$ tale che $x_n \to a$. Abbiamo quindi mostrato che
+\[
+  \sup_{a\in A} \inf_{b\in A_k} d(a,b) \le 4/2^k \to 0.
+\]
+
+Viceversa ci proponiamo di mostrare che per ogni $p \in A_k$ esiste $a \in A$ tale che $d(p,a) < 2/2^k$.
+Visto che $d_\H(A_{j+1},A_j) \le 1/2^j$
+possiamo infatti costruire a partire da $a_k=p \in A_k$
+una successione $a_j \in A_j$ con $j > k$, tale che $d(a_{j+1},a_j) \le 1/2^j$. Tale successione è di Cauchy
+quindi converge: $a_j \to a$
+e il suo limite $a$ è quindi un punto di $A$ e si ha
+\[
+  d(a,p) \le \sum_{j=k}^\infty d(a_j, a_{j+1})
+    \le \sum_{j=k}^\infty \frac{1}{2^j} \le \frac{2}{2^k}.
+\]
+Abbiamo quindi dimostrato che
+\[
+  \sup_{b\in a_k} \inf_{a\in A} d(a,b) \le 2/2^k \to 0
+\]
+e quindi $d_\H(A_k,A)\to 0$.
+
+Ci rimane solo da mostrare che $A$ è un insieme chiuso.
+Presa una successione di punti $x_k\in A$ convergente $x_k\to x$, dobbiamo mostrare che $x\in A$. Per ogni $x_k\in A$ per quanto già detto sappiamo esistere $a_k \in A_k$ tale che $d(a_k,x_k)\le 4/2^k$. Ma allora $d(a_k,a) \le 4/2^k + d(x_k,a) \to 0$ e quindi $a_k\to a$ da cui $a\in A$.
+ \end{proof}
+
+\begin{theorem}[frattali autosimilari]
+Sia $X$ uno spazio metrico completo e siano
+$\phi_1, \dots, \phi_N \colon X \to X$ contrazioni. Allora
+esiste un unico insieme $C\subset X$ chiuso e limitato tale che
+\[
+  C = \bigcup_{k=1}^N \phi_k(C).
+\]
+\end{theorem}
+%
+\begin{proof}
+Basterà dimostrare che la funzione $T\colon \K(X)\to \K(X)$ definita da
+\[
+  T(A) = \bigcup_{k=1}^N \phi_k(C)
+\]
+è una contrazione: dopodiché sapendo che $\K(X)$ è completo il risultato è conseguenza diretta del teorema di punto fisso di Banach-Caccioppoli.
+
+Ogni $\phi_k$ per ipotesi è una contrazione, cioè
+per ogni $a,b\in X$
+\[
+  d(\phi_k(a),\phi_k(b)) \le L_k d(a,b)
+\]
+con $L_k< 1$. Posto $L=\max \{L_1, \dots, L_N\} < 1$ vogliamo dimostrare che $T$ è $L$-lipschitziana (e dunque una contrazione). Siano $A,B \in \K(X)$ e sia $d = d_\H(A,B)$. Preso $a' \in T(A)$ dovrà esistere $k$ tale che $a' \in \phi_k(A)$. Cioè $a'= \phi_k(a)$ con $a\in A$. Ma allora esiste $b\in B$ con $d(a,b)\le d_\H(A,B) = d$ e quindi $b'=\phi_k(b) \in T(B)$ e $d(a',b') = d(\phi_k(a),\phi_k(b)) \le L d(a,b) \le L \cdot d$. Dunque abbiamo mostrato che
+\[
+  \sup_{a' \in T(A)} \inf_{b'\in T(B)} d(a',b') \le L d_\H(A,B).
+\]
+La stessa disuguaglianza rimane valida con $A$ e $B$ scambiati, ottenendo quindi:
+\[
+  d_\H(T(A),T(B)) \le L\cdot d_\H(A,B).
+\]
+\end{proof}
+
+\begin{example}[insieme di Cantor]
+Si prendano $\phi, \psi\colon \RR \to \RR$ definite da
+\[
+  \phi(x) = \frac{x}{3}, \qquad
+  \psi(x) = \frac{2+x}{3}.
+\]
+Chiaramente $\phi$ e $\psi$ sono $1/3$-lipschitziane e dunque, per il teorema precedente, esiste un unico insieme $C$ chiuso e limitato in $\RR$ tale che
+\[
+  C = \frac{C}{3} \cup \frac{C+2}{3}.
+\]
+Tale insieme si chiama \myemph{insieme di Cantor}.
+
+L'insieme di Cantor è un frattale autosimile in quanto si ottiene come l'unione di due copie riscalate di sé stesso.
+\end{example}
+
+\begin{example}[curva di K{\"o}ch]
+Sia $R_\theta\colon \RR^2 \to \RR^2$ la rotazione di $\RR^2$ con centro l'origine di $\theta$ radianti in senso antiorario.
+Sia $\alpha = \pi/3$, $p=(1,0)$ e
+siano $\phi_1, \phi_2, \phi_3, \phi_4 \colon \RR^2 \to \RR^2$
+le funzioni definite da:
+\begin{align*}
+\phi_1(v) = \frac{v}{3}, \qquad
+\phi_2(v) = R_{\alpha}\frac{v}{3} + \phi_1(p), \\
+\phi_3(v) = R_{-\alpha}\frac{v}{3} + \phi_2(p), \qquad
+\phi_4(v) = \frac{v}{3} + \phi_3(p).
+\end{align*}
+Allora esiste un unico insieme chiuso $K\subset \RR^2$ tale che
+\[
+  K = \phi_1(K) \cup \phi_2(K) \cup \phi_3(K) \cup \phi_4(K).
+\]
+L'insieme $K$ si chiama \myemph{curva di K{\"o}ch}. E' un frattale autosimile in quanto è composto da quattro copie riscalate di se stesso.
+\begin{figure}
+\centering\includegraphics[width=0.6\textwidth]{koch}
+\caption{
+Chiamato $K_0 \in \RR^2$ il segmento $[0,1]\times \{0\}$,
+la quarta iterata $K_4 = T^4(K_0)$ della contrazione che definisce la curva di K{\"o}ch.
+\index{curva di K{\"o}ch}
+}
+\end{figure}
+\end{example}
