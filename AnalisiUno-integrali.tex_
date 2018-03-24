@@ -1181,6 +1181,83 @@ cioè
 Dunque abbiamo scoperto che $a_n\to 0$. D'altra parte abbiamo visto che $a_n \in \ZZ$ e certamente $a_n > 0$ in quanto $I_n \neq 0$ visto che $f_n$ è una funzione continua, non negativa e non identicamente nulla. Ma non è possibile che una successione di numeri interi positivi converga a zero: abbiamo quindi ottenuto l'assurdo.
 \end{proof}
 
+\begin{theorem}[prodotto di Wallis]
+Si ha
+\[
+  \frac{\pi}{2}
+  = \lim_{n\to +\infty} \prod_{k=1}^n \frac{(2k)^2}{(2k-1)(2k+1)}
+  =     \frac{2}{1}
+  \cdot \frac{2}{3}
+  \cdot \frac{4}{3}
+  \cdot \frac{4}{5}
+  \cdot \frac{6}{5}
+  \cdot \frac{6}{7}
+  \cdot \frac{8}{7}
+  \cdot \frac{8}{9}
+  \dots
+\]
+\end{theorem}
+%
+\begin{proof}
+Consideriamo la successione di integrali:
+\[
+  I_n = \int_0^\pi \sin^n(x)\, dx.
+\]
+Essendo $0\le \sin^n(x) \le 1$ per ogni $x\in [0,\pi]$ ed essendo $\sin^{n+1}(x)\le \sin^n(x)$ per ogni $x\in[0,\pi]$ è chiaro che $I_n$ è una successione decrescente di numeri positivi.
+
+Da un calcolo diretto troviamo che
+\[
+  I_0 = \int_0^\pi 1\, dx = \pi, \qquad
+  I_1 = \int_0^\pi \sin(x)\, dx = \Enclose {-\cos x}_0^\pi = 2.
+\]
+Se $n\ge 0$,
+integrando per parti troviamo invece una relazione ricorsiva
+\begin{align*}
+ I_{n+2} &= \int_0^\pi \sin^{n+1}(x) \sin(x)\, dx \\
+     &= \Enclose{-\sin^{n+1}(x)\cos(x)}_0^\pi + (n+1)\int_0^\pi \sin^{n} \cos^2(x)\, dx \\
+     &= 0 + (n+1)\int_0^\pi\sin^{n}(1-\sin^2(x))\, dx \\
+     &= (n+1) I_{n} - (n+1) I_{n+2}
+\end{align*}
+da cui
+\[
+  I_{n+2} = \frac{n+1}{n+2} I_{n}.
+\]
+Ricordando che $I_n$ è decrescente si ottiene (mettendo $2n$ al posto di $n$)
+\[
+  \frac{2n+1}{2n+2} \cdot I_{2n}
+  = I_{2n+2}
+  \le I_{2n+1}
+  \le I_{2n}
+\]
+Cioè
+\[
+  1
+  \le \frac{I_{2n}}{I_{2n+1}}
+  \le \frac{2n+2}{2n+1} \to 1
+\]
+da cui ottieniamo che $I_{2n+1} / I_{2n} \to 1$.
+
+Ma la formula ricorsiva ci permette di calcolare separatamente
+i termini pari e dispari della successione:
+\begin{align*}
+  I_{2n} &= \frac{2n-1}{2n}\cdot \frac{2n-3}{2n-2} \cdots \frac {3}{4}\cdot \frac{1}{2} \cdot I_0 = \enclose{\prod_{k=1}^n \frac{2k-1}{2k}} \cdot \pi \\
+  I_{2n+1} &= \frac{2n}{2n+1}\cdot \frac {2n-2}{2n-1} \cdots
+  \frac{4}{5}\cdot \frac{2}{3} \cdot I_1
+  = \enclose{\prod_{k=1}^n \frac{2k}{2k+1}}\cdot 2.
+\end{align*}
+In conclusione, visto che $\pi$ compare nella formula dei termini pari, ma non in quella dei termini dispari, e visto che le due espressioni sono asintotiche possiamo ottenere
+la formula per il calcolo di $\pi$:
+\begin{align*}
+\frac{\pi}{2}
+&= \frac{\pi}{2} \lim_{n\to +\infty} \frac{I_{2n+1}}{I_{2n}}
+= \lim_{n\to +\infty} \frac{\displaystyle\prod_{k=1}^n \frac{2k}{2k+1}}{\displaystyle\prod_{k=1}^n \frac{2k-1}{2k}}\\
+&= \lim_{n\to +\infty} \prod_{k=1}{n} \frac{(2k)^2}{(2k-1)(2k+1)}.
+\end{align*}
+\end{proof}
+
+
+
+
 \section{integrale di una funzione razionale}
 
 \begin{definition}[funzione razionale]
@@ -1454,31 +1531,39 @@ in fratti semplici. L'integrale di $P/Q$ si potrà quindi ricondurre (tramite co
 Non ci resta quindi che trovare l'integrale dei fratti semplici, cosa che faremo nel seguente teorema.
 
 \begin{theorem}[integrale dei fratti semplici]
-Se $\lambda\in \RR$, $p\in \NN$, $p>1$, $\alpha,\beta \in \RR$, $\alpha^2-4\beta < 0$, si ha
-\begin{align*}
+Se $\lambda\in \RR$, $p\in \NN$, $p>1$, $\alpha,\beta \in \RR$, $\alpha^2-4\beta < 0$, si ha:
+\begin{enumerate}
+\item $\displaystyle
   \int \frac{1}{x-\lambda}\, dx
-  &= \ln \abs{x-\lambda} \\
+  = \ln \abs{x-\lambda} $;
+\item $\displaystyle
   \int \frac{1}{(x-\lambda)^p}\, dx
-  &=  -\frac{1}{(p-1)(x-\lambda)^{p-1}} \\
+  =  -\frac{1}{(p-1)(x-\lambda)^{p-1}} $;
+\item $\displaystyle
   \int \frac{1}{1+x^2}\, dx
-  &= \arctg x \\
+  = \arctg x $;
+\item $\displaystyle
   \int \frac{1}{(1+x^2)^p}\, dx
-   &= \frac{x}{2n(1+x^2)^{p-1}} + \frac{2p-3}{2p-2}\int \frac{1}{(1+x^2)^{p-1}}\, dx \\
+   = \frac{x}{2n(1+x^2)^{p-1}} + \frac{2p-3}{2p-2}\int \frac{1}{(1+x^2)^{p-1}}\, dx $;
+\item $\displaystyle
   \int \frac{1}{x^2+\alpha x + \beta}\, dx
-     &=
+     =
      \frac{2}{\sqrt{4\beta - \alpha^2}}
      \arctg \frac{2x+\alpha}{\sqrt{4\beta-\alpha^2}}
-  \\
+  $;
+\item $\displaystyle
   \int \frac{1}{(x^2+\alpha x + \beta)^p}\, dx
-    &=
+    =
     \enclose{\frac{4}{4\beta - \alpha^2}}^{p-\frac 1 2}
     \Enclose{\int \frac{1}{(1+y^2)^p}\, dy}_{y=\frac{2x+\alpha}{\sqrt{4\beta-\alpha^2}}}
- \\
+ $;
+ \item $\displaystyle
   \int \frac{ax + b}{(x^2+\alpha x + \beta)^p}\, dx
-   &= -\frac{a}{2(p-1)(x^2+\alpha x+ \beta)^{p-1}} \\
-   &\quad + \frac{2b-a\alpha}{2}\int \frac{1}{(x^2+\alpha x+\beta)^p}\, dx \\
-\end{align*}
+   = -\frac{a}{2(p-1)(x^2+\alpha x+ \beta)^{p-1}} \\
+   \quad + \frac{2b-a\alpha}{2}\int \frac{1}{(x^2+\alpha x+\beta)^p}\, dx $.
+\end{enumerate}
 \end{theorem}
+Osserviamo che non è rilevante ricordarsi le formule enunciate nel teorema, converrà piuttosto ricordarsi i metodi di integrazione utilizzati nella dimostrazione.
 %
 \begin{proof}
 I primi tre integrali sono immediati.
@@ -1624,6 +1709,16 @@ anche per gli integrali impropri:
 \[
  \int_a^b f(x)\,dx = \int_a^d f(x)\, dx + \int_d^b f(x)\, dx.
 \]
+
+Come per gli integrali usuali, se $a > b$ si intende
+\[
+  \int_a^b f(x) \, dx = - \int_b^a f(x)\, dx
+\]
+e se $a=b$ si intende
+\[
+  \int_a^a f(x)\, dx = 0
+\]
+anche se la funzione $f$ in $a$ potrebbe non essere definita!
 
 \begin{definition}[integrale improprio bilaterale]
 Siano $a,b\in \bar \RR$ con $a<b$.
@@ -1771,7 +1866,7 @@ Sia $c\in (a,b)$ un punto fissato. Essendo $f$ non negativa è facile verificare
 è crescente, in quanto se $x_1<x_2$ allora $F(x_2)-F(x_1)$ è l'integrale di $F$ tra $x_1$ e $x_2$ e risulta quindi non negativo.
 Dunque esistono i limiti:
 \begin{align*}
-  \int_c^b f(x)\, dx  &= \lim_{x\to b^-} F(x)
+  \int_c^b f(x)\, dx  &= \lim_{x\to b^-} F(x)\\
   \int_a^c f(x)\, dx  &= -\lim_{x\to a^+} F(x)
 \end{align*}
 Essendo $F(x) \ge 0$ per $x>c$ e $F(x)\le 0$ per $x<c$ si
@@ -1806,44 +1901,144 @@ Viceversa l'integrale
 La verifica si fa facilmente valutando il limite della primitiva $(1-p)/x^{p-1}$ negli estremi dell'intervallo.
 \end{example}
 
-L'analogia dell'esempio precedente con la serie $\sum 1/k^p$ è evidente. Si ha in effetti il seguente risultato generale.
+\begin{exercise}
+Si determini per quali $\alpha,\beta\in \RR$ risultano convergenti
+gli integrali:
+\[
+  \int_0^{\frac 1 2} \frac{1}{x^\alpha \ln^\beta x}\, dx,
+  \qquad
+  \int_2^{+\infty} \frac{1}{x^\alpha \ln^\beta x} \, dx.
+\]
+\end{exercise}
+
+Dall'esercizio precedente si può osservare che
+l'integrale e la serie:
+\[
+ \int_2^{+\infty} \frac{1}{x^\alpha \ln^\beta x}\, dx,
+ \qquad
+ \sum_{k=2}^{+\infty} \frac{1}{k^\alpha \ln^\beta k}
+\]
+convergono per gli stessi valori dei parametri $\alpha$ e $\beta$
+(ricordiamo che il carattere della serie può essere determinato
+utilizzando il criterio di condensazione di Cauchy).
+Questa analogia può essere formalizzata nel seguente.
 
 \begin{theorem}[collegamento tra serie ed integrali impropri]
-Sia $f\colon [a,+\infty)$ una funzione decrescente non negativa.
-Allora l'integrale
+Sia $f\colon [1,+\infty)$ una funzione decrescente non negativa
+e sia $a_k=f(k)$.
+Allora la serie
 \[
-  \int_a^{+\infty} f(x)\, dx
+   \sum_{k=1}^{+\infty} a_k
 \]
-è convergente se e solo se è convergente la serie
+è convergente se e solo se è convergente l'integrale
 \[
-  \sum_{k=0}^\infty f(a+k).
+  \int_1^{+\infty} f(x)\, dx.
 \]
+
+E, più precisamente:
+\begin{equation}\label{eq:39185}
+  0
+  \le \sum_{k=1}^{+\infty} a_k - \int_1^{+\infty}f(x)\, dx
+  \le a_1.
+\end{equation}
+
 \end{theorem}
 %
 \begin{proof}
-La funzione $f$, essendo non negativa e monotona, risulta essere integrabile in senso improprio su $[a,+\infty)$.
-Anche la serie $\sum f(a+k)$ essendo a termini non negativi risulta essere determinata.
-Essendo $f$ decrescente, per ogni $x \in [a+k,a+k+1]$ con $k\in \NN$ si ha
+La funzione $f$, essendo non negativa e monotona, risulta essere integrabile in senso improprio su $[0,+\infty)$.
+Anche la serie $\sum f(k)$ essendo a termini non negativi risulta essere determinata.
+Essendo $f$ decrescente, per ogni $x \in [k,k+1]$ si ha
 \[
-  f(a+k+1) \le f(x) \le f(a+k)
+  f(k+1) \le f(x) \le f(k)
 \]
-integrando su $[a+k,a+k+1]$ si ottiene
+integrando su $[k,k+1]$ si ottiene
 \[
-  f(a+k+1) \le \int_{a+k}^{a+k+1} f(x)\, dx \le f(a+k)
+  f(k+1) \le \int_{k}^{k+1} f(x)\, dx \le f(k)
 \]
-e sommando per $k=0,\dots, N-1$ si ottiene:
+e sommando per $k=1,\dots, N$ si ottiene:
 \[
-  \sum_{k=1}^{N} f(a+k) \le \int_{a}^{a+N} f(x)\, dx \le \sum_{k=0}^{N-1} f(a+k).
+  \sum_{k=2}^{N+1} f(k) \le \int_{1}^{N+1} f(x)\, dx \le \sum_{k=1}^{N} f(k).
 \]
-Possiamo passare al limite per $N\to +\infty$ in quanto già sappiamo che le serie e l'integrale sono definiti
-e quindi i limiti esistono:
+Possiamo passare al limite per $N \to +\infty$ in quanto già sappiamo che le serie è definita e la funzone è integrabile
+e che quindi i limiti esistono:
 \[
-  \sum_{k=1}^{+\infty} f(a+k)
-  \le \int_{a}^{+\infty} f(x)\, dx
-  \le \sum_{k=0}^{+\infty} f(a+k).
+  \sum_{k=2}^{+\infty} f(k)
+  \le \int_{1}^{+\infty} f(x)\, dx
+  \le \sum_{k=1}^{+\infty} f(k).
 \]
-Dunque se la serie converge anche l'integrale converge e viceversa.
+Queste ultime disuguaglianze sono equivalenti alle \eqref{eq:39185}
+e ci dicono immediatamente che se l'integrale converge anche la serie converge e viceversa.
 \end{proof}
+
+\begin{example}[stima asintotica di $\ln n!$]
+\index{fattoriale!stima asintotica}
+\mynote{stima asintotica $n!$}
+Osserviamo che
+\[
+  \ln (n!) = \ln \prod_{k=1}^n k = \sum_{k=1}^n \ln k.
+\]
+Applichiamo lo stesso procedimento utilizzato nel teorema precedente alla funzione $f(x) = \ln x$. Visto che il logaritmo è crescente (invece che decrescente) otterremo delle stime rovesciate, ma analoghe. Ripetendo con attenzione i conti, si ottiene:
+\[
+    \int_1^n \ln(x)\, dx \le  \sum_{k=2}^n \ln k = \sum_{k=1}^n \ln k \le \int_1^{n+1} \ln(x) \, dx
+\]
+e calcolando gli integrali: $\int \ln x = x \ln x -x$ si ottiene
+\[
+  n \ln n - n + 1 \le \ln(n!) \le (n+1) \ln (n+1) - n - \ln 2 +2
+\]
+da cui, dividendo ambo i membri per $n \ln n$ e facendo tendere $n\to +\infty$ si trova
+\[
+ \frac{\ln n!}{n \ln n}\to 1
+\]
+ovvero
+\[
+  \ln (n!) \sim n \ln n \qquad \text{per $n\to +\infty$.}
+\]
+
+Questa formula discende dalla formula di Stirling, ma è molto più semplice da dimostrare.
+\end{example}
+
+Anche se non sappiamo calcolare esplicitamente un integrale,
+è spesso possibile determinarne la convergenza confrontandolo,
+tramite il teorema seguente, con un integrale noto.
+
+\begin{theorem}[criterio di confronto e confronto asintotico]
+Siano $f, g \colon$ $ [a,b)\to \RR$ (con $a \le b \le +\infty$) funzioni limitate ed integrabili su ogni intervallo $[a,c]$ con $c\in[a,b)$ (ad esempio basta supporre che $f$ e $g$ siano continue su $[a,b)$).
+Se esiste $c\in [a,b)$ e $C\in \RR$ tale che
+\begin{equation}\label{eq:466235}
+  0 \le f(x) \le C \cdot g(x)\qquad \forall x\in[c,b)
+\end{equation}
+allora si ha l'implicazione
+\[
+\int_a^b g(x)\, dx \text{ converge} \implies
+\int_a^b f(x)\, dx \text{ converge.}
+\]
+
+In particolare se $f\ge 0$ basta che, per $x\to b^-$, sia $f=O(g)$ oppure $f=o(g)$ (sinonimo: $f\ll g$) oppure ancora $f \sim g$.
+
+Osserviamo inoltre che la relazione $f\sim g$ è simmetrica e dunque in tal caso c'è una doppia implicazione: l'integrale di $f$ converge se e solo se converge l'integrale di $g$.
+
+Risultati analoghi valgono per funzioni definite su un intervallo aperto a sinistra: $(a, b]$ con $-\infty \le a \le b$, in tal caso i limiti si faranno per $x\to a^+$.
+\end{theorem}
+%
+\begin{proof}
+La condizione $f\ge 0$ è importante, garantisce che anche $g\ge 0$ e dunque $f$ e $g$ sono integrabili in senso improprio su $[a,b)$.
+Se vale \eqref{eq:466235} si ha poi:
+\begin{align*}
+  \int_a^b f(x)\, dx
+   &= \int_a^c f(x)\, dx + \int_c^b f(x)\, dx \\
+   &\le \int_a^c f(x)\, dx + C\int_c^b g(x)\,dx \\
+   &\le \int_a^c f(x)\, dx - C \int_a^c g(x)\, dx + C\int_a^b g(x)\,dx.
+\end{align*}
+Gli integrali di $f$ e $g$ su $[a,c]$ sono finiti, dunque se è finito l'integrale $\int_a^b g(x)\, dx$ anche l'integrale $\int_a^b f(x)\, dx$ è finito.
+
+La definizione di limite ci garantisce la validità di \eqref{eq:466235} nel caso in cui $f/g\to \ell < +\infty$ (basterà scegliere $C=2\ell$).
+\end{proof}
+
+Nei casi più frequenti il teorema precedente si applica confrontando la funzione con una potenza:
+\[
+  (x-x_0)^\alpha, \qquad \alpha \in \RR.
+\]
+Come abbiamo già visto negli esempi precedenti gli integrali di queste funzioni si possono calcolare esplicitamente e dunque la convergenza di queste funzioni è nota. Per $x\to +\infty$ per avere convergenza dovrà essere $\alpha<-1$ per $x\to x_0$ invece dovrà essere $\alpha>-1$.
 
 \begin{theorem}
 Sia $f$
