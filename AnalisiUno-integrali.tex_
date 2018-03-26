@@ -1182,11 +1182,13 @@ Dunque abbiamo scoperto che $a_n\to 0$. D'altra parte abbiamo visto che $a_n \in
 \end{proof}
 
 \begin{theorem}[prodotto di Wallis]
+\myemph{prodotto di Wallis}
+\index{$\pi$!prodotto di Wallis}
 Si ha
 \[
   \frac{\pi}{2}
-  = \lim_{n\to +\infty} \prod_{k=1}^n \frac{(2k)^2}{(2k-1)(2k+1)}
-  =     \frac{2}{1}
+  = \prod_{k=1}^{+\infty} \frac{(2k)^2}{(2k-1)(2k+1)}
+  = \frac{2}{1}
   \cdot \frac{2}{3}
   \cdot \frac{4}{3}
   \cdot \frac{4}{5}
@@ -1195,6 +1197,13 @@ Si ha
   \cdot \frac{8}{7}
   \cdot \frac{8}{9}
   \dots
+\]
+
+Si ottiene di conseguenza la seguente stima asintotica per
+il coefficiente \myemph{binomiale centrale}
+\[
+ {2n \choose n} \sim \frac{4^n}{\sqrt{\pi n}}
+ \qquad \text{per $n\to +\infty$.}
 \]
 \end{theorem}
 %
@@ -1251,12 +1260,135 @@ la formula per il calcolo di $\pi$:
 \frac{\pi}{2}
 &= \frac{\pi}{2} \lim_{n\to +\infty} \frac{I_{2n+1}}{I_{2n}}
 = \lim_{n\to +\infty} \frac{\displaystyle\prod_{k=1}^n \frac{2k}{2k+1}}{\displaystyle\prod_{k=1}^n \frac{2k-1}{2k}}\\
-&= \lim_{n\to +\infty} \prod_{k=1}{n} \frac{(2k)^2}{(2k-1)(2k+1)}.
+&= \lim_{n\to +\infty} \prod_{k=1}^{n} \frac{(2k)^2}{(2k-1)(2k+1)}.
 \end{align*}
+
+Per ottenere una stima sul binomiale centrale cerchiamo di riscrivere le formule precedenti tramite il fattoriale.
+Denotiamo con $n!!$ (doppio fattoriale) il prodotto dei numeri fino a $n$ e con la stessa parità di $n$ (cioè un numero ogni due):
+\[
+\begin{cases}
+  0!! = 1\\
+  1!! = 1\\
+  (n+2)!! = (n+2) \cdot n!!
+\end{cases}
+\]
+Più esplicitamente possiamo scrivere il doppio fattoriale
+distinguendo tra i pari i dispari:
+\begin{align*}
+  (2n)!! &= (2n) \cdot (2n-2) \cdot (2n-4) \dots 4 \cdot 2 = \prod_{k=1}^n 2k, \\
+  (2n+1)!! &= (2n+1)\cdot(2n-1)\cdot(2n-3)\dots 4\cdot 3
+   = \prod_{k=1}^n (2k+1).
+\end{align*}
+Osserviamo dunque che
+\[
+  (2n)!! = \prod_{k=1}^n (2k) = 2^n n!
+\]
+ma anche
+\[
+  (2n)! = (2n)!! (2n-1)!!
+\]
+Dunque la stima asintotica di Wallis si può scrivere come
+\begin{align*}
+ \sqrt{\frac{\pi}{2}} &\sim \sqrt{\frac{((2n)!!)^2}{(2n-1)!!(2n+1)!!}}
+ = \frac{1}{\sqrt{2n+1}} \frac{(2n)!!}{(2n-1)!!} \\
+ &= \frac{1}{\sqrt{2n+1}}\frac{(2n)!!(2n)!!}{(2n)!}
+ = \frac{1}{\sqrt{2n+1}}\frac{(2^n)^2 (n!)^2}{(2n)!}
+\end{align*}
+da cui
+\[
+{2n \choose n} = \frac{(2n)!}{(n!)^2}
+\sim \frac{4^n}{\sqrt{2n+1}}\sqrt{\frac 2 \pi}
+\sim \frac{4^n}{\sqrt{2n}}\sqrt{\frac 2 \pi}
+ = \frac{4^n}{\sqrt{\pi n}}.
+\]
 \end{proof}
 
+\begin{theorem}[formula di Stirling]
+Si ha
+\[
+  n! \sim \sqrt{2\pi n}\cdot \frac{n^n}{e^n}
+  \qquad \text{per $n\to +\infty$.}
+\]
+\end{theorem}
+%
+\begin{proof}
+Osserviamo in generale che se $f:[a,b]\to \RR$ è una funzione concava allora il grafico di $f$ è compreso tra la retta passante per gli estremi $(a,f(a))$, $(b,f(b))$ (retta secante) e una qualunque retta tangente, ad esempio la retta tangente in $((a+b)/2,f((a+b)/2))$.
+Di conseguenza l'area sotto il grafico, cioè $\int_a^b f(x)\, dx$ è compreso tra le aree dei due corrispondenti trapezi rettangoli. L'altezza di entrambi i trapezi è pari a $(b-a)$ e l'area si calcola moltiplicando l'altezza per la media delle basi. Nel caso del trapezio con lato obliquo la secante la media delle basi è $(f(a)+f(b))/2$, nel caso del trapezio con lato obliquo sulla retta tangente nel punto medio, la media delle basi è uguale alla sezione nel punto medio: $(f(a+b)/2)$. Si ottiene dunque
+\[
+   (b-a)\cdot  \frac{f(a) + f(b)}{2}
+   \le \int_a^b f(x) \, dx
+   \le (b-a) \cdot f\enclose{\frac{a+b}{2}}.
+\]
+
+Applicando queste stime alla funzione $f(x) = \ln x$ nell'intervallo $[k, k+1]$ si ottiene:
+\[
+\frac{ln(k) + \ln(k+1)}{2}
+\le \int_k^{k+1} \ln x\, dx
+\le ln \enclose{k+\frac 1 2}.
+\]
+Chiamiamo $a_k$ la differenza tra le prime due quantità. Si ha quindi:
+\begin{align*}
+a_k
+ &= \int_k^{k+1} \ln x\, dx - \frac{\ln (k) + \ln(k+1)}{2}\\
+ & \le \ln\enclose{k+\frac 1 2} - \frac{\ln(k) + \ln(k+1)}{2} \\
+ &\le \frac{1}{2}\Enclose{\enclose{\ln\enclose{k+\frac 1 2 } - \ln k}
+ -\enclose{\ln(k+1)-\ln\enclose{k+\frac 1 2}}} \\
+ &= \frac 1 2 \Enclose{\ln \enclose{1+\frac{1}{2k}}
+ - \ln\enclose{1+\frac{1}{2k+1}}} \\
+ &< \frac{1}{2}\Enclose{\ln \enclose{1+\frac{1}{2k}}
+ - \ln \enclose{1+\frac{1}{2k+2}}}.
+\end{align*}
+Sommando per $k=1,\dots, n-1$ si osserva che l'ultima espressione che abbiamo scritto è telescopica. Dunque si ha:
+\begin{align*}
+ A_n = \sum_{k=1}^{n-1} a_k
+ &<\frac 1 2 \sum_{k=1}^{n-1}\Enclose{\ln \enclose{1+\frac{1}{2k}}
+ - \ln \enclose{1+\frac{1}{2k+2}}} \\
+ & = \frac{1}{2}\Enclose{\ln \enclose{1+\frac{1}{2}}
+ - \ln \enclose{1+\frac{1}{2n}}} \le \frac{1}{2}\ln\enclose{\frac 3 2}.
+\end{align*}
+Visto che $a_k > 0$ è chiaro che $A_n$ è una successione crescente a termini positivi. Dunque $A_n$ ammette limite $A_n\to \ell$ e visto che abbiamo appena mostrato che $A_n$ è limitata, sappiamo che $\ell<+\infty$.
+
+Esplicitiamo ora $A_n$.
+\begin{align*}
+A_n
+&= \sum_{k=1}^{n-1} \int_{k}^{k+1} \ln x\, dx -
+\sum_{k=1}^{n-1} \frac{\ln k + \ln(k+1)}{2} \\
+&= \int_{1}^{n} \ln x\, dx - \sum_{k=2}^{n-1} \ln k - \frac{\ln 1}{2}
+-\frac{\ln(n)}{2} \\
+&= \Enclose{ x \ln x -x}_1^n
+- \sum_{k=1}^n \ln k + \frac{\ln n}{2} \\
+&= n \ln n - n - 0 + 1 - \ln(n!) + \frac {\ln n}{2}
+ \end{align*}
+Da cui
+\[
+e^{a_N} = \frac{n^n\cdot e \sqrt{n}}{e^n \cdot n!} \to e^\ell
+\]
+ovvero, posto $c=e/e^\ell$,
+\[
+  n! \sim c\cdot\frac{n^n \sqrt{n}}{e^n}.
+\]
+Per determinare $c$ possiamo sfruttare la formula di Wallis
+sul coefficiente binomiale centrale:
+\begin{align*}
+\frac{4^n}{\sqrt{\pi n}}
+ &\sim
+{2n \choose n}
+= \frac{(2n)!}{(n!)^2}\\
+&\sim \frac{c \frac{(2n)^{2n}\sqrt{2n}}{e^{2n}}}
+{\enclose{c\frac{n^n\sqrt n}{e^n}}^2}
+= \frac{2^{2n}\sqrt{2}}{c\sqrt{n}}
+\end{align*}
+da cui si ottiene
+\[
+  \frac{1}{\sqrt \pi} \sim \frac{\sqrt 2}{c}
+\]
+e quindi $c=\sqrt{2\pi}$.
 
 
+
+
+
+\end{proof}
 
 \section{integrale di una funzione razionale}
 
