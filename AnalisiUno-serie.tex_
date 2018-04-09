@@ -916,9 +916,9 @@ Siano $a_k$ e $B_k$ successioni. Posto
   A_n = \sum_{k=0}^{n-1} a_k
 \]
 si ha
-\[
+\begin{equation}\label{eq:somma_per_parti}
  \sum_{k=m}^n a_k B_k = A_{n+1} B_{n+1} - A_m B_m + \sum_{k=m}^n A_{k+1}(B_k - B_{k+1}).
-\]
+\end{equation}
 \end{theorem}
 %
 \begin{proof}
@@ -1183,6 +1183,57 @@ Per il teorema precedente sappiamo che la serie $\sum k a_k \rho^{k-1}$
 è assolutamente convergente, dunque se $\abs{z_n - z} \to 0$ anche il lato
 destro della precedente disuguaglianza tende a zero e quindi,
 come volevamo dimostrare $f(z_n)-f(z) \to 0$.
+\end{proof}
+
+Il teorema precedente ci garantisce che la somma di una serie di potenze è una funzione continua all'interno del raggio di convergenza. Nei punti che si trovano esattamente sulla frontiera del disco di convergenza, se la serie converge la somma della serie è continua se mi avvicino al punto di convergenza lungo il raggio del disco di convergenza, come enunciato nel seguente teorema.
+
+\begin{theorem}[lemma di Abel]
+Sia
+\[
+  f(z) = \sum_{k=0}^{+\infty} a_k z^k
+\]
+la somma di una serie di potenze. Se la serie converge in un punto $z_0\in \CC$, $z_0\neq 0$, allora la serie converge per ogni $z=t z_0$ con $t\in [0,1]$ inoltre la funzione
+\[
+  t \mapsto f(tz)
+\]
+è (sequenzialmente) continua nel punto $t=1$.
+\end{theorem}
+%
+\begin{proof}
+Senza perdita di generalità possiamo supporre che sia $f(z_0)=0$ infatti basterà sostituire il primo termine della serie, $a_0$, con $a_0' = a_0 - f(z_0)$ e dimostrare il teorema per la serie modificata.
+Dunque posto
+\[
+  A_n = \sum_{k=0}^{n-1} a_k z_0^k
+\]
+si ha che $A_n \to 0$ e, per definizione, $A_0 = 0$.
+Utilizzando la formula \eqref{eq:somma_per_parti} di somma per parti, preso $t\in [0,1)$
+si avrà
+\begin{align*}
+\sum_{k=0}^n a_k (tz_0)^k
+= \sum_{k=0}^n a_k z_0^k t^k
+= A_{n+1} t^{n+1} + \sum_{k=0}^n A_{k+1}(t^k - t^{k+1})
+\end{align*}
+e per $n\to +\infty$ si ottiene
+\[
+  f(tz_0) = (1-t)\sum_{k=0}^{+\infty} A_{k+1} t^k.
+\]
+Visto che $A_n \to 0$ per ogni $\eps>0$ esiste $m$ tale che per ogni $k\ge m$ si ha $\abs{A_k} \le  \eps$. Dunque
+\begin{align*}
+\abs{f(tz_0)}
+ &\le \abs{1-t}\abs{\sum_{k=0}^{m-1} A_k t^k}
+  + \abs{1-t}\sum_{k=m}^{+\infty} \abs{A_k} t^k \\
+ &\le \abs{1-t}\cdot \abs{P_m(t)} + \eps \abs{1-t}\frac{t^m}{1-t}
+ \le \abs{1-t}\abs{P_n(t)} + \eps
+\end{align*}
+dove $P_m$ è un polinomio (a valori in $\CC$).
+Sia $M$ il massimo di $\abs{P_m(t)}$ per $t\in[0,1]$ (tale $M$ esiste per il teorema di Weierstrass).
+Si avrà allora
+\[
+\abs{f(tz_0)} \le \abs{1-t} M + \eps.
+\]
+Dunque se $t_j \in [0,1)$ con $t_j \to 1$, esisterà $N$ tale che per ogni $j>N$ si abbia $1-t_j \le \eps / M$ da cui
+$\abs{f(t_jz_0)} \le 2\eps$.
+Abbiamo quindi verificato, tramite la definizione, che $f(t_jz_0) \to 0 = f(z_0)$.
 \end{proof}
 
 
