@@ -445,7 +445,9 @@ Nel caso $X=Y=\RR$ recuperiamo l'usuale teorema di Weierstrass, in quanto se $f\
 \mynote{successione di Cauchy}
 \index{successione di Cauchy}
 Sia $(X,d)$ uno spazio metrico e $x_k$ una successione di punti di $X$.
-Diremo che $x_k$ è una \myemph{una successione di Cauchy}
+Diremo che $x_k$ è una
+\myemph{successione di Cauchy}
+\index{Cauchy!successione di}
 se
 \[
  \forall \eps>0\colon \exists n\in \NN\colon \forall j>n \colon \forall k > n \colon d(x_j,x_k) < \eps.
@@ -1294,5 +1296,101 @@ Sia $\sum a_n z^n$ una serie di potenze e sia $R\in[0,+\infty]$ il suo raggio di
 \end{theorem}
 %
 \begin{proof}
-
+Ora osserviamo che sul disco di raggio $r$ si ha $\Abs{a_k z^k}_\infty = \abs{a_k} r^k$ e dunque
+\[
+\sum_{k=0}^{+\infty} \Abs{a_k z_k}_\infty
+= \sum_{k=0}^{+\infty} \abs{a_k}r^k < +\infty
+\]
+in quanto la serie $\sum a_k z^k$ converge assolutamente per $z=r$ essendo $r<R$.
 \end{proof}
+
+\begin{corollary}
+La serie di potenze
+\[
+  f(x) = \sum_{k=0}^{+\infty} a_k x^k
+\]
+ha lo stesso raggio di convergenza $R$ della serie delle derivate
+\[
+  g(x) = \sum_{k=1}^{+\infty} k a_k x^{k-1}
+\]
+e per $x\in (-R,R)$ si ha
+\[
+  f'(x) = g(x).
+\]
+\end{corollary}
+%
+\begin{proof}
+Che le due serie abbiano lo stesso raggio di convergenza l'abbiamo già dimostrato nel Teorema~\ref{th:raggio_serie_derivate}. Nel teorema precedente abbiamo mostrato che su ogni intervallo $[-r,r]$ con $r<R$ la serie di potenze con somma $f$ converge totalmente. Dunque converge uniformemente e possiamo scambiare la derivata con la somma per ottenere $f'(x) = g(x)$.
+\end{proof}
+
+\begin{example}
+Sappiamo che la serie di potenze
+\[
+f(x) = \sum_{k=1}^{+\infty} \frac{x^k}{k}
+\]
+ha raggio di convergenza $R=1$ (si usi ad esempio il criterio del rapporto). La serie delle derivate è
+\[
+ g(x) = \sum_{k=1}^{+\infty} x^{k-1} = \sum_{k=0}^{+\infty}x^k = \frac{1}{1-x}.
+\]
+Dunque per $\abs{x}<1$ si ha
+\[
+  f'(x) = g(x) = \frac{1}{1-x}
+\]
+da cui
+\[
+ f(x) = f(0) + \int_0^x f'(t)\, dt = \int_0^x \frac{1}{1-t}\, dt
+  = \Enclose{-\ln(1-t)}_0^x = -\ln(1-x).
+\]
+Questo è vero per ogni $x\in(-1,1)$
+Osserviamo ora che la serie con somma $f(x)$
+non converge per $x=1$ (serie armonica) ma
+converge per $x=-1$ (criterio di Leibniz).
+Per il Teorema~\ref{th:lemma_abel} (lemma di Abel)
+sappiamo che la funzione $f(x)$ è continua nel punto $x=-1$ e dunque possiamo concludere che
+\[
+  \sum_{k=1}^{+\infty} \frac{x^k}{k} = -\ln(1-x)
+  \qquad \forall x \in [-1,1).
+\]
+In particolare abbiamo trovato la somma della serie armonica a serie alterni:
+\[
+  \sum_{k=1}^{+\infty} \frac{(-1)^{k+1}}{k} = -\ln 2.
+\]
+
+Osserviamo che queste informazioni sono coerenti con lo sviluppo di Taylor di $\ln(1+x)$ che avevamo già determinato. Ma non sono conseguenza di esso, in quanto lo sviluppo di Taylor ci dà informazioni solamente per $x\to 0$ mentre ora abbiamo ottenuto informazioni per ogni $x$ in $[-1,1)$.
+ \end{example}
+
+\begin{example}
+Applichiamo l'idea precedente alla funzione $\arctg$. Si ha
+\[
+  \arctg'(x) = \frac{1}{1+x^2} = \sum_{k=0}^{+\infty} (-x^2)^k
+  = \sum_{k=0}^{+\infty} (-1)^k x^{2k}
+  = \sum_{k=0}^{+\infty} \frac{(-1)^k}{2k+1}(x^{2k+1})'.
+\]
+La serie
+\[
+ f(x) = \sum_{k=0}^{+\infty}\frac{(-1)^k}{2k+1} x^{2k+1}
+\]
+ha raggio di convergenza $R=1$ e dunque per ogni $x\in(-1,1)$ sappiamo che la serie delle derivate converge alla derivata della serie da cui
+\[
+  f'(x) = \arctg' x.
+\]
+Visto che $f(0) = 0 = \arctg 0$ possiamo concludere che $f(x) =\arctg x$ per ogni $x\in (-1,1)$.
+La serie con somma $f(x)$ non converge per $x=-1$ in quanto si ottiene
+\[
+  \sum_{k=0}^{+\infty} \frac{1}{2k+1} > \frac 1 2 \sum_{k=0}^{+\infty}\frac{1}{k} = +\infty.
+\]
+Ma è convergente per $x=1$ (criterio di Leibniz). Per continuità (Lemma di Abel) si ottiene che $f(1) = \arctg 1$. Dunque
+\[
+  \arctg x = \sum_{k=0}^{+\infty}\frac{(-1)^k}{2k+1}x^{2k}
+  \qquad \forall x \in (-1,1].
+\]
+In particolare per $x=1$ si ottiene la formula di \myemph{Gregory-Leibniz}
+\index{$\pi$!formula di Gregory-Leibniz}
+\index{Gregory!approssimazione $\pi$}
+\index{Leibniz!approssimazione $\pi$}
+\index{formula!di Gregory-Lebniz per $\pi/4$}
+\[
+  \frac{\pi}{4} = \sum_{k=0}^{+\infty} \frac{(-1)^k}{2k+1} =
+   1 - \frac{1}{3} + \frac{1}{5} - \frac{1}{7} + \dots
+\]
+\end{example}
