@@ -222,8 +222,107 @@ dove $g(t)$ rappresenta l'entità di una forza esterna variabile nel tempo. Ques
 
 Come nel caso generale le equazioni lineari di ordine $n$ si riconducono a sistemi lineari di $n$ equazioni del primo ordine.
 
-\section{Il problema di Cauchy}
+\section{alcuni risultati preparatori sulle funzioni vettoriali e di più variabili}
 
+Ci sarà utile estendere la definizione delle classi di regolarità $C^k$ alle funzioni vettoriali di più variabili.
+
+Se $\Omega\subset \RR^m$ è un insieme aperto e $f\colon \Omega \to \RR$ è una funzione, possiamo definire le \emph{derivate parziali} di $f$. Se $\vec x \in \Omega$ si ha $\vec x = (x_1,\dots, x_m)$ e quindi $f(\vec x) = f(x_1,\dots, x_m)$. Se facciamo variare una sola componente $x_j$ mantenendo fisse tutte le altre componenti, otteniamo una funzione di una variabile $x_j \mapsto g(x_j) = f(x_1,\dots, x_j, \dots, x_m)$.
+Definiamo dunque la \myemph{derivata parziale} di $f$ rispetto alla variabile $x_j$ come la derivata della funzione $g(x_j)$. Denotiamo tale derivata con il simbolo:
+\[
+  \frac{\partial f}{\partial x_j}.
+\]
+Le derivate parziali si calcolano dunque come le usuali derivate per le funzioni di una variabile, solamente bisogna considerare costanti tutte le variabili tranne quella coinvolta nella derivazione. Ad esempio se $f(x,v) = -\sin(x) - v$ (come nell'esempio fatto nell'introduzione) si ha
+\begin{align*}
+  \frac{\partial f}{\partial x} &= -\cos(x)\\
+  \frac{\partial f}{\partial v} &= -1.
+\end{align*}
+
+Se $\vec f\colon \Omega \subset \RR^m \to \RR^n$ è una funzione di più variabili a valori vettoriali potremo scrivere $\vec f = (f_1, \dots, f_n)$ e considerare le derivate parziali di ogni componente:
+\[
+  \frac{\partial \vec f}{\partial x_j}
+  = \enclose{\frac{\partial f_1}{\partial x_j}, \dots, \frac{\partial f_n}{x_j}}.
+\]
+
+\begin{definition}
+Sia $\Omega\subset \RR^m$ un aperto. Denoteremo con $C^0(\Omega,\RR^m)$ lo spazio vettoriale di tutte le funzioni
+continue $f\colon \Omega \to \RR^n$.
+
+Denotiamo con $C^1(\Omega,\RR^m)$ lo spazio vettoriale
+delle funzioni in $C^0(\Omega,\RR^m)$ tali che ognuna delle loro derivate parziali $\frac{\partial f}{\partial x_j}$ è a sua volta una funzione continua (cioè in $C^0(\Omega,\RR^m)$).
+Ricorsivamente si definisce $C^k(\Omega,\RR^m)$ per $k>1$,
+come lo spazio delle funzioni $\Omega\to\RR^m$ tali che tutte le loro derivate parziali stanno in $C^{k-1}(\Omega,\RR^m)$.
+\end{definition}
+
+\begin{theorem}[disuguaglianza di Cauchy-Schwarz]
+Siano $\vec v, \vec w \in \RR^m$. Allora
+\begin{equation}\label{eq:cauchy_schwarz}
+   (\vec v,\vec w) \le \abs{\vec v}\cdot \abs{\vec w}.
+\end{equation}
+\end{theorem}
+%
+\begin{proof}
+Si ha
+\[
+ 0 \le \abs{\vec v-\vec w}^2 = (\vec v-\vec w,\vec v-\vec w) = \abs{\vec v}^2 - 2(\vec v,\vec w) + \abs{\vec w}^2
+\]
+da cui la disuguaglianza (disuguaglianza di Young):
+\[
+  (\vec v,\vec w) \le \frac{\abs{\vec v}^2 + \abs{\vec w}^2}{2}.
+\]
+Nel caso particolare $\abs{\vec v}=\abs{\vec w}=1$ (in tal caso si dice che $\vec v$ e $\vec w$ sono versori) si ottiene
+\[
+  (\vec v,\vec w) \le 1.
+\]
+Applichiamo dunque la precedente disuguaglianza ai versori $\vec v/\abs{\vec v}$ e $\vec w/\abs{\vec w}$ per ottenere
+\[
+  \frac{(\vec v,\vec w)}{\abs{\vec v}\cdot \abs{\vec w}} =
+  \enclose{\frac{\vec v}{\abs{\vec v}},\frac{\vec w}{\abs{\vec w}}} \le 1.
+\]
+Se $\abs{\vec v}\neq 0$ e $\abs{\vec w}\neq 0$ moltiplicando ambo i membri per $\abs{\vec v}\cdot\abs{\vec w}$ si ottiene~\eqref{eq:cauchy_schwarz}. In caso contrario ambo i membri della disuguaglianza~\eqref{eq:cauchy_schwarz} sono nulli e la disuguaglianza è banalmente verificata.
+\end{proof}
+
+\begin{definition}
+Sia $\vec f\colon [a,b]\to \RR^m$, $\vec f(x) = (f_1(x), \dots, f_m(x))$.
+Diremo che $\vec f$ è integrabile su $[a,b]$ se ogni
+$f_k\colon[a,b]\to \RR$ è integrabile su $[a,b]$ e in tal caso porremo:
+\[
+  \int_a^b \vec f(x)\, dx = \enclose{\int_a^b f_1(x)\, dx, \dots, \int_a^b f_m(x)\, dx}
+\]
+cosicché per ogni $k=1,\dots, m$ si ha:
+\[
+  \enclose{\int_a^b \vec f(x)\, dx}_k = \int_a^b f_k(x)\, dx.
+\]
+Come al solito si pone inoltre $\int_b^a \vec f = - \int_a^b \vec f$.
+\end{definition}
+
+\begin{theorem}\label{teo:tipo_jensen}
+Sia $\vec f\colon [a,b]\to \RR^m$ integrabile. Allora si ha
+\[
+  \abs{\int_a^b \vec f(x)\, dx} \le \int_a^b \abs{\vec f(x)}\, dx.
+\]
+\end{theorem}
+%
+\begin{proof}
+Posto
+\[
+ \vec v = \int_a^b \vec f(x)\, dx
+\]
+si ha, usando la linearità dell'integrale
+e sfruttando la disuguaglianza di Cauchy-Schwarz
+\begin{align*}
+  \abs{\vec v}^2
+  &= (\vec v,\vec v)
+   = \sum_{k=1}^n v_k \int_a^b f_k(x)\, dx
+   = \int_a^b \sum_{k=1}^m v_k f_k(x)\, dx \\
+  &= \int_a^b \enclose{\vec v, \vec f(x)}\, dx
+  \le \int_a^b \abs{\vec v}\cdot \abs{\vec f(x)}\, dx
+  = \abs{\vec v} \int_a^b \abs{\vec f(x)}\, dx.
+\end{align*}
+Se $\abs{\vec v}\neq 0$ possiamo dividere ambo i membri per $\abs{\vec v}$ e ottenere la disuguaglianza cercata.
+Altrimenti se $\abs{\vec v}=0$ la disuguaglianza è certamente soddisfatta in quanto il lato destro non può essere negativo.
+\end{proof}
+
+\section{Il problema di Cauchy}
 Il problema di Cauchy consiste nel
 trovare una soluzione di un sistema di $n$ equazioni differenziali ordinarie del primo ordine in $n$ incognite
 con un dato iniziale fissato. Cioè dato $t_0\in \RR$,
@@ -246,7 +345,8 @@ con $(t,\vec u_1),(t,\vec u_2)\in\Omega$
 (diremo che $f$ è Lipschitziana in $\vec u$ uniformemente rispetto a $t$).
 
 Dato $(t_0,\vec u_0)\in \Omega$
-esiste $\delta>0$ tale che posto $I=[t_0-\delta, t_0+\delta]$ esiste una unica funzione $\vec u\colon I \to \RR^n$ tale che $(t,\vec u(t))\in \Omega$ per ogni $t\in I$, $u$ è derivabile
+esiste $\delta_0>0$ tale che per ogni $\delta < \delta_0$
+posto $I_\delta = [t_0-\delta, t_0+\delta]$ esiste una unica funzione $\vec u\colon I_\delta \to \RR^n$ tale che $(t,\vec u(t))\in \Omega$ per ogni $t\in I_\delta$, $u$ è derivabile
 e soddisfa il problema di Cauchy~\eqref{eq:problema_cauchy}.
 \end{theorem}
 %
@@ -268,7 +368,7 @@ Ci dedicheremo dunque a questo secondo problema.
 Denotiamo con
 \[
   C_{\alpha,\beta} =
-  \{(t,\vec u)\in \RR\times\RR^n\colon \abs{t-t_0}\le \alpha, \abs{\vec u -\vec u_0}\le \beta
+  \{(t,\vec u)\in \RR\times\RR^n\colon \abs{t-t_0}\le \alpha, \abs{\vec u -\vec u_0}\le \beta\}
 \]
 il cilindro centrato in $(t_0, \vec u_0)$ con asse parallelo all'asse delle $t$, di altezza $2\alpha$ e raggio $\beta$.
 Visto che $\Omega$ è aperto esiste una palla aperta centrata in $(t_0,\vec u_0)$ e contenuta in $\Omega$. Tale palla dovrà anche contenere un cilindro $C_{\alpha,\beta}$ per un qualche $\alpha>0$ e $\beta>0$. Il cilindro $C_{\alpha,\beta}$ è chiuso e limitato in $\Omega$ e dunque $\vec f$, essendo continua, è limitata su $C_{\alpha,\beta}$ per il teorema di Weierstrass. Sia $M>0$ tale che $\abs{\vec f(t,\vec u)}\le M$ per ogni $(t,\vec u) \in C_{\alpha,\beta}$ e definiamo
@@ -287,7 +387,7 @@ Sappiamo che $C^0(I,\RR^n)$ è uno spazio metrico completo e $X$ è chiuso quind
 \]
 Vogliamo innanzitutto verificare che $X$ è invariante, cioè che $T(X)\subset X$. Ma se $\vec u \in X$ e se $t\in I$ si ha
 $(t,\vec u(t)) \in C_{\delta,\beta} \subset C_{\alpha,\beta}$
-e dunque (usando anche~\eqref{eq:395109})
+e dunque (usando anche~\eqref{eq:395109} e il teorema~\ref{teo:tipo_jensen})
 \[
   \abs{\vec T(u)(t)-\vec u_0}
   = \abs{\int_{t_0}^t \vec f(s,\vec u(s))\, ds}
@@ -308,4 +408,601 @@ da cui per~\eqref{eq:395109}
 \]
 Dunque $T\colon X \to X$ è una contrazione su uno spazio metrico completo. Per il teorema di punto fisso di Banach-Caccioppoli
 sappiamo quindi che esiste una unica funzione $\vec u \in X$ ovvero $\vec u \colon I \to \RR^n$ che soddisfa $T(\vec u)=\vec u$ ovvero~\eqref{eq:cauchy_integrale} ovvero~\eqref{eq:problema_cauchy}.
+\end{proof}
+
+\begin{proposition}
+Il teorema precedente si applica in particolare se
+$\vec f \in C^1(\Omega, \RR^n)$.
+\end{proposition}
+%
+\begin{proof}
+Se prendiamo un cilindro $K=C_{\alpha,\beta}\subset \Omega$ centrato in $(t_0,\vec u_0)$, sappiamo che ogni derivata parziale $\partial \vec f / \partial u_j$ è continua ed è quindi limitata (per il teorema di Weierstrass) su $K$. Sia $L_j$ il massimo di $\abs{\partial \vec f / \partial u_j}$ su $K$ e sia $L$ il massimo degli $L_j$. Allora presi $\vec u, \vec v \in \RR^n$ con $(t,\vec u),(t,\vec v)\in K$ si può scomporre l'incremento vettoriale $\vec v-\vec u$ lungo le $n$ direzioni coordinate e applicare il teorema di Lagrange lungo ogni direzione.
+Per ogni $k=1,\dots, n$ si ha quindi:
+\begin{align*}
+\MoveEqLeft
+\abs{f_k(t,\vec v)-f_k(t,\vec u)}\\
+&\le \sum_{j=1}^n \abs{f_k(t,v_1, \dots, v_j, u_{j+1}, \dots, u_n) - f_k(t,v_1, \dots, v_{j-1}, u_j, \dots, u_n)}\\
+&\le \sum_{j=1}^n L_j \abs{v_j-u_j}
+\le \sum_{j=1}^n L_j \abs{v-u}
+\le n L \abs{v-u}
+\end{align*}
+da cui
+\begin{align*}
+  \abs{\vec f(t,\vec v) - \vec f(t,\vec u)}
+  &= \sqrt{\sum_{k=1}^n \abs{\vec f(t,\vec v) - \vec f(t,\vec u)}^2} \\
+  &\le \sqrt{\sum_{k=1}^n n^2 L^2 \abs{v-u}^2} \\
+  &\le n\sqrt{n} L \abs{v-u}.
+\end{align*}
+Abbiamo quindi mostrato che per ogni $(t_0,\vec u_0)\in \Omega$ esiste un intorno del punto $(t_0,\vec u_0)$ in cui la funzione $\vec f$ soddisfa le ipotesi del teorema precedente.
+\end{proof}
+
+\begin{definition}[estensione di una soluzione, soluzione massimale]
+Sia $I\subset \RR$ un intervallo e sia $\vec u \colon I \to \RR^n$ una soluzione dell'equazione differenziale in forma normale del primo ordine:
+\begin{equation}\label{eq:edo_normale_ordine_uno}
+  \vec u'(x) = \vec f(x,\vec u(x))
+\end{equation}
+dove $\vec f\colon \Omega \subset \RR \times \RR^n \to \RR^n$
+ e $\Omega$ è un aperto di $\RR \times \RR^n$.
+
+ Se $J\supset I$, $J \neq I$ è un intervallo e se $\vec v\colon J \to \RR^n$ risolve la stessa equazione~\eqref{eq:edo_normale_ordine_uno}
+ e se $\vec v(x)=\vec u(x)$ per ogni $x\in I$, diremo che $\vec v$ è una \myemph{estensione della soluzione} $u(x)$.
+
+ Se la soluzione $\vec u$ non ammette estensioni, diremo che $\vec u$ è una soluzione definita su un intervallo massimale o, più semplicemente, diremo che $\vec u$ è una \myemph{soluzione massimale}.
+\end{definition}
+
+\begin{proposition}[caratterizzazione delle soluzioni massimali]
+Supponiamo che $\vec f\colon \Omega\subset \RR\times\RR^n\to\RR^n$
+soddisfi le ipotesi del teorema di Cauchy-Lipschitz.
+Allora una soluzione $\vec u$ di \eqref{eq:edo_normale_ordine_uno}
+è definita su un intervallo massimale $I$ se e solo se
+$I$ è aperto e per ogni $K$ compatto $K\subset \Omega$
+e per ogni $x_0 \in I$ esistono $x_1,x_2\in I$, $x_1 < x_0 < x_2$ tali che $\vec u(x_1)\not \in K$ e $\vec u(x_2) \not \in K$.
+Significa cioè che il grafico di $\vec u$ cioè la curva $(x,\vec u(x))$ esce da qualunque compatto fissato $K\subset \Omega$ sia facendo crescere $x$ verso destra che facendo calare $x$ verso sinistra. In altre parole il grafico della soluzione massimale tende ad arrivare sulla frontiera di $\Omega$.
+\end{proposition}
+%
+\begin{proof}
+\emph{Prima implicazione}.
+Supponiamo che $\vec u\colon I \to \RR^n$ sia una soluzione di~\eqref{eq:edo_normale_ordine_uno} definita su un intervallo massimale $I$. Dovrà essere $(x,u(x))\in \Omega$ per ogni $x\in I$.
+
+Mostriamo innanzitutto
+che $I$ è un intervallo aperto a destra: se non lo fosse si avrebbe che $x_0=\sup I \in I$. Allora $(x_0,u(x_0))\in \Omega$ e per il teorema di esistenza e unicità locale
+possiamo trovare un intorno $J$ di $x_0$ e una funzione
+$\vec v\colon J\to \RR^n$ che risolve~\eqref{eq:edo_normale_ordine_uno}. Per l'unicità delle soluzioni $\vec u$ e $\vec v$ devono coincidere su $I\cap J$ e dunque facendo l'unione dei due grafici ottengo una estensione di $\vec u$ a tutto l'intervall $I\cup J$ che è strettamente più grande di $I$. Dunque $\vec u$ non poteva essere una soluzione massimale.
+
+Mostriamo ora che la curva $(x,\vec u(x))$ esce da ogni compatto $K\subset \Omega$ sia da destra che da sinistra. Supponiamo per assurdo che esista un compatto $K$ tale che $(x,\vec u(x))\in K$ per ogni $x\in I$.
+Il grafico $(x,\vec u(x))$ è limitato per $x\in I$ dunque certamente $I$ deve essere limitato. Inoltre abbiamo visto che $I$ è aperto e quindi $I=(a,b)$ con $a,b\in \RR$, $a<b$.
+
+Allora per ogni $x\in I=(a,b)$ si ha
+\[
+  \abs{\vec u'(x)} = \abs{\vec f(x, \vec u(x))}
+   \le \sup_K \abs{\vec f}.
+\]
+Visto che $\vec f$ è continua (in quanto soddisfa le ipotesi del teorema di esistenza e unicità) la funzione $\abs{\vec f}$ ha massimo su $K$ per il teorema di Weierstrass e quindi esiste $M\ge 0$ tale che $\abs{\vec u'(x)} \le M$ per ogni $x\in (a,b)$. Significa che ogni componente di $\vec u$ è $M$-lipschitziana, in particolare
+ogni componente è uniformemente continua. Dunque la funzione $\vec u$ può essere estesa con continuità ad una funzione $\vec v \colon [a,b] \to \RR^n$ definita anche agli estremi dell'intervallo.
+Visto che $(x,\vec u(x)) \in K$ per ogni $x\in(a,b)$ e visto che $\vec v(b) = \lim_{x\to b^-}\vec u(x)$ essendo $K$ chiuso possiamo affermare che $\vec v(b) \in K$. E lo stesso vale per $\vec v(a)$.  particolare $(x,\vec v(x))\in K \subset \Omega$ per ogni $x\in [a,b]$. Vogliamo ora verificare che $\vec v$ è soluzione dell'equazione differenziale~\eqref{eq:edo_normale_ordine_uno}.
+Chiaramente $\vec v$ soddisfa l'equazione per ogni $x\in (a,b)$
+in quanto su $(a,b)$ coincide con $\vec u$ che è soluzione.
+Consideriamo l'estremo $b$.
+Visto che $\vec v$ è continua in $b$ e $\vec f$ è continua in $(b,\vec v(b))$ si ha
+\[
+  \lim_{x\to b^-} \vec v'(x)
+  = \lim_{x\to b^-} \vec f(x,\vec  v(x))
+  = \vec f(b,\vec v(b)) \in \RR^n
+\]
+Sappiamo però che se il limite della derivata di una funzione continua esiste ed è finito, allora la funzione è derivabile nel punto limite e la derivata è continua in quel punto (si applichi il teorema dell'Hospital al limite del rapporto incrementale).
+Dunque $\vec v$ è derivabile in $b$ e anche in quel punto soddisfa l'equazione differenziale. Lo stesso vale nel punto $a$. Dunque siamo riusciti a trovare una estensione $\vec v$ di $\vec u$ contraddicendo l'ipotesi che $\vec u$ fosse una soluzione massimale.
+
+\emph{Seconda implicazione}. Supponiamo ora $\vec u\colon I\to \RR^n$ sia una soluzione dell'equazione differenziale~\eqref{eq:edo_normale_ordine_uno} definita su un intervallo $I$ e tale che la curva $(x,\vec u(x))$ esca da ogni compatto $K$ al variare di $x\in I$. Vogliamo dimostrare che $\vec u$ è soluzione massimale. Innanzitutto $I$ non può essere compatto, altrimenti anche $K=\{(x,\vec u(x))\colon x \in I\}$ sarebbe un compatto di $\Omega$ e ovviamente la curva non esce da $K$.
+Sia $a=\inf I$ e $b=\sup I$. Siccome $I$ non è chiuso esso non contiene uno dei due estremi: supponiamo sia $b$. Allora se $\vec u$ fosse estendibile a destra esisterebbe una estensione continua $\vec v\colon (a,b]\to \RR^n$ che coincide con $\vec u$ su $(a,b)$ e che è continua nel punto $x=b$ e che soddisfa l'equazione differenziale quindi, in particolare, $(b,\vec v(b))\in \Omega$.
+Ma allora $(x,\vec u(x)) \to (b,\vec v(b)) \in \Omega$ e visto che $\Omega$ è aperto esiste un intervallino $[b-\eps, b]$ su cui $(x,\vec u(x)) \in \Omega$.
+Se prendiamo $x_0 = b-\eps$ e $K=\{(x,\vec u(x))\colon x\in [x_0,b]\}$ abbiamo un compatto
+ma per ogni $x\ge x_0$ si ha $(x,\vec u(x)) \in K$.
+Il che è contro le ipotesi.
+\end{proof}
+
+\begin{proposition}[separazione delle soluzioni]
+Se $\vec f\colon \Omega\subset \RR \times \RR^n\to \RR^n$ soddisfa le ipotesi del teorema di esistenza e unicità e se $\vec u\colon I \to \RR^n$ e $\vec v\colon I\to\RR^n$ sono due soluzioni
+dell'equazione differenziale $\vec u'(x) = \vec f(x,\vec u(x))$
+definite su due intervalli $I,J \subset \RR$  e se esiste $x_0\in I\cap J$ tale che $\vec u(x_0) = \vec v(x_0)$ allora $\vec u(x) = \vec v(x)$ per ogni $x\in I\cap J$.
+Detto in altri termini: nelle ipotesi del teorema di esistenza e unicità i grafici di due soluzioni diverse definite in un intervallo non possono toccarsi.
+\end{proposition}
+%
+\begin{proof}
+Sia $x_0 \in I\cap J$ un punto in cui $\vec u(x_0) = \vec v(x_0)$
+e supponiamo per assurdo che esista $x_2 \in I\cap J$ tale che $\vec u(x_2)\neq \vec u(x_2)$. In tal caso possiamo considerare il punto
+\[
+   x_1 = \sup \{x \in [x_0,x_2] \colon \vec u(x) = \vec v(x)\}.
+\]
+Su tutto l'intervallo $[x_0,x_1)$ si ha quindi $\vec u(x) = \vec v(x)$ e per continuità dovrà dunque anche essere $\vec u(x_1) =  \vec v(x_1)$.
+In pratica $x_1$ è l'ultimo punto di contatto tra le due soluzioni.
+Ponendo allora il punto $(x_1,\vec u(x_1))$ come dato iniziale del problema di Cauchy scopriamo che $\vec u$ e $\vec v$ sono localmente due soluzioni di tale problema. Per l'unicità locale le due soluzioni devono coincidere in un piccolo intorno del punto $x_1$, diciamo in particolare che devono coincidere su $[x_1,x_1+\eps]$ ma questo è in contraddizione con la definizione di $x_1$.
+\end{proof}
+
+\begin{theorem}[esistenza di soluzioni massimali]
+Se $\vec u\colon I\to \RR^n$ è una soluzione dell'equazione differenziale~\eqref{eq:edo_normale_ordine_uno}
+e se $\vec u$ non è essa stessa una soluzione massimale, esiste
+sempre una estensione $\vec v\colon J\to \RR^n$ con $J\supset I$
+che sia massimale.
+\end{theorem}
+%
+\begin{proof}
+Supponiamo che $\vec u$ non sia massimale. Sia $\F$ la famiglia di tutte le estensioni di $\vec u$. Per il teorema di esistenza e unicità, se due soluzioni coincidono in un punto allora devono coincidere dappertutto,
+
+Vediamo innanzitutto quando è possibile estendere una soluzione.
+
+Se $\vec u\colon I \to \RR^n$ è una soluzione significa che $(x,u(x))\in \Omega$ per ogni $x\in I$. Concentriamoci sulle estensioni dell'intervallo $I$ verso destra, ragionamento analogo si potrà fare verso sinistra. Sia dunque $b=\sup I$ l'estremo destro di $I$. Se $b\in I$ allora il problema di Cauchy con dato iniziale $u(b)$ nel punto $b$, ha una unica soluzione locale che quindi coincide con la soluzione $u(x)$ per $x\le b$ ed estende tale soluzione.
+\end{proof}
+
+
+\begin{theorem}[esistenza globale]
+Sia $I = (a,b) \subset \RR$ un intervallo aperto e sia
+$\vec f\colon I \times \RR^n \to \RR^n$, $(x,\vec u)\mapsto \vec f(x,\vec u)$ una funzione che soddisfa le ipotesi di esistenza e unicità locale (dunque continua nella coppia $(x,\vec u)$ e lipschitziana nella variabile $\vec u$ uniformemente rispetto alla variabile $x$) e che soddisfi inoltre l'ipotesi aggiuntiva (sublinearità in $\vec u$ uniforme rispetto a $x$):
+\[
+  \abs{\vec f(x,\vec u)} \le m\abs{\vec u} + q.
+\]
+Allora per ogni $x_0\in I$ e per ogni $\vec u_0\in \RR^n$ esiste una unica funzione $u\colon I \to \RR^n$ soluzione del problema di Cauchy~\eqref{eq:problema_cauchy}.
+\end{theorem}
+%
+\begin{proof}
+
+\end{proof}
+
+Il problema di Cauchy per le equazioni di ordine $n$ è il problema di determinare la soluzione di una equazione differenziale ordinaria di ordine $n$
+in forma normale accoppiato ad una condizione iniziale per il valore della funzione e di tutte le sue derivate fino all'ordine $n$. Dato $\Omega\subset \RR\times \RR^n$ aperto, $f\in C^0(\Omega)$, $\vec y = (y_1, \dots, y_n) \in \RR^n$
+si tratta quindi di trovare un intervallo $I\subset \RR$ e una funzione $u\in C^n(I)$ che soddisfi le seguenti condizioni:
+\begin{equation}\label{eq:problema_cauchy_ordine_n}
+  \begin{cases}
+    u^{(n)}(x) = f(x,u(x), u'(x), \dots, u^{(n-1)}(x))\\
+    u(x_0) = y_1 \\
+    u'(x_0) = y_2 \\
+    \ \vdots \\
+    u^{(n-1)}(x_0) = y_n.
+  \end{cases}
+\end{equation}
+
+\begin{theorem}[esistenza e unicità per le equazioni di ordine $n$]
+Se $f\colon \Omega\to \RR$ soddisfa le ipotesi del teorema di esistenza e unicità per i sistemi del primo ordine (cioè $f$ è continua e lipschitziana nelle ultime $n-1$ variabili uniformemente rispetto alla prima) allora il problema di Cauchy~\eqref{eq:problema_cauchy_ordine_n} ammette una unica soluzione locale. Esiste cioè un $\delta_0>0$ tale che per ogni $\delta < \delta_0$ posto $I_\delta = [x_0-\delta,x_0+\delta]$ esiste una unica $u\in C^n(I_\delta)$ che soddisfa~\ref{eq:problema_cauchy_ordine_n}.
+\end{theorem}
+%
+\begin{proof}
+Se $u\in C^n$ è una funzione scalare possiamo considerare la funzione vettoriale $\vec u \in \C^1$ le cui componenti sono $u$ e le sue prime $n-1$ derivate:
+\[
+\vec u(x) = (u(x), u'(x), \dots, u^{(n-1)}(x))
+\]
+ovvero $u_k(x) = u^{(k-1)}(x)$ per $k=1,\dots ,n$ essendo $\vec u(x) = (u_1(x), \dots, u_n(x))$.
+
+Con questa trasformazione il problema~\eqref{eq:problema_cauchy_ordine_n} si può scrivere nella forma:
+\[
+ \begin{cases}
+   u_1'(x) = u_2 \\
+   u_2'(x) = u_3 \\
+    \vdots
+   u_{n-1}'(x) = u_n \\
+   u_n'(x) = f(x, u_1(x), u_2(x), \dots, u_n(x))\\
+   u_1(x_0) = y_1\\
+   \vdots
+   u_{n}(x_0) = y_n
+ \end{cases}
+\]
+ovvero posto $\vec f(x,\vec y) = (y_2, y_3, \dots, y_n, f(x, \vec y))$ abbiamo una funzione vettoriale $\vec f\colon \Omega \to \RR^n$ e il problema~\eqref{eq:problema_cauchy_ordine_n} risulta equivalente a
+\begin{equation}\label{eq:437583}
+  \begin{cases}
+   \vec u'(x) = \vec f(x,\vec u(x))\\
+   \vec u(x_0) = \vec y.
+  \end{cases}
+\end{equation}
+Visto che $f$ è continua, anche $\vec f$ risulta continua.
+Verifichiamo se $\vec f$ soddisfa la condizione di Lipschitz.
+Per ipotesi $f$ la soddisfa, cioè
+esiste $L>0$ tale che:
+\[
+  \abs{f(x,\vec y)-f(x,\vec z)} \le L\abs{\vec y - \vec z}.
+\]
+Ma allora si ha
+\begin{align*}
+\abs{\vec f(x,\vec y) - f(x,\vec z)}
+  &= \sqrt{\abs{y_2-z_2}^2 + \abs{y_3-z_3}^2
+  + \dots + \abs{y_n-z_n}^2 + \abs{f(x,\vec y)-f(x,\vec z)}^2} \\
+  \le \sqrt{\abs{y-z}^2 + L^2 \abs{\vec y -z}^2}
+  = \sqrt{1+L^2}\abs{\vec y - \vec z}.
+\end{align*}
+Dunque la funzione $\vec f$ verifica le ipotesi del teorema di Cauchy-Lipschitz: esiste dunque una soluzione $\vec u$ di tale problema in un opportuno intervallo centrato nel punto $x_0$.
+Ponendo $u=u_1$ (la prima componente di $\vec u$)
+si osserva che $u$ è di classe $C^n$.
+Infatti sappiamo che $\vec u$ è di classe $C^1$
+ed essendo
+$u_1' = u_2$,
+$u_2' = u_3$, \dots,
+$u_{n-1}'=u_n$
+ed essendo $u_n\in C^1$,
+si scopre che $u=u_1$ è di classe $C^n$
+ed è una soluzione del problema \eqref{eq:problema_cauchy_ordine_n}.
+Anche l'unicità segue direttamente dall'equivalenza delle due formulazioni.
+\end{proof}
+
+\section{metodi risolutivi}
+
+Una tipologia di equazioni differenziali che abbiamo già trattato
+è data dalle equazioni della forma:
+\[
+   u'(x) = f(x).
+\]
+Banalmente l'insieme delle soluzioni è dato dalle primitive di $f$:
+\[
+  u(x) \in \int f(x)\, dx.
+\]
+
+Osserviamo che se $f$ è continua il problema di Cauchy associato
+\[
+  \begin{cases}
+    u'(x) = f(x) \\
+    u(x_0) = u_0
+  \end{cases}
+\]
+ha una unica soluzione che si può scrivere nella forma:
+\[
+  u(x) = u_0 + \int_{x_0}^x f(t)\, dt
+\]
+
+\subsection{equazioni lineari del primo ordine}
+
+Sono le equazioni del tipo:
+\[
+   u'(x) + a(x) u(x) = b(x).
+\]
+Per risolvere queste equazioni si cerca di ricondurre la somma al lato sinistro alla derivata di un prodotto.
+Per fare ciò si considera una qualunque primitiva
+$A(x) \in \int a(x)\, dx$ e si moltiplicano ambo i membri
+per $e^{A(x)}$:
+\[
+  e^{A(x)} u'(x) + a(x) e^{A(x)} u(x) = b(x) e^{A(x)}
+\]
+essendo $A'(x) = a(x)$
+si osserva che il lato sinistro è ora la derivata di un prodotto:
+\[
+  \enclose{e^{A(x)}u(x)}' = b(x) e^{A(x)}.
+\]
+Scelta una qualunque primitiva del lato destro
+\[
+  F(x) \in \int b(x) e^{A(x)}\, dx
+\]
+su ogni intervallo in cui $a(x)$ e $b(x)$ sono definite
+si ha
+\[
+  e^{A(x)}u(x) = F(x) + c
+\]
+per qualche $c\in \RR$
+in quanto $e^{A(x)}u(x)$ e $F(x)$ sono due primitive della stessa funzione.
+Dunque
+\[
+  u(x) = e^{-A(x)}\enclose{F(x) + c}.
+\]
+
+Se $b(x)=0$ l'equazione è lineare omogenea, possiamo scegliere $F(x) = 0$ e quindi lo spazio delle soluzioni in questo caso
+è dato da
+\[
+  u(x) = c e^{-A(x)}
+\]
+ed è quindi lo spazio vettoriale unidimensionale generato dalla funzione $e^{-A(x)}$.
+
+Ogni soluzione della non omogenea si può scrivere come somma di una soluzione particolare
+più una generica soluzione dell'equazione omogenea associata. Infatti:
+\[
+  u(x) = u_0(x) + c e^{-A(x)}.
+\]
+dove
+\[
+  u_0(x) = e^{-A(x)}F(x)
+\]
+è una particolare soluzione dell'equazione non omogenea.
+
+Osserviamo che se $a(x)$ e $b(x)$ sono funzioni continue definite su uno stesso intervallo $I$, anche la soluzione è definita su tutto $I$. Si dirà quindi che la soluzione esiste \emph{globalmente}.
+
+\begin{exercise}[autovettori dell'operatore derivata]
+Fissato $\lambda \in \RR$ trovare tutte le soluzioni dell'equazione
+\[
+  u'(x) = \lambda u(x).
+\]
+\end{exercise}
+%
+\begin{proof}[Svolgimento]
+Scriviamo l'equazione nella forma
+\[
+  u'(x) - \lambda u(x) = 0.
+\]
+Nelle notazioni precedenti abbiamo $a(x) = -\lambda$ e quindi possiamo scegliere $A(x) = -\lambda x \in \int a$.
+Moltiplicando ambo i membri per $e^{-A(x)}$ si ottiene
+\[
+  e^{-\lambda x} u'(x) - \lambda e^{-\lambda x} u(x) = 0
+\]
+cioè
+\[
+ \enclose{e^{-\lambda x}\cdot u(x)}' = 0
+\]
+da cui su ogni intervallo in cui $u$ è definita esiste una costante $c$ tale che
+\[
+  e^{-\lambda x} u(x) = c
+\]
+ovvero
+\[
+  u(x) = c e^{\lambda x}.
+\]
+Abbiamo dunque trovato che le soluzioni sono definite su tutto $\RR$, una soluzione è $e^{\lambda x}$ e ogni altra soluzione è multiplo di questa.
+\end{proof}
+
+\begin{exercise}
+\begin{enumerate}
+\item
+Trovare tutte le soluzioni dell'equazione differenziale
+\[
+  u'(x) - \frac{u(x)}{x} = x^2.
+\]
+
+\item
+Trovare tutte le soluzioni dell'equazione differenziale
+\[
+  x u'(x) - u(x) = x^3.
+\]
+\end{enumerate}
+\end{exercise}
+\begin{proof}[Svolgimento]
+La prima è una equazione lineare non omogenea del primo ordine in forma normale: $u'(x) + a(x) u(x) = b(x)$. Il fattore integrante è $e^{A(x)}$ con
+\[
+  A(x) \in \int a(x)\, dx = -\int \frac{1}{x}\, dx \ni - \ln \abs{x}.
+\]
+Dunque $e^{A(x)} = 1/\abs{x}$. Dovremmo dunque dividere ambo i membri dell'equazione per $\abs{x}$. Osserviamo che l'equazione non è definita per $x=0$ e possiamo dunque distinguere i casi $x>0$ e $x<0$. Decidiamo quindi, per semplicità, di cambiare segno all'equazione per $x<0$ cosicché possiamo dividere per $x$ invece che per $\abs{x}$. Si ottiene dunque:
+\[
+  \frac{u'}{x} - \frac{u}{x^2} = x
+\]
+cioè
+\[
+  \enclose{u\cdot \frac{1}{x}}'  = x
+\]
+da cui
+\[
+  \frac{u}{x} \in \int x\, dx \ni \frac{x^2}{2}.
+\]
+Dunque la funzione $u(x)/x$ differisce da $x^2/2$ per una costante su ognuno dei due intervalli $x>0$ e $x<0$. Su ognuno dei due intervalli si ha dunque:
+\[
+  \frac{u(x)}{x} = \frac{x^2}{2} + c
+\]
+da cui
+\[
+  u(x) = \frac{x^3}{2} + c x
+\]
+per qualche $c\in \RR$. Per come è stato posto il problema, la soluzione non deve essere definita per $x=0$ e la costante $c$ può essere quindi diversa se $x>0$ o $x<0$.
+
+La seconda equazione è equivalente alla prima se $x\neq 0$. Ma non è in forma normale e le soluzioni
+potranno essere definite anche per $x=0$.
+Si avrà quindi
+\[
+  u(x) = \frac{x^3}{2} + c x
+\]
+come prima ma affinché la funzione sia derivabile in $x=0$ la costante $c$ dovrà essere uguale per $x>0$ e per $x<0$.
+
+Si osservi che ogni soluzione soddisfa la condizione iniziale $u(0) = 0$ e che quindi nessuna soluzione soddisfa la condizione $u(0)= q$ se $q \neq 0$.
+\end{proof}
+
+\begin{exercise}
+Risolvere l'equazione differenziale:
+\[
+ u'(x) + \frac{u(x)}{(1+x^2)\arctg x} = 1.
+\]
+\end{exercise}
+%
+\begin{proof}
+Osserviamo che l'equazione è definita solo per $x\neq 0$. Cercheremo quindi le soluzioni sui due intervalli $x<0$ e $x>0$.
+Moltiplicando ambo i membri dell'equazione per $\arctg x$ si ottiene
+\[
+  \arctg x \cdot u'(x) +\frac{1}{1+x^2} u(x) = \arctg x
+\]
+cioè:
+\[
+  \enclose{\arctg x \cdot u(x)}' = \arctg x
+\]
+da cui
+\[
+  \arctg x \cdot u(x) \in \int \arctg x\, dx \ni x \arctg x - \frac {1}{2}\ln(1+x^2).
+\]
+Dunque su ogni intervallo su cui la soluzione è definita esisterà
+$c\in \RR$ tale che
+\[
+  \arctg x \cdot u(x) = x \arctg x - \frac{1}{2}\ln(1+x^2) + c
+\]
+da cui essendo $x\neq 0$ si può dividere per $\arctg x$ e ottenere
+\[
+  u(x) = x - \frac{\ln(1+x^2)}{2\arctg x} + \frac{c}{\arctg x}.
+\]
+Abbiamo quindi una famiglia di soluzioni definite per $x<0$ e una famiglia di soluzioni definite per $x>0$.
+\end{proof}
+
+\subsection{equazioni a variabili separabili}
+
+Si chiamano equazioni a variabili separabili le
+equazioni del tipo:
+\begin{equation}\label{eq:edo_separabile}
+  u'(x) = f(x) \cdot g(u(x)).
+\end{equation}
+Questa è una equazioni del primo ordine in forma normale:
+\[
+  u'(x) = F(x, u(x))
+\]
+dove nella funzione $F$ risulta possibile separare le variabili $x$ e $u$ in un prodotto:
+\[
+  F(x, u) = f(x)\cdot g(u).
+\]
+
+Se $u$ è una soluzione dell'equazione~\eqref{eq:edo_separabile}
+e se $x$ è un punto in cui $g(u(x))\neq 0$, possiamo dividere ambo i membri dell'equazione per $g(u(x))$ per ottenere:
+\[
+  \frac{u'(x)}{g(u(x))} = f(x).
+\]
+Vogliamo ora scrivere il lato sinistro come la derivata della funzione composta. Se scegliamo una primitiva di $1/g$:
+\[
+  H(u) \in \int \frac{1}{g(u)}\, du
+\]
+si osserva che
+\[
+  \enclose{H(u(x))}' = H'(u(x))u'(x) = \frac{u'(x)}{g(u(x))} = f(x).
+\]
+dunque se $F\in \int f$, su ogni intervallo in cui $g(u(x))\neq 0$ dovrà esistere $c\in \RR$ tale che
+\[
+  H(u(x)) = F(x) + c.
+\]
+Se supponiamo inoltre che $H$ sia invertibile si avrà:
+\[
+  u(x) = H^{-1}(F(x)+ c).
+\]
+
+\begin{example}
+Risolviamo l'equazione
+\begin{equation}\label{eq:43856}
+  u'(x) = x u^2(x) + x.
+\end{equation}
+E' una equazione del primo ordine in forma normale.
+Raccogliendo $x$ al lato destro si ottiene una equazione a variabili separabili.
+Dividendo ambo i membri per $u^2(x)+1$ (che è sempre diverso da zero) si ottiene l'equazione equivalente
+\[
+\frac{u'(x)}{1+u^2(x)} = x.
+\]
+Integrando il lato sinistro si ottiene:
+\[
+  \int \frac{u'(x)}{1+u^2(x)}\, dx
+  = \Enclose{\int \frac{du}{1+u^2}}_{u=u(x)}
+  \ni \arctg(u(x))
+\]
+mentre per il lato destro si ottiene
+\[
+  \int x\, dx \ni \frac{x^2}{2}.
+\]
+Dunque su ogni intervallo si deve avere
+\[
+  \arctg(u(x)) = \frac{x^2}{2} + c.
+\]
+Visto che l'arcotangente assume valori compresi tra $-\pi/2$ e $\pi/2$ anche il lato destro dovrà rimanere in tale intervallo. Dovrà quindi essere:
+\begin{equation}\label{eq:4856}
+  -\pi < x^2 + 2c < \pi.
+\end{equation}
+Con questa condizione possiamo invertire l'arcotangente ottenendo finalmente una espressione per la soluzione:
+\[
+  u(x) = \tg\enclose{\frac{x^2}{2} + c}.
+\]
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth]{fig43856.png}
+\label{fig:43856}
+\caption{i grafici delle soluzioni dell'equazione differenziale~\eqref{eq:43856}}.
+\end{figure}
+
+Esplicitando la condizione~\eqref{eq:4856} si osserva che per $c>-\pi/2$ la soluzione è definita su un intervallo aperto centrato in $x=0$ mentre per $c\le -\pi/2$ la soluzione è definita su due intervalli simmetrici e l'ampiezza di tali intervalli si riduce tendendo a zero quando $c\to -\infty$.
+Agli estremi di tali intervalli la soluzione ha degli asintoti verticali.
+
+Significa dunque che anche le soluzioni massimali possono essere definite su intervalli arbitrariamente piccoli coerentemente con quanto affermato nel teorema di esistenza e unicità locale.
+\end{example}
+
+\begin{example}
+Si voglia risolvere l'equazione
+\[
+  u'(x) = u^2(x).
+\]
+Si tratta di una equazione in forma normale, del primo ordine, autonoma. In particolare è a variabili separabili $u'(x) = f(u(x))\cdot g(x)$ con $f(u)=u^2$ e $g(x)=1$.
+Osserviamo innanzitutto che $u(x) = 0$ è soluzione in quanto $u'(x) = u^2(x) = 0$. Se $u$ è una soluzione non identicamente nulla ci saranno dei punti in cui $u(x)\neq 0$. Nei punti in cui $u(x)\neq 0$ possiamo dividere ambo i membri dell'equazione per $u^2(x)$ ottenendo:
+\[
+  \frac{u'(x)}{u^2(x)} = 1.
+\]
+Osserviamo ora che, tramite cambio di variabile $u=u(x)$, $du=u'(x)\, dx$ si ottiene:
+\[
+  \int \frac{u'(x)}{u^2(x)}\, dx = \Enclose{\int \frac{du}{u^2}}_{u=u(x)} = \Enclose{-\frac{1}{u}}_{u=u(x)}
+  = -\frac{1}{u(x)}
+\]
+mentre
+\[
+  \int 1 \, dx \ni x
+\]
+dunque su ogni intervallo in cui $u(x)\neq 0$ deve esistere una costante $c\in \RR$ tale che
+\[
+-\frac{1}{u(x)} = x + c
+\]
+ovvero, ponendo $x_0 = -c$
+\begin{equation}\label{eq:5782196}
+  u(x) = -\frac{1}{x+c} = \frac{1}{x_0-x}.
+\end{equation}
+
+Ci chiediamo ora se è possibile che una soluzione $u(x)$ possa avere sia dei punti in cui si annulla sia dei punti in cui non si annulla. La risposta è no, e può essere ottenuta in due modi diversi.
+
+Giustificazione algebrica: sia $u(x)$ una soluzione qualunque, definita su un intervallo $I$ e supponiamo che ci sia un punto $x_0$ tale che $u(x_0)\neq 0$. Prendiamo il più grande intervallo $J\subset I$ contenente $x_0$ e tale che $u(x)\neq 0$ su $J$.
+Tale intervallo deve essere aperto, perché se $u(x)\neq 0$ in un estremo dell'intervallo allora per continuità $u(x)$ sarebbe diverso da $0$ in un intorno di tale estremo e potrei quindi allargare l'intervallo. Dunque $J=(a,b)$ e se fosse $J\neq I$ si avrebbe che uno dei due estremi, diciamo $a$, è in $I$ e $u(a)=0$ (altrimenti potrei aggiungere l'estremo a $J$ che quindi non sarebbe massimale). Ma sempre per la continuità di $u$ si avrebbe $u(x) \to 0$ per $x\to a$ e $x\in J$ mentre nell'equazione~\eqref{5782196} vediamo che $u(x)\to 0$ è possibile solamente se $x\to +\infty$ o $\to -\infty$ che non sono certamente punti di $I$.
+
+Giustificazione analitica: supponiamo che $u(x)$ sia una soluzione definita su un intervallo $I$ e supponiamo che $u(x_1)=0$ e $u(x_2)\neq 0$. Per semplicità supponiamo $x_1<x_2$ (dimostrazione analoga si fa nel caso inverso). Prendiamo $x_0 = \sup \{x \colon u(x) = 0, x \in [x_1,x_2]\}$. Chiaramente $x_0$ è limite di punti in cui $u(x)=0$ e dunque, per continuità, $u(x_0)=0$.
+\end{example}
+
+\section{equazioni lineari di ordine $n$}
+
+\index{equazioni!differenziali!lineari di ordine $n$}
+\mymargin{equazioni lineari di ordine $n$}
+Le equazioni differenziali ordinarie lineari di ordine $n$ in forma normale possono essere scritte nella forma:
+\begin{equation*}\label{eq:edo_lineare_ordine_n}
+  u^{(n)}(x) + a_{n-1} u^{(n-1)}(x) + \dots + a_1 u'(x) + a_0 u(x) = b(x)
+\end{equation*}
+con $a_k\colon A \to \RR$, $b\colon A\to \RR$ funzioni continue definite su uno stesso insieme $A$.
+Nel caso $b(x) = 0$ l'equazione dice essere \myemph{omogenea}
+e si può scrivere come:
+\begin{equation*}\label{eq:edo_lineare_omogenea_ordine_n}
+  u^{(n)}(x) + a_{n-1} u^{(n-1)}(x) + \dots + a_1 u'(x) + a_0 u(x) = 0.
+\end{equation*}
+In generale l'equazione \eqref{eq:edo_lineare_ordine_n}
+viene chiamata \myemph{equazione non omogenea} e la corrispondente equazione~\eqref{eq:edo_lineare_omogenea_ordine_n}
+viene chiamata \myemph{equazione omogenea associata}.
+
+\begin{theorem}[struttura delle soluzioni di una equazione lineare]
+Siano $a_k\in C^0(A)$ con $A\subset \RR$ aperto.
+
+L'insieme delle soluzioni dell'equazione lineare omogenea~\eqref{eq:edo_lineare_omogenea_ordine_n}
+è un sottospazio vettoriale di $C^n(A)$ di dimensione $n$.
+
+L'insieme delle soluzioni dell'equazione non omogenea~\eqref{eq:edo_lineare_ordine_n} è un sottospazio affine di $C^n(A)$ di dimensione $n$ parallelo al sottospazio delle soluzioni dell'equazione omogenea associata~\eqref{eq:edo_lineare_omogenea_ordine_n}. In particolare se $u_0$ è una soluzione particolare dell'equazione non omogena ogni altra soluzione $u$ si scrive nella forma
+\[
+  u = u_0 + v
+\]
+con $v$ soluzione dell'equazione omogenea associata.
+\end{theorem}
+%
+\begin{proof}
+L'esistenza globale delle soluzioni è data da bla bla ...
+
+Possiamo riscrivere l'equazione~\eqref{eq:edo_lineare_ordine_n} nella forma
+\[
+  L(u) = b
+\]
+con
+\[
+  L(u) = u^{(n)} + \sum_{k=0}^{n-1} a_k u^{(k)}.
+\]
+L'equazione omogenea~\eqref{eq:edo_lineare_omogenea_ordine_n}
+risulta quindi essere
+\[
+  L(u) = 0.
+\]
+Si osservi che $L\colon C^n(A) \to C^0(A)$ è un operatore lineare in quanto la somma, la derivata e la moltiplicazione per una funzione sono operatori lineari sullo spazio vettoriale delle funzioni. Possiamo quindi enunciare il seguente teorema.
+
+
+Come abbiamo anticipato all'inizio del capitolo, le equazioni di ordine $n$ possono essere ricondotte ad un sistema di $n$ equazioni. Basterà associare alla funzione scalare $u\colon I \to \RR$ la funzione vettoriale $\vec u \colon I \to \RR$ definita da
+\[
+  \vec u(x) = (u(x), u'(x), u''(x), \dots, u^{n-1}(x))
+\]
+ovvero chiamando $u_k(x)$ la $k$-esima componente del vettore $\vec u(x)$ si ha $u_k(x) = u^{(k-1)}(x)$.
+
+
+L'equazione~\eqref{eq:edo_lineare_ordine_n} è dunque equivalente al seguente sistema di equazioni del primo ordine:
+\[
+ \begin{cases}
+ u_1'(x) = u_2(x) \\
+ u_2'(x) = u_3(x) \\
+ \vdots
+ u_{n-1}'(x) = u_n(x) \\
+ u_n'(x) = b(x)
+ \end{cases}
+\]
+
 \end{proof}
