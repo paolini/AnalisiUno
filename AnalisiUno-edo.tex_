@@ -535,6 +535,7 @@ Se $\vec u\colon I \to \RR^n$ è una soluzione significa che $(x,u(x))\in \Omega
 
 
 \begin{theorem}[esistenza globale]
+\label{th:edo_esistenza_globale}
 Sia $I = (a,b) \subset \RR$ un intervallo aperto e sia
 $\vec f\colon I \times \RR^n \to \RR^n$, $(x,\vec u)\mapsto \vec f(x,\vec u)$ una funzione che soddisfa le ipotesi di esistenza e unicità locale (dunque continua nella coppia $(x,\vec u)$ e lipschitziana nella variabile $\vec u$ uniformemente rispetto alla variabile $x$) e che soddisfi inoltre l'ipotesi aggiuntiva (sublinearità in $\vec u$ uniforme rispetto a $x$):
 \[
@@ -562,6 +563,9 @@ si tratta quindi di trovare un intervallo $I\subset \RR$ e una funzione $u\in C^
 
 \begin{theorem}[esistenza e unicità per le equazioni di ordine $n$]
 Se $f\colon \Omega\to \RR$ soddisfa le ipotesi del teorema di esistenza e unicità per i sistemi del primo ordine (cioè $f$ è continua e lipschitziana nelle ultime $n-1$ variabili uniformemente rispetto alla prima) allora il problema di Cauchy~\eqref{eq:problema_cauchy_ordine_n} ammette una unica soluzione locale. Esiste cioè un $\delta_0>0$ tale che per ogni $\delta < \delta_0$ posto $I_\delta = [x_0-\delta,x_0+\delta]$ esiste una unica $u\in C^n(I_\delta)$ che soddisfa~\ref{eq:problema_cauchy_ordine_n}.
+
+Se poi $\Omega$ è della forma $\Omega = I \times \RR^n$ con $I\subset \RR$ intervallo aperto e se
+$f$ è anche sublineare (comme nelle ipotesi di esistenza globale) allora il problema di Cauchy~\ref{eq:problema_cauchy_ordine_n} ammette una unica soluzione definita su tutto $I$.
 \end{theorem}
 %
 \begin{proof}
@@ -576,11 +580,11 @@ Con questa trasformazione il problema~\eqref{eq:problema_cauchy_ordine_n} si pu�
  \begin{cases}
    u_1'(x) = u_2 \\
    u_2'(x) = u_3 \\
-    \vdots
+   \ \vdots \\
    u_{n-1}'(x) = u_n \\
-   u_n'(x) = f(x, u_1(x), u_2(x), \dots, u_n(x))\\
+   u_n'(x) = f(x, u_1(x), u_2(x), \dots, u_n(x))\\\\
    u_1(x_0) = y_1\\
-   \vdots
+   \ \vdots \\
    u_{n}(x_0) = y_n
  \end{cases}
 \]
@@ -603,7 +607,7 @@ Ma allora si ha
 \abs{\vec f(x,\vec y) - f(x,\vec z)}
   &= \sqrt{\abs{y_2-z_2}^2 + \abs{y_3-z_3}^2
   + \dots + \abs{y_n-z_n}^2 + \abs{f(x,\vec y)-f(x,\vec z)}^2} \\
-  \le \sqrt{\abs{y-z}^2 + L^2 \abs{\vec y -z}^2}
+  &\le \sqrt{\abs{y-z}^2 + L^2 \abs{\vec y -z}^2}
   = \sqrt{1+L^2}\abs{\vec y - \vec z}.
 \end{align*}
 Dunque la funzione $\vec f$ verifica le ipotesi del teorema di Cauchy-Lipschitz: esiste dunque una soluzione $\vec u$ di tale problema in un opportuno intervallo centrato nel punto $x_0$.
@@ -618,6 +622,8 @@ ed essendo $u_n\in C^1$,
 si scopre che $u=u_1$ è di classe $C^n$
 ed è una soluzione del problema \eqref{eq:problema_cauchy_ordine_n}.
 Anche l'unicità segue direttamente dall'equivalenza delle due formulazioni.
+
+L'esistenza globale segue in maniera analoga dal teorema per i sistemi del primo ordine. Basti osservare che se la funzione $f$ soddisfa l'ipotesi di sublinearità anche $\vec f$ la soddisfa.
 \end{proof}
 
 \section{metodi risolutivi}
@@ -969,7 +975,9 @@ con $v$ soluzione dell'equazione omogenea associata.
 \end{theorem}
 %
 \begin{proof}
-L'esistenza globale delle soluzioni è data da bla bla ...
+Innanzitutto il teorema di esistenza globale~\ref{th:edo_esistenza_globale} garantisce che
+le soluzioni delle equazioni~\eqref{eq:edo_lineare_ordine_n}
+e~\eqref{eq:edo_lineare_omogenea_ordine_n} esistono e sono funzioni in $C^n(A)$.
 
 Possiamo riscrivere l'equazione~\eqref{eq:edo_lineare_ordine_n} nella forma
 \[
@@ -984,25 +992,39 @@ risulta quindi essere
 \[
   L(u) = 0.
 \]
-Si osservi che $L\colon C^n(A) \to C^0(A)$ è un operatore lineare in quanto la somma, la derivata e la moltiplicazione per una funzione sono operatori lineari sullo spazio vettoriale delle funzioni. Possiamo quindi enunciare il seguente teorema.
+Si osservi che $L\colon C^n(A) \to C^0(A)$ è un operatore lineare in quanto la somma, la derivata e la moltiplicazione per una funzione sono operatori lineari sullo spazio vettoriale delle funzioni.
+Dunque l'insieme delle soluzioni dell'equazione omogenea non è altro che $\ker L$ che notoriamente è uno spazio vettoriale. Cerchiamo ora di determinare la dimensione di tale spazio, mettendo in corrispondenza le soluzioni dell'equazione con un loro dato iniziale.
 
-
-Come abbiamo anticipato all'inizio del capitolo, le equazioni di ordine $n$ possono essere ricondotte ad un sistema di $n$ equazioni. Basterà associare alla funzione scalare $u\colon I \to \RR$ la funzione vettoriale $\vec u \colon I \to \RR$ definita da
+Fissiamo $x_0 \in I$ e $\vec y\in \RR^n$ e consideriamo
+la soluzione $u$ del problema di Cauchy
 \[
-  \vec u(x) = (u(x), u'(x), u''(x), \dots, u^{n-1}(x))
+\begin{cases}
+  L u = 0 \\
+  u(x_0) = y_1 \\
+  u'(x_0) = y_2 \\
+  \vdots \\
+  u^{(n-1)}(x_0) = y_n
+\end{cases}
 \]
-ovvero chiamando $u_k(x)$ la $k$-esima componente del vettore $\vec u(x)$ si ha $u_k(x) = u^{(k-1)}(x)$.
-
-
-L'equazione~\eqref{eq:edo_lineare_ordine_n} è dunque equivalente al seguente sistema di equazioni del primo ordine:
+ con dato iniziale $\vec y = (y_1,\dots,y_n)$.
+ La soluzione $u$ dipenderà dal dato iniziale $\vec y$, dunque possiamo considerare $T\colon \RR^n\to C^n(A)$ l'operatore che ad ogni dato iniziale $\vec y$ associa la
+corrispondente soluzione $u=T(\vec y)$. E' facile osservare che essendo l'equazione differenziale lineare omogenea, l'operatore $T$ risulta essere lineare. Infatti se $u = T(\vec y)$ e $v=T(\vec z)$ e $\lambda,\mu \in \RR$, allora
+$\lambda u + \mu v$ è certamente soluzione dell'equazione differenziale, bisogna solo controllare quale dato iniziale soddisfa. Ma si ha
 \[
- \begin{cases}
- u_1'(x) = u_2(x) \\
- u_2'(x) = u_3(x) \\
- \vdots
- u_{n-1}'(x) = u_n(x) \\
- u_n'(x) = b(x)
- \end{cases}
+ (\lambda u + \mu v)(x_0) = \lambda u(x_0) + \mu v(x_0) = \lambda \vec y + \mu \vec z.
 \]
+Dovrà quindi essere $\lambda u + \mu v = T(\lambda y + \mu \vec z)$.
 
+Dunque $T$ è un operatore lineare. Inoltre $T$ è iniettivo per l'unicità delle soluzioni del problema di Cauchy. Inoltre essendo $LT(u)=0$ (per definizione di $T$) otteniamo che $T \colon \RR^n \to \ker L$ è un isomorfismo di spazi vettoriali. Risulta quindi che $\ker L$, cioè lo spazio delle soluzioni dell'equazione omogenea, ha dimensione $n$.
+
+
+Per quanto riguarda l'equazione non omogenea
+sia $V = \{ v\in C^n(A)\colon L v = b\}$ l'insieme di tutte le soluzioni. Se consideriamo una soluzione particolare $v_0\in V$ e se $v\in V$ è una qualunque altra soluzione, si osserva che
+\[
+  L(v-v_0) = L(v) - L(v_0) = b-b = 0.
+\]
+Significa che $u=v-v_0$ è soluzione dell'equazione omogenea associata: $u\in \ker L$. Dunque ogni soluzione $v$ dell'equazione non omogenea si può scrivere nella forma $v = v_0 + u$ con $v_0$ soluzione particolare della non omogenea e $u$ soluzione generale dell'equazione omogenea associata ovvero
+\[
+  V = v_0 + \ker L.
+\]
 \end{proof}
