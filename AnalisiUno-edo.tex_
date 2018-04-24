@@ -436,6 +436,30 @@ da cui
 Abbiamo quindi mostrato che per ogni $(t_0,\vec u_0)\in \Omega$ esiste un intorno del punto $(t_0,\vec u_0)$ in cui la funzione $\vec f$ soddisfa le ipotesi del teorema precedente.
 \end{proof}
 
+\begin{comment}
+
+\begin{theorem}[maggiore regolarità delle soluzioni]
+Sia $\vec u(x)$ una soluzione del sistema di
+equazioni differenziali:
+\[
+  \vec u'(x) = \vec f(x, \vec u(x)).
+\]
+Se $\vec f\colon \Omega\subset \RR\times\RR^n \to\RR^n$ è una funzione di classe $C^k$, con $k\in \NN$ allora la soluzione $\vec u(x)$ è di classe $C^{k+1}$.
+In particolare se $\vec f \in C^\infty$ anche $u\in C^\infty$.
+\end{theorem}
+%
+\begin{proof}
+Se $\vec u$ soddisfa l'equazione differenziale significa quanto meno che $\vec u$ è derivabile. Dunque è continua e derivabile e la derivata è
+\[
+  \vec u'(x) = \vec f(x,\vec u(x)).
+\]
+Ma il lato destro è composizione di funzioni continue (in quanto al minimo $\vec f \in C^0$ e $u\in C^0$) dunque la derivata di $u$ è di classe $C^0$. Significa che come minimo $\vec u$ è di classe $C^1$. Se ora $k\ge 1$ possiamo ripetere il procedimento e osservare che $\vec u'(x)$ è uguale ad una composizione di funzioni $C^1$, dunque è di classe $C^1$. Ma allora $\vec u$ è di classe $C^2$.
+Il procedimento può essere dunque iterato fino ad arrivare a dedurre che $\vec u$ è di classe $C^k$. A quel punto la funzione $f(x,\vec u(x))$ è di classe $C^k$ e quindi $\vec u'$ è di classe $C^k$ e $\vec u$ è di classe $C^{k+1}$. Non si può iterare ulteriormente perché ora componendo una funzione $C^k$ con una funzione $C^{k+1}$ quello che ottengo è di nuovo $C^k$.
+
+Dire che $f\in C^\infty$ significa che $f\in C^k$ per ogni $k$. Dunque $\vec u$ risulta essere di classe $C^{k+1}$ per ogni $k$: dunque diremo che $\vec u$ è di classe $C^\infty$.
+\end{proof}
+\end{comment}
+
 \begin{definition}[estensione di una soluzione, soluzione massimale]
 Sia $I\subset \RR$ un intervallo e sia $\vec u \colon I \to \RR^n$ una soluzione dell'equazione differenziale in forma normale del primo ordine:
 \begin{equation}\label{eq:edo_normale_ordine_uno}
@@ -604,13 +628,12 @@ esiste $L>0$ tale che:
 \]
 Ma allora si ha
 \begin{align*}
-\abs{\vec f(x,\vec y) - f(x,\vec z)}
-  &= \sqrt{\abs{y_2-z_2}^2 + \abs{y_3-z_3}^2
-  + \dots + \abs{y_n-z_n}^2 + \abs{f(x,\vec y)-f(x,\vec z)}^2} \\
-  &\le \sqrt{\abs{y-z}^2 + L^2 \abs{\vec y -z}^2}
-  = \sqrt{1+L^2}\abs{\vec y - \vec z}.
+\abs{\vec f(x,\vec y) - \vec f(x,\vec z)}
+  &= \sqrt{\sum_{k=2}^n \abs{y_k-z_k}^2 + \abs{f(x,\vec y)-f(x,\vec z)}^2} \\
+  &\le \sqrt{\abs{\vec y - \vec z}^2 + L^2 \abs{\vec y - \vec z}^2}
+  = \sqrt{1+L^2}\cdot \abs{\vec y - \vec z}.
 \end{align*}
-Dunque la funzione $\vec f$ verifica le ipotesi del teorema di Cauchy-Lipschitz: esiste dunque una soluzione $\vec u$ di tale problema in un opportuno intervallo centrato nel punto $x_0$.
+Dunque la funzione $\vec f$ verifica le ipotesi del teorema di Cauchy\hyp{}Lipschitz: esiste dunque una soluzione $\vec u$ di tale problema in un opportuno intervallo centrato nel punto $x_0$.
 Ponendo $u=u_1$ (la prima componente di $\vec u$)
 si osserva che $u$ è di classe $C^n$.
 Infatti sappiamo che $\vec u$ è di classe $C^1$
@@ -948,15 +971,15 @@ Giustificazione analitica: supponiamo che $u(x)$ sia una soluzione definita su u
 \index{equazioni!differenziali!lineari di ordine $n$}
 \mymargin{equazioni lineari di ordine $n$}
 Le equazioni differenziali ordinarie lineari di ordine $n$ in forma normale possono essere scritte nella forma:
-\begin{equation*}\label{eq:edo_lineare_ordine_n}
-  u^{(n)}(x) + a_{n-1} u^{(n-1)}(x) + \dots + a_1 u'(x) + a_0 u(x) = b(x)
-\end{equation*}
-con $a_k\colon A \to \RR$, $b\colon A\to \RR$ funzioni continue definite su uno stesso insieme $A$.
+\begin{equation}\label{eq:edo_lineare_ordine_n}
+  u^{(n)}(x) + a_{n-1}(x) u^{(n-1)}(x) + \dots + a_1(x) u'(x) + a_0 u(x) = b(x)
+\end{equation}
+con $a_k\colon A \to \RR$, $b\colon A\to \RR$ funzioni continue definite su uno stesso dominio $A\subset \RR$.
 Nel caso $b(x) = 0$ l'equazione dice essere \myemph{omogenea}
 e si può scrivere come:
-\begin{equation*}\label{eq:edo_lineare_omogenea_ordine_n}
-  u^{(n)}(x) + a_{n-1} u^{(n-1)}(x) + \dots + a_1 u'(x) + a_0 u(x) = 0.
-\end{equation*}
+\begin{equation}\label{eq:edo_lineare_omogenea_ordine_n}
+  u^{(n)}(x) + a_{n-1}(x) u^{(n-1)}(x) + \dots + a_1(x) u'(x) + a_0 u(x) = 0.
+\end{equation}
 In generale l'equazione \eqref{eq:edo_lineare_ordine_n}
 viene chiamata \myemph{equazione non omogenea} e la corrispondente equazione~\eqref{eq:edo_lineare_omogenea_ordine_n}
 viene chiamata \myemph{equazione omogenea associata}.
@@ -975,7 +998,7 @@ con $v$ soluzione dell'equazione omogenea associata.
 \end{theorem}
 %
 \begin{proof}
-Innanzitutto il teorema di esistenza globale~\ref{th:edo_esistenza_globale} garantisce che
+Innanzitutto il teorema~\ref{th:edo_esistenza_globale} di esistenza globale garantisce che
 le soluzioni delle equazioni~\eqref{eq:edo_lineare_ordine_n}
 e~\eqref{eq:edo_lineare_omogenea_ordine_n} esistono e sono funzioni in $C^n(A)$.
 
@@ -985,7 +1008,7 @@ Possiamo riscrivere l'equazione~\eqref{eq:edo_lineare_ordine_n} nella forma
 \]
 con
 \[
-  L(u) = u^{(n)} + \sum_{k=0}^{n-1} a_k u^{(k)}.
+  L(u) = u^{(n)} - \sum_{k=0}^{n-1} a_k u^{(k)}.
 \]
 L'equazione omogenea~\eqref{eq:edo_lineare_omogenea_ordine_n}
 risulta quindi essere
@@ -1015,8 +1038,10 @@ $\lambda u + \mu v$ è certamente soluzione dell'equazione differenziale, bisogn
 \]
 Dovrà quindi essere $\lambda u + \mu v = T(\lambda y + \mu \vec z)$.
 
-Dunque $T$ è un operatore lineare. Inoltre $T$ è iniettivo per l'unicità delle soluzioni del problema di Cauchy. Inoltre essendo $LT(u)=0$ (per definizione di $T$) otteniamo che $T \colon \RR^n \to \ker L$ è un isomorfismo di spazi vettoriali. Risulta quindi che $\ker L$, cioè lo spazio delle soluzioni dell'equazione omogenea, ha dimensione $n$.
-
+Dunque $T$ è un operatore lineare.
+L'operatore $T$ è iniettivo in quanto in generale $T(\vec y)(x_0) = \vec y$ e quindi se fosse $T(\vec y) = u = 0$ si avrebbe anche $u(x_0) = u'(x_0) = \dots = u^{(n-1)}(x_0) = 0$ da cui $\vec y=0$. Dunque $T\colon \RR^n \to \ker L$ è un operatore lineare iniettivo. E' anche suriettivo in quanto
+per ogni $u \in \ker L$ si può scegliere $\vec y = (u(x_0), u'(x_0), \dots, u^{(n-1)}(x_0))$ e, per il teorema di esistenza e unicità, possiamo quindi osservare che $T(\vec y) = u$.
+Dunque $T \colon \RR^n \to \ker L$ è un isomorfismo di spazi vettoriali. Risulta quindi che $\ker L$, cioè lo spazio delle soluzioni dell'equazione omogenea, ha dimensione $n$.
 
 Per quanto riguarda l'equazione non omogenea
 sia $V = \{ v\in C^n(A)\colon L v = b\}$ l'insieme di tutte le soluzioni. Se consideriamo una soluzione particolare $v_0\in V$ e se $v\in V$ è una qualunque altra soluzione, si osserva che
@@ -1028,3 +1053,282 @@ Significa che $u=v-v_0$ è soluzione dell'equazione omogenea associata: $u\in \k
   V = v_0 + \ker L.
 \]
 \end{proof}
+
+\begin{theorem}[maggiore regolarità delle soluzioni]
+Se $u(x)$ è una soluzione dell'equazione differenziale lineare~\eqref{eq:edo_lineare_ordine_n} e se i coefficienti $a_1, \dots, a_{n-1}, b$ sono funzioni di classe $C^m$ per un certo $m\in \NN$ allora la soluzione è di classe $C^{m+n}$. In particolare se i coefficienti sono di classe $C^\infty$ le soluzioni sono anch'esse di classe $C^\infty$.
+\end{theorem}
+%
+\begin{proof}
+Se $u$ è soluzione di~\eqref{eq:edo_lineare_ordine_n} possiamo scrivere l'equazione in forma normale per ottenere:
+\[
+  u^{(n)} = b(x) - \sum_{k=0}^{n-1}a_k(x) u^{(k)}(x).
+\]
+Se $u$ è di classe $C^j$ allora $u^{(k)}$ è di classe $C^{j-k}$ e per $k=0,\dots, n-1$ risulta essere almeno di classe $C^{j-n+1}$ se $j-n+1\ge m$ allora il lato destro dell'equazione precedente è di classe $C^{j-n+1}$. Dunque $u^{(n)}$ è di classe $C^{j-n+1}$ il che significa che $u$ è di classe $C^{j+1}$. Risulta quindi che la regolarità di $u$ può essere incrementata di una unità alla voltà fintantoché rimane verificata $j-n+1\ge m$.
+Quando $j=m+n-1$ si potrà dunque ottenere che $u$ è di classe $j+1 = m+n$ e non si potrà procedere oltre.
+
+Se i coefficienti sono di classe $C^\infty$ il procedimento non termina mai e si ottiene dunque che anche $u$ è di classe $C^\infty$.
+\end{proof}
+
+\section{equazioni lineare di ordine $n$ a coefficienti costanti}
+
+Una equazione differenziale ordinaria di ordine $n$ a coefficienti costanti è una equazione del tipo:
+\begin{equation}\label{eq:edo_lineare_omogenea_coeff_costanti}
+   \sum_{k=0}^n a_k u^{(k)}(x) = 0
+\end{equation}
+con $a_k\in \RR$.
+Senza perdita di generalità possiamo supporre che sia $a_n\neq 0$ cosicchè tale equazione può essere scritta in forma normale e rientra nella casistica generale che abbiamo considerato nel capitolo precedente.
+In particolare sappiamo che lo spazio delle soluzioni è uno spazio vettoriale di dimensione $n$.
+Osserviamo che il teorema di esistenza e unicità globale garantisce che le soluzioni dell'equazione differenziale lineare a coefficienti costanti siano funzioni di classe $C^n$ definite su tutto $\RR$. Ma i coefficienti costanti
+sono di classe $C^\infty$ dunque la maggiore regolarità delle soluzioni ci dice, in questo caso, che le soluzioni dovranno essere funzioni di classe $C^\infty$.
+
+Per motivi puramente algebrici sarà utile considerare le funzioni a valori complessi.
+Ricordiamo che se $u(x)$ è una funzione a valori complessi,
+allora si può scrivere $u(x) = f(x) + i g(x)$ con $f$ e $g$ funzioni a valori reali.
+Si definisce allora $u'(x) = f'(x) + ig'(x)$.
+Denotiamo con $D \colon C^\infty(\RR, \CC)\to C^\infty(\RR, \CC)$ l'operatore derivata: $D u = u'$.
+
+Se $P$ è un polinomio di grado $n$:
+\[
+  P(z) = \sum_{k=0}^n a_k z^k
+\]
+possiamo definire l'operatore
+$P(D)\colon C^\infty(\RR,\CC) \to C^\infty(\RR,\CC)$
+come
+\[
+  P(D)u = \sum_{k=0}^n a_k D^k u = \sum_{k=0}^n a_k u^{(k)}.
+\]
+
+In particolare l'equazione lineare omogenea a coefficienti costanti~\eqref{eq:edo_lineare_omogenea_coeff_costanti}
+si può scrivere più espressivamente nella forma
+\[
+  P(D)u = 0
+\]
+Se l'equazione è in forma normale si avrà $\deg P = n$ (in quanto il cofficiente $a_n$ del termine di grado massimo è $1$ per le equazioni in forma normale).
+
+Vogliamo ora mostrare come una decomposizione del polinomio porta ad una decomposizione delle soluzioni dell'equazione differenziale.
+
+\begin{theorem}[isomorfismo tra polinomi e operatori differenziali a coefficienti costanti]
+\label{th:6822095}
+Siano $P$ e $Q$ due polinomi e sia $\lambda \in \RR$.
+Allora si ha
+\[
+  (P\cdot Q)(D) = P(D) \circ Q(D)
+\]
+cioè: l'operatore differenziale associato al prodotto dei polinomi è la composizione degli operatori associati ai singoli fattori.
+\end{theorem}
+\begin{proof}
+Sia
+\[
+  P(z) = \sum_{k=0}^n a_k z^k, \qquad Q(z) = \sum_{j=0}^m b_j z^j.
+\]
+Allora si ha
+\begin{align*}
+ (P\cdot Q)(z)
+  &= \enclose{\sum_{k=0}^n a_k z^k Q(t)} \cdot \enclose {\sum_{j=0}^m b_j z^j} \\
+  &= \sum_{k=0}^n \sum_{j=0}^m a_k b_j z^{k+j} \\
+  &= \sum_{s=0}^{n+m} \enclose{\sum_{k=\max\{0,s-m\}}^{\min\{s,n\}} a_k b_{s-k}} z^s.
+\end{align*}
+Ma, d'altro canto, se $u\in C^\infty(\RR,\CC)$ si ha
+\begin{align*}
+  (P(D) \circ Q(D)) (u) &= P(D)(Q(D)(u)) \\
+  &= \sum_{k=0}^n a_k D^k\enclose{\sum_{j=0}^m b_j D^j u}
+  = \sum_{k=0}^n \sum_{j=0}^m a_k b_j D^{k+j} u \\
+  &= \sum_{s=0}^{m+n} \enclose{\sum_{k=\max\{0,s-m\}}^{\min\{s,n\}} a_k b_{s-k}} D^s u \\
+  &= (P\cdot Q)(D)(u).
+\end{align*}
+\end{proof}
+
+\begin{theorem}
+Sia $P$ un polinomio e sia $\lambda\in \CC$ una radice di $P$ con molteplicità $m$. Allora se $p(x)$ è un polinomio (a coefficienti complessi) di grado inferiore a $m$, la funzione $u(x) = p(x) e^{\lambda x}$ è soluzione (complessa) dell'equazione differenziale
+\[
+   P(D) u = 0.
+\]
+\end{theorem}
+%
+\begin{proof}
+Se il polinomio $P(t)$ ha una radice $\lambda$ con molteplicità $m$ significa che $P(t)$ è divisibile per $(t-\lambda)^m$ cioè esiste un polinomio $R(t)$ tale che
+\[
+  P(t) = R(t)\cdot (t-\lambda)^m.
+\]
+
+Ma allora, in base al teorema~\ref{th:6822095} possiamo decomporre anche l'equazione differenziale:
+\[
+ P(D) u = R(D) (D - \lambda)^m u.
+\]
+Se $u(x) = p(x) e^{\lambda x}$ si ha
+\begin{align*}
+  (D-\lambda) u(x) &= Du(x) -\lambda u(x) =
+  p'(x) e^{\lambda x} + p(x) \lambda e^{\lambda x} - \lambda p(x) e^{\lambda x} \\
+  &= p'(x) e^{\lambda x},
+\end{align*}
+da cui
+\[
+  (D-\lambda)^m u(x) = p^{(m)}(x) e^{\lambda x}.
+\]
+Visto che la derivata di un polinomio è un polinomio di grado inferiore, se il polinomio $p$ ha grado inferiore a $m$ risulta che $p^{(m)}=0$. Dunque, come volevamo dimostrare,
+\[
+ P(D) u = R(D) (D-\lambda)^m u = R(D) 0 = 0.
+\]
+\end{proof}
+
+\begin{theorem}[indipendenza delle soluzioni fondamentali]
+Il sottoinsieme $\B$ di $\C^\infty(\RR, \CC)$ dato dalle funzioni
+\[
+   \B = \{ u\in C^\infty(\RR,\CC)\colon u(x) = x^m e^{\lambda x}, m\in \NN, \lambda \in \CC\}
+\]
+è indipendente.
+\end{theorem}
+%
+\begin{proof}
+Si tratta di mostrare che se una combinazione lineare finita di tali funzioni è identicamente nulla, allora tutti i coefficienti sono nulli.
+
+Supponiamo per assurdo che esistano
+$u_1, \dots, u_N\in \B$
+\[
+  u_k(x) = x^{m_k} e^{\lambda_k x}, \qquad k=1, \dots, N
+\]
+tali che
+\begin{equation}\label{eq:4656978}
+  \sum_{k=1}^N c_k x^{m_k} e^{\lambda_k x} = 0
+  \qquad \forall x \in \RR
+\end{equation}
+per una qualche scelta di coefficienti $c_k \in \CC$ non tutti nulli.
+Possiamo anche supporre che $N$ sia il più piccolo possibile, cioè che tutti i sottoinsiemi di $\B$ con meno di $N$ elementi risultano invece essere indipendenti.
+
+Come primo passo vogliamo dimostrare che i coefficienti $\lambda_k$ sono tutti uguali.
+Consideriamo un generico $\lambda \in \CC$ e un $m\in \NN$ e applichiamo
+ l'operatore $(D-\lambda)^m$ ad ambo i membri di
+\eqref{eq:4656978}.
+Osserviamo che si ha
+\[
+  (D-\lambda) \enclose{x^{m_k} e^{\lambda_k x}}
+   = ((\lambda_k-\lambda)x^{m_k} + m_k x^{m_k-1}e^{\lambda_k x}.
+\]
+Ora se $\lambda_k = \lambda$
+ad ogni applicazione dell'operatore $D-\lambda$ il polinomio monomio $x^{m_k}$ diminuisce di grado (viene rimpiazzato dalla sua derivata). Se $m>\deg p_k$ tale termine si annulla e il corrispondente termine viene quindi rimosso dalla somma.
+Dunque scegliendo $\lambda = \lambda_1$ e $m$ sufficientemente grande
+si ottiene una combinazione lineare nulla di un numero minore di termini.
+Osserviamo che se esistono dei $\lambda_k\neq \lambda$ i corrispondenti addendi non si annullano tutti in quanto il polinomio
+\[
+  (\lambda_k-\lambda)x^{m_k}(x) + m_k x^{m_k-1}(x)
+\]
+ha lo stesso grado del monomio $x^{m_k}$ e dunque il monomio di grado massimo viene certamente preservato.
+Dunque se i coefficienti $\lambda_k$ non sono tutti uguali è possibile ridurre l'insieme di funzioni dipendenti ad un insieme più piccolo ma non vuoto. Questo è assurdo perché stavamo supponendo di avere già un insieme il più piccolo possibile.
+
+L'unica possibilità rimanente è che tutti i coefficienti $\lambda_k$ siano uguali: $\lambda_k = \lambda$.
+Ma allora avremo:
+\[
+  \sum_{k=1}^N c_k x^{m_k} e^{\lambda x} = 0.
+\]
+Moltiplicando ambo i membri per $e^{-\lambda x}$ si ottiene
+\[
+  \sum_{k=1}^N c_k x^{m_k} = 0
+\]
+e per il principio di identità dei polinomi questo significa che ogni $c_k$ è nullo: assurdo.
+\end{proof}
+
+\begin{theorem}
+Sia $\lambda = \alpha + i \beta$ con $\alpha,\beta\in \RR$. Posto
+\begin{gather*}
+  u_1(x) = e^{\lambda x}, \qquad
+  u_2(x) = e^{\bar\lambda x}\\
+  v_1(x) = e^{\alpha x}\cos(\beta x), \qquad
+  v_2(x) = e^{\alpha x}\sin(\beta x)
+\end{gather*}
+si ha che lo spazio generato dalle combinazioni lineari
+a coefficienti in $\CC$ di $u_1$ e $u_2$ coincide con lo spazio generato dalle combinazioni lineari a coefficienti in $\CC$ di $v_1$ e $v_2$:
+\[
+\langle u_1, u_2\rangle_\CC = \langle v_1,v_2\rangle_\CC.
+\]
+
+Inoltre presa una qualunque combinazione lineare
+\[
+  u(x) = c_1 u_1(x) + c_2 u_2(x)
+\]
+con $c_1, c_2\in \CC$, si ha che $u(x)$ è reale per ogni $x\in \RR$ se e solo se
+\[
+  u(x) = d_1 v_1(x) + d_2 v_2(x)
+\]
+con $d_1, d_2\in \RR$.
+\end{theorem}
+%
+\begin{proof}
+Osserviamo che per la formula di Eulero si ha
+\begin{align*}
+  u_1(x) &= e^{\lambda x} = e^{\alpha x}(\cos(\beta x) + i \sin(\beta x)) = v_1(x) + i v_2(x) \\
+  u_2(x) &= e^{\bar \lambda x} = e^{\alpha x}(\cos(\beta x) - i \sin(\beta x )) = v_1(x) - i v_2(x)
+\end{align*}
+dunque $u_1$ e $u_2$ stanno nello spazio generato da $v_1$ e $v_2$ e di conseguenza l'intero spazio $U$ generato da $u_1$ e $u_2$ è contenuto nello spazio $V$ generato da $v_1$ e $v_2$. D'altra parte abbiamo già visto che $u_1$ e $u_2$ sono indipendenti, dunque $\dim U = 2$. Certamente $\dim V \le 2$ (essendo $V$ generato da due vettori) e si conclude quindi che $U=V$. In particolare ne consegue che anche $v_1$ e $v_2$ sono indipendenti.
+
+Dunque se $u$ è combinazione complessa di $u_1$ e $u_2$ potremo scrivere
+\[
+  u(x) = d_1 v_1(x) + d_2 v_2(x)
+\]
+con $d_1,d_2$ opportuni coefficienti complessi. Osserviamo ora che se $d_1$ e $d_2$ sono reali allora certamente $u(x)\in \RR$ in quanto $v_1(x),v_2(x)\in \RR$ per ogni $x\in \RR$.
+Viceversa supponiamo che $u(x)\in \RR$ per ogni $x\in \RR$. Allora essendo $v_1(x),v_2(x)\in \RR$ si ha
+\[
+  0 = \Im u(x) = (\Im d_1) v_1(x) + (\Im d_2) v_2(x)
+\]
+e visto che $v_1$ e $v_2$ sono indipendenti, una combinazione lineare nulla può solo aversi con coefficienti nulli: ne consegue che $\Im d_1 = \Im d_2 = 0$ ovvero che $d_1,d_2\in \RR$.
+\end{proof}
+
+I risultati precedenti ci permettono di determinare tutte le soluzioni delle equazioni lineari omogenee a coefficienti costanti come nel seguente esempio.
+
+\begin{example}
+Si determinino tutte le soluzioni dell'equazione differenziale
+\[
+  u^{(5)}(x) + 2 u'''(x) + u'(x) = 0.
+\]
+\end{example}
+%
+\begin{proof}[Svolgimento]
+L'equazione può essere scritta nella forma
+\[
+  P(D) u = 0
+\]
+con $P(t) = t^5 + 2 t^3+t$. Possiamo fattorizzare il polinomio $P$ nel campo complesso:
+\[
+t^5 + 2t^3 +t = t(t^2+1)^2 = t (t+i)^2(t-i)^2.
+\]
+Il polinomio ha una radice $\lambda_0=0$ con molteplicità uno e due radici complesse coniugate $\lambda_1 = i$, $\lambda_2=-i$ con molteplicità due.
+Risulta quindi che le seguenti funzioni devono essere soluzione complesse dell'equazione:
+\[
+  e^x, \qquad
+  e^{ix}, \qquad
+  x e^{ix}, \qquad
+  e^{-ix}, \qquad
+  x e^{-ix}.
+\]
+Per linearità ogni combinazione lineare complessa di queste soluzioni è ancora una soluzione complessa.
+Visto che queste funzioni sono linearmente indipendenti, lo spazio generato ha dimensione $5$, come l'ordine dell'equazione.
+Possiamo però sostituire le due funzioni $e^{ix}$ e $e^{-ix}$ con le funzioni reali $\cos x$ e $\sin x$ e lo spazio generato non cambia. Allo stesso modo possiamo sostiture la coppia di funzioni $x e^{ix}$ e $xe^{-ix}$ con $x\cos x$ e $x\sin x$ senza variare lo spazio generato. Risulta quindi che ogni combinazione lineare complessa delle seguenti funzioni reali:
+\[
+  e^x, \qquad
+  \cos x, \qquad
+  \sin x, \qquad
+  x \cos x, \qquad
+  x \sin x
+\]
+è una soluzione dell'equazione differenziale. Inoltre le combinazioni lineari a coefficienti reali generano uno spazio vettoriale reale di soluzioni che dovrà ancora avere dimensione $5$. Sappiamo però che lo spazio di tutte le soluzioni ha dimensione $5$ (pari all'ordine dell'equazione) dunque lo spazio che abbiamo determinato esaurisce tutte le soluzioni. Ogni soluzione reale si potrà dunque scrivere nella forma:
+\[
+  u(x) = c_1 e^x + c_2 \cos x + c_3 \sin x + c_4 x \cos x + c_5 x \sin x
+\]
+con $c_1, c_2, \dots, c_5 \in \RR$ costanti arbitrarie.
+\end{proof}
+
+Possiamo in effetti dare un enunciato generale.
+
+\begin{theorem}[soluzioni dell'equazione lineare omogenea a coefficienti costanti]
+Se $P(t)$ è un polinomio a coefficienti reali.
+Ogni soluzione $u\colon \RR\to \RR$ dell'equazione differenziale
+\[
+  P(D) u = 0
+\]
+si scrive nella forma
+\[
+  u(x) = \sum_{k=1}^N \sum_{j=1}^{n_k} c_{kj} x^j e^{\lambda_k x}
+        + \sum_{k=1}^M \sum_{j=1}^{m_l} x^j e^{\alpha_k x} (a_{kj} \cos(\beta_k x) + b_{kj}\sin(\beta_k x))
+\]
+dove $\lambda_1, \dots, \lambda_N$ sono le radici reali del polinomio $P(t)$, $n_1, \dots, n_N$ sono le rispettive molteplicità,
+$\alpha_k \pm i \beta_k$ sono le radici complesse coniugate (non reali) del polinomio $P$ con $k=1,\dots, M$ ognuna con molteplicità $m_k$ e infine $c_{kj}, a_{kj}, b_{kj}\in \RR$ sono costanti arbitrarie.
+\end{theorem}
