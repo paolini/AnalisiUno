@@ -990,7 +990,7 @@ Siano $a_k\in C^0(A)$ con $A\subset \RR$ aperto.
 L'insieme delle soluzioni dell'equazione lineare omogenea~\eqref{eq:edo_lineare_omogenea_ordine_n}
 è un sottospazio vettoriale di $C^n(A)$ di dimensione $n$.
 
-L'insieme delle soluzioni dell'equazione non omogenea~\eqref{eq:edo_lineare_ordine_n} è un sottospazio affine di $C^n(A)$ di dimensione $n$ parallelo al sottospazio delle soluzioni dell'equazione omogenea associata~\eqref{eq:edo_lineare_omogenea_ordine_n}. In particolare se $u_0$ è una soluzione particolare dell'equazione non omogena ogni altra soluzione $u$ si scrive nella forma
+L'insieme delle soluzioni dell'equazione non omogenea~\eqref{eq:edo_lineare_ordine_n} è un sottospazio affine di $C^n(A)$ di dimensione $n$ parallelo al sottospazio delle soluzioni dell'equazione omogenea associata~\eqref{eq:edo_lineare_omogenea_ordine_n}. In particolare se $u_0$ è una soluzione particolare dell'equazione non omogenea ogni altra soluzione $u$ si scrive nella forma
 \[
   u = u_0 + v
 \]
@@ -1004,16 +1004,17 @@ e~\eqref{eq:edo_lineare_omogenea_ordine_n} esistono e sono funzioni in $C^n(A)$.
 
 Possiamo riscrivere l'equazione~\eqref{eq:edo_lineare_ordine_n} nella forma
 \[
-  L(u) = b
+  Lu = b
 \]
 con
 \[
-  L(u) = u^{(n)} - \sum_{k=0}^{n-1} a_k u^{(k)}.
+  Lu = u^{(n)} + \sum_{k=0}^{n-1} a_k u^{(k)}
 \]
+
 L'equazione omogenea~\eqref{eq:edo_lineare_omogenea_ordine_n}
 risulta quindi essere
 \[
-  L(u) = 0.
+  Lu = 0.
 \]
 Si osservi che $L\colon C^n(A) \to C^0(A)$ è un operatore lineare in quanto la somma, la derivata e la moltiplicazione per una funzione sono operatori lineari sullo spazio vettoriale delle funzioni.
 Dunque l'insieme delle soluzioni dell'equazione omogenea non è altro che $\ker L$ che notoriamente è uno spazio vettoriale. Cerchiamo ora di determinare la dimensione di tale spazio, mettendo in corrispondenza le soluzioni dell'equazione con un loro dato iniziale.
@@ -1029,7 +1030,7 @@ la soluzione $u$ del problema di Cauchy
   u^{(n-1)}(x_0) = y_n
 \end{cases}
 \]
- con dato iniziale $\vec y = (y_1,\dots,y_n)$.
+ con dato iniziale $\vec y = (y_1,\dots,y_n)\in \RR^n$.
  La soluzione $u$ dipenderà dal dato iniziale $\vec y$, dunque possiamo considerare $T\colon \RR^n\to C^n(A)$ l'operatore che ad ogni dato iniziale $\vec y$ associa la
 corrispondente soluzione $u=T(\vec y)$. E' facile osservare che essendo l'equazione differenziale lineare omogenea, l'operatore $T$ risulta essere lineare. Infatti se $u = T(\vec y)$ e $v=T(\vec z)$ e $\lambda,\mu \in \RR$, allora
 $\lambda u + \mu v$ è certamente soluzione dell'equazione differenziale, bisogna solo controllare quale dato iniziale soddisfa. Ma si ha
@@ -1061,10 +1062,9 @@ Se $u(x)$ è una soluzione dell'equazione differenziale lineare~\eqref{eq:edo_li
 \begin{proof}
 Se $u$ è soluzione di~\eqref{eq:edo_lineare_ordine_n} possiamo scrivere l'equazione in forma normale per ottenere:
 \[
-  u^{(n)} = b(x) - \sum_{k=0}^{n-1}a_k(x) u^{(k)}(x).
+  u^{(n)}(x) = b(x) - \sum_{k=0}^{n-1}a_k(x) u^{(k)}(x).
 \]
-Se $u$ è di classe $C^j$ allora $u^{(k)}$ è di classe $C^{j-k}$ e per $k=0,\dots, n-1$ risulta essere almeno di classe $C^{j-n+1}$ se $j-n+1\ge m$ allora il lato destro dell'equazione precedente è di classe $C^{j-n+1}$. Dunque $u^{(n)}$ è di classe $C^{j-n+1}$ il che significa che $u$ è di classe $C^{j+1}$. Risulta quindi che la regolarità di $u$ può essere incrementata di una unità alla voltà fintantoché rimane verificata $j-n+1\ge m$.
-Quando $j=m+n-1$ si potrà dunque ottenere che $u$ è di classe $j+1 = m+n$ e non si potrà procedere oltre.
+Essendo $a_k \in C^0$ sappiamo che per lo meno $u$ è di classe $C^n$. Supponiamo sia $u\in C^j$ per qualche $j\ge n$. I coefficienti dell'equazione sono di classe $C^m$ e vengono moltiplicati per le derivate di $u$ che sono almeno di classe $C^{j-n+1}$. Se $j-n+1 \le m$ allora il lato destro della precedente equazione è di classe $j-n+1$. Dunque $u^{(n)}\in C^{j-n+1}$ da cui $u\in C^{j+1}$. Un passo alla volta è quindi possibile incrementare la regolarità di $u\in C^j$ finché $j-n+1\le m$ cioè finché $j\le m+n-1$. A quel punto otteniamo $u\in C^{j+1} = C^{m+n}$.
 
 Se i coefficienti sono di classe $C^\infty$ il procedimento non termina mai e si ottiene dunque che anche $u$ è di classe $C^\infty$.
 \end{proof}
@@ -1117,6 +1117,8 @@ Allora si ha
 cioè: l'operatore differenziale associato al prodotto dei polinomi è la composizione degli operatori associati ai singoli fattori.
 \end{theorem}
 \begin{proof}
+La dimostrazione si basa sul fatto che la composizione degli operatori (in questo caso l'operatore derivazione $D$) soddisfa le stesse regole formali del prodotto.
+
 Sia
 \[
   P(z) = \sum_{k=0}^n a_k z^k, \qquad Q(z) = \sum_{j=0}^m b_j z^j.
@@ -1130,11 +1132,11 @@ Allora si ha
 \end{align*}
 Ma, d'altro canto, se $u\in C^\infty(\RR,\CC)$ si ha
 \begin{align*}
-  (P(D) \circ Q(D)) (u) &= P(D)(Q(D)(u)) \\
+  (P(D) \circ Q(D)) u &= P(D)Q(D)u \\
   &= \sum_{k=0}^n a_k D^k\enclose{\sum_{j=0}^m b_j D^j u}
   = \sum_{k=0}^n \sum_{j=0}^m a_k b_j D^{k+j} u \\
   &= \sum_{s=0}^{m+n} \enclose{\sum_{k=\max\{0,s-m\}}^{\min\{s,n\}} a_k b_{s-k}} D^s u \\
-  &= (P\cdot Q)(D)(u).
+  &= (P\cdot Q)(D)u.
 \end{align*}
 \end{proof}
 
@@ -1171,12 +1173,12 @@ Visto che la derivata di un polinomio è un polinomio di grado inferiore, se il 
 \]
 \end{proof}
 
-\begin{theorem}[indipendenza delle soluzioni fondamentali]
-Il sottoinsieme $\B$ di $\C^\infty(\RR, \CC)$ dato dalle funzioni
+\begin{theorem}[indipendenza delle soluzioni fondamentali complesse]
+Il sottoinsieme $\B$ di $\C^\infty(\RR, \CC)$ dato dalle funzioni $u(x)$ della forma
 \[
-   \B = \{ u\in C^\infty(\RR,\CC)\colon u(x) = x^m e^{\lambda x}, m\in \NN, \lambda \in \CC\}
+   u(x) = x^m e^{\lambda x}
 \]
-è indipendente.
+con $m\in \NN$, $\lambda \in \CC$ è un insieme linearmente indipendente nello spazio $C^\infty(\RR,\CC)$ sul campo $\CC$.
 \end{theorem}
 %
 \begin{proof}
@@ -1202,77 +1204,33 @@ Consideriamo un generico $\lambda \in \CC$ e un $m\in \NN$ e applichiamo
 Osserviamo che si ha
 \[
   (D-\lambda) \enclose{x^{m_k} e^{\lambda_k x}}
-   = ((\lambda_k-\lambda)x^{m_k} + m_k x^{m_k-1}e^{\lambda_k x}.
+   = \Enclose{(\lambda_k-\lambda)x^{m_k} + m_k x^{m_k-1}}e^{\lambda_k x}.
 \]
 Ora se $\lambda_k = \lambda$
-ad ogni applicazione dell'operatore $D-\lambda$ il polinomio monomio $x^{m_k}$ diminuisce di grado (viene rimpiazzato dalla sua derivata). Se $m>\deg p_k$ tale termine si annulla e il corrispondente termine viene quindi rimosso dalla somma.
+ad ogni applicazione dell'operatore $D-\lambda$ il  monomio $x^{m_k}$ diminuisce di grado (viene rimpiazzato dalla sua derivata). Se $m>\deg p_k$ tale termine si annulla e il corrispondente termine viene quindi rimosso dalla somma.
 Dunque scegliendo $\lambda = \lambda_1$ e $m$ sufficientemente grande
 si ottiene una combinazione lineare nulla di un numero minore di termini.
-Osserviamo che se esistono dei $\lambda_k\neq \lambda$ i corrispondenti addendi non si annullano tutti in quanto il polinomio
+Ma se esistono dei $\lambda_k\neq \lambda$ i corrispondenti addendi non si annullano tutti in quanto il polinomio
 \[
   (\lambda_k-\lambda)x^{m_k}(x) + m_k x^{m_k-1}(x)
 \]
-ha lo stesso grado del monomio $x^{m_k}$ e dunque il monomio di grado massimo viene certamente preservato.
+ha lo stesso grado del monomio $x^{m_k}$ e dunque il monomio di grado massimo viene certamente preservato visto che il suo coefficiente viene moltiplicato per $(\lambda_k - \lambda)^m$.
 Dunque se i coefficienti $\lambda_k$ non sono tutti uguali è possibile ridurre l'insieme di funzioni dipendenti ad un insieme più piccolo ma non vuoto. Questo è assurdo perché stavamo supponendo di avere già un insieme il più piccolo possibile.
 
-L'unica possibilità rimanente è che tutti i coefficienti $\lambda_k$ siano uguali: $\lambda_k = \lambda$.
+L'unica possibilità rimanente è che tutti i coefficienti $\lambda_k$ siano uguali: $\lambda_k = \lambda_1$.
 Ma allora avremo:
 \[
-  \sum_{k=1}^N c_k x^{m_k} e^{\lambda x} = 0.
+  \sum_{k=1}^N c_k x^{m_k} e^{\lambda_1 x} = 0.
 \]
-Moltiplicando ambo i membri per $e^{-\lambda x}$ si ottiene
+Moltiplicando ambo i membri per $e^{-\lambda_1 x}$ si ottiene
 \[
   \sum_{k=1}^N c_k x^{m_k} = 0
 \]
-e per il principio di identità dei polinomi questo significa che ogni $c_k$ è nullo: assurdo.
+e per il principio di annullamento dei polinomi (teorema~\ref{th:annullamento_polinomi})
+questo significa che ogni $c_k$ è nullo: assurdo.
 \end{proof}
 
-\begin{theorem}
-Sia $\lambda = \alpha + i \beta$ con $\alpha,\beta\in \RR$. Posto
-\begin{gather*}
-  u_1(x) = e^{\lambda x}, \qquad
-  u_2(x) = e^{\bar\lambda x}\\
-  v_1(x) = e^{\alpha x}\cos(\beta x), \qquad
-  v_2(x) = e^{\alpha x}\sin(\beta x)
-\end{gather*}
-si ha che lo spazio generato dalle combinazioni lineari
-a coefficienti in $\CC$ di $u_1$ e $u_2$ coincide con lo spazio generato dalle combinazioni lineari a coefficienti in $\CC$ di $v_1$ e $v_2$:
-\[
-\langle u_1, u_2\rangle_\CC = \langle v_1,v_2\rangle_\CC.
-\]
-
-Inoltre presa una qualunque combinazione lineare
-\[
-  u(x) = c_1 u_1(x) + c_2 u_2(x)
-\]
-con $c_1, c_2\in \CC$, si ha che $u(x)$ è reale per ogni $x\in \RR$ se e solo se
-\[
-  u(x) = d_1 v_1(x) + d_2 v_2(x)
-\]
-con $d_1, d_2\in \RR$.
-\end{theorem}
-%
-\begin{proof}
-Osserviamo che per la formula di Eulero si ha
-\begin{align*}
-  u_1(x) &= e^{\lambda x} = e^{\alpha x}(\cos(\beta x) + i \sin(\beta x)) = v_1(x) + i v_2(x) \\
-  u_2(x) &= e^{\bar \lambda x} = e^{\alpha x}(\cos(\beta x) - i \sin(\beta x )) = v_1(x) - i v_2(x)
-\end{align*}
-dunque $u_1$ e $u_2$ stanno nello spazio generato da $v_1$ e $v_2$ e di conseguenza l'intero spazio $U$ generato da $u_1$ e $u_2$ è contenuto nello spazio $V$ generato da $v_1$ e $v_2$. D'altra parte abbiamo già visto che $u_1$ e $u_2$ sono indipendenti, dunque $\dim U = 2$. Certamente $\dim V \le 2$ (essendo $V$ generato da due vettori) e si conclude quindi che $U=V$. In particolare ne consegue che anche $v_1$ e $v_2$ sono indipendenti.
-
-Dunque se $u$ è combinazione complessa di $u_1$ e $u_2$ potremo scrivere
-\[
-  u(x) = d_1 v_1(x) + d_2 v_2(x)
-\]
-con $d_1,d_2$ opportuni coefficienti complessi. Osserviamo ora che se $d_1$ e $d_2$ sono reali allora certamente $u(x)\in \RR$ in quanto $v_1(x),v_2(x)\in \RR$ per ogni $x\in \RR$.
-Viceversa supponiamo che $u(x)\in \RR$ per ogni $x\in \RR$. Allora essendo $v_1(x),v_2(x)\in \RR$ si ha
-\[
-  0 = \Im u(x) = (\Im d_1) v_1(x) + (\Im d_2) v_2(x)
-\]
-e visto che $v_1$ e $v_2$ sono indipendenti, una combinazione lineare nulla può solo aversi con coefficienti nulli: ne consegue che $\Im d_1 = \Im d_2 = 0$ ovvero che $d_1,d_2\in \RR$.
-\end{proof}
-
-I risultati precedenti ci permettono di determinare tutte le soluzioni delle equazioni lineari omogenee a coefficienti costanti come nel seguente esempio.
+I risultati precedenti ci permettono di determinare tutte le soluzioni reali delle equazioni lineari omogenee a coefficienti costanti come nel seguente esempio.
 
 \begin{example}
 Si determinino tutte le soluzioni dell'equazione differenziale
@@ -1299,17 +1257,25 @@ Risulta quindi che le seguenti funzioni devono essere soluzione complesse dell'e
   e^{-ix}, \qquad
   x e^{-ix}.
 \]
-Per linearità ogni combinazione lineare complessa di queste soluzioni è ancora una soluzione complessa.
-Visto che queste funzioni sono linearmente indipendenti, lo spazio generato ha dimensione $5$, come l'ordine dell'equazione.
-Possiamo però sostituire le due funzioni $e^{ix}$ e $e^{-ix}$ con le funzioni reali $\cos x$ e $\sin x$ e lo spazio generato non cambia. Allo stesso modo possiamo sostiture la coppia di funzioni $x e^{ix}$ e $xe^{-ix}$ con $x\cos x$ e $x\sin x$ senza variare lo spazio generato. Risulta quindi che ogni combinazione lineare complessa delle seguenti funzioni reali:
+Per il teorema precedente sappiamo che queste funzioni sono indipendenti.
+Tramite la formula di Eulero possiamo scrivere:
 \[
-  e^x, \qquad
-  \cos x, \qquad
-  \sin x, \qquad
-  x \cos x, \qquad
-  x \sin x
+  \cos x = \frac{e^{ix}+e^{-ix}}{2},
+  \qquad
+  \sin x = \frac{e^{ix}-e^{-ix}}{2i}
 \]
-è una soluzione dell'equazione differenziale. Inoltre le combinazioni lineari a coefficienti reali generano uno spazio vettoriale reale di soluzioni che dovrà ancora avere dimensione $5$. Sappiamo però che lo spazio di tutte le soluzioni ha dimensione $5$ (pari all'ordine dell'equazione) dunque lo spazio che abbiamo determinato esaurisce tutte le soluzioni. Ogni soluzione reale si potrà dunque scrivere nella forma:
+da cui si ottiene che le funzioni
+\[
+ e^x, \qquad
+ \cos x, \qquad
+ x \cos x, \qquad
+ \sin x, \qquad
+ x \cos x
+\]
+sono combinazioni lineari delle precedenti, e quindi anch'esse devono essere soluzioni dell'equazione.
+Inoltre anch'esse sono funzioni indipendenti in quanto il cambio di base dato dalle formule di Eulero è invertibile.
+Visto che queste funzioni sono $5$ funzioni linearmente indipendenti, lo spazio generato ha dimensione $5$, come l'ordine dell'equazione.
+Sappiamo però che anche lo spazio di tutte le soluzioni ha dimensione pari all'ordine dell'equazione, dunque lo spazio che abbiamo determinato esaurisce tutte le soluzioni. Ogni soluzione reale si potrà dunque scrivere nella forma:
 \[
   u(x) = c_1 e^x + c_2 \cos x + c_3 \sin x + c_4 x \cos x + c_5 x \sin x
 \]
@@ -1325,10 +1291,323 @@ Ogni soluzione $u\colon \RR\to \RR$ dell'equazione differenziale
   P(D) u = 0
 \]
 si scrive nella forma
-\[
+\begin{equation}
+\label{eq:4725549774}
   u(x) = \sum_{k=1}^N \sum_{j=1}^{n_k} c_{kj} x^j e^{\lambda_k x}
         + \sum_{k=1}^M \sum_{j=1}^{m_l} x^j e^{\alpha_k x} (a_{kj} \cos(\beta_k x) + b_{kj}\sin(\beta_k x))
-\]
+\end{equation}
 dove $\lambda_1, \dots, \lambda_N$ sono le radici reali del polinomio $P(t)$, $n_1, \dots, n_N$ sono le rispettive molteplicità,
 $\alpha_k \pm i \beta_k$ sono le radici complesse coniugate (non reali) del polinomio $P$ con $k=1,\dots, M$ ognuna con molteplicità $m_k$ e infine $c_{kj}, a_{kj}, b_{kj}\in \RR$ sono costanti arbitrarie.
 \end{theorem}
+%
+\begin{proof}
+Sappiamo che le funzioni complesse
+\begin{equation}\label{eq:739647}
+  x^j e^{\lambda_k x}, \qquad
+  x^j e^{(\alpha_k+i\beta_k)x}
+\end{equation}
+sono soluzioni dell'equazione $j$ è inferiore alla molteplicità della corrispondente radice reale $\lambda_k$ o complessa $\alpha_k + i \beta_k$.
+Dunque
+\[
+  u_{kj}(x) = x^j e^{\lambda_k x}
+\]
+è soluzione se $j<n_k$.
+Per le radici complesse applichiamo la formula di Eulero:
+\begin{align}\label{eq:49544467}
+x^j e^{\alpha_k x}\cos (\beta_k x) &=
+  \frac 1 2 x^j e^{(\alpha_k +i \beta_k)x}
+  + \frac 1 2 x^j e^{(\alpha_k - i \beta_k)x}\\
+x^j e^{\alpha_k x}\sin (\beta_k x) &=
+    \frac 1 {2i} x^j e^{(\alpha_k +i \beta_k)x}
+    - \frac 1 {2i} x^j e^{(\alpha_k - i \beta_k)x}
+\end{align}
+dunque anche le funzioni
+\[
+  v_{kj}(x) = x^j e^{\alpha_k x}\cos x, \qquad
+  w_{kj}(x) = x^j e^{\alpha_k x}\sin x
+\]
+essendo combinazione lineare di soluzioni, sono anch'esse
+soluzioni.
+Queste soluzioni sono inoltre indipendenti in quanto
+le funzioni in \eqref{eq:739647} lo sono (per il teorema precedente) e possono essere ricondotte alle \eqref{eq:49544467}
+tramite la formula di Eulero.
+
+Abbiamo dunque trovato un insieme formato da
+\[
+  n = \sum_{k=1}^N n_k + 2 \sum_{k=1}^M m_k
+\]
+soluzioni reali indipendenti. Il numero $n$ è pari alla somma delle molteplicità delle radici (reali e complesse) del polinomio $P$ e dunque, per il teorema fondamentale dell'algebra, coincide con il grado di $P$. Sappiamo allora che lo spazio delle soluzioni di $P(D)u=0$ ha dimensione $n$ e quindi abbiamo trovato una base di tutte le soluzioni reali. Significa che ogni soluzione si scrive nella forma~\eqref{eq:4725549774}.
+\end{proof}
+
+
+\begin{theorem}[metodo di similarità]
+Consideriamo l'equazione non omogenea complessa
+\begin{equation}\label{eq:3976734956}
+ P(D) u(x) = q(x) e^{\lambda x}.
+\end{equation}
+con $P$ e $q$ polinomi a coefficienti complessi.
+Sia $m$ la molteplicità di $\lambda$ come radice di $P$ ($m=0$ se $\lambda$ non è radice di $P$).
+Allora una soluzione particolare di~\eqref{eq:3976734956} può essere scritta nella forma
+\begin{equation}
+\label{eq:945396}
+u(x) = p(x) x^m e^{\lambda x}
+\end{equation}
+con $p$ un polinomio (incognito) di grado uguale al grado di $q$.
+\end{theorem}
+%
+\begin{proof}
+Se $u(x) = x^m p(x) e^{\lambda x}$ vogliamo capire come agisce l'operatore $P(D)$ su $u$, in particolare
+dato un qualunque polinomio $q$ vogliamo capire
+se esiste un polinomio $p$, dello stesso grado di $q$, tale che applicando $P(D)$ ad $u(x)$ si ottiene $q(x) e^{\lambda x}$.
+
+Fattorizziamo il polinomio $P(z)$:
+\[
+  P(z) = (z-\lambda_1)^{m_1}\dots (z-\lambda_n)^{m_n}
+\]
+dove $\lambda_1, \dots, \lambda_n\in \CC$ sono le radici distinte di $P(z)$ e $m_1,\dots,m_n\in \NN$ sono le relative molteplicità. Dunque l'operatore $P(D)$ può essere fattorizzato nella forma corrispondente:
+\[
+   P(D) = (D-\lambda_1)^{m_1} \dots (D-\lambda_n)^{m_n}.
+\]
+
+Chiamiamo $V^n_m$ lo spazio vettoriale dei polinomi della forma $x^m p(x)$ con $\deg p<n$. Una base di $V^n_m$ sono i monomi $x^m, x^{m+1}, \dots, x^{m+n}$ e dunque $V^n_m$ è uno spazio vettoriale di dimensione $n$.
+
+La dimostrazione del teorema si basa sull'ossevazione di come agisce l'operatore $(D-\lambda_k)^{m_k}$ sulle funzioni del tipo $u(x) = p(x) e^{\lambda x}$ con $p\in V^n_m$. In generale se $p$ è un polinomio si ha
+\[
+ (D-\lambda_k)(p(x)e^{\lambda x})
+ = \Enclose{(\lambda -\lambda_k)p(x) + p'(x)} e^{\lambda x}.
+\]
+Dobbiamo allora distinguere due casi. Se $\lambda\neq \lambda_k$ allora la funzione $p(x) e^{\lambda x}$ viene trasformata nella funzione $q(x) e^{\lambda x}$ dove $q$ è un polinomio dello stesso grado di $p$, in quanto il termine di grado massimo di $p$ viene moltiplicato per $\lambda-\lambda_k$ mentre il polinomio $p'$ ha il grado inferiore al grado di $p$ e quindi non influenza il termine di grado massimo. Se chiamiamo $T_k\colon V^n_0 \to V^n_0$ l'operatore lineare che manda il polinomio $p(x)$ nel polinomio $q(x)=(\lambda-\lambda_k) p(x) + p'(x)$ osserviamo che $T_k$ è iniettivo in quanto, visto che $T_k$ preserva il grado del polinomio, l'unico polinomio che può andare a zero è il polinomio nullo. Dunque, per il teorema del rango, $T_k$ è bigettivo e di conseguenza $T_k^{m_k} \colon V^n_0 \to V^n_0$ è bigettivo.
+
+Se invece $\lambda = \lambda_k$ osserviamo ora che l'operatore $T_k$ non è altro che la derivata $q(x) = p'(x)$. E se $m=m_k$ è la molteplicità di $\lambda$ come radice di $P$, l'operatore $T_k^{m_k}$ non è altro che la derivata $m$-esima. Tale operatore non è invertibile su $V^n_0$ in quanto manda a zero tutti i polinomi di grado inferiore a $m$. Ma se partiamo da un polinomio in $V^n_m$ allora l'operatore $T_k^m\colon V^n_m \to V^n_0$ diventa invertibile: infatti in $V^n_m$ ci sono polinomi della forma $a_m x^m + a_{m+1}x^{m+1} + \dots + a_{n+m}x^{n+m}$
+e facendone la derivata $m$-esima si può ottenere il polinomio nullo solamente se tutti i coefficienti sono nulli.
+Risulta quindi che, se $\lambda = \lambda_k$, l'operatore $T_k^m\colon V^n_m \to V^n_0$ è invertibile.
+
+Siamo arrivati alla conclusione. Se prendiamo un polinomio $p(x)$ in $V^n_m$ e applichiamo $P(D)$ alla corrispondente funzione $u(x) =p(x) e^{\lambda x}$
+possiamo applicare sequenzialmente gli operatori $(D-\lambda_k)^{m_k}$. Questi agiscono sulla funzione $u$ modificando il polinomio $p$.
+Se $\lambda$ è radice di $P$ al primo passaggio applichiamo l'operatore $(D-\lambda_k)^{m_k}$ con $\lambda_k=\lambda$ e $m_k=m$ cosicché il polinomio $p\in V^n_m$ viene trasformato, in maniera biunivoca, in un polinomio di $V^n_0$. Dopodiché applico tutti gli altri operatori $(D-\lambda_k)^{m_k}$ con $\lambda_k \neq \lambda$ trasformando il polinomio di $V^n_0$ in un altro polinomio di $V^n_0$ ma sempre in maniera biunivoca. Ne risulta che alla fine ottengo una mappa biunivoca tra $V^n_m \to V^n_0$ e qualunque sia $q\in V^n_0$ sappiamo esister un $u\in V^n_m$ che viene mandato in $q$.
+\end{proof}
+
+\begin{notice}
+Si noti che nella dimostrazione precedente abbiamo investigato la struttura degli operatori differenziali $P(D)$ a coefficienti costanti. Quello che abbiamo fatto è in realtà il processo di decomposizione di Jordan di un operatore lineare. L'operatore $P(D)$ ha come autovettori le funzioni $e^{\lambda_k x}$ con $\lambda_k$ radici del polinomio $P$. Si osserva però che le funzioni della forma $x^j e^{\lambda_k x}$ sono \emph{autovetetori generalizzati}
+in quanto iterando l'operatore $P(D)$ vengono mandati in un autovettore. La base formata dalle funzione della forma $x^j e^{\lambda_j x}/j!$ è una \emph{base a ventaglio} e la matrice che rappresenta l'operatore $P(D)$ risulta essere una matrice a blocchi nella forma di Jordan: gli autovalori sulla diagonale e una fila di $1$ al di sopra della diagonale.
+\end{notice}
+
+
+\begin{definition}[wronksiano]
+Siano $v_1, \dots, v_n$ funzioni di classe $C^{n-1}$.
+La matrice
+\[
+  W(x) =
+    \begin{pmatrix}
+    v_1(x) & v_2(x) & \dots & v_n(x) \\
+    v_1'(x) & v_2'(x) & \dots & v_n'(x) \\
+    \vdots \\
+    v_1^{(n-1)}(x) & v_2^{(n-1)}(x) & \dots & v_n^{(n-1)}(x)
+    \end{pmatrix}
+\]
+è chiamata \myemph{matrice wronksiana}. Il determinante di tale matrice $d(x) = \det W(x)$ è chiamato \myemph{determinante wronksiano}.
+\end{definition}
+
+\begin{theorem}
+Sia $I\subset \RR$ un intervallo e siano $a_j\in C^0(I,\CC)$.
+Siano $v_1, \dots, v_n$ funzioni di classe $C^n$ soluzioni
+dell'equazione lineare omogenea in forma normale:
+\[
+  v_k^{(n)} = \sum_{j=1^n} a_j(x) v_k^{(j-1)}(x) = 0.
+\]
+Sia $W(x)$ la matrice wronksiana corrispondente alle funzioni $v_1, \dots, v_n$.
+
+\begin{enumerate}
+\item Se esiste un punto $x_0$ tale che $\det W(x_0)\neq 0$ allora per ogni $x \in I$ si ha $\det W(x) \neq 0$.
+
+\item Se le funzioni $v_1, \dots, v_n$ sono indipendenti allora esiste un punto $x_0\in I$ tale che $\det W(x_0)\neq 0$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Come abbiamo già evidenziato in precedenza è possibile ricondurre l'equazione lineare di ordine $n$ ad un sistema lineare di $n$ equazioni del primo ordine. Data una funzione scalare $v\in C^n(I,\CC)$ si considera la corrispondente funzione vettoriale $\vec u\in C^1(I,\CC^n)$
+\[
+ \vec u(x) = (v(x), v'(x), \dots, v^{(n-1)}(x)).
+\]
+Se $v$ risolve l'equazione lineare, allora $\vec u$ risolverà un corrispondente sistema lineare
+\[
+  \vec u'(x) = A(x) \vec u(x)
+\]
+dove $A(x)$ è una matrice i cui coefficienti sono funzioni di classe $C^0$ (ci sarà una riga con le funzioni $a_k$ e poi delle costanti $0$ e $1$ nelle altre posizioni).
+
+La matrice wronksiana $W(x)$ non è altro che la matrice le cui colonne sono le funzioni $\vec u_1, \dots, \vec u_n$ corrispondenti alle funzioni $v_1, \dots, v_n$:
+\[
+  W(x) = \enclose{\vec u_1(x), \dots, \vec u_n(x)}.
+\]
+Vogliamo trovare una formula per scrivere la derivata del determinante.
+Risulta che
+\[
+  \enclose{\det W(x)}' = \sum_{k=1}^n \det W_k(x)
+\]
+dove $W_k(x)$ è la matrice ottenuta da $W(x)$ derivando la riga $k$-esima. La formula precedente si spiega osservando che il determinante è una somma di prodotti, e la derivata del prodotto si ottiene facendo una ulteriore somma su $k$ e
+derivando il $k$-esimo fattore del prodotto.
+
+Ma ora osserviamo che la derivata della riga $k$-esima della matrice $W(x)$ è la riga
+\[
+  \enclose{\vec u_1'(x)_k, \dots, \vec u_n'(x)_k}
+\]
+e visto che le funzioni $\vec u_j$ soddisfano l'equazione differenziale $\vec u_j'(x) = A(x) \vec u_j(x)$
+la riga $k$-esima di $W_k(x)$ è combinazione lineare delle righe di $W(x)$:
+\[
+   \enclose{\vec u_1'(x)_k, \dots, \vec u_n'(x)_k}
+    = \sum_{l=1}^n A_{kl}(x) {\vec u_j(x)}_l.
+\]
+Ma quando faccio il determinante (che è lineare rispetto ad ogni riga) quando metto nella riga $k$ un multiplo di un'altra riga, ottengo determinante nullo. Rimane quindi da considerare solamente il $k$-esimo coefficiente, che si trova a moltiplicare la stessa riga che avevamo tolto da $W(x)$. Dunque
+\[
+\det W_k(x) = A_{kk}(x) \det W(x)
+\]
+e quindi
+\[
+\enclose{\det W(x)}' = \sum_{k=1}^n A_{kk}(x) \det W(x)
+ = \tr A(x) \det W(x)
+\]
+(dove $\tr A(x)$ è la traccia della matrice $A(x)$ ovvero la somma delle componenti sulla diagonale). Posto quindi $w(x) = \det W(x)$ scopriamo che $w(x)$ è una funzione (scalare) che soddisfa la seguente equazione lineare omogenea del primo ordine:
+\[
+  w'(x) = \tr A(x) w(x).
+\]
+Visto che $A(x)$ è una matrice a coefficienti continui, anche $\tr A(x)$ è una funzione continua e possiamo quindi integrarla. Scelto $x_0 \in I$ poniamo
+\[
+  T(x) = \int_{x_0}^x \tr A(t)\, dt.
+\]
+Possiamo quindi moltiplicare l'equazione per il fattore integrante $e^{-T(x)}$ per ottenere:
+\[
+  \enclose{w(x) e^{-T(x)}}' = 0
+\]
+da cui
+\[
+  w(x) = c e^{-T(x)}.
+\]
+Osservando che $T(x_0) = 0$ si osserva che $w(x_0) = c$ e dunque
+\[
+  \det W(x) = \det W(x_0) e^{-\int_{x_0}^x \tr A(t)\, dt}.
+\]
+
+Dalla formula precedente si evince che se esiste $x_0\in I$ per cui $\det W(x_0)=0$ allora si ha $\det W(x)=0$ per ogni $x\in I$ e viceversa se esiste almeno un $x_0$ in cui $\det W(x_0)\neq 0$ allora $\det W(x)\neq 0$ per ogni $x \in I$.
+
+Ora, se le funzioni $v_1, \dots, v_n$ sono indipendenti significa che per ogni $\vec \lambda \in \RR^n$ si ha
+\begin{equation}\label{eq:3675893}
+\sum_{k=1}^n \lambda_k v_k(x) = 0\qquad \forall x \in I
+\end{equation}
+solo se $\vec \lambda = 0$.
+Ora, se vale~\eqre{eq:3675893}, derivando si ottiene, per ogni $j=0,\dots, n-1$:
+\[
+\sum_{k=1}^n \lambda_k v_k^{(j)}(x) = 0\qquad \forall x \in I
+\]
+e quindi
+\[
+  W(x) \vec \lambda = 0 \qquad \forall x\in I.
+\]
+Se $v_1, \dots, v_n$ fossero dipendenti esisterebbe $\lambda \neq 0$ che realizza~\eqref{eq:3675893} e dunque, in tal caso,
+dovrebbe essere $\det W(x) =0$ per ogni $x\in I$.
+
+Significa che se esiste $x_0\in I$ tale per cui $\det W(x_0)\neq 0$ i vettori $v_1, \dots, v_n$ devono essere indipendenti.
+
+Rimane da dimostrare che se $v_1, \dots, v_n$ sono indipendenti allora $\det W(x) \neq 0$ per ogni $x\in I$.
+Supponiamo per assurdo che esista $x_0\in I$ tale che $\det
+W(x_0)=0$. Allora esiste $\vec \lambda \in \RR^n$, $\vec \lambda \neq
+0$ tale che $W(x_0) \vec \lambda = 0$.
+Consideriamo la applicazione $U\colon \RR^n \to C^n(I)$ che associa a
+$\vec y \in \RR^n$ la soluzione $v$ dell'equazione lineare omogenea
+con dato iniziale $(v(x_0), v'(x_0), \dots, v^{(n-1)}(x_0)) = \vec y$.
+Abbiamo già osservato che tale operatore $U$ è lineare. Dunque si ha
+$v_k(x) = U(v_k(x_0))(x)$ e quindi
+\begin{align*}
+ \sum_{k=1}^n  \lambda_k v_k(x)
+ &= \sum_{k=1}^n \lambda_k U(v_k(x_0))(x) \\
+ &= U\enclose{\sum_{k=1}^n \lambda_k v_k(x_0)}(x)
+  = U(0)(x) = 0.
+\end{align*}
+Significa che $v_1, \dos, v_n$ sono linearmente dipendenti.
+\end{proof}
+
+\begin{theorem}[metodo della variazione delle costanti arbitrarie]
+Si consideri una generica equazione differenziale lineare non omogenea di ordine $n$ in forma normale:
+\begin{equation}\label{eq:395467435}
+  u^{(n)}(x) = \sum_{k=0}^{n-1} a_k(x) u^{(k)}(x) + b(x)
+\end{equation}
+dove $a_0, \dots, a_{n-1}, b\in C^0(A,\CC)$ sono funzioni definite su un aperto $A\subset \RR$
+e si cerca una soluzione $u\in C^n(A,\CC)$.
+
+Se $v_1, \dots, v_n\in C^n(A,\CC)$ sono soluzioni indipendenti dell'equazione omogenea associata:
+\begin{equation*}
+  u^{(n)}(x) = \sum_{k=0}^{n-1} a_k(x) u^{(k)}(x)
+\end{equation*}
+allora
+esistono delle funzioni $c_k\in C^1(A,\CC)$
+per $k=0,1, \dots, n-1$
+tali che
+\begin{equation}\label{eq:02154676}
+  \begin{cases}
+    \sum_{k=1}^n c'_k(x) v_k(x) = 0 \\
+    \sum_{k=1}^n c'_k(x) v_k'(x) = 0 \\
+    \vdots
+    \sum_{k=1}^n c'_k(x) v_k^{(n-2)}(x) = 0 \\
+    \sum_{k=1}^n c'_k(x) v_k^{(n-1)}(x) = b(x).
+  \end{cases}
+\end{equation}
+E in tal caso la funzione
+\[
+ u(x) = \sum_{k=1}^n c_k(x) v_k(x)
+\]
+risolve l'equazione non omogenea~\eqref{eq:395467435}.
+\end{theorem}
+%
+\begin{proof}
+Osserviamo innanzitutto che se esistono le funzioni $c_k$ che
+soddisfano il sistema~\eqref{eq:02154676} allora la funzione $u = c_1
+\cdot v_1 + \dots + c_n \cdot v_n$ risolve l'equazione non
+omogenea. Infatti dalla formula di derivazione del prodotto si ha: 
+\[
+  u' = \sum_{k=1}^n c_k v_k' + \sum_{k=1}^n c_k' v_k
+     = \sum_{k=1}^n c_k v_k'
+\]
+essendo il secondo addendo nullo per ipotesi~\eqref{eq:02154676}.
+Ma allora si può proseguire con le derivate:
+\[
+  u'' = \sum_{k=1}^n c_k v_k'' + \sum_{k=1}^n c_k' v_k
+      = \sum_{k=1}^n c_k v_k''
+\]
+fino alla derivata $(n-1)$-esima:
+\[
+  u^{(n-1)} = \sum_{k=1}^n c_k v_k^{(n-1)}.
+\]
+Per l'ultima derivata si ha infine:
+\[
+  u^{(n)} = \sum_{k=1}^n c_k v_k^{(n)} + \sum_{k=1}^n c_k' v_k^{(n-1)}
+          = \sum_{k=1}^n c_k v_k^{(n)} + b.
+\]
+Ma allora si osserva che si ha
+\begin{align*}
+ u^{(n)} + \sum_{j=0}^{n-1} a_j u^{(j)}
+ &= \sum_{k=1}^n c_k v_k^{(n)} + b + \sum_{j=0}^{n-1} a_j \sum_{k=1}^n c_k v_k^{(j)} \\
+ &= \sum_{k=1}^n c_k \Enclose{v_k^{(n)} + \sum_{j=0}^{n-1} a_j v_k^{(j)}} + b = b
+\end{align*}
+ in quanto le funzioni $v_j$, per ipotesi, risolvono l'equazione omogenea.
+
+ Rimane quindi solo da verificare che esistono funzioni $c_k\in
+ C^1(A,\CC)$ che soddisfano il sistema~\eqref{eq:02154676}.
+ Si osserva che l'equazione~\eqref{eq:02154676} si scrive nella forma
+ \[ 
+   W(x) \vec c'(x) = \vec b(x)
+ \]
+ dove $W(x)$ è la matrice wronksiana $W(x)$ associata alle
+ alle soluzioni $v_1, \dots, v_n$, $\vec c(x) = (c_1(x), \dots,
+ c_n(x))$ e $\vec b(x) = (0, \dots, 0, b(x))$.
+ Siccome $v_1, \dots, v_n$ per ipotesi sono indipendenti, sappiamo che
+ $\det W(x)\neq 0$ per ogni $x$ e quindi il sistema $W(x) \vec d(x) =
+ \vec b(x)$
+ ammette una unica soluzione $d(x)$ per ogni $x\in I$.
+ Visto che $W(x)$ e $\vec b(x)$ hanno coefficienti continui,
+ anche la soluzione $\vec d(x)$ dovrà essere continua (*** da
+ giustificare meglio ***) e quindi, fissato un punto $x_0\in I$,
+ potremo definire
+ \[
+   c_k(x) = \int_{x_0}^x d_k(t)\, dt
+ \]
+ per determinare le funzioni $c_k$. 
+\end{proof}
