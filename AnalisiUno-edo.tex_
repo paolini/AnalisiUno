@@ -226,7 +226,7 @@ Come nel caso generale le equazioni lineari di ordine $n$ si riconducono a siste
 
 Ci sarà utile estendere la definizione delle classi di regolarità $C^k$ alle funzioni vettoriali di più variabili.
 
-Se $\Omega\subset \RR^m$ è un insieme aperto e $f\colon \Omega \to \RR$ è una funzione, possiamo definire le \emph{derivate parziali} di $f$. Se $\vec x \in \Omega$ si ha $\vec x = (x_1,\dots, x_m)$ e quindi $f(\vec x) = f(x_1,\dots, x_m)$. Se facciamo variare una sola componente $x_j$ mantenendo fisse tutte le altre componenti, otteniamo una funzione di una variabile $x_j \mapsto g(x_j) = f(x_1,\dots, x_j, \dots, x_m)$.
+Se $\Omega\subset \RR^m$ è un insieme aperto e $f\colon \Omega \to \RR$ è una funzione, vogliamo definire le \emph{derivate parziali} di $f$. Se $\vec x \in \Omega$ si ha $\vec x = (x_1,\dots, x_m)$ e quindi $f(\vec x) = f(x_1,\dots, x_m)$. Se facciamo variare una sola componente $x_j$ mantenendo fisse tutte le altre componenti, otteniamo una funzione di una variabile $x_j \mapsto g(x_j) = f(x_1,\dots, x_j, \dots, x_m)$.
 Definiamo dunque la \myemph{derivata parziale} di $f$ rispetto alla variabile $x_j$ come la derivata della funzione $g(x_j)$. Denotiamo tale derivata con il simbolo:
 \[
   \frac{\partial f}{\partial x_j}.
@@ -244,7 +244,8 @@ Se $\vec f\colon \Omega \subset \RR^m \to \RR^n$ è una funzione di più variabi
 \]
 
 \begin{definition}
-Sia $\Omega\subset \RR^m$ un aperto. Denoteremo con $C^0(\Omega,\RR^m)$ lo spazio vettoriale di tutte le funzioni
+Sia $\Omega\subset \RR^m$ un aperto. Denoteremo con $C^0(\Omega,\RR^m)$
+lo spazio vettoriale di tutte le funzioni
 continue $f\colon \Omega \to \RR^n$.
 
 Denotiamo con $C^1(\Omega,\RR^m)$ lo spazio vettoriale
@@ -253,29 +254,38 @@ Ricorsivamente si definisce $C^k(\Omega,\RR^m)$ per $k>1$,
 come lo spazio delle funzioni $\Omega\to\RR^m$ tali che tutte le loro derivate parziali stanno in $C^{k-1}(\Omega,\RR^m)$.
 \end{definition}
 
+\begin{definition}[prodotto scalare canonico]
+Se $\vec v, \vec w\in \RR^n$ definiamo
+\[
+  \vec v \cdot \vec w = \sum_{k=1}^n v_k w_k.
+\]
+\end{definition}
+
 \begin{theorem}[disuguaglianza di Cauchy-Schwarz]
+\mymark{***}
 Siano $\vec v, \vec w \in \RR^m$. Allora
 \begin{equation}\label{eq:cauchy_schwarz}
-   (\vec v,\vec w) \le \abs{\vec v}\cdot \abs{\vec w}.
+   \vec v \cdot \vec w \le \abs{\vec v}\cdot \abs{\vec w}.
 \end{equation}
 \end{theorem}
 %
 \begin{proof}
+\mymark{***}
 Si ha
 \[
- 0 \le \abs{\vec v-\vec w}^2 = (\vec v-\vec w,\vec v-\vec w) = \abs{\vec v}^2 - 2(\vec v,\vec w) + \abs{\vec w}^2
+ 0 \le \abs{\vec v-\vec w}^2 = (\vec v-\vec w)\cdot(\vec v-\vec w) = \abs{\vec v}^2 - 2 \vec v\cdot\vec w + \abs{\vec w}^2
 \]
 da cui la disuguaglianza (disuguaglianza di Young):
 \[
-  (\vec v,\vec w) \le \frac{\abs{\vec v}^2 + \abs{\vec w}^2}{2}.
+  \vec v \cdot \vec w \le \frac{\abs{\vec v}^2 + \abs{\vec w}^2}{2}.
 \]
 Nel caso particolare $\abs{\vec v}=\abs{\vec w}=1$ (in tal caso si dice che $\vec v$ e $\vec w$ sono versori) si ottiene
 \[
-  (\vec v,\vec w) \le 1.
+  \vec v \cdot \vec w \le 1.
 \]
 Applichiamo dunque la precedente disuguaglianza ai versori $\vec v/\abs{\vec v}$ e $\vec w/\abs{\vec w}$ per ottenere
 \[
-  \frac{(\vec v,\vec w)}{\abs{\vec v}\cdot \abs{\vec w}} =
+  \frac{\vec v \cdot \vec w}{\abs{\vec v}\cdot \abs{\vec w}} =
   \enclose{\frac{\vec v}{\abs{\vec v}},\frac{\vec w}{\abs{\vec w}}} \le 1.
 \]
 Se $\abs{\vec v}\neq 0$ e $\abs{\vec w}\neq 0$ moltiplicando ambo i membri per $\abs{\vec v}\cdot\abs{\vec w}$ si ottiene~\eqref{eq:cauchy_schwarz}. In caso contrario ambo i membri della disuguaglianza~\eqref{eq:cauchy_schwarz} sono nulli e la disuguaglianza è banalmente verificata.
@@ -296,6 +306,7 @@ Come al solito si pone inoltre $\int_b^a \vec f = - \int_a^b \vec f$.
 \end{definition}
 
 \begin{theorem}\label{teo:tipo_jensen}
+\mymark{*}
 Sia $\vec f\colon [a,b]\to \RR^m$ integrabile. Allora si ha
 \[
   \abs{\int_a^b \vec f(x)\, dx} \le \int_a^b \abs{\vec f(x)}\, dx.
@@ -311,7 +322,7 @@ si ha, usando la linearità dell'integrale
 e sfruttando la disuguaglianza di Cauchy-Schwarz
 \begin{align*}
   \abs{\vec v}^2
-  &= (\vec v,\vec v)
+  &= \vec v \cdot \vec v
    = \sum_{k=1}^n v_k \int_a^b f_k(x)\, dx
    = \int_a^b \sum_{k=1}^m v_k f_k(x)\, dx \\
   &= \int_a^b \enclose{\vec v, \vec f(x)}\, dx
@@ -336,6 +347,7 @@ che sia derivabile e che soddisfi:
 \end{equation}
 
 \begin{theorem}[Cauchy-Lipschitz, esistenza e unicità]
+\mymark{***}
 Sia $\Omega$ un aperto di $\RR\times \RR^n$ e sia $\vec f\colon \Omega \to \RR^n$, una funzione continua e tale che esista $L>0$ per cui vale
 \[
   \abs{\vec f(t,\vec u_1) - \vec f(t,\vec u_2)} \le L \abs{\vec u_1 - \vec u_2}
@@ -351,6 +363,7 @@ e soddisfa il problema di Cauchy~\eqref{eq:problema_cauchy}.
 \end{theorem}
 %
 \begin{proof}
+\mymark{***}
 Innanzitutto vogliamo trasformare il problema differenziale in un problema integrale. Se $\vec u$ è una funzione derivabile soluzione di \eqref{eq:problema_cauchy}
 allora è chiaro che $\vec u'(t) = \vec f(t,\vec u(t))$ è continua in quanto composizione di funzioni continue e dunque $\vec u$ è di classe $C^1$. Possiamo dunque integrare tra $t_0$ e $t$ i due lati dell'equazione differenziale per ottenere:
 \[
@@ -371,12 +384,16 @@ Denotiamo con
   \{(t,\vec u)\in \RR\times\RR^n\colon \abs{t-t_0}\le \alpha, \abs{\vec u -\vec u_0}\le \beta\}
 \]
 il cilindro centrato in $(t_0, \vec u_0)$ con asse parallelo all'asse delle $t$, di altezza $2\alpha$ e raggio $\beta$.
-Visto che $\Omega$ è aperto esiste una palla aperta centrata in $(t_0,\vec u_0)$ e contenuta in $\Omega$. Tale palla dovrà anche contenere un cilindro $C_{\alpha,\beta}$ per un qualche $\alpha>0$ e $\beta>0$. Il cilindro $C_{\alpha,\beta}$ è chiuso e limitato in $\Omega$ e dunque $\vec f$, essendo continua, è limitata su $C_{\alpha,\beta}$ per il teorema di Weierstrass. Sia $M>0$ tale che $\abs{\vec f(t,\vec u)}\le M$ per ogni $(t,\vec u) \in C_{\alpha,\beta}$ e definiamo
+Visto che $\Omega$ è aperto esiste una palla aperta centrata in $(t_0,\vec u_0)$ e contenuta in $\Omega$.
+Tale palla dovrà anche contenere un cilindro $C_{\alpha,\beta}$ per un qualche $\alpha>0$ e $\beta>0$.
+Il cilindro $C_{\alpha,\beta}$ è chiuso e limitato in $\Omega$ e dunque $\vec f$, essendo continua, è limitata su $C_{\alpha,\beta}$ per il teorema di Weierstrass.
+Sia $M>0$ tale che $\abs{\vec f(t,\vec u)}\le M$ per ogni $(t,\vec u) \in C_{\alpha,\beta}$ e definiamo
 \begin{equation}\label{eq:395109}
- \delta = \min\{\alpha, \frac{\beta}{M}, \frac{1}{2L}\}.
+ \delta_0 = \min\{\alpha, \frac{\beta}{M}, \frac{1}{2L}\}.
 \end{equation}
-Sia $I=[t_0-\delta,t_0+\delta]$ e
-sia
+Il perché $\delta_0$ venga definito in questo modo si capirà nel prosieguo della dimostrazione.
+Consideriamo un qualunque $\delta<\delta_0$,
+poniamo $I=[t_0-\delta,t_0+\delta]$ e
 \[
 X=\{\vec u\in C^0(I,\RR^n)\colon \Abs{\vec u-\vec u_0}_\infty
 \le \beta \}.
@@ -411,11 +428,13 @@ sappiamo quindi che esiste una unica funzione $\vec u \in X$ ovvero $\vec u \col
 \end{proof}
 
 \begin{proposition}
+\mymark{***}
 Il teorema precedente si applica in particolare se
 $\vec f \in C^1(\Omega, \RR^n)$.
 \end{proposition}
 %
 \begin{proof}
+\mymark{***}
 Se prendiamo un cilindro $K=C_{\alpha,\beta}\subset \Omega$ centrato in $(t_0,\vec u_0)$, sappiamo che ogni derivata parziale $\partial \vec f / \partial u_j$ è continua ed è quindi limitata (per il teorema di Weierstrass) su $K$. Sia $L_j$ il massimo di $\abs{\partial \vec f / \partial u_j}$ su $K$ e sia $L$ il massimo degli $L_j$. Allora presi $\vec u, \vec v \in \RR^n$ con $(t,\vec u),(t,\vec v)\in K$ si può scomporre l'incremento vettoriale $\vec v-\vec u$ lungo le $n$ direzioni coordinate e applicare il teorema di Lagrange lungo ogni direzione.
 Per ogni $k=1,\dots, n$ si ha quindi:
 \begin{align*}
@@ -586,14 +605,14 @@ si tratta quindi di trovare un intervallo $I\subset \RR$ e una funzione $u\in C^
 \end{equation}
 
 \begin{theorem}[esistenza e unicità per le equazioni di ordine $n$]
-Se $f\colon \Omega\to \RR$ soddisfa le ipotesi del teorema di esistenza e unicità per i sistemi del primo ordine (cioè $f$ è continua e lipschitziana nelle ultime $n-1$ variabili uniformemente rispetto alla prima) allora il problema di Cauchy~\eqref{eq:problema_cauchy_ordine_n} ammette una unica soluzione locale. Esiste cioè un $\delta_0>0$ tale che per ogni $\delta < \delta_0$ posto $I_\delta = [x_0-\delta,x_0+\delta]$ esiste una unica $u\in C^n(I_\delta)$ che soddisfa~\ref{eq:problema_cauchy_ordine_n}.
+Se $f\colon \Omega\to \RR$ soddisfa le ipotesi del teorema di esistenza e unicità per i sistemi del primo ordine (cioè $f$ è continua e lipschitziana nelle ultime $n-1$ variabili uniformemente rispetto alla prima) allora il problema di Cauchy~\eqref{eq:problema_cauchy_ordine_n} ammette una unica soluzione locale. Esiste cioè un $\delta_0>0$ tale che per ogni $\delta < \delta_0$ posto $I_\delta = [x_0-\delta,x_0+\delta]$ esiste una unica $u\in C^n(I_\delta)$ che soddisfa~\eqref{eq:problema_cauchy_ordine_n}.
 
 Se poi $\Omega$ è della forma $\Omega = I \times \RR^n$ con $I\subset \RR$ intervallo aperto e se
 $f$ è anche sublineare (comme nelle ipotesi di esistenza globale) allora il problema di Cauchy~\ref{eq:problema_cauchy_ordine_n} ammette una unica soluzione definita su tutto $I$.
 \end{theorem}
 %
 \begin{proof}
-Se $u\in C^n$ è una funzione scalare possiamo considerare la funzione vettoriale $\vec u \in \C^1$ le cui componenti sono $u$ e le sue prime $n-1$ derivate:
+Se $u\in C^n$ è una funzione scalare possiamo considerare la funzione vettoriale $\vec u \in C^1$ le cui componenti sono $u$ e le sue prime $n-1$ derivate:
 \[
 \vec u(x) = (u(x), u'(x), \dots, u^{(n-1)}(x))
 \]
@@ -676,6 +695,7 @@ ha una unica soluzione che si può scrivere nella forma:
 \subsection{equazioni lineari del primo ordine}
 
 Sono le equazioni del tipo:
+\mymark{***}
 \[
    u'(x) + a(x) u(x) = b(x).
 \]
@@ -849,6 +869,7 @@ Abbiamo quindi una famiglia di soluzioni definite per $x<0$ e una famiglia di so
 
 Si chiamano equazioni a variabili separabili le
 equazioni del tipo:
+\mymark{***}
 \begin{equation}\label{eq:edo_separabile}
   u'(x) = f(x) \cdot g(u(x)).
 \end{equation}
@@ -924,7 +945,7 @@ Con questa condizione possiamo invertire l'arcotangente ottenendo finalmente una
 \caption{i grafici delle soluzioni dell'equazione differenziale~\eqref{eq:43856}}.
 \end{figure}
 
-Esplicitando la condizione~\eqref{eq:4856} si osserva che per $c>-\pi/2$ la soluzione è definita su un intervallo aperto centrato in $x=0$ mentre per $c\le -\pi/2$ la soluzione è definita su due intervalli simmetrici e l'ampiezza di tali intervalli si riduce tendendo a zero quando $c\to -\infty$.
+Esplicitando la condizione~\eqref{eq:4856} si osserva che per $c>-\pi/2$ la soluzione è definita su un intervallo aperto centrato in $x=0$ mentre per $c\le -\pi/2$ la soluzione può essere definita su due intervalli simmetrici e l'ampiezza di tali intervalli si riduce tendendo a zero quando $c\to -\infty$.
 Agli estremi di tali intervalli la soluzione ha degli asintoti verticali.
 
 Significa dunque che anche le soluzioni massimali possono essere definite su intervalli arbitrariamente piccoli coerentemente con quanto affermato nel teorema di esistenza e unicità locale.
@@ -985,6 +1006,7 @@ viene chiamata \myemph{equazione non omogenea} e la corrispondente equazione~\eq
 viene chiamata \myemph{equazione omogenea associata}.
 
 \begin{theorem}[struttura delle soluzioni di una equazione lineare]
+\mymark{***}
 Siano $a_k\in C^0(A)$ con $A\subset \RR$ aperto.
 
 L'insieme delle soluzioni dell'equazione lineare omogenea~\eqref{eq:edo_lineare_omogenea_ordine_n}
@@ -998,6 +1020,7 @@ con $v$ soluzione dell'equazione omogenea associata.
 \end{theorem}
 %
 \begin{proof}
+\mymark{***}
 Innanzitutto il teorema~\ref{th:edo_esistenza_globale} di esistenza globale garantisce che
 le soluzioni delle equazioni~\eqref{eq:edo_lineare_ordine_n}
 e~\eqref{eq:edo_lineare_omogenea_ordine_n} esistono e sono funzioni in $C^n(A)$.
@@ -1072,6 +1095,7 @@ Se i coefficienti sono di classe $C^\infty$ il procedimento non termina mai e si
 \section{equazioni lineare di ordine $n$ a coefficienti costanti}
 
 Una equazione differenziale ordinaria di ordine $n$ a coefficienti costanti è una equazione del tipo:
+\mymark{***}
 \begin{equation}\label{eq:edo_lineare_omogenea_coeff_costanti}
    \sum_{k=0}^n a_k u^{(k)}(x) = 0
 \end{equation}
@@ -1141,6 +1165,7 @@ Ma, d'altro canto, se $u\in C^\infty(\RR,\CC)$ si ha
 \end{proof}
 
 \begin{theorem}
+\mymark{***}
 Sia $P$ un polinomio e sia $\lambda\in \CC$ una radice di $P$ con molteplicità $m$. Allora se $p(x)$ è un polinomio (a coefficienti complessi) di grado inferiore a $m$, la funzione $u(x) = p(x) e^{\lambda x}$ è soluzione (complessa) dell'equazione differenziale
 \[
    P(D) u = 0.
@@ -1148,6 +1173,7 @@ Sia $P$ un polinomio e sia $\lambda\in \CC$ una radice di $P$ con molteplicità 
 \end{theorem}
 %
 \begin{proof}
+\mymark{***}
 Se il polinomio $P(t)$ ha una radice $\lambda$ con molteplicità $m$ significa che $P(t)$ è divisibile per $(t-\lambda)^m$ cioè esiste un polinomio $R(t)$ tale che
 \[
   P(t) = R(t)\cdot (t-\lambda)^m.
@@ -1174,6 +1200,7 @@ Visto che la derivata di un polinomio è un polinomio di grado inferiore, se il 
 \end{proof}
 
 \begin{theorem}[indipendenza delle soluzioni fondamentali complesse]
+\mymark{***}
 Il sottoinsieme $\B$ di $\C^\infty(\RR, \CC)$ dato dalle funzioni $u(x)$ della forma
 \[
    u(x) = x^m e^{\lambda x}
@@ -1270,7 +1297,7 @@ da cui si ottiene che le funzioni
  \cos x, \qquad
  x \cos x, \qquad
  \sin x, \qquad
- x \cos x
+ x \sin x
 \]
 sono combinazioni lineari delle precedenti, e quindi anch'esse devono essere soluzioni dell'equazione.
 Inoltre anch'esse sono funzioni indipendenti in quanto il cambio di base dato dalle formule di Eulero è invertibile.
@@ -1285,6 +1312,7 @@ con $c_1, c_2, \dots, c_5 \in \RR$ costanti arbitrarie.
 Possiamo in effetti dare un enunciato generale.
 
 \begin{theorem}[soluzioni dell'equazione lineare omogenea a coefficienti costanti]
+\mymark{**}
 Se $P(t)$ è un polinomio a coefficienti reali.
 Ogni soluzione $u\colon \RR\to \RR$ dell'equazione differenziale
 \[
@@ -1341,6 +1369,7 @@ soluzioni reali indipendenti. Il numero $n$ è pari alla somma delle molteplicit
 
 
 \begin{theorem}[metodo di similarità]
+\mymark{***}
 Consideriamo l'equazione non omogenea complessa
 \begin{equation}\label{eq:3976734956}
  P(D) u(x) = q(x) e^{\lambda x}.
@@ -1432,7 +1461,7 @@ dell'equazione lineare omogenea in forma normale:
 Sia $W(x)$ la matrice wronksiana corrispondente alle funzioni $v_1, \dots, v_n$.
 
 \begin{enumerate}
-\item Se esiste un punto $x_0$ tale che $\det W(x_0)\neq 0$ allora per ogni $x \in I$ si ha $\det W(x) \neq 0$.
+\item Se esiste un punto $x_0\in I$ tale che $\det W(x_0)\neq 0$ allora per ogni $x \in I$ si ha $\det W(x) \neq 0$.
 
 \item Le funzioni $v_1, \dots, v_n$ sono indipendenti se e solo se
 esiste un punto $x_0\in I$ tale che $\det W(x_0)\neq 0$.
@@ -1545,6 +1574,7 @@ Significa che $v_1, \dots, v_n$ sono linearmente dipendenti.
 \end{proof}
 
 \begin{theorem}[metodo della variazione delle costanti arbitrarie]
+\mymark{***}
 Si consideri una generica equazione differenziale lineare non omogenea di ordine $n$ in forma normale:
 \begin{equation}\label{eq:395467435}
   u^{(n)}(x) = \sum_{k=0}^{n-1} a_k(x) u^{(k)}(x) + b(x)
@@ -1564,7 +1594,7 @@ tali che
   \begin{cases}
     \sum_{k=1}^n c'_k(x) v_k(x) = 0 \\
     \sum_{k=1}^n c'_k(x) v_k'(x) = 0 \\
-    \vdots
+    \vdots\\
     \sum_{k=1}^n c'_k(x) v_k^{(n-2)}(x) = 0 \\
     \sum_{k=1}^n c'_k(x) v_k^{(n-1)}(x) = b(x).
   \end{cases}
