@@ -140,6 +140,7 @@ in quanto gli intorni di $x_0$ vengono intersecati con il dominio della funzione
 \end{proof}
 
 \begin{theorem}[legame tra limite, limite destro e limite sinistro]
+\mymark{*}
 Sia $A\subset \RR$, $f\colon A \to \RR$ una funzione e $x_0$ un punto di accumulazione
 di $A$. Sia $A^+ = A \cap [x_0,+\infty)$ e $A^- = A \cap (-\infty, x_0]$.
 
@@ -164,6 +165,11 @@ di $A^-$ ma non di $A^+$ risultano equivalenti
   \lim_{x\to x_0} f(x) \qquad \text{e}\qquad \lim_{x\to x_0^-} f(x).
 \]
 \end{theorem}
+%
+\begin{proof}
+Si tratta semplicemente di verificare le definizioni di limite sfruttando il fatto che intorni di un punto $x_0$ sono formati dall'unione di intorno destro e intorno sinistro.
+\end{proof}
+
 
 \begin{theorem}[limite della funzione composta/cambio di variabile]
 Siano $A\subset \RR$, $B\subset \RR$,
@@ -478,7 +484,7 @@ e quindi
 \]
 
 \begin{example}
-\mymark{***}
+\mymark{**}
 Si consideri la funzione $f(x) = 1/x$ definita sull'insieme $A = \RR \setminus \{0\}$. Si ha allora per ogni $x\neq 0$:
 \[
   f'(x) = \lim_{h\to 0} \frac{\frac{1}{x+h} - \frac{1}{x}}{h}
@@ -501,6 +507,14 @@ Se $f$ è derivabile in $x$ significa che esiste ed è finito il limite
 \]
 Osserviamo che il denominatore $h$ di tale rapporto tende a zero e quindi affinché il limite sia finito è necessario che anche il numeratore $f(x+h)-f(x)$ tenda a zero. Ovvero: $f(x+h)\to f(x)$ per $h\to 0$ che è equivalente alla continuità di $f$ in $x$.
 \end{proof}
+
+\begin{example}[funzione continua ma non derivabile]
+\mymark{***}
+La funzione $f(x) = \abs{x}$ è un esempio di funzione continua ma non
+derivabile. E' infatti facile verificare che nel punto $x_0=0$ il
+limite destro del rapporto incrementale è $1$ mentre il limite
+sinistro è $-1$.
+\end{example}
 
 \begin{theorem}[derivata della funzione composta]
 \mymark{***}
@@ -755,6 +769,49 @@ Usando la formula della derivata della funzione inversa si ha
 \]
 \end{proof}
 
+\begin{example}
+[funzione derivabile con derivata non continua]
+\label{ex:derivata_non_continua}
+\mymark{**}
+\index{funzione!derivabile con derivata non continua}
+\index{derivata non continua}
+La funzione $f\colon \RR \to \RR$ definita da
+\[
+  f(x)
+  = \begin{cases}
+    x^2 \sin(1/x) & \text{se $x \neq 0$} \\
+    0 & \text{se $x=0$.}
+  \end{cases}
+\]
+è derivabile su tutto $\RR$, $f'(0)=0$ ma il limite
+\[
+\lim_{x\to 0} f(x)
+\]
+non esiste (e dunque $f'\colon \RR\to\RR$ non è continua in $x=0$).
+\end{example}
+%
+\begin{proof}
+La funzione $x^2 \sin(1/x)$ è derivabile infinite volte su tutto il suo dominio $\RR\setminus\{0\}$ in quanto composizione di funzioni elementari derivabili infinite volte.
+Dunque, per la località della derivata, anche la funzione $f$ è derivabile infinite su $\RR\setminus\{0\}$.
+Per $x\neq 0$ possiamo quindi calcolare $f'(x)$ utilizzando le regole di derivazione
+\[
+  f'(x)
+  = D \enclose{x^2\sin \frac 1 x}
+  = 2x \sin \frac 1 x + x^2 \enclose{\cos \frac 1 x} \cdot\frac{-1}{x^2}
+  = 2x \sin \frac 1 x - \cos \frac 1 x.
+\]
+
+Verifichiamo ora che $f$ è continua e derivabile anche in $0$.
+Si ha infatti
+\[
+ \lim_{h\to 0}\frac{f(0+h)-f(0)}{h}
+ = \lim_{h\to 0} h \sin \frac 1 h = 0
+\]
+e dunque $f'(0) = 0$.
+Osserviamo però che $f'(x)$ non ammette limite per $x\to 0$
+in quanto per $x \to 0$ si ha $2x \sin(1/x) \to 0$ ma il limite di $\cos (1/x)$ invece non esiste. Dunque $f'(x)$ è la somma di una funzione che ha limite zero e di una funzione il cui limite non esiste per $x\to 0$. Dunque $f'(x)$ non ammette limite per $x\to 0$.
+\end{proof}
+
 \begin{theorem}[Fermat]
 \mymark{***}
 Sia $f\colon (a,b)\to \RR$ una funzione derivabile.
@@ -965,6 +1022,7 @@ esisterà un punto $z\in[x,t]$ tale che $f'(z) = R(x,t) = F(t) = m$.
 \section{convessità}
 
 \begin{definition}[funzione convessa]
+\mymark{**}
 Sia $I\subset \RR$ un intervallo.
 Una funzione $f\colon I\to \RR$
 si dice essere
@@ -993,6 +1051,7 @@ da
 Chiaramente per $t=0$ si ottiene il punto $(x,f(x))$ per $t=1$ il punto $(y,f(y))$ e per $t\in[0,1]$ il segmento congiungente tali punti. La condizione di convessità della funzione $f$ corrisponde quindi a richiedere che ogni corda (segmento) che unisce due punti del grafico si trovi "al di sopra" del grafico della funzione.
 
 \begin{definition}[insieme convesso]
+\mymark{*}
 Un insieme $E\subset \RR^n$ si dice essere \myemph{convesso} se dati
 due punti qualunque $a,b\in E$ l'intero segmento $[a,b]=\{(1-t)a+tb\colon t\in [0,1]\}$ è contenuto in $E$.
 \end{definition}
@@ -1037,6 +1096,7 @@ che corrisponde alla definizione di funzione convessa.
 
 
 \begin{lemma}[rapporto incrementale di una funzione convessa]
+\mymark{*}
 Sia $I$ un intervallo di $\RR$ e sia $f\colon I\to \RR$.
 Dati $x,y\in I$ con $x\neq y$ definiamo il \emph{rapporto incrementale}
 di $f$ come:
@@ -1104,6 +1164,7 @@ Viceversa (e infine) se la funzione $R(x,y)$ è crescente in entrambe le variabi
 \end{proof}
 
 \begin{theorem}
+\mymark{***}
 Sia $I\subset \RR$ un intervallo e $f\colon I \to \RR$ una funzione derivabile su tutto $I$.
 Allora sono equivalenti:
 \begin{enumerate}
@@ -1120,6 +1181,7 @@ Analogamente per le funzioni concave si avrà che il grafico ``sta sotto'' la re
 \end{theorem}
 %
 \begin{proof}
+\mymark{**}
 Osserviamo che
 \[
   f'(x_0) = \lim_{x\to x_0} R(x_0,x).
@@ -1152,11 +1214,13 @@ $f'(c) > f'(d)$ nonostante sia $c<d$ e dunque $f'$ non poteva essere crescente.
 \end{proof}
 
 \begin{corollary}[criterio di convessità tramite derivata seconda]
+\mymark{***}
 Sia $I\subset \RR$ un intervallo e sia $f\colon I \to \RR$ una funzione derivabile due volte (cioè $f$ è derivabile e anche $f'$ è derivabile).
 Allora $f$ è convessa se e solo se $f''(x)\ge 0$ per ogni $x\in I$.
 Analogamente $f$ è concava se e solo se $f''\le 0$.
 \end{corollary}
 \begin{proof}
+\mymark{***}
 Per il criterio precedente $f$ è convessa se e solo se $f'$ è crescente. Per il criterio di monotonia $f'$ è crescente se e solo se $f'' \ge 0$. Considerazioni analoghe valgono per la concavità.
 \end{proof}
 
@@ -1217,6 +1281,7 @@ e $f$ è continua in $x_0$.
 \end{proof}
 
 \begin{theorem}[combinazioni baricentriche]
+\mymark{*}
 Se $f$ è una funzione convessa definita su un intervallo $I$, dati $x_1, \dots, x_n \in I$ e $\lambda_1, \dots, \lambda_n\in \RR$ tali che $\sum_{k=1}^n \lambda_k = 1$ e $\lambda_k \ge 0$ per ogni $k=1, \dots, n$ allora
 \[
   f\enclose{\sum_{k=1}^n \lambda_k x_k}
@@ -1260,6 +1325,7 @@ come volevamo dimostrare.
 
 
 \begin{example}[disuguaglianza tra media aritmetica e media geometrica]
+\mymark{*}
 \index{disuguaglianza!media aritmetica media geometrica}
 Osserviamo che la funzione $f(x) = \ln x$ è concava, infatti si ha
 $f''(x) = -1/x^2 < 0$. Dunque, per il teorema precedente, se $\lambda_1 + \dots + \lambda_n =1$, $\lambda_k \ge 0$ si ha
@@ -1272,7 +1338,14 @@ Facendo l'esponenziale di ambo i membri si ottiene
   \sum_{k=1}^n \lambda_k x_k \ge \prod_{k=1}^n x_k^{\lambda_k}.
 \]
 Nel caso particolare $\lambda_k = 1/n$ si ottiene
-la disuguaglianza tra \myemph{media aritmetica} (AM per gli anglofoni) e \myemph{media geometrica} (GM):
+la disuguaglianza tra \emph{media aritmetica} (AM per gli anglofoni)
+e \emph{media geometrica}
+\mymargin{media aritmetica/geometrica}
+\index{media!aritmetica}
+\index{media!geometrica}
+\index{AM}
+\index{GM}
+(GM):
 \[
   \frac{x_1 + \dots + x_n}{n} \ge \sqrt[n]{x_1\cdots x_n}.
 \]
@@ -1301,6 +1374,7 @@ Scambiando $x$ con $y$ e sommando si ottiene:
 \section{teorema di de l'Hospital}
 
 \begin{theorem}[Cauchy]
+\mymark{**}
 \index{teorema!di Cauchy}
 \mymargin{Cauchy}
 Siano $f\colon[a,b]\to \RR$ e $g\colon[a,b]\to \RR$ funzioni continue su tutto $[a,b]$ e derivabili su $(a,b)$.
@@ -1312,6 +1386,7 @@ Allora $g(b) \neq g(a)$ ed esiste $x_0\in(a,b)$ tale che
 \end{theorem}
 %
 \begin{proof}
+\mymark{**}
 Si consideri la funzione ausiliaria
 \[
  h(x) = (g(b)-g(a))f(x) - (f(b)-f(a))g(x).
@@ -1336,6 +1411,7 @@ Dunque possiamo dividere ambo i membri per $(g(b)-g(a))$ e per $g'(x_0)$ per ott
 \end{proof}
 
 \begin{theorem}[de l'Hospital $0/0$]
+\mymark{***}
 \index{teorema!di de l'Hospital}
 \mymargin{de l'Hospital}
 Siano $a,b\in [-\infty,+\infty]$ con $a<b$.
@@ -1361,6 +1437,7 @@ Risultato analogo si ha facendo i limiti per $x\to b^-$ invece che per $x\to a^+
 \end{theorem}
 %
 \begin{proof}
+\mymark{**}
 Notiamo innanzitutto che la funzione $g$ può annullarsi al più in un punto di $(a,b)$ in quanto per il teorema di Rolle se si annullasse in due punti anche la derivata si dovrebbe annullare in un punto intermedio, cosa che abbiamo escluso per ipotesi. Eventualmente rimpiazzando l'intervallo $(a,b)$ con un intervallo più piccolo $(a,b')$ possiamo dunque supporre, senza perdere di generalità, che la funzione $g$ non si annulli mai in $(a,b)$.
 
 Consideriamo ora una generica successione $a_k \in (a,b)$, $a_k \to a$. Per il teorema di collegamento tra limiti di funzione e limiti di successione sarà sufficiente dimostrare che $f(a_k)/g(a_k)\to \ell$.
@@ -1396,6 +1473,7 @@ e visto che la differenza tende a zero, necessariamente si deve avere anche
 \end{proof}
 
 \begin{proposition}[criterio di derivabilità]
+\mymark{**}
 Sia $I\subset \RR$ un intervallo, $x_0\in I$
 $f\colon I \to \RR$ una funzione continua su tutto $I$ e derivabile in $I\setminus\{x_0\}$.
 Se il limite della derivata
@@ -1406,6 +1484,7 @@ esiste ed è finito la funzione $f$ è derivabile anche in $x_0$ e vale $f'(x_0)
 \end{proposition}
 %
 \begin{proof}
+\mymark{**}
 Consideriamo il limite del rapporto incrementale
 \[
   \lim_{x\to x_0} \frac{f(x) - f(x_0)}{x - x_0}.
@@ -1417,54 +1496,19 @@ Se facciamo il limite del rapporto delle derivate si ha
 \[
  \lim_{x\to x_0} \frac{f'(x)}{1} = m
 \]
-e dunque applicando il teorema si trova che anche il limite del rapporto incrementale è uguale ad $m$ e dunque $f'(x_0) = m$.
+e dunque applicando il teorema si trova che anche il limite del
+rapporto incrementale è uguale ad $m$ e dunque $f'(x_0) = m$. 
 \end{proof}
 
-La proposizione precedente dice che la derivata di una funzione in un punto non può avere un valore diverso dal suo limite. Nonostante questo esistono però funzioni derivabili la cui derivata non è continua, come nel seguente esempio.
+La proposizione precedente dice che la derivata di una funzione in un
+punto non può avere un valore diverso dal suo limite. Nonostante
+questo esistono però funzioni derivabili la cui derivata non è
+continua, come abbiamo visto
+nell'esempio~\ref{ex:derivata_non_continua}.
 
-\begin{example}
-[funzione derivabile con derivata non continua]
-\label{ex:derivata_non_continua}
-\index{funzione!derivabile con derivata non continua}
-\index{derivata non continua}
-La funzione $f\colon \RR \to \RR$ definita da
-\[
-  f(x)
-  = \begin{cases}
-    x^2 \sin(1/x) & \text{se $x \neq 0$} \\
-    0 & \text{se $x=0$.}
-  \end{cases}
-\]
-è derivabile su tutto $\RR$, $f'(0)=0$ ma il limite
-\[
-\lim_{x\to 0} f(x)
-\]
-non esiste (e dunque $f'\colon \RR\to\RR$ non è continua in $x=0$).
-\end{example}
 %
-\begin{proof}
-La funzione $x^2 \sin(1/x)$ è derivabile infinite volte su tutto il suo dominio $\RR\setminus\{0\}$ in quanto composizione di funzioni elementari derivabili infinite volte.
-Dunque, per la località della derivata, anche la funzione $f$ è derivabile infinite su $\RR\setminus\{0\}$.
-Per $x\neq 0$ possiamo quindi calcolare $f'(x)$ utilizzando le regole di derivazione
-\[
-  f'(x)
-  = D \enclose{x^2\sin \frac 1 x}
-  = 2x \sin \frac 1 x + x^2 \enclose{\cos \frac 1 x} \cdot\frac{-1}{x^2}
-  = 2x \sin \frac 1 x - \cos \frac 1 x.
-\]
-
-Verifichiamo ora che $f$ è continua e derivabile anche in $0$.
-Si ha infatti
-\[
- \lim_{h\to 0}\frac{f(0+h)-f(0)}{h}
- = \lim_{h\to 0} h \sin \frac 1 h = 0
-\]
-e dunque $f'(0) = 0$.
-Osserviamo però che $f'(x)$ non ammette limite per $x\to 0$
-in quanto per $x \to 0$ si ha $2x \sin(1/x) \to 0$ ma il limite di $\cos (1/x)$ invece non esiste. Dunque $f'(x)$ è la somma di una funzione che ha limite zero e di una funzione il cui limite non esiste per $x\to 0$. Dunque $f'(x)$ non ammette limite per $x\to 0$.
-\end{proof}
-
 \begin{theorem}[de l'Hospital $\cdot/\infty$]
+\mymark{*}
 \index{teorema!di de l'Hospital}
 \mymargin{de l'Hospital}
 Siano $a,b\in [-\infty,+\infty]$ con $a<b$.
@@ -1520,6 +1564,7 @@ uguale a $f'(y)/g'(y)$. Ma visto che $y\in (a,c)$ si dovrà avere $f'(y)/g'(y) \
 \section{formula di Taylor}
 
 \begin{definition}[polinomio di Taylor]
+\mymark{***}
 Sia $A\subset \RR$ e $x_0$ un punto di accumulazione per $A$.
 Sia $f\colon A \to \RR$ una funzione derivabile $n$ volte nel punto $x_0$. Il \myemph{polinomio di Taylor} della funzione $f$,
 di ordine $n$, centrato in $x_0$ è il polinomio:
@@ -1529,6 +1574,7 @@ di ordine $n$, centrato in $x_0$ è il polinomio:
 \end{definition}
 
 \begin{theorem}[caratterizzazione polinomio di Taylor]
+\mymark{***}
 Il polinomio di Taylor di una funzione $f$, di ordine $n$, centrato in $x_0$ è l'unico polinomio $P$ di grado non superiore ad $n$ tale che
 \[
   P^{(k)}(x_0) = f^{(k)}(x_0), \qquad \forall k \in \{0,\dots,n\}.
@@ -1548,7 +1594,9 @@ Ogni polinomio di grado non superiore ad $n$ può essere scritto nella forma:
 \[
   P(x) = \sum_{k=0}^{n} a_k (x-x_0)^k
 \]
-e le sue derivate sono:
+(basti notare che se $P(x)$ è un polinomio anche $Q(x) = P(x_0+x)$ è
+un polinomio)
+le sue derivate sono:
 \begin{align*}
    P^{(j)}(x)
    = \sum_{k=j}^n a_k \frac{k!}{(k-j)!}(x-x_0)^{k-j}
@@ -1561,6 +1609,7 @@ Dunque si ha $P^{(k)}(x_0) = f^{(k)}(x_0)$ se e solo se $a_k = f^{(k)}(x_0)/k!$ 
 \end{proof}
 
 \begin{theorem}[formula di Taylor con resto di Lagrange]
+\mymark{**}
 Sia $I\subset \RR$ un intervallo, $x_0\in I$, $f\in C^{n+1}(I)$.
 Sia $P$ il polinomio di Taylor di $f$ di ordine $n$ centrato in $x_0$.
 Per ogni $x\in I$ esiste $y$ con $\abs{y-y_0}\le \abs{x-x_0}$ tale che
@@ -1570,9 +1619,14 @@ Per ogni $x\in I$ esiste $y$ con $\abs{y-y_0}\le \abs{x-x_0}$ tale che
 \end{theorem}
 %
 \begin{proof}
+\mymark{*}
 Posto $R(x) = f(x)-P(x)$ osserviamo che essendo $P^{(k)}(x_0) = f^{(k)}(x_0)$ per ogni $k=0,1,\dots, n$, per gli stessi $k$
 si ha $R^{(k)}(x_0) = 0$.
-In particolare $R(x) = R(x)-R(x_0)$ è l'incremento di $R$ sull'intervallo $[x_0,x]$ (supponiamo senza perdita di generalità che sia $x>_0$). Analogamente osserviamo che $(x-x_0)^{n+1}$ è anch'essa una funzione che si annulla in $x_0$ e dunque $(x-x_0)^{n+1}$ è l'incremento sullo stesso intervallo.
+In particolare $R(x) = R(x)-R(x_0)$ è l'incremento di $R$
+sull'intervallo $[x_0,x]$ (supponiamo senza perdita di generalità che
+sia $x>x_0$). Analogamente osserviamo che $(x-x_0)^{n+1}$ è anch'essa
+una funzione che si annulla in $x_0$ e dunque $(x-x_0)^{n+1}$ è
+l'incremento della funzione sullo stesso intervallo.
 
 Dunque possiamo applicare il teorema di Cauchy alle funzioni $R(x)$ e $(x-x_0)^{n+1}$ sull'intervallo $[x_0,x]$ per ottenere
 l'esistenza di un punto $x_1\in (x_0,x)$ tale che
@@ -1632,6 +1686,7 @@ da cui
 \end{example}
 
 \begin{theorem}[formula di Taylor con resto di Peano]
+\mymark{***}
 Sia $I\subset \RR$ un intervallo, $x_0\in I$, $f\in C^{n-1}(I)$ con $f^{(n-1)}$
 derivabile in $x_0$
 (in particolare è sufficiente che sia $f\in C^n(I)$).
@@ -1648,6 +1703,7 @@ Viceversa se $P(x)$ è un polinomio di grado che non supera $n$ e vale la formul
 \end{theorem}
 %
 \begin{proof}
+\mymark{***}
 Osserviamo che il limite
 \[
 \lim_{x\to x_0}\frac{f(x) - P(x)}{(x-x_0)^n} = 0
@@ -1722,13 +1778,17 @@ iterando ulterioremente, troveremo che tutti i coefficienti sono uguali.
 \end{proof}
 
 \begin{definition}[coefficiente binomiale reale]
+\mymark{*}
 Dato $\alpha \in \RR$, $k \in \NN$ definiamo
 \[
  {\alpha \choose k } = \frac{\alpha \cdot (\alpha-1) \cdots (\alpha -k +1)}{k!}.
 \]
+Osserviamo che se $\alpha \in \NN$ questa definizione coincide
+con la definizione~\ref{def:binomiale}.
 \end{definition}
 
 \begin{theorem}[sviluppi di Taylor di alcune funzioni elementari]
+\mymark{**}
 Per ogni $n\in \NN$ si hanno, per $x\to 0$
 le relazioni riportate nella tabella~\ref{tb:taylor}.
 \end{theorem}
@@ -1748,13 +1808,14 @@ e^x &= \sum_{k=0}^n \frac{x^k}{k!} + o(x^n) \\
     &= x - \frac{x^3}{3} + \frac{x^5}{5} - \dots + (-1)^n \frac{x^{2n+1}}{2n +1} + o(x^{2n+1})\\
   \tg x &= x + \frac{x^3}{3} + \frac{2}{15} x^5 + o(x^5).
 \end{align*}
-\caption{Sviluppi di Taylor di alcune funzioni elementari}
+\caption{sviluppi di Taylor, per $x\to 0$, di alcune funzioni elementari.}
 \label{tb:taylor}
 \end{table}
 %
 \begin{proof}
+\mymark{**}
 Il teorema di Taylor che ci dice che il coefficiente del termine $x^k$
-nel polinomio di Taylor di $f(x)$ non è altro che $a_k=f^{(k)}(0)/k!$.
+nel polinomio di Taylor di $f(x)$ non è altro che $a_k=f^{(k)}(0)/k!$
 Se $f(x) = e^x$ allora $f^{(k)}(x) = e^x$ e dunque $f^{(k)}(0) = 1$. Si trovano quindi i coefficienti $a_k = 1/k!$.
 
 Se $f(x) = \sin x$ si ha $f'(x)=\cos x$, $f''(x) =-\sin x$, $f'''(x) = -\cos x$ e $f^{(4)}(x) = \sin x$... e poi le derivate si ripetono ogni quattro iterazioni. Valutando le derivate in $x=0$ si ottiene dunque la sequenza $0, 1, 0, -1, \dots$ che si ripete indefinitamente. Si ottiene dunque lo sviluppo indicato. Discorso analogo si può fare per $f(x) = \cos x$.
@@ -1831,7 +1892,8 @@ Il secondo esempio, in particolare, ci dice che il simbolo di uguaglianza in rea
 \begin{definition}[$o$-piccolo, $O$-grande]
 Sia $A\subset \RR$, $x_0$ punto di accumulazione di $A$
 e sia $g\colon A \to \RR$ una funzione positiva su $A$.
-Definiamo allora gli insiemi di funzioni:
+Definiamo allora gli insiemi di funzioni\footnote{%
+ricordiamo che $A^B$ denota l'insieme delle funzioni $f\colon B \to A$}:
 \begin{align*}
   o(g) &= \left\{f\in \RR^A \colon \lim_{x\to x_0}\frac{f(x)}{g(x)} = 0\right\};\\
   O(g) &= \left\{f\in \RR^A \colon \limsup_{x\to x_0}\abs{\frac{f(x)}{g(x)}} < + \infty\right\}\\
@@ -2051,6 +2113,7 @@ Dunque anche $f^\alpha$ è crescente e, per $k$ abbastanza grande, $a_k$ è decr
 
 \section{classi di regolarità}
 \begin{definition}[funzioni di classe $C^k$]
+\mymark{**}
 Dato $A\subset \RR$ denotiamo con $\RR^A$ l'insieme di tutte le funzioni $f\colon A \to \RR$ (rimandiamo agli appunti di logica/insiemistica per una giustificazione di questa notazione).
 Per ogni $k\in \NN$ definiamo
 $C^k(A) \subset \RR^A$ nel modo seguente:
@@ -2090,6 +2153,7 @@ Infatti sappiamo che la combinazione lineare di funzioni continue è continua e 
 E' importante osservare che $C^1(A)$ non coincide con l'insieme delle funzioni derivabili su $A$. Infatti abbiamo già visto nell'esempio~\ref{ex:derivata_non_continua} che esistono funzioni derivabili la cui derivata non è continua e quindi tali funzioni, pur essendo derivabili, non sono di classe $C^1$.
 
 \begin{definition}[funzioni lipschitziane]
+\mymark{**}
 \mynote{funzione lipschitziana}
 \index{funzione!lipschitziana}
 \index{Lipschitz}
@@ -2101,6 +2165,7 @@ La più piccola costante $L$ per la quale è soddisfatta la precedente relazione
 \end{definition}
 
 \begin{theorem}[criterio di Lipschitz]
+\mymark{**}
 Sia $f\colon A \subset \RR$ una funzione lipschitziana
 con costante di Lipschitz $L$.
 Se $f$ è derivabile in un punto $x\in A$ allora $\abs{f'(x)}\le L$.
@@ -2135,13 +2200,13 @@ Sia $\alpha>0$.
 \index{Hoelder}
 Una funzione $f\colon A \subset \RR \to \RR$ si dice essere $\alpha$-Hoelderiana se
 esiste una costante $C>0$ tale che
-
-\[
+\begin{equation}\label{eq:2964536}
   \abs{f(x) - f(y)} \le C \abs{x-y}^\alpha.
-\]
+\end{equation}
 \end{definition}
 
 \begin{definition}[uniforme continuità]
+\mymark{**}
 Una funzione $f\colon A \subset \RR \to \RR$ si dice essere
 \myemph{uniformemente continua} se
 \[
@@ -2151,11 +2216,18 @@ Una funzione $f\colon A \subset \RR \to \RR$ si dice essere
 \end{definition}
 
 \begin{theorem}
-Ogni funzione lipschitziana è $1$-Hoelderiana.
+Ogni funzione lipschitziana è $1$-Hoelderiana (e viceversa).
 Ogni funzione $\alpha$-Hoelderiana è uniformemente continua.
 Ogni funzione uniformemente continua è continua.
-Ogni funzione $\alpha$-Hoelderiana con $\alpha>1$ è costante sugli intervalli.
+Ogni funzione $\alpha$-Hoelderiana con $\alpha>1$ ha derivata nulla.
 \end{theorem}
+%
+\begin{proof}
+Le prime tre affermazioni seguono direttamente dalle definizioni.
+Per l'ultima osservazione si noti che se $\alpha>1$ nella
+disuguaglianza~\eqref{eq:2964536} si può dividere per $\abs{x-y}$ e
+ottenere quindi che il rapporto incrementale tende a zero se $y\to x$.
+\end{proof}
 
 \begin{definition}[modulo di continuità]
 Sia $f\colon A\subset \RR \to\RR$ una funzione.
@@ -2232,6 +2304,7 @@ questo caso la stima voluta.
 \end{proof}
 
 \begin{theorem}[Heine-Cantor]
+\mymark{***}
 \index{teorema!Heine-Cantor}
 \index{teorema!Cantor}
 \mynote{Heine-Cantor}
@@ -2241,13 +2314,14 @@ Allora $f$ è uniformemente continua.
 \end{theorem}
 %
 \begin{proof}
+\mymark{***}
 Supponiamo per assurdo che $f$ non sia uniformemente continua. Allora
 $f$ soddisfa la negazione della proprietà
 \[
  \forall \eps>0\colon \exists \delta > 0 \colon
  \forall x,y\in A \colon \abs{x-y} < \delta \implies \abs{f(x)-f(y)} < \eps
 \]
-che è
+che è (si vedano gli appunti di logica)
 \[
  \exists \eps>0\colon \forall \delta > 0 \colon
  \exists x,y \in A \colon \abs{x-y} < \delta \land \abs{f(x)-f(y)} \ge \eps.
