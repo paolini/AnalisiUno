@@ -1,0 +1,171 @@
+\documentclass[italian,paperwidth=7in,paperheight=10in,twoside,headinclude]{scrbook}
+\usepackage{amsmath,amssymb,amsthm,thmtools}
+\usepackage{mathtools} % per \MoveEqLeft
+\usepackage{babel,a4}
+\usepackage[nochapters,pdfspacing]{classicthesis}
+\paperwidth 7in
+\paperheight 10in
+\typearea{10}
+\usepackage[utf8]{inputenc}
+\usepackage{comment} % for the comment environment
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{pst-node}
+\usetikzlibrary{cd} % commutative diagrams
+\usepackage{eucal}
+\usepackage{sidenotes}
+\usepackage{hyphenat}
+\usepackage{marginnote}
+\usepackage{mparhack} % fix margin notes (otherwise sometime they go to wrong margin!)
+\AfterPreamble{\hypersetup{hidelinks=true,}}
+
+%\usepackage{showkeys}
+
+\usepackage{makeidx} % glossario
+
+\usetikzlibrary{arrows}
+
+\newcommand{\mymark}[1]{\reversemarginpar\marginnote{#1}\normalmarginpar}
+
+%\newcommand{\mynote}[1]{\sidenote[\phantom{}]{#1}}
+\newcommand{\mynote}[1]{\marginnote{{\footnotesize #1}}}
+\newcommand{\mymargin}[1]{\mynote{#1}\index{#1}}
+\newcommand{\myemph}[1]{\emph{#1}\mynote{#1}\index{#1}}
+\renewcommand{\subset}{\subseteq}
+\renewcommand{\supset}{\supseteq}
+
+\newcommand{\eps}{\varepsilon}
+\renewcommand{\phi}{\varphi}
+\newcommand{\loc}{\mathit{loc}}
+\newcommand{\weakto}{\rightharpoonup}
+\newcommand{\implied}{\Longleftarrow}
+
+% calligraphic letters
+\newcommand{\A}{\mathcal A}
+\newcommand{\B}{\mathcal B}
+\newcommand{\C}{\mathcal C}
+\newcommand{\D}{\mathcal D}
+\newcommand{\E}{\mathcal E}
+\newcommand{\F}{\mathcal F}
+\newcommand{\FL}{\mathcal F\!\mathcal L}
+\renewcommand{\H}{\mathcal H}
+\newcommand{\K}{\mathcal K}
+\renewcommand{\L}{\mathcal L}
+\newcommand{\M}{\mathcal M}
+\renewcommand{\P}{\mathcal P}
+\renewcommand{\S}{\mathcal S}
+\newcommand{\U}{\mathcal U}
+
+% blackboard letters
+\newcommand{\CC}{\mathbb C}
+\newcommand{\HH}{\mathbb H}
+\newcommand{\KK}{\mathbb K}
+\newcommand{\NN}{\mathbb N}
+\newcommand{\QQ}{\mathbb Q}
+\newcommand{\RR}{\mathbb R}
+\newcommand{\TT}{\mathbb T}
+\newcommand{\ZZ}{\mathbb Z}
+
+\newcommand{\abs}[1]{{\left|#1\right|}}
+\newcommand{\Abs}[1]{{\left\Vert #1\right\Vert}}
+\newcommand{\enclose}[1]{{\left( #1 \right)}}
+\newcommand{\Enclose}[1]{{\left[ #1 \right]}}
+
+\newcommand{\To}{\rightrightarrows}
+\renewcommand{\vec}[1]{\boldsymbol #1}
+\newcommand{\defeq}{:=}
+\DeclareMathOperator{\divergence}{div}
+\renewcommand{\div}{\divergence}
+% \DeclareMathOperator{\ker}{ker}  %% already defined
+\DeclareMathOperator{\Imaginarypart}{Im}
+\renewcommand{\Im}{\Imaginarypart}
+\DeclareMathOperator{\Realpart}{Re}
+\renewcommand{\Re}{\Realpart}
+%\DeclareMathOperator{\arg}{arg}
+\DeclareMathOperator{\tg}{tg}
+\DeclareMathOperator{\arctg}{arctg}
+\DeclareMathOperator{\tr}{tr}
+
+\declaretheoremstyle[
+spaceabove=6pt, spacebelow=6pt,
+headfont=\normalfont\bfseries\itshape,
+notefont=\mdseries, notebraces={(}{)},
+bodyfont=\normalfont,
+postheadspace=1em,
+qed=,
+%shaded={rulecolor=pink!30,rulewidth=1pt,bgcolor=pink!10}
+]{exercise_style}
+
+\declaretheoremstyle[
+spaceabove=6pt, spacebelow=6pt,
+postheadspace=1em,
+qed=,
+%shaded={rulecolor=blue!20,rulewidth=1pt,bgcolor=blue!5}
+]{theorem_style}
+
+\declaretheoremstyle[
+spaceabove=6pt, spacebelow=6pt,
+postheadspace=1em,
+qed=,
+%shaded={rulecolor=yellow!50,rulewidth=1pt,bgcolor=yellow!5}
+]{axiom_style}
+
+\declaretheorem[name=Teorema,numberwithin=chapter]{theorem}
+\declaretheorem[name=Lemma,sibling=theorem]{lemma}
+\declaretheorem[name=Proposizione,sibling=theorem]{proposition}
+\declaretheorem[name=Corollario,sibling=theorem]{corollary}
+\declaretheorem[style=axiom_style,name=Assioma,sibling=theorem]{axiom}
+\declaretheorem[name=Definizione,sibling=theorem]{definition}
+\declaretheorem[style=exercise_style,name=Esempio,sibling=theorem]{example}
+\declaretheorem[style=exercise_style,name=Esercizio,sibling=theorem]{exercise}
+\declaretheorem[style=exercise_style,name=Osservazione,sibling=theorem]{notice}
+
+
+
+%\newtheorem{theorem}{Teorema}[chapter]
+%\newtheorem{lemma}[theorem]{Lemma}
+%\newtheorem{exercise}[theorem]{Esercizio}
+%\newtheorem{proposition}[theorem]{Proposizione}
+%\newtheorem{corollary}[theorem]{Corollario}
+%\newtheorem{example}[theorem]{Esempio}
+%\newtheorem{definition}[theorem]{Definizione}
+%\newtheorem{axiom}[theorem]{Assioma}
+
+% per il capitolo: successioni ricorsive
+\newcommand{\online}[1]{(diagramma interattivo \href{http://paolini.github.io/recurrence/?#1}{(\underline{online})}}
+
+\title{Appunti di Analisi Matematica%
+\thanks{%
+Puoi scaricare o contribuire a questi appunti su
+\url{https://github.com/paolini/appunti/}}}
+\author{E. Paolini}
+
+\makeindex
+
+\begin{document}
+\maketitle
+
+\tableofcontents
+
+\input{AnalisiUno-reali.tex_}
+
+\input{AnalisiUno-successioni.tex_}
+
+\input{AnalisiUno-complessi.tex_}
+
+\input{AnalisiUno-serie.tex_}
+
+\input{AnalisiUno-funzioni.tex_}
+
+\input{AnalisiUno-ricorrenza.tex_}
+
+\input{AnalisiUno-integrali.tex_}
+
+\input{AnalisiUno-uniforme.tex_}
+
+\input{AnalisiUno-edo.tex_}
+
+\backmatter
+
+\input{AnalisiUno-appendici.tex_}
+\end{document}
