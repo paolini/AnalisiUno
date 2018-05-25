@@ -532,6 +532,52 @@ Uno spazio vettoriale normato si dice essere uno
 Se la norma è euclidea, cioè deriva da un prodotto scalare, lo spazio si dirà \myemph{spazio di Hilbert}.
 \end{definition}
 
+\begin{lemma}
+\label{lm:cauchy_limitata}
+Ogni successione di Cauchy è limitata
+(più precisamente: se $x_n$ è una successione di Cauchy in uno spazio metrico $X$ allora l'insieme $\{x_n\colon n\in \NN\}$
+è un insieme limitato).
+\end{lemma}
+%
+\begin{proof}
+Sia $x_k \in \RR$ una successione di Cauchy.
+Fissato $\eps =1$ sappiamo che esiste $N\in \NN$
+per cui per ogni $k,j>N$ si ha
+$d(x_k,x_j) < 1$. In particolare per ogni $k>N$ si ha
+\[
+  d(x_k, x_{N+1}) < 1.
+\]
+Dunque posto
+\[
+  R = \max\{d(x_0,x_1), d(x_1,x_0), \dots, d(x_N,x_0), d(x_{N+1},x_0) + 1\}
+\]
+si osserva che per ogni $k\in \NN$ si ha $d(x_0, x_k)\le R < R+1$ in quanto se $k \le N$ abbiamo scelto appositamente $R$ in modo che sia più grande di $d(x_0,x_k)$ e se $k > N$ allora
+\[
+  d(x_0,x_k) \le d(x_0,x_{N+1}) + d(x_{N+1},x_k)
+    \le d(x_0,x_{N+1}) + 1 \le R.
+\]
+
+Significa quindi che per ogni $x\in \NN$ si ha $x_k in B_{R+1}(x_0)$ che è la definizione di limitatezza in uno
+spazio metrico.
+\end{proof}
+
+\begin{lemma}
+\label{lm:cauchy_estratta_convergente}
+Se una successione di Cauchy ha una sottosuccessione convergente, allora l'intera successione è convergente.
+\end{lemma}
+%
+\begin{proof}
+Sia $x_k$ la successione di Cauchy e sia $x_{k_j}\to x$ una  sottosuccessione convergente.
+Allora per ogni $\eps>0$
+esiste $m$ tale che se $k,j>m$ allora $d(x_k ,x_j) < \eps$.
+Visto che $x_{k_j} \to x$ possiamo trovare $j$ tale che $k_j > m$ e tale che $d(x_{k_j},x) < \eps$. Ma allora
+\[
+  d(x_k,x) \le d(x_k, x_{k_j}) + d(x_{k_j},x)
+   \le 2 \eps.
+\]
+E questo è vero per ogni $k > m$ da cui risulta verificata la definizione di limite $x_k \to x$.
+\end{proof}
+
 \begin{theorem}[completezza di $\RR$]
 \mymark{***}
 \mynote{$\RR$ è completo}
@@ -541,44 +587,18 @@ $\RR$ è completo.
 %
 \begin{proof}
 \mymark{***}
-Sia $x_k \in \RR$ una successione di Cauchy.
-Fissato $\eps =1$ sappiamo che esiste $N\in \NN$
-per cui per ogni $k,j>N$ si ha
-$\abs{x_k - x_j} < 1$. In particolare per ogni $k>N$ si ha
-\[
-  d(x_k, x_{N+1}) < 1.
-\]
-Dunque posto
-\[
-  M=\max\{\abs{x_0}, \abs{x_1}, \dots, \abs{x_N}, \abs{x_{N+1}} + 1\}
-\]
-si osserva che per ogni $k\in \NN$ si ha $\abs{x_k}\le M$ in quanto se $k \le N$ abbiamo scelto appositamente $M$ in modo che sia più grande di $\abs{x_k}$ e se $k > N$ allora
-\[
-  \abs{x_k} \le \abs{x_k - x_{N+1}} + \abs{x_{N+1}}
-    \le 1 + \abs{x_{N+1}} \le M.
-\]
-
-In pratica ogni successione di Cauchy è limitata
-(questo è un fatto generale, valido in ogni spazio metrico).
-
-A questo punto possiamo applicare il teorema di Bolzano-Weierstrass che ci assicura l'esistenza di una estratta convergente $x_{k_j} \to x$ con $\abs{x}\le M$.
-Ma (altro fatto generale) se una successione di Cauchy ammette una estratta convergente, l'intera successione converge. Infatti per ogni $\eps>0$
-per la condizione di Cauchy per ogni $\eps>0$ esiste $m$ tale che se $k,j>m$ allora $\abs{x_k - x_j} < \eps$.
-Visto che $x_{k_j} \to x$ possiamo trovare $j$ tale che $k_j > m$ tale che $\abs{x_{k_j}-x} < \eps$. Ma allora
-\[
-  \abs{x_k - x} \le \abs{x_k - x_{k_j}} + \abs{x_{k_j} - x}
-   \le 2 \eps.
-\]
-E questo è vero per ogni $k > m$ da cui risulta verificata la definizione di limite $x_k \to x$.
+Dobbiamo dimostrare che se $x_k$ è una successione di Cauchy in $\RR$ allora $x_k$ converge.
+Per il lemma~\ref{lm:cauchy_limitata} sappiamo che $x_k$ è limitata. Ma allora per il teorema di Bolzano-Weierstrass sappiamo che $x_k$ ha una estratta convergente. Grazie al lemma~\ref{lm:cauchy_estratta_convergente} possiamo quindi concludere che la successione $x_k$ è essa stessa convergente.
 \end{proof}
 
-\begin{corollary}[completezza di $\RR^n$ e $\CC^n$]
+\begin{corollary}[completezza di $\RR^n$ e $\CC$]
 Gli spazi $\RR^n$ e $\CC$ (con la usuale distanza euclidea)
 sono completi.
 \end{corollary}
 %
 \begin{proof}
-Basta osservare che la convergenza (o la condizione di Cauchy) di una successione in $\RR^n$ (o in $\CC^n$) si ha se e solo se ogni componente è convergente (o di Cauchy) in $\RR$ (o in $\CC$). Dunque essendo $\RR$ completo anche $\RR^n$ lo è. Come spazio metrico $\CC$ è identico ad $\RR^2$ dunque anch'esso è completo. \end{proof}
+Basta osservare che la convergenza (o la condizione di Cauchy) di una successione in $\RR^n$ si ha se e solo se ogni componente è convergente (o di Cauchy) in $\RR$. Dunque essendo $\RR$ completo anche $\RR^n$ lo è. Come spazio metrico $\CC$ è isomorfo ad $\RR^2$ dunque anch'esso è completo.
+\end{proof}
 
 \begin{definition}[lipschitz]
 \mymark{***}
