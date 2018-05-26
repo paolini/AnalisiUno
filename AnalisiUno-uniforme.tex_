@@ -172,11 +172,11 @@ Per $n=1$ si osserva che $\mathbb S^1$ è la circonferenza unitaria nel piano, p
 \begin{example}[distanza Manhattan]
 Su $\RR^2$ possiamo definire una norma, chiamata \myemph{norma Manhattan}, come segue:
 \[
-  \phi(\vec x) = \max\{\abs{x_1},\abs{x_2}\}.
+  \phi(\vec x) = \abs{x_1} + \abs{x_2}.
 \]
 La distanza indotta $d(p,q)$ rappresenta la lunghezza del percorso più breve per andare da $p$ a $q$ muovendosi solamente in orizzontale o verticale (come se fossimo sulle strade di Manhattan).
 
-L'insieme dei punti di $\RR^2$ che distano meno di $R$ dall'origine è un quadrato di lato $2R$ (mentre sappiamo che con la distanza euclidea tale insieme sarebbe un cerchio di raggio $R$).
+L'insieme $\{\vec x \in \RR^2\colon \phi(\vec x) < 1\}$ dei punti di $\RR^2$ che distano meno di $R$ dall'origine è un quadrato di diagonale $2R$, con le diagonali sugli assi coordinati (con la distanza euclidea tale insieme sarebbe invece un cerchio di raggio $R$).
 \end{example}
 
 \begin{example}[norma $p$]
@@ -191,12 +191,13 @@ Si può inoltre definire
    = \max\{\abs{x_1}, \abs{x_2}, \dots, \abs{x_n}\}.
 \]
 
-Per $p=2$ si ottiene la norma euclidea, per $p=+\infty$
+Per $p=2$ si ottiene la norma euclidea, per $p=1$
 su $\RR^2$ si ottiene la norma Manhattan.
-Per $p=1$ si ottiene la norma Manhattan a meno di una rotazione di 45 gradi e di un riscalamento di fattore $\sqrt 2$:
- \[
-   \abs{(x,y)}_1 = \abs{x} + \abs{y} = \max\{\abs{x+y}, \abs{x-y}\} = \abs{(x+y,y-x)}_\infty.
- \]
+Per $p=+\infty$ si ottiene la norma Manhattan a meno di una rotazione di 45 gradi e di un riscalamento di fattore $\sqrt 2$:
+\[
+  \abs{(x_1,x_2)}_\infty
+  = \abs{\enclose{\frac{x_1-x_2} 2, \frac {x_1+x_2}2}}_1
+\]
 \end{example}
 
 \begin{definition}[palla]
@@ -280,8 +281,12 @@ Uno \emph{spazio topologico}
 \index{spazio!topologico}
 è un insieme $X$ dotato
 di una topologia $\tau$ che non è altro che una famiglia di sottoinsiemi di $X$ soddisfacente le prime tre proprietà precedenti.
-L'ultima proprietà è opzionale ma quasi sempre richiesta. Se viene soddisfatta si dice che $X$ è uno \myemph{spazio di Hausdorff}
-o \myemph{$T_2$}.
+L'ultima proprietà è opzionale ma quasi sempre richiesta. Se viene soddisfatta si dice che $X$ è uno \emph{spazio di Hausdorff}
+o \emph{$T_2$} o \emph{separabile}.
+\mynote{Hausdorff $T_2$}
+\index{spazio!di Hausdorff}
+\index{$T_2$}
+\index{spazio!separabile}
 Gli elementi di $\tau$ vengono chiamati aperti e tutte le altre proprietà enunciate nella definizione~\ref{def:466342}
 vengono ricondotte a tali insiemi.
 
@@ -435,7 +440,7 @@ sappiamo che esiste una sottosuccessione convergente ad un punto di $A$. Ma nece
 fissato $a\in A$ per ogni $k\in \NN$ dovrebbe esistere un punto $x_k\in A$ tale che $x_k \not\in B_k(a)$
 cioè $d(x_k,a) > k$. Supponiamo allora che esista una sottosuccessione convergente $x_{k_j}\to x \in A$. Allora per la disuguaglianza triangolare inversa si avrebbe
 \[
-  d(x, a) \ge d(x_{k_j}, x_0) - d(x_{k_j},x)
+  d(x, a) \ge d(x_{k_j}, a) - d(x_{k_j},x)
    \ge k_j - d(x_{k_j},x) \to +\infty - 0 = +\infty.
 \]
 Ma questo è assurdo in quanto $d(x,a)\in \RR$.
@@ -532,6 +537,52 @@ Uno spazio vettoriale normato si dice essere uno
 Se la norma è euclidea, cioè deriva da un prodotto scalare, lo spazio si dirà \myemph{spazio di Hilbert}.
 \end{definition}
 
+\begin{lemma}
+\label{lm:cauchy_limitata}
+Ogni successione di Cauchy è limitata
+(più precisamente: se $x_n$ è una successione di Cauchy in uno spazio metrico $X$ allora l'insieme $\{x_n\colon n\in \NN\}$
+è un insieme limitato).
+\end{lemma}
+%
+\begin{proof}
+Sia $x_k \in \RR$ una successione di Cauchy.
+Fissato $\eps =1$ sappiamo che esiste $N\in \NN$
+per cui per ogni $k,j>N$ si ha
+$d(x_k,x_j) < 1$. In particolare per ogni $k>N$ si ha
+\[
+  d(x_k, x_{N+1}) < 1.
+\]
+Dunque posto
+\[
+  R = \max\{d(x_0,x_1), d(x_1,x_0), \dots, d(x_N,x_0), d(x_{N+1},x_0) + 1\}
+\]
+si osserva che per ogni $k\in \NN$ si ha $d(x_0, x_k)\le R < R+1$ in quanto se $k \le N$ abbiamo scelto appositamente $R$ in modo che sia più grande di $d(x_0,x_k)$ e se $k > N$ allora
+\[
+  d(x_0,x_k) \le d(x_0,x_{N+1}) + d(x_{N+1},x_k)
+    \le d(x_0,x_{N+1}) + 1 \le R.
+\]
+
+Significa quindi che per ogni $x\in \NN$ si ha $x_k in B_{R+1}(x_0)$ che è la definizione di limitatezza in uno
+spazio metrico.
+\end{proof}
+
+\begin{lemma}
+\label{lm:cauchy_estratta_convergente}
+Se una successione di Cauchy ha una sottosuccessione convergente, allora l'intera successione è convergente.
+\end{lemma}
+%
+\begin{proof}
+Sia $x_k$ la successione di Cauchy e sia $x_{k_j}\to x$ una  sottosuccessione convergente.
+Allora per ogni $\eps>0$
+esiste $m$ tale che se $k,j>m$ allora $d(x_k ,x_j) < \eps$.
+Visto che $x_{k_j} \to x$ possiamo trovare $j$ tale che $k_j > m$ e tale che $d(x_{k_j},x) < \eps$. Ma allora
+\[
+  d(x_k,x) \le d(x_k, x_{k_j}) + d(x_{k_j},x)
+   \le 2 \eps.
+\]
+E questo è vero per ogni $k > m$ da cui risulta verificata la definizione di limite $x_k \to x$.
+\end{proof}
+
 \begin{theorem}[completezza di $\RR$]
 \mymark{***}
 \mynote{$\RR$ è completo}
@@ -541,52 +592,27 @@ $\RR$ è completo.
 %
 \begin{proof}
 \mymark{***}
-Sia $x_k \in \RR$ una successione di Cauchy.
-Fissato $\eps =1$ sappiamo che esiste $N\in \NN$
-per cui per ogni $k,j>N$ si ha
-$\abs{x_k - x_j} < 1$. In particolare per ogni $k>N$ si ha
-\[
-  d(x_k, x_{N+1}) < 1.
-\]
-Dunque posto
-\[
-  M=\max\{\abs{x_0}, \abs{x_1}, \dots, \abs{x_N}, \abs{x_{N+1}} + 1\}
-\]
-si osserva che per ogni $k\in \NN$ si ha $\abs{x_k}\le M$ in quanto se $k \le N$ abbiamo scelto appositamente $M$ in modo che sia più grande di $\abs{x_k}$ e se $k > N$ allora
-\[
-  \abs{x_k} \le \abs{x_k - x_{N+1}} + \abs{x_{N+1}}
-    \le 1 + \abs{x_{N+1}} \le M.
-\]
-
-In pratica ogni successione di Cauchy è limitata
-(questo è un fatto generale, valido in ogni spazio metrico).
-
-A questo punto possiamo applicare il teorema di Weierstrass che ci assicura l'esistenza di una estratta convergente $x_{k_j} \to x$ con $\abs{x}\le M$.
-Ma (altro fatto generale) se una successione di Cauchy ammette una estratta convergente, l'intera successione converge. Infatti per ogni $\eps>0$
-per la condizione di Cauchy per ogni $\eps>0$ esiste $m$ tale che se $k,j>m$ allora $\abs{x_k - x_j} < \eps$.
-Visto che $x_{k_j} \to x$ possiamo trovare $j$ tale che $k_j > m$ tale che $\abs{x_{k_j}-x} < \eps$. Ma allora
-\[
-  \abs{x_k - x} \le \abs{x_k - x_{k_j}} + \abs{x_{k_j} - x}
-   \le 2 \eps.
-\]
-E questo è vero per ogni $k > m$ da cui risulta verificata la definizione di limite $x_k \to x$.
+Dobbiamo dimostrare che se $x_k$ è una successione di Cauchy in $\RR$ allora $x_k$ converge.
+Per il lemma~\ref{lm:cauchy_limitata} sappiamo che $x_k$ è limitata. Ma allora per il teorema di Bolzano-Weierstrass sappiamo che $x_k$ ha una estratta convergente. Grazie al lemma~\ref{lm:cauchy_estratta_convergente} possiamo quindi concludere che la successione $x_k$ è essa stessa convergente.
 \end{proof}
 
-\begin{corollary}[completezza di $\RR^n$ e $\CC^n$]
+\begin{corollary}[completezza di $\RR^n$ e $\CC$]
 Gli spazi $\RR^n$ e $\CC$ (con la usuale distanza euclidea)
 sono completi.
 \end{corollary}
 %
 \begin{proof}
-Basta osservare che la convergenza (o la condizione di Cauchy) di una successione in $\RR^n$ (o in $\CC^n$) si ha se e solo se ogni componente è convergente (o di Cauchy) in $\RR$ (o in $\CC$). Dunque essendo $\RR$ completo anche $\RR^n$ lo è. Come spazio metrico $\CC$ è identico ad $\RR^2$ dunque anch'esso è completo. \end{proof}
+Basta osservare che la convergenza (o la condizione di Cauchy) di una successione in $\RR^n$ si ha se e solo se ogni componente è convergente (o di Cauchy) in $\RR$. Dunque essendo $\RR$ completo anche $\RR^n$ lo è. Come spazio metrico $\CC$ è isomorfo ad $\RR^2$ dunque anch'esso è completo.
+\end{proof}
 
 \begin{definition}[lipschitz]
 \mymark{***}
 Sia $f\colon X \to Y$ una funzione definita tra due spazi metrici e sia $L\ge 0$.
 Diremo che $f$ è $L$-lipschitziana se
+\index{funzione!lipschitziana}
 per ogni $x,y \in X$ si ha
 \[
-  d(f(x),f(y)) \le d(x,y).
+  d(f(x),f(y)) \le L d(x,y).
 \]
 Diremo che $f$ è lipschitziana se esiste $L\ge 0$ tale che $f$ sia $L$-lipschitziana.
 \end{definition}
@@ -607,20 +633,20 @@ Se $x_k\to x$ significa che $d(x_k,x) \to 0$, quindi
 \]
 \end{proof}
 
-Osserviamo che la distanza $d(x,y)$ di uno spazio metrico $X$ risulta sempre essere una funzione $1$-lipschitziana rispetto ad ognuna delle due variabili $x$ e $y$. Infatti per la disuguaglianza triangolare inversa si ha
+Osserviamo che la distanza $d(x,y)$ di uno spazio metrico $X$ risulta sempre essere una funzione $1$-lip\-schit\-zia\-na rispetto ad ognuna delle due variabili $x$ e $y$. Infatti per la disuguaglianza triangolare inversa si ha
 \[
   \abs{d(x_1,y) - d(x_2,y)} \le d(x_1, x_2).
 \]
-Di conseguenza la norma di uno spazio normato è anch'essa $1$-lipschitziana. In particolare la distanza e la norma risultano essere funzioni continue.
+Di conseguenza la norma di uno spazio normato è anch'essa $1$-lip\-schit\-zia\-na. In particolare la distanza e la norma risultano essere funzioni continue.
 
 \begin{theorem}[delle contrazioni o punto fisso di Banach-Caccioppoli]
 \mymark{***}
-\mynote{teorema delle contrazioni}
+\mynote{teor. contrazioni}
 \index{teorema!di Banach-Caccioppoli}
 \index{teorema!delle contrazioni}
 \index{punto fisso}
 \index{contrazione}
-Sia $X$ uno spazio metrico completo non vuoto e sia $f\colon X \to X$ una funzione $L$-lipschitziana con $L<1$ (diremo che $f$ è una \myemph{contrazione}).
+Sia $X$ uno spazio metrico completo non vuoto e sia $f\colon X \to X$ una funzione $L$-lipschitziana con $L<1$ (diremo che $f$ è una \emph{contrazione}).
 Allora esiste ed è unico un punto
 $x\in X$ tale che $f(x) = x$.
 \end{theorem}
@@ -638,7 +664,7 @@ la successione $x_k\in X$ tramite la definizione ricorsiva
 Visto che $f$ è $L$-lipschitziana si avrà
 \begin{align*}
   d(x_2, x_1) &= d(f(x_1),f(x_0)) \le L \cdot d(x_1,x_0) \\
-  d(x_3, x_2) &= d(f(x_2),f(x_0)) \le L \cdot d(x_2,x_1)
+  d(x_3, x_2) &= d(f(x_2),f(x_1)) \le L \cdot d(x_2,x_1)
   \le L^2 \cdot d(x_1, x_0) \\
   d(x_4, x_3) &= d(f(x_3),f(x_2)) \le L \cdot d(x_3,x_2)
   \le L^3 \cdot d(x_1, x_0) \\
@@ -1149,7 +1175,7 @@ che fissato $x_0 \in [a,b]$ associa ad una funzione $f\in C^0([a,b])$ la sua fun
 
 \begin{theorem}[scambio del limite con la derivata]
 \mymark{***}
-Sia $I\subset \RR$ un intervallo e siano $f_k\in C^1(I)$ funzioni  tali che la successione delle derivate $f_k'$ converge
+Sia $I\subset \RR$ un intervallo e siano $f_k\in C^1(I)$ funzioni tali che $f_k(x_0)$ converge per almeno un punto $x_0\in I$ e la successione delle derivate $f_k'$ converge
 ad una funzione $g\colon I \to \RR$
 uniformemente su ogni intervallo chiuso e limitato $[a,b]\subset I$. Allora esiste $f\in C^1(I)$ tale che $f'=g$ e $f_k$ converge a $f$ uniformemente su ogni intervallo chiuso e limitato $[a,b]\subset I$.
 In queste ipotesi si può quindi scambiare la derivata con il limite:
@@ -1175,9 +1201,9 @@ Per la continuità del limite uniforme sappiamo che $g$ è continua, dunque poss
 dunque
 \begin{align*}
   \sup_{x\in [a,b]}\abs{f_k(x) - f(x)}
-  &= \sup_{x\in [a,b]} \abs{f_k(x_0) + \int_{x_0}^x f_k'(t) - b - \int_{x_0}^x g(t)\, dt} \\
-  &\le \abs{f_k(x_0)-b} + \sup_{x\in [a,b]}\abs{\int_{x_0}^x \abs{f_k'(t) - g(t)}\, dt} \\
-  &\le \abs{f_k(x_0) -b} + (b-a)\Abs{f_k' - g} \to 0.
+  &= \sup_{x\in [a,b]} \abs{f_k(x_0) + \int_{x_0}^x f_k'(t) - y_0 - \int_{x_0}^x g(t)\, dt} \\
+  &\le \abs{f_k(x_0) - y_0} + \sup_{x\in [a,b]}\abs{\int_{x_0}^x \abs{f_k'(t) - g(t)}\, dt} \\
+  &\le \abs{f_k(x_0) - y_0} + (b-a)\Abs{f_k' - g} \to 0.
 \end{align*}
 \end{proof}
 
