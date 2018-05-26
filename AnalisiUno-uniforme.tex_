@@ -172,11 +172,11 @@ Per $n=1$ si osserva che $\mathbb S^1$ è la circonferenza unitaria nel piano, p
 \begin{example}[distanza Manhattan]
 Su $\RR^2$ possiamo definire una norma, chiamata \myemph{norma Manhattan}, come segue:
 \[
-  \phi(\vec x) = \max\{\abs{x_1},\abs{x_2}\}.
+  \phi(\vec x) = \abs{x_1} + \abs{x_2}.
 \]
 La distanza indotta $d(p,q)$ rappresenta la lunghezza del percorso più breve per andare da $p$ a $q$ muovendosi solamente in orizzontale o verticale (come se fossimo sulle strade di Manhattan).
 
-L'insieme dei punti di $\RR^2$ che distano meno di $R$ dall'origine è un quadrato di lato $2R$ (mentre sappiamo che con la distanza euclidea tale insieme sarebbe un cerchio di raggio $R$).
+L'insieme $\{\vec x \in \RR^2\colon \phi(\vec x) < 1\}$ dei punti di $\RR^2$ che distano meno di $R$ dall'origine è un quadrato di diagonale $2R$, con le diagonali sugli assi coordinati (con la distanza euclidea tale insieme sarebbe invece un cerchio di raggio $R$).
 \end{example}
 
 \begin{example}[norma $p$]
@@ -191,12 +191,13 @@ Si può inoltre definire
    = \max\{\abs{x_1}, \abs{x_2}, \dots, \abs{x_n}\}.
 \]
 
-Per $p=2$ si ottiene la norma euclidea, per $p=+\infty$
+Per $p=2$ si ottiene la norma euclidea, per $p=1$
 su $\RR^2$ si ottiene la norma Manhattan.
-Per $p=1$ si ottiene la norma Manhattan a meno di una rotazione di 45 gradi e di un riscalamento di fattore $\sqrt 2$:
- \[
-   \abs{(x,y)}_1 = \abs{x} + \abs{y} = \max\{\abs{x+y}, \abs{x-y}\} = \abs{(x+y,y-x)}_\infty.
- \]
+Per $p=+\infty$ si ottiene la norma Manhattan a meno di una rotazione di 45 gradi e di un riscalamento di fattore $\sqrt 2$:
+\[
+  \abs{(x_1,x_2)}_\infty
+  = \abs{\enclose{\frac{x_1-x_2} 2, \frac {x_1+x_2}2}}_1
+\]
 \end{example}
 
 \begin{definition}[palla]
@@ -1174,7 +1175,7 @@ che fissato $x_0 \in [a,b]$ associa ad una funzione $f\in C^0([a,b])$ la sua fun
 
 \begin{theorem}[scambio del limite con la derivata]
 \mymark{***}
-Sia $I\subset \RR$ un intervallo e siano $f_k\in C^1(I)$ funzioni  tali che la successione delle derivate $f_k'$ converge
+Sia $I\subset \RR$ un intervallo e siano $f_k\in C^1(I)$ funzioni tali che $f_k(x_0)$ converge per almeno un punto $x_0\in I$ e la successione delle derivate $f_k'$ converge
 ad una funzione $g\colon I \to \RR$
 uniformemente su ogni intervallo chiuso e limitato $[a,b]\subset I$. Allora esiste $f\in C^1(I)$ tale che $f'=g$ e $f_k$ converge a $f$ uniformemente su ogni intervallo chiuso e limitato $[a,b]\subset I$.
 In queste ipotesi si può quindi scambiare la derivata con il limite:
@@ -1200,9 +1201,9 @@ Per la continuità del limite uniforme sappiamo che $g$ è continua, dunque poss
 dunque
 \begin{align*}
   \sup_{x\in [a,b]}\abs{f_k(x) - f(x)}
-  &= \sup_{x\in [a,b]} \abs{f_k(x_0) + \int_{x_0}^x f_k'(t) - b - \int_{x_0}^x g(t)\, dt} \\
-  &\le \abs{f_k(x_0)-b} + \sup_{x\in [a,b]}\abs{\int_{x_0}^x \abs{f_k'(t) - g(t)}\, dt} \\
-  &\le \abs{f_k(x_0) -b} + (b-a)\Abs{f_k' - g} \to 0.
+  &= \sup_{x\in [a,b]} \abs{f_k(x_0) + \int_{x_0}^x f_k'(t) - y_0 - \int_{x_0}^x g(t)\, dt} \\
+  &\le \abs{f_k(x_0) - y_0} + \sup_{x\in [a,b]}\abs{\int_{x_0}^x \abs{f_k'(t) - g(t)}\, dt} \\
+  &\le \abs{f_k(x_0) - y_0} + (b-a)\Abs{f_k' - g} \to 0.
 \end{align*}
 \end{proof}
 
