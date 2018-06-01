@@ -1,0 +1,2384 @@
+\chapter{calcolo integrale}
+
+\begin{definition}[integrale di Riemann]
+\mymark{***}
+Siano $a,b\in \RR$, $a \le b$.
+
+Un insieme $P\subset [a,b]$ si dice essere una \myemph{partizione di Riemann}
+\index{Riemann!partizione di}
+dell'intervallo $[a,b]$ se $P$ è un insieme finito tale che $a,b\in P$.
+In particolare $P$ si
+potrà scrivere come
+\[
+ P = \{ x_0, x_1, \dots, x_N\}
+\]
+con
+\[
+  a = x_0 < x_1 < \dots < x_{N-1} < x_N = b.
+\]
+
+Sia $f\colon [a,b] \to \RR$ una funzione limitata. Data una qualunque partizione $P$ di $[a,b]$ definiamo
+rispettivamente le \emph{somme superiori} e le \emph{somme inferiori}
+\mymargin{somme superiori/inferiori}
+\index{Riemann!somme superiori}
+\index{Riemann!somme inferiori}
+come
+\begin{align*}
+S^*(f,P)
+&= \sum_{k=1}^N (x_k - x_{k-1}) \cdot \sup f([x_k - x_{k-1}]) \\
+S_*(f,P)
+&= \sum_{k=1}^N (x_k - x_{k-1}) \cdot \inf f([x_k - x_{k-1}]).
+\end{align*}
+Definiamo infine
+\begin{align*}
+  I^*(f) &= \inf \{S^*(f,P) \colon \text{$P$ partizione di $[a,b]$}\}
+  \\
+  I_*(f) &= \sup \{S_*(f,P) \colon \text{$P$ partizione di $[a,b]$}\}.
+\end{align*}
+
+Se $I^*(f) = I_*(f)$ diremo che $f$ è
+\emph{Riemann-integrabile}
+\mymargin{integrale di Riemann}%
+\index{Riemann!integrale di}%
+\index{integrabilità}%
+\index{integrale}%
+\index{integrale!definizione}%
+e diremo che l'\emph{integrale} di $f$ su $[a,b]$ è
+il valore comune $I^*(f)=I_*(f)$ che verrà denotato con
+\[
+  \int_a^b f
+  \qquad{\text{oppure con}} \qquad
+  \int_a^b f(x)\, dx.
+\]
+
+Se $b<a$ e se $f$ è Riemann integrabile su $[b,a]$
+definiamo per convenzione:
+\[
+  \int_a^b f = -\int_b^a f.
+\]
+\end{definition}
+
+\begin{theorem}[criteri di integrabilità]
+\mymark{*}
+\mynote{criteri di integrabilità}
+\index{criterio!di integrabilità}
+Sia $f\colon[a,b]\to \RR$ una funzione limitata.
+\begin{enumerate}
+\item
+Se $P$ e $Q$ sono due partizioni qualunque dell'intervallo
+$[a,b]$ si ha
+\[
+  S_*(f,P) \le S^*(f,Q).
+\]
+Di conseguenza $I_*(f) \le I^*(f)$.
+
+\item
+La funzione $f$ è Riemann-integrabile se e solo se
+per ogni $\eps>0$ esiste una partizione $P$
+tale che
+\[
+  S^*(f,P) - S_*(f,P) < \eps.
+\]
+
+\item
+Se $f$ è Riemann-integrabile su $[a,b]$ allora
+esiste una successione $P_n$ di partizioni tali che
+\begin{equation}\label{eq:93765}
+  \lim_{n\to +\infty} S^*(f,P_n)
+  = \lim_{n\to+\infty} S_*(f,P_n)
+  = \int_a^b f.
+\end{equation}
+Viceversa se esiste una successione $P_n$ di partizioni di $[a,b]$
+per cui si ha
+\begin{equation*}
+  \lim_{n\to +\infty} \enclose{S^*(f,P_n) - S_*(f,P_n)} = 0
+\end{equation*}
+allora la funzione $f$ è Riemann-integrabile e si ha
+\[
+  \int_a^b f(x)\, dx = \lim_{n\to+\infty} S^*(f,P_n) = \lim_{n\to+\infty} S_*(f,P_n).
+\]
+\end{enumerate}
+\end{theorem}
+%
+\begin{proof}
+Sia $P$ una qualunque partizione di $[a,b]$ e sia $y\in [a,b]$ un punto qualunque. Posto $P' = P \cup \{y\}$ vogliamo mostrare
+che si ha
+\begin{equation}\label{eq:39543}
+  S_*(f,P) \le S_*(f,P') \le S^*(f,P') \le S^*(f,P).
+\end{equation}
+Se $y\in P$ non c'è niente da dimostrare in quanto
+risulterebbe $P'=P$ e la disuguaglianza $S_*(f,P') \le S^*(f,P')$ è sempre verificata in quanto ogni estremo superiore che compare nella definizione di $S^*$ è maggiore o uguale al corrispondente
+estremo inferiore che compare nella definizione di $S_*$.
+Supponiamo allora che $y \not \in P$ e dunque che $y$ sia compreso tra due punti consecutivi $x_{k-1}, x_k$ della partizione $P$:
+\[
+  a= x_0 < x_1 < \dots < x_{k-1} < y < x_k < \dots < x_N=b.
+\]
+Allora le somme che definiscono $S_*(f,P)$ e $S_*(f,P')$ differiscono solo sull'intervallo $[x_{k-1},x_k]$ e si ha
+\begin{align*}
+  S_*(f,P') - S_*(f,P)
+  &= (y-x_{k-1})\cdot \!\!\inf_{[x_{k-1},y]}\!\!\! f
+  + (x_k - y)\cdot\! \inf_{[y,x_k]}\! f\\
+  &\quad - (x_k - x_{k-1})\cdot \!\!\inf_{[x_{k-1}, x_k]}\!\!\!f
+\end{align*}
+ma osservando che
+\[
+\inf_{[x_{k-1}, x_k]}\!\!f
+\le\inf_{[x_{k-1},y]}\!\! f
+\qquad \text{e} \qquad
+\inf_{[x_{k-1}, x_k]}\!\!f
+\le\inf_{[y,x_k]}\!\! f
+\]
+si ottiene $S_*(f,P) \le S_*(f,P')$.
+In maniera analoga si ottiene $S^*(f,P) \ge S^*(f,P')$.
+Dunque \eqref{eq:39543} è dimostrata.
+Ma allora se $P$ e $Q$ sono partizioni qualunque osserviamo che $P\cup Q$ si può ottenere da $P$ aggiungendo uno alla volta i punti di $Q$. Iterando la \eqref{eq:39543} si può dunque concludere che
+\[
+ S_*(f,P) \le S_*(f,P\cup Q) \le S^*(f,P\cup Q) \le S^*(f,Q)
+\]
+da cui discende il primo punto del teorema: $S_*(f,P) \le S^*(f,Q)$.
+Facendo l'estremo inferiore al variare di $Q$
+si ottiene $S_*(f,P) \le I^*(f)$ e facendo l'estremo superiore al variare di $P$ si ottiene $I_*(f) \le I^*(f)$.
+
+Dimostriamo il secondo punto.
+Se esiste una partizione $P$ tale che $S^*(f,P)-S_*(f,P) < \eps$ possiamo immediatamente concludere che
+\[
+I^*(f) - I_*(f) \le S^*(f,P) - S_*(f,P) < \eps.
+\]
+Se questo è vero per ogni $\eps >0$ deduciamo che $I^*(f) - I_*(f) = 0$ e dunque che $f$ è Riemann-integrabile.
+
+Viceversa qualunque sia $f$, per le proprietà di
+di $\sup$ e $\inf$
+esistono $Q$ e $R$ partizioni tali che
+\[
+  I^*(f) \ge S^*(f,Q) - \frac\eps 2
+  \qquad\text{e}\qquad
+  I_*(f) \le S_*(f,R) + \frac\eps 2
+\]
+da cui, per il punto precedente, ponendo $P=Q\cup R$
+se $f$ è Riemann integrabile
+si ottiene
+\begin{align*}
+S^*(f,P)-S_*(f,P) &\le S^*(f,Q) - S_*(f,R) \\
+&\le I^*(f) + \frac\eps 2 - \enclose{I_*(f) - \frac \eps 2} = \eps.
+\end{align*}
+
+Per il terzo punto del teorema
+supponiamo dapprima che $f$ sia Riemann-integrabile su $[a,b]$.
+Allora per il punto precedente per ogni $n\in \NN$ ponendo $\eps=1/n$ possiamo trovare una partizione $P_n$ tale che
+\[
+  S^*(f,P_n) - S_*(f,P_n) < \frac 1 n
+\]
+da cui
+\[
+  I^*(f) \le S^*(f,P_n) \le S_*(f,P_n) + \frac 1 n
+   \le I_*(f) + \frac 1 n
+\]
+perciò passando al limite per $n\to +\infty$,
+essendo $I^*(f) = I_*(f) = \int_a^b f$ deve valere
+\[
+  \lim S^*(f,P_n) = \lim S_*(f,P_n) = \int_a^b f.
+\]
+
+Viceversa se
+\[
+ \lim_{n\to +\infty} S^*(f,P_n) - S_*(f,P_n) = 0
+\]
+per ogni $\eps>0$ esiste $n$ tale che
+\[
+  S^*(f,P_n) - S_*(f,P_n) < \eps.
+\]
+Per il punto precedente concludiamo che $f$ è Riemann-integrabile.
+D'altra parte sappiamo che
+\[
+  S_*(f,P_n) \le I_*(f) = \int_a^b f = I^*(f) \le S^*(f,P_n)
+\]
+dunque se $S^*(f,P_n) - S_*(f,P_n) \to 0$ necessariamente
+l'integrale coincide con i limiti di $S^*(f,P_n)$ e di
+$S_*(f,P_n)$.
+\end{proof}
+
+\begin{example}[calcolo dell'integrale tramite le partizioni]
+Mostriamo che per ogni $b>0$ la funzione $f(x)=x^2$ è Riemann-integrabile sull'intervallo $[0,b]$ e si ha
+\[
+ \int_0^b x^2\, dx = \frac{b^3}{3}.
+\]
+\end{example}
+\begin{proof}
+Consideriamo le partizioni \emph{equispaziate} dell'intervallo $[0,b]$, cioè dividiamo $[0,b]$ in $N$ intervalli ognuno di ampiezza $b/N$:
+\[
+P_N = \left\{\frac{kb}{N}\colon k \in 0, 1, \dots, N\right\}.
+\]
+Si ha
+\[
+  S^*(f,P_N) = \sum_{k=1}^N \sup_{[(k-1)b/N,kb/N]}f \cdot \frac b N
+   = \frac{b}{N} \sum_{k=1}^N \frac{k^2b^2}{N^2}
+   = \frac{b^3}{N^3} \sum_{k=1^N} k^2.
+\]
+Ricordiamo ora che vale
+\[
+  \sum_{k=1}^n k^2 = \frac{n(n+1)(2n+1)}{6} = \frac{2n^3+3n^2+n}{6}
+\]
+(tale formula può essere facilmente verificata per induzione). Dunque si ha
+\[
+  S^*(f,P_N) = \frac{b^3}{N^3} \frac{2N^3+3N^2+N}{6}
+       = \frac{b^3}{6}\enclose{2 + \frac{3}{N}+\frac 1 N^2}
+       \to \frac{b^3}{3}
+\]
+per $N\to +\infty$.
+Analogamente si trova
+\[
+  S_*(f,P_N) = \sum_{k=1}^N \inf_{[(k-1)b/N,kb/N]} f \cdot \frac{b}{N}
+  = \frac{b}{N}\sum_{k=1}^N \frac{(k-1)^2b^2}{N^2}
+  = \frac{b^3}{N^3} \sum_{k=0}^{N-1} k^2
+\]
+e osservando che si ha
+\[
+ \sum_{k=0}^{N-1} k^2 = \sum_{k=1}^{N-1} k^2 = \frac{2(N-1)^3+3(N-2)^2+(N-1)}{6}
+\]
+otteniamo
+\[
+ S_*\ge \sup_N S_*(f,P_N) \ge \lim_{N\to+\infty} S_*(f,P_N) = \frac{b^3}{3} \to \frac{b^3}{3}.
+\]
+La dimostrazione si conclude quindi applicando
+il criterio \eqref{eq:93765} del teorema precedente.
+\end{proof}
+
+\begin{theorem}[integrale di una costante]
+Se $f\colon[a,b]\to \RR$ è costante: $f(x) = c$ allora
+$f$ è Riemann-integrabile e si ha
+\[
+  \int_a^b f = c\cdot (b-a).
+\]
+\end{theorem}
+%
+\begin{proof}
+Visto che su ogni $A\subset [a,b]$ si ha
+\[
+  \sup_A f = \inf_A f = c
+\]
+è facile verificare che si ha
+\[
+  S^*(f,P) = S_*(f,P) = c\cdot (b-a)
+\]
+qualunque sia la partizione $P$ di $[a,b]$. Il risultato segue immediatamente.
+\end{proof}
+
+\begin{theorem}[monotonia dell'integrale]
+\mymark{*}
+Sia $a\le b$ e siano
+$f,g\colon [a,b]\to \RR$ due funzioni Riemann-integrabili.
+Se per ogni $x\in [a,b]$ si ha $f(x) \le g(x)$ allora
+\[
+  \int_a^b f(x) \le \int_a^b g(x).
+\]
+
+In particolare se $f\ge 0$ allora $\int_a^b f \ge 0$.
+\end{theorem}
+%
+\begin{proof}
+Chiaramente se $f \le g$ si avrà che il $\sup$ di $f$ su qualunque intervallo sarà minore o uguale al $\sup$ di $g$ sullo stesso intervallo. Dunque su ogni partizione $P$ di $[a,b]$ si avrà:
+\[
+  S^*(f,P) \le S^*(g,P)
+\]
+da cui si ottiene immediatamente $I^*(f) \le I^*(g)$ e il risultato segue.
+\end{proof}
+
+\begin{theorem}[linearità dell'integrale]
+\mymark{*}
+Siano $f,g\colon [a,b]\to \RR$ due funzioni Riemann-integrabili
+e siano $\lambda, \mu \in \RR$. Allora $\lambda f + \mu g$
+è Riemann integrabile e si ha
+\[
+  \int_a^b (\lambda f + \mu g) = \lambda \int_a^b f + \mu \int_a^b g.
+\]
+
+In particolare l'insieme delle funzioni Riemann-integrabili su $[a,b]$ risulta essere uno spazio vettoriale reale e l'integrale è una
+applicazione lineare su tale spazio, a valori in $\RR$.
+\end{theorem}
+%
+\begin{proof}
+\mymark{*}
+Mostriamo innanzitutto che
+\begin{equation}\label{eq:20043}
+  \int_a^b (-f) = -\int_a^b f.
+\end{equation}
+Questo deriva dal fatto che su qualunque insieme $A$ si ha
+$\sup_A (-f) = -\inf_A f$ e dunque per una qualunque partizione $P$
+si ha
+\[
+  S^*(-f,P) = -S_*(f,P).
+\]
+Se ne deduce che $I^*(-f) = -I_*(f)$ e, analogamente, $I_*(-f) = -I^*(F)$. Dunque se $f$ è Riemann-integrabile anche $-f$ lo è e vale la proprietà \eqref{eq:20043}.
+
+Ora se $\lambda \ge 0$ vogliamo mostrare che vale
+\begin{equation}\label{eq:10032}
+  \int_a^b \lambda f = \lambda \int_a^b f.
+\end{equation}
+Semplicemente si osserva che $\sup_I \lambda f = \lambda \sup_I f$ e dunque $S^*(\lambda f,P) = \lambda S^*(f,P)$ per ogni partizione $P$. Ne consegue che $I^*(\lambda f) = \lambda I^*(f)$. In maniera analoga si può mostrare che $I_*(\lambda f) = \lambda I_*(f)$. Dunque se $f$ è Riemann-integrabile anche $\lambda f$ (con $\lambda \ge 0$) lo è e vale \eqref{eq:10032}.
+
+Mettendo assieme \eqref{eq:20043} e $\eqref{eq:10032}$ si ottiene
+che $\eqref{eq:10032}$ vale per ogni $\lambda \in \RR$.
+Lo stesso sarà vero se mettiamo $g$ al posto di $f$ e $\mu$ al posto di $\lambda$. Per concludere la dimostrazione sarà dunque sufficiente
+mostrare che vale anche
+\begin{equation*}\label{eq:80003}
+\int_a^b (f+g) = \int_a^b f + \int_a^b g.
+\end{equation*}
+Osserviamo che su qualunque insieme $A$ si ha
+\[
+  \sup_A (f+g) \le \sup_A f + \sup_A g.
+\]
+Infatti per le proprietà dell'estremo superiore per ogni $\eps>0$ esiste $x\in A$ tale che
+\[
+  \sup_A (f+g) \le f(x) + g(x) + \eps.
+\]
+Ma chiaramente $f(x) \le \sup_A f$ e $g(x)\le \sup_A g$ dunque si ottiene
+\[
+  \sup_A (f+g) \le \sup_A f + \sup_A g + \eps.
+\]
+Passando al limite per $\eps \to 0^+$ si ottiene la disuguaglianza voluta. Questo significa che
+\[
+  S^*(f+g) \le S^*(f) + S^*(g).
+\]
+analogamente si potrà dimostrare che
+\[
+  S_*(f+g) \ge S_*(f) + S_*(g).
+\]
+Si ottiene dunque
+\[
+  I^*(f+g) \le I^*f(f) + I^*(g)
+  \qquad\text{e}\qquad
+  I_*(f+g) \ge I_*(f) + I_*(g)
+\]
+e dunque se $f$ e $g$ sono integrabili anche $f+g$ risulta integrabile
+e vale la \eqref{eq:80003}.
+
+Per concludere che l'insieme delle funzioni integrali sia uno spazio vettoriale è sufficiente osservare che la funzione $0$ (come ogni costante) risulta integrabile. Infatti se $f(x)=c$ si trova facilmente che $S^*(f,P) = S_*(f,P) = c(b-a)$ qualunque sia la partizione $P$ e dunque $I^*(f) = I_*(f) = c(b-a)$.
+\end{proof}
+
+\begin{theorem}[additività dell'integrale]
+\mymark{*}
+\mymargin{additività dell'integrale}
+\index{integrale!additività}
+Sia $f\colon [a,b]\to \RR$ una funzione limitata e sia $c\in [a,b]$.
+Allora $f$ è Riemann-integrabile su $[a,b]$ se e solo se
+$f$ è Riemann-integrabile su $[a,c]$ e su $[c,b]$.
+E in tal caso risulta
+\begin{equation}\label{eq:36645}
+ \int_a^b f = \int_a^c f + \int_c^b f.
+\end{equation}
+
+In base alla convenzione
+\[
+   \int_b^a f = -\int_a^b f
+\]
+la formula \eqref{eq:36645} è valida non solo se $a\le c\le b$ ma anche
+se $a,b,c$ sono in qualunque ordine, purché la funzione $f$ sia integrabile
+sull'intervallo che contiene tutti e tre i punti $a,b,c$.
+\end{theorem}
+%
+\begin{proof}
+\mymark{*}
+Supponiamo che $f$ sia integrabile su $[a,c]$ e su $[c,b]$.
+Allora, in base ai criteri di integrabilità, per ogni $\eps>0$ esisteranno una
+partizione $P$ di $[a,c]$ e una partizione $Q$ di $[c,b]$ tali che
+\[
+  S^*(f,P) - S_*(f,P) < \frac \eps 2,
+  \qquad
+  S^*(f,Q) - S_*(f,Q) < \frac \eps 2.
+\]
+L'insieme $R=P\cup Q$ risulta essere una partizione di $[a,b]$ su cui si avrà
+\begin{equation}\label{eq:56632}
+S^*(f,R) = S^*(f,P) + S^*(f,Q), \qquad
+S_*(f,R) = S_*(f,P) + S_*(f,Q)
+\end{equation}
+e dunque
+\[
+S^*(f,R) - S_*(f,R) \le \frac \eps 2 + \frac \eps 2 = \eps.
+\]
+Applicando nuovamente il criterio di integrabilità in senso invertito otteniamo dunque l'integrabilità di $f$ su $[a,b]$ e le equazioni
+\eqref{eq:56632} garantiscono l'additività dell'integrale rispetto al dominio.
+
+Viceversa se $f$ è integrabile su $[a,b]$ il criterio di integrabilità
+ci garantisce che per ogni $\eps>0$ esiste una partizione $R$ di $[a,b]$ tale che
+\[
+S^*(f,R) - S_*(f,R) < \eps.
+\]
+Se ora consideriamo $R' = R \cup \{c\}$ sappiamo che $S^*(f,R') \le S^*(f,R)$ e $S_*(f,R') \ge S_*(f,R)$ dunque anche $R'$ soddisfa la proprietà
+\[
+S^*(f,R') - S_*(f,R') < \eps.
+\]
+Ma ora è chiaro che posto $P=R \cap[a,c]$ e $Q=R\cap[c,b]$ risulta che $P$ e $Q$ siano partizioni di $[a,c]$ e $[c,b]$ rispettivamente e che
+\begin{align*}
+  S^*f(f,R') &= S^*f(f,P) + S^*(f,Q), \\
+  S_*f(f,R') &= S_*f(f,P) + S_*(f,Q).
+\end{align*}
+Dunque si ha
+\begin{align*}
+(S^*(f,P) - S_*(f,P)) + (S^*(f,Q) - S_*(f,Q))
+&= S^*(f,R') - S_*(f,R) \\
+&< \eps.
+\end{align*}
+Visto che entrambi gli addendi $S^*-S_*$ sono non negativi
+risulta che valgono separatamente le disuguaglianze
+\[
+S^*(f,P) - S_*(f,P) < \eps, \qquad
+S^*(f,Q) - S_*(f,Q) < \eps.
+\]
+Dunque $f$ è integrabile sia su $[a,c]$ che su $[c,b]$.
+E nuovamente possiamo osservare che l'integrale è additivo sul dominio.
+\end{proof}
+
+\begin{theorem}[integrabilità delle funzioni continue]
+\mymark{***}
+\mynote{integrabilità delle funzioni continue}
+\index{integrabilità!funzioni continue}
+Sia $f\colon [a,b]\to \RR$ una funzione continua.
+Allora $f$ è limitata e Riemann-integrabile.
+\end{theorem}
+%
+\begin{proof}
+\mymark{***}
+Per il teorema di Weierstrass sappiamo che $f$ è limitata.
+Per il teorema di Heine-Cantor sappiamo che $f$ è uniformemente continua, dunque per ogni $\eps>0$ esiste un $\delta>0$ tale che
+\[
+ \abs{x-y} < \delta \implies \abs{f(x)-f(y)} < \eps.
+\]
+Possiamo allora considerare una partizione $P_\delta$ con la proprietà che gli intervalli individuati dalla partizione abbiano tutti ampiezza minore di $\delta$ (ad esempio potremmo prendere la partizione formata da $(b-a)/\delta+2$ punti equispaziati in $[a,b]$). Su ogni intervallo $I$ di tale partizione si avrà che se $x,y\in I$ allora $\abs{f(x)-f(y)} < \eps$ da cui si deduce $\sup_I f - \inf_I f \le \eps$.
+In particolare, sommando su tutti gli intervalli, si avrà
+\begin{align*}
+  S^*(f,P_\delta) - S_*(f,P_\delta)
+  &= \sum_{k=1}^N (x_k-x_{k-1})\enclose{\sup_{[x_{k-1},x_k]} f - \inf_{[x_{k-1},x_k]} f} \\
+  &\le \eps \sum_{k=1}^N (x_k - x_{k-1})
+   = \eps (b-a).
+\end{align*}
+Visto che questa quantità può essere resa arbitrariamente piccola per $\eps \to 0$, in base ai criteri di integrabilità possiamo concludere che la funzione $f$ è integrabile.
+\end{proof}
+
+\begin{theorem}[integrabilità delle funzioni monotone]
+\mynote{integrabilità delle funzioni monotone}
+\index{integrabilità!funzioni monotone}
+Sia $f\colon [a,b]\to \RR$ una funzione monotona. Allora $f$ è limitata e Riemann-integrabile.
+\end{theorem}
+%
+\begin{proof}
+Supponiamo, per fissare le idee, che $f$ sia crescente.
+
+Chiaramente $f$ è limitata in quanto $f(a) \le f(x) \le f(b)$ per ogni $x\in [a,b]$.
+
+Per avere l'integrabilità e sufficiente mostrare
+che esiste una successione di partizioni $P_n$
+tale che $S^*(f,P_n) - S_*(f,P_n) \to 0$.
+Consideriamo la partizione equispaziata
+$P_n=\{x_k \colon k=0,1, \dots, n\}$ con $x_k=a+k(b-a)/N$.
+In tal caso su ogni intervallino $[x_{k-1},x_k]$ si ha
+\[
+  \sup f([x_{k-1}, x_k]) = f(x_k),
+  \qquad
+  \inf f([x_{k-1}, x_k]) = f(x_{k-1}).
+\]
+Dunque la differenza tra le somme superiori
+e le somme inferiori è telescopica
+e si ha, per $n\to +\infty$
+\begin{align*}
+S^*(f,P) - S_*(f,P)
+&= \sum_{k=1}^n \frac{b-a}{n} f(x_k)
+  - \sum_{k=1}^n \frac{b-a}{n} f(x_{k-1}) \\
+&= \frac{b-a}{n}(f(b)-f(a)) \to 0.
+\end{align*}
+E' quanto volevamo dimostrare.
+\end{proof}
+
+Non tutte le funzioni sono Riemann-integrabili come ci mostra il seguente esempio.
+\begin{example}[funzione di Dirichlet]
+\mymark{**}
+\mynote{funzione di Dirichlet}
+\index{funzione!di Dirichlet}
+\index{integrabilità!controesempio}
+Sia $a<b$ e sia $f\colon[a,b]\to \RR$ la funzione definita da
+\[
+ f(x) =
+ \begin{cases}
+   1 & \text{se $x\in \QQ$}\\
+   0 & \text{se $x\not \in \QQ$}.
+ \end{cases}
+\]
+Allora $f$ non è Riemann-integrabile.
+\end{example}
+%
+\begin{proof}
+\mymark{*}
+Sia $P=\{x_0, x_1, \dots, x_N\}$ con $a=x_0 < x_1 < \dots < x_N = b$
+una qualunque partizione di $[a,b]$.
+Allora basta osservare che, per la densità dei razionali, in qualunque intervallino $I=[x_{k-1}, x_k]$ sono presenti infiniti punti razionali e infiniti punti irrazionali. Dunque $\sup f(I)=1$ e $\inf f(I)=0$ e di conseguenza
+\begin{align*}
+  S^*(f,P) &= \sum_{k=1}^N (x_k - x_{k-1})\cdot 1 = b-a \\
+  S_*(f,P) &= \sum_{k=1}^N (x_k - x_{k-1})\cdot 0 = 0
+\end{align*}
+da cui $I^*(f) = b-a \neq 0 = I_*(f)$.
+\end{proof}
+
+\begin{theorem}[integrabilità di funzioni che differiscono su un numero finito di punti]
+\mynote{funzioni che differiscono in un numero finito di punti}
+\index{integrabilità!funzioni che differiscono in un numero finito di punti}
+Sia $f\colon [a,b]\to \RR$ una funzione limitata.
+Se $g\colon [a,b] \to \RR$ è una funzione Riemann-integrabile e $f$ differisce da $g$ solamente in un numero finito di punti, allora anche $f$ è Riemann-integrabile e vale
+\[
+\int_a^b f = \int_a^b g
+\]
+
+\end{theorem}
+%
+\begin{proof}
+Supponiamo in prima istanza che $g$ differisca da $f$ solamente in un punto $x_0 \in [a,b]$. Se $g$ è integrabile e $I=\int_a^b g$
+deve esistere una successione $P_n$ di partizioni di $[a,b]$ tali che $S^*(f,P_n) \to I$ e $S_*(f,P_n)\to I$.
+Per ogni $n$ possiamo definire la partizione
+$P'_n = (P_n \cup \{x_0-1/n,x_0+1/n\})\cap [a,b]$.
+Essendo $P'_n \supset P_n$ si avrà
+\[
+  S_*(g,P_n) \le S_*(g,P'_n) \le S^*(g,P'_n) \le S^*(g,P_n)
+\]
+e quindi avremo ancora $S_*(g,P'_n)\to I$ e $S^*(g,P'_n) \to I$ per $n\to +\infty$.
+Ma le funzioni $f$ e $g$ differiscono solamente all'interno dell'intervallo $I_n = [x_0-1/n, x_0+1/n]$
+di ampiezza $2/n$
+e su tale intervallo,
+essendo $f-g$ limitata (diciamo $\abs{f-g}\le M$) si avrà:
+\[
+ \sup_{I_n} \abs{f-g} \le M
+\]
+da cui somme superiori e inferiori di $f$ e $g$ differiranno al più di $2M/n$:
+\begin{gather*}
+S_*(g,P'_n) - \frac{2M}n
+\le
+S_*(f,P'_n)
+\le
+S^*(f,P'_n)
+\le
+S^*(g,P'_n) + \frac{2M}n\\
+\end{gather*}
+e per il teorema dei due carabinieri,
+passando al limite per $n\to +\infty$, si ottiene
+\[
+S_*(f,P'_n) \to I,
+\qquad
+S^*(f,P'_n) \to I.
+\]
+Questo dimostra che $f$ è integrabile e che $\int_a^b f = \int_a^b g$.
+
+Possiamo ora dimostrare per induzione il caso in cui $f$ e $g$ differiscono su un insieme di $n$ punti. Il passo base dell'induzione $n=1$ lo abbiamo già dimostrato.
+Se ora $f$ e $g$ differiscono su un insieme di $n+1$ punti consideriamo uno di questi punti e chiamiamolo $x_0$. Consideriamo la funzione $h$ che coincide con $f$ in $x_0$ e con $g$ in tutti gli altri punti: chiaramente $h$ differisce in un solo punto con $g$ quindi, per il passo base, è integrabile e vale $\int_a^b h = \int_a^b g$. Ma $f$ differisce con $h$ in un insieme di $n$ punti e quindi, per ipotesi induttiva possiamo dedurre che $f$ è integrabile e $\int_a^b f = \int_a^b h = \int_a^b g$, come volevamo dimostrare.
+\end{proof}
+
+\begin{example}[funzione di Heaviside]
+\mynote{funzione di Heaviside}
+\index{funzione!di Heaviside}
+Sia $a<0<b$.
+La funzione $H\colon [a,b] \to \RR$ definita da
+\[
+H(x) =
+\begin{cases}
+1 & \text{se $x\ge 0$}\\
+0 & \text{se $x< 0$}
+\end{cases}
+\]
+è integrabile.
+\end{example}
+\begin{proof}
+La funzione $H$ coincide con la funzione costante $1$ sull'intervallo $[0,b]$,
+dunque è integrabile su tale intervallo.
+Sull'intervallo $[a,0]$ la funzione $H$ differisce dalla funzione costante $0$
+solamente in un punto. Dunque anche su $[a,0]$ la funzione $H$ è integrabile.
+Ma allora, per additività rispetto al dominio, la funzione $H$ è integrabile su
+tutto $[a,b]$. Inoltre si ha
+\[
+  \int_a^b H = \int_a^0 H + \int_0^b H = \int_a^0 0 + \int_0^b 1 = 0 + b = b.
+\]
+\end{proof}
+
+\begin{theorem}[del valor medio]
+\mymark{***}
+Siano $a,b\in \RR$, $a<b$ e sia
+$f\colon [a,b] \to \RR$ una funzione continua.
+Allora esiste un punto $y \in (a,b)$
+tale che
+\[
+\frac{\int_a^b f}{b-a} = f(y).
+\]
+\end{theorem}
+%
+La quantità
+\[
+  \frac{\int_a^b}{b-a} f
+\]
+si chiama \emph{valor medio integrale} di $f$ su $[a,b]$ e spesso
+si indica con il simbolo
+\[
+  -\!\!\!\!\!\!\int_a^b f.
+\]
+%
+\begin{proof}
+\mymark{***}
+Per il teorema di Weierstrass la funzione $f$ ha massimo $M$ e minimo $m$ sull'intervallo $[a,b]$ cosicché
+per ogni $x\in [a,b]$ si avrà:
+\[
+  m \le f(x) \le M.
+\]
+Risulta quindi, per la monotonia dell'integrale:
+\[
+  (b-a) m = \int_a^b m \le \int_a^b f \le \int_a^b M = (b-a) M
+\]
+ovvero
+\[
+  m \le \frac{\int_a^b f}{b-a} \le M.
+\]
+Dunque la media integrale è un valore intermedio tra il minimo e il massimo della funzione e quindi, per il teorema dei valori intermedi, dovrà esistere un punto $y\in [a,b]$ dove la funzione assume tale valore.
+\end{proof}
+
+\begin{theorem}[fondamentale del calcolo integrale]
+\mymark{***}
+\mynote{teor. fondamentale}
+\index{teorema!fondamentale del calcolo integrale}
+Sia $I\subset \RR$ un intervallo, sia $x_0 \in I$
+ e sia $f\colon I\to \RR$ una funzione continua.
+Allora la \emph{funzione integrale}
+\mynote{funzione integrale}
+\index{funzione!integrale}
+$F\colon I \to \RR$
+\[
+  F(x) = \int_{x_0}^x f
+\]
+è ben definita, è derivabile e si ha per ogni $x\in I$
+\[
+  F'(x) = f(x).
+\]
+In particolare essendo $f\in C^0(I)$ si ha $F\in C^1(I)$.
+
+Inoltre se $G\colon I \to \RR$ è una qualunque funzione tale che $G'(x) = f(x)$ per ogni $x\in I$, allora per ogni $a,b \in I$ si ha
+\mynote{formula fondamentale del calcolo integrale}
+\index{formula!fondamentale del calcolo integrale}%
+\[
+  \int_a^b f = G(b) - G(a).
+\]
+\end{theorem}
+%
+\begin{proof}
+\mymark{***}
+Osserviamo innanzitutto che la funzione $f$, essendo continua, è integrabile su ogni intervallo chiuso e limitato contenuto in $I$. Dunque l'integrale $\int_{x_0}^x f$ è ben definito.
+
+Per ogni $h\neq 0$, se $x+h \in I$ per l'additività dell'integrale
+si ha
+\[
+\frac{F(x+h) - F(x)}{h} = \frac{\int_{x_0}^{x+h} f - \int_{x_0}^x f}{h}
+ = \frac{\int_x^{x+h} f}{h}.
+\]
+Applicando ora il teorema del valor medio possiamo
+affermare che esiste un punto $\xi(h)$ nell'intervallo di estremi $x$ e $x+h$ tale che
+\[
+  \frac{\int_x^{x+h} f}{h} = f(\xi(h)).
+\]
+Per $h\to 0$, si ha $\xi(h) \to x$ e, per continuità di $f$, $f(\xi(h)) \to f(x)$.
+Dunque abbiamo mostrato che $F$ è derivabile in $x$:
+\[
+ \lim_{h\to 0}\frac{F(x+h)-F(x)}{h} = f(x)
+\]
+e $F'(x) = f(x)$.
+
+Dunque se $a,b\in I$ sono punti qualunque si ha:
+\[
+\int_a^b f = \int_{x_0}^b f - \int_{x_0}^a f = F(b) - F(a).
+\]
+E se $G\colon I \to \RR$ è una qualunque  funzione tale che $G'(x)=f(x)$ si avrà $G'(x) = F'(x)$ per ogni $x\in I$ e dunque $(G-F)' = 0$ su $I$. Per i criteri di monotonia possiamo concludere che $G-F$ è costante su $I$: $G-F = c$. Dunque si ha
+\[
+ \int_a^b f = F(b) - F(a) = (G(b) - c) - (G(a) - c) = G(b) - G(a).
+\]
+\end{proof}
+
+\begin{definition}[primitiva]
+\mymark{***}
+Sia $A \subset \RR$ e sia $f\colon A \to \RR$ una funzione qualunque. Una funzione $F\colon A \to \RR$ si dice essere una \myemph{primitiva}
+(o \emph{antiderivata})
+\index{antiderivata}
+di $f$ se $F$ è derivabile e $F'(x)=f(x)$ per ogni $x\in A$.
+\end{definition}
+
+Il teorema fondamentale del calcolo integrale può dunque essere espresso nel modo seguente: ogni funzione $f$ continua, definita su un intervallo, ammette almeno una primitiva e se $F$ è una qualunque primitiva di $f$ si ha
+\[
+  \int_a^b f = F(b) - F(a).
+\]
+Per indicare la differenza $F(b)-F(a)$ si usano
+talvolta le seguenti notazioni:
+\[
+  \Enclose{F(x)}_{x=a}^b = \Enclose F_a^b
+  = F(x) \vert_{x=a}^b
+  = F \vert_a^b = F(b) - F(a).
+\]
+
+Il calcolo degli integrali si riduce quindi alla determinazione delle primitive
+ovvero ad invertire l'operatore di derivata.
+Risulterà quindi importante avere degli strumenti per determinare le primitive
+di una funzione.
+
+\begin{definition}[integrale indefinito]
+\mymark{***}
+L'insieme di tutte le primitive di una funzione $f\colon A \to \RR$
+si indica con il simbolo
+\[
+  \int f
+  \qquad\text{oppure}\qquad
+  \int f(x) \, dx
+\]
+e si chiama \emph{integrale indefinito}.
+Il motivo di questa notazione (e del nome) deriva dal teorema fondamentale del
+calcolo integrale, in
+base al quale se $f\colon[a,b]\to \RR$
+è continua si ha
+\[
+  \int_a^b f = \Enclose{\int f}_a^b.
+\]
+\end{definition}
+
+Se pensiamo all'operatore lineare $D$ definito sull'insieme delle funzioni derivabili $Df = f'$
+si può pensare a $\int f$ come all'insieme delle controimmagini di $f$ tramite $D$ ovvero:
+\[
+  \int f = D^{-1}(\{f\}) = \{F \colon DF =f \}.
+\]
+
+\begin{theorem}[proprietà delle primitive]
+\mymark{***}
+Sia $f\colon I \to \RR$
+una funzione continua definita su un intervallo $I\subset \RR$. Allora
+\begin{enumerate}
+\item esiste almeno una primitiva $F$ di $f$;
+\item data una primitiva $F$ di $f$ ogni altra
+primitiva $G$ differisce da $F$ per una costante: $G= F+c$.
+\end{enumerate}
+
+Detto in altri termini $\int f$ non è vuoto e se il dominio di $f$ è un
+intervallo e
+$F\in \int f$ è una primitiva, allora
+\[
+  \int f = \{F+c \colon c \in \RR\}.
+\]
+\end{theorem}
+
+Osserviamo che l'insieme delle funzioni costanti
+su un intervallo
+non è altro che $\ker D$ ovvero lo spazio di annullamento dell'operatore derivata.
+Stiamo dunque semplicemente osservando che le controimmagini di un operatore
+lineare sono spazi affini paralleli al nucleo dell'operatore.
+
+\begin{proof}
+\mymark{***}
+Scelto un punto $x_0\in I$ possiamo
+considerare la funzione integrale
+\[
+  F(x) = \int_{x_0}^x f(t)\, dt.
+\]
+Il teorema fondamentale del calcolo integrale
+ci assicura che $F$ è una primitiva di $f$.
+
+Viceversa se $F$ e $G$ sono due primitive di $f$ allora si ha:
+\[
+  F' = G' = f.
+\]
+Posto $H=G-F$ avremo quindi $H'=0$ sull'intervallo $I$. Per i criteri di monotonia sappiamo quindi che $H$ è costante, ovvero esiste $c\in \RR$ tale che $H(x)=c$ per ogni $x\in I$. Dunque si ottiene, come voluto: $G=F+H=F+c$.
+\end{proof}
+
+\section{calcolo delle primitive}
+
+In generale quello che ci interessa è trovare una singola primitiva in quanto in genere tutte le altre si otterranno di conseguenza molto facilmente. In base alle proprietà delle primitive, infatti, sappiamo che su ogni intervallo le primitive differiscono per una costante. Osserviamo però che se la funzione è definita sull'unione di più intervalli allora ogni intervallo può avere una costante diversa, come si vede nel seguente.
+
+\begin{example}[primitive sugli insiemi non connessi]
+\mymark{*}
+Consideriamo la funzione $f(x) = 1/x$. Osserviamo che $f\colon (-\infty, 0) \cup (0,+\infty)\to \RR$ è definita sull'unione di due intervalli. Per verifica diretta possiamo osservare che la funzione $F(x) = \ln \abs{x}$ è una primitiva di $f$. Per ottenere l'insieme di tutte le primitive possiamo aggiungere ad $F$ una qualunque funzione con derivata nulla sul dominio di $f$. Le funzioni con derivata nulla sono costanti su ogni intervallo e quindi troviamo che per ogni $c_1, c_2\in \RR$ la funzione
+\[
+G(x) =
+\begin{cases}
+  \ln (x) + c_1 &\text{se $x>0$},\\
+  \ln (-x) + c_2 & \text{se $x<0$}
+\end{cases}
+\]
+è una primitiva di $f$ e non ci sono altre primitive.
+
+In questo caso lo spazio delle primitive ha dimensione $2$ in quanto il nucleo
+dell'operatore derivata sullo spazio delle funzioni definite sull'unione di
+due intervalli ha dimensione $2$.
+Questo è l'esempio più semplice di un fenomeno piuttosto generale per cui gli
+operatori differenziali su uno spazio risultano strettamente legati alla
+topologia dello spazio stesso. In questo caso la dimensione del nucleo
+dell'operatore differenziale $D$ è uguale al numero di componenti connesse del dominio delle funzioni nel dominio di $D$.
+\end{example}
+
+Come già detto utilizzeremo la notazione $\int f$ per indicare le primitive della funzione $f$. Ma invece di scrivere $F\in \int f$
+per indicare che $F$ è una primitiva di $f$ scriveremo, più semplicemente ma con abuso di notazione $\int f = F$
+ricordando (come facevamo con la notazione degli $o$-piccolo) che tale relazione non è affatto simmetrica.
+Eviteremo invece di scrivere $\int f = F+c$ come invece si trova in molti testi in quanto nel caso in cui il dominio della funzione non sia connesso risulta molto più complicato scrivere l'insieme di tutte le primitive. Nell'esempio precedente abbiamo infatti osservato che:
+\[
+  \int \frac{1}{x}\, dx \supsetneq \{\ln \abs{x}+c\colon c \in \RR\}.
+\]
+
+\begin{theorem}[integrali di alcune funzioni elementari]
+Si ha
+per ogni $\alpha \in \RR$, $\alpha\neq -1$
+\begin{gather*}
+\int x^\alpha\, dx = \frac{x^{\alpha+1}}{\alpha+1},
+\qquad
+\int \frac{1}{x}\, dx = \ln\abs{x}
+\\
+\int e^x \, dx = e^x,
+\qquad
+\int \cos x\, dx = \sin x,
+\qquad
+\int \sin x\, dx = -\cos x
+\\
+\int \cosh x \, dx = \sinh x,\qquad
+\int \sinh x \, dx = \cosh x, \\
+\int \frac{1}{1+x^2}\, dx = \arctg x, \qquad
+\int \frac{1}{\sqrt{1-x^2}}\, dx = \arcsin x.
+\end{gather*}
+\end{theorem}
+%
+\begin{proof}
+E' sufficiente fare riferimento alla corrispondente tabella
+delle derivate delle funzioni elementari.
+\end{proof}
+
+\begin{theorem}[linearità dell'integrale indefinito]
+Per ogni $\lambda,\mu \in \RR$ e se $f$, $g$ sono funzioni qualunque si ha:
+\[
+  \int \enclose{\lambda f + \mu g} \supset \lambda \int f + \mu \int g
+\]
+\end{theorem}
+%
+\begin{proof}
+Ogni elemento dell'insieme che si trova sul lato destro
+si scrive nella forma $\lambda F + \mu G$ con $F\in \int f$ e $G\in \int g$. Dunque si ha $F'=f$ e $G'=g$ da cui
+\[
+  (\lambda F + \mu G)' = \lambda f + \mu g
+\]
+e quindi
+\[
+  \lambda F + \mu G \in \int (\lambda f + \mu g)
+\]
+come dovevamo dimostrare.
+\end{proof}
+
+\begin{theorem}[cambio di variabile negli integrali]
+Valgono le seguenti proprietà:
+\begin{enumerate}
+\item
+se $g\colon A \to \RR$ è derivabile e $f\colon g(A) \to \RR$
+allora
+\[
+  \int f(g(x)) g'(x)\, dx \supset
+  \Enclose{\int f(y) \, dy}_{y=g(x)}
+\]
+dove si intende
+\[
+ \Enclose{F(y)}_{y=g(x)} = F(g(x));
+\]
+
+\item
+se $g\in C^1([a,b])$ e $f\in C^0(g([a,b]))$ allora
+\[
+ \int_{g(a)}^{g(b)} f(x)\, dx = \int_a^b f(g(t))\, g'(t)\, dt;
+\]
+
+\item
+se $g\in C^1([a,b])$ è iniettiva, $f\in C^0(g([a,b]))$
+allora $g^{-1}$ è definita su $g([a,b])$
+e si ha
+\[
+  \int f(x)\, dx \supset \Enclose{\int f(g(t)) g'(t)\, dt}_{t=g^{-1}(x)}
+\]
+\end{enumerate}
+\end{theorem}
+%
+\begin{proof}
+Per la prima parte prendiamo una qualunque funzione
+$H$ appartenente all'insieme sul lato destro.
+Essa sarà della forma $H(x) = F(g(x))$ con $F\in \int f$ ovvero con $F'=f$.
+Facciamo la derivata:
+\[
+  H'(x) = (F(g(x)))' = F'(g(x)) g'(x) = f(g(x)) g'(x).
+\]
+Abbiamo quindi mostrato che $H$ è una primitiva di $f(g(x))g'(x)$ e quindi è elemento anche dell'insieme sul lato sinistro:
+era quanto dovevamo dimostrare
+
+Per la seconda parte sappiamo che $f$, essendo continua, ammette almeno una primitiva $F(x)$. Per il punto precedente sappiamo che $F(g(t))$ è una primitiva di $f(g(t))g'(t)$ (basta farne la derivata per verificarlo). Dunque, utilizzando la formula fondamentale del calcolo, si ottiene:
+\[
+\int_{g(a)}^{g(b)} f(x) \, dx
+= \Enclose{F(x)}_{g(a)}^{g(b)}
+= F(g(b)) - F(g(a))
+\]
+e
+\[
+\int_a^b f(g(t))g'(t)\, dt
+= \Enclose{F(g(t))}_a^b
+= F(g(b)) - F(g(a)).
+\]
+Le due espressioni sono uguali, come volevamo dimostrare.
+
+Per la terza parte
+sia $F$ una qualunque funzione elemento dell'insieme sul lato destro della relazione che vogliamo dimostrare.
+Si avrà $F(x) = H(g^{-1}(x))$ con $H(t)$ primitiva
+di $f(g(t))g'(t)$. Ma allora, per la formula fondamentale del calcolo integrale, si ha
+\[
+  H(t)-H(a) = \int_a^t f(g(s)) g'(s)\, ds
+\]
+da cui
+\[
+  F(x) - F(g(a))
+  = H(g^{-1}(x)) - H(a)
+  = \int_a^{g^{-1}(x)} f(g(t)) g'(t)\, dt
+\]
+utilizzando il punto precedente sappiamo però che vale
+\[
+F(x) - F(g(a)) =
+\int_a^{g^{-1}(x)} f(g(t)) g'(t)\, dt
+= \int_{g(a)}^x f(t)\, dt.
+\]
+Dunque derivando ambo i membri, grazie ancora al teorema
+fondamentale otteniamo:
+\[
+  F'(x) = f(x)
+\]
+cioè $F\in \int f$, come dovevamo dimostrare.
+\end{proof}
+
+Le formule del teorema precedente si scrivono usualmente nella forma
+\[
+  \int f(g(x) g'(x)\, dx = \int f(y) \, dy
+\]
+dove si intende che le variabili $x$ e $y$ devono soddisfare la relazione
+$y=g(x)$ (o, viceversa, $x=g^{-1}(y)$).
+Per memorizzare tale formula si usa normalmente definire il
+\emph{differenziale} di una funzione $g$ come $dg(x) = g'(x)\, dx$
+(coerentemente con la notazione $g' = dg / dx$)
+cosicche se $y=g(x)$ si ha $dy = g'(x)\, dx$.
+Non daremo qui una definizione formale di cosa sia un differenziale
+ma senz'altro utilizzeremo questa comoda notazione, pensandola
+semplicemente come una facilitazione tipografica.
+
+\begin{exercise}
+Vogliamo calcolare
+\[
+  \int \cos^2(x)\, dx.
+\]
+
+Ricordando che $\cos(2t) = \cos^2 t - \sin^2 t = 2\cos^2 t - 1$ si
+ha $\cos^2 t = (1+\cos(2t))/2$ (formula di bisezione).
+Dunque
+\[
+\int \cos^2(t)\, dt
+= \int\frac{1+\cos(2t)}{2}\, dt
+= \int \frac 1 2 \, dt + \int \frac{\cos(2t)}{2}\, dt.
+\]
+Chiaramente $\int \frac 1 2 \, dt  = t/2$.
+Nel secondo integrale
+possiamo fare un cambio di variabile, ponendo
+$2t=s$ da cui $2dt = ds$:
+\begin{align*}
+\int \frac{\cos(2t)}{2}\, dt
+&= \frac 1 4 \int \cos(2t)\, 2dt
+= \frac 1 4 \Enclose{\int \cos s \, ds}_{s=2t}
+= \frac 1 4 \Enclose{\sin s}_{s=2t}\\
+&= \frac 1 4 \sin(2t)
+= \frac{1}{2}\sin t \cos t.
+\end{align*}
+In definitiva otteniamo
+\[
+  \int \cos^2(x)\, dx = \frac{t+\sin t \cos t}{2}.
+\]
+\end{exercise}
+
+
+\begin{example}
+Vogliamo calcolare
+\[
+ \int \sqrt{1-x^2}\, dx.
+\]
+La funzione integranda è definita per $x\in [-1,1]$.
+Ci viene in mente di operare la sostituzione $x=\sin t$
+con $t\in [-\pi/2, \pi/2]$.
+Osserviamo che su $[-\pi/2,\pi/2]$ la funzione $\sin t$ è derivabile, invertibile e la sua inversa è $t = \arcsin x$.
+Informalmente si ha
+\[
+ x= \sin t, \qquad dx = \cos t \, dt
+\]
+da cui si ottiene la formula
+\[
+ \int \sqrt{1-x^2}\, dx = \Enclose{\int \sqrt{1-\sin^2(t)} \cos t\, dt}_{t=\arcsin x}.
+\]
+Osserviamo ora che per $t\in [-\pi/2, \pi/2]$ risulta $\sqrt{1-\sin^2(t)}=\cos t$ e dunque l'integrale
+diventa
+\[
+ \int \sqrt{1-\sin^2(t)}\cos t\, dt = \int \cos^2(t)\, dt.
+\]
+Quest'ultimo integrale lo abbiamo calcolato nell'esercizio precedente. Dunque otteniamo:
+\begin{align*}
+ \int \sqrt{1-x^2}\, dx
+ &\stackrel{(x=\sin t)}= \int \cos^2(t)\, dt
+ = \frac{t + \sin t \cos t}{2} \\
+ &= \frac{t + (\sin t) \sqrt{1-\sin^2 t}}{2} \\
+ &\stackrel{(t=\arcsin x)}= \frac{\arcsin x + x \sqrt{1-x^2}}{2}.
+\end{align*}
+\end{example}
+
+\begin{theorem}[integrazione per parti]
+\mymark{*}
+\mymargin{integrazione per parti}
+\index{integrazione!per parti}
+Sia $f\colon A\subset \RR \to \RR$ una funzione qualunque, sia $g\colon A \to\RR$ una funzione derivabile
+e sia $F \in \int f$.
+Allora
+\[
+  \int f\cdot g \supset F \cdot g - \int F \cdot g'.
+\]
+
+In particolare se $f\in C^0([a,b])$ e $g\in C^1([a,b])$
+e $F \in \int f$, si ha
+\[
+  \int_a^b f\cdot g = \Enclose{F\cdot g}_a^b - \int_a^b F \cdot g'.
+\]
+\end{theorem}
+%
+\begin{proof}
+\mymark{*}
+Ogni funzione dell'insieme di destra si scrive nella forma
+$F\cdot g - H$ con $H \in \int F \cdot g'$.
+Dunque $H' = F \cdot g'$ e, per ipotesi, $F'=f$ da cui
+\[
+(F\cdot g - H)' = F' \cdot g + F \cdot g' - H' = F' \cdot g
+= f\cdot g
+\]
+che è quanto dovevamo dimostrare.
+
+La seconda parte del teorema
+deriva direttamente dalla formula fondamentale del calcolo integrale (valida in quanto sia $f\cdot g$ che $F \cdot g'$ sono funzioni continue), osservando che
+\[
+\Enclose{F\cdot g - \int F \cdot g'}_a^b
+= \Enclose{F\cdot g}_a^b - \int_a^b F \cdot g'.
+\]
+\end{proof}
+
+\begin{example}
+Si voglia calcolare
+\[
+  \int x \cos x\, dx.
+\]
+Il metodo di integrazione per parti ci permette
+di ricondurre l'integrale di un prodotto ad un integrale
+di un prodotto in cui uno dei fattori viene integrato e l'altro derivato. In questo caso sarà conveniente derivare il fattore $x$
+e integrare il fattore $\cos x$ in modo da ricondursi all'integrale di $1\cdot \sin x$, che sappiamo svolgere.
+Precisamente si ha
+\[
+ \int x \cos x\, dx = x \sin x - \int 1 \cdot \sin x \, dx
+  = x \sin x + \cos x.
+\]
+\end{example}
+
+\begin{example}
+Si voglia calcolare
+\[
+ \int e^x \cos x\, dx.
+\]
+In questo caso se utilizziamo l'integrazione per parti possiamo ricondurre questo integrale a $\int e^x \sin x$. Integrando ancora per parti ci si ricondurrà nuovamente ad $\int e^x \cos x$. Se però in questi passaggi si riottiene la quantità originale con un segno cambiato, si potrà risolvere l'equazione ottenuta per trovare il risultato cercato.
+
+Precisamente:
+\begin{align*}
+\int e^x \cos x\, dx
+&= e^x \sin x - \int e^x \sin x\, dx\\
+ &= e^x \sin x - \Enclose{e^x(-\cos x) - \int e^x(-\cos x)\, dx} \\
+ &= e^x \sin x + e^x \cos x - \int e^x \cos x \, dx
+\end{align*}
+da cui:
+\[
+ 2 \cdot \int e^x \cos x\, dx  = e^x \sin x + e^x \cos x
+\]
+ovvero
+\[
+  \int e^x \cos x\, dx = \frac{e^x(\sin x + \cos x)}{2}.
+\]
+\end{example}
+
+\begin{theorem}[ancora integrali di funzioni elementari]
+\mymark{***}
+Si ha
+\begin{align*}
+  \int \ln x\, dx  &= x \ln x - x, \\
+  \int \arctg x\, dx &= x \arctg x - \ln \sqrt{1+x^2}.\\
+\end{align*}
+\end{theorem}
+%
+\begin{proof}
+\mymark{***}
+In entrambi i casi l'idea è che la derivata della funzione integranda trasforma
+la funzione trascendente in una funzione
+razionale. Può quindi risultare utile applicare l'integrazione
+per parti nella forma:
+\[
+  \int f(x)\, dx = \int 1\cdot f(x)\, dx = x f(x) - \int x f'(x)\, dx.
+\]
+Nel primo caso si ha:
+\[
+\int \ln x\, dx = x \ln x - \int x \frac{1}{x}\, dx
+ = x \ln x - \int 1 dx = x \ln x - x.
+\]
+Nel secondo caso:
+\[
+\int \arctg x\, dx = x \arctg x - \int \frac{x}{1+x^2}\, dx.
+\]
+Operiamo quindi un cambio di variabile $y=1+x^2$:
+\begin{align*}
+\int \frac{x}{1+x^2}\, dx
+&= \frac{1}{2}\int \frac{1}{1+x^2} 2x \, dx
+\stackrel{y=1+x^2} = \frac{1}{2}\int \frac 1 y\, dy \\
+&= \frac{\ln y}{2} = \frac{1}{2}\ln\enclose{1+x^2}
+\end{align*}
+da cui, in conclusione:
+\[
+ \int \arctg x\, dx = x \arctg x - \frac 1 2 \ln\enclose{1+x^2}.
+\]
+\end{proof}
+
+\section{alcune applicazioni del calcolo integrale}
+
+\begin{theorem}[irrazionalità di $\pi$]
+\mynote{$\pi$ è irrazionale}
+\index{$\pi$!irrazionalità}
+\index{irrazionalità!di $\pi$}
+Il numero $\pi$ è irrazionale.
+\end{theorem}
+%
+\begin{proof}
+Posto
+\[
+ f_n(x) = x^n(\pi-x)^n
+\]
+si ha
+\[
+f_n'(x) = n x^{n-1}(\pi-x)^n - n x^n (\pi-x)^{n-1}
+\]
+e
+\begin{align*}
+f_n''(x)
+&= n(n-1) x^{n-2}(\pi-x)^n
+  - 2n^2 x^{n-1}(\pi-x)^{n-1} \\
+  &\quad + n(n-1) x^n(\pi-x)^{n-2} \\
+&= (n^2-n) [(\pi-x)^2 +x^2] x^{n-2}(\pi-x)^{n-2} \\
+  &\quad  - 2n^2 x^{n-1}(\pi-x)^{n-1}
+\end{align*}
+Osservando ora che
+\[
+ (\pi-x)^2 + x^2 = \pi^2 -2\pi x + 2x^2
+  = \pi^2 - 2x(\pi-x)
+\]
+si ottiene
+\begin{align*}
+f_n''(x)
+&= (n^2-n)\pi^2 x^{n-2}(\pi-x)^{n-2} \\
+  &\quad - 2(n^2 - n + n^2) x^{n-1}(\pi-x)^{n-1} \\
+&= (n^2-n)\pi^2 f_{n-2}(x)
+-  (4n^2-2n) f_{n-1}(x).
+\end{align*}
+
+Poniamo ora
+\[
+  I_n = \int_0^\pi f_n(x) \sin(x)\, dx.
+\]
+Per $n>0$ osserviamo che $f_n(0) = f_n(\pi)=0$
+e dunque integrando per parti due volte si ottiene:
+\[
+  I_n = \int_0^\pi f_n'(x) \cos x\, dx
+   = -\int_0^\pi f_n''(x)\sin x\, dx
+\]
+da cui
+\begin{align}\label{eq:9530978}
+   I_n = -(n^2-n)\pi^2 I_{n-2} + (4n^2-2n)I_{n-1}
+\end{align}
+Supponiamo ora per assurdo che sia $\pi = p/q$ con $p,q\in \NN$ e consideriamo la successione
+\[
+   a_n = \frac{q^{2n}}{n!} I_n.
+\]
+Possiamo calcolare i primi due termini della successione $a_n$:
+\begin{align*}
+  a_0 &= \frac{q^0}{0!}\int_0^\pi \sin x\, dx
+    = 2 \in \ZZ, \\
+  a_1 &= \frac{q^2}{1!}\int_0^\pi x(\pi -x)\sin x\, dx \\
+   &= q^2 \int_0^\pi (2x - \pi)\cos x\, dx \\
+   &= 2q^2 \int_0^\pi \sin x\, dx
+   = 4q^2 \in \ZZ.
+\end{align*}
+Inoltre la relazione di ricorrenza~\eqref{eq:9530978}
+si traduce in:
+\begin{align*}
+  a_n &= \frac{q^{2n}}{n!}\enclose{-(n^2-n)\frac{p^2}{q^2} \frac{(n-2)!}{q^{2n-4}}a_{n-2}
+  + (4n^2-2n) \frac{(n-1)!}{q^{2n-2}}a_{n-1}} \\
+  &= - q^2 p^2 a_{n-2} + (4n-2)q^2 a_{n-1}.
+\end{align*}
+Per induzione si trova quindi che $a_n \in \ZZ$ per ogni $n\in \NN$.
+
+D'altra parte osservando che per $x\in [0,\pi]$ si ha
+\[
+  0 \le f_n(x) \sin(x) \le x^n (\pi-x)^n \le \pi^n \pi^n = \pi^{2n}
+\]
+dunque
+\[
+  0\le I_n = \int_0^\pi f_n(x) \sin x\, dx \le \pi^{2n+1}
+\]
+cioè
+\[
+  0 \le a_n \le \frac{q^{2n}}{n!}\pi^{2n+1} \to 0.
+\]
+Dunque abbiamo scoperto che $a_n\to 0$. D'altra parte abbiamo visto che $a_n \in \ZZ$ e certamente $a_n > 0$ in quanto $I_n \neq 0$ visto che $f_n$ è una funzione continua, non negativa e non identicamente nulla. Ma non è possibile che una successione di numeri interi positivi converga a zero: abbiamo quindi ottenuto l'assurdo.
+\end{proof}
+
+\begin{theorem}[prodotto di Wallis]
+\mymark{*}
+\mynote{prodotto di Wallis}
+\index{$\pi$!prodotto di Wallis}
+\index{Wallis!approssimazione di $\pi$}
+\index{formula!di Wallis}
+Si ha
+\[
+  \frac{\pi}{2}
+  = \prod_{k=1}^{+\infty} \frac{(2k)^2}{(2k-1)(2k+1)}
+  = \frac{2}{1}
+  \cdot \frac{2}{3}
+  \cdot \frac{4}{3}
+  \cdot \frac{4}{5}
+  \cdot \frac{6}{5}
+  \cdot \frac{6}{7}
+  \cdot \frac{8}{7}
+  \cdot \frac{8}{9}
+  \dots
+\]
+E si ottiene di conseguenza la seguente stima asintotica per
+il coefficiente \myemph{binomiale centrale}
+\[
+ {2n \choose n} \sim \frac{4^n}{\sqrt{\pi n}}
+ \qquad \text{per $n\to +\infty$.}
+\]
+\end{theorem}
+%
+\begin{proof}
+Consideriamo la successione di integrali:
+\[
+  I_n = \int_0^\pi \sin^n(x)\, dx.
+\]
+Essendo $0\le \sin^n(x) \le 1$ per ogni $x\in [0,\pi]$ ed essendo $\sin^{n+1}(x)\le \sin^n(x)$ per ogni $x\in[0,\pi]$ è chiaro che $I_n$ è una successione decrescente di numeri positivi.
+
+Da un calcolo diretto troviamo che
+\[
+  I_0 = \int_0^\pi 1\, dx = \pi, \qquad
+  I_1 = \int_0^\pi \sin(x)\, dx = \Enclose {-\cos x}_0^\pi = 2.
+\]
+Se $n\ge 0$,
+integrando per parti troviamo invece una relazione ricorsiva
+\begin{align*}
+ I_{n+2} &= \int_0^\pi \sin^{n+1}(x) \sin(x)\, dx \\
+     &= \Enclose{-\sin^{n+1}(x)\cos(x)}_0^\pi + (n+1)\int_0^\pi \sin^{n} \cos^2(x)\, dx \\
+     &= 0 + (n+1)\int_0^\pi\sin^{n}(1-\sin^2(x))\, dx \\
+     &= (n+1) I_{n} - (n+1) I_{n+2}
+\end{align*}
+da cui
+\[
+  I_{n+2} = \frac{n+1}{n+2} I_{n}.
+\]
+Ricordando che $I_n$ è decrescente si ottiene (mettendo $2n$ al posto di $n$)
+\[
+  \frac{2n+1}{2n+2} \cdot I_{2n}
+  = I_{2n+2}
+  \le I_{2n+1}
+  \le I_{2n}
+\]
+Cioè
+\[
+  1
+  \le \frac{I_{2n}}{I_{2n+1}}
+  \le \frac{2n+2}{2n+1} \to 1
+\]
+da cui ottieniamo che $I_{2n+1} / I_{2n} \to 1$.
+
+Ma la formula ricorsiva ci permette di calcolare separatamente
+i termini pari e dispari della successione:
+\begin{align*}
+  I_{2n} &= \frac{2n-1}{2n}\cdot \frac{2n-3}{2n-2} \cdots \frac {3}{4}\cdot \frac{1}{2} \cdot I_0 = \enclose{\prod_{k=1}^n \frac{2k-1}{2k}} \cdot \pi \\
+  I_{2n+1} &= \frac{2n}{2n+1}\cdot \frac {2n-2}{2n-1} \cdots
+  \frac{4}{5}\cdot \frac{2}{3} \cdot I_1
+  = \enclose{\prod_{k=1}^n \frac{2k}{2k+1}}\cdot 2.
+\end{align*}
+In conclusione, visto che $\pi$ compare nella formula dei termini pari, ma non in quella dei termini dispari, e visto che le due espressioni sono asintotiche possiamo ottenere
+la formula per il calcolo di $\pi$:
+\begin{align*}
+\frac{\pi}{2}
+&= \frac{\pi}{2} \lim_{n\to +\infty} \frac{I_{2n+1}}{I_{2n}}
+= \lim_{n\to +\infty} \frac{\displaystyle\prod_{k=1}^n \frac{2k}{2k+1}}{\displaystyle\prod_{k=1}^n \frac{2k-1}{2k}}\\
+&= \lim_{n\to +\infty} \prod_{k=1}^{n} \frac{(2k)^2}{(2k-1)(2k+1)}.
+\end{align*}
+
+Per ottenere una stima sul binomiale centrale cerchiamo di riscrivere le formule precedenti tramite il fattoriale.
+Denotiamo con $n!!$ (doppio fattoriale) il prodotto dei numeri fino a $n$ e con la stessa parità di $n$ (cioè un numero ogni due):
+\[
+\begin{cases}
+  0!! = 1\\
+  1!! = 1\\
+  (n+2)!! = (n+2) \cdot n!!
+\end{cases}
+\]
+Più esplicitamente possiamo scrivere il doppio fattoriale
+distinguendo tra i pari i dispari:
+\begin{align*}
+  (2n)!! &= (2n) \cdot (2n-2) \cdot (2n-4) \dots 4 \cdot 2 = \prod_{k=1}^n 2k, \\
+  (2n+1)!! &= (2n+1)\cdot(2n-1)\cdot(2n-3)\dots 4\cdot 3
+   = \prod_{k=1}^n (2k+1).
+\end{align*}
+Osserviamo dunque che
+\[
+  (2n)!! = \prod_{k=1}^n (2k) = 2^n n!
+\]
+ma anche
+\[
+  (2n)! = (2n)!! (2n-1)!!
+\]
+Dunque la stima asintotica di Wallis si può scrivere come
+\begin{align*}
+ \sqrt{\frac{\pi}{2}} &\sim \sqrt{\frac{((2n)!!)^2}{(2n-1)!!(2n+1)!!}}
+ = \frac{1}{\sqrt{2n+1}} \frac{(2n)!!}{(2n-1)!!} \\
+ &= \frac{1}{\sqrt{2n+1}}\frac{(2n)!!(2n)!!}{(2n)!}
+ = \frac{1}{\sqrt{2n+1}}\frac{(2^n)^2 (n!)^2}{(2n)!}
+\end{align*}
+da cui
+\[
+{2n \choose n} = \frac{(2n)!}{(n!)^2}
+\sim \frac{4^n}{\sqrt{2n+1}}\sqrt{\frac 2 \pi}
+\sim \frac{4^n}{\sqrt{2n}}\sqrt{\frac 2 \pi}
+ = \frac{4^n}{\sqrt{\pi n}}.
+\]
+\end{proof}
+
+\begin{theorem}[formula di Stirling]
+\mymark{*}
+\mynote{formula di Stirling}
+\index{formula!di Stirling}
+\index{Stirling formula di}
+\index{fattoriale!formula di Stirling}
+Si ha
+\[
+  n! \sim \sqrt{2\pi n}\cdot \frac{n^n}{e^n}
+  \qquad \text{per $n\to +\infty$.}
+\]
+\end{theorem}
+%
+\begin{proof}
+Osserviamo in generale che se $f:[a,b]\to \RR$ è una funzione concava allora il grafico di $f$ è compreso tra la retta passante per gli estremi $(a,f(a))$, $(b,f(b))$ (retta secante) e una qualunque retta tangente, ad esempio la retta tangente in $((a+b)/2,f((a+b)/2))$.
+Di conseguenza l'area sotto il grafico, cioè $\int_a^b f(x)\, dx$ è compreso tra le aree dei due corrispondenti trapezi rettangoli. L'altezza di entrambi i trapezi è pari a $(b-a)$ e l'area si calcola moltiplicando l'altezza per la media delle basi. Nel caso del trapezio con lato obliquo la secante la media delle basi è $(f(a)+f(b))/2$, nel caso del trapezio con lato obliquo sulla retta tangente nel punto medio, la media delle basi è uguale alla sezione nel punto medio: $f((a+b)/2)$. Si ottiene dunque,
+per ogni $f$ concava,
+\[
+   (b-a)\cdot  \frac{f(a) + f(b)}{2}
+   \le \int_a^b f(x) \, dx
+   \le (b-a) \cdot f\enclose{\frac{a+b}{2}}.
+\]
+
+Applicando queste stime alla funzione $f(x) = \ln x$ nell'intervallo $[k, k+1]$ si ottiene:
+\[
+\frac{\ln(k) + \ln(k+1)}{2}
+\le \int_k^{k+1} \ln x\, dx
+\le \ln \enclose{k+\frac 1 2}.
+\]
+Chiamiamo $a_k$ la differenza tra le prime due quantità. Si ha quindi:
+\begin{align*}
+a_k
+ &= \int_k^{k+1} \ln x\, dx - \frac{\ln (k) + \ln(k+1)}{2}\\
+ & \le \ln\enclose{k+\frac 1 2} - \frac{\ln(k) + \ln(k+1)}{2} \\
+ & = \frac{1}{2}\Enclose{\enclose{\ln\enclose{k+\frac 1 2 } - \ln k}
+ -\enclose{\ln(k+1)-\ln\enclose{k+\frac 1 2}}} \\
+ &= \frac 1 2 \Enclose{\ln \enclose{1+\frac{1}{2k}}
+ - \ln\enclose{1+\frac{1}{2k+1}}} \\
+ &< \frac{1}{2}\Enclose{\ln \enclose{1+\frac{1}{2k}}
+ - \ln \enclose{1+\frac{1}{2k+2}}}.
+\end{align*}
+Sommando per $k=1,\dots, n-1$ si osserva che l'ultima espressione che abbiamo scritto è telescopica. Dunque si ha:
+\begin{align*}
+ A_n = \sum_{k=1}^{n-1} a_k
+ &<\frac 1 2 \sum_{k=1}^{n-1}\Enclose{\ln \enclose{1+\frac{1}{2k}}
+ - \ln \enclose{1+\frac{1}{2k+2}}} \\
+ & = \frac{1}{2}\Enclose{\ln \enclose{1+\frac{1}{2}}
+ - \ln \enclose{1+\frac{1}{2n}}} \le \frac{1}{2}\ln\enclose{\frac 3 2}.
+\end{align*}
+Visto che $a_k > 0$ è chiaro che $A_n$ è una successione crescente a termini positivi. Dunque $A_n$ ammette limite $A_n\to \ell$ e visto che abbiamo appena mostrato che $A_n$ è limitata, sappiamo che $\ell<+\infty$.
+
+Esplicitiamo ora $A_n$.
+\begin{align*}
+A_n
+&= \sum_{k=1}^{n-1} \int_{k}^{k+1} \ln x\, dx -
+\sum_{k=1}^{n-1} \frac{\ln k + \ln(k+1)}{2} \\
+&= \int_{1}^{n} \ln x\, dx - \sum_{k=2}^{n-1} \ln k - \frac{\ln 1}{2}
+-\frac{\ln(n)}{2} \\
+&= \Enclose{ x \ln x -x}_1^n
+- \sum_{k=1}^n \ln k + \frac{\ln n}{2} \\
+&= n \ln n - n - 0 + 1 - \ln(n!) + \frac {\ln n}{2}
+ \end{align*}
+Da cui
+\[
+e^{A_n} = \frac{n^n\cdot e \sqrt{n}}{e^n \cdot n!} \to e^\ell
+\]
+ovvero, posto $c=e/e^\ell$,
+\[
+  n! \sim c\cdot\frac{n^n \sqrt{n}}{e^n}.
+\]
+Per determinare $c$ possiamo sfruttare la formula di Wallis
+sul coefficiente binomiale centrale:
+\begin{align*}
+\frac{4^n}{\sqrt{\pi n}}
+ &\sim
+{2n \choose n}
+= \frac{(2n)!}{(n!)^2}\\
+&\sim \frac{c \frac{(2n)^{2n}\sqrt{2n}}{e^{2n}}}
+{\enclose{c\frac{n^n\sqrt n}{e^n}}^2}
+= \frac{2^{2n}\sqrt{2}}{c\sqrt{n}}
+\end{align*}
+da cui si ottiene
+\[
+  \frac{1}{\sqrt \pi} \sim \frac{\sqrt 2}{c}
+\]
+e quindi $c=\sqrt{2\pi}$.
+\end{proof}
+
+\section{integrale di una funzione razionale}
+
+\begin{definition}[funzione razionale]
+\mynote{funzione razionale}
+\index{funzione!razionale}
+Una funzione $f$ si dice essere \emph{razionale}
+se si può scrivere
+\[
+  f(x) = \frac{P(x)}{Q(x)}
+\]
+con $P$ e $Q$ funzioni polinomiali a coefficienti reali.
+\end{definition}
+
+In questa sezione cercheremo di trovare un metodo per
+calcolare esplicitamente l'integrale $\int P(x)/Q(x)\, dx$ di una qualunque funzione razionale.
+Per fare ciò vogliamo scrivere il rapporto $P(x)/Q(x)$ come combinazione lineare di funzioni più semplici, di cui saremo in grado di calcolare l'integrale.
+
+\begin{theorem}[decomposizione complessa in fratti semplici]
+Siano $u_1, \dots, u_n$ funzioni complesse della forma
+\[
+  u_k(z) = \frac{1}{(z-\lambda_k)^{p_k}}
+\]
+con $\lambda_k\in \CC$, $p_k\in \NN$, $p_k>0$.
+Supponiamo che le $u_k$ siano tra loro distinte (cioè se $\lambda_k=\lambda_j$ allora $p_k \neq p_j$).
+Sia $\Omega = \CC \setminus\{\lambda_1, \dots, \lambda_k\}$ cosicché tutte le funzioni $u_k$ sono elementi dello spazio vettoriale complesso $V=\CC^\Omega$ cioè sono funzioni complesse definite su tutto $\Omega$.
+
+Allora le funzioni $u_k$ sono linearmente indipendenti come vettori di $V$ ovvero
+se esistono dei coefficienti $\alpha_1,\dots, \alpha_n \in \CC$ tali che
+\[
+\forall z \in \Omega\colon  \sum_{k=1}^n \alpha_k u_k(z) = 0
+\]
+allora ogni $\alpha_k=0$ per $k=1,\dots,n$.
+
+Di conseguenza se $Q(z) = (z-\lambda_1)^{p_1} \cdots (z-\lambda_n)^{p_n}$ con $\lambda_k\in \CC$ valori distinti
+e $p_k\in \NN$, $p_k>0$,
+per $k=1,\dots, n$
+posto $N=\deg Q = p_1 + \dots + p_n$
+per ogni polinomio complesso $P$ di grado inferiore ad $N$
+esistono dei coefficienti $A_{kj}\in \CC$
+per $k=1,\dots,n$ e  $j=1,\dots, p_k$ tali che
+\[
+  \frac{P(z)}{Q(z)} = \sum_{k=1}^n \sum_{j=1}^{p_k} \frac{A_{kj}}{(z-\lambda_k)^j}.
+\]
+\end{theorem}
+%
+\begin{proof}
+Procediamo per induzione su $n$. Se $n=1$ abbiamo una unica funzione che non può essere identicamente nulla (anzi: non si annulla mai). Dunque è un insieme linearmente indipendente.
+
+Supponiamo allora di avere un insieme di $n$ funzioni $u_1, \dots, u_n$ e supponiamo di avere una combinazione lineare identicamente nulla: $\alpha_1 u_1 + \dots + \alpha_n u_n = 0$.
+Sia $\lambda = \lambda_n$ e sia $p$ il massimo esponente
+$p_k$ nelle funzioni che hanno $\lambda_k=\lambda$ come
+punto singolare:
+\[
+ p = \max\{p_k\colon k=1,\dots, n, \lambda_k = \lambda \}.
+\]
+
+Consideriamo la funzione $f\colon \Omega \to \CC$
+definita da
+\[
+  f(z) = (z-\lambda)^p\sum_{k=1}^n \frac{\alpha_k}{(z-\lambda_k)^{p_k}}.
+\]
+Questa funzione per ipotesi è identicamente nulla (in quanto ottenuta moltiplicando la combinazione lineare identicamente nulla per il fattore $(z-\lambda)^p$).
+Ma si osserva che si ha
+\[
+  \lim_{z\to \lambda} \frac{(z-\lambda)^p}{(z-\lambda_k)^{p_k}}
+  =
+  \begin{cases}
+    0 &\text{se $\lambda_k \neq \lambda$}\\
+    0 &\text{se $\lambda_k = \lambda$ ma $p_k < p$}\\
+    1 &\text{se $\lambda_k = \lambda$ e $p_k = p$}
+  \end{cases}
+\]
+e dunque, supponendo senza perdita di generalità che sia $p_n=p$,
+\[
+ 0 = \lim_{z\to \lambda} f(z)
+ = \sum_{k=1}^{n-1} \alpha_k \cdot 0 + \alpha_n \cdot 1.
+\]
+Dunque $\alpha_n = 0$ e risulta allora che
+\[
+  0 = \sum_{k=1}^n \alpha_k u_k = \sum_{k=1}^{n-1} \alpha_k u_k.
+\]
+Ci siamo quindi ricondotti ad una combinazione lineare di $n-1$ vettori $u_1,\dots, u_{n-1}$ e per induzione possiamo supporre quindi che anche $\alpha_1= \dots = \alpha_{n-1}=0$ concludendo la dimostrazione della prima parte del teorema.
+
+Per la seconda parte osserviamo che
+\begin{equation}\label{eq:43775}
+\sum_{k=1}^n \sum_{j=1}^{p_k} \frac{A_{kj}}{(z-\lambda_k)^j}
+= \frac{\displaystyle\sum_{k=1}^n \sum_{j=1}^{p_k} A_{kj} S_{kj}(z)}{Q(z)}
+\end{equation}
+dove
+\[
+  S_{kj}(z) = \frac{Q(z)}{(z-\lambda_k)^j}
+\]
+è un polinomio di grado inferiore al grado di $Q$ (visto che $(z-\lambda_k)^j$ divide $Q$).
+
+Guardando il lato sinistro dell'uguaglianza \eqref{eq:43775} vediamo una combinazione lineare con coefficienti $A_{kj}$ di fratti semplici e per la prima parte del teorema sappiamo che lo spazio $V$ di tutte le funzioni che
+si possono ottenere mediante tali combinazioni è un
+sottospazio vettoriale di dimensione $N$ di $\CC^\Omega$.
+
+Guardando il lato destro vediamo che al "numeratore" c'è
+invece una combinazione di polinomi $S_{kj}$ ognuno dei quali ha grado inferiore ad $N$. Quello che si ottiene è dunque un polinomio di grado inferiore ad $N$. Al denominatore c'è il polinomio fissato $Q$. Dunque al variare dei coefficienti $A_{kj}$ il lato destro è un sottospazio dello spazio dei polinomi di grado inferiore ad $N$ che vengono poi divisi per $Q$. Anche questo spazio ha dimensione $N$ (in quanto di polinomi di grado $N-1$ sono combinazione lineare dei monomi $1, z, z^2, \dots, z^{N-1}$) e contiene lo spazio $V$ che pure abbiamo verificato avere dimensione $N$. Dunque i due spazi coincidono e questo significa che il polinomio $P$, avendo grado inferiore ad $N$ è combinazione lineare dei polinomi $S_{kj}$ per una opportuna (unica) scelta dei coefficienti $A_{kj}$.
+\end{proof}
+
+\begin{theorem}[fattorizzazione dei polinomi a coefficienti reali]
+Sia $Q(x)$ un polinomio a coefficienti reali. Allora
+\begin{equation}\label{eq:35549}
+  Q(x) = a \cdot (x-x_1) \cdots (x-x_k)
+  \cdot Q_1(x) \cdots Q_m(x)
+\end{equation}
+dove $a\in \CC$,
+$x_1, \dots, x_k$ sono le radici reali di $Q$
+(eventualmente ripetute con la loro molteplicità)
+e
+\[
+  Q_j(x) = x^2 + \alpha_j x + \beta_j
+\]
+per $j=1,\dots, m$
+sono polinomi monici di grado due con coefficienti $\alpha_j$ e $\beta_j$ reali e  con discriminante
+$\alpha_j^2 - 4 \beta_j$ negativo i cui zeri (complessi coniugati) sono le radici non reali di $Q$.
+\end{theorem}
+%
+\begin{proof}
+Per il teorema fondamentale dell'algebra sappiamo che
+\begin{equation}\label{eq:45549}
+  Q(x) = a \cdot (x - x_1) \cdots (x- x_k)
+  \cdot (x-\lambda_1) \cdots (x-\lambda_n)
+\end{equation}
+dove $x_1, \dots, x_k$ sono le radici reali
+del polinomio $Q$ mentre $\lambda_1, \dots, \lambda_n$
+sono le radici non reali.
+
+Osserviamo che avendo $Q$ coefficienti reali, per ogni $z\in \CC$  si ha $\overline{Q(z)} = Q(\overline z)$ in quanto il coniugio lascia invariati i coefficienti del polinomio $Q$.
+In particolare se $\lambda$ è una radice complessa di $Q$ allora $Q(\bar \lambda) = \overline{Q(\lambda)} = \overline 0 = 0$ cioè anche $\bar \lambda$ è radice di $Q$.
+Dunque essendo $\lambda_1$ una radice non reale,
+anche $\overline {\lambda_1} \neq \lambda_1$
+deve essere una radice di $Q$ e senza perdita di generalità (riordinando le radici)
+possiamo supporre che sia $\lambda_2 = \overline{\lambda_1}$.
+Osserviamo allora che si ha
+\begin{align*}
+(x-\lambda_1)(x-\lambda_2)
+&=(x-\lambda_1)(x-\overline{\lambda_1})\\
+&= x^2 - (\lambda_1+ \overline {\lambda_1}) x + \lambda_1 \overline {\lambda_1} \\
+&= x^2 - 2(\Re \lambda_1) x + \abs{\lambda_k}^2\\
+&= Q_1(x)
+\end{align*}
+se poniamo $\alpha_1 = -2\Re \lambda_{k+1}$ e $\beta_1=\abs{\lambda_{k+1}}^2$.
+Si osservi che $\alpha_1$ e $\beta_1$ sono reali.
+Si itera quindi il procedimento finché non si esauriscono
+tutte le radici e si completa quindi la decomposizione.
+A posteriori dunque dovrà essere $n=2m$ cosicchè $\deg Q = k + 2m = k + n$.
+\end{proof}
+
+\begin{theorem}[decomposizione reale in fratti semplici]
+Sia $Q$ un polinomio monico a coefficienti reali che
+si fattorizzi nella forma:
+\begin{align*}
+  Q(x) &= (x-\lambda_1)^{p_1} \cdots (x-\lambda_n)^{p_n} \\
+  &\quad \cdot
+   (x^2+\alpha_1 x + \beta_1)^{q_1} \cdots (x^2+\alpha_m x + \beta_m)^{q_m}
+\end{align*}
+con $\lambda_1, \dots, \lambda_n$ le radici reali distinte di $Q$ di molteplicità rispettivamente
+$p_1,\dots, p_n$ e $(x^2+\alpha_k x + \beta_k)$ polinomi monici distinti di grado $2$
+con discriminante negativo $\alpha_k^2<4\beta_k$ con molteplicità $q_k$ per $k=1, \dots, m$.
+
+Se $P$ è un polinomio a coefficienti reali
+con $\deg P < \deg Q$
+allora esistono dei coefficienti reali $A_{kj}$ con $k=1,\dots,n $ e $j=1,\dots, p_k$ e coefficienti reali $B_{kj}$, $C_{kj}$ con $k=1,\dots, m$ e $j=1,\dots, q_k$
+tali che
+\begin{align*}
+\frac{P(x)}{Q(x)}
+&= \sum_{k=1}^n \sum_{j=1}^{p_k} \frac{A_{kj}}{(x-\lambda_k)^j}
+  + \sum_{k=1}^m \sum_{j=1}^{q_k} \frac{B_{kj} + C_{kj}x}{(x^2+\alpha_k x + \beta_k)^j}.
+\end{align*}
+\end{theorem}
+%
+\begin{proof}
+Diamo un nome alle funzioni coinvolte nell'enunciato del teorema:
+\begin{align*}
+ u_\lambda^j(z) &= \frac{1}{(z-\lambda)^j},\\
+ v_\lambda^j(z) &= \frac{1}{(z-\lambda)^j(z-\bar\lambda)^j},\\
+ w_\lambda^j(z) &= z\cdot v_\lambda^j(z).
+\end{align*}
+Osserviamo che
+\[
+ (z-\lambda)(z-\bar \lambda)
+ = z^2 - 2(\Re\lambda) z + \abs{\lambda}^2
+\]
+è un polinomio a coefficienti reali con discriminante negativo se $\lambda \in \CC \setminus \RR$, dunque si ha
+\[
+  \frac{B + Cx}{(x^2 + \alpha x + \beta)^j}
+  = B \cdot v_\lambda^j(x) + C \cdot w_\lambda^j(x)
+\]
+per un opportuna scelta del numero complesso $\lambda$ (per la cronaca: $\lambda = \alpha/2 + i \sqrt{\beta-\alpha^2/4}$).
+
+Nella versione complessa di questo teorema abbiamo già mostrato che le funzioni $u_\lambda^j$ sono indipendenti. Vogliamo ora mostrare che anche le funzioni $u_\lambda^j$, $v_\lambda^j$, $w_\lambda^j$ sono indipendenti e per fare ciò cercheremo di dimostrare che per ogni $\lambda\in \CC\setminus \RR$ fissato, lo spazio generato dalle funzioni
+\begin{equation}\label{eq:43841}
+u_\lambda^1, u_{\bar \lambda}^1, u_\lambda^2, u_{\bar \lambda}^2, \dots, u_\lambda^p, u_{\bar \lambda}^p
+\end{equation}
+coincide con lo spazio generato dalle funzioni
+\begin{equation}\label{eq:43842}
+v_\lambda^1, w_\lambda^1, v_\lambda^2, w_\lambda^2, \dots, v_\lambda^p, w_\lambda^p.
+\end{equation}
+Visto che le funzioni in \eqref{eq:43841} abbiamo già dimostrato essere indipendenti, sarà sufficiente mostrare che ogni combinazione lineare delle funzioni in \eqref{eq:43841}
+si può esprimere come combinazione lineare delle funzioni in
+\eqref{eq:43842}.
+
+La dimostrazione si può fare per induzione su $p$.
+Nel caso $p=1$
+si osserva che
+\begin{align*}
+  a u_\lambda^1(z) + b u_{\bar \lambda}^1(z)
+  &= \frac{a}{z-\lambda} + \frac{b}{z-\bar \lambda}
+  = \frac{az - a \bar \lambda + b z - b \lambda}{z^2 -(\lambda + \bar \lambda)z  + \lambda \bar \lambda} \\
+  &= \frac{(a+b) z - a \bar \lambda - b \lambda}{z^2 -(\lambda + \bar \lambda)z  + \lambda \bar \lambda}\\
+  &= (a+b)\cdot w_\lambda^1(z) + (a \bar \lambda + b \lambda) v_\lambda^1(z).
+\end{align*}
+
+Supponendo ora di aver fatto la dimostrazione fino a $p-1$, dimostriamo il caso generico $p$. Una qualunque combinazione lineare delle funzioni \eqref{eq:43841}
+si scrive nella forma
+\begin{align*}
+\sum_{j=1}^p \frac{a_j}{(z-\lambda)^j} + \sum_{j=1}^p \frac{b_j}{(z-\bar\lambda)^j}
+&=
+\frac{R(Z)}{(z-\lambda)^p(z-\bar \lambda)^p}
+\end{align*}
+dove $R(Z)$ è un polinomio di grado al più $2p-1$.
+Facendo la divisione tra polinomi possiamo scrivere
+\[
+R(z) = S(z) (z-\lambda)(z-\bar \lambda) + \alpha z + \beta
+\]
+con $S$ opportuno polinomio di grado al massimo $2p-3$.
+Dunque
+\begin{align*}
+\sum_{j=1}^p \frac{a_j}{(z-\lambda)^j} + \sum_{j=1}^p \frac{b_j}{(z-\bar\lambda)^j}
+&=
+\frac{S(z)}{(z-\lambda)^{p-1}(z-\bar \lambda)^{p-1}}\\
+&\quad + \frac{\alpha z + \beta}{(z-\lambda)^p(z-\bar\lambda)^p}.
+\end{align*}
+Il primo addendo con numeratore $S(z)$ è una funzione razionale che può essere quindi espressa come combinazione lineare delle funzioni in \eqref{eq:43841} con $p-1$ al posto di $p$. Dunque per ipotesi induttiva tale addendo è combinazione lineare delle funzioni in \eqref{eq:43842} con $p-1$ al posto di $p$. Il secondo addendo non è altro che $\alpha w_\lambda^p + \beta v_\lambda^p$. Abbiamo quindi mostrato che qualunque combinazione lineare delle \eqref{eq:43841} si scrive come combinazione lineare delle \eqref{eq:43842}, come ci eravamo ripromessi di fare.
+
+Ora, per il caso complesso che abbiamo già dimostrato,
+sappiamo che la funzione razionale $P/Q$ ammette una decomposizione in fratti semplici complessi cioè può essere scritta come combinazione lineare a coefficienti complessi delle funzioni $u_\lambda^j$ facendo variare $\lambda$ su tutte le radici, reali e complesse, del polinomio $Q$ e facendo variare $j$ fino alla molteplicità di ogni radice.
+Ma sappiamo ora che è possibile rimpiazzare le funzioni $u_\lambda^j$ e $u_{\bar \lambda}^j$ quando $\lambda$ non è reale con le funzioni $v_\lambda^j$ e $w_\lambda^j$ in quanto lo spazio generato da tali funzioni è lo stesso.
+
+Questo ci permette di concludere che la decomposizione cercata esiste, se ammettiamo di avere coefficienti $A_{kj}$, $B_{kj}$ e $C_{kj}$ nel campo complesso.
+
+Per concludere ci basta verificare che in realtà tali coefficienti non possono che essere reali.
+Questo dipende da un semplice fatto generale.
+
+Supponiamo che $u_1, \dots, u_n$ siano funzioni reali indipendenti e sia
+\[
+ u = \alpha_1 u_1 + \dots + \alpha_n u_n.
+\]
+una loro combinazione lineare a coefficienti complessi  $\alpha_k$.
+Se la combinazione $u$ è anch'essa una funzione reale allora possiamo concludere che necessariamente tutti i coefficienti $\alpha_k$ sono reali. Infatti se prendiamo la parte immaginaria della combinazione lineare precedente si avrà
+\[
+   0 = (\Im \alpha_1) u_1 + \dots + (\Im \alpha_n) u_n.
+\]
+Ma essendo le $u_1,\dots,u_n$ funzioni indipendenti, una combinazione lineare è nulla solamente quando tutti i coefficienti sono nulli: significa che la parte immaginaria di ogni $\alpha_k$ è nulla, cioè che gli $\alpha_k$ sono reali.
+\end{proof}
+
+In base ai teoremi precedenti, se $P(x)/Q(x)$ è una qualunque funzione razionale reale,
+possiamo innanzitutto
+eseguire la divisione tra polinomi e trovare quindi un
+quozionte $S(x)$ e un resto $R(x)$ con $\deg R < \deg Q$
+cosicché
+\[
+  \frac{P(x)}{Q(x)} = S(x) + \frac{R(x)}{Q(x)}.
+\]
+Dopodiché possiamo decomporre $R(x)/Q(x)$
+in fratti semplici. L'integrale di $P/Q$ si potrà quindi ricondurre (tramite combinazione lineare) agli integrali di $S$ e di ognuno dei fratti semplici. L'integrale di $S$ è banale, in quanto $S$ è un polinomio e quindi è combinazione lineare di potenze di $x$.
+
+Non ci resta quindi che trovare l'integrale dei fratti semplici, cosa che faremo nel seguente teorema.
+
+\begin{theorem}[integrale dei fratti semplici]
+Se $\lambda\in \RR$, $p\in \NN$, $p>1$, $\alpha,\beta \in \RR$, $\alpha^2-4\beta < 0$, si ha:
+\begin{enumerate}
+\item $\displaystyle
+  \int \frac{1}{x-\lambda}\, dx
+  = \ln \abs{x-\lambda} $;
+\item $\displaystyle
+  \int \frac{1}{(x-\lambda)^p}\, dx
+  =  -\frac{1}{(p-1)(x-\lambda)^{p-1}} $;
+\item $\displaystyle
+  \int \frac{1}{1+x^2}\, dx
+  = \arctg x $;
+\item $\displaystyle
+  \int \frac{1}{(1+x^2)^p}\, dx
+   = \frac{x}{2n(1+x^2)^{p-1}} + \frac{2p-3}{2p-2}\int \frac{1}{(1+x^2)^{p-1}}\, dx $;
+\item $\displaystyle
+  \int \frac{1}{x^2+\alpha x + \beta}\, dx
+     =
+     \frac{2}{\sqrt{4\beta - \alpha^2}}
+     \arctg \frac{2x+\alpha}{\sqrt{4\beta-\alpha^2}}
+  $;
+\item $\displaystyle
+  \int \frac{1}{(x^2+\alpha x + \beta)^p}\, dx
+    =
+    \enclose{\frac{4}{4\beta - \alpha^2}}^{p-\frac 1 2}
+    \Enclose{\int \frac{1}{(1+y^2)^p}\, dy}_{y=\frac{2x+\alpha}{\sqrt{4\beta-\alpha^2}}}
+ $;
+ \item $\displaystyle
+  \int \frac{ax + b}{(x^2+\alpha x + \beta)^p}\, dx
+   = -\frac{a}{2(p-1)(x^2+\alpha x+ \beta)^{p-1}} \\
+   \quad + \frac{2b-a\alpha}{2}\int \frac{1}{(x^2+\alpha x+\beta)^p}\, dx $.
+\end{enumerate}
+\end{theorem}
+Osserviamo che non è rilevante ricordarsi le formule enunciate nel teorema, converrà piuttosto ricordarsi i metodi di integrazione utilizzati nella dimostrazione.
+%
+\begin{proof}
+I primi tre integrali sono immediati.
+Per il quarto si ha:
+\begin{align*}
+\int \frac{1}{(1+x^2)^p}\, dx
+&= \int \frac{1+x^2-x^2}{(1+x^2)^p}\, dx \\
+&= \int \frac{1}{(1+x^2)^{p-1}}\, dx - \int\frac{x^2}{(1+x^2)^p}\, dx.
+\end{align*}
+Osservando che
+\[
+ \int \frac{2x}{(1+x^2)^p}\, dx
+  = -\frac{1}{p-1}\frac{1}{(1+x^2)^{p-1}}.
+\]
+si ottiene, integrando per parti,
+\begin{align*}
+\int \frac{x^2}{(1+x^2)^p}\, dx
+&=
+\int \frac{2x}{(1+x^2)^p}\cdot \frac{x}{2}\, dx\\
+&= -\frac{1}{p-1}\frac{1}{(1+x^2)^{p-1}} \frac{x}{2}
+ + \frac{1}{2p-2}\int \frac{1}{(1+x^2)^{p-1}}\, dx
+\end{align*}
+da cui segue il risultato enunciato nel teorema.
+
+Per quanto riguarda il quinto e il sesto integrale si opera il \emph{completamento del quadrato}:
+\begin{align*}
+  x^2 + \alpha x + \beta
+  &= \enclose{x+\frac \alpha 2}^2 + \beta - \frac{\alpha^2}{4} \\
+  &= \frac{4\beta-\alpha^2}{4}
+  \enclose{\enclose{\frac{2x+\alpha}{\sqrt{4\beta-\alpha^2}}}^2+1}
+\end{align*}
+da cui, facendo il cambio di variabile
+\begin{align*}
+y  &=\frac{2x+\alpha}{\sqrt{4\beta -\alpha^2}}\\
+dx &= \frac{\sqrt{4\beta-\alpha^2}}{2} dy
+\end{align*}
+si ottiene
+\begin{align*}
+\int \frac{1}{(x^2+\alpha x + \beta)^p}\, dx
+&=
+\frac{4^p}{\enclose{4\beta - \alpha^2}^p}
+\int \frac{1}{\enclose{y^2 + 1}^p}\,  \frac{\sqrt{4\beta-\alpha^2}}{2} dy \\
+&= \enclose{\frac{4}{4\beta - \alpha^2}}^{p-\frac 1 2}
+\int \frac{1}{(1+y^2)^p}\, dy
+\end{align*}
+che per $p=1$ può essere calcolato immediatamente, e per $p>1$ si riconduce agli integrali già calcolati.
+
+Nell'ultimo integrale dell'enunciato abbiamo semplicemente
+utilizzato l'integrale immediato:
+\[
+  \int \frac{2x+\alpha}{(x^2+\alpha x+\beta)^p}\, dx
+  = -\frac{1}{(p-1)(x^2+\alpha x + \beta)^{p-1}}
+\]
+utilizzandolo per eliminare il termine di grado uno al numeratore della funzione integranda.
+\end{proof}
+
+\section{integrali impropri}
+
+La definizione di integrale di Riemann è stata data solamente per funzioni limitate definite su un intervallo
+limitato.
+Vogliamo ora estendere la definizione di integrale alle funzioni illimitate e agli intervalli illimitati. Lo faremo riconducendoci tramite un limite al caso precedente.
+
+\begin{definition}[integrale improprio monolaterale]
+\mymark{***}
+Siano $a\in \RR$, $b \in \bar \RR$, $a<b$ e sia
+$f\colon [a,b)\to \RR$ una funzione tale che per
+ogni $c\in [a,b)$ risulta che $f$ è limitata e Riemann-integrabile sull'intervallo $[a,c]$.
+Allora diremo che $f$ è \myemph{integrabile in senso improprio} (laterale destro) se esiste (finito o infinito) il limite
+\[
+  \lim_{c\to b^-} \int_a^c f.
+\]
+In tal caso il valore del limite viene chiamato \myemph{integrale improprio} di $f$ su $[a,b)$ e si denota con
+\[
+  \int_a^b f(x)\,dx
+  \qquad\text{oppure}\qquad
+  \int_a^b f.
+\]
+
+Analogamente se $f\colon (a,b]\to \RR$ con $a \in \bar \RR$, $b\in \RR$, $a<b$
+è una funzione
+limitata e Riemann-integrabile su ogni intervallo chiuso
+$[a,c]$ con $c\in [a,b)$
+porremo
+\[
+ \int_a^b f(x)\, dx = \lim_{c\to a^+} \int_c^b f(x)\, dx.
+\]
+e diremo che $f$ è integrabile in senso improprio (laterale sinistro) su $[a,b)$
+quando tale limite esiste.
+\end{definition}
+
+\begin{example}
+La funzione $f(x)= \ln x$ è integrabile in senso improprio sull'intervallo $[1,+\infty)$ e si ha $\int_1^{+\infty} \ln (x)\, dx = +\infty$. Infatti si ha:
+\begin{align*}
+ \int_1^{+\infty} f(x)\,dx
+ &= \lim_{b\to +\infty} \int_1^b \ln(x)\, dx
+ = \lim_{b\to +\infty}\Enclose{x\ln x - x}_1^b \\
+ &= \lim_{b\to +\infty} \enclose{b \ln b - b + 1}
+ = +\infty.
+\end{align*}
+Anche sull'intervallo $(0,1]$ la funzione $\ln x$ è integrabile in senso improprio e si ha
+\[
+  \int_0^1 \ln x\, dx = \lim_{a\to 0^+}\Enclose{x \ln x -x}_a^1 = \lim_{a\to 0^+} (-1-a \ln a + a)  = -1.
+\]
+\end{example}
+
+Per abbreviare le notazioni intenderemo:
+\[
+  \Enclose {F(x)}_a^b
+  = \lim_{x\to b^-}F(x) - \lim_{x\to a^+}F(x)
+\]
+osservando che se $F$ è definita e continua agli estremi $a$ e $b$ questa notazione coincide con l'usuale
+\[
+\Enclose{F(x)}_a^b = F(b) - F(a).
+\]
+
+Potremo quindi scrivere:
+\begin{align*}
+  \int_0^1 \ln x\, dx
+  &= \Enclose{x\ln x- x}_0^1
+  = 1 \cdot\ln 1 -1 - \lim_{x\to 0^+} (x\ln x - x) \\
+  &= -1  - 0 = -1.
+\end{align*}
+
+Osserviamo che se $f\colon[a,b]\to\RR$ è limitata e Riemann-integrabile su tutto $[a,b]$ allora essa è anche integrabile in senso improprio su $[a,b)$ (laterale destro)
+e in tal caso l'integrale improprio coincide con l'integrale usuale ed è finito. Infatti se $f$ è limitata esiste $L\ge 0$ tale che $\abs{f(x)}\le L$ per ogni $x\in [a,b]$.
+Dunque per $c\to b^-$ si ha
+\[
+\abs{\int_a^b f - \int_a^c f}
+=\abs{\int_c^b f}
+\le L\cdot (b-c) \to 0.
+\]
+In maniera analoga si verifica che $f$ è integrabile in senso improprio sull'intervallo $(a,b]$ (laterale sinistro)
+e anche tale integrale improprio coincide con l'integrale usuale.
+
+L'integrale improprio (laterale)
+soddisfa inoltre la proprietà di additività rispetto al dominio.
+Ad esempio per quanto riguarda l'integrale improprio laterale destro si avrà per ogni $d\in [a,b)$, sfruttando l'additività dell'integrale usuale e l'additività del limite:
+\[
+  \lim_{c\to +\infty} \int_a^c f(x)\, dx
+  = \int_a^d f(x)\, dx + \lim_{c\to +\infty} \int_d^c f(x)\, dx
+\]
+da cui risulta che l'additività è soddisfatta
+anche per gli integrali impropri:
+\[
+ \int_a^b f(x)\,dx = \int_a^d f(x)\, dx + \int_d^b f(x)\, dx.
+\]
+
+Come per gli integrali usuali, se $a > b$ si intende
+\[
+  \int_a^b f(x) \, dx = - \int_b^a f(x)\, dx
+\]
+e se $a=b$ si intende
+\[
+  \int_a^a f(x)\, dx = 0
+\]
+anche se la funzione $f$ in $a$ potrebbe non essere definita!
+
+\begin{definition}[integrale improprio bilaterale]
+\mymark{***}
+Siano $a,b\in \bar \RR$ con $a<b$.
+Sia $f\colon (a,b)\to \RR$ una funzione tale tale che preso un qualche $c\in (a,b)$ risulta che $f$ sia integrabile in senso improprio (laterale sinistro) su $(a,c]$,
+sia integrabile in senso improprio (laterale destro)
+su $[c,b)$ e i due integrali non siano infiniti di segno opposto (cosicché ha senso farne la somma),
+diremo allora che $f$ è integrabile in senso improprio (bilaterale) su $(a,b)$ e il suo integrale sarà per definizione
+\[
+  \int_a^b f(x)\, dx = \int_a^c f(x)\, dx + \int_c^b f(x)\, dx.
+\]
+Per l'additività dell'integrale è chiaro che la definizione appena data non dipende dalla scelta di $c\in (a,b)$.
+\end{definition}
+
+Osserviamo che se $f\colon(a,b) \to \RR$ ammette una primitiva $F\colon(a,b)\to \RR$ allora si avrà
+\begin{align*}
+  \int_a^b f(x)\, dx
+   &= \lim_{A\to a^+}\int_{A}^c f(x)\, dx
+   + \lim_{B\to b^-}\int_c^{B}\, dx \\
+   & = \lim_{x\to a} (F(c)-F(x)) + \lim_{x\to b} (F(x)-F(c)) \\
+   & = \lim_{x\to b} F(x) - \lim_{x\to a} F(x)
+   = \Enclose{F(x)}_a^b.
+\end{align*}
+Dunque la formula fondamentale del calcolo integrale è formalmente identica per gli integrali impropri.
+
+\begin{example}
+La funzione $\ln x$ è integrabile in senso improprio sull'intervallo $(0,+\infty)$ in quanto si ha:
+\begin{align*}
+ \int_0^{+\infty}\ln x \, dx
+ &= \Enclose{x \ln x - x}_0^{+\infty}
+ = +\infty
+\end{align*}
+\end{example}
+
+\begin{example}
+La funzione $2x/(x^2+1)$ non è integrabile in senso improprio su $\RR$ in quanto si ha
+\begin{align*}
+\int_{0}^{+\infty} \frac {2x} {1+x^2}\, dx
+ &= \Enclose{\ln (1+x^2)}_0^{+\infty} = +\infty \\
+\int_{-\infty}^0 \frac{2x}{1+x^2}\, dx
+ &= \Enclose{\ln(1+x^2)}_{-\infty}^0 = -\infty
+\end{align*}
+e $(+\infty)+ (-\infty)$ non è una operazione definita.
+\end{example}
+
+In base alla stessa osservazione che abbiamo fatto sugli integrali improprio monolaterali è
+facile verificare che se $f$ è integrabile in senso improprio, laterale destro, su $[a,b)$ allora è anche integrabile in senso improprio bilaterale su $(a,b)$.
+Dunque l'integrale improprio bilaterale è una estensione degli integrali impropri laterali e non sarà quindi necessario specificare se l'integrale è monolaterale o bilaterale.
+
+\begin{definition}[integrale improprio multilaterale]
+\mymark{*}
+Siano $a,b\in \bar \RR$ con $a<b$. Supponiamo che esistano $n$ intervalli $(a_0,a_1)$, $(a_1,a_2)$, \dots, $(a_{n-1},a_n)$ con $a_0=a$ e $a_n=b$ tali che
+la funzione $f$ risulti essere definita e integrabile in senso improprio (bilaterale) su ognuno di questi intervalli.
+Se tra i valori degli integrali sugli intervalli non ci sono sia $+\infty$ che $-\infty$ (cosicché è possibile definirne la somma) diremo che $f$ è integrabile in senso improprio su $(a,b)$ e definiremo il suo integrale come:
+\[
+  \int_a^b f(x)\, dx = \sum_{k=1}^n \int_{x_{k-1}}^{x_k} f(x)\, dx.
+\]
+Per la proprietà di additività dell'integrale è chiaro che tale definizione non dipende dalla suddivisione scelta.
+\end{definition}
+
+\begin{example}
+La funzione $f(x)=1/x$ è integrabile in senso improprio
+sull'intervallo $(0,+\infty)$ in quanto si ha
+\[
+  \int_0^{+\infty} \frac{1}{x}\, dx
+  = \Enclose{\ln x}_0^{+\infty}
+  = +\infty - (-\infty) = +\infty.
+\]
+Analogamente tale funzione è integrabile in senso improprio su $(-\infty,0)$ e si ha
+\[
+  \int_{-\infty}^{0} \frac{1}{x}\, dx
+  = \Enclose{\ln(-x)}_{-\infty}^{0}
+  = -\infty - (+\infty) = -\infty.
+\]
+Ma allora la funzione non è integrabile in senso improprio su tutto $\RR$ in quanto non è definita la somma $(+\infty) + (-\infty)$.
+\end{example}
+
+\begin{theorem}[proprietà dell'integrale improprio]
+Se $f$ e $g$ sono integrabili in senso improprio su $(a,b)$
+con $a,b\in \bar \RR$, $a\le b$
+ e $f\le g$ allora
+\[
+  \int_a^b f(x)\, dx \le \int_a^b g(x)\, dx.
+\]
+
+Siano $a,b,c \in \bar \RR$ con $a\le c \le b$.
+Allora nella seguente uguaglianza
+\[
+  \int_a^b f(x)\, dx = \int_a^c f(x)\, dx + \int_c^b f(x)\, dx
+\]
+se almeno uno dei due lati è definito allora anche l'altro lato lo è e l'uguaglianza è valida.
+
+Se $f,g$ sono integrabili in senso improprio su $(a,b)$ e $\lambda, \mu \in \RR$ e se il lato destro di questa uguaglianza è ben definito (non è una somma di infiniti di segno opposto) allora anche il lato sinistro è ben definito e vale l'uguaglianza:
+\[
+  \int_a^b \enclose{\lambda f + \mu g} = \lambda \int_a^b f + \mu \int_a^b g.
+\]
+
+Sia $g\colon (a,b)\to (c,d)$ una funzione $C^1$
+e $f\colon (c,d) \to \RR$ una funzione continua
+e integrabile in senso improprio su $(c,d)$.
+Siano $-\infty \le a < b \le +\infty$ e
+$-\infty \le c < d \le +\infty$ tali che
+\[
+c = \lim_{x\to a^+} g(x),
+\qquad
+d = \lim_{x\to b^-} g(x).
+\]
+Se $f$ è integrabile in senso improprio su $(c,d)$
+allora $f\circ g$ è integrabile su $(a,b)$ e
+si ha
+\[
+\int_a^b f(g(x))\, dx = \int_c^d f(y)\, dy.
+\]
+
+Se invece gli estremi sono scambiati:
+\[
+d = \lim_{x\to a^+} g(x),
+\qquad
+c = \lim_{x\to b^-} g(x)
+\]
+si avrà, nelle stesse ipotesi:
+\[
+  \int_a^b f(g(x))\, dx = \int_d^c f(y)\, dy.
+\]
+\end{theorem}
+%
+\begin{proof}
+Tutte queste proprietà sono già state dimostrate per l'integrale delle funzioni limitate su intervalli limitati. Si possono facilmente estendere all'integrale improprio laterale osservando che il limite mantiene le proprietà richiceste. Di conseguenza le proprietà valgono per additività anche per l'integrale improprio bilaterale, facendo attenzione che non si produca una somma indeterminata $+\infty + (-\infty)$. Infine, sempre per additività, le formule sono valide per gli integrali impropri multilaterali.
+\end{proof}
+
+\begin{theorem}[integrabilità delle funzioni positive]
+\mymark{**}
+Sia $f\colon (a,b)\to \RR$ una funzione
+che su ogni intervallo chiuso e limitato $[c,d]\subset (a,b)$ risulta essere limitata e Riemann-integrabile.
+Ad esempio è sufficiente supporre che $f$ sia continua oppure che $f$ sia monotona.
+
+Se $f(x)\ge 0$ per ogni $x\in (a,b)$ allora $f$ è integrabile in senso improprio su $(a,b)$ e
+\[
+  \int_a^b f(x)\, dx \ge 0.
+\]
+\end{theorem}
+%
+\begin{proof}
+\mymark{**}
+Sia $c\in (a,b)$ un punto fissato. Essendo $f$ non negativa è facile verificare che la funzione integrale
+\[
+  F(x) = \int_c^x f(t)\, dt
+\]
+è crescente, in quanto se $x_1<x_2$ allora $F(x_2)-F(x_1)$ è l'integrale di $F$ tra $x_1$ e $x_2$ e risulta quindi non negativo.
+Dunque esistono i limiti:
+\begin{align*}
+  \int_c^b f(x)\, dx  &= \lim_{x\to b^-} F(x)\\
+  \int_a^c f(x)\, dx  &= -\lim_{x\to a^+} F(x)
+\end{align*}
+Essendo $F(x) \ge 0$ per $x>c$ e $F(x)\le 0$ per $x<c$ si
+verifica inoltre che entrambi i limiti sono non negativi e dunque si ha:
+\[
+  \int_a^b f(x)\, dx = \int_a^c f(x)\, dx + \int_c^b f(x)\, dx \ge 0.
+\]
+\end{proof}
+
+\begin{definition}[convergenza dell'integrale]
+\mymark{***}
+Si dirà che l'integrale
+\[
+  \int_a^b f(x)\, dx
+\]
+è \myemph{convergente} se la funzione $f$ è integrabile
+in senso improprio su $(a,b)$ e se l'integrale è finito.
+\end{definition}
+
+\begin{example}
+\mymark{***}
+La funzione $f(x) = 1/x^p$ è integrabile in senso improprio sull'intervallo $(0,+\infty)$ per ogni $p\in \RR$.
+L'integrale
+\[
+  \int_1^{+\infty} \frac{1}{x^p}\, dx
+\]
+è convergente se e solo se $p>1$.
+Viceversa l'integrale
+\[
+ \int_0^1 \frac{1}{x^p}\, dx
+\]
+è convergente se e solo se $p<1$.
+
+La verifica si fa facilmente valutando il limite della primitiva $F(x) = x^{1-p}/(1-p)$ negli estremi dell'intervallo.
+\end{example}
+
+\begin{exercise}
+Si determini per quali $\alpha,\beta\in \RR$ risultano convergenti
+gli integrali:
+\[
+  \int_0^{\frac 1 2} \frac{1}{x^\alpha \abs{ln x}^\beta}\, dx,
+  \qquad
+  \int_2^{+\infty} \frac{1}{x^\alpha \ln^\beta x} \, dx.
+\]
+\end{exercise}
+
+Dall'esercizio precedente si può osservare che
+l'integrale e la serie:
+\[
+ \int_2^{+\infty} \frac{1}{x^\alpha \ln^\beta x}\, dx,
+ \qquad
+ \sum_{k=2}^{+\infty} \frac{1}{k^\alpha \ln^\beta k}
+\]
+convergono per gli stessi valori dei parametri $\alpha$ e $\beta$
+(ricordiamo che il carattere della serie può essere determinato
+utilizzando il criterio di condensazione di Cauchy).
+Questa analogia può essere formalizzata nel seguente.
+
+\begin{theorem}[collegamento tra serie ed integrali impropri]
+\mymark{**}
+Sia $f\colon$ $[1,+\infty)$ una funzione decrescente non negativa
+e sia $a_k=f(k)$.
+Allora la serie
+\[
+   \sum_{k=1}^{+\infty} a_k
+\]
+è convergente se e solo se è convergente l'integrale
+\[
+  \int_1^{+\infty} f(x)\, dx.
+\]
+
+E, più precisamente:
+\begin{equation}\label{eq:39185}
+  0
+  \le \sum_{k=1}^{+\infty} a_k - \int_1^{+\infty}f(x)\, dx
+  \le a_1.
+\end{equation}
+
+\end{theorem}
+%
+\begin{proof}
+\mymark{**}
+La funzione $f$, essendo non negativa e monotona, risulta essere integrabile in senso improprio su $[0,+\infty)$.
+Anche la serie $\sum f(k)$ essendo a termini non negativi risulta essere determinata.
+Essendo $f$ decrescente, per ogni $x \in [k,k+1]$ si ha
+\[
+  f(k+1) \le f(x) \le f(k)
+\]
+integrando su $[k,k+1]$ si ottiene
+\[
+  f(k+1) \le \int_{k}^{k+1} f(x)\, dx \le f(k)
+\]
+e sommando per $k=1,\dots, N$ si ottiene:
+\[
+  \sum_{k=2}^{N+1} f(k) \le \int_{1}^{N+1} f(x)\, dx \le \sum_{k=1}^{N} f(k).
+\]
+Possiamo passare al limite per $N \to +\infty$ in quanto già sappiamo che le serie è definita e la funzone è integrabile
+e che quindi i limiti esistono:
+\[
+  \sum_{k=2}^{+\infty} f(k)
+  \le \int_{1}^{+\infty} f(x)\, dx
+  \le \sum_{k=1}^{+\infty} f(k).
+\]
+Queste ultime disuguaglianze sono equivalenti alle \eqref{eq:39185}
+e ci dicono immediatamente che se l'integrale converge anche la serie converge e viceversa.
+\end{proof}
+
+\begin{example}[stima asintotica di $\ln n!$]
+\index{fattoriale!stima asintotica}
+\mynote{stima asintotica $n!$}
+Osserviamo che
+\[
+  \ln (n!) = \ln \prod_{k=1}^n k = \sum_{k=1}^n \ln k.
+\]
+Applichiamo lo stesso procedimento utilizzato nel teorema precedente alla funzione $f(x) = \ln x$. Visto che il logaritmo è crescente (invece che decrescente) otterremo delle stime rovesciate, ma analoghe. Ripetendo con attenzione i conti, si ottiene:
+\[
+    \int_1^n \ln(x)\, dx \le  \sum_{k=2}^n \ln k = \sum_{k=1}^n \ln k \le \int_1^{n+1} \ln(x) \, dx
+\]
+e calcolando gli integrali: $\int \ln x = x \ln x -x$ si ottiene
+\[
+  n \ln n - n + 1 \le \ln(n!) \le (n+1) \ln (n+1) - n - \ln 2 +2
+\]
+da cui, dividendo ambo i membri per $n \ln n$ e facendo tendere $n\to +\infty$ si trova
+\[
+ \frac{\ln n!}{n \ln n}\to 1
+\]
+ovvero
+\[
+  \ln (n!) \sim n \ln n \qquad \text{per $n\to +\infty$.}
+\]
+
+Questa formula discende dalla formula di Stirling, ma è molto più semplice da dimostrare.
+\end{example}
+
+Anche se non sappiamo calcolare esplicitamente un integrale,
+è spesso possibile determinarne la convergenza confrontandolo,
+tramite il teorema seguente, con un integrale noto.
+
+\begin{theorem}[criterio di confronto e confronto asintotico]
+\mymark{**}
+Siano $f, g \colon$ $ [a,b)\to \RR$ (con $a \le b \le +\infty$) funzioni limitate ed integrabili su ogni intervallo $[a,c]$ con $c\in[a,b)$ (ad esempio basta supporre che $f$ e $g$ siano continue su $[a,b)$).
+Se esiste $c\in [a,b)$ e $C\in \RR$ tale che
+\begin{equation}\label{eq:466235}
+  0 \le f(x) \le C \cdot g(x)\qquad \forall x\in[c,b)
+\end{equation}
+allora si ha l'implicazione
+\[
+\int_a^b g(x)\, dx \text{ converge} \implies
+\int_a^b f(x)\, dx \text{ converge.}
+\]
+
+In particolare se $f\ge 0$ basta che, per $x\to b^-$, sia $f=O(g)$ oppure $f=o(g)$ (sinonimo: $f\ll g$) oppure ancora $f \sim g$.
+
+Osserviamo inoltre che la relazione $f\sim g$ è simmetrica e dunque in tal caso c'è una doppia implicazione: l'integrale di $f$ converge se e solo se converge l'integrale di $g$.
+
+Risultati analoghi valgono per funzioni definite su un intervallo aperto a sinistra: $(a, b]$ con $-\infty \le a \le b$, in tal caso i limiti si faranno per $x\to a^+$.
+\end{theorem}
+%
+\begin{proof}
+\mymark{**}
+La condizione $f\ge 0$ è importante, garantisce che anche $g\ge 0$ e dunque $f$ e $g$ sono integrabili in senso improprio su $[a,b)$.
+Se vale \eqref{eq:466235} si ha poi:
+\begin{align*}
+  \int_a^b f(x)\, dx
+   &= \int_a^c f(x)\, dx + \int_c^b f(x)\, dx \\
+   &\le \int_a^c f(x)\, dx + C\int_c^b g(x)\,dx \\
+   &\le \int_a^c f(x)\, dx - C \int_a^c g(x)\, dx + C\int_a^b g(x)\,dx.
+\end{align*}
+Gli integrali di $f$ e $g$ su $[a,c]$ sono finiti, dunque se è finito l'integrale $\int_a^b g(x)\, dx$ anche l'integrale $\int_a^b f(x)\, dx$ è finito.
+
+La definizione di limite ci garantisce la validità di \eqref{eq:466235} nel caso in cui $f/g\to \ell < +\infty$ (basterà scegliere $C=2\ell$).
+\end{proof}
+
+Nei casi più frequenti il teorema precedente si applica confrontando la funzione con una potenza:
+\[
+  (x-x_0)^\alpha, \qquad \alpha \in \RR.
+\]
+Come abbiamo già visto negli esempi precedenti gli integrali di queste funzioni si possono calcolare esplicitamente e dunque la convergenza di queste funzioni è nota. Per $x\to +\infty$ per avere convergenza dovrà essere $\alpha<-1$ per $x\to x_0$ invece dovrà essere $\alpha>-1$.
+
+\begin{theorem}
+\mymark{**}
+Sia $f$
+una funzione integrabile in senso improprio su $(a,+\infty)$
+e supponiamo che
+esista (finito o infinito)
+il limite
+\[
+  \ell = \lim_{x\to +\infty} f(x).
+\]
+Se
+\[
+  \int_a^{+\infty} f(x)\, dx
+\]
+è convergente allora $\ell=0$.
+\end{theorem}
+%
+\begin{proof}
+\mymark{**}
+Supponiamo che la funzione $f$ sia integrabile
+su $(a,+\infty)$ e che sia $\ell>0$. Allora esiste $b>a$ tale che $f \ge \ell/2$ su tutto l'intervallo $[b,+\infty)$.
+Si dovrà avere:
+\[
+  \int_a^{+\infty} f = \int_a^b f + \int_b^{+\infty} f
+  \ge \int_a^b f + \int_b^{+\infty} \frac{\ell}{2}
+  = \int_a^b f + \infty = +\infty
+\]
+in quanto $\int_a^b f$ non può essere uguale a $-\infty$ altrimenti la funzione $f$ non sarebbe integrabile in
+senso improprio su $(a,+\infty)$.
+\end{proof}
+
+\begin{comment}
+\begin{exercise}[difficile]
+Mostrare che l'integrale
+\[
+  \int_0^{+\infty} \exp\enclose{x^2 \ln \frac{2+\cos(2\pi x)}{3}} \, dx
+\]
+è finito. Ma la funzione integranda non tende a zero per $x\to +\infty$.
+\end{exercise}
+\end{comment}
+
+\begin{theorem}[criterio di convergenza assoluta]
+\mymark{**}
+Sia $f\colon (a,b)\to \RR$ continua
+e $g\colon (a,b)\to \RR$  tale che
+per ogni $x\in (a,b)$ si ha  $\abs{f(x)} \le g(x)$.
+Se $g$ è integrabile in senso improprio su $(a,b)$ e
+\[
+  \int g(x)\, dx < +\infty
+\]
+allora anche $f$ è integrabile in senso improprio su $(a,b)$ e si ha
+\[
+  \int_a^b \abs{f(x)}\, dx \le \int_a^b g(x)\, dx < +\infty.
+\]
+\end{theorem}
+%
+\begin{proof}
+Scriviamo $f(x) = f^+(x) - f^-(x)$ con $f^+(x)\ge 0$ e $f^-(x)\ge 0$.
+Inoltre $f^+$ e $f^-$ sono funzioni continue. Dunque $f^+$ e $f^-$ sono
+integrabili in senso improprio su $(a,b)$. Inoltre essendo
+$f^+(x) \le \abs{f(x)} \le g(x)$ si ha
+\[
+ \int_a^b f^+(x)\, dx \le \int_a^b g(x)\, dx < +\infty.
+\]
+Lo stesso vale per $f^-(x)$. Visto che gli integrali di $f^+$ e $f^-$ sono entrambi finiti
+si ha che $f$ è integrabile in senso improprio su $(a,b)$ e vale:
+\[
+  \int_a^b f(x)\, dx = \int_a^b f^+(x)\, dx - \int_a^b f^-(x)\, dx.
+\]
+
+La disuguaglianza
+\[
+  \int_{a'}^{b'} \abs{f(x)}\, dx \le \int_{a'}^{b'} g(x)\, dx
+\]
+è valida per ogni $[a',b']\subset (a,b)$ per le proprietà dell'integrale di Riemann.
+Passando al limite per $a' \to a^+$ e $b'\to b^-$ si completa la dimostrazione.
+\end{proof}
+
+\begin{example}[funzione integrabile ma non assolutamente]
+\mymark{*}
+Si consideri la funzione $f\colon (0,+\infty) \to \RR$
+definita da
+\[
+  f(x) = \frac{\sin x }{x}.
+\]
+Visto che $f(x)\to 1$ per $x\to 0^+$ la funzione $f$
+può essere estesa per continuità ad una funzione continua $\tilde f \colon [0,+\infty) \to \RR$.
+Visto che $\tilde f$ essendo continua è Riemann-integrabile su $[0,1]$ allora $\tilde f$ è integrabile in senso improprio su $(0,1]$ e quindi anche $f$ lo è (in quanto coincide con $\tilde f$ su $(0,1]$).
+
+Ci possono invece essere dei problemi sull'intervallo $[1,+\infty)$.
+Preso $b\in[1,+\infty)$ si ha, integrando per parti,
+\[
+  \int_1^b \frac{\sin x}{x}\, dx
+  = \Enclose{\frac{-\cos x}{x}}_1^b -
+  \int_1^b \frac{\cos x}{x^2} \, dx.
+\]
+Osserviamo ora che la funzione $(\cos x) / x^2$ è integrabile
+per il criterio della convergenza assoluta, in quanto:
+\[
+  \abs{\frac{\cos x}{x^2}} \le \frac{1}{x^2}
+\]
+che è integrabile su $[1,+\infty)$. Dunque si ha
+\begin{align*}
+  \int_1^{+\infty}\frac{\sin x}{x}\, dx
+  &= \Enclose{\frac{-\cos x}{x}}_1^{+\infty} - \int_1^{+\infty} \frac{\cos x}{x^2}\, dx \\
+  &= \cos 1 - \int_1^{+\infty} \frac{\cos x}{x^2}\, dx
+\end{align*}
+e il lato destro è finito, dunque anche la funzione $\frac{\sin x}{x}$ è integrabile su $[1,+\infty)$ con integrale finito e quindi anche su $[0,+\infty)$ e, per simmetria, è integrabile su tutto $\RR$.
+
+Tale funzione non è però integrabile assolutamente. Infatti si ha,
+per ogni $k\in \NN$
+\begin{align*}
+  \int_{k\pi}^{(k+1)\pi} \abs{\frac{\sin x} x}\, dx
+  &\ge \int_{k\pi}^{(k+1)\pi} \frac{\abs{\sin x}}{(k+1)\pi}\, dx\\
+  &= \frac{\int_0^\pi \sin x \, dx}{(k+1)\pi}
+  = \frac{2}{(k+1)\pi}
+\end{align*}
+da cui
+\[
+  \int_0^{+\infty} \abs{\frac{\sin x}{x}}\, dx
+  \ge \sum_{k=0}^{+\infty} \frac{2}{(k+1)\pi} = +\infty.
+\]
+\end{example}
+
+\begin{example}[la funzione $\Gamma$ Eulero]
+\index{$\Gamma$ funzione di Eulero}
+\index{funzione!$\Gamma$ di Eulero}
+Si definisce $\Gamma\colon (0,+\infty) \to \RR$ come
+\[
+  \Gamma(x) = \int_0^{+\infty} e^{-t} t^{x-1}\, dt.
+\]
+L'integrale converge per ogni $x>0$ in quanto posto
+$f(t) = e^{-t} t^{x-1}$ per $t\to 0^+$ si ha $f(t) \sim t^{x-1}$ che ha integrale convergente in un intorno di $0$ mentre per $t\to +\infty$ si ha $f(t) \ll e^{-t/2}$ che ha integrale convergente in un intorno di $+\infty$.
+
+Integrando per parti si ottiene una interessante proprietà della funzione $\Gamma$:
+\begin{align*}
+\int_0^{+\infty} e^{-t}t^{x}\, dt
+&= \Enclose{-e^{-t}t^{x}}_0^{+\infty}
++ \int_0^{+\infty} e^{-t}xt^{x-1}\, dt\\
+&= x\int_0^{+\infty} e^{-t}t^{x-1}\, dt
+\end{align*}
+cioè $\Gamma(x+1) = x\Gamma(x)$.
+Osservando che $\Gamma(1)=0$ si può quindi dimostrare, per induzione, che $\Gamma(n+1) = n!$ per ogni $n\in \NN$.
+\end{example}
