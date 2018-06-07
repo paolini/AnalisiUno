@@ -360,13 +360,13 @@ Altrimenti se $\abs{\vec v}=0$ la disuguaglianza è certamente soddisfatta in qu
 
 Il problema di Cauchy consiste nel
 trovare una soluzione di un sistema di $n$ equazioni differenziali ordinarie del primo ordine in $n$ incognite
-con un dato iniziale fissato. Cioè dato $t_0\in \RR$,
-e $\vec y_0 \in \RR^n$ si cerca un intervallo $I\subset \RR$ con $t_0\in I$ e una funzione $\vec u \colon I\to \RR^n$
+con un dato iniziale fissato. Cioè dato $x_0\in \RR$,
+e $\vec y_0 \in \RR^n$ si cerca un intervallo $I\subset \RR$ con $x_0\in I$ e una funzione $\vec u \colon I\to \RR^n$
 che sia derivabile e che soddisfi:
 \begin{equation}\label{eq:problema_cauchy}
 \begin{cases}
- \vec u'(t) = \vec f(t, \vec u(t)), \qquad \forall t\in I\\
- \vec u(t_0) = \vec y_0.
+ \vec u'(x) = \vec f(x, \vec u(x)), \qquad \forall x\in I\\
+ \vec u(x_0) = \vec y_0.
 \end{cases}
 \end{equation}
 
@@ -375,74 +375,75 @@ che sia derivabile e che soddisfi:
 \mymark{***}
 Sia $\Omega$ un aperto di $\RR\times \RR^n$ e sia $\vec f\colon \Omega \to \RR^n$, una funzione continua e tale che esista $L>0$ per cui vale
 \[
-  \abs{\vec f(t,\vec y_1) - \vec f(t,\vec y_2)} \le L \abs{\vec y_1 - \vec y_2}
+  \abs{\vec f(x,\vec y_1) - \vec f(x,\vec y_2)} \le L \abs{\vec y_1 - \vec y_2}
   \]
-per ogni $t\in \RR$, $\vec y_1, \vec y_2\in \RR^n$
-con $(t,\vec y_1),(t,\vec y_2)\in\Omega$
-(diremo che $f(t,\vec y)$ è Lipschitziana in $\vec y$ uniformemente rispetto a $t$).
+per ogni $x\in \RR$, $\vec y_1, \vec y_2\in \RR^n$
+con $(x,\vec y_1),(x,\vec y_2)\in\Omega$
+(diremo che $f(x,\vec y)$ è Lipschitziana in $\vec y$ uniformemente rispetto a $x$).
 
-Dato $(t_0,\vec y_0)\in \Omega$
+Dato $(x_0,\vec y_0)\in \Omega$
 esiste $\delta_0>0$ tale che per ogni $\delta < \delta_0$
-posto $I_\delta = [t_0-\delta, t_0+\delta]$ esiste una unica funzione $\vec u\colon I_\delta \to \RR^n$ tale che $(t,\vec u(t))\in \Omega$ per ogni $t\in I_\delta$, $u$ è derivabile
+posto $I_\delta = [x_0-\delta, x_0+\delta]$ esiste una unica funzione $\vec u\colon I_\delta \to \RR^n$ tale che $(x,\vec u(x))\in \Omega$ per ogni $x\in I_\delta$, $u$ è derivabile
 e soddisfa il problema di Cauchy~\eqref{eq:problema_cauchy}.
 \end{theorem}
 %
 \begin{proof}
 \mymark{***}
 Innanzitutto vogliamo trasformare il problema differenziale in un problema integrale. Se $\vec u$ è una funzione derivabile soluzione di \eqref{eq:problema_cauchy}
-allora è chiaro che $\vec u'(t) = \vec f(t,\vec u(t))$ è continua in quanto composizione di funzioni continue e dunque $\vec u$ è di classe $C^1$. Possiamo dunque integrare tra $t_0$ e $t$ i due lati dell'equazione differenziale per ottenere:
+allora è chiaro che $\vec u'(x) = \vec f(x,\vec u(x))$ è continua in quanto composizione di funzioni continue e dunque $\vec u$ è di classe $C^1$. Possiamo dunque integrare tra $x_0$ e $x$ i due lati dell'equazione differenziale per ottenere:
 \[
-  \vec u(t) - \vec u(t_0) = \int_{t_0}^t \vec f(s,\vec u(s))\, ds
+  \vec u(x) - \vec u(x_0) = \int_{x_0}^x \vec f(s,\vec u(s))\, ds
 \]
 e dunque se $\vec u$ risolve il problema di Cauchy allora $\vec u$ soddisfa anche la seguente equazione integrale:
 \begin{equation}\label{eq:cauchy_integrale}
-  \vec u(t) = \vec y_0 + \int_{t_0}^t \vec f(s,\vec u(s))\, ds.
+  \vec u(x) = \vec y_0 + \int_{x_0}^x \vec f(s,\vec u(s))\, ds.
 \end{equation}
 Viceversa se $\vec u$ è continua e soddisfa \eqref{eq:cauchy_integrale} allora si ha ovviamente
-$\vec u(t_0) = \vec y_0$ e, passando alle derivate, si scopre che $\vec u$ è derivabile e soddisfa l'equazione differenziale $\vec u'(t) = \vec f(t,\vec u(t))$.
+$\vec u(x_0) = \vec y_0$ e, passando alle derivate, si scopre che $\vec u$ è derivabile e soddisfa l'equazione differenziale $\vec u'(x) = \vec f(x,\vec u(x))$.
 Dunque trovare una soluzione $C^1$ del problema di Cauchy~\eqref{eq:problema_cauchy} è equivalente a trovare una soluzione $C^0$ del problema integrale~\eqref{eq:cauchy_integrale}.
 Ci dedicheremo dunque a questo secondo problema.
 
 Denotiamo con
 \[
   C_{\alpha,\beta} =
-  \{(t,\vec y)\in \RR\times\RR^n\colon \abs{t-t_0}\le \alpha, \abs{\vec y -\vec y_0}\le \beta\}
+  \{(x,\vec y)\in \RR\times\RR^n\colon \abs{x-x_0}\le \alpha, \abs{\vec y -\vec y_0}\le \beta\}
 \]
-il cilindro centrato in $(t_0, \vec y_0)$ con asse parallelo all'asse delle $t$, di altezza $2\alpha$ e raggio $\beta$.
-Visto che $\Omega$ è aperto esiste una palla aperta centrata in $(t_0,\vec y_0)$ e contenuta in $\Omega$.
+il cilindro centrato in $(x_0, \vec y_0)$ con asse parallelo all'asse delle $x$,
+di altezza $2\alpha$ e raggio $\beta$.
+Visto che $\Omega$ è aperto esiste una palla aperta centrata in $(x_0,\vec y_0)$ e contenuta in $\Omega$.
 Tale palla dovrà anche contenere un cilindro $C_{\alpha,\beta}$ per un qualche $\alpha>0$ e $\beta>0$.
 Il cilindro $C_{\alpha,\beta}$ è chiuso e limitato in $\Omega$ e dunque $\vec f$, essendo continua, è limitata su $C_{\alpha,\beta}$ per il teorema di Weierstrass.
-Sia $M>0$ tale che $\abs{\vec f(t,\vec y)}\le M$ per ogni $(t,\vec y) \in C_{\alpha,\beta}$ e definiamo
+Sia $M>0$ tale che $\abs{\vec f(x,\vec y)}\le M$ per ogni $(x,\vec y) \in C_{\alpha,\beta}$ e definiamo
 \begin{equation}\label{eq:395109}
  \delta_0 = \min\{\alpha, \frac{\beta}{M}, \frac{1}{L}\}.
 \end{equation}
 Il perché $\delta_0$ venga definito in questo modo si capirà nel prosieguo della dimostrazione.
 Consideriamo un qualunque $\delta<\delta_0$,
-poniamo $I=[t_0-\delta,t_0+\delta]$ e
+poniamo $I=[x_0-\delta,x_0+\delta]$ e
 \[
 X=\{\vec u\in C^0(I,\RR^n)\colon \Abs{\vec u-\vec y_0}_\infty
 \le \beta \}.
 \]
 Sappiamo che $C^0(I,\RR^n)$ è uno spazio metrico completo e $X$ è chiuso quindi anch'esso è completo. Possiamo allora considerare l'operatore $T\colon X \to C^0(I, \RR^n)$:
 \[
-  T(\vec u) = \vec y_0 + \int_{t_0}^t \vec f(s, \vec u(s))\, ds.
+  T(\vec u)(x) = \vec y_0 + \int_{x_0}^x \vec f(s, \vec u(s))\, ds.
 \]
-Vogliamo innanzitutto verificare che $X$ è invariante, cioè che $T(X)\subset X$. Ma se $\vec u \in X$ e se $t\in I$ si ha
-$(t,\vec u(t)) \in C_{\delta,\beta} \subset C_{\alpha,\beta}$
+Vogliamo innanzitutto verificare che $X$ è invariante, cioè che $T(X)\subset X$. Ma se $\vec u \in X$ e se $x\in I$ si ha
+$(x,\vec u(x)) \in C_{\delta,\beta} \subset C_{\alpha,\beta}$
 e dunque (usando anche~\eqref{eq:395109} e il teorema~\ref{teo:tipo_jensen})
 \[
-  \abs{\vec T(u)(t)-\vec y_0}
-  = \abs{\int_{t_0}^t \vec f(s,\vec u(s))\, ds}
-  \le \int_{t_0}^t M\, ds = \abs{t-t_0} M \le \delta M
+  \abs{\vec T(u)(x)-\vec y_0}
+  = \abs{\int_{x_0}^x \vec f(s,\vec u(s))\, ds}
+  \le \int_{x_0}^x M\, ds = \abs{x-x_0} M \le \delta M
   \le \beta.
 \]
 Dunque $\Abs{T(\vec u)-\vec y_0}\le \beta$ e $T(\vec u)\in X$.
 Abbiamo dunque che $T\colon X \to X$. Verifichiamo ora che $T$ è una contrazione. Si ha:
 \begin{align*}
-  \abs{T(\vec u_1)(t)-T(\vec u_2)(t)}
-   &\le \abs{\int_{t_0}^t\abs{\vec f(s,\vec u_1(s))-\vec f(s,\vec u_2(s))}\, ds}\\
-   &\le \abs{\int_{t_0}^t L\abs{\vec u_1(s)-\vec u_2(s)}\, ds}\\
-   &\le L \abs{t-t_0}\Abs{\vec u_1 - \vec u_2}_\infty
+  \abs{T(\vec u_1)(x)-T(\vec u_2)(x)}
+   &\le \abs{\int_{x_0}^x\abs{\vec f(s,\vec u_1(s))-\vec f(s,\vec u_2(s))}\, ds}\\
+   &\le \abs{\int_{x_0}^x L\abs{\vec u_1(s)-\vec u_2(s)}\, ds}\\
+   &\le L \abs{x-x_0}\Abs{\vec u_1 - \vec u_2}_\infty
    \le L \delta \Abs{\vec u_1 - \vec u_2}_\infty
 \end{align*}
 ovvero, facendo l'estremo superiore al variare di $x\in I$:
@@ -462,24 +463,24 @@ $\vec f \in C^1(\Omega, \RR^n)$.
 %
 \begin{proof}
 \mymark{***}
-Se prendiamo un cilindro $K=C_{\alpha,\beta}\subset \Omega$ centrato in $(t_0,\vec y_0)$, sappiamo che ogni derivata parziale $\partial \vec f / \partial y_j$ è continua ed è quindi limitata (per il teorema di Weierstrass) su $K$. Sia $L_j$ il massimo di $\abs{\partial \vec f / \partial u_j}$ su $K$ e sia $L$ il massimo degli $L_j$. Allora presi $\vec y, \vec z \in \RR^n$ con $(t,\vec y),(t,\vec z)\in K$ si può scomporre l'incremento vettoriale $\vec z - \vec y$ lungo le $n$ direzioni coordinate e applicare il teorema di Lagrange lungo ogni direzione.
+Se prendiamo un cilindro $K=C_{\alpha,\beta}\subset \Omega$ centrato in $(x_0,\vec y_0)$, sappiamo che ogni derivata parziale $\partial \vec f / \partial y_j$ è continua ed è quindi limitata (per il teorema di Weierstrass) su $K$. Sia $L_j$ il massimo di $\abs{\partial \vec f / \partial u_j}$ su $K$ e sia $L$ il massimo degli $L_j$. Allora presi $\vec y, \vec z \in \RR^n$ con $(x,\vec y),(x,\vec z)\in K$ si può scomporre l'incremento vettoriale $\vec z - \vec y$ lungo le $n$ direzioni coordinate e applicare il teorema di Lagrange lungo ogni direzione.
 Per ogni $k = 1,\dots, n$ si ha quindi:
 \begin{align*}
 \MoveEqLeft
-\abs{f_k(t,\vec z)-f_k(t,\vec y)}\\
-&\le \sum_{j=1}^n \abs{f_k(t,z_1, \dots, z_j, y_{j+1}, \dots, y_n) - f_k(t,z_1, \dots, z_{j-1}, y_j, \dots, y_n)}\\
+\abs{f_k(x,\vec z)-f_k(x,\vec y)}\\
+&\le \sum_{j=1}^n \abs{f_k(x,z_1, \dots, z_j, y_{j+1}, \dots, y_n) - f_k(x,z_1, \dots, z_{j-1}, y_j, \dots, y_n)}\\
 &\le \sum_{j=1}^n L_j \abs{z_j-y_j}
 \le \sum_{j=1}^n L_j \abs{z-y}
 \le n L \abs{z-y}
 \end{align*}
 da cui
 \begin{align*}
-  \abs{\vec f(t,\vec z) - \vec f(t,\vec y)}
-  &= \sqrt{\sum_{k=1}^n \abs{f_k(t,\vec z) - f_k(t,\vec y)}^2} \\
+  \abs{\vec f(x,\vec z) - \vec f(x,\vec y)}
+  &= \sqrt{\sum_{k=1}^n \abs{f_k(x,\vec z) - f_k(x,\vec y)}^2} \\
   &\le \sqrt{\sum_{k=1}^n n^2 L^2 \abs{z-y}^2} \\
   &\le n\sqrt{n} L \abs{z-y}.
 \end{align*}
-Abbiamo quindi mostrato che per ogni $(t_0,\vec y_0)\in \Omega$ esiste un intorno del punto $(t_0,\vec y_0)$ in cui la funzione $\vec f$ soddisfa le ipotesi del teorema~\ref{th:cauchy_lipschitz}.
+Abbiamo quindi mostrato che per ogni $(x_0,\vec y_0)\in \Omega$ esiste un intorno del punto $(x_0,\vec y_0)$ in cui la funzione $\vec f$ soddisfa le ipotesi del teorema~\ref{th:cauchy_lipschitz}.
 \end{proof}
 
 \begin{comment}
@@ -521,13 +522,15 @@ dove $\vec f\colon \Omega \subset \RR \times \RR^n \to \RR^n$
 \end{definition}
 
 \begin{proposition}[caratterizzazione delle soluzioni massimali]
+\label{prop:edo_massimale}
 Supponiamo che $\vec f\colon \Omega\subset \RR\times\RR^n\to\RR^n$
 soddisfi le ipotesi del teorema di Cauchy-Lipschitz.
 Allora una soluzione $\vec u$ di \eqref{eq:edo_normale_ordine_uno}
 è definita su un intervallo massimale $I$ se e solo se
 $I$ è aperto e per ogni $K$ compatto $K\subset \Omega$
 e per ogni $x_0 \in I$ esistono $x_1,x_2\in I$, $x_1 < x_0 < x_2$ tali che $\vec u(x_1)\not \in K$ e $\vec u(x_2) \not \in K$.
-Significa cioè che il grafico di $\vec u$ cioè la curva $(x,\vec u(x))$ esce da qualunque compatto fissato $K\subset \Omega$ sia facendo crescere $x$ verso destra che facendo calare $x$ verso sinistra. In altre parole il grafico della soluzione massimale tende ad arrivare sulla frontiera di $\Omega$.
+Significa cioè che il grafico di $\vec u$ cioè la curva $(x,\vec u(x))$ esce da qualunque compatto fissato $K\subset \Omega$ sia facendo crescere $x$ verso destra che facendo calare $x$ verso sinistra.
+In altre parole il grafico della soluzione massimale tende ad arrivare sulla frontiera di $\Omega$.
 \end{proposition}
 %
 \begin{proof}
@@ -590,6 +593,7 @@ Ponendo allora il punto $(x_1,\vec u(x_1))$ come dato iniziale del problema di C
 \end{proof}
 
 \begin{theorem}[esistenza di soluzioni massimali]
+\label{th:edo_esistenza_massimali}
 Se $\vec u\colon I\to \RR^n$ è una soluzione dell'equazione differenziale~\eqref{eq:edo_normale_ordine_uno}
 e se $\vec u$ non è essa stessa una soluzione massimale, esiste
 sempre una estensione $\vec v\colon J\to \RR^n$ con $J\supset I$
@@ -607,18 +611,23 @@ Se $\vec u\colon I \to \RR^n$ è una soluzione significa che $(x,u(x))\in \Omega
 
 \begin{theorem}[esistenza globale]
 \label{th:edo_esistenza_globale}
-Sia $I = (a,b) \subset \RR$ un intervallo aperto e sia
-$\vec f\colon I \times \RR^n \to \RR^n$, $(x,\vec u)\mapsto \vec f(x,\vec u)$ una funzione che soddisfa le ipotesi di esistenza e unicità locale (dunque continua nella coppia $(x,\vec u)$ e lipschitziana nella variabile $\vec u$ uniformemente rispetto alla variabile $x$) e che soddisfi inoltre l'ipotesi aggiuntiva (sublinearità in $\vec u$ uniforme rispetto a $x$):
+Sia $I = (a,b) \subset \RR$ un intervallo aperto, $\Omega=I\times \RR^n$ e sia
+$\vec f\colon \Omega \to \RR^n$, $(x,\vec y)\mapsto \vec f(x,\vec y)$ una funzione che
+soddisfa le ipotesi di esistenza e unicità locale (dunque continua nella coppia $(x,\vec y)$
+e lipschitziana nella variabile $\vec y$ uniformemente rispetto alla variabile $x$) nell'intorno di ogni punto di $\Omega$ (ad esempio $\vec f \in C^1(\Omega,\RR^n)$ è condizione sufficiente)
+e che soddisfi
+inoltre l'ipotesi aggiuntiva (sublinearità in $\vec y$ uniforme rispetto a $x$):
 \[
-  \abs{\vec f(x,\vec u)} \le m\abs{\vec u} + q.
+  \abs{\vec f(x,\vec y)} \le m\abs{\vec y} + q.
 \]
-Allora per ogni $x_0\in I$ e per ogni $\vec u_0\in \RR^n$ esiste una unica funzione $u\colon I \to \RR^n$ soluzione del problema di Cauchy~\eqref{eq:problema_cauchy}.
+Allora per ogni $x_0\in I$ e per ogni $\vec y_0\in \RR^n$ esiste una funzione definita su tutto $I$:
+$\vec u\colon I \to \RR^n$ soluzione del problema di Cauchy~\eqref{eq:problema_cauchy}.
 \end{theorem}
 %
 La dimostrazione richiede un lemma preliminare.
 \begin{lemma}
 Siano $a,b\in \RR$ con $a<b$ e siano $m,q\ge 0$.
-Sia $\vec u \colon [a,b) \to \RR^n$ una funzione derivabile
+Sia $\vec u \colon [a,b) \to \RR^n$ una funzione di classe $C^1$
 tale che
 \[
   \abs{\vec u'(t)} \le m \abs{\vec u(t)} + q
@@ -628,52 +637,49 @@ Allora $\vec u$ è limitata.
 \end{lemma}
 %
 \begin{proof}
-Supponiamo per assurdo che $\vec u(t)$ non sia una funzione limitata. Significa che $\abs{\vec u(t)}$ non è superiormente limitata e quindi posto $\phi(t) = \ln (1+\abs{\vec u(t)}^2)$
-abbiamo definito una funzione $\phi\colon [a,b) \to \RR$
-continua, non negativa, superiormente illimitata.
-
-Posto $k_0 = \lceil \phi(0)\rceil$ vogliamo definire per $k\ge k_0$ una successione $x_k\in [a,b)$ che sia crescente e tale che $\phi(x_k)=k$.
-Cominciamo col definire $x_{k_0}$.
-Visto che $\phi$ non è superiormente limitata, deve esistere $x\in [a,b)$ tale che $\phi(x)>k_0$. Ma visto che $\phi(a)\le k_0$ (per definizione di $k_0$) per il teorema
-dei valori intermedi deve esistere $x_{k_0}\in[a,x)$ tale che $\phi(x_{k_0})=k_0$.
-Supponiamo ora di aver definito i primi $k$ termini della successione: $x_0 \le x_1 \le \dots \le x_{k}$
-in modo che $\phi(x_k)=k$ e vediamo come si può definire $x_
-{k+1}$. Per il teorema di Weierstrass la funzione $\phi$ è limitata sull'intervallo $[a,x_k]$. Significa dunque che $\phi$ è superiormente illimitata sull'intervallo $[x_k,b)$. Esisterà dunque $x\in [x_k,b)$ tale che $\phi(x)\ge k+1$.
-Visto che $\phi(x_k)=k$ per il teorema dei valori intermedi dovrà esistere un punto $x_{k+1} \in [x_k,x]$ tale che $\phi(x_{k+1})=k+1$. Dunque abbiamo costruito $x_k$ come volevamo.
-
-Osserviamo che necessariamente $x_k \to b$. Infatti $x_k$ è convergente in quanto monotòna e limitata ma il limite non può essere un numero $c<b$ in quanto sull'intervallo $[a,c]$ la funzione $\phi$ è limitata (sempre per Weiestrass) mentre $\phi(x_k)=k\to +\infty$.
-
-Osserviamo ora che esiste un punto $y_k\in[x_k,x_{k+1})$ tale che $\phi(y_k)=\phi(x_k)=k$ e tale che $\phi(t)\ge k$ per ogni $t\in [y_k,x_{k+1}]$. Basterà osservare che l'insieme $\{t\in[x_k,y_k]\colon \phi(t)=k\}$ è non vuoto, chiuso e limitato, dunque basterà prendere come $y_k$ il massimo di tale insieme.
-
 Ricordando che
 \[
   (\abs{\vec u}^2)'
   = (\vec u\cdot \vec u)'
   = 2 \vec u \cdot \vec u'
 \]
-si ha
+per ogni $x\in [a,b)$ possiamo fare la seguente stima:
 \begin{align*}
-1
-&= \phi(x_{k+1}) - \phi(y_k)
-= \Enclose{\ln(1+\abs{u(t)}^2)}_{y_k}^{x_{k+1}} \\
-&= \int_{y_k}^{x_{k+1}}
-  \enclose{\ln(1+\abs{\vec u(t)}^2}' \, dt
-= \int_{y_k}^{x_{k+1}}
-\frac{2\vec u(t)\cdot u'(t)}{1+\abs{u(t)}^2}\, dt \\
-&\le \int_{y_k}^{x_{k+1}} \abs{\frac{2\vec u(t)\cdot \vec u'(t)}{1+\abs{\vec u(t)}^2}}\, dt
-= 2 \int_{y_k}^{x_{k+1}} \frac{\abs{\vec u(t)}\cdot \abs{\vec u'(t)}}{1+\abs{\vec u(t)}^2}\, dt\\
-&\le 2\int_{y_k}^{x_{k+1}} \frac{\abs{\vec u'(t)}}{\abs{\vec u(t)}}\, dt
-\le 2\int_{y_k}^{x_{k+1}} \frac{m\abs{\vec u(t)}+q}{\abs{\vec u(t)}}\, dt\\
-&= 2\int_{y_k}^{x_{k+1}} \enclose{m + \frac{q}{\abs{\vec u(t)}}}\, dt
+\Enclose{\ln(1+\abs{\vec u(t)}^2)}_{a}^{x}
+&= \int_{a}^{x}
+  \enclose{\ln(1+\abs{\vec u(t)}^2)}' \, dt
+= \int_{a}^{x}
+\frac{2\vec u(t)\cdot \vec u'(t)}{1+\abs{\vec u(t)}^2}\, dt \\
+&\le 2 \int_{a}^{x} \frac{\abs{\vec u(t)} \abs{\vec u'(t)}}{1+\abs{\vec u(t)}^2}\, dt
+\le 2\int_{a}^{x} \frac{\abs{\vec u}\enclose{m\abs{\vec u(t)}+q}}{1+\abs{\vec u(t)}^2}\, dt\\
+&\le 2\int_{a}^{x} \enclose{m + \frac{q\abs{\vec u(t)}}{1+\abs{\vec u(t)}^2}}\, dt\\
+&\le (x-a)(2m + q) \le (b-a)(2m+q)
 \end{align*}
-osservando ora che $\abs{\vec u(t)}=\sqrt{e^{\phi(t)}-1}
-\ge \sqrt{e^k-1}$ si continua:
-\begin{align*}
-  &\le 2(x_{k+1}-y_k) \enclose{m+\frac{q}{\sqrt{e^k-1}}} \\
-  &\le 2(x_{k+1}-x_k) \enclose{m+\frac{q}{\sqrt{e^k-1}}}
-  \to 2(b - b) m = 0\qquad \text{per $k\to +\infty$.}
-\end{align*}
-  Ma una quantità maggiore di $1$ non può tendere a zero e questo è quindi l'assurdo che conclude la dimostrazione.
+avendo anche sfruttato la disuguaglianza $s/(1+s^2) \le 1/2$ con $s=\abs{\vec u(t)}$.
+Dunque
+\[
+  \ln(1+\abs{\vec u(x)}^2) \le \ln(1+\abs{\vec u(a)}^2) + (b-a)(2m+q)
+\]
+è una funzione limitata e di conseguenza anche $\abs{\vec u(x)}$ è limitata.
+\end{proof}
+
+\begin{proof}[Dimostrazione teorema~\ref{th:edo_esistenza_globale}]
+Sia $\vec u$ una soluzione massimale del problema di Cauchy e sia $J\subset I$ l'intervallo massimale di esistenza con $x_0\in J$.
+Per la proposizione~\ref{prop:edo_massimale} sappiamo che $J$ è un intervallo aperto:
+dobbiamo dimostrare che $J=I$.
+Basterà dimostrare che $\sup J=\sup I$ e $\inf J = \inf
+I$. Dimostreremo solamente che $\sup J = \sup I$ in quanto l'altra 
+uguaglianza si fa in maniera analoga (o si ottiene per simmetria).
+Sia $b=\sup J$ e supponiamo per assurdo che sia $b<\sup I\le +\infty$.
+Allora possiamo applicare il lemma precedente alla funzione $\vec u$
+sull'intervallo $[x_0, b)$ ottenendo quindi che su tale intervallo
+$\vec u$ è limitata. Sia $M$ il massimo di $\abs{\vec u}$ su $[x_0,b)$
+e consideriamo l'insieme $K=[a,b]\times\overline{B_M(0)} = \{(x,\vec
+y)\in \RR \times \RR^n\colon x\in [a,b], \abs{\vec y}\le
+M\}$. Chiaramente $K\subset \Omega$ e $K$ è chiuso e limitato, quindi
+per la proposizione\ref{prop:edo_massimale} il grafico di $\vec u$
+dovrebbe uscire da $K$ da destra, cosa che invece non fa in quanto
+$\abs{\vec u(t)}\le M$ per ogni $t\in [a,b]$. 
 \end{proof}
 
 Il problema di Cauchy per le equazioni di ordine $n$ è il problema di determinare la soluzione di una equazione differenziale ordinaria di ordine $n$
