@@ -691,7 +691,7 @@ possiamo trovare la formula per le potenze con esponente intero negativo:
 
 La derivata della radice $n$-esima si trova con la formula di derivazione della funzione inversa $x^n$, che può essere applicata se $x\neq 0$:
 \[
-  D \sqrt[n]{x} = \frac{1}{n(\sqrt[n]{x}^n)^{n-1}}
+  D \sqrt[n]{x} = \frac{1}{n(\sqrt[n]{x})^{n-1}}
     = \frac{1}{n\sqrt[n]{x^{n-1}}}.
 \]
 Osserviamo che se $n$ è dispari la formula è valida anche per $x<0$.
@@ -700,7 +700,7 @@ La derivata della radice quadrata si ottiene ponendo $n=2$.
 Per quanto riguarda la derivata dell'esponenziale
 ci riconduciamo ad un limite notevole:
 \[
-  D e^x = \lim_{h\to 0} \frac{e^{x+h-e^x}}{h}
+  D e^x = \lim_{h\to 0} \frac{e^{x+h}-e^x}{h}
   = \lim_{h\to 0}\frac{e^x e^h - e^x}{h}
   = \lim_{h\to 0}e^x \frac{e^h - 1}{h}
   = e^x.
@@ -747,7 +747,7 @@ D\arcsin x
 = \frac{1}{\sqrt{1-\sin^2 \arcsin x}}
 = \frac{1}{\sqrt{1-x^2}}.
 \]
-Si ha infatti $\cos y = \sqrt{1-y^2}$ se $y\in [-\pi/2, \pi/2]$.
+Si ha infatti $\cos y = \sqrt{1-\sin^2 y}$ se $y\in [-\pi/2, \pi/2]$.
 
 Analogamente la funzione $\arccos$ è definita come l'inversa della restrizione di $\cos$ all'intervallo $[0,\pi]$ e si ha quindi,
 per $x\in (-1,1)$
@@ -897,7 +897,7 @@ e dunque se $g'(x_0)=0$ si ottiene il risultato desiderato.
 \mymark{***}
 \mynote{criteri di monotonia}
 \index{criterio!di monotonia}
-Sia $f\colon I \to \RR$ una funzion definita su un intervallo $I\subset \RR$. Sia $J= (\inf I, \sup I)$ l'intervallo aperto con gli stessi estremi di $I$.
+Sia $f\colon I \to \RR$ una funzione definita su un intervallo $I\subset \RR$. Sia $J= (\inf I, \sup I)$ l'intervallo aperto con gli stessi estremi di $I$.
 Supponiamo che $f$ sia continua su $I$ e derivabile su $J$. Allora valgono i seguenti criteri:
 \begin{enumerate}
 \item
@@ -998,7 +998,7 @@ $z\in I$ tale che $f'(z)=m$.
 \end{theorem}
 %
 \begin{proof}
-Siano $x,y \in I$ con $x<y$ e sia $m$ compreso tra $f(x)$ e $f(y)$.
+Siano $x,y \in I$ con $x<y$ e sia $m$ compreso tra $f'(x)$ e $f'(y)$.
 E' sufficiente trovare una coppia di punti $a,b\in I$ tali che
 \[
   R(a,b) = \frac{f(b)-f(a)}{b-a} = m
@@ -1068,7 +1068,7 @@ Sia $I\subset \RR$ e $f\colon I\subset \RR\to \RR$ una funzione.
 Allora sono equivalenti:
 \begin{enumerate}
 \item $I$ è un intervallo e $f$ è convessa;
-\item l'\mynote{epigrafico di $f$}
+\item l'\myemph{epigrafico di $f$}
 \index{epigrafico}
 ovvero l'insieme
 \[
@@ -1561,7 +1561,7 @@ Siccome $f'(x) / g'(x) \to \ell$ per $x\to a$ esiste un $c\in (a,b)$ tale che pe
 \]
 Consideriamo allora il seguente rapporto incrementale
 \begin{align*}
-\frac{f(a_k) - f(x_0)}{g(a_k) - g(x_0)}
+\frac{f(a_k) - f(x)}{g(a_k) - g(x)}
 =\frac{\frac{f(a_k)}{g(a_k)}-\frac{f(x)}{g(a_k)}}{1-\frac{g(x)}{g(a_k)}}
 \end{align*}
 e osserviamo che il lato destro tende a $m$ per $k\to +\infty$ in quanto $f(a_k)/g(a_k) \to m$ e visto che $\abs{g(a_k)}\to +\infty$ si ha $f(x)/g(a_k)\to 0$ e $g(x)/g(a_k) \to 0$.
@@ -1570,16 +1570,22 @@ uguale a $f'(y)/g'(y)$. Ma visto che $y\in (a,c)$ si dovrà avere $f'(y)/g'(y) \
 \end{proof}
 
 \section{formula di Taylor}
-
+\index{formula!di Taylor}
 \begin{definition}[polinomio di Taylor]
 \mymark{***}
 Sia $A\subset \RR$ e $x_0$ un punto di accumulazione per $A$.
-Sia $f\colon A \to \RR$ una funzione derivabile $n$ volte nel punto $x_0$. Il \myemph{polinomio di Taylor} della funzione $f$,
+Sia $f\colon A \to \RR$ una funzione derivabile $n$ volte nel punto $x_0$.
+Il \emph{polinomio di Taylor}
+\index{polinomio!di Taylor}%
+\mynote{polinomio di Taylor}%
+della funzione $f$,
 di ordine $n$, centrato in $x_0$ è il polinomio:
 \[
   P(x) = \sum_{k=0}^n \frac{f^{(k)}(x_0)}{k!}(x-x_0)^k.
 \]
 \end{definition}
+
+Nel caso particolare in cui sia $x_0=0$ il polinomio di Taylor viene anche chiamato \myemph{polinomio!di MacLaurin}.
 
 \begin{theorem}[caratterizzazione polinomio di Taylor]
 \mymark{***}
@@ -1617,7 +1623,11 @@ Dunque si ha $P^{(k)}(x_0) = f^{(k)}(x_0)$ se e solo se $a_k = f^{(k)}(x_0)/k!$ 
 \end{proof}
 
 \begin{theorem}[formula di Taylor con resto di Lagrange]
-\mymark{**}
+\mymark{**}%
+\index{formula!di Taylor!con resto di Lagrange}%
+\index{teorema!di Taylor con resto di Lagrange}%
+\index{Taylor!resto di Lagrange}
+\mynote{Taylor con resto di Lagrange}
 Sia $I\subset \RR$ un intervallo, $x_0\in I$, $f\in C^{n+1}(I)$.
 Sia $P$ il polinomio di Taylor di $f$ di ordine $n$ centrato in $x_0$.
 Per ogni $x\in I$ esiste $y$ con $\abs{y-x_0}\le \abs{x-x_0}$ tale che
@@ -1667,6 +1677,7 @@ che è quanto volevamo dimostrare.
 \end{proof}
 
 \begin{example}[calcolo delle cifre di $e$]
+\index{$e$!calcolo delle cifre}
 Consideriamo la funzione $f(x) = e^x$. Chiaramente si ha $f^{(k)}(x) = e^x$ e quindi $f^{(k)}(0) = 1$ per ogni $k\in \NN$.
 Dunque il polinomio di Taylor della funzione $e^x$ centrato in $x_0=0$ di ordine $n=5$ è:
 \[
@@ -1695,7 +1706,11 @@ da cui
 \end{example}
 
 \begin{theorem}[formula di Taylor con resto di Peano]
-\mymark{***}
+\label{th:taylor_peano}
+\mymark{***}%
+\index{formula!di Taylor!con resto di Peano}
+\index{teorema!di Taylor con resto di Peano}
+\index{Taylor!resto di Peano}
 Sia $I\subset \RR$ un intervallo, $x_0\in I$, $f\in C^{n-1}(I)$ con $f^{(n-1)}$
 derivabile in $x_0$
 (in particolare è sufficiente che sia $f\in C^n(I)$).
@@ -1797,6 +1812,7 @@ con la definizione~\ref{def:binomiale}.
 \end{definition}
 
 \begin{theorem}[sviluppi di Taylor di alcune funzioni elementari]
+\label{th:sviluppi_taylor}
 \mymark{**}
 Per ogni $n\in \NN$ si hanno, per $x\to 0$
 le relazioni riportate nella tabella~\ref{tb:taylor}.
@@ -1817,20 +1833,20 @@ e^x &= \sum_{k=0}^n \frac{x^k}{k!} + o(x^n) \\
     &= x - \frac{x^3}{3} + \frac{x^5}{5} - \dots + (-1)^n \frac{x^{2n+1}}{2n +1} + o(x^{2n+1})\\
   \tg x &= x + \frac{x^3}{3} + \frac{2}{15} x^5 + o(x^5).
 \end{align*}
-\caption{sviluppi di Taylor, per $x\to 0$, di alcune funzioni elementari.}
+\caption{sviluppi di Taylor, per $x\to 0$, di alcune funzioni elementari. Si veda Teorema~\ref{th:sviluppi_taylor}}.
 \label{tb:taylor}
 \end{table}
 %
 \begin{proof}
 \mymark{**}
-Il teorema di Taylor che ci dice che il coefficiente del termine $x^k$
-nel polinomio di Taylor di $f(x)$ non è altro che $a_k=f^{(k)}(0)/k!$
+Per definizione, il coefficiente del termine $x^k$
+nel polinomio di Taylor di $f(x)$ non è altro che $a_k=f^{(k)}(0)/k!$.
 Se $f(x) = e^x$ allora $f^{(k)}(x) = e^x$ e dunque $f^{(k)}(0) = 1$. Si trovano quindi i coefficienti $a_k = 1/k!$.
 
 Se $f(x) = \sin x$ si ha $f'(x)=\cos x$, $f''(x) =-\sin x$, $f'''(x) = -\cos x$ e $f^{(4)}(x) = \sin x$... e poi le derivate si ripetono ogni quattro iterazioni. Valutando le derivate in $x=0$ si ottiene dunque la sequenza $0, 1, 0, -1, \dots$ che si ripete indefinitamente. Si ottiene dunque lo sviluppo indicato. Discorso analogo si può fare per $f(x) = \cos x$.
 
 Se $f(x) = (1+x)^\alpha$ si ottiene $f'(x) = \alpha (1+x)^{\alpha -1}$, $f''(x) = \alpha (\alpha -1) (1+x)^{\alpha -2}$ e così via...
-Valutando le derivate in $x=0$ si ottiene la sequenza: $1$, $\alpha$, $\alpha(\alpha-1)$, $\alpha (\alpha-1)(\alpha -2)$\dots da cui, dividendo per $k!$, si ottiene che i coefficienti del polinomio di taylor risultano essere i coefficienti binomiali ${\alpha \choose k}$.
+Valutando le derivate in $x=0$ si ottiene la sequenza: $1$, $\alpha$, $\alpha(\alpha-1)$, $\alpha (\alpha-1)(\alpha -2)$\dots da cui, dividendo per $k!$, si ottiene che i coefficienti del polinomio di Taylor risultano essere i coefficienti binomiali ${\alpha \choose k}$.
 
 Se $f(x) = \ln (1+x)$ osserviamo che $f(0)=0$ poi si ha $f'(x) = (1+x)^{-1}$ e le derivate successive coincidono dunque con le derivate di $(1+x)^\alpha$ con $\alpha=-1$: i coefficienti (a parte il primo che è nullo) concidono quindi con i coefficienti binomiali
 \[
@@ -1845,7 +1861,10 @@ da cui sostituendo $y=x^2$ e posto $g(x) = f'(x) = (1+x^2)^{-1}$ si ha
 \[
  g(x) = (1+x^2)^{-1} = \sum_{k=0}^n (-1)^k x^{2k} + o(x^{2n}).
 \]
-Per l'unicità del polinomio di Taylor possiamo affermare che
+Utilizzando la seconda parte del Teorema~\ref{th:taylor_peano} (formula di Taylor con resto di Peano),
+abbiamo verificato che vale l'equazione \eqref{eq:Taylor}
+per il polinomio $P(x) = \sum_{k=0}^n (-1)^k x^{2k}$.
+Dunque $P(x)$ è il polinomio di Taylor di grado $2n$ di $g$ e quindi:
 \[
   g^{(2k)}(0) = (-1)^k \cdot (2k)!, \qquad
   g^{(2k+1)}(0) = 0
@@ -1853,7 +1872,7 @@ Per l'unicità del polinomio di Taylor possiamo affermare che
 da cui essendo $f'=g$ si ottiene:
 \[
   f^{(2k+1)}(0) = (-1)^k \cdot (2k)!, \qquad
-  f^{(2k)(0)} = 0.
+  f^{(2k)}(0) = 0.
 \]
 I coefficienti del polinomio di Taylor saranno dunque nulli per $k$ pari mentre
 \[
@@ -2220,7 +2239,11 @@ esiste una costante $C>0$ tale che
 \begin{definition}[uniforme continuità]
 \mymark{**}
 Una funzione $f\colon A \subset \RR \to \RR$ si dice essere
-\myemph{uniformemente continua} se
+\emph{uniformemente continua}%
+\index{uniforme continuità}
+\index{continuità!uniforme}
+\mynote{uniforme continuità}
+se
 \[
  \forall \eps>0\colon \exists \delta > 0 \colon
  \forall x,y\in A \colon \abs{x-y} < \delta \implies \abs{f(x)-f(y)} < \eps.
@@ -2317,8 +2340,7 @@ questo caso la stima voluta.
 
 \begin{theorem}[Heine-Cantor]
 \mymark{***}
-\index{teorema!Heine-Cantor}
-\index{teorema!Cantor}
+\index{teorema!di Heine-Cantor}
 \mynote{Heine-Cantor}
 Siano $a,b\in \RR$, $a<b$.
 Sia $f\colon [a,b]\to \RR$ una funzione continua.

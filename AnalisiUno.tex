@@ -16,6 +16,8 @@
 \usepackage{hyphenat}
 \usepackage{marginnote}
 \usepackage{mparhack} % fix margin notes (otherwise sometime they go to wrong margin!)
+\usepackage{expl3,l3regex} % per il comando \regex_replace_once
+\usepackage{xifthen}
 \AfterPreamble{\hypersetup{hidelinks=true,}}
 
 %\usepackage{showkeys}
@@ -24,12 +26,26 @@
 
 \usetikzlibrary{arrows}
 
+\ExplSyntaxOn
+\newcommand\stripExclamation[1]{
+\def\tmp{#1}
+\regex_replace_once:nnN { ! } { \  }\tmp
+\tmp}
+\ExplSyntaxOff
+
 \newcommand{\mymark}[1]{\reversemarginpar\marginnote{#1}\normalmarginpar}
 
-%\newcommand{\mynote}[1]{\sidenote[\phantom{}]{#1}}
-\newcommand{\mynote}[1]{\marginnote{{\footnotesize #1}}}
-\newcommand{\mymargin}[1]{\mynote{#1}\index{#1}}
-\newcommand{\myemph}[1]{\emph{#1}\mynote{#1}\index{#1}}
+\newcommand{\mynote}[1]{\marginnote{{\footnotesize\stripExclamation{#1}}}}
+\newcommand{\mymargin}[1]{\mynote{\stripExclamation{#1}}\index{#1}}
+\newcommand{\myemph}[2][]{%
+  \emph{\stripExclamation{#2}}%
+  \ifthenelse{\isempty{#1}}%
+    {\mynote{#2}%
+    \index{#2}}%
+    {\mynote{#2}%
+     \ifthenelse{\isempty{}}%
+      {\index{#2}}%
+      {\index{}}}}%
 
 \newcommand{\eps}{\varepsilon}
 \renewcommand{\phi}{\varphi}
@@ -137,7 +153,7 @@ qed=,
 \title{Appunti di Analisi Matematica%
 \thanks{%
 Puoi scaricare o contribuire a questi appunti su
-\url{https://github.com/paolini/appunti/}}}
+\url{https://github.com/paolini/AnalisiUno/}}}
 \author{E. Paolini}
 
 \makeindex
