@@ -55,9 +55,9 @@ se per ogni intorno di $\ell$ esiste un intorno di $x_0$ tale che
 la funzione valutata nell'intorno di $x_0$, tolto eventualmente $x_0$,
 assume valori
 nell'intorno di $\ell$:
-\[
+\begin{equation}\label{eq:def_limite}
   \forall U \in \U_\ell \colon \exists V \in \U_{x_0} \colon f(V\setminus\{x_0\}) \subset U.
-\]
+\end{equation}
 
 La stessa definizione può essere data restringendosi agli intorni destri/sinistri del punto $x_0$ (nel caso $x_0 \in \RR$). Si otterranno quindi le definizioni
 di \emph{limite destro} e \emph{limite sinistro}
@@ -73,7 +73,21 @@ sostituendo $\U_{x_0^+}$ o $\U_{x_0^-}$ al posto di $\U_{x_0}$ nella definizione
 Osserviamo che se $A=\NN$ e $x_0=+\infty$ la definizione di limite di funzione
 per $x\to +\infty$ coincide con la definizione di limite della successione $a_n = f(n)$.
 Non c'è quindi ambiguità nell'usare gli stessi simboli per i limiti di funzione e i limiti di successione.
-Si noti che $+\infty$ è l'unico punto di accumulazione di $\NN$ (verificare!) e dunque se $n\in \NN$ l'unico limite che possiamo fare è per $n\to +\infty$.
+Si noti che $+\infty$ è l'unico punto di accumulazione di $\NN$ in $\bar \RR$ (verificare!) e dunque se $n\in \NN$ l'unico limite che possiamo considerare è per $n\to +\infty$.
+
+\begin{remark}[definizione di limite con gli epsilon e delta]
+Sia $f\colon A\subset \RR \to \RR$ e sia $x_0$ un punto di accumulazione di $A$.
+Se $x_0 \in \RR$ e $\ell \in \RR$ la definizione di
+\[
+   \lim_{x\to x_0} f(x) = \ell
+\]
+si può scrivere nella forma:
+\[
+  \forall \eps>0\colon \exists\delta >0 \colon \forall x\in A, x\neq x_0, \abs{x-x_0}< \delta \implies \abs{f(x)-\ell}< \eps.
+\]
+
+Considerando i casi $x\in \RR$, $x\to +\infty$, $x\to -\infty$, $x\to x_0^+$, $x\to x_0^-$ e combinandoli con i casi $\ell\in \RR$, $\ell=+\infty$, $\ell=-\infty$ ci rendiamo conto che si ottengono 15 diverse definizioni di limite. Questo è il motivo per cui preferiamo dare la definizione astratta~\eqref{eq:def_limite}.
+\end{remark}
 
 Come nel caso dei limiti di successione, la notazione $\lim_{x\to x_0} f(x)$ risulta definita univocamente (quando il limite esiste)
 in quanto vale il seguente.
@@ -319,6 +333,34 @@ invece il teorema di
 collegamento tra limite di funzione e limite di successione.
 \end{proof}
 
+\begin{theorem}[esistenza del limite per le funzioni monotòne]
+Sia $f\colon A \subset \RR \to \RR$ una funzione crescente
+e sia $x_0 \in [-\infty, +\infty]$. Se $x_0$ è punto di accumulazione di $A \cap (-\infty,x_0)$ allora si ha
+\begin{equation}\label{eq:0578954}
+  \lim_{x \to x_0^-} f(x) = \sup f(A\cap (-\infty,x_0)).
+\end{equation}
+Analogamente, se $x_0$ è punto di accumulazione
+di $A \cap (x_0,+\infty)$ allora si ha
+\begin{equation}\label{eq:0578955}
+  \lim_{x \to x_0^+} f(x) = \inf f(A\cap(x_0,+\infty)).
+\end{equation}
+
+Se $f$ è decrescente vale lo stesso risultato con $\inf$ e $\sup$ scambiati.
+\end{theorem}
+%
+\begin{proof}
+Dimostriamo solo~\eqref{eq:0578954}, gli altri risultati si ricavano per simmetria.
+Sia $\ell = \sup f(A \cap (-\infty,x_0))$.
+Per il teorema~\ref{th:sup} di caratterizzazione del $\sup$ sappiamo che per ogni $x<x_0$, $x\in A$, si ha $\ell \ge f(x)$ e che per ogni $\eps>0$ esiste $x_1<x_0$, $x_1\in A$ tale che $\ell < f(x_1) + \eps$.
+Per la monotonia di $f$ se $x \in(x,x_0)$ si ha dunque
+\[
+  \ell- \eps < f(x_1) \le f(x) \le \ell < \ell+\eps
+\]
+dunque posto $\delta = x_0 - x_1$ abbiamo verificato la definizione di limite:
+\[
+ \forall \eps>0\colon \exists \delta>0 \colon \forall x\in A \cap (x_0-\delta, x_0)\colon \abs{f(x)-\ell}< \eps.
+\]
+\end{proof}
 
 \section{continuità}
 \index{continuità}
@@ -450,6 +492,69 @@ Il teorema discende direttamente dalle corrispondenti proprietà del limite (lim
 \end{proof}
 
 \section{derivata}
+
+Il campo gravitazionale generato dalla terra nello spazio, in un punto
+a distanza $r$ dal suo centro è dato da:
+\[
+U(r) = -\frac{GM}{r}
+\]
+dove $M$ è la massa della terra e $G$ è la costante di gravitazione universale.
+La funzione $U(r)$ non è affatto lineare. Se però consideriamo il
+campo gravitazionale per i punti in prossimità della
+superficie terrestre, ci aspettiamo un comportamento approssimativamente
+lineare. Proviamo a esplicitare questa idea.
+
+Supponiamo di trovarci ad altezza $h$ dalla superficie terrestre. Ci
+troveremo allora a distanza $R+h$ dal centro della terra. Si avrà allora:
+\[
+  U(R+h) = -GM\frac{1}{R+h}.
+\]
+Osserviamo ora che si ha
+\begin{align*}
+  \frac{1}{R+h}
+  & = \frac{1}{R} + \frac{1}{R+h} - \frac{1}{R}
+   = \frac 1 R + \frac{R-(R+h)}{R(R+h)} \\
+  & = \frac 1 R - \frac{h}{R(R+h)} \\
+  & = \frac 1 R - \frac{h}{R^2} - \frac{h}{R(R+h)} + \frac{h}{R^2} \\
+  & = \frac 1 R - \frac{h}{R^2} - \frac{hR - h(R + h)}{R^2(R+h)} \\
+  & = - \frac{h}{R^2} + \frac 1 R + \frac{h^2}{R^2(R+h)}.
+\end{align*}
+Dunque si avrà
+\begin{align*}
+  U(R+h) &= \frac{GM}{R^2} h - \frac{GM}{R} + \omega(h)\\
+  &= g h + C + \omega(h)
+\end{align*}
+dove $g = GM/R^2$, $C$ è una costante (irrilevante perché il
+potenziale può essere definito a meno di una costante) e
+$\omega(h)$ è una funzione con la proprietà $\omega(h)/h\to 0$
+per $h\to 0$. Dunque se $h$ è molto piccolo rispetto a $R$, il termine
+$\omega(h)$ è trascurabile rispetto al termine $gh$ (anche se entrambi
+tendono a zero per $h\to 0$). Questo giustifica
+l'utilizzo della formula
+semplificata:
+\[
+U_0(h) = gh
+\]
+da cui l'energia potenziale $E = mgh$
+se abbiamo una massa $m$ ad una altezza $h$ sulla superficie terrestre.
+
+\begin{figure}
+\includegraphics[width=0.49\textwidth]{derivata_00.png}\hfill%
+\includegraphics[width=0.49\textwidth]{derivata_01.png}
+\label{fig:derivata}
+\caption{Il grafico del potenziale gravitazionale terrestre. Sull'asse delle $x$ la distanza dal centro della terra in raggi terrestri. Sull'asse delle $y$ il potenziale gravitazionale con unità $C=GM/R$. La pendenza delal retta tangente al grafico della curva per $x=R$ è $g=GM/R^2$. Nella figura di destra un ingrandimento in un intorno del raggio terrestre: si nota come il grafico del potenziale risulta quasi indistinguibile dal grafico della retta tangente.}
+\end{figure}
+
+Quello che abbiamo fatto è un procedimento di \myemph{linearizzazione}. Il campo gravitazionale è descritto da una funzione non lineare: $-GM/r$.
+Ma quando ci restringiamo a un piccolo intervallo di valori di $r$ (i valori di $r$ vicini ad $R$, il raggio della terra) tale funzione risulta quasi indistinguibile, a meno di una costante, dalla funzione lineare $gh$ se $r=R+h$.
+Le funzioni lineari sono molto più semplici da trattare ed è quindi conveniente, se rimaniamo sulla superficie terrestre, utilizzare quest'ultima formula per il potenziale gravitazionale.
+Il grafico della funzione lineare che meglio approssima il grafico di una funzione si chiama \myemph{retta tangente}. Il suo coefficiente angolare, $g$ nel nostro esempio, si chiama \myemph{derivata}. 
+
+Una volta introdotte le derivate vedremo che quello che abbiamo
+determinato è la formula:
+\[
+U(R+h) = U(R) + U'(R) h + \omega(h).
+\]
 
 \begin{definition}[derivata]
 \mymark{***}
@@ -1325,7 +1430,7 @@ Usando di nuovo la convessità di $f$ con $t=\lambda_{n+1}$ si ha
 f\enclose{\sum_{k=1}^{n+1} \lambda_k x_k}
 &=f\enclose{(1-\lambda_{n+1})\sum_{k=1}^n \frac{\lambda_k}{1-\lambda_{n+1}}x_k + \lambda_{n+1}x_{n+1}}\\
 &\le (1-\lambda_{n+1})f\enclose{\sum_{k=1}^n \frac{\lambda_k}{1-\lambda_{n+1}}x_k} + \lambda_{n+1}f(x_{n+1}) \\
-&\le (1-\lambda_{n+1})\sum_{k=1}^n \frac{\lambda_k}{1-\lambda_{n+1}} f(x_k) + \lambda_{n+1} x_{n+1}\\
+&\le (1-\lambda_{n+1})\sum_{k=1}^n \frac{\lambda_k}{1-\lambda_{n+1}} f(x_k) + \lambda_{n+1} f(x_{n+1})\\
 &= \sum_{k=1}^{n+1}\lambda_k f(x_k).
 \end{align*}
 come volevamo dimostrare.
