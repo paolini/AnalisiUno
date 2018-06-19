@@ -508,7 +508,7 @@ Dire che $f\in C^\infty$ significa che $f\in C^k$ per ogni $k$. Dunque $\vec u$ 
 \end{comment}
 
 \begin{definition}[estensione di una soluzione, soluzione massimale]
-Sia $I\subset \RR$ un intervallo e sia $\vec u \colon I \to \RR^n$ una soluzione dell'equazione differenziale in forma normale del primo ordine:
+Sia $I\subset \RR$ un intervallo non vuoto e sia $\vec u \colon I \to \RR^n$ una soluzione dell'equazione differenziale in forma normale del primo ordine:
 \begin{equation}\label{eq:edo_normale_ordine_uno}
   \vec u'(x) = \vec f(x,\vec u(x))
 \end{equation}
@@ -567,13 +567,12 @@ Dunque $\vec v$ è derivabile in $b$ e anche in quel punto soddisfa l'equazione 
 
 \emph{Seconda implicazione}. Supponiamo ora $\vec u\colon I\to \RR^n$ sia una soluzione dell'equazione differenziale~\eqref{eq:edo_normale_ordine_uno} definita su un intervallo $I$ e tale che la curva $(x,\vec u(x))$ esca da ogni compatto $K$ al variare di $x\in I$. Vogliamo dimostrare che $\vec u$ è soluzione massimale. Innanzitutto $I$ non può essere compatto, altrimenti anche $K=\{(x,\vec u(x))\colon x \in I\}$ sarebbe un compatto di $\Omega$ e ovviamente la curva non esce da $K$.
 Sia $a=\inf I$ e $b=\sup I$. Siccome $I$ non è chiuso esso non contiene uno dei due estremi: supponiamo sia $b$. Allora se $\vec u$ fosse estendibile a destra esisterebbe una estensione continua $\vec v\colon (a,b]\to \RR^n$ che coincide con $\vec u$ su $(a,b)$ e che è continua nel punto $x=b$ e che soddisfa l'equazione differenziale quindi, in particolare, $(b,\vec v(b))\in \Omega$.
-Ma allora $(x,\vec u(x)) \to (b,\vec v(b)) \in \Omega$ e visto che $\Omega$ è aperto esiste un intervallino $[b-\eps, b]$ su cui $(x,\vec u(x)) \in \Omega$.
-Se prendiamo $x_0 = b-\eps$ e $K=\{(x,\vec u(x))\colon x\in [x_0,b]\}$ abbiamo un compatto
-ma per ogni $x\ge x_0$ si ha $(x,\vec u(x)) \in K$.
-Il che è contro le ipotesi.
+Ma allora scelto $x_0 \in (a,b)$
+prendiamo $K=\{(x,\vec v(x))\colon x\in [x_0,b]\}$. Visto che $\vec v\colon[x_0,b]\to \RR^n$ è continua è facile verificare che $K$ è chiuso è limitato, $K\subset \Omega$. Ma ovviamente $(x,\vec v(x))\in K$ per ogni $x\ge x_0$, contro le ipotesi.
 \end{proof}
 
 \begin{proposition}[separazione delle soluzioni]
+\label{prop:separazione_soluzioni}
 Se $\vec f\colon \Omega\subset \RR \times \RR^n\to \RR^n$ soddisfa le ipotesi del teorema di esistenza e unicità e se $\vec u\colon I \to \RR^n$ e $\vec v\colon J\to\RR^n$ sono due soluzioni
 dell'equazione differenziale
 $\vec u'(x) = \vec f(x,\vec u(x))$
@@ -594,20 +593,33 @@ Ponendo allora il punto $(x_1,\vec u(x_1))$ come dato iniziale del problema di C
 
 \begin{theorem}[esistenza di soluzioni massimali]
 \label{th:edo_esistenza_massimali}
-Se $\vec u\colon I\to \RR^n$ è una soluzione dell'equazione differenziale~\eqref{eq:edo_normale_ordine_uno}
-e se $\vec u$ non è essa stessa una soluzione massimale, esiste
-sempre una estensione $\vec v\colon J\to \RR^n$ con $J\supset I$
-che sia massimale.
+Sia $\vec u\colon I\to \RR^n$ una soluzione dell'equazione differenziale~\eqref{eq:edo_normale_ordine_uno}
+definita su un intervallo non vuoto $I\subset \RR$
+e supponiamo che tale equazioni soddisfi il teorema di esistenza e unicità locale (questo succede ad esempio se $f\in C^1$).
+Se $\vec u$ non è essa stessa una soluzione massimale, esiste
+sempre una estensione massimale $\vec v\colon J\to \RR^n$, $J\supset I$.
 \end{theorem}
 %
 \begin{proof}
-Supponiamo che $\vec u$ non sia massimale. Sia $\F$ la famiglia di tutte le estensioni di $\vec u$. Per il teorema di esistenza e unicità, se due soluzioni coincidono in un punto allora devono coincidere dappertutto,
+Supponiamo che $\vec u$ non sia massimale, dunque $\vec u$ ammette estensioni. In particolare ammette estensioni definite su intervalli aperti, in quanto se una soluzione è definita su un intervallo che non è aperto posso sempre estenderla in un intorno aperto dei punti di frontiera dell'intervallo mediante il teorema di esistenza locale ottenendo quindi una estensione definita su un intervallo aperto.
 
-Vediamo innanzitutto quando è possibile estendere una soluzione.
+Sia $\mathcal F$ l'insieme di tutte le estensioni di $\vec u$ definite su intervalli aperti. Più precisamente ogni $\vec w\in \mathcal F$ è una funzione $\vec w\colon J_{\vec w}\to \RR^n$ definita su un intervallo aperto $J_{\vec w}\supset I$ che soddisfa l'equazione differenziale~\eqref{eq:edo_normale_ordine_uno} e che coincide con $\vec u$ su $I$. Definiamo $\vec v\colon J\to\RR^n$ come segue:
+\begin{align*}
+J &= \bigcup_{\vec w \in \mathcal F} J_{\vec w}\\
+\vec v(x) &= \vec w(x) \qquad\text{se $x\in J_{\vec w}$}.
+\end{align*}
+Si osservi che dato $x\in I$ se $\vec w_1, \vec w_2\in\mathcal F$ sono due estensioni entrambe definite su un punto $x$, allora esse coincidono in $x$ per la Proposizione~\ref{prop:separazione_soluzioni}, dunque $\vec v(x)$ è univocamente definita.
 
-Se $\vec u\colon I \to \RR^n$ è una soluzione significa che $(x,\vec u(x))\in \Omega$ per ogni $x\in I$. Concentriamoci sulle estensioni dell'intervallo $I$ verso destra, ragionamento analogo si potrà fare verso sinistra. Sia dunque $b=\sup I$ l'estremo destro di $I$. Se $b\in I$ allora il problema di Cauchy con dato iniziale $\vec u(b)$ nel punto $b$, ha una unica soluzione locale che quindi coincide con la soluzione $\vec u(x)$ per $x\le b$ ed estende tale soluzione.
+Essendo ogni $J_{\vec w}$ aperto è chiaro che $J$ è aperto. E' anche facile convincersi che $J$ deve essere un intervallo, in quanto tutti i $J_{\vec w}$ hanno in comune i punti di $I$.
+Verifichiamo ora che $\vec v$ soddisfa l'equazione differenziale. Preso un punto $x\in J$ deve esistere $\vec w$ tale che $x\in J_{\vec w}$. Sappiamo che $\vec w'(x) = f(x,\vec w(x))$ e visto che $\vec u$ coincide con $\vec w$ su $J_{\vec w}$ possiamo dedurre che anche le derivate, in $x$, coincidono:
+\[
+\vec u'(x) = \vec w'(x) = f(x,\vec w(x)) = f(x,\vec u(x)).
+\]
+Dunque anche $\vec u$ è soluzione di~\eqref{eq:edo_normale_ordine_uno}.
+In pratica abbiamo verificato che $\vec v\in \mathcal F$ ed è quindi una estensione di $\vec u$. Vogliamo ora dimostrare che è una estensione massimale. Supponiamo per assurdo che esista $\vec w$ estensione di $\vec v$ definita su un intervallo $J_{\vec w}\supset J$, $J_{\vec w}\neq J$.
+Posso supporre che $J_{\vec w}$ sia aperto, perché in caso contrario potrei estendere la soluzione $\vec w$ in un intorno aperto dei punti di frontiera dell'intervallo, mediante il teorema di esistenza locale, ottenendo una estensione definita su un intervallo più grande ed aperto.
+Dunque $\vec w\in \mathcal F$ ma allora, per definizione di $J$, dovrà essere $J\supset J_{\vec w}$: assurdo.
 \end{proof}
-
 
 \begin{theorem}[esistenza globale]
 \label{th:edo_esistenza_globale}
@@ -1296,7 +1308,7 @@ Il sottoinsieme $\B$ di $\C^\infty(\RR, \CC)$ dato dalle funzioni $u(x)$ della f
 \[
    u(x) = x^m e^{\lambda x}
 \]
-con $m\in \NN$, $\lambda \in \CC$ è un insieme linearmente indipendente nello spazio $C^\infty(\RR,\CC)$ sul campo $\CC$.
+con $m\in \NN$, $\lambda \in \CC$ è un insieme linearmente indipendente nello spazio vettoriale $C^\infty(\RR,\CC)$ sul campo $\CC$.
 \end{theorem}
 %
 \begin{proof}
@@ -1308,44 +1320,30 @@ $u_1, \dots, u_N\in \B$
   u_k(x) = x^{m_k} e^{\lambda_k x}, \qquad k=1, \dots, N
 \]
 tali che
-\begin{equation}\label{eq:4656978}
-  \sum_{k=1}^N c_k x^{m_k} e^{\lambda_k x} = 0
+\[
+\sum_{k=1}^N c_k x^{m_k} e^{\lambda_k x} = 0
   \qquad \forall x \in \RR
-\end{equation}
+\]
 per una qualche scelta di coefficienti $c_k \in \CC$ non tutti nulli.
-Possiamo anche supporre che $N$ sia il più piccolo possibile, cioè che tutti i sottoinsiemi di $\B$ con meno di $N$ elementi risultano invece essere indipendenti.
+Sommando assieme i monomi che moltiplicano gli esponenziali con lo stesso coefficiente, potremo riscrivere la relazione precedente nella forma:
+\begin{equation}\label{eq:4656978}
+  \sum_{j=1}^M P_j(x) e^{\lambda_j x} = 0 \qquad \forall x\in \RR
+\end{equation}
+con i coefficienti $\lambda_j$ tutti diversi tra loro e con $P_j$ polinomi non nulli.
 
-Come primo passo vogliamo dimostrare che i coefficienti $\lambda_k$ sono tutti uguali.
-Consideriamo un generico $\lambda \in \CC$ e un $m\in \NN$ e applichiamo
- l'operatore $(D-\lambda)^m$ ad ambo i membri di
-\eqref{eq:4656978}.
-Osserviamo che si ha
-\[
-  (D-\lambda) \enclose{x^{m_k} e^{\lambda_k x}}
-   = \Enclose{(\lambda_k-\lambda)x^{m_k} + m_k x^{m_k-1}}e^{\lambda_k x}.
-\]
-Ora se $\lambda_k = \lambda$
-ad ogni applicazione dell'operatore $D-\lambda$ il  monomio $x^{m_k}$ diminuisce di grado (viene rimpiazzato dalla sua derivata). Se $m>\deg p_k$ tale termine si annulla e il corrispondente termine viene quindi rimosso dalla somma.
-Dunque scegliendo $\lambda = \lambda_1$ e $m$ sufficientemente grande
-si ottiene una combinazione lineare nulla di un numero minore di termini.
-Ma se esistono dei $\lambda_k\neq \lambda$ i corrispondenti addendi non si annullano tutti in quanto il polinomio
-\[
-  (\lambda_k-\lambda)x^{m_k}(x) + m_k x^{m_k-1}(x)
-\]
-ha lo stesso grado del monomio $x^{m_k}$ e dunque il monomio di grado massimo viene certamente preservato visto che il suo coefficiente viene moltiplicato per $(\lambda_k - \lambda)^m$.
-Dunque se i coefficienti $\lambda_k$ non sono tutti uguali è possibile ridurre l'insieme di funzioni dipendenti ad un insieme più piccolo ma non vuoto. Questo è assurdo perché stavamo supponendo di avere già un insieme il più piccolo possibile.
+Abbiamo già osservato che $(D-\lambda)P(x)e^{\lambda x}= P'(x)e^{\lambda x}$ mentre se $\lambda\neq \mu$ si ha $(D-\lambda)P(x) e^{\mu x}= Q(x) e^{\mu x}$ con $Q$ polinomio dello stesso grado di $P$.
+Posto $m_j = \deg P_j$ applichiamo all'equazione~\eqref{eq:4656978} l'operatore $(D-\lambda_1)^{m_1}$.
+Quello che si ottiene è:
+\begin{equation}\label{eq:4656979}
+  k_1 e^{\lambda_1 x} + \sum_{j=2}^M Q_j(x) e^{\lambda_j x} = 0 \qquad \forall x\in \RR
+\end{equation}
+dove $k_1$ è la derivata $m_1$-esima del polinomio $P_1$. Visto che $P_1$ è un polinomio di grado $m_1$ la sua derivata $m_1$-esima è un polinomio di grado $0$ non nullo, dunque è una costante $k_1 \neq 0$. I polinomi $Q_j$ hanno invece lo stesso grado dei $P_j$ perché abbiamo visto che se $\lambda\neq \mu$ il grado del polinomio non cambia.
 
-L'unica possibilità rimanente è che tutti i coefficienti $\lambda_k$ siano uguali: $\lambda_k = \lambda_1$.
-Ma allora avremo:
+Ora applichiamo in sequenza all'equazione~\eqref{eq:4656979} gli operatori $(D-\lambda_j)^{m_j+1}$ per $j=2,\dots, M$. Applicando tali operatori il coefficiente $k_1$ cambierà, ma rimarrà comunque diverso da zero (chiamiamolo $k\neq 0$) mentre tutti gli altri polinomi verranno annullati, perché i rispettivi polinomi vengono derivati una volta in più del loro grado. Si otterrà quindi:
 \[
-  \sum_{k=1}^N c_k x^{m_k} e^{\lambda_1 x} = 0.
+  k e^{\lambda_1 x} = 0 \qquad \forall x\in \RR.
 \]
-Moltiplicando ambo i membri per $e^{-\lambda_1 x}$ si ottiene
-\[
-  \sum_{k=1}^N c_k x^{m_k} = 0
-\]
-e per il principio di annullamento dei polinomi (teorema~\ref{th:annullamento_polinomi})
-questo significa che ogni $c_k$ è nullo: assurdo.
+Ma questo è assurdo perché per $x=0$ si ottiene $k=0$, che abbiamo escluso.
 \end{proof}
 
 I risultati precedenti ci permettono di determinare tutte le soluzioni reali delle equazioni lineari omogenee a coefficienti costanti come nel seguente esempio.
