@@ -1,29 +1,166 @@
-\chapter{i numeri reali}
+\chapter{strutture matematiche}
 
-Supponiamo esista un insieme $\RR$ su cui sono definite le \mymargin{$\RR$}
-operazioni $+$ e $\cdot$
-e la relazione d'ordine $\le$ che soddisfano i seguenti assiomi.
-Gli elementi di tale insieme verranno chiamati
-\myemph{numeri reali}.
+\section{gruppi, anelli, campi}
 
-\begin{axiom}[campo]\label{axiom_field}
-\mymargin{campo}
-Sull'insieme $\RR$ dei numeri reali sono definite le operazioni di somma $+$ e
-prodotto $\cdot$ che soddisfano le proprietà:
+\begin{definition}[operazione]\label{def:operazione}
+Una funzione $*\colon X \times Y \to Z$ si dice essere una
+\myemph{operazione} (o più precisamente: una operazione binaria, visto che opera su una coppia). Per le operazioni binarie si utilizzerà abitualmente la notazione infissa:
+\[
+  x * y = *(x,y).
+\]
+
+Nel caso $X=Y=Z$ diremo che $*$ è una operazione su $X$.
+In tal caso diremo che l'operazione è \myemph{associativa} se per ogni $x,y,z\in X$ vale la seguente proprietà:
+\[
+   (x*y)*z = x*(y*z).
+\]
+Diremo che l'operazione è \myemph{commutativa} se per ogni $x,y\in X$ vale la seguente proprietà:
+\[
+  x*y = y*x.
+\]
+Diremo che $e\in X$ è un \myemph{elemento neutro} per l'operazione $*$ se per ogni $x\in X$ valgono le seguenti proprietà:
+\[
+  x * e = e * x = x.
+\]
+Se esiste un unico elemento neutro $e$ diremo che $x$ è l'\myemph{inverso} di $y$ per l'operazione $*$ se vale:
+\[
+  x*y = y*x = e.
+\]
+Se $+$ e $\cdot$ sono due operazioni definite sullo stesso insieme $X$ diremo che vale la proprietà \myemph{distributiva} di $+$ rispetto a $\cdot$ se per ogni $x,y,z\in X$  valgono le seguenti proprietà:
+\[
+  (x + y)\cdot z = (x\cdot z) + (y\cdot z), \qquad
+  x\cdot (y + z) = (x\cdot y) + (x\cdot z).
+\]
+\end{definition}
+
+\begin{definition}[numeri naturali]\label{def:naturali}
+Un insieme $\NN$ si dice essere un insieme di \emph{numeri naturali}
+rispetto ad una funzione $\sigma\colon \NN \to \NN$ (chiamata \emph {successore}) se
+valgono le seguenti proprietà (assiomi di Peano):
 \begin{enumerate}
-\item associativa: $(x+y)+z = x + (y+z)$, $(x\cdot y)\cdot z = x \cdot (y \cdot z)$;
-\item commutativa: $x+y=y+x$, $x\cdot y = y \cdot x$;
-\item distributiva: $x\cdot (y+z) = x\cdot y + x \cdot z$;
-\item esistenza degli elementi neutri: $0,1\in \RR$,
-$0\neq 1$, $0+x = x$, $1\cdot x = x$;
-\item esistenza dell'opposto: per ogni $x$ esiste $y$ tale che $x+y = 0$;
-\item esistenza del reciproco: per ogni $x\neq 0$ esiste $y$ tale che $x \cdot y = 1$.
+\item $\sigma$ è iniettiva;
+\item esiste un unico elemento $0\in \NN$ tale che $0\not \in\sigma(\NN)$ ($0$ si chiama zero);
+\item induzione: se $A\subset \NN$, $0\in A$ e $\sigma(A)\subset A$, allora $A=\NN$.
 \end{enumerate}
-\end{axiom}
+\end{definition}
 
-Denotiamo con $-x$ l'\myemph{opposto} di $x$ e definiamo $x-y = x+(-y)$.
-Denotiamo con $y^{-1}$ il \myemph{reciproco} di $y\neq 0$ e
-definiamo $x / y = x\cdot y^{-1}$.
+\begin{theorem}[unicità dei numeri naturali]
+Se $\NN$ e $\NN'$ sono insiemi di numeri naturali rispetto alle
+funzioni $\sigma\colon \NN \to \NN$ e $\sigma'\colon \NN'\to \NN'$
+con $0\in \NN\setminus\sigma(\NN)$ e $0'\in \NN'\setminus\sigma'(\NN')$
+allora $\NN$ e $\NN'$ sono \emph{isomorfi} nel senso che esiste una
+corrispondenzia biunivoca $\phi\colon \NN \to \NN'$ tale che:
+\[
+  \phi(0) = 0', \qquad \sigma'\circ \phi = \phi\circ \sigma.
+\]
+\end{theorem}
+%
+\begin{definition}[gruppo]\label{def:gruppo}
+Un insieme $G$ si dice essere un \myemph{semigruppo} rispetto ad una operazione $*$ definita su $G$ se vale la proprietà:
+\begin{enumerate}
+\item associativa: $(x*y)*z = x*(y*z)$ per ogni $x,y,z\in G$.
+\end{enumerate}
+Diremo che $G$ è un \myemph{gruppo} se inoltre
+valgono le seguenti proprietà:
+\begin{enumerate}
+  \item[2.] esistenza elemento neutro: esiste $e\in G$ (chiamato \myemph{elemento neutro})
+    tale che $e*x=x*e=x$ per ogni $x\in G$;
+  \item[3.] esistenza inverso: per ogni $x\in G$ esiste $y\in G$ tale che $x*y = e$.
+\end{enumerate}
+
+Inoltre diremo che il gruppo è \myemph{commutativo}
+o \emph{abeliano}\index{abeliano}
+se vale la seguente proprietà:
+\begin{enumerate}
+\item[4.] commutativa: $x*y = y*x$ per ogni $x,y\in G$.
+\end{enumerate}
+\end{definition}
+
+\begin{definition}[anello]\label{def:gruppo}
+Un insieme $A$ si dice essere un \myemph{anello} rispetto alle due operazioni $+$ (addizione) e $\cdot$ (moltiplicazione) definite su $A$, se valgono le seguenti proprietà:
+\begin{enumerate}
+  \item gruppo additivo: $A$ è un gruppo commutativo rispetto all'operazione $+$ (l'elemento neutro dell'addizione si denota col simbolo $0$);
+  \item associativa: $(x\cdot y)\cdot z= x \cdot (y\cdot z)$ per ogni $x,y,z\in A$;
+  \item distributiva: $x\cdot(y+z) = x\cdot y+x\cdot z$ e $(x+y)\cdot z=x\cdot z + y\cdot z$ per ogni $x,y,z \in A$.
+\end{enumerate}
+
+In un anello l'elemento inverso rispetto all'addizione si chiama \myemph{opposto}. Per ogni $x\in A$ l'opposto di $x$ si denota con $-x$.
+Si può allora definire l'operazione $-$ (\emph{sottrazione}) come segue:
+\[
+   x - y = x + (-y).
+\]
+Si noti quindi che utilizziamo lo stesso simbolo $-$ per denotare una operazione unaria (l'opposto) e una operazione binaria (la sottrazione).
+
+L'anello si dice essere \myemph{commutativo} se vale la proprietà:
+\begin{enumerate}
+\item[4.] commutativa: $x\cdot y = y\cdot x$ per ogni $x,y\in A$.
+\end{enumerate}
+
+L'anello si dice essere \myemph{con unità} se vale la proprietà:
+\begin{enumerate}
+\item[5.] esistenza unità: esiste $1\in A$ tale che $1*x = x*1 = x$ per ogni $x \in A$.
+\end{enumerate}
+\end{definition}
+
+\begin{definition}[campo]\label{def:campo}
+Un insieme $K$ si dice essere un \myemph{campo} rispetto
+a due operazioni $+$ (addizione) e $\cdot$ (moltiplicazione)
+definite su $K$ se
+valgono le seguenti proprietà:
+\begin{enumerate}
+\item $K$ è un anello con unità (chiamiamo $0$ l'elemento neutro dell'addizione e $1$ l'elemento neutro della moltiplicazione);
+\item $K\setminus \{0\}$ è un gruppo commutativo rispetto alla moltiplicazione.
+\end{enumerate}
+
+Se $y\in K\setminus\{0\}$ l'inverso di $y$ rispetto alla moltiplicazione viene a volte denotato con $y^{-1}$.
+Si potrà allora definire l'operazione $/$ di \emph{divisione}
+se il secondo operando $y$ è diverso da zero:
+\[
+  x / y = x \cdot y^{-1}.
+\]
+Abitualmente si utilizza la linea di frazione come notazione alternativa:
+\[
+  \frac{x}{y} = x/y.
+\]
+\end{definition}
+
+\begin{definition}[spazio vettoriale]
+Un insieme $V$ si dice essere uno \emph{spazio vettoriale}
+su un campo $K$ se $V$ è un gruppo rispetto ad una operazione $+$ (addizione) e
+se è definita una operazione $K \times V \to V$
+chiamata moltiplicazione (non ha associato un simbolo: se $k\in K$ e $\vec v$ in $V$ scriveremo semplicemente $k\vec v$ per denotare il prodotto) che soddisfa le seguenti proprietà
+(per ogni $x,y\in K$, $\vec u,\vec v\in V$):
+\begin{enumerate}
+\item $x(\vec u + \vec v) = x\vec u + x\vec v$;
+\item $(x+y)\vec v = x\vec v + y\vec v$;
+\item $(x\cdot y)\vec v = x(y\vec v)$;
+\item $1\vec v=\vec v$ dove $1\in K$ è l'elemento neutro del campo;
+\end{enumerate}
+
+Gli elementi di $V$ si chiamano \myemph{vettori} e spesso si denotano con simboli in grassetto (o sottolineati, nella scrittura a mano). Gli elementi di $K$ si chiamano \myemph{scalari}.
+\end{definition}
+
+\begin{definition}[relazione]
+Una \myemph{relazione} $R$ su un insieme $X$ non è altro che un sottoinsieme di $X\times X$. Più precisamente stiamo quindi parlando di relazioni \emph{binarie}, in quanto consideriamo coppie di elementi di $X$. Per le relazioni binarie il predicato $(x,y)\in R$ viene usualmente scritto con la notazione infissa: $xRy$. La negazione di tale predicato $(x,y)\not \in R$ si scrive sovrapponendo una barra al simbolo della relazione: $x{\not\! R} y$.
+
+Se $R$ è una relazione su $X$ si definisce la \myemph{relazione inversa} $R^{-1}$ su $X$ tramite la seguente definizione:
+\[
+   x R^{-1} y \iff y R x.
+\]
+Comunemente si usa anche una riflessione grafica del simbolo, per denotare la relazione inversa: $\reflectbox{$R$} = R^{-1}$. 
+
+Una relazione $R$ su $X$ viene detta \myemph{riflessiva} se per ogni $x\in X$ si ha $xRx$. Si dice invece \myemph{antiriflessiva} se $x\!{\not\!R}x$ per ogni $x\in X$.
+La relazione viene detta \myemph{simmetrica} se coincide con la sua inversa ovvero se per ogni $x,y\in X$ si ha $xRy \iff yRx$.
+Una relazione si dice essere \myemph{antisimmetrica} se per
+ogni $x,y\in X$ si ha
+\[
+  x R y \land y R x \implies x=y.
+\]
+Una relazione si dice essere \myemph{transitiva} se
+\[
+  x R y \land y R z \implies x R z.
+\]
+\end{definition}
 
 \begin{axiom}[ordine totale]\label{axiom_order}
 \mymargin{ordine}
@@ -37,9 +174,33 @@ Su $\RR$ è definita una relazione $\le$ con le seguenti proprietà
 \end{enumerate}
 \end{axiom}
 
-Definiamo $x<y$ se $x\le y$ e $x \neq y$ e definiamo le relazioni
-inverse $x \ge y$ se $y\le x$ e $x>y$ se $y<x$.
-\mymargin{$\ge$ $<$ $>$}
+\begin{definition}[relazione d'ordine]
+Una relazione $\le$ su un insieme $X$ si dice essere una
+relazione d'\myemph{ordine parziale} (o più semplicemente una relazione d'ordine) se è riflessiva, antisimmetrica e transitiva.
+La relazione inversa si denota con $\ge$ ed è anch'essa una relazione d'ordine.
+
+Se $\le$ è una relazione d'ordine parziale, si denota con $<$ (chiamato ordine stretto) la relazione definita da:
+\[
+  x < y \iff x\le y \land x\neq y.
+\]
+La relazione $<$ è anch'essa transitiva e antisimmetrica (la condizione $x<y \land y<x$ non è mai verificata) ma ovviamente non è riflessiva, anzi è \myemph{antiriflessiva}: $x\not < x$ per ogni $x\in X$. La relazione inversa di $<$ si denota con $>$.
+
+Data una relazione d'ordine $\le$ su $X$ diremo che $x,y\in X$ sono \myemph{confrontabili} se vale $x\le y$ oppure $y\le x$. Se tutti gli elementi di $X$ sono confrontabili diremo che la relazione d'ordine è \emph{totale}\mymargin{ordine totale}. In tal caso vale la tricotomia: se $x,y\in X$ allora una e una sola delle seguenti proprietà è vera:
+\[
+  x < y, \qquad x > y, \qquad x=y.
+\]
+\end{definition}
+
+\begin{definition}[campo ordinato]
+Diremo che $K$ è un \myemph{campo ordinato} rispetto
+ad una relazione $\le$ se $K$ è un campo,
+se $\le$ è un ordine totale su $K$ e se valgono
+le seguenti proprietà:
+\begin{enumerate}
+\item positività: se $x\ge 0$ e $y\ge 0$ allora $x+y\ge 0$ e $x\cdot y \ge 0$;
+\item monotonia: se $x\ge y$ allora $x+z\ge y+z$.
+\end{enumerate}
+\end{definition}
 
 \begin{axiom}[campo ordinato]
 \mynote{campo ordinato}
