@@ -1,0 +1,985 @@
+\chapter{strutture matematiche}
+
+\section{gruppi, anelli, campi}
+
+\begin{definition}[operazione]\label{def:operazione}
+Una funzione $*\colon X \times Y \to Z$ si dice essere una
+\myemph{operazione} (o più precisamente: una operazione binaria, visto che opera su una coppia). Per le operazioni binarie si utilizzerà abitualmente la notazione infissa:
+\[
+  x * y = *(x,y).
+\]
+
+Nel caso $X=Y=Z$ diremo che $*$ è una operazione su $X$.
+In tal caso diremo che l'operazione è \myemph{associativa} se per ogni $x,y,z\in X$ vale la seguente proprietà:
+\[
+   (x*y)*z = x*(y*z).
+\]
+Diremo che l'operazione è \myemph{commutativa} se per ogni $x,y\in X$ vale la seguente proprietà:
+\[
+  x*y = y*x.
+\]
+Diremo che $e\in X$ è un \myemph{elemento neutro} per l'operazione $*$ se per ogni $x\in X$ valgono le seguenti proprietà:
+\[
+  x * e = e * x = x.
+\]
+Se esiste un unico elemento neutro $e$ diremo che $x$ è l'\myemph{inverso} di $y$ per l'operazione $*$ se vale:
+\[
+  x*y = y*x = e.
+\]
+Se $+$ e $\cdot$ sono due operazioni definite sullo stesso insieme $X$ diremo che vale la proprietà \myemph{distributiva} di $+$ rispetto a $\cdot$ se per ogni $x,y,z\in X$  valgono le seguenti proprietà:
+\[
+  (x + y)\cdot z = (x\cdot z) + (y\cdot z), \qquad
+  x\cdot (y + z) = (x\cdot y) + (x\cdot z).
+\]
+\end{definition}
+
+\begin{definition}[numeri naturali]\label{def:naturali}
+Un insieme $\NN$ si dice essere un insieme di \emph{numeri naturali}
+rispetto ad una funzione $\sigma\colon \NN \to \NN$ (chiamata \emph {successore}) se
+valgono le seguenti proprietà (assiomi di Peano):
+\begin{enumerate}
+\item $\sigma$ è iniettiva;
+\item esiste un unico elemento $0\in \NN$ tale che $0\not \in\sigma(\NN)$ ($0$ si chiama zero);
+\item induzione: se $A\subset \NN$, $0\in A$ e $\sigma(A)\subset A$, allora $A=\NN$.
+\end{enumerate}
+\end{definition}
+
+\begin{theorem}[unicità dei numeri naturali]
+Se $\NN$ e $\NN'$ sono insiemi di numeri naturali rispetto alle
+funzioni $\sigma\colon \NN \to \NN$ e $\sigma'\colon \NN'\to \NN'$
+con $0\in \NN\setminus\sigma(\NN)$ e $0'\in \NN'\setminus\sigma'(\NN')$
+allora $\NN$ e $\NN'$ sono \emph{isomorfi} nel senso che esiste una
+corrispondenzia biunivoca $\phi\colon \NN \to \NN'$ tale che:
+\[
+  \phi(0) = 0', \qquad \sigma'\circ \phi = \phi\circ \sigma.
+\]
+\end{theorem}
+%
+\begin{definition}[gruppo]\label{def:gruppo}
+Un insieme $G$ si dice essere un \myemph{semigruppo} rispetto ad una operazione $*$ definita su $G$ se vale la proprietà:
+\begin{enumerate}
+\item associativa: $(x*y)*z = x*(y*z)$ per ogni $x,y,z\in G$.
+\end{enumerate}
+Diremo che $G$ è un \myemph{gruppo} se inoltre
+valgono le seguenti proprietà:
+\begin{enumerate}
+  \item[2.] esistenza elemento neutro: esiste $e\in G$ (chiamato \myemph{elemento neutro})
+    tale che $e*x=x*e=x$ per ogni $x\in G$;
+  \item[3.] esistenza inverso: per ogni $x\in G$ esiste $y\in G$ tale che $x*y = e$.
+\end{enumerate}
+
+Inoltre diremo che il gruppo è \myemph{commutativo}
+o \emph{abeliano}\index{abeliano}
+se vale la seguente proprietà:
+\begin{enumerate}
+\item[4.] commutativa: $x*y = y*x$ per ogni $x,y\in G$.
+\end{enumerate}
+\end{definition}
+
+\begin{definition}[anello]\label{def:gruppo}
+Un insieme $A$ si dice essere un \myemph{anello} rispetto alle due operazioni $+$ (addizione) e $\cdot$ (moltiplicazione) definite su $A$, se valgono le seguenti proprietà:
+\begin{enumerate}
+  \item gruppo additivo: $A$ è un gruppo commutativo rispetto all'operazione $+$ (l'elemento neutro dell'addizione si denota col simbolo $0$);
+  \item associativa: $(x\cdot y)\cdot z= x \cdot (y\cdot z)$ per ogni $x,y,z\in A$;
+  \item distributiva: $x\cdot(y+z) = x\cdot y+x\cdot z$ e $(x+y)\cdot z=x\cdot z + y\cdot z$ per ogni $x,y,z \in A$.
+\end{enumerate}
+
+In un anello l'elemento inverso rispetto all'addizione si chiama \myemph{opposto}. Per ogni $x\in A$ l'opposto di $x$ si denota con $-x$.
+Si può allora definire l'operazione $-$ (\emph{sottrazione}) come segue:
+\[
+   x - y = x + (-y).
+\]
+Si noti quindi che utilizziamo lo stesso simbolo $-$ per denotare una operazione unaria (l'opposto) e una operazione binaria (la sottrazione).
+
+L'anello si dice essere \myemph{commutativo} se vale la proprietà:
+\begin{enumerate}
+\item[4.] commutativa: $x\cdot y = y\cdot x$ per ogni $x,y\in A$.
+\end{enumerate}
+
+L'anello si dice essere \myemph{con unità} se vale la proprietà:
+\begin{enumerate}
+\item[5.] esistenza unità: esiste $1\in A$ tale che $1*x = x*1 = x$ per ogni $x \in A$.
+\end{enumerate}
+\end{definition}
+
+\begin{definition}[campo]\label{def:campo}
+Un insieme $K$ si dice essere un \myemph{campo} rispetto
+a due operazioni $+$ (addizione) e $\cdot$ (moltiplicazione)
+definite su $K$ se
+valgono le seguenti proprietà:
+\begin{enumerate}
+\item $K$ è un anello con unità (chiamiamo $0$ l'elemento neutro dell'addizione e $1$ l'elemento neutro della moltiplicazione);
+\item $K\setminus \{0\}$ è un gruppo commutativo rispetto alla moltiplicazione.
+\end{enumerate}
+
+Se $y\in K\setminus\{0\}$ l'inverso di $y$ rispetto alla moltiplicazione viene a volte denotato con $y^{-1}$.
+Si potrà allora definire l'operazione $/$ di \emph{divisione}
+se il secondo operando $y$ è diverso da zero:
+\[
+  x / y = x \cdot y^{-1}.
+\]
+Abitualmente si utilizza la linea di frazione come notazione alternativa:
+\[
+  \frac{x}{y} = x/y.
+\]
+\end{definition}
+
+\begin{definition}[spazio vettoriale]
+Un insieme $V$ si dice essere uno \emph{spazio vettoriale}
+su un campo $K$ se $V$ è un gruppo rispetto ad una operazione $+$ (addizione) e
+se è definita una operazione $K \times V \to V$
+chiamata moltiplicazione (non ha associato un simbolo: se $k\in K$ e $\vec v$ in $V$ scriveremo semplicemente $k\vec v$ per denotare il prodotto) che soddisfa le seguenti proprietà
+(per ogni $x,y\in K$, $\vec u,\vec v\in V$):
+\begin{enumerate}
+\item $x(\vec u + \vec v) = x\vec u + x\vec v$;
+\item $(x+y)\vec v = x\vec v + y\vec v$;
+\item $(x\cdot y)\vec v = x(y\vec v)$;
+\item $1\vec v=\vec v$ dove $1\in K$ è l'elemento neutro del campo;
+\end{enumerate}
+
+Gli elementi di $V$ si chiamano \myemph{vettori} e spesso si denotano con simboli in grassetto (o sottolineati, nella scrittura a mano). Gli elementi di $K$ si chiamano \myemph{scalari}.
+\end{definition}
+
+\begin{definition}[relazione]
+Una \myemph{relazione} $R$ su un insieme $X$ non è altro che un sottoinsieme di $X\times X$. Più precisamente stiamo quindi parlando di relazioni \emph{binarie}, in quanto consideriamo coppie di elementi di $X$. Per le relazioni binarie il predicato $(x,y)\in R$ viene usualmente scritto con la notazione infissa: $xRy$. La negazione di tale predicato $(x,y)\not \in R$ si scrive sovrapponendo una barra al simbolo della relazione: $x{\not\! R} y$.
+
+Se $R$ è una relazione su $X$ si definisce la \myemph{relazione inversa} $R^{-1}$ su $X$ tramite la seguente definizione:
+\[
+   x R^{-1} y \iff y R x.
+\]
+Comunemente si usa anche una riflessione grafica del simbolo, per denotare la relazione inversa: $\reflectbox{$R$} = R^{-1}$. 
+
+Una relazione $R$ su $X$ viene detta \myemph{riflessiva} se per ogni $x\in X$ si ha $xRx$. Si dice invece \myemph{antiriflessiva} se $x\!{\not\!R}x$ per ogni $x\in X$.
+La relazione viene detta \myemph{simmetrica} se coincide con la sua inversa ovvero se per ogni $x,y\in X$ si ha $xRy \iff yRx$.
+Una relazione si dice essere \myemph{antisimmetrica} se per
+ogni $x,y\in X$ si ha
+\[
+  x R y \land y R x \implies x=y.
+\]
+Una relazione si dice essere \myemph{transitiva} se
+\[
+  x R y \land y R z \implies x R z.
+\]
+\end{definition}
+
+\begin{axiom}[ordine totale]\label{axiom_order}
+\mymargin{ordine}
+Su $\RR$ è definita una relazione $\le$ con le seguenti proprietà
+\mymargin{$\le$}
+\begin{enumerate}
+\item dicotomia: $x \le y$ o $y \le x$;
+\item riflessiva: $x \le x$;
+\item antisimmetrica: se $ x\le y$ e $y \le x$ allora $x=y$;
+\item transitiva: se $x\le y $ e $ y \le z$ allora $x\le z$.
+\end{enumerate}
+\end{axiom}
+
+\begin{definition}[relazione d'ordine]
+Una relazione $\le$ su un insieme $X$ si dice essere una
+relazione d'\myemph{ordine parziale} (o più semplicemente una relazione d'ordine) se è riflessiva, antisimmetrica e transitiva.
+La relazione inversa si denota con $\ge$ ed è anch'essa una relazione d'ordine.
+
+Se $\le$ è una relazione d'ordine parziale, si denota con $<$ (chiamato ordine stretto) la relazione definita da:
+\[
+  x < y \iff x\le y \land x\neq y.
+\]
+La relazione $<$ è anch'essa transitiva e antisimmetrica (la condizione $x<y \land y<x$ non è mai verificata) ma ovviamente non è riflessiva, anzi è \myemph{antiriflessiva}: $x\not < x$ per ogni $x\in X$. La relazione inversa di $<$ si denota con $>$.
+
+Data una relazione d'ordine $\le$ su $X$ diremo che $x,y\in X$ sono \myemph{confrontabili} se vale $x\le y$ oppure $y\le x$. Se tutti gli elementi di $X$ sono confrontabili diremo che la relazione d'ordine è \emph{totale}\mymargin{ordine totale}. In tal caso vale la tricotomia: se $x,y\in X$ allora una e una sola delle seguenti proprietà è vera:
+\[
+  x < y, \qquad x > y, \qquad x=y.
+\]
+\end{definition}
+
+\begin{definition}[campo ordinato]
+Diremo che $K$ è un \myemph{campo ordinato} rispetto
+ad una relazione $\le$ se $K$ è un campo,
+se $\le$ è un ordine totale su $K$ e se valgono
+le seguenti proprietà:
+\begin{enumerate}
+\item positività: se $x\ge 0$ e $y\ge 0$ allora $x+y\ge 0$ e $x\cdot y \ge 0$;
+\item monotonia: se $x\ge y$ allora $x+z\ge y+z$.
+\end{enumerate}
+\end{definition}
+
+\begin{axiom}[campo ordinato]
+\mynote{campo ordinato}
+\index{campo!ordinato}
+Le operazioni di campo e l'ordinamento sono compatibili nel senso che
+valgono le seguenti proprietà:
+\begin{enumerate}
+\item positività: se $x\ge 0$ e $y \ge 0$ allora $x+y \ge 0$ e $x\cdot y\ge 0$;
+\item monotonia: se $x \ge y$ allora $x+z \ge y+z$.
+\end{enumerate}
+\end{axiom}
+
+\begin{axiom}[continuità]\label{axiom_complete}
+\mymark{***}
+\mymargin{continuità}
+Se $A$ e $B$ sono sottoinsiemi non vuoti di $\RR$ tali che $A \le B$
+(cioè: per ogni $a \in A$ e per ogni $b\in B$ vale $a\le b$) allora esiste
+$x\in \RR$ tale che $A\le x \le B$ (cioè per ogni $a\in A$ e per ogni $b\in B$
+vale $a\le x \le b$).
+\end{axiom}
+
+
+\begin{theorem}
+In un campo ordinato valgono le seguenti
+familiari proprietà:
+\begin{enumerate}
+  \item l'opposto e il reciproco sono unici (denotiamo con $-x$ l'unico opposto di $x$ e con $x^{-1}$ l'unico inverso di $x\neq 0$)
+  \item $-(-x) = x$, $\enclose{x^{-1}}^{-1}$
+  \item $x \cdot 0 = 0$
+  \item $x\ge 0 \iff -x \le 0$
+  \item $(-x)\cdot y = -(x\cdot y)$
+  \item $-x = (-1)\cdot x$
+  \item $(-1)\cdot(-1) = 1$
+  \item $x\cdot x \ge 0$
+  \item $1 > 0$
+  \item se $x\cdot y = 0$ allora $x = 0$ o $y = 0$
+  \item se $x>0$ e $y>0$  allora $x\cdot y > 0$
+\end{enumerate}
+\end{theorem}
+%
+\begin{proof}
+\begin{enumerate}
+\item
+Supponiamo $y$ e $z$ siano due opposti di $x$ cioè $x+y=0$, $x+z=0$.
+Allora da un lato $x+y+z = 0+z = z$, dall'altro $x+y+z = y+x+z= y+ 0 = y$.
+Dunque $y=z$. Dimostrazione analoga si può fare per il reciproco.
+
+\item
+Se $x$ è opposto di $y$ allora $y$ è opposto di $x$ in quanto la somma
+è commutativa. Dunque l'opposto di $-x$ è $x$ cioè $-(-x)=x$. Lo stesso
+vale per il reciproco.
+
+\item
+Si ha
+\[
+x\cdot 0 = x \cdot 0 + x + (-x) %= x\cdot 0 + x\cdot 1 + (-x)
+=x\cdot(0+1) + (-x) = x + (-x) = 0.
+\]
+
+\item
+Se $x\ge 0$ sommando ad ambo i membri $-x$ si ottiene $x+(-x) \ge 0 + (-x)$
+cioè $0 \ge -x$. Sommando $x$ ad ambo i membri si riottiene $x\ge 0$.
+
+
+\item
+Osserviamo che $(-x)\cdot y + x\cdot y = ((-x)+x)\cdot y = 0$ dunque $(-x)\cdot y$ è l'opposto di $x\cdot y$.
+
+\item
+Dunque $(-1)\cdot x = - (1 \cdot x) = - x$
+
+\item
+e per $x=-1$ si ottiene $(-1)\cdot(-1) = -(-1) = 1$.
+
+\item
+Si ha
+\[
+(-x)\cdot(-x) = (-1)\cdot x \cdot (-1)\cdot x = x\cdot x.
+\]
+Dunque se $x\ge 0$ per assioma di positività
+abbiamo $x\cdot x\ge 0$ e se $x\le 0$ abbiamo $-x\ge 0$ e quindi
+$x\cdot x = (-x)\cdot(-x) \ge 0$.
+
+\item
+In particolare per $x=1$ otteniamo $1\ge 0$.
+Essendo inoltre per assioma $0\neq 1$ otteniamo $1> 0$.
+
+\item
+Se fosse $x\cdot y = 0$ e $x\neq 0$ allora $x$ avrebbe inverso $x^{-1}$
+e avremmo:
+\[
+  y = x^{-1} \cdot x \cdot y = x^{-1}\cdot 0 = 0.
+\]
+Dunque o $x=0$ oppure $y=0$.
+
+\item
+Se $x>0$ e $y>0$ allora $x\ge 0$ e $y\ge 0$ da cui $x\cdot y\ge 0$.
+Se fosse $x\cdot y=0$ uno dei due fattori si dovrebbe annullare
+cosa che abbiamo escluso per ipotesi.
+\end{enumerate}
+\end{proof}
+
+\begin{definition}[valore assoluto]
+\mymark{***}
+Definitamo il \myemph{valore assoluto} $\abs{x}$ di un numero $x\in \RR$ nel seguente modo
+\[
+\abs{x} =
+\begin{cases}
+  x & \text{se $x\ge 0$}, \\
+  -x & \text{se $x<0 $}.
+\end{cases}
+\]
+\end{definition}
+
+\begin{proposition}[proprietà del valore assoluto]
+\mymark{**}
+Si ha
+\begin{enumerate}
+\item $\abs{x}\ge 0$ (positività)
+\item $\big\lvert\abs{x}\big\rvert = \abs{x}$ (idempotenza)
+\item $\abs{-x} = \abs{x}$ (simmetria)
+\item $\abs{x\cdot y} = \abs{x}\cdot \abs{y}$ (omogenità)
+\item $\abs{x+y} \le \abs{x} + \abs{y}$ (convessità)
+\item $\abs{x-y} \le \abs{x-z} + \abs{z-y}$ (disuguaglianza triangolare)
+\item $\big\lvert\abs{x}-\abs{y}\big\rvert \le \abs{x-y}$ (disuguaglianza triangolare inversa)
+\end{enumerate}
+Useremo inoltre spesso la seguente equivalenza (valida
+anche con $<$ al posto di $\le$). Se $r\ge 0$ allora
+\[
+ \abs{x-y} \le r
+ \iff
+ y - r \le x \le y + r.
+\]
+\end{proposition}
+%
+\begin{proof}
+\mymark{*}
+Le prime quattro proprietà sono immediate conseguenze della definizione.
+
+Dimostriamo innanzitutto l'ultima osservazione.
+Se $x\ge y$ allora $x-y\ge 0$ e quindi $\abs{x-y} \le r$ è
+equivalente a $x-y\le r$ cioè $x\le y+r$.
+Se $x<y$ allora $x-y<0$ e quindi $\abs{x-y} \le r$ è
+equivalente a $y-x \le r$ cioè $x\ge y-r$.
+Viceversa se $y-r \le x \le y+r$ allora vale sia $x-y \le r$ che $y-x \le r$ e dunque $\abs{x-y}\le r$.
+
+Osserviamo allora che per la precedente osservazione applicata
+a $\abs{x-0} \le \abs{x}$ si ottiene
+\[
+  -\abs{x} \le x \le \abs{x}
+\]
+e sommando la stessa disuguaglianza con $y$ al posto di $x$ si
+ottiene
+\[
+  -(\abs{x} + \abs{y}) \le x + y \le \abs{x} + \abs{y}
+\]
+che è equivalente alla proprietà di convessità:
+\[
+  \abs{x+y} \le \big\lvert\abs{x} + \abs{y}\big\rvert = \abs{x} + \abs{y}.
+\]
+
+Ponendo $y=z-x$ nella disuguaglianza precedente, si ottiene
+\[
+  \abs{z} \le \abs{x} + \abs{z-x}
+\]
+da cui
+\[
+  \abs{z} - \abs{x} \le \abs{z-x}.
+\]
+Scambiando $z$ con $x$ si ottiene la disuguaglianza opposta
+e mettendole assieme si ottiene
+la disuguaglianza triangolare inversa:
+\[
+\big\lvert \abs{z}-\abs{x} \big\rvert  \le \abs{z-x}.
+\]
+
+La disuguaglianza triangolare segue dalla convessità:
+\[
+ \abs{x-y} = \abs{x-z + z-y} \le \abs{x-z} + \abs{z-y}.
+\]
+\end{proof}
+
+Osserviamo che dal punto di vista geometrico
+$\abs{x-y}$ rappresenta la \emph{distanza} tra i punti
+$x$ e $y$ sulla retta reale.
+
+Come applicazione dell'assioma di continuità possiamo mostrare l'esistenza
+della \myemph{radice quadrata}.
+Più avanti, con qualche strumento in più, rivedremo più in generale
+la costruzione della radice $n$-esima.
+
+\begin{theorem}[radice quadrata]
+\label{th:radice_quadrata}
+\mymark{***}
+Dato $y\ge 0$ esiste un unico $x\ge 0$ tale che $x^2=y$.
+Tale $x$ verrà denotato con $\sqrt y$, \emph{radice quadrata} di $y$.
+\mymargin{$\sqrt{\cdot}$}
+\end{theorem}
+\begin{proof}
+\mymark{*}
+Se $y=0$ allora è facile verificare che $x^2=y$ ha come unica soluzione $x=0$.
+Supponiamo allora $y>0$ e
+consideriamo i seguenti due insiemi
+\[
+  A = \{x\ge 0 \colon x^2 \le y\},\qquad
+  B = \{x\ge 0 \colon x^2 \ge y\}
+\]
+e verifichiamo che soddisfino le ipotesi dell'assioma di continuità.
+Innanzitutto $0\in A$ e quindi $A$ non è vuoto.
+Neanche $B$ è vuoto in quanto $y+1\in B$,
+infatti essendo $y+1\ge 1$ si ha
+$(y+1)^2 \ge y+1$. Verifichiamo inoltre che $A \le B$.
+Preso $a\in A$ e $b\in B$ si ha $a^2 \le y \le b^2$.
+Se fosse $a>b$ dovremmo avere $a^2>b^2$, dunque $a \le b$.
+
+Dunque possiamo applicare l'assioma di continuità
+che ci garantisce l'esistenza di $z\in \RR$ tale che $A \le z \le B$.
+Vogliamo ora verificare che $z^2 = y$.
+
+Ci servirà innanzitutto sapere che $z>0$. Se $y\ge 1$ si avrebbe $1\in A$
+e dunque $z\ge 1$ essendo $z\ge A$. Se $y<1$ allora $y^2 < y$ e dunque $y^2 \in A$
+da cui si ottiene $z\ge y^2 > 0$.
+
+Se fosse $z^2 < y$ vorremmo dimostrare che esiste $\eps>0$ tale che
+$(z+\eps)^2 \le y$.
+Questo succede se $(z+\eps)^2 = z^2 + 2 \eps z + \eps^2 \le y$.
+Questo si può ottenere, ad esempio,
+imponendo che sia $2\eps z \le (y-z^2)/2$ e $\eps^2 \le (y-z^2)/2$.
+Cioè (ricordiamo che $z>0$) se $\eps \le (y-z^2)/(4z)$ e $\eps \le 1$
+(in modo che $\eps^2 \le \eps$)
+e $\eps \le (y-z^2)/2$. Dunque scegliendo
+\[
+\eps = \min\left\{ \frac{y-z^2}{4z}, 1, \frac{y-z^2}2\right\}
+\]
+si osserva che $\eps>0$ e vale $(z+\eps)^2\le y$.
+Dunque $z+\eps \in A$ e dunque non può essere $z\ge A$.
+
+Se fosse $z^2 > y$ vorremmo dimostrare che esiste $\eps>0$ tale che
+$(z-\eps)^2 \ge y$.
+Questo succede se $(z-\eps)^2 = z^2 - 2\eps z + \eps^2 \ge y$.
+E' quindi sufficiente che sia $z^2 - 2 \eps z \ge y$ ovvero basta scegliere
+\[
+  \eps = \frac{z^2-y}{2z}.
+\]
+Ma allora se $(z-\eps)^2\ge y$ si ha $z-\eps \in B$ e dunque non può
+essere $z \le B$.
+
+Rimane dunque l'unica possibilità che sia $z^2 = y$, come volevamo dimostrare.
+
+Se ci fosse un altro $w\ge 0$ tale che $w^2 = y$ si avrebbe $w^2 - z^2=0$ ovvero
+$(w-z)(w+z)=0$ da cui (ricordando che $z>0$ e quindi $w+z\neq 0$)
+si ottiene $w-z=0$. Dunque $w=z$.
+\end{proof}
+
+
+\section{i numeri naturali, interi e razionali}
+
+\begin{definition}[numeri naturali]
+\mymargin{numeri naturali}
+Un sottoinsieme $A\subset \RR$ si dice essere \emph{induttivo}
+se $0\in A$ e $n\in A \implies n+1 \in A$.
+La famiglia di tutti i sottoinsiemi induttivi di $\RR$ non è vuota
+in quanto $\RR$ stesso è induttivo. Definiamo $\NN$ come l'intersezione
+di tutti i sottoinsiemi induttivi di $\RR$ (ovvero: il più piccolo sottoinsieme induttivo di $\RR$).
+\mymargin{$\NN$}
+\end{definition}
+
+Non è difficile dimostrare che l'insieme $\NN$ così definito
+soddisfa gli assiomi di Peano (si vedano gli appunti di logica).
+
+A
+partire da $\NN$ si può costruire l'insieme $\ZZ$ dei
+\myemph{numeri interi}
+e l'insieme $\QQ$ dei \myemph{numeri razionali}:
+\begin{align*}
+  \ZZ
+  \mymargin{$\ZZ$}
+    &= \NN \cup (-\NN)
+    = \{x\in \RR\colon \exists n\in\NN\colon (x=n) \lor (x=-n)\}, \\
+  \QQ
+  \mymargin{$\QQ$}
+    &= \frac{\ZZ}{\NN\setminus\{0\}}
+    = \left\{x \in \RR\colon \exists p\in \ZZ\colon \exists q \in \NN\setminus\{0\}\colon x = \frac{p}{q}\right\}
+\end{align*}
+
+Si avrà dunque $\NN \subset \ZZ \subset \QQ \subset \RR$.
+Si può verificare che $\QQ$ è un campo ordinato che però non soddisfa l'assioma
+di continuità.
+Infatti se consideriamo i due insiemi:
+\[
+ A = \{x\in \QQ \colon x\ge 0, x^2 \le 2\},
+ B = \{x\in \QQ \colon x\ge 0, x^2 \ge 2\}
+\]
+si può verificare che $A$ e $B$ sono non vuoti, $A \le B$, ma l'elemento
+di separazione $\sqrt{2}\in \RR$ non è elemento di $\QQ$, in base al seguente
+classico risultato.
+
+\begin{theorem}[Pitagora]
+\mymark{**}
+L'equazione $x^2=2$ non ha soluzioni in $\QQ$.
+\end{theorem}
+%
+\begin{proof}
+\mymark{*}
+Supponiamo $x\in \QQ$ sia una soluzione di $x^2=2$.
+Allora si potrà scrivere $x=p/q$ con $p\in \ZZ$ e $q\in \NN$, $q\neq 0$.
+Possiamo anche supporre che la frazione $p/q$ sia ridotta ai minimi
+termini cioè che $p$ e $q$ non abbiano fattori in comune.
+Moltiplicando l'equazione
+$(p/q)^2=2$ per $q^2$ si ottiene $p^2 = 2 q^2$.
+Risulta quindi che $p^2$ è pari.
+Ma allora anche $p$ è pari (perché il quadrato di un dispari è dispari).
+Ma se $p$ è pari allora $p^2$ è multiplo di quattro.
+Ma allora anche $2q^2$ è multiplo di quattro e quindi $q^2$ è pari.
+Dunque anche $q$ è pari. Ma avevamo supposto che $p$ e $q$ non avessero
+fattori in comune quindi questo non può accadere.
+\end{proof}
+
+Abbiamo quindi dimostrato che $\sqrt{2} \in \RR \setminus \QQ$
+(diremo che $\sqrt 2$ è \myemph{irrazionale}) e dunque $\RR \neq \QQ$.
+
+\section{estremo superiore}
+
+\begin{definition}
+\mymark{***}
+Siano $x \in \RR$ e $A \subset \RR$.
+Se $A\le x$ (ovvero $a\le x$ per ogni $a\in A$)
+diremo che $x$ è un \myemph{maggiorante} di $A$.
+Se $x \le A$ diremo invece che $x$ è un \myemph{minorante} di $A$.
+Se $A$ ammette un maggiorante diremo che $A$ è \emph{superiormente limitato},
+se $A$ ammette un minorante diremo che $A$ è \emph{inferiormente limitato},
+\index{superiormente limitato}
+\index{inferiormente limitato}
+\index{limitato!superiormente}
+\index{limitato!inferiormente}
+se $A$ ammette sia maggiorante che minorante diremo che $A$ è \myemph{limitato}.
+
+Se $A \le x$ e $x\in A$ diremo che $x$ è il massimo di $A$,
+se $x\le A$ e $x\in A$ diremo che $x$ è il minimo di $A$
+
+Se $x$ è minimo dei maggioranti di $A$ diremo che $x$ è
+\myemph{estremo superiore}
+di $A$ se invece $x$ è massimo dei minoranti diremo che $x$ è
+\myemph{estremo inferiore} di $A$.
+\end{definition}
+
+Massimo e minimo di un insieme $A$, se esistono, sono unici.
+Infatti se $x$ e $y$ fossero due massimi di $A$ si avrebbe $x\le y$ in
+quanto $x\le A$ e $y\in A$. Analogamente si avrebbe $y\le x$ e
+quindi $x=y$.
+Anche l'estremo superiore e l'estremo inferiore se esistono sono
+unici in quanto sono essi stessi un minimo ed un massimo
+(rispettivamente dei maggioranti e dei minoranti).
+
+Useremo quindi le notazioni:
+\mymargin{$\max$ $\min$ $\sup$ $\inf$}
+\[
+ \max A, \qquad
+ \min A, \qquad
+ \sup A, \qquad
+ \inf A
+\]
+per denotare univocamente (quando esistono) il massimo, il minimo,
+l'estremo superiore e l'estremo inferiore di un insieme $A$.
+
+\begin{theorem}[esistenza del $\sup$]
+\label{th:sup}
+\mymark{**}
+Se $A$ è un insieme non vuoto,
+superiormente limitato, allora esiste l'estremo superiore di $A$.
+Tale numero $x=\sup A$ è caratterizzato dalle seguenti proprietà
+\begin{enumerate}
+\item $\forall a\in A\colon x \ge a$;
+\item $\forall \eps>0\colon \exists a\in A \colon x < a + \eps$.
+\end{enumerate}
+
+Risultato analogo vale per l'estremo inferiore.
+\end{theorem}
+%
+\begin{proof}
+\mymark{*}
+Consideriamo l'insieme dei maggioranti
+$B = \{ b\in \RR \colon b \ge A\}$.
+Per ipotesi $B$ è non vuoto e per come è definito risulta $A\le B$.
+Dunque dall'assioma di continuità deduciamo l'esistenza di un numero $x\in \RR$
+tale che $A\le x \le B$. La prima disuguaglianza $A\le x$ ci dice che $x$ è un
+maggiorante e quindi $x\in B$, la seconda $x\le B$ ci dice che $x$ è il minimo
+di $B$ e quindi concludiamo che $x$ è l'estremo superiore di $A$.
+
+La prima delle due proprietà caratterizzanti il $\sup$ traduce la condizione
+che $x$ sia un maggiorante di $A$. La seconda delle due proprietà esprime il
+fatto che $x$ sia il minimo dei maggioranti, infatti se $x$ è il minimo
+dei maggioranti significa che nessun numero minore di $x$ è un maggiorante, ovvero
+che ogni $x-\eps$ con $\eps>0$ non è un maggiorante, ovvero
+che esiste $a\in A$ tale che $a > x-\eps$.
+\end{proof}
+
+La seguente proprietà dei numeri reali esprime il fatto
+che non esistono gli \emph{infinitesimi} ovvero numeri reali positivi
+che siano più piccoli di ogni $1/n$ con $n\in \NN$.
+
+\begin{theorem}[proprietà archimedea dei numeri reali]
+\mymark{**}
+\mymargin{proprietà archimedea}
+Dato $x\in \RR$ esiste $n\in \NN$ tale che $n > x$.
+E se $x>0$ esiste $m\in \NN$ tale che $1/m < x$.
+\end{theorem}
+%
+\begin{proof}
+\mymark{*}
+Se esistesse $x\in \RR$ tale che $x \ge \NN$
+allora $\NN$ sarebbe superiormente limitato.
+Dunque avrebbe un estremo superiore $m= \sup \NN$.
+Siccome $m$ è il minimo dei maggioranti di $\NN$
+e $m-1$ è più piccolo di $m$, allora $m-1$ non è un maggiorante
+di $\NN$. Dunque deve esistere $n\in \NN$ tale che $n>m-1$.
+Ma allora $n+1 > m$ ed essendo $n+1\in \NN$ troviamo che $m$
+non poteva essere un maggiorante di $\NN$.
+
+Dunque per ogni $y\in \RR$ esiste $n\in \NN$ tale che $n>y$.
+Se $x\in \RR$ e $x>0$ allora posto $y=1/x$ possiamo trovare
+$n\in \NN$ con $n>y = 1/x$ da cui $x > 1/n$.
+\end{proof}
+
+\begin{theorem}[parte intera]
+\mymark{*}
+Dato $x\in \RR$ esiste un unico $m\in \ZZ$ tale che $m-1 \le x < m$.
+\end{theorem}
+%
+\begin{proof}
+Supponiamo per un attimo che sia $x\ge 1$.
+In tal caso consideriamo l'insieme $A=\{n\in \NN\colon n > x\}$.
+Per la proprietà archimedea tale insieme non può essere vuoto e,
+per il buon ordinamento di $\NN$ (si vedano gli appunti di logica),
+deve avere un minimo $m$.
+Dunque $m>x$ (in quanto $m\in A$) e $m\ge 1$ (in quanto $x\ge 1$).
+Quindi necessariamente $m-1 \le x$ altrimenti avremmo che $m-1\in A$ e $m$
+non poteva essere il minimo. Si ottiene dunque $m-1\le x < m$ come volevamo
+dimostrare.
+
+Nel caso fosse $x<1$ possiamo trovare un $N\in \NN$ (sempre per la proprietà archimedea) per cui $x+N \ge 1$. Applicando il ragionamento precedente a $x+N$ si trova comunque il risultato desiderato.
+\end{proof}
+
+\begin{definition}[parte intera]
+\mymark{**}
+\mymargin{parte intera}
+Dato $x\in \RR$ denotiamo con $\lfloor x\rfloor$ l'unico intero
+che soddisfa
+\mynote{$\lfloor\cdot\rfloor$} %% *** non viene bene nell'indice!
+\[
+  x - 1 < \lfloor x \rfloor \le x
+\]
+e denotiamo con $\lceil x \rceil = - \lfloor -x \rfloor$ l'unico intero che soddisfa (verificare!)
+\mynote{$\lceil\cdot\rceil$} %% *** non viene bene nell'indice!
+\[
+  x \le \lceil x \rceil < x + 1.
+\]
+Si ha dunque
+\[
+  \lfloor x \rfloor \le x \le \lceil x \rceil
+\]
+con entrambe le uguaglianze che si realizzano quando $x\in \ZZ$.
+I due interi $\lfloor x \rfloor$ e $\lceil x \rceil$
+sono la migliore approssimazione intera di $x$ rispettivamente
+per difetto e per eccesso.
+L'intero più vicino ad $x$ (approssimazione per arrotondamento)
+è
+\[
+  \left\lfloor x + \frac 1 2 \right\rfloor
+\quad \text{ossia} \quad
+  \left\lceil x-\frac 1 2 \right\rceil
+\]
+(le due espressioni differiscono solamente quando $x$ si trova nel punto medio tra due interi consecutivi, nel qual caso la prima approssima per eccesso e la seconda per difetto).
+\end{definition}
+In alcuni testi si usa la notazione $[x]$ per denotare la parte intera $\lfloor x \rfloor$ e si definisce
+anche la \emph{parte frazionaria}
+\[
+   \{x\} = x - [x]
+\]
+noi preferiamo evitare queste notazioni che possono risultare ambigue.
+
+\begin{theorem}[densità di $\QQ$ in $\RR$]
+\mymark{*}
+\mymargin{densità di $\QQ$}
+Dati $x,y \in \RR$ con $x<y$ esiste $q\in \QQ$ tale che $x<q<y$.
+\end{theorem}
+%
+\begin{proof}
+Per la proprietà archimedea dei numeri reali essendo $y-x>0$
+deve esistere $n\in \NN$ tale che $y-x > 1/n$ così si avrà
+\[
+    nx + 1 < ny.
+\]
+Prendiamo allora $m=\lfloor nx + 1\rfloor$ cosicché si abbia
+\[
+  nx < m \le nx + 1.
+\]
+Mettendo insieme le due disuguaglianze e dividendo per n si ottiene,
+come volevamo dimostrare,
+\[
+ x < \frac{m}{n} < y.
+\]
+\end{proof}
+
+
+\begin{definition}[potenza intera]
+\mymargin{potenza intera}
+Dato $x \in \RR$ possiamo definire la potenza $x^n$ per ogni
+$n\in \NN$ come l'unica funzione che soddisfa
+\mymargin{$x^n$}
+la seguente definizione per induzione (si vedano appunti di logica)
+\[
+\begin{cases}
+  x^0 = 1\\
+  x^{n+1} = x\cdot x^n.
+\end{cases}
+\]
+Per $x\in \RR\setminus\{0\}$ possiamo anche definire $x^{-n}$ con $n\in \NN$
+come
+\[
+x^{-n} = \frac{1}{x^n}.
+\]
+Risulta quindi che $x^n$ è definito per ogni $n\in \ZZ$ se $x\neq 0$.
+\end{definition}
+
+In base alla definizione si ha $x^0 = 1$, $x^1=x$, $x^2=x\cdot x$,
+$x^3=x\cdot x \cdot x$ e così via. Dunque in generale
+$x^n$ è il prodotto di $n$ fattori tutti uguali a $x$.
+Si osservi in particolare che abbiamo definito $0^0=1$.
+Alcuni testi preferiscono lasciare indefinito $0^0$
+ma non c'è motivo per farlo e questa definizione risulterà molto utile e sensata.
+
+\begin{theorem}[proprietà delle potenze intere]
+Per ogni $x,y\in \RR$, e per ogni $n,m \in \NN$
+valgono le seguenti proprietà:
+\begin{enumerate}
+  \item  $x^{n+m} = x^n \cdot x^m$;
+  \item $(x^n)^m = x^{n\cdot m}$;
+  \item $(x\cdot y)^n = x^n \cdot y^n$;
+  \item $\displaystyle \enclose{\frac{x}{y}}^n = \frac{x^n}{y^n}$ se $y\neq 0$.
+\end{enumerate}
+Le stesse proprietà valgono per $n,m \in\ZZ$ se $x\neq 0$, $y\neq 0$.
+\end{theorem}
+%
+\begin{proof}
+Dimostriamo, come esempio, solamente la prima proprietà: $x^{n+m} = x^n \cdot x^m$.
+Fissato $m\in \NN$ procediamo per induzione su $n$.
+Se $n=0$ si ha $x^{0+m} = x^m = x^m \cdot 1 = x^m \cdot x^0$.
+Supponendo la proprietà sia stata verificata per $n$, verifichiamo
+che vale anche con $n+1$ al posto di $n$. Si ha infatti
+\[
+ x^{(n+1)+m} = x^{n+m+1} = x \cdot x^{n+m} = x \cdot x^n \cdot x^m
+  = x^{n+1} \cdot x^m.
+\]
+\end{proof}
+
+\begin{exercise}
+Si dimostri che $2^n > n$ per ogni $n\in \NN$.
+\end{exercise}
+
+
+\section{il coefficiente binomiale}
+
+\begin{definition}[fattoriale]
+Per $n\in \NN$ definiamo il \emph{fattoriale} di $n$ come il prodotto dei
+numeri da $1$ a $n$. Formalmente il fattoriale è definito per induzione
+dalle seguenti condizioni:
+\[
+\begin{cases}
+ 0! = 1 \\
+ (n+1)! = n! \cdot (n+1).
+\end{cases}
+\]
+\end{definition}
+
+Ad esempio si ha
+\begin{gather*}
+  0! = 1, \qquad
+  1! = 1, \qquad
+  2! = 1 \cdot 2 = 1, \qquad
+  3! = 1 \cdot 2 \cdot 3 = 6, \\
+  4! = 1 \cdot 2 \cdot 3 \cdot 4 = 6\cdot 4 = 24, \qquad
+  5! = 1 \dots 5 = 24 \cdot 5 = 120, \qquad \dots
+\end{gather*}
+
+\begin{definition}[coefficiente binomiale]
+\label{def:binomiale}
+\mymark{***}
+Definiamo per ogni $n\in \NN$ e per ogni $k\in \ZZ$
+il \myemph{coefficiente binomiale}
+\[
+  {n \choose k}
+  = \begin{cases}
+    \frac{n!}{k!(n-k)!} & \text{se $0 \le k \le n$} \\
+    0 & \text{altrimenti}.
+  \end{cases}
+\]
+\end{definition}
+
+\begin{theorem}[triangolo di Tartaglia]
+\mymark{*}
+Per ogni $n\in \NN$ e $k \in \ZZ$ si ha
+\[
+  {n+1 \choose k} = {n \choose k-1} + {n \choose k}.
+\]
+\end{theorem}
+%
+\begin{proof}
+\begin{align*}
+{n \choose k-1} + {n \choose k}
+&= \frac{n!}{(k-1)!(n-k+1)!} + \frac{n!}{k!(n-k)!} \\
+&= \frac{k\cdot n! + (n-k+1)\cdot n!}{k!(n-k+1)!} \\
+&= \frac{(n+1)\cdot n!}{k!(n+1-k)!}
+= {n+1 \choose k}.
+\end{align*}
+\end{proof}
+
+\begin{theorem}[sviluppo binomiale]
+\mymark{***}
+Se $a,b\in \RR$ e $n\in \NN$ si ha:
+\[
+(a+b)^n = \sum_{k=0}^n {n \choose k} a^k \cdot b^{n-k}.
+\]
+\end{theorem}
+%
+\begin{proof}
+Lo dimostriamo per induzione su $n$.
+Per $n=0$ l'uguaglianza è soddisfatta per verifica diretta (ambo i membri sono uguali ad $1$).
+
+Supponendo valida l'uguaglianza per un certo $n\in \NN$ proviamo a verificarla
+per $n+1$:
+\begin{align*}
+(a+b)^{n+1}
+&= (a+b)\cdot (a+b)^n
+ = (a+b) \sum_{k=0}^n {n \choose k} a^k \cdot b^{n-k}\\
+&= \sum_{k=0}^n {n \choose k} a^{k+1}\cdot b^{n-k}
+   + \sum_{k=0}^n {n \choose k} a^k \cdot b^{n-k+1} \\
+&= \sum_{k=1}^{n+1} {n \choose k-1} a^k \cdot b^{n-k+1}
+   + \sum_{k=0}^n {n \choose k}a^k \cdot b^{n-k+1} \\
+&= \sum_{k=0}^{n+1} \enclose{{n \choose k-1} + {n \choose k}} a^k \cdot b^{n+1-k}.
+\end{align*}
+Nell'ultimo passaggio abbiamo sfruttato il fatto che per $k<0$ e per $k>n$ il coefficiente binomiale è nullo.
+Sfruttando la relazione del triangolo di Tartaglia si ottiene infine,
+come volevamo dimostrare
+\[
+  = \sum_{k=0}^{n+1}{n+1 \choose k} a^k \cdot b^{n+1-k}.
+\]
+\end{proof}
+
+\begin{exercise}[interpretazione combinatoria del coefficiente binomiale]
+Il numero di sottoinsiemi di $k$ elementi di un insieme con $n$ elementi
+è ${n\choose k}$.
+\end{exercise}
+
+\begin{exercise}
+Provare che
+\[
+ \sum_{k=0}^n {n \choose k} = 2^n.
+\]
+\end{exercise}
+
+%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%
+
+\section{reali estesi}
+
+%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%
+
+\begin{definition}[reali estesi]
+\mymargin{$\bar{\RR}$}
+Denotiamo con $\bar \RR=\RR \cup \{+\infty, -\infty\}$ l'insieme dei numeri reali
+\mymargin{$+\infty$, $-\infty$}
+a cui vengono aggiunti due ulteriori \emph{quantità} che chiameremo
+\emph{infinite} e che denotiamo con $+\infty$ e $-\infty$.
+\end{definition}
+
+
+Estendiamo la relazione d'ordine imponendo che valga
+\[
+  -\infty \le x \le +\infty, \qquad \forall x \in \bar\RR.
+\]
+
+Estendiamo anche la addizione e moltiplicazione
+tra reali estesi imponendo che valga per ogni $x\in \bar \RR$
+\begin{gather*}
+  x + (+\infty) = +\infty, \qquad \text{se $x\neq -\infty$}\\
+  x + (-\infty) = -\infty, \qquad \text{se $x\neq +\infty$}\\
+  x \cdot (+\infty) = +\infty, \qquad
+  x \cdot (-\infty) = -\infty, \qquad \text{se $x>0$} \\
+  x \cdot (+\infty) = -\infty, \qquad
+  x \cdot (-\infty) = +\infty, \qquad \text{se $x<0$}.
+\end{gather*}
+
+Si definiscono anche:
+\[
+ -(+\infty) = -\infty, \qquad
+ -(-\infty) = +\infty, \qquad
+ \frac{1}{+\infty} = \frac{1}{-\infty}=0
+\]
+facendo però attenzione che
+questi formalmente non sono \emph{opposto}
+e \emph{reciproco} in quanto
+su $\bar \RR$ non sono più garantite
+le regole: $x + (-x) = 0$ e $x \cdot (1/x) = 1$.
+Infatti
+le operazioni $(+\infty) + (-\infty)$ e $+\infty \cdot 0$ vengono
+lasciate indefinite.
+
+Definiamo anche il valore assoluto: $\abs{+\infty} = \abs{-\infty} = +\infty$.
+
+Possiamo infine definire la sottrazione e la divisione tramite
+addizione e moltiplicazione:
+\[
+  x - y = x + (-y), \qquad \frac{x}{y} = x \cdot \frac{1}{y}.
+\]
+
+Possiamo definire gli operatori $\sup$ e $\inf$
+anche sugli insiemi illimitati ponendo:
+\begin{align*}
+  \sup A = +\infty \qquad \text{se $A$ non è superiormente limitato}\\
+  \inf A = -\infty \qquad \text{se $A$ non è inferiormente limitato}.
+\end{align*}
+Osserviamo infatti che su $\bar \RR$ la quantità $+\infty$
+è maggiorante di qualunque insieme e $-\infty$ è minorante, dunque
+queste definizioni mantengono su $\bar \RR$ le proprietà caratterizzanti:
+l'estremo superiore è il minimo dei maggioranti e
+l'estremo inferiore è il massimo dei minoranti.
+Definiamo infine
+\begin{align*}
+  \sup \emptyset = -\infty\\
+  \inf \emptyset = +\infty.
+\end{align*}
+Queste ultime definizioni possono essere comprese da un punto di vista strettamente logico: ogni numero reale è sia maggiorante che minorante dell'insieme vuoto, dunque il minimo dei maggioranti non esiste in $\RR$ ma in $\bar \RR$ è $-\infty$
+e il massimo dei minoranti è $+\infty$.
+
+\section{intervalli}
+
+\begin{definition}[intervallo]
+\mymargin{intervallo}
+Un insieme $I\subset \RR$ si dice essere un \emph{intervallo}
+se soddisfa la \emph{proprietà dei valori intermedi}:
+\[
+  \text{se $x, y \in I$ e $x<z<y$ allora $z \in I$.}
+\]
+\end{definition}
+\begin{theorem}[caratterizzazione intervalli]
+Sia $I$ un intervallo e sia $a=\inf I$, $b=\sup I$. Allora
+$z\in I$ se $a < z < b$.
+\end{theorem}
+%
+\begin{proof}
+Se $I=\emptyset$ si ha $a>b$ e quindi nessun $z$ verifica $a<z<b$.
+Supponiamo $I\neq \emptyset$ e
+sia $a < z < b$.
+Visto che $a$ è il massimo dei minoranti di $I$ deve esistere $x \in I$ tale
+che $a \le x < z$ altrimenti ogni $x$ tra $a$ e $z$ sarebbe un minorante di $I$
+e $a$ non sarebbe il minimo. Analogamente dovrebbe esistere $y\in I$ con $z<y\le b$.
+Ma allora, per la proprietà dei valori intermedi anche $z\in I$.
+\end{proof}
+
+Il teorema precedente ci dice che una volta identificati i due estermi
+di un intervallo, tutti i punti intermedi devono stare nell'intervallo.
+Gli estremi, invece, possono essere o non essere inclusi nell'intervallo.
+Punti esterni agli estremi non possono invece esserci.
+Possiamo quindi caratterizzare tutti gli intervalli di $\bar \RR$
+introducendo le seguenti notazioni. Dati $a,b\in \bar \RR$ con $a\le b$
+poniamo
+\begin{align*}
+[a,b] &= \{x\in \bar \RR\colon a \le x \le b\} \\
+[a,b) &= \{x\in \bar \RR\colon a \le x < b\} \\
+(a,b] &= \{x\in \bar \RR\colon a < x \le b\}\\
+(a,b) &= \{x\in \bar \RR\colon a < x < b\}.
+\end{align*}
+Abbiamo quindi utilizzato le parentesi quadre per indicare che gli estremi
+sono inclusi e le parentesi tonde per indicare che gli estremi sono esclusi.
+Osserviamo che in alcuni testi si usano le parentesi quadre rovesciate al posto
+delle parentesi tonde.
+
+Noi considereremo per lo più intervalli di $\RR$ (non di $\bar \RR$) e in tal
+caso gli estremi infiniti non potranno mai essere inclusi.
