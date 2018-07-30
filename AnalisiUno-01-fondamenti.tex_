@@ -634,7 +634,7 @@ la \emph{logica del secondo ordine} ovvero la possibilità di poter
 formulare predicati sui sottoinsiemi di un insieme invece che solamente
 sui suoi elementi.
 
-\section{relazioni e funzioni}
+\section{relazioni}
 
 Definiamo la \myemph{coppia ordinata} $(a,b)$ come un oggetto (un insieme,
 visto che abbiamo deciso che tutti gli oggetti matematici sono insiemi) con
@@ -653,6 +653,12 @@ presi il primo da $A$ e il secondo da $B$ si indica con $A \times B$ e si chiama
 \[
 x \in A \times B \iff \exists a \in A, \exists b \in B\colon x = (a,b).
 \]
+
+Formalmente si potrebbe definire (senza richiedere un nuovo assioma)
+\[
+ A \times B = \{X\in \P(\P(A\cup B))\colon \exists a \in A, \exists b \in B \colon X = \{\{a\}, \{a,b\}\}$.
+\]
+
 Se $A$ ha $n$ elementi e $B$ ha $m$ elementi, il prodotto $A\times B$ ha $n\cdot m$
 elementi. Ad esempio se $A=\{a,b,c\}$ ha tre elementi e $B=\{a,b\}$ ha due elementi,
 il prodotto ha sei elementi:
@@ -660,20 +666,81 @@ il prodotto ha sei elementi:
   A \times B = \{(a,a), (a,b), (b,a), (b,b), (c,a), (c,b)\}.
 \]
 
-Una \myemph{relazione} $R$ tra gli elementi di un insieme $A$
-e gli elementi di un insieme $B$
-non è altro che un sottoinsieme del prodotto cartesiano: $R\subset A \times B$.
-Scriveremo $x R y$ quando $(x,y) \in R$.
-Ad esempio su un insieme di numeri potremmo considerare come $R$ la relazione d'ordine
-$\le$ per cui scriveremo $x \le y$ quando $(x,y)\in R$.
-Le relazioni da un insieme in sé stesso possono eventualmente avere particolari caratteristiche
-come essere: \emph{transitive} ($xRy \wedge yR z \implies x R z$),
-\emph{simmetriche} ($xRy \implies yRx$),
-\emph{riflessive} ($xRx$).
-Come esercizio si provi a pensare alla relazione tra persone $xAy$
+\begin{definition}[relazione]
+Una \myemph{relazione} $R$ tra due insiemi $X$ e $Y$ non è altro che un sottoinsieme di $X\times Y$. Più precisamente stiamo quindi parlando di relazioni \emph{binarie}. Per le relazioni binarie il predicato $(x,y)\in R$ viene usualmente scritto con la notazione infissa: $xRy$. La negazione di tale predicato $(x,y)\not \in R$ si scrive usualmente sovrapponendo una barra al simbolo della relazione: $x{\not\! R} y$.
+
+Se $R$ è una relazione tra $X$ e $Y$ si definisce la \myemph{relazione inversa} $R^{-1}$ tra $Y$ e $X$ tramite la seguente definizione:
+\[
+   x R^{-1} y \iff y R x.
+\]
+Comunemente si usa anche una riflessione grafica del simbolo, per denotare la relazione inversa: $\reflectbox{$R$} = R^{-1}$.
+
+Se $X=Y$ diremo che $R$ è una relazione su $X$.
+Una relazione $R$ su $X$ viene detta \myemph{riflessiva} se per ogni $x\in X$ si ha $xRx$. Si dice invece \myemph{antiriflessiva} se $x\!{\not\!R}x$ per ogni $x\in X$.
+La relazione viene detta \myemph{simmetrica} se coincide con la sua inversa ovvero se per ogni $x,y\in X$ si ha $xRy \iff yRx$.
+Una relazione si dice essere \myemph{antisimmetrica} se per
+ogni $x,y\in X$ si ha
+\[
+  x R y \land y R x \implies x=y.
+\]
+Una relazione si dice essere \myemph{transitiva} se
+\[
+  x R y \land y R z \implies x R z.
+\]
+\end{definition}
+
+\begin{definition}[relazione d'ordine]
+Una relazione $\le$ su un insieme $X$ si dice essere una
+relazione d'\myemph{ordine parziale} (o più semplicemente una relazione d'ordine) se è riflessiva, antisimmetrica e transitiva.
+La relazione inversa si denota con $\ge$ ed è anch'essa una relazione d'ordine.
+
+Se $\le$ è una relazione d'ordine parziale, si denota con $<$ (chiamato ordine stretto) la relazione definita da:
+\[
+  x < y \iff x\le y \land x\neq y.
+\]
+La relazione $<$ è anch'essa transitiva e antisimmetrica (la condizione $x<y \land y<x$ non è mai verificata) ma ovviamente non è riflessiva, anzi è \myemph{antiriflessiva}: $x\not < x$ per ogni $x\in X$. La relazione inversa di $<$ si denota con $>$.
+
+Data una relazione d'ordine $\le$ su $X$ diremo che $x,y\in X$ sono \myemph{confrontabili} se vale $x\le y$ oppure $y\le x$. Se tutti gli elementi di $X$ sono confrontabili diremo che la relazione d'ordine è \emph{totale}\mymargin{ordine totale}. In tal caso vale la tricotomia: se $x,y\in X$ allora una e una sola delle seguenti proprietà è vera:
+\[
+  x < y, \qquad x > y, \qquad x=y.
+\]
+\end{definition}
+
+\begin{exercise}
+Si provi a pensare alla relazione tra persone $xAy$
 definita dalla frase "$x$ ama $y$".
 Si consideri il significato delle proprietà transitiva, simmetrica
 e riflessiva di tale relazione.
+\end{exercise}
+
+\begin{definition}[massimo/minimo, sup/inf]
+Sia $\le$ una relazione d'ordine totale su un insieme $X$. Dato $x\in X$ e $A\subset X$ diremo che:
+\begin{enumerate}
+\item $x$ è un \emph{minorante} di $A$ e scriveremo $x\le A$,
+se $x\le a$ per ogni $a \in A$;
+$x$ è un \emph{maggiorante} di $a$, $A\le x$, se $a \le x$ per ogni $a \in A$;
+\item $A$ è \emph{inferiormente limitato} se ammette un minorante ovvero esiste $x\in X$ tale che $x\le A$; $A$ è \emph{superiormente limitato} se ammette un maggiorante ovvero esiste $x\in X$ tale che $A \le x$; $A$ è \emph{limitato} se è sia superiormente che inferiormente limitato;
+\item $x$ è \emph{minimo} di $A$ se $x\in A$ e $x\le A$;
+$x$ è \emph{massimo} di $A$ se $x\in A$ e $A \le x$;
+\item $x$ è \emph{estremo inferiore} di $A$ se $x$ è massimo dei minoranti;
+$x$ è \emph{estremo superiore} di $A$, $x=\sup A$ se $x$ è il minimo dei maggioranti.
+\end{enumerate}
+
+In base al teorema seguente il massimo, minimo, estremo superiore e inferiore quando esistono sono unici. Potremo quindi denotarli univocamente con i seguenti simboli:
+\[
+  \max A, \min A, \sup A, \inf A.
+\]
+\end{definition}
+
+\begin{theorem}[unicità di $\min$, $\max$, $\inf$, $\sup$]
+Massimo, minimo, estremo superiore ed estremo inferiore, se esistono, sono unici.
+\end{theorem}
+\begin{proof}
+\end{proof}
+
+\begin{definition}[quoziente]
+Una relazione $\sim$ su un insieme $X$ si dice essere una \myemph{relazione di equivalenza}
+se è riflessiva, simmetrica e transitiva.
 
 Possiamo pensare ad una coppia $(a,b)$ come ad una freccia che
 parte da $a$ e arriva in $b$: $a \mapsto b$.
@@ -695,6 +762,8 @@ Pensando ad una relazione $R$ come un insieme di frecce
 $x\stackrel R \mapsto y$,
 la relazione inversa $R^{-1}$ risulta essere lo stesso insieme di frecce ma
 con la direzione opposta $y\stackrel{R^{-1}} \mapsto x$.
+
+\section{funzioni}
 
 Le relazioni che più ci interesseranno in questo corso sono le \myemph{funzioni}.
 Le funzioni sono le relazioni \emph{univoche} cioè quelle relazioni $f$ in
@@ -897,9 +966,23 @@ Vogliamo mostrare anche che $f(N)\subset N$: preso $n\in N$ sappiamo che, per de
 
 D'ora in poi denoteremo con $\NN$ un insieme che soddisfa gli assiomi di Peano. Per l'assioma di infinito e grazie al Teorema~\ref{th:minimo_infinito} è garantita l'esistenza di tale insieme.
 
+\begin{theorem}[buon ordinamento di $\NN$]
+\index{buon ordinamento}
+Se $A$ è un sottoinsieme non vuoto di $\NN$ allora esiste $a \in A$
+tale che per ogni $x\in A$ si ha $a\le x$ (ovvero $a$ è minimo di $A$).
+\end{theorem}
+%
+\begin{proof}
+Supponiamo per assurdo che $A$ non abbia minimo e consideriamo l'insieme
+$B=\{b\in \NN\colon b \le A\}$.
+Chiaramente $0\in B$ in quanto $0\le \NN$. Se poi sapessimo che $n\in B$
+allora $n\le A$. Non può essere $n\in A$ altrimenti $n$ sarebbe il minimo di $A$. Dunque $n < A$ e quindi $n+1 \le A$. Abbiamo quindi mostrato che se $n\in B$ anche $n+1\in B$. Per il principio di induzione deduciamo che $B=\NN$ e quindi $A$ sarebbe vuoto, cosa che abbiamo escluso per ipotesi.
+\end{proof}
+
 La proprietà induttiva dei numeri naturali permette di definire
 una funzione su $\NN$ utilizzando la cosiddetta
 \myemph{definizione per induzione} (o \emph{definizione ricorsiva}).
+
 \begin{theorem}[definizione per induzione]%
 \label{th:def_induction}
 Sia $X$ un insieme, $x_0 \in X$, $g\colon X \to X$. Allora esiste una unica funzione $f\colon \NN \to X$ tale che
@@ -912,12 +995,12 @@ Sia $X$ un insieme, $x_0 \in X$, $g\colon X \to X$. Allora esiste una unica funz
 
 Più in generale se $g\colon \NN \times X \to X$
 esisterà una unica $f\colon \NN \to X$ tale che
-\[
+\begin{equation}\label{eq:def_induction_non_auto}
 \begin{cases}
   f(0) = x_0 \\
   f(\sigma(n)) = g(n, f(n)) \qquad \forall n\in \NN.
 \end{cases}
-\]
+\end{equation}
 \end{theorem}
 
 Intuitivamente dopo aver definito $f(0) = x_0$ si potrà definire
@@ -930,9 +1013,22 @@ Dimostriamo direttamente il caso più generale. Consideriamo
 l'insieme
 \[
   \Gamma = \{ G \subset \NN \times X\colon (0,x_0)\in G,
-  (n,x)\in G \implies (\sigma(n),g(n,f(n)))\in G\}.
+  (n,x)\in G \implies (\sigma(n), g(n, x)\in G\}.
 \]
-Il grafico di una eventuale funzione $f$ dovrebbe essere un elemento di $\Gamma$. ....
+L'insieme $\Gamma$ contiene tutte le relazioni che soddisfano  \eqref{eq:def_induction_non_auto}. Possiamo sperare di ottenere una funzione
+prendendo la più piccola relazione:
+\[
+   f = \bigcap \Gamma = \bigcap_{G\in \Gamma} G.
+\]
+E' chiaro che $f\in \Gamma$.
+Dimostriamo che $f$ è una funzione. Innanzitutto mostriamo che $f$ è definita su tutto $\NN$: sia $D=\{n\in \NN \colon \exists x\in X \colon (n,x)\in f\}$ il dominio della relazione $f$. Certamente $0\in D$ in quanto $(0,x_0)\in G$ per ogni $G\in \Gamma$ e quindi $(0,x_0)\in f$. Inoltre se $n\in D$ allora esiste $x\in X$ tale che $(n,x)\in f$. Significa che $(n,x)\in G$ per ogni $G\in \Gamma$. Ma per come è definito $\Gamma$ significa che anche $(\sigma(n),g(n,x))\in G$ per ogni $G\in \Gamma$. Dunque $(\sigma(n),g(n,x))\in f$ e $\sigma(n)\in D$. Ma allora per il principio di induzione possiamo dedurre che $D=\NN$. Vogliamo ora mostrare che $f$ è univoca: consideriamo l'insieme
+\[
+  A = \{n\in \NN \colon \exists x,y\in X \colon x \neq y \land (n,x)\in f \land (n,y) \in f\}.
+\]
+L'insieme $A$ rappresenta i numeri naturali sui quali $f$ non è univoca.
+Se $A$ non è vuoto allora $A$ ammette minimo: sia $m$ il minimo di $A$.
+Se $m=0$ scelto $x\in X$ tale che $(0,x)\in f$ possiamo togliere $(0,x)$ da $f$ e ottenere una relazione $G=f\setminus\{(m,x)\}$ che sta ancora in $\Gamma$.
+Ma questo è assurdo in quanto dovrebbe essere $f\subset G$. Se invece $m\neq 0$ allora esiste $m'$ tale che $\sigma(m')=m$ (cioè, intuitivamente, $m'=m-1$) e visto che $f$ è definita su $m'$ ed è univoca su $m'$ esiste un unico $x'$ tale che $(m',x')\in f$. Allora posto $x=g(m',x')$ si ha $(m,x)\in f$. Visto che $f$ non è univoca su $m$ esiste $y\neq x$ tale che anche $(m,y)\in f$. E' chiaro allora che possiamo togliere il punto $(m,y)$ da $f$ e ottenere una relazione $G=f \setminus\{(m,y)\}$ che è ancora in $\Gamma$. Ma dovrebbe essere $f\subset G$ che è assurdo.
 \end{proof}
 
 Con questo tipo di definizioni è possibile definire per induzione
@@ -1286,6 +1382,37 @@ $c\in C$ risulterebbe equivalente a $c\not \in C$ il che è impossibile.
 Dunque la funzione $f$ non può essere surgettiva e questo significa che
 non è $\#X \le \#P(X)$.
 \end{proof}
+
+Dato $x\in X$ potremmo definire la \myemph{classe di equivalenza di $x$} come
+l'insieme
+\[
+ \Enclose{x}_{\sim} = \{y\in X \colon y\sim x\}.
+\]
+L'insieme delle classi di equivalenza si chiama \myemph{quoziente}
+e si indica nel modo seguente:
+\[
+  X/\sim = \{\Enclose{x}_\tilde \colon x \in X\}.
+\]
+\end{definition}
+
+\begin{esempio}[relazione tra prodotto e quoziente]
+Posto $X=A\times B$ consideriamo su $X$ la relazione $\tilde$ che
+identifica come equivalenti gli elementi che hanno la stessa
+prima componente:
+\[
+  (a,b) \tilde (a',b') \iff a = a'.
+\]
+Allora si ha
+\[
+  \Enclose {(a,b)}_\tilde = \{(a,y)\colon y \in B\}
+\]
+e
+\[
+  (A \times B) / \tilde =
+\]
+
+\end{esempio}
+
 
 \section{insiemi finiti/infiniti}
 
