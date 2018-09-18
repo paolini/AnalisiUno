@@ -1005,19 +1005,6 @@ Vogliamo mostrare anche che $f(N)\subset N$: preso $n\in N$ sappiamo che, per de
 
 D'ora in poi denoteremo con $\NN$ un insieme che soddisfa gli assiomi di Peano. Per l'assioma di infinito e grazie al Teorema~\ref{th:minimo_infinito} è garantita l'esistenza di tale insieme.
 
-\begin{theorem}[buon ordinamento di $\NN$]
-\index{buon ordinamento}
-Se $A$ è un sottoinsieme non vuoto di $\NN$ allora esiste $a \in A$
-tale che per ogni $x\in A$ si ha $a\le x$ (ovvero $a$ è minimo di $A$).
-\end{theorem}
-%
-\begin{proof}
-Supponiamo per assurdo che $A$ non abbia minimo e consideriamo l'insieme
-$B=\{b\in \NN\colon b \le A\}$.
-Chiaramente $0\in B$ in quanto $0\le \NN$. Se poi sapessimo che $n\in B$
-allora $n\le A$. Non può essere $n\in A$ altrimenti $n$ sarebbe il minimo di $A$. Dunque $n < A$ e quindi $n+1 \le A$. Abbiamo quindi mostrato che se $n\in B$ anche $n+1\in B$. Per il principio di induzione deduciamo che $B=\NN$ e quindi $A$ sarebbe vuoto, cosa che abbiamo escluso per ipotesi.
-\end{proof}
-
 La proprietà induttiva dei numeri naturali permette di definire
 una funzione su $\NN$ utilizzando la cosiddetta
 \myemph{definizione per induzione} (o \emph{definizione ricorsiva}).
@@ -1164,7 +1151,9 @@ allora vale
 
 \end{proof}
 
-Possiamo ora definire (per induzione) le operazioni addizione $+$, moltiplicazione $\cdot$ ed elevamento a potenza su $\NN$ in modo che valgano le seguenti proprietà:
+Le operazioni di moltiplicazione $\cdot$ ed elevamento a potenza su $\NN$
+si definiscono per induzione in maniera analoga a come abbiamo fatto per l'addizione.
+Si richiederà che valgano le seguenti proprietà:
 \begin{gather*}
    \begin{cases}
      n + 0 = n \\
@@ -1182,29 +1171,105 @@ Possiamo ora definire (per induzione) le operazioni addizione $+$, moltiplicazio
    \end{cases}
 \end{gather*}
 
-Si potrà poi verificare (cosa elementare ma non semplice)
-che le operazioni così definite soddisfano le ben
-note proprietà:
-\begin{enumerate}
-\item $n+0=n$, $n\cdot 1 = n$ (esistenza degli elementi neutri);
-\item $n+m = m+n$, $n\cdot m = m\cdot n$ (proprietà commutativa);
-\item $n\cdot (a+b) = n\cdot a + n\cdot b$ (proprietà associativa).
-\end{enumerate}
+Si osservi che abbiamo definito $0^0=1$.
+Alcuni testi considerano indefinita tale operazione ma
+questa è una definizione del tutto naturale che ci sarà molto comoda nel seguito.
+
+Il principio di induzione ci permette di dimostrare le seguenti proprietà delle
+operazioni appena definite.
+
+\begin{theorem}[proprietà delle operazioni elementari]
+Le operazioni di addizione e moltiplicazione su $\NN$ hanno elemento neutro
+(rispettivamente lo $0$ e l'$1$) soddisfano la proprietà associativa, commutativa
+e distributiva. In formule, per ogni $n,m,r\in \NN$ si ha
+\begin{gather*}
+  n+0= n, \qquad n+(m+r) = (n+m)+r, \qquad n+m=m+n\\
+  n\cdot 1 = n, \qquad n\cdot(m\cdot r) = (n\cdot m)\cdot r, \qquad n\cdot m=m\cdot n\\
+  n\cdot(m+r) = n\cdot m + n \cdot r.
+\end{gather*}
+Si dirà inoltre che $0$ è elemento assorbente per la moltiplicazione in quanto si ha
+\[
+   n\cdot 0 = 0
+\]
+e inoltre vale la proprietà di annullamento del prodotto:
+\[
+  n\cdot m = 0 \iff (n=0)\lor(m=0).
+\]
+
+L'elevamento a potenza soddisfa le seguenti notevoli proprietà:
+\begin{gather*}
+n^0 = 1, \qquad
+n^{m+r} = n^m \cdot n^r, \qquad
+(n^m)^r = n^{m\cdot r}.
+\end{gather*}
+\end{theorem}
+
+Si noti (facendo qualche semplice esempio)
+che l'elevamento a potenza non è associativo né commutativo. Per
+convenzione se non vengono utilizzate le parentesi si assume che l'elevamento
+a potenza associ verso destra:
+\[
+  n^{m^r} = n^{(m^r)}.
+\]
+
+Sui numeri naturali
+si potrà a questo punto definire una relazione $\le$ tramite la condizione
+\[
+  n \le m \iff \exists k \in \NN \colon m = n+k.
+\]
+
+\begin{theorem}
+La relazione $\le$ su $\NN$ è una relazione d'ordine totale. Inoltre si ha
+\[
+ n\le m \implies n+r \le m+r.
+\]
+\end{theorem}
+\begin{proof}
+Dimostriamo innanzitutto che $n\le 0$ implica $n=0$. Posto
+\[
+  M = \{ n \in \NN \colon n\le 0 \implies n=0\}
+\]
+è chiaro che $0\in M$. Se $n\in M$ allora certamente $n+1\neq 0$
+
+Essendo $n+0=n$ otteniamo $n\le n$ per ogni $n\in \NN$ dunque $\le$ è riflessiva.
+Se $m=n+k$ e $n=r+j$ si ha $m=(r+j)+k = r+(j+k)$ e questo ci dice che $\le$ è transitiva.
+Se $m=n+k$ è anche chiaro che $n+r=n+r+k$ e quindi $n\le m$ implica $n+r\le m+r$.
+
+Osserviamo ora che $m+k = m$ se e solo se $k=0$. Infatti posto
+\[
+M=\{m\in \NN\colon m+k = m \implies k=0 \}
+\]
+si ha chiaramente $0\in M$. E se fosse $(m+1)+k=m+1$ si avrebbe $(m+k)+1=m+1$ e,
+per l'iniettività della funzione $\sigma(n)=n+1$ si dovrebbe avere $m+k=m$.
+Dunque se $m\in M$ allora anche $m+1\in M$. Per l'assioma di induzione otteniamo
+$M=\NN$ e dunque la proprietà che volevamo dimostrare.
+
+Dunque se abbiamo $n\ge m$ e $m\ge n$ significa che esistono $k$ e $j$
+tali che $n=m+k$ e $m=n+j$ da cui $n=n+(k+j)$. Ma allora $k+j=0$
+\end{proof}
+
+\begin{theorem}[buon ordinamento di $\NN$]
+\index{buon ordinamento}
+Se $A$ è un sottoinsieme non vuoto di $\NN$ allora esiste $a \in A$
+tale che per ogni $x\in A$ si ha $a\le x$ (ovvero $a$ è minimo di $A$).
+\end{theorem}
+%
+\begin{proof}
+Supponiamo per assurdo che $A$ non abbia minimo e consideriamo l'insieme
+$B=\{b\in \NN\colon b \le A\}$.
+Chiaramente $0\in B$ in quanto $0\le \NN$. Se poi sapessimo che $n\in B$
+allora $n\le A$. Non può essere $n\in A$ altrimenti $n$ sarebbe il minimo di $A$. Dunque $n < A$ e quindi $n+1 \le A$. Abbiamo quindi mostrato che se $n\in B$ anche $n+1\in B$. Per il principio di induzione deduciamo che $B=\NN$ e quindi $A$ sarebbe vuoto, cosa che abbiamo escluso per ipotesi.
+\end{proof}
+
+
+
+La relazione $\ge$ si definisce come la relazione inversa di $\le$.
+E le relazioni $<$ e $>$ saranno le corrispondenti relazioni d'ordine stretto.
 
 Diremo che un numero $n\in \NN$ è divisibile per $m\in \NN$ se esiste $k\in \NN$
 tale che $n = k \cdot m$. In tal caso scriveremo $k = n/m$.
 
-Si potrà anche definire una relazione d'ordine $\le$ tramite la condizione
-\[
-  n \le m \iff \exists k \in \NN \colon m = n+k.
-\]
-La relazione $\ge$ si definisce come la relazione inversa di $\le$.
-La relazione $<$ si
-definisce richiedendo che sia $x\le y \land x\neq y$ e la relazione $>$
-è definita come l'inversa di $<$.
-Osserviamo che per come abbiamo costruito i numeri naturali (ci potrebbero essere
-altre costruzioni che portano agli assiomi di Peano) si ha $n\le m \iff n \subset m$
-e $n < m \iff n\in m$.
+
 
 Come esempio di applicazione della definizione per induzione definiamo
 il \emph{fattoriale} $n! = 1 \cdot 2 \dots n$ (il prodotto dei numeri naturali
