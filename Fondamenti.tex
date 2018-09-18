@@ -1,3 +1,165 @@
+\documentclass[italian,a4paper,twosides,headinclude]{scrbook}
+\usepackage{amsmath,amssymb,amsthm,thmtools}
+\usepackage{mathtools} % per \MoveEqLeft
+\usepackage{babel,a4}
+\usepackage[nochapters,pdfspacing]{classicthesis}
+\usepackage[utf8]{inputenc}
+\usepackage{comment} % for the comment environment
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{pst-node}
+\usetikzlibrary{cd} % commutative diagrams
+\usepackage{eucal}
+\usepackage{sidenotes}
+\usepackage{hyphenat}
+\usepackage{marginnote}
+\usepackage{mparhack} % fix margin notes (otherwise sometime they go to wrong margin!)
+\usepackage{expl3,l3regex} % per il comando \regex_replace_once
+\usepackage{xifthen}
+\AfterPreamble{\hypersetup{hidelinks=true,}}
+
+%\usepackage{showkeys}
+
+\usepackage{makeidx} % glossario
+
+\usetikzlibrary{arrows}
+
+\ExplSyntaxOn
+\newcommand\stripExclamation[1]{
+\def\tmp{#1}
+\regex_replace_once:nnN { ! } { \  }\tmp
+\tmp}
+\ExplSyntaxOff
+
+\newcommand{\mymark}[1]{\reversemarginpar\marginnote{#1}\normalmarginpar}
+
+\newcommand{\mynote}[1]{\marginnote{{\footnotesize\stripExclamation{#1}}}}
+\newcommand{\mymargin}[1]{\mynote{\stripExclamation{#1}}\index{#1}}
+\newcommand{\myemph}[2][]{%
+  \emph{\stripExclamation{#2}}%
+  \ifthenelse{\isempty{#1}}%
+    {\mynote{#2}%
+    \index{#2}}%
+    {\mynote{#2}%
+     \ifthenelse{\isempty{}}%
+      {\index{#2}}%
+      {\index{}}}}%
+
+\newcommand{\eps}{\varepsilon}
+\renewcommand{\phi}{\varphi}
+\newcommand{\loc}{\mathit{loc}}
+\newcommand{\weakto}{\rightharpoonup}
+\newcommand{\implied}{\Longleftarrow}
+\let\subsetstrict\subset
+\renewcommand{\subset}{\subseteq}
+\renewcommand{\supset}{\supseteq}
+
+% calligraphic letters
+\newcommand{\A}{\mathcal A}
+\newcommand{\B}{\mathcal B}
+\newcommand{\C}{\mathcal C}
+\newcommand{\D}{\mathcal D}
+\newcommand{\E}{\mathcal E}
+\newcommand{\F}{\mathcal F}
+\newcommand{\FL}{\mathcal F\!\mathcal L}
+\renewcommand{\H}{\mathcal H}
+\newcommand{\K}{\mathcal K}
+\renewcommand{\L}{\mathcal L}
+\newcommand{\M}{\mathcal M}
+\renewcommand{\P}{\mathcal P}
+\renewcommand{\S}{\mathcal S}
+\newcommand{\U}{\mathcal U}
+
+% blackboard letters
+\newcommand{\CC}{\mathbb C}
+\newcommand{\HH}{\mathbb H}
+\newcommand{\KK}{\mathbb K}
+\newcommand{\NN}{\mathbb N}
+\newcommand{\QQ}{\mathbb Q}
+\newcommand{\RR}{\mathbb R}
+\newcommand{\TT}{\mathbb T}
+\newcommand{\ZZ}{\mathbb Z}
+
+\newcommand{\abs}[1]{{\left|#1\right|}}
+\newcommand{\Abs}[1]{{\left\Vert #1\right\Vert}}
+\newcommand{\enclose}[1]{{\left( #1 \right)}}
+\newcommand{\Enclose}[1]{{\left[ #1 \right]}}
+
+\newcommand{\To}{\rightrightarrows}
+\renewcommand{\vec}[1]{\boldsymbol #1}
+\newcommand{\defeq}{:=}
+\DeclareMathOperator{\divergence}{div}
+\renewcommand{\div}{\divergence}
+% \DeclareMathOperator{\ker}{ker}  %% already defined
+\DeclareMathOperator{\Imaginarypart}{Im}
+\renewcommand{\Im}{\Imaginarypart}
+\DeclareMathOperator{\Realpart}{Re}
+\renewcommand{\Re}{\Realpart}
+%\DeclareMathOperator{\arg}{arg}
+\DeclareMathOperator{\tg}{tg}
+\DeclareMathOperator{\arctg}{arctg}
+\DeclareMathOperator{\tr}{tr}
+
+\declaretheoremstyle[
+spaceabove=6pt, spacebelow=6pt,
+headfont=\normalfont\bfseries\itshape,
+notefont=\mdseries, notebraces={(}{)},
+bodyfont=\normalfont,
+postheadspace=1em,
+qed=,
+%shaded={rulecolor=pink!30,rulewidth=1pt,bgcolor=pink!10}
+]{exercise_style}
+
+\declaretheoremstyle[
+spaceabove=6pt, spacebelow=6pt,
+postheadspace=1em,
+qed=,
+%shaded={rulecolor=blue!20,rulewidth=1pt,bgcolor=blue!5}
+]{theorem_style}
+
+\declaretheoremstyle[
+spaceabove=6pt, spacebelow=6pt,
+postheadspace=1em,
+qed=,
+%shaded={rulecolor=yellow!50,rulewidth=1pt,bgcolor=yellow!5}
+]{axiom_style}
+
+\declaretheorem[name=Teorema,numberwithin=chapter]{theorem}
+\declaretheorem[name=Lemma,sibling=theorem]{lemma}
+\declaretheorem[name=Proposizione,sibling=theorem]{proposition}
+\declaretheorem[name=Corollario,sibling=theorem]{corollary}
+\declaretheorem[name=Paradosso,sibling=theorem]{paradox}
+\declaretheorem[style=axiom_style,name=Assioma,sibling=theorem]{axiom}
+\declaretheorem[name=Definizione,sibling=theorem]{definition}
+\declaretheorem[style=exercise_style,name=Esempio,sibling=theorem]{example}
+\declaretheorem[style=exercise_style,name=Esercizio,sibling=theorem]{exercise}
+\declaretheorem[style=exercise_style,name=Osservazione,sibling=theorem]{remark}
+
+
+
+%\newtheorem{theorem}{Teorema}[chapter]
+%\newtheorem{lemma}[theorem]{Lemma}
+%\newtheorem{exercise}[theorem]{Esercizio}
+%\newtheorem{proposition}[theorem]{Proposizione}
+%\newtheorem{corollary}[theorem]{Corollario}
+%\newtheorem{example}[theorem]{Esempio}
+%\newtheorem{definition}[theorem]{Definizione}
+%\newtheorem{axiom}[theorem]{Assioma}
+
+\newcommand{\myhref}[2]{\href{#1}{\underline{#2}}}
+% per il capitolo: successioni ricorsive
+\newcommand{\online}[1]{(diagramma interattivo \href{http://paolini.github.io/recurrence/?#1}{(online)}}
+
+\title{Appunti sui Fondamenti di Matematica}
+\author{E. Paolini}
+
+\makeindex
+
+\begin{document}
+\maketitle
+
+\tableofcontents
+
 \chapter{fondamenti}
 
 \section{sistemi formali}
@@ -2572,3 +2734,5 @@ delle parentesi tonde.
 
 Noi considereremo per lo più intervalli di $\RR$ (non di $\bar \RR$) e in tal
 caso gli estremi infiniti non potranno mai essere inclusi.
+
+\end{document}
