@@ -5,7 +5,7 @@
 \usepackage{babel}
 \usepackage[nochapters,pdfspacing]{classicthesis}
 %\usepackage{createspace/createspace}
-\usepackage[paperwidth=7in,paperheight=10in,bindingoffset=0.625in,marginparwidth=70.7pt,top=70.7pt,bottom=70.7pt,marginparsep=11.9pt]{geometry}
+\usepackage[paperwidth=7in,paperheight=10in,bindingoffset=0.625in,marginparwidth=54.0pt,top=70.7pt,bottom=70.7pt,marginparsep=11.9pt]{geometry}
 \usepackage[utf8]{inputenc}
 \usepackage{comment} % for the comment environment
 \usepackage{graphicx}
@@ -39,15 +39,15 @@
 
 \newcommand{\mynote}[1]{\marginnote{{\footnotesize\stripExclamation{#1}}}}
 \newcommand{\mymargin}[1]{\mynote{\stripExclamation{#1}}\index{#1}}
-\newcommand{\myemph}[2][]{%
+% utilizzo di myemph:
+% \myemph[margin note]{emph and index}
+\newcommand{\myemph}[2][dummy_not_defined]{%
   \emph{\stripExclamation{#2}}%
-  \ifthenelse{\isempty{#1}}%
-    {\mynote{#2}%
+  \ifthenelse{\equal{#1}{dummy_not_defined}}%
+    {\ifthenelse{\isempty{#2}}{}{\mynote{#2}}%
     \index{#2}}%
-    {\mynote{#2}%
-     \ifthenelse{\isempty{}}%
-      {\index{#2}}%
-      {\index{}}}}%
+    {\mynote{#1}%
+    \index{#2}}}%
 
 \newcommand{\eps}{\varepsilon}
 \renewcommand{\phi}{\varphi}
@@ -152,8 +152,7 @@ qed=,
 \newcommand{\myhref}[2]{\href{#1}{\underline{#2}}}
 \newcommand{\online}[1]{\marginnote{\qrcode{#1}\\(interagisci)~~}}
 
-\title{Appunti di Analisi Matematica Uno%
-\\
+\title{Appunti di\\Analisi Matematica Uno\\\mbox{}\\
 \qrcode{https://github.com/paolini/AnalisiUno/}%
 \thanks{Puoi scaricare o contribuire a questi appunti}%
 }
