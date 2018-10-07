@@ -792,7 +792,7 @@ in precedenza.
 E' facile verificare che addizione e moltiplicazione soddisfano le proprietà commutativa associativa e distributiva, $0$ è elemento neutro per la addizione, $1$ è elemento neutro della moltiplicazione.
 Si osservi che se $z=x+iy$ non è nullo, allora
 \[
-  (x+iy) \cdot \frac{x-iy}{x^2+y2} = 1.
+  (x+iy) \cdot \frac{x-iy}{x^2+y^2} = 1.
 \]
 Significa che ogni $z\neq 0$ ammette inverso moltiplicativo e quindi $\CC$ risulta essere un campo.
 
@@ -864,103 +864,3 @@ definiamo
 %%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%
-
-\section{il coefficiente binomiale}
-
-\begin{definition}[fattoriale]
-Per $n\in \NN$ definiamo il \emph{fattoriale} di $n$ come il prodotto dei
-numeri da $1$ a $n$. Formalmente il fattoriale è definito per induzione
-dalle seguenti condizioni:
-\[
-\begin{cases}
- 0! = 1 \\
- (n+1)! = n! \cdot (n+1).
-\end{cases}
-\]
-\end{definition}
-
-Ad esempio si ha
-\begin{gather*}
-  0! = 1, \qquad
-  1! = 1, \qquad
-  2! = 1 \cdot 2 = 1, \qquad
-  3! = 1 \cdot 2 \cdot 3 = 6, \\
-  4! = 1 \cdot 2 \cdot 3 \cdot 4 = 6\cdot 4 = 24, \qquad
-  5! = 1 \dots 5 = 24 \cdot 5 = 120, \qquad \dots
-\end{gather*}
-
-\begin{definition}[coefficiente binomiale]
-\label{def:binomiale}
-\mymark{***}
-Definiamo per ogni $n\in \NN$ e per ogni $k\in \ZZ$
-il \myemph{coefficiente binomiale}
-\[
-  {n \choose k}
-  = \begin{cases}
-    \frac{n!}{k!(n-k)!} & \text{se $0 \le k \le n$} \\
-    0 & \text{altrimenti}.
-  \end{cases}
-\]
-\end{definition}
-
-\begin{theorem}[triangolo di Tartaglia]
-\mymark{*}
-Per ogni $n\in \NN$ e $k \in \ZZ$ si ha
-\[
-  {n+1 \choose k} = {n \choose k-1} + {n \choose k}.
-\]
-\end{theorem}
-%
-\begin{proof}
-\begin{align*}
-{n \choose k-1} + {n \choose k}
-&= \frac{n!}{(k-1)!(n-k+1)!} + \frac{n!}{k!(n-k)!} \\
-&= \frac{k\cdot n! + (n-k+1)\cdot n!}{k!(n-k+1)!} \\
-&= \frac{(n+1)\cdot n!}{k!(n+1-k)!}
-= {n+1 \choose k}.
-\end{align*}
-\end{proof}
-
-\begin{theorem}[sviluppo binomiale]
-\mymark{***}
-Se $a,b\in \RR$ e $n\in \NN$ si ha:
-\[
-(a+b)^n = \sum_{k=0}^n {n \choose k} a^k \cdot b^{n-k}.
-\]
-\end{theorem}
-%
-\begin{proof}
-Lo dimostriamo per induzione su $n$.
-Per $n=0$ l'uguaglianza è soddisfatta per verifica diretta (ambo i membri sono uguali ad $1$).
-
-Supponendo valida l'uguaglianza per un certo $n\in \NN$ proviamo a verificarla
-per $n+1$:
-\begin{align*}
-(a+b)^{n+1}
-&= (a+b)\cdot (a+b)^n
- = (a+b) \sum_{k=0}^n {n \choose k} a^k \cdot b^{n-k}\\
-&= \sum_{k=0}^n {n \choose k} a^{k+1}\cdot b^{n-k}
-   + \sum_{k=0}^n {n \choose k} a^k \cdot b^{n-k+1} \\
-&= \sum_{k=1}^{n+1} {n \choose k-1} a^k \cdot b^{n-k+1}
-   + \sum_{k=0}^n {n \choose k}a^k \cdot b^{n-k+1} \\
-&= \sum_{k=0}^{n+1} \enclose{{n \choose k-1} + {n \choose k}} a^k \cdot b^{n+1-k}.
-\end{align*}
-Nell'ultimo passaggio abbiamo sfruttato il fatto che per $k<0$ e per $k>n$ il coefficiente binomiale è nullo.
-Sfruttando la relazione del triangolo di Tartaglia si ottiene infine,
-come volevamo dimostrare
-\[
-  = \sum_{k=0}^{n+1}{n+1 \choose k} a^k \cdot b^{n+1-k}.
-\]
-\end{proof}
-
-\begin{exercise}[interpretazione combinatoria del coefficiente binomiale]
-Il numero di sottoinsiemi di $k$ elementi di un insieme con $n$ elementi
-è ${n\choose k}$.
-\end{exercise}
-
-\begin{exercise}
-Provare che
-\[
- \sum_{k=0}^n {n \choose k} = 2^n.
-\]
-\end{exercise}
