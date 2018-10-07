@@ -1055,29 +1055,100 @@ Dunque il numero $\ell$ non è un termine della successione $a_n$
 ovvero la funzione $a\colon \NN \to [0,1]$ non è suriettiva.
 \end{proof}
 
-\section{continuità sequenziale}
+\section{continuità}
 
-\begin{definition}[continuità sequenziale]
-\mynote{continuità sequenziale}
+\begin{definition}[continuità]
+Sia $f\colon A \subset \RR \to \RR$ una funzione.
+
+Dato $x_0\in A$ diremo che la funzione $f$
+è \myemph{continua nel punto} $x_0$ se
+\[
+  \forall \eps>0 \colon \exists \delta>0 \colon \forall x\in A\colon
+  \abs{x-x_0}< \delta \implies \abs{f(x)-f(x_0)}< \eps.
+\]
+
+Diremo che la funzione $f$ è \myemph{continua}
+se è continua in ogni punto del dominio $x_0\in A$.
+
+Diremo che la funzione $f$ è \myemph{sequenzialmente continua}
 \index{continuità!sequenziale}
-Una funzione $f\colon A \subset \RR \to \RR$ si dice essere
-\emph{(sequenzialmente) continua} se per ogni successione
-convergente $a_n \to a$ con $a_n\in A$, $a \in A$ si ha
-$f(a_n)\to f(a)$.
+\index{continua!sequenzialmente}
+se per ogni successione $a_n\in A$ che converge $a_n\to a$ ad un punto
+$a\in A$ si ha
+\[
+  f(a_n) \to f(a).
+\]
 \end{definition}
 
-Nel seguito potremo omettere l'avverbio "sequenzialmente" e parleremo
-più semplicemente di \emph{funzioni continue}. Più avanti daremo
-infatti una definizione ``più naturale'' di funzione continua
-e dimostreremo che nel nostro ambito
-la continuità sequenziale è equivalente alla continuità.
+\begin{theorem}[equivalenza continuità e continuità sequenziale]
+Una funzione $f\colon A \subset \RR \to \RR$
+è continua se e solo se è sequenzialmente continua.
+\end{theorem}
+%
+\begin{proof}
+Supponiamo che $f\colon A\subset \RR \to \RR$ sia continua e consideriamo
+una successione $a_n \to a$ con $a,a_n\in A$. Dobbiamo mostrare
+che $f(a_n)\to f(a)$ cioè che:
+\[
+ \forall \eps>0 \exists N\in\NN \colon \forall n\in \NN\colon
+ n> N \implies \abs{f(a_n) - f(a)} <\eps.
+\]
+Fissato $\eps>0$ per la continuità di $f$ sappiamo esistere $\delta>0$
+tale che se $x\in A$ e $\abs{x-a}<\delta$ allora $\abs{f(x)-f(a)}<\eps$.
+E per la definizione di limite $a_n\to a$ in corrispondenza di $\delta>0$
+sappiamo esistere $N\in\NN$ tale che se $n> N$ allora $\abs{a_n-a}<\delta$.
+Mettendo insieme le due cose si ottiene che $\abs{f(a_n)-f(a)} < \eps$,
+come volevamo dimostrare.
+
+Dimostriamo ora la \emph{contropositiva} della implicazione inversa
+ovvero dimostriamo che se $f$ non è continua allora non è sequenzialmente
+continua. Se $f\colon A \subset  \RR \to \RR$
+non è continua significa che esiste $a\in A$ tale che
+$f$ non è continua in $a$ e cioè non vale:
+\[
+  \forall \eps>0 \colon \exists \delta>0\colon \forall x\in A\colon
+  \abs{x-a}<\delta \implies \abs{f(x)-f(a)}<\eps.
+\]
+La negazione della precedente proposizione diventa
+(si vedano appunti di logica):
+\[
+\exists \eps>0 \colon \forall \delta>0 \colon \exists x\in A
+\colon \abs{x-a} < \delta \land \abs{f(x)-f(a)}\ge \eps.
+\]
+Ora per ogni $n\in \NN$ consideriamo $\delta = \frac 1 n$ e poniamo $a_n = x$. Abbiamo
+dunque trovato una successione $a_n\in A$ con la proprietà: $\abs{a_n - a}< \frac 1 n$
+e dunque $a_n \to a$ e inoltre $\abs{f(a_n)-f(a)}\ge \eps$.
+Ma questo significa che non è possibile che sia $f(a_n)\to f(a)$ e quindi
+$f$ non può essere sequenzialmente continua visto che $a_n\to a$ ma $f(a_n)$
+non converge a $f(a)$.
+\end{proof}
 
 \begin{example}
-La funzione $f\colon \RR \to \RR$, $f(x) = x^2$ è sequenzialmente continua.
+La funzione $f\colon \RR \to \RR$, $f(x) = x^2$ è continua.
+Basta mostrare che è sequenzialmente continua.
 Infatti se $x_n\to x$ allora per il teorema sul limite del prodotto si ha
 \[
   x_n^2 = x_n \cdot x_n \to x\cdot x = x^2.
 \]
+\end{example}
+
+\begin{example}
+La funzione $f\colon \RR\setminus\{0\}\colon \RR$, $f(x) = \frac 1 x$
+è continua.
+Basta osservare che è sequenzialmente continua.
+Preso $a_n \to a$ con $a_n,a\neq 0$,
+per il teorema sul limite del rapporto si ha $f(a_n) = \frac{1}{a_n} \to \frac{1}{a}$.
+Si noti infatti che $a\neq 0$ essendo $\RR\setminus\{0\}$ il dominio di $f$
+e quindi il teorema sul limite del rapporto si applica.
+
+In alcuni testi si definisce il concetto di \emph{discontinuità}
+che viene applicato anche a punti
+che non stanno nel dominio della funzione. In particolare si dice
+che la funzione $f(x)=1/x$ ha una discontinuità (di terza specie?) nel
+punto $x_0=0$. Comunque risulta che tale funzione è continua in tutti gli altri
+punti e quindi è continua in ogni punto del dominio. Questo è sufficiente
+(si riguardi la definizione) a garantire che la funzione $f$ sia continua,
+nonostante abbia una discontinuità in un punto (che però non è nel dominio).
 \end{example}
 
 \begin{definition}[massimi e minimi assoluti]
