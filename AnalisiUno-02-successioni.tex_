@@ -1,6 +1,5 @@
 \chapter{successioni}
 
-
 Una \myemph{successione} in un insieme $X$ è una
 funzione\footnote{%
 Nella scrittura a mano si
@@ -164,7 +163,7 @@ si chiama \myemph{intorno simmetrico} di raggio $\eps$ centrato in $\ell$.
 Possiamo quindi considerare la famiglia
 di tutti questi intorni del punto $\ell$:
 \[
- \U_\ell = \{B_\eps(\ell)\colon \eps>0 \}.
+ \B_\ell = \{B_\eps(\ell)\colon \eps>0 \}.
 \]
 Questa famiglia di insiemi si chiama \myemph{base di intorni} del punto $\ell$.
 La definizione
@@ -172,39 +171,34 @@ di limite finito si può dunque riscrivere così:
 \[
   a_n\to \ell
   \qquad \iff \qquad
-  \forall U \in \U_\ell\colon \exists N\in \NN\colon \forall n>N\colon a_n\in U.
+  \forall B \in \B_\ell\colon \exists N\in \NN\colon \forall n>N\colon a_n\in B.
 \]
 Il vantaggio di questa \emph{astrazione} è che ora possiamo definire
 gli intorni di $+\infty$ e di $-\infty$ nel modo seguente:
 \begin{align*}
-  \U_{+\infty} &= \{ (M,+\infty]\colon M\in \RR\}\\
-  \U_{-\infty} &= \{ [-\infty, -M)\colon M \in \RR\}
+  \B_{+\infty} &= \{ (M,+\infty]\colon M\in \RR\}\\
+  \B_{-\infty} &= \{ [-\infty, -M)\colon M \in \RR\}
 \end{align*}
 e la definizione data per il caso $\ell$ finito risulta valida anche nel
 caso in cui $\ell$ sia infinito.
 
 In generale se per ogni punto $x$ di un insieme $X$ specifichiamo quale
-sia una base di intorni $\U_x$ di $x$, potremo definire i limiti delle successioni
+sia una base di intorni $\B_x$ di $x$, potremo definire i limiti delle successioni
 a valori in $X$.
 Nel caso $X=\CC$ gli intorni di un punto $z_0\in \CC$ sono gli insiemi
 (palle) della forma:
 \[
   B_\rho(z_0) = \{z\in \CC \colon \abs{z-z_0}<\rho\}
 \]
-e dunque $\U_{z} = \{B_\rho(z)\colon \rho>0\}$. Se $X=\bar \CC$ dovremo
+e dunque $\B_{z} = \{B_\rho(z)\colon \rho>0\}$. Se $X=\bar \CC$ dovremo
 definire anche gli intorni di $\infty$ ad esempio come:
 \[
-  \U_\infty = \{ \CC \setminus B_\rho(0)\colon \rho>0\}.
+  \B_\infty = \{ \CC \setminus B_\rho(0)\colon \rho>0\}.
 \]
 
-Possiamo utilizzare la notazione con gli intorni di
-$+\infty$ anche per l'indice $n$, ottenendo questa definizione
-generale
-valida per ogni $\ell\in \bar \RR$.
-
 \begin{definition}[definizione topologica di limite]
-\mymargin{definizione topologica di limite}
-\index{limite definizione topologica}
+\index{spazio topologico!limite di successione}
+\index{limite!definizione topologica}
 Sia $X$ uno spazio topologico (cioè un insieme
 tale che per ogni $x\in X$ è definita una famiglia
 $\mathcal U_x$ di sottoinsiemi di $X$ che chiameremo
@@ -216,50 +210,110 @@ Diremo che $a_n$ ha limite $\ell$ e scriveremo
 \]
 se
 \[
-  \forall U \in \U_\ell\colon \exists V \in \U_{+\infty} \colon \forall n\in \NN\colon
-  n \in V \implies a_n\in U.
+  \forall U \in \U_\ell\colon \exists N\in \NN \colon \forall n\in \NN\colon
+  n > N \implies a_n\in U.
 \]
 \end{definition}
 
+\begin{definition}[proprietà frequenti e definitive]
+Sia $P(n)$ un predicato dipendente da un numero naturale $n\in \NN$.
+Diremo che $P(n)$ vale \myemph{definitivamente} (in $n$) se
+\[
+  \exists N\in \NN \colon \forall n>N\colon P(n).
+\]
+Diremo che $P(n)$ vale \myemph{frequentemente} (in $n$) se
+\[
+  \forall N\in \NN \colon \exists n>N \colon P(n).
+\]
+\end{definition}
+
+Chiaramente se una proprietà vale definitivamente vale anche frequentemente.
+E dire che vale frequentemente è equivalente a dire che
+l'insieme $\{n\in \NN\colon P(n)\}$ è infinito (cioè la proprietà vale per infiniti
+valori di $n\in \NN$).
+
+Le due proprietà sono complementari nel senso che vale la seguente
+relazione:
+\[
+  \text{non frequentemente $P(n)$} \iff
+  \text{definitivamente non $P(n)$}
+\]
+
+Se due proprietà $P(n)$ e $Q(n)$ valgono definitivamente allora anche
+$P(n)\land Q(n)$ vale definitivamente. Se invece valgono entrambe
+frequentemente allora anche $P(n) \lor Q(n)$ vale frequentemente.
+
+\begin{example}
+La proprietà
+\[
+  \text{$n$ è un numero pari}
+\]
+vale frequentemente in $n$. La proprietà
+\[
+ \text{$n! > 2^n$}
+\]
+vale definitivamente in $n$.
+\end{example}
+
+La definizione di limite $a_n \to \ell$ potrebbe quindi enunciarsi così:
+per ogni intorno $B$ di $\ell$ si ha $a_n\in B$ definitivamente.
+E la sua negazione è: esiste un intorno $B$ di $\ell$ per cui
+frequentemente $a_n\not\in B$.
+
+\begin{theorem}[proprietà di separazione di $\bar \RR$ e $\bar \CC$]
+\label{th:separazione_R_e_C}
+Punti distinti $\ell_1 \neq \ell_2$ in $\bar \RR$ o in $\bar \CC$
+ammettono intorni disgiunti $B_1 \in \B_{\ell_1}$, $B_2\in \B_{\ell_2}$,
+$B_1 \cap B_2 = \emptyset$.
+\end{theorem}
+\begin{proof}
+Consideriamo innanzitutto $\ell_1,\ell_2\in \bar \RR$.
+Se $\ell_1$ ed $\ell_2$ sono entrambi finiti, è sufficiente
+considerare $\eps = \abs{\ell_2-\ell_1}/2$.
+Dall'interpretazione
+geometrica risulta chiaro
+che gli intorni $B_1=B_\eps(\ell_1)$ e
+$B_2=B_\eps(\ell_2)$
+sono disgiunti. Algebricamente questo si ottiene applicando
+opportunamente la disuguaglianza triangolare per il valore assoluto.
+
+Se $\ell_1$ ed $\ell_2$ sono entrambi infiniti e sono diversi,
+possiamo supporre $\ell_1=-\infty$ e $\ell_2=+\infty$. In tal caso gli
+intorni $B_1= [-\infty,0)$ e $B_2=(0,+\infty]$ sono disgiunti.
+Se $\ell_1$ è finito e $\ell_2 = +\infty$, basterà prendere
+$B_1 = (\ell_1-1, \ell_1+1)$ ed $B_2 = (\ell_1+1,+\infty]$ per avere due
+intorni disgiunti. Analogamente si procederà nel caso $\ell_2=-\infty$.
+
+Per $\ell_1,\ell_2 \in \bar \CC$ la dimostrazione si fa in maniera del tutto analoga:
+per due punti in $\CC$ si può prendere come $\eps=\abs{\ell_2-\ell_1}/2$
+metà della distanza tra i due
+punti: la disuguaglianza triangolare del modulo garantirà che
+$B_\rho(\ell_1)\cap B_\rho(\ell_2)=\emptyset$
+ Se uno dei due punti è $\ell_2=+\infty$ e l'altro è $\ell_1\in \CC$
+si potrà prendere $B_1(\ell_1)$ l'intorno di raggio unitario di $\ell_2$ e
+$\CC\setminus B_{\abs{\ell_2}+1}(0)$
+come intorno del punto $\infty$. La disuguaglianza triangolare ci assicura
+che questi due intorni sono disgiunti, come ovvio da una interpretazione geometrica.
+\end{proof}
 \begin{theorem}[unicità del limite]
 \mymargin{unicità del limite}
-Sia $X$ uno spazio topologico separato cioè tale che
-punti distinti hanno intorni distinti (se $x_1,x_2\in X$, $x_1\neq x_2$ esistono
-$U_1\in \U_{x_1}$ e $U_2\in \U_{x_2}$ tali che $U_1\cap U_2=\emptyset$).
-Sia $a_n\in \RR$ una successione e siano $\ell_1, \ell_2 \in X$
-tali che $a_n \to \ell_1$ e $a_n \to \ell_2$. Allora $\ell_1 = \ell_2$.
-
-Gli spazi topologici $\bar \RR$ e $\bar \CC$ sono separati e quindi in essi
-il limite di successione, se esiste, è unico.
+Sia $a_n$ una successione a valori reali e siano $\ell_1,\ell_2\in \bar \RR$
+tali che
+\[
+  a_n \to \ell_1, \qquad
+  a_n \to \ell_2.
+\]
+Allora si ha $\ell_1=\ell_2$ (il limite, se esiste, è unico).
+Lo stesso vale per le successioni a valori complessi che hanno limite
+$\ell_1, \ell_2 \in \bar \CC$.
 \end{theorem}
 %
 \begin{proof}
-Scegliamo un intorno $U_1$ di $\ell_1$ e un intorno $U_2$ di $\ell_2$
-tali che $U_1\cap U_2 = \emptyset$.
-E' sufficiente allora applicare le definizioni di limite
-$a_n\to \ell_1$ e $a_n\to \ell_2$
-per ottenere che
-da un lato esiste $N_1$ tale che per ogni
-$n>N_1$ si ha $a_n \in U_1$, dall'altro esiste $N_2$ tale che per ogni
-$n>N_2$ si ha $a_n \in U_2$. Ma allora per ogni $N> \max\{ N_1, N_2\}$
-si dovrebbe avere $a_n \in U_1 \cap U_2 = \emptyset$ il che è impossibile.
-
-Verifichiamo ora che $\bar \RR$ è separato cioè che
-dati $\ell_1, \ell_2 \in \bar \RR$ esistono $U_1$ e $U_2$ intorni disgiunti
-di $\ell_1$ e $\ell_2$.
-Se $\ell_1$ ed $\ell_2$ sono entrambi finiti, è sufficiente
-considerare $\eps = \abs{\ell_2-\ell_1}/2$ e si osserva immediatamente
-che gli intervalli $U_1=(\ell_1-\eps, \ell_1+\eps)$ e
-$U_2=(\ell_2-\eps, \ell_2+\eps)$
-sono disgiunti.
-Se $\ell_1$ ed $\ell_2$ sono entrambi infiniti e sono diversi,
-possiamo supporre $\ell_1=-\infty$ e $\ell_2=+\infty$. In tal caso gli
-intorni $U_1= [-\infty,0)$ e $U_2=(0,+\infty]$ sono disgiunti.
-Se $\ell_1$ è finito e $\ell_2 = +\infty$, basterà prendere
-$U_1 = (\ell_1-1, \ell_1+1)$ ed $U_2 = (\ell_1+1,+\infty]$ per avere due
-intorni disgiunti. Analogamente si procederà nel caso $\ell_2=-\infty$.
-
-Anche $\bar \CC$ è separato e la dimostrazione si fa in maniera del tutto analoga.
+Questo risultato discende direttamente dalla proprietà enunciata nel
+teorema~\ref{th:separazione_R_e_C}. Se una successione avesse due limiti
+diversi allora potrei trovare due intorni disgiunti dei due punti limite
+e la definizione di limite mi direbbe che la successione deve stare
+definitivamente in ognuno dei due intorni. Questo è impossibile.
 \end{proof}
 
 Osserviamo che non è detto che un limite esista, come si vede dal seguente
@@ -273,11 +327,11 @@ tale che $a_n \to \ell$.
 La successione $a_n$ ha come valori solamente i numeri $1$ e $-1$,
 infatti se $n$ è pari si ha $(-1)^n=1$ e se $n$ è dispari $(-1)^n=-1$.
 Supponiamo per assurdo che la successione abbia limite $\ell$
-e consideriamo l'intorno $U = (\ell - 1, \ell + 1)$.
-Se $\ell\ge 0$ certamente $-1 \not\in U$ in quanto $\ell-1\ge -1$.
-Se invece $\ell \le 0$ certamente $1\not\in U$ in quanto $\ell+1\le 1$.
-Dunque, in ogni caso, comunque si scelga $N\in \NN$ esisteranno degli
-$n>N$ tali che $a_n \not \in U$.
+e consideriamo l'intorno $B = (\ell - 1, \ell + 1)$.
+Se $\ell\ge 0$ certamente $-1 \not\in B$ in quanto $\ell-1\ge -1$.
+Se invece $\ell \le 0$ certamente $1\not\in B$ in quanto $\ell+1\le 1$.
+Dunque frequentemente $a_n\not\in B$ che significa che non può
+essere $a_n\to \ell$.
 \end{proof}
 
 Abbiamo dunque osservato che in generale il limite di una successione può
@@ -298,7 +352,8 @@ una intera successione e non un singolo valore,
 
 \begin{definition}[carattere di una successione]
 \mymark{***}
-Sia $a_n$ una successione. Se $a_n$ non ammette limite
+Sia $a_n$ una successione a valori reali o complessi.
+Se $a_n$ non ammette limite
 si dice anche che $a_n$ è \emph{indeterminata}
 \mynote{successione indeterminata}%
 \index{successione!indeterminata}
@@ -316,12 +371,17 @@ di una successione
 significa specificare a quale delle tre categorie appartiene.
 \end{definition}
 
+\section{criteri di convergenza}
+
 \begin{theorem}[criteri di confronto]
 \mymark{***}
+Siano $a_n$, $b_n$ e $c_n$ successioni a valori reali%
+\footnote{Non è possibile fare confronti tra valori complessi, visto che
+sui numeri complessi non abbiamo un ordinamento}.
 \mymargin{confronto tra limiti}
 \begin{enumerate}
 \item
-Se abbiamo due successioni $a_n$ e $b_n$, se per ogni $n$ si ha
+Se per ogni $n\in \NN$ si ha
 \[
 a_n \le b_n
 \]
@@ -332,10 +392,10 @@ a \le b.
 \]
 
 \item
-Siano $a_n$ e $b_n$ due successioni tali che per ogni $n$
-si abbia
+Supponiamo per ogni $n$ si abbia:
 \[
-a_n \le b_n\]
+a_n \le b_n
+\]
 Se $a_n \to +\infty$ allora $b_n \to +\infty$.
 Se $b_n \to -\infty$ allora $a_n \to -\infty$.
 
@@ -343,8 +403,7 @@ Se $b_n \to -\infty$ allora $a_n \to -\infty$.
 (teorema dei carabinieri)
 \mynote{teorema dei carabinieri}
 \index{teorema!dei carabinieri}
-Se abbiamo tre successioni $a_n$, $b_n$ e $c_n$,
-se per ogni $n$ vale
+Se per ogni $n$ vale
 \[
 a_n \le b_n \le c_n
 \]
@@ -352,41 +411,38 @@ a_n \le b_n \le c_n
 successioni $a_n$ e $c_n$ hanno lo stesso limite: $a_n \to \ell$ e $c_n\to \ell$
 allora anche $b_n \to \ell$.
 \end{enumerate}
-
-
 \end{theorem}
 %
 \begin{proof}
 \mymark{**}
 \begin{enumerate}
 \item
-Se per assurdo fosse $a > b$ esisterebbero degli intorni disgiunti $U_a\in \U_a$
-e $U_b \in \U_b$.
-Inoltre si avrebbe $U_a > U_b$ (cioè: ogni punto di $U_a$ è maggiore
-di ogni punto di $U_b$) visto che $a>b$.
+Se per assurdo fosse $a > b$ esisterebbero degli intorni disgiunti $B_a\in \B_a$
+e $B_b \in \B_b$.
+Inoltre si avrebbe $B_a > B_b$ (cioè: ogni punto di $B_a$ sarebbe maggiore
+di ogni punto di $B_b$) visto che $a>b$.
 Ma, dalla definizione di limite,
-dovrebbero anche esistere $N_a$ e $N_b$ tali che per ogni $n>N_a$ si abbia
-$a_n \in U_a$ e per ogni $n>N_b$ si abbia $b_n \in U_b$.
-Ma allora per ogni $n> \max\{N_a, N_b\}$ si avrebbe
-contemporaneamente $a_n \in U_a$ e $b_n \in U_b$ da cui $a_n > b_n$
-contro l'ipotesi.
+si dovrebbe avere che definitivamente $a_n\in B_a$ e $b_n\in B_b$ il che
+è assurdo se $a_n\le b_n$ e $B_a > B_b$.
 
 \item
-Se $a_n \to +\infty$ per ogni $M\in \RR$ esiste $N\in \NN$ tale che
-per ogni $n>N$ si ha $a_n > M$. Ma se $b_n>a_n$ si ha anche $b_n >M$
-dunque anche $b_n \to +\infty$.
+Se $a_n \to +\infty$ per ogni $M\in \RR$
+si ha $a_n > M$ definitivamente.
+Ma se $b_n>a_n$ si ha anche $b_n >M$.
+Questo è vero per ogni $M\in \RR$ e quindi
+si ottiene la definizione di limite $b_n \to +\infty$.
 Dimostrazione analoga si ottiene nel caso $b_n \to -\infty$.
 
 \item
 Se $a_n$ e $c_n$ hanno lo stesso limite $\ell$ significa che per ogni
-$U \in \U_\ell$ esistono $N_a$ ed $N_c$ tali che per ogni $n>N_a$ si ha
-$a_n\in U$ e per ogni $n > N_c$ si ha $c_n\in U$.
-Prendendo allora (al solito!) $N=\max\{N_a, N_b\}$ si trova che per
-ogni $n>N$ si ha $a_n\in U$ e $c_n \in U$.
-Visto che $U$ è un intervallo e visto che $a_n \le b_n  \le c_n$,
-deduciamo che anche $b_n \in U$. Dunque la definizione di limite è verificata.
+$B \in \B_\ell$
+si ha $a_n\in B$ e $c_n\in B$ definitivamente.
+Ma allora anche $b_n\in B$ definitivamente. Essendo questo
+vero per ogni $B\in \B_\ell$ si ottiene la definizione di limite
+$b_n \to \ell$.
 \end{enumerate}
 \end{proof}
+
 
 \begin{corollary}[permanenza del segno]
 \mymark{***}
@@ -439,30 +495,20 @@ della successione $a_n = 1/(-2)^n$.
 \mymark{**}
 \mynote{successioni che differiscono su un numero finito di termini}%
 \index{successioni!che differiscono su un numero finito di termini}
-Se $a_n$ e $b_n$ sono due successioni tali che l'insieme degli indici
-$n$ su cui differiscono sia finito
-(cioè $\#\{n\in \NN\colon a_n \neq b_n\} < \# \NN$)
-allora se il limite di $a_n$ esiste e vale $\ell$ allora
-anche il limite di $b_n$ esiste e vale $\ell$.
-Viceversa se il limite di $a_n$ non esiste, non esiste neanche il limite
-di $b_n$.
+Se $a_n$ e $b_n$ sono due successioni
+che differiscono solamente per un numero finito di termini
+(significa l'insieme $\{n\in \NN\colon a_n \neq b_n\}$ è finito)
+allora $a_n$ e $b_n$ hanno lo stesso carattere e se non
+sono indeterminate hanno lo stesso limite.
 \end{theorem}
 %
 \begin{proof}
-Un insieme di numeri naturali è finito se e solo se è limitato.
-Dunque esiste $K\in \NN$ tale che per ogni $n>K$ si ha $a_n = b_n$.
-Se $a_n$ ha limite $\ell$ soddisfa la proprietà
-\[
- \forall U \in \U_\ell \colon
- \exists N\in \NN\colon \forall n > N \colon a_n \in U.
-\]
-Se al posto di $N$ mettiamo $N' = \max\{N,K\}$ sappiamo che per $n>N$
-si ha anche $n>K$ e quindi $a_n=b_n$. Dunque anche la successione $b_n$
-soddisfa la stessa proprietà.
-
-Se la successione $a_n$ non ha limite allora pure $b_n$ non può avere limite
-perché, se ce lo avesse, potremmo scambiare i ruoli di $a_n$ e $b_n$
-e applicare il teorema già dimostrato concludendo che anche $a_n$ avrebbe limite.
+Due successioni che differiscono su un numero finito
+di termini sono definitivamente uguali.
+Avere limite $\ell$ significa che per ogni $B$ intorno di $\ell$
+la successione sta definitivamente in $B$ e dunque la condizione
+è equivalente se le successioni sono definitivamente uguali.
+Significa che hanno lo stesso carattere e lo stesso limite.
 \end{proof}
 
 Il teorema precedente è molto utile perché ci permette di applicare
@@ -614,6 +660,7 @@ Dimostrazione analoga si fa nel caso $a_n \to -\infty$.
 \section{operazioni con i limiti}
 
 \begin{theorem}[limite della somma]
+\label{th:limite_somma}
 \mymark{***}
 \mymargin{limite della somma}
 Siano $a_n \to a$ e $b_n \to b$ con $a,b\in \bar \RR$.
@@ -661,8 +708,8 @@ differenza è la somma con l'opposto.
 \begin{theorem}[limite del valore assoluto]
 \mymark{**}
 \mymargin{limite del valore assoluto}
-La funzione $f(x)=\abs{x}$ è continua ovvero
-se $a_n \to a$, $a \in \bar \RR$ allora
+\label{th:limite_abs}
+Se $a_n \to a$, $a \in \bar \RR$ allora
 \[
   \abs{a_n} \to \abs{a}.
 \]
@@ -699,6 +746,7 @@ Dunque è verificata la definizione di limite $a_n \cdot b_n \to 0$.
 \end{proof}
 
 \begin{theorem}[limite del prodotto]
+\label{th:limite_prodotto}
 \mymark{***}
 \mymargin{limite del prodotto}
 Se $a_n \to a$ e $b_n \to b$
@@ -736,6 +784,7 @@ ad una delle due successioni e ricondursi al caso precedente.
 \end{proof}
 
 \begin{theorem}[limite del reciproco]
+\label{th:limite_reciproco}
 \mymark{**}
 \mymargin{limite del reciproco}
 Sia $a_n \to a$.
@@ -794,6 +843,7 @@ segno ad $a_n$.
 \end{proof}
 
 \begin{theorem}[limite del rapporto]
+\label{th:limite_rapporto}
 \mymark{**}
 \mymargin{limite del rapporto}
 Se $a_n \to a$ e $b_n\to b$ allora
@@ -811,6 +861,88 @@ Possiamo ricondurci ai teoremi precedenti osservando che
    \frac{a_n}{b_n} = a_n \cdot \frac{1}{b_n}.
 \]
 \end{proof}
+
+\section{funzioni continue}
+
+\begin{definition}[continuità sequenziale su $\RR$]
+Sia $f\colon A \subset \RR \to \RR$ una funzione. Diremo che
+$f$ è \myemph{sequenzialmente continua in un punto} $a\in A$ se per ogni
+successione convergente $a_n \to a$ con $a_n\in A$
+ si ha
+ \[
+   f(a_n) \to f(a).
+ \]
+
+ Diremo che $f$ è \myemph{sequenzialmente continua} se è sequenzialmente
+ continua in ogni punto $a\in A$.
+\end{definition}
+
+\begin{definition}[continuità su $\RR$]
+Sia $f\colon A \to \RR$ una funzione. Diremo che
+$f$ è \myemph{continua in un punto} $a\in A$ se
+\[
+\forall \eps>0 \colon \exists \delta>0 \colon
+\forall x\in A\colon
+\abs{x-a} < \delta \implies \abs{f(x)-f(a)} < \eps.
+\]
+
+Diremo che $f$ è \myemph{continua} se è continua in ogni punto $a \in A$.
+\end{definition}
+
+\begin{theorem}[equivalenza delle due definizioni di continuità]
+Sia $f\colon A \subset \RR \to \RR$ una funzione e $a\in A$.
+Allora $f$ è continua in $a$ se e solo se è sequenzialmente continua in $a$.
+\end{theorem}
+%
+\begin{proof}
+Supponiamo che $f$ sia continua nel punto $a$ e dimostriamo che è anche sequenzialmente
+continua nello stesso punto. Sia dunque $a_n\in A$ una successione tale che
+$a_n \to a$. Scriviamo di seguito la definizione di continuità nel punto $a$
+e la definizione di convergenza $a_n \to a$:
+\begin{align*}
+  \forall \eps>0 \colon \exists \delta>0\colon
+  \abs{x-a}< \delta \implies \abs{f(x)-f(a)}< \eps \\
+  \forall \delta>0 \colon \exists N\in \NN \colon
+  n>N \implies \abs{a_n-a} < \delta.
+\end{align*}
+Scegliendo nella seconda condizione lo stesso $\delta$ dato dalla prima
+condizione si ottiene $n>N \implies \abs{a_n-a}< \delta \implies \abs{f(a_n)-f(a)}
+<\eps$ da cui si ottiene esattamente la definizione di limite $f(a_n)\to f(a)$:
+\[
+  \forall \eps>0\colon \exists N\in \NN\colon
+  n>N\implies \abs{f(a_n)-f(a)} < \eps.
+\]
+
+Viceversa supponiamo che $f$ sia sequenzialmente continua nel punto $a$ e
+supponiamo, per assurdo che non sia continua in $a$. Allora negando la
+condizione di continuità in $a$ si ottiene:
+\[
+  \exists \eps>0 \colon \forall \delta>0 \colon \exists x\in A\colon
+  \abs{x-a}<\delta \land \abs{f(x)-f(a)}\ge \eps.
+\]
+Fissato $\eps$ possiamo dunque porre $\delta = 1/n$ per ogni $n\in \NN$.
+Si ottiene allora che esiste $x_n$ che soddisfa le due condizioni:
+\[
+  \abs{x_n-a}<\frac 1 n, \qquad \abs{f(x_n)-f(a)}\ge \eps.
+\]
+La prima condizione garantisce che si abbia $a_n \to a$.
+Ma la seconda condizione impedisce che si abbia $f(x_n)\to a$.
+Abbiamo quindi trovato una successione che viola la condizione di continuità
+sequenziale nel punto $a$ e abbiamo dunque concluso la dimostrazione.
+\end{proof}
+
+In base al teorema precedente, nel seguito parleremo sempre
+di \emph{continuità}
+anche se la condizione che useremo è quella di
+\emph{continuità sequenziale}.
+
+La funzione $f(x)=x$ è ovviamente continua.
+
+\begin{exercise}
+Le funzioni $f(x) = x$ e $g(x)=\abs{x}$ sono continue.
+Le funzioni $h(x) = \lfloor x\rfloor$ e $k(x)=\lceil x \rceil$
+non sono continue (sono continue solamente nei punti $x\in \RR \setminus \ZZ$).
+\end{exercise}
 
 \begin{example}
 La funzione $f\colon \RR \to \RR$, $f(x) = x^2$ è continua.
@@ -838,6 +970,80 @@ punto $x_0=0$. Comunque risulta che tale funzione è continua in tutti gli altri
 punti e quindi è continua in ogni punto del dominio. Questo è sufficiente
 (si riguardi la definizione) a garantire che la funzione $f$ sia continua,
 nonostante abbia una discontinuità in un punto (che però non è nel dominio).
+\end{example}
+
+\begin{theorem}[composizione di funzioni continue]
+\label{th:limite_composizione}
+Se $c\in \RR$ è fissato la funzione costante $f(x)=c$ (definita su tutto $\RR$)
+è continua.
+Anche la funzione $f(x)=x$ (definita su tutto $\RR$) è continua.
+
+Se $f$ e $g$ sono funzioni continue allora anche
+\[
+  f+g \qquad
+  f\cdot g \qquad
+  f-g \qquad
+  \frac{f}{g} \qquad
+  f\circ g \qquad
+  \abs{f} \qquad
+\]
+sono funzioni continue.
+Si intende che ognuna di queste funzioni è definita nei punti in cui
+sono definite tutte le funzioni e le operazioni coinvolte. Più precisamente:
+$(f+g)(x) = f(x) + g(x)$, $(f\cdot g)(x) = f(x)\cdot g(x)$ e $(f-g)(x)=f(x)-g(x)$
+sono definite sull'intersezione dei domini di $f$
+e di $g$. Il rapporto $(f/g)(x)=f(x)/g(x)$ è definito sui punti dell'intersezione
+dei domini dove, inoltre, $g(x)\neq 0$. La composizione $(f\circ g)(x)=f(g(x))$
+ è definita
+sui punti $x$ del dominio di $g$ tali che $g(x)$ sta nel dominio di $f$.
+Il valore assoluto $\abs{f}(x)=\abs{f(x)}$
+ha lo stesso dominio della funzione $f$.
+\end{theorem}
+%
+\begin{proof}
+Se $f(x)=c$ e $a_n\to a$ allora $f(a_n) = c \to c = f(a)$ in quanto
+si ha $\abs{f(a_n)-a} = \abs{c-c} = 0 < \eps$ per ogni $\eps >0$.
+Dunque $f(x)=c$ è sequenzialmente continua.
+Se $f(x)=x$ e $a_n\to a$ allora $f(a_n)=a_n \to a =f(a)$. Dunque $f(x)=x$
+è sequenzialmente continua.
+
+Se $a_n \to a$ allora per definizione di continuità sequenziale
+si ha $f(a_n)\to f(a)$ e $g(a_n)\to g(a)$.
+Per il teorema~\ref{th:limite_somma} si ottiene quindi che
+$f(a_n)+g(a_n)\to f(a) + g(a)$ e dunque $f+g$ è sequenzialmente continua.
+Per lo stesso teorema anche $f-g$ è sequenzialmente continua.
+Analogamente tramite il teorema~\ref{th:limite_prodotto} si ottiene che
+$f\cdot g$ è sequenzialmente continua, con il teorema~\ref{th:limite_rapporto}
+si ottiene che $f/g$ è sequenzialmente continua e con il teorema
+~\ref{th:limite_abs} si ottiene che $\abs{f}$ è continua.
+
+Per quanto riguarda la composizione si ha $(f\circ g)(a_n) = f(g(a_n))$.
+Se $a_n\to a$ essendo $g$ continua in $a$ si avrà $g(a_n)\to g(a)$ ed essendo $f$ continua
+in $g(a)$ si avrà $f(g(a_n))\to f(g(a))$.
+\end{proof}
+
+\begin{example}
+La funzione
+\[
+f(x) = \frac{(x-3)\cdot x -\frac{1}{x+x^2}}{\abs{x-\frac{1-x^3}{x}}}
+\]
+è continua.
+
+Si intende che tale funzione è definita sull'insieme degli $x\in \RR$
+per cui tutte le operazioni coinvolte sono definite ovvero $f\colon D \subset \RR \to \RR$
+con
+\[
+  D = \left\{x\in \RR \colon x+x^2 \neq 0,\ x\neq 0,\ \abs{x-\frac{1-x^3}{x}}\neq 0\right\}.
+\]
+
+Infatti le funzioni $x$ e le costanti $3$ e $1$ sono funzioni continue
+per il teorema~\ref{th:limite_composizione}.
+Ma allora per lo stesso teorema le funzioni $x-3$ e $x^2=x\cdot x$ sono continue.
+Dunque anche $(x-3)\cdot x$, $x+x^2$ e $x^3$ e $1-x^3$ sono continue.
+Di conseguenza sono continue pure $\frac 1{1+x^2}$ e $\frac{1-x^3}{x}$.
+E poi saranno continue anche $(x-3)\cdot x - \frac 1{1+x^2}$ e $x-\frac{1-x^3}{x}$
+e quindi $x-\frac{1-x^3}{x}$ e pure $\abs{x-\frac{1-x^3}{x}}$. Infine sarà
+dunque continua $f(x)$.
 \end{example}
 
 \section{successioni estratte}
@@ -989,44 +1195,47 @@ può contenere una sottosuccessione che invece ha limite.
 Se $n_k$ è una successione di numeri naturali con $n_k\to +\infty$
 e se $a_n$ è una qualunque successione che ammette limite
 allora
-\[
+\begin{equation}\label{eq:472454}
   \lim_k a_{n_k} = \lim_n a_n.
-\]
+\end{equation}
 
-Lo stesso vale se $a_{n_k}$ è una sottosuccessione
-di $a_n$ (cioè nel caso in cui $n_k$ sia strettamente crescente).
+Se $a_{n_k}$ è una sottosuccessione di $a_n$ allora in particolare $n_k\to +\infty$
+e quindi anche in questo caso vale~\eqref{eq:472454}.
 \end{theorem}
 %
 \begin{proof}
 Le definizioni di $a_n \to \ell$ e $n_k \to +\infty$ sono le seguenti
 (usiamo la notazione con gli intorni per non dover distinguere
 i casi di $\ell$ finito / infinito ma si potrebbe ugualmente
-procedere con le definizioni usuali):
+procedere con le definizioni usuali).
+Se indichiamo con $\vec a(n)=a_n$ e con $\vec n(k)=n_k$
+le condizioni  $a_n\to \ell$ e $n_k\to +\infty$ si possono
+esprimere come segue:
 \begin{gather*}
- \forall U \in \U_\ell \colon \exists V \in \U_{+\infty} \colon
-  a(V) \subset U,\\
- \forall V \in \U_{+\infty} \colon \exists W \in \U_{+\infty} \colon
-  n(W) \subset V.
+ \forall U \in \B_\ell \colon \exists V \in \B_{+\infty} \colon
+  \vec a (V) \subset U,\\
+ \forall V \in \B_{+\infty} \colon \exists W \in \B_{+\infty} \colon
+  \vec n(W) \subset V.
 \end{gather*}
 Mettendo insieme le due definizioni si ottiene
 \[
-  \forall U \in \U_\ell \colon
-  \exists V \in \U_{+\infty} \colon
-  \exists W \in \U_{+\infty} \colon
-  n(W) \subset V \text{ e }
-  a(V) \subset U
+  \forall U \in \B_\ell \colon
+  \exists V \in \B_{+\infty} \colon
+  \exists W \in \B_{+\infty} \colon
+  \vec n(W) \subset V \text{ e }
+  \vec a(V) \subset U
 \]
 e dunque
 \[
-  \forall U \in \U_\ell \colon \exists W \in \U_{+\infty} \colon
-  a(n(W)) \subset U
+  \forall U \in \B_\ell \colon \exists W \in \B_{+\infty} \colon
+  \vec a(\vec n(W)) \subset U
 \]
 che corrisponde esattamente alla definizione di limite $a_{n_k} = a(n(k)) \to \ell$.
 
 Per la seconda parte è sufficiente verificare che se $n_k$
 è strettamente crescente
 e a valori in $\NN$, deve necessariamente essere $n_k\to +\infty$.
-Notiamo infatti che $n_k$ vista come funzione $n\colon \NN\to \NN$
+Notiamo infatti che $\vec n\colon \NN\to \NN$
 è iniettiva (per la stretta monotonia) e dunque rappresenta una
 corrispondenza biunivoca tra il suo dominio $\NN$ e l'insieme dei
 suoi valori $\{n_k \colon k \in \NN\}$. Significa dunque che l'insieme
@@ -1135,81 +1344,8 @@ Dunque il numero $\ell$ non è un termine della successione $a_n$
 ovvero la funzione $a\colon \NN \to [0,1]$ non è suriettiva.
 \end{proof}
 
-\begin{comment}
-\section{continuità}
 
-\begin{definition}[continuità]
-Sia $f\colon A \subset \RR \to \RR$ una funzione.
-
-Dato $x_0\in A$ diremo che la funzione $f$
-è \myemph{continua nel punto} $x_0$ se
-\[
-  \forall \eps>0 \colon \exists \delta>0 \colon \forall x\in A\colon
-  \abs{x-x_0}< \delta \implies \abs{f(x)-f(x_0)}< \eps.
-\]
-
-Diremo che la funzione $f$ è \myemph{continua}
-se è continua in ogni punto del dominio $x_0\in A$.
-
-Diremo che la funzione $f$ è \myemph{sequenzialmente continua}
-\index{continuità!sequenziale}
-\index{continua!sequenzialmente}
-se per ogni successione $a_n\in A$ che converge $a_n\to a$ ad un punto
-$a\in A$ si ha
-\[
-  f(a_n) \to f(a).
-\]
-\end{definition}
-
-\begin{theorem}[equivalenza continuità e continuità sequenziale]
-Una funzione $f\colon A \subset \RR \to \RR$
-è continua se e solo se è sequenzialmente continua.
-\end{theorem}
-%
-\begin{proof}
-Supponiamo che $f\colon A\subset \RR \to \RR$ sia continua e consideriamo
-una successione $a_n \to a$ con $a,a_n\in A$. Dobbiamo mostrare
-che $f(a_n)\to f(a)$ cioè che:
-\[
- \forall \eps>0 \exists N\in\NN \colon \forall n\in \NN\colon
- n> N \implies \abs{f(a_n) - f(a)} <\eps.
-\]
-Fissato $\eps>0$ per la continuità di $f$ sappiamo esistere $\delta>0$
-tale che se $x\in A$ e $\abs{x-a}<\delta$ allora $\abs{f(x)-f(a)}<\eps$.
-E per la definizione di limite $a_n\to a$ in corrispondenza di $\delta>0$
-sappiamo esistere $N\in\NN$ tale che se $n> N$ allora $\abs{a_n-a}<\delta$.
-Mettendo insieme le due cose si ottiene che $\abs{f(a_n)-f(a)} < \eps$,
-come volevamo dimostrare.
-
-Dimostriamo ora la \emph{contropositiva} della implicazione inversa
-ovvero dimostriamo che se $f$ non è continua allora non è sequenzialmente
-continua. Se $f\colon A \subset  \RR \to \RR$
-non è continua significa che esiste $a\in A$ tale che
-$f$ non è continua in $a$ e cioè non vale:
-\[
-  \forall \eps>0 \colon \exists \delta>0\colon \forall x\in A\colon
-  \abs{x-a}<\delta \implies \abs{f(x)-f(a)}<\eps.
-\]
-La negazione della precedente proposizione diventa
-(si vedano appunti di logica):
-\[
-\exists \eps>0 \colon \forall \delta>0 \colon \exists x\in A
-\colon \abs{x-a} < \delta \land \abs{f(x)-f(a)}\ge \eps.
-\]
-Ora per ogni $n\in \NN$ consideriamo $\delta = \frac 1 n$ e poniamo $a_n = x$. Abbiamo
-dunque trovato una successione $a_n\in A$ con la proprietà: $\abs{a_n - a}< \frac 1 n$
-e dunque $a_n \to a$ e inoltre $\abs{f(a_n)-f(a)}\ge \eps$.
-Ma questo significa che non è possibile che sia $f(a_n)\to f(a)$ e quindi
-$f$ non può essere sequenzialmente continua visto che $a_n\to a$ ma $f(a_n)$
-non converge a $f(a)$.
-\end{proof}
-\end{comment}
-
-%%%%%%%%%
-%%%%%%%%%
-\section{massimo limite, minimo limite}
-
-\begin{definition}[punti limite]
+\begin{definition}[punti limite, limite superiore, limite inferiore]
 Sia $a_n$ una successione.
 Una quantità $\ell\in \bar\RR$ si dice essere
 un \myemph{punto limite} di $a_n$ se esiste una sottosuccessione
@@ -1273,11 +1409,39 @@ Valgono le seguenti proprietà:
  \end{enumerate}
 \end{theorem}
 
-%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{lemma}[estratte monotone]
+Ogni successione $a_n\in \RR$ ammette una estratta monotona.
+\end{lemma}
+%
+\begin{proof}
+Consideriamo l'insieme $P$ dei punti di ``picco'', ovvero degli indici
+di quei termini della successione che sono maggiori o uguali a tutti i termini
+seguenti:
+\[
+  P = \{n\in \NN\colon m\ge n \implies a_n\ge a_m\}.
+\]
+Se $P$ è finito significa che esiste un indice $n_1\in \NN$ tale
+che non ci sono picchi da $n_1$ in poi. In particolare $n_1$ non è un punto di
+picco
+quindi deve esistere $n_2>n_1$ tale che $a_{n_1}<a_{n_2}$.
+Ma neanche $n_2$ è un punto di picco quindi deve esistere $n_3>n_2$ tale
+che $a_{n_2}<a_{n_3}$... procedendo induttivamente si riesce quindi a definire
+una successione $n_k$ di indici tali che $a_{n_k}$ risulta essere strettamente
+crescente.
+
+Se, viceversa, $P$ è infinito allora elencando in ordine i suoi elementi otterremo
+una successione $n_1 < n_2 < n_3, \dots$ di indici ognuno dei quali corrisponde ad un valore
+di picco. Se $j>k$ si ha dunque $n_j>n_k$ ed essendo $n_k\in P$ significa che
+$a_{n_j} \le a_{n_k}$. Dunque la successione $a_{n_k}$ risulta essere decrescente.
+\end{proof}
+
+Si osservi che il precedente lemma fornisce una dimostrazione alternativa
+del teorema di Bolzano-Weierstrass in quanto ogni successione monotona
+ammette limite e dunque ogni successione ammette una estratta che ha limite.
+Se poi la successione era limitata tale limite dovrà necessariamente essere
+finito.
 
 \section{il teorema degli zeri}
-
 
 \begin{theorem}[degli zeri]
 \mymark{***}
@@ -2576,7 +2740,7 @@ Dimostrare che il limite $\lim_n \sin n$ non esiste.
 %%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{massimi e minimi}
+\section{Il teorema di Weierstrass}
 
 \begin{definition}[massimi e minimi assoluti]
 \mymark{**}
