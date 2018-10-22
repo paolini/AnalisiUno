@@ -605,7 +605,8 @@ all'estremo inferiore cioè dovrebbe essere $0$. Ma questo è impossibile
 perché per ogni $n\in \NN$ si ha $a_n = 1/(n+1)\neq 0$.
 \end{proof}
 
-Diremo che una successione è limitata (superiormente / inferiormente) se
+Diremo che una successione di numeri reali
+è limitata (superiormente / inferiormente) se
 \mynote{successioni limitate}
 \index{successioni limitate}
  l'insieme dei suoi valori
@@ -622,18 +623,27 @@ Caratterizzazioni analoghe valgono per la limitatezza inferiore.
 
 Una successione $a_n$
 è limitata se la successione dei suoi valori assoluti $\abs{a_n}$ è superioremente limitata, ovvero:
-\[
+\begin{equation*}\label{eq:successione_limitata}
   \sup \abs{a_n} < +\infty.
-\]
+\end{equation*}
 Questo discende dalla proprietà $-\abs{x} \le x \le \abs{x}$ valida
 per ogni $x\in \RR$.
+
+Per le successioni di numeri complessi non potremo parlare di limitatezza superiore
+e inferiore in quanto sui complessi non c'è un ordinamento. Diremo però comunque
+che la successione $a_n\in \CC$ è limitata se vale~\eqref{eq:successione_limitata}
+(con il modulo al posto del valore assoluto).
 
 \begin{theorem}[limitatezza delle successioni convergenti]
 \mymark{**}
 \mymargin{limitatezza delle successioni convergenti}
+Sia $a_n\in\RR$ una successione.
 Se $a_n$ è convergente allora $a_n$ è limitata.
 Se $a_n\to +\infty$ allora $a_n$ è inferiormente limitata.
 Se $a_n\to -\infty$ allora $a_n$ è superiormente limitata.
+
+Anche nel caso complesso: se $a_n\in \CC$ è una successione convergente allora è
+limitata.
 \end{theorem}
 %
 \begin{proof}
@@ -649,21 +659,59 @@ che per ogni $n\in \NN$ vale
 \]
 e dunque $a_n$ è limitata.
 
-Se $a_n \to +\infty$ allora, per definizione di limite, deve
-esistere un $N$ tale che per ogni $n>N$ si abbia $a_n \ge 0$ (abbiamo
-scelto arbitrariamente $M=0$ nella definizione). Ma allora
-ponendo $K=\min\{a_0, a_1, \dots, a_N, 0\}$ si avrà che $a_n\ge K$ per ogni $n\in \NN$ dunque $a_n$ è inferiormente limitata.
+Se $a_n \to +\infty$ allora, per definizione di limite, deve esistere un $N$
+tale che per ogni $n>N$ si abbia $a_n \ge 0$ (abbiamo scelto arbitrariamente
+$M=0$ nella definizione). Ma allora ponendo $K=\min\{a_0, a_1, \dots, a_N, 0\}$
+si avrà che $a_n\ge K$ per ogni $n\in \NN$ dunque $a_n$ è inferiormente
+limitata.
 
 Dimostrazione analoga si fa nel caso $a_n \to -\infty$.
+
+Se $a_n\in \CC$ e $a_n\to a\in \CC$, allora $\abs{a_n}\to \abs{a}\in \RR$.
+Dunque la successione reale $\abs{a_n}$ è limitata che significa (per definizione)
+che la successione complessa $a_n$ è limitata.
 \end{proof}
 
 \section{operazioni con i limiti}
+
+\begin{theorem}[limite del valore assoluto]
+\mymark{**}
+\mymargin{limite del valore assoluto}
+\label{th:limite_abs}
+Se $a_n\in \RR$ è una successione che ammette limite $a_n \to a \in \bar \RR$
+allora
+\[
+  \abs{a_n} \to \abs{a}.
+\]
+Se $\abs{a_n} \to 0$ allora $a_n \to 0$.
+
+Lo stesso vale per le successioni $a_n\in \CC$ che hanno limite $a_n\to a\in \bar \CC$
+(rimpiazzando il valore assoluto
+con il modulo).
+\end{theorem}
+%
+\begin{proof}
+Per la prima parte, se $a\in \RR$ è sufficiente osservare che
+(disuguaglianza triangolare inversa)
+\[
+  \big\lvert\abs{a_n} - \abs{a}\big\rvert \le \abs{a_n -a}.
+\]
+Quando $a$ è infinito la condizione $a_n\to a$ implica chiaramente
+$\abs{a_n}\to +\infty$ in quanto sia la condizione $a_n>M$ che la condizione
+$a_n < -M$ implicando $\abs{a_n}>M$ quando $M>0$.
+
+Per la seconda parte è sufficiente osservare che essendo $\big\lvert\abs{x}\big\rvert
+ = \abs{x}$ la definizione di limite $a_n\to 0$ è equivalente a
+ $\abs{a_n-0}=\abs{a_n}\to 0$.
+
+ La stessa identica dimostrazione è valida anche per le successioni di numeri complessi.
+\end{proof}
 
 \begin{theorem}[limite della somma]
 \label{th:limite_somma}
 \mymark{***}
 \mymargin{limite della somma}
-Siano $a_n \to a$ e $b_n \to b$ con $a,b\in \bar \RR$.
+Siano $a_n \to a$ e $b_n \to b$ successioni reali con $a,b\in \bar \RR$.
 Se $a$ e $b$ non sono
 infiniti di segno opposto (nel qual caso $a+b$ non è stato definito),
 allora
@@ -674,6 +722,9 @@ Se $a$ e $b$ non sono infiniti con lo stesso segno allora
 \[
    a_n - b_n \to a-b.
 \]
+
+Lo stesso risultato vale per successioni complesse con $a,b\in \bar \CC$
+supponendo che $a$ e $b$ non siano entrambi $\infty$.
 \end{theorem}
 %
 \begin{proof}
@@ -688,14 +739,17 @@ Risulta allora che per ogni $n> N$ si ha
 \]
 Cioè $a_n+b_n \to a+b$, come volevamo dimostrare.
 
-Se $a =+\infty$ e $b\neq -\infty$ allora la successione $b_n$ è inferiormente limitata cioè esiste $K\in \RR$ tale che $b_n \ge K$ per ogni $n$ e quindi $a_n+b_n \ge a_n + K$.
+Se $a =+\infty$ e $b\neq -\infty$ allora la successione $b_n$ è inferiormente
+limitata cioè esiste $K\in \RR$ tale che $b_n \ge K$ per ogni $n$ e quindi
+$a_n+b_n \ge a_n + K$.
 Visto che $a_n \to +\infty$ sappiamo che per ogni $M\in \RR$ esiste
 $N\in \NN$ tal che per $n>N$ si ha $a_n > M - K$.
 Ma allora $a_n + b_n >M$ da cui si ottiene la validità della definizione
 di limite $a_n + b_n \to +\infty$.
 
-Per completare la dimostrazione osserviamo che se $a_n\to \ell$ con $\ell \in \bar \RR$, allora $-a_n \to -\ell$. Si tratta semplicemente di cambiare
-i segni nella definizione di limite.
+Per completare la dimostrazione osserviamo che se $a_n\to \ell$ con $\ell \in
+\bar \RR$, allora $-a_n \to -\ell$. Si tratta semplicemente di cambiare i segni
+nella definizione di limite.
 
 Dunque se $a=-\infty$ e $b\neq +\infty$ possiamo cambiare segno a entrambe
 le successioni e ricondurci al caso precedente. Questo completa la prima
@@ -703,44 +757,34 @@ parte della dimostrazione.
 
 Per dimostrare la seconda parte (il limite della differenza è uguale alla differenza dei limiti) ci si riconduce alla prima parte, ricordando che la
 differenza è la somma con l'opposto.
-\end{proof}
 
-\begin{theorem}[limite del valore assoluto]
-\mymark{**}
-\mymargin{limite del valore assoluto}
-\label{th:limite_abs}
-Se $a_n \to a$, $a \in \bar \RR$ allora
+Per quanto riguarda le successioni complesse, se $a$ e $b$ sono finiti ci si
+riconduce al caso reale in quanto la convergenza sul piano complesso si riconduce
+alla convergenza di parte reale e parte immaginaria.
+Se $a=\infty$ e $b\in \CC$ allora significa che $\abs{a_n}\to +\infty$ e
+basta
+utilizzare la disuguaglianza triangolare inversa per ottenere che:
 \[
-  \abs{a_n} \to \abs{a}.
+  \abs{a_n+b_n} \ge \abs{a_n} - \abs{b_n} \to +\infty - b = +\infty
 \]
-
-Se $\abs{a_n} \to 0$ allora $a_n \to 0$.
-\end{theorem}
-%
-\begin{proof}
-Per la prima parte è sufficiente osservare che
-(disuguaglianza triangolare inversa)
-\[
-  \big\lvert\abs{a_n} - \abs{a}\big\rvert \le \abs{a_n -a}
-\]
-
-Per la seconda parte è sufficiente osservare che essendo $\big\lvert\abs{x}\big\rvert
- = \abs{x}$ la definizione di limite $a_n\to 0$ è equivalente a $\abs{a_n-0}\to 0$.
+da cui $a_n+b_n\to \infty$. Analogo il caso $a\in \CC$, $b=\infty$.
 \end{proof}
 
 \begin{theorem}[prodotto di limitata per infinitesima]
 \mymark{**}
 \mymargin{prodotto limitata per infinitesima}
 Se $a_n$ è una successione limitata e $b_n\to 0$ allora
-$a_n\cdot b_n \to 0$.
+$a_n\cdot b_n \to 0$. Il risultato è valido per successioni reali o complesse.
 \end{theorem}
 %
 \begin{proof}
 Se $a_n$ è limitata esiste $M>0$ tale che $\abs{a_n}\le M$ per ogni $n\in\NN$.
 Per la definizione di limite applicata a $b_n$, per ogni $\eps>0$
-esiste $N\in \NN$ tale che per ogni $n>N$ si ha $\abs{b_n -0}=\abs{b_n} < \eps / M$. Allora per ogni $n>N$ si ha
+esiste $N\in \NN$ tale che per ogni $n>N$ si ha $\abs{b_n -0}=\abs{b_n} < \eps / M$.
+Allora per ogni $n>N$ si ha
 \[
-  \abs{a_n\cdot b_n - 0} = \abs{a_n\cdot b_n} \le M \abs{b_n} < M \eps /M = \eps.
+  \abs{a_n\cdot b_n - 0} = \abs{a_n\cdot b_n} \le M \cdot \abs{b_n}
+  < M \cdot \frac \eps M = \eps.
 \]
 Dunque è verificata la definizione di limite $a_n \cdot b_n \to 0$.
 \end{proof}
@@ -749,21 +793,24 @@ Dunque è verificata la definizione di limite $a_n \cdot b_n \to 0$.
 \label{th:limite_prodotto}
 \mymark{***}
 \mymargin{limite del prodotto}
-Se $a_n \to a$ e $b_n \to b$
-e se escludiamo il caso in cui uno dei due limiti
+Siano $a_n\in \RR$ e $b_n\in \RR$ successioni
+che ammettono limite $a_n \to a\in \bar \RR$ e $b_n \to b\in \bar \RR$.
+Se escludiamo il caso in cui uno dei due limiti
 è zero e l'altro è infinito
-allora
+allora risulta
 \[
   a_n \cdot b_n \to a\cdot b.
 \]
+
+Lo stesso risultato vale per successioni $a_n,b_n\in \CC$ con limite in $\bar \CC$.
 \end{theorem}
 \begin{proof}
 \mymark{**}
 Se $a$ e $b$ sono entrambi finiti si osserva che
 \begin{align*}
-  a_n \cdot b_n - a\cdot b
-  &= a_n \cdot b_n - a_n \cdot b + a_n \cdot b - a\cdot b\\
-  &\le a_n \cdot(b_n - b) + (a_n -a) \cdot b.
+  \abs{a_n \cdot b_n - a\cdot b}
+  &= \abs{a_n \cdot b_n - a_n \cdot b + a_n \cdot b - a\cdot b}\\
+  &\le \abs{a_n} \cdot\abs{b_n - b} + \abs{a_n -a} \cdot \abs{b}.
 \end{align*}
 Sappiamo che $b_n - b \to 0$ e $a_n - a \to 0$ (limite della differenza)
 e sappiamo che $a_n$ è limitata e ovviamente la successione costante $b$ è anch'essa limitata.
@@ -787,7 +834,7 @@ ad una delle due successioni e ricondursi al caso precedente.
 \label{th:limite_reciproco}
 \mymark{**}
 \mymargin{limite del reciproco}
-Sia $a_n \to a$.
+Sia $a_n\in \RR$ una successione che ammette limite $a_n \to a\in \bar \RR$.
 Se $a\neq 0$ allora
 \[
   \frac{1}{a_n} \to \frac{1}{a}.
@@ -800,6 +847,9 @@ Se $a=0$ ma $a_n<0$ per ogni $n\in \NN$ allora
 \[
   \frac{1}{a_n} \to -\infty.
 \]
+
+Nel caso complesso non ci sono eccezioni.
+Se $a_n\to a \in \bar \CC$ allora $1/a_n \to 1/a$.
 \end{theorem}
 %
 \begin{proof}
