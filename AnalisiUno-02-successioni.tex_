@@ -1246,6 +1246,35 @@ Vediamo quindi che una successione che non ammette limite
 può contenere una sottosuccessione che invece ha limite.
 \end{example}
 
+Osserviamo che se $\vec n\colon \NN\to \NN$ è una
+funzione strettamente crescente
+(cioè $n_k=\vec n(k)$ è una successione strettamente crescente di indici)
+allora posto $A=\vec n(\NN)=\{n_k\colon k\in \NN\}$ si ha che
+$\vec n \colon \NN \to A$ è una bigezione. Quindi $A$ è un insieme infinito.
+Viceversa dato un qualunque insieme infinito $A\subset \NN$ esiste una
+unica successione $\vec n\colon \NN \to A$ bigettiva e strettamente crescente:
+basterà porre, per induzione,
+$n_0 = \min A$, $n_1 = \min \{n\in A \colon n > n_0\}$
+e, in generale,
+ $n_{k+1} = \min\{ n\in A \colon n > n_k\}$.
+
+Dunque possiamo identificare le sottosuccessioni di una successione
+$\vec a \colon \NN \to \RR$ con le restrizioni ai sottoinsiemi infiniti di $\NN$.
+Nell'esempio precedente, ad esempio, si è considerata la sottosuccessione
+di tutti i termini con indice pari $n_k=2k$ per ottenere la sottosuccessione
+$a_{n_k} = a_{2k}$. Si può equivalentemente pensare di prendere l'insieme di
+tutti i numeri pari $A=2\NN$ e considerare la successione ristretta ai soli
+indici pari:
+\[
+  a_0, a_2, a_4, \dots
+\]
+Se rinumeriamo gli indici pari usando tutti i numeri naturali otteniamo
+la sottosuccessione $b_k=a_{n_k}$:
+\[
+  b_0 = a_0,\ b_1 = a_2,\ b_2 = a_4,\ \dots,\ b_k = a_{n_k},\ \dots
+\]
+
+
 \begin{theorem}[cambio di variabile nei limiti]
 \mymargin{cambio di variabile nei limiti}
 Se $n_k$ è una successione di numeri naturali con $n_k\to +\infty$
@@ -1299,6 +1328,8 @@ dei valori è un insieme infinito di numeri naturali che quindi non può che
 essere illimitato. Dunque $\sup n_k = +\infty$ e dalla monotonia
 otteniamo $\lim n_k = \sup n_k = +\infty$.
 \end{proof}
+
+
 
 \begin{theorem}[Bolzano-Weierstrass]
 \mymark{***}
@@ -1371,6 +1402,73 @@ sotto-sotto-successione $y_{n_{k_j}}$ convergente.
 Dunque la sotto-sotto-successione $a_{n_{k_j}}$ è convergente.
 \end{proof}
 
+\begin{corollary}\label{cor:12394}
+  Sia $a_n$ una successione qualunque (reale o complessa). Allora esiste
+  una sottosuccessione $a_{n_k}$ che ha limite (in $\bar \RR$ o in $\bar \CC$).
+
+  Più precisamente se la successione è limitata allora ammette una estratta convergente,
+  se è reale e superiormente illimitata allora ammette
+  una estratta con limite $+\infty$,
+  se è reale e inferiormente illimitata ammette
+  una estratta con limite $-\infty$,
+  se è complessa e illimitata ammette
+  una estratta con limite $\infty$.
+\end{corollary}
+%
+\begin{proof}
+  Se $a_n$ è limitata il risultato segue dal teorema di Bolzano-Weierstrass.
+
+  Se $a_n$ è reale e non è superiormente limitata
+  allora per ogni $M\in \RR$ esiste $n$ tale che $a_n \ge M$.
+  Allora scegliamo $n_0\in \NN$ in modo che $a_{n_0}\ge 0$ e poi
+  definiamo, induttivamente $n_k$ in modo che
+  \[
+   a_{n_{k+1}}\ge \max\{k+1, a_0, a_1, \dots, a_{n_k}\}.
+  \]
+  Se $a_n$ è superiormente limitata è sempre possibile soddisfare la precedente
+  relazione. Chiaramente $a_{n_k} \ge k \to +\infty$ e quindi abbiamo
+  mostrato che esiste una sottosuccessione che tende a $+\infty$.
+
+  In modo analogo si svolge il caso in cui $a_n$ si inferiormente illimitata.
+
+  Se $a_n$ è una successione illimitata complessa allora significa che
+  $\abs{a_n}$ è superiormente illimitata e quindi, per quanto detto sopra,
+  esiste una sottosuccessione tale che $\abs{a_{n_l}}\to +\infty$.
+  Ma questo significa che $a_{n_k} \to \infty$.
+\end{proof}
+
+Il seguente lemma
+non verrà usato in seguito ma può essere interessante di per sé.
+Si osservi che tale lemma fornisce una dimostrazione alternativa
+del teorema di Bolzano-Weierstrass in quanto ogni sottosuccessione monotona
+ammette limite.
+
+\begin{lemma}[estratte monotone]
+Ogni successione $a_n\in \RR$ ammette una estratta monotona.
+\end{lemma}
+%
+\begin{proof}
+Consideriamo l'insieme $P$ dei punti di ``picco'', ovvero degli indici
+di quei termini della successione che sono maggiori o uguali a tutti i termini
+seguenti:
+\[
+  P = \{n\in \NN\colon m\ge n \implies a_n\ge a_m\}.
+\]
+Se $P$ è finito significa che esiste un indice $n_1\in \NN$ tale
+che non ci sono picchi da $n_1$ in poi. In particolare $n_1$ non è un punto di
+picco
+quindi deve esistere $n_2>n_1$ tale che $a_{n_1}<a_{n_2}$.
+Ma neanche $n_2$ è un punto di picco quindi deve esistere $n_3>n_2$ tale
+che $a_{n_2}<a_{n_3}$... procedendo induttivamente si riesce quindi a definire
+una successione $n_k$ di indici tali che $a_{n_k}$ risulta essere strettamente
+crescente.
+
+Se, viceversa, $P$ è infinito allora elencando in ordine i suoi elementi otterremo
+una successione $n_1 < n_2 < n_3, \dots$ di indici ognuno dei quali corrisponde ad un valore
+di picco. Se $j>k$ si ha dunque $n_j>n_k$ ed essendo $n_k\in P$ significa che
+$a_{n_j} \le a_{n_k}$. Dunque la successione $a_{n_k}$ risulta essere decrescente.
+\end{proof}
+
 \begin{theorem}[Cantor: secondo metodo diagonale]
 \mymargin{non numerabilità dei reali}
 \index{secondo metodo diagonale di Cantor}
@@ -1414,6 +1512,28 @@ Dunque il numero $\ell$ non è un termine della successione $a_n$
 ovvero la funzione $a\colon \NN \to [0,1]$ non è suriettiva.
 \end{proof}
 
+\begin{proposition}[proprietà fondamentale della convergenza]
+  \label{prop:convergenza}
+Sia data una successione e un candidato punto limite $\ell$.
+Se da ogni sottosuccessione è possibile estrarre una sotto-sottosuccessione
+che ha limite $\ell$ allora l'intera successione ha limite $\ell$.
+\end{proposition}
+%
+\begin{proof}
+  Sia $a_n$ la successione.
+  Se per assurdo non fosse $a_n \to \ell$
+  allora esisterebbe un intorno $B\in \B_\ell$ tale che
+  per ogni $k\in \NN$ esisterebbe $n\in \NN$ con $n>k$
+  tale che $a_n\not \in B$. In effetti $n$ dipende da $k$
+  quindi potremmo scrivere $n=n_k$. La condizione $n_k>k$ garantisce
+  che $k\to +\infty$. Ma allora a patto di riordinare i termini
+  possiamo suppore che $n_k$ sia strettamente crescente e quindi
+  che $a_{n_k}$ sia una sottosuccessione tale che $a_{n_k}\not \in B$.
+  Ma allora da $a_{n_k}$ non è possibile estrarre una sottosuccessione
+  che converga ad $\ell$ perché ogni sottosuccessione mantiene la proprietà
+  di stare fuori da $B$.
+\end{proof}
+
 \begin{definition}[punti limite, limite superiore, limite inferiore]
 Sia $a_n$ una successione.
 Una quantità $\ell\in \bar\RR$ si dice essere
@@ -1449,9 +1569,10 @@ quella dei termini di indice dispari è costante $-1$.
 \end{example}
 %
 \begin{theorem}[proprietà del limite superiore/inferiore]
-Siano $a_n$ e $b_n$ successioni.
-Valgono le seguenti proprietà:
+Sia $a_n$ una successione reale e sia $L$ l'insieme dei suoi punti
+limite. Allora
 \begin{enumerate}
+<<<<<<< HEAD
   \item
     L'insieme $L$ dei punti limite di una successione ha massimo e minimo in
     $\bar \RR$:
@@ -1469,71 +1590,193 @@ Valgono le seguenti proprietà:
 
   \item
   $\limsup a_n \ge \liminf a_n$;
+=======
+  \item $L\neq \emptyset$
+>>>>>>> cf9c04adfe283598e86bafbd034072dc779d7acf
+
+  \item $\limsup a_n \ge \liminf a_n$;
+
+  \item se $\limsup a_n = \liminf a_n = \ell$ allora $\lim a_n = \ell$;
 
   \item
-  $\liminf a_n = - \limsup (-a_n)$;
-
-  \item
-    Se $\lambda \ge 0$
-    $\displaystyle
-    \limsup \lambda a_n = \lambda \limsup a_n$,
-    $\displaystyle
-    \liminf \lambda a_n = \lambda \liminf a_n$.
+  l'insieme dei punti limite è chiuso per passaggio al limite:
+  se $x_k\in L$ e $x_k \to \ell$ per qualche $\ell \in \bar \RR$ allora $\ell \in L$;
 
   \item
   esiste una sottosuccessione $a_{n_k}$ tale che
   $a_{n_k} \to \limsup a_n$ (idem per quanto riguarda
   il $\liminf$);
 
-  \item
-  il $\lim a_n$ esiste ed è uguale ad $\ell$ se e solo se
-  se $\limsup a_n = \liminf a_n = \ell$;
+  \item $a_n$ è superiormente limitata se e solo se $\limsup a_n < +\infty$;
+  $a_n$ è inferiormente limitata se e solo se $\liminf a_n > -\infty$;
 
+<<<<<<< HEAD
   \item
   la successione $a_n$ è superiormente limitata
   se e solo se $\limsup a_n < +\infty$;
   è inferiormente limitata se e solo se $\liminf a_n > +\infty$;
+=======
+  \item Se $\ell\in \RR$ la condizione
+  $\limsup a_n = \ell$ è equivalente a
+  \[
+    \forall \eps>0\colon
+      \begin{cases}
+        a_n < \ell+\eps \text{ definitivamente,}\\
+        a_n > \ell-\eps \text{ frequentemente}
+      \end{cases}
+  \]
+  e la condizione $\liminf a_n = \ell$ è equivalente a
+  \[
+    \forall \eps>0\colon
+     \begin{cases}
+       a_n > \ell-\eps \text{ definitivamente,}\\
+       a_n < \ell +\eps \text{ frequentemente;}
+     \end{cases}
+  \]
 
-  \item
-  $\displaystyle
-  \limsup (a_n + b_n) \le \limsup a_n + \limsup b_n$,
-  $\displaystyle
-  \liminf (a_n + b_n) \ge \liminf a_n + \liminf b_n$,
+  \item $\displaystyle \limsup_{n\to +\infty} a_n = \lim_{n\to +\infty} \sup_{k\ge n} a_k$,
+  $\qquad\displaystyle \liminf_{n\to +\infty} a_n = \lim_{n\to +\infty} \inf_{k\ge n} a_k$.
 
  \end{enumerate}
 \end{theorem}
 %
+\begin{proof}
+  Per il punto 1.\
+  il corollario~\ref{cor:12394} garantisce che sia $L\neq \emptyset$ e
+  quindi $\sup L \ge \inf L$ da cui discende il punto 2.
+
+  Per il punto 3.\ se $\limsup = \liminf = \ell$ significa che $L=\{\ell\}$
+  ha un solo elemento. Ma per il corollario al teorema di Bolzano Weierstrass
+  sappiamo che da ogni sottosuccessione è possibile estrarre una sotto-sottosuccessione
+  che ammette limite. Per definizione di $L$ tale limite deve essere in $L$
+  e quindi non può che essere $\ell$. Allora per la proposizione~\ref{prop:convergenza}
+  deduciamo che l'intera successione ha limite $\ell$.
+
+  Per il punto 4.\ sia $x_k\in L$ una successione di punti limite
+  e sia $\ell\in \bar \RR$ tale che $x_k \to \ell$ per $k\to +\infty$.
+  Se $\ell = +\infty$ basta dimostrare che $a_n$ non può essere superiormente
+  limitata. Ma questo è chiaro, perché se fosse $a_n \le M$ per qualche $M\in \RR$
+  allora si avrebbe $x_k\le M$ (per i teoremi di confronto) e quindi non potrebbe
+  essere $x_k \to \ell=+\infty$. Discorso analogo vale se $\ell = -\infty$.
+  Supponiamo allora che sia $\ell \in \RR$.
+  Per dimostrare che
+  $\ell \in L$ dobbiamo trovare una sottosuccessione $a_{n_k}$ di $a_n$ tale
+  che $a_{n_k}\to \ell$ per $k\to +\infty$.
+  Se per qualche $j$ fosse $x_k=\ell$ avremmo finito perché $\ell = x_k\in L$.
+  Supponiamo dunque che sia $x_k\neq \ell$ per ogni $k\in \NN$.
+  Fissato $k$ sappiamo che $x_k \in L$. Significa che esiste una sottosuccessione
+  $a_{n_{k,j}} \to x_k$ per $j\to +\infty$ (la sottosuccessione può dipendere
+  anche dal $k$ che abbiamo fissato quindi invece di scrivere
+  $n_j$ scriviamo $n_{k,j}$ osservando però che il limite viene fatto per
+  $j\to +\infty$ con $k$ fissato). Ma allora per ogni $k$ possiamo trovare
+  un $j=j(k)$ tale che $\abs{a_{n_{k,j}}-x_k} < 1/k$.
+  Visto che $j$ può essere scelto arbitrariamente grande, possiamo
+  Posto $n_k = n_{k,j(k)}$ abbiamo quindi garantito che
+  \[
+    \abs{a_{n_k} - \ell}
+    \le \abs{a_{n_k} - x_k} + \abs{x_k -\ell}
+    \le \frac 1 k + \abs{x_k-\ell} \to 0+0 = 0.
+  \]
+  Visto che $j$ poteva essere scelto arbitrariamente grande,
+  al crescere di $k$ possiamo anche supporre che sia $n_{k+1}>n_k$ e dunque
+  abbiamo trovato una sottosuccessione $a_{n_k}$ tale che $a_{n_k}\to \ell$.
+
+  Il punto 5.\ si può esprimere dicendo che $\sup L\in L$ e $\inf L \in L$.
+  Infatti se fosse $\sup L \not \in L$ per la definizione di $\sup$ esisterebbe
+  una successione di punti $x_k\in L$ tale che $x_k \to \sup L$. Ma allora per il
+  punto 3.\ avremmo $\sup L \in L$. Lo stesso per l'$\inf$.
+
+  Il punto 6.\ segue dal corollario~\ref{cor:12394}: se una successione
+  non è limitata superiormente (o inferiormente)
+  esiste una estratta che tende a $+\infty$ (o a $-\infty$) e quindi
+  $\limsup  = +\infty$ (o $\liminf = -\infty$).
+  Viceversa se $\limsup = +\infty$ (o se $\liminf = -\infty$)
+  per il punto 3.\ sappiamo esistere
+  una sottosuccessione che tende a $+\infty$ (o a $-\infty$)
+  quindi né la sottosuccessione
+  né l'intera successione può essere superiormente (o inferiormente) limitata.
+
+  Per il punto 7.\ facciamo la dimostrazione per il $\limsup$ (per il $\liminf$
+  sarà analogo). Se $\limsup a_n = \ell$ e se fosse frequentemente
+  $a_n \ge \ell +\eps$ allora esisterebbe una sottosuccessione $a_{n_k}\ge \ell +\eps$.
+  Tale sottosuccessione avrebbe una sotto-sottosuccessione che ammette limite $\ell'$
+  e per i teoremi di confronto dovrebbe essere $\ell'\ge \ell +\eps$.
+  Ma $\ell'\in L$ e dunqe $\ell'\le \sup L = \ell$. Assurdo. Se invece si
+  avesse definitivamente $a_n\le \ell-\eps$ allora ogni sottosuccessione convergente
+  $a_{n_k}$ dovrebbe avere limite inferiore ad $\ell-\eps$.
+  Quindi si dovrebbe avere $\sup L<\ell-\eps$, assurdo.
+  Viceversa supponiamo che valgano le due proprietà $a_n<\ell+\eps$ definitivamente
+  e $a_n>\ell-\eps$ frequentemente. Se fosse $\limsup a_n =\ell' > \ell$ esisterebbe
+  una sottosuccessione $a_{n_k}\to \ell' > \ell$. Ma allora frequentemente
+  $a_n>\ell$ contro la prima proprietà. Se invece fosse $\limsup a_n = \ell' < \ell$
+  scegliamo $\eps = (\ell - \ell')/2$. Sappiamo che frequentemente $a_n > \ell'+\eps$
+  e dunque
+  esiste una sottosuccessione $a_{n_k}\ge \ell'+\eps$.
+  Da tale sottosuccessione è possibile
+  estrarre una sotto-sottosuccessione che ammette limite e tale limite dovrà
+  essere $\ge \ell'+\eps > \ell'$. Questo è assurdo in quanto avremmo
+  $\ell' = \sup L>\ell'$.
+
+  Per il punto 8.\ facciamo la dimostrazione per il $\limsup$ (per il $\liminf$
+  sarà analogo). Posto $A_k = \sup_{n\ge k} a_n$ osserviamo che $A_k$ è decrescente
+  in quanto all'aumentare di $k$ l'insieme $\{n\ colon n \ge k\}$ diminuisce e quindi
+  il $\sup$ non aumenta. Dunque $\lim A_k$ esiste certamente.
+  Inoltre, fissato $k$, per le proprietà del $\sup$ deve esistere $n_k$ tale che
+  $a_{n_k}$
+\end{proof}
+
+\begin{theorem}[operazioni con $\limsup$ e $\liminf$]
+Siano $a_n$ e $b_n$ due successioni reali. Si ha:
+\begin{enumerate}
+  \item
+  $\limsup (-a_n) = -\liminf a_n$, $\qquad\liminf (-a_n) = -\limsup a_n$;
+>>>>>>> cf9c04adfe283598e86bafbd034072dc779d7acf
+
+  \item
+    se $\lambda \ge 0$ allora
+    \[
+    \limsup \lambda a_n = \lambda \limsup a_n, \qquad
+    \liminf \lambda a_n = \lambda \liminf a_n;
+    \]
+
+  \item
+  si ha
+  \begin{gather*}
+  \limsup (a_n + b_n) \le \limsup a_n + \limsup b_n,
+  \\
+  \liminf (a_n + b_n) \ge \liminf a_n + \liminf b_n.
+  \end{gather*}
+\end{enumerate}
+\end{theorem}
+<<<<<<< HEAD
+%
 \begin{lemma}[estratte monotone]
 Ogni successione $a_n\in \RR$ ammette una estratta monotona.
 \end{lemma}
+=======
+>>>>>>> cf9c04adfe283598e86bafbd034072dc779d7acf
 %
 \begin{proof}
-Consideriamo l'insieme $P$ dei punti di ``picco'', ovvero degli indici
-di quei termini della successione che sono maggiori o uguali a tutti i termini
-seguenti:
-\[
-  P = \{n\in \NN\colon m\ge n \implies a_n\ge a_m\}.
-\]
-Se $P$ è finito significa che esiste un indice $n_1\in \NN$ tale
-che non ci sono picchi da $n_1$ in poi. In particolare $n_1$ non è un punto di
-picco
-quindi deve esistere $n_2>n_1$ tale che $a_{n_1}<a_{n_2}$.
-Ma neanche $n_2$ è un punto di picco quindi deve esistere $n_3>n_2$ tale
-che $a_{n_2}<a_{n_3}$... procedendo induttivamente si riesce quindi a definire
-una successione $n_k$ di indici tali che $a_{n_k}$ risulta essere strettamente
-crescente.
+  Per il punto 1.\ basti osservare che se la successione $a_n$ ha $L$ come
+  insieme dei punti limite allora la successione $-a_n$ ha $-L$ come punti
+  limite. Quindi $\sup (-L) = -\inf L$ e $\inf(-L) = -\sup L$.
 
-Se, viceversa, $P$ è infinito allora elencando in ordine i suoi elementi otterremo
-una successione $n_1 < n_2 < n_3, \dots$ di indici ognuno dei quali corrisponde ad un valore
-di picco. Se $j>k$ si ha dunque $n_j>n_k$ ed essendo $n_k\in P$ significa che
-$a_{n_j} \le a_{n_k}$. Dunque la successione $a_{n_k}$ risulta essere decrescente.
+  Per il punto 2.\ si osservi che se $L$ è l'insieme dei punti limite
+  di $a_n$ allora l'insieme dei punti limite di $\lambda a_n$ è $\lambda L$.
+  Se $\lambda \ge 0$ si ha dunque $\sup \lambda L = \lambda \sup L$
+  e $\inf \lambda L = \lambda \inf L$ (se $\lambda<0$ invece $\inf$ e $\sup$
+  si scambiano, come nel punto 1).
+
+  Per il punto 3.\ consideriamo il caso del $\limsup$ (per il $\liminf$ sarà analogo).
+  Se $\ell = \limsup(a_n+b_n)$ significa che esiste una sottosuccessione
+  di $a_n+b_n$ che ha limite $\ell$. Ma posso estrarre una sotto-sottosuccessione
+  tale che anche il primo addendo $a_n$ abbia limite. E poi posso estrarre
+  una sotto-sotto-sottosuccesione in modo che anche il secondo addendo $b_n$
+  abbia limite. Dunque, a meno di sottosuccessioni, avremo $a_n \to a$, $b_n \to b$
+  con $a+b=\ell$.
+  Ma allora per definizione di $\limsup$ si avrà $\limsup a_n \ge a$
+  e $\limsup b_n \ge b$ da cui $\limsup a_n + \limsup b_n \ge a+b = \ell$.
 \end{proof}
-
-Si osservi che il precedente lemma fornisce una dimostrazione alternativa
-del teorema di Bolzano-Weierstrass in quanto ogni successione monotona
-ammette limite e dunque ogni successione ammette una estratta che ha limite.
-Se poi la successione era limitata tale limite dovrà necessariamente essere
-finito.
 
 \section{il teorema degli zeri}
 
@@ -1609,10 +1852,23 @@ dovrà esserci un punto $x$ in cui $g$ si annulla. In tale punto
 si avrà dunque $f(x)=y$, come volevamo dimostrare.
 \end{proof}
 
-\begin{exercise}
+\begin{lemma}
 Si dimostri che se $I$ è un intervallo di $\RR$ ogni funzione $f\colon I \to \RR$
 iniettiva e continua è strettamente monotona.
-\end{exercise}
+\end{lemma}
+%
+\begin{proof}
+Si può osservare che una funzione è strettamente monotona se mantiene i valori
+intermedi cioè se dati tre punti
+$x<y<z$ risulta sempre che $f(y)$ è un valore intermedio tra $f(x)$ e $f(z)$:
+\[
+  f(x)< f(y) <f(z) \qquad\text{oppure} \qquad f(x)> f(y) > f(z).
+\]
+Se ciò non accadesse, ad esempio se fosse $f(y)>f(z)>f(x)$ con $x<y<z$
+allora per la continuità di $f$ dovrebbe esistere un valore intermedio
+tra $x$ e $y$ in cui la funzione assume il valore $f(z)$. Ma allora la funzione
+non sarebbe iniettiva.
+\end{proof}
 
 \begin{lemma}[caratterizzazione delle funzioni monotone continue]
 Sia $I\subset\RR$ un intervallo e sia $f\colon I \to \RR$ una
