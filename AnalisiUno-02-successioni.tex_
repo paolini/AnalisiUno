@@ -1797,6 +1797,46 @@ D'altra parte $f(B_n) \ge 0$ e quindi $f(c)\ge 0$.
 Si ottiene dunque $f(c) = 0$, come volevamo dimostrare.
 \end{proof}
 
+\begin{example}
+Si voglia risolvere l'equazione
+\[
+  x^5-x-1=0.
+\]
+Posto $f(x) = x^5-x-1$ è chiaro che la funzione $f\colon \RR\to \RR$
+è continua (in quanto composizione di funzioni continue).
+Osserviamo che $f(0) = -1$ e $f(2)=29$, dunque la funzione
+soddisfa le ipotesi del teorema degli zeri sull'intervallo $[0,2]$.
+Sappiamo quindi che l'equazione in questione ha almeno una soluzione
+in tale intervallo.
+
+Utilizzando il metodo di bisezione possiamo determinare una soluzione
+con precisione arbitraria. Posto $A_0=0$, $B_0=2$ abbiamo verificato che
+$f(A_0)<0$ e $f(B_0)>0$.
+Prendiamo il punto
+medio $C_0=1$ e calcoliamo la funzione: $f(C_0)=-1 < 0$. Sappiamo
+allora che una soluzione deve essere compresa nell'intevallo
+$[A_1,B_1] = [C_0,B_0] = [1,2]$ perché anche in tale intervallo valgono le ipotesi
+del teorema degli zeri.
+Il punto medio di tale intervallo è $C_1=3/2 = 1.5$
+e risulta $f(3/2) = 163/32>0$ dunque l'intervallo successivo
+che andremo a considerare è $[A_2,B_2]=[1,3/2]$.
+Per non dover lavorare con troppe cifre decimali invece di suddividere
+esattamente a metà quest'ultimo intervallo consideriamo un punto
+intermedio $C_2 = 6/5 = 1.2$ dove si ha $f(C_2)=901/3125>0$.
+Sappiamo allora che una soluzione è compresa nell'intervallo
+$[A_3,B_3] = [1,1.2]$. Prendiamo il punto medio $C_3=11/10=1.1$
+e troviamo $f(C_3) = -48949/10^5 <0$. Abbiamo quindi ottenuto
+che esiste $x\in (1.1,1.2)$ tale che $f(x)=0$. Sappiamo quindi
+che $\abs{x-1.15} < 0.05$ cioè abbiamo trovato $x$ con un errore
+inferiore a $0.05$.
+
+Con molta pazienza (oppure utilizzando una calcolatrice) si può procedere
+con il metodo di bisezione fino ad arrivare a verificare
+che $f(116/10^2)$ $=$ $-596583424/10^{10}<0$ e $f(117/10^2)=224480357/10^{10}>0$ da cui
+si ottiene che una soluzione è compresa tra $1.16$ e $1.17$ con un errore
+inferiore a $0.005$.
+\end{example}
+
 \begin{corollary}[proprietà dei valori intermedi]
 \mymark{**}
 \mymargin{proprietà dei valori intermedi}
@@ -2052,6 +2092,7 @@ che è proprio quello che volevamo dimostrare.
 \end{proof}
 
 \begin{theorem}[limite della radice $n$-esima]
+\label{th:limite_radice}
 \mymark{**}
 \mymargin{limite della radice $n$-esima}
 Se $a>0$
@@ -2091,20 +2132,22 @@ La funzione $f(x) = a^x$ si ottiene dal seguente teorema.
   \label{th:esponenziale}
 \mynote{funzione esponenziale}
 \index{funzione!esponenziale}
-Per ogni $a>1$ esiste una unica funzione $f\colon \RR \to \RR$
+Per ogni $a>0$ esiste una unica funzione $f\colon \RR \to \RR$
 con le seguenti proprietà:
 \begin{enumerate}
-\item $f$ è crescente;
 \item $f(1) = a$;
 \item per ogni $x,y\in \RR\colon f(x+y) = f(x)\cdot f(y)$.
+\item $f$ è monotòna;
 \end{enumerate}
-Tale funzione risulta inoltre essere positiva,
-strettamente crescente e
+Tale funzione risulta inoltre essere positiva, e
 continua, soddisfa la relazione $f(-x)= 1/f(x)$ e
 se $p\in \ZZ$ e $q\in \NN\setminus\{0\}$ risulta
 \[
   f\enclose{\frac p q} = \sqrt[q]{a^p}.
 \]
+Inoltre se $a>1$ tale funzione è strettamente crescente,
+se $a<1$ tale funzione è strettamente decrescente e se $a=1$
+tale funzione è costante.
 \end{theorem}
 %
 \begin{proof}
@@ -2160,7 +2203,8 @@ coerentemente su tutto $\QQ$
 tramite
 la \eqref{eq:def_pow_0}.
 
-Verifichiamo ora che $f$ deve essere strettamente crescente su $\QQ$.
+Supponiamo d'ora in poi che sia $a>1$
+e verifichiamo che in tal caso $f$ deve essere strettamente crescente su $\QQ$.
 Se $x,y \in \QQ$
 con $x<y$ si avra $x=p/q$, $y=n/m$ con $pm < nq$ allora
 $a^{pm} < a^{nq}$ e quindi
@@ -2181,7 +2225,7 @@ Definiamo ora
 \end{align*}
 Ovviamente $A_x < x < B_x$ (nel senso che per ogni $\alpha \in A_x$
 e per ogni $\beta \in B_x$ si ha $\alpha < x < \beta$).
-Se vogliamo che $f$ sia crescente si dovrà quindi avere
+Siccome vogliamo che $f$ sia crescente si dovrà avere
 $f(A_x) \le f(x) \le f(B_x)$ da cui in particolare
 $\sup f(A_x) \le f(x) \le \inf f(B_x)$.
 
@@ -2244,15 +2288,20 @@ nella relazione
   f(x_n+y_n) = f(x_n)\cdot f(y_n)
 \]
 sfruttando la continuità di $f$ si ottiene il risultato voluto.
+
+Nel caso $a<1$ si procede in maniera analoga, la funzione risulterà strettamente
+ decrescente su $\QQ$ e si potrà estendere in maniera su tutto $\RR$ mantenendo
+ la monotonia. Nel caso $a=1$ si vede che la funzione $f$ è costante $f(x)=1$
+ su $\QQ$ e quindi
+per mantenere la monotonia l'unico modo per estendere $f$ a tutto $\RR$ è quello
+di mantenere la stessa costante.
 \end{proof}
 
 \begin{definition}[potenze con esponente reale]
 \mymargin{potenze con esponente reale}
-Sia $a\in \RR$ e $x\in \RR$.
-Se $a>1$ definiamo $a^x$ come
+Sia $a\in \RR$, $a>0$ e $x\in \RR$.
+Definiamo $a^x$ come
 l'unica funzione definita dal teorema precedente.
-Per $a=1$ definiamo $a^x = 1^x = 1$ per ogni $x\in \RR$.
-Per $0<a<1$ definiamo $a^x = (1/a)^{-x}$.
 \mymargin{$a^x$}
 \end{definition}
 
@@ -2583,7 +2632,7 @@ Sapendo che
 \]
 e ponendo $n=1$ otteniamo $2\le e \le 4$.
 
-\begin{exercise}
+\begin{exercise}\label{ex:4876765}
 Posto $a_n = \frac{n^n}{n!}$ mostrare che $\frac{a_{n+1}}{a_n} \to e$.
 \end{exercise}
 
@@ -2722,30 +2771,104 @@ in altri testi si considera $\log = \log_{10}$.
 \section{ordini di infinito}
 
 \begin{theorem}[criterio della radice]
+\label{th:criterio_radice}
 \mymark{***}
 \mynote{criterio della radice}
 \index{criterio!della radice per successioni}
 Sia $a_n$ una successione a termini positivi tale che
 \[
-  \sqrt[n]{a_n} \to \ell.
+  \sqrt[n]{a_n} \to \ell
 \]
+con $\ell \in \bar \RR$.
 Allora se $\ell<1$ si ha $a_n \to 0$ se invece $\ell > 1$ si ha $a_n \to +\infty$.
 \end{theorem}
 %
 \begin{proof}
 \mymark{**}
-Se $\ell < 1$ esiste $q$ tale che $\ell < q < 1$.
-Scelto $\eps = q- \ell$
-per definizione di limite esiste un $N$ tale che per ogni $n> N$ si ha $\sqrt[n]{a_n} < \ell +\eps = q$. Dunque
-\[
-  0 < a_n \le q^n
-\]
-e per il teorema dei carabinieri, visto che $q^n\to 0$ si ottiene, come voluto, $a_n \to 0$.
+Consideriamo prima il caso $\ell < 1$.
+Se $\lim \sqrt{a_n} = \ell$ significa che per ogni $\eps>0$ la successione
+$\sqrt{a_n}$ risulta definitivamente minore di $\ell +\eps$.
+Scegliendo opportunamente $\eps$ (ad esempio $\eps = (1-\ell)/2$) si potrà
+avere $q = \ell+\eps < 1$. Dunque avremo definitivamente $\sqrt[n]{a_n}< q$
+ovvero $a_n < q^n$. Per ipotesi $a_n\ge 0$
+e quindi, tolto un numero finito di termini, si ottiene $0 \le a_n < q^n \to 0$
+da cui $a_n \to 0$ (in quanto l'aver tolto un numero finito di termini non
+cambia né il carattere né il limite della successione).
 
-Se $\ell>1$ possiamo ripetere la dimostrazione con $q>1$ o ricondurci al caso precedente considerando la successione $1/a_n$.
+Se $\ell>1$ si potrà procedere in maniera analoga. Esisterà $q$ con $1 < q < \ell$ tale che definitivamente $\sqrt[n]{a_n} > q$ da cui $a_n > q^n \to +\infty$.
 \end{proof}
 
-\begin{theorem}[criterio del rapporto alla Cesàro]
+\begin{proof}[Dimostrazione alternativa]
+  Si può osservare che
+  \[
+    a_n = \enclose{\sqrt[n]{a_n}}^n
+     = e^{n \cdot \ln \sqrt[n]{a_n}}.
+  \]
+  Se $\ell <1$ allora il logaritmo tende ad un numero negativo,
+  l'argomento dell'esponenziale tende a $-\infty$ e quindi l'esponenziale tende a zero. Se invece $\ell>1$ il logaritmo tende ad un numero positivo e quindi l'esponenziale tende a $+\infty$.
+\end{proof}
+
+\begin{theorem}[criterio del rapporto]
+\label{th:criterio_rapporto}
+\index{criterio del rapporto per le successioni}
+\index{rapporto!criterio del}
+  Sia $a_n$ una successione reale a termini non negativi
+  $a_n \ge 0$ tale che esista il limite del rapporto di due termini consecutivi:
+  \[
+     \frac{a_{n+1}}{a_n} \to \ell \in \bar \RR.
+  \]
+  Se $\ell < 1$ allora $a_n \to 0$, se $\ell >1$ allora $a_n \to +\infty$.
+\end{theorem}
+%
+\begin{proof}
+Supponiamo sia $\ell<1$. Posto $q=(1+\ell)/2$ si ha $q < \ell < 1$ e posto $\eps=q-\ell>0$ per la definizione di limite $\frac{a_{n+1}}{a_n}\to \ell$ dovrà esistere un $N\in \NN$ tale
+che per ogni $n\ge N$ si abbia:
+\[
+  \frac{a_{n+1}}{a_n} < \ell + \eps = q
+\]
+ovvero $a_{n+1} < q \cdot a_n$. In particolare si avrà:
+\begin{align*}
+  a_{N+1} &< q \cdot a_N \\
+  a_{N+2} &< q \cdot a_{N+1} < q^2\cdot a_N \\
+  a_{N+3} &< q \cdot a_{N+2} < q^3\cdot a_N \\
+  \vdots
+\end{align*}
+ed è chiaro che per induzione potremo dimostrare che per
+ogni $k\in \NN$ si ha
+\[
+  a_{N+k} < q^k\cdot a_N.
+\]
+Osserviamo però che $q^k \cdot a_N \to 0$ per $k\to +\infty$
+in quanto $q<1$ e quindi $q^k \to 0$. Dunque, tolti i primi $N$ termini, la successione $a_n$ tende a zero. Ma i primi $N$ termini non influenzano né il carattere né il limite della successione e quindi l'intera successione $a_n$ tende a zero.
+
+Il caso $\ell>1$ si fa in maniera analoga. Si sceglie $q$ tale
+che $1<q<\ell$ e si trova, in maniera analoga al caso precedente,
+che per un certo $N\in \NN$ e per ogni $k\in \NN$ si ha
+\[
+  a_{N+k} > q^k \cdot a_N \to +\infty.
+\]
+\end{proof}
+
+Osserviamo che, nel teorema precedente (ma anche nel criterio della radice),
+non si può concludere alcunché nel
+caso in cui sia $\ell = 1$.
+Ad esempio le due successioni $a_n = 1/n$ e $b_n = n$
+hanno limiti diversi ($a_n \to 0$, $b_n\to +\infty$) ma per entrambe
+il limite del rapporto di termini consecutivi tende ad $\ell=1$.
+
+\begin{exercise}
+Mostrare che
+\[
+  \lim \frac{n^n}{n!} = +\infty.
+\]
+Posto $a_n = 2^n / n!$ possiamo provare ad applicare il criterio del rapporto.
+Ci si riconduce all'esercizio~\ref{ex:4876765} dove abbiamo già visto
+che $a_{n+1} / a_n \to e$.
+Visto che $e>1$ per il criterio del rapporto possiamo affermare che
+$a_n \to +\infty$.
+\end{exercise}
+
+\begin{theorem}[Cesàro, relazione tra rapporto e radice]
 \label{th:criterio_cesaro}
 \mymark{*}
 \mynote{criterio del rapporto alla Cesàro}
@@ -2795,7 +2918,7 @@ ovvero
 < \sqrt[n]{a_n}
 < (\ell +\eps) \cdot \sqrt[n]{\frac{a_N}{(\ell -\eps)^N}}.
 \]
-Ricordiamo ora che per $n\to +\infty$
+Ricordiamo ora che per $n\to +\infty$ si ha (teorema~\ref{th:limite_radice})
 \[
 \sqrt[n]{\frac{a_N}{(\ell -\eps)^N}} \to 1
 \]
@@ -2830,40 +2953,9 @@ e (più difficile)
 \]
 \end{exercise}
 
-\begin{corollary}[criterio del rapporto/radice]
-\mynote{criterio del rapporto/radice}
-\index{criterio!del rapporto per successioni}
-\index{criterio!della radice per successioni}
-Sia $a_n$ una successione a termini positivi tale che
-il rapporto dei termini consecutivi abbia limite $\ell\in [0,+\infty]$:
-\[
-  \frac{a_{n+1}}{a_n} \to \ell.
-\]
-Se $\ell < 1$ allora $a_n \to 0$. Se $\ell>1$ allora $a_n \to +\infty$.
-
-Stessa conclusione si ha nel caso in cui
-\[
- \sqrt[n]{a_n} \to \ell.
-\]
-\end{corollary}
-%
-\begin{proof}
-Applicando il teorema precedente sappiamo che $\sqrt[n]{a_n}\to \ell$. Ma allora
-\[
-  a_n = \big(\!\sqrt[n]{a_n}\big)^n = e^{n\ln\sqrt[n]{a_n}}\to
-  e^{+\infty \cdot \ln \ell} =
-  \begin{cases}
-    0 & \text{se $\ell < 1$},\\
-    +\infty & \text{se $\ell > 1$}.
-  \end{cases}
-\]
-\end{proof}
-
-Osserviamo che, nel teorema precedente, non si può concludere alcunché nel
-caso in cui sia $\ell = 1$.
-Ad esempio le due successioni $a_n = 1/n$ e $b_n = n$
-hanno limiti diversi ($a_n \to 0$, $b_n\to +\infty$) ma per entrambe
-il limite del rapporto di termini consecutivi tende ad $\ell=1$.
+Si osservi che il teorema~\ref{th:criterio_cesaro} fornisce una dimostrazione
+alternativa del teorema~\ref{th:criterio_rapporto} in quanto lo riconduce
+al teorema~\ref{th:criterio_radice}.
 
 \begin{comment}
 \begin{proof}
@@ -2943,7 +3035,7 @@ della successione $b_n$ e scriveremo $a_n \ll b_n$ se vale
 \[
 \frac{a_n}{b_n} \to 0.
 \]
-Se $a_n \ll b_n$ diremo anche che $b_n$ è \myemph{molto più grande}
+Se $a_n \ll b_n$ diremo anche che $b_n$ è \emph{molto più grande}
 di $a_n$ e scriveremo $b_n \gg a_n$.
 \mymargin{$\gg$}
 \end{definition}
@@ -3046,20 +3138,15 @@ sappiamo che $y_n \ll a^{y_n}$ e dunque
 \end{proof}
 
 \begin{exercise}
-Calcolare
-\[
-  \lim_{n\to +\infty} \frac{\displaystyle \ln\sqrt{n^2+n^n}}{\displaystyle e^{1 + \ln n}\cdot \ln(n^2-n\sqrt n)}.
-\]
-\end{exercise}
-
-Calcolare
+Calcolare i seguenti limiti
 \begin{gather*}
+  \lim_{n\to +\infty} \frac{\displaystyle \ln\sqrt{n^2+n^n}}
+  {\displaystyle e^{1 + \ln n}\cdot \ln(n^2-n\sqrt n)}, \\
   \lim_{n\to +\infty} \frac{\sqrt{n! + 2^n}}{3^n}, \qquad
   \lim_{n\to +\infty} \frac{\sqrt{(2n)!}}{n^n}, \\
-  \lim_{n\to +\infty} \sqrt[n]{e^n + \pi^n}.
+  \lim_{n\to +\infty} \sqrt[n]{e^n + \sqrt{10^n}}.
 \end{gather*}
-
-Dimostrare che il limite $\lim_n \sin n$ non esiste.
+\end{exercise}
 
 %%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%
