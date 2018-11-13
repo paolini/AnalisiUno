@@ -1562,7 +1562,7 @@ quella dei termini di indice dispari è costante $-1$.
 \end{example}
 %
 \begin{example}
-  Visto che $\#QQ=\#NN$ esiste una funzione $\vec a \colon \NN \to \QQ$
+  Visto che $\#\QQ=\#\NN$ esiste una funzione $\vec a \colon \NN \to \QQ$
   surgettiva. Utilizzando la proprietà di densità dei numeri razionali
   si può dimostrare che l'insieme dei punti limite della corrispondente successione
   $a_n = \vec a(n)$ è tutto $\bar \RR$.
@@ -1717,8 +1717,15 @@ Siano $a_n$ e $b_n$ due successioni reali. Si ha:
   \begin{gather*}
   \limsup (a_n + b_n) \le \limsup a_n + \limsup b_n,
   \\
-  \liminf (a_n + b_n) \ge \liminf a_n + \liminf b_n.
+  \liminf (a_n + b_n) \ge \liminf a_n + \liminf b_n;
   \end{gather*}
+
+  \item
+  se $a_n \ge b_n$ allora
+  \[
+   \limsup a_n \ge \limsup b_n, \qquad \liminf a_n \ge \liminf b_n.
+  \]
+
 \end{enumerate}
 \end{theorem}
 %
@@ -1742,6 +1749,14 @@ Siano $a_n$ e $b_n$ due successioni reali. Si ha:
   con $a+b=\ell$.
   Ma allora per definizione di $\limsup$ si avrà $\limsup a_n \ge a$
   e $\limsup b_n \ge b$ da cui $\limsup a_n + \limsup b_n \ge a+b = \ell$.
+
+  Per il punto 4.\ si osserva che se $L = \limsup a_n$ allora
+  per ogni $\eps>0$ si ha definitivamente
+    $a_n\le L+\eps$ e di conseguenza anche $b_n\le L+\eps$.
+    Dunque $\limsup b_n \le L$. Se $\ell = \liminf b_n$ allora
+    per ogni $\eps>0$ si ha definitivamente $b_n \ge \ell-\eps$ ma
+    allora anche $a_n \ge \ell-\eps$ defitiviamente e quindi $\liminf a_n \ge \ell$.
+
 \end{proof}
 
 \section{il teorema degli zeri}
@@ -2913,32 +2928,26 @@ da cui
 < (\ell +\eps)^{\frac{n-N}{n}} \cdot \sqrt[n]{a_N}
 \]
 ovvero
-\[
+\begin{equation}\label{eq:39846}
 (\ell -\eps) \cdot \sqrt[n]{\frac{a_N}{(\ell -\eps)^N}}
 < \sqrt[n]{a_n}
 < (\ell +\eps) \cdot \sqrt[n]{\frac{a_N}{(\ell -\eps)^N}}.
-\]
+\end{equation}
 Ricordiamo ora che per $n\to +\infty$ si ha (teorema~\ref{th:limite_radice})
 \[
 \sqrt[n]{\frac{a_N}{(\ell -\eps)^N}} \to 1
 \]
-e quindi esisterà un $K>N$ tale che per ogni $n>K$ si ha
+dunque passando al $\liminf$ e al $\limsup$ nelle disuguaglianze \eqref{eq:39846}
+si ottiene
 \[
- 1-\eps < \sqrt[n]{\frac{a_N}{(\ell -\eps)^N}} < 1+\eps.
+ \ell-\eps \le \liminf_n \sqrt[n]{a_n}\le \limsup_n \sqrt[n]{a_n}\le \ell+\eps.
 \]
-Mettendo insieme le cose abbiamo ottenuto che
+Essendo questo vero per ogni $\eps>0$ si ottiene
 \[
- (\ell - \eps)(1-\eps)
- < \sqrt[n]{a_n}
- < (\ell + \eps)(1+\eps)
- \]
-che garantisce la validità del limite $\sqrt[n]{a_n}\to \ell$.
-
-Nel caso $\ell = 0$
-non potremo richiedere $\eps < \ell$
-e quindi le stime dal basso andranno rimpiazzate
-dalla stima ovvia
-$\sqrt[n]{a_n}\ge 0$.
+\ell \le \liminf_n \sqrt[n]{a_n}\le \limsup_n \sqrt[n]{a_n}\le \ell
+\]
+dunque le disuguaglianze sono uguaglianze, $\liminf$ e $\limsup$ coincidono
+dunque il limite esiste ed è $\ell$, come volevamo dimostrare.
 \end{proof}
 
 \begin{exercise}
@@ -2956,74 +2965,6 @@ e (più difficile)
 Si osservi che il teorema~\ref{th:criterio_cesaro} fornisce una dimostrazione
 alternativa del teorema~\ref{th:criterio_rapporto} in quanto lo riconduce
 al teorema~\ref{th:criterio_radice}.
-
-\begin{comment}
-\begin{proof}
-Per la definizione di limite $a_{n+1}/a_n \to \ell$
-scelto $q$ con $\ell < q < 1$ e posto $\eps = q-\ell$
-esiste $N\in \NN$ tale che per ogni $n>N-1$
-si ha
-\[
-  \frac{a_{n+1}}{a_n} \le \ell+\eps = q
-\]
-cosicché $a_{n+1} \le q \cdot a_n$. Alla seconda
-iterazione
-\[
-  a_{n+2} \le q a_{n+1} \le q^2 a_n
-\]
-e per induzione si può mostrare quindi che
-per ogni $n\ge N$ si ha
-\[
- a_{n+k} \le q^k a_n
-\]
-ovvero
-\[
- a_{N+k} \le q^k a_N.
-\]
-Ponendo
-\[
-  c = \max \enclose{\{1\}\cup \left\{\frac{a_n}{q^n}\colon n=0,\dots,N\right\}}
-\]
-si ottiene che vale (per forza) per ogni $n\in \NN$
-\[
-  a_n \le c \cdot q^n.
-\]
-In particolare essendo $a_n \ge 0$ e $c\cdot q^n \to 0$ per $n\to +\infty$
-per confronto  si ottiene
-che $a_n \to 0$.
-\end{proof}
-\end{comment}
-
-\begin{theorem}[convergenza alla Cesàro]
-\mymark{*}
-\index{Cesàro}
-\index{convergenza!alla Cesàro}
-\mynote{convergenza alla Cesàro}
-Se $a_n \to \ell \in [-\infty, +\infty]$ allora%
-\footnote{si vedano gli appunti di logica per la definizione di somma $\sum_{k=1}^n a_k$.}
-\[
-  \lim_{n\to +\infty} \frac 1 n \sum_{k=1}^n a_k = \ell.
-\]
-\end{theorem}
-%
-\begin{proof}
-\mymark{*}
-Definiamo
-\[
-  S_n = \sum_{k=1}^n a_k,
-  \qquad b_n = e^{S_n}.
-\]
-Si ha allora
-\[
-  \frac{b_{n+1}}{b_n} = e^{S_{n+1} - S_n} = e^{a_{k+1}} \to e^\ell.
-\]
-Dunque per il criterio del rapporto alla Cesàro si ha $\sqrt[n]{b_n} \to e^\ell$
-ma
-\[
-  \frac{1}{n}\sum_{k=1}^n a_k = \frac{S_n}{n} = \frac{\ln b_n}{n}
-   = \ln \sqrt[n]{b_n} \to \ln e^\ell = \ell.
-\]
-\end{proof}
 
 \begin{definition}[ordine di infinito/infinitesimo]
 \mymark{***}
@@ -3152,8 +3093,6 @@ Calcolare i seguenti limiti
 %%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%
-
-\section{Il teorema di Weierstrass}
 
 \begin{definition}[massimi e minimi assoluti]
 \mymark{**}
