@@ -281,6 +281,7 @@ richiedendo che entrambe le serie al lato destro
 dell'uguaglianza esistano e non abbiano somme infinite di segno opposto.
 
 \begin{theorem}[coda di una serie convergente]
+\label{th:coda}
 \mymark{*}
 Sia $\sum a_n$ una serie convergente. Allora
 \[
@@ -1627,43 +1628,41 @@ fissato).
 
 Sia $z\in \CC$ fissato e sia
 \[
-  S_M = \sum_{k=0}^{M} \frac{\abs{z}^k}{k!}.
+  S = \sum_{k=0}^{+\infty} \frac{\abs{z}^k}{k!}.
 \]
-Abbiamo già osservato che $S_M$ converge per $M\to +\infty$.
-Poniamo
+Sappiamo che la serie esponenziale è assolutamente convergente
+per ogni $z\in \CC$ (in quanto il raggio di convergenza è $+\infty$)
+quindi $S$ è un numero reale (finito).
+Dunque per il teorema \ref{th:coda} (della coda) sappiamo che per ogni $\eps>0$
+esiste $M$ tale che
 \[
-  E = \lim_{M\to +\infty} S_M
-    = \sum_{k=0}^{+\infty} \frac{\abs{z}^k}{k!}.
+   \sum_{k=M+1}^{+\infty} \frac{\abs{z}^k}{k!} < \eps.
 \]
 
-Consideriamo ora un qualunque $\eps > 0 $, e scegliamo un $M$
-(grazie alla definizione di limite $S_M \to E$) tale
-che
-\[
-\sum_{k=M+1}^{+\infty} \frac{\abs{z}^k} {k!}
-= E - S_M < \eps.
-\]
 Fissato $k\le M$ visto che $c(n,k)\to 1$
 esiste $N_k > M$ tale che per ogni $n>N_k$
 si abbia $1-c(n,k) < \eps$
 (ricordiamo che $c(n,k)\le 1$).
 Prendiamo allora
 \[
-  N=\max_{k=0}^M N_k
+  N=\max\{N_k\colon k\le N\}
 \]
-cosicchè per ogni $n>N$ e per ogni $k\le M$ si avrà $1-c(n,k) < \eps$.
-Allora, per ogni $n>N$
+cosicchè per ogni $n>N$ e per ogni $k\le M$ si avrà $0 \le 1-c(n,k) < \eps$.
+Allora, per ogni $n>N$, possiamo spezzare la somma da $0$ a $n$ nelle due
+somme da $0$ a $M$ e da $M+1$ a $n$:
 \begin{align*}
 \abs{\sum_{k=0}^n \frac{z^k}{k!} - \enclose{1+\frac z n}^n}
 &= \abs{\sum_{k=0}^n \enclose{\frac{z^k}{k!} - c(n,k)\frac{z^k}{k!}}}
 = \abs{\sum_{k=0}^n  (1-c(n,k))\frac{z^k}{k!}} \\
 &\le \sum_{k=0}^n  (1-c(n,k))\frac{\abs{z}^k}{k!} \\
-&\le \sum_{k=0}^{N} \abs{1-c(n,k)} \frac{\abs{z}^k}{k!}
-   + \sum_{k=N+1}^n \frac{\abs{z}^k}{k!} \\
+  &= \sum_{k=0}^{M} (1-c(n,k)) \frac{\abs{z}^k}{k!}
+   + \sum_{k=M+1}^n (1-c(n,k)) \frac{\abs{z}^k}{k!} \\
+&\le \sum_{k=0}^{M} \eps \frac{\abs{z}^k}{k!}
+   + \sum_{k=M+1}^n \frac{\abs{z}^k}{k!} \\
 &\le  \eps \sum_{k=0}^{+\infty} \frac{\abs{z}^k}{k!}
-    + \sum_{k=N+1}^{+\infty} \frac{\abs{z}^k}{k!} \\
-&\le \eps E + \eps
-= \eps (E+1).
+    + \eps \\
+&\le \eps S + \eps
+= \eps (S+1).
 \end{align*}
 
 Visto che $\eps>0$ era arbitrario abbiamo verificato
