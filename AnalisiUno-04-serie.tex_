@@ -1221,6 +1221,87 @@ ma
 \]
 \end{proof}
 
+%%%
+\section{prodotti infiniti}
+%%%
+\index{prodotti infiniti}
+
+Così come abbiamo fatto la teoria per le somme infinite si potrebbe fare
+la teoria dei prodotti infiniti ponendo
+\[
+  \prod_{k=0}^{+\infty} a_k = \lim_{n\to +\infty} \prod_{k=0}^n a_k
+  = \lim_{n\to +\infty} a_0 \cdot a_1 \cdots a_n.
+\]
+
+Supporremo sempre $a_k>0$ altrimenti il segno del prodotto difficilmente
+sarebbe definito.
+Allora, utilizzando il logaritmo (che trasforma prodotti in somme) possiamo
+ricondurre i prodotti infiniti
+alle serie:
+\[
+  \prod_{k=0}^{+\infty} a_k = \lim_{n\to +\infty} e^{\sum_{k=0}^n \ln a_k}.
+\]
+
+Osserviamo quindi che condizione necessaria affinché un prodotto infinito
+$\prod a_k$ sia convergente
+dovrà essere $\ln a_k\to 0$ ovvero $a_k \to 1$. In tal caso visto che
+\[
+  \ln a_k = \ln (1+(a_k-1)) \sim a_k - 1
+\]
+si osserva che se $a_k\to 1$ il prodotto infinito $\prod a_k$ converge
+se e solo se converge la serie $\sum (a_k-1)$.
+
+\begin{example}[somma dei reciproci dei primi]
+\index{primi!somma dei reciproci}
+\index{somma!dei reciproci dei primi}
+Possiamo utilizzare i prodotti infiniti per dimostrare che la somma
+dei reciproci dei numeri primi è divergente. Sia $p_k$ la successione dei numeri
+primi ($p_1=2$, $p_2=3$, $p_3=5$, $\dots$ stiamo dando per scontato che i numeri
+primi sono infiniti). Allora vogliamo dimostrare che
+\[
+  \sum_{k=1}^{+\infty} \frac{1}{p_k} = \sum_{n=1}^{+\infty} \frac{1}{n} = +\infty.
+\]
+
+Si noti infatti che ogni $n\in \NN$ può essere decomposto come il prodotto di
+potenze dei reciproci dei numeri primi. Dunque:
+\begin{equation}\label{eq:8834884}
+\begin{aligned}
+\sum_{n=1}^{+\infty} \frac{1}{n}
+&= (1 + \frac 1 2 + \frac 1 {2^2} + \dots) \cdot
+  (1 + \frac 1 3 + \frac 1 {3^2} + \dots) \\
+  &\quad \cdot(1 + \frac 1 5 + \frac 1 {5^2} + \dots) \cdots \\
+  &= \prod_{k=1}^{+\infty} \sum_{j=0}^{+\infty} \enclose{\frac{1}{p_k}}^j
+  = \prod_{k=1}^{+\infty} \frac{1}{1-\frac 1 {p_k}}.
+\end{aligned}
+\end{equation}
+
+Nei passaggi precedenti abbiamo sfruttato il fatto che nelle serie a termini
+positivi possiamo riordinare e associare i termini in qualunque modo.
+Una serie a termini positivi è convergente oppure divergente e la convergenza
+assoluta coincide con la convergenza semplice.
+Visto che riordinando i termini di una serie assolutamente convergente non
+si può ottenere una serie divergente, significa che riordinando i termini di una
+serie divergente (a termini positivi) si ottiene sempre una serie divergente.
+
+Ora possiamo utilizzare il fatto che il prodotto infinito ottenuto
+in \eqref{eq:8834884} ha lo stesso carattere
+della seguente serie
+\[
+  \sum_{k=1}^{+\infty} \enclose{\frac{1}{1-\frac 1 {p_k}}-1}
+  = \sum_{k=1}^{+\infty} \frac{\frac 1 {p_k}}{1-\frac{1}{p_k}}
+\]
+ma visto che $1/p_k\to 0$ si ha
+\[
+  \frac{\frac 1 {p_k}}{1-\frac{1}{p_k}}
+  \sim \frac 1 {p_k}
+\]
+e dunque, per il criterio del confronto asintotico, la serie precedente ha
+lo stesso carattere della serie
+\[
+\sum_{k=1}^{+\infty} \frac{1}{p_k}
+\]
+che quindi è divergente.
+\end{example}
 
 %%%
 \section{le serie di potenze}
@@ -1830,9 +1911,12 @@ della funzione esponenziale già definita
 sulla retta reale.
 
 \begin{theorem}[approssimazione di $e$]
+\label{th:approx_e}
+\index{$e$!approssimazione}
+\index{approssimazione!di $e$}
 Risulta
 \[
-   0 \le e - \sum_{k=0}^n \frac{1}{k!} \le \frac{1}{n \cdot n!}.
+   0 < e - \sum_{k=0}^n \frac{1}{k!} \le \frac{1}{n \cdot n!}.
 \]
 In particolare per $n=5$ si ottiene
 \[
@@ -1876,41 +1960,33 @@ e dall'altro
 \end{proof}
 
 \begin{theorem}[irrazionalità di $e$]
-\mymargin{$e$ è irrazionale.}
+\mymargin{$e\not\in \QQ$}
 \index{irrazionalità!di $e$}
+\index{$e$!è irrazionale}
 Il numero $e$ è irrazionale.
 \end{theorem}
 %
 \begin{proof}
-Sappiamo che
-\[
-   e = \exp(1) = \sum_{k=0}^{+\infty} \frac{1}{k!}.
-\]
-Supponiamo per assurdo che $e = p/q$ con $p,q\in \NN$.
-Abbiamo già osservato che $2<e<3$ dunque $e$ non è intero
-e dunque $q>1$.
+Supponiamo per assurdo che sia $e=p/q$ con $p\in \ZZ$ e $q \in \NN$.
+Possiamo supporre $q>1$
+(non importa che la frazione sia ridotta ai minimi termini).
 
-Si ha
+Allora si ha
 \[
-q! e = \sum_{k=0}^{q} \frac{q!}{k!} + \sum_{k=q+1}^{+\infty} \frac{q!}{k!}.
+  q! e = \sum_{k=0}^{+\infty} \frac{q!}{k!}
+   = \sum_{k=0}^q \frac{q!}{k!} + q!\sum_{k=q+1}^{+\infty} \frac{1}{k!}
 \]
-Se $k \le q$ chiaramente $q!/k!$ è intero. Viceversa se $k>q$ si ha
+Il primo addendo nella somma precedente è intero
+in quanto se $k\le q$ il rapporto $q!/k!\in$ è intero.
+D'altra parte per il teorema~\ref{th:approx_e}
+per il secondo addendo abbiamo
 \[
-  \frac{q!}{k!} = \frac{1}{k(k-1) \cdots (q+1)}
-  < \frac{1}{q^{k-q}}.
+0 < q! \sum_{k=q+1}^{+\infty} \frac{1}{k!}
+\le \frac{1}{q} < 1
 \]
-Chiaramente anche $q!e$ è intero (essendo per assurdo $e=p/q$)
-e dunque è intero il numero $N$ definito da
-\begin{align*}
- N &= q! e - \sum_{k=0}^q \frac{q!}{k!}
-  = \sum_{k=q+1}^{+\infty} \frac{q!}{k!}
-  = \sum_{k=q+1}^{+\infty}\frac{1}{k (k-1) \cdots (q+1)}\\
-  &\le \sum_{k=q+1}^{+\infty} \frac{1}{(q+1)^{k-q}}
-  = \sum_{k=1}^{+\infty} \frac{1}{(q+1)^k}
-  = \frac{1}{(q+1)} \frac{1}{1-\frac{1}{q+1}}
-  = \frac{1}{q}.
-\end{align*}
-Di certo $N>0$ in quanto somma di una serie a termini positivi, e si trova dunque $0 < N \le 1/q < 1$: questo è assurdo essendo $N$ intero.
+e dunque risulterebbe che $q! e$ non è intero in quanto strettamente compreso
+tra due interi consecutivi ma per ipotesi di assurdo $e=p/q$ e quindi $q! e = p(q-1)!$
+dovrebbe essere intero.
 \end{proof}
 
 
