@@ -3,6 +3,9 @@ DEPENDS=*.tex_ *.png koch.*
 %.pdf: %.tex $(DEPENDS)
 	rubber -f --pdf -s $<
 
+strutture.pdf: strutture.gv
+	dot -Tpdf $< -o $@
+
 all: AnalisiUno.pdf
 
 clean:

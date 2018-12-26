@@ -921,6 +921,7 @@ Dunque $S=R$ e l'intera successione ha limite $S$. D'altra parte $S \le S_0$ in 
 Questa dimostrazione può essere resa più in generale nel seguente.
 
 \begin{theorem}[serie a segni alterni: criterio di Leibniz]
+\label{th:Leibniz}
 \mymark{***}
 \mynote{criterio di Leibniz}
 \index{criterio!di Leibniz}
@@ -932,6 +933,14 @@ la serie
   \sum (-1)^{n} b_n
 \]
 è convergente.
+
+Più precisamente se $\displaystyle S_n = \sum_{k=0}^n (-1)^k b_k$
+sono le somme parziali,
+si osserva che la somma della serie $S= \lim S_n$ è sempre compresa
+tra due termini consecutivi della successione $S_n$:
+\[
+  S \in [S_n, S_{n+1}] \cup [S_{n+1}, S_n].
+\]
 \end{theorem}
 %
 \begin{proof}
@@ -965,6 +974,10 @@ D'altronde, essendo $b_n$ infinitesima
 Dunque $S=R$. Inoltre essendo $S_{2n}$ decrescente si ha
 $S \le S_0$ ed essendo $S_{2n+1}$ crescente si ha $S\ge S_1$.
 Dunque $S$ è finito e la serie converge.
+
+Abbiamo anche ottenuto che
+$S_{2n-1} \le S \le S_{2n}$ e $S_{2n+1} \le S \le S_{2n}$
+dunque è verificata anche la seconda parte dell'enunciato.
 \end{proof}
 
 Abbiamo dunque un esempio, la serie $\sum (-1)^k / k$ di una serie convergente ma non assolutamente convergente.
@@ -1117,7 +1130,10 @@ Fissato $z\in \CC$, $\abs{z} \le 1$, $z\neq 1$ allora la serie
 \[
   \sum_{k=1}^{+\infty} \frac{z^k}{k}
 \]
-è convergente. Infatti posto $a_k=z^k$ si osserva che $\sum a_k$ è una
+è convergente.
+Vogliamo applicare il corollario~\ref{cor:Leibniz}.
+
+Posto $a_k=z^k$ si osserva che $\sum a_k$ è una
 serie geometrica e dunque (essendo $z\neq 1$) si ha
 \[
   A_n = \sum_{k=0}^{n-1} z^k = \frac{1-z^n}{1-z}
@@ -1136,7 +1152,8 @@ decrescente si ha
 &= \lim_{n\to +\infty}\enclose{1 - \frac{1}{n+1}} = 1
 < +\infty.
 \end{align*}
-Si applica quindi il corollario~\ref{cor:Leibniz} per ottenere la convergenza
+Si applica quindi il corollario~\ref{cor:Leibniz}
+per ottenere la convergenza
 della serie data.
 
 Si osservi che se $\abs{z}>1$ oppure se $z=1$ la serie in questione non
@@ -1151,7 +1168,7 @@ La serie
 \]
 è convergente.
 
-Applichiamo il corollario precedente.
+Applichiamo il corollario~\ref{cor:Leibniz} precedente.
 Posto $a_k = \sin k$ e $B_k=1/k$
 si ha
 \[
@@ -2019,7 +2036,8 @@ $\displaystyle
 $\displaystyle
 \sin(x) = \frac{e^{ix}-e^{-ix}}{2i}$;
 \item
-$\sin(-x) = -\sin x$, $\cos(-x) = \cos x$;
+$\sin(-x) = -\sin x$ (la funzione $\sin$ è dispari),
+$\cos(-x) = \cos x$ (la funzione $\cos$ è pari);
 \item identità fondamentale della trigonometria:
 \[
 \cos^2 x + \sin^2 x = 1;
@@ -2034,31 +2052,21 @@ formule di addizione:
 le funzioni $\cos\colon \RR\to\RR$ e $\sin \colon \RR \to \RR$
 sono continue;
 \item si ha
-\begin{align*}
+\begin{align}
+\label{eq:serie_cos}
 \cos x &= \sum_{k=0}^{+\infty} (-1)^k\frac{x^{2k}}{(2k)!}
   = 1 - \frac{x^2}{2} + \frac{x^4}{4!} - \frac{x^6}{6!} + \dots
 \\
+\label{eq:serie_sin}
 \sin x &= \sum_{k=0}^{+\infty} (-1)^k\frac{x^{2k+1}}{(2k+1)!}
   = x - \frac{x^3}{6} + \frac{x^5}{5!} - \frac{x^7}{7!} + \dots
-\end{align*}
-\item
-esiste $\pi \in [2.8,3.2]$
-\index{$\pi$!definizione}
-\mymargin{definizione $\pi$}
-che è il più piccolo reale positivo
-tale che $\cos(\pi/2)=0$.
-Risulta $\sin(\pi/2)=1$ e le funzioni
-seno e coseno risultano essere periodiche di periodo $2\pi$;
-per $x\in [0,\pi/2]$ si ha $\sin x \ge 0$, $\cos x \ge 0$;
-
-\item
-per $x\in [-\pi/2, \pi/2]$ la funzione $\sin x$ è strettamente crescente;
-per $x\in [0,\pi]$ la funzione $\cos x$ è strettamente decrescente;
-
+\end{align}
 \item
 se $a_n \to 0$ ($a_n\in \RR$) per $n\to +\infty$ si ha
 \[
- \lim_{n\to +\infty} \frac{\sin a_n}{a_n} = 1.
+ \lim_{n\to +\infty} \frac{\sin a_n}{a_n} = 1
+ \qquad\text{e}\qquad
+ \lim_{n\to +\infty} \frac{1-\cos a_n}{a_n^2} = \frac 1 2.
 \]
 \end{enumerate}
 
@@ -2125,18 +2133,80 @@ sono a termini reali e quindi la loro somma è reale.
 Dunque queste due serie coincidono con la parte reale e la parte immaginaria di $\exp(ix) = \cos x + i \sin x$.
 
 \item
+Per la corrispondente proprietà dell'esponenziale
+sappiamo che per $a_n \to 0$ si ha
+\[
+  \frac{e^{ia_n}-1}{i a_n} \to 1.
+\]
+Ma
+\[
+  \frac{e^{ia_n}-1}{i a_n}
+  = \frac{\cos a_n - 1 + i \sin a_n}{i a_n}
+  = \frac{\sin a_n}{a_n} + i\frac{1- \cos a_n  }{a_n}.
+\]
+Scopriamo dunque che
+\[
+  \frac{1-\cos a_n}{a_n} \to 0
+  \qquad\text{e}\qquad
+  \frac{\sin a_n}{a_n} \to 1.
+\]
+D'altra parte si ha
+\begin{align*}
+ \frac{1-\cos a_n}{a_n^2}
+ &=\frac{(1-\cos a_n)\cdot(1+\cos a_n)}{a_n^2(1+\cos a_n)}
+ = \frac{1-\cos^2 a_n}{a_n^2} \cdot \frac{1}{1+\cos a_n}\\
+ &= \enclose{\frac{\sin a_n}{a_n}}\cdot \frac 1{1+\cos a_n}
+ \to 1 \cdot \frac 1 {1+\cos 0} = \frac 1 2.
+\end{align*}
+
+\end{enumerate}
+\end{proof}
+
+\begin{theorem}[definizione di $\pi$]
+Le funzioni $e^{ix}$, $\sin x$ e $\cos x$ sono periodiche
+tutte
+con lo stesso periodo
+$\tau$.
+Definiamo $\pi=\tau/2$ cosicché per ogni $x\in \RR$
+risulta:
+\[
+  e^{ix+2\pi} = e^{ix}, \qquad
+  \cos(x + 2\pi) = \cos(x), \qquad
+  \sin(x + 2\pi) = \sin(x).
+\]
+Il numero $\pi$ è il più piccolo reale positivo con tali proprietà.
+Risulta $\pi \in [2.8,3.2]$.
+
+La funzione $\sin x$ è crescente nell'intervallo $[-\pi,\pi]$ mentre
+la funzione $\cos x$ è decrescente nell'intervallo $[0,\pi]$.
+Risulta $\cos \frac \pi 2 = 0$, $\sin \frac \pi 2 = 1$.
+Vale inoltre la celeberrima formula di Eulero:
+\[
+  e^{i\pi} + 1 = 0.
+\]
+\end{theorem}
+\begin{proof}
+\item
 Le serie di potenze che definiscono le funzioni seno e coseno
 sono serie a segni alterni.
-Nella dimostrazione del criterio di Leibniz per la convergenza delle serie
+Nel criterio di Leibniz (teorema~\ref{th:Leibniz}) per la convergenza delle serie
 a segni alterni abbiamo osservato che se i termini della serie a segni
 alterni sono decrescenti in valore assoluto, allora le somme parziali della
 serie risultano alternativamente stime per eccesso e per difetto della serie intera.
 Vogliamo applicare questa osservazione alla serie che definisce il coseno.
+Si noti che
+\[
+  \sum_{k=0}^2 (-1)^k\frac{x^{2k}}{(2k)!} = 1 - \frac{x^2}{2} + \frac{x^4}{24}.
+\]
+
 Siamo quindi interessati a capire per quali $x\ge 0$ possiamo affermare
 che la successione $x^{2k}/(2k)!$ è decrescente.
-Osserviamo che la relazione $x^{2(k+1)}/(2(k+1))! \le x^{2k}/(2k)!$ è equivalente a $x^2 \le (2k+2)(2k+1)$ che è certamente vera se $x^2 \le 2$ ovvero quando $x\le \sqrt{2}$. Dunque, per $x\le \sqrt{2}$ si ha
+Osserviamo che la relazione $x^{2(k+1)}/(2(k+1))! \le x^{2k}/(2k)!$
+è equivalente a $x^2 \le (2k+2)(2k+1)$ che è certamente vera se $x^2 \le 2$
+ovvero quando $x\le \sqrt{2}$.
+Dunque, per $x\le \sqrt{2}$ si ha
 \[
- \cos x \ge 1 - \frac{x^2}{2} \ge 0.
+ 1 - \frac{x^2}{2} \le \cos x \le 1.
 \]
 La relazione $x^2 \le (2k+2)(2k+1)$ è vera anche quando $x^2 \le 4k^2$.
 Se $k\ge 2$ questo risulta vero per ogni $x\in [0,4]$.
@@ -2186,7 +2256,6 @@ in quanto
   e^{ix + 2ik\pi} = e^{ix}\cdot \enclose{e^{2\pi i}}^k = e^{ix}.
 \]
 
-\item
 Se prendiamo $x,y \in [0, \pi/2]$ con $y>x$ e poniamo $h=y-x$ si ha $h \in [0,\pi/2]$. Dunque $\sin h\ge 0$, $\sin x \ge 0$ e $\cos h\le 1$
 da cui
 \[
@@ -2203,26 +2272,8 @@ in $[\pi/2,\pi]$.
 
 Visto che in $[0,\pi/2]$ il coseno è positivo e decrescente, il seno è positivo e vale $\cos^2 +\sin^2 =1$ risulta che su tale intervallo il seno è crescente. Anche su $[-\pi/2,0]$ il seno è crescente in quanto $\sin(-x) = -\sin x$.
 
-\item
-Per la corrispondente proprietà dell'esponenziale
-sappiamo che per $a_n \to 0$ si ha
-\[
-  \frac{e^{ia_n}-1}{i a_n} \to 1.
-\]
-Ma
-\[
-  \frac{e^{ia_n}-1}{i a_n}
-  = \frac{\cos a_n - 1 + i \sin a_n}{i a_n}
-  = \frac{\sin a_n}{a_n} + i\frac{1- \cos a_n  }{a_n}.
-\]
-Scopriamo dunque che
-\[
-  \frac{1-\cos a_n}{a_n} \to 0
-  \qquad\text{e}\qquad
-  \frac{\sin a_n}{a_n} \to 1.
-\]
-\end{enumerate}
 \end{proof}
+
 
 \section{funzioni trigonometriche inverse}
 La funzione $\sin\colon[-\pi/2,\pi/2]\to [-1,1]$ risulta essere strettamente crescente. Inoltre essendo una funzione continua e visto che $\sin(-\pi/2)=-1$
