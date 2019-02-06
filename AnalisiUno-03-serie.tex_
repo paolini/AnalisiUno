@@ -11,11 +11,26 @@ delle cosiddette \myemph{somme parziali}
   S_n = \sum_{k=0}^{n} a_k.
 \]
 Potremo scrivere più concisamente $S_n = \sum a_n$.
-I numeri $a_n$ si chiamano \myemph{termini della serie}
-La serie si dirà convergente, divergente o indeterminata se la
-successione delle somme parziale è convergente, divergente o indeterminata.
+Intuitivamente si intende sommare i termini della successione $a_k$
+per $k$ che parte da $0$ fino a $k=n$:
+\[
+  \sum_{k=0}^n a_k = a_0 + a_1 + a_2 + \dots + a_n.
+\]
+Formalmente la somma $S_n=\displaystyle \sum_{k=0}^n a_k$ è definita ricorsivamente
+dalle seguenti relazioni:
+\[
+  \begin{cases}
+    S_0 = a_0, \\
+    S_{n+1} = S_n + a_{n+1}.
+  \end{cases}
+\]
+
+I numeri $a_n$ si chiamano \myemph{termini} della serie.
+\index{termini!di una serie}\index{serie!termini}
 Se la successione delle somme parziali ammette limite il limite viene chiamato
-\myemph{somma della serie} e si indica con
+\myemph{somma}
+\index{somma!di una serie}\index{serie!somma}
+della serie e si indica con
 \[
   \sum_{k=0}^{+\infty} a_k = \lim_{n\to +\infty} S_n = \lim_{n\to+\infty} \sum_{k=0}^n a_k.
 \]
@@ -26,6 +41,47 @@ In particolare una serie può essere convergente, divergente o indeterminata.
 Questo si chiama il \emph{carattere della serie}.
 \mynote{carattere}%
 \index{carattere!di una serie}
+\index{serie!carattere}
+
+Più in generale si potrà considerare le somme partendo da un certo
+indice $m$. Fissato $m$ si potrà ad esempio considerare la serie:
+\[
+  S_n = \sum_{k=m}^n a_k
+\]
+che risulta definita per $n\ge m$
+come
+\[
+  S_n = a_m + a_{m+1} + \dots + a_n.
+\]
+Formalmente $S_n$ avrà la definizione ricorsiva:
+\[
+ \begin{cases}
+   S_m = a_m \\
+   S_{n+1} = S_n + a_{n+1}
+ \end{cases}
+\]
+che definisce $S_n$ per ogni $n\in \NN$, $n\ge m$.
+
+\begin{example}
+Consideriamo la serie $S_n$ definita
+come la somma dei numeri naturali da $1$ a $n$:
+\[
+  S_n = \sum_{k=1}^n k = 1 + 2 + \dots + n.
+\]
+Si può dimostrare facilmente per induzione che si ha
+\[
+  S_n = \frac{n(n+1)}{2}.
+\]
+E mediante la definizione di limite si può verificare che
+risulta
+\[
+  S_n \to +\infty.
+\]
+Questo si esprime dicendo che la serie $\sum n$ è divergente:
+\[
+     \sum_{k=1}^{+\infty} k = +\infty.
+\]
+\end{example}
 
 \begin{example}[la serie geometrica]
 Fissato $q \in \RR$ alla successione (cosiddetta geometrica)
@@ -225,6 +281,7 @@ richiedendo che entrambe le serie al lato destro
 dell'uguaglianza esistano e non abbiano somme infinite di segno opposto.
 
 \begin{theorem}[coda di una serie convergente]
+\label{th:coda}
 \mymark{*}
 Sia $\sum a_n$ una serie convergente. Allora
 \[
@@ -864,6 +921,7 @@ Dunque $S=R$ e l'intera successione ha limite $S$. D'altra parte $S \le S_0$ in 
 Questa dimostrazione può essere resa più in generale nel seguente.
 
 \begin{theorem}[serie a segni alterni: criterio di Leibniz]
+\label{th:Leibniz}
 \mymark{***}
 \mynote{criterio di Leibniz}
 \index{criterio!di Leibniz}
@@ -875,6 +933,14 @@ la serie
   \sum (-1)^{n} b_n
 \]
 è convergente.
+
+Più precisamente se $\displaystyle S_n = \sum_{k=0}^n (-1)^k b_k$
+sono le somme parziali,
+si osserva che la somma della serie $S= \lim S_n$ è sempre compresa
+tra due termini consecutivi della successione $S_n$:
+\[
+  S \in [S_n, S_{n+1}] \cup [S_{n+1}, S_n].
+\]
 \end{theorem}
 %
 \begin{proof}
@@ -908,6 +974,10 @@ D'altronde, essendo $b_n$ infinitesima
 Dunque $S=R$. Inoltre essendo $S_{2n}$ decrescente si ha
 $S \le S_0$ ed essendo $S_{2n+1}$ crescente si ha $S\ge S_1$.
 Dunque $S$ è finito e la serie converge.
+
+Abbiamo anche ottenuto che
+$S_{2n-1} \le S \le S_{2n}$ e $S_{2n+1} \le S \le S_{2n}$
+dunque è verificata anche la seconda parte dell'enunciato.
 \end{proof}
 
 Abbiamo dunque un esempio, la serie $\sum (-1)^k / k$ di una serie convergente ma non assolutamente convergente.
@@ -1004,13 +1074,25 @@ Sommando si ottiene
 \end{align*}
 \end{proof}
 
-Il seguente corollario generalizza il criterio di Leibniz.
+Se prendiamo $a_k=(-1)^k$ si può osservare che $A_n = \sum_{k=0}^{n-1} (-1)^k$
+è una successione limitata in quanto $A_n = 1$ se $n$ è dispari mentre
+$A_n=0$ se $n$ è pari.
+Se invece scegliamo una successione $B_n$ è positiva, decrescente e infinitesima
+si ha
+\[
+  \sum_{k=0}^{+\infty} \abs{B_k-B_{k+1}}
+  = \lim_{n\to+\infty}\sum_{k=0}^{n} (B_k-B_{k+1})
+  = \lim_{n\to +\infty} (B_0 - B_{n+1}) = B_0 < +\infty.
+\]
+Dunque il seguente cororollario è una estensione del teorema
+di Leibniz per le serie a segni alterni.
 
-\begin{corollary}
-Siano $a_k$ e $B_k$ successioni tali che
+\begin{corollary}\label{cor:Leibniz}
+Siano $a_k$ e $B_k$ successioni (reali o complesse) tali che
 \begin{enumerate}
-\item $\displaystyle A_n = \sum_{k=0}^{n-1} a_k$ è limitata;
-\item $B_k$ monotona e infinitesima.
+\item $\displaystyle A_n = \sum_{k=0}^{n-1} a_k$ è una successione limitata;
+\item $\sum \abs{B_{k+1}-B_{k}}$ è finito (si dirà che $B_n$ è a variazione
+totale limitata).
 \end{enumerate}
 Allora la serie
 $
@@ -1021,28 +1103,72 @@ $
 %
 \begin{proof}
 Per la formula precedente si ha
-\[
+\begin{equation}\label{eq:3498954}
  \sum_{k=0}^n a_k B_k
  = A_{n+1} B_{n+1} - A_0 B_0 + \sum_{k=0}^n A_{k+1}(B_k -B_{k+1}).
-\]
+\end{equation}
 Il primo addendo $A_{n+1} B_{n+1}$ tende a zero per $n\to +\infty$
 in quanto prodotto di una successione limitata per una infinitesima.
 Il secondo addendo è costante.
 La serie $\sum A_{k+1} (B_k - B_{k+1})$ è assolutamente convergente
-in quanto $\abs{A_{k+1}}$ è limitato e $\sum (B_k - B_{k+1})$ è una
-serie telescopica a termini positivi (supponiamo $B_k$ sia decrescente e positiva, altrimenti basta cambiarne il segno).
+in quanto
+\[
+  \sum \abs{A_{k+1}} \cdot \abs{B_k - B_{k+1}}
+  \le L \sum \abs{B_k - B_{k+1}} < +\infty
+\]
+essendo $\abs{A_n}\le L$ con $L\in \RR$ per l'ipotesi su $a_n$ ed
+essendo $\sum \abs{B_k-B_{k+1}}<+\infty$ per l'ipotesi su $B_n$.
 
-Dunque il limite della somma sul lato destro converge e quindi la serie sul lato sinistro è convergente.
+Dunque il limite della somma sul lato destro converge e quindi
+la somma sul lato sinistro
+dell'equazione~\eqref{eq:3498954}
+è convergente per $n\to +\infty$.
 \end{proof}
 
 \begin{exercise}
+Fissato $z\in \CC$, $\abs{z} \le 1$, $z\neq 1$ allora la serie
+\[
+  \sum_{k=1}^{+\infty} \frac{z^k}{k}
+\]
+è convergente.
+Vogliamo applicare il corollario~\ref{cor:Leibniz}.
+
+Posto $a_k=z^k$ si osserva che $\sum a_k$ è una
+serie geometrica e dunque (essendo $z\neq 1$) si ha
+\[
+  A_n = \sum_{k=0}^{n-1} z^k = \frac{1-z^n}{1-z}
+\]
+è limitata essendo $\abs{z}\le 1$, dunque:
+\[
+  \abs{A_n} = \frac{\abs{1-z^n}}{\abs{1-z}} \le \frac{1+\abs{z^n}}{\abs{1-z}}
+  = \frac{2}{\abs{1-z}}.
+\]
+Mentre posto $B_n = 1/n$ è chiaro che, essendo $B_n$ reale,
+decrescente si ha
+\begin{align*}
+\sum_{k=1}^{+\infty} \abs{B_{k+1}-B_{k}}
+&= \lim_{n\to +\infty}\sum_{k=1}^n (B_k-B_{k+1})
+= \lim_{n\to +\infty}(B_1 - B_{n+1})\\
+&= \lim_{n\to +\infty}\enclose{1 - \frac{1}{n+1}} = 1
+< +\infty.
+\end{align*}
+Si applica quindi il corollario~\ref{cor:Leibniz}
+per ottenere la convergenza
+della serie data.
+
+Si osservi che se $\abs{z}>1$ oppure se $z=1$ la serie in questione non
+converge perché il termine generico $z^k/k$ non è infinitesimo.
+\end{exercise}
+
+\begin{exercise}
+(*** spostare più avanti, non abbiamo ancora definito $\sin$ ***)
 La serie
 \[
  \sum_{k=1}^\infty \frac{\sin k}{k}
 \]
 è convergente.
 
-Applichiamo il corollario precedente.
+Applichiamo il corollario~\ref{cor:Leibniz} precedente.
 Posto $a_k = \sin k$ e $B_k=1/k$
 si ha
 \[
@@ -1066,6 +1192,8 @@ decrescente e infinitesima.
 
 
 \begin{exercise}
+(*** spostare più avanti gli esercizi con $\sin$ che ancora non è stato
+introdotto ***)
 Determinare il carattere delle seguenti serie
 \[
   \sum_n \frac{n^2-n^3}{3^n}, \qquad
@@ -1073,11 +1201,132 @@ Determinare il carattere delle seguenti serie
   \sum_n \enclose{\sin \frac 1 n - \frac 1 n},
 \]
 \[
-\sum_n \frac{(-1)^n}{\ln\enclose{n^7 - n^5 + 3}},  \qquad
+\sum_n \frac{(-1)^n}{\ln\abs{n^7 - 10n^5 + 3}},  \qquad
 \sum_n \frac{n-10}{n^2+10}, \qquad
   \sum_n \sin\enclose{\pi n + \frac 1 n}
 \]
 \end{exercise}
+
+\begin{theorem}[convergenza alla Cesàro]
+\mymark{*}
+\index{Cesàro}
+\index{convergenza!alla Cesàro}
+\mynote{convergenza alla Cesàro}
+Se $a_n \to \ell \in [-\infty, +\infty]$ allora%
+%\footnote{si vedano gli appunti di logica per la definizione di somma $\sum_{k=1}^n a_k$.}
+\[
+  \lim_{n\to +\infty} \frac 1 n \sum_{k=1}^n a_k = \ell.
+\]
+\end{theorem}
+%
+\begin{proof}
+\mymark{*}
+Definiamo
+\[
+  S_n = \sum_{k=1}^n a_k,
+  \qquad b_n = e^{S_n}.
+\]
+Si ha allora
+\[
+  \frac{b_{n+1}}{b_n} = e^{S_{n+1} - S_n} = e^{a_{k+1}} \to e^\ell.
+\]
+Dunque per il criterio del rapporto alla Cesàro si ha $\sqrt[n]{b_n} \to e^\ell$
+ma
+\[
+  \frac{1}{n}\sum_{k=1}^n a_k = \frac{S_n}{n} = \frac{\ln b_n}{n}
+   = \ln \sqrt[n]{b_n} \to \ln e^\ell = \ell.
+\]
+\end{proof}
+
+%%%
+\section{prodotti infiniti}
+%%%
+\index{prodotti infiniti}
+
+Così come abbiamo fatto la teoria per le somme infinite si potrebbe fare
+la teoria dei prodotti infiniti ponendo
+\[
+  \prod_{k=0}^{+\infty} a_k = \lim_{n\to +\infty} \prod_{k=0}^n a_k
+  = \lim_{n\to +\infty} a_0 \cdot a_1 \cdots a_n.
+\]
+
+Supporremo sempre $a_k>0$ altrimenti il segno del prodotto difficilmente
+sarebbe definito.
+Allora, utilizzando il logaritmo (che trasforma prodotti in somme) possiamo
+ricondurre i prodotti infiniti
+alle serie:
+\[
+  \prod_{k=0}^{+\infty} a_k = \lim_{n\to +\infty} e^{\sum_{k=0}^n \ln a_k}.
+\]
+
+Osserviamo che se la serie dei logaritmi diverge a $-\infty$ il prodotto infinito
+ha limite $0$. Avendo richiesto che i termini $a_k$ siano tutti positivi il prodotto
+non potrà mai essere minore di zero. Per mantenere l'analogia con le serie diremo
+che il prodotto infinito converge se il limite dei prodotti parziali è finito e positivo.
+Diremo che diverge se il limite è $+\infty$ oppure $0$.
+
+Dunque potremo dire che il prodotto infinito converge se e solo se la serie dei logaritmi converge.
+
+Osserviamo quindi che condizione necessaria affinché un prodotto infinito
+$\prod a_k$ sia convergente
+dovrà essere $\ln a_k\to 0$ ovvero $a_k \to 1$. In tal caso visto che
+\[
+  \ln a_k = \ln (1+(a_k-1)) \sim a_k - 1
+\]
+si osserva che se $a_k\to 1$ il prodotto infinito $\prod a_k$ converge
+se e solo se converge la serie $\sum (a_k-1)$.
+
+\begin{example}[somma dei reciproci dei primi]
+\index{primi!somma dei reciproci}
+\index{somma!dei reciproci dei primi}
+Possiamo utilizzare i prodotti infiniti per dimostrare che la somma
+dei reciproci dei numeri primi è divergente. Sia $p_k$ la successione dei numeri
+primi ($p_1=2$, $p_2=3$, $p_3=5$, $\dots$ stiamo dando per scontato che i numeri
+primi sono infiniti). Allora vogliamo dimostrare che
+\[
+  \sum_{k=1}^{+\infty} \frac{1}{p_k} = \sum_{n=1}^{+\infty} \frac{1}{n} = +\infty.
+\]
+
+Si noti infatti che ogni $n\in \NN$ può essere decomposto come il prodotto di
+potenze dei reciproci dei numeri primi. Dunque:
+\begin{equation}\label{eq:8834884}
+\begin{aligned}
+\sum_{n=1}^{+\infty} \frac{1}{n}
+&= (1 + \frac 1 2 + \frac 1 {2^2} + \dots) \cdot
+  (1 + \frac 1 3 + \frac 1 {3^2} + \dots) \\
+  &\quad \cdot(1 + \frac 1 5 + \frac 1 {5^2} + \dots) \cdots \\
+  &= \prod_{k=1}^{+\infty} \sum_{j=0}^{+\infty} \enclose{\frac{1}{p_k}}^j
+  = \prod_{k=1}^{+\infty} \frac{1}{1-\frac 1 {p_k}}.
+\end{aligned}
+\end{equation}
+
+Nei passaggi precedenti abbiamo sfruttato il fatto che nelle serie a termini
+positivi possiamo riordinare e associare i termini in qualunque modo.
+Una serie a termini positivi è convergente oppure divergente e la convergenza
+assoluta coincide con la convergenza semplice.
+Visto che riordinando i termini di una serie assolutamente convergente non
+si può ottenere una serie divergente, significa che riordinando i termini di una
+serie divergente (a termini positivi) si ottiene sempre una serie divergente.
+
+Ora possiamo utilizzare il fatto che il prodotto infinito ottenuto
+in \eqref{eq:8834884} ha lo stesso carattere
+della seguente serie
+\[
+  \sum_{k=1}^{+\infty} \enclose{\frac{1}{1-\frac 1 {p_k}}-1}
+  = \sum_{k=1}^{+\infty} \frac{\frac 1 {p_k}}{1-\frac{1}{p_k}}
+\]
+ma visto che $1/p_k\to 0$ si ha
+\[
+  \frac{\frac 1 {p_k}}{1-\frac{1}{p_k}}
+  \sim \frac 1 {p_k}
+\]
+e dunque, per il criterio del confronto asintotico, la serie precedente ha
+lo stesso carattere della serie
+\[
+\sum_{k=1}^{+\infty} \frac{1}{p_k}
+\]
+che quindi è divergente.
+\end{example}
 
 %%%
 \section{le serie di potenze}
@@ -1087,29 +1336,38 @@ Se $a_k$ è una successione di numeri complessi, la serie
 \[
  \sum a_k z^k
 \]
-dipendente dal parametro $z$ si chiama
+dipendente dal parametro $z\in \CC$ si chiama
 \emph{serie di potenze}%
 \mynote{serie di potenze}%
-\index{serie!di potenze}%
+\index{serie!di potenze}
 di coefficienti $a_k$.
 Se chiamiamo $A\subset \CC$ l'insieme dei numeri complessi $z$
-per i quali la serie di potenze converge, si otterrà una funzione
+per i quali la serie di potenze converge
+\[
+A= \{z\in \CC \colon \sum a_k z^k \text{ è convergente}\}
+\]
+la somma della serie risulta essere una funzione
 $f \colon A \to \CC$ definita da
 \[
   f(z) = \sum_{k=0}^{+\infty} a_k z^k.
 \]
-L'insieme $A$ si chiama \myemph{insieme di convergenza} (o \emph{dominio di convergenza}) della serie
+L'insieme $A$ si chiama \myemph{insieme di convergenza}
+(o \emph{dominio di convergenza}) della serie
 di potenze $\sum a_k z^k$.
 
-\begin{definition}[raggio di convergenza]
-\mymark{**}
-Il \myemph{raggio di convergenza} di una serie di potenze $\sum a_k z^k$
-è il più grande $R\in [0,+\infty]$ tale che per ogni $r\in [0,R)$ la  serie $\sum a_k \cdot r^k$ risulti essere convergente.
-Ovvero, se $A$ è l'insieme di convergenza della serie, si ha
+Come al solito ci potrà capitare di considerare serie
+di potenze con l'indice $k$ che parte da $1$ invece che da $0$
+(o da qualunque altro numero naturale).
+Ciò non è rilevante, potremo sempre considerare $a_k=0$ per i termini
+che non partecipano alla sommatoria.
+
+Osserviamo anche che per $k=0$ il termine corrispondente della serie è
+$a_0 \cdot 0^0 = a_0$ in
+quanto abbiamo definito $0^0=1$. Dunque potremo anche scrivere:
 \[
-  R = \sup (A \cap [0, +\infty)).
+  \sum_{k=0}^{+\infty} a_k z^k = a_0 + a_1 z + a_2 z^2 + \dots + a_n z^n + \dots.
 \]
-\end{definition}
+Le serie di potenze assomigliano quindi a dei polinomi, ma con infiniti termini.
 
 \begin{example}[la serie geometrica]
 La serie di potenze di coefficienti $a_k=1$ è la
@@ -1120,60 +1378,32 @@ Per $z\in A$ si ha
 \[
  f(z) = \sum_{k=0}^{+\infty} z^k  = \frac{1}{1-z}.
 \]
-Se $\abs{z}\ge 1$ la serie non può convergere perché il termine $z^k$ non è infinitesimo: $\abs{z^k} = \abs{z}^k \ge 1$.
-In particolare la serie geometrica ha raggio di convergenza $R=1$.
+Se $\abs{z}\ge 1$ la serie non può convergere perché il termine $z^k$ non è
+infinitesimo: $\abs{z^k} = \abs{z}^k \ge 1$.
 \end{example}
 
 \begin{example}
-La serie di potenze $\sum \frac{z^k}{k^k}$ (ottenuta ponendo $a_k=1/k^k$)
-ha raggio di convergenza $R=+\infty$
-in quanto $\sum \frac{r^k}{k^k}$ converge assolutamente per ogni $r \in [0, +\infty)$.
-Viceversa la serie $\sum k^k z^k$ ha raggio di convergenza $R=0$ in quanto
-converge solamente se $z=0$.
+\label{ex:477474}
+La serie di potenze $\sum \frac{z^n}{n^n}$ (ottenuta ponendo $a_n=1/n^n$)
+ha come insieme di convergenza $A=\CC$
+in quanto
+\[
+\sqrt[n]{\abs{\frac{z^n}{n^n}}} = \frac{\abs{z}}{n} \to 0 < 1
+\]
+e quindi per il criterio della radice la serie in questione converge assolutamente
+qualunque sia $z\in \CC$.
 \end{example}
-
-\begin{theorem}[calcolo del raggio di convergenza]
-\mymark{***}
-Sia $\sum a_n z^n$ una serie di potenze. Se esiste il limite
-\begin{equation}\label{eq:9267345623}
-  \lim_{n\to+\infty}\sqrt[n]{\abs{a_n}} =\ell
-\end{equation}
-allora $R=1/\ell$ è il raggio di convergenza della serie (si intende $R=+\infty$ se $\ell = 0$ e $R=0$ se $\ell=+\infty$).
-
-Lo stesso accade se esiste il limite
-\[
-  \lim_{n\to +\infty} \frac{\abs{a_{n+1}}}{\abs{a_n}} = \ell.
-\]
-
-In generale risulta $R=1/\ell$ se poniamo
-\[
-   \ell = \limsup_{n\to +\infty} \sqrt[n]{a_n}.
-\]
-anche nel caso in cui il limite in~\eqref{eq:9267345623}
-non dovesse esistere.
-\end{theorem}
-%
-\begin{proof}
-\mymark{***}
-Applicando il criterio della radice alla serie $\sum \abs{a_n} r^n$ si ha
-\[
-  \sqrt[n]{\abs{a_n} r^n}
-  = r \sqrt[n]{\abs{a_n}} \to r\ell.
-\]
-Dunque se $r < 1/\ell$ si ha $r \ell<1$ e dunque la serie converge
-assolutamente in $z=r$. Se invece $r > 1/\ell$ si ha $r \ell > 1$ e dunque $\abs{a_n} r^n \to +\infty$ e la serie non può essere convergente. Il criterio della radice si applica anche nel caso in cui $\ell$ è definito tramite $\limsup$.
-
-Nel caso esista il limite del rapporto $\abs{a_{n+1}} / \abs{a_n}$
-sappiamo (grazie al criterio del rapporto alla Cesàro) che
-il limite della radice coincide con il limite del rapporto e quindi
-ci si riconduce al caso precedente.
-\end{proof}
 
 \begin{theorem}[convergenza delle serie di potenze]
 \mymark{***}
-Se la serie di potenze $\sum a_k z^k$ converge in un punto $z_0\in \CC$ allora converge assolutamente per ogni $z$ tale che $\abs{z}< \abs{z_0}$.
-Viceversa, se la serie non converge in un punto $z_0\in \CC$ allora
-non converge in nessun $z$ tale che $\abs{z} > \abs{z_0}$.
+Se la serie di potenze $\sum a_k z^k$ converge in un punto $z_0\in \CC$
+(anzi, basta che la successione $a_k z^k$ sia infinitesima)
+allora la serie
+converge assolutamente per ogni $z\in \CC$ tale che $\abs{z}< \abs{z_0}$.
+Viceversa, se la serie non converge in un punto $z_0\in \CC$
+allora
+non  converge in nessuno $z$ tale che $\abs{z} > \abs{z_0}$ (anzi la successione
+$a_n z^n$ non è nemmeno infinitesima).
 \end{theorem}
 %
 \begin{proof}
@@ -1184,7 +1414,8 @@ Esiste dunque $M$ tale che per ogni $k\in \NN$
 \[
  \abs{a_k z_0^k} \le M.
 \]
-Si ha dunque
+Se $z_0=0$ non c'è niente da dimostrare (perché non esiste $z$ tale che $\abs{z}<0$).
+Se $z_0\neq 0$ si ha
 \[
  \abs{a_k} \le \frac{M}{\abs{z_0}^k}.
 \]
@@ -1193,21 +1424,140 @@ Scelto ora qualunque $z\in \CC$ con $\abs{z} < \abs{z_0}$ si ha
   \abs{a_k z^k} \le \abs{a_k}\cdot \abs{z}^k \le M \frac{\abs{z}^k}{\abs{z_0}^k}
   \le M q^k
 \]
-avendo posto $q = \abs{z}/ \abs{z_0}$.
-Essendo $q<1$ la serie geometrica $\sum q^k$ converge e, per confronto
-anche la serie $\sum \abs{a_k z^k}$ converge. Dunque la serie $\sum a_k z^k$ converge assolutamente.
+avendo posto $q = \frac{\abs{z}}{\abs{z_0}}$.
+Essendo $q<1$ la serie geometrica $\sum q^k$ converge e, per confronto,
+anche la serie $\sum \abs{a_k z^k}$ converge.
+Dunque la serie $\sum a_k z^k$ converge assolutamente.
 
-Viceversa supponiamo che $\sum a_k z_0^k$ non converga e prendiamo $z$ con $\abs{z} > \abs{z_0}$.
-Allora $\sum a_k z^k$ non può convergere perché se  convergesse allora per il punto precedente la serie $\sum a_k z_0^k$ dovrebbe anch'essa convergere.
+Viceversa supponiamo che $\sum a_k z_0^k$ non converga o
+e prendiamo $z$ con $\abs{z} > \abs{z_0}$.
+Allora $\sum a_k z^k$ non può convergere,
+$a_k z^k$ non può neanche essere infinitesima perché
+se lo fosse allora, scambiando i ruoli di $z_0$ e $z$,
+per il punto precedente la serie $\sum a_k z_0^k$ dovrebbe convergere.
 \end{proof}
 
-Se $R$ è il raggio di convergenza della serie di potenze $\sum a_k z^k$
-il teorema precedente dice che la serie converge assolutamente per ogni $z$ con $\abs{z} < R$ e non converge per nessun $z$ con $\abs{z} > R$.
-Dunque l'insieme $A$ coincide,
-a meno dei punti di frontiera, con il cerchio di raggio $R$:
+\begin{corollary}[l'insieme di convergenza è circolare]
+\label{cor:insieme_convergenza}
+Sia $\sum a_k z^k$ una serie di potenze e sia $A$ il suo insieme di convergenza.
+Allora $A$ non è vuoto e posto
 \[
-   \{z\in \CC\colon \abs{z}< R\} \subset A \subset \{z\in \CC\colon \abs{z} \le R\}.
+  R= \sup \{\abs{z}\colon z\in A\}.
 \]
+risulta che $R\in[0,+\infty]$ e $A$ coincide con il cerchio centrato in $0$
+e di raggio $R$ a meno dei punti di bordo, nel senso che:
+\begin{equation}\label{eq:48463}
+   \{z\in \CC \colon \abs{z} < R\}
+   \subset A
+   \subset \{z\in \CC \colon \abs{z}\le R\}.
+\end{equation}
+Inoltre la serie converge assolutamente in ogni $z\in \CC$ con $\abs{z}<R$
+mentre
+il termine generico $a_k z^k$ non è nemmeno infinitesimo (e quindi la serie non converge)
+quando $\abs{z}>R$.
+\end{corollary}
+%
+\begin{proof}
+Se $\abs{z}<R$ significa che esiste $z_0\in A$ tale che $\abs{z_0} > \abs{z}$.
+Ma visto che la serie converge in $z_0$ (per definizione di $A$) grazie al teorema
+precedente possiamo affermare che la serie converge, anzi, converge assolutamente
+in $z$. Dunque si ottiene la prima inclusione in~\eqref{eq:48463}.
+
+Se invece prendiamo $z\in \CC$ con $\abs{z}>R$ scegliamo un numero
+complesso $z_0$ tale che $r < \abs{z_0} < \abs{z}$ (ad esempio)
+potremmo prendere $z_0 = \frac{\abs{z_0}+R}{2} \in \RR$.
+Se fosse $\abs{z_0}\in A$ per la definizione di $R$ si dovrebbe avere $R\ge \abs{z_0}$
+cosa che non è. Dunque la serie non converge in $z_0$ e quindi, sempre per il teorema
+precedente, essendo $\abs{z}>\abs{z_0}$ la serie di potenze
+non può convergere
+neanche in $z$ (e anzi la successione $a_kz^k$ non è nemmeno infinitesima).
+
+Abbiamo quindi mostrato l'esistenza di $R\in \bar \RR$ che soddisfa \eqref{eq:48463}.
+Chiaramente deve essere $R\ge 0$ perché $A$ è un insieme non vuoto di numeri positivi
+(per ogni serie di potenze si ha $0\in A$).
+
+\end{proof}
+
+\begin{definition}[raggio di convergenza]
+\mymark{**}
+Il \myemph{raggio di convergenza} di una serie di potenze $\sum a_k z^k$
+è il valore $R\in[0,+\infty]$
+dato dal corollario~\ref{cor:insieme_convergenza}:
+\begin{align*}
+  R &= \sup \{\abs{z}\colon z\in \CC,\ \sum a_k z^k \text{ è convergente}\}.
+\end{align*}
+\end{definition}
+
+\begin{theorem}[calcolo del raggio di convergenza]
+\mymark{***}
+\label{th:calcolo_raggio_convergenza}
+Sia $\sum a_n z^n$ una serie di potenze. Se esiste il limite
+\begin{equation}\label{eq:9267345623}
+  \lim_{n\to+\infty}\sqrt[n]{\abs{a_n}} =\ell
+\end{equation}
+allora $R=1/\ell$ è il raggio di convergenza della serie
+(dove si intende $R=+\infty$ se $\ell = 0$ e $R=0$ se $\ell=+\infty$).
+
+Lo stesso accade se esiste il limite
+\[
+  \lim_{n\to +\infty} \frac{\abs{a_{n+1}}}{\abs{a_n}} = \ell.
+\]
+
+Più in generale risulta $R=1/\ell$ se poniamo
+\[
+   \ell = \limsup_{n\to +\infty} \sqrt[n]{a_n}.
+\]
+anche nel caso in cui il limite in~\eqref{eq:9267345623}
+non dovesse esistere.
+\end{theorem}
+%
+\begin{proof}
+\mymark{***}
+Prendiamo $r\ge 0$.
+Applicando il criterio della radice alla serie $\sum \abs{a_n} r^n$ si ha
+\[
+  \sqrt[n]{\abs{a_n} r^n}
+  = r \sqrt[n]{\abs{a_n}} \to r\ell.
+\]
+Dunque se scegliamo un $r < 1/\ell$ si ha $r \ell<1$ e la serie
+$\sum a_n z^n$ converge
+assolutamente per $z=r$.
+Dunque per ogni $r<1/\ell$
+troviamo che $r\in A$: ne consegue che $R\ge 1/\ell$.
+Se invece scegliamo $r > 1/\ell$ si ha $r \ell > 1$ e dunque
+$\abs{a_n} r^n \to +\infty$ e la serie non può essere convergente
+in $z=r$. Significa che $R\ge 1/\ell$.
+
+Il criterio della radice si applica anche nel caso in cui $\ell$ è definito
+tramite $\limsup$.
+
+Nel caso esista il limite del rapporto $\abs{a_{n+1}} / \abs{a_n}$
+sappiamo (grazie al criterio del rapporto alla Cesàro) che
+il limite della radice coincide con il limite del rapporto e quindi
+ci si riconduce al caso precedente (oppure si può ripetere la dimostrazione
+utilizzando il criterio del rapporto invece del criterio della radice).
+\end{proof}
+
+\begin{example}
+Nell'esempio~\ref{ex:477474} abbiamo visto
+che l'insieme di convergenza della serie di potenze
+\[
+  \sum_{k=1}^{\infty} \frac{z^k}{k}
+\]
+è
+\[
+  A = \{ z\in \CC \colon \abs{z}\le 1, z\neq 1\}.
+\]
+Il raggio di convergenza dovrà quindi essere $R=1$ e questo può essere
+facilmente verificato con uno dei criteri precedenti. Ad esempio:
+\[
+  \lim_{n\to+\infty} \frac{\frac{1}{n+1}}{\frac{1}{n}}
+  = \lim_{n\to+\infty} \frac{n}{n+1} = 1
+\]
+da cui $R=1/1=1$.
+Si osservi dunque che nessuna delle due inclusioni in \eqref{eq:48463}
+è, in questo caso, una uguaglianza.
+\end{example}
 
 \begin{theorem}[stabilità del raggio di convergenza]
 \label{th:raggio_serie_derivate}
@@ -1230,55 +1580,79 @@ Ma $\abs{a_k} \rho^k \le k \abs{a_k} \rho^k$ (almeno per $k\ge 1$)
 e dunque anche la serie $\sum a_k \rho^k$ dovrebbe essere assolutamente convergente, assurdo
 visto che $\rho > R$.
 \end{proof}
+%
+\begin{proof}[Dimostrazione alternativa]
+Visto che $\sqrt[k]{k}\to 1$ si ha
+\[
+  \limsup \sqrt[k]{k a_k} = \limsup \sqrt[k]{a_k}.
+\]
+Per il teorema~\ref{th:calcolo_raggio_convergenza} si ottiene
+che le due corrispondenti serie di potenze hanno lo stesso raggio di convergenza.
+\end{proof}
 
 \begin{theorem}(continuità delle serie di potenze)
-\label{th:continuita_somma_serie}
-\mynote{continuità delle serie di potenze}
-\index{continuità!delle serie di potenze}
+\label{th:continuita_somma_serie}%
+\mynote{continuità delle serie di potenze}%
+\index{continuità!delle serie di potenze}%
 Sia $\sum a_k z^k$ una serie di potenze con raggio di convergenza $R$.
 Allora posto $B=\{z\in \CC\colon \abs{z}<R\}$ la funzione $f\colon B \to \CC$
 definita da
 \[
  f(z) = \sum_{k=0}^{+\infty} a_k z^k
 \]
-è (sequenzialmente) continua (su $B$).
+è continua (su $B$).
 \end{theorem}
 %
 \begin{proof}
-Per mostrare che $f$ è continua dobbiamo mostrare che presa qualunque successione
-$z_n\in B$ se $z_n \to z$ con $z\in B$ allora $f(z_n)\to f(z)$.
-
-Osserviamo che se $z,w \in \CC$
-con $\abs{z} \le \rho$ e $\abs{w} \le \rho$
-si ha
+Preso $z\in B$ vogliamo dimostrare che $f$ è continua nel
+punto $z$, cioè che
+\begin{equation}\label{eq:38465}
+ \forall \eps>0\colon \exists \delta>0 \colon
+ \forall w\in B\colon
+ \abs{z-w}<\delta \implies \abs{f(z)-f(w)}< \eps.
+\end{equation}
+Si scelga un $\rho>0$ tale che $\abs{z}< \rho < R$.
+Dovendo scegliere $\delta$ imponiamo che sia $\delta < \rho-\abs{z}$
+cosicché si avrà $\abs{w} < \abs{z} + \delta  = \rho$
+quando $\abs{z-w}< \delta$.
+Di conseguenza si osserva che
 \begin{align*}
  \abs{z^k - w^k}
  &= \abs{(z - w)\cdot(z^{k-1} + z^{k-2}w + \dots + z w^{k-2}+ w^{k-1})} \\
  &\le \abs{z-w}\cdot \enclose{\abs{z}^{k-1} + \abs{z}^{k-2}\abs{w} + \dots + \abs{z} \abs{w}^{k-2} + \abs{w}^{k-1}} \\
- &\le \abs{z-w}\cdot n \rho^{k-1}.
+ &\le \abs{z-w}\cdot k \cdot \rho^{k-1}
 \end{align*}
-
-Data la successione $z_n\to z$ si prenda qualunque $\rho$ tale che
-$\abs{z} < \rho < R$. Senza perdita di generalità (si scartano
-un numero finito di termini della successione)
-possiamo supporre che $\abs{z_n} < \rho$ e che $\abs{z-z_n} < \rho$.
-Ma allora
+e quindi
 \begin{align*}
-\abs{f(z_n) - f(z)}
-&= \abs{\sum_{k=0}^{+\infty} a_k z_n^k - \sum_{k=0}^\infty a_k z^k}
-= \abs{\sum_{k=0}^{+\infty} a_k (z_n^k - z^k)} \\
-&\le \sum_{k=0}^{+\infty} \abs{a_k} \cdot \abs{z_n^k - z^k}
-\le \sum_{k=0}^{+\infty} \abs{a_k} \cdot \abs{z_n - z} k \rho^{k-1}\\
-&= \abs{z_n -z}\cdot \sum_{k=0}^{+\infty} k \abs{a_k} \rho^{k-1}.
+\abs{f(z) - f(w)}
+&= \abs{\sum_{k=0}^{+\infty} a_k z^k - \sum_{k=0}^{+\infty} a_k w^k}
+= \abs{\sum_{k=0}^{+\infty} a_k (z^k - w^k)} \\
+&\le \sum_{k=0}^{+\infty} \abs{a_k} \cdot \abs{z^k - w^k}
+\le \sum_{k=0}^{+\infty} \abs{a_k} \cdot \abs{z - w} k \rho^{k-1}\\
+&= \abs{z -w}\cdot \sum_{k=0}^{+\infty} k \abs{a_k} \rho^{k-1}.
 \end{align*}
-
-Per il teorema precedente sappiamo che la serie $\sum k a_k \rho^{k-1}$
-è assolutamente convergente, dunque se $\abs{z_n - z} \to 0$ anche il lato
-destro della precedente disuguaglianza tende a zero e quindi,
-come volevamo dimostrare $f(z_n)-f(z) \to 0$.
+Ora osserviamo che la somma
+\[
+   C = \sum_{k=0}^\infty k \abs{a_k} \rho^{k-1}
+     = \frac{1}{\rho} \sum_{k=0}^{+\infty} k \abs{a_k} \rho^k
+\]
+è finita in quanto la serie $\sum k\abs{a_k}z^k$ ha raggio di convergenza
+$R>\rho$ grazie al teorema~\ref{th:raggio_serie_derivate}.
+Dunque si ha
+\[
+  \abs{f(z)-f(w)} \le C\cdot \abs{z-w} < C\cdot  \delta.
+\]
+Scegliendo $\delta\le \frac{\eps}{C}$ si ottiene dunque
+la validità di~\eqref{eq:38465}.
 \end{proof}
 
-Il teorema precedente ci garantisce che la somma di una serie di potenze è una funzione continua all'interno del raggio di convergenza. Nei punti che si trovano esattamente sulla frontiera del disco di convergenza la funzione $f$ potrebbe non essere continua. Ma se la serie converge in un punto di frontiera, la somma della serie è continua se mi avvicino al punto di convergenza lungo il raggio del disco di convergenza, come enunciato nel seguente teorema.
+Il teorema precedente ci garantisce che la somma di una serie di potenze
+è una funzione continua all'interno del raggio di convergenza.
+Nei punti che si trovano esattamente sulla frontiera del raggio di convergenza
+la funzione $f$ potrebbe non essere continua.
+Ma se la serie converge in un
+punto di frontiera, la somma della serie è continua se mi avvicino al punto di
+convergenza lungo il raggio del disco di convergenza, come enunciato nel seguente teorema.
 
 \begin{theorem}[lemma di Abel]
 \mymark{*}
@@ -1291,7 +1665,7 @@ la somma di una serie di potenze. Se la serie converge in un punto $z_0\in \CC$,
 \[
   t \mapsto f(tz)
 \]
-è (sequenzialmente) continua (a sinistra) nel punto $t=1$.
+è continua nel punto $t=1$.
 \end{theorem}
 %
 \begin{proof}
@@ -1300,36 +1674,33 @@ Dunque posto
 \[
   A_n = \sum_{k=0}^{n-1} a_k z_0^k
 \]
-si ha che $A_n \to 0$ e, per definizione, $A_0 = 0$.
+si ha che $A_n \to f(z_0) = 0$ e, per definizione, $A_0 = 0$.
 Utilizzando la formula \eqref{eq:somma_per_parti} di somma per parti, preso $t\in [0,1)$
 si avrà
 \begin{align*}
-\sum_{k=0}^n a_k (tz_0)^k
-= \sum_{k=0}^n a_k z_0^k t^k
-= A_{n+1} t^{n+1} + \sum_{k=0}^n A_{k+1}(t^k - t^{k+1})
+\sum_{k=0}^n a_k \cdot (tz_0)^k
+= \sum_{k=0}^n a_k z_0^k \cdot t^k
+= A_{n+1} \cdot t^{n+1} + \sum_{k=0}^n A_{k+1}\cdot (t^k - t^{k+1})
 \end{align*}
 e per $n\to +\infty$ si ottiene
 \[
-  f(tz_0) = (1-t)\sum_{k=0}^{+\infty} A_{k+1} t^k.
+  f(t\cdot z_0) = f(z_0)\cdot 0 + \sum_{k=0}^{+\infty}A_{k+1}(t^k-t^{k+1})
+  = (1-t)\sum_{k=0}^{+\infty} A_{k+1} t^k.
 \]
 Visto che $A_n \to 0$ per ogni $\eps>0$ esiste $m$ tale che per ogni $k\ge m$ si ha $\abs{A_k} \le  \eps$. Dunque
 \begin{align*}
-\abs{f(tz_0)}
- &\le (1-t)\abs{\sum_{k=0}^{m-1} A_k t^k}
+\abs{f(t\cdot z_0)}
+ &\le (1-t)\sum_{k=0}^{m-1} \abs{A_k} t^k
   + (1-t)\sum_{k=m}^{+\infty} \abs{A_k} t^k \\
- &\le (1-t)\cdot \abs{P_m(t)} + \eps (1-t)\frac{t^m}{1-t}
- \le (1-t)\abs{P_m(t)} + \eps
+ &\le (1-t)\cdot \sum_{k=0}^{m-1}\abs{A_k} + (1-t)\cdot \eps \cdot \frac{t^m}{1-t} \\
+ &\le (1-t)\sum_{k=0}^{m-1}\abs{A_k} + \eps.
 \end{align*}
-dove $P_m$ è un polinomio (a valori in $\CC$).
-Sia $M$ il massimo di $\abs{P_m(t)}$ per $t\in[0,1]$ (tale $M$ esiste per il teorema di Weierstrass).
-Si avrà allora
+Scelto $\delta \le \eps / \sum_{k=0}^{m-1} \abs{A_k}$ se $\abs{1-t}<\delta$ si avrà
+dunque
 \[
-\abs{f(tz_0)} \le \abs{1-t} M + \eps.
+  \abs{f(t\cdot z_0)-f(z_0)} = \abs{f(t\cdot z_0)} < 2\eps
 \]
-Dunque se $t_j \in [0,1)$ con $t_j \to 1$, esisterà $N$ (dipendente da $\eps$) tale che per ogni $j>N$ si abbia $1-t_j \le \eps / M$ da cui
-$\abs{f(t_jz_0)} \le 2\eps$.
-Abbiamo quindi verificato, tramite la definizione di limite,
-che $f(t_jz_0) \to 0 = f(z_0)$.
+che significa che $t\mapsto f(t\cdot z_0)$ è continua nel punto $t=1$.
 \end{proof}
 
 
@@ -1358,6 +1729,7 @@ Estenderemo quindi le proprietà della funzione esponenziale alla funzione
 definita su tutto il piano complesso.
 
 \begin{theorem}[collegamento tra le due definizioni di esponenziale]
+\label{th:exp_exp}
 \mymark{***}
 \mymargin{collegamento tra le due definizioni di esponenziale}
 \index{funzione!esponenziale}
@@ -1395,43 +1767,41 @@ fissato).
 
 Sia $z\in \CC$ fissato e sia
 \[
-  S_M = \sum_{k=0}^{M} \frac{\abs{z}^k}{k!}.
+  S = \sum_{k=0}^{+\infty} \frac{\abs{z}^k}{k!}.
 \]
-Abbiamo già osservato che $S_M$ converge per $M\to +\infty$.
-Poniamo
+Sappiamo che la serie esponenziale è assolutamente convergente
+per ogni $z\in \CC$ (in quanto il raggio di convergenza è $+\infty$)
+quindi $S$ è un numero reale (finito).
+Dunque per il teorema \ref{th:coda} (della coda) sappiamo che per ogni $\eps>0$
+esiste $M$ tale che
 \[
-  E = \lim_{M\to +\infty} S_M
-    = \sum_{k=0}^{+\infty} \frac{\abs{z}^k}{k!}.
+   \sum_{k=M+1}^{+\infty} \frac{\abs{z}^k}{k!} < \eps.
 \]
 
-Consideriamo ora un qualunque $\eps > 0 $, e scegliamo un $M$
-(grazie alla definizione di limite $S_M \to E$) tale
-che
-\[
-\sum_{k=M+1}^{+\infty} \frac{\abs{z}^k} {k!}
-= E - S_M < \eps.
-\]
 Fissato $k\le M$ visto che $c(n,k)\to 1$
 esiste $N_k > M$ tale che per ogni $n>N_k$
 si abbia $1-c(n,k) < \eps$
 (ricordiamo che $c(n,k)\le 1$).
 Prendiamo allora
 \[
-  N=\max_{k=0}^M N_k
+  N=\max\{N_k\colon k\le N\}
 \]
-cosicchè per ogni $n>N$ e per ogni $k\le M$ si avrà $1-c(n,k) < \eps$.
-Allora, per ogni $n>N$
+cosicchè per ogni $n>N$ e per ogni $k\le M$ si avrà $0 \le 1-c(n,k) < \eps$.
+Allora, per ogni $n>N$, possiamo spezzare la somma da $0$ a $n$ nelle due
+somme da $0$ a $M$ e da $M+1$ a $n$:
 \begin{align*}
 \abs{\sum_{k=0}^n \frac{z^k}{k!} - \enclose{1+\frac z n}^n}
 &= \abs{\sum_{k=0}^n \enclose{\frac{z^k}{k!} - c(n,k)\frac{z^k}{k!}}}
 = \abs{\sum_{k=0}^n  (1-c(n,k))\frac{z^k}{k!}} \\
 &\le \sum_{k=0}^n  (1-c(n,k))\frac{\abs{z}^k}{k!} \\
-&\le \sum_{k=0}^{N} \abs{1-c(n,k)} \frac{\abs{z}^k}{k!}
-   + \sum_{k=N+1}^n \frac{\abs{z}^k}{k!} \\
+  &= \sum_{k=0}^{M} (1-c(n,k)) \frac{\abs{z}^k}{k!}
+   + \sum_{k=M+1}^n (1-c(n,k)) \frac{\abs{z}^k}{k!} \\
+&\le \sum_{k=0}^{M} \eps \frac{\abs{z}^k}{k!}
+   + \sum_{k=M+1}^n \frac{\abs{z}^k}{k!} \\
 &\le  \eps \sum_{k=0}^{+\infty} \frac{\abs{z}^k}{k!}
-    + \sum_{k=N+1}^{+\infty} \frac{\abs{z}^k}{k!} \\
-&\le \eps E + \eps
-= \eps (E+1).
+    + \eps \\
+&\le \eps S + \eps
+= \eps (S+1).
 \end{align*}
 
 Visto che $\eps>0$ era arbitrario abbiamo verificato
@@ -1455,6 +1825,7 @@ essere per certi versi arbitraria salvo poi ritrovare le proprietà
 caratterizzanti di tale funzione.
 
 \begin{theorem}[proprietà dell'esponenziale complesso]
+\label{th:exp_complesso}
 Si ha:
 \begin{enumerate}
 \item
@@ -1478,9 +1849,9 @@ per ogni $z\in \CC$ si ha $\exp(z) \neq 0$ e
 \item la funzione $\exp\colon \CC \to \CC$ è (sequenzialmente) continua.
 
 \item Se $z_n\to 0$ allora
-\[
+\begin{equation}\label{eq:limite_exp_complesso}
    \lim_{n\to +\infty}\frac{\exp(z_n)-1}{z_n} = 1.
-\]
+\end{equation}
 \end{enumerate}
 \end{theorem}
 %
@@ -1520,7 +1891,8 @@ e dall'altro
 \end{align*}
 
 In entrambi i casi stiamo dunque sommando tutti i termini della
-matrice $m_{k,j}$ in un ordine diverso: nel primo caso stiamo associando i termini lungo le diagonali, nel secondo caso stiamo associando i termini
+matrice $m_{k,j}$ in un ordine diverso: nel primo caso stiamo associando i
+termini lungo le diagonali, nel secondo caso stiamo associando i termini
 lungo le cornici quadrate.
 
 Ma la serie $\sum m_{k,j}$ è assolutamente convergente e quindi
@@ -1558,13 +1930,117 @@ quindi se $z_n \to 0$ si ha
 \end{enumerate}
 \end{proof}
 
-\begin{theorem}[proprietà delle funzioni seno e coseno]
-Le funzioni $\cos(x)$ e $\sin(x)$ sono definite rispettivamente la parte reale e la parte immaginaria della funzione $\exp(ix)$
-per $x\in \RR$:
+Come già detto d'ora in poi scriveremo
+\[
+  e^z = \exp z.
+\]
+considerando quindi $\exp z$ l'estensione a tutto il piano complesso
+della funzione esponenziale già definita
+sulla retta reale.
+
+\begin{theorem}[approssimazione di $e$]
+\label{th:approx_e}
+\index{$e$!approssimazione}
+\index{approssimazione!di $e$}
+Risulta
+\[
+   0 < e - \sum_{k=0}^n \frac{1}{k!} \le \frac{1}{n \cdot n!}.
+\]
+In particolare per $n=5$ si ottiene
+\[
+  2.716 < e < 2.719
+\]
+\end{theorem}
+\begin{proof}
+Posto
+\[
+  R_n = e - \sum_{k=0}^n \frac{1}{k!} = \sum_{k=n+1}^{+\infty} \frac{1}{k!}
+\]
+risulta
+\[
+  n! R_n = \sum_{k=n+1}^{+\infty} \frac{n!}{k!}
+\]
+e osservando che per $k>n$ si ha
+\[
+\frac{n!}{k!} = \frac{1}{k (k-1) \dots (n+1)} \le \frac{1}{(n+1)^{k-n}}
+\]
+otteniamo
+\begin{align*}
+ n! R_n  & \le \sum_{k=n+1}^{+\infty}\frac{1}{(n+1)^{k-n}}
+ = (n+1) \sum_{j=0}^{+\infty} \enclose{\frac{1}{n+1}}^j \\
+ &= (n+1) \frac{1}{1-\frac{1}{n+1}} = \frac 1 n.
+\end{align*}
+
+Per $n=5$ si ha
+\[
+ \sum_{k=0}^5 \frac{1}{k!} = 1 + 1 + \frac 1 2 + \frac{1}{6} + \frac {1}{24} + \frac{1}{120}
+ = \frac{326}{120}
+\]
+Dunque da un lato
+\[
+  e \ge \frac{326}{120} \ge 2.716
+\]
+e dall'altro
+\[
+ e \le \frac{326}{120} + \frac{1}{5\cdot 5!}
+   \le 2.717 + 0.002 = 2.719
+\]
+\end{proof}
+
+\begin{theorem}[irrazionalità di $e$]
+\mymargin{$e\not\in \QQ$}
+\index{irrazionalità!di $e$}
+\index{$e$!è irrazionale}
+Il numero $e$ è irrazionale.
+\end{theorem}
+%
+\begin{proof}
+Supponiamo per assurdo che sia $e=p/q$ con $p\in \ZZ$ e $q \in \NN$.
+Possiamo supporre $q>1$
+(non importa che la frazione sia ridotta ai minimi termini).
+
+Allora si ha
+\[
+  q! e = \sum_{k=0}^{+\infty} \frac{q!}{k!}
+   = \sum_{k=0}^q \frac{q!}{k!} + q!\sum_{k=q+1}^{+\infty} \frac{1}{k!}
+\]
+Il primo addendo nella somma precedente è intero
+in quanto se $k\le q$ il rapporto $q!/k!\in$ è intero.
+D'altra parte per il teorema~\ref{th:approx_e}
+per il secondo addendo abbiamo
+\[
+0 < q! \sum_{k=q+1}^{+\infty} \frac{1}{k!}
+\le \frac{1}{q} < 1
+\]
+e dunque risulterebbe che $q! e$ non è intero in quanto strettamente compreso
+tra due interi consecutivi ma per ipotesi di assurdo $e=p/q$ e quindi $q! e = p(q-1)!$
+dovrebbe essere intero.
+\end{proof}
+
+
+\section{Le funzioni trigonometriche}
+\index{funzioni trigonometriche}
+
+\begin{definition}[funzioni trigonometriche]
+\label{def:sincos}
+\index{$\cos$}
+\index{$\sin$}
+Per ogni $x\in \RR$ si potrà definire
+\[
+  \cos x = \Re \enclose{e^{ix}}, \qquad
+  \sin x = \Im \enclose{e^{ix}}
+\]
+cosicché valga la
+\myemph{formula!di Eulero}
+\index{Eulero!formula di}
 \[
   e^{ix} = \cos x + i \sin x.
 \]
-Soddisfano le seguenti proprietà.
+\end{definition}
+
+\begin{theorem}[proprietà delle funzioni seno e coseno]
+Le funzioni $\sin$ e $\cos$
+soddisfano le seguenti proprietà.
 \begin{enumerate}
 \item
 $\displaystyle
@@ -1572,43 +2048,37 @@ $\displaystyle
 $\displaystyle
 \sin(x) = \frac{e^{ix}-e^{-ix}}{2i}$;
 \item
-$\sin(-x) = -\sin x$, $\cos(-x) = \cos x$;
+$\sin(-x) = -\sin x$ (la funzione $\sin$ è dispari),
+$\cos(-x) = \cos x$ (la funzione $\cos$ è pari);
+\item identità fondamentale della trigonometria:
+\[
+\cos^2 x + \sin^2 x = 1;
+\]
 \item
-$\cos^2 x + \sin^2 x =1$;
-\item
-$
-\cos(\alpha+\beta) = \cos \alpha \cos \beta - \sin \alpha \sin \beta
-$,
-$\sin(\alpha+\beta)= \sin \alpha \cos \beta + \cos \beta \sin \alpha$;
+formule di addizione:
+\begin{gather*}
+\cos(\alpha+\beta) = \cos \alpha \cos \beta - \sin \alpha \sin \beta,\\
+\sin(\alpha+\beta)= \sin \alpha \cos \beta + \cos \beta \sin \alpha;
+\end{gather*}
 \item
 le funzioni $\cos\colon \RR\to\RR$ e $\sin \colon \RR \to \RR$
-sono (sequenzialmente) continue;
+sono continue;
 \item si ha
-\begin{align*}
+\begin{align}
+\label{eq:serie_cos}
 \cos x &= \sum_{k=0}^{+\infty} (-1)^k\frac{x^{2k}}{(2k)!}
   = 1 - \frac{x^2}{2} + \frac{x^4}{4!} - \frac{x^6}{6!} + \dots
 \\
+\label{eq:serie_sin}
 \sin x &= \sum_{k=0}^{+\infty} (-1)^k\frac{x^{2k+1}}{(2k+1)!}
   = x - \frac{x^3}{6} + \frac{x^5}{5!} - \frac{x^7}{7!} + \dots
-\end{align*}
-\item
-esiste $\pi \in [2.8,3.2]$
-\index{$\pi$}
-\mymargin{definizione $\pi$}
-che è il più piccolo reale positivo
-tale che $\cos(\pi/2)=0$.
-Risulta $\sin(\pi/2)=1$ e le funzioni
-seno e coseno risultano essere periodiche di periodo $2\pi$;
-per $x\in [0,\pi/2]$ si ha $\sin x \ge 0$, $\cos x \ge 0$;
-
-\item
-per $x\in [-\pi/2, \pi/2]$ la funzione $\sin x$ è strettamente crescente;
-per $x\in [0,\pi]$ la funzione $\cos x$ è strettamente decrescente;
-
+\end{align}
 \item
 se $a_n \to 0$ ($a_n\in \RR$) per $n\to +\infty$ si ha
 \[
- \lim_{n\to +\infty} \frac{\sin a_n}{a_n} = 1.
+ \lim_{n\to +\infty} \frac{\sin a_n}{a_n} = 1
+ \qquad\text{e}\qquad
+ \lim_{n\to +\infty} \frac{1-\cos a_n}{a_n^2} = \frac 1 2.
 \]
 \end{enumerate}
 
@@ -1618,18 +2088,15 @@ se $a_n \to 0$ ($a_n\in \RR$) per $n\to +\infty$ si ha
 \mymark{*}
 \begin{enumerate}
 \item
-Discende dalle identità:
-\[
-  \Re z = \frac{z+\bar z}{2},
-  \qquad
-  \Im z = \frac{z-\bar z}{2i}.
-\]
+Essendo $\overline{e^{ix}} = e^{\overline{ix}} = e^{-ix}$
+discende dalla formula~\eqref{eq:re_im} per il calcolo
+di parte reale ed immaginaria.
 
 \item
 Si verifica direttamente con le formule precedenti.
 
 \item
-Per $x\in \RR$ si ha da una lato
+Per $x\in \RR$ si ha da un lato
 \[
  \abs{\exp (ix)}^2 = \exp(ix)\cdot \overline{\exp(ix)}
   = \exp(ix)\cdot \exp(-ix)
@@ -1642,17 +2109,28 @@ e dall'altro
 \]
 
 \item
-Le formule di addizione si ricavano dalla proprietà corrispondente della funzione esponenziale, come abbiamo già osservato
- nel capitolo sui numeri complessi.
+Grazie alla formula che esprime l'esponenziale
+della somma:
+\begin{align*}
+\cos(\alpha+\beta) + i \sin(\alpha + \beta)
+&= \exp(i(\alpha + \beta))
+= \exp(i\alpha) \cdot \exp(i\beta) \\
+&= (\cos \alpha + i \sin \alpha) \cdot (\cos \beta + i \sin \beta)\\
+&= \cos \alpha \cos \beta - \sin \alpha \sin \beta \\
+&\quad + i (\sin \alpha \cos \beta + \cos \alpha \sin \beta)
+\end{align*}
+e uguagliando parte reale e parte immaginaria si ottengono le formule
+di addizione.
 
 \item
-Visto che la funzione $\exp\colon \CC \to \CC$ è sequenzialmente continua
+Visto che la funzione $\exp\colon \CC \to \CC$ è continua
 anche la sua restrizione all'asse immaginario lo è.
 E dunque anche parte reale (coseno) e parte immaginaria (seno) lo sono.
 
 \item
 Sia $x\in \RR$.
-Osservando che $i^{2k} = (i^2)^k = (-1)^k$ e $i^{2k+1}= i \cdot i^{2k} = i\cdot(-1)^k$ suddividendo i termini pari e dispari
+Osservando che $i^{2k} = (i^2)^k = (-1)^k$ e $i^{2k+1}= i \cdot i^{2k}
+= i\cdot(-1)^k$ suddividendo i termini pari e dispari
 della serie che definisce l'esponenziale si ha:
 \begin{align*}
   \exp(ix)
@@ -1667,18 +2145,81 @@ sono a termini reali e quindi la loro somma è reale.
 Dunque queste due serie coincidono con la parte reale e la parte immaginaria di $\exp(ix) = \cos x + i \sin x$.
 
 \item
+Per la corrispondente proprietà dell'esponenziale
+sappiamo che per $a_n \to 0$ si ha
+\[
+  \frac{e^{ia_n}-1}{i a_n} \to 1.
+\]
+Ma
+\[
+  \frac{e^{ia_n}-1}{i a_n}
+  = \frac{\cos a_n - 1 + i \sin a_n}{i a_n}
+  = \frac{\sin a_n}{a_n} + i\frac{1- \cos a_n  }{a_n}.
+\]
+Scopriamo dunque che
+\[
+  \frac{1-\cos a_n}{a_n} \to 0
+  \qquad\text{e}\qquad
+  \frac{\sin a_n}{a_n} \to 1.
+\]
+D'altra parte si ha
+\begin{align*}
+ \frac{1-\cos a_n}{a_n^2}
+ &=\frac{(1-\cos a_n)\cdot(1+\cos a_n)}{a_n^2(1+\cos a_n)}
+ = \frac{1-\cos^2 a_n}{a_n^2} \cdot \frac{1}{1+\cos a_n}\\
+ &= \enclose{\frac{\sin a_n}{a_n}}\cdot \frac 1{1+\cos a_n}
+ \to 1 \cdot \frac 1 {1+\cos 0} = \frac 1 2.
+\end{align*}
+
+\end{enumerate}
+\end{proof}
+
+\begin{theorem}[definizione di $\pi$]
+\label{th:pi}
+Le funzioni $e^{ix}$, $\sin x$ e $\cos x$ sono periodiche
+tutte
+con lo stesso periodo
+$\tau$.
+Definiamo $\pi=\tau/2$ cosicché per ogni $x\in \RR$
+risulta:
+\[
+  e^{ix+2\pi} = e^{ix}, \qquad
+  \cos(x + 2\pi) = \cos(x), \qquad
+  \sin(x + 2\pi) = \sin(x).
+\]
+Il numero $\pi$ è il più piccolo reale positivo con tali proprietà.
+Risulta $\pi \in [2.8,3.2]$.
+
+La funzione $\sin x$ è crescente nell'intervallo $[-\pi,\pi]$ mentre
+la funzione $\cos x$ è decrescente nell'intervallo $[0,\pi]$.
+Risulta $\cos \frac \pi 2 = 0$, $\sin \frac \pi 2 = 1$.
+Vale inoltre la celeberrima formula di Eulero:
+\[
+  e^{i\pi} + 1 = 0.
+\]
+\end{theorem}
+\begin{proof}
+\item
 Le serie di potenze che definiscono le funzioni seno e coseno
 sono serie a segni alterni.
-Nella dimostrazione del criterio di Leibniz per la convergenza delle serie
+Nel criterio di Leibniz (teorema~\ref{th:Leibniz}) per la convergenza delle serie
 a segni alterni abbiamo osservato che se i termini della serie a segni
 alterni sono decrescenti in valore assoluto, allora le somme parziali della
 serie risultano alternativamente stime per eccesso e per difetto della serie intera.
 Vogliamo applicare questa osservazione alla serie che definisce il coseno.
+Si noti che
+\[
+  \sum_{k=0}^2 (-1)^k\frac{x^{2k}}{(2k)!} = 1 - \frac{x^2}{2} + \frac{x^4}{24}.
+\]
+
 Siamo quindi interessati a capire per quali $x\ge 0$ possiamo affermare
 che la successione $x^{2k}/(2k)!$ è decrescente.
-Osserviamo che la relazione $x^{2(k+1)}/(2(k+1))! \le x^{2k}/(2k)!$ è equivalente a $x^2 \le (2k+2)(2k+1)$ che è certamente vera se $x^2 \le 2$ ovvero quando $x\le \sqrt{2}$. Dunque, per $x\le \sqrt{2}$ si ha
+Osserviamo che la relazione $x^{2(k+1)}/(2(k+1))! \le x^{2k}/(2k)!$
+è equivalente a $x^2 \le (2k+2)(2k+1)$ che è certamente vera se $x^2 \le 2$
+ovvero quando $x\le \sqrt{2}$.
+Dunque, per $x\le \sqrt{2}$ si ha
 \[
- \cos x \ge 1 - \frac{x^2}{2} \ge 0.
+ 1 - \frac{x^2}{2} \le \cos x \le 1.
 \]
 La relazione $x^2 \le (2k+2)(2k+1)$ è vera anche quando $x^2 \le 4k^2$.
 Se $k\ge 2$ questo risulta vero per ogni $x\in [0,4]$.
@@ -1728,7 +2269,6 @@ in quanto
   e^{ix + 2ik\pi} = e^{ix}\cdot \enclose{e^{2\pi i}}^k = e^{ix}.
 \]
 
-\item
 Se prendiamo $x,y \in [0, \pi/2]$ con $y>x$ e poniamo $h=y-x$ si ha $h \in [0,\pi/2]$. Dunque $\sin h\ge 0$, $\sin x \ge 0$ e $\cos h\le 1$
 da cui
 \[
@@ -1743,67 +2283,16 @@ Ma dalle formule di addizione si verifica facilmente che
 e quindi se la funzione è decrescente in $[0,\pi/2]$ lo è anche
 in $[\pi/2,\pi]$.
 
-Visto che in $[0,\pi/2]$ il coseno è positivo e decrescente, il seno è positivo e vale $\cos^2 +\sin^2 =1$ risulta che su tale intervallo il seno è crescente. Anche su $[-\pi/2,0]$ il seno è crescente in quanto $\sin(-x) = -\sin x$.
+Visto che in $[0,\pi/2]$ il coseno è positivo e decrescente,
+il seno è positivo e vale $\cos^2 +\sin^2 =1$ risulta che su tale
+intervallo il seno è crescente.
+Anche su $[-\pi/2,0]$ il seno è crescente in quanto $\sin(-x) = -\sin x$.
 
-\item
-Per la corrispondente proprietà dell'esponenziale
-sappiamo che per $a_n \to 0$ si ha
-\[
-  \frac{e^{ia_n}-1}{i a_n} \to 1.
-\]
-Ma
-\[
-  \frac{e^{ia_n}-1}{i a_n}
-  = \frac{\cos a_n - 1 + i \sin a_n}{i a_n}
-  = \frac{\sin a_n}{a_n} + i\frac{1- \cos a_n  }{a_n}.
-\]
-Scopriamo dunque che
-\[
-  \frac{1-\cos a_n}{a_n} \to 0
-  \qquad\text{e}\qquad
-  \frac{\sin a_n}{a_n} \to 1.
-\]
-\end{enumerate}
 \end{proof}
 
-\begin{theorem}[irrazionalità di $e$]
-\mymargin{$e$ è irrazionale.}
-\index{irrazionalità!di $e$}
-Il numero $e$ è irrazionale.
-\end{theorem}
-%
-\begin{proof}
-Sappiamo che
-\[
-   e = \exp(1) = \sum_{k=0}^{+\infty} \frac{1}{k!}.
-\]
-Supponiamo per assurdo che $e = p/q$ con $p,q\in \NN$.
-Abbiamo già osservato che $2<e<3$ dunque $e$ non è intero
-e dunque $q>1$.
-
-Si ha
-\[
-q! e = \sum_{k=0}^{q} \frac{q!}{k!} + \sum_{k=q+1}^{+\infty} \frac{q!}{k!}.
-\]
-Se $k \le q$ chiaramente $q!/k!$ è intero. Viceversa se $k>q$ si ha
-\[
-  \frac{q!}{k!} = \frac{1}{k(k-1) \cdots (q+1)}
-  < \frac{1}{q^{k-q}}.
-\]
-Chiaramente anche $q!e$ è intero (essendo per assurdo $e=p/q$)
-e dunque è intero il numero $N$ definito da
-\begin{align*}
- N &= q! e - \sum_{k=0}^q \frac{q!}{k!}
-  = \sum_{k=q+1}^{+\infty} \frac{q!}{k!}
-  = \sum_{k=q+1}^{+\infty}\frac{1}{k (k-1) \cdots (q+1)}\\
-  &\le \sum_{k=q+1}^{+\infty} \frac{1}{(q+1)^{k-q}}
-  = \sum_{k=1}^{+\infty} \frac{1}{(q+1)^k}
-  = \frac{1}{(q+1)} \frac{1}{1-\frac{1}{q+1}}
-  = \frac{1}{q}.
-\end{align*}
-Di certo $N>0$ in quanto somma di una serie a termini positivi, e si trova dunque $0 < N \le 1/q < 1$: questo è assurdo essendo $N$ intero.
-\end{proof}
-
+Nel teorema precedente abbiamo definito $\pi$ in maniera analitica.
+L'usuale definizione geometrica ($\pi$ è il rapporto tra la lunghezza della
+circonferenza e il suo diametro) verrà recuperata nell'osservazione~\ref{rem:pi}.
 
 \section{funzioni trigonometriche inverse}
 La funzione $\sin\colon[-\pi/2,\pi/2]\to [-1,1]$ risulta essere strettamente crescente. Inoltre essendo una funzione continua e visto che $\sin(-\pi/2)=-1$

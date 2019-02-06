@@ -1,0 +1,763 @@
+\chapter{Spazi metrici e topologia}
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{spazi metrici}
+
+\begin{figure}
+  \centering
+  \begin{tikzpicture}[node distance=2cm]
+    \draw node at (0,0)[name=insieme]{insieme};
+    \draw node at (-1,-1)[name=sv]{sp. vettoriale};
+    \draw node at (-1,-3)[name=sn]{sp. normato};
+    \draw node at (-1,-5)[name=euclideo]{euclideo};
+    \draw node at (2,-1)[name=st]{sp. topologico};
+    \draw node at (2,-2)[name=sm]{sp. metrico};
+    \draw node at (2,-3.5)[name=completo]{sp. completo};
+    \draw node at (1,-4.5)[name=banach]{Banach};
+    \draw node at (1,-6)[name=hilbert]{Hilbert};
+    \draw[->](sv) -- (insieme);
+    \draw[->](st) -- (insieme);
+    \draw[->](sn) -- (sv);
+    \draw[->](sm) -- (st);
+    \draw[->](euclideo) -- (sn);
+    \draw[->](hilbert) -- (euclideo);
+    \draw[->](hilbert) -- (banach);
+    \draw[->](banach) -- (completo);
+    \draw[->](completo) -- (sm);
+    \draw[->](sn) -- (sm);
+    \draw[->](banach) -- (sn);
+
+    \begin{scope}[green]
+    \draw node at (-2,0)[name=insiemeT]{$\in,\subset,\cup$};
+    \draw (insiemeT) -- (insieme);
+    \draw node at (-3,-1)[name=svT]{$+,\cdot$};
+    \draw (svT) -- (sv);
+    \draw node at (-3,-3)[name=snT]{$\abs{v}$};
+    \draw (snT) -- (sn);
+    \draw node at (-3,-4.5)[name=euclideoT]{$\langle v,w\rangle$};
+    \draw (euclideoT) -- (euclideo);
+    \draw node at (5,0)[name=stT]{$\lim, \stackrel\circ A, \bar A$};
+    \draw (stT) -- (st);
+    \draw node at (5,-1.75)[name=smT]{$d(x,y)$, Lip};
+    \draw (smT) -- (sm);
+    \end{scope}
+
+    \begin{scope}[blue]
+    \draw node at (5,-1)[name=Rbar,left]{$\bar \RR$};
+    \draw[->](Rbar) -- (st);
+      \draw node at (5,-2.5)[name=Q,left]{$\QQ$};
+      \draw[->](Q) -- (sm);
+      \draw node at (5,-4)[name=Sn,left]{$\mathbb S^n$};
+      \draw[->](Sn) -- (completo);
+      \draw node at (4.5,-5)[name=Cn,left]{$\mathbb C^n$, $L^p$, $\ell^p$};
+      \draw[->](Cn) -- (banach);
+      \draw node at (4,-6.5)[name=L2,left]{$L^2$, $\ell^2$};
+      \draw[->](L2) -- (hilbert);
+      \draw node at (1,-7)[name=Rn]{$\RR^n$};
+      \draw[->](Rn) -- (hilbert);
+    \end{scope}
+  \end{tikzpicture}
+\caption{Strutture matematiche che astraggono lo spazio $\RR^n$. La freccia nera significa: ``è un'', la freccia blu: ``è un esempio di'', la linea verde: ``è una operazione tipica di''.}
+\end{figure}
+
+
+\begin{definition}[spazio metrico]
+\mymark{**}
+\label{def:distanza}
+Diremo
+che $d\colon X\times X\to\RR$ è una \myemph{distanza} su $X$
+se per ogni $x,y,z\in X$ valgono le seguenti proprietà
+\begin{enumerate}
+\item
+  $d(x,y)\ge 0$ (positività);
+\item
+  $d(x,y)\le d(x,z) + d(z,y)$ (disuguaglianza triangolare);
+\item
+  $d(x,y)=0$ se e solo se $x=y$ (separazione);
+\item
+  $d(x,y) = d(y,x)$ (simmetria).
+\end{enumerate}
+
+Se $d$ è una distanza
+diremo che $X$, o meglio $(X,d)$, è uno
+\emph{spazio metrico}.
+\mynote{spazio metrico}%
+\index{spazio!metrico}%
+\end{definition}
+
+Osserviamo che dalle disuguaglianze triangolari:
+\[
+  d(x,z) \le d(x,y) + d(y,z), \qquad
+  d(y,z) \le d(x,y) + d(x,z)
+\]
+si ottiene la \emph{disuguaglianza triangolare inversa}:
+\mynote{disuguaglianza triangolare inversa}
+\index{disuguaglianza!triangolare!inversa}
+\[
+  d(x,y) \ge \abs{d(x,z) - d(y,z)}.
+\]
+
+
+\begin{definition}[spazio normato]
+\mymark{*}
+\label{def:norma}
+Sia $V$ uno spazio vettoriale sul campo $\RR$.
+Una funzione $\phi \colon V\to \RR$ si
+dice essere una \myemph{norma} su $V$ se
+per ogni $v,w\in V$ e per ogni $\lambda \in \RR$
+valgono le seguenti proprietà:
+\begin{enumerate}
+\item
+  $\phi(v) \ge 0$ (positività);
+\item
+  $\phi(\lambda v) = \abs{\lambda} \cdot \phi(v)$ (omogeneità e simmetria);
+\item
+  $\phi(v+w) \le \phi(v) + \phi(w)$
+  (disuguaglianza triangolare);
+\item
+  $\phi(v)=0$ se e solo se $v=0$ (separazione).
+\end{enumerate}
+
+Se $\phi$ è una norma su $V$ diremo che
+$V$ (o meglio $(V,\phi)$)
+è uno spazio vettoriale \myemph{normato}.
+
+Se $\phi$ è una norma la funzione $d(v,w) = \phi(v-w)$
+è chiaramente una distanza che si chiama
+\emph{distanza indotta}
+\mynote{distanza indotta}
+\index{distanza!indotta}
+da $\phi$.
+In particolare ogni spazio normato è anche uno spazio metrico rispetto alla distanza indotta dalla norma.
+\end{definition}
+
+Gli esempi più comuni di norme sono le norme indotte da un prodotto scalare, chiamate \myemph{euclidee}
+(argomento che non tratteremo):
+\[
+  \phi(v) = \sqrt{v\cdot v}.
+\]
+
+\begin{example}[norma euclidea]
+\mymark{*}
+La norma euclidea di un punto $\vec x\in \RR^n$ è definita da
+\[
+  \abs{\vec x} = \sqrt{x_1^2 + x_2^2+ \dots + x_n^2}.
+\]
+E' facile verificare che $\abs{\cdot}$ è una norma su $\RR^n$.
+La distanza indotta da tale norma si chiama \myemph{distanza euclidea}.
+
+Nel caso $n=1$ la norma coincide con il valore assoluto. Se identifichiamo $\CC$ con $\RR^2$ tale norma risulta essere la usuale norma di un numero complesso.
+
+Dunque $\RR$, $\CC$, $\RR^n$, sono spazi vettoriali normati e di conseguenza spazi metrici rispetto alla norma euclidea.
+\end{example}
+
+\begin{definition}[distanza indotta]
+Se $d\colon X\times X \to \RR$ è una distanza e $A \subset X$
+allora restringendo $d$ a $A \times A$ si ottiene ancora (ovviamente) una distanza.
+Tale restrizione si chiama \emph{distanza indotta}
+\mynote{distanza indotta}
+\index{distanza!indotta}
+da $X$ su $A$.
+Dunque se $A$ è un sottoinsieme di uno spazio metrico $(X,d)$ anche $A$ ha una struttura di spazio metrico.
+\end{definition}
+
+\begin{example}[sfera]
+Se $X\subset \RR^n$ la distanza euclidea di $\RR^n$ induce
+su $X$ una struttura di spazio metrico. Se $X$ non è un sottospazio vettoriale di $\RR^n$ abbiamo quindi esempi di spazi metrici che non sono spazi normati. Ad esempio
+la \myemph{sfera $n$-dimensionale}
+\[
+  \mathbb S^n = \{\vec x \in \RR^{n+1}\colon \abs{\vec x} = 1\}
+\]
+è uno spazio metrico con la distanza indotta da $\RR^n$.
+
+Per $n=1$ si osserva che $\mathbb S^1$ è la circonferenza unitaria nel piano, per $n=2$ si ottiene l'usuale sfera unitaria nello immersa nello spazio tridimensionale.
+\end{example}
+
+\begin{example}[distanza Manhattan]
+Su $\RR^2$ possiamo definire una norma, chiamata \myemph{norma Manhattan}, come segue:
+\[
+  \phi(\vec x) = \abs{x_1} + \abs{x_2}.
+\]
+La distanza indotta $d(p,q)$ rappresenta la lunghezza del percorso più breve per andare da $p$ a $q$ muovendosi solamente in orizzontale o verticale (come se fossimo sulle strade di Manhattan).
+
+L'insieme $\{\vec x \in \RR^2\colon \phi(\vec x) < 1\}$ dei punti di $\RR^2$ che distano meno di $R$ dall'origine è un quadrato di diagonale $2R$, con le diagonali sugli assi coordinati (con la distanza euclidea tale insieme sarebbe invece un cerchio di raggio $R$).
+\end{example}
+
+\begin{example}[norma $p$]
+Per ogni $p\ge 1$ si può definire su $\RR^n$ la norma
+\[
+  \abs{\vec x}_p = \sqrt[p]{\abs{x_1}^p + \abs{x_2}^p + \dots + \abs{x_n}^p}.
+\]
+
+Si può inoltre definire
+\[
+  \abs{\vec x}_\infty = \lim_{p\to +\infty} \abs{\vec x}_p
+   = \max\{\abs{x_1}, \abs{x_2}, \dots, \abs{x_n}\}.
+\]
+
+Per $p=2$ si ottiene la norma euclidea, per $p=1$
+su $\RR^2$ si ottiene la norma Manhattan.
+Per $p=+\infty$ si ottiene la norma Manhattan a meno di una rotazione di 45 gradi e di un riscalamento di fattore $\sqrt 2$:
+\[
+  \abs{(x_1,x_2)}_\infty
+  = \abs{\enclose{\frac{x_1-x_2} 2, \frac {x_1+x_2}2}}_1
+\]
+\end{example}
+
+\begin{definition}[palla]
+\mymark{*}
+Sia $(X,d)$ uno spazio metrico.
+Per ogni $r>0$ e per ogni $x_0\in X$
+definiamo la \myemph{palla} di raggio $r$ centrata in
+$x_0$ come l'insieme
+\[
+  B_r(x_0) = \{x\in X \colon d(x,x_0) < r\}.
+\]
+\end{definition}
+
+\begin{definition}[relazioni e proprietà topologiche]
+\mymark{*}
+\label{def:466342}
+Sia $(X,d)$ uno spazio metrico.
+Un insieme $A\subset X$ si dirà essere un insieme
+\myemph{aperto} in $X$ se per ogni $x\in A$ esiste $r>0$
+tale che $B_r(x) \subset A$.
+Un insieme $A\subset X$ si dirà essere un insieme \myemph{chiuso} in $X$ se il suo complementare $X\setminus A$ è aperto.
+
+La famiglia di tutti gli insiemi aperti si chiama \myemph{topologia} dello spazio metrico $X$. Tutte le definizioni che seguono non dipendono dalla distanza $d$ ma solamente dalla topologia: basterà usare aperti qualunque al posto delle palle $B_r(x)$.
+
+Se $A\subset X$ è un insieme qualunque
+$x\in X$ è un punto qualunque diremo che:
+\begin{enumerate}
+\item
+$x$ è \myemph{punto interno} ad $A$ se esiste $r>0$ tale che $B_r(x) \subset A$;
+chiameremo
+\myemph{parte interna}
+di $A$ l'insieme dei punti interni di $A$
+e la denoteremo con $\stackrel\circ A$;
+\item
+$A$ è un \myemph{intorno} di $x$ se $x$ è punto interno ad $A$;
+\item
+$x$ è \myemph{punto esterno} ad $A$ se è interno al complementare di $A$ ovvero esiste $r>0$ tale che $B_r(x) \cap A = \emptyset$;
+chiameremo \myemph{parte esterna} di $A$ l'insieme dei punti esterni ad $A$;
+\item
+$x$ è \myemph{punto di frontiera} per $A$ se non è né interno né esterno ad $A$ ovvero per ogni $r>0$ l'insieme $B_r(x)$ contiene punti di $A$ e di $X\setminus A$;
+chiameremo \myemph{frontiera} (o bordo) di $A$ l'insieme dei punti di frontiera che denoteremo con $\partial A$.
+\item
+$x$ è \myemph{punto di aderenza} di $A$ se è interno o di frontiera ovvero se per ogni $r>0$ si ha $B_r(x) \cap A \neq \emptyset$;
+chiameremo \emph{chiusura} di $A$ l'insieme dei punti di aderenza,
+che denoteremo con $\bar A$;
+\mymargin{chiusura}
+\index{chiusura}
+\item
+$x$ è \myemph{punto di accumulazione} di $A$ se
+è punto di aderenza per $A \setminus \{x\}$ ovvero se
+per ogni $r>0$ l'insieme $A \cap B_r(x)$ contiene punti diversi da $x$, chiameremo \myemph{derivato} di $A$ l'insieme dei punti di accumulazione (che si potrebbe denotare con $A'$);
+\item
+$x$ è \myemph{punto isolato} di $A$ se è un punto di $A$ ma non di accumulazione per $A$ cioè se esiste $r>0$ per cui
+$B_r(x) \cap A = \{x\}$.
+\end{enumerate}
+\end{definition}
+
+\begin{theorem}[le palle sono aperte]
+Sia $(X,d)$ uno spazio metrico, sia $x\in X$ e $r>0$. Allora la palla $B_r(x)$ è un insieme aperto in $X$.
+\end{theorem}
+%
+\begin{proof}
+Sia $y\in B_r(x)$: è sufficiente trovare $\rho>0$ tale che $B_\rho(y) \subset B_r(x)$. Prendendo $\rho = r-d(y,x)$ si osserva che $\rho >0 $ e, per la disuguaglianza triangolare,
+dato $z \in B_\rho(y)$ si ha
+\[
+  d(z,x) \le d(z,y) + d(y,x) < \rho + d(y,x) = r
+\]
+da cui $B_\rho(y)\subset B_r(x)$ come volevamo dimostrare.
+\end{proof}
+
+\begin{definition}[spazio topologico]
+Sia $X$ un insieme e sia $\tau\subset \P(X)$ una famiglia di sottoinsiemi di $X$.
+Diremo che $X$ è uno \myemph{spazio topologico}, che $\tau$ è una
+\myemph{topologia} e che gli elementi di $\tau$ sono \myemph{aperti}
+se:
+\begin{enumerate}
+\item $\emptyset \in \tau$, $X\in \tau$ (il vuoto e l'intero spazio sono aperti);
+\item $A \subset \tau \implies \bigcup A \in \tau$ (unione qualunque di aperti è aperta);
+\item $A,B\in \tau \implies A \cap B \in \tau$ (intersezione finita di aperti è aperta).
+\end{enumerate}
+Diremo inoltre che lo spazio topologico è \myemph{separato} (o $T_2$ o di Hausdorff)
+\index{spazio topologico!separato}
+\index{spazio topologico!$T_2$}
+\index{spazio topologico!di Hausdorff}
+\index{$T_2$}
+\index{separato}
+se inoltre vale
+\begin{enumerate}
+\item[4.] dati $x,y\in X$ con $x\neq y$ esistono $U,V\in \tau$ con $x\in U$,
+$y\in V$ e $U\cap V=\emptyset$.
+\end{enumerate}
+
+Diremo che un sottoinsieme $A\subset X$ è \myemph{chiuso} se il complementare
+è aperto ($X\setminus A\in \tau$).
+Diremo che $A\subset X$ è un \myemph{intorno} del punto $a\in X$ se esiste $U\in \tau$
+tale che $x\in U \subset A$.
+
+Tutte le proprietà date nella definizione~\ref{def:466342} possono quindi essere
+date in uno spazio topologico utilizzando gli intorni (o gli aperti) al posto
+delle palle.
+\end{definition}
+
+\begin{theorem}[topologia indotta dalla metrica]
+Sia $X$ uno spazio metrico e sia $\tau$ l'insieme di tutti gli aperti
+di $X$ ovvero:
+\[
+ \tau = \{A \subset X\colon \forall a \in A \exists \rho>0 \colon B_\rho(a)\subset A\}.
+\]
+Allora $\tau$ è una topologia e $X$ è uno spazio topologico separato rispetto alla topologia
+$\tau$.
+\end{theorem}
+
+\begin{definition}[base di intorni]
+Sia $X$ un insieme e per ogni $x\in X$ sia data $\B_x\subset \P(X)$
+una famiglia di sottoinsiemi di $X$. Diremo che $\B_x$ è una
+\myemph{base di intorni} di $x$ se valgono le seguenti proprietà:
+\begin{enumerate}
+\item $\B_x$ è non vuoto;
+\item se $B\in \B_x$ allora $x \in B$;
+\item se $A,B\in \B_x$ allora esiste $C\in \B_x$ tale che $C\subset A\cap B$;
+
+\item Se un insieme contiene un intorno di un punto anch'esso è un intorno di quel punto.
+\item L'intersezione di due intorni di un punto è un intorno del punto.
+\end{enumerate}
+
+Se per ogni $x\in X$ l'insieme $\B_x$ è una base di intorni di $x$ potremo
+definire
+\[
+  \tau = \{A \subset X\colon \forall x\in A \exists B \in \B_x \colon B\subset A\}
+\]
+e risulta che $\tau$ è una topologia e quindi $X$ è uno spazio topologico
+rispetto a tale topologia (indotta dalla base di intorni).
+
+Se inoltre vale anche la seguente proprietà:
+\begin{enumerate}
+\item dati $x,y\in X$, $x\neq y$, esistono $B\in \B_x$ e $C\in \B_y$ tali che
+$B\cap C=\emptyset$;
+\end{enumerate}
+allora $X$ sarà uno spazio topologico separato.
+\end{definition}
+%
+
+
+Le proprietà seguenti sono conseguenza degli assiomi precedenti e sono quindi valide in ogni spazio topologico.
+
+\begin{enumerate}
+\item
+La parte interna di un qualunque $A\subset X$ è il più grande (ovvero l'unione di ogni) aperto contenuto in $A$. La chiusura di $A$ è il più piccolo (ovvero l'intersezione di ogni) chiuso contenente $A$.
+In particolare la parte interna è sempre aperta e la parte interna di un aperto è tutto l'insieme. La chiusura è un insieme chiuso e la chiusura di un chiuso è l'insieme stesso.
+\item
+La frontiera di un insieme è chiusa. Parte interna, frontiera e parte esterna sono tre insiemi disgiunti (rispettivamente aperto, chiuso e aperto) la cui unione è tutto lo spazio.
+\end{enumerate}
+
+\begin{theorem}
+Se $X$ è uno spazio metrico la famiglia di insiemi
+\[
+  \tau = \{A \subset X \colon \forall a \in A \exists \rho>0 \colon B_\rho(x) \subset A\}
+\]
+risulta essere una topologia su $X$ che si chiama \emph{topologia indotta}
+dalla metrica di $X$.
+\end{theorem}
+%
+\begin{proof}
+L'insieme vuoto è aperto in quanto non ci sono punti su cui è necessario verificare la proprietà che definisce gli aperti. Anche l'intero spazio è aperto in quanto ogni palla è contenuta in esso. Dunque $\emptyset, X$ sono aperti e di conseguenzi i rispettivi complementari: $X, \emptyset$ sono chiusi.
+
+Che l'unione qualunque di aperti sia aperta è ovvio: preso un punto dell'unione tale punto è contenuto in uno degli aperti. Dunque c'è una palletta centrata nel punto e contenuta nell'aperto. Ma allora essa è anche contenuta nell'unione.
+Che l'intersezione di chiusi sia un chiuso si ottiene passando ai complementari: il complementare di un chiuso è un aperto e il complementare dell'intersezione è l'unione dei complementari.
+
+L'intersezione qualunque di chiusi è uguale al complementare (rispetto ad $X$) dell'unione dei complementari. Per definizione il complementare di un chiuso è aperta e dunque l'unione dei complementari è aperta. Dunque il suo complementare è un chiuso.
+
+Consideriamo ora l'intersezione $A\cap B$ di due aperti $A$ e $B$. Se $x$ è un punto dell'intersezione sappiamo che esistono due palle $B_r(x)$ e $B_s(x)$ tali che $B_r(x)\subset A$ e $B_s(x) \subset B$. La più piccola delle due è contenuta in $A\cap B$ e questo dimostra che $A\cap B$ è aperto. Passando ai complementari si ottiene che l'unione di due chiusi è un chiuso.
+
+Dati $x,y \in X$ se $x\neq y$ allora $r=d(x,y)/2>0$. Osserviamo allora che $B_r(x)$ e $B_r(y)$ sono disgiunte in quanto se se esistesse $z\in B_r(x) \cap B_r(y)$ si avrebbe $d(x,y)\le d(x,z) + d(z,y) < r + r = d(x,y)$ che è assurdo.
+
+Abbiamo quindi dimostrato le quattro proprietà degli aperti. Passiamo alle proprietà degli intorni. Per definizione un insieme $U$ è un intorno di $x$ se esiste un aperto $A$ tale che $x\in A \subset U$. Necessariamente quindi $x\in U$. E se $V\supset U$ allora $x\in A \subset V$ e dunque anche $V$ è intorno di $x$. Se $U$ e $V$ sono intorni dovranno esistere due aperti $A$ e $B$ tali che $x\in A \subset U$ e $x \in B \subset V$. Ma allora $A\cap B$ è aperto e $x \in A \cap B \subset U \cap V$ dunque $U\cap V$ è anch'esso un intorno di $x$. Per il quarto punto basta osservare che ogni intorno contiene, per definizione, un aperto che contiene il punto e un aperto è, sempre per definizione, intorno di ogni suo punto. Per il punto 5 già sappiamo che due punti distinti sono contenuti in aperti disgiunti, e gli aperti sono sempre intorni di ogni loro punto.
+
+Dimostriamo ora che la parte interna di un insieme $A$ è l'unione di tutti gli aperti contenuti in $A$. Da un lato se $x$ è un punto interno ad $A$ allora esiste $r>0$ tale che $B_r(x)\subset A$. Essendo $B_r(x)$ aperto risulta quindi che $x$ sta nell'unione degli aperti contenuti in $A$. Viceversa se $x$ sta nell'unione di tutti gli aperti contenuti in $A$ deve esistere un aperto $U$ tale che $x\in U \subset A$. Ma allora esiste $r>0$ tale che $B_r(x) \subset U \subset A$ e dunque $x$ è punto interno ad $A$. La proprietà analoga per i chiusi si ottiene passando ai complementari.
+
+La frontiera di un insieme è, per definizione, l'insieme dei punti che non sono né interni né esterni. D'altra parte è chiaro che un punto non può essere contemporaneamente interno ed esterno. Dunque la frontiera è il complementare dell'unione della parte interna e della parte esterna, ed è quindi un insieme chiuso.
+\end{proof}
+
+
+\begin{definition}[convergenza in uno spazio metrico]
+\mymark{**}
+Sia $(X,d)$ uno spazio metrico.
+Diremo che una successione di punti $x_n \in X$
+\mynote{convergenza}
+\index{convergenza!in uno spazio metrico}
+\index{spazio!metrico!convergenza}
+converge ad un punto $x\in X$
+e scriveremo $x_n\to x$ per $n\to +\infty$ se
+\[
+  d(x_n, x) \to 0 \qquad \text{per $n \to +\infty$}.
+\]
+
+Un insieme $A\subset X$ si dice essere
+\myemph{sequenzialmente chiuso}
+\index{spazio!metrico!sequenzialmente chiuso}
+se presa una successione $x_k\in A$ se $x_k\to x$ converge ad un punto $x\in X$ allora $x\in A$.
+\end{definition}
+
+Si noti che l'usuale convergenza in $\RR$ non è altro
+che la convergenza di $\RR$
+visto come spazio metrico con la distanza euclidea $d(x,y) = \abs{x-y}$.
+
+\begin{theorem}[chiusura e chiusura sequenziale]
+Sia $(X,d)$ uno spazio metrico.
+Un insieme $A\subset X$ è chiuso se e solo se è sequenzialmente chiuso.
+\end{theorem}
+%
+\begin{proof}
+Per dimostrare che un insieme sequenzialmente chiuso è chiuso dimostriamo l'equivalente contropositiva: se $A$ non è chiuso allora $A$ non è sequenzialmente chiuso. Sia dunque $A\subset X$ un insieme non chiuso. Significa che c'è un punto $y \in X\setminus A$ che non è esterno ad $A$.
+Ciò vuol dire che per ogni $r>0$ l'insieme $B_r(y)\cap A$ è non vuoto. Per ogni $k\in \NN$ posso allora
+scegliere $r=1/k$ e quindi so che esiste un punto $x_k\in B_r(y) \cap A$ ovvero $x_k \in A$ e $d(x_k,y) < 1/k$. Dunque $x_k \to y$ con $x_k\in A$ ma $y\not \in A$: significa che $A$ non è sequenzialmente chiuso.
+
+Viceversa supponiamo che $A$ sia chiuso e dimostriamo che
+allora è anche sequenzialmente chiuso.
+Sia allora $x_k \in A$ una successione convergente ad un punto di $X$: $x_k \to x$.
+Dobbiamo mostrare che $x\in A$.
+Per definizione di convergenza
+sappiamo che per ogni $\eps>0$ esiste $K\in \NN$ tale per ogni $k> K$ si ha $x_k \in B_\eps(x)$.
+In particolare $A \cap B_\eps(x) \neq \emptyset$.
+Risulta quindi che $x$ non è esterno ad $A$ e quindi, essendo $A$ chiuso, $x\in A$.
+\end{proof}
+
+\begin{definition}[continuità]
+\mymark{**}
+Una funzione $f\colon X \to Y$ definita tra due spazi metrici
+si dice essere \myemph{sequenzialmente continua} nel punto $x\in X$ se per ogni successione convergente $x_n \to x$ in risulta che $f(x_n)\to f(x)$. Diremo che $f$ è \emph{sequenzialmente continua} se è sequenzialmente continua in ogni punto $x$ del suo dominio $X$.
+
+Una funzione $f\colon X \to Y$ definita tra due spazi metrici (ma in generale questa definizione si può formulare negli spazi topologici) si dice essere \myemph{continua} in un punto $x\in X$ se  per ogni $V$ intorno di $f(x)$ in $Y$ esiste un intorno $U$ di $x$ in $X$ tale che $f(U)\subset V$.
+Diremo che $f$ è \emph{continua} se
+è continua in ogni punto $x$ del suo dominio.
+\end{definition}
+
+Anche in questo caso abbiamo considerato due diverse nozioni di continuità che in generale (in spazi topologici) potrebbero non coincidere ma nel caso degli spazi metrici sono equivalenti, come dimostriamo nel seguente teorema.
+
+\begin{theorem}[definizioni equivalenti di continuità]
+Sia $f\colon X \to Y$ una funzione definita tra due spazi metrici $X$ e $Y$. Allora $f$ è sequenzialmente continua in un punto $x\in X$ se e solo se è continua nel punto $x$.
+Inoltre $f$ è continua se e solo se
+per ogni $A$ aperto in $Y$ risulta che $f^{-1}(A)$ è aperto in $X$ (la controimmagine di un aperto è aperta).
+\end{theorem}
+%
+\begin{proof}
+Supponiamo che $f$ sia sequenzialmente continua in $x$. Per dimostrare che è continua prendiamo un qualunque intorno $V$ di $f(x)$. Per definizione di intorno esiste $\eps>0$ tale che $f(x) \in B_\eps(f(x)) \subset V$. Supponiamo per assurdo che non esiste $U$ intorno di $x$ tale che $f(U)\subset V$. Allora preso $U_k = B_{1/k}(x)$ dovrà esistere un punto $x_k \in U_k$ tale che $f(x_k)\not \in V$. Dunque $x_k \to x$ ma $f(x_k)$ non potrà convergere a $f(x)$, violando l'ipotesi che $f$ sia sequenzialmente continua.
+
+Viceversa supponiamo che $f$ sia continua in $x$ e consideriamo una qualunque successione $x_k \to x$. Per dimostrare che $f(x_k)\to f(x)$ dobbiamo verificare che per ogni $\eps>0$ esiste $K\in \NN$ tale che per ogni $k>K$ si ha $d(f(x_k),f(x)) < \eps$. Dato $\eps>0$ la palla $B_\eps(f(x))$ è un intorno di $f(x)$ dunque sappiamo che esiste un intorno $U$ di $x$ tale che $f(U)\subset B_\eps(f(x))$. Ma se $U$ è un intorno di $x$ significa che esiste $\delta>0$ per cui $B_\delta(x)\subset U$.
+Visto che $x_k \to x$ esiste $K\in \NN$ tale che per ogni $x>K$ si abbia $d(x_k,x)< \delta$. Ma allora per tali $k$ si ha $x_k\in B_\delta(x)$ e quindi $f(x_k)\in B_\eps(f(x))$. Vuol dire che $d(f(x_k),f(x))<\eps$, come dovevamo dimostrare.
+
+Mostriamo ora che se $f$ è continua e $A$ è aperto in $Y$ allora $f^{-1}(A)$ è aperto in $X$. Dato un punto qualunque $x\in f^{-1}(A)$ sappiamo che $f(x)\in A$ dunque esiste un intorno $V$ di $f(x)$ tale che $V\subset A$. Essendo $f$ continua in $x$ sappiamo esistere $U$ intorno di $x$ tale che $f(U)\subset V$ e dunque $U\subset f^{-1}(V)$ come volevamo dimostrare.
+
+Viceversa supponiamo che la controimmagine di ogni aperto sia un aperto e dimostriamo che la funzione è continua in ogni punto. Preso un punto $x\in X$ e un intorno $V$ di $f(x)$ dobbiamo trovare un intorno di $x$ che venga mandato in $V$.
+Per definizione di intorno $V$ contiene una palla aperta $A$ centrata in $f(x)$. Dunque $U=f^{-1}(A)$ è un aperto in $X$. Ma $x\in U$ in quanto $f(x)\in A$ e quindi $U$, essendo aperto, è un intorno di $x$ tale che $f(U) = A \subset V$.
+\end{proof}
+
+
+
+\begin{definition}[spazi limitati]
+\mymark{*}
+Sia $X$ uno spazio metrico o un sottoinsieme di uno sottospazio metrico. Si dirà che $X$ è
+\myemph{limitato} se è contenuto in una palla ovvero se
+esiste $x_0\in X$ e $R>0$ tale che $X\subset B_R(x_0)$.
+\end{definition}
+
+\begin{definition}[compattezza sequenziale]
+\mymark{**}
+Sia $X$ uno spazio metrico o un sottoinsieme di uno
+spazio metrico. Si dirà che $X$ è
+\myemph{sequenzialmente compatto} se da ogni
+successione $x_k \in X$ è possibile estrarre una sottosuccessione $x_{k_j}\to x$
+convergente ad un punto $x\in X$.
+\end{definition}
+
+La compattezza viene definita in forma più generale negli spazi topologici (argomento che non vogliamo trattare). Sugli spazi metrici si osserva poi che la compattezza è equivalente alla compattezza sequenziale. Dunque ci capiterà di scrivere più brevemente \myemph{compatto}
+al posto di \emph{sequenzialmente compatto} e anche se formalmente la definizione di compatto è diversa (e non l'abbiamo introdotta) gli enunciati rimangono comunque validi.
+
+Il teorema di Bolzano-Weierstrass afferma che gli intervalli $[a,b]$ con $a,b\in \RR$ sono compatti.
+Più in generale si può dimostrare che tutti gli insiemi chiusi e limitati di $\RR^n$ sono compatti. In generale questo risultato non è vero in qualunque spazio metrico (un esempio negativo è dato dalla convergenza uniforme, come vedremo più avanti) ma l'implicazione inversa è sempre vera, come enunciato nel seguente teorema. In particolare su $\RR^n$ un insieme è compatto se e solo se è chiuso e limitato.
+
+\begin{theorem}
+\mymark{**}
+Se $A$ è un sottoinsieme sequenzialmente
+compatto di uno spazio metrico $X$
+allora $A$ è chiuso e limitato.
+\end{theorem}
+%
+\begin{proof}
+Chiaramente $A$ è chiuso in quanto presa una successione $x_k\in A$ convergente a punto $x\in X$
+sappiamo che esiste una sottosuccessione convergente ad un punto di $A$. Ma necessariamente ogni sottosuccessione converge ad $x$ quindi $x\in A$. Se $A$ non fosse limitato
+fissato $a\in A$ per ogni $k\in \NN$ dovrebbe esistere un punto $x_k\in A$ tale che $x_k \not\in B_k(a)$
+cioè $d(x_k,a) > k$. Supponiamo allora che esista una sottosuccessione convergente $x_{k_j}\to x \in A$. Allora per la disuguaglianza triangolare inversa si avrebbe
+\[
+  d(x, a) \ge d(x_{k_j}, a) - d(x_{k_j},x)
+   \ge k_j - d(x_{k_j},x) \to +\infty - 0 = +\infty.
+\]
+Ma questo è assurdo in quanto $d(x,a)\in \RR$.
+\end{proof}
+
+\begin{theorem}[Weierstrass: le funzioni continue mandano compatti in compatti]
+Sia $f\colon X \to Y$ una funzione continua tra
+due spazi metrici $X$ e $Y$.
+Se $K\subset X$ è sequenzialmente compatto allora
+anche $f(K)$ è sequenzialmente compatto.
+\end{theorem}
+%
+\begin{proof}
+Sia $y_k \in f(K)$ una qualunque successione. Allora
+esiste $x_k \in K$ tale che $f(x_k) = y_k$.
+Essendo $K$ compatto possiamo estrarre una sottosuccessione convergente: $x_{k_j}\to x$. Essendo $f$ continua si ha
+\[
+  y_{k_j} = f(x_{k_j}) \to f(x) \in f(K).
+\]
+\end{proof}
+
+Nel caso $X=Y=\RR$ recuperiamo l'usuale teorema di Weierstrass, in quanto se $f\colon [a,b]\to \RR$ è continua essendo $[a,b]$ compatto risulta che $f([a,b])$ è compatto. Ma i compatti di $\RR$ sono chiusi e limitati quindi hanno massimo e minimo in quanto l'estremo superiore e l'estremo inferiore sono finiti e sono punti di aderenza dell'insieme.
+
+\section{completezza}
+
+\begin{definition}[successioni di Cauchy]
+\mymark{***}
+\index{successione!di Cauchy}
+\index{Cauchy!successione di}
+Sia $(X,d)$ uno spazio metrico e $x_k$ una successione di punti di $X$.
+Diremo che $x_k$ è una
+\emph{successione di Cauchy}
+\mynote{successione di Cauchy}
+se
+\[
+ \forall \eps>0\colon \exists n\in \NN\colon \forall j>n \colon \forall k > n \colon d(x_j,x_k) < \eps.
+\]
+\end{definition}
+
+La proprietà che definisce le successioni di Cauchy
+potrebbe essere scritta con la notazione
+\[
+  \lim_{j,k \to +\infty} d(x_j, x_k) = 0.
+\]
+
+\begin{theorem}[le successioni convergenti sono di Cauchy]
+\mymark{**}
+Sia $x_k\to x$ una successione convergente in uno spazio metrico $(X,d)$. Allora $x_k$ è di Cauchy.
+\end{theorem}
+%
+\begin{proof}
+\mymark{**}
+Per definizione se $x_k \to x$ si ha
+\[
+  \forall \eps>0\colon \exists n\in \NN \colon
+  \forall k>n \colon d(x_k,x)< \eps.
+\]
+Applicando la disuguaglianza triangolare, per ogni $j,k>n$
+si ottiene il risultato desiderato:
+\[
+  d(x_j, x_k) \le d(x_k,x) + d(x,x_j) \le 2\eps.
+\]
+\end{proof}
+
+\begin{definition}[completezza]
+\mymark{***}
+\mynote{completezza}
+\index{completezza}
+Uno spazio metrico $(X,d)$ si dice essere \myemph{completo}
+se ogni successione di Cauchy è convergente.
+\end{definition}
+
+\begin{theorem}[completezza dei compatti]
+Ogni spazio metrico compatto è completo.
+\end{theorem}
+%
+\begin{proof}
+Visto che lo spazio è compatto ogni successione di Cauchy
+ammette una sottosuccessione convergente. Ma se una sottosuccessione di una successione di Cauchy è convergente ad un punto, è facile osservare che l'intera successione di Cauchy converge a quel punto.
+\end{proof}
+
+\begin{theorem}[chiusi in spazi compatti e in spazi completi]
+Sia $(X,d)$ uno spazio metrico e sia $A\subset X$ un sottoinsieme chiuso in $X$. Se $X$ è compatto allora anche $A$ è compatto, se $X$ è completo allora anche $A$ è completo.
+\end{theorem}
+\begin{proof}
+Se $X$ è compatto da ogni successione in $A$ si può estrarre una sottosuccessione convergente ad un punto di $X$. Ma siccome $A$ è chiuso il punto sta in $A$ e dunque la sottosuccessione è convergente in $A$.
+
+Una successione di Cauchy in $A$ è di Cauchy anche in $X$. Se $X$ è completo tale successione converge ad un punto di $x$. Se $A$ è chiuso tale punto è in $A$ e dunque la successione converge in $A$.-
+\end{proof}
+
+\begin{definition}[spazio di Banach]
+Uno spazio vettoriale normato si dice essere uno
+\emph{spazio di Banach}%
+\mynote{spazio di Banach}%
+\index{spazio!di Banach}%
+\index{Banach!spazio di}
+se, come spazio metrico, risulta essere completo.
+Se la norma è euclidea, cioè deriva da un prodotto scalare, lo spazio si dirà
+\emph{spazio di Hilbert}.
+\mynote{spazio di Hilbert}%
+\index{spazio!di Hilbert}
+\end{definition}
+
+\begin{lemma}
+\label{lm:cauchy_limitata}
+Ogni successione di Cauchy è limitata
+(più precisamente: se $x_n$ è una successione di Cauchy in uno spazio metrico $X$ allora l'insieme $\{x_n\colon n\in \NN\}$
+è un insieme limitato).
+\end{lemma}
+%
+\begin{proof}
+Sia $x_k \in \RR$ una successione di Cauchy.
+Fissato $\eps =1$ sappiamo che esiste $N\in \NN$
+per cui per ogni $k,j>N$ si ha
+$d(x_k,x_j) < 1$. In particolare per ogni $k>N$ si ha
+\[
+  d(x_k, x_{N+1}) < 1.
+\]
+Dunque posto
+\[
+  R = \max\{d(x_0,x_1), d(x_0,x_2), \dots, d(x_0,x_N), d(x_0, x_{N+1}) + 1\}
+\]
+si osserva che per ogni $k\in \NN$ si ha $d(x_0, x_k)\le R < R+1$ in quanto se $k \le N$ abbiamo scelto appositamente $R$ in modo che sia più grande di $d(x_0,x_k)$ e se $k > N$ allora
+\[
+  d(x_0,x_k) \le d(x_0,x_{N+1}) + d(x_{N+1},x_k)
+    \le d(x_0,x_{N+1}) + 1 \le R.
+\]
+
+Significa quindi che per ogni $x\in \NN$ si ha $x_k in B_{R+1}(x_0)$ che è la definizione di limitatezza in uno
+spazio metrico.
+\end{proof}
+
+\begin{lemma}
+\label{lm:cauchy_estratta_convergente}
+Se una successione di Cauchy ha una sottosuccessione convergente, allora l'intera successione è convergente.
+\end{lemma}
+%
+\begin{proof}
+Sia $x_k$ la successione di Cauchy e sia $x_{k_j}\to x$ una  sottosuccessione convergente.
+Allora per ogni $\eps>0$
+esiste $m$ tale che se $k,j>m$ allora $d(x_k ,x_j) < \eps$.
+Visto che $x_{k_j} \to x$ possiamo trovare $j$ tale che $k_j > m$ e tale che $d(x_{k_j},x) < \eps$. Ma allora
+\[
+  d(x_k,x) \le d(x_k, x_{k_j}) + d(x_{k_j},x)
+   \le 2 \eps.
+\]
+E questo è vero per ogni $k > m$ da cui risulta verificata la definizione di limite $x_k \to x$.
+\end{proof}
+
+\begin{theorem}[completezza di $\RR$]
+\mymark{***}
+\mynote{$\RR$ è completo}
+\index{completezza!di $\RR$}
+$\RR$ è completo.
+\end{theorem}
+%
+\begin{proof}
+\mymark{***}
+Dobbiamo dimostrare che se $x_k$ è una successione di Cauchy in $\RR$ allora $x_k$ converge.
+Per il lemma~\ref{lm:cauchy_limitata} sappiamo che $x_k$ è limitata.
+Ma allora per il teorema di Bolzano-Weierstrass sappiamo che $x_k$ ha
+una estratta convergente.
+Grazie al lemma~\ref{lm:cauchy_estratta_convergente} possiamo quindi concludere
+che la successione $x_k$ è essa stessa convergente.
+\end{proof}
+
+\begin{corollary}[completezza di $\RR^n$ e $\CC$]
+Gli spazi $\RR^n$ e $\CC$ (con la usuale distanza euclidea)
+sono completi.
+\end{corollary}
+%
+\begin{proof}
+Basta osservare che la convergenza (o la condizione di Cauchy) di una successione in $\RR^n$ si ha se e solo se ogni componente è convergente (o di Cauchy) in $\RR$. Dunque essendo $\RR$ completo anche $\RR^n$ lo è. Come spazio metrico $\CC$ è isomorfo ad $\RR^2$ dunque anch'esso è completo.
+\end{proof}
+
+
+\begin{definition}[lipschitz]
+\mymark{***}
+Sia $f\colon X \to Y$ una funzione definita tra due spazi metrici e sia $L\ge 0$.
+Diremo che $f$ è $L$-lipschitziana se
+\index{funzione!lipschitziana}
+per ogni $x,y \in X$ si ha
+\[
+  d(f(x),f(y)) \le L d(x,y).
+\]
+Diremo che $f$ è lipschitziana se esiste $L\ge 0$ tale che $f$ sia $L$-lipschitziana.
+\end{definition}
+
+\begin{theorem}
+\mymark{*}
+Se $f\colon X \to Y$ è lipschitziana allora
+$f$ è sequenzialmente continua, cioè
+\[
+  x_k \to x \implies f(x_k)\to f(x).
+\]
+\end{theorem}
+%
+\begin{proof}
+Se $x_k\to x$ significa che $d(x_k,x) \to 0$, quindi
+\[
+  d(f(x_k), f(x)) \le L \cdot d(x_k,x) \to 0.
+\]
+\end{proof}
+
+Osserviamo che la distanza $d(x,y)$ di uno spazio metrico $X$ risulta sempre essere una funzione $1$-lip\-schit\-zia\-na rispetto ad ognuna delle due variabili $x$ e $y$. Infatti per la disuguaglianza triangolare inversa si ha
+\[
+  \abs{d(x_1,y) - d(x_2,y)} \le d(x_1, x_2).
+\]
+Di conseguenza la norma di uno spazio normato è anch'essa $1$-lip\-schit\-zia\-na. In particolare la distanza e la norma risultano essere funzioni continue.
+
+\begin{theorem}[delle contrazioni o punto fisso di Banach-Caccioppoli]
+\mymark{***}
+\mynote{teor. contrazioni}
+\index{teorema!di Banach-Caccioppoli}
+\index{teorema!delle contrazioni}
+\index{punto fisso}
+\index{contrazione}
+Sia $X$ uno spazio metrico completo non vuoto e sia $f\colon X \to X$ una funzione $L$-lipschitziana con $L<1$ (diremo che $f$ è una \emph{contrazione}).
+Allora esiste ed è unico un punto
+$x\in X$ tale che $f(x) = x$.
+\end{theorem}
+%
+\begin{proof}
+\mymark{***}
+Si consideri un qualunque punto $p \in X$ e si definisca
+la successione $x_k\in X$ tramite la definizione ricorsiva
+\[
+\begin{cases}
+  x_0 = p \\
+  x_{k+1} = f(x_k).
+\end{cases}
+\]
+Visto che $f$ è $L$-lipschitziana si avrà
+\begin{align*}
+  d(x_2, x_1) &= d(f(x_1),f(x_0)) \le L \cdot d(x_1,x_0) \\
+  d(x_3, x_2) &= d(f(x_2),f(x_1)) \le L \cdot d(x_2,x_1)
+  \le L^2 \cdot d(x_1, x_0) \\
+  d(x_4, x_3) &= d(f(x_3),f(x_2)) \le L \cdot d(x_3,x_2)
+  \le L^3 \cdot d(x_1, x_0) \\
+  &\vdots
+\end{align*}
+possiamo quindi dimostrare induttivamente che
+per ogni $m\in \NN$ si ha
+\[
+  d(x_{m+1}, x_m) \le L^m \cdot d(x_1, x_0).
+\]
+Ma allora per ogni $k\in \NN$ e per ogni $j>k$
+utilizzando la disuguaglianza triangolare e facendo la somma della progressione geometrica
+si ha
+\[
+  d(x_k,x_j) \le \sum_{m=k}^{j-1} d(x_m, x_{m+1})
+   \le \sum_{m=k}^{j-1} L^m \cdot d(x_1, x_0)
+   = \frac{L^k-L^j}{1-L} d(x_1,x_0).
+\]
+Visto che $L<1$ se $k\to +\infty$ e $j>k$ questa quantità tende a zero e quindi risulta che $x_k$ è una successione di Cauchy. Essendo per ipotesi $X$ completo sappiamo che la successione converge $x_k \to x$ ad un punto $x\in X$.
+Per la continuità di $f$, passando al limite nell'equazione
+$x_{k+1} = f(x_k)$ si ottiene $x = f(x)$.
+Abbiamo quindi trovato un punto fisso.
+Se $y\in X$ fosse un altro punto fisso si avrebbe:
+\[
+  d(x,y) = d(f(x),f(y)) \le L \cdot d(x,y)
+\]
+che è assurdo se $L<1$ e $x\neq y$.
+\end{proof}

@@ -6,7 +6,7 @@
 Per $x\in \RR$ definiamo la famiglia degli \myemph{intorni} (basilari) di $x$
 come l'insieme di tutti gli intervallini aperti, simmetrici, centrati in $x$:
 \[
-  \U_x = \{ (x-\eps, x+\eps) \colon \eps>0\}.
+  \B_x = \{ (x-\eps, x+\eps) \colon \eps>0\}.
 \]
 Definiamo poi gli \emph{intorni destri} e \emph{intorni sinistri}
 \mymargin{intorni destri/sinistri}
@@ -14,18 +14,68 @@ Definiamo poi gli \emph{intorni destri} e \emph{intorni sinistri}
 \index{intorni!destri/sinistri}
 di $x$ come
 \[
-  \U_{x^+} = \{ [x, x+\eps) \colon \eps>0\},
+  \B_{x^+} = \{ [x, x+\eps) \colon \eps>0\},
   \qquad
-  \U_{x^-} = \{ (x-\eps , x] \colon \eps>0\}.
+  \B_{x^-} = \{ (x-\eps , x] \colon \eps>0\}.
 \]
 Definiamo poi gli intorni di $+\infty$ e $-\infty$ come segue
 \[
-  \U_{+\infty} = \{ (a,+\infty], \colon a \in \RR \},\qquad
-  \U_{-\infty} = \{ [-\infty, b), \colon b\in \RR\}.
+  \B_{+\infty} = \{ (a,+\infty], \colon a \in \RR \},\qquad
+  \B_{-\infty} = \{ [-\infty, b), \colon b\in \RR\}.
 \]
 
-Per ogni $x\in \bar \RR = [-\infty, +\infty]$ risultano quindi definiti gli intorni $\U_x$.
+Per ogni $x\in \bar \RR = [-\infty, +\infty]$
+risultano quindi definiti gli intorni $\B_x$ e per
+ogni $x\in \RR$ sono definiti gli intorni $\B_{x^+}$ e $\B_{x^-}$.
 \end{definition}
+
+\begin{remark}
+Sarebbe possibile definire in maniera analoga gli intorni dei punti in $\RR^n$
+(per l'analisi di funzioni di più variabili)
+o in $\CC$ (per l'analisi complessa).
+Ma in questo corso e in questo capitolo in particolare siamo particolarmente
+interessati allo studio delle funzioni di una singola variabile.
+Su $\RR$ c'è una struttura di ordine totale che è utile preservare aggiungendo
+due punti all'infinito: $+\infty$ e $-\infty$.
+
+Su $\RR^n$ (e su $\CC$, che in questo contesto possiamo identificare con $\RR^2$)
+non c'è una struttura d'ordine naturale e quindi
+usualmente si considera un unico punto all'infinito $\infty$ i cui intorni
+saranno
+\[
+  \B_\infty = \{\{x \in \RR^n\colon \abs{x}>R\}\colon R>0\}.
+\]
+
+Su $\RR^n$ (e su $\CC$) non esiste il concetto di intorno \emph{destro}
+e \emph{sinistro} proprio perché questi concetti presuppongono un ordinamento.
+
+In certi casi può tornare utile considerare un unico punto all'infinito,
+denotato con $\infty$, anche in $\RR$ (in molti testi tale punto verrebbe
+denotato con il simbolo $\pm\infty$)
+e si potrebbero usare le notazioni $+\infty = \infty^-$ e $-\infty = \infty^
++$ visto che gli intorni di $+\infty$ e $-\infty$ sono in effetti intorni
+unilaterali del punto all'infinito.
+\end{remark}
+
+\begin{example}
+Si consideri la funzione segno:
+\[
+\sgn(x) =
+\begin{cases}
+  1 & \text{se $x>0$},\\
+  0 & \text{se $x=0$},\\
+  -1 & \text{se $x<0$}.
+\end{cases}
+\]
+Si può verificare che
+\[
+\sgn(x) \to 1 \qquad \text{per $x\to 0^+$}
+\]
+e
+\[
+\sgn(x) \to -1 \qquad \text{per $x\to 0^-$}
+\]
+\end{example}
 
 \begin{definition}[punto di accumulazione]
 \mymark{*}
@@ -33,8 +83,13 @@ Siano $A\subset  \RR$ un insieme e $x\in [-\infty, +\infty]$.
 Diremo che $x$ è un \myemph{punto di accumulazione} di $A$
 se ogni intorno di $x$ contiene punti di $A$ diversi da $x$, ovvero:
 \[
- \forall U \in \U_x\colon (A\setminus \{x\}) \cap U \neq \emptyset.
+ \forall U \in \B_x\colon (A\setminus \{x\}) \cap U \neq \emptyset.
 \]
+
+Analogamente diremo che $x\in \RR$
+è un \emph{punto di accumulazione destro}
+(o \emph{sinistro}) di $A$ se ogni intorno destro (o sinistro) di
+$x$ contiene punti di $A$ diversi da $x$.
 \end{definition}
 
 \begin{definition}[limite di funzione]
@@ -56,7 +111,7 @@ la funzione valutata nell'intorno di $x_0$, tolto eventualmente $x_0$,
 assume valori
 nell'intorno di $\ell$:
 \begin{equation}\label{eq:def_limite}
-  \forall U \in \U_\ell \colon \exists V \in \U_{x_0} \colon f(V\setminus\{x_0\}) \subset U.
+  \forall U \in \B_\ell \colon \exists V \in \B_{x_0} \colon f(V\setminus\{x_0\}) \subset U.
 \end{equation}
 
 La stessa definizione può essere data restringendosi agli intorni destri/sinistri del punto $x_0$ (nel caso $x_0 \in \RR$). Si otterranno quindi le definizioni
@@ -64,7 +119,8 @@ di \emph{limite destro} e \emph{limite sinistro}
 \mymargin{limite destro/sinistro}
 \index{limite!destro/sinistro}
 semplicemente
-sostituendo $\U_{x_0^+}$ o $\U_{x_0^-}$ al posto di $\U_{x_0}$ nella definizione precedente:
+sostituendo $\B_{x_0^+}$ o $\B_{x_0^-}$ al posto di $\B_{x_0}$ nella definizione
+precedente:
 \[
   \lim_{x\to x_0^+}f(x) = \ell, \qquad \lim_{x\to x_0^-} f(x) = \ell.
 \]
@@ -186,6 +242,7 @@ Si tratta semplicemente di verificare le definizioni di limite sfruttando il fat
 
 
 \begin{theorem}[limite della funzione composta/cambio di variabile]
+\label{th:limite_composta}
 Siano $A\subset \RR$, $B\subset \RR$,
 $x_0\in [-\infty,+\infty]$ un punto di accumulazione di $A$,
 $y_0\in [-\infty,+\infty]$ un punto di accumulazione di $B$,
@@ -494,7 +551,7 @@ Il teorema discende direttamente dalle corrispondenti proprietà del limite (lim
 
 \section{derivata}
 
-Il campo gravitazionale generato dalla terra nello spazio, in un punto
+Il potenziale gravitazionale generato dalla terra nello spazio, in un punto
 a distanza $r$ dal suo centro è dato da:
 \[
 U(r) = -\frac{GM}{r}
@@ -687,6 +744,10 @@ Chiamato $y_0 = f(x_0)$ la formula può essere anche scritta nella forma:
 \]
 Se invece $f'(x_0)=0$ la funzione $f^{-1}$ non è derivabile in $f(x_0)$.
 \end{theorem}
+%
+Osserviamo che se $f$ è definita in un intervallo e se è invertibile e
+continua in tutto l'intervallo allora certamente l'inversa è continua
+(Esercizio~\ref{ex:inversa_monotona}).
 %
 \begin{proof}
 \mymark{***}
@@ -882,49 +943,6 @@ Usando la formula della derivata della funzione inversa si ha
 \]
 \end{proof}
 
-\begin{example}
-[funzione derivabile con derivata non continua]
-\label{ex:derivata_non_continua}
-\mymark{**}
-\index{funzione!derivabile con derivata non continua}
-\index{derivata!non continua}
-La funzione $f\colon \RR \to \RR$ definita da
-\[
-  f(x)
-  = \begin{cases}
-    x^2 \sin(1/x) & \text{se $x \neq 0$} \\
-    0 & \text{se $x=0$.}
-  \end{cases}
-\]
-è derivabile su tutto $\RR$, $f'(0)=0$ ma il limite
-\[
-\lim_{x\to 0} f'(x)
-\]
-non esiste (e dunque $f'\colon \RR\to\RR$ non è continua in $x=0$).
-\end{example}
-%
-\begin{proof}
-La funzione $x^2 \sin(1/x)$ è derivabile infinite volte su tutto il suo dominio $\RR\setminus\{0\}$ in quanto composizione di funzioni elementari derivabili infinite volte.
-Dunque, per la località della derivata, anche la funzione $f$ è derivabile infinite volte su $\RR\setminus\{0\}$.
-Per $x\neq 0$ possiamo quindi calcolare $f'(x)$ utilizzando le regole di derivazione
-\[
-  f'(x)
-  = D \enclose{x^2\sin \frac 1 x}
-  = 2x \sin \frac 1 x + x^2 \enclose{\cos \frac 1 x} \cdot\frac{-1}{x^2}
-  = 2x \sin \frac 1 x - \cos \frac 1 x.
-\]
-
-Verifichiamo ora che $f$ è continua e derivabile anche in $0$.
-Si ha infatti
-\[
- \lim_{h\to 0}\frac{f(0+h)-f(0)}{h}
- = \lim_{h\to 0} h \sin \frac 1 h = 0
-\]
-e dunque $f'(0) = 0$.
-Osserviamo però che $f'(x)$ non ammette limite per $x\to 0$
-in quanto per $x \to 0$ si ha $2x \sin(1/x) \to 0$ ma il limite di $\cos (1/x)$ invece non esiste. Dunque $f'(x)$ è la somma di una funzione che ha limite zero e di una funzione il cui limite non esiste per $x\to 0$. Dunque $f'(x)$ non ammette limite per $x\to 0$.
-\end{proof}
-
 \begin{theorem}[Fermat]
 \mymark{***}
 Sia $f\colon (a,b)\to \RR$ una funzione derivabile.
@@ -956,6 +974,60 @@ Ma ora il numeratore è, come prima, non positivo mentre il denominatore $x-x_0$
 Abbiamo scoperto quindi che $f'(x_0)\le 0$ e $f'(x_0)\ge 0$
 da cui deduciamo $f'(x_0)=0$.
 \end{proof}
+
+Utilizzando le definizioni seguenti il teorema di Fermat si può
+enunciare dicendo che ogni punto di massimo o minimo relativo interno
+al dominio di una funzione in cui la funzione è derivabile
+è necessariamente un punto critico.
+In particolare per determinare massimi e minimi assoluti e relativi
+di una funzione sarà sufficiente esaminare i punti di frontiera,
+i punti di non derivabilità e i punti critici.
+
+\begin{definition}[punti notevoli]
+Sia $f\colon A \subset \RR \to \RR$ una funzione. Se $f$ è derivabile in un
+punto $x_0\in A$ e $f'(x_0) = 0$ diremo che $x_0$ è un \myemph{punto!critico}
+o
+\emph{punto stazionario}
+\index{punto!stazionario}
+di $f$.
+
+Se $x_0\in A$ ed esiste un intorno $U$ di $x_0$ per cui $x_0$ risulta
+essere un punto di minimo (rispettivamente di massimo) per $f$ ristretta ad $U$
+diremo che $x_0$ è un punto di \myemph{minimo relativo} o \emph{minimo locale}
+(rispettivamente \emph{massimo relativo} o \emph{massimo locale}).
+Per contrapposizione i punti di massimo e minimo su tutto il dominio $A$
+vengono anche
+chiamati massimo/minimo \emph{assoluto} di $f$.
+
+Diremo che $x_0\in A$ è un \myemph{punto di flesso} per $f$ se
+$f$ è derivabile in un intorno di $x_0$ e $x_0$ è un punto di massimo
+o minimo relativo per $f'$. Nel punto $x_0$ la retta tangente
+ha equazione $y=r(x) = f'(x_0) (x-x_0) + f(x_0)$. Se $x_0$ è
+minimo per $f'$ risulta che $f(x)-r(x)$ è crescente
+quindi $f(x)\ge r(x)$ per $x\ge x_0$ e $f(x)\le r(x)$ per $x\le x_0$
+(il grafico della funzione attraversa la retta tangente da sotto a sopra)
+mentre se $x_0$ è massimo per $f'$ risulta che $f(x)\le r(x)$ per $x\ge x_0$
+e $f(x) \ge r(x)$ per $x\le x_0$ (il grafico della funzione attraversa
+la tangente da sopra a sotto).
+Se la funzione $f$ non è derivabile in $x_0$ ma il limite del rapporto
+incrementale esiste ed è infinito, diremo che $x_0$ è un
+\myemph{flesso verticale}. In tale punto la retta tangente è verticale
+e il grafico della funzione attraversa tale retta.
+
+Sia $x_0\in A$ un punto in cui la funzione $f$ è continua ed esistono
+i limiti destro e sinistro del rapporto incrementale
+(che si chiamano \emph{derivata destra} e \emph{derivata sinistra})
+\[
+  m^{\pm} = \lim_{h\to 0^\pm}\frac{f(x+h) - f(x)}{h}.
+\]
+Se $m^+ \neq m^-$ chiaramente $f$ non è derivabile in $x_0$.
+Se entrambi $m^+$ ed $m^-$ sono finiti diremo che $x_0$ è un
+\myemph{punto angoloso} in quanto le due semirette tangenti
+in $x_0$ (da destra e da sinistra) formano un angolo non piatto.
+Se $m^+=-m^-=+\infty$ oppure se $m^+=-m^-=-\infty$
+diremo che il punto $x_0$ è un \myemph{punto di cuspide} (c'è una
+semiretta tangente verticale).
+\end{definition}
 
 \begin{theorem}[Rolle]
 \mymark{***}
@@ -1008,25 +1080,25 @@ Sia $f\colon I \to \RR$ una funzione definita su un intervallo $I\subset \RR$. S
 Supponiamo che $f$ sia continua su $I$ e derivabile su $J$. Allora valgono i seguenti criteri:
 \begin{enumerate}
 \item
-$\forall x \in J\colon f'(x)\ge 0$
+$(\forall x \in J\colon f'(x)\ge 0)$
 $\iff$
-$f$ è crescente;
+$f$ è crescente (su tutto $I$);
 \item
-$\forall x \in J\colon f'(x)\le 0$
+$(\forall x \in J\colon f'(x)\le 0)$
 $\iff$
-$f$ è decrescente;
+$f$ è decrescente (su tutto $I$);
 \item
-$\forall x \in J\colon f'(x)=0$
+$(\forall x \in J\colon f'(x)=0)$
 $\iff$
-$f$ è costante;
+$f$ è costante (su tutto $I$);
 \item
-$\forall x \in J\colon f'(x)>0$
+$(\forall x \in J\colon f'(x)>0)$
 $\implies$
-$f$ è strettamente crescente;
+$f$ è strettamente crescente (su tutto $I$);
 \item
-$\forall x \in J\colon f'(x)<0$
+$(\forall x \in J\colon f'(x)<0)$
 $\implies$
-$f$ è strettamente decrescente.
+$f$ è strettamente decrescente (su tutto $I$).
 \end{enumerate}
 \end{theorem}
 %
@@ -1066,6 +1138,192 @@ La terza discende dalle prime due oppure, più semplicemente, dalle regole di de
 \end{proof}
 
 \begin{example}
+La funzione $f(x) = 1/x$ è definita su $\RR \setminus \{0\}$, è derivabile
+e la derivata $f'(x) = -1/x^2$ è ovunque negativa. La funzione $f$ è quindi strettamente
+decrescente separatamente sui due intervalli $(0,+\infty)$ e $(-\infty,0)$ sui quali
+possiamo applicare il criterio di monotonia. Ma non è
+decrescente su tutto il suo dominio in quanto, ad esempio, $f(-1) = -1 < 1 = f(1)$.
+Questo esempio mostra che nei criteri di monotonia l'ipotesi che il dominio sia un intervallo
+è fondamentale.
+\end{example}
+
+\begin{exercise}
+Determinare base e altezza di una lattina cilindrica di volume $33 ml$
+che a parità di volume ha la minima superficie totale.
+\end{exercise}
+\begin{proof}[Svolgimento.]
+Sia $V$ il volume, $S$ l'area della superficie totale, $h$ l'altezza e $r$
+il raggio di base del cilindro.
+Sappiamo che
+\[
+  V = \pi h r^2 \\
+  S = 2\pi r h + 2 \pi r^2.
+\]
+Ricavando $h$ dalla prima equazione e sostituendo nella seconda otteniamo
+\[
+  S = 2 \pi r \frac{V}{\pi r^2} + 2 \pi r^2
+    = \frac{2V}{r} + 2 \pi r^2.
+\]
+La funzione $S(r)$ è definita e continua su $(0,+\infty)$ e si ha $S(r)\to +\infty$ per $r\to 0^+$
+e anche per $r\to +\infty$. Dunque $S$ ammette minimo per il teorema di Weierstrass
+generalizzato.
+Per trovare il minimo basterà calcolare la derivata
+\[
+ \frac{dS}{dr} = -\frac{2V}{r^2} + 4 \pi r = \frac{4\pi r^3 - 2V}{r^2}
+\]
+e trovare i punti critici
+\[
+  4\pi r^3 = 2V
+\]
+da cui
+\begin{align*}
+ r = \sqrt[3]{\frac{V}{2\pi}} \approx 3.74 cm\\
+ h = \frac{V}{\pi r^2} \approx 7.49 cm.
+\end{align*}
+\end{proof}
+
+\begin{exercise}
+Risolvere l'equazione
+\begin{equation} \label{eq:4734521}
+  e^x = x^3.
+\end{equation}
+\end{exercise}
+%
+\begin{proof}
+Si consideri la funzione
+\[
+  f(x) = e^x - x^3.
+\]
+Dobbiamo trovare gli zeri di $f$ (cioè i punti $x$ tali che $f(x)=0$).
+Si ha
+\begin{align*}
+  f'(x) &= e^x- 3x^2,\\
+  f''(x) &= e^x - 6x,\\
+  f'''(x) &= e^x - 6.
+\end{align*}
+Si ha $f'''(x) \gtreqqless 0$ se $x \gtreqqless \ln 6$.
+Applicando i criteri di monotonia possiamo quindi dedurre che
+$f''$ (la cui derivata è $f'''$) è strettamente decrescente sull'intervallo $(-\infty , \ln 6]$
+e strettamente crescente sull'intervallo $[\ln 6, +\infty)$.
+Di conseguenza $\ln 6$ è un punto di minimo per $f''$ su tutto $\RR$.
+Possiamo rappresentare sinteticamente queste
+proprietà in forma di tabella, come segue.
+\begin{center}
+\begin{tabular}{c|c c c}
+  $x$ & & $\ln 6$ & \\ \hline
+  $f'''(x)$ & $-$ & $0$ & $+$ \\
+  $f''(x)$ & $\searrow$ & $\min$ & $\nearrow$
+\end{tabular}
+\end{center}
+Cerchiamo di determinare il segno di $f''$ agli estremi degli intervalli su
+cui $f''$ è monotona.
+Per $x\to -\infty$ si ha $f''(x)\to +\infty$, per $x\to +\infty$ si ha $f''(x)\to +\infty$
+e per $x=\ln 6$ si ha $f(\ln 6)=6-6\ln 6 < 0$.
+Dunque sui due intervalli $(-\infty,\ln 6]$ e $[\ln 6,+\infty]$ la funzione $f''$
+è strettamente monotona e cambia segno. Per il teorema degli zeri tale funzione
+si annulla in ognuno dei due intervalli e per la stretta monotonia si annulla
+in un solo punto su ogni intervallo. Dunque esistono $x_1$ e $x_2$ tali che
+$x_1 < \ln 6 < x_2$ e $f''(x_1) = f''(x_2) = 0$. Dalla monotonia di $f''$ possiamo
+quindi dedurre i segni di $f''$ e quindi l'andamento di $f'$.
+\begin{center}
+\begin{tabular}{c|c c c c c}
+$x$      &   & $x_1$ &   & $x_2$ &   \\ \hline
+$f''(x)$ & $+$ &  $0$  & $-$ &  $0$    & $+$ \\
+$f'(x)$  & $\nearrow$ & $\max$ & $\searrow$ & $\min$ & $\nearrow$
+\end{tabular}
+\end{center}
+Nel precedente diagramma si intende che i punti $x_1$ e $x_2$
+sono massimo e minimo \emph{relativo} in quanto $x_1$ è massimo
+per $f'$ sull'intervallo $(-\infty,x_2]$ e $x_2$ è minimo di $f$
+sull'intervallo $[x_1, +\infty)$.
+
+Come prima vogliamo determinare il segno di $f'$ guardando il segno agli
+estremi dei suoi intervalli di monotonia.
+Per $x\to -\infty$ si ha $f'(x) \to -\infty$,
+per $x\to +\infty$ si ha $f'(x)\to +\infty$.
+Siamo anche in grado di determinare il segno di $f'(x_1)$ e $f'(x_2)$
+sfruttando le proprietà algebriche di tali numeri.
+Sappiamo infatti che $x_1$ e $x_2$ risolvono l'equazione $e^x = 6x$. Dunque
+\[
+  f'(x_1) = e^{x_1} - 3x_1^2 = 6x_1 - 3 x_1^2 = 3x_1 (2-x_1)
+\]
+e lo stesso vale per $f'(x_2)$.
+
+Ora possiamo capire dove si trovano $x_1$ e $x_2$ rispetto ai valori $0$ e $2$
+guardando semplicemente il segno di $f''(0) = 1 > 0$ e $f''(2) = e^2 - 12 < 0$.
+Visto che $f''(2)<0$ guardando la tabella dei segni di $f''$
+possiamo concludere che $x_1 < 2 < x_2$.
+Analogamente visto che $f''(0)>0$ e $0<2<x_2$ possiamo dedurre
+che $0 < x_1$. Dunque $0 < x_1 < 2 < x_2$ e
+\[
+  f'(x_1) = 3 x_1 (2-x_1) > 0,
+  \qquad
+  f'(x_2) = 3 x_2 (2-x_2) < 0.
+\]
+Conoscendo l'andamento di $f'$ possiamo costruire una tabella dei segni
+di $f'$ dove inseriamo anche i limiti a $+\infty$ e $-\infty$.
+\begin{center}
+\begin{tabular}{c | c c c c c c c c c }
+$x$ & $-\infty$ & & $x_1$ & & $x_2$ & & $+\infty$ \\ \hline
+$f'(x)$ & $-$ & $\nearrow$ & $+$ & $\searrow$ & $-$ & $\nearrow$ & $+$\\
+\end{tabular}
+\end{center}
+In base al teorema degli zeri e alla stretta monotonia possiamo quindi
+affermare che $f'$ si annulla in esattamente tre punti $x_3$, $x_4$ e $x_5$
+tali che $x_3 < x_1 < x_4 < x_2 < x_5$.
+Con l'andamento di $f'$ possiamo quindi fare una tabella dei segni di $f'$.
+\begin{center}
+\begin{tabular}{c | c c c c c c c}
+$x$ & & $x_3$ & & $x_4$ & & $x_5$ & \\ \hline
+$f'(x)$ & $-$ & $0$ & $+$ & $0$ & $-$ & $0$ & $+$ \\
+$f(x)$ & $\searrow$ & $\min$ & $\nearrow$ & $\max$ & $\searrow$ & $\min$ & $\nearrow$
+\end{tabular}
+\end{center}
+
+Nuovamente vogliamo determinare il segno di $f$ negli estremi degli intervalli di monotonia:
+$-\infty$, $x_3$, $x_4$, $x_5$, $+\infty$. In $-\infty$ e $+\infty$ è facile osservare che $f(x)$
+tende a $+\infty$. Nei punti $x_3$, $x_4$ e $x_5$ possiamo sfruttare il fatto che tali punti,
+essendo zeri di $f'$,
+soddisfano l'equazione $e^x=3x^2$ dunque
+\[
+  f(x_3) = e^{x_3} - x_3^3 = 3x_3^2 - x_3^3 = x_3^2 (3 - x_3).
+\]
+Lo stesso vale per $f(x_4)$ e $f(x_5)$. Valutiamo $f'$ nei punti $0$ e $3$ per determinare
+il segno dell'espressione precedente. Si ha $f'(0) = 1 > 0$ e $f'(3) = e^3 - 27 < 0$.
+Guardando la tabella dei segni di $f'$ si può quindi affermare che $x_3 < 0 < x_1 < x_4 < 3 < x_5$.
+Dunque
+\begin{align*}
+  f(x_3) &= x_3^2 (3 - x_3) > 0, \\
+  f(x_4) &= x_4^2 (3 - x_4) > 0, \\
+  f(x_5) &= x_5^2 (3 - x_5) < 0.
+\end{align*}
+
+Abbiamo quindi la seguente tabella per l'andamento di $f$
+\begin{center}
+\begin{tabular}{c|c c c c c c c c c}
+$x$ & $-\infty$ & & $x_3$ & & $x_4$ & & $x_5$ & & $+\infty$ \\ \hline
+$f(x)$ & $+$ & $\searrow$ & $+$ & $\nearrow$ & $+$ & $\searrow$ & $-$ & $\nearrow$ & $+$
+\end{tabular}
+\end{center}
+In base al teorema degli zeri e alla stretta mononotia possiamo affermare che $f$
+si annulla in due soli punti $x_6$ e $x_7$ con $x_4< x_6 < x_5 < x_7$.
+Raccogliendo tutte le informazioni precedenti e osservando che $f(\ln 6) < 0$
+sapendo che $f(3)<0$ e valutando $f'(4)<0$ e $f(5)>0$ si
+possono ordinare tutti i capisaldi trovati in precedenza:
+\[
+ x_3 < 0 < x_1 < x_4 < \ln 6 < x_6 < 2 < x_2 < x_5 < 4 < x_7 < 5.
+\]
+
+Possiamo in particolare affermare che l'equazione~\eqref{eq:4734521}
+ha le due soluzioni $x_6$ e $x_7$ dove i numeri $x_6$ e $x_7$ sono
+univocamente determinati dall'essere le uniche
+soluzioni di \eqref{eq:4734521}
+rispettivamente negli intervalli $[\ln 6, 1]$ e $[3,4]$ dove
+la funzione $f$ è strettamente monotona e cambia segno. Approssimazioni
+numeriche di $x_6$ e $x_7$ possono essere trovate mediante il metodo di bisezione.
+\end{proof}
+
+\begin{example}
 Si consideri la funzione
 \[
   f(x) = \arctg x + \arctg\frac 1 x.
@@ -1095,7 +1353,65 @@ Per ogni $x\in \RR$ si ha $f'(x)\ge 0$ dunque possiamo dedurre che $f$ è cresce
 Scelto invece $I = [0,+\infty)$ l'intervallo aperto corrispondente è $J=(0,+\infty)$. Osserviamo che su $J$ si ha $f'(x) > 0$ quindi possiamo concludere che $f$ è strettamente crescente su tutto $I$. Lo stesso vale per l'intervallo $(-\infty,0]$. Mettendo insieme le due cose possiamo concludere che $f(x) = x^3$ è strettamente crescente su tutto $\RR$ nonostante che sia $f'(0)=0$. Questo mostra che una funzione strettamente monotona può avere derivata nulla in un punto.
 \end{example}
 
-Più in generale è facile osservare che se $f$ è monotona ma non strettamente monotona significa che ci sono due punti $a$ e $b$ per cui $f(a) = f(b)$. Ma se $f$ è monotona allora per ogni $x\in [a,b]$ si deve avere $f(x) = f(a) = f(b)$ (ad esempio: se $f$ è crescente si dovrebbe avere $f(a) \le f(x) \le f(b)$ ma se $f(a)=f(b)$ necessariamente $f(x)=f(a)=f(b)$). Dunque $f$ risulterebbe essere costante su $[a,b]$ e in particolare avremmo una infinità più che numerabile di punti in cui la derivata si annulla. Questo significa che se $f'(x)\ge 0$ su un intervallo e se $f'(x)=0$ su un numero finito o anche numerabile di punti, allora comunque $f$ è strettamente crescente. Ragionamento analogo vale per le funzioni decrescenti.
+Più in generale è facile osservare che se $f$ è monotona ma non strettamente
+monotona significa che ci sono due punti $a$ e $b$ per cui $f(a) = f(b)$.
+Ma se $f$ è monotona allora per ogni $x\in [a,b]$ si deve avere
+$f(x) = f(a) = f(b)$ (ad esempio: se $f$ è crescente si dovrebbe avere
+$f(a) \le f(x) \le f(b)$ ma se $f(a)=f(b)$ necessariamente $f(x)=f(a)=f(b)$).
+Dunque $f$ risulterebbe essere costante su $[a,b]$ e in particolare avremmo
+una infinità più che numerabile di punti in cui la derivata si annulla.
+Questo significa che se $f'(x)\ge 0$ su un intervallo e se $f'(x)=0$ su un
+numero finito o anche numerabile di punti o, ancora, su un insieme di punti
+con parte interna vuota, allora comunque $f$ è strettamente
+crescente.
+Ragionamento analogo vale naturalmente anche per le funzioni decrescenti.
+
+\begin{exercise}
+Dimostrare che
+\[
+  \cos x \ge 1- \frac{x^2}{2} \qquad \forall x \in \RR.
+\]
+\end{exercise}
+
+\begin{exercise}
+Si consideri la funzione $f\colon \RR \to \RR$ definita da
+\[
+  f(x) = 2e^{x-1} - x^2.
+\]
+Si mostri che $f$ è bigettiva e
+che la funzione inversa $f^{-1}\colon \RR \to \RR$ è derivabile in
+tutti i punti tranne il punto $1$ dove ha un flesso verticale.
+Si calcoli $(f^{-1})'(2/e)$.
+\end{exercise}
+\begin{proof}[Svolgimento.]
+Risulta
+\[
+  f'(x) = 2e^{x-1} - 2x, \qquad f''(x) = 2e^{x-1}-2.
+\]
+Dunque $f''(x) > 0$ per $x > 1$ e $f''(x)< 0$ per $x<1$.
+Dunque per i criteri di monotonia
+$f'$ è strettamente crescente su $[1,+\infty)$ e strettamente
+decrescente su $(-\infty, 0]$. Visto che $f'(1)=0$ risulta quindi che
+$f'(x)\ge 0$ per ogni $x\in \RR$ e $f'(x)=0$ solo per $x=1$.
+Dunque $f$ è crescente per il criterio di monotonia ma anche
+strettamente crescente perché se fosse crescente ma non strettamente
+ci dovrebbe essere un intero intervallo in cui $f'$ si annulla.
+Dunque $f$ è iniettiva. Visto che $f(x)\to \pm\infty$ per $x\to \pm\infty$
+si ha $\sup f(\RR) = +\infty$, $\inf f(\RR) = -\infty$ e per il teorema dei valori intermedi
+otteniamo che $f(\RR)=\RR$. Dunque $f$ è anche suriettiva.
+
+La funzione inversa di $f$ è continua per il Teorema~\ref{th:inversa_continua}
+ed è derivabile nei punti corrispondenti ai punti in cui $f$ ha derivata non nulla.
+L'unico punto in cui $f$ ha derivata nulla è $x=1$ e visto che $f(1) = 1$ risulta
+che $f^{-1}(y)$ è derivabile per ogni $y\neq 1$ e vale
+\[
+  (f^{-1})'(f(x)) = \frac{1}{f'(x)} = \frac{1}{2 e^{x-1}-2x}.
+\]
+Osservando che $f(0)=2/e$ si trova quindi
+\[
+  (f^{-1})'(1/e) = \frac{1}{2/e} = \frac e 2.
+\]
+\end{proof}
 
 \begin{theorem}[proprietà di Darboux]
 Sia $f\colon I \to \RR$ una funzione derivabile su un intervallo $I\subset \RR$.
@@ -1131,6 +1447,49 @@ per definizione è il limite del rapporto incrementale, dunque
 Allora la funzione $F(t)$ assume i valori intermedi tra $F(x)=f'(x)$ e $F(y)=R(x,y)$.
 Ci sarà dunque un punto $t\in [x,y]$ per cui $F(t) = m$ e per il teorema di Lagrange
 esisterà un punto $z\in[x,t]$ tale che $f'(z) = R(x,t) = F(t) = m$.
+\end{proof}
+
+\begin{example}
+[funzione derivabile con derivata non continua]
+\label{ex:derivata_non_continua}
+\mymark{**}
+\index{funzione!derivabile con derivata non continua}
+\index{derivata!non continua}
+La funzione $f\colon \RR \to \RR$ definita da
+\[
+  f(x)
+  = \begin{cases}
+    x^2 \sin(1/x) & \text{se $x \neq 0$} \\
+    0 & \text{se $x=0$.}
+  \end{cases}
+\]
+è derivabile su tutto $\RR$, $f'(0)=0$ ma il limite
+\[
+\lim_{x\to 0} f'(x)
+\]
+non esiste (e dunque $f'\colon \RR\to\RR$ non è continua in $x=0$).
+\end{example}
+%
+\begin{proof}
+La funzione $x^2 \sin(1/x)$ è derivabile infinite volte su tutto il suo dominio $\RR\setminus\{0\}$ in quanto composizione di funzioni elementari derivabili infinite volte.
+Dunque, per la località della derivata, anche la funzione $f$ è derivabile infinite volte su $\RR\setminus\{0\}$.
+Per $x\neq 0$ possiamo quindi calcolare $f'(x)$ utilizzando le regole di derivazione
+\[
+  f'(x)
+  = D \enclose{x^2\sin \frac 1 x}
+  = 2x \sin \frac 1 x + x^2 \enclose{\cos \frac 1 x} \cdot\frac{-1}{x^2}
+  = 2x \sin \frac 1 x - \cos \frac 1 x.
+\]
+
+Verifichiamo ora che $f$ è continua e derivabile anche in $0$.
+Si ha infatti
+\[
+ \lim_{h\to 0}\frac{f(0+h)-f(0)}{h}
+ = \lim_{h\to 0} h \sin \frac 1 h = 0
+\]
+e dunque $f'(0) = 0$.
+Osserviamo però che $f'(x)$ non ammette limite per $x\to 0$
+in quanto per $x \to 0$ si ha $2x \sin(1/x) \to 0$ ma il limite di $\cos (1/x)$ invece non esiste. Dunque $f'(x)$ è la somma di una funzione che ha limite zero e di una funzione il cui limite non esiste per $x\to 0$. Dunque $f'(x)$ non ammette limite per $x\to 0$.
 \end{proof}
 
 \section{convessità}
@@ -1228,7 +1587,12 @@ Allora sono condizioni equivalenti:
 \end{lemma}
 %
 \begin{proof}
-Attenzione: il lemma risulta ovvio se si utilizza la giusta interpretazione geometrica (il rapporto incrementale è la pendenza della corda corrisondente). Quella che segue è la traduzione algebrica di quanto è geometricamente ovvio ma risulta inevitabilmente pesante e più difficilmente comprensibile.
+Attenzione:
+il lemma risulta ovvio se si utilizza la giusta interpretazione geometrica
+(il rapporto incrementale è la pendenza della corda corrispondente).
+Quella che segue è la traduzione algebrica di quanto
+è geometricamente ovvio ma risulta inevitabilmente pesante
+e più difficilmente comprensibile.
 
 Siano $x,y,z\in I$ con $x<y<z$.
 Posto $t=(y-x)/(z-x)$ si ha $y=(1-t)x + tz$,
@@ -1528,6 +1892,109 @@ Dunque possiamo dividere ambo i membri per $(g(b)-g(a))$ e per $g'(x_0)$ per ott
 
 \begin{theorem}[de l'Hospital $0/0$]
 \mymark{***}
+Sia $I\subset \RR$ un intervallo, $x_0\in [-\infty,+\infty]$ un punto di accumulazione
+di $I$
+e siano $f,g \colon I\setminus\{x_0\} \to \RR$ funzioni derivabili.
+Supponiamo che sia $g'(x)\neq 0$ per ogni $x\in I\setminus\{x_0\}$.
+Se
+\[
+  \lim_{x\to x_0} f(x) = 0 \qquad \text{e}\qquad \lim_{x\to x_0} g(x) = 0
+\]
+e se esiste (finito o infinito) il limite
+\[
+  \ell = \lim_{x\to x_0}\frac{f'(x)}{g'(x)}
+\]
+allora si ha
+\[
+  \lim_{x\to x_0} \frac{f(x)}{g(x)} = \ell.
+\]
+\end{theorem}
+%
+\begin{proof}
+\mymark{**}
+Bisognerà distinguere diversi casi a seconda che $x_0$ sia finito o infinito
+e che sia un punto interno o un estremo dell'intervallo $I$.
+Fatta la dimostrazione nel primo caso tutti gli altri si riconducono ad esso.
+
+\emph{Caso 1:} supponiamo che sia $I=[x_0, b]$. In questo caso possiamo
+estendere le funzioni $f$ e $g$ anche nel punto $x_0$ ponendo:
+\[
+\tilde f(x) =
+\begin{cases}
+  f(x) & \text{se $x\in (x_0,b]$}\\
+  0 & \text{se $x=x_0$,}
+\end{cases}
+\qquad
+\tilde g(x) =
+\begin{cases}
+  g(x) & \text{se $x\in (x_0,b]$}\\
+  0 & \text{se $x=x_0$.}
+\end{cases}
+\]
+Visto che per ipotesi $f(x) \to 0$ e $g(x)\to 0$ per $x\to x_0$ risulta
+che $\tilde f$ e $\tilde g$ siano funzioni continue su tutto l'intervallo $[x_0,b]$
+inoltre, sempre per ipotesi, sono derivabili nell'intervallo $(x_0,b]$
+visto che l'estensione per $x=x_0$ non modifica le derivate negli altri punti.
+In particolare le funzioni estese soddisfano le ipotesi del teorema di Cauchy in
+ogni intervallo $[x_0,x]$ con $x\in (x_0,b]$, dunque possiammo affermare
+che per ogni $x$ esiste $c(x)\in (x_0,x)$ tale che
+\[
+  \frac{f(x)}{g(x)}
+  = \frac{\tilde f(x) - \tilde f(x_0)}
+  {\tilde g(x)- \tilde g(x_0)}
+  = \frac{\tilde f'(c(x))}{\tilde g'(c(x))}
+  = \frac{f'(c(x))}{g'(c(x))}.
+\]
+Ma essendo $x_0< c(x) < x$ per $x\to x_0$ si ha $c(x)\to x_0$ e quindi,
+tramite un cambio di variabile
+(Teorema~\ref{th:limite_composta})
+possiamo affermare che
+\[
+    \lim_{x\to x_0} \frac{f(x)}{g(x)}
+  = \lim_{x\to x_0}\frac{f'(c(x))}{g'(c(x))}
+  = \lim_{x\to x_0}\frac{f'(x)}{g'(x)} = \ell.
+\]
+
+\emph{Caso 2:} supponiamo sia $I$ qualunque e $x_0$ finito.
+Visto che le funzioni sono definite su $I\setminus\{x_0\}$ possiamo sempre
+supporre $x_0\in I$. Inoltre
+visto che i limiti dipendono solo dai valori in un intorno del punto $x_0$
+possiamo sempre supporre che $I$ sia un intervallo chiuso e limitato.
+Nel passo precedente abbiamo fatto il caso in cui $x_0$ era l'estremo
+inferiore di $I$, ma allo stesso modo si può fare il caso in cui
+$x_0$ è l'estremo superiore. Se invece $x_0$ fosse un punto interno di $I$
+possiamo considerare separatamente il limite destro e sinistro e ricondurci
+ai casi in cui $x_0$ era un estremo.
+
+\emph{Caso 3:} supponiamo sia $x_0=+\infty$. In tal caso
+l'intervallo $I$ contiene un intevallo $[a,+\infty)$ con $a\in\RR$.
+Anche in questo caso vogliamo ricondurci al primo caso tramite il cambio
+di variabile $t=1/x$. Posto $F(t) = f(1/t)$ e $G(t)= g(1/t)$ si osserva che $F$ e $G$
+sono definite sull'intervallo $(0,1/a]$,
+tendono a zero per $t\to 0^+$
+sono derivabili,
+\[
+  F'(t) = -\frac{f'(1/t)}{t^2}, \qquad
+  G'(t) = -\frac{g'(1/t))}{t^2}
+\]
+e risulta quindi
+\[
+  \lim_{t\to 0^+} \frac{F'(t)}{G'(t)}
+  = \lim_{t\to 0^+} \frac{f'(1/t)}{g'(1/t)}
+  = \lim_{x\to +\infty} \frac{f'(x)}{g'(x)} = \ell.
+\]
+Quindi applicano il teorema nel caso già dimostrato possiamo affermare che
+\[
+  \lim_{x\to +\infty} \frac{f(x)}{g(x)} = \lim_{t\to 0^+} \frac{F(t)}{G(t)} = \ell.
+\]
+
+\emph{Caso 4:} il caso $x_0 = -\infty$ si svolge in maniera analoga al caso precedente.
+\end{proof}
+
+\begin{comment}
+%% Vecchia dimostrazione fatta con le successioni
+\begin{theorem}[de l'Hospital $0/0$]
+\mymark{***}
 \index{teorema!di de l'Hospital}
 \mymargin{de l'Hospital}
 Siano $a,b\in [-\infty,+\infty]$ con $a<b$.
@@ -1588,6 +2055,8 @@ e visto che la differenza tende a zero, necessariamente si deve avere anche
 \]
 \end{proof}
 
+\end{comment}
+
 \begin{proposition}[criterio di derivabilità]
 \mymark{**}
 Sia $I\subset \RR$ un intervallo, $x_0\in I$
@@ -1617,10 +2086,11 @@ rapporto incrementale è uguale ad $m$ e dunque $f'(x_0) = m$.
 \end{proof}
 
 La proposizione precedente dice che la derivata di una funzione in un
-punto non può avere un valore diverso dal suo limite. Nonostante
-questo esistono però funzioni derivabili la cui derivata non è
+punto non può avere un valore diverso dal suo limite, se tale limite esiste.
+Esistono però funzioni derivabili la cui derivata non è
 continua, come abbiamo visto
-nell'esempio~\ref{ex:derivata_non_continua}.
+nell'esempio~\ref{ex:derivata_non_continua}
+in quanto il limite della derivata potrebbe non esistere.
 
 %
 \begin{theorem}[de l'Hospital $\cdot/\infty$]
@@ -1677,6 +2147,272 @@ Dunque esisterà un $k$ per cui il lato destro sta nell'intorno $U$ di $m$. Al l
 uguale a $f'(y)/g'(y)$. Ma visto che $y\in (a,c)$ si dovrà avere $f'(y)/g'(y) \in V$. Questo è assurdo in quanto $U\cap V = \emptyset$.
 \end{proof}
 
+\section{classi di regolarità}
+\begin{definition}[funzioni di classe $C^k$]
+\mymark{**}
+Dato $A\subset \RR$ denotiamo con $\RR^A$ l'insieme di tutte le funzioni $f\colon A \to \RR$.
+Per ogni $k\in \NN$ definiamo
+$C^k(A) \subset \RR^A$ nel modo seguente:
+\mymargin{$C^k$}
+\begin{enumerate}
+\item se $k=0$ poniamo
+\[
+  C^0(A) = \{f\in \RR^A \colon \text{$f$ continua}\}.
+\]
+\item
+  se $k>0$ definiamo induttivamente
+  \[
+  C^{k}(A) = \{f\in \RR^A \colon \text{$f$ derivabile e $f'\in C^{k-1}(A)$}\}.
+  \]
+\end{enumerate}
+Chiaramente se $j\ge k$ si ha $C^j(A) \subset C^k(A)$ dunque $C^k(A)$ è una famiglia decrescente (rispetto all'inclusione insiemistica) ed ha senso definire:
+\mymargin{$C^\infty$}
+\[
+  C^\infty(A) = \{f\in \RR^A\colon \forall k \in \NN\colon f\in C^k(A)\} = \bigcap_{k\in \NN} C^k(A).
+\]
+
+Le funzioni $f\in C^k(A)$ sono derivabili $k$ volte.
+Utilizziamo la notazione \myemph{$f^{(j)}$} per denotare la $j$-esima derivata
+di una funzione $f$.
+Dunque avremo
+\[
+  f^{(0)} = f, \qquad
+  f^{(1)} = f', \qquad
+  f^{(2)} = f'', \dots
+\]
+\end{definition}
+
+Abbiamo già osservato che $\RR^A$ è uno spazio vettoriale reale.
+Gli spazi $C^k(A)$ per $k=0, \dots, \infty$ sono una famiglia decrescente di sottospazi vettoriali di $\RR^A$.
+Infatti sappiamo che la combinazione lineare di funzioni continue è continua e che la combinazione lineare di funzioni derivabili è derivabile.
+
+E' importante osservare che $C^1(A)$ non coincide con l'insieme delle funzioni derivabili su $A$. Infatti abbiamo già visto nell'esempio~\ref{ex:derivata_non_continua} che esistono funzioni derivabili la cui derivata non è continua e quindi tali funzioni, pur essendo derivabili, non sono di classe $C^1$.
+
+\begin{definition}[funzioni lipschitziane]
+\mymark{**}
+\mynote{funzione lipschitziana}
+\index{funzione!lipschitziana}
+\index{Lipschitz}
+Una funzione $f\colon A\subset \RR \to \RR$ si dice essere \emph{lipschitziana} (o anche $L$-lipschitziana se vogliamo mettere in evidenza la dipendenza da $L$) se esiste $L>0$ tale che
+\[
+  \abs{f(x) - f(y)} \le L \abs{x-y}\qquad \forall x,y\in A.
+\]
+La più piccola costante $L$ per la quale è soddisfatta la precedente relazione si chiama \emph{costante di Lipschitz}
+\mynote{costante di Lipschitz}
+\index{costante!di Lipschitz}
+di $f$.
+\end{definition}
+
+\begin{theorem}[criterio di Lipschitz]
+\mymark{**}
+Sia $f\colon A \subset \RR$ una funzione lipschitziana
+con costante di Lipschitz $L$.
+Se $f$ è derivabile in un punto $x\in A$ allora $\abs{f'(x)}\le L$.
+Viceversa se $f\colon I \subset \RR \to \RR$ una funzione derivabile definita su un intervallo $I$
+e se esiste $L$ tale che per ogni $x\in I$ si ha $\abs{f'(x)}\le L$ allora $f$ è lipschitziana.
+\end{theorem}
+%
+\begin{proof}
+Se $f$ è Lipschitziana significa che il rapporto incrementale è limitato.
+Cioè esiste $L>0$ tale che
+\[
+  \abs{\frac{f(x) - f(y)}{x-y}} \le L \qquad \forall x,y\in A.
+\]
+Dunque la derivata, che è il limite del rapporto incrementale, se esiste è anch'essa limitata
+dalla stessa costante: $\abs{f'(x)}\le L$ per ogni $x \in A$.
+
+Viceversa se la derivata è limitata $\abs{f'(z)}\le L$ per ogni $z \in I$ e se $x,y\in I$ sono punti qualunque,
+allora, per il teorema di Lagrange, il rapporto incrementale di $f$ è uguale alla derivata in un punto $z\in(x,y)$:
+\[
+  \abs{\frac{f(x) - f(y)}{x-y}} = \abs{f'(z)} \le L.
+\]
+e dunque la funzione è $L$ lipschitziana:
+\[
+  \abs{f(x)- f(y)} \le L \abs{x-y}.
+\]
+\end{proof}
+
+\begin{definition}[funzioni Hoelderiane]
+Sia $\alpha>0$.
+\mynote{funzione hoelderiana}
+\index{funzione!hoelderiana}
+\index{Hoelder}
+Una funzione $f\colon A \subset \RR \to \RR$ si dice essere $\alpha$-Hoelderiana se
+esiste una costante $C>0$ tale che
+\begin{equation}\label{eq:2964536}
+  \abs{f(x) - f(y)} \le C \abs{x-y}^\alpha.
+\end{equation}
+\end{definition}
+
+\begin{definition}[uniforme continuità]
+\mymark{**}
+Una funzione $f\colon A \subset \RR \to \RR$ si dice essere
+\emph{uniformemente continua}%
+\index{uniforme continuità}
+\index{continuità!uniforme}
+\mynote{uniforme continuità}
+se
+\[
+ \forall \eps>0\colon \exists \delta > 0 \colon
+ \forall x,y\in A \colon \abs{x-y} < \delta \implies \abs{f(x)-f(y)} < \eps.
+\]
+\end{definition}
+
+\begin{theorem}
+Ogni funzione lipschitziana è $1$-Hoelderiana (e viceversa).
+Ogni funzione $\alpha$-Hoelderiana è uniformemente continua.
+Ogni funzione uniformemente continua è continua.
+Ogni funzione $\alpha$-Hoelderiana con $\alpha>1$ ha derivata nulla.
+\end{theorem}
+%
+\begin{proof}
+Le prime tre affermazioni seguono direttamente dalle definizioni.
+Per l'ultima osservazione si noti che se $\alpha>1$ nella
+disuguaglianza~\eqref{eq:2964536} si può dividere per $\abs{x-y}$ e
+ottenere quindi che il rapporto incrementale tende a zero se $y\to x$.
+\end{proof}
+
+\begin{definition}[modulo di continuità]
+Sia $f\colon A\subset \RR \to\RR$ una funzione.
+Definiamo il \myemph{modulo di continuità} di $f$ come la funzione
+$M\colon$ $[0,+\infty) \to [0,+\infty]$ definita da
+\[
+  M(r) = \sup \{\abs{f(x)-f(y)}\colon x,y \in A, \abs{x-y} \le r\}.
+\]
+\end{definition}
+
+\begin{theorem}[proprietà del modulo di continuità]
+Sia $f\colon A\to \RR$ e sia $M\colon [0,+\infty)\to [0,+\infty)$ il suo
+modulo di contintuità.
+La funzione $M(r)$ è crescente;
+
+La funzione $f$ è uniformemente continua se e solo se
+\[
+  \lim_{r\to 0} M(r) = 0.
+\]
+
+La funzione $f$ è lipschitziana se e solo se esiste $L$ tale che
+\[
+  M(r) \le Lr.
+\]
+
+La funzione $f$ è $\alpha$-Hoelderiana se e solo se esiste $C$ tale che
+\[
+  M(r) \le C r^\alpha.
+\]
+\end{theorem}
+%
+\begin{proof}
+Osserviamo che la condizione
+\[
+   M(r) \le c
+\]
+è equivalente a
+\[
+\forall x,y\in A \colon \abs{x-y}\le r \implies  \abs{f(x)-f(y)} \le c.
+\]
+La condizione $M(r)\to 0$ per $r \to 0$ significa
+\[
+ \forall \eps>0\colon \exists \delta>0 \colon \forall r>0\colon r<\delta \implies M(r)<\eps
+\]
+e diventa quindi la condizione di uniforme continuità.
+
+Le condizioni di lipschitzianità e di $\alpha$-hoelderianità risultano pure immediatamente.
+\end{proof}
+
+\begin{theorem}[restrizione / incollamento di funzioni uniformemente continue]
+Sia $f\colon A \subset \RR \to \RR$ una funzione uniformemente continua. Se $B\subset A$ la restrizione $f_{|B}$ di $f$ a $B$ è anch'essa uniformemente continua.
+
+Siano $I,J\subset \RR$ intervalli tali che $I\cap J \neq \emptyset$.
+Sia $f\colon I \cup J \to \RR$ una funzione. Se $f_{|I}$ e $f_{|J}$ sono uniformemente continue allora $f$ è uniformemente continua.
+\end{theorem}
+\begin{proof}
+La prima parte, sulla restrizione di una funzione uniformemente continua, deriva direttamente dalla definizione:
+se una qualunque proprietà vale per ogni $x,y\in A$ allora a maggior ragione vale per ogni $x,y\in B$ quando $B\subset A$.
+
+Vediamo la seconda parte dell'enunciato: supponiamo $f$ sia uniformemente continua su $I$ e su $J$.
+Sia dato $\eps>0$ e siano $\delta_1$ e $\delta_2$ i valori di $\delta$ dati dalle condizioni di uniforme continuità di $f$ rispettivamente su $I$ e su $J$. Consideriamo $\delta = \min\{\delta_1, \delta_2\}$.
+Siano ora $x,y$ punti qualunque di $I\cup J$ con $\abs{x-y}< \delta$.
+
+Si possono allora avere due casi possibili:
+$x$ e $y$ stanno nello stesso intervallo ($I$ o $J$) oppure stanno uno in $I$ e l'altro in $J$.
+Nel primo caso essendo $\delta < \delta_1$ e $\delta< \delta_2$ l'uniforme continuità di $f$ su $I$ e su $J$ garantisce che valga in ogni caso $\abs{f(x)-f(y)} < \eps$. Nel secondo caso deve esistere un punto $z \in I\cap J$ che sia un punto intermedio tra $x$ e $y$.
+Allora usando la disuguaglianza triangolare:
+\[
+  \abs{f(x) - f(y)} \le \abs{f(x) - f(z)} + \abs{f(z) - f(y)}
+     \le \eps + \eps.
+\]
+si ottiene dunque (salvo rimpiazzare $\eps$ con $\eps/2$) anche in
+questo caso la stima voluta.
+\end{proof}
+
+\begin{theorem}[Heine-Cantor]
+\mymark{***}
+\index{teorema!di Heine-Cantor}
+\mynote{Heine-Cantor}
+Siano $a,b\in \RR$, $a<b$.
+Sia $f\colon [a,b]\to \RR$ una funzione continua.
+Allora $f$ è uniformemente continua.
+\end{theorem}
+%
+\begin{proof}
+\mymark{***}
+Supponiamo per assurdo che $f$ non sia uniformemente continua. Allora
+$f$ soddisfa la negazione della proprietà
+\[
+ \forall \eps>0\colon \exists \delta > 0 \colon
+ \forall x,y\in A \colon \abs{x-y} < \delta \implies \abs{f(x)-f(y)} < \eps
+\]
+che è
+\[
+ \exists \eps>0\colon \forall \delta > 0 \colon
+ \exists x,y \in A \colon \abs{x-y} < \delta \land \abs{f(x)-f(y)} \ge \eps.
+\]
+Dunque dato $\eps>0$ che soddisfa la precedente proprietà possiamo
+prendere $\delta=1/k$
+per ogni $k\in \NN$, ottenendo quindi due successioni $x_k$, $y_k$ tali che
+\[
+  \abs{x_k-y_k} < \frac 1 k \qquad\text{e}\qquad \abs{f(x_k) - f(y_k)} \ge \eps.
+\]
+Per il teorema di Bolzano-Weierstrass esisterà una sottosuccessione convergente $x_{k_j} \to c$.
+Visto che $\abs{x_k-y_k}\to 0$ si dovrà avere anche $y_{k_j}\to c$.
+Ma allora, per la continuità di $f$:
+\[
+ \abs{f(x_{k_j})-f(y_{k_j})} \to \abs{f(c) - f(c)} = 0
+\]
+in contraddizione con la condizione $\abs{f(x_k)-f(y_k)}\ge \eps$.
+\end{proof}
+
+\begin{theorem}[dell'asintoto]
+\index{teorema!dell'asintoto}
+\mynote{teorema dell'asintoto}
+Sia $f\colon [a,+\infty) \to \RR$ una funzione continua e sia $g\colon [a,+\infty) \to \RR$ una funzione uniformemente continua tale che
+\[
+  \lim_{x\to +\infty} f(x) - g(x) = 0.
+\]
+Allora anche $f$ è uniformemente continua.
+
+In particolare se $f$ ha un \myemph{asintoto obliquo} ovvero se esistono $m\in \RR$ e $q\in \RR$ tali che
+\[
+  \lim_{x\to +\infty} f(x) - (mx + q)  = 0
+\]
+allora $f$, se è continua, è uniformemente continua.
+
+Risultato analogo vale per le funzioni definite su intervalli del tipo $(-\infty,a]$ (facendo i limiti a $-\infty$) e quindi per funzioni definite su tutto $\RR$ (facendo i limiti sia a $+\infty$ che a $-\infty$).
+\end{theorem}
+
+\begin{proof}
+Per ogni $\eps>0$ esiste $M>a$ tale che $\abs{f(x)-g(x)} < \eps/3$ per ogni $x\ge M$. D'altra parte la funzione $f$, per il teorema di Heine-Cantor, è uniformemente continua su $[a,M+1]$ e dunque esiste $\delta_1>0$ tale che presi $x,y \in [a,M+1]$ con $\abs{x-y}< \delta_1$
+si ha $\abs{f(x)-f(y)} < \eps$. D'altra parte $g$ è uniformemente continua su $[M,+\infty)$ e quindi esiste $\delta_2$ tale che dati $x,y\in [M,+\infty)$ con $\abs{x-y} < \delta_2$ si ha $\abs{g(x)-g(y)} < \eps/3$. Ma in quest'ultimo caso si ha:
+\begin{align*}
+  \abs{f(x)-f(y)} &\le \abs{f(x) - g(x)} + \abs{g(x) - g(y)} + \abs{g(y)-f(y)} \\
+  & \le \frac{\eps}{3} + \frac{\eps}{3} + \frac{\eps}{3} = \eps.
+\end{align*}
+Posto dunque $\delta = \min\{1, \delta_1, \delta_2\}$
+scelti comunque $x,y\in [a,+\infty)$ con $\abs{x-y}< \delta$ siamo certamente in uno dei due casi precedenti e quindi, in ogni caso, si ottiene $\abs{f(x)-f(y)} < \eps$, come dovevamo dimostrare.
+
+Nel caso particolare $g(x) = mx +q$ si osserva semplicemente che $g$ è uniformemente continua in quanto è $L$-lipschitziana con $L=\abs{m}$.
+\end{proof}
 \section{formula di Taylor}
 \index{formula!di Taylor}
 \begin{definition}[polinomio di Taylor]
@@ -1716,19 +2452,52 @@ Ogni polinomio di grado non superiore ad $n$ può essere scritto nella forma:
 \[
   P(x) = \sum_{k=0}^{n} a_k (x-x_0)^k
 \]
-(basti notare che se $P(x)$ è un polinomio anche $Q(x) = P(x_0+x)$ è
+(basti notare che se $P(x)$ è un polinomio anche $Q(t) = P(x_0+t)$ è
 un polinomio)
-le sue derivate sono:
+e le sue derivate sono:
 \begin{align*}
    P^{(j)}(x)
-   = \sum_{k=j}^n a_k \frac{k!}{(k-j)!}(x-x_0)^{k-j}
+   = \sum_{k=j}^n a_k \cdot \frac{k!}{(k-j)!}\cdot (x-x_0)^{k-j}.
 \end{align*}
-e per $x=x_0$ l'unico addendo non nullo è quello con $k=j$, dunque
+Per $x=x_0$ l'unico addendo non nullo è quello con $k=j$, dunque
 \[
-  P^{(k)}(x_0) = k! a_k.
+  P^{(k)}(x_0) = k! \cdot a_k.
 \]
 Dunque si ha $P^{(k)}(x_0) = f^{(k)}(x_0)$ se e solo se $a_k = f^{(k)}(x_0)/k!$ cioè se $P$ è il polinomio di Taylor di $f$.
 \end{proof}
+
+\begin{remark}[polinomio di Taylor della derivata]
+Se $P_n$ è il polinomio di Taylor centrato in $x_0$ di ordine $n$ per $f$, allora
+si ha
+\begin{align*}
+P_n'(x) &= \sum_{k=1}^{n} \frac{f^{(k)}(x)}{k!}\cdot k(x-x_0)^{k-1} \\
+  &= \sum_{k=1}^{n} \frac{f^{(k)}}{(k-1)!} (x-x_0)^{k-1} \\
+  &= \sum_{j=0}^{n-1} \frac{f^{(j+1)}}{j!} (x-x_0)^j.
+\end{align*}
+Dunque si verifica che $P'_n$ è il polinomio di Taylor di ordine $n-1$ per $f'$.
+In breve: il polinomio di Taylor di ordine $n-1$ della derivata è la derivata
+del polinomio di Taylor di ordine $n$ della funzione.
+
+Viceversa se
+\[
+   \sum_{k=0}^n a_k (x-x_0)^k
+\]
+è il polinomio di Taylor di ordine $n$ della derivata $f'(x)$, allora
+il polinomio di Taylor di ordine $n+1$ di $f$ sarà%
+\footnote{Chiameremo questa una \emph{primitiva} del polinomio dato,
+nel prossimo capitolo, quando parleremo del calcolo integrale.}
+\[
+  P_{n+1}(x) = f(x_0) + \sum_{k=0}^{n} \frac{a_{k}}{k+1}\cdot (x-x_0)^{k+1}
+\]
+in quanto
+\[
+  \frac{f^{(k+1)}(x_0)}{(k+1)!}
+  =\frac{(f')^{(k)}(x_0)}{(k+1)!}
+  = \frac{a_k \cdot k!}{ (k+1)!}
+  = \frac{a_k}{k+1}.
+\]
+
+\end{remark}
 
 \begin{theorem}[formula di Taylor con resto di Lagrange]
 \mymark{**}%
@@ -1939,6 +2708,8 @@ e^x &= \sum_{k=0}^n \frac{x^k}{k!} + o(x^n) \\
          &= x - \frac{x^2}{2} + \frac{x^3}{3} - \dots + (-1)^{n-1}\frac{x^n}{n} + o(x^n) \\
   \arctg x &= \sum_{k=0}^n (-1)^k \frac{x^{2k+1}}{2k+1} + o(x^{2n+1})\\
     &= x - \frac{x^3}{3} + \frac{x^5}{5} - \dots + (-1)^n \frac{x^{2n+1}}{2n +1} + o(x^{2n+1})\\
+  \arcsin x &= x + \frac{x^3}{6} + \frac{3}{40} x^5 + \dots + \frac{(2n)!}{4^n(n^2)!(2n+1)} x^{2n+1} + o(x^{2n+1}) \\
+  \arccos x &= \frac \pi 2 - \arcsin x\\
   \tg x &= x + \frac{x^3}{3} + \frac{2}{15} x^5 + o(x^5).
 \end{align*}
 \caption{sviluppi di Taylor, per $x\to 0$, di alcune funzioni elementari. Si veda Teorema~\ref{th:sviluppi_taylor}}.
@@ -2244,272 +3015,4 @@ Per le proprietà del polinomio di Taylor sappiamo che il polinomio di Taylor di
 \]
 dunque, per la permanenza del segno, deve esistere un intorno di $0$ in cui $1/2 + o(1)$ è positivo e quindi in tale intorno risulta che $f'(x)\ge 0$ cioè $f$ è crescente.
 Dunque anche $f^\alpha$ è crescente e, per $k$ abbastanza grande, $a_k$ è decrescente. Si può quindi applicare il criterio di Leibniz e concludere che la serie è convergente per ogni $\alpha >0$.
-\end{proof}
-
-
-\section{classi di regolarità}
-\begin{definition}[funzioni di classe $C^k$]
-\mymark{**}
-Dato $A\subset \RR$ denotiamo con $\RR^A$ l'insieme di tutte le funzioni $f\colon A \to \RR$.
-Per ogni $k\in \NN$ definiamo
-$C^k(A) \subset \RR^A$ nel modo seguente:
-\mymargin{$C^k$}
-\begin{enumerate}
-\item se $k=0$ poniamo
-\[
-  C^0(A) = \{f\in \RR^A \colon \text{$f$ continua}\}.
-\]
-\item
-  se $k>0$ definiamo induttivamente
-  \[
-  C^{k}(A) = \{f\in \RR^A \colon \text{$f$ derivabile e $f'\in C^{k-1}(A)$}\}.
-  \]
-\end{enumerate}
-Chiaramente se $j\ge k$ si ha $C^j(A) \subset C^k(A)$ dunque $C^k(A)$ è una famiglia decrescente (rispetto all'inclusione insiemistica) ed ha senso definire:
-\mymargin{$C^\infty$}
-\[
-  C^\infty(A) = \{f\in \RR^A\colon \forall k \in \NN\colon f\in C^k(A)\} = \bigcap_{k\in \NN} C^k(A).
-\]
-
-Le funzioni $f\in C^k(A)$ sono derivabili $k$ volte.
-Utilizziamo la notazione \myemph{$f^{(j)}$} per denotare la $j$-esima derivata
-di una funzione $f$.
-Dunque avremo
-\[
-  f^{(0)} = f, \qquad
-  f^{(1)} = f', \qquad
-  f^{(2)} = f'', \dots
-\]
-\end{definition}
-
-Abbiamo già osservato che $\RR^A$ è uno spazio vettoriale reale.
-Gli spazi $C^k(A)$ per $k=0, \dots, \infty$ sono una famiglia decrescente di sottospazi vettoriali di $\RR^A$.
-Infatti sappiamo che la combinazione lineare di funzioni continue è continua e che la combinazione lineare di funzioni derivabili è derivabile.
-
-E' importante osservare che $C^1(A)$ non coincide con l'insieme delle funzioni derivabili su $A$. Infatti abbiamo già visto nell'esempio~\ref{ex:derivata_non_continua} che esistono funzioni derivabili la cui derivata non è continua e quindi tali funzioni, pur essendo derivabili, non sono di classe $C^1$.
-
-\begin{definition}[funzioni lipschitziane]
-\mymark{**}
-\mynote{funzione lipschitziana}
-\index{funzione!lipschitziana}
-\index{Lipschitz}
-Una funzione $f\colon A\subset \RR \to \RR$ si dice essere \emph{lipschitziana} (o anche $L$-lipschitziana se vogliamo mettere in evidenza la dipendenza da $L$) se esiste $L>0$ tale che
-\[
-  \abs{f(x) - f(y)} \le L \abs{x-y}\qquad \forall x,y\in A.
-\]
-La più piccola costante $L$ per la quale è soddisfatta la precedente relazione si chiama \emph{costante di Lipschitz}
-\mynote{costante di Lipschitz}
-\index{costante!di Lipschitz}
-di $f$.
-\end{definition}
-
-\begin{theorem}[criterio di Lipschitz]
-\mymark{**}
-Sia $f\colon A \subset \RR$ una funzione lipschitziana
-con costante di Lipschitz $L$.
-Se $f$ è derivabile in un punto $x\in A$ allora $\abs{f'(x)}\le L$.
-Viceversa se $f\colon I \subset \RR \to \RR$ una funzione derivabile definita su un intervallo $I$
-e se esiste $L$ tale che per ogni $x\in I$ si ha $\abs{f'(x)}\le L$ allora $f$ è lipschitziana.
-\end{theorem}
-%
-\begin{proof}
-Se $f$ è Lipschitziana significa che il rapporto incrementale è limitato.
-Cioè esiste $L>0$ tale che
-\[
-  \abs{\frac{f(x) - f(y)}{x-y}} \le L \qquad \forall x,y\in A.
-\]
-Dunque la derivata, che è il limite del rapporto incrementale, se esiste è anch'essa limitata
-dalla stessa costante: $\abs{f'(x)}\le L$ per ogni $x \in A$.
-
-Viceversa se la derivata è limitata $\abs{f'(z)}\le L$ per ogni $z \in I$ e se $x,y\in I$ sono punti qualunque,
-allora, per il teorema di Lagrange, il rapporto incrementale di $f$ è uguale alla derivata in un punto $z\in(x,y)$:
-\[
-  \abs{\frac{f(x) - f(y)}{x-y}} = \abs{f'(z)} \le L.
-\]
-e dunque la funzione è $L$ lipschitziana:
-\[
-  \abs{f(x)- f(y)} \le L \abs{x-y}.
-\]
-\end{proof}
-
-\begin{definition}[funzioni Hoelderiane]
-Sia $\alpha>0$.
-\mynote{funzione hoelderiana}
-\index{funzione!hoelderiana}
-\index{Hoelder}
-Una funzione $f\colon A \subset \RR \to \RR$ si dice essere $\alpha$-Hoelderiana se
-esiste una costante $C>0$ tale che
-\begin{equation}\label{eq:2964536}
-  \abs{f(x) - f(y)} \le C \abs{x-y}^\alpha.
-\end{equation}
-\end{definition}
-
-\begin{definition}[uniforme continuità]
-\mymark{**}
-Una funzione $f\colon A \subset \RR \to \RR$ si dice essere
-\emph{uniformemente continua}%
-\index{uniforme continuità}
-\index{continuità!uniforme}
-\mynote{uniforme continuità}
-se
-\[
- \forall \eps>0\colon \exists \delta > 0 \colon
- \forall x,y\in A \colon \abs{x-y} < \delta \implies \abs{f(x)-f(y)} < \eps.
-\]
-\end{definition}
-
-\begin{theorem}
-Ogni funzione lipschitziana è $1$-Hoelderiana (e viceversa).
-Ogni funzione $\alpha$-Hoelderiana è uniformemente continua.
-Ogni funzione uniformemente continua è continua.
-Ogni funzione $\alpha$-Hoelderiana con $\alpha>1$ ha derivata nulla.
-\end{theorem}
-%
-\begin{proof}
-Le prime tre affermazioni seguono direttamente dalle definizioni.
-Per l'ultima osservazione si noti che se $\alpha>1$ nella
-disuguaglianza~\eqref{eq:2964536} si può dividere per $\abs{x-y}$ e
-ottenere quindi che il rapporto incrementale tende a zero se $y\to x$.
-\end{proof}
-
-\begin{definition}[modulo di continuità]
-Sia $f\colon A\subset \RR \to\RR$ una funzione.
-Definiamo il \myemph{modulo di continuità} di $f$ come la funzione
-$M\colon$ $[0,+\infty) \to [0,+\infty]$ definita da
-\[
-  M(r) = \sup \{\abs{f(x)-f(y)}\colon x,y \in A, \abs{x-y} \le r\}.
-\]
-\end{definition}
-
-\begin{theorem}[proprietà del modulo di continuità]
-Sia $f\colon A\to \RR$ e sia $M\colon [0,+\infty)\to [0,+\infty)$ il suo
-modulo di contintuità.
-La funzione $M(r)$ è crescente;
-
-La funzione $f$ è uniformemente continua se e solo se
-\[
-  \lim_{r\to 0} M(r) = 0.
-\]
-
-La funzione $f$ è lipschitziana se e solo se esiste $L$ tale che
-\[
-  M(r) \le Lr.
-\]
-
-La funzione $f$ è $\alpha$-Hoelderiana se e solo se esiste $C$ tale che
-\[
-  M(r) \le C r^\alpha.
-\]
-\end{theorem}
-%
-\begin{proof}
-Osserviamo che la condizione
-\[
-   M(r) \le c
-\]
-è equivalente a
-\[
-\forall x,y\in A \colon \abs{x-y}\le r \implies  \abs{f(x)-f(y)} \le c.
-\]
-La condizione $M(r)\to 0$ per $r \to 0$ significa
-\[
- \forall \eps>0\colon \exists \delta>0 \colon \forall r>0\colon r<\delta \implies M(r)<\eps
-\]
-e diventa quindi la condizione di uniforme continuità.
-
-Le condizioni di lipschitzianità e di $\alpha$-hoelderianità risultano pure immediatamente.
-\end{proof}
-
-\begin{theorem}[restrizione / incollamento di funzioni uniformemente continue]
-Sia $f\colon A \subset \RR \to \RR$ una funzione uniformemente continua. Se $B\subset A$ la restrizione $f_{|B}$ di $f$ a $B$ è anch'essa uniformemente continua.
-
-Siano $I,J\subset \RR$ intervalli tali che $I\cap J \neq \emptyset$.
-Sia $f\colon I \cup J \to \RR$ una funzione. Se $f_{|I}$ e $f_{|J}$ sono uniformemente continue allora $f$ è uniformemente continua.
-\end{theorem}
-\begin{proof}
-La prima parte, sulla restrizione di una funzione uniformemente continua, deriva direttamente dalla definizione:
-se una qualunque proprietà vale per ogni $x,y\in A$ allora a maggior ragione vale per ogni $x,y\in B$ quando $B\subset A$.
-
-Vediamo la seconda parte dell'enunciato: supponiamo $f$ sia uniformemente continua su $I$ e su $J$.
-Sia dato $\eps>0$ e siano $\delta_1$ e $\delta_2$ i valori di $\delta$ dati dalle condizioni di uniforme continuità di $f$ rispettivamente su $I$ e su $J$. Consideriamo $\delta = \min\{\delta_1, \delta_2\}$.
-Siano ora $x,y$ punti qualunque di $I\cup J$ con $\abs{x-y}< \delta$.
-
-Si possono allora avere due casi possibili:
-$x$ e $y$ stanno nello stesso intervallo ($I$ o $J$) oppure stanno uno in $I$ e l'altro in $J$.
-Nel primo caso essendo $\delta < \delta_1$ e $\delta< \delta_2$ l'uniforme continuità di $f$ su $I$ e su $J$ garantisce che valga in ogni caso $\abs{f(x)-f(y)} < \eps$. Nel secondo caso deve esistere un punto $z \in I\cap J$ che sia un punto intermedio tra $x$ e $y$.
-Allora usando la disuguaglianza triangolare:
-\[
-  \abs{f(x) - f(y)} \le \abs{f(x) - f(z)} + \abs{f(z) - f(y)}
-     \le \eps + \eps.
-\]
-si ottiene dunque (salvo rimpiazzare $\eps$ con $\eps/2$) anche in
-questo caso la stima voluta.
-\end{proof}
-
-\begin{theorem}[Heine-Cantor]
-\mymark{***}
-\index{teorema!di Heine-Cantor}
-\mynote{Heine-Cantor}
-Siano $a,b\in \RR$, $a<b$.
-Sia $f\colon [a,b]\to \RR$ una funzione continua.
-Allora $f$ è uniformemente continua.
-\end{theorem}
-%
-\begin{proof}
-\mymark{***}
-Supponiamo per assurdo che $f$ non sia uniformemente continua. Allora
-$f$ soddisfa la negazione della proprietà
-\[
- \forall \eps>0\colon \exists \delta > 0 \colon
- \forall x,y\in A \colon \abs{x-y} < \delta \implies \abs{f(x)-f(y)} < \eps
-\]
-che è
-\[
- \exists \eps>0\colon \forall \delta > 0 \colon
- \exists x,y \in A \colon \abs{x-y} < \delta \land \abs{f(x)-f(y)} \ge \eps.
-\]
-Dunque dato $\eps>0$ che soddisfa la precedente proprietà possiamo
-prendere $\delta=1/k$
-per ogni $k\in \NN$, ottenendo quindi due successioni $x_k$, $y_k$ tali che
-\[
-  \abs{x_k-y_k} < \frac 1 k \qquad\text{e}\qquad \abs{f(x_k) - f(y_k)} \ge \eps.
-\]
-Per il teorema di Bolzano-Weierstrass esisterà una sottosuccessione convergente $x_{k_j} \to c$.
-Visto che $\abs{x_k-y_k}\to 0$ si dovrà avere anche $y_{k_j}\to c$.
-Ma allora, per la continuità di $f$:
-\[
- \abs{f(x_{k_j})-f(y_{k_j})} \to \abs{f(c) - f(c)} = 0
-\]
-in contraddizione con la condizione $\abs{f(x_k)-f(y_k)}\ge \eps$.
-\end{proof}
-
-\begin{theorem}[dell'asintoto]
-\index{teorema!dell'asintoto}
-\mynote{teorema dell'asintoto}
-Sia $f\colon [a,+\infty) \to \RR$ una funzione continua e sia $g\colon [a,+\infty) \to \RR$ una funzione uniformemente continua tale che
-\[
-  \lim_{x\to +\infty} f(x) - g(x) = 0.
-\]
-Allora anche $f$ è uniformemente continua.
-
-In particolare se $f$ ha un \myemph{asintoto obliquo} ovvero se esistono $m\in \RR$ e $q\in \RR$ tali che
-\[
-  \lim_{x\to +\infty} f(x) - (mx + q)  = 0
-\]
-allora $f$, se è continua, è uniformemente continua.
-
-Risultato analogo vale per le funzioni definite su intervalli del tipo $(-\infty,a]$ (facendo i limiti a $-\infty$) e quindi per funzioni definite su tutto $\RR$ (facendo i limiti sia a $+\infty$ che a $-\infty$).
-\end{theorem}
-
-\begin{proof}
-Per ogni $\eps>0$ esiste $M>a$ tale che $\abs{f(x)-g(x)} < \eps/3$ per ogni $x\ge M$. D'altra parte la funzione $f$, per il teorema di Heine-Cantor, è uniformemente continua su $[a,M+1]$ e dunque esiste $\delta_1>0$ tale che presi $x,y \in [a,M+1]$ con $\abs{x-y}< \delta_1$
-si ha $\abs{f(x)-f(y)} < \eps$. D'altra parte $g$ è uniformemente continua su $[M,+\infty)$ e quindi esiste $\delta_2$ tale che dati $x,y\in [M,+\infty)$ con $\abs{x-y} < \delta_2$ si ha $\abs{g(x)-g(y)} < \eps/3$. Ma in quest'ultimo caso si ha:
-\begin{align*}
-  \abs{f(x)-f(y)} &\le \abs{f(x) - g(x)} + \abs{g(x) - g(y)} + \abs{g(y)-f(y)} \\
-  & \le \frac{\eps}{3} + \frac{\eps}{3} + \frac{\eps}{3} = \eps.
-\end{align*}
-Posto dunque $\delta = \min\{1, \delta_1, \delta_2\}$
-scelti comunque $x,y\in [a,+\infty)$ con $\abs{x-y}< \delta$ siamo certamente in uno dei due casi precedenti e quindi, in ogni caso, si ottiene $\abs{f(x)-f(y)} < \eps$, come dovevamo dimostrare.
-
-Nel caso particolare $g(x) = mx +q$ si osserva semplicemente che $g$ è uniformemente continua in quanto è $L$-lipschitziana con $L=\abs{m}$.
 \end{proof}
