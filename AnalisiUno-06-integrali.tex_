@@ -62,6 +62,7 @@ definiamo per convenzione:
 \end{definition}
 
 \begin{theorem}[criteri di integrabilità]
+\label{th:criteri_integrabilita}
 \mymark{*}
 \mynote{criteri di integrabilità}
 \index{criterio!di integrabilità}
@@ -201,6 +202,7 @@ $S_*(f,P_n)$.
 \end{proof}
 
 \begin{example}[calcolo dell'integrale tramite le suddivisioni]
+\label{ex:integrale_quadrato}
 Mostriamo che per ogni $b>0$ la funzione $f(x)=x^2$ è Riemann-integrabile sull'intervallo $[0,b]$ e si ha
 \[
  \int_0^b x^2\, dx = \frac{b^3}{3}.
@@ -267,6 +269,35 @@ Visto che su ogni $A\subset [a,b]$ si ha
 qualunque sia la suddivisione $P$ di $[a,b]$. Il risultato segue immediatamente.
 \end{proof}
 
+Non tutte le funzioni sono Riemann-integrabili come ci mostra il seguente esempio.
+\begin{example}[funzione di Dirichlet]
+\mymark{**}
+\mynote{funzione di Dirichlet}
+\index{funzione!di Dirichlet}
+\index{integrabilità!controesempio}
+Sia $a<b$ e sia $f\colon[a,b]\to \RR$ la funzione definita da
+\[
+ f(x) =
+ \begin{cases}
+   1 & \text{se $x\in \QQ$}\\
+   0 & \text{se $x\not \in \QQ$}.
+ \end{cases}
+\]
+Allora $f$ non è Riemann-integrabile.
+\end{example}
+%
+\begin{proof}
+\mymark{*}
+Sia $P=\{x_0, x_1, \dots, x_N\}$ con $a=x_0 < x_1 < \dots < x_N = b$
+una qualunque suddivisione di $[a,b]$.
+Allora basta osservare che, per la densità dei razionali, in qualunque intervallino $I=[x_{k-1}, x_k]$ sono presenti infiniti punti razionali e infiniti punti irrazionali. Dunque $\sup f(I)=1$ e $\inf f(I)=0$ e di conseguenza
+\begin{align*}
+  S^*(f,P) &= \sum_{k=1}^N (x_k - x_{k-1})\cdot 1 = b-a \\
+  S_*(f,P) &= \sum_{k=1}^N (x_k - x_{k-1})\cdot 0 = 0
+\end{align*}
+da cui $I^*(f) = b-a \neq 0 = I_*(f)$.
+\end{proof}
+
 \begin{theorem}[monotonia dell'integrale]
 \mymark{*}
 Sia $a\le b$ e siano
@@ -289,6 +320,7 @@ da cui si ottiene immediatamente $I^*(f) \le I^*(g)$ e il risultato segue.
 
 \begin{theorem}[linearità dell'integrale]
 \mymark{*}
+\label{th:integrale_lineare}
 Siano $f,g\colon [a,b]\to \RR$ due funzioni Riemann-integrabili
 e siano $\lambda, \mu \in \RR$. Allora $\lambda f + \mu g$
 è Riemann integrabile e si ha
@@ -361,10 +393,73 @@ Per concludere che l'insieme delle funzioni integrali sia uno spazio vettoriale
 la funzione $0$ risulta integrabile.
 \end{proof}
 
+\begin{theorem}[proprietà di reticolo]
+Se $f$ e $g$ sono funzioni a valori reali definiamo le
+funzioni $f\wedge g$ (massimo), $f \vee g$ (minimo),
+$f^+$ (parte positiva) e $f^-$ (parte negativa) come segue:
+\begin{gather*}
+  (f \wedge g)(x) = \min\{f(x), g(x)\}  \qquad
+  (f \vee g)(x) = \max\{f(x), g(x)\} \\
+  f^+ (x) =
+      \begin{cases}
+      f(x) & \text{se $f(x)> 0$}\\
+      0 & \text{altrimenti}
+      \end{cases} \qquad
+  f^- (x) =
+      \begin{cases}
+      -f(x) & \text{se $f(x)< 0$}\\
+      0 & \text{altrimenti.}
+      \end{cases}
+\end{gather*}
+Risulta $f= f^+ - f^-$, $\abs{f}=f^+ + f^-$.
+
+Se $f$ è una funzione Riemann-integrabile sull'intervallo $[a,b]$ allora
+anche $\abs{f}$, $f^+$ e $f^-$ sono integrabili e se
+anche $g$ è Riemann-integrabile su $[a,b]$ allora anche $f\vee g$ e $f\wedge g$
+sono integrabili sullo stesso intervallo.
+
+Viceversa se $f^+$ e $f^-$ sono Riemann-integrabili su $[a,b]$ anche $f$
+è Riemann-integrabile su $[a,b]$.
+\end{theorem}
+%
+\begin{proof}
+Dimostriamo innanzitutto che se $f$ è integrabile anche $\abs{f}$ lo è.
+Basta osservare che in generale se $x,y\in [a,b]$ si ha
+\[
+  \abs{f(x)}-\abs{f(y)} \le \abs{f(x) - f(y)}
+\]
+da cui per ogni $A\subset [a,b]$
+\[
+  \sup_{x\in A} \abs{f(x)} - \inf_{y\in A} \abs{f(y)} \le
+  \sup_{x\in A} f(x) - \inf_{y\in A}f(y)
+\]
+e quindi per ogni suddivisione $P$ si avrà
+\[
+  S^*(\abs{f},P) - S_*(\abs{f}, P) \le S^*(f,P) - S_*(f,P).
+\]
+Ma se $f$ è integrabile allora il lato destro può essere reso
+arbitrariamente piccolo (teorema~\ref{th:criteri_integrabilita})
+e di conseguenza anche il lato sinistro.
+Dunque la funzione $\abs{f}$ è integrabile (se $f$ lo è).
+
+Ma allora basta osservare che
+\begin{gather*}
+  f^+ = \frac{\abs{f} + f}{2}, \qquad
+  f^- = \frac{\abs{f} - f}{2}, \\
+  f\wedge g = \frac{f + g + \abs{f-g}}{2}, \qquad
+  f\vee g = \frac{f+g - \abs{f-g}}{2}
+\end{gather*}
+per dedurre che anche $f^+$, $f^-$, $f\wedge g$ e $f\vee g$
+sono integrabili,
+ grazie
+alla linearità dell'integrale (teorema~\ref{th:integrale_lineare}).
+\end{proof}
+
 \begin{theorem}[additività dell'integrale]
 \mymark{*}
 \mymargin{additività dell'integrale}
 \index{integrale!additività}
+\label{th:additivita_integrale}
 Sia $f\colon [a,b]\to \RR$ una funzione limitata e sia $c\in [a,b]$.
 Allora $f$ è Riemann-integrabile su $[a,b]$ se e solo se
 $f$ è Riemann-integrabile su $[a,c]$ e su $[c,b]$.
@@ -494,87 +589,8 @@ S^*(f,P) - S_*(f,P)
 E' quanto volevamo dimostrare.
 \end{proof}
 
-Non tutte le funzioni sono Riemann-integrabili come ci mostra il seguente esempio.
-\begin{example}[funzione di Dirichlet]
-\mymark{**}
-\mynote{funzione di Dirichlet}
-\index{funzione!di Dirichlet}
-\index{integrabilità!controesempio}
-Sia $a<b$ e sia $f\colon[a,b]\to \RR$ la funzione definita da
-\[
- f(x) =
- \begin{cases}
-   1 & \text{se $x\in \QQ$}\\
-   0 & \text{se $x\not \in \QQ$}.
- \end{cases}
-\]
-Allora $f$ non è Riemann-integrabile.
-\end{example}
-%
-\begin{proof}
-\mymark{*}
-Sia $P=\{x_0, x_1, \dots, x_N\}$ con $a=x_0 < x_1 < \dots < x_N = b$
-una qualunque suddivisione di $[a,b]$.
-Allora basta osservare che, per la densità dei razionali, in qualunque intervallino $I=[x_{k-1}, x_k]$ sono presenti infiniti punti razionali e infiniti punti irrazionali. Dunque $\sup f(I)=1$ e $\inf f(I)=0$ e di conseguenza
-\begin{align*}
-  S^*(f,P) &= \sum_{k=1}^N (x_k - x_{k-1})\cdot 1 = b-a \\
-  S_*(f,P) &= \sum_{k=1}^N (x_k - x_{k-1})\cdot 0 = 0
-\end{align*}
-da cui $I^*(f) = b-a \neq 0 = I_*(f)$.
-\end{proof}
-
-\begin{theorem}[integrabilità di funzioni che differiscono su un numero finito di punti]
-\mynote{funzioni che differiscono in un numero finito di punti}
-\index{integrabilità!funzioni che differiscono in un numero finito di punti}
-Sia $f\colon [a,b]\to \RR$ una funzione limitata.
-Se $g\colon [a,b] \to \RR$ è una funzione Riemann-integrabile e $f$ differisce da $g$ solamente in un numero finito di punti, allora anche $f$ è Riemann-integrabile e vale
-\[
-\int_a^b f = \int_a^b g
-\]
-
-\end{theorem}
-%
-\begin{proof}
-Supponiamo in prima istanza che $g$ differisca da $f$ solamente in un punto $x_0 \in [a,b]$. Se $g$ è integrabile e $I=\int_a^b g$
-deve esistere una successione $P_n$ di suddivisioni di $[a,b]$ tali che $S^*(f,P_n) \to I$ e $S_*(f,P_n)\to I$.
-Per ogni $n$ possiamo definire la suddivisione
-$P'_n = (P_n \cup \{x_0-1/n,x_0+1/n\})\cap [a,b]$.
-Essendo $P'_n \supset P_n$ si avrà
-\[
-  S_*(g,P_n) \le S_*(g,P'_n) \le S^*(g,P'_n) \le S^*(g,P_n)
-\]
-e quindi avremo ancora $S_*(g,P'_n)\to I$ e $S^*(g,P'_n) \to I$ per $n\to +\infty$.
-Ma le funzioni $f$ e $g$ differiscono solamente all'interno dell'intervallo $I_n = [x_0-1/n, x_0+1/n]$
-di ampiezza $2/n$
-e su tale intervallo,
-essendo $f-g$ limitata (diciamo $\abs{f-g}\le M$) si avrà:
-\[
- \sup_{I_n} \abs{f-g} \le M
-\]
-da cui somme superiori e inferiori di $f$ e $g$ differiranno al più di $2M/n$:
-\begin{gather*}
-S_*(g,P'_n) - \frac{2M}n
-\le
-S_*(f,P'_n)
-\le
-S^*(f,P'_n)
-\le
-S^*(g,P'_n) + \frac{2M}n\\
-\end{gather*}
-e per il teorema dei due carabinieri,
-passando al limite per $n\to +\infty$, si ottiene
-\[
-S_*(f,P'_n) \to I,
-\qquad
-S^*(f,P'_n) \to I.
-\]
-Questo dimostra che $f$ è integrabile e che $\int_a^b f = \int_a^b g$.
-
-Possiamo ora dimostrare per induzione il caso in cui $f$ e $g$ differiscono su un insieme di $n$ punti. Il passo base dell'induzione $n=1$ lo abbiamo già dimostrato.
-Se ora $f$ e $g$ differiscono su un insieme di $n+1$ punti consideriamo uno di questi punti e chiamiamolo $x_0$. Consideriamo la funzione $h$ che coincide con $f$ in $x_0$ e con $g$ in tutti gli altri punti: chiaramente $h$ differisce in un solo punto con $g$ quindi, per il passo base, è integrabile e vale $\int_a^b h = \int_a^b g$. Ma $f$ differisce con $h$ in un insieme di $n$ punti e quindi, per ipotesi induttiva possiamo dedurre che $f$ è integrabile e $\int_a^b f = \int_a^b h = \int_a^b g$, come volevamo dimostrare.
-\end{proof}
-
 \begin{example}[funzione di Heaviside]
+\label{ex:heaviside}
 \mynote{funzione di Heaviside}
 \index{funzione!di Heaviside}
 Sia $a<0<b$.
@@ -586,19 +602,90 @@ H(x) =
 0 & \text{se $x< 0$}
 \end{cases}
 \]
-è integrabile.
+è crescente quindi integrabile.
+\end{example}
+
+\begin{theorem}[continuità dell'integrale]
+\label{th:integrale_continuo}
+Sia $f\colon [a,b]\to \RR$ una funzione limitata e tale
+che per ogni $c\in (a,b]$ risulta che $f$ sia Riemann-integrabile
+su $[c,b]$. Allora $f$ è Riemann-integrabile su $[a,c]$ e risulta
+\[
+  \int_a^b f = \lim_{c\to a^+} \int_c^b f.
+\]
+
+Analogamente se $f$ è integrabile su ogni intervallo $[a,c]$
+con $c\in [a,b)$ allora $f$ è integrabile su $[a,b]$ e vale
+\[
+  \int_a^b f = \lim_{c\to b^-} \int_a^c f.
+\]
+\end{theorem}
+%
+\begin{proof}
+Dimostriamo solamente la prima parte, visto che la seconda si tratta in
+maniera del tutto analoga. Supponiamo quindi che $f$ sia integrabile su ogni
+intervallo $[c,b]$ con $c\in (a,b]$. Sappiamo inoltre che $f$ è limitata su
+tutto $[a,b]$ e quindi esiste $M>0$ tale che $\abs{f(x)}\le M$ per ogni
+$x\in [a,b]$. Fissato $\eps>0$ qualunque,
+scegliamo $c = a + \eps/(4M)$ e, sapendo che $f$ è integrabile su $[c,b]$,
+consideriamo una suddivisione $Q_\eps$ di $[c,b]$ tale che
+\[
+  S^*(f, Q_\eps) - S_*(f, Q_\eps) < \frac \eps 2.
+\]
+Ma allora posto $P_\eps = \{a\} \cup Q_\eps$ otteniamo:
+\begin{align*}
+  S^*(f,P_\eps) &= S^*(f,Q_\eps) + (c-a)\sup_{[a,c]} f
+    \le S^*(f,Q_\eps) + M \cdot (c-a)\\
+  S_*(f,P_\eps) &= S_*(f,Q_\eps) + (c-a)\inf_{[a,c]} f
+    \ge S_*(f,Q_\eps) - M \cdot (c-a)
+\end{align*}
+da cui
+\begin{align*}
+ S^*(f,P_\eps)-S_*(f,P_\eps)
+ &\le S^*(f,Q_\eps) - S_*(f,Q\eps) + 2 M \cdot (c-a)\\
+ &< \frac{\eps}{2} + 2 M \frac{\eps}{4M}
+ = \eps.
+\end{align*}
+Dunque, la funzione $f$ è integrabile. Ma si ha
+\begin{align*}
+\int_a^b f \le S^*(f,P_\eps) \le S^*(f,Q_\eps) + \frac{\eps}{2}
+\le S_*(f,Q_\eps) + \frac 3 2 \eps
+\le \int_{a+\frac {\eps}{4M}}^b f + \frac {3}{2} \eps \\
+\int_a^b f \ge S_*(f,P_\eps) \ge S_*(f,P_\eps) - \frac{\eps}{2}
+\ge S^*(f,P_\eps) - \frac 3 2 \eps
+\ge \int_{a+\frac {\eps}{4M}}^b f - \frac {3}{2} \eps
+\end{align*}
+da cui, passando al limite per $\eps \to 0^+$, si ottiene
+\[
+  \lim_{c\to a^+} \int_c^b f \le \int_a^b f \le \lim_{c\to a^+} \int_c^b f
+\]
+e quindi l'uguaglianza.
+\end{proof}
+
+\begin{example}
+La funzione
+\[
+  f(x) = \begin{cases}
+  \sin\frac 1 x & \text{se $x\neq 0$,}\\
+  0 & \text{se $x=0$}
+  \end{cases}
+\]
+è integrabile su ogni intervallo chiuso e limitato $[a,b]$.
 \end{example}
 \begin{proof}
-La funzione $H$ coincide con la funzione costante $1$ sull'intervallo $[0,b]$,
-dunque è integrabile su tale intervallo.
-Sull'intervallo $[a,0]$ la funzione $H$ differisce dalla funzione costante $0$
-solamente in un punto. Dunque anche su $[a,0]$ la funzione $H$ è integrabile.
-Ma allora, per additività rispetto al dominio, la funzione $H$ è integrabile su
-tutto $[a,b]$. Inoltre si ha
-\[
-  \int_a^b H = \int_a^0 H + \int_0^b H = \int_a^0 0 + \int_0^b 1 = 0 + b = b.
-\]
+Su ogni intervallo $[\eps,b]$ con $\eps>0$ e $b>\eps$ la funzione
+è integrabile in quanto su tali intervalli è continua (la funzione è continua su
+tutto $\RR\setminus\{0\}$). Inoltre la funzione è limitata, quindi per il teorema
+precedente possiamo concludere che è integrabile su $[0,b]$ per ogni $b>0$.
+
+In maniera analoga (per simmetria) la funzione è integrabile su $[a,0]$
+per ogni $a<0$.
+Dunque, per additività, la funzione è integrabile su ogni $[a,b]$ con $a<0$ e $b>0$
+e di conseguenza (sempre grazie al teorema~\ref{th:additivita_integrale})
+è integrabile su ogni intervallo $[a,b]$.
 \end{proof}
+
+\section{teorema fondamentale del calcolo integrale}
 
 \begin{theorem}[del valor medio]
 \mymark{***}
@@ -639,18 +726,19 @@ ovvero
 Dunque la media integrale è un valore intermedio tra il minimo e il massimo della funzione e quindi, per il teorema dei valori intermedi, dovrà esistere un punto $y\in [a,b]$ dove la funzione assume tale valore.
 \end{proof}
 
+
+\mynote{teor. fondamentale}
 \begin{theorem}[Torricelli-Barrow: teorema fondamentale del calcolo integrale]
 \mymark{***}
-\mynote{teor. fondamentale}
 \index{teorema!fondamentale del calcolo integrale}
 \index{teorema!di Torricelli-Barrow}
 \index{Torricelli-Barrow!teorema di}
 Sia $I\subset \RR$ un intervallo, sia $x_0 \in I$
  e sia $f\colon I\to \RR$ una funzione continua.
 Allora la \emph{funzione integrale}
-\mynote{funzione integrale}
 \index{funzione!integrale}
 $F\colon I \to \RR$
+\mynote{funzione integrale}
 \[
   F(x) = \int_{x_0}^x f
 \]
@@ -700,6 +788,21 @@ E se $G\colon I \to \RR$ è una qualunque  funzione tale che $G'(x)=f(x)$ si avr
 \]
 \end{proof}
 
+\begin{example}
+Si voglia calcolare
+\[
+  \int_0^b x^2\, dx.
+\]
+Basterà osservare che posto $G(x)=\frac{x^3}{3}$ si ha $G'(x)=x^2$
+e quindi, grazie alla formula fondamentale del calcolo integrale si
+ha
+\[
+  \int_0^b x^2\, dx = G(b) - G(0) = \frac{b^3}{3}.
+\]
+E' evidente quanto questo metodo risolutivo sia molto più semplice
+e potente di quello utilizzato nell'esempio~\ref{ex:integrale_quadrato}.
+\end{example}
+
 \begin{definition}[primitiva]
 \mymark{***}
 Sia $A \subset \RR$ e sia $f\colon A \to \RR$ una funzione qualunque. Una funzione $F\colon A \to \RR$ si dice essere una \myemph{primitiva}
@@ -743,6 +846,15 @@ base al quale se $f\colon[a,b]\to \RR$
   \int_a^b f = \Enclose{\int f}_a^b.
 \]
 \end{definition}
+
+\begin{remark}
+Si faccia attenzione però che nel caso di funzioni non continue è possibile
+che le funzioni integrali non siano primitive. Ad esempio
+se si prende la funzione di Heaviside $H(x)$ definita nell'esempio~\ref{ex:heaviside}
+si può osservare che $\int_0^x H(t)\, dt = \abs{x}$
+è una funzione integrale ma non è una primitiva (e l'insieme delle primitive,
+in questo caso, è vuoto).
+\end{remark}
 
 Se pensiamo all'operatore lineare $D$ definito sull'insieme delle funzioni derivabili $Df = f'$
 si può pensare a $\int f$ come all'insieme delle controimmagini di $f$ tramite $D$ ovvero:
@@ -816,32 +928,51 @@ topologia dello spazio stesso. In questo caso la dimensione del nucleo
 dell'operatore differenziale $D$ è uguale al numero di componenti connesse del dominio delle funzioni nel dominio di $D$.
 \end{example}
 
-Come già detto utilizzeremo la notazione $\int f$ per indicare le primitive della funzione $f$. Ma invece di scrivere $F\in \int f$
-per indicare che $F$ è una primitiva di $f$ scriveremo, più semplicemente ma con abuso di notazione $\int f = F$
-ricordando (come facevamo con la notazione degli $o$-piccolo) che tale relazione non è affatto simmetrica.
-Eviteremo invece di scrivere $\int f = F+c$ come invece si trova in molti testi in quanto nel caso in cui il dominio della funzione non sia connesso risulta molto più complicato scrivere l'insieme di tutte le primitive. Nell'esempio precedente abbiamo infatti osservato che:
+Come già detto utilizzeremo la notazione $\int f$ per indicare le primitive della funzione $f$.
+Ma invece di scrivere $F\in \int f$
+per indicare che $F$ è una primitiva di $f$
+potremo scrivere
+più semplicemente ma con abuso di notazione $\int f = F$
+ricordando (come facevamo con la notazione degli $o$-piccolo) che tale relazione
+non è affatto simmetrica.
+Ad esempio potremo scrivere:
 \[
-  \int \frac{1}{x}\, dx \supsetneq \{\ln \abs{x}+c\colon c \in \RR\}.
+  \int \cos x\, dx = \sin x.
 \]
+Si faccia attenzione però che per alcuni la scrittura precedente
+è considerata sbagliata, in quanto $\sin x$ non è l'unica primitiva e si dovrebbe
+quindi scrivere
+\[
+  \int \cos x\, dx = \sin x + c.
+\]
+Ma abbiamo visto che se pretendiamo di scrivere tutte le primitive (e non solo una)
+allora sarebbe complicato scrivere il risultato quando la funzione non è definita
+su un singolo intervallo. Infatti se scrivessimo:
+\[
+  \int \frac 1 x\, dx = \ln \abs{x} + c
+\]
+avremmo comunque scritto solo una parte delle primitive (per quanto visto nell'esempio
+precedente).
 
 \begin{theorem}[integrali di alcune funzioni elementari]
 Si ha
 per ogni $\alpha \in \RR$, $\alpha\neq -1$
 \begin{gather*}
-\int x^\alpha\, dx = \frac{x^{\alpha+1}}{\alpha+1},
+\int x^\alpha\, dx \ni \frac{x^{\alpha+1}}{\alpha+1},
 \qquad
-\int \frac{1}{x}\, dx = \ln\abs{x}
+\int \frac{1}{x}\, dx \ni \ln\abs{x}
 \\
-\int e^x \, dx = e^x,
+\int e^x \, dx \ni e^x,
 \qquad
-\int \cos x\, dx = \sin x,
+\int \cos x\, dx \ni \sin x,
 \qquad
-\int \sin x\, dx = -\cos x
+\int \sin x\, dx \ni -\cos x
 \\
-\int \cosh x \, dx = \sinh x,\qquad
-\int \sinh x \, dx = \cosh x, \\
-\int \frac{1}{1+x^2}\, dx = \arctg x, \qquad
-\int \frac{1}{\sqrt{1-x^2}}\, dx = \arcsin x.
+\int \cosh x \, dx \ni \sinh x,\qquad
+\int \sinh x \, dx \ni \cosh x, \\
+\int \frac{1}{1+x^2}\, dx \ni \arctg x, \qquad
+\int \frac{1}{\sqrt{1-x^2}}\, dx \ni \arcsin x, \\
+\int \frac{1}{\sqrt{1+x^2}}\, dx \ni \settsinh x = \ln\enclose{x+\sqrt{1+x^2}}.
 \end{gather*}
 \end{theorem}
 %
@@ -876,6 +1007,8 @@ Valgono le seguenti proprietà:
 \item
 se $g\colon A \to \RR$ è derivabile e $f\colon g(A) \to \RR$
 allora
+\mymargin{sostituzione diretta}
+\index{integrali!sostituzione diretta}
 \[
   \int f(g(x)) g'(x)\, dx \supset
   \Enclose{\int f(y) \, dy}_{y=g(x)}
@@ -887,6 +1020,8 @@ dove si intende
 
 \item
 se $g\in C^1([a,b])$ e $f\in C^0(g([a,b]))$ allora
+\mymargin{cambio di variabile}
+\index{integrali!cambio di variabile}
 \[
  \int_{g(a)}^{g(b)} f(x)\, dx = \int_a^b f(g(t))\, g'(t)\, dt;
 \]
@@ -895,6 +1030,8 @@ se $g\in C^1([a,b])$ e $f\in C^0(g([a,b]))$ allora
 se $g\in C^1([a,b])$ è iniettiva, $f\in C^0(g([a,b]))$
 allora $g^{-1}$ è definita su $g([a,b])$
 e si ha
+\mymargin{sostituzione inversa}
+\index{integrali!sostituzione inversa}
 \[
   \int f(x)\, dx \supset \Enclose{\int f(g(t)) g'(t)\, dt}_{t=g^{-1}(x)}
 \]
@@ -943,7 +1080,7 @@ utilizzando il punto precedente sappiamo però che vale
 \[
 F(x) - F(g(a)) =
 \int_a^{g^{-1}(x)} f(g(t)) g'(t)\, dt
-= \int_{g(a)}^x f(t)\, dt.
+= \int_{g(a)}^x f(s)\, ds.
 \]
 Dunque derivando ambo i membri, grazie ancora al teorema
 fondamentale otteniamo:
@@ -962,7 +1099,7 @@ $y=g(x)$ (o, viceversa, $x=g^{-1}(y)$).
 Per memorizzare tale formula si usa normalmente definire il
 \emph{differenziale} di una funzione $g$ come $dg(x) = g'(x)\, dx$
 (coerentemente con la notazione $g' = dg / dx$)
-cosicche se $y=g(x)$ si ha $dy = g'(x)\, dx$.
+cosicché se $y=g(x)$ si ha $dy = g'(x)\, dx$.
 Non daremo qui una definizione formale di cosa sia un differenziale
 ma senz'altro utilizzeremo questa comoda notazione, pensandola
 semplicemente come una facilitazione tipografica.
@@ -1034,8 +1171,7 @@ Quest'ultimo integrale lo abbiamo calcolato nell'esercizio precedente. Dunque ot
 
 \begin{theorem}[integrazione per parti]
 \mymark{*}
-\mymargin{integrazione per parti}
-\index{integrazione!per parti}
+\mymargin{integrazione!per parti}
 Sia $f\colon A\subset \RR \to \RR$ una funzione qualunque, sia $g\colon A \to\RR$ una funzione derivabile
 e sia $F \in \int f$.
 Allora
@@ -1547,12 +1683,17 @@ dove
 \]
 è un polinomio di grado inferiore al grado di $Q$ (visto che $(z-\lambda_k)^j$ divide $Q$).
 
-Guardando il lato sinistro dell'uguaglianza \eqref{eq:43775} vediamo una combinazione lineare con coefficienti $A_{kj}$ di fratti semplici e per la prima parte del teorema sappiamo che lo spazio $V$ di tutte le funzioni che
+Guardando il lato sinistro dell'uguaglianza \eqref{eq:43775} vediamo una
+combinazione lineare con coefficienti $A_{kj}$ di fratti semplici e per la prima
+parte del teorema sappiamo che lo spazio $V$ di tutte le funzioni che
 si possono ottenere mediante tali combinazioni è un
 sottospazio vettoriale di dimensione $N$ di $\CC^\Omega$.
 
 Guardando il lato destro vediamo che al "numeratore" c'è
-invece una combinazione di polinomi $S_{kj}$ ognuno dei quali ha grado inferiore ad $N$. Quello che si ottiene è dunque un polinomio di grado inferiore ad $N$. Al denominatore c'è il polinomio fissato $Q$. Dunque al variare dei coefficienti $A_{kj}$ il lato destro è un sottospazio dello spazio dei polinomi di grado inferiore ad $N$ che vengono poi divisi per $Q$. Anche questo spazio ha dimensione $N$ (in quanto di polinomi di grado $N-1$ sono combinazione lineare dei monomi $1, z, z^2, \dots, z^{N-1}$) e contiene lo spazio $V$ che pure abbiamo verificato avere dimensione $N$. Dunque i due spazi coincidono e questo significa che il polinomio $P$, avendo grado inferiore ad $N$ è combinazione lineare dei polinomi $S_{kj}$ per una opportuna (unica) scelta dei coefficienti $A_{kj}$.
+invece una combinazione di polinomi $S_{kj}$ ognuno dei quali ha grado inferiore ad $N$.
+Quello che si ottiene è dunque un polinomio di grado inferiore ad $N$.
+Al denominatore c'è il polinomio fissato $Q$. Dunque al variare dei
+coefficienti $A_{kj}$ il lato destro è un sottospazio dello spazio dei polinomi di grado inferiore ad $N$ che vengono poi divisi per $Q$. Anche questo spazio ha dimensione $N$ (in quanto di polinomi di grado $N-1$ sono combinazione lineare dei monomi $1, z, z^2, \dots, z^{N-1}$) e contiene lo spazio $V$ che pure abbiamo verificato avere dimensione $N$. Dunque i due spazi coincidono e questo significa che il polinomio $P$, avendo grado inferiore ad $N$ è combinazione lineare dei polinomi $S_{kj}$ per una opportuna (unica) scelta dei coefficienti $A_{kj}$.
 \end{proof}
 
 \begin{theorem}[fattorizzazione dei polinomi a coefficienti reali]
@@ -1561,8 +1702,8 @@ Sia $Q(x)$ un polinomio a coefficienti reali. Allora
   Q(x) = a \cdot (x-x_1) \cdots (x-x_k)
   \cdot Q_1(x) \cdots Q_m(x)
 \end{equation}
-dove $a\in \CC$,
-$x_1, \dots, x_k$ sono le radici reali di $Q$
+dove $a\in \RR$,
+$x_1, \dots, x_k$ sono le radici (complesse) non reali di $Q$
 (eventualmente ripetute con la loro molteplicità)
 e
 \[
@@ -1639,7 +1780,7 @@ Osserviamo che
  (z-\lambda)(z-\bar \lambda)
  = z^2 - 2(\Re\lambda) z + \abs{\lambda}^2
 \]
-è un polinomio a coefficienti reali con discriminante negativo se $\lambda \in \CC \setminus \RR$, dunque si ha
+dunque si ha
 \[
   \frac{B + Cx}{(x^2 + \alpha x + \beta)^j}
   = B \cdot v_\lambda^j(x) + C \cdot w_\lambda^j(x)
@@ -1758,7 +1899,8 @@ Se $\lambda\in \RR$, $p\in \NN$, $p>1$, $\alpha,\beta \in \RR$, $\alpha^2-4\beta
    \quad + \frac{2b-a\alpha}{2}\int \frac{1}{(x^2+\alpha x+\beta)^p}\, dx $.
 \end{enumerate}
 \end{theorem}
-Osserviamo che non è rilevante ricordarsi le formule enunciate nel teorema, converrà piuttosto ricordarsi i metodi di integrazione utilizzati nella dimostrazione.
+Osserviamo che non è rilevante ricordarsi le formule enunciate nel teorema,
+converrà piuttosto ricordarsi i metodi di integrazione utilizzati nella dimostrazione.
 %
 \begin{proof}
 I primi tre integrali sono immediati.
