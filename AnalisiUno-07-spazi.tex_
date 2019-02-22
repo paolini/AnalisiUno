@@ -180,9 +180,15 @@ Su $\RR^2$ possiamo definire una norma, chiamata \myemph{norma Manhattan}, come 
 \[
   \phi(\vec x) = \abs{x_1} + \abs{x_2}.
 \]
-La distanza indotta $d(p,q)$ rappresenta la lunghezza del percorso più breve per andare da $p$ a $q$ muovendosi solamente in orizzontale o verticale (come se fossimo sulle strade di Manhattan).
+La distanza indotta $d(p,q)$ rappresenta la lunghezza del percorso più breve per
+andare da $p$ a $q$ muovendosi solamente in orizzontale o verticale
+(come se fossimo sulle strade di Manhattan).
 
-L'insieme $\{\vec x \in \RR^2\colon \phi(\vec x) < 1\}$ dei punti di $\RR^2$ che distano meno di $R$ dall'origine è un quadrato di diagonale $2R$, con le diagonali sugli assi coordinati (con la distanza euclidea tale insieme sarebbe invece un cerchio di raggio $R$).
+L'insieme $\{\vec x \in \RR^2\colon \phi(\vec x) < R\}$
+dei punti di $\RR^2$ che distano meno di $R$ dall'origine è un quadrato
+con le diagonali, di lunghezza $2R$, sugli assi coordinati
+(se invece $\phi$ fosse la distanza euclidea tale insieme
+sarebbe un cerchio di raggio $R$).
 \end{example}
 
 \begin{example}[norma $p$]
@@ -199,7 +205,9 @@ Si può inoltre definire
 
 Per $p=2$ si ottiene la norma euclidea, per $p=1$
 su $\RR^2$ si ottiene la norma Manhattan.
-Per $p=+\infty$ si ottiene la norma Manhattan a meno di una rotazione di 45 gradi e di un riscalamento di fattore $\sqrt 2$:
+Per $p=+\infty$ si ottiene di nuovo
+la norma Manhattan a meno di una rotazione di 45 gradi e di un riscalamento
+di fattore $\sqrt 2$:
 \[
   \abs{(x_1,x_2)}_\infty
   = \abs{\enclose{\frac{x_1-x_2} 2, \frac {x_1+x_2}2}}_1
@@ -216,8 +224,6 @@ $x_0$ come l'insieme
   B_r(x_0) = \{x\in X \colon d(x,x_0) < r\}.
 \]
 \end{definition}
-
-\section{spazi topologici}
 
 \begin{definition}[relazioni e proprietà topologiche]
 \mymark{*}
@@ -275,6 +281,9 @@ dato $z \in B_\rho(y)$ si ha
 \]
 da cui $B_\rho(y)\subset B_r(x)$ come volevamo dimostrare.
 \end{proof}
+
+\begin{comment}
+\section{spazi topologici}
 
 \begin{definition}[spazio topologico]
 Sia $X$ un insieme e sia $\tau\subset \P(X)$ una famiglia di sottoinsiemi di $X$.
@@ -386,6 +395,7 @@ Dimostriamo ora che la parte interna di un insieme $A$ è l'unione di tutti gli 
 
 La frontiera di un insieme è, per definizione, l'insieme dei punti che non sono né interni né esterni. D'altra parte è chiaro che un punto non può essere contemporaneamente interno ed esterno. Dunque la frontiera è il complementare dell'unione della parte interna e della parte esterna, ed è quindi un insieme chiuso.
 \end{proof}
+\end{comment}
 
 \section{continuità}
 
@@ -435,31 +445,73 @@ Risulta quindi che $x$ non è esterno ad $A$ e quindi, essendo $A$ chiuso, $x\in
 \begin{definition}[continuità]
 \mymark{**}
 Una funzione $f\colon X \to Y$ definita tra due spazi metrici
-si dice essere \myemph{sequenzialmente continua} nel punto $x\in X$ se per ogni successione convergente $x_n \to x$ in risulta che $f(x_n)\to f(x)$. Diremo che $f$ è \emph{sequenzialmente continua} se è sequenzialmente continua in ogni punto $x$ del suo dominio $X$.
+si dice essere \myemph{sequenzialmente continua} nel punto $x\in X$ se
+per ogni successione convergente $x_n \to x$ in risulta che $f(x_n)\to f(x)$.
+Diremo che $f$ è \emph{sequenzialmente continua} se è sequenzialmente continua
+in ogni punto $x$ del suo dominio $X$.
 
-Una funzione $f\colon X \to Y$ definita tra due spazi metrici (ma in generale questa definizione si può formulare negli spazi topologici) si dice essere \myemph{continua} in un punto $x\in X$ se  per ogni $V$ intorno di $f(x)$ in $Y$ esiste un intorno $U$ di $x$ in $X$ tale che $f(U)\subset V$.
+Una funzione $f\colon X \to Y$ definita tra due spazi metrici
+si dice essere \myemph{continua} in un punto $x\in X$ se
+\begin{equation}\label{eq:continuita_metrico}
+ \forall \eps>0\colon \exists \delta>0\colon \forall y \in X \colon
+ d(x,y)< \delta \implies d(f(x), f(y)) < \eps.
+\end{equation}
 Diremo che $f$ è \emph{continua} se
 è continua in ogni punto $x$ del suo dominio.
 \end{definition}
 
-Anche in questo caso abbiamo considerato due diverse nozioni di continuità che in generale (in spazi topologici) potrebbero non coincidere ma nel caso degli spazi metrici sono equivalenti, come dimostriamo nel seguente teorema.
+Anche in questo caso abbiamo considerato due diverse nozioni di continuità che
+in generale (in spazi topologici) potrebbero non coincidere ma nel caso degli
+spazi metrici sono equivalenti, come dimostriamo nel seguente teorema.
 
 \begin{theorem}[definizioni equivalenti di continuità]
-Sia $f\colon X \to Y$ una funzione definita tra due spazi metrici $X$ e $Y$. Allora $f$ è sequenzialmente continua in un punto $x\in X$ se e solo se è continua nel punto $x$.
+Sia $f\colon X \to Y$ una funzione definita tra due spazi metrici $X$ e $Y$.
+Allora $f$ è sequenzialmente continua in un punto $x\in X$ se e solo se è
+continua nel punto $x$.
+
 Inoltre $f$ è continua se e solo se
-per ogni $A$ aperto in $Y$ risulta che $f^{-1}(A)$ è aperto in $X$ (la controimmagine di un aperto è aperta).
+per ogni $A$ aperto in $Y$ risulta che $f^{-1}(A)$ è aperto in $X$
+(la controimmagine di un aperto è aperta).
 \end{theorem}
 %
 \begin{proof}
-Supponiamo che $f$ sia sequenzialmente continua in $x$. Per dimostrare che è continua prendiamo un qualunque intorno $V$ di $f(x)$. Per definizione di intorno esiste $\eps>0$ tale che $f(x) \in B_\eps(f(x)) \subset V$. Supponiamo per assurdo che non esiste $U$ intorno di $x$ tale che $f(U)\subset V$. Allora preso $U_k = B_{1/k}(x)$ dovrà esistere un punto $x_k \in U_k$ tale che $f(x_k)\not \in V$. Dunque $x_k \to x$ ma $f(x_k)$ non potrà convergere a $f(x)$, violando l'ipotesi che $f$ sia sequenzialmente continua.
+Supponiamo che $f$ sia sequenzialmente continua in $x$
+e, per assurdo, supponiamo che $f$ non sia continua nello stesso punto $x$.
+Allora negando~\eqref{eq:continuita_metrico} otteniamo che esiste $\eps>0$
+tale che per ogni $\delta>0$ in particolare per ogni $\delta = \frac{1}{k}$
+con $k\in \NN$ esiste un punto $y_k$ tale che $d(y_k,x)<\frac 1 k$ ma
+$d(f(y_k),f(x))\ge \eps$. Significa che $y_k \to x$ e quindi,
+se $f$ è sequenzialmente continua, dovrebbe essere $f(y_k)\to f(x)$. Ma
+questo è in contraddizione con la condizione $d(f(y_k),f(x))\ge \eps$.
 
-Viceversa supponiamo che $f$ sia continua in $x$ e consideriamo una qualunque successione $x_k \to x$. Per dimostrare che $f(x_k)\to f(x)$ dobbiamo verificare che per ogni $\eps>0$ esiste $K\in \NN$ tale che per ogni $k>K$ si ha $d(f(x_k),f(x)) < \eps$. Dato $\eps>0$ la palla $B_\eps(f(x))$ è un intorno di $f(x)$ dunque sappiamo che esiste un intorno $U$ di $x$ tale che $f(U)\subset B_\eps(f(x))$. Ma se $U$ è un intorno di $x$ significa che esiste $\delta>0$ per cui $B_\delta(x)\subset U$.
-Visto che $x_k \to x$ esiste $K\in \NN$ tale che per ogni $x>K$ si abbia $d(x_k,x)< \delta$. Ma allora per tali $k$ si ha $x_k\in B_\delta(x)$ e quindi $f(x_k)\in B_\eps(f(x))$. Vuol dire che $d(f(x_k),f(x))<\eps$, come dovevamo dimostrare.
+Viceversa supponiamo che $f$ sia continua in $x$ e consideriamo una qualunque
+successione $x_k \to x$.
+Per dimostrare che $f(x_k)\to f(x)$ dobbiamo verificare che per ogni
+$\eps>0$ esiste $K\in \NN$ tale che per ogni $k>K$ si ha $d(f(x_k),f(x)) < \eps$.
+Ma dalla continuità di $f$, dato $\eps>0$ sappiamo esistere $\delta>0$ per cui
+se $d(y,x)<\delta$ allora $d(f(y),f(x))<\eps$. Visto che $x_k\to x$
+certamente esiste $K\in \NN$ tale che per ogni $k>K$ si ha $\abs{x_k-k}<\delta$
+e quindi $\abs{f(x_k)-f(x)}< \eps$ come volevamo dimostrare.
 
-Mostriamo ora che se $f$ è continua e $A$ è aperto in $Y$ allora $f^{-1}(A)$ è aperto in $X$. Dato un punto qualunque $x\in f^{-1}(A)$ sappiamo che $f(x)\in A$ dunque esiste un intorno $V$ di $f(x)$ tale che $V\subset A$. Essendo $f$ continua in $x$ sappiamo esistere $U$ intorno di $x$ tale che $f(U)\subset V$ e dunque $U\subset f^{-1}(V)$ come volevamo dimostrare.
+Mostriamo ora che se $f$ è continua e $A$ è aperto in $Y$ allora $f^{-1}(A)$
+è aperto in $X$.
+Dato un punto qualunque $x_0\in f^{-1}(A)$ sappiamo che $f(x_0)\in A$ dunque, essendo
+$A$ aperto, esiste $\eps>0$ tale che $B_\eps(f(x_0))\subset A$.
+Per la continuità di $f$ esiste allora $\delta>0$ tale che se $\abs{x-x_0} < \delta$
+allora $\abs{f(x)-f(x_0)}<\eps$ e quindi $f(x)\in A$. Significa che $B_\delta(x_0)\subset f^{-1}(A)$.
+Questo è vero per ogni $x_0\in f^{-1}(A)$ quindi tale insieme è aperto.
 
-Viceversa supponiamo che la controimmagine di ogni aperto sia un aperto e dimostriamo che la funzione è continua in ogni punto. Preso un punto $x\in X$ e un intorno $V$ di $f(x)$ dobbiamo trovare un intorno di $x$ che venga mandato in $V$.
-Per definizione di intorno $V$ contiene una palla aperta $A$ centrata in $f(x)$. Dunque $U=f^{-1}(A)$ è un aperto in $X$. Ma $x\in U$ in quanto $f(x)\in A$ e quindi $U$, essendo aperto, è un intorno di $x$ tale che $f(U) = A \subset V$.
+Viceversa supponiamo che la controimmagine di ogni aperto sia un aperto e
+dimostriamo che la funzione è continua in ogni punto.
+Preso un punto $x_0\in X$ e un $\eps>0$ consideriamo l'aperto $B_\eps(f(x_0))$.
+La sua controimmagine è l'insieme $\{x\colon \abs{f(x)-f(x_0)} < \eps\}$ e
+per ipotesi sappiamo che è aperto. Significa allora che esiste $\delta>0$
+tale $B_\delta(x_0)$ è contenuto in tale insieme, ovvero per ogni $x\in B_\delta(x_0)$
+cioè $\abs{x-x_0}<\delta$
+risulta $f(x) \in B_\eps(f(x_0))$
+cioè $\abs{f(x)-f(x_0)}<\eps$.
+Abbiamo quindi verificato la definizione di
+continuità nel punto $x_0$.
 \end{proof}
 
 
@@ -480,11 +532,21 @@ successione $x_k \in X$ è possibile estrarre una sottosuccessione $x_{k_j}\to x
 convergente ad un punto $x\in X$.
 \end{definition}
 
-La compattezza viene definita in forma più generale negli spazi topologici (argomento che non vogliamo trattare). Sugli spazi metrici si osserva poi che la compattezza è equivalente alla compattezza sequenziale. Dunque ci capiterà di scrivere più brevemente \myemph{compatto}
-al posto di \emph{sequenzialmente compatto} e anche se formalmente la definizione di compatto è diversa (e non l'abbiamo introdotta) gli enunciati rimangono comunque validi.
+La compattezza viene definita in forma più generale negli spazi topologici
+(argomento che non vogliamo trattare). Sugli spazi metrici si osserva poi che
+la compattezza è equivalente alla compattezza sequenziale. Dunque ci capiterà
+di scrivere più brevemente \myemph{compatto}
+al posto di \emph{sequenzialmente compatto} e anche se formalmente la
+definizione di compatto è diversa (e non l'abbiamo introdotta) gli enunciati
+rimangono comunque validi.
 
-Il teorema di Bolzano-Weierstrass afferma che gli intervalli $[a,b]$ con $a,b\in \RR$ sono compatti.
-Più in generale si può dimostrare che tutti gli insiemi chiusi e limitati di $\RR^n$ sono compatti. In generale questo risultato non è vero in qualunque spazio metrico (un esempio negativo è dato dalla convergenza uniforme, come vedremo più avanti) ma l'implicazione inversa è sempre vera, come enunciato nel seguente teorema. In particolare su $\RR^n$ un insieme è compatto se e solo se è chiuso e limitato.
+Il teorema di Bolzano-Weierstrass afferma che gli intervalli $[a,b]$ con
+$a,b\in \RR$ sono compatti.
+Più in generale si può dimostrare che tutti gli insiemi chiusi e limitati
+di $\RR^n$ sono compatti. In generale questo risultato non è vero in qualunque
+spazio metrico (un esempio negativo è dato dalla convergenza uniforme, come
+vedremo più avanti) ma l'implicazione inversa è sempre vera, come enunciato nel
+seguente teorema.
 
 \begin{theorem}
 \mymark{**}
