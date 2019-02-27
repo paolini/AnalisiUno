@@ -2070,7 +2070,7 @@ la sostituzione $t = x^n$. Infatti con tale sostituzione si ha
 \begin{example}
 Si voglia calcolare
 \[
-  \int \frac{\sqrt[4]{x}}{\sqrt{x} + \sqrt[3]{x}}\, dx.
+  \int \frac{\sqrt[4]{x}}{\sqrt[2]{x} + \sqrt[3]{x}}\, dx.
 \]
 \end{example}
 \begin{proof}[Soluzione.]
@@ -2100,48 +2100,48 @@ Procedendo con la divisione tra polinomi si ottiene
 
 La definizione di integrale di Riemann è stata data solamente per funzioni limitate definite su un intervallo
 limitato.
-Vogliamo ora estendere la definizione di integrale alle funzioni illimitate e agli intervalli illimitati. Lo faremo riconducendoci tramite un limite al caso precedente.
+Vogliamo ora estendere la definizione di integrale alle funzioni illimitate e agli intervalli illimitati.
+Lo faremo riconducendoci, tramite un limite, al caso già studiato.
 
 \begin{definition}[integrale improprio monolaterale]
 \mymark{***}
-Siano $a\in \RR$, $b \in \bar \RR$, $a<b$ e sia
+Siano $a\in \RR$, $b \in (a,+\infty]$, e sia
 $f\colon [a,b)\to \RR$ una funzione tale che per
-ogni $c\in [a,b)$ risulta che $f$ è limitata e Riemann-integrabile sull'intervallo $[a,c]$.
-Allora diremo che $f$ è \myemph{integrabile in senso improprio} (laterale destro) se esiste (finito o infinito) il limite
+ogni $\beta \in [a,b)$ risulta che $f$ è limitata e Riemann-integrabile sull'intervallo $[a,\beta]$.
+Allora diremo che $f$ è \myemph{integrabile in senso improprio} (laterale destro)
+e porremo
 \[
-  \lim_{c\to b^-} \int_a^c f.
+  \int_a^b f(x)\, dx = \lim_{\beta \to b^-} \int_a^\beta f(x)\, dx.
 \]
-In tal caso il valore del limite viene chiamato \myemph{integrale improprio} di $f$ su $[a,b)$ e si denota con
-\[
-  \int_a^b f(x)\,dx
-  \qquad\text{oppure}\qquad
-  \int_a^b f.
-\]
+se esiste (finito o infinito) il limite al lato destro di questa definizione.
 
-Analogamente se $f\colon (a,b]\to \RR$ con $a \in \bar \RR$, $b\in \RR$, $a<b$
+Analogamente se $f\colon (a,b]\to \RR$ con $b\in \RR$, $a \in [-\infty,b)$
 è una funzione
 limitata e Riemann-integrabile su ogni intervallo chiuso
-$[c,b]$ con $c\in (a,b]$
+$[\alpha ,b]$ con $\alpha \in (a,b]$
 porremo
 \[
- \int_a^b f(x)\, dx = \lim_{c\to a^+} \int_c^b f(x)\, dx.
+ \int_a^b f(x)\, dx = \lim_{\alpha\to a^+} \int_\alpha^b f(x)\, dx.
 \]
 e diremo che $f$ è integrabile in senso improprio (laterale sinistro) su $(a,b]$
 quando tale limite esiste.
 \end{definition}
 
 \begin{example}
-La funzione $f(x)= \ln x$ è integrabile in senso improprio sull'intervallo $[1,+\infty)$ e si ha $\int_1^{+\infty} \ln (x)\, dx = +\infty$. Infatti si ha:
+La funzione $f(x)= \ln x$ è integrabile in senso improprio sull'intervallo
+$[1,+\infty)$ e si ha $\int_1^{+\infty} \ln (x)\, dx = +\infty$.
+Infatti si ha:
 \begin{align*}
  \int_1^{+\infty} f(x)\,dx
- &= \lim_{b\to +\infty} \int_1^b \ln(x)\, dx
- = \lim_{b\to +\infty}\Enclose{x\ln x - x}_1^b \\
- &= \lim_{b\to +\infty} \enclose{b \ln b - b + 1}
+ &= \lim_{\beta\to +\infty} \int_1^\beta \ln(x)\, dx
+ = \lim_{\beta\to +\infty}\Enclose{x\ln x - x}_1^\beta \\
+ &= \lim_{\beta\to +\infty} \enclose{\beta \ln \beta - \beta + 1}
  = +\infty.
 \end{align*}
 Anche sull'intervallo $(0,1]$ la funzione $\ln x$ è integrabile in senso improprio e si ha
 \[
-  \int_0^1 \ln x\, dx = \lim_{a\to 0^+}\Enclose{x \ln x -x}_a^1 = \lim_{a\to 0^+} (-1-a \ln a + a)  = -1.
+  \int_0^1 \ln x\, dx = \lim_{\alpha \to 0^+}\Enclose{x \ln x -x}_\alpha^1
+  = \lim_{\alpha\to 0^+} (-1-\alpha \ln \alpha + \alpha)  = -1.
 \]
 \end{example}
 
@@ -2163,16 +2163,12 @@ Potremo quindi scrivere:
   &= -1  - 0 = -1.
 \end{align*}
 
-Osserviamo che se $f\colon[a,b]\to\RR$ è limitata e Riemann-integrabile su tutto $[a,b]$ allora essa è anche integrabile in senso improprio su $[a,b)$ (laterale destro)
-e in tal caso l'integrale improprio coincide con l'integrale usuale ed è finito. Infatti se $f$ è limitata esiste $L\ge 0$ tale che $\abs{f(x)}\le L$ per ogni $x\in [a,b]$.
-Dunque per $c\to b^-$ si ha
-\[
-\abs{\int_a^b f - \int_a^c f}
-=\abs{\int_c^b f}
-\le L\cdot (b-c) \to 0.
-\]
-In maniera analoga si verifica che $f$ è integrabile in senso improprio sull'intervallo $(a,b]$ (laterale sinistro)
-e anche tale integrale improprio coincide con l'integrale usuale.
+Osserviamo che se $f\colon[a,b]\to\RR$ è limitata e Riemann-integrabile su tutto
+$[a,b]$ allora,
+in base al teorema~\ref{th:integrale_continuo},
+essa è anche integrabile in senso improprio su $[a,b)$ (laterale destro)
+e su $(a,b]$ (laterale sinistro),
+l'integrale improprio coincide con l'integrale usuale ed è finito.
 
 L'integrale improprio (laterale)
 soddisfa inoltre la proprietà di additività rispetto al dominio.
