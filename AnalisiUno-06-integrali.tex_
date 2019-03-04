@@ -404,6 +404,7 @@ la funzione $0$ risulta integrabile.
 \end{proof}
 
 \begin{theorem}[proprietà di reticolo]
+\label{th:reticolo}
 Se $f$ e $g$ sono funzioni a valori reali definiamo le
 funzioni $f\wedge g$ (massimo), $f \vee g$ (minimo),
 $f^+$ (parte positiva) e $f^-$ (parte negativa) come segue:
@@ -2381,7 +2382,7 @@ in tal caso nei criteri asontotici si faranno i limiti per $x\to a^+$.
 %
 \begin{proof}
 \mymark{**}
-Gli integrali di $f$ e $g$ esistono grazie al teorema~\ref{integrabilita_positive}.
+Gli integrali di $f$ e $g$ esistono grazie al teorema~\ref{th:integrabilita_positive}.
 
 Se $f\le g$ la disuguaglianza~\eqref{eq:467143} è garantità dalla proprietà di monotonia
 (teorema~\ref{th:proprieta_integrale_improprio}).
@@ -2417,10 +2418,12 @@ Nei casi più frequenti il teorema precedente si applica confrontando la funzion
 \]
 
 Sarà quindi utile sapere, come termine di paragone,
-per quali $\alpha$ queste funzioni hanno integrale convergente.
+per quali $\alpha$ queste funzioni hanno integrale convergente
+come nel seguente esempio.
 
 \begin{example}
-\mymark{***}
+\label{ex:416145}%
+\mymark{***}%
 Sia $a>0$ e $p\in \RR$. Gli integrali
 \[
   \int_{a}^{+\infty}\frac{1}{x^p}\, dx,
@@ -2442,6 +2445,182 @@ La verifica si fa facilmente valutando il limite della primitiva
 $F(x) = x^{1-p}/(1-p)$ negli estremi dell'intervallo.
 \end{example}
 
+\begin{example}
+L'integrale
+\[
+ \int_{-\infty}^{+\infty}e^{-x^2}\, dx
+\]
+è convergente in quanto per $x\to +\infty$ risulta $e^{-x^2} \ll 1/x^2$
+e l'integrale di $1/x^2$ è convergente (esempio~\ref{ex:416145})
+in un intorno di $+\infty$ e di $-\infty$.
+
+L'integrale
+\[
+  \int_{-\infty}^{+\infty}\frac{1}{1+x^2}\, dx
+\]
+è convergente in quanto per $x\to +\infty$ risulta $1/(1+x^2) \sim 1/x^2$.
+
+L'integrale
+\[
+  \int_1^{+\infty} \frac{1}{\ln x}\, dx
+\]
+è divergente perché per $x\to +\infty$
+si ha $1/\ln x \gg 1/x$ e per $x\to 1^+$ si ha
+$1/\ln x \sim 1/(x-1)$. Per $p=1$ gli integrali
+di $1/x$ a $+\infty$ e di $1/(x-1)$ in $1$
+sono entrambi divergenti.
+
+Se $f\colon [a,+\infty)$ è una funzione localmente Riemann-integrabile
+e se $f(x)\to \ell \neq 0$ per $x\to +\infty$ allora l'integrale
+di $f$ è divergente. Se $\ell>0$ esisterà $c>a$ tale che per $x>c$
+si abbia $f(x)\ge 0$ (permanenza del segno). Visto che
+$f(x)\sim \ell$ per $x\to +\infty$ possiamo quindi concludere
+che $\int_c^{+\infty} f(x) = +\infty$ e
+quindi anche
+$\int_a^{+\infty} f(x) = +\infty$.
+Se $\ell<0$ si può cambiare segno ad $f$ e ripetere l'argomento precedente
+si scopre quindi che in questo caso l'integrale di $f$ è $-\infty$.
+\end{example}
+
+\begin{exercise}
+Si mostri con un esempio che se una funzione $f$ ha integrale
+convergente sull'intervallo $[0,+\infty)$ non
+è detto che $f(x)\to 0$ per $x\to +\infty$.
+\end{exercise}
+
+\begin{comment}
+\begin{exercise}[difficile]
+Mostrare che l'integrale
+\[
+  \int_0^{+\infty} \exp\enclose{x^2 \ln \frac{2+\cos(2\pi x)}{3}} \, dx
+\]
+è finito. Ma la funzione integranda non tende a zero per $x\to +\infty$.
+\end{exercise}
+\end{comment}
+
+\begin{theorem}[criterio di convergenza assoluta]
+\label{th:convergenza_assoluta_integrale}
+\mymark{**}%
+Sia $f\colon [a,b)\to \RR$ una funzione localmente Riemann-integrabile
+tale che esiste una funzione $g\colon [a,b)$ integrabile
+in senso improprio con
+\[
+\abs{f(x)} \le g(x)
+\qquad\text{e}
+\qquad
+\int_a^b g(x)\, dx < +\infty.
+\]
+
+Allora anche $f$ è integrabile in senso improprio e
+\[
+  \abs{\int_a^b f(x)\,dx}
+  \le \int_a^b g(x)\, dx.
+\]
+\end{theorem}
+%
+%
+\begin{proof}
+Poniamo $f = f^+ - f^-$ con $f^+\ge 0$ e $f^-\ge 0$.
+Se $f$ è localmente Riemann-integrabile
+$f^+$ e $f^-$ sono localmente Riemann-integrabili
+(grazie al teorema~\ref{th:reticolo}).
+Osserviamo che si ha $f = f^+ - f^-$
+e $\abs{f} = f^+ + f^-$.
+Visto che $0\le f^+ \le \abs{f}\le g$ possiamo
+affermare che $f^+$ ha integrale convergente.
+Lo stesso vale per $f^-$ e dunque per $f=f^+ - f^-$.
+Inoltre
+\[
+  \abs{\int_a^b f }
+  = \abs{\int_a^b f^+ - \int_a^\beta f^-}
+  \le \int_a^b f^+ + \int_a^b f^-
+  = \int_a^b \abs{f}.
+\]
+\end{proof}
+
+\begin{definition}[convergenza assoluta]
+\index{integrale!improprio!convergenza assoluta}%
+\index{integrale!convergenza assoluta}%
+\index{convergenza!assoluta!integrale}%
+Quando
+\[
+  \int_a^b \abs{f(x)}\, dx <+\infty
+\]
+diremo che l'integrale di $f$ è assolutamente convergente. Il teorema
+precedente ci garantisce che in tal caso anche l'integrale di $f$
+converge e si ha:
+\[
+  \abs{\int_a^b f(x)\,}dx \le \int_a^b \abs{f(x)}\, dx.
+\]
+\end{definition}
+
+\begin{example}
+L'integrale
+\[
+  \int_0^{+\infty} \sin(x^2)\cdot e^{-x}\, dx
+\]
+è assolutamente convergente in quanto
+la funzione integranda è continua,
+e si ha
+\[
+ \abs{\sin(x^2)e^{-x}} \le e^{-x},
+ \qquad
+  \int_0^{+\infty} e^{-x}\, dx < +\infty.
+\]
+\end{example}
+
+\begin{example}[funzione integrabile ma non assolutamente]
+\mymark{*}
+Si consideri la funzione $f\colon (0,+\infty) \to \RR$
+definita da
+\[
+  f(x) = \frac{\sin x }{x}.
+\]
+Visto che $f(x)\to 1$ per $x\to 0^+$ la funzione $f$
+può essere estesa per continuità ad una funzione continua sull'intervallo
+$[0,+\infty)$ ponendo $f(0)=1$.
+Dunque l'integrale converge sull'intervallo $(0,1]$ e ci si
+riduce a considerare l'intervallo $[1,+\infty)$.
+
+Integrando per parti,
+\begin{align*}
+  \int_1^{+\infty} \frac{\sin x}{x}\, dx
+  &= \Enclose{\frac{-\cos x}{x}}_1^{+\infty} -
+  \int_1^{+\infty} \frac{\cos x}{x^2} \, dx \\
+  &= \cos 1 - \int_1^{+\infty} \frac{\cos x}{x^2}\, dx.
+\end{align*}
+Osserviamo ora che la funzione $(\cos x) / x^2$ è integrabile
+per il criterio della convergenza assoluta, in quanto:
+\[
+  \abs{\frac{\cos x}{x^2}} \le \frac{1}{x^2}
+\]
+che è integrabile su $[1,+\infty)$.
+Dunque la nostra funzione ha integrale convergente anche in $[1,+finty)$
+e dunque ha integrale convergente su tutto $(0,+\infty)$.
+
+Tale funzione non è però integrabile assolutamente.
+. Infatti si ha,
+per ogni $k\in \NN$
+\begin{align*}
+  \int_{k\pi}^{(k+1)\pi} \abs{\frac{\sin x} x}\, dx
+  &\ge \int_{k\pi}^{(k+1)\pi} \frac{\abs{\sin x}}{(k+1)\pi}\, dx\\
+  &= \frac{\int_0^\pi \sin x \, dx}{(k+1)\pi}
+  = \frac{2}{(k+1)\pi}
+\end{align*}
+da cui
+\[
+  \int_0^{+\infty} \abs{\frac{\sin x}{x}}\, dx
+  \ge \sum_{k=0}^{+\infty} \frac{2}{(k+1)\pi} = +\infty.
+\]
+\end{example}
+
+I criteri che abbiamo visto fin'ora mettono in evidenza una perfetta
+analogia tra serie e integrali. Determinare la convergenza
+di un integrale è però, in generale, più semplice che determinare
+la convergenza della corrispondente serie.
+Nell'esercizio seguente, ad esempio, è sufficiente trovare una primitiva
+delle funzioni integrande, per determinare il carattere dell'integrale.
+
 \begin{exercise}
 Si determini per quali $\alpha,\beta\in \RR$ risultano convergenti
 gli integrali:
@@ -2451,18 +2630,6 @@ gli integrali:
   \int_2^{+\infty} \frac{1}{x^\alpha \ln^\beta x} \, dx.
 \]
 \end{exercise}
-
-Dall'esercizio precedente si può osservare che
-l'integrale e la serie:
-\[
- \int_2^{+\infty} \frac{1}{x^\alpha \ln^\beta x}\, dx,
- \qquad
- \sum_{k=2}^{+\infty} \frac{1}{k^\alpha \ln^\beta k}
-\]
-convergono per gli stessi valori dei parametri $\alpha$ e $\beta$
-(ricordiamo che il carattere della serie può essere determinato
-utilizzando il criterio di condensazione di Cauchy).
-Questa analogia può essere formalizzata nel seguente.
 
 \begin{theorem}[collegamento tra serie ed integrali impropri]
 \mymark{**}
@@ -2488,7 +2655,9 @@ E, più precisamente:
 %
 \begin{proof}
 \mymark{**}
-La funzione $f$, essendo non negativa e monotona, risulta essere integrabile in senso improprio su $[0,+\infty)$.
+Visto che la funzione $f$, è non negativa e monotona,
+l'integrale improprio di $f$ su $[0,+\infty)$ esiste (finito o infinito)
+per il teorema~\ref{th:integrabilita_positive}.
 Anche la serie $\sum f(k)$ essendo a termini non negativi risulta essere determinata.
 Essendo $f$ decrescente, per ogni $x \in [k,k+1]$ si ha
 \[
@@ -2502,15 +2671,16 @@ e sommando per $k=1,\dots, N$ si ottiene:
 \[
   \sum_{k=2}^{N+1} f(k) \le \int_{1}^{N+1} f(x)\, dx \le \sum_{k=1}^{N} f(k).
 \]
-Possiamo passare al limite per $N \to +\infty$ in quanto già sappiamo che le serie è definita e la funzone è integrabile
-e che quindi i limiti esistono:
+Possiamo passare al limite per $N \to +\infty$ in quanto già sappiamo che
+i limiti esistono:
 \[
   \sum_{k=2}^{+\infty} f(k)
   \le \int_{1}^{+\infty} f(x)\, dx
   \le \sum_{k=1}^{+\infty} f(k).
 \]
 Queste ultime disuguaglianze sono equivalenti alle \eqref{eq:39185}
-e ci dicono immediatamente che se l'integrale converge anche la serie converge e viceversa.
+e ci dicono immediatamente che se l'integrale converge anche la serie
+converge e viceversa.
 \end{proof}
 
 \begin{example}[stima asintotica di $\ln n!$]
@@ -2537,149 +2707,11 @@ ovvero
   \ln (n!) \sim n \ln n \qquad \text{per $n\to +\infty$.}
 \]
 
-Questa formula discende dalla formula di Stirling, ma è molto più semplice da dimostrare.
+Nella sezione seguente daremo la formula di Stirling: una stima asintotica più precisa (ma molto più complicata
+da dimostrare) del fattoriale.
 \end{example}
 
-\begin{theorem}
-\mymark{**}
-Sia $f$
-una funzione integrabile in senso improprio su $(a,+\infty)$
-e supponiamo che
-esista (finito o infinito)
-il limite
-\[
-  \ell = \lim_{x\to +\infty} f(x).
-\]
-Se
-\[
-  \int_a^{+\infty} f(x)\, dx
-\]
-è convergente allora $\ell=0$.
-\end{theorem}
-%
-\begin{proof}
-\mymark{**}
-Supponiamo che la funzione $f$ sia integrabile
-su $(a,+\infty)$ e che sia $\ell>0$. Allora esiste $b>a$ tale che $f \ge \ell/2$ su tutto l'intervallo $[b,+\infty)$.
-Si dovrà avere:
-\[
-  \int_a^{+\infty} f = \int_a^b f + \int_b^{+\infty} f
-  \ge \int_a^b f + \int_b^{+\infty} \frac{\ell}{2}
-  = \int_a^b f + \infty = +\infty
-\]
-in quanto $\int_a^b f$ non può essere uguale a $-\infty$ altrimenti la funzione $f$ non sarebbe integrabile in
-senso improprio su $(a,+\infty)$.
-\end{proof}
-
-\begin{comment}
-\begin{exercise}[difficile]
-Mostrare che l'integrale
-\[
-  \int_0^{+\infty} \exp\enclose{x^2 \ln \frac{2+\cos(2\pi x)}{3}} \, dx
-\]
-è finito. Ma la funzione integranda non tende a zero per $x\to +\infty$.
-\end{exercise}
-\end{comment}
-
-\begin{theorem}[criterio di convergenza assoluta]
-\mymark{**}
-Sia $f\colon (a,b)\to \RR$ continua
-e $g\colon (a,b)\to \RR$  tale che
-per ogni $x\in (a,b)$ si ha  $\abs{f(x)} \le g(x)$.
-Se $g$ è integrabile in senso improprio su $(a,b)$ e
-\[
-  \int g(x)\, dx < +\infty
-\]
-allora anche $f$ è integrabile in senso improprio su $(a,b)$ e si ha
-\[
-  \int_a^b \abs{f(x)}\, dx \le \int_a^b g(x)\, dx < +\infty.
-\]
-\end{theorem}
-%
-\begin{proof}
-Definiamo:
-\[
-f^+(x) =
-\begin{cases}
-  f(x) & \text{se $f(x)>0$}\\
-  0 & \text{se $f(x)\le 0$}
-\end{cases},
-\qquad
-f^-(x) =
-\begin{cases}
-  -f(x) & \text{se $f(x)<0$}\\
-  0 & \text{se $f(x)\ge 0$}
-\end{cases}
-\]
-cosicché si ha $f(x) = f^+(x) - f^-(x)$
-e $\abs{f(x)} = f^+(x) + f^-(x)$
-con
-$f^+(x)\ge 0$ e $f^-(x)\ge 0$.
-E' facile verificare che $f^+$ e $f^-$ sono funzioni continue. Dunque $f^+$ e $f^-$ sono
-integrabili in senso improprio su $(a,b)$. Inoltre essendo
-$f^+(x) \le \abs{f(x)} \le g(x)$ si ha
-\[
- \int_a^b f^+(x)\, dx \le \int_a^b g(x)\, dx < +\infty.
-\]
-Lo stesso vale per $f^-(x)$. Visto che gli integrali di $f^+$ e $f^-$ sono entrambi finiti
-si ha che $f$ è integrabile in senso improprio su $(a,b)$ e vale:
-\[
-  \int_a^b f(x)\, dx = \int_a^b f^+(x)\, dx - \int_a^b f^-(x)\, dx.
-\]
-
-La disuguaglianza
-\[
-  \int_{a'}^{b'} \abs{f(x)}\, dx \le \int_{a'}^{b'} g(x)\, dx
-\]
-è valida per ogni $[a',b']\subset (a,b)$ per le proprietà dell'integrale di Riemann.
-Passando al limite per $a' \to a^+$ e $b'\to b^-$ si completa la dimostrazione.
-\end{proof}
-
-\begin{example}[funzione integrabile ma non assolutamente]
-\mymark{*}
-Si consideri la funzione $f\colon (0,+\infty) \to \RR$
-definita da
-\[
-  f(x) = \frac{\sin x }{x}.
-\]
-Visto che $f(x)\to 1$ per $x\to 0^+$ la funzione $f$
-può essere estesa per continuità ad una funzione continua $\tilde f \colon [0,+\infty) \to \RR$.
-Visto che $\tilde f$ essendo continua è Riemann-integrabile su $[0,1]$ allora $\tilde f$ è integrabile in senso improprio su $(0,1]$ e quindi anche $f$ lo è (in quanto coincide con $\tilde f$ su $(0,1]$).
-
-Ci possono invece essere dei problemi sull'intervallo $[1,+\infty)$.
-Preso $b\in[1,+\infty)$ si ha, integrando per parti,
-\[
-  \int_1^b \frac{\sin x}{x}\, dx
-  = \Enclose{\frac{-\cos x}{x}}_1^b -
-  \int_1^b \frac{\cos x}{x^2} \, dx.
-\]
-Osserviamo ora che la funzione $(\cos x) / x^2$ è integrabile
-per il criterio della convergenza assoluta, in quanto:
-\[
-  \abs{\frac{\cos x}{x^2}} \le \frac{1}{x^2}
-\]
-che è integrabile su $[1,+\infty)$. Dunque si ha
-\begin{align*}
-  \int_1^{+\infty}\frac{\sin x}{x}\, dx
-  &= \Enclose{\frac{-\cos x}{x}}_1^{+\infty} - \int_1^{+\infty} \frac{\cos x}{x^2}\, dx \\
-  &= \cos 1 - \int_1^{+\infty} \frac{\cos x}{x^2}\, dx
-\end{align*}
-e il lato destro è finito, dunque anche la funzione $\frac{\sin x}{x}$ è integrabile su $[1,+\infty)$ con integrale finito e quindi anche su $[0,+\infty)$ e, per simmetria, è integrabile su tutto $\RR$.
-
-Tale funzione non è però integrabile assolutamente. Infatti si ha,
-per ogni $k\in \NN$
-\begin{align*}
-  \int_{k\pi}^{(k+1)\pi} \abs{\frac{\sin x} x}\, dx
-  &\ge \int_{k\pi}^{(k+1)\pi} \frac{\abs{\sin x}}{(k+1)\pi}\, dx\\
-  &= \frac{\int_0^\pi \sin x \, dx}{(k+1)\pi}
-  = \frac{2}{(k+1)\pi}
-\end{align*}
-da cui
-\[
-  \int_0^{+\infty} \abs{\frac{\sin x}{x}}\, dx
-  \ge \sum_{k=0}^{+\infty} \frac{2}{(k+1)\pi} = +\infty.
-\]
-\end{example}
+\section{alcune applicazioni del calcolo integrale}
 
 \begin{example}[la funzione $\Gamma$ Eulero]
 \index{$\Gamma$ funzione di Eulero}
@@ -2699,10 +2731,11 @@ Integrando per parti si ottiene una interessante proprietà della funzione $\Gam
 &= x\int_0^{+\infty} e^{-t}t^{x-1}\, dt
 \end{align*}
 cioè $\Gamma(x+1) = x\Gamma(x)$.
-Osservando che $\Gamma(1)=0$ si può quindi dimostrare, per induzione, che $\Gamma(n+1) = n!$ per ogni $n\in \NN$.
+Osservando che $\Gamma(1)=0$ si può quindi dimostrare, per induzione,
+che $\Gamma(n+1) = n!$ per ogni $n\in \NN$.
+Abbiamo quindi trovato una funzione che estende il fattoriale
+da $\NN$ a tutto l'intervallo di numeri reali $(-1,+\infty)$.
 \end{example}
-
-\section{alcune applicazioni del calcolo integrale}
 
 \begin{theorem}[irrazionalità di $\pi$]
 \mynote{$\pi$ è irrazionale}
