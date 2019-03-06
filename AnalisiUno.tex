@@ -40,14 +40,16 @@
 \ExplSyntaxOn
 \newcommand\stripExclamation[1]{
 \def\tmp{#1}
+\regex_replace_once:nnN { "! } { 91848243 }\tmp
 \regex_replace_once:nnN { ! } { \  }\tmp
+\regex_replace_once:nnN { 91848243 } { ! }\tmp
 \tmp}
 \ExplSyntaxOff
 
 \newcommand{\mymark}[1]{\reversemarginpar\marginnote{#1}\normalmarginpar}
 
 \newcommand{\mynote}[1]{\marginnote{{\footnotesize\stripExclamation{#1}}}}
-\newcommand{\mymargin}[1]{\mynote{\stripExclamation{#1}}\index{#1}}
+\newcommand{\mymargin}[1]{\mynote{#1}\index{#1}}
 % utilizzo di myemph:
 % \myemph[margin note]{emph and index}
 \newcommand{\myemph}[2][dummy_not_defined]{%
