@@ -5,7 +5,7 @@
 \usepackage{babel}
 \usepackage[nochapters,pdfspacing]{classicthesis}
 %\usepackage{createspace/createspace}
-\usepackage[paperwidth=7in,paperheight=10in,bindingoffset=0.625in,marginparwidth=54.0pt,top=70.7pt,bottom=70.7pt,marginparsep=11.9pt]{geometry}
+\usepackage[paperwidth=7in,paperheight=10in,bindingoffset=0.625in,marginparwidth=53.3pt,top=70.7pt,bottom=70.7pt,marginparsep=11.9pt]{geometry}
 \usepackage[utf8]{inputenc}
 \usepackage{comment} % for the comment environment
 \usepackage{graphicx}
@@ -28,17 +28,28 @@
 
 \usetikzlibrary{arrows}
 
+% patch del codice di ClassicThesis
+% per evitare che i numeri dei capitoli a due
+% cifre escano dai margini
+\begin{comment} % disabilitato se ho solo 9 capitoli
+\titleformat{\chapter}[display]%
+{\relax}{\mbox{}\oldmarginpar{\vspace*{-3\baselineskip}\makebox[0pt]{\color{halfgray}\chapterNumber{\phantom{0}\thechapter}}}}{0pt}%
+{\raggedright\spacedallcaps}[\normalsize\vspace*{.8\baselineskip}\titlerule]%
+\end{comment}
+
 \ExplSyntaxOn
 \newcommand\stripExclamation[1]{
 \def\tmp{#1}
+\regex_replace_once:nnN { "! } { 91848243 }\tmp
 \regex_replace_once:nnN { ! } { \  }\tmp
+\regex_replace_once:nnN { 91848243 } { ! }\tmp
 \tmp}
 \ExplSyntaxOff
 
 \newcommand{\mymark}[1]{\reversemarginpar\marginnote{#1}\normalmarginpar}
 
 \newcommand{\mynote}[1]{\marginnote{{\footnotesize\stripExclamation{#1}}}}
-\newcommand{\mymargin}[1]{\mynote{\stripExclamation{#1}}\index{#1}}
+\newcommand{\mymargin}[1]{\mynote{#1}\index{#1}}
 % utilizzo di myemph:
 % \myemph[margin note]{emph and index}
 \newcommand{\myemph}[2][dummy_not_defined]{%
@@ -102,6 +113,8 @@
 %\DeclareMathOperator{\arg}{arg}
 \DeclareMathOperator{\tg}{tg}
 \DeclareMathOperator{\arctg}{arctg}
+\DeclareMathOperator{\settsinh}{settsinh}
+\DeclareMathOperator{\settcosh}{settcosh}
 \DeclareMathOperator{\tr}{tr}
 \DeclareMathOperator{\im}{im}
 \DeclareMathOperator{\sgn}{sgn}
@@ -152,11 +165,11 @@ qed=,
 %\newtheorem{axiom}[theorem]{Assioma}
 
 \newcommand{\myhref}[2]{\href{#1}{\underline{#2}}}
-\newcommand{\online}[1]{\marginnote{\qrcode{#1}\\(interagisci)~~}}
+\newcommand{\online}[1]{\marginnote{\qrcode[height=1.7cm]{#1}\\\scriptsize{(interagisci)}~}}
+\newcommand{\myqrcode}[2]{\marginnote{\qrcode[height=1.7cm]{#1}\\{\footnotesize #2}}}
 
 \title{Appunti di\\Analisi Matematica Uno\\\mbox{}\\
-\qrcode{https://github.com/paolini/AnalisiUno/}%
-\thanks{Puoi scaricare o contribuire a questi appunti}%
+\qrcode{http://pagine.dm.unipi.it/paolini/}%
 }
 \author{E. Paolini}
 
@@ -165,7 +178,13 @@ qed=,
 \begin{document}
 \maketitle
 
+\frontmatter
+
+\input{AnalisiUno-00-introduzione.tex_}
+
 \tableofcontents
+
+\mainmatter
 
 \input{AnalisiUno-01-reali.tex_}
 
@@ -177,17 +196,25 @@ qed=,
 
 \input{AnalisiUno-05-funzioni.tex_}
 
-\input{AnalisiUno-03-spazi.tex_}
+\input{AnalisiUno-06-integrali.tex_}
 
-\input{AnalisiUno-06-ricorrenza.tex_}
+\input{AnalisiUno-07-spazi.tex_}
 
-\input{AnalisiUno-07-integrali.tex_}
+\input{AnalisiUno-07-uniforme.tex_}
 
-\input{AnalisiUno-08-uniforme.tex_}
+\input{AnalisiUno-08-ricorrenza.tex_}
 
 \input{AnalisiUno-09-edo.tex_}
 
 \backmatter
+\nocite{Giusti}
+\nocite{Courant}
+\nocite{Marcellini}
 
-\input{AnalisiUno-99-appendici.tex_}
+\bibliographystyle{plain}
+\bibliography{biblio}
+
+\printindex
+
+
 \end{document}
