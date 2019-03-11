@@ -1363,6 +1363,27 @@ da cui, in conclusione:
 \]
 \end{proof}
 
+\begin{remark}
+Se si applica il metodo di integrazione per parti nella ricerca della primitiva
+della funzione $\frac{1}{x\ln x}$, integrando il fattore $\frac 1 x$ e
+derivando il fattore $\frac 1 {\ln x}$ si ottiene un fenomeno a prima vista
+sconcertante:
+\begin{align*}
+  \int \frac{1}{x\ln x}\,dx
+  &= \ln x \cdot \frac{1}{\ln x} - \int \ln x \cdot \frac{\frac 1 x}{-\ln^2 x}\, dx\\
+  &= 1 + \int \frac{1}{x\ln x}\, dx.
+\end{align*}
+Si potrebbe infatti pensare di poter semplificare gli integrali ai due lati
+dell'uguaglianza per ottenere $0=1$.
+Questo non si può fare perché, ricordiamolo, l'integrale indefinito è un insieme
+di funzioni (le primitive della funzione $\frac{1}{x\ln x}$ in questo caso)
+e sappiamo che sommando una costante ad una primitiva si ottiene un'altra primitiva.
+Quindi non ci deve stupire il fatto che sommando $1$ all'insieme delle primitive
+questo rimanga invariato.
+
+Per la cronaca: l'integrale in questione può essere calcolato per sostituzione,
+ponendo $y=\ln x$ trovando $F(x) = \ln\abs{\ln x}$ come una delle primitive.
+\end{remark}
 \section{integrale di una funzione razionale}
 
 \begin{definition}[funzione razionale]
@@ -1929,7 +1950,7 @@ Lo faremo riconducendoci, tramite un limite, al caso già studiato.
 Sia $f\colon A \to \RR$ una funzione definita su un insieme $A\subset \RR$.
 Diremo che $f$ è \emph{localmente Riemann-integrabile} se
 per ogni intervallo chiuso e limitato $[\alpha,\beta]\subset A$ risulta
-che $f$ sia Riemann-integrabile su $[\alpha,\beta]$.
+che $f$ sia limitata e Riemann-integrabile su $[\alpha,\beta]$.
 \end{definition}
 
 \begin{remark}
@@ -2257,12 +2278,13 @@ Allora nella seguente uguaglianza
 se almeno uno dei due lati è definito allora anche l'altro lato lo è e
 l'uguaglianza è valida.
 
-Siano $\lambda, \mu \in \RR$. Allora la seguente uguaglianza è valida
+Siano $\lambda, \mu \in \RR$.
 \[
   \int_a^b \enclose{\lambda f(x) + \mu g(x)}\, dx
   = \lambda \int_a^b f(x) + \mu \int_a^b g(x)
 \]
-se almeno uno dei due lati è ben definito.
+se il lato destro è ben definito (esistono gli integrali impropi di $f$ e $g$
+e le operazioni hanno senso).
 
 Sia $g\colon (a,b)\to (c,d)$ una funzione $C^1$
 e $f\colon (c,d) \to \RR$ una funzione continua
@@ -2501,20 +2523,16 @@ Mostrare che l'integrale
 \begin{theorem}[criterio di convergenza assoluta]
 \label{th:convergenza_assoluta_integrale}
 \mymark{**}%
-Sia $f\colon [a,b)\to \RR$ una funzione localmente Riemann-integrabile
-tale che esiste una funzione $g\colon [a,b)$ integrabile
-in senso improprio con
+Sia $f\colon (a,b)\to \RR$ una funzione localmente Riemann-integrabile.
+Allora anche $\abs{f}$ è localmente Riemann-integrabile e se
 \[
-\abs{f(x)} \le g(x)
-\qquad\text{e}
-\qquad
-\int_a^b g(x)\, dx < +\infty.
+\int_a^b \abs{f(x)} < +\infty
 \]
-
-Allora anche $f$ è integrabile in senso improprio e
+(cioè $\abs{f}$ è integrabile in senso improprio)
+allora anche $f$ è integrabile in senso improprio e
 \[
   \abs{\int_a^b f(x)\,dx}
-  \le \int_a^b g(x)\, dx.
+  \le \int_a^b \abs{f(x)}\, dx < +\infty
 \]
 \end{theorem}
 %
@@ -2526,7 +2544,8 @@ $f^+$ e $f^-$ sono localmente Riemann-integrabili
 (grazie al teorema~\ref{th:reticolo}).
 Osserviamo che si ha $f = f^+ - f^-$
 e $\abs{f} = f^+ + f^-$.
-Visto che $0\le f^+ \le \abs{f}\le g$ possiamo
+Visto che $0\le f^+ \le \abs{f}$ possiamo
+applicare i criteri di confronto e
 affermare che $f^+$ ha integrale convergente.
 Lo stesso vale per $f^-$ e dunque per $f=f^+ - f^-$.
 Inoltre
@@ -2542,16 +2561,17 @@ Inoltre
 \index{integrale!improprio!convergenza assoluta}%
 \index{integrale!convergenza assoluta}%
 \index{convergenza!assoluta!integrale}%
+\index{integrabile!assolutamente}%
+\index{assolutamente!integrabile}%
 Quando
 \[
   \int_a^b \abs{f(x)}\, dx <+\infty
 \]
-diremo che l'integrale di $f$ è assolutamente convergente. Il teorema
-precedente ci garantisce che in tal caso anche l'integrale di $f$
-converge e si ha:
-\[
-  \abs{\int_a^b f(x)\,}dx \le \int_a^b \abs{f(x)}\, dx.
-\]
+diremo che l'integrale di $f$ è \emph{assolutamente convergente}
+o che $f$ è \emph{assolutamente integrabile} (in senso improprio).
+Il teorema
+precedente ci garantisce che una funzione assolutamente integrabile
+è integrabile.
 \end{definition}
 
 \begin{example}
@@ -2559,12 +2579,15 @@ L'integrale
 \[
   \int_0^{+\infty} \sin(x^2)\cdot e^{-x}\, dx
 \]
-è assolutamente convergente in quanto
-la funzione integranda è continua,
+è assolutamente convergente (e quindi convergente)
+in quanto la funzione integranda è continua,
 e si ha
 \[
- \abs{\sin(x^2)e^{-x}} \le e^{-x},
- \qquad
+ \abs{\sin(x^2)\cdot e^{-x}} \le e^{-x}
+\]
+da cui, per confronto,
+\[
+ \int \abs{\sin(x^2)\cdot e^{-x}}\, dx  \le
   \int_0^{+\infty} e^{-x}\, dx < +\infty.
 \]
 \end{example}
@@ -2589,17 +2612,17 @@ Integrando per parti,
   \int_1^{+\infty} \frac{\cos x}{x^2} \, dx \\
   &= \cos 1 - \int_1^{+\infty} \frac{\cos x}{x^2}\, dx.
 \end{align*}
-Osserviamo ora che la funzione $(\cos x) / x^2$ è integrabile
+Osserviamo ora che la funzione $\frac{\cos x}{x^2}$ è integrabile
 per il criterio della convergenza assoluta, in quanto:
 \[
   \abs{\frac{\cos x}{x^2}} \le \frac{1}{x^2}
 \]
 che è integrabile su $[1,+\infty)$.
-Dunque la nostra funzione ha integrale convergente anche in $[1,+finty)$
+Dunque la nostra funzione ha integrale convergente anche in $[1,+\infty)$
 e dunque ha integrale convergente su tutto $(0,+\infty)$.
 
 Tale funzione non è però integrabile assolutamente.
-. Infatti si ha,
+Infatti si ha,
 per ogni $k\in \NN$
 \begin{align*}
   \int_{k\pi}^{(k+1)\pi} \abs{\frac{\sin x} x}\, dx
@@ -2614,7 +2637,7 @@ da cui
 \]
 \end{example}
 
-I criteri che abbiamo visto fin'ora mettono in evidenza una perfetta
+I criteri che abbiamo visto fin'ora mettono in evidenza una notevole
 analogia tra serie e integrali. Determinare la convergenza
 di un integrale è però, in generale, più semplice che determinare
 la convergenza della corrispondente serie.
