@@ -2707,13 +2707,17 @@ converge e viceversa.
 \end{proof}
 
 \begin{example}[stima asintotica di $\ln n!$]
-\index{fattoriale!stima asintotica}
-\mynote{stima asintotica $n"!$}
+\label{ex:498124}%
+\index{fattoriale!stima asintotica}%
+\mynote{stima asintotica $n"!$}%
 Osserviamo che
 \[
   \ln (n!) = \ln \prod_{k=1}^n k = \sum_{k=1}^n \ln k.
 \]
-Applichiamo lo stesso procedimento utilizzato nel teorema precedente alla funzione $f(x) = \ln x$. Visto che il logaritmo è crescente (invece che decrescente) otterremo delle stime rovesciate, ma analoghe. Ripetendo con attenzione i conti, si ottiene:
+Applichiamo lo stesso procedimento utilizzato nel teorema precedente alla
+funzione $f(x) = \ln x$. Visto che il logaritmo è crescente
+(invece che decrescente) otterremo delle stime rovesciate, ma analoghe.
+ Ripetendo con attenzione i conti, si ottiene:
 \[
     \int_1^n \ln(x)\, dx \le  \sum_{k=2}^n \ln k = \sum_{k=1}^n \ln k \le \int_1^{n+1} \ln(x) \, dx
 \]
@@ -2730,7 +2734,8 @@ ovvero
   \ln (n!) \sim n \ln n \qquad \text{per $n\to +\infty$.}
 \]
 
-Nella sezione seguente daremo la formula di Stirling: una stima asintotica più precisa (ma molto più complicata
+Nella sezione seguente daremo la formula di Stirling: una stima asintotica più
+precisa (ma molto più complicata
 da dimostrare) del fattoriale.
 \end{example}
 
@@ -2744,7 +2749,9 @@ Si definisce $\Gamma\colon (0,+\infty) \to \RR$ come
   \Gamma(x) = \int_0^{+\infty} e^{-t} t^{x-1}\, dt.
 \]
 L'integrale converge per ogni $x>0$ in quanto posto
-$f(t) = e^{-t} t^{x-1}$ per $t\to 0^+$ si ha $f(t) \sim t^{x-1}$ che ha integrale convergente in un intorno di $0$ mentre per $t\to +\infty$ si ha $f(t) \ll e^{-t/2}$ che ha integrale convergente in un intorno di $+\infty$.
+$f(t) = e^{-t} t^{x-1}$ per $t\to 0^+$ si ha $f(t) \sim t^{x-1}$ che ha
+integrale convergente in un intorno di $0$ mentre per $t\to +\infty$ si ha
+$f(t) \ll e^{-t/2}$ che ha integrale convergente in un intorno di $+\infty$.
 
 Integrando per parti si ottiene una interessante proprietà della funzione $\Gamma$:
 \begin{align*}
@@ -2768,50 +2775,31 @@ Il numero $\pi$ è irrazionale.
 \end{theorem}
 %
 \begin{proof}
-Posto
+Il nostro primo obiettivo è quello di trovare delle formule
+ricorsive per il calcolo del seguente integrale:
 \[
- f_n(x) = x^n(\pi-x)^n
+  I_n = \int_0^\pi x^n (\pi-x)^n \sin x\, dx.
 \]
-si ha
+Per fare ciò osserviamo che se $n\ge 1$ la funzione $x^n (\pi-x)^n$ si
+annulla agli estremi di integrazione quindi integrando per parti
+ si ottiene:
 \[
-f_n'(x) = n x^{n-1}(\pi-x)^n - n x^n (\pi-x)^{n-1}
+  I_n = \int_0^\pi \Enclose{n x^{n-1}(\pi-x)^n - n x^n (\pi-x)^{n-1}} \cos x\, dx
 \]
-e
+supponendo ora $n\ge 2$ di nuovo la funzione tra parentesi quadre si annulla
+agli estremi dell'intervallo di integrazione e quindi integrando nuovamente
+per parti si ottiene:
 \begin{align*}
-f_n''(x)
-&= n(n-1) x^{n-2}(\pi-x)^n
-  - 2n^2 x^{n-1}(\pi-x)^{n-1} \\
-  &\quad + n(n-1) x^n(\pi-x)^{n-2} \\
-&= (n^2-n) [(\pi-x)^2 +x^2] x^{n-2}(\pi-x)^{n-2} \\
-  &\quad  - 2n^2 x^{n-1}(\pi-x)^{n-1}
+  I_n &= -\int_0^\pi \big[n(n-1) x^{n-2}(\pi-x)^n
+    - 2n^2 x^{n-1}(\pi-x)^{n-1} \\
+  &\qquad\quad   + n(n-1) x^n(\pi-x)^{n-2}\big] \sin(x)\, dx \\
+  &= 2n^2 I_{n-1} - (n^2-n) \int_0^\pi \Enclose{(\pi-x)^2 + x^2}x^{n-2}(\pi-x)^{n-2} \sin x\, dx \\
+  &= 2n^2 I_{n-1} - (n^2-n) \int_0^\pi \Enclose{\pi^2 - 2x(\pi-x)}x^{n-2}(\pi-x)^{n-2}\sin x\, dx \\
+  &= 2n^2 I_{n-1} - (n^2-n) \pi^2 I_{n-2} + 2(n^2-n) I_{n-1}
 \end{align*}
-Osservando ora che
-\[
- (\pi-x)^2 + x^2 = \pi^2 -2\pi x + 2x^2
-  = \pi^2 - 2x(\pi-x)
-\]
-si ottiene
-\begin{align*}
-f_n''(x)
-&= (n^2-n)\pi^2 x^{n-2}(\pi-x)^{n-2} \\
-  &\quad - 2(n^2 - n + n^2) x^{n-1}(\pi-x)^{n-1} \\
-&= (n^2-n)\pi^2 f_{n-2}(x)
--  (4n^2-2n) f_{n-1}(x).
-\end{align*}
-
-Poniamo ora
-\[
-  I_n = \int_0^\pi f_n(x) \sin(x)\, dx.
-\]
-Per $n>0$ osserviamo che $f_n(0) = f_n(\pi)=0$
-e dunque integrando per parti due volte si ottiene:
-\[
-  I_n = \int_0^\pi f_n'(x) \cos x\, dx
-   = -\int_0^\pi f_n''(x)\sin x\, dx
-\]
 da cui
 \begin{align}\label{eq:9530978}
-   I_n = -(n^2-n)\pi^2 I_{n-2} + (4n^2-2n)I_{n-1}
+   I_n = (4n^2-2n)I_{n-1} -(n^2-n)\pi^2 I_{n-2}.
 \end{align}
 Supponiamo ora per assurdo che sia $\pi = p/q$ con $p,q\in \NN$ e consideriamo
 la successione
@@ -2822,8 +2810,8 @@ Possiamo calcolare i primi due termini della successione $a_n$:
 \begin{align*}
   a_0 &= \frac{q^0}{0!}\int_0^\pi \sin x\, dx
     = 2 \in \ZZ, \\
-  a_1 &= \frac{q^2}{1!}\int_0^\pi x(\pi -x)\sin x\, dx \\
-   &= q^2 \int_0^\pi (2x - \pi)\cos x\, dx \\
+  a_1 &= \frac{q^2}{1!}\int_0^\pi x(\pi -x)\sin x\, dx
+   = q^2 \int_0^\pi (2x - \pi)\cos x\, dx \\
    &= 2q^2 \int_0^\pi \sin x\, dx
    = 4q^2 \in \ZZ.
 \end{align*}
@@ -2838,11 +2826,11 @@ Per induzione si trova quindi che $a_n \in \ZZ$ per ogni $n\in \NN$.
 
 D'altra parte osservando che per $x\in [0,\pi]$ si ha
 \[
-  0 \le f_n(x) \sin(x) \le x^n (\pi-x)^n \le \pi^n \pi^n = \pi^{2n}
+  0 \le x^n(\pi-x)^n \sin x \le x^n (\pi-x)^n \le \pi^n \pi^n = \pi^{2n}
 \]
-dunque
+otteniamo
 \[
-  0\le I_n = \int_0^\pi f_n(x) \sin x\, dx \le \pi^{2n+1}
+  0 \le I_n \le \pi^{2n+1}
 \]
 cioè
 \[
@@ -2999,16 +2987,46 @@ Si ha
 \end{theorem}
 %
 \begin{proof}
-Osserviamo in generale che se $f:[a,b]\to \RR$ è una funzione concava allora il grafico di $f$ è compreso tra la retta passante per gli estremi $(a,f(a))$, $(b,f(b))$ (retta secante) e una qualunque retta tangente, ad esempio la retta tangente in $((a+b)/2,f((a+b)/2))$.
-Di conseguenza l'area sotto il grafico, cioè $\int_a^b f(x)\, dx$ è compreso tra le aree dei due corrispondenti trapezi rettangoli. L'altezza di entrambi i trapezi è pari a $(b-a)$ e l'area si calcola moltiplicando l'altezza per la media delle basi. Nel caso del trapezio con lato obliquo la secante la media delle basi è $(f(a)+f(b))/2$, nel caso del trapezio con lato obliquo sulla retta tangente nel punto medio, la media delle basi è uguale alla sezione nel punto medio: $f((a+b)/2)$. Si ottiene dunque,
-per ogni $f$ concava,
+Si osservi che la tesi:
+\[
+  \lim_{n\to +\infty}\frac{\sqrt{n} \cdot n^n}{n!\cdot e^n } = \frac{1}{\sqrt{2\pi}}
+\]
+è equivalente, passando ai logaritmi, a dimostrare che
+\[
+   \lim_{n\to +\infty} \enclose{\frac 1 2 \ln n + n \ln n - \ln(n!) - n}
+   = -\frac 1 2 \ln (2\pi).
+\]
+La prima parte della dimostrazione sarà volta a dimostrare che il limite
+precedente esiste ed è finito. Alla fine, per trovare il valore esatto,
+si utilizzerà la formula di Wallis.
+La quantità $n\ln n - n$ è, a meno di una costante additiva, l'integrale
+del logaritmo sull'intervallo $[1,n]$.
+Abbiamo già visto nell'esempio~\ref{ex:498124}
+che $\ln(n!)$ si ottiene approssimando tale integrale con dei rettangoli.
+Se procediamo invece con una approssimazione tramite trapezi, otteniamo
+una stima più precisa che ci darà il termine aggiuntivo $\frac 1 2 \ln n$,
+necessario per far convergere il limite.
+
+Osserviamo in generale che se $f:[a,b]\to \RR$ è una funzione concava allora
+il grafico di $f$ è compreso tra la retta passante per gli estremi $(a,f(a))$,
+$(b,f(b))$ (retta secante) e una qualunque retta tangente, ad esempio la retta
+tangente in $((a+b)/2,f((a+b)/2))$.
+Di conseguenza l'area sotto il grafico, cioè $\int_a^b f(x)\, dx$ è compreso tra
+le aree dei due corrispondenti trapezi rettangoli. L'altezza di entrambi i
+trapezi è pari a $(b-a)$ e l'area si calcola moltiplicando l'altezza per la
+media delle basi. Nel caso del trapezio con lato obliquo sulla secante, la media
+delle basi è $(f(a)+f(b))/2$, nel caso del trapezio con lato obliquo sulla
+retta tangente nel punto medio, la media delle basi è uguale alla sezione nel
+punto medio: $f((a+b)/2)$. Si ottiene dunque,
+per ogni $f$ concava:
 \[
    (b-a)\cdot  \frac{f(a) + f(b)}{2}
    \le \int_a^b f(x) \, dx
    \le (b-a) \cdot f\enclose{\frac{a+b}{2}}.
 \]
 
-Applicando queste stime alla funzione $f(x) = \ln x$ nell'intervallo $[k, k+1]$ si ottiene:
+Applicando queste stime alla funzione $f(x) = \ln x$ nell'intervallo $[k, k+1]$
+si ottiene:
 \[
 \frac{\ln(k) + \ln(k+1)}{2}
 \le \int_k^{k+1} \ln x\, dx
@@ -3016,21 +3034,23 @@ Applicando queste stime alla funzione $f(x) = \ln x$ nell'intervallo $[k, k+1]$ 
 \]
 
 Chiamiamo $a_k$ la differenza tra le prime due quantità.
-Si ha quindi $a_k\ge 0$ e:
+Chiaramente $a_k\ge 0$
+e risulta
 \begin{align*}
 a_k
  &= \int_k^{k+1} \ln x\, dx - \frac{\ln (k) + \ln(k+1)}{2}\\
  & \le \ln\enclose{k+\frac 1 2} - \frac{\ln(k) + \ln(k+1)}{2} \\
  & = \frac 1 2 \ln\frac{\enclose{k+\frac 1 2}^2}{k(k+1)}
-  = \frac 1 2 \ln\enclose{1+\frac{1}{4(k^2+k)}}
-  = \frac 1 {8k^2} + o\enclose{\frac 1 k^2}.
+  = \frac 1 2 \ln\enclose{1+\frac{1}{4(k^2+k)}}\\
+ & = \frac 1 {8k^2} + o\enclose{\frac 1 {k^2}}
+ \qquad \text{per $k\to+\infty$.}
 \end{align*}
 La serie $\sum a_k$ è dunque convergente ovvero
 la successione
 \[
   A_n = \sum_{k=1}^n a_k
 \]
-è convergente. Esplicitiamo ora $A_n$.
+è convergente. Chiamiamo $\ell$ il limite di $A_n$. Si ha:
 \begin{align*}
 A_n
 &= \sum_{k=1}^{n-1} \int_{k}^{k+1} \ln x\, dx -
@@ -3039,9 +3059,9 @@ A_n
 -\frac{\ln n}{2} \\
 &= \Enclose{ x \ln x -x}_1^n
 - \sum_{k=1}^n \ln k + \frac{\ln n}{2} \\
-&= n \ln n - n - 0 + 1 - \ln(n!) + \frac {\ln n}{2}
+&= n \ln n - n + 1 - \ln(n!) + \frac {\ln n}{2} \to \ell
  \end{align*}
-Da cui
+da cui
 \[
 e^{A_n} = \frac{n^n\cdot e \cdot \sqrt{n}}{e^n \cdot n!} \to e^\ell
 \]
@@ -3049,16 +3069,17 @@ ovvero, posto $c=e/e^\ell$,
 \[
   n! \sim c\cdot\frac{n^n \sqrt{n}}{e^n}.
 \]
-Per determinare $c$ possiamo sfruttare la formula di Wallis
+Per determinare la costante incognita $c$ possiamo sfruttare la formula di Wallis
 sul coefficiente binomiale centrale:
 \begin{align*}
 \frac{4^n}{\sqrt{\pi n}}
  &\sim
 {2n \choose n}
-= \frac{(2n)!}{(n!)^2}\\
-&\sim \frac{c \frac{(2n)^{2n}\sqrt{2n}}{e^{2n}}}
-{\enclose{c\frac{n^n\sqrt n}{e^n}}^2}
-= \frac{2^{2n}\sqrt{2}}{c\sqrt{n}}
+= \frac{(2n)!}{(n!)^2}
+\sim \frac{\displaystyle c \frac{(2n)^{2n}\sqrt{2n}}{e^{2n}}}
+{\displaystyle\enclose{c\frac{n^n\sqrt n}{e^n}}^2} \\
+&= \frac{2^{2n}\sqrt{2}}{c\sqrt{n}}
+= \frac{4^n \sqrt 2}{c\sqrt n}
 \end{align*}
 da cui si ottiene
 \[
