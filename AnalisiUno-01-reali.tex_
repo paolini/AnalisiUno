@@ -1,4 +1,4 @@
-\chapter{i numeri reali (e complessi)}
+\chapter{insiemi numerici}
 
 Supponiamo esista un insieme $\RR$ su cui sono definite le \mymargin{$\RR$}
 operazioni $+$ e $\cdot$
@@ -306,12 +306,69 @@ si ottiene $w-z=0$. Dunque $w=z$.
 \label{def:naturali}
 \mymargin{numeri naturali}
 Un sottoinsieme $A\subset \RR$ si dice essere \emph{induttivo}
-se $0\in A$ e $n\in A \implies n+1 \in A$.
+se
+\[
+  0 \in A, \qquad n\in A \implies n+1 \in A.
+\]
 La famiglia di tutti i sottoinsiemi induttivi di $\RR$ non è vuota
 in quanto $\RR$ stesso è induttivo. Definiamo $\NN$ come l'intersezione
 di tutti i sottoinsiemi induttivi di $\RR$ (ovvero: il più piccolo sottoinsieme induttivo di $\RR$).
 \mymargin{$\NN$}
 \end{definition}
+
+Risulta immediato dimostrare che l'insieme $\NN$ così definito
+soddisfa gli assiomi di Peano (si veda \cite{appunti_logica})
+in particolare vale il seguente.
+
+\begin{theorem}[principio di induzione]
+Se $P(n)$ è un predicato nella variabile $n\in \NN$ tale che:
+\begin{enumerate}
+\item $P(0)$ è vero;
+\item per ogni $n\in \NN$ se $P(n)$ è vero allora anche $P(n+1)$ è vero.
+\end{enumerate}
+Allora $P(n)$ è vero per ogni $n\in \NN$.
+\end{theorem}
+%
+\begin{proof}
+Si consideri l'insieme $I = \{n \in \NN\colon P(n) \text{ è vera}\}$.
+Le ipotesi del principio di induzione garantiscono che $I$ sia induttivo
+(definizione~\ref{def:naturali})
+e quindi che $\NN \subset I$. Dunque $P(n)$ è vera per ogni $n\in \NN$.
+\end{proof}
+
+\begin{theorem}[definizione per induzione]
+Sia $X$ un insieme, sia $\alpha\in X$ e sia $g\colon X\to X$ una funzione.
+Allora esiste una unica funzione $f\colon \NN \to X$ tale che
+\begin{equation}\label{eq:4835628}
+  \begin{cases}
+    f(0) = \alpha, \\
+    f(n+1) = g(f(n)).
+  \end{cases}
+\end{equation}
+
+Più in generale se abbiamo $\alpha\in X$ e una funzione $g\colon X\times \NN \to X$
+esisterà una unica funzione $f\colon \NN \to X$ tale che
+%
+\begin{equation}
+  \begin{cases}
+    f(0) = \alpha, \\
+    f(n+1) = g(n, f(n)).
+  \end{cases}
+\end{equation}
+\end{theorem}
+%
+\begin{proof}
+Si rimanda agli appunti di logica \cite{appunti_logica}
+per una dimostrazione formale.
+Informalmente sarà possibile definire una
+funzione $f_n$ sull'insieme dei primi $n+1$ numeri naturali
+che soddisfi le proprietà richieste. Bisognerà poi
+fare l'unione delle funzioni $f_n$ per ottenere una funzione
+definita su tutto $\NN$.
+\end{proof}
+
+
+%\section{potenza intera, fattoriale, coefficiente binomiale}
 
 A partire da $\NN$ si può costruire l'insieme $\ZZ$ dei
 \myemph{numeri interi}
@@ -330,62 +387,12 @@ e l'insieme $\QQ$ dei \myemph{numeri razionali}:
 Si avrà dunque $\NN \subset \ZZ \subset \QQ \subset \RR$.
 
 
-Non è difficile dimostrare che l'insieme $\NN$ così definito
-soddisfa gli assiomi di Peano (si vedano gli appunti di logica).
-In particolare vale il seguente.
-
-\begin{theorem}[principio di induzione]
-Se $P(n)$ è un predicato nella variabile $n\in \NN$ tale che:
-\begin{enumerate}
-\item $P(0)$ è vero;
-\item per ogni $n\in \NN$ se $P(n)$ è vero allora anche $P(n+1)$ è vero.
-\end{enumerate}
-Allora $P(n)$ è vero per ogni $n\in \NN$.
-\end{theorem}
-%
-\begin{proof}
-Si consideri l'insieme $I = \{n \in \NN\colon P(n) \text{è vera}\}$.
-Le ipotesi del principio di induzione garantiscono che $I$ sia induttivo
-(definizione~\ref{def:naturali})
-e quindi che $\NN \subset I$. Dunque $P(n)$ è vera per ogni $n\in \NN$.
-\end{proof}
-
-\begin{theorem}[definizione per induzione]
-Sia $X$ un insieme, sia $\alpha\in X$ e sia $g\colon X\to X$ una funzione.
-Allora esiste una unica funzione $f\colon \NN \to X$ tale che
-\begin{equation}\label{eq:4835628}
-  \begin{cases}
-    f(0) = \alpha, \\
-    f(n+1) = g(f(n)).
-  \end{cases}
-\end{equation}
-
-Più in generale se abbiamo $\alpha\in X$ e una funzione $g\colon X\times \NN \to X$
-esisterà una unica funzione $f\colon \NN \to X$ tale che
-\myqrcode{http://pagine.dm.unipi.it/paolini/didattica/appunti/logica.pdf}{appunti di logica}
-%
-\begin{equation}
-  \begin{cases}
-    f(0) = \alpha, \\
-    f(n+1) = g(n, f(n)).
-  \end{cases}
-\end{equation}
-\end{theorem}
-%
-\begin{proof}
-Si rimanda agli appunti di logica
-per una dimostrazione formale.
-\end{proof}
-
-
-%\section{potenza intera, fattoriale, coefficiente binomiale}
-
 \begin{definition}[potenza intera]
 \mymargin{potenza intera}
 Dato $x \in \RR$ possiamo definire la potenza $x^n$ per ogni
 $n\in \NN$ come l'unica funzione che soddisfa
 \mymargin{$x^n$}
-la seguente definizione per induzione (si vedano appunti di logica)
+la seguente definizione per induzione
 \[
 \begin{cases}
   x^0 = 1\\
@@ -404,8 +411,12 @@ In base alla definizione si ha $x^0 = 1$, $x^1=x$, $x^2=x\cdot x$,
 $x^3=x\cdot x \cdot x$ e così via. Dunque in generale
 $x^n$ è il prodotto di $n$ fattori tutti uguali a $x$.
 Si osservi in particolare che abbiamo definito $0^0=1$.
-Alcuni testi preferiscono lasciare indefinito $0^0$
+In alcuni testi si preferisce lasciare indefinito $0^0$
 ma non c'è motivo per farlo e questa definizione risulterà molto utile e sensata.
+
+E' facile osservare che la notazione $x^{-1}$ appena introdotta coincide
+con l'inverso moltiplicativo che, per questo motivo, avevamo già denotato
+con $x^{-1}$.
 
 \begin{theorem}[proprietà delle potenze intere]
 Per ogni $x,y\in \RR$, e per ogni $n,m \in \NN$
@@ -482,18 +493,74 @@ Si dia una definizione per induzione del doppio fattoriale
 e si dimostrino, per induzione, le formule nell'osservazione precedente.
 \end{exercise}
 
+In generale è possibile introdurre una notazione per ripetere le operazioni
+di somma e prodotto un numero arbitrario di volte:
+\begin{align*}
+  \sum_{k=1}^n f(k) &= f(1) + f(2) + \dots + f(n) \\
+  \prod_{k=1}^n f(k) &= f(1) \cdot f(2) \cdots f(n).
+\end{align*}
+Formalmente questo può essere fatto tramite una definizione per induzione,
+osservando che ogni somma (o prodotto) di $n$ numeri si ottiene mediante
+la somma dei primi $n-1$ a cui si aggiunge (o si moltiplica) l'ultimo numero.
+
+\begin{definition}[somme e prodotti]
+Se $a,b\in \ZZ$, $a\le b$ e $f\colon \{a, a+1, a+2, \dots, b\}\to X$
+è una funzione a valori in un insieme $X$ in cui è definita una
+operazione $+$ di addizione (ad esempio $\RR$)
+si definisce
+\[
+  \sum_a^b f
+  \qquad \text{ovvero} \qquad
+  \sum_{k=a}^b f(k).
+\]
+tramite la definizione per induzione:
+\[
+    \displaystyle \sum_a^a f = f(a), \qquad
+    \displaystyle \sum_{a}^{n+1} f = \enclose{\sum_a^n f} + f(n+1).
+\]
+Analogamente si definisce
+\[
+  \prod_a^b f
+  \qquad\text{ovvero}\qquad
+  \prod_{k=a}^b f(k)
+\]
+quando su $X$ è definita una operazione di moltiplicazione,
+ponendo:
+\[
+    \displaystyle \prod_{a}^a f = f(a), \qquad
+    \displaystyle \prod_{a}^{n+1} f = \enclose{\prod_a^n f} \cdot f(n+1).
+\]
+\end{definition}
+
+La definizione precedente ci permette, ad esempio, di definire le potenze e il fattoriale
+come prodotti ripetuti, almeno quando $n\ge 1$:
+\[
+  x^n = \prod_{k=1}^n x, \qquad
+  n! = \prod_{k=1}^n k.
+\]
+
 \begin{definition}[coefficiente binomiale]
 \label{def:binomiale}
 \mymark{***}
 Definiamo per ogni $n\in \NN$ e per ogni $k\in \NN$, $k\le n$
 il \myemph{coefficiente binomiale}
 \[
-  {n \choose k}
-  =\frac{n!}{k!(n-k)!}
+{n \choose k}
+=\frac{n!}{k!(n-k)!}.
 \]
 Per convenzione può essere utile porre
 ${n \choose k}=0$ se $k\in \ZZ$ con $k< 0$ o $k>n$.
+Questa definizione verrà estesa nella definizione~\ref{def:binomiale_reale}.
 \end{definition}
+%
+Si osservi che risulta
+\begin{align*}
+\frac{n!}{(n-k)!} &= \frac{n (n-1) \cdots (n-k+1)(n-k) \cdots 2\cdot 1}{(n-k) \cdots 2\cdot 1}\\
+ &= n (n-1) \cdots (n-k+1) = \prod_{j=1}^k (n+1-k)
+\end{align*}
+e questo permette in pratica di calcolare il coefficiente binomiale ${n \choose k}$
+svolgendo solamente $k$ prodotti a numeratore e a denominatore, indipendentemente
+da quanto è grande $n$.
 
 \begin{theorem}[triangolo di Tartaglia]
 \mymark{*}
@@ -587,6 +654,8 @@ Provare che
 \]
 \end{exercise}
 
+\section{estremo superiore}
+
 Si può verificare che $\QQ$ è un campo ordinato che però non soddisfa l'assioma
 di continuità.
 Infatti se consideriamo i due insiemi:
@@ -597,8 +666,6 @@ Infatti se consideriamo i due insiemi:
 si può verificare che $A$ e $B$ sono non vuoti, $A \le B$, ma l'elemento
 di separazione $\sqrt{2}\in \RR$ non è elemento di $\QQ$, in base al seguente
 classico risultato.
-
-\section{estremo superiore}
 
 \begin{theorem}[Pitagora]
 \mymark{**}
