@@ -782,3 +782,371 @@ In particolare per $x=1$ si ottiene la formula di \myemph{Gregory-Leibniz}
    1 - \frac{1}{3} + \frac{1}{5} - \frac{1}{7} + \dots
 \]
 \end{example}
+
+\section{Convergenza integrale}
+
+In questa sezione vedremo come l'integrale di Riemann non è soddisfacente
+per dare una struttura \emph{euclidea} allo spazio delle funzioni integrabili.
+
+Motivati da come viene definita la norma di un vettore in $\RR^n$ risulta naturale
+dare la seguente definizione di \emph{norma euclidea} per una funzione $f\colon (a,b)\to \RR$:
+\[
+  \Abs{ f} = \sqrt{\int_a^b \abs{f(x)}^2\, dx}.
+\]
+Questa definizione ha senso, come integrale improprio, se la funzione $f$
+è localmente Riemann-integrabile sull'intervallo $(a,b)$
+(definizione~\ref{def:localmente_riemann}).
+In tal
+caso l'integrale esiste, ma potrebbe assumere il valore $+\infty$. Definiamo
+allora
+\[
+H(a,b) =
+\{\text{$f$ localmente R.-integrabile su $(a,b)$}\colon \Abs{ f} < +\infty\}.
+\]
+Cercheremo ora di dimostrare che la norma che abbiamo introdotto
+è effettivamente un norma (nel senso della definizione~\ref{def:norma})
+che rende $H$ uno spazio vettoriale euclideo di dimensione infinita.
+
+Innanzitutto è banale osservare che la norma è omogenea. Se $t\in \RR$ si ha:
+\[
+  \Abs{ t\cdot f} = \abs{t}\cdot \Abs{ f}.
+\]
+Inoltre è anche chiaro che qualunque sia $f$ sia ha
+\[
+  \Abs{ f} \ge 0.
+\]
+
+Queste proprietà ci serviranno per dimostrare il seguente.
+
+\begin{theorem}[disuguaglianza di Cauchy-Schwarz]
+Se $f,g\in H(a,b)$. Allora
+\[
+  \int_a^b \abs{f(x) g(x)}\, dx \le \Abs{ f} \cdot \Abs{ g}.
+\]
+\end{theorem}
+%
+\begin{proof}
+Per ogni $t\in \RR$ si ha
+\begin{align*}
+\Abs{ \abs f - t\abs g}^2
+&= \int_a^b \enclose{\abs{f(x)}-t\abs{g(x)}}^2\, dx \\
+ &= \int_a^b \abs{f(x)}^2\, dx -2 t \int_a^b \abs{f(x) g(x)}\, dx +t^2 \int_a^b \abs{g(x)}^2\, dx \\
+ &= \Abs{ f}^2 - 2t \int_a^b\abs{f(x)g(x)}\, dx + t^2 \Abs{ g}^2.
+\end{align*}
+Rispetto a $t$ il lato destro di questa uguaglianza è un polinomio di secondo grado.
+Guardando il lato sinistro sappiamo però che questo polinomio è sempre non negativo
+e dunque il suo discriminante non potrà essere positivo:
+\[
+  \Delta = \enclose{-2\int_a^b \abs{f(x)g(x)}\, dx}^2 - 4\Abs{ f}^2\cdot \Abs{ g}^2
+  \le 0
+\]
+da cui
+\[
+  \enclose{\int_a^b \abs{f(x)g(x)}\, dx}^2 \le \Abs{ f}^2\cdot \Abs{ g}^2.
+\]
+Estraendo la radice quadrata di ambo i membri si ottiene la disuguaglianza
+voluta.
+\end{proof}
+
+Se $f,g\in H(a,b)$ possiamo allora definire
+\[
+  \langle f, g\rangle = \int_a^b f(x)g(x)\, dx
+\]
+in quanto il teorema precedente garantisce che se $\Abs{ f} <+\infty$
+e $\Abs{ g} < \infty$ allora l'integrale che definisce $\langle f,g\rangle$
+è assolutamente convergente e quindi è convergente e inoltre risulta
+\[
+  \langle f,g\rangle \le \int_a^b \abs{f(x)g(x)}\, dx \le \Abs{ f} \cdot \Abs{ g}.
+\]
+Inoltre $\langle f,g \rangle$ è un prodotto scalare su $H(a,b)$
+cioè una forma bilineare simmetrica non negativa:
+\begin{gather*}
+ \langle tf, g\rangle = t \langle f,g\rangle = \langle f, tg\rangle, \qquad \forall t\in \RR\\
+ \langle f, g\rangle = \langle g, f \rangle,
+ \qquad \langle f, f\rangle = \Abs{f}^2 \ge 0.
+\end{gather*}
+
+Risulta quindi che $\Abs{f}$ soddisfa la disuguaglianza
+di convessità
+\begin{align*}
+  \Abs{ f+g}^2
+  &= \langle f+g,f+w\rangle = \langle f,f\rangle + \langle g,g\rangle + 2 \langle f,g\rangle \\
+  &= \Abs{ f}^2 + \Abs{ g}^2 + 2\langle f, g\rangle
+  \le \Abs{ f}^2 + \Abs{ g}^2 + 2 \Abs{ f} \cdot \Abs{ g} \\
+  = \enclose{\Abs{ f} + \Abs{ g}}^2.
+\end{align*}
+Estraendo la radice quadrata di ambo i membri si ottiene la disuguaglianza
+di convessità:
+\[
+  \Abs{ f+g} \le \Abs{ f } + \Abs{ g}.
+\]
+L'unica proprietà che rimane da dimostrare è la separabilità, ovvero
+verificare che se $\Abs{f}=0$ allora $f=0$. Questa proprietà in realtà
+è falsa, in quanto se una funzione ha integrale nullo la possiamo modificare
+in un punto mantenendo nullo l'integrale.
+Per ovviare a questo problema (che non è in realtà molto rilevante) si identificano
+tra loro quelle funzioni la cui differenza ha integrale nullo.
+Questo ci consente di dire che $H(a,b)$, a meno di questa identificazione,
+è uno spazio normato su cui il prodotto scalare $\langle f, g\rangle$
+è definito positivo.
+
+Osseviamo che oltre alle proprietà algebriche è naturale chiedersi se
+la norma e il prodotto scalare che abbiamo introdotto siano compatibili con
+la struttura topologica che abbiamo introdotto. Vogliamo cioè verificare
+se è vero che quando $f_k \to f$ (che in $H(a,b)$ significa $\Abs{f_k-f}\to 0$)
+allora $\Abs{f_k} \to \Abs{f}$ e $\langle f_k,g \rangle \to \langle f,g\rangle$
+per ogni $f,g\in H(a,b)$. Ma in effetti se $\Abs{f_k-f}\to 0$ risulta:
+\[
+  \abs{\langle f_k, g\rangle - \langle f,g\rangle}
+  = \abs{\langle f_k-f,g\rangle}
+  \le \Abs{f_k-f} \cdot \Abs{g} \to 0.
+\]
+Ma allora se $f_k\to f$ si ha
+\[
+  \Abs{f_k-f}^2 = \Abs{f_k}^2 + \Abs{f}^2 - 2 \langle f_k,f\rangle
+\]
+da cui per $k\to +\infty$
+\begin{align*}
+  \Abs{f_k}^2 &= \Abs{f_k-f}^2 - \Abs{f}^2 + 2\langle f_k,f\rangle  \\
+  &\to 0 - \Abs{f}^2 + 2\langle f,f\rangle = \Abs{f}^2
+\end{align*}
+cioè $\Abs{f_k}\to \Abs{f}$.
+Più in generale se $f_k\to f$ e $g_k \to g$ possiamo anche verificare che
+$\langle f_k,g_k\rangle \to \langle f,g\rangle$ infatti si ha
+\begin{align*}
+\langle f_k,g_k\rangle - \langle f,g\rangle
+  &=
+  \langle f_k,g_k\rangle - \langle f,g_k\rangle
+  +\langle f,g_k\rangle -  \langle f,g\rangle  \\
+  = \langle f_k -f,g_k\rangle + \langle f,g_k-g\rangle.
+\end{align*}
+Per il secondo addendo si ha, come prima, $\langle f,g_k\rangle \to \langle f,g\rangle$.
+Per il primo addendo si può osservare che se $g_k\to g$ allora $\Abs{g_k}\to \Abs{g}$
+e quindi $g_k$ è una successione limitata: esiste $C>0$ tale che $\Abs{g_k}\le C$ per ogni $k$.
+Dunque si ha
+\[
+  \abs{\langle f_k -f,g_k\rangle} \le C \Abs{f_k-f} \to 0.
+\]
+Abbiamo quindi verificato che $\langle f,g\rangle$ è continuo rispetto ad
+entrambe le variabili, così come è continuo $\Abs f$.
+
+
+
+\subsection{serie di Fourier}
+
+In $H(0,2\pi)$ possiamo considerare le seguenti funzioni trigonometriche:
+\begin{align*}
+  e_0 (x) &= \frac{1}{\sqrt{2\pi}} \\
+  e_{2k+1}(x) &= \frac{\sin(kx)}{\sqrt{\pi}} \qquad k=0,1,\dots\\
+  e_{2k}(x) &= \frac{\cos(kx)}{\sqrt{\pi}} \qquad k=1,2,\dots
+\end{align*}
+Ovviamente
+\[
+  \Abs{e_0}=\sqrt{\int_0^{2\pi} \enclose{\frac{1}{\sqrt{2\pi}}}\, dx} = 1
+\]
+ma è anche facile verificare che
+\[
+  \int_0^{2\pi} cos^2 (kx)\, dx
+  = \frac{1}{k}\int_0^{2k\pi} \cos^2 y\, dy
+  = \int_0^{2\pi} \cos^2 y\, dy = \pi
+\]
+da cui $\Abs{e_{2k}} = 1$.
+In maniera simile si osserva che $\Abs{e_{2k+1}}=1$.
+Dunque i vettori $e_0,e_1,\dots$ sono tutti di modulo unitario.
+Utilizzando l'esponenziale complesso
+si può trovare la formula di Werner:
+\begin{align*}
+ \sin(mx)\cos(nx)
+ &= \frac{e^{inx}-e^{-inx}}{2}\cdot \frac{e^{imx}-e^{-imn}}{2i}\\
+ &= \frac{e^{i(m+n)x}}{4i} + \frac{e^{-i(m+n)x}}{4i} + \frac{e^{i(m-n)x}}{4i} - \frac{e^{-i(m-n)x}}{4i}\\
+ &= \frac{\sin\enclose{(m+n)x}}{2} + \frac{\sin\enclose{(m-n)x}}{2}
+\end{align*}
+da cui se $m\neq n$:
+\begin{align*}
+ \int_0^{2\pi} \sin(mx)\cos(nx)\, dx &=
+ -\frac 1 {2(m+n)} \Enclose{\cos\enclose{(m+n)x}}_0^{2\pi} \\
+  &\quad - \frac{1}{2(m-n)}\Enclose{\cos\enclose{(m-n)x}}_0^{2\pi} = 0
+\end{align*}
+e se $m=n$ si arriva comunque allo stesso risultato.
+Questo significa che $\langle e_{2n},e_{2m+1}\rangle = 1$.
+Discorso analogo si può fare per le funzioni $\sin(mx)\sin(nx)$ e $\cos(mx)\cos(nx)$
+trovando, anche in quei casi, che tali funzioni hanno integrale nullo
+nell'intervallo $[0,2\pi]$.
+Per nostra memoria le formule di Werner che si trovano
+in questi ultimi casi sono:
+\begin{align*}
+  \cos(mx) \cos(nx) &=  \frac{\cos((m+n)x)}{2} + \frac{\cos((m-n)x)}{2}\\
+  \sin(mx) \sin(nx) &=  \frac{\cos((m-n)x)}{2} - \frac{\cos((m+n)x)}{2}.
+\end{align*}
+
+
+Risulta dunque che $e_0,e_1,e_2,\dots$ è un sistema ortonormale in $H(0,2\pi)$
+nel senso che si ha:
+\[
+  \langle e_n, e_m \rangle =
+  \begin{cases} 1 &\text{se $m=n$}\\
+  0 & \text{altrimenti}.
+  \end{cases}
+\]
+Di conseguenza le funzioni $e_0,e_1,e_2, \dots$ sono tra loro indipendenti
+in $H(0,2\pi)$. Possiamo in particolare dedurre che $H(0,2\pi)$ ha dimensione
+infinita.
+
+Risulta quindi naturale chiedersi se quella che abbiamo introdotto è una
+\emph{base hilbertiana} cioè se data una qualunque $f\in H(0,2\pi)$ è possibile
+trovare dei coefficienti $c_k\in \RR$ tali che
+\begin{equation}\label{eq:41752134}
+  f = \sum_{k=0}^{+\infty} c_k e_k.
+\end{equation}
+Osserviamo che quella che abbiamo scritto sopra non è una combinazione lineare
+algebrica in quanto la somma non è una somma finita. Si intende infatti che
+la serie è il limite delle somme parziali fatto rispetto alla convergenza
+che abbiamo introdotto in $H(a,b)$.
+Dunque l'equazione \eqref{eq:41752134} significa
+\[
+  \Abs{f-\sum_{k=0}^n c_k e_k} \to 0 \qquad \text{per $n\to +\infty$}.
+\]
+In particolare se vale \eqref{eq:41752134} non potremo
+affermare che per ogni $x\in(a,b)$ risulta:
+\[
+  f(x) = \sum_{k=0}^{+\infty} c_k e_k(x)
+\]
+in quanto lo spazio $H(a,b)$ è definito a meno di identificazione
+di funzioni che hanno differenza con integrale nullo, ma è possibile che
+ci siano alcuni $x\in (a,b)$ su cui $f(x)$ si discosta dal valore della
+somma.
+
+Osserviamo però che se vale \eqref{eq:41752134} i coefficienti $c_k$
+essendo le coordinate di $f$ rispetto ad una base ortonormale, possono
+essere determinate facilmente. Risulta infatti, sfruttando la continuità
+del prodotto scalare:
+\[
+  \langle f,e_n\rangle = \langle \sum_{k=0}^{+\infty} c_k e_k, e_n\rangle
+  = \sum_{k=0}^{+\infty} \langle c_k e_k,e_n \rangle
+  = \sum_{k=0}^{+\infty} c_k \langle e_k,e_n\rangle = c_n
+\]
+in quanto abbiamo osservato che $\langle c_k,e_n\rangle=0$ se $k\neq n$
+e $\langle e_n,e_n\rangle=1$.
+
+Data una qualunque $f\in H(a,b)$ potremo definire i suoi
+\emph{coefficienti di Fourier}
+\[
+  c_n = \langle f,e_n\rangle = \int_0^{2\pi} f(x) e_n(x)\, dx.
+\]
+Il nostro obiettivo è ora quello di affermare che se $c_n$ sono
+i coefficienti Fourier di $f$ allora effettivamente risulta che vale
+l'equazione~\eqref{eq:41752134}. Questo significa che il sistema ortonormale
+$e_0,e_1,e_2, \dots$ è una \emph{base hilbertiana} tramite la quale è possibile
+rappresentare ogni funzione di $H(0,2\pi)$.
+
+TO BE COMPLETED!!!
+
+\subsection{incompletezza di $H(a,b)$}
+Purtroppo lo spazio $H(a,b)$ non risulta essere
+completo, come si può vedere nel seguente esempio.
+
+\begin{example}[razionali ingrassati]
+Vogliamo mostrare che lo spazio $H(0,1)$ non è completo.
+Sappiamo che l'insieme $[0,1]\cap \QQ$ è numerabile, quindi esiste una
+successione $q_k$ che elenca tutti i numeri razionali nell'intervallo $[0,1]$.
+Poniamo inoltre $r_k = \frac{1}{4\cdot 2^k}$ e consideriamo gli intervalli
+$I_k = [q_k-r_k,q_k+r_k]$.
+Prendiamo la successione di funzioni $f_n\colon [0,1]\to \RR$
+definita da
+\[
+  f_n(x) =
+  \begin{cases}
+  1 &\text{se } x\in\displaystyle\bigcup_{k=1}^{n} I_k\\
+  0 & \text{altrimenti}
+  \end{cases}
+\]
+A differenza di quanto uno potrebbe pensare, queste funzioni $f_n$ non diventano
+mai identicamente uguali ad $1$. Anzi, si può osservare che
+\[
+  \int_0^1 f_n(x)\, dx
+  \le \sum_{k=1}^n \int_{q_k-r_k}^{q_k+r_k} 1\, dx
+  = \sum_{k=1}^n \frac{1}{2\cdot 2^k}
+  \le \frac{1}{2}\sum_{k=1}^{+\infty}\frac{1}{2^k} = \frac 1 2.
+\]
+
+Vogliamo ora mostrare che $f_k$ è una successione di Cauchy in $H(0,1)$ e
+che però non converge in $H(0,1)$.
+
+Per verificare che $f_n$ è una successione di Cauchy possiamo semplicemente
+osservare che se $n\ge m$ risulta che $f_n$ e $f_m$ differiscono solamente
+sugli intervalli $I_k$ con $k$ compreso tra $m$ ed $n$. Dunque:
+\[
+  \int_0^1 \abs{f_n - f_m}
+  \le \sum_{k=m}^{+\infty} \int_{q_k-r_k}^{q_k+r_k} 1\,dx
+  = \sum_{k=m}^{+\infty}\frac{1}{2\cdot 2^k} = \frac{1}{2^m}.
+\]
+Visto che $f_n$ e $f_m$ assumono solamente i valori $0$ e $1$ anche $\abs{f_n-f_m}$
+assume solamente i valori $0$ e $1$ quindi $\abs{f_n-f_m}^2=\abs{f_n-f_m}$.
+Abbiamo quindi verificato che per $n\ge m$ si ha:
+\[
+  \Abs{ f_n - f_m} \le \sqrt{\frac{1}{2^m}}.
+\]
+E' dunque chiaro che comunque sia scelto $\eps>0$ possiamo scegliere $N$
+tale che $1/2^N \le \eps^2$ da cui si ottiene che se $n,m\ge N$
+allora $\Abs{ f_n-f_m} \le \eps$. Cioè: $f_n$ è una successione di Cauchy.
+
+Supponiamo ora, per assurdo, che esista $f\in H(0,1)$
+tale che $\Abs{ f_n-f} \to 0$.
+Innanzitutto visto che ogni $f_k\le 1$ possiamo supporre che sia anche $f\le 1$
+perché altrimenti potremmo prendere $g(x) = \min\{f(x),1\}$ e avremmo
+chiaramente $\Abs{f_n - g} \le \Abs{f_n -f} \to 0$. In pratica stiamo dicendo
+che modificando la funzione $f$ senza cambiarne l'integrale possiamo suppore
+che $f(x)\le 1$ per ogni $x\in[0,1]$.
+
+Fissato un intervallo $I_n$, per $k\to +\infty$ si ha:
+\[
+  0\le \int_{q_n-r_n}^{q_n+r_n}\abs{f_k(x)-f(x)}^2\, dx
+  \le \int_0^1 \abs{f_k(x)-f(x)}^2\, dx = \Abs{ f_k -f}^2 \to 0.
+\]
+Ma ora se $k\ge n$ risulta che $f_k=1$ su $I_n$ e quindi il valore dell'integrale
+precedente non dipende da $k$ e dovrà quindi essere identicamente nullo:
+\[
+  \int_{q_n-r_n}^{q_n+r_n} f(x) - 1 \, dx = 0
+\]
+e quindi possiamo affermare che $\sup f(I_n) = 1$ in quanto se fosse
+$\sup f(I_n) = \lambda < 1$
+l'integrale di $f(x)-1$ sarebbe negativo
+sull'intervallo $I_n$.
+
+Vogliamo ora dimostrare che su ogni intervallo $[a,b]\subset[0,1]$ si ha
+$\sup f([a,b])=1$. Prendiamo $N$ abbastanza grande in modo che $r_N < (b-a)/3$.
+Allora l'intervallo $[a+r_n, b-r_n]$ ha ampiezza $r_n$ e contiene infiniti
+numeri razionali. Esistono quindi infiniti indici $n$ per cui $q_n$ sta in tale
+intervallo. Tra questi infiniti certamente ce n'è uno con indice $n\ge N$
+(perché i $q_n$ con $n< N$ sono in numero finito). Ma se $q_n \in [a+r_n,b-r_n]$
+allora $I_n\subset[a,b]$ e quindi $\sup f([a,b])\ge \sup f(I_n) = 1$.
+
+Questo significa che per ogni suddivisione di Riemann dell'intervallo $[0,1]$
+risulta che il $\sup$ di $f$ sugli intervallini della suddivisione è $1$ e quindi
+l'integrale superiore di $f$ è anch'esso $1$. Dunque, essendo $f$ integrabile,
+\[
+  \int_a^b f(x) = 1.
+\]
+
+Vogliamo ora concludere che questo è in contraddizione con la disuguaglianza
+\[
+  \int_a^b f_n(x) \le \frac 1 2
+\]
+che abbiamo osservato all'inizio.
+Si ha infatti per la disuguaglianza di Cauchy-Schwarz
+\begin{align*}
+  \int_0^1 \abs{f(x)-f_n(x)}\, dx
+  \le \Abs{f-f_n}\cdot \Abs{1}  \to 0
+\end{align*}
+e quindi, per il criterio di convergenza assoluta,
+\[
+  \int_0^1 (f(x) - f_n(x))\, dx \to 0.
+\]
+Ma abbiamo visto che
+\[
+  \int_0^1 (f(x) - f_n(x))\, dx
+  = \int_0^1 f(x)\, dx - \int_0^1 f_n(x)\, dx
+  \ge 1 - \frac 1 2 = \frac 1 2
+\]
+ottenendo quindi un assurdo.
+\end{example}
