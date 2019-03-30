@@ -1,5 +1,3 @@
-%\chapter{convergenza uniforme}
-
 \section{convergenza uniforme}
 
 \begin{definition}[convergenza uniforme]
@@ -168,7 +166,7 @@ f(x) =
 Osserviamo però che
 \[
   d_\infty(f_k,f) = \sup_{x\in [0,1]} \abs{f_k(x)-f(x)}
-  \ge lim_{x\to 1^-} \abs{f_k(x) - f(x)} = 1.
+  \ge \lim_{x\to 1^-} \abs{f_k(x) - f(x)} = 1.
 \]
 dunque non ci può essere convergenza uniforme di $f_k$ verso $f$.
 \end{example}
@@ -199,7 +197,7 @@ tale che se $d(x,x_0) < \delta$ allora $\abs{f_N(x)-f_N(x_0)} < \eps$. Ma allora
 &\le \abs{f(x) - f_N(x)}
  + \abs{f_N(x)-f_N(x_0)}
  + \abs{f_N(x_0) - f(x_0)} \\
- &\le \Abs{f-f_N} + \eps + \Abs{f-f_N}
+ &\le \Abs{f-f_N}_\infty + \eps + \Abs{f-f_N}_\infty
   \le 3\eps.
 \end{align*}
 \end{proof}
@@ -225,209 +223,6 @@ può denotare nel modo seguente:
   \Abs{f}_{C^0} = \Abs{f}_{C^0([a,b])} = \Abs{f}_\infty
   \qquad\text{per $f\in C^0([a,b])$.}
 \]
-
-\section{divagazione sui frattali autosimili}
-
-\begin{definition}
-Siano $A$ e $B$ sottoinsiemi non vuoti di $\RR^n$.
-Definiamo la \emph{distanza di Hausdorff}
-\mynote{distanza di Hausdorff}
-\index{distanza!di Hausdorff}
-tra $A$ e $B$ come:
-\[
-  d_{\H}(A,B) = \max\big\{\sup_{a\in A}\inf_{b\in B} \abs{a-b}, \sup_{b\in B} \inf_{a\in A} \abs{a-b}\big\}.
-\]
-
-Definiamo
-\[
- \K(\RR^n) = \{A \subset \RR^n \colon \text{$A$ chiuso, limitato, non vuoto}\}.
-\]
-\end{definition}
-
-\begin{theorem}[caratterizzazione della distanza di Hausdorff]
-Se $A$ e $B$ sono compatti di $\RR^n$ (cioè chiusi e limitati) allora
-per ogni $r \in \RR$
-si ha
-\[
-  d_\H(A,B) \le r
-\]
-se e solo se valgono entrambe le seguenti proprietà:
-\begin{enumerate}
-\item per ogni $a\in A$ esiste $b\in B$ tale che $\abs{a-b}\le r$;
-\item per ogni $b\in B$ esiste $a\in A$ tale che $\abs{a-b}\le r$.
-\end{enumerate}
-\end{theorem}
-%
-\begin{proof}
-Per ogni compatto non vuoto $A$ e per ogni $x\in \RR^n$ definiamo
-la distanza tra il punto $x$ e l'insieme $A$ come:
-\[
-  d(x,A) = \min_{a\in A} \abs{x-a}.
-\]
-Il minimo esiste in quanto $A$ è compatto e $a\mapsto d(x,a)$ è una funzione continua. Fissato $A$ la funzione $x\mapsto d(x,A)$ è anch'essa continua, anzi è $1$-lipschitziana. Infatti se $x'\in \RR^n$ esiste $a'\in A$ tale che $d(x',A) = d(x',a')$ e dunque
-\[
-  d(x,A) = \min_{x\in A} \abs{x-a} \le \abs{x-a'} \le \abs{x-x'} + \abs{x'- a'}
-   = \abs{x-x'} + d(x',A)
-\]
-da cui $d(x,A) - d(x',A)\le \abs{x-x'}$.
-Scambiando $x$ e $x'$ si ottiene anche la disuguaglianza inversa da cui la $1$-lipschitzianità di $d(x,A)$. Dunque sui compatti la funzione $d(x,A)$ assume sempre massimo e si ha:
-\[
-d_\H(A,B) = \max\{\max_{a_\in A} d(a,B), \max_{b\in B} d(b,A)\}.
-\]
-
-In particolare se $d_\H(A,B) \le r$ per ogni $a\in A$ si deve avere $d(a,B) \le r$ e per ogni $b\in B$ si deve avere $d(b,A) \le r$. Ma allora valgono le due proprietà dell'enunciato.
-
-Viceversa se vale la proprietà 1.\ allora $d(a,B)\le r$ e se vale la 2.\ $d(b,A)\le r$ e di conseguenza $D_\H(A,B) \le r$.
-\end{proof}
-
-\begin{theorem}[distanza di Hausdorff]
-La distanza di Hausdorff $d_\H$ è una distanza su $\K(\RR^n)$ e lo spazio metrico $\K(\RR^n)$ è completo.
-\end{theorem}
-%
-\begin{proof}
-Chiaramente se $A,B$ sono non vuoti si ha $d_\H(A,B) \ge 0$.
-Inoltre, in base alla caratterizzazione del teorema precedente è facile osservare che $d_\H(A,B) < +\infty$.
-
-Se $d_\H(A,B) = 0$ significa che per ogni $a\in A$ esiste $b\in B$ tale che $\abs{a-b}=0$. Cioè $b=a$. Dunque $A\subset B$. Scambiando i ruoli di $A$ e $B$ si ottiene anche $B\subset A$ da cui $A=B$.
-
-Che sia $d_\H(A,B) = d_\H(B,A)$ è ovvio in quanto la definizione è simmetrica in $A$ e $B$.
-
-Verifichiamo ora la disuguaglianza triangolare. Siano $A,B,C$ tre compatti non vuoti. Per ogni $a\in A$ esiste $b\in B$ tale che $\abs{a-b} \le d_\H(A,B)$ e per tale $b \in B$ esiste un $c\in C$ tale che $\abs{b-c} \le d_\H(B,C)$. Dunque per ogni $a\in A$ esiste un $c\in C$ tale che
-\[
-  \abs{a-c} \le \abs{a-b} + \abs{b-c} \le d_\H(A,B) + d_\H(B,C).
-\]
-Scambiando i ruoli di $A$ e $C$ si ottiene anche la condizione simmetrica e dunque, per la caratterizzazione della distanza di Hausdorff si ottiene la disuguaglianza triangolare:
-\[
-  d_\H(A,C) \le d_\H(A,B) + d_\H(B,C).
-\]
-
-Abbiamo quindi verificato che $d_\H$ è una distanza su $\K(\RR^n)$. Verifichiamo ora che $\K(\RR^n)$ è completo.
-
-Sia $A_k\in\K(\RR^n)$ una successione di Cauchy.
-Senza perdita di generalità possiamo supporre che
-\[
-  d_\H(A_k,A_{k+1}) \le \frac{1}{2^k}.
-\]
-Infatti essendo $A_k$ di Cauchy è possibile trovarne una sottosuccessione con tale proprietà, e se poi dimostriamo che la sottosuccessione converge allora l'intera successione, essendo di Cauchy, deve convergere.
-
-Consideriamo come candidato limite l'insieme di tutti i possibili limiti di punti degli insiemi $A_k$:
-\[
-  A = \{x\in \RR^n
-  \colon \exists x_k \in A_k\colon x_k \to x\}.
-\]
-
-Per prima cosa vogliamo verificare che $A$ non è vuoto. Scelto un punto qualunque $a_0 \in A_0$ esiste $a_1 \in A_1$ tale che $\abs{a_0 - a_1} = d_\H(A_0,A_1)$. Iterando otteniamo una successione di punti $a_k \in A_k$ tale che $\abs{a_k - a_{k+1}} \le d_\H(A_k,A_{k+1}) \le 1/2^k$.
-Dunque $a_k$ è una successione di Cauchy in $\RR^n$ ed essendo $\RR^n$ completo dovrà convergere ad un punto $a$ che quindi è un punto di $A$.
-
-Avendo assunto $d_\H(A_k, A_{k+1}) < 1/2^k$ si ottiene (sommando la serie geometrica):
-\[
- d_\H(A_k, A_n) \le \sum_{j=k}^{n-1} d_\H(A_j, A_{j+1}) \le \frac{2}{2^k}\qquad \text{se $n>k$}.
-\]
-Questo ci permette di dimostrare che per ogni $a\in A$ e per ogni $k\in \NN$ esiste $a_k \in A_k$ tale che
-$\abs{a - a_k}\le 4/2^k$. Infatti se a distanza $4/2^k$ non ci fossero punti di $A_k$ allora a distanza $2/2^k$ non ci potrebbero essere punti di $A_n$ per nessun $n>k$ in quanto visto che $d_\H(A_k,A_n) \le 2/2^k$ se ci fosse un punto di $A_n$ a distanza inferiore a $2/2^k$ ci dovrebbe anche essere un punto di $A_k$ a distanza inferiore a $4/2^k$. Ma questo è impossibile perché per come è definito $A$ deve esistere $x_n \in A_n$ tale che $x_n \to a$. Abbiamo quindi mostrato che
-\[
-  \sup_{a\in A} \inf_{b\in A_k} \abs{a-b} \le 4/2^k \to 0.
-\]
-
-Viceversa ci proponiamo di mostrare che per ogni $p \in A_k$ esiste $a \in A$ tale che $\abs{p-a} < 2/2^k$.
-Visto che $d_\H(A_{j+1},A_j) \le 1/2^j$
-possiamo infatti costruire a partire da $a_k=p \in A_k$
-una successione $a_j \in A_j$ con $j > k$, tale che $d(a_{j+1},a_j) \le 1/2^j$. Tale successione è di Cauchy
-quindi converge: $a_j \to a$
-e il suo limite $a$ è quindi un punto di $A$ e si ha
-\[
-  \abs{a-p} \le \sum_{j=k}^\infty \abs{a_j - a_{j+1}}
-    \le \sum_{j=k}^\infty \frac{1}{2^j} \le \frac{2}{2^k}.
-\]
-Abbiamo quindi dimostrato che
-\[
-  \sup_{b\in a_k} \inf_{a\in A} \abs{a-b} \le 2/2^k \to 0
-\]
-e quindi $d_\H(A_k,A)\to 0$.
-
-Ci rimane solo da mostrare che $A$ è un insieme chiuso.
-Presa una successione di punti $x_k\in A$ convergente $x_k\to x$, dobbiamo mostrare che $x\in A$. Per ogni $x_k\in A$ per quanto già detto sappiamo esistere $a_k \in A_k$ tale che $\abs{a_k-x_k}\le 4/2^k$. Ma allora $\abs{a_k-a} \le 4/2^k + \abs{x_k-a} \to 0$ e quindi $a_k\to a$ da cui $a\in A$.
- \end{proof}
-
-\begin{theorem}[frattali autosimilari]
-Siano $\phi_1, \dots, \phi_N \colon \RR^n \to \RR^n$ contrazioni (cioè funzioni lipschitziane con costante di lipschitz inferiore ad $1$).
-Allora
-esiste un unico insieme $C\subset \RR^n$ chiuso e limitato tale che
-\[
-  C = \bigcup_{k=1}^N \phi_k(C).
-\]
-\end{theorem}
-%
-\begin{proof}
-Basterà dimostrare che la funzione $T\colon \K(\RR^n)\to \K(\RR^n)$ definita da
-\[
-  T(A) = \bigcup_{k=1}^N \phi_k(C)
-\]
-è una contrazione: dopodiché sapendo che $\K(\RR^n)$ è completo il risultato è conseguenza diretta del teorema di punto fisso di Banach-Caccioppoli.
-
-Ogni $\phi_k$ per ipotesi è una contrazione, cioè
-per ogni $a,b\in X$
-\[
-  \abs{\phi_k(a)-\phi_k(b)} \le L_k \abs{a-b}
-\]
-con $L_k< 1$. Posto $L=\max \{L_1, \dots, L_N\} < 1$ vogliamo dimostrare che $T$ è $L$-lipschitziana (e dunque una contrazione). Siano $A,B \in \K(\RR^n)$ e sia $d = d_\H(A,B)$. Preso $a' \in T(A)$ dovrà esistere $k$ tale che $a' \in \phi_k(A)$. Cioè $a'= \phi_k(a)$ con $a\in A$. Ma allora esiste $b\in B$ con $\abs{a-b}\le d_\H(A,B) = d$ e quindi $b'=\phi_k(b) \in T(B)$ e $\abs{a'-b'} = \abs{\phi_k(a)-\phi_k(b)} \le L \abs{a-b} \le L \cdot d$. Dunque abbiamo mostrato che
-\[
-  \sup_{a' \in T(A)} \inf_{b'\in T(B)} \abs{a'-b'} \le L d_\H(A,B).
-\]
-La stessa disuguaglianza rimane valida con $A$ e $B$ scambiati, ottenendo quindi:
-\[
-  d_\H(T(A),T(B)) \le L\cdot d_\H(A,B).
-\]
-\end{proof}
-
-\begin{example}[insieme di Cantor]
-Si prendano $\phi, \psi\colon \RR \to \RR$ definite da
-\[
-  \phi(x) = \frac{x}{3}, \qquad
-  \psi(x) = \frac{2+x}{3}.
-\]
-Chiaramente $\phi$ e $\psi$ sono $1/3$-lipschitziane e dunque, per il teorema precedente, esiste un unico insieme $C$ chiuso e limitato in $\RR$ tale che
-\[
-  C = \frac{C}{3} \cup \frac{C+2}{3}.
-\]
-Tale insieme si chiama \myemph{insieme di Cantor}.
-
-L'insieme di Cantor è un frattale autosimile in quanto si ottiene come l'unione di due copie riscalate di sé stesso.
-
-E' facile mostrare che $C\subset [0,1]$ in quanto $T$ manda sottoinsiemi di $[0,1]$ in sottoinsiemi di $[0,1]$.
-Ogni $x\in [0,1]$ può essere rappresentato in base $3$ con una sequenza di cifre ternarie: $0,1,2$. La funzione $\phi(x)$ aggiunge uno $0$ in cima alla sequenza di cifre, mentre la funzione $\psi(x)$ aggiunge un $2$ in cima alla sequenza.
-Vogliamo mostrare che $C$ è l'insieme di tutti i numeri in $[0,1]$ che possono essere scritti in base $3$ utilizzando solamente le cifre $0$ e $2$. Osserviamo innanzitutto che $C$ è chiuso: il suo complementare in $[0,1]$ è formato da tutti i numeri che in base $3$ si devono scrivere utilizzando almeno una cifra $1$. Ma se c'è una cifra $1$ possono modificare tutte le cifre successive rimanendo nel complementare di $C$: dunque il complementare di $C$ è aperto. Si osservi che gli unici numeri che hanno una doppia rappresentazione in base $3$ sono quelli che terminano con una sequenza infinita di $2$,
-\end{example}
-
-\begin{figure}
-\centering\includegraphics[width=1.0\textwidth]{koch}
-\caption{
-Chiamato $K_0 \in \RR^2$ il segmento $[0,1]\times \{0\}$,
-in figura è rappresentata
-la quarta iterata $K_4 = T^4(K_0)$ della contrazione che definisce la curva di K{\"o}ch.
-\index{curva di K{\"o}ch}
-}
-\end{figure}
-
-\begin{example}[curva di K{\"o}ch]
-Sia $R_\theta\colon \RR^2 \to \RR^2$ la rotazione di $\RR^2$ con centro l'origine di $\theta$ radianti in senso antiorario.
-Sia $\alpha = \pi/3$, $p=(1,0)$ e
-siano $\phi_1, \phi_2, \phi_3, \phi_4 \colon \RR^2 \to \RR^2$
-le funzioni definite da:
-\begin{align*}
-\phi_1(v) = \frac{v}{3}, \qquad
-\phi_2(v) = R_{\alpha}\frac{v}{3} + \phi_1(p), \\
-\phi_3(v) = R_{-\alpha}\frac{v}{3} + \phi_2(p), \qquad
-\phi_4(v) = \frac{v}{3} + \phi_3(p).
-\end{align*}
-Allora esiste un unico insieme chiuso $K\subset \RR^2$ tale che
-\[
-  K = \phi_1(K) \cup \phi_2(K) \cup \phi_3(K) \cup \phi_4(K).
-\]
-L'insieme $K$ si chiama \myemph{curva di K{\"o}ch}. E' un frattale autosimile in quanto è composto da quattro copie riscalate di se stesso.
-\end{example}
-
-
 
 \section{limite uniforme di derivate e integrali}
 
@@ -733,7 +528,10 @@ da cui
  f(x) = f(0) + \int_0^x f'(t)\, dt = \int_0^x \frac{1}{1-t}\, dt
   = \Enclose{-\ln(1-t)}_0^x = -\ln(1-x).
 \]
-Questo è vero per ogni $x\in(-1,1)$
+Abbiamo quindi scoperto che vale
+\[
+  \sum_{k=1}^{+\infty} \frac{x^k}{k} = - \ln (1-x) \qquad\text{per ogni $x\in (-1,1)$.}
+\]
 Osserviamo ora che la serie con somma $f(x)$
 non converge per $x=1$ (serie armonica) ma
 converge per $x=-1$ (criterio di Leibniz).
@@ -745,7 +543,7 @@ sappiamo che la funzione $f(x)$ è continua nel punto $x=-1$ e dunque possiamo c
 \]
 In particolare abbiamo trovato la somma della serie armonica a serie alterni:
 \[
-  \sum_{k=1}^{+\infty} \frac{(-1)^{k+1}}{k} = -\ln 2.
+  \sum_{k=1}^{+\infty} \frac{(-1)^{k+1}}{k} = - f(x) = \ln 2.
 \]
 
 Osserviamo che queste informazioni sono coerenti con lo sviluppo di Taylor di $\ln(1+x)$ che avevamo già determinato. Ma non sono conseguenza di esso, in quanto lo sviluppo di Taylor ci dà informazioni solamente per $x\to 0$ mentre ora abbiamo ottenuto informazioni per ogni $x$ in $[-1,1)$.
@@ -783,15 +581,217 @@ In particolare per $x=1$ si ottiene la formula di \myemph{Gregory-Leibniz}
 \]
 \end{example}
 
+
+\section{divagazione sui frattali autosimili}
+
+\begin{definition}
+Siano $A$ e $B$ sottoinsiemi non vuoti di $\RR^n$.
+Definiamo la \emph{distanza di Hausdorff}
+\mynote{distanza di Hausdorff}
+\index{distanza!di Hausdorff}
+tra $A$ e $B$ come:
+\[
+  d_{\H}(A,B) = \max\big\{\sup_{a\in A}\inf_{b\in B} \abs{a-b}, \sup_{b\in B} \inf_{a\in A} \abs{a-b}\big\}.
+\]
+
+Definiamo
+\[
+ \K(\RR^n) = \{A \subset \RR^n \colon \text{$A$ chiuso, limitato, non vuoto}\}.
+\]
+\end{definition}
+
+\begin{theorem}[caratterizzazione della distanza di Hausdorff]
+Se $A$ e $B$ sono compatti di $\RR^n$ (cioè chiusi e limitati) allora
+per ogni $r \in \RR$
+si ha
+\[
+  d_\H(A,B) \le r
+\]
+se e solo se valgono entrambe le seguenti proprietà:
+\begin{enumerate}
+\item per ogni $a\in A$ esiste $b\in B$ tale che $\abs{a-b}\le r$;
+\item per ogni $b\in B$ esiste $a\in A$ tale che $\abs{a-b}\le r$.
+\end{enumerate}
+\end{theorem}
+%
+\begin{proof}
+Per ogni compatto non vuoto $A$ e per ogni $x\in \RR^n$ definiamo
+la distanza tra il punto $x$ e l'insieme $A$ come:
+\[
+  d(x,A) = \min_{a\in A} \abs{x-a}.
+\]
+Il minimo esiste in quanto $A$ è compatto e $a\mapsto d(x,a)$ è una funzione continua. Fissato $A$ la funzione $x\mapsto d(x,A)$ è anch'essa continua, anzi è $1$-lipschitziana. Infatti se $x'\in \RR^n$ esiste $a'\in A$ tale che $d(x',A) = d(x',a')$ e dunque
+\[
+  d(x,A) = \min_{x\in A} \abs{x-a} \le \abs{x-a'} \le \abs{x-x'} + \abs{x'- a'}
+   = \abs{x-x'} + d(x',A)
+\]
+da cui $d(x,A) - d(x',A)\le \abs{x-x'}$.
+Scambiando $x$ e $x'$ si ottiene anche la disuguaglianza inversa da cui la $1$-lipschitzianità di $d(x,A)$. Dunque sui compatti la funzione $d(x,A)$ assume sempre massimo e si ha:
+\[
+d_\H(A,B) = \max\{\max_{a_\in A} d(a,B), \max_{b\in B} d(b,A)\}.
+\]
+
+In particolare se $d_\H(A,B) \le r$ per ogni $a\in A$ si deve avere $d(a,B) \le r$ e per ogni $b\in B$ si deve avere $d(b,A) \le r$. Ma allora valgono le due proprietà dell'enunciato.
+
+Viceversa se vale la proprietà 1.\ allora $d(a,B)\le r$ e se vale la 2.\ $d(b,A)\le r$ e di conseguenza $D_\H(A,B) \le r$.
+\end{proof}
+
+\begin{theorem}[distanza di Hausdorff]
+La distanza di Hausdorff $d_\H$ è una distanza su $\K(\RR^n)$ e lo spazio metrico $\K(\RR^n)$ è completo.
+\end{theorem}
+%
+\begin{proof}
+Chiaramente se $A,B$ sono non vuoti si ha $d_\H(A,B) \ge 0$.
+Inoltre, in base alla caratterizzazione del teorema precedente è facile osservare che $d_\H(A,B) < +\infty$.
+
+Se $d_\H(A,B) = 0$ significa che per ogni $a\in A$ esiste $b\in B$ tale che $\abs{a-b}=0$. Cioè $b=a$. Dunque $A\subset B$. Scambiando i ruoli di $A$ e $B$ si ottiene anche $B\subset A$ da cui $A=B$.
+
+Che sia $d_\H(A,B) = d_\H(B,A)$ è ovvio in quanto la definizione è simmetrica in $A$ e $B$.
+
+Verifichiamo ora la disuguaglianza triangolare. Siano $A,B,C$ tre compatti non vuoti. Per ogni $a\in A$ esiste $b\in B$ tale che $\abs{a-b} \le d_\H(A,B)$ e per tale $b \in B$ esiste un $c\in C$ tale che $\abs{b-c} \le d_\H(B,C)$. Dunque per ogni $a\in A$ esiste un $c\in C$ tale che
+\[
+  \abs{a-c} \le \abs{a-b} + \abs{b-c} \le d_\H(A,B) + d_\H(B,C).
+\]
+Scambiando i ruoli di $A$ e $C$ si ottiene anche la condizione simmetrica e dunque, per la caratterizzazione della distanza di Hausdorff si ottiene la disuguaglianza triangolare:
+\[
+  d_\H(A,C) \le d_\H(A,B) + d_\H(B,C).
+\]
+
+Abbiamo quindi verificato che $d_\H$ è una distanza su $\K(\RR^n)$. Verifichiamo ora che $\K(\RR^n)$ è completo.
+
+Sia $A_k\in\K(\RR^n)$ una successione di Cauchy.
+Senza perdita di generalità possiamo supporre che
+\[
+  d_\H(A_k,A_{k+1}) \le \frac{1}{2^k}.
+\]
+Infatti essendo $A_k$ di Cauchy è possibile trovarne una sottosuccessione con tale proprietà, e se poi dimostriamo che la sottosuccessione converge allora l'intera successione, essendo di Cauchy, deve convergere.
+
+Consideriamo come candidato limite l'insieme di tutti i possibili limiti di punti degli insiemi $A_k$:
+\[
+  A = \{x\in \RR^n
+  \colon \exists x_k \in A_k\colon x_k \to x\}.
+\]
+
+Per prima cosa vogliamo verificare che $A$ non è vuoto. Scelto un punto qualunque $a_0 \in A_0$ esiste $a_1 \in A_1$ tale che $\abs{a_0 - a_1} = d_\H(A_0,A_1)$. Iterando otteniamo una successione di punti $a_k \in A_k$ tale che $\abs{a_k - a_{k+1}} \le d_\H(A_k,A_{k+1}) \le 1/2^k$.
+Dunque $a_k$ è una successione di Cauchy in $\RR^n$ ed essendo $\RR^n$ completo dovrà convergere ad un punto $a$ che quindi è un punto di $A$.
+
+Avendo assunto $d_\H(A_k, A_{k+1}) < 1/2^k$ si ottiene (sommando la serie geometrica):
+\[
+ d_\H(A_k, A_n) \le \sum_{j=k}^{n-1} d_\H(A_j, A_{j+1}) \le \frac{2}{2^k}\qquad \text{se $n>k$}.
+\]
+Questo ci permette di dimostrare che per ogni $a\in A$ e per ogni $k\in \NN$ esiste $a_k \in A_k$ tale che
+$\abs{a - a_k}\le 4/2^k$. Infatti se a distanza $4/2^k$ non ci fossero punti di $A_k$ allora a distanza $2/2^k$ non ci potrebbero essere punti di $A_n$ per nessun $n>k$ in quanto visto che $d_\H(A_k,A_n) \le 2/2^k$ se ci fosse un punto di $A_n$ a distanza inferiore a $2/2^k$ ci dovrebbe anche essere un punto di $A_k$ a distanza inferiore a $4/2^k$. Ma questo è impossibile perché per come è definito $A$ deve esistere $x_n \in A_n$ tale che $x_n \to a$. Abbiamo quindi mostrato che
+\[
+  \sup_{a\in A} \inf_{b\in A_k} \abs{a-b} \le 4/2^k \to 0.
+\]
+
+Viceversa ci proponiamo di mostrare che per ogni $p \in A_k$ esiste $a \in A$ tale che $\abs{p-a} < 2/2^k$.
+Visto che $d_\H(A_{j+1},A_j) \le 1/2^j$
+possiamo infatti costruire a partire da $a_k=p \in A_k$
+una successione $a_j \in A_j$ con $j > k$, tale che $d(a_{j+1},a_j) \le 1/2^j$. Tale successione è di Cauchy
+quindi converge: $a_j \to a$
+e il suo limite $a$ è quindi un punto di $A$ e si ha
+\[
+  \abs{a-p} \le \sum_{j=k}^\infty \abs{a_j - a_{j+1}}
+    \le \sum_{j=k}^\infty \frac{1}{2^j} \le \frac{2}{2^k}.
+\]
+Abbiamo quindi dimostrato che
+\[
+  \sup_{b\in a_k} \inf_{a\in A} \abs{a-b} \le 2/2^k \to 0
+\]
+e quindi $d_\H(A_k,A)\to 0$.
+
+Ci rimane solo da mostrare che $A$ è un insieme chiuso.
+Presa una successione di punti $x_k\in A$ convergente $x_k\to x$, dobbiamo mostrare che $x\in A$. Per ogni $x_k\in A$ per quanto già detto sappiamo esistere $a_k \in A_k$ tale che $\abs{a_k-x_k}\le 4/2^k$. Ma allora $\abs{a_k-a} \le 4/2^k + \abs{x_k-a} \to 0$ e quindi $a_k\to a$ da cui $a\in A$.
+ \end{proof}
+
+\begin{theorem}[frattali autosimilari]
+Siano $\phi_1, \dots, \phi_N \colon \RR^n \to \RR^n$ contrazioni (cioè funzioni lipschitziane con costante di lipschitz inferiore ad $1$).
+Allora
+esiste un unico insieme $C\subset \RR^n$ chiuso e limitato tale che
+\[
+  C = \bigcup_{k=1}^N \phi_k(C).
+\]
+\end{theorem}
+%
+\begin{proof}
+Basterà dimostrare che la funzione $T\colon \K(\RR^n)\to \K(\RR^n)$ definita da
+\[
+  T(A) = \bigcup_{k=1}^N \phi_k(C)
+\]
+è una contrazione: dopodiché sapendo che $\K(\RR^n)$ è completo il risultato è conseguenza diretta del teorema di punto fisso di Banach-Caccioppoli.
+
+Ogni $\phi_k$ per ipotesi è una contrazione, cioè
+per ogni $a,b\in X$
+\[
+  \abs{\phi_k(a)-\phi_k(b)} \le L_k \abs{a-b}
+\]
+con $L_k< 1$. Posto $L=\max \{L_1, \dots, L_N\} < 1$ vogliamo dimostrare che $T$ è $L$-lipschitziana (e dunque una contrazione). Siano $A,B \in \K(\RR^n)$ e sia $d = d_\H(A,B)$. Preso $a' \in T(A)$ dovrà esistere $k$ tale che $a' \in \phi_k(A)$. Cioè $a'= \phi_k(a)$ con $a\in A$. Ma allora esiste $b\in B$ con $\abs{a-b}\le d_\H(A,B) = d$ e quindi $b'=\phi_k(b) \in T(B)$ e $\abs{a'-b'} = \abs{\phi_k(a)-\phi_k(b)} \le L \abs{a-b} \le L \cdot d$. Dunque abbiamo mostrato che
+\[
+  \sup_{a' \in T(A)} \inf_{b'\in T(B)} \abs{a'-b'} \le L d_\H(A,B).
+\]
+La stessa disuguaglianza rimane valida con $A$ e $B$ scambiati, ottenendo quindi:
+\[
+  d_\H(T(A),T(B)) \le L\cdot d_\H(A,B).
+\]
+\end{proof}
+
+\begin{example}[insieme di Cantor]
+Si prendano $\phi, \psi\colon \RR \to \RR$ definite da
+\[
+  \phi(x) = \frac{x}{3}, \qquad
+  \psi(x) = \frac{2+x}{3}.
+\]
+Chiaramente $\phi$ e $\psi$ sono $1/3$-lipschitziane e dunque, per il teorema precedente, esiste un unico insieme $C$ chiuso e limitato in $\RR$ tale che
+\[
+  C = \frac{C}{3} \cup \frac{C+2}{3}.
+\]
+Tale insieme si chiama \myemph{insieme di Cantor}.
+
+L'insieme di Cantor è un frattale autosimile in quanto si ottiene come l'unione di due copie riscalate di sé stesso.
+
+E' facile mostrare che $C\subset [0,1]$ in quanto $T$ manda sottoinsiemi di $[0,1]$ in sottoinsiemi di $[0,1]$.
+Ogni $x\in [0,1]$ può essere rappresentato in base $3$ con una sequenza di cifre ternarie: $0,1,2$. La funzione $\phi(x)$ aggiunge uno $0$ in cima alla sequenza di cifre, mentre la funzione $\psi(x)$ aggiunge un $2$ in cima alla sequenza.
+Vogliamo mostrare che $C$ è l'insieme di tutti i numeri in $[0,1]$ che possono essere scritti in base $3$ utilizzando solamente le cifre $0$ e $2$. Osserviamo innanzitutto che $C$ è chiuso: il suo complementare in $[0,1]$ è formato da tutti i numeri che in base $3$ si devono scrivere utilizzando almeno una cifra $1$. Ma se c'è una cifra $1$ possono modificare tutte le cifre successive rimanendo nel complementare di $C$: dunque il complementare di $C$ è aperto. Si osservi che gli unici numeri che hanno una doppia rappresentazione in base $3$ sono quelli che terminano con una sequenza infinita di $2$,
+\end{example}
+
+\begin{figure}
+\centering\includegraphics[width=1.0\textwidth]{koch}
+\caption{
+Chiamato $K_0 \in \RR^2$ il segmento $[0,1]\times \{0\}$,
+in figura è rappresentata
+la quarta iterata $K_4 = T^4(K_0)$ della contrazione che definisce la curva di K{\"o}ch.
+\index{curva di K{\"o}ch}
+}
+\end{figure}
+
+\begin{example}[curva di K{\"o}ch]
+Sia $R_\theta\colon \RR^2 \to \RR^2$ la rotazione di $\RR^2$ con centro l'origine di $\theta$ radianti in senso antiorario.
+Sia $\alpha = \pi/3$, $p=(1,0)$ e
+siano $\phi_1, \phi_2, \phi_3, \phi_4 \colon \RR^2 \to \RR^2$
+le funzioni definite da:
+\begin{align*}
+\phi_1(v) = \frac{v}{3}, \qquad
+\phi_2(v) = R_{\alpha}\frac{v}{3} + \phi_1(p), \\
+\phi_3(v) = R_{-\alpha}\frac{v}{3} + \phi_2(p), \qquad
+\phi_4(v) = \frac{v}{3} + \phi_3(p).
+\end{align*}
+Allora esiste un unico insieme chiuso $K\subset \RR^2$ tale che
+\[
+  K = \phi_1(K) \cup \phi_2(K) \cup \phi_3(K) \cup \phi_4(K).
+\]
+L'insieme $K$ si chiama \myemph{curva di K{\"o}ch}. E' un frattale autosimile in quanto è composto da quattro copie riscalate di se stesso.
+\end{example}
+
+
 \section{Convergenza integrale}
 
-In questa sezione vedremo come l'integrale di Riemann non è soddisfacente
-per dare una struttura \emph{euclidea} allo spazio delle funzioni integrabili.
-
-Motivati da come viene definita la norma di un vettore in $\RR^n$ risulta naturale
-dare la seguente definizione di \emph{norma euclidea} per una funzione $f\colon (a,b)\to \RR$:
+Motivati da come viene definita la norma di un vettore
+in $\RR^n$ risulta naturale
+dare la seguente definizione di
+\emph{norma euclidea} per una funzione $f\colon (a,b)\to \RR$:
 \[
-  \Abs{ f} = \sqrt{\int_a^b \abs{f(x)}^2\, dx}.
+  \Abs{f}_2 = \sqrt{\int_a^b \abs{f(x)}^2\, dx}.
 \]
 Questa definizione ha senso, come integrale improprio, se la funzione $f$
 è localmente Riemann-integrabile sull'intervallo $(a,b)$
@@ -800,161 +800,193 @@ In tal
 caso l'integrale esiste, ma potrebbe assumere il valore $+\infty$. Definiamo
 allora
 \[
-H(a,b) =
-\{\text{$f$ localmente R.-integrabile su $(a,b)$}\colon \Abs{ f} < +\infty\}.
+\H(a,b) =
+\{\text{$f$ localmente R.-integrabile su $(a,b)$}\colon \Abs{ f}_2< +\infty\}.
 \]
+
 Cercheremo ora di dimostrare che la norma che abbiamo introdotto
 è effettivamente un norma (nel senso della definizione~\ref{def:norma})
 che rende $H$ uno spazio vettoriale euclideo di dimensione infinita.
 
 Innanzitutto è banale osservare che la norma è omogenea. Se $t\in \RR$ si ha:
 \[
-  \Abs{ t\cdot f} = \abs{t}\cdot \Abs{ f}.
+  \Abs{t\cdot f}_2= \abs{t}\cdot \Abs{f}_2.
 \]
-Inoltre è anche chiaro che qualunque sia $f$ sia ha
+Inoltre è anche chiaro che qualunque sia $f$ si ha
+$\Abs{ f}_2\ge 0$s.
+Dunque se $f\in \H(a,b)$ anche $\lambda f\in \H(a,b)$ per ogni $\lambda \in \RR$.
+Se $f,g\in \H(a,b)$ per la proprietà del parallelogramma~\eqref{eq:parallelogramma}
+valida in $\RR$ si ha
 \[
-  \Abs{ f} \ge 0.
+  (f(x) + g(x))^2 \le 2f^2(x) + 2 g^2(x)
 \]
+e dunque se $f,g \in \H(a,b)$ anche $f+g\in \H(a,b)$.
+Dunque $\H(a,b)$ è uno spazio vettoriale.
 
-Queste proprietà ci serviranno per dimostrare il seguente.
+Per $f,g\in \H(a,b)$ possiamo ora definire il prodotto scalare:
+\begin{equation}\label{eq:854392}
+  \langle f, g\rangle = \int_a^b f(x) \cdot g(x)\, dx.
+\end{equation}
+La disuguaglianza di
+Young~\eqref{eq:Young} valida in $\RR$ ci dice che
+\[
+  \abs{f(x) \cdot g(x)} \le \frac{f^2(x)+g^2(x)}{2}
+\]
+e dunque garantisce che l'integrale~\eqref{eq:854392}
+sia assolutamente convergente. Dunque se $f,g\in \H(a,b)$
+il prodotto scalare $\langle f,g\rangle$ è ben definito ed
+è un numero finito. A questo punto è facile verificare
+che $\langle f,g\rangle$ è una forma bilineare simmetrica
+non negativa. Dunque soddisfa tutte le proprietà formali
+date nella definizione~\ref{def:prodotto_scalare} di prodotto scalare
+salvo il fatto che non è garantito che $\langle f,f\rangle = 0$
+implichi $f=0$. In effetti questa proprietà è falsa perché
+se la funzione $f^2(x)$ ha integrale nullo non è detto che sia
+identicamente nulla: l'integrale, infatti, non cambia
+se la funzione viene modificata in un singolo punto.
 
-\begin{theorem}[disuguaglianza di Cauchy-Schwarz]
-Se $f,g\in H(a,b)$. Allora
+Per ovviare a questo problema bisogna che identifichiamo due
+funzioni $f,g\in \H(a,b)$ se $\Abs{f-g}_2=0$:
 \[
-  \int_a^b \abs{f(x) g(x)}\, dx \le \Abs{ f} \cdot \Abs{ g}.
+  f \equiv g  \iff \Abs{f-g}_2=0.
 \]
-\end{theorem}
-%
-\begin{proof}
-Per ogni $t\in \RR$ si ha
-\begin{align*}
-\Abs{ \abs f - t\abs g}^2
-&= \int_a^b \enclose{\abs{f(x)}-t\abs{g(x)}}^2\, dx \\
- &= \int_a^b \abs{f(x)}^2\, dx -2 t \int_a^b \abs{f(x) g(x)}\, dx +t^2 \int_a^b \abs{g(x)}^2\, dx \\
- &= \Abs{ f}^2 - 2t \int_a^b\abs{f(x)g(x)}\, dx + t^2 \Abs{ g}^2.
-\end{align*}
-Rispetto a $t$ il lato destro di questa uguaglianza è un polinomio di secondo grado.
-Guardando il lato sinistro sappiamo però che questo polinomio è sempre non negativo
-e dunque il suo discriminante non potrà essere positivo:
+Chiamiamo $H(a,b)$ il quoziente:
 \[
-  \Delta = \enclose{-2\int_a^b \abs{f(x)g(x)}\, dx}^2 - 4\Abs{ f}^2\cdot \Abs{ g}^2
-  \le 0
+  H(a,b) = \H(a,b)/\equiv
 \]
-da cui
-\[
-  \enclose{\int_a^b \abs{f(x)g(x)}\, dx}^2 \le \Abs{ f}^2\cdot \Abs{ g}^2.
-\]
-Estraendo la radice quadrata di ambo i membri si ottiene la disuguaglianza
-voluta.
-\end{proof}
+cioè lo spazio vettoriale delle funzioni in $\H(a,b)$ dove due funzioni
+vengono identificate se la norma della differenza è nulla
+(si vedano gli appunti di logica~\cite{appunti_logica}
+per la definizione di insieme quoziente).
 
-Se $f,g\in H(a,b)$ possiamo allora definire
-\[
-  \langle f, g\rangle = \int_a^b f(x)g(x)\, dx
-\]
-in quanto il teorema precedente garantisce che se $\Abs{ f} <+\infty$
-e $\Abs{ g} < \infty$ allora l'integrale che definisce $\langle f,g\rangle$
-è assolutamente convergente e quindi è convergente e inoltre risulta
-\[
-  \langle f,g\rangle \le \int_a^b \abs{f(x)g(x)}\, dx \le \Abs{ f} \cdot \Abs{ g}.
-\]
-Inoltre $\langle f,g \rangle$ è un prodotto scalare su $H(a,b)$
-cioè una forma bilineare simmetrica non negativa:
-\begin{gather*}
- \langle tf, g\rangle = t \langle f,g\rangle = \langle f, tg\rangle, \qquad \forall t\in \RR\\
- \langle f, g\rangle = \langle g, f \rangle,
- \qquad \langle f, f\rangle = \Abs{f}^2 \ge 0.
-\end{gather*}
+Lo spazio quozione $H(a,b)$ risulta finalmente essere uno spazio
+euclideo. Mantiene infatti la struttura vettoriale (in quanto l'insieme
+$\{f\in \H(a,b)\colon \Abs{f}_2=0\}$ è uno spazio vettoriale)
+e il prodotto scalare $\langle f,g\rangle$ (e di conseguenza la norma $\Abs{f}_2$)
+è ben definito su $H(a,b)$ e oltre alle proprietà che già abbiamo dimostrato
+possiamo ora affermare che $\langle f,f\rangle = \Abs{f}_2=0$ se e solo se $f=0$.
 
-Risulta quindi che $\Abs{f}$ soddisfa la disuguaglianza
-di convessità
-\begin{align*}
-  \Abs{ f+g}^2
-  &= \langle f+g,f+w\rangle = \langle f,f\rangle + \langle g,g\rangle + 2 \langle f,g\rangle \\
-  &= \Abs{ f}^2 + \Abs{ g}^2 + 2\langle f, g\rangle
-  \le \Abs{ f}^2 + \Abs{ g}^2 + 2 \Abs{ f} \cdot \Abs{ g} \\
-  = \enclose{\Abs{ f} + \Abs{ g}}^2.
-\end{align*}
-Estraendo la radice quadrata di ambo i membri si ottiene la disuguaglianza
-di convessità:
-\[
-  \Abs{ f+g} \le \Abs{ f } + \Abs{ g}.
-\]
-L'unica proprietà che rimane da dimostrare è la separabilità, ovvero
-verificare che se $\Abs{f}=0$ allora $f=0$. Questa proprietà in realtà
-è falsa, in quanto se una funzione ha integrale nullo la possiamo modificare
-in un punto mantenendo nullo l'integrale.
-Per ovviare a questo problema (che non è in realtà molto rilevante) si identificano
-tra loro quelle funzioni la cui differenza ha integrale nullo.
-Questo ci consente di dire che $H(a,b)$, a meno di questa identificazione,
-è uno spazio normato su cui il prodotto scalare $\langle f, g\rangle$
-è definito positivo.
+\begin{remark}
+La notazione $H(a,b)$ che scegliamo di utilizzare per definire questo spazio
+non è standard. La lettera $H$ rimanda ad Hilbert in quanto lo studio di questo
+spazio in particolare ha spinto verso l'astrazione del concetto di spazio di Hilbert.
+Quello che vedremo nel seguito è che questo spazio
+non risulta essere completo e dunque in realtà non è uno spazio di Hilbert.
+La necessità di completare questo spazio
+In effetti l'utilizzo degli integrali impropri è un tentativo, fallito, di
+estendere l'integrale di Riemann in modo da rendere completo questo spazio.
+Solo con la definizione di integrale di Lebesgue (1875--1941)
+si è riusciti ad estendere l'integrale di Riemann
+ad una classe più amplia di funzioni in modo da completare lo spazio.
+L'analogo dello spazio $H(a,b)$ definito tramite integrale di Lebesgue
+viene
+usualmente chiamato $L^2$. L'esponente $2$ è dovuto al fatto che
+sarebbe possibile definire gli spazi $L^p$
+in maniera analoga a quanto fatto nell'esempio~\ref{ex:norma_p}.
+Si avrebbe ancora che solo per $p=2$ questi spazi normati sono euclidei,
+cioè solo per $p=2$ la norma è indotta da un prodotto scalare.
+Tutti gli spazi $L^p$ sono completi e dunque sono spazi di Banach.
+Ma $L^2$ è anche uno spazio di Hilbert, in quanto è dotato di prodotto scalare.
+Anzi potremmo dire che $L^2$ è lo spazio di Hilbert per antonomasia
+e viene denotato anche con il nome $H^0$
+(in questo caso l'esponente denota la derivabilità delle funzioni, come
+in $C^0$). Nonostante il fatto che $H(a,b)$ non sia completo e che, dunque,
+questo non sia il modo giusto per definire tale spazio, tutto quello che
+vedremo in questo capitolo si potrebbe ripetere in modo identico
+utilizzando l'integrale di Lebesgue e per questo può essere comunque considerato
+un lavoro utile.
+\end{remark}
 
-Osseviamo che oltre alle proprietà algebriche è naturale chiedersi se
-la norma e il prodotto scalare che abbiamo introdotto siano compatibili con
-la struttura topologica che abbiamo introdotto. Vogliamo cioè verificare
-se è vero che quando $f_k \to f$ (che in $H(a,b)$ significa $\Abs{f_k-f}\to 0$)
-allora $\Abs{f_k} \to \Abs{f}$ e $\langle f_k,g \rangle \to \langle f,g\rangle$
-per ogni $f,g\in H(a,b)$. Ma in effetti se $\Abs{f_k-f}\to 0$ risulta:
-\[
-  \abs{\langle f_k, g\rangle - \langle f,g\rangle}
-  = \abs{\langle f_k-f,g\rangle}
-  \le \Abs{f_k-f} \cdot \Abs{g} \to 0.
-\]
-Ma allora se $f_k\to f$ si ha
-\[
-  \Abs{f_k-f}^2 = \Abs{f_k}^2 + \Abs{f}^2 - 2 \langle f_k,f\rangle
-\]
-da cui per $k\to +\infty$
-\begin{align*}
-  \Abs{f_k}^2 &= \Abs{f_k-f}^2 - \Abs{f}^2 + 2\langle f_k,f\rangle  \\
-  &\to 0 - \Abs{f}^2 + 2\langle f,f\rangle = \Abs{f}^2
-\end{align*}
-cioè $\Abs{f_k}\to \Abs{f}$.
-Più in generale se $f_k\to f$ e $g_k \to g$ possiamo anche verificare che
-$\langle f_k,g_k\rangle \to \langle f,g\rangle$ infatti si ha
-\begin{align*}
-\langle f_k,g_k\rangle - \langle f,g\rangle
-  &=
-  \langle f_k,g_k\rangle - \langle f,g_k\rangle
-  +\langle f,g_k\rangle -  \langle f,g\rangle  \\
-  = \langle f_k -f,g_k\rangle + \langle f,g_k-g\rangle.
-\end{align*}
-Per il secondo addendo si ha, come prima, $\langle f,g_k\rangle \to \langle f,g\rangle$.
-Per il primo addendo si può osservare che se $g_k\to g$ allora $\Abs{g_k}\to \Abs{g}$
-e quindi $g_k$ è una successione limitata: esiste $C>0$ tale che $\Abs{g_k}\le C$ per ogni $k$.
-Dunque si ha
-\[
-  \abs{\langle f_k -f,g_k\rangle} \le C \Abs{f_k-f} \to 0.
-\]
-Abbiamo quindi verificato che $\langle f,g\rangle$ è continuo rispetto ad
-entrambe le variabili, così come è continuo $\Abs f$.
-
-
+Gli elementi di $H(a,b)$ non sono funzioni, ma classi di equivalenza di funzioni.
+Nel seguito, però, tratteremo $f\in H(a,b)$ come se fosse $f\in \H(a,b)$
+facendo attenzione che le nostre affermazioni rimangano valide se al posto
+di una funzione $f$ si prende una funzione a lei equivalente.
+Ad esempio avrà senso considerare gli integrali di queste funzioni, perché il
+valore dell'integrale non dipende dal rappresentante scelto, ma non avrà senso
+considerare il valore che le funzioni assumono in un singolo punto, perché
+questo dipende dal rappresentante.
 
 \subsection{serie di Fourier}
+\index{Fourier!serie di}%
+\index{serie!di Fourier}%
 
-In $H(0,2\pi)$ possiamo considerare le seguenti funzioni trigonometriche:
-\begin{align*}
+Lo spazio $H(a,b)$ è uno spazio vettoriale reale su cui siamo riusciti a definire
+un prodotto scalare e quindi una norma. Vorremmo trovare su $H(a,b)$ una base
+ortonormale rispetto alla quale sia possibile scrivere le coordinate dei vettori
+(cioè delle funzioni) di $H(a,b)$. Visto che $H(a,b)$ non ha dimensione finita
+non potremo sperare di trovare una base con un numero finito di elementi.
+Introduciamo quindi la seguente.
+
+\begin{definition}[base hilbertiana]
+\index{Hilbert!base di}
+Sia $V$ uno spazio euclideo. Siano $e_k\in H(a,b)$ con $k\in \NN$. Diremo che
+$e_k$ è un \myemph{sistema ortonormale} se $\langle e_k, e_j\rangle = 0$ quando
+$k\neq j$ e $\langle e_k, e_k\rangle = 1$ per ogni $k\in \NN$.
+Diremo che $e_k$ è una \myemph{base!hilbertiana} se è un sistema ortonormale
+e inoltre per ogni $v\in V$
+esistono $c_k\in \RR$ con $k\in\NN$ per cui si abbia
+\begin{equation}\label{eq:49346}
+  v = \sum_{k=0}^{+\infty} c_k e_k.
+\end{equation}
+\end{definition}
+
+\begin{theorem}[caratterizzazione delle basi hilbertiane]
+Sia $e_0, e_1, e_2, \dots$ un sistema ortonormale in uno spazio euclideo $V$.
+Per ogni $v\in V$ e per ogni $k\in \NN$ si ponga $c_k = \langle v,e_k\rangle$.
+Allora vale la
+\myemph{disuguaglianza!di Bessel}:
+\index{Bessel!disuguaglianza di}
+\[
+  \sum_{k=0}^{+\infty} c_k^2 \le \abs{v}^2.
+\]
+Inoltre le seguenti proprietà sono equivalenti:
+\begin{enumerate}
+\item
+il sistema ortonormale $e_0,e_1,e_2,\dots$ è una base di Hilbert;
+\item
+per ogni $v\in V$ si ha
+\[
+  v = \sum_{k=0}^{+\infty} c_k e_k.
+\]
+\item
+per ogni $v\in V$ vale l'uguaglianza di Bessel:
+\[
+  \sum_{k=0}^{+\infty} c_k^2 = \abs{v}^2;
+\]
+\item se $c_k=0$ per ogni $k\in \NN$ allora $v=0$.
+\end{enumerate}
+\end{theorem}
+%
+\begin{theorem}
+\end{theorem}
+
+Il nostro obiettivo è ora quello di produrre una base hilbertiana di $H(-\pi,\pi)$.
+Consideriamo le seguenti funzioni trigonometriche:
+\begin{equation}\label{eq:54741346}
+\begin{aligned}
   e_0 (x) &= \frac{1}{\sqrt{2\pi}} \\
   e_{2k+1}(x) &= \frac{\sin(kx)}{\sqrt{\pi}} \qquad k=0,1,\dots\\
   e_{2k}(x) &= \frac{\cos(kx)}{\sqrt{\pi}} \qquad k=1,2,\dots
-\end{align*}
+\end{aligned}
+\end{equation}
 Ovviamente
 \[
-  \Abs{e_0}=\sqrt{\int_0^{2\pi} \enclose{\frac{1}{\sqrt{2\pi}}}\, dx} = 1
+  \Abs{e_0}_2=\sqrt{\int_{-\pi}^{\pi} \enclose{\frac{1}{\sqrt{2\pi}}}\, dx} = 1
 \]
 ma è anche facile verificare che
 \[
-  \int_0^{2\pi} cos^2 (kx)\, dx
-  = \frac{1}{k}\int_0^{2k\pi} \cos^2 y\, dy
-  = \int_0^{2\pi} \cos^2 y\, dy = \pi
+  \int_{-\pi}^{\pi} \cos^2 (kx)\, dx
+  = \frac{1}{k}\int_{-k\pi}^{k\pi} \cos^2 y\, dy
+  = \int_{-\pi}^{\pi} \cos^2 y\, dy = \pi
 \]
-da cui $\Abs{e_{2k}} = 1$.
-In maniera simile si osserva che $\Abs{e_{2k+1}}=1$.
+da cui si ottiene $\Abs{e_{2k}}_2 = 1$.
+Visto che la funzione $\sin$ è la traslata di $\cos$ si
+ottiene analogamente che $\Abs{e_{2k+1}}_2=1$.
 Dunque i vettori $e_0,e_1,\dots$ sono tutti di modulo unitario.
-Utilizzando l'esponenziale complesso
+Utilizzando la formula di Eulero
 si può trovare la formula di Werner:
+\index{Werner!formula di}%
+\index{formula!di Werner}%
 \begin{align*}
  \sin(mx)\cos(nx)
  &= \frac{e^{inx}-e^{-inx}}{2}\cdot \frac{e^{imx}-e^{-imn}}{2i}\\
@@ -963,25 +995,27 @@ si può trovare la formula di Werner:
 \end{align*}
 da cui se $m\neq n$:
 \begin{align*}
- \int_0^{2\pi} \sin(mx)\cos(nx)\, dx &=
- -\frac 1 {2(m+n)} \Enclose{\cos\enclose{(m+n)x}}_0^{2\pi} \\
-  &\quad - \frac{1}{2(m-n)}\Enclose{\cos\enclose{(m-n)x}}_0^{2\pi} = 0
+ \int_{-\pi}^{\pi} \sin(mx)\cos(nx)\, dx &=
+ -\frac 1 {2(m+n)} \Enclose{\cos\enclose{(m+n)x}}_{-\pi}^{\pi} \\
+  &\quad - \frac{1}{2(m-n)}\Enclose{\cos\enclose{(m-n)x}}_{-\pi}^{\pi} = 0
 \end{align*}
 e se $m=n$ si arriva comunque allo stesso risultato.
 Questo significa che $\langle e_{2n},e_{2m+1}\rangle = 1$.
 Discorso analogo si può fare per le funzioni $\sin(mx)\sin(nx)$ e $\cos(mx)\cos(nx)$
-trovando, anche in quei casi, che tali funzioni hanno integrale nullo
-nell'intervallo $[0,2\pi]$.
+trovando, anche in quei casi, che tali prodotti hanno integrale nullo
+nell'intervallo $[-\pi,\pi]$.
 Per nostra memoria le formule di Werner che si trovano
 in questi ultimi casi sono:
+\index{Werner!formula di}%
+\index{formula!di Werner}%
 \begin{align*}
   \cos(mx) \cos(nx) &=  \frac{\cos((m+n)x)}{2} + \frac{\cos((m-n)x)}{2}\\
   \sin(mx) \sin(nx) &=  \frac{\cos((m-n)x)}{2} - \frac{\cos((m+n)x)}{2}.
 \end{align*}
 
-
-Risulta dunque che $e_0,e_1,e_2,\dots$ è un sistema ortonormale in $H(0,2\pi)$
-nel senso che si ha:
+Risulta dunque che le funzioni $e_0,e_1,e_2,\dots$ definite da~\eqref{eq:54741346}
+formano un sistema ortonormale in $H(-\pi,\pi)$
+in quanto si ha:
 \[
   \langle e_n, e_m \rangle =
   \begin{cases} 1 &\text{se $m=n$}\\
@@ -989,11 +1023,99 @@ nel senso che si ha:
   \end{cases}
 \]
 Di conseguenza le funzioni $e_0,e_1,e_2, \dots$ sono tra loro indipendenti
-in $H(0,2\pi)$. Possiamo in particolare dedurre che $H(0,2\pi)$ ha dimensione
+in $H(-\pi,\pi)$ in quanto se una loro combinazione lineare è nulla:
+\[
+  \sum_{k=0}^n \lambda_k e_k = 0
+\]
+allora, facendone il prodotto scalare con $e_j$ si ottiene:
+\[
+  0 = \langle \sum_{k=0}^n \lambda_k e_k , e_j\rangle
+  = \sum_{k=0}^n \lambda_k \langle e_k, e_j\rangle
+  = \lambda_j
+\]
+e dunque tutti i coefficienti $\lambda_j$ sono nulli.
+Possiamo in particolare dedurre che $H(-\pi,\pi)$ ha dimensione
 infinita.
 
+\begin{definition}[polinomi trigonometrici]
+Una funzione $f$ si dice essere un \myemph{polinomio trigonometrico}
+se esiste un polinomio in due variabili $P(X,Y)$ tale che
+\[
+  f(x) = P(\cos x, \sin x).
+\]
+\end{definition}
+
+Possiamo verificare che $f$ è un polinomio trigonometrico se e solo se
+è possibile scrivere $f$ come combinazione lineare finita delle funzioni $e_k$
+appena introdotte,
+cioè se esistono $c_0, c_1, \dots, c_n\in \RR$ tali che
+\[
+  f = \sum_{k=0} c_k e_k.
+\]
+Basta infatti ricondurre le funzioni trigonometriche all'esponenziale complesso,
+tramite la formula di Eulero:
+\begin{align*}
+   \cos(nx) + i \sin(nx)
+   &= e^{inx} = (e^{in})^k
+   = \enclose{\cos x + i \sin x}^n\\
+   &= \sum_{k=0}^n {n \choose k} i^k \enclose{\sin x}^k \enclose{\cos x}^{n-k}
+\end{align*}
+da cui, prendendo parte reale, e parte immaginaria si
+riesce ad esprimere $\cos(nx)$ e $\sin(nx)$ come polinomio in $\sin x$ e $\cos x$.
+Più precisamente per il coseno
+si ottengono solo i termini con $k$ pari:
+\begin{align*}
+\cos(nx) &= \sum_{k=0}^{\floor{\frac n 2}} {n \choose 2k} (-1)^k \enclose{\sin x}^{2k} \enclose{\cos x}^{n-2k}\\
+&= \sum_{k=0}^{\floor{\frac n 2}}{n \choose 2k} \enclose{\cos^2 x -1}^k \enclose{\cos x}^{n-2k}
+\end{align*}
+ovvero
+\[
+  \cos(nx) = T_n(\cos x)
+\]
+dove
+\[
+  T_n(x) = \sum_{k=0}^{\floor{\frac n 2}}{n \choose 2k} \enclose{x^2 -1}^k x^{n-2k}
+\]
+si chiama \emph{polinomio di Chebyshev di prima specie}.
+\index{polinomio!di Chebyshev}%
+\index{Chebyshev!polinomio di}%
+Questo significa che ognuna delle funzioni $e_k$ che abbiamo introdotto
+in~\eqref{eq:54741346} è un polinomio trigonometrico e quindi ogni
+combinazione finita di tali funzioni è ancora un polinomio trigonometrico.
+
+Viceversa per verificare che ogni polinomio trigonometrico può essere rappresentato
+come combinazione lineare finita degli elementi $e_k$
+Possiamo osservare che se $P(X,Y)$ è un polinomio in due variabili allora
+si ha 🤪
+\[
+  P(\)
+\]
+è sufficiente dimostrare
+che le funzioni del tipo $\cos^n x \sin^m x$ possono essere scritte come combinazioni
+lineari delle funzioni $e_k$ perché ogni polinomio in due variabili è somma di monomi
+che sono prodotti di potenze intere delle due variabili.
+Ma in effetti si ha
+\[
+\cos^n x \sin^m x
+= \enclose{\frac{e^{ix}+e^{-ix}}{2}}^n \enclose{\frac{e^{ix} - e^{-ix}}{2i}}^m
+\]
+e sviluppando le potenze al lato destro si otterra
+\[
+  \cos^n x \sin^m x = \sum_{k=-n-m}^{n+m} c_k e^{ikx}
+  = \sum_{k=0}^{n+m}\enclose{a_k \cos(kx) + b_k \sin(kx)}
+\]
+per opportuni coefficienti complessi $c_k$ e opportuni coefficienti
+reali $a_k$ e $b_k$.
+Nella seconda uguaglianza abbiamo sfruttato il fatto che $\cos(-kx) = \cos(kx)$
+e $\sin(-kx) = -\sin(kx)$ quindi i termini con $k$ negativo possono ricondursi
+a quelli con $k$ positivo. Inoltre la parte immaginaria del risultato
+è nulla ed essendo le funzioni $\cos(kx)$ e $\sin(kx)$ tra loro indipendenti
+e reali, ogni combinazione lineare nulla di tali funzioni deve
+avere tutti i coefficienti nulli.
+
+
 Risulta quindi naturale chiedersi se quella che abbiamo introdotto è una
-\emph{base hilbertiana} cioè se data una qualunque $f\in H(0,2\pi)$ è possibile
+\emph{base hilbertiana} cioè se data una qualunque $f\in H(-\pi,\pi)$ è possibile
 trovare dei coefficienti $c_k\in \RR$ tali che
 \begin{equation}\label{eq:41752134}
   f = \sum_{k=0}^{+\infty} c_k e_k.
@@ -1004,7 +1126,7 @@ la serie è il limite delle somme parziali fatto rispetto alla convergenza
 che abbiamo introdotto in $H(a,b)$.
 Dunque l'equazione \eqref{eq:41752134} significa
 \[
-  \Abs{f-\sum_{k=0}^n c_k e_k} \to 0 \qquad \text{per $n\to +\infty$}.
+  \Abs{f-\sum_{k=0}^n c_k e_k}_2 \to 0 \qquad \text{per $n\to +\infty$}.
 \]
 In particolare se vale \eqref{eq:41752134} non potremo
 affermare che per ogni $x\in(a,b)$ risulta:
@@ -1012,13 +1134,16 @@ affermare che per ogni $x\in(a,b)$ risulta:
   f(x) = \sum_{k=0}^{+\infty} c_k e_k(x)
 \]
 in quanto lo spazio $H(a,b)$ è definito a meno di identificazione
-di funzioni che hanno differenza con integrale nullo, ma è possibile che
-ci siano alcuni $x\in (a,b)$ su cui $f(x)$ si discosta dal valore della
-somma.
+di funzioni che hanno differenza con quadrato ad integrale nullo,
+ma è possibile che
+ci siano alcuni $x\in (a,b)$ su cui $f(x)$ assume valori diversi dal valore della
+somma a lato destro.
 
 Osserviamo però che se vale \eqref{eq:41752134} i coefficienti $c_k$
-essendo le coordinate di $f$ rispetto ad una base ortonormale, possono
-essere determinate facilmente. Risulta infatti, sfruttando la continuità
+sono le coordinate di $f$ rispetto ad una base ortonormale,
+e quindi possono
+essere determinate facilmente tramite proiezione sugli assi.
+Risulta infatti, sfruttando la continuità
 del prodotto scalare:
 \[
   \langle f,e_n\rangle = \langle \sum_{k=0}^{+\infty} c_k e_k, e_n\rangle
@@ -1031,15 +1156,132 @@ e $\langle e_n,e_n\rangle=1$.
 Data una qualunque $f\in H(a,b)$ potremo definire i suoi
 \emph{coefficienti di Fourier}
 \[
-  c_n = \langle f,e_n\rangle = \int_0^{2\pi} f(x) e_n(x)\, dx.
+  c_n = \langle f,e_n\rangle = \int_0^{2\pi} f(x) e_n(x)\, dx
 \]
-Il nostro obiettivo è ora quello di affermare che se $c_n$ sono
-i coefficienti Fourier di $f$ allora effettivamente risulta che vale
-l'equazione~\eqref{eq:41752134}. Questo significa che il sistema ortonormale
-$e_0,e_1,e_2, \dots$ è una \emph{base hilbertiana} tramite la quale è possibile
-rappresentare ogni funzione di $H(0,2\pi)$.
+e definire
+\[
+  f_n = \sum_{k=0}^n c_k e_k.
+\]
+Il nostro obiettivo è dimostrare che $\Abs{f_n - f}_2\to 0$ cosicché
+valga~\eqref{eq:41752134}.
 
-TO BE COMPLETED!!!
+\begin{theorem}[disuguaglianza di Bessel]
+\mymargin{disuguaglianza!di Bessel}
+\index{Bessel!disuguaglianza di}
+Sia $e_0, e_1, e_2, \dots$ un sistema ortonormale in uno spazio vettoriale
+euclideo reale $H$.
+Dato $f\in H$ e posto $c_n = \langle f, e_n\rangle$ si ha
+\[
+  \sum_{k=0}^{+\infty} c_k^2  \le \Abs{f}_2^2.
+\]
+\end{theorem}
+%
+\begin{proof}
+Posto
+\[
+   f_N = \sum_{k=0}^N c_k e_k, \qquad g_N = f - f_N.
+\]
+osserviamo che per ogni $n\in \NN$ si ha $\langle f_N,g_N\rangle=0$ ($g_N$ è ortogonale a $f_N$)
+in quanto:
+\[
+  \langle g_N , e_n \rangle = \langle f, e_n\rangle - \sum_{k=0}^N c_k \langle e_k, e_n\rangle
+  = \langle f,e_n\rangle - c_n =0
+\]
+e quindi
+\[
+ \langle g_N, f_N \rangle = \sum_{k=0}^N c_k \langle g_N, e_k\rangle = 0.
+\]
+dunque possiamo concludere, grazie al teorema di Pitagora~\eqref{eq:Pitagora}
+\begin{align*}
+  \Abs{f}_2^2
+  &= \Abs{f_N + g_N}_2^2
+  = \Abs{f_N}_2^2 + \Abs{g_N}_2^2 \\
+  &\ge \Abs{f_N}_2^2 = \Abs{\sum_{k=0}^N c_k e_l}_2^2
+  = \sum_{k=0}^N c_k^2.
+\end{align*}
+Passando al limite per $N\to +\infty$ si ottiene il risultato enunciato.
+\end{proof}
+
+Il teorema precedente è valido in generale per qualunque sistema ortonormale.
+I coefficienti $c_n$ sono le coordinate del vettore $f$ nel sistema ortonormale
+scelto. Se fissiamo $N\in\NN$ la combinazione lineare finita
+\[
+  f_N = \sum_{k=0}^N c_k e_k
+\]
+non è altro che la proiezione di $f$ sul sottospazio vettoriale
+di $H(a,b)$ generato dai vettori $e_0, e_1, \dots, e_N$, infatti abbiamo visto
+che $f-f_N$ è ortogonale ad ogni $e_0, e_q, \dots, e_N$.
+
+E' chiaro che la disuguaglianza non può essere una uguaglianza se
+il sistema di funzioni che abbiamo scelto $e_0, e_1, e_2, \dots$
+non è abbastanza ricco per rappresentare,
+tramite serie di Fourier, ogni possibile funzione dello spazio $H(a,b)$.
+
+\begin{theorem}[densità delle funzioni continue]
+Data una qualunque $f\in H(a, b)$ per ogni $\eps>0$
+esiste una funzione continua $g\colon [a,b]\to \RR$
+tale che $\Abs{f-g}_2<\eps$.
+
+Detto in altri termini: $C^0([a,b])$ è un sottospazio denso in $H(a,b)$
+cioè un insieme la cui chiusura (nella topologia di $H(a,b)$) è tutto $H(a,b)$.
+\end{theorem}
+%
+\begin{proof}
+Se $f\in H(a,b)$ si ha,
+per la disuguaglianza di Cauchy-Schwarz:
+\[
+  \int_a^b \abs{f(x)}\, dx
+  \le \Abs{1}_2 \cdot \Abs{f}_2 = \sqrt{b-a}\cdot \Abs{f}_2 < +\infty.
+\]
+Dunque la funzione $f$ è assolutamente integrabile su $(a,b)$.
+Se $f$ è limitata su $(a,b)$ possiamo pensare che $f$ sia definita su $[a,b]$
+e l'integrale è un usuale integrale di Riemann (non improprio).
+Per le condizioni di integrabilità sappiamo che per ogni $\eps>0$ è possibile
+trovare una suddivisione $a=x_0 < x_1 < \dots < x_n =b$ su cui l'integrale
+di $f$ differisce dagli integrali superiore e inferiore per meno di $\eps$.
+Possiamo prendere come funzione $g$ una interpolazione lineare
+cioè una funzione tale che si abbia $g(x_k) = f(x_k)$ sui punti della suddivisione
+e che risulti lineare su ogni intervallino $[x_k,x_{k+1}]$. La funzione
+$g$ così definita è compresa, su ogni intervallino, tra l'$\inf$ e il $\sup$
+di $f$ e dunque si avrà:
+\[
+ \int_a^b \abs{f(x)-g(x)}\, dx < \eps.
+\]
+Visto però che $f$ è limitata sappiamo esistere $M>0$ per cui $\Abs{f}_\infty\le M$
+e di conseguenza $\Abs{g}_\infty\le M$ e quindi $\Abs{f-g}_2\le 2M$.
+Ma allora
+\[
+  \Abs{f-g}_2^2 = \int_a^b \abs{f(x)-g(x)}^2\, dx
+  \le \int_a^b \Abs{f-g}_\infty \cdot \abs{f(x)-g(x)}\, dx
+  \le 2M \eps.
+\]
+Abbiamo quindi mostrato che una funzione limitata e integrabile può essere
+approssimata con funzioni continue.
+
+Se la funzione è integrabile in senso improprio su $(a,b)$ ma non è limitata, per
+definizione di integrale improprio per ogni $\eps>0$ possiamo trovare un intervallo
+$[\alpha,\beta]\subset (a,b)$
+per $f$ risulta limitata su $[\alpha,\beta$] e
+l'integrale di $f$ su $(a,b)$ differisce dall'integrale di $f$ su $[\alpha,\beta]$
+per meno di $\eps$. Ci possiamo quindi ricondurre al passo precedente
+per trovare una funzione $g$ che approssima bene $f$ sull'intervallo $[\alpha,\beta]$.
+Estendendo $g$ in modo costante su $(a,b)\setminus[\alpha,\beta]$ si troverà
+una funzione che approssima bene $f$ su tutto $(a,b)$.
+
+Rimane quindi da dimostrare che ogni funzione continua può essere approssimata
+con un polinomio trigonometrico.
+\end{proof}
+
+Se $f_N = \sum_{k=0}^N c_k e_k$ possiamo ora verificare che $f_N$ è una
+successione di Cauchy in quanto (supponendo $n>m$) si ha
+\[
+  \Vert f_n - f_m \Vert^2
+  = \Abs{\sum_{k=m+1}^{n} c_k e_k}_2^2
+  = \sum_{k=m+1}^n c_k^2
+  \le \sum_{k=m+1}^{+\infty} c_k^2
+\]
+dunque se sapessimo che $H(a,b)$ è completo potremmo dedurre che $f_N$ converge
+ad una funzione $g\in H(a,b)$. Chiaramente la funzione $g$ ha gli stessi coefficienti
 
 \subsection{incompletezza di $H(a,b)$}
 Purtroppo lo spazio $H(a,b)$ non risulta essere
@@ -1084,24 +1326,24 @@ Visto che $f_n$ e $f_m$ assumono solamente i valori $0$ e $1$ anche $\abs{f_n-f_
 assume solamente i valori $0$ e $1$ quindi $\abs{f_n-f_m}^2=\abs{f_n-f_m}$.
 Abbiamo quindi verificato che per $n\ge m$ si ha:
 \[
-  \Abs{ f_n - f_m} \le \sqrt{\frac{1}{2^m}}.
+  \Abs{ f_n - f_m}_2 \le \sqrt{\frac{1}{2^m}}.
 \]
 E' dunque chiaro che comunque sia scelto $\eps>0$ possiamo scegliere $N$
 tale che $1/2^N \le \eps^2$ da cui si ottiene che se $n,m\ge N$
-allora $\Abs{ f_n-f_m} \le \eps$. Cioè: $f_n$ è una successione di Cauchy.
+allora $\Abs{ f_n-f_m}_2 \le \eps$. Cioè: $f_n$ è una successione di Cauchy.
 
 Supponiamo ora, per assurdo, che esista $f\in H(0,1)$
-tale che $\Abs{ f_n-f} \to 0$.
+tale che $\Abs{ f_n-f}_2 \to 0$.
 Innanzitutto visto che ogni $f_k\le 1$ possiamo supporre che sia anche $f\le 1$
 perché altrimenti potremmo prendere $g(x) = \min\{f(x),1\}$ e avremmo
-chiaramente $\Abs{f_n - g} \le \Abs{f_n -f} \to 0$. In pratica stiamo dicendo
+chiaramente $\Abs{f_n - g}_2 \le \Abs{f_n -f}_2 \to 0$. In pratica stiamo dicendo
 che modificando la funzione $f$ senza cambiarne l'integrale possiamo suppore
 che $f(x)\le 1$ per ogni $x\in[0,1]$.
 
 Fissato un intervallo $I_n$, per $k\to +\infty$ si ha:
 \[
   0\le \int_{q_n-r_n}^{q_n+r_n}\abs{f_k(x)-f(x)}^2\, dx
-  \le \int_0^1 \abs{f_k(x)-f(x)}^2\, dx = \Abs{ f_k -f}^2 \to 0.
+  \le \int_0^1 \abs{f_k(x)-f(x)}^2\, dx = \Abs{ f_k -f}_2^2 \to 0.
 \]
 Ma ora se $k\ge n$ risulta che $f_k=1$ su $I_n$ e quindi il valore dell'integrale
 precedente non dipende da $k$ e dovrà quindi essere identicamente nullo:
@@ -1136,7 +1378,7 @@ che abbiamo osservato all'inizio.
 Si ha infatti per la disuguaglianza di Cauchy-Schwarz
 \begin{align*}
   \int_0^1 \abs{f(x)-f_n(x)}\, dx
-  \le \Abs{f-f_n}\cdot \Abs{1}  \to 0
+  \le \Abs{f-f_n}_2\cdot \Abs{1}_2  \to 0
 \end{align*}
 e quindi, per il criterio di convergenza assoluta,
 \[

@@ -19,6 +19,7 @@
 \usepackage{mparhack} % fix margin notes (otherwise sometime they go to wrong margin!)
 \usepackage{expl3,l3regex} % per il comando \regex_replace_once
 \usepackage{xifthen}
+\usepackage{wasysym}
 \AfterPreamble{\hypersetup{hidelinks=true,}}
 \definecolor{Black}{gray}{0}
 
@@ -36,29 +37,6 @@
 {\relax}{\mbox{}\oldmarginpar{\vspace*{-3\baselineskip}\makebox[0pt]{\color{halfgray}\chapterNumber{\phantom{0}\thechapter}}}}{0pt}%
 {\raggedright\spacedallcaps}[\normalsize\vspace*{.8\baselineskip}\titlerule]%
 \end{comment}
-
-\ExplSyntaxOn
-\newcommand\stripExclamation[1]{
-\def\tmp{#1}
-\regex_replace_once:nnN { "! } { 91848243 }\tmp
-\regex_replace_once:nnN { ! } { \  }\tmp
-\regex_replace_once:nnN { 91848243 } { ! }\tmp
-\tmp}
-\ExplSyntaxOff
-
-\newcommand{\mymark}[1]{\reversemarginpar\marginnote{#1}\normalmarginpar}
-
-\newcommand{\mynote}[1]{\marginnote{{\footnotesize\stripExclamation{#1}}}}
-\newcommand{\mymargin}[1]{\mynote{#1}\index{#1}}
-% utilizzo di myemph:
-% \myemph[margin note]{emph and index}
-\newcommand{\myemph}[2][dummy_not_defined]{%
-  \emph{\stripExclamation{#2}}%
-  \ifthenelse{\equal{#1}{dummy_not_defined}}%
-    {\ifthenelse{\isempty{#2}}{}{\mynote{#2}}%
-    \index{#2}}%
-    {\mynote{#1}%
-    \index{#2}}}%
 
 \newcommand{\eps}{\varepsilon}
 \renewcommand{\phi}{\varphi}
@@ -99,6 +77,8 @@
 \newcommand{\Abs}[1]{{\left\Vert #1\right\Vert}}
 \newcommand{\enclose}[1]{{\left( #1 \right)}}
 \newcommand{\Enclose}[1]{{\left[ #1 \right]}}
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
 
 \newcommand{\To}{\rightrightarrows}
 \renewcommand{\vec}[1]{\boldsymbol #1}
@@ -163,6 +143,29 @@ qed=,
 %\newtheorem{example}[theorem]{Esempio}
 %\newtheorem{definition}[theorem]{Definizione}
 %\newtheorem{axiom}[theorem]{Assioma}
+
+\ExplSyntaxOn
+\newcommand\stripExclamation[1]{
+\def\tmp{#1}
+\regex_replace_all:nnN { "! } { 91848243 }\tmp
+\regex_replace_all:nnN { ! } { \  }\tmp
+\regex_replace_all:nnN { 91848243 } { ! }\tmp
+\tmp}
+\ExplSyntaxOff
+
+\newcommand{\mymark}[1]{\reversemarginpar\marginnote{#1}\normalmarginpar}
+
+\newcommand{\mynote}[1]{\marginnote{{\footnotesize\stripExclamation{#1}}}}
+\newcommand{\mymargin}[1]{\mynote{#1}\index{#1}}
+% utilizzo di myemph:
+% \myemph[margin note]{emph and index}
+\newcommand{\myemph}[2][dummy_not_defined]{%
+  \emph{\stripExclamation{#2}}%
+  \ifthenelse{\equal{#1}{dummy_not_defined}}%
+    {\ifthenelse{\isempty{#2}}{}{\mynote{#2}}%
+    \index{#2}}%
+    {\mynote{#1}%
+    \index{#2}}}%
 
 \newcommand{\myhref}[2]{\href{#1}{\underline{#2}}}
 \newcommand{\online}[1]{\marginnote{\qrcode[height=1.7cm]{#1}\\\scriptsize{(interagisci)}~}}

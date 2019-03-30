@@ -33,7 +33,9 @@ L'\emph{ordine}
 \index{ordine!equazione differenziale}
 \index{equazione!differenziale!ordine}
 dell'equazione differenziale è il numero massimo di derivate successive che vengono applicate alla funzione incognita.
-Tipicamente la funzione $u$ sarà definita su un intervallo $I$ della retta reale: $u\colon I \to \RR$ e la forma più generale di equazione differenziale ordinaria di ordine $n$ si potrà dunque scrivere come:
+Tipicamente la funzione $u$ sarà definita su un intervallo $I$ della retta reale: $u\colon I \to \RR$
+e la funzione e le derivate vengono tutte valutate nello stesso punto. In tal caso
+la forma più generale di equazione differenziale ordinaria di ordine $n$ si potrà dunque scrivere come:
 \begin{equation}\label{eq:3784643}
   F(t,u(t),u'(t),u''(t), \dots, u^{(n)}(t)) = 0.
 \end{equation}
@@ -142,6 +144,7 @@ in $n$ incognite
   \end{cases}
 \]
 ovvero una equazione differenziale vettoriale
+del primo ordine
 \[
   \vec u'(t) = \vec f(t, \vec u(t))
 \]
@@ -814,32 +817,42 @@ per $e^{A(x)}$:
 essendo $A'(x) = a(x)$
 si osserva che il lato sinistro è ora la derivata di un prodotto:
 \[
-  \enclose{e^{A(x)}u(x)}' = b(x) e^{A(x)}.
+  \enclose{e^{A(x)}u(x)}' = b(x) e^{A(x)}
 \]
-Scelta una qualunque primitiva del lato destro
+da cui
+\[
+  e^{A(x)} u(x) \in \int b(x) e^{A(x)}\, dx.
+\]
+Moltiplicando ambo i membri per $e^{-A(x)}$ (visto che l'esponenziale
+non si annulla mai questa operazione non modifica le soluzioni)
+si ottiene
+\[
+u(x) = e^{-A(x)} \int b(x) e^{A(x)}\, dx, \qquad
+A(x) \in \int a(x)\, dx.
+\]
+
+Più esplicitamente
+scelta una qualunque primitiva del lato destro
 \[
   F(x) \in \int b(x) e^{A(x)}\, dx
 \]
 su ogni intervallo in cui $a(x)$ e $b(x)$ sono definite
 si ha
 \[
-  e^{A(x)}u(x) = F(x) + c
-\]
-per qualche $c\in \RR$
-in quanto $e^{A(x)}u(x)$ e $F(x)$ sono due primitive della stessa funzione.
-Dunque
-\[
   u(x) = e^{-A(x)}\enclose{F(x) + c}.
 \]
+per qualche $c\in \RR$.
 
-Se $b(x)=0$ l'equazione è lineare omogenea, possiamo scegliere $F(x) = 0$ e quindi lo spazio delle soluzioni in questo caso
+Se $b(x)=0$ l'equazione è lineare omogenea, possiamo scegliere $F(x) = 0$
+e quindi lo spazio delle soluzioni in questo caso
 è dato da
 \[
   u(x) = c e^{-A(x)}
 \]
 ed è quindi lo spazio vettoriale unidimensionale generato dalla funzione $e^{-A(x)}$.
 
-Ogni soluzione della non omogenea si può scrivere come somma di una soluzione particolare
+Ogni soluzione della equazione non omogenea si può scrivere come somma di una
+soluzione particolare $u_0$ della equazione non omogenea
 più una generica soluzione dell'equazione omogenea associata. Infatti:
 \[
   u(x) = u_0(x) + c e^{-A(x)}.
@@ -889,13 +902,13 @@ Abbiamo dunque trovato che le soluzioni sono definite su tutto $\RR$, una soluzi
 \item
 Trovare tutte le soluzioni dell'equazione differenziale
 \[
-  u'(x) - \frac{u(x)}{x} = x^2.
+  u' - \frac{u}{x} = x^2.
 \]
 
 \item
 Trovare tutte le soluzioni dell'equazione differenziale
 \[
-  x u'(x) - u(x) = x^3.
+  x u' - u = x^3.
 \]
 \end{enumerate}
 \end{exercise}
@@ -940,11 +953,11 @@ Si osservi che ogni soluzione soddisfa la condizione iniziale $u(0) = 0$ e che q
 \begin{exercise}
 Risolvere l'equazione differenziale:
 \[
- u'(x) + \frac{u(x)}{(1+x^2)\arctg x} = 1.
+ u' + \frac{u}{(1+x^2)\arctg x} = 1.
 \]
 \end{exercise}
 %
-\begin{proof}
+\begin{proof}[Svolgimento.]
 Osserviamo che l'equazione è definita solo per $x\neq 0$. Cercheremo quindi le soluzioni sui due intervalli $x<0$ e $x>0$.
 Moltiplicando ambo i membri dell'equazione per $\arctg x$ si ottiene
 \[
@@ -1012,13 +1025,13 @@ Se supponiamo inoltre che $H$ sia invertibile si avrà:
 \begin{example}
 Risolviamo l'equazione
 \begin{equation}\label{eq:43856}
-  u'(x) = x u^2(x) + x.
+  u' = x u^2 + x.
 \end{equation}
 E' una equazione del primo ordine in forma normale.
 Raccogliendo $x$ al lato destro si ottiene una equazione a variabili separabili.
-Dividendo ambo i membri per $u^2(x)+1$ (che è sempre diverso da zero) si ottiene l'equazione equivalente
+Dividendo ambo i membri per $u^2+1$ (che è sempre diverso da zero) si ottiene l'equazione equivalente
 \[
-\frac{u'(x)}{1+u^2(x)} = x.
+\frac{u'}{1+u^2} = x.
 \]
 Integrando il lato sinistro si ottiene:
 \[
@@ -1036,12 +1049,12 @@ Dunque su ogni intervallo si deve avere
 \]
 Visto che l'arcotangente assume valori compresi tra $-\pi/2$ e $\pi/2$ anche il lato destro dovrà rimanere in tale intervallo. Dovrà quindi essere:
 \begin{equation}\label{eq:4856}
-  -\pi < x^2 + 2c < \pi.
+  -\frac \pi 2 < \frac {x^2} 2 + c < \frac \pi 2 .
 \end{equation}
 Con questa condizione possiamo invertire l'arcotangente ottenendo finalmente una espressione per la soluzione:
-\[
+\begin{equation}\label{eq:45876314}
   u(x) = \tg\enclose{\frac{x^2}{2} + c}.
-\]
+\end{equation}
 
 \begin{figure}
 \centering
@@ -1050,32 +1063,58 @@ Con questa condizione possiamo invertire l'arcotangente ottenendo finalmente una
 \caption{i grafici delle soluzioni dell'equazione differenziale~\eqref{eq:43856}}.
 \end{figure}
 
-Esplicitando la condizione~\eqref{eq:4856} si osserva che per $c>-\pi/2$ la soluzione è definita su un intervallo aperto centrato in $x=0$ mentre per $c\le -\pi/2$ la soluzione può essere definita su due intervalli simmetrici e l'ampiezza di tali intervalli si riduce tendendo a zero quando $c\to -\infty$.
+Osserviamo che la condizione~\eqref{eq:4856} equivale a richiedere che l'argomento
+della tangente stia nell'intervallo $\enclose{-\frac \pi 2, \frac \pi 2}$.
+In tal caso dovrà essere $c<\frac\pi 2$ e si osserva che se $c>-\frac \pi 2$
+la soluzione $u(x)$ è definita su un intervallo aperto centrato in $x=0$ mentre
+se $c \le -\frac \pi 2$ la soluzione è definita su una coppia di intervalli
+simmetrici con ampiezza che tende a zero quando $c\to -\infty$.
 Agli estremi di tali intervalli la soluzione ha degli asintoti verticali.
 
-Significa dunque che anche le soluzioni massimali possono essere definite su intervalli arbitrariamente piccoli coerentemente con quanto affermato nel teorema di esistenza e unicità locale.
+In questo caso possiamo osservare che la condizione~\eqref{eq:4856} può essere
+trascurata, visto che la funzione $\tg$ è $\pi$-periodica e quindi
+è possibile sommare a $c$ un multiplo intero di $\pi$ senza che la soluzione
+venga modificata.
+Nell'equazione~\eqref{eq:45876314} si potrebbe
+quindi considerare la funzione $\tg$
+definita su tutto il suo dominio osservando che in tal caso si può
+supporre che sia $c\in \left(-\frac \pi 2, \frac \pi 2\right]$.
+Invece di ottenere un singolo intervallo per ogni $c$ si ottengono così
+tutti gli infiniti intervalli.
 \end{example}
+
+\begin{remark}
+L'esempio precedente mette in evidenza il fatto che le soluzioni massimali possono essere definite
+su intervalli arbitrariamente piccoli coerentemente con quanto affermato
+nel teorema di esistenza e unicità locale.
+\end{remark}
 
 \begin{example}
 Si voglia risolvere l'equazione
 \[
-  u'(x) = u^2(x).
+  u' = u^2.
 \]
-Si tratta di una equazione in forma normale, del primo ordine, autonoma. In particolare è a variabili separabili $u'(x) = f(u(x))\cdot g(x)$ con $f(u)=u^2$ e $g(x)=1$.
-Osserviamo innanzitutto che $u(x) = 0$ è soluzione in quanto $u'(x) = u^2(x) = 0$. Se $u$ è una soluzione non identicamente nulla ci saranno dei punti in cui $u(x)\neq 0$. Nei punti in cui $u(x)\neq 0$ possiamo dividere ambo i membri dell'equazione per $u^2(x)$ ottenendo:
+Si tratta di una equazione in forma normale, del primo ordine, autonoma.
+In particolare è a variabili separabili
+$u' = f(u(x))\cdot g(x)$
+con $f(u)=u^2$ e $g(x)=1$.
+Osserviamo innanzitutto che $u(x) = 0$ è soluzione in quanto $u'(x) = u^2(x) = 0$.
+Se $u$ è una soluzione non identicamente nulla ci saranno dei punti in cui
+$u(x)\neq 0$.
+In un intorno di tali punti possiamo dividere ambo i membri dell'equazione per $u^2(x)$ ottenendo:
 \[
-  \frac{u'(x)}{u^2(x)} = 1.
+  \frac{u'}{u^2} = 1.
 \]
-Osserviamo ora che, tramite cambio di variabile $u=u(x)$, $du=u'(x)\, dx$ si ottiene:
+Integrando il lato sinistro tramite cambio di variabile $u=u(x)$, $du=u'(x)\, dx$ si ottiene:
 \[
   \int \frac{u'(x)}{u^2(x)}\, dx = \Enclose{\int \frac{du}{u^2}}_{u=u(x)} = \Enclose{-\frac{1}{u}}_{u=u(x)}
   = -\frac{1}{u(x)}
 \]
-mentre
+mentre integrando il lato destro si ha
 \[
-  \int 1 \, dx \ni x
+  \int 1 \, dx \ni x.
 \]
-dunque su ogni intervallo in cui $u(x)\neq 0$ deve esistere una costante $c\in \RR$ tale che
+Dunque su ogni intervallo in cui $u(x)\neq 0$ deve esistere una costante $c\in \RR$ tale che
 \[
 -\frac{1}{u(x)} = x + c
 \]
@@ -1084,12 +1123,32 @@ ovvero, ponendo $x_0 = -c$
   u(x) = -\frac{1}{x+c} = \frac{1}{x_0-x}.
 \end{equation}
 
-Ci chiediamo ora se è possibile che una soluzione $u(x)$ possa avere sia dei punti in cui si annulla sia dei punti in cui non si annulla. La risposta è no, e può essere ottenuta in due modi diversi.
+In conclusione abbiamo trovato una soluzione costante $u(x)=0$ e una famiglia
+di soluzioni definite sugli intervalli $(-\infty,x_0)$ e $(x_0,+\infty)$
+rappresentante dall'equazione~\eqref{eq:5782196}.
+Dovremmo ora chiederci
+se è possibile che queste soluzioni vengano mescolate tra loro, ovvero
+se una soluzione può valere zero in alcune zone e soddisfare~\eqref{eq:5782196}
+in altre. In questo caso la risposta è no, e può essere ottenuta
+in due modi diversi.
 
-Giustificazione algebrica: sia $u(x)$ una soluzione qualunque, definita su un intervallo $I$ e supponiamo che ci sia un punto $x_0$ tale che $u(x_0)\neq 0$. Prendiamo il più grande intervallo $J\subset I$ contenente $x_0$ e tale che $u(x)\neq 0$ su $J$.
-Tale intervallo deve essere aperto, perché se $u(x)\neq 0$ in un estremo dell'intervallo allora per continuità $u(x)$ sarebbe diverso da $0$ in un intorno di tale estremo e potrei quindi allargare l'intervallo. Dunque $J=(a,b)$ e se fosse $J\neq I$ si avrebbe che uno dei due estremi, diciamo $a$, è in $I$ e $u(a)=0$ (altrimenti potrei aggiungere l'estremo a $J$ che quindi non sarebbe massimale). Ma sempre per la continuità di $u$ si avrebbe $u(x) \to 0$ per $x\to a$ e $x\in J$ mentre nell'equazione~\eqref{eq:5782196} vediamo che $u(x)\to 0$ è possibile solamente se $x\to +\infty$ o $\to -\infty$ che non sono certamente punti di $I$.
+\emph{Giustificazione algebrica.}
+Basta osservare che una funzione $u$ che soddisfa l'equazione~\eqref{eq:5782196}
+può tendere a zero solamente quando $x\to +\infty$ o $x\to -\infty$.
+Questo significa che se consideriamo una soluzione $u(x)$
+definita su un intervallo
+massimale $I$ e se in almeno un punto la soluzione è diversa da zero,
+allora la soluzione è diversa da zero su tutto $I$ e
+soddisfa l'equazione~\eqref{eq:5782196} in quanto la soluzione nulla e la
+soluzione \eqref{eq:5782196} non sono tra loro compatibili (non possono essere
+incollate con continuità).
 
-Giustificazione analitica: soluzioni diverse non possono avere punti in comune in quanto la funzione $f(y)=y^2$ soddisfa le ipotesi del teorema di esistenza e unicità locale e quindi si applica la proposizione~\ref{prop:separazione_soluzioni} (separazione delle soluzioni).
+\emph{Giustificazione analitica.}
+Soluzioni diverse non possono avere punti in comune in quanto la funzione
+$f(y)=y^2$ soddisfa le ipotesi del teorema di esistenza e unicità locale e
+ quindi si applica la proposizione~\ref{prop:separazione_soluzioni}
+ (separazione delle soluzioni).
+
 \end{example}
 
 \section{equazioni lineari di ordine $n$}
@@ -1132,7 +1191,13 @@ Inoltre, fissato un punto qualunque $x_0\in I$ l'operatore $J\colon V \to \RR^n$
 è un operatore lineare bigettivo (cioè un isomorfismo di spazi vettoriali).
 
 \item
-L'insieme delle soluzioni dell'equazione non omogenea~\eqref{eq:edo_lineare_ordine_n} è un sottospazio affine di $C^n(A)$ di dimensione $n$, parallelo al sottospazio delle soluzioni dell'equazione omogenea associata~\eqref{eq:edo_lineare_omogenea_ordine_n}. In particolare se $u_0$ è una soluzione particolare dell'equazione non omogenea~\eqref{eq:edo_lineare_ordine_n} ogni altra soluzione $u$ di \eqref{eq:edo_lineare_ordine_n} si scrive nella forma
+L'insieme delle soluzioni dell'equazione non omogenea~\eqref{eq:edo_lineare_ordine_n}
+è un sottospazio affine di $C^n(A)$ di dimensione $n$,
+parallelo al sottospazio delle soluzioni dell'equazione omogenea
+associata~\eqref{eq:edo_lineare_omogenea_ordine_n}.
+In particolare se $u_0$ è una soluzione particolare dell'equazione non
+omogenea~\eqref{eq:edo_lineare_ordine_n} ogni altra soluzione $u$ di
+\eqref{eq:edo_lineare_ordine_n} si scrive nella forma
 \[
   u = u_0 + v
 \]
@@ -1160,21 +1225,43 @@ risulta quindi essere
 \[
   Lu = 0.
 \]
-Si osservi che $L\colon C^n(I) \to C^0(I)$ è un operatore lineare in quanto la somma, la derivata e la moltiplicazione per una funzione sono operatori lineari sullo spazio vettoriale delle funzioni.
-Dunque l'insieme $V$ delle soluzioni dell'equazione omogenea non è altro che $\ker L$ che notoriamente è uno spazio vettoriale. Cerchiamo ora di determinare la dimensione di tale spazio, mettendo in corrispondenza le soluzioni dell'equazione con un loro dato iniziale.
+Si osservi che $L\colon C^n(I) \to C^0(I)$ è un operatore lineare in quanto la
+somma, la derivata e la moltiplicazione per una funzione sono operatori lineari
+sullo spazio vettoriale delle funzioni.
+Dunque l'insieme $V$ delle soluzioni dell'equazione omogenea non è altro che
+$\ker L$ che notoriamente è uno spazio vettoriale visto che se $L(u)=0$ e $L(v)=0$
+allora anche $L(\lambda u + \mu v) = \lambda L(u) + \mu L(v) = 0$.
+Cerchiamo ora di determinare la dimensione di tale spazio, mettendo in
+corrispondenza le soluzioni dell'equazione con un loro dato iniziale.
 
-Fissato un punto $x_0\in I$ consideriamo l'applicazione $J\colon V \to \RR^n$ che ad ogni $u\in V = \ker L$ associa il vettore (chiamato \emph{jet})
+Fissato un punto $x_0\in I$ consideriamo l'applicazione $J\colon V \to \RR^n$
+che ad ogni $u\in V = \ker L$ associa il vettore (chiamato \emph{jet})
 \[
   J(u) = (u(x_0), u'(x_0), \dots, u^{(n-1)}(x_0)) \in \RR^n.
 \]
-Chiaramente $J$ è lineare perché l'operatore derivata e la valutazione in un punto sono operatori lineari. Osserviamo che $J$ è suriettivo perché dato un qualunque $\vec y\in \RR^n$ per il teorema \ref{th:cauchy_lipschitz_ordine_n} di esistenza (globale) di soluzioni per il problema di Cauchy di ordine $n$ sappiamo esistere una soluzione $u\in V$ tale che $J(u)=\vec y$. Ma $J$ è anche iniettivo perché se $u,v\in V$ sono due soluzioni con $J(u)=J(v)$ significa che $u$ e $v$ verificano lo stesso problema di Cauchy. Per l'unicità della soluzione risulta quindi $u=v$. Abbiamo quindi mostrato che $J\colon V \to \RR^n$ è un isomorfismo di spazi vettoriali, quindi $\dim V=n$.
+Chiaramente $J$ è lineare perché l'operatore derivata e la valutazione in un
+punto sono operatori lineari. Osserviamo che $J$ è suriettivo perché dato un
+qualunque $\vec y\in \RR^n$ per il teorema \ref{th:cauchy_lipschitz_ordine_n}
+di esistenza (globale) di soluzioni per il problema di Cauchy di ordine $n$
+sappiamo esistere una soluzione $u\in V$ tale che $J(u)=\vec y$. Ma $J$ è anche
+iniettivo perché se $u,v\in V$ sono due soluzioni con $J(u)=J(v)$ significa
+che $u$ e $v$ verificano lo stesso problema di Cauchy.
+Per l'unicità della soluzione risulta quindi $u=v$.
+Abbiamo quindi mostrato che $J\colon V \to \RR^n$ è un isomorfismo di spazi
+ vettoriali, quindi $\dim V=n$.
 
 Per quanto riguarda l'equazione non omogenea
-sia $W = \{ v\in C^n(A)\colon L v = b\}$ l'insieme di tutte le soluzioni. Se consideriamo una soluzione particolare $v_0\in W$ e se $v\in W$ è una qualunque altra soluzione, si osserva che
+sia $W = \{ v\in C^n(A)\colon L v = b\}$ l'insieme di tutte le soluzioni.
+Se consideriamo una soluzione particolare $v_0\in W$ e se $v\in W$ è una
+qualunque altra soluzione, si osserva che
 \[
   L(v-v_0) = L(v) - L(v_0) = b-b = 0.
 \]
-Significa che $u=v-v_0$ è soluzione dell'equazione omogenea associata: $u\in V=\ker L$. Dunque ogni soluzione $v$ dell'equazione non omogenea si può scrivere nella forma $v = v_0 + u$ con $v_0$ soluzione particolare della non omogenea e $u$ soluzione generale dell'equazione omogenea associata ovvero
+Significa che $u=v-v_0$ è soluzione dell'equazione omogenea associata:
+$u\in V=\ker L$.
+Dunque ogni soluzione $v$ dell'equazione non omogenea si può scrivere nella
+forma $v = v_0 + u$ con $v_0$ soluzione particolare della non omogenea e
+$u$ soluzione generale dell'equazione omogenea associata ovvero
 \[
   W = v_0 + V.
 \]
