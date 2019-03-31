@@ -33,7 +33,7 @@ def fourier(f, n):
 Calcola e disegna lo sviluppo di Fourier
 """
 x = symbols('x')
-n = 37
+n = 61
 print("polinomio trigonometrico di ordine {}".format(n))
 pol = fourier(f,n)(x)
 print(pol)
