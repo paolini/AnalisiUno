@@ -1184,10 +1184,11 @@ un intervallo aperto.
 \item
 L'insieme $V$ delle soluzioni dell'equazione lineare omogenea~\eqref{eq:edo_lineare_omogenea_ordine_n}
 è un sottospazio vettoriale di $C^n(I)$ di dimensione $n$.
-Inoltre, fissato un punto qualunque $x_0\in I$ l'operatore $J\colon V \to \RR^n$ (chiamato \myemph{Jet}) definito da
-\[
+Inoltre, fissato un punto qualunque $x_0\in I$ l'operatore $J\colon V \to \RR^n$
+(chiamato \myemph{Jet}) definito da
+\begin{equation}\label{eq:jet}
   J(u) = (u(x_0), u'(x_0), u''(x_0), \dots, u^{(n-1)}(x_0))
-\]
+\end{equation}
 è un operatore lineare bigettivo (cioè un isomorfismo di spazi vettoriali).
 
 \item
@@ -1231,14 +1232,10 @@ sullo spazio vettoriale delle funzioni.
 Dunque l'insieme $V$ delle soluzioni dell'equazione omogenea non è altro che
 $\ker L$ che notoriamente è uno spazio vettoriale visto che se $L(u)=0$ e $L(v)=0$
 allora anche $L(\lambda u + \mu v) = \lambda L(u) + \mu L(v) = 0$.
-Cerchiamo ora di determinare la dimensione di tale spazio, mettendo in
-corrispondenza le soluzioni dell'equazione con un loro dato iniziale.
 
-Fissato un punto $x_0\in I$ consideriamo l'applicazione $J\colon V \to \RR^n$
-che ad ogni $u\in V = \ker L$ associa il vettore (chiamato \emph{jet})
-\[
-  J(u) = (u(x_0), u'(x_0), \dots, u^{(n-1)}(x_0)) \in \RR^n.
-\]
+Possiamo ora determinare la dimensione di tale spazio, mettendo in
+corrispondenza le soluzioni dell'equazione con un loro dato iniziale,
+dato dalla applicazione $J(u)$ definita da~\eqref{eq:jet}.
 Chiaramente $J$ è lineare perché l'operatore derivata e la valutazione in un
 punto sono operatori lineari. Osserviamo che $J$ è suriettivo perché dato un
 qualunque $\vec y\in \RR^n$ per il teorema \ref{th:cauchy_lipschitz_ordine_n}
@@ -1251,7 +1248,7 @@ Abbiamo quindi mostrato che $J\colon V \to \RR^n$ è un isomorfismo di spazi
  vettoriali, quindi $\dim V=n$.
 
 Per quanto riguarda l'equazione non omogenea
-sia $W = \{ v\in C^n(A)\colon L v = b\}$ l'insieme di tutte le soluzioni.
+sia $W = \{ v\in C^n(A)\colon$ $L v = b\}$ l'insieme di tutte le soluzioni.
 Se consideriamo una soluzione particolare $v_0\in W$ e se $v\in W$ è una
 qualunque altra soluzione, si osserva che
 \[
@@ -1321,38 +1318,71 @@ Se l'equazione è in forma normale si avrà $\deg P = n$ (in quanto il cofficien
 
 Vogliamo ora mostrare come una decomposizione del polinomio porta ad una decomposizione delle soluzioni dell'equazione differenziale.
 
+Nel seguente enunciato l'operazione $\circ$ rappresenta l'usuale composizione di funzioni,
+e il prodotto di polinomi è l'usuale prodotto di funzioni:
+\[
+  (f\circ g)(u) = f(g(u)), \qquad (P\cdot Q)(z) = P(z)\cdot Q(z)
+\]
+
 \begin{theorem}[isomorfismo tra polinomi e operatori differenziali a coefficienti costanti]
 \label{th:6822095}
-Siano $P$ e $Q$ due polinomi e sia $\lambda \in \RR$.
+Siano $P$ e $Q$ due polinomi.
 Allora si ha
-\[
+\begin{equation}\label{eq:84565434}
   (P\cdot Q)(D) = P(D) \circ Q(D)
-\]
+\end{equation}
 cioè: l'operatore differenziale associato al prodotto dei polinomi è la composizione degli operatori associati ai singoli fattori.
 \end{theorem}
-\begin{proof}
-La dimostrazione si basa sul fatto che la composizione degli operatori (in questo caso l'operatore derivazione $D$) soddisfa le stesse regole formali del prodotto.
 
-Sia
+\begin{proof}
+Il teorema potrebbe essere di immediata intuizione
+se si considerano i polinomi in senso astratto: non come funzioni ma come
+espressioni algebriche che agiscono su uno spazio di oggetti (chiamati anelli)
+su cui sono definite le operazioni di somma e prodotto soddisfacenti le usuali
+proprietà distributiva, associativa e commutativa.
+Nel caso dell'operatore $D$ la moltiplicazione è sostituita alla composizione
+ma preserva le stesse regole formali: $(a+b) D = aD + bD$
+e $D^k D^j = D^{k+j} = D^j D^k$. Vediamo comunque una dimostrazione formale.
+
+Dimostrare che vale~\eqref{eq:84565434} significa dimostrare che per ogni
+funzione $u\in C^\infty$ si ha
 \[
-  P(z) = \sum_{k=0}^n a_k z^k, \qquad Q(z) = \sum_{j=0}^m b_j z^j.
+  (P\cdot Q)(D) (u)
+%  = (P(D)\circ Q(D)) (u)
+  = P(D)(Q(D)(u)).
 \]
-Allora si ha
-\begin{align*}
- (P\cdot Q)(z)
-  &= \enclose{\sum_{k=0}^n a_k z^k Q(t)} \cdot \enclose {\sum_{j=0}^m b_j z^j} \\
-  &= \sum_{k=0}^n \sum_{j=0}^m a_k b_j z^{k+j} \\
-  &= \sum_{s=0}^{n+m} \enclose{\sum_{k=\max\{0,s-m\}}^{\min\{s,n\}} a_k b_{s-k}} z^s.
-\end{align*}
-Ma, d'altro canto, se $u\in C^\infty(\RR,\CC)$ si ha
-\begin{align*}
-  (P(D) \circ Q(D)) u &= P(D)Q(D)u \\
-  &= \sum_{k=0}^n a_k D^k\enclose{\sum_{j=0}^m b_j D^j u}
-  = \sum_{k=0}^n \sum_{j=0}^m a_k b_j D^{k+j} u \\
-  &= \sum_{s=0}^{m+n} \enclose{\sum_{k=\max\{0,s-m\}}^{\min\{s,n\}} a_k b_{s-k}} D^s u \\
-  &= (P\cdot Q)(D)u.
-\end{align*}
+Se
+\[
+  P(z) = \sum_{k=0}^n a_k z^k, \qquad Q(z) = \sum_{j=0}^m b_j z^j
+\]
+si ha
+\begin{equation}\label{eq:984534}
+    (P\cdot Q)(z)
+    = P(z)\cdot Q(z)
+    = \enclose{\sum_{k=0}^n a_k z^k}\cdot \enclose{\sum_{j=0}^m b_j z^j}
+    = \sum_{k=0}^n \sum_{j=0}^m a_k b_j z^{k+j}.
+\end{equation}
+
+Analogamente si ha (sfruttando la linearità dell'operatore $D^k$)
+\begin{equation}\label{eq:463524}
+  P(Q(D)u) = \sum_{k=0}^n a_k D^k \enclose{\sum_{j=0}^m b_j D^j u}
+   = \sum_{k=0}^n \sum_{j=0}^m a_k b_j D^{k+j} u.
+\end{equation}
+Sia nella~\eqref{eq:984534} che nella~\eqref{eq:463524}
+posso raccogliere i termini con lo stesso esponente $k+j$ ed
+è evidente che si ottengono gli stessi cofficienti.
+\[
+  P(Q(D)u) = \sum_{l=0}^{m+n} c_l D^l u,
+  \qquad
+  (P\cdot Q)(z) = \sum_{l=0}^{m+n} c_k z^l
+\]
+da cui $P(Q(D) u ) = (P\cdot Q)u$, come volevamo dimostare.
 \end{proof}
+
+\begin{remark}
+Il teorema precedente ci dice, in particolare, che gli operatori $P(D)$ e $Q(D)$
+commutano in quanto $P(D)Q(D) = (P\cdot Q)(D) = (Q\cdot P)(D) = Q(D) P(D)$.
+\end{remark}
 
 \begin{theorem}
 \mymark{***}
