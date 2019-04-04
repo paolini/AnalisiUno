@@ -376,34 +376,57 @@ che sia derivabile e che soddisfi:
 \begin{theorem}[Cauchy-Lipschitz, esistenza e unicità]
 \label{th:cauchy_lipschitz}
 \mymark{***}
-Sia $\Omega$ un aperto di $\RR\times \RR^n$ e sia $\vec f\colon \Omega \to \RR^n$, una funzione continua e tale che esista $L>0$ per cui vale
+Sia $\Omega$ un aperto di $\RR\times \RR^n$ e sia $\vec f\colon \Omega \to \RR^n$,
+una funzione continua e tale che
+per ogni $(x_0,\vec y_0)\in \Omega$ esista un intorno $U$ di $(x_0,\vec y_0)\in \RR\times \RR^n$
+ed
+esista $L>0$ per cui vale
 \[
   \abs{\vec f(x,\vec y_1) - \vec f(x,\vec y_2)} \le L \abs{\vec y_1 - \vec y_2}
-  \]
+\]
 per ogni $x\in \RR$, $\vec y_1, \vec y_2\in \RR^n$
-con $(x,\vec y_1),(x,\vec y_2)\in\Omega$
-(diremo che $f(x,\vec y)$ è Lipschitziana in $\vec y$ uniformemente rispetto a $x$).
+con $(x,\vec y_1),(x,\vec y_2)\in U$.
+Con queste ipotesi diremo che
+$f(x,\vec y)$ è localmente Lipschitziana in $\vec y$ uniformemente rispetto a $x$.
 
-Dato $(x_0,\vec y_0)\in \Omega$
-esiste $\delta_0>0$ tale che per ogni $\delta < \delta_0$
-posto $I_\delta = [x_0-\delta, x_0+\delta]$ esiste una unica funzione $\vec u\colon I_\delta \to \RR^n$ tale che $(x,\vec u(x))\in \Omega$ per ogni $x\in I_\delta$, $u$ è derivabile
-e soddisfa il problema di Cauchy~\eqref{eq:problema_cauchy}.
+Allora dato $(x_0,\vec y_0)\in \Omega$
+esiste $\delta>0$
+tale che posto $I = [x_0-\delta,x_0+\delta]$
+esiste una funzione $\vec u\colon I \to \RR^n$
+di classe $C^1$
+tale che $(x,\vec u(x))\in \Omega$ per ogni $x\in I$
+che soddisfa il problema di Cauchy~\eqref{eq:problema_cauchy}.
+
+Inoltre $\vec u$ è unica nel senso che
+se $J\subset I$ e $v\colon J\to \RR^n$ è una qualunque soluzione
+del problema di Cauchy~\eqref{eq:problema_cauchy} allora $v(x) = u(x)$ per
+ogni $x\in J$.
 \end{theorem}
+%
 %
 \begin{proof}
 \mymark{***}
-Innanzitutto vogliamo trasformare il problema differenziale in un problema integrale. Se $\vec u$ è una funzione derivabile soluzione di \eqref{eq:problema_cauchy}
-allora è chiaro che $\vec u'(x) = \vec f(x,\vec u(x))$ è continua in quanto composizione di funzioni continue e dunque $\vec u$ è di classe $C^1$. Possiamo dunque integrare tra $x_0$ e $x$ i due lati dell'equazione differenziale per ottenere:
+Innanzitutto vogliamo trasformare il problema differenziale in un problema
+integrale.
+Se $\vec u$ è una funzione derivabile soluzione di \eqref{eq:problema_cauchy}
+allora è chiaro che $\vec u'(x) = \vec f(x,\vec u(x))$ è continua in quanto
+composizione di funzioni continue e dunque $\vec u$ è di classe $C^1$.
+Possiamo dunque integrare tra $x_0$ e $x$ i due lati dell'equazione
+differenziale per ottenere:
 \[
   \vec u(x) - \vec u(x_0) = \int_{x_0}^x \vec f(s,\vec u(s))\, ds
 \]
-e dunque se $\vec u$ risolve il problema di Cauchy allora $\vec u$ soddisfa anche la seguente equazione integrale:
+e dunque se $\vec u$ risolve il problema di Cauchy allora $\vec u$ soddisfa anche
+la seguente equazione integrale:
 \begin{equation}\label{eq:cauchy_integrale}
   \vec u(x) = \vec y_0 + \int_{x_0}^x \vec f(s,\vec u(s))\, ds.
 \end{equation}
-Viceversa se $\vec u$ è continua e soddisfa \eqref{eq:cauchy_integrale} allora si ha ovviamente
-$\vec u(x_0) = \vec y_0$ e, passando alle derivate, si scopre che $\vec u$ è derivabile e soddisfa l'equazione differenziale $\vec u'(x) = \vec f(x,\vec u(x))$.
-Dunque trovare una soluzione $C^1$ del problema di Cauchy~\eqref{eq:problema_cauchy} è equivalente a trovare una soluzione $C^0$ del problema integrale~\eqref{eq:cauchy_integrale}.
+Viceversa se $\vec u$ è continua e soddisfa \eqref{eq:cauchy_integrale}
+allora si ha ovviamente
+$\vec u(x_0) = \vec y_0$ e, passando alle derivate, si scopre che $\vec u$ è
+derivabile e soddisfa l'equazione differenziale $\vec u'(x) = \vec f(x,\vec u(x))$.
+Dunque trovare una soluzione $C^1$ del problema di Cauchy~\eqref{eq:problema_cauchy}
+è equivalente a trovare una soluzione $C^0$ del problema integrale~\eqref{eq:cauchy_integrale}.
 Ci dedicheremo dunque a questo secondo problema.
 
 Denotiamo con
@@ -413,25 +436,33 @@ Denotiamo con
 \]
 il cilindro centrato in $(x_0, \vec y_0)$ con asse parallelo all'asse delle $x$,
 di altezza $2\alpha$ e raggio $\beta$.
-Visto che $\Omega$ è aperto esiste una palla aperta centrata in $(x_0,\vec y_0)$ e contenuta in $\Omega$.
-Tale palla dovrà anche contenere un cilindro $C_{\alpha,\beta}$ per un qualche $\alpha>0$ e $\beta>0$.
-Il cilindro $C_{\alpha,\beta}$ è chiuso e limitato in $\Omega$ e dunque $\vec f$, essendo continua, è limitata su $C_{\alpha,\beta}$ per il teorema di Weierstrass.
-Sia $M>0$ tale che $\abs{\vec f(x,\vec y)}\le M$ per ogni $(x,\vec y) \in C_{\alpha,\beta}$ e definiamo
+Fissato $(x_0, \vec y_0)$ consideriamo l'intorno $U$ in cui, per ipotesi,
+la funzione $\vec f$ è $L$-lipschitziana uniformemente rispetto ad $x$.
+L'intorno $U$ conterra certamente un cilindro $C_{\alpha,\beta}$ per un qualche $\alpha>0$ e $\beta>0$
+sufficientemente piccoli.
+Il cilindro $C_{\alpha,\beta}$ è chiuso e limitato in $\Omega$ e dunque $\vec f$,
+essendo continua, è limitata su $C_{\alpha,\beta}$ per il teorema di Weierstrass.
+Sia $M>0$ tale che $\abs{\vec f(x,\vec y)}\le M$ per ogni
+$(x,\vec y) \in C_{\alpha,\beta}$ e definiamo
 \begin{equation}\label{eq:395109}
- \delta_0 = \min\{\alpha, \frac{\beta}{M}, \frac{1}{L}\}.
+ \delta = \min\{\alpha, \frac{\beta}{M}, \frac{1}{L}\}.
 \end{equation}
-Il perché $\delta_0$ venga definito in questo modo si capirà nel prosieguo della dimostrazione.
-Consideriamo un qualunque $\delta<\delta_0$,
-poniamo $I=[x_0-\delta,x_0+\delta]$ e
+Il perché $\delta$ venga definito in questo modo si capirà nel prosieguo della dimostrazione.
+Consideriamo un qualunque intervallo $I\subset [x_0-\delta,x_0+\delta]$ e
+definitamo lo spazio di funzioni
 \[
 X=\{\vec u\in C^0(I,\RR^n)\colon \Abs{\vec u-\vec y_0}_\infty
 \le \beta \}.
 \]
-Sappiamo che $C^0(I,\RR^n)$ è uno spazio metrico completo e $X$ è chiuso quindi anch'esso è completo. Possiamo allora considerare l'operatore $T\colon X \to C^0(I, \RR^n)$:
+Sappiamo che $C^0(I,\RR^n)$ è uno spazio metrico completo e $X$ è chiuso quindi
+anch'esso è completo. Possiamo allora considerare l'operatore
+$T\colon X \to C^0(I, \RR^n)$ definito da:
 \[
   T(\vec u)(x) = \vec y_0 + \int_{x_0}^x \vec f(s, \vec u(s))\, ds.
 \]
-Vogliamo innanzitutto verificare che $X$ è invariante, cioè che $T(X)\subset X$. Ma se $\vec u \in X$ e se $x\in I$ si ha
+Vogliamo innanzitutto verificare che $X$ è invariante,
+cioè che $T(X)\subset X$.
+Se $\vec u \in X$ e se $x\in I$ si ha
 $(x,\vec u(x)) \in C_{\delta,\beta} \subset C_{\alpha,\beta}$
 e dunque (usando anche~\eqref{eq:395109} e il teorema~\ref{teo:tipo_jensen})
 \[
@@ -441,7 +472,8 @@ e dunque (usando anche~\eqref{eq:395109} e il teorema~\ref{teo:tipo_jensen})
   \le \beta.
 \]
 Dunque $\Abs{T(\vec u)-\vec y_0}\le \beta$ e $T(\vec u)\in X$.
-Abbiamo dunque che $T\colon X \to X$. Verifichiamo ora che $T$ è una contrazione. Si ha:
+Abbiamo dunque che $T\colon X \to X$. Verifichiamo ora che $T$ è una contrazione.
+Si ha:
 \begin{align*}
   \abs{T(\vec u_1)(x)-T(\vec u_2)(x)}
    &\le \abs{\int_{x_0}^x\abs{\vec f(s,\vec u_1(s))-\vec f(s,\vec u_2(s))}\, ds}\\
@@ -451,11 +483,17 @@ Abbiamo dunque che $T\colon X \to X$. Verifichiamo ora che $T$ è una contrazion
 \end{align*}
 ovvero, facendo l'estremo superiore al variare di $x\in I$:
 \[
- \Abs{T(\vec u_1)-T(\vec u_2)}_\infty \le L \delta \Abs{\vec u_1 - \vec u_2}_\infty \le \frac{1}{2}\Abs{\vec u_1- \vec u_2}.
+ \Abs{T(\vec u_1)-T(\vec u_2)}_\infty
+ \le L \delta \Abs{\vec u_1 - \vec u_2}_\infty
+ \le \frac{1}{2}\Abs{\vec u_1- \vec u_2}.
 \]
 Da~\eqref{eq:395109} risulta $L\delta < L \delta_0 \le 1$
-dunque $T\colon X \to X$ è una contrazione su uno spazio metrico completo. Per il teorema di punto fisso di Banach-Caccioppoli
-sappiamo quindi che esiste una unica funzione $\vec u \in X$ ovvero $\vec u \colon I \to \RR^n$ che soddisfa $T(\vec u)=\vec u$ ovvero~\eqref{eq:cauchy_integrale} ovvero~\eqref{eq:problema_cauchy}.
+dunque $T\colon X \to X$ è una contrazione su uno spazio metrico completo.
+Per il teorema di punto fisso di Banach-Caccioppoli
+sappiamo quindi che esiste una unica funzione
+$\vec u \in X$ ovvero $\vec u \colon I \to \RR^n$ che soddisfa
+$T(\vec u)=\vec u$ ovvero~\eqref{eq:cauchy_integrale}
+ovvero~\eqref{eq:problema_cauchy}.
 \end{proof}
 
 \begin{proposition}
@@ -667,7 +705,7 @@ per ogni $x\in [a,b)$ possiamo fare la seguente stima:
 = \int_{a}^{x}
 \frac{2\vec u(t)\cdot \vec u'(t)}{1+\abs{\vec u(t)}^2}\, dt \\
 &\le 2 \int_{a}^{x} \frac{\abs{\vec u(t)} \abs{\vec u'(t)}}{1+\abs{\vec u(t)}^2}\, dt
-\le 2\int_{a}^{x} \frac{\abs{\vec u}\enclose{m\abs{\vec u(t)}+q}}{1+\abs{\vec u(t)}^2}\, dt\\
+\le 2\int_{a}^{x} \frac{\abs{\vec u(t)}\enclose{m\abs{\vec u(t)}+q}}{1+\abs{\vec u(t)}^2}\, dt\\
 &\le 2\int_{a}^{x} \enclose{m + \frac{q\abs{\vec u(t)}}{1+\abs{\vec u(t)}^2}}\, dt\\
 &\le (x-a)(2m + q) \le (b-a)(2m+q)
 \end{align*}
@@ -680,22 +718,25 @@ Dunque
 \end{proof}
 
 \begin{proof}[Dimostrazione teorema~\ref{th:edo_esistenza_globale}]
-Sia $\vec u$ una soluzione massimale del problema di Cauchy e sia $J\subset I$ l'intervallo massimale di esistenza con $x_0\in J$.
-Per la proposizione~\ref{prop:edo_massimale} sappiamo che $J$ è un intervallo aperto:
-dobbiamo dimostrare che $J=I$.
-Basterà dimostrare che $\sup J=\sup I$ e $\inf J = \inf
-I$. Dimostreremo solamente che $\sup J = \sup I$ in quanto l'altra
-uguaglianza si fa in maniera analoga (o si ottiene per simmetria).
-Sia $b=\sup J$ e supponiamo per assurdo che sia $b<\sup I\le +\infty$.
-Allora possiamo applicare il lemma precedente alla funzione $\vec u$
-sull'intervallo $[x_0, b)$ ottenendo quindi che su tale intervallo
-$\vec u$ è limitata. Sia $M$ il massimo di $\abs{\vec u}$ su $[x_0,b)$
-e consideriamo l'insieme $K=[a,b]\times\overline{B_M(0)} = \{(x,\vec
-y)\in \RR \times \RR^n\colon x\in [a,b], \abs{\vec y}\le
-M\}$. Chiaramente $K\subset \Omega$ e $K$ è chiuso e limitato, quindi
-per la proposizione\ref{prop:edo_massimale} il grafico di $\vec u$
-dovrebbe uscire da $K$ da destra, cosa che invece non fa in quanto
-$\abs{\vec u(t)}\le M$ per ogni $t\in [a,b]$.
+Sia $\vec u$ una soluzione massimale del problema di Cauchy e sia
+$J\subset I$ l'intervallo massimale su cui $\vec u$ è definita.
+Sia $b=\sup J$. Sappiamo quindi che $\vec u$ è definita su $[x_0,b)$
+e quindi per il lemma precedente deve essere limitata: esiste cioè
+$M>0$ per cui $\abs{\vec u(x)}\le M$ per ogni $x\in[x_0,b)$.
+Se consideriamo il compatto
+\[
+K=[a,b] \times \overline{B_M(\vec 0)}
+ = \{(x,y)\in \RR \times \RR^n\colon x\in [a,b], \abs{y}\le M\}
+\]
+abbiamo quindi verificato che $(x,\vec u(x))\in K$ per ogni $x\in [a,b)$.
+Se fosse $b\in I$ si avrebbe $K\subset \Omega$ e quindi questo sarebbe
+in contraddizione con la proposizione~\ref{prop:edo_massimale} che
+ci dice che ogni soluzione massimale esce da qualunque compatto contenuto
+in $\Omega$. Significa allora che $b\not in I$ e cioè che $b = \sup J = \sup I$
+(non può essere $\sup J>\sup I$ in quanto $J\subset I$).
+
+In maniera analoga (o per simmetria) si può dimostrare che $\inf J=\inf I$
+e dunque $J=I$ come volevamo dimostrare
 \end{proof}
 
 Il problema di Cauchy per le equazioni di ordine $n$ è il problema di determinare la soluzione di una equazione differenziale ordinaria di ordine $n$
