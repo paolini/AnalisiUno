@@ -45,15 +45,20 @@ primo. Ad esempio la successione di \emph{Fibonacci}
 \index{Fibonacci!successione di}
 \index{successione!di Fibonacci}
 $F_n$ è definita da
-\[
+\begin{equation}\label{eq:Fibonacci}
 \begin{cases}
   F_1 = 1 \\
-  F_2 = 2 \\
+  F_2 = 1 \\
   F_{n+2} = F_{n+1} + F_n
 \end{cases}
-\]
+\end{equation}
 che è una relazione del secondo ordine in quanto ogni termine può
 essere definito utilizzando i valori dei \emph{due} termini precedenti.
+Se l'equazione è lineare, come in questo caso, si possono trovare delle
+formule esplicite per scrivere l'$n$-esimo termine della successione.
+Lo faremo nella sezione~\ref{sec:ricorrenza_lineare}
+
+\section{equazioni ricorsive autonome del primo ordine}
 
 \begin{exercise}[algoritmo di Erone]\label{ex_Erone}
 \index{Erone!algoritmo di}
@@ -77,7 +82,7 @@ primi termini della successione sono:
 a_1 &= 2, \\
 a_2 &= \frac{2+2/2}{2} = 3/2 = 1.5, \\
 a_3 &= \frac{3/2 + 2/(3/2)}{2} = 17/12 \sim 1.4166666, \\
-a_4 &= \frac{17/12 + 2/(17/12)}{2} = 577 / 408 \sim 1.4142156,\\
+a_4 &= \frac{17/12 + 2/(17/12)}{2} = 577 / 408 \sim 1.4142157,\\
 \vdots
 \end{align*}
 che effettivamente \emph{sembrano} avvicinarsi molto al numero
@@ -1022,3 +1027,290 @@ e diverge a $+\infty$. Non è dunque limitata.
 Altrimenti $a_n\to +\infty$.
 
 \end{proof}
+\section{equazioni ricorsive lineari}
+\label{sec:ricorrenza_lineare}
+
+Fissate le costanti $c_0, c_1, \dots, c_n$,
+con $c_n \neq 0$,
+diremo che l'equazione ricorsiva:
+\begin{equation}\label{eq:ricorsione_lineare}
+  c_n a_{k+n} + c_{n-1} a_{k+n-1} + c_{n-2} a_{k+n-2} + \dots
+    + c_1 a_{k+1} + c_0 a_k = 0
+\end{equation}
+è una \myemph{equazione!ricorsiva!lineare} (omogenea) di ordine $n$.
+Il polinomio $P$ con gli stessi coefficienti:
+\[
+  P(\lambda) = c_n \lambda^n + c_{n-1}\lambda^{n-1} + \dots + c_1 \lambda + c_0
+\]
+si chiama \myemph{polinomio caratteristico}
+\index{equazione!ricorsiva!lineare!polinomio caratteristico}
+\index{polinomio!caratteristico!di una equazione ricorsiva lineare}%
+associato all'equazione
+lineare~\eqref{eq:ricorsione_lineare}.
+
+Ad esempio la successione di Fibonacci $F_k$ definita da~\eqref{eq:Fibonacci}
+è una soluzione dell'equazione ricorsiva lineare del secondo ordine:
+\[
+   a_{k+2} - a_{k+1} - a_{k} = 0
+\]
+il cui polinomio caratteristico è
+\[
+  P(\lambda) = \lambda^2 - \lambda - 1.
+\]
+
+\begin{theorem}[indipendenza delle successioni esponenziali]
+\label{th:indipendenza_successioni_esponenziali}
+Siano $\lambda_1, \dots, \lambda_n$ numeri complessi distinti. Allora
+le successioni $\vec a_j$ definite da
+\[
+  \vec a_j (k) = \lambda_j^k
+\]
+sono vettori indipendenti nello spazio vettoriale complesso $\CC^\NN$ di tutte le
+successioni a valori complessi.
+\end{theorem}
+%
+\begin{proof}
+Dobbiamo mostrare che se una combinazione lineare delle
+successioni $\vec a_j$ è nulla allora tutti i coefficienti
+sono nulli.
+Supponiamo quindi di avere $c_1, \dots, c_n\in \CC$ tali che
+\[
+  \sum_{j=1}^n c_j \vec a_j = \vec 0 \in \CC^\NN.
+\]
+Significa che per ogni $k\in \NN$ si ha
+\begin{equation}\label{eq:47862}
+  \sum_{j=1}^n c_j \lambda_j^k = 0
+\end{equation}
+Dunque per ogni $k\in \NN$ e per ogni $z\in \CC$ si ha
+\begin{equation}\label{eq:498137}
+  \sum_{j=1}^n c_j \lambda_j^k z^k = 0.
+\end{equation}
+Sia ora $R=1/\max\{\abs{\lambda_1}, \dots, \abs{\lambda_n}\}$ (almeno uno dei $\lambda_j$
+è non nullo perché i $\lambda_j$ sono distinti e possiamo assumere
+$n>1$ altrimenti il teorema è banale).
+Se $\abs{z}<R$ si ha $\abs{\lambda_j z}< 1$ per ogni $j$,
+e la serie geometrica $\sum \lambda_j^k z^k$ risulta quindi essere
+assolutamente convergente. Possiamo quindi fare la somma su $k$
+dell'uguaglianza~\eqref{eq:498137}, scambiare le somme e ottenere,
+per ogni $z$:
+\[
+  \sum_{j=1}^n \sum_{k=0}^{+\infty} c_j \enclose{\lambda_j z}^k = 0.
+\]
+Calcolando la somma della serie geometrica si ottiene, per ogni $z$
+con $\abs{z}<R$:
+\[
+\sum_{j=1}^n \frac{c_j}{1-\lambda_j z} = 0.
+\]
+Scegliamo ora un indice $m$ cui $R = 1/\abs{\lambda_m}$ e
+posto $z = t / \lambda_m$ osserviamo che per $t\in[0,1)$
+si ha $\abs{z} < R$, dunque possiamo fare il limite
+per $t\to 1^-$ ed ottenere :
+\[
+  \lim_{t\to 1^-}
+  \sum_{j=1}^n \frac{c_j}{1- \lambda_j \frac{t}{\lambda_m} } = 0.
+\]
+Ma se $j\neq m$ si ottiene un limite finito:
+\[
+  \lim_{t\to 1^-} \frac{c_j}{1- \lambda_j \frac{t}{\lambda_m} }
+  = \frac{c_j}{1 - \frac{\lambda_j}{\lambda_m}} = \ell_j \in \CC
+\]
+e dunque, visto che la somma dei limite è nulla,
+anche per $j=m$ si deve ottenere un limite finito.
+Ma per $j=m$ si ottiene invece
+\[
+  \lim_{t\to 1^-}\frac{c_m}{1 - t}
+\]
+che è finito solo se $c_m=0$.
+
+Ma se $c_m=0$ ci siamo ricondotti ad avere una combinazione lineare
+nulla di $n-1$ successioni esponenziali (si può togliere $\lambda_m^k$)
+e dunque, per induzione, si può ripetere il procedimento e scoprire
+che anche tutti gli altri coefficienti sono nulli.
+\end{proof}
+
+\begin{proof}[dimostrazione alternativa]
+Valutando l'equazione~\eqref{eq:47862} per $k=0,\dots, n-1$ si ottiene
+\begin{align*}
+  c_1 + c_2 \lambda_1 + \dots + c_n \lambda_1^n & = 0 \\
+  c_1 + c_2 \lambda_2 + \dots + c_n \lambda_2^n & = 0 \\
+  &\quad \vdots\\
+  c_1 + c_2 \lambda_n + \dots + c_n \lambda_n^n & = 0
+\end{align*}
+che è un sistema lineare la cui matrice associata è
+la matrice di \myemph{Vandermonde}
+\index{matrice!di Vandermonde}%
+\[
+\begin{pmatrix}
+  1 & \lambda_1 & \dots & \lambda_1^n \\
+  1 & \lambda_2 & \dots & \lambda_2^n \\
+  \vdots & \vdots & \ddots & \vdots \\
+  1 & \lambda_n & \dots & \lambda_n^n
+\end{pmatrix}
+\]
+che notoriamente è invertibile se
+i $\lambda_j$ sono tra loro distinti.
+
+Dunque $c_1 = c_2 = \dots = c_n = 0$ è l'unica soluzione
+del sistema lineare.
+\end{proof}
+
+\begin{theorem}[dimensione delle soluzioni]
+\label{th:dimensione_ricorsione_lineare}
+L'insieme $W$ di tutte le successioni soluzioni dell'equazione~\eqref{eq:ricorsione_lineare}
+di ordine $n$
+è un sottospazio vettoriale di dimensione $n$
+dello spazio $\CC^\NN$ di tutte le sottosuccessioni.
+\end{theorem}
+%
+\begin{proof}
+Denotiamo con $\vec a \in \CC^\NN$ la successione $a_k = \vec a(k)$.
+L'insieme $W$ delle soluzioni dell'equazione~\eqref{eq:ricorsione_lineare}
+è un sottospazio vettoriale di $\CC^\NN$ in quanto se $\vec a$
+e $\vec b$ sono soluzioni anche $\vec a + \vec b$ è soluzione e se $\vec a$
+è soluzione anche $t \vec a$ è soluzione per ogni $t\in \CC$
+(si faccia la verifica).
+
+Consideriamo allora l'operatore (chiamato \myemph{jet}) $J\colon W \to \CC^n$
+definito da
+\[
+  J(\vec a) = \enclose{\vec a(0), \vec a(1), \dots, \vec a(n-1)}.
+\]
+E' facile verificare che $J$ è un operatore lineare in quanto la valutazione
+di una funzione in un punto è una operazione lineare.
+
+Vogliamo ora determinare
+\[
+  \ker J = \{\vec a \in W \colon J(\vec a)=0\}.
+\]
+Se $\vec a\in \ker J$ significa che i primi $n$ termini
+della successione
+$a_0, a_1, \dots, a_{n-1}$ sono tutti nulli.
+Ma se $\vec a\in W$ sappiamo che vale~\eqref{eq:ricorsione_lineare} e dunque
+anche $a_n$ è nullo. Applicando~\eqref{eq:ricorsione_lineare} ricorsivamente
+otteniamo che $a_{n+k}=0$ per ogni $k\in \NN$ e dunque $\vec a = 0$.
+Dunque $\ker J = \{\vec 0\}$
+e per le note proprietà degli operatori lineari possiamo
+affermare che $J\colon W \to \CC^n$ è iniettivo.
+Dunque $\dim W \le \dim \CC^n = n$.
+
+Ma possiamo anche osservare che $J$ è suriettivo in quanto
+fissati i valori di $a_0,a_1, \dots, a_{n-1}$ l'equazione
+~\eqref{eq:ricorsione_lineare} ci permette di determinare,
+induttivamente, tutti i termini successivi. Dunque
+fissato $\vec y = (y_0, \dots, y_{n-1}) \in \CC^n$
+è possibile trovare $\vec a \in W$ tale che $J(\vec a) = \vec y$.
+
+Visto che $J\colon W\to\CC^n$ è iniettivo e suriettivo
+concludiamo che $\dim W = \dim \CC^n = n$.
+\end{proof}
+
+\begin{theorem}[caratterizzazione delle soluzioni]
+Se il polinomio caratteristico dell'equazione~\eqref{eq:ricorsione_lineare}
+ha $n$ zeri distinti $\lambda_1, \dots, \lambda_n$
+allora
+ogni soluzione dell'equazione si scrive nella forma
+\[
+  a_k = c_1 \lambda_1^k + c_2 \lambda_2^k + \dots + c_n \lambda_n^k
+\]
+dove $c_1, \dots, c_n$ sono costanti arbitrarie.
+\end{theorem}
+%
+\begin{proof}
+Sia $V=\CC^\NN$ lo spazio vettoriale di tutte le successioni.
+Possiamo definire l'operatore di \emph{shift} $\sigma\colon V\to V$
+\[
+  (\sigma \vec a)(k) = \vec a(k+1).
+\]
+Risulta quindi che $a_{k+n} = (\sigma^n \vec a)(k)$ dove
+$\sigma^n = \sigma \circ \sigma \circ \dots \circ \sigma$
+è la composizione di $\sigma$ con se stesso per $n$ volte.
+Possiamo quindi riscrivere l'equazione~\eqref{eq:ricorsione_lineare} nella forma
+\[
+  c_n \sigma^n \vec a + \dots + c_0 \sigma^0 \vec a = 0
+\]
+ovvero
+\[
+  P(\sigma)\vec a = 0
+\]
+dove con $P(\sigma)$ si intende l'operatore $P(\sigma)\colon V\to V$
+ottenuto applicando il polinomio caratteristico $P$ all'operatore $\sigma$.
+
+Se $\lambda_1,\dots\lambda_n$ sono le $n$ radici del polinomio $P$ si può
+decomporre il polinomio $P$ tramite il teorema~\ref{th:Ruffini} di Ruffini
+\begin{equation}\label{eq:375628}
+  P(\lambda)
+  = a_n (\lambda -\lambda_1)(\lambda- \lambda_2)\cdots (\lambda - \lambda_n).
+\end{equation}
+è chiaro (ma si veda il teorema~\ref{th:6822095} per una spiegazione più dettagliata)
+che la stessa decomposizione può essere fatta per $P(\sigma)$
+e quindi l'equazione~\eqref{eq:ricorsione_lineare}
+può essere scritta nella forma:
+\begin{equation}\label{eq:437343}
+(\sigma - \lambda_1 I)\circ (\sigma-\lambda_2 I)\circ \dots \circ (\sigma -\lambda_n I) \vec a = 0
+\end{equation}
+dove $I\colon V\to V$ è l'operatore identità $I\vec a = \vec a$.
+Visto che nella decomposizione~\eqref{eq:375628}
+l'ordine in cui vengono moltiplicati i fattori non conta,
+anche nell'equazione~\eqref{eq:437343} possiamo applicare gli operatori
+$(\sigma -\lambda_j I)$ in qualunque ordine (gli operatori commutano).
+Dunque è immediato accorgersi che se $\vec a$ risolve
+\[
+  (\sigma - \lambda_j I) \vec a = 0
+\]
+per un qualunque $j=1,\dots, n$ allora $\vec a\in W$.
+Ma quest'ultima equazione è facile da risolvere in quanto
+ponendo $a_k = \vec a(k)$ si esplicita nella forma:
+\[
+  a_{k+1} - \lambda_j a_k = 0
+\]
+che è soddisfatta se
+se si sceglie $a_k = \lambda_j^k$.
+
+Dunque la successione $\vec a_j$ definita da
+\[
+  \vec a_j(k) = \lambda_j^k
+\]
+è un elemento di $W$.
+Per $j=1,\dots, n$ abbiamo trovato $n$ soluzioni distinte
+$\vec a_1, \dots, \vec a_n$. Queste soluzioni sono
+indipendenti grazie al teorema~\ref{th:indipendenza_successioni_esponenziali}
+e quindi essendo $\dim W = n$ per il teorema~\ref{th:dimensione_ricorsione_lineare}
+possiamo affermare che queste soluzioni formano una base di $W$
+che è esattamente quanto volevamo dimostrare.
+\end{proof}
+
+\begin{example}[formula esplicita per la successione di Fibonacci]
+\index{successione!di Fibonacci}%
+\index{Fibonacci!formula esplicita}%
+La successione di Fibonacci $F_k$ definita da~\eqref{eq:Fibonacci}
+soddisfa una equazione ricorsiva lineare del secondo ordine con polinomio associato
+$P(\lambda) = \lambda^2 - \lambda - 1$. Risolvendo l'equazione $P(\lambda)=0$
+si trovano le due radici distinte:
+\[
+  \lambda_{1,2} = \frac{1 \pm \sqrt{5}}{2}.
+\]
+La radice più grande, $\lambda_2$, corrisponde al
+\myemph{rapporto aureo} che usualmente viene chiamato $\phi$.
+\index{$\phi$}%
+Visto che $\lambda_1 \lambda_2 = -1$ si trova $\lambda_1 = -1/\phi$.
+Dunque, per il teorema precedente, sappiamo che esistono due costanti $c_1$ e
+$c_2$ tali che
+\[
+  F_k = c_1 \frac{(-1)^k}{\phi^k} + c_2 \phi^k .
+\]
+Imponendo le condizioni $F_0=0$, $F_1=1$ (imporre $F_2 = 1$ è equivalente a $F_0=0$)
+si ottiene
+\[
+  c_1 + c_2 = 0, \qquad - \frac{c_1}{\phi} + c_2 \phi  = 1
+\]
+da cui è possibile trovare $c_1 = - c_2 = 1/\sqrt{5}$ e ottenere
+così
+una formula esplicita per il $k$-esimo numero di Fibonacci:
+\index{Fibonacci}
+\index{successione!di Fibonacci}
+\[
+  F_k = \frac{\phi^k}{\sqrt 5} + \frac{(-1)^{k+1}}{\sqrt 5\phi^k}.
+\]
+Risulta piuttosto sorprendente osservare che i valori $F_k$ ottenuti
+con questa espressione siano tutti numeri interi.
+\end{example}
