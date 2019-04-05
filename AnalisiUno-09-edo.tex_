@@ -376,34 +376,57 @@ che sia derivabile e che soddisfi:
 \begin{theorem}[Cauchy-Lipschitz, esistenza e unicità]
 \label{th:cauchy_lipschitz}
 \mymark{***}
-Sia $\Omega$ un aperto di $\RR\times \RR^n$ e sia $\vec f\colon \Omega \to \RR^n$, una funzione continua e tale che esista $L>0$ per cui vale
+Sia $\Omega$ un aperto di $\RR\times \RR^n$ e sia $\vec f\colon \Omega \to \RR^n$,
+una funzione continua e tale che
+per ogni $(x_0,\vec y_0)\in \Omega$ esista un intorno $U$ di $(x_0,\vec y_0)\in \RR\times \RR^n$
+ed
+esista $L>0$ per cui vale
 \[
   \abs{\vec f(x,\vec y_1) - \vec f(x,\vec y_2)} \le L \abs{\vec y_1 - \vec y_2}
-  \]
+\]
 per ogni $x\in \RR$, $\vec y_1, \vec y_2\in \RR^n$
-con $(x,\vec y_1),(x,\vec y_2)\in\Omega$
-(diremo che $f(x,\vec y)$ è Lipschitziana in $\vec y$ uniformemente rispetto a $x$).
+con $(x,\vec y_1),(x,\vec y_2)\in U$.
+Con queste ipotesi diremo che
+$f(x,\vec y)$ è localmente Lipschitziana in $\vec y$ uniformemente rispetto a $x$.
 
-Dato $(x_0,\vec y_0)\in \Omega$
-esiste $\delta_0>0$ tale che per ogni $\delta < \delta_0$
-posto $I_\delta = [x_0-\delta, x_0+\delta]$ esiste una unica funzione $\vec u\colon I_\delta \to \RR^n$ tale che $(x,\vec u(x))\in \Omega$ per ogni $x\in I_\delta$, $u$ è derivabile
-e soddisfa il problema di Cauchy~\eqref{eq:problema_cauchy}.
+Allora dato $(x_0,\vec y_0)\in \Omega$
+esiste $\delta>0$
+tale che posto $I = [x_0-\delta,x_0+\delta]$
+esiste una funzione $\vec u\colon I \to \RR^n$
+di classe $C^1$
+tale che $(x,\vec u(x))\in \Omega$ per ogni $x\in I$
+che soddisfa il problema di Cauchy~\eqref{eq:problema_cauchy}.
+
+Inoltre $\vec u$ è unica nel senso che
+se $J\subset I$ e $v\colon J\to \RR^n$ è una qualunque soluzione
+del problema di Cauchy~\eqref{eq:problema_cauchy} allora $v(x) = u(x)$ per
+ogni $x\in J$.
 \end{theorem}
+%
 %
 \begin{proof}
 \mymark{***}
-Innanzitutto vogliamo trasformare il problema differenziale in un problema integrale. Se $\vec u$ è una funzione derivabile soluzione di \eqref{eq:problema_cauchy}
-allora è chiaro che $\vec u'(x) = \vec f(x,\vec u(x))$ è continua in quanto composizione di funzioni continue e dunque $\vec u$ è di classe $C^1$. Possiamo dunque integrare tra $x_0$ e $x$ i due lati dell'equazione differenziale per ottenere:
+Innanzitutto vogliamo trasformare il problema differenziale in un problema
+integrale.
+Se $\vec u$ è una funzione derivabile soluzione di \eqref{eq:problema_cauchy}
+allora è chiaro che $\vec u'(x) = \vec f(x,\vec u(x))$ è continua in quanto
+composizione di funzioni continue e dunque $\vec u$ è di classe $C^1$.
+Possiamo dunque integrare tra $x_0$ e $x$ i due lati dell'equazione
+differenziale per ottenere:
 \[
   \vec u(x) - \vec u(x_0) = \int_{x_0}^x \vec f(s,\vec u(s))\, ds
 \]
-e dunque se $\vec u$ risolve il problema di Cauchy allora $\vec u$ soddisfa anche la seguente equazione integrale:
+e dunque se $\vec u$ risolve il problema di Cauchy allora $\vec u$ soddisfa anche
+la seguente equazione integrale:
 \begin{equation}\label{eq:cauchy_integrale}
   \vec u(x) = \vec y_0 + \int_{x_0}^x \vec f(s,\vec u(s))\, ds.
 \end{equation}
-Viceversa se $\vec u$ è continua e soddisfa \eqref{eq:cauchy_integrale} allora si ha ovviamente
-$\vec u(x_0) = \vec y_0$ e, passando alle derivate, si scopre che $\vec u$ è derivabile e soddisfa l'equazione differenziale $\vec u'(x) = \vec f(x,\vec u(x))$.
-Dunque trovare una soluzione $C^1$ del problema di Cauchy~\eqref{eq:problema_cauchy} è equivalente a trovare una soluzione $C^0$ del problema integrale~\eqref{eq:cauchy_integrale}.
+Viceversa se $\vec u$ è continua e soddisfa \eqref{eq:cauchy_integrale}
+allora si ha ovviamente
+$\vec u(x_0) = \vec y_0$ e, passando alle derivate, si scopre che $\vec u$ è
+derivabile e soddisfa l'equazione differenziale $\vec u'(x) = \vec f(x,\vec u(x))$.
+Dunque trovare una soluzione $C^1$ del problema di Cauchy~\eqref{eq:problema_cauchy}
+è equivalente a trovare una soluzione $C^0$ del problema integrale~\eqref{eq:cauchy_integrale}.
 Ci dedicheremo dunque a questo secondo problema.
 
 Denotiamo con
@@ -413,25 +436,33 @@ Denotiamo con
 \]
 il cilindro centrato in $(x_0, \vec y_0)$ con asse parallelo all'asse delle $x$,
 di altezza $2\alpha$ e raggio $\beta$.
-Visto che $\Omega$ è aperto esiste una palla aperta centrata in $(x_0,\vec y_0)$ e contenuta in $\Omega$.
-Tale palla dovrà anche contenere un cilindro $C_{\alpha,\beta}$ per un qualche $\alpha>0$ e $\beta>0$.
-Il cilindro $C_{\alpha,\beta}$ è chiuso e limitato in $\Omega$ e dunque $\vec f$, essendo continua, è limitata su $C_{\alpha,\beta}$ per il teorema di Weierstrass.
-Sia $M>0$ tale che $\abs{\vec f(x,\vec y)}\le M$ per ogni $(x,\vec y) \in C_{\alpha,\beta}$ e definiamo
+Fissato $(x_0, \vec y_0)$ consideriamo l'intorno $U$ in cui, per ipotesi,
+la funzione $\vec f$ è $L$-lipschitziana uniformemente rispetto ad $x$.
+L'intorno $U$ conterra certamente un cilindro $C_{\alpha,\beta}$ per un qualche $\alpha>0$ e $\beta>0$
+sufficientemente piccoli.
+Il cilindro $C_{\alpha,\beta}$ è chiuso e limitato in $\Omega$ e dunque $\vec f$,
+essendo continua, è limitata su $C_{\alpha,\beta}$ per il teorema di Weierstrass.
+Sia $M>0$ tale che $\abs{\vec f(x,\vec y)}\le M$ per ogni
+$(x,\vec y) \in C_{\alpha,\beta}$ e definiamo
 \begin{equation}\label{eq:395109}
- \delta_0 = \min\{\alpha, \frac{\beta}{M}, \frac{1}{L}\}.
+ \delta = \min\{\alpha, \frac{\beta}{M}, \frac{1}{L}\}.
 \end{equation}
-Il perché $\delta_0$ venga definito in questo modo si capirà nel prosieguo della dimostrazione.
-Consideriamo un qualunque $\delta<\delta_0$,
-poniamo $I=[x_0-\delta,x_0+\delta]$ e
+Il perché $\delta$ venga definito in questo modo si capirà nel prosieguo della dimostrazione.
+Consideriamo un qualunque intervallo $I\subset [x_0-\delta,x_0+\delta]$ e
+definitamo lo spazio di funzioni
 \[
 X=\{\vec u\in C^0(I,\RR^n)\colon \Abs{\vec u-\vec y_0}_\infty
 \le \beta \}.
 \]
-Sappiamo che $C^0(I,\RR^n)$ è uno spazio metrico completo e $X$ è chiuso quindi anch'esso è completo. Possiamo allora considerare l'operatore $T\colon X \to C^0(I, \RR^n)$:
+Sappiamo che $C^0(I,\RR^n)$ è uno spazio metrico completo e $X$ è chiuso quindi
+anch'esso è completo. Possiamo allora considerare l'operatore
+$T\colon X \to C^0(I, \RR^n)$ definito da:
 \[
   T(\vec u)(x) = \vec y_0 + \int_{x_0}^x \vec f(s, \vec u(s))\, ds.
 \]
-Vogliamo innanzitutto verificare che $X$ è invariante, cioè che $T(X)\subset X$. Ma se $\vec u \in X$ e se $x\in I$ si ha
+Vogliamo innanzitutto verificare che $X$ è invariante,
+cioè che $T(X)\subset X$.
+Se $\vec u \in X$ e se $x\in I$ si ha
 $(x,\vec u(x)) \in C_{\delta,\beta} \subset C_{\alpha,\beta}$
 e dunque (usando anche~\eqref{eq:395109} e il teorema~\ref{teo:tipo_jensen})
 \[
@@ -441,7 +472,8 @@ e dunque (usando anche~\eqref{eq:395109} e il teorema~\ref{teo:tipo_jensen})
   \le \beta.
 \]
 Dunque $\Abs{T(\vec u)-\vec y_0}\le \beta$ e $T(\vec u)\in X$.
-Abbiamo dunque che $T\colon X \to X$. Verifichiamo ora che $T$ è una contrazione. Si ha:
+Abbiamo dunque che $T\colon X \to X$. Verifichiamo ora che $T$ è una contrazione.
+Si ha:
 \begin{align*}
   \abs{T(\vec u_1)(x)-T(\vec u_2)(x)}
    &\le \abs{\int_{x_0}^x\abs{\vec f(s,\vec u_1(s))-\vec f(s,\vec u_2(s))}\, ds}\\
@@ -451,11 +483,17 @@ Abbiamo dunque che $T\colon X \to X$. Verifichiamo ora che $T$ è una contrazion
 \end{align*}
 ovvero, facendo l'estremo superiore al variare di $x\in I$:
 \[
- \Abs{T(\vec u_1)-T(\vec u_2)}_\infty \le L \delta \Abs{\vec u_1 - \vec u_2}_\infty \le \frac{1}{2}\Abs{\vec u_1- \vec u_2}.
+ \Abs{T(\vec u_1)-T(\vec u_2)}_\infty
+ \le L \delta \Abs{\vec u_1 - \vec u_2}_\infty
+ \le \frac{1}{2}\Abs{\vec u_1- \vec u_2}.
 \]
 Da~\eqref{eq:395109} risulta $L\delta < L \delta_0 \le 1$
-dunque $T\colon X \to X$ è una contrazione su uno spazio metrico completo. Per il teorema di punto fisso di Banach-Caccioppoli
-sappiamo quindi che esiste una unica funzione $\vec u \in X$ ovvero $\vec u \colon I \to \RR^n$ che soddisfa $T(\vec u)=\vec u$ ovvero~\eqref{eq:cauchy_integrale} ovvero~\eqref{eq:problema_cauchy}.
+dunque $T\colon X \to X$ è una contrazione su uno spazio metrico completo.
+Per il teorema di punto fisso di Banach-Caccioppoli
+sappiamo quindi che esiste una unica funzione
+$\vec u \in X$ ovvero $\vec u \colon I \to \RR^n$ che soddisfa
+$T(\vec u)=\vec u$ ovvero~\eqref{eq:cauchy_integrale}
+ovvero~\eqref{eq:problema_cauchy}.
 \end{proof}
 
 \begin{proposition}
@@ -667,7 +705,7 @@ per ogni $x\in [a,b)$ possiamo fare la seguente stima:
 = \int_{a}^{x}
 \frac{2\vec u(t)\cdot \vec u'(t)}{1+\abs{\vec u(t)}^2}\, dt \\
 &\le 2 \int_{a}^{x} \frac{\abs{\vec u(t)} \abs{\vec u'(t)}}{1+\abs{\vec u(t)}^2}\, dt
-\le 2\int_{a}^{x} \frac{\abs{\vec u}\enclose{m\abs{\vec u(t)}+q}}{1+\abs{\vec u(t)}^2}\, dt\\
+\le 2\int_{a}^{x} \frac{\abs{\vec u(t)}\enclose{m\abs{\vec u(t)}+q}}{1+\abs{\vec u(t)}^2}\, dt\\
 &\le 2\int_{a}^{x} \enclose{m + \frac{q\abs{\vec u(t)}}{1+\abs{\vec u(t)}^2}}\, dt\\
 &\le (x-a)(2m + q) \le (b-a)(2m+q)
 \end{align*}
@@ -680,22 +718,25 @@ Dunque
 \end{proof}
 
 \begin{proof}[Dimostrazione teorema~\ref{th:edo_esistenza_globale}]
-Sia $\vec u$ una soluzione massimale del problema di Cauchy e sia $J\subset I$ l'intervallo massimale di esistenza con $x_0\in J$.
-Per la proposizione~\ref{prop:edo_massimale} sappiamo che $J$ è un intervallo aperto:
-dobbiamo dimostrare che $J=I$.
-Basterà dimostrare che $\sup J=\sup I$ e $\inf J = \inf
-I$. Dimostreremo solamente che $\sup J = \sup I$ in quanto l'altra
-uguaglianza si fa in maniera analoga (o si ottiene per simmetria).
-Sia $b=\sup J$ e supponiamo per assurdo che sia $b<\sup I\le +\infty$.
-Allora possiamo applicare il lemma precedente alla funzione $\vec u$
-sull'intervallo $[x_0, b)$ ottenendo quindi che su tale intervallo
-$\vec u$ è limitata. Sia $M$ il massimo di $\abs{\vec u}$ su $[x_0,b)$
-e consideriamo l'insieme $K=[a,b]\times\overline{B_M(0)} = \{(x,\vec
-y)\in \RR \times \RR^n\colon x\in [a,b], \abs{\vec y}\le
-M\}$. Chiaramente $K\subset \Omega$ e $K$ è chiuso e limitato, quindi
-per la proposizione\ref{prop:edo_massimale} il grafico di $\vec u$
-dovrebbe uscire da $K$ da destra, cosa che invece non fa in quanto
-$\abs{\vec u(t)}\le M$ per ogni $t\in [a,b]$.
+Sia $\vec u$ una soluzione massimale del problema di Cauchy e sia
+$J\subset I$ l'intervallo massimale su cui $\vec u$ è definita.
+Sia $b=\sup J$. Sappiamo quindi che $\vec u$ è definita su $[x_0,b)$
+e quindi per il lemma precedente deve essere limitata: esiste cioè
+$M>0$ per cui $\abs{\vec u(x)}\le M$ per ogni $x\in[x_0,b)$.
+Se consideriamo il compatto
+\[
+K=[a,b] \times \overline{B_M(\vec 0)}
+ = \{(x,y)\in \RR \times \RR^n\colon x\in [a,b], \abs{y}\le M\}
+\]
+abbiamo quindi verificato che $(x,\vec u(x))\in K$ per ogni $x\in [a,b)$.
+Se fosse $b\in I$ si avrebbe $K\subset \Omega$ e quindi questo sarebbe
+in contraddizione con la proposizione~\ref{prop:edo_massimale} che
+ci dice che ogni soluzione massimale esce da qualunque compatto contenuto
+in $\Omega$. Significa allora che $b\not in I$ e cioè che $b = \sup J = \sup I$
+(non può essere $\sup J>\sup I$ in quanto $J\subset I$).
+
+In maniera analoga (o per simmetria) si può dimostrare che $\inf J=\inf I$
+e dunque $J=I$ come volevamo dimostrare
 \end{proof}
 
 Il problema di Cauchy per le equazioni di ordine $n$ è il problema di determinare la soluzione di una equazione differenziale ordinaria di ordine $n$
@@ -1184,10 +1225,11 @@ un intervallo aperto.
 \item
 L'insieme $V$ delle soluzioni dell'equazione lineare omogenea~\eqref{eq:edo_lineare_omogenea_ordine_n}
 è un sottospazio vettoriale di $C^n(I)$ di dimensione $n$.
-Inoltre, fissato un punto qualunque $x_0\in I$ l'operatore $J\colon V \to \RR^n$ (chiamato \myemph{Jet}) definito da
-\[
+Inoltre, fissato un punto qualunque $x_0\in I$ l'operatore $J\colon V \to \RR^n$
+(chiamato \myemph{Jet}) definito da
+\begin{equation}\label{eq:jet}
   J(u) = (u(x_0), u'(x_0), u''(x_0), \dots, u^{(n-1)}(x_0))
-\]
+\end{equation}
 è un operatore lineare bigettivo (cioè un isomorfismo di spazi vettoriali).
 
 \item
@@ -1231,14 +1273,10 @@ sullo spazio vettoriale delle funzioni.
 Dunque l'insieme $V$ delle soluzioni dell'equazione omogenea non è altro che
 $\ker L$ che notoriamente è uno spazio vettoriale visto che se $L(u)=0$ e $L(v)=0$
 allora anche $L(\lambda u + \mu v) = \lambda L(u) + \mu L(v) = 0$.
-Cerchiamo ora di determinare la dimensione di tale spazio, mettendo in
-corrispondenza le soluzioni dell'equazione con un loro dato iniziale.
 
-Fissato un punto $x_0\in I$ consideriamo l'applicazione $J\colon V \to \RR^n$
-che ad ogni $u\in V = \ker L$ associa il vettore (chiamato \emph{jet})
-\[
-  J(u) = (u(x_0), u'(x_0), \dots, u^{(n-1)}(x_0)) \in \RR^n.
-\]
+Possiamo ora determinare la dimensione di tale spazio, mettendo in
+corrispondenza le soluzioni dell'equazione con un loro dato iniziale,
+dato dalla applicazione $J(u)$ definita da~\eqref{eq:jet}.
 Chiaramente $J$ è lineare perché l'operatore derivata e la valutazione in un
 punto sono operatori lineari. Osserviamo che $J$ è suriettivo perché dato un
 qualunque $\vec y\in \RR^n$ per il teorema \ref{th:cauchy_lipschitz_ordine_n}
@@ -1251,7 +1289,7 @@ Abbiamo quindi mostrato che $J\colon V \to \RR^n$ è un isomorfismo di spazi
  vettoriali, quindi $\dim V=n$.
 
 Per quanto riguarda l'equazione non omogenea
-sia $W = \{ v\in C^n(A)\colon L v = b\}$ l'insieme di tutte le soluzioni.
+sia $W = \{ v\in C^n(A)\colon$ $L v = b\}$ l'insieme di tutte le soluzioni.
 Se consideriamo una soluzione particolare $v_0\in W$ e se $v\in W$ è una
 qualunque altra soluzione, si osserva che
 \[
@@ -1321,38 +1359,71 @@ Se l'equazione è in forma normale si avrà $\deg P = n$ (in quanto il cofficien
 
 Vogliamo ora mostrare come una decomposizione del polinomio porta ad una decomposizione delle soluzioni dell'equazione differenziale.
 
+Nel seguente enunciato l'operazione $\circ$ rappresenta l'usuale composizione di funzioni,
+e il prodotto di polinomi è l'usuale prodotto di funzioni:
+\[
+  (f\circ g)(u) = f(g(u)), \qquad (P\cdot Q)(z) = P(z)\cdot Q(z)
+\]
+
 \begin{theorem}[isomorfismo tra polinomi e operatori differenziali a coefficienti costanti]
 \label{th:6822095}
-Siano $P$ e $Q$ due polinomi e sia $\lambda \in \RR$.
+Siano $P$ e $Q$ due polinomi.
 Allora si ha
-\[
+\begin{equation}\label{eq:84565434}
   (P\cdot Q)(D) = P(D) \circ Q(D)
-\]
+\end{equation}
 cioè: l'operatore differenziale associato al prodotto dei polinomi è la composizione degli operatori associati ai singoli fattori.
 \end{theorem}
-\begin{proof}
-La dimostrazione si basa sul fatto che la composizione degli operatori (in questo caso l'operatore derivazione $D$) soddisfa le stesse regole formali del prodotto.
 
-Sia
+\begin{proof}
+Il teorema potrebbe essere di immediata intuizione
+se si considerano i polinomi in senso astratto: non come funzioni ma come
+espressioni algebriche che agiscono su uno spazio di oggetti (chiamati anelli)
+su cui sono definite le operazioni di somma e prodotto soddisfacenti le usuali
+proprietà distributiva, associativa e commutativa.
+Nel caso dell'operatore $D$ la moltiplicazione è sostituita alla composizione
+ma preserva le stesse regole formali: $(a+b) D = aD + bD$
+e $D^k D^j = D^{k+j} = D^j D^k$. Vediamo comunque una dimostrazione formale.
+
+Dimostrare che vale~\eqref{eq:84565434} significa dimostrare che per ogni
+funzione $u\in C^\infty$ si ha
 \[
-  P(z) = \sum_{k=0}^n a_k z^k, \qquad Q(z) = \sum_{j=0}^m b_j z^j.
+  (P\cdot Q)(D) (u)
+%  = (P(D)\circ Q(D)) (u)
+  = P(D)(Q(D)(u)).
 \]
-Allora si ha
-\begin{align*}
- (P\cdot Q)(z)
-  &= \enclose{\sum_{k=0}^n a_k z^k Q(t)} \cdot \enclose {\sum_{j=0}^m b_j z^j} \\
-  &= \sum_{k=0}^n \sum_{j=0}^m a_k b_j z^{k+j} \\
-  &= \sum_{s=0}^{n+m} \enclose{\sum_{k=\max\{0,s-m\}}^{\min\{s,n\}} a_k b_{s-k}} z^s.
-\end{align*}
-Ma, d'altro canto, se $u\in C^\infty(\RR,\CC)$ si ha
-\begin{align*}
-  (P(D) \circ Q(D)) u &= P(D)Q(D)u \\
-  &= \sum_{k=0}^n a_k D^k\enclose{\sum_{j=0}^m b_j D^j u}
-  = \sum_{k=0}^n \sum_{j=0}^m a_k b_j D^{k+j} u \\
-  &= \sum_{s=0}^{m+n} \enclose{\sum_{k=\max\{0,s-m\}}^{\min\{s,n\}} a_k b_{s-k}} D^s u \\
-  &= (P\cdot Q)(D)u.
-\end{align*}
+Se
+\[
+  P(z) = \sum_{k=0}^n a_k z^k, \qquad Q(z) = \sum_{j=0}^m b_j z^j
+\]
+si ha
+\begin{equation}\label{eq:984534}
+    (P\cdot Q)(z)
+    = P(z)\cdot Q(z)
+    = \enclose{\sum_{k=0}^n a_k z^k}\cdot \enclose{\sum_{j=0}^m b_j z^j}
+    = \sum_{k=0}^n \sum_{j=0}^m a_k b_j z^{k+j}.
+\end{equation}
+
+Analogamente si ha (sfruttando la linearità dell'operatore $D^k$)
+\begin{equation}\label{eq:463524}
+  P(Q(D)u) = \sum_{k=0}^n a_k D^k \enclose{\sum_{j=0}^m b_j D^j u}
+   = \sum_{k=0}^n \sum_{j=0}^m a_k b_j D^{k+j} u.
+\end{equation}
+Sia nella~\eqref{eq:984534} che nella~\eqref{eq:463524}
+posso raccogliere i termini con lo stesso esponente $k+j$ ed
+è evidente che si ottengono gli stessi cofficienti.
+\[
+  P(Q(D)u) = \sum_{l=0}^{m+n} c_l D^l u,
+  \qquad
+  (P\cdot Q)(z) = \sum_{l=0}^{m+n} c_k z^l
+\]
+da cui $P(Q(D) u ) = (P\cdot Q)u$, come volevamo dimostare.
 \end{proof}
+
+\begin{remark}
+Il teorema precedente ci dice, in particolare, che gli operatori $P(D)$ e $Q(D)$
+commutano in quanto $P(D)Q(D) = (P\cdot Q)(D) = (Q\cdot P)(D) = Q(D) P(D)$.
+\end{remark}
 
 \begin{theorem}
 \mymark{***}
@@ -1395,11 +1466,13 @@ Il sottoinsieme $\B$ di $\C^\infty(\RR, \CC)$ dato dalle funzioni $u(x)$ della f
 \[
    u(x) = x^m e^{\lambda x}
 \]
-con $m\in \NN$, $\lambda \in \CC$ è un insieme linearmente indipendente nello spazio vettoriale $C^\infty(\RR,\CC)$ sul campo $\CC$.
+con $m\in \NN$, $\lambda \in \CC$ è un insieme linearmente indipendente
+nello spazio vettoriale $C^\infty(\RR,\CC)$ sul campo $\CC$.
 \end{theorem}
 %
 \begin{proof}
-Si tratta di mostrare che se una combinazione lineare finita di tali funzioni è identicamente nulla, allora tutti i coefficienti sono nulli.
+Si tratta di mostrare che se una combinazione lineare finita di tali funzioni
+è identicamente nulla, allora tutti i coefficienti sono nulli.
 
 Supponiamo per assurdo che esistano
 $u_1, \dots, u_N\in \B$
@@ -1412,21 +1485,36 @@ tali che
   \qquad \forall x \in \RR
 \]
 per una qualche scelta di coefficienti $c_k \in \CC$ non tutti nulli.
-Sommando assieme i monomi che moltiplicano gli esponenziali con lo stesso coefficiente, potremo riscrivere la relazione precedente nella forma:
+Sommando assieme i monomi che moltiplicano gli esponenziali con lo stesso
+coefficiente, potremo riscrivere la relazione precedente nella forma:
 \begin{equation}\label{eq:4656978}
   \sum_{j=1}^M P_j(x) e^{\lambda_j x} = 0 \qquad \forall x\in \RR
 \end{equation}
-con i coefficienti $\lambda_j$ tutti diversi tra loro e con $P_j$ polinomi non nulli.
+con i coefficienti $\lambda_j$ tutti diversi tra loro e con
+$P_j$ polinomi non nulli.
 
-Abbiamo già osservato che $(D-\lambda)P(x)e^{\lambda x}= P'(x)e^{\lambda x}$ mentre se $\lambda\neq \mu$ si ha $(D-\lambda)P(x) e^{\mu x}= Q(x) e^{\mu x}$ con $Q$ polinomio dello stesso grado di $P$.
-Posto $m_j = \deg P_j$ applichiamo all'equazione~\eqref{eq:4656978} l'operatore $(D-\lambda_1)^{m_1}$.
+Abbiamo già osservato che $(D-\lambda)P(x)e^{\lambda x}= P'(x)e^{\lambda x}$
+mentre se $\lambda\neq \mu$ si ha $(D-\lambda)P(x) e^{\mu x}= Q(x) e^{\mu x}$
+con $Q$ polinomio dello stesso grado di $P$.
+Posto $d_j = \deg P_j$ applichiamo all'equazione~\eqref{eq:4656978}
+l'operatore $(D-\lambda_1)^{d_1}$.
 Quello che si ottiene è:
 \begin{equation}\label{eq:4656979}
   k_1 e^{\lambda_1 x} + \sum_{j=2}^M Q_j(x) e^{\lambda_j x} = 0 \qquad \forall x\in \RR
 \end{equation}
-dove $k_1$ è la derivata $m_1$-esima del polinomio $P_1$. Visto che $P_1$ è un polinomio di grado $m_1$ la sua derivata $m_1$-esima è un polinomio di grado $0$ non nullo, dunque è una costante $k_1 \neq 0$. I polinomi $Q_j$ hanno invece lo stesso grado dei $P_j$ perché abbiamo visto che se $\lambda\neq \mu$ il grado del polinomio non cambia.
+dove $k_1$ è la derivata $d_1$-esima del polinomio $P_1$.
+Visto che $P_1$ è un polinomio di grado $d_1$ la sua derivata
+$d_1$-esima è un polinomio di grado $0$ non nullo,
+dunque è una costante $k_1 \neq 0$.
+I polinomi $Q_j$ hanno invece lo stesso grado dei $P_j$ perché abbiamo visto
+che se $\lambda\neq \mu$ il grado del polinomio non cambia.
 
-Ora applichiamo in sequenza all'equazione~\eqref{eq:4656979} gli operatori $(D-\lambda_j)^{m_j+1}$ per $j=2,\dots, M$. Applicando tali operatori il coefficiente $k_1$ cambierà, ma rimarrà comunque diverso da zero (chiamiamolo $k\neq 0$) mentre tutti gli altri polinomi verranno annullati, perché i rispettivi polinomi vengono derivati una volta in più del loro grado. Si otterrà quindi:
+Ora applichiamo in sequenza all'equazione~\eqref{eq:4656979} gli operatori
+$(D-\lambda_j)^{d_j+1}$ per $j=2,\dots, M$.
+Applicando tali operatori il coefficiente $k_1$ cambierà, ma rimarrà comunque
+diverso da zero (chiamiamolo $k\neq 0$) mentre tutti gli altri polinomi
+verranno annullati, perché i rispettivi polinomi vengono derivati una volta in
+più del loro grado. Si otterrà quindi:
 \[
   k e^{\lambda_1 x} = 0 \qquad \forall x\in \RR.
 \]

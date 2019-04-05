@@ -23,6 +23,12 @@ a_4 &= f(a_3)=f(f(f(\alpha))),\\
 \vdots
 \end{align*}
 
+Il valore di $a_n$ potrebbe rappresentare lo stato di un sistema che
+si evolve a partire da uno stato iniziale $a_1$ tramite la
+funzione $f$ che rappresenta il cambiamento di stato.
+Il numero naturale $n$ potrebbe quindi rappresentare un passo temporale.
+In tal senso \eqref{eq1} si chiama anche \myemph{sistema!dinamico!discreto}.
+
 L'equazione $a_{n+1} = f(a_n)$ viene chiamata una \emph{equazione
   autonoma del primo ordine}. Osserviamo infatti
 che ci sono altre tipologie di equazioni che però
@@ -45,15 +51,35 @@ primo. Ad esempio la successione di \emph{Fibonacci}
 \index{Fibonacci!successione di}
 \index{successione!di Fibonacci}
 $F_n$ è definita da
-\[
+\begin{equation}\label{eq:Fibonacci}
 \begin{cases}
   F_1 = 1 \\
-  F_2 = 2 \\
+  F_2 = 1 \\
   F_{n+2} = F_{n+1} + F_n
 \end{cases}
-\]
+\end{equation}
 che è una relazione del secondo ordine in quanto ogni termine può
 essere definito utilizzando i valori dei \emph{due} termini precedenti.
+Se l'equazione è lineare, come in questo caso, si possono trovare delle
+formule esplicite per scrivere l'$n$-esimo termine della successione.
+Lo faremo nella sezione~\ref{sec:ricorrenza_lineare}
+
+Si potrebbero anche considerare i sistemi di equazioni ricorsive.
+Ad esempio se $f$ fosse una funzione complessa $f\colon \CC \to \CC$
+$f(x+iy) = f_1(x,y) + i f_2(x,y)$ con $f_1,f_2 \colon \RR\to\RR$
+si potrebbe scrivere $a_n = x_n + i y_n$ con $x_n, y_n \in \RR$
+l'equazione ricorsiva $a_{n+1} = f(a_n)$
+diventerebbe un sistema di due equazioni:
+\[
+  \begin{cases}
+    x_{n+1} = f_1(x_n, y_n)\\
+    y_{n+1} = f_2(x_n, y_n).
+  \end{cases}
+\]
+Lo studio dei sistemi va oltre gli scopi di questo capitolo,
+ma accenneremo solamente ad un esempio nella sezione~\ref{sec:mandelbrot}.
+
+\section{equazioni ricorsive autonome del primo ordine}
 
 \begin{exercise}[algoritmo di Erone]\label{ex_Erone}
 \index{Erone!algoritmo di}
@@ -77,7 +103,7 @@ primi termini della successione sono:
 a_1 &= 2, \\
 a_2 &= \frac{2+2/2}{2} = 3/2 = 1.5, \\
 a_3 &= \frac{3/2 + 2/(3/2)}{2} = 17/12 \sim 1.4166666, \\
-a_4 &= \frac{17/12 + 2/(17/12)}{2} = 577 / 408 \sim 1.4142156,\\
+a_4 &= \frac{17/12 + 2/(17/12)}{2} = 577 / 408 \sim 1.4142157,\\
 \vdots
 \end{align*}
 che effettivamente \emph{sembrano} avvicinarsi molto al numero
@@ -949,3 +975,467 @@ Calcolare:
   \lim_{x\to 1^+} \sqrt{x-\sqrt{x- \sqrt{x-\sqrt{x - \dots}}}}
 \]
 \end{exercise}
+
+\begin{exercise}[Mandelbrot reale]
+\label{ex:mandelbrot_reale}
+Si consideri, fissato il parametro $c$, la successione definita per ricorrenza:
+\[
+  \begin{cases}
+    a_0 = 0\\
+    a_{n+1} = a_n^2 + c.
+  \end{cases}
+\]
+
+Determinare i valori di $c\in \RR$ per i quali la successione $a_n$ risulta
+essere limitata.
+\end{exercise}
+%
+\begin{proof}[Svolgimento.]
+\emph{Caso 1: $c > \frac 1 4$}.
+In tal caso non ci sono punti fissi, in quanto l'equazione $x=x^2+c$ ha
+discriminante negativo. Significa che $x^+c > x$ per ogni $x\in \RR$. Dunque
+la successione $a_n$ è strettamente crescente e tende a $+\infty$.
+Non è limitata.
+
+\emph{Caso 2:} $0\le c \le \frac 1 4$.
+In questo caso l'equazione $x=x^2+c$ ha due soluzioni entrambe positive
+(le soluzioni hanno somma $1$ e prodotto $c\ge 0$).
+Se chiamiamo $x_1$ la più piccola delle due soluzioni possiamo dimostrare che
+l'intervallo $[0,x_1)$ è invariante. Infatti su tali intervallo la funzione
+$f(x)=x^2+c$ è crescente, dunque se $0\le x < x_1$ si ha $f(0) \le f(x) < f(x_1)$
+cioè $c \le f(x) < x_1$. Visto che $c\ge 0$ abbiamo mostrato che l'intervallo è
+invariante. Dunque la successione $a_n$ rimane in tale intervallo.
+Se $c=0$ la successione $a_n$ rimane costante $a_n=0$. Se $c>0$ la successione
+converge al punto fisso $x_1$. In ogni caso è limitata.
+
+\emph{Caso 3:} $-1 \le c < 0$.
+In questo caso vogliamo mostrare che l'intervallo $[c,0]$ è invariante.
+La funzione $f(x) = x^2+c$ è decrescente su tale intervallo, dunque
+se $c\le x \le 0$ risulta $f(0)\le x \le f(c)$. Ma $f(0)=c$ e $f(c)=c^2+c
+= c(c+1) \le 0$ se $c\ge -1$. Dunque $[c,0]$ è invariante e $a_n$ rimane
+limitata in tale intervallo.
+
+\emph{Caso 4:} $-2\le c < -1$.
+In questo caso l'equazione $x=x^2+c$ ha una soluzione negativa ed una soluzione
+positiva. Chiamiamo $x_2$ la soluzione positiva. Vogliamo mostrare che
+l'intervallo $[c,x_2]$ è invariante.
+La funzione $f(x)=x^2+c$ è decrescente in $[c,0]$ e crescente in $[0,x_2]$.
+Se $0\le x \le x_2$ si ha dunque $f(0)\le f(x) \le f(x_2)$
+cioè $c \le f(x) \le x_2$. Dunque i punti in $[0,x_2]$ rimangono nell'intervallo
+$[c,x_2]$.
+Se invece $c\le x \le 0$ si ha $f(0)\le f(x) \le f(c)$ cioè $c \le f(x) \le c^2+c$.
+Affinché sia $c^2+c\le x_2$ basta verificare che $f(c^2+c)\le c^2+c$
+cioè:
+\[
+  (c^2+c)^2 + c \le c^2+c
+\]
+che, sviluppando il quadrato, si riduce a $c^3(c+2)\le 0$ che è verificata
+se $-2 \le c \le 0$.
+Dunque l'intervallo $[c,x_2]$ è invariante. La successione rimane dunque
+limitata in tale intervallo.
+
+\emph{Caso 5:} $c < -2$.
+In questo caso $a_0=0$, $a_1=c$, $a_2=c^2+c$ e possiamo verificare che
+$c^2+c > x_2$ in quanto, come nel caso precedente, questo accade se
+\[
+   (c^2+c)^2 + c > c^2+c
+\]
+che si riduce a $c^3(c+2)>0$ che è verificata se $c<-2$.
+Ma l'intervallo $(x_2,+\infty)$ è invariante e su tale intervallo
+si ha $f(x)>x$ dunque la successione $a_n$ è strettamente crescente per $n\ge 2$
+e diverge a $+\infty$. Non è dunque limitata.
+
+\emph{Conclusione}. La successione è limitata se $c\in[-2,1/4]$.
+Altrimenti $a_n\to +\infty$.
+
+\end{proof}
+
+\section{equazioni ricorsive lineari}
+\label{sec:ricorrenza_lineare}
+
+Fissate le costanti $c_0, c_1, \dots, c_n$,
+con $c_n \neq 0$,
+diremo che l'equazione ricorsiva:
+\begin{equation}\label{eq:ricorsione_lineare}
+  c_n a_{k+n} + c_{n-1} a_{k+n-1} + c_{n-2} a_{k+n-2} + \dots
+    + c_1 a_{k+1} + c_0 a_k = 0
+\end{equation}
+è una \myemph{equazione!ricorsiva!lineare} (omogenea) di ordine $n$.
+Il polinomio $P$ con gli stessi coefficienti:
+\[
+  P(\lambda) = c_n \lambda^n + c_{n-1}\lambda^{n-1} + \dots + c_1 \lambda + c_0
+\]
+si chiama \myemph{polinomio caratteristico}
+\index{equazione!ricorsiva!lineare!polinomio caratteristico}
+\index{polinomio!caratteristico!di una equazione ricorsiva lineare}%
+associato all'equazione
+lineare~\eqref{eq:ricorsione_lineare}.
+
+Ad esempio la successione di Fibonacci $F_k$ definita da~\eqref{eq:Fibonacci}
+è una soluzione dell'equazione ricorsiva lineare del secondo ordine:
+\[
+   a_{k+2} - a_{k+1} - a_{k} = 0
+\]
+il cui polinomio caratteristico è
+\[
+  P(\lambda) = \lambda^2 - \lambda - 1.
+\]
+
+\begin{theorem}[indipendenza delle successioni esponenziali]
+\label{th:indipendenza_successioni_esponenziali}
+Siano $\lambda_1, \dots, \lambda_n$ numeri complessi distinti. Allora
+le successioni $\vec a_j$ definite da
+\[
+  \vec a_j (k) = \lambda_j^k
+\]
+sono vettori indipendenti nello spazio vettoriale complesso $\CC^\NN$ di tutte le
+successioni a valori complessi.
+\end{theorem}
+%
+\begin{proof}
+Dobbiamo mostrare che se una combinazione lineare delle
+successioni $\vec a_j$ è nulla allora tutti i coefficienti
+sono nulli.
+Supponiamo quindi di avere $c_1, \dots, c_n\in \CC$ tali che
+\[
+  \sum_{j=1}^n c_j \vec a_j = \vec 0 \in \CC^\NN.
+\]
+Significa che per ogni $k\in \NN$ si ha
+\begin{equation}\label{eq:47862}
+  \sum_{j=1}^n c_j \lambda_j^k = 0
+\end{equation}
+Dunque per ogni $k\in \NN$ e per ogni $z\in \CC$ si ha
+\begin{equation}\label{eq:498137}
+  \sum_{j=1}^n c_j \lambda_j^k z^k = 0.
+\end{equation}
+Sia ora $R=1/\max\{\abs{\lambda_1}, \dots, \abs{\lambda_n}\}$ (almeno uno dei $\lambda_j$
+è non nullo perché i $\lambda_j$ sono distinti e possiamo assumere
+$n>1$ altrimenti il teorema è banale).
+Se $\abs{z}<R$ si ha $\abs{\lambda_j z}< 1$ per ogni $j$,
+e la serie geometrica $\sum \lambda_j^k z^k$ risulta quindi essere
+assolutamente convergente. Possiamo quindi fare la somma su $k$
+dell'uguaglianza~\eqref{eq:498137}, scambiare le somme e ottenere,
+per ogni $z$:
+\[
+  \sum_{j=1}^n \sum_{k=0}^{+\infty} c_j \enclose{\lambda_j z}^k = 0.
+\]
+Calcolando la somma della serie geometrica si ottiene, per ogni $z$
+con $\abs{z}<R$:
+\[
+\sum_{j=1}^n \frac{c_j}{1-\lambda_j z} = 0.
+\]
+Scegliamo ora un indice $m$ cui $R = 1/\abs{\lambda_m}$ e
+posto $z = t / \lambda_m$ osserviamo che per $t\in[0,1)$
+si ha $\abs{z} < R$, dunque possiamo fare il limite
+per $t\to 1^-$ ed ottenere :
+\[
+  \lim_{t\to 1^-}
+  \sum_{j=1}^n \frac{c_j}{1- \lambda_j \frac{t}{\lambda_m} } = 0.
+\]
+Ma se $j\neq m$ si ottiene un limite finito:
+\[
+  \lim_{t\to 1^-} \frac{c_j}{1- \lambda_j \frac{t}{\lambda_m} }
+  = \frac{c_j}{1 - \frac{\lambda_j}{\lambda_m}} = \ell_j \in \CC
+\]
+e dunque, visto che la somma dei limite è nulla,
+anche per $j=m$ si deve ottenere un limite finito.
+Ma per $j=m$ si ottiene invece
+\[
+  \lim_{t\to 1^-}\frac{c_m}{1 - t}
+\]
+che è finito solo se $c_m=0$.
+
+Ma se $c_m=0$ ci siamo ricondotti ad avere una combinazione lineare
+nulla di $n-1$ successioni esponenziali (si può togliere $\lambda_m^k$)
+e dunque, per induzione, si può ripetere il procedimento e scoprire
+che anche tutti gli altri coefficienti sono nulli.
+\end{proof}
+
+\begin{proof}[dimostrazione alternativa]
+Valutando l'equazione~\eqref{eq:47862} per $k=0,\dots, n-1$ si ottiene
+\begin{align*}
+  c_1 + c_2 \lambda_1 + \dots + c_n \lambda_1^n & = 0 \\
+  c_1 + c_2 \lambda_2 + \dots + c_n \lambda_2^n & = 0 \\
+  &\quad \vdots\\
+  c_1 + c_2 \lambda_n + \dots + c_n \lambda_n^n & = 0
+\end{align*}
+che è un sistema lineare la cui matrice associata è
+la matrice di \myemph{Vandermonde}
+\index{matrice!di Vandermonde}%
+\[
+\begin{pmatrix}
+  1 & \lambda_1 & \dots & \lambda_1^n \\
+  1 & \lambda_2 & \dots & \lambda_2^n \\
+  \vdots & \vdots & \ddots & \vdots \\
+  1 & \lambda_n & \dots & \lambda_n^n
+\end{pmatrix}
+\]
+che notoriamente è invertibile se
+i $\lambda_j$ sono tra loro distinti.
+
+Dunque $c_1 = c_2 = \dots = c_n = 0$ è l'unica soluzione
+del sistema lineare.
+\end{proof}
+
+\begin{theorem}[dimensione delle soluzioni]
+\label{th:dimensione_ricorsione_lineare}
+L'insieme $W$ di tutte le successioni soluzioni dell'equazione~\eqref{eq:ricorsione_lineare}
+di ordine $n$
+è un sottospazio vettoriale di dimensione $n$
+dello spazio $\CC^\NN$ di tutte le sottosuccessioni.
+\end{theorem}
+%
+\begin{proof}
+Denotiamo con $\vec a \in \CC^\NN$ la successione $a_k = \vec a(k)$.
+L'insieme $W$ delle soluzioni dell'equazione~\eqref{eq:ricorsione_lineare}
+è un sottospazio vettoriale di $\CC^\NN$ in quanto se $\vec a$
+e $\vec b$ sono soluzioni anche $\vec a + \vec b$ è soluzione e se $\vec a$
+è soluzione anche $t \vec a$ è soluzione per ogni $t\in \CC$
+(si faccia la verifica).
+
+Consideriamo allora l'operatore (chiamato \myemph{jet}) $J\colon W \to \CC^n$
+definito da
+\[
+  J(\vec a) = \enclose{\vec a(0), \vec a(1), \dots, \vec a(n-1)}.
+\]
+E' facile verificare che $J$ è un operatore lineare in quanto la valutazione
+di una funzione in un punto è una operazione lineare.
+
+Vogliamo ora determinare
+\[
+  \ker J = \{\vec a \in W \colon J(\vec a)=0\}.
+\]
+Se $\vec a\in \ker J$ significa che i primi $n$ termini
+della successione
+$a_0, a_1, \dots, a_{n-1}$ sono tutti nulli.
+Ma se $\vec a\in W$ sappiamo che vale~\eqref{eq:ricorsione_lineare} e dunque
+anche $a_n$ è nullo. Applicando~\eqref{eq:ricorsione_lineare} ricorsivamente
+otteniamo che $a_{n+k}=0$ per ogni $k\in \NN$ e dunque $\vec a = 0$.
+Dunque $\ker J = \{\vec 0\}$
+e per le note proprietà degli operatori lineari possiamo
+affermare che $J\colon W \to \CC^n$ è iniettivo.
+Dunque $\dim W \le \dim \CC^n = n$.
+
+Ma possiamo anche osservare che $J$ è suriettivo in quanto
+fissati i valori di $a_0,a_1, \dots, a_{n-1}$ l'equazione
+~\eqref{eq:ricorsione_lineare} ci permette di determinare,
+induttivamente, tutti i termini successivi. Dunque
+fissato $\vec y = (y_0, \dots, y_{n-1}) \in \CC^n$
+è possibile trovare $\vec a \in W$ tale che $J(\vec a) = \vec y$.
+
+Visto che $J\colon W\to\CC^n$ è iniettivo e suriettivo
+concludiamo che $\dim W = \dim \CC^n = n$.
+\end{proof}
+
+\begin{theorem}[caratterizzazione delle soluzioni]
+Se il polinomio caratteristico dell'equazione~\eqref{eq:ricorsione_lineare}
+ha $n$ zeri distinti $\lambda_1, \dots, \lambda_n$
+allora
+ogni soluzione dell'equazione si scrive nella forma
+\[
+  a_k = c_1 \lambda_1^k + c_2 \lambda_2^k + \dots + c_n \lambda_n^k
+\]
+dove $c_1, \dots, c_n$ sono costanti arbitrarie.
+\end{theorem}
+%
+\begin{proof}
+Sia $V=\CC^\NN$ lo spazio vettoriale di tutte le successioni.
+Possiamo definire l'operatore di \emph{shift} $\sigma\colon V\to V$
+\[
+  (\sigma \vec a)(k) = \vec a(k+1).
+\]
+Risulta quindi che $a_{k+n} = (\sigma^n \vec a)(k)$ dove
+$\sigma^n = \sigma \circ \sigma \circ \dots \circ \sigma$
+è la composizione di $\sigma$ con se stesso per $n$ volte.
+Possiamo quindi riscrivere l'equazione~\eqref{eq:ricorsione_lineare} nella forma
+\[
+  c_n \sigma^n \vec a + \dots + c_0 \sigma^0 \vec a = 0
+\]
+ovvero
+\[
+  P(\sigma)\vec a = 0
+\]
+dove con $P(\sigma)$ si intende l'operatore $P(\sigma)\colon V\to V$
+ottenuto applicando il polinomio caratteristico $P$ all'operatore $\sigma$.
+
+Se $\lambda_1,\dots\lambda_n$ sono le $n$ radici del polinomio $P$ si può
+decomporre il polinomio $P$ tramite il teorema~\ref{th:Ruffini} di Ruffini
+\begin{equation}\label{eq:375628}
+  P(\lambda)
+  = a_n (\lambda -\lambda_1)(\lambda- \lambda_2)\cdots (\lambda - \lambda_n).
+\end{equation}
+è chiaro (ma si veda il teorema~\ref{th:6822095} per una spiegazione più dettagliata)
+che la stessa decomposizione può essere fatta per $P(\sigma)$
+e quindi l'equazione~\eqref{eq:ricorsione_lineare}
+può essere scritta nella forma:
+\begin{equation}\label{eq:437343}
+(\sigma - \lambda_1 I)\circ (\sigma-\lambda_2 I)\circ \dots \circ (\sigma -\lambda_n I) \vec a = 0
+\end{equation}
+dove $I\colon V\to V$ è l'operatore identità $I\vec a = \vec a$.
+Visto che nella decomposizione~\eqref{eq:375628}
+l'ordine in cui vengono moltiplicati i fattori non conta,
+anche nell'equazione~\eqref{eq:437343} possiamo applicare gli operatori
+$(\sigma -\lambda_j I)$ in qualunque ordine (gli operatori commutano).
+Dunque è immediato accorgersi che se $\vec a$ risolve
+\[
+  (\sigma - \lambda_j I) \vec a = 0
+\]
+per un qualunque $j=1,\dots, n$ allora $\vec a\in W$.
+Ma quest'ultima equazione è facile da risolvere in quanto
+ponendo $a_k = \vec a(k)$ si esplicita nella forma:
+\[
+  a_{k+1} - \lambda_j a_k = 0
+\]
+che è soddisfatta se
+se si sceglie $a_k = \lambda_j^k$.
+
+Dunque la successione $\vec a_j$ definita da
+\[
+  \vec a_j(k) = \lambda_j^k
+\]
+è un elemento di $W$.
+Per $j=1,\dots, n$ abbiamo trovato $n$ soluzioni distinte
+$\vec a_1, \dots, \vec a_n$. Queste soluzioni sono
+indipendenti grazie al teorema~\ref{th:indipendenza_successioni_esponenziali}
+e quindi essendo $\dim W = n$ per il teorema~\ref{th:dimensione_ricorsione_lineare}
+possiamo affermare che queste soluzioni formano una base di $W$
+che è esattamente quanto volevamo dimostrare.
+\end{proof}
+
+\begin{example}[formula esplicita per la successione di Fibonacci]
+\index{successione!di Fibonacci}%
+\index{Fibonacci!formula esplicita}%
+La successione di Fibonacci $F_k$ definita da~\eqref{eq:Fibonacci}
+soddisfa una equazione ricorsiva lineare del secondo ordine con polinomio associato
+$P(\lambda) = \lambda^2 - \lambda - 1$. Risolvendo l'equazione $P(\lambda)=0$
+si trovano le due radici distinte:
+\[
+  \lambda_{1,2} = \frac{1 \pm \sqrt{5}}{2}.
+\]
+La radice più grande, $\lambda_2$, corrisponde al
+\myemph{rapporto aureo} che usualmente viene chiamato $\phi$.
+\index{$\phi$}%
+Visto che $\lambda_1 \lambda_2 = -1$ si trova $\lambda_1 = -1/\phi$.
+Dunque, per il teorema precedente, sappiamo che esistono due costanti $c_1$ e
+$c_2$ tali che
+\[
+  F_k = c_1 \frac{(-1)^k}{\phi^k} + c_2 \phi^k .
+\]
+Imponendo le condizioni $F_0=0$, $F_1=1$ (imporre $F_2 = 1$ è equivalente a $F_0=0$)
+si ottiene
+\[
+  c_1 + c_2 = 0, \qquad - \frac{c_1}{\phi} + c_2 \phi  = 1
+\]
+da cui è possibile trovare $c_1 = - c_2 = 1/\sqrt{5}$ e ottenere
+così
+una formula esplicita per il $k$-esimo numero di Fibonacci:
+\index{Fibonacci}
+\index{successione!di Fibonacci}
+\[
+  F_k = \frac{\phi^k}{\sqrt 5} + \frac{(-1)^{k+1}}{\sqrt 5\phi^k}.
+\]
+Risulta piuttosto sorprendente osservare che i valori $F_k$ ottenuti
+con questa espressione siano tutti numeri interi.
+\end{example}
+
+\section{dinamica complessa}
+\label{sec:mandelbrot}
+\index{dinamica!complessa}
+
+Più in generale potremmo considerare successioni $z_n$ a valori complessi
+e quindi equazioni ricorsive della forma
+\[
+  \begin{cases}
+    z_0 = \alpha, \\
+    z_{n+1} = f(z_n)
+  \end{cases}
+\]
+con $f\colon \CC \to \CC$.
+Se $f$ fosse lineare si potrebbe scrivere esplicitamente la soluzione
+seguendo le idee presentate nella sezione~\ref{sec:ricorsione_lineare}.
+
+Possiamo provare a considerare la più semplice funzione non lineare che ci possa
+venire in mente cioè $f(z) = z^2 + c$ e il più semplice dato iniziale $\alpha = 0$
+e il problema diventa quello di studiare il comportamento delle successioni:
+\begin{equation}\label{eq:mandelbrot}
+  \begin{cases}
+    z_0 = 0, \\
+    z_{n+1} = z_n + c
+  \end{cases}
+\end{equation}
+con $c\in \CC$.
+
+Se $c\in \RR$ l'insieme dei numeri reali è invariante, dunque la successione
+$z_n$ rimane reale e coincide con la successione che abbiamo
+studiato nell'esercizio~\ref{ex:mandelbrot_reale}.
+
+\begin{figure}
+\begin{center}
+\includegraphics[height=4cm]{mandelbrot.png}
+\end{center}
+\caption{L'insieme di Mandelbrot generato al computer. Si veda il
+codice a pagina \pageref{code:Mandelbrot}.}
+\label{fig:mandelbrot}
+\end{figure}
+
+E' molto complicato determinare il carattere delle successioni definite
+dal sistema~\eqref{eq:mandelbrot}, solo con l'utilizzo dei primi calcolatori
+Mandelbrot (1924-2010) riuscì a rappresentare graficamente
+\mymargin{insieme!di Mandelbrot}%
+\index{Mandelbrot!insieme di}
+l'insieme $M$ dei punti $c\in \CC$ per i quali la successione $z_n$ non diverge:
+si veda la figura~\ref{fig:mandelbrot}.
+
+Con l'esercizio~\ref{ex:mandelbrot_reale}
+abbiamo trovato l'intersezione $M\cap \RR = [-2,1/4]$.
+Nel seguente esercizio ci proponiamo ora di dimostrare un'altra semplice
+proprietà che può essere
+molto utile negli algoritmi numerici utilizzati per disegnare tale insieme.
+
+\begin{exercise}[raggio di fuga]
+Dimostrare che se $z_n$ è soluzione di \eqref{eq:mandelbrot}
+se per un qualche $N\in \NN$ si ha $\abs{z_N}> 2$ allora $\abs{z_n}\to +\infty$
+per $n\to +\infty$. In particolare l'insieme $M$ di Mandelbrot
+è contenuto nel disco $\{z\in \CC \colon \abs{z}\le 2\}$.
+\end{exercise}
+%
+\begin{proof}{Soluzione.}
+Sia $c\in \CC$ fissato e si $z_n$ la successione definita da~\eqref{eq:mandelbrot}.
+Per ogni $\eps>0$ consideriamo l'insieme:
+\[
+  A_\eps = \{z \in \CC \colon \abs{z}\ge c \text{ e } \abs{z}\ge 2+\eps\}.
+\]
+Possiamo mostrare che l'insieme $A_\eps$ è invariante in quanto se $z_n\in A_\eps$
+si ha
+\begin{equation}\label{eq:473244}
+\begin{aligned}
+\abs{z_{n+1}}
+&= \abs{z_n^2+c}
+\ge \abs{z_n}^2 - \abs{c}
+\ge \abs{z_n}^2 - \abs{z_n}
+= (\abs{z_n}-1)\abs{z_n}\\
+&\ge (1+\eps)\abs{z_n}
+\ge (1+\eps)(2+\eps)
+\ge 2+\eps.
+\end{aligned}
+\end{equation}
+Dunque $A_\eps$ è invariante ma non solo, se $z_n \in A_\eps$ abbiamo
+trovato che risulta $\abs{z_{n+1}} \ge (1+\eps) \abs{z_n}$
+e dunque $\abs{z_{n+k}} \ge (1+\eps)^k \abs{z_n}$ e dunque
+$\abs{z_n}\to +\infty$ per $n\to +\infty$.
+
+Se $\abs{c}\le 2$ e se $\abs{z_N}> 2$ allora $z_N \in A_\eps$ per
+un qualche $\eps>0$ e dunque possiamo concludere che
+$z_n\to \infty\in \bar \CC$.
+Se invece $\abs{c}>2$ è facile osservare che $z_0 = 0$, $z_1=c$, $z_2=c^2+c$
+e quindi
+\[
+  \abs{z_2}
+    = \abs{c^2+c}
+    \ge \abs{c}^2 - \abs{c}
+    = \abs{c}(\abs{c}-1)
+    \ge \abs{c} > 2
+\]
+dunque $z_2 \in A_\eps$ e quindi, comunque, $z_n\to \infty$.
+
+\end{proof}
