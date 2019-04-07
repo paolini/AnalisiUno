@@ -234,6 +234,431 @@ dove $g(t)$ rappresenta l'entità di una forza esterna variabile nel tempo. Ques
 
 Come nel caso generale le equazioni lineari di ordine $n$ si riconducono a sistemi lineari di $n$ equazioni del primo ordine.
 
+\section{metodi risolutivi}
+
+Una tipologia di equazioni differenziali che abbiamo già trattato
+è data dalle equazioni della forma:
+\[
+   u'(x) = f(x).
+\]
+Banalmente l'insieme delle soluzioni è dato dalle primitive di $f$:
+\[
+  u(x) \in \int f(x)\, dx.
+\]
+
+Osserviamo che se $f$ è continua il problema di Cauchy associato
+\[
+  \begin{cases}
+    u'(x) = f(x) \\
+    u(x_0) = u_0
+  \end{cases}
+\]
+ha una unica soluzione che si può scrivere nella forma:
+\[
+  u(x) = u_0 + \int_{x_0}^x f(t)\, dt
+\]
+
+\subsection{equazioni lineari del primo ordine}
+
+Sono le equazioni del tipo:
+\mymark{***}
+\[
+   u'(x) + a(x) u(x) = b(x).
+\]
+Per risolvere queste equazioni si cerca di ricondurre la somma al lato sinistro alla derivata di un prodotto.
+Per fare ciò si considera una qualunque primitiva
+$A(x) \in \int a(x)\, dx$ e si moltiplicano ambo i membri
+per $e^{A(x)}$:
+\[
+  e^{A(x)} u'(x) + a(x) e^{A(x)} u(x) = b(x) e^{A(x)}
+\]
+essendo $A'(x) = a(x)$
+si osserva che il lato sinistro è ora la derivata di un prodotto:
+\[
+  \enclose{e^{A(x)}u(x)}' = b(x) e^{A(x)}
+\]
+da cui
+\[
+  e^{A(x)} u(x) \in \int b(x) e^{A(x)}\, dx.
+\]
+Moltiplicando ambo i membri per $e^{-A(x)}$ (visto che l'esponenziale
+non si annulla mai questa operazione non modifica le soluzioni)
+si ottiene
+\[
+u(x) = e^{-A(x)} \int b(x) e^{A(x)}\, dx, \qquad
+A(x) \in \int a(x)\, dx.
+\]
+
+Più esplicitamente
+scelta una qualunque primitiva del lato destro
+\[
+  F(x) \in \int b(x) e^{A(x)}\, dx
+\]
+su ogni intervallo in cui $a(x)$ e $b(x)$ sono definite
+si ha
+\[
+  u(x) = e^{-A(x)}\enclose{F(x) + c}.
+\]
+per qualche $c\in \RR$.
+
+Se $b(x)=0$ l'equazione è lineare omogenea, possiamo scegliere $F(x) = 0$
+e quindi lo spazio delle soluzioni in questo caso
+è dato da
+\[
+  u(x) = c e^{-A(x)}
+\]
+ed è quindi lo spazio vettoriale unidimensionale generato dalla funzione $e^{-A(x)}$.
+
+Ogni soluzione della equazione non omogenea si può scrivere come somma di una
+soluzione particolare $u_0$ della equazione non omogenea
+più una generica soluzione dell'equazione omogenea associata. Infatti:
+\[
+  u(x) = u_0(x) + c e^{-A(x)}.
+\]
+dove
+\[
+  u_0(x) = e^{-A(x)}F(x)
+\]
+è una particolare soluzione dell'equazione non omogenea.
+
+Osserviamo che se $a(x)$ e $b(x)$ sono funzioni continue definite su uno stesso intervallo $I$, anche la soluzione è definita su tutto $I$. Si dirà quindi che la soluzione esiste \emph{globalmente}.
+
+\begin{exercise}[autovettori dell'operatore derivata]
+Fissato $\lambda \in \RR$ trovare tutte le soluzioni dell'equazione
+\[
+  u'(x) = \lambda u(x).
+\]
+\end{exercise}
+%
+\begin{proof}[Svolgimento]
+Scriviamo l'equazione nella forma
+\[
+  u'(x) - \lambda u(x) = 0.
+\]
+Nelle notazioni precedenti abbiamo $a(x) = -\lambda$ e quindi possiamo scegliere $A(x) = -\lambda x \in \int a$.
+Moltiplicando ambo i membri per $e^{-A(x)}$ si ottiene
+\[
+  e^{-\lambda x} u'(x) - \lambda e^{-\lambda x} u(x) = 0
+\]
+cioè
+\[
+ \enclose{e^{-\lambda x}\cdot u(x)}' = 0
+\]
+da cui su ogni intervallo in cui $u$ è definita esiste una costante $c$ tale che
+\[
+  e^{-\lambda x} u(x) = c
+\]
+ovvero
+\[
+  u(x) = c e^{\lambda x}.
+\]
+Abbiamo dunque trovato che le soluzioni sono definite su tutto $\RR$, una soluzione è $e^{\lambda x}$ e ogni altra soluzione è multiplo di questa.
+\end{proof}
+
+\begin{exercise}
+\begin{enumerate}
+\item
+Trovare tutte le soluzioni dell'equazione differenziale
+\[
+  u' - \frac{u}{x} = x^2.
+\]
+
+\item
+Trovare tutte le soluzioni dell'equazione differenziale
+\[
+  x u' - u = x^3.
+\]
+\end{enumerate}
+\end{exercise}
+\begin{proof}[Svolgimento]
+La prima è una equazione lineare non omogenea del primo ordine in forma normale: $u'(x) + a(x) u(x) = b(x)$. Il fattore integrante è $e^{A(x)}$ con
+\[
+  A(x) \in \int a(x)\, dx = -\int \frac{1}{x}\, dx \ni - \ln \abs{x}.
+\]
+Dunque $e^{A(x)} = 1/\abs{x}$. Dovremmo dunque dividere ambo i membri dell'equazione per $\abs{x}$. Osserviamo che l'equazione non è definita per $x=0$ e possiamo dunque distinguere i casi $x>0$ e $x<0$. Decidiamo quindi, per semplicità, di cambiare segno all'equazione per $x<0$ cosicché possiamo dividere per $x$ invece che per $\abs{x}$. Si ottiene dunque:
+\[
+  \frac{u'}{x} - \frac{u}{x^2} = x
+\]
+cioè
+\[
+  \enclose{u\cdot \frac{1}{x}}'  = x
+\]
+da cui
+\[
+  \frac{u}{x} \in \int x\, dx \ni \frac{x^2}{2}.
+\]
+Dunque la funzione $u(x)/x$ differisce da $x^2/2$ per una costante su ognuno dei due intervalli $x>0$ e $x<0$. Su ognuno dei due intervalli si ha dunque:
+\[
+  \frac{u(x)}{x} = \frac{x^2}{2} + c
+\]
+da cui
+\[
+  u(x) = \frac{x^3}{2} + c x
+\]
+per qualche $c\in \RR$. Per come è stato posto il problema, la soluzione non deve essere definita per $x=0$ e la costante $c$ può essere quindi diversa se $x>0$ o $x<0$.
+
+La seconda equazione è equivalente alla prima se $x\neq 0$. Ma non è in forma normale e le soluzioni
+potranno essere definite anche per $x=0$.
+Si avrà quindi
+\[
+  u(x) = \frac{x^3}{2} + c x
+\]
+come prima ma affinché la funzione sia derivabile in $x=0$ la costante $c$ dovrà essere uguale per $x>0$ e per $x<0$.
+
+Si osservi che ogni soluzione soddisfa la condizione iniziale $u(0) = 0$ e che quindi nessuna soluzione soddisfa la condizione $u(0)= q$ se $q \neq 0$.
+\end{proof}
+
+\begin{exercise}
+Risolvere l'equazione differenziale:
+\[
+ u' + \frac{u}{(1+x^2)\arctg x} = 1.
+\]
+\end{exercise}
+%
+\begin{proof}[Svolgimento.]
+Osserviamo che l'equazione è definita solo per $x\neq 0$. Cercheremo quindi le soluzioni sui due intervalli $x<0$ e $x>0$.
+Moltiplicando ambo i membri dell'equazione per $\arctg x$ si ottiene
+\[
+  \arctg x \cdot u'(x) +\frac{1}{1+x^2} u(x) = \arctg x
+\]
+cioè:
+\[
+  \enclose{\arctg x \cdot u(x)}' = \arctg x
+\]
+da cui
+\[
+  \arctg x \cdot u(x) \in \int \arctg x\, dx \ni x \arctg x - \frac {1}{2}\ln(1+x^2).
+\]
+Dunque su ogni intervallo su cui la soluzione è definita esisterà
+$c\in \RR$ tale che
+\[
+  \arctg x \cdot u(x) = x \arctg x - \frac{1}{2}\ln(1+x^2) + c
+\]
+da cui essendo $x\neq 0$ si può dividere per $\arctg x$ e ottenere
+\[
+  u(x) = x - \frac{\ln(1+x^2)}{2\arctg x} + \frac{c}{\arctg x}.
+\]
+Abbiamo quindi una famiglia di soluzioni definite per $x<0$ e una famiglia di soluzioni definite per $x>0$.
+\end{proof}
+
+\subsection{equazioni a variabili separabili}
+
+Si chiamano equazioni a variabili separabili le
+equazioni del tipo:
+\mymark{***}
+\begin{equation}\label{eq:edo_separabile}
+  u'(x) = f(x) \cdot g(u(x)).
+\end{equation}
+Questa è una equazioni del primo ordine in forma normale:
+\[
+  u'(x) = F(x, u(x))
+\]
+dove nella funzione $F$ risulta possibile separare le variabili $x$ e $u$ in un prodotto:
+\[
+  F(x, u) = f(x)\cdot g(u).
+\]
+
+Se $u$ è una soluzione dell'equazione~\eqref{eq:edo_separabile}
+e se $x$ è un punto in cui $g(u(x))\neq 0$, possiamo dividere ambo i membri dell'equazione per $g(u(x))$ per ottenere:
+\[
+  \frac{u'(x)}{g(u(x))} = f(x).
+\]
+Vogliamo ora scrivere il lato sinistro come la derivata della funzione composta. Se scegliamo una primitiva di $1/g$:
+\[
+  H(u) \in \int \frac{1}{g(u)}\, du
+\]
+si osserva che
+\[
+  \enclose{H(u(x))}' = H'(u(x))u'(x) = \frac{u'(x)}{g(u(x))} = f(x).
+\]
+dunque se $F\in \int f$, su ogni intervallo in cui $g(u(x))\neq 0$ dovrà esistere $c\in \RR$ tale che
+\[
+  H(u(x)) = F(x) + c.
+\]
+Se supponiamo inoltre che $H$ sia invertibile si avrà:
+\[
+  u(x) = H^{-1}(F(x)+ c).
+\]
+
+\begin{example}
+Risolviamo l'equazione
+\begin{equation}\label{eq:43856}
+  u' = x u^2 + x.
+\end{equation}
+E' una equazione del primo ordine in forma normale.
+Raccogliendo $x$ al lato destro si ottiene una equazione a variabili separabili.
+Dividendo ambo i membri per $u^2+1$ (che è sempre diverso da zero) si ottiene l'equazione equivalente
+\[
+\frac{u'}{1+u^2} = x.
+\]
+Integrando il lato sinistro si ottiene:
+\[
+  \int \frac{u'(x)}{1+u^2(x)}\, dx
+  = \Enclose{\int \frac{du}{1+u^2}}_{u=u(x)}
+  \ni \arctg(u(x))
+\]
+mentre per il lato destro si ottiene
+\[
+  \int x\, dx \ni \frac{x^2}{2}.
+\]
+Dunque su ogni intervallo si deve avere
+\[
+  \arctg(u(x)) = \frac{x^2}{2} + c.
+\]
+Visto che l'arcotangente assume valori compresi tra $-\pi/2$ e $\pi/2$ anche il lato destro dovrà rimanere in tale intervallo. Dovrà quindi essere:
+\begin{equation}\label{eq:4856}
+  -\frac \pi 2 < \frac {x^2} 2 + c < \frac \pi 2 .
+\end{equation}
+Con questa condizione possiamo invertire l'arcotangente ottenendo finalmente una espressione per la soluzione:
+\begin{equation}\label{eq:45876314}
+  u(x) = \tg\enclose{\frac{x^2}{2} + c}.
+\end{equation}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth]{fig43856.png}
+\label{fig:43856}
+\caption{i grafici delle soluzioni dell'equazione differenziale~\eqref{eq:43856}}.
+\end{figure}
+
+Osserviamo che la condizione~\eqref{eq:4856} equivale a richiedere che l'argomento
+della tangente stia nell'intervallo $\enclose{-\frac \pi 2, \frac \pi 2}$.
+In tal caso dovrà essere $c<\frac\pi 2$ e si osserva che se $c>-\frac \pi 2$
+la soluzione $u(x)$ è definita su un intervallo aperto centrato in $x=0$ mentre
+se $c \le -\frac \pi 2$ la soluzione è definita su una coppia di intervalli
+simmetrici con ampiezza che tende a zero quando $c\to -\infty$.
+Agli estremi di tali intervalli la soluzione ha degli asintoti verticali.
+
+In questo caso possiamo osservare che la condizione~\eqref{eq:4856} può essere
+trascurata, visto che la funzione $\tg$ è $\pi$-periodica e quindi
+è possibile sommare a $c$ un multiplo intero di $\pi$ senza che la soluzione
+venga modificata.
+Nell'equazione~\eqref{eq:45876314} si potrebbe
+quindi considerare la funzione $\tg$
+definita su tutto il suo dominio osservando che in tal caso si può
+supporre che sia $c\in \left(-\frac \pi 2, \frac \pi 2\right]$.
+Invece di ottenere un singolo intervallo per ogni $c$ si ottengono così
+tutti gli infiniti intervalli.
+\end{example}
+
+\begin{remark}
+L'esempio precedente mette in evidenza il fatto che le soluzioni massimali possono essere definite
+su intervalli arbitrariamente piccoli coerentemente con quanto affermato
+nel teorema di esistenza e unicità locale.
+\end{remark}
+
+\begin{example}
+Si voglia risolvere l'equazione
+\[
+  u' = u^2.
+\]
+Si tratta di una equazione in forma normale, del primo ordine, autonoma.
+In particolare è a variabili separabili
+$u' = f(u(x))\cdot g(x)$
+con $f(u)=u^2$ e $g(x)=1$.
+Osserviamo innanzitutto che $u(x) = 0$ è soluzione in quanto $u'(x) = u^2(x) = 0$.
+Se $u$ è una soluzione non identicamente nulla ci saranno dei punti in cui
+$u(x)\neq 0$.
+In un intorno di tali punti possiamo dividere ambo i membri dell'equazione per $u^2(x)$ ottenendo:
+\[
+  \frac{u'}{u^2} = 1.
+\]
+Integrando il lato sinistro tramite cambio di variabile $u=u(x)$, $du=u'(x)\, dx$ si ottiene:
+\[
+  \int \frac{u'(x)}{u^2(x)}\, dx = \Enclose{\int \frac{du}{u^2}}_{u=u(x)} = \Enclose{-\frac{1}{u}}_{u=u(x)}
+  = -\frac{1}{u(x)}
+\]
+mentre integrando il lato destro si ha
+\[
+  \int 1 \, dx \ni x.
+\]
+Dunque su ogni intervallo in cui $u(x)\neq 0$ deve esistere una costante $c\in \RR$ tale che
+\[
+-\frac{1}{u(x)} = x + c
+\]
+ovvero, ponendo $x_0 = -c$
+\begin{equation}\label{eq:5782196}
+  u(x) = -\frac{1}{x+c} = \frac{1}{x_0-x}.
+\end{equation}
+
+In conclusione abbiamo trovato una soluzione costante $u(x)=0$ e una famiglia
+di soluzioni definite sugli intervalli $(-\infty,x_0)$ e $(x_0,+\infty)$
+rappresentante dall'equazione~\eqref{eq:5782196}.
+Dovremmo ora chiederci
+se è possibile che queste soluzioni vengano mescolate tra loro, ovvero
+se una soluzione può valere zero in alcune zone e soddisfare~\eqref{eq:5782196}
+in altre.
+
+In questo caso la risposta è no.
+Basta osservare che una funzione $u$ che soddisfa l'equazione~\eqref{eq:5782196}
+può tendere a zero solamente quando $x\to +\infty$ o $x\to -\infty$.
+Questo significa che se consideriamo una soluzione $u(x)$
+definita su un intervallo $I$ e se in almeno un punto la soluzione è diversa da zero,
+allora la soluzione è diversa da zero su tutto $I$ e
+soddisfa l'equazione~\eqref{eq:5782196} in quanto la soluzione nulla e la
+soluzione \eqref{eq:5782196} non sono tra loro compatibili (non possono essere
+incollate con continuità).
+
+Vedremo più avanti un risultato
+(proposizione~\ref{prop:separazione_soluzioni})
+che garantisce in ipotesi molto generali (che sono soddisfatte per questa
+equazione) due diverse soluzioni non
+possono mai incontrarsi.
+\end{example}
+
+\begin{example}[baffo di Peano]
+Si determinino tutte le soluzioni massimali dell'equazione
+\[
+  u'(x) = \sqrt[3]{u(x)}
+\]
+con la condizione $u(0)=0$.
+\end{example}
+%
+\begin{proof}[Svolgimento.]
+Osserviamo che la funzione nulla $u(x)=0$ è soluzione dell'equazione
+e soddisfa la condizione $u(0)=0$.
+Ma a priori non possiamo escludere che ci siano altre soluzioni dell'equazione
+che verifichino la stessa condizione (vedremo che la
+proposizione~\ref{prop:separazione_soluzioni} non si applica in questo caso
+particolare).
+
+Nei punti in cui $u(x)\neq 0$ possiamo riscrivere l'equazione nella forma
+\[
+  \frac{u'(x)}{\sqrt[3]{u(x)}} = 1.
+\]
+Integrando il lato sinistro tramite il cambio di variabili $u=u(x)$,
+$du = u'(x)\, dx$,
+si ottiene
+\[
+  \int \frac{u'(x)}{\sqrt[3]{u(x)}}\, dx
+  = \Enclose{\int \frac{du}{\sqrt[3]u}}_{u=u(x)}
+  \ni \frac 3 2 \sqrt[3]{u^2(x)}.
+\]
+integrando anche il alto destro troviamo dunque
+che su ogni intervallo su cui $u$ è definita e $u(x)\neq 0$
+deve esistere una costante $c$ tale che
+\[
+  \frac 3 2 \sqrt[3]{u^2(x)} = x + c.
+\]
+Risolvendo in $u(x)$:
+\begin{equation}\label{eq:476937568}
+  u(x) = \pm \sqrt{\enclose{\frac 2 3 (x+c)}^3}.
+\end{equation}
+Osserviamo che la proprietà precedente
+può essere soddisfatta solamente se $x\ge -c$ ma affinché
+sia $u(x)\neq 0$ dobbiamo imporre $x>-c$.
+Ma per $x\to -c^+$
+si ha $u(x)\to 0$ e anche $u'(x) = \sqrt[3]{u(x)}\to 0$.
+Significa che una soluzione definita su $x>c$ mediante
+la~\eqref{eq:476937568} può essere estesa a tutto $\RR$
+ponendo $u(x)=0$ per $x\le c$.
+Affinché valga la condizione $u(0)=0$ sarà dunque sufficiente
+imporre la restrizione $-c\ge 0$.
+
+Il nostro problema ha dunque infinite soluzioni definite
+su tutto $\RR$.
+\end{proof}
+
 \section[funzioni vettoriali e di più variabili]{alcuni risultati preparatori sulle funzioni vettoriali e di più variabili}
 
 Ci sarà utile estendere la definizione delle classi di regolarità $C^k$ alle funzioni vettoriali di più variabili.
@@ -817,381 +1242,6 @@ Anche l'unicità segue direttamente dall'equivalenza delle due formulazioni.
 L'esistenza globale segue in maniera analoga dal teorema per i sistemi del primo ordine. Basti osservare che se la funzione $f$ soddisfa l'ipotesi di sublinearità anche $\vec f$ la soddisfa.
 \end{proof}
 
-\section{metodi risolutivi}
-
-Una tipologia di equazioni differenziali che abbiamo già trattato
-è data dalle equazioni della forma:
-\[
-   u'(x) = f(x).
-\]
-Banalmente l'insieme delle soluzioni è dato dalle primitive di $f$:
-\[
-  u(x) \in \int f(x)\, dx.
-\]
-
-Osserviamo che se $f$ è continua il problema di Cauchy associato
-\[
-  \begin{cases}
-    u'(x) = f(x) \\
-    u(x_0) = u_0
-  \end{cases}
-\]
-ha una unica soluzione che si può scrivere nella forma:
-\[
-  u(x) = u_0 + \int_{x_0}^x f(t)\, dt
-\]
-
-\subsection{equazioni lineari del primo ordine}
-
-Sono le equazioni del tipo:
-\mymark{***}
-\[
-   u'(x) + a(x) u(x) = b(x).
-\]
-Per risolvere queste equazioni si cerca di ricondurre la somma al lato sinistro alla derivata di un prodotto.
-Per fare ciò si considera una qualunque primitiva
-$A(x) \in \int a(x)\, dx$ e si moltiplicano ambo i membri
-per $e^{A(x)}$:
-\[
-  e^{A(x)} u'(x) + a(x) e^{A(x)} u(x) = b(x) e^{A(x)}
-\]
-essendo $A'(x) = a(x)$
-si osserva che il lato sinistro è ora la derivata di un prodotto:
-\[
-  \enclose{e^{A(x)}u(x)}' = b(x) e^{A(x)}
-\]
-da cui
-\[
-  e^{A(x)} u(x) \in \int b(x) e^{A(x)}\, dx.
-\]
-Moltiplicando ambo i membri per $e^{-A(x)}$ (visto che l'esponenziale
-non si annulla mai questa operazione non modifica le soluzioni)
-si ottiene
-\[
-u(x) = e^{-A(x)} \int b(x) e^{A(x)}\, dx, \qquad
-A(x) \in \int a(x)\, dx.
-\]
-
-Più esplicitamente
-scelta una qualunque primitiva del lato destro
-\[
-  F(x) \in \int b(x) e^{A(x)}\, dx
-\]
-su ogni intervallo in cui $a(x)$ e $b(x)$ sono definite
-si ha
-\[
-  u(x) = e^{-A(x)}\enclose{F(x) + c}.
-\]
-per qualche $c\in \RR$.
-
-Se $b(x)=0$ l'equazione è lineare omogenea, possiamo scegliere $F(x) = 0$
-e quindi lo spazio delle soluzioni in questo caso
-è dato da
-\[
-  u(x) = c e^{-A(x)}
-\]
-ed è quindi lo spazio vettoriale unidimensionale generato dalla funzione $e^{-A(x)}$.
-
-Ogni soluzione della equazione non omogenea si può scrivere come somma di una
-soluzione particolare $u_0$ della equazione non omogenea
-più una generica soluzione dell'equazione omogenea associata. Infatti:
-\[
-  u(x) = u_0(x) + c e^{-A(x)}.
-\]
-dove
-\[
-  u_0(x) = e^{-A(x)}F(x)
-\]
-è una particolare soluzione dell'equazione non omogenea.
-
-Osserviamo che se $a(x)$ e $b(x)$ sono funzioni continue definite su uno stesso intervallo $I$, anche la soluzione è definita su tutto $I$. Si dirà quindi che la soluzione esiste \emph{globalmente}.
-
-\begin{exercise}[autovettori dell'operatore derivata]
-Fissato $\lambda \in \RR$ trovare tutte le soluzioni dell'equazione
-\[
-  u'(x) = \lambda u(x).
-\]
-\end{exercise}
-%
-\begin{proof}[Svolgimento]
-Scriviamo l'equazione nella forma
-\[
-  u'(x) - \lambda u(x) = 0.
-\]
-Nelle notazioni precedenti abbiamo $a(x) = -\lambda$ e quindi possiamo scegliere $A(x) = -\lambda x \in \int a$.
-Moltiplicando ambo i membri per $e^{-A(x)}$ si ottiene
-\[
-  e^{-\lambda x} u'(x) - \lambda e^{-\lambda x} u(x) = 0
-\]
-cioè
-\[
- \enclose{e^{-\lambda x}\cdot u(x)}' = 0
-\]
-da cui su ogni intervallo in cui $u$ è definita esiste una costante $c$ tale che
-\[
-  e^{-\lambda x} u(x) = c
-\]
-ovvero
-\[
-  u(x) = c e^{\lambda x}.
-\]
-Abbiamo dunque trovato che le soluzioni sono definite su tutto $\RR$, una soluzione è $e^{\lambda x}$ e ogni altra soluzione è multiplo di questa.
-\end{proof}
-
-\begin{exercise}
-\begin{enumerate}
-\item
-Trovare tutte le soluzioni dell'equazione differenziale
-\[
-  u' - \frac{u}{x} = x^2.
-\]
-
-\item
-Trovare tutte le soluzioni dell'equazione differenziale
-\[
-  x u' - u = x^3.
-\]
-\end{enumerate}
-\end{exercise}
-\begin{proof}[Svolgimento]
-La prima è una equazione lineare non omogenea del primo ordine in forma normale: $u'(x) + a(x) u(x) = b(x)$. Il fattore integrante è $e^{A(x)}$ con
-\[
-  A(x) \in \int a(x)\, dx = -\int \frac{1}{x}\, dx \ni - \ln \abs{x}.
-\]
-Dunque $e^{A(x)} = 1/\abs{x}$. Dovremmo dunque dividere ambo i membri dell'equazione per $\abs{x}$. Osserviamo che l'equazione non è definita per $x=0$ e possiamo dunque distinguere i casi $x>0$ e $x<0$. Decidiamo quindi, per semplicità, di cambiare segno all'equazione per $x<0$ cosicché possiamo dividere per $x$ invece che per $\abs{x}$. Si ottiene dunque:
-\[
-  \frac{u'}{x} - \frac{u}{x^2} = x
-\]
-cioè
-\[
-  \enclose{u\cdot \frac{1}{x}}'  = x
-\]
-da cui
-\[
-  \frac{u}{x} \in \int x\, dx \ni \frac{x^2}{2}.
-\]
-Dunque la funzione $u(x)/x$ differisce da $x^2/2$ per una costante su ognuno dei due intervalli $x>0$ e $x<0$. Su ognuno dei due intervalli si ha dunque:
-\[
-  \frac{u(x)}{x} = \frac{x^2}{2} + c
-\]
-da cui
-\[
-  u(x) = \frac{x^3}{2} + c x
-\]
-per qualche $c\in \RR$. Per come è stato posto il problema, la soluzione non deve essere definita per $x=0$ e la costante $c$ può essere quindi diversa se $x>0$ o $x<0$.
-
-La seconda equazione è equivalente alla prima se $x\neq 0$. Ma non è in forma normale e le soluzioni
-potranno essere definite anche per $x=0$.
-Si avrà quindi
-\[
-  u(x) = \frac{x^3}{2} + c x
-\]
-come prima ma affinché la funzione sia derivabile in $x=0$ la costante $c$ dovrà essere uguale per $x>0$ e per $x<0$.
-
-Si osservi che ogni soluzione soddisfa la condizione iniziale $u(0) = 0$ e che quindi nessuna soluzione soddisfa la condizione $u(0)= q$ se $q \neq 0$.
-\end{proof}
-
-\begin{exercise}
-Risolvere l'equazione differenziale:
-\[
- u' + \frac{u}{(1+x^2)\arctg x} = 1.
-\]
-\end{exercise}
-%
-\begin{proof}[Svolgimento.]
-Osserviamo che l'equazione è definita solo per $x\neq 0$. Cercheremo quindi le soluzioni sui due intervalli $x<0$ e $x>0$.
-Moltiplicando ambo i membri dell'equazione per $\arctg x$ si ottiene
-\[
-  \arctg x \cdot u'(x) +\frac{1}{1+x^2} u(x) = \arctg x
-\]
-cioè:
-\[
-  \enclose{\arctg x \cdot u(x)}' = \arctg x
-\]
-da cui
-\[
-  \arctg x \cdot u(x) \in \int \arctg x\, dx \ni x \arctg x - \frac {1}{2}\ln(1+x^2).
-\]
-Dunque su ogni intervallo su cui la soluzione è definita esisterà
-$c\in \RR$ tale che
-\[
-  \arctg x \cdot u(x) = x \arctg x - \frac{1}{2}\ln(1+x^2) + c
-\]
-da cui essendo $x\neq 0$ si può dividere per $\arctg x$ e ottenere
-\[
-  u(x) = x - \frac{\ln(1+x^2)}{2\arctg x} + \frac{c}{\arctg x}.
-\]
-Abbiamo quindi una famiglia di soluzioni definite per $x<0$ e una famiglia di soluzioni definite per $x>0$.
-\end{proof}
-
-\subsection{equazioni a variabili separabili}
-
-Si chiamano equazioni a variabili separabili le
-equazioni del tipo:
-\mymark{***}
-\begin{equation}\label{eq:edo_separabile}
-  u'(x) = f(x) \cdot g(u(x)).
-\end{equation}
-Questa è una equazioni del primo ordine in forma normale:
-\[
-  u'(x) = F(x, u(x))
-\]
-dove nella funzione $F$ risulta possibile separare le variabili $x$ e $u$ in un prodotto:
-\[
-  F(x, u) = f(x)\cdot g(u).
-\]
-
-Se $u$ è una soluzione dell'equazione~\eqref{eq:edo_separabile}
-e se $x$ è un punto in cui $g(u(x))\neq 0$, possiamo dividere ambo i membri dell'equazione per $g(u(x))$ per ottenere:
-\[
-  \frac{u'(x)}{g(u(x))} = f(x).
-\]
-Vogliamo ora scrivere il lato sinistro come la derivata della funzione composta. Se scegliamo una primitiva di $1/g$:
-\[
-  H(u) \in \int \frac{1}{g(u)}\, du
-\]
-si osserva che
-\[
-  \enclose{H(u(x))}' = H'(u(x))u'(x) = \frac{u'(x)}{g(u(x))} = f(x).
-\]
-dunque se $F\in \int f$, su ogni intervallo in cui $g(u(x))\neq 0$ dovrà esistere $c\in \RR$ tale che
-\[
-  H(u(x)) = F(x) + c.
-\]
-Se supponiamo inoltre che $H$ sia invertibile si avrà:
-\[
-  u(x) = H^{-1}(F(x)+ c).
-\]
-
-\begin{example}
-Risolviamo l'equazione
-\begin{equation}\label{eq:43856}
-  u' = x u^2 + x.
-\end{equation}
-E' una equazione del primo ordine in forma normale.
-Raccogliendo $x$ al lato destro si ottiene una equazione a variabili separabili.
-Dividendo ambo i membri per $u^2+1$ (che è sempre diverso da zero) si ottiene l'equazione equivalente
-\[
-\frac{u'}{1+u^2} = x.
-\]
-Integrando il lato sinistro si ottiene:
-\[
-  \int \frac{u'(x)}{1+u^2(x)}\, dx
-  = \Enclose{\int \frac{du}{1+u^2}}_{u=u(x)}
-  \ni \arctg(u(x))
-\]
-mentre per il lato destro si ottiene
-\[
-  \int x\, dx \ni \frac{x^2}{2}.
-\]
-Dunque su ogni intervallo si deve avere
-\[
-  \arctg(u(x)) = \frac{x^2}{2} + c.
-\]
-Visto che l'arcotangente assume valori compresi tra $-\pi/2$ e $\pi/2$ anche il lato destro dovrà rimanere in tale intervallo. Dovrà quindi essere:
-\begin{equation}\label{eq:4856}
-  -\frac \pi 2 < \frac {x^2} 2 + c < \frac \pi 2 .
-\end{equation}
-Con questa condizione possiamo invertire l'arcotangente ottenendo finalmente una espressione per la soluzione:
-\begin{equation}\label{eq:45876314}
-  u(x) = \tg\enclose{\frac{x^2}{2} + c}.
-\end{equation}
-
-\begin{figure}
-\centering
-\includegraphics[width=0.8\textwidth]{fig43856.png}
-\label{fig:43856}
-\caption{i grafici delle soluzioni dell'equazione differenziale~\eqref{eq:43856}}.
-\end{figure}
-
-Osserviamo che la condizione~\eqref{eq:4856} equivale a richiedere che l'argomento
-della tangente stia nell'intervallo $\enclose{-\frac \pi 2, \frac \pi 2}$.
-In tal caso dovrà essere $c<\frac\pi 2$ e si osserva che se $c>-\frac \pi 2$
-la soluzione $u(x)$ è definita su un intervallo aperto centrato in $x=0$ mentre
-se $c \le -\frac \pi 2$ la soluzione è definita su una coppia di intervalli
-simmetrici con ampiezza che tende a zero quando $c\to -\infty$.
-Agli estremi di tali intervalli la soluzione ha degli asintoti verticali.
-
-In questo caso possiamo osservare che la condizione~\eqref{eq:4856} può essere
-trascurata, visto che la funzione $\tg$ è $\pi$-periodica e quindi
-è possibile sommare a $c$ un multiplo intero di $\pi$ senza che la soluzione
-venga modificata.
-Nell'equazione~\eqref{eq:45876314} si potrebbe
-quindi considerare la funzione $\tg$
-definita su tutto il suo dominio osservando che in tal caso si può
-supporre che sia $c\in \left(-\frac \pi 2, \frac \pi 2\right]$.
-Invece di ottenere un singolo intervallo per ogni $c$ si ottengono così
-tutti gli infiniti intervalli.
-\end{example}
-
-\begin{remark}
-L'esempio precedente mette in evidenza il fatto che le soluzioni massimali possono essere definite
-su intervalli arbitrariamente piccoli coerentemente con quanto affermato
-nel teorema di esistenza e unicità locale.
-\end{remark}
-
-\begin{example}
-Si voglia risolvere l'equazione
-\[
-  u' = u^2.
-\]
-Si tratta di una equazione in forma normale, del primo ordine, autonoma.
-In particolare è a variabili separabili
-$u' = f(u(x))\cdot g(x)$
-con $f(u)=u^2$ e $g(x)=1$.
-Osserviamo innanzitutto che $u(x) = 0$ è soluzione in quanto $u'(x) = u^2(x) = 0$.
-Se $u$ è una soluzione non identicamente nulla ci saranno dei punti in cui
-$u(x)\neq 0$.
-In un intorno di tali punti possiamo dividere ambo i membri dell'equazione per $u^2(x)$ ottenendo:
-\[
-  \frac{u'}{u^2} = 1.
-\]
-Integrando il lato sinistro tramite cambio di variabile $u=u(x)$, $du=u'(x)\, dx$ si ottiene:
-\[
-  \int \frac{u'(x)}{u^2(x)}\, dx = \Enclose{\int \frac{du}{u^2}}_{u=u(x)} = \Enclose{-\frac{1}{u}}_{u=u(x)}
-  = -\frac{1}{u(x)}
-\]
-mentre integrando il lato destro si ha
-\[
-  \int 1 \, dx \ni x.
-\]
-Dunque su ogni intervallo in cui $u(x)\neq 0$ deve esistere una costante $c\in \RR$ tale che
-\[
--\frac{1}{u(x)} = x + c
-\]
-ovvero, ponendo $x_0 = -c$
-\begin{equation}\label{eq:5782196}
-  u(x) = -\frac{1}{x+c} = \frac{1}{x_0-x}.
-\end{equation}
-
-In conclusione abbiamo trovato una soluzione costante $u(x)=0$ e una famiglia
-di soluzioni definite sugli intervalli $(-\infty,x_0)$ e $(x_0,+\infty)$
-rappresentante dall'equazione~\eqref{eq:5782196}.
-Dovremmo ora chiederci
-se è possibile che queste soluzioni vengano mescolate tra loro, ovvero
-se una soluzione può valere zero in alcune zone e soddisfare~\eqref{eq:5782196}
-in altre. In questo caso la risposta è no, e può essere ottenuta
-in due modi diversi.
-
-\emph{Giustificazione algebrica.}
-Basta osservare che una funzione $u$ che soddisfa l'equazione~\eqref{eq:5782196}
-può tendere a zero solamente quando $x\to +\infty$ o $x\to -\infty$.
-Questo significa che se consideriamo una soluzione $u(x)$
-definita su un intervallo
-massimale $I$ e se in almeno un punto la soluzione è diversa da zero,
-allora la soluzione è diversa da zero su tutto $I$ e
-soddisfa l'equazione~\eqref{eq:5782196} in quanto la soluzione nulla e la
-soluzione \eqref{eq:5782196} non sono tra loro compatibili (non possono essere
-incollate con continuità).
-
-\emph{Giustificazione analitica.}
-Soluzioni diverse non possono avere punti in comune in quanto la funzione
-$f(y)=y^2$ soddisfa le ipotesi del teorema di esistenza e unicità locale e
- quindi si applica la proposizione~\ref{prop:separazione_soluzioni}
- (separazione delle soluzioni).
-
-\end{example}
-
 \section{equazioni lineari di ordine $n$}
 
 \index{equazione!differenziale!lineari di ordine $n$}
@@ -1378,9 +1428,10 @@ cioè: l'operatore differenziale associato al prodotto dei polinomi è la compos
 \begin{proof}
 Il teorema potrebbe essere di immediata intuizione
 se si considerano i polinomi in senso astratto: non come funzioni ma come
-espressioni algebriche che agiscono su uno spazio di oggetti (chiamati anelli)
+espressioni algebriche che agiscono su uno spazio di oggetti
 su cui sono definite le operazioni di somma e prodotto soddisfacenti le usuali
-proprietà distributiva, associativa e commutativa.
+proprietà distributiva, associativa e commutativa
+(tali spazi vengono chiamati \emph{anelli}).
 Nel caso dell'operatore $D$ la moltiplicazione è sostituita alla composizione
 ma preserva le stesse regole formali: $(a+b) D = aD + bD$
 e $D^k D^j = D^{k+j} = D^j D^k$. Vediamo comunque una dimostrazione formale.
@@ -1711,7 +1762,14 @@ La matrice
     u_1^{(n-1)}(x) & u_2^{(n-1)}(x) & \dots & u_n^{(n-1)}(x)
     \end{pmatrix}
 \end{equation}
-è chiamata \myemph{matrice wronksiana}. Il determinante di tale matrice $w(x) = \det W(x)$ è chiamato \myemph{determinante wronksiano}.
+è chiamata \emph{matrice wronksiana}.
+\mymargin{matrice e determinante wronksiano}%
+\index{matrice!wronksiana}%
+\index{determinante!wronksiano}%
+\index{wronksiano}
+Il determinante di tale matrice
+$w(x) = \det W(x)$ è chiamato
+\myemph{determinante wronksiano}.
 \end{definition}
 
 \begin{theorem}
