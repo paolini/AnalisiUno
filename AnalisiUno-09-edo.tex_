@@ -248,16 +248,23 @@ Banalmente l'insieme delle soluzioni è dato dalle primitive di $f$:
 \[
   u(x) \in \int f(x)\, dx.
 \]
+Se $f$ è definita su un intervallo tutte le soluzioni $u$ definite sullo stesso
+intervallo si scrivono quindi nella forma
+\[
+  u(x) = F(x) + c
+\]
+dove $F$ è una qualunque primitiva di $f$ e $c\in \RR$ è una costante additiva
+arbitraria.
 Osserviamo che se $f$ è continua il problema di Cauchy associato
 \[
   \begin{cases}
     u'(x) = f(x) \\
-    u(x_0) = u_0
+    u(x_0) = y_0
   \end{cases}
 \]
-ha una unica soluzione che si può scrivere nella forma:
+ha quindi una unica soluzione che si può scrivere nella forma:
 \[
-  u(x) = u_0 + \int_{x_0}^x f(t)\, dt
+  u(x) = y_0 + \int_{x_0}^x f(t)\, dt
 \]
 
 \subsection{equazioni lineari del primo ordine}
@@ -674,7 +681,8 @@ sulle funzioni vettoriali e di più variabili}
 %%%%%%%%%%%%%%%%%%%%
 
 Ci sarà utile estendere la definizione delle classi di regolarità $C^k$ alle
-funzioni vettoriali di più variabili.
+funzioni vettoriali (cioè con codominio $\RR^n$) e di più variabili
+(cioè con dominio $\RR^m$).
 
 Se $\Omega\subset \RR^m$ è un insieme aperto e $f\colon \Omega \to \RR$
 è una funzione, vogliamo definire le \emph{derivate parziali} di $f$.
@@ -709,17 +717,17 @@ e considerare le derivate parziali di ogni componente:
 \]
 
 \begin{definition}
-Sia $\Omega\subset \RR^m$ un aperto. Denoteremo con $C^0(\Omega,\RR^m)$
+Sia $\Omega\subset \RR^m$ un aperto. Denoteremo con $C^0(\Omega,\RR^n)$
 lo spazio vettoriale di tutte le funzioni
-continue $f\colon \Omega \to \RR^m$.
+continue $f\colon \Omega \to \RR^n$.
 
-Denotiamo con $C^1(\Omega,\RR^m)$ lo spazio vettoriale
-delle funzioni in $C^0(\Omega,\RR^m)$ tali che ognuna delle loro derivate
+Denotiamo con $C^1(\Omega,\RR^n)$ lo spazio vettoriale
+delle funzioni in $C^0(\Omega,\RR^n)$ tali che ognuna delle loro derivate
 parziali $\frac{\partial f}{\partial x_j}$ esiste in ogni punto di $\Omega$ ed
-è a sua volta una funzione continua (cioè in $C^0(\Omega,\RR^m)$).
-Ricorsivamente si definisce $C^k(\Omega,\RR^m)$ per $k>1$,
-come lo spazio delle funzioni $\Omega\to\RR^m$ tali che tutte le loro derivate
-parziali stanno in $C^{k-1}(\Omega,\RR^m)$.
+è a sua volta una funzione continua (cioè in $C^0(\Omega,\RR^n)$).
+Ricorsivamente si definisce $C^k(\Omega,\RR^n)$ per $k>1$,
+come lo spazio delle funzioni $\Omega\to\RR^n$ tali che tutte le loro derivate
+parziali stanno in $C^{k-1}(\Omega,\RR^n)$.
 
 Quando lo spazio di arrivo non è indicato si sottointende sempre $\RR$, quindi
 $C^k(\Omega) = C^k(\Omega,\RR)$.
@@ -759,54 +767,14 @@ di classe $C^k$ è una funzione continua le cui derivate parziali esistono e
 sono di classe $C^{k-1}$, dunque è una funzione di classe $C^k$.
 \end{proof}
 
-
-
-\begin{definition}[prodotto scalare canonico]
-\mymargin{prodotto scalare}
-\index{prodotto scalare canonico}
-\index{$\cdot$}
-Se $\vec v, \vec w\in \RR^n$ definiamo
-\[
-  \vec v \cdot \vec w = \sum_{k=1}^n v_k w_k.
-\]
-\end{definition}
-
-\begin{theorem}[disuguaglianza di Cauchy-Schwarz]
-\mymark{***}
-Siano $\vec v, \vec w \in \RR^m$. Allora
-\begin{equation}\label{eq:cauchy_schwarz}
-   \vec v \cdot \vec w \le \abs{\vec v}\cdot \abs{\vec w}.
-\end{equation}
-\end{theorem}
-%
-\begin{proof}
-\mymark{***}
-Si ha
-\[
- 0 \le \abs{\vec v-\vec w}^2 = (\vec v-\vec w)\cdot(\vec v-\vec w) = \abs{\vec v}^2 - 2 \vec v\cdot\vec w + \abs{\vec w}^2
-\]
-da cui la disuguaglianza (disuguaglianza di Young):
-\[
-  \vec v \cdot \vec w \le \frac{\abs{\vec v}^2 + \abs{\vec w}^2}{2}.
-\]
-Nel caso particolare $\abs{\vec v}=\abs{\vec w}=1$ (in tal caso si dice che $\vec v$ e $\vec w$ sono versori) si ottiene
-\[
-  \vec v \cdot \vec w \le 1.
-\]
-Applichiamo dunque la precedente disuguaglianza ai versori $\vec v/\abs{\vec v}$ e $\vec w/\abs{\vec w}$ per ottenere
-\[
-  \frac{\vec v \cdot \vec w}{\abs{\vec v}\cdot \abs{\vec w}} =
-  \enclose{\frac{\vec v}{\abs{\vec v}},\frac{\vec w}{\abs{\vec w}}} \le 1.
-\]
-Se $\abs{\vec v}\neq 0$ e $\abs{\vec w}\neq 0$ moltiplicando ambo i membri per $\abs{\vec v}\cdot\abs{\vec w}$ si ottiene~\eqref{eq:cauchy_schwarz}. In caso contrario ambo i membri della disuguaglianza~\eqref{eq:cauchy_schwarz} sono nulli e la disuguaglianza è banalmente verificata.
-\end{proof}
-
 \begin{definition}
 Sia $\vec f\colon [a,b]\to \RR^m$, $\vec f(x) = (f_1(x), \dots, f_m(x))$.
 Diremo che $\vec f$ è integrabile su $[a,b]$ se ogni
 $f_k\colon[a,b]\to \RR$ è integrabile su $[a,b]$ e in tal caso porremo:
 \[
-  \int_a^b \vec f(x)\, dx = \enclose{\int_a^b f_1(x)\, dx, \dots, \int_a^b f_m(x)\, dx}
+  \int_a^b \vec f(x)\, dx
+  = \enclose{\int_a^b f_1(x)\, dx, \dots, \int_a^b f_m(x)\, dx}
+  \in \RR^m
 \]
 cosicché per ogni $k=1,\dots, m$ si ha:
 \[
@@ -839,8 +807,10 @@ e sfruttando la disuguaglianza di Cauchy-Schwarz
   \le \int_a^b \abs{\vec v}\cdot \abs{\vec f(x)}\, dx
   = \abs{\vec v} \int_a^b \abs{\vec f(x)}\, dx.
 \end{align*}
-Se $\abs{\vec v}\neq 0$ possiamo dividere ambo i membri per $\abs{\vec v}$ e ottenere la disuguaglianza cercata.
-Altrimenti se $\abs{\vec v}=0$ la disuguaglianza è certamente soddisfatta in quanto il lato destro non può essere negativo.
+Se $\abs{\vec v}\neq 0$ possiamo dividere ambo i membri per $\abs{\vec v}$ e
+ottenere la disuguaglianza cercata.
+Altrimenti se $\abs{\vec v}=0$ la disuguaglianza è certamente soddisfatta in
+quanto il lato destro non può essere negativo.
 \end{proof}
 
 
@@ -854,7 +824,9 @@ Altrimenti se $\abs{\vec v}=0$ la disuguaglianza è certamente soddisfatta in qu
 %%%%%
 %%%%%
 
-Il problema di Cauchy consiste nel
+Il problema di Cauchy
+per i sistemi del primo ordine
+consiste nel
 trovare una soluzione di un sistema di $n$ equazioni differenziali ordinarie del primo ordine in $n$ incognite
 con un dato iniziale fissato. Cioè dato $x_0\in \RR$,
 e $\vec y_0 \in \RR^n$ si cerca un intervallo $I\subset \RR$ con $x_0\in I$ e una funzione $\vec u \colon I\to \RR^n$
@@ -869,52 +841,49 @@ che sia derivabile e che soddisfi:
 \begin{definition}[Cauchy-Lipschitz]
 \label{def:cauchy_lipschitz}
 Diremo che una funzione $\vec f\colon \Omega\subset \RR\times \RR^n \to \RR^m$
-soddisfare la \myemph{proprietà di Cauchy-Lipschitz} se $f$ è continua e se
+soddisfa la \myemph{proprietà di Cauchy-Lipschitz} se $f$ è continua e se
 per ogni $(x_0,\vec y_0)\in \Omega$ esiste un intorno $U$ di $(x_0,\vec y_0)$
 ed esiste $L\ge 0$
-tale che se $(x,\vec y_1)\in U$ e $(x,\vec y_2)\in U$ allora si ha
+tale che se $(x,\vec y_1)\in U$ e $(x,\vec y_2)\in U$ si ha
 \[
   \abs{\vec f(x,\vec y_1)- \vec f(x,\vec y_2)} \le L \abs{\vec y_1- \vec y_2}
 \]
-(a parole: $\vec f(x,\vec y)$ è localmente lipschitziana rispetto
+A parole potremmo dire: $\vec f(x,\vec y)$ è localmente lipschitziana rispetto
 a $\vec y$ uniformemente
-rispetto a $x$).
+rispetto a $x$.
 \end{definition}
 
-\begin{theorem}[Cauchy-Lipschitz, esistenza e unicità]
+\begin{theorem}[Cauchy-Lipschitz, esistenza e unicità locale]
 \label{th:cauchy_lipschitz}
+\mymargin{esistenza e unicità locale per i sistemi del primo ordine}
 \mymark{***}
 Sia $\Omega$ un aperto di $\RR\times \RR^n$ e sia $\vec f\colon \Omega \to \RR^n$,
-una funzione continua e tale che
-per ogni $(x_0,\vec y_0)\in \Omega$ esista un intorno $U$ di $(x_0,\vec y_0)\in \RR\times \RR^n$
-ed
-esista $L>0$ per cui vale
-\[
-  \abs{\vec f(x,\vec y_1) - \vec f(x,\vec y_2)} \le L \abs{\vec y_1 - \vec y_2}
-\]
-per ogni $x\in \RR$, $\vec y_1, \vec y_2\in \RR^n$
-con $(x,\vec y_1),(x,\vec y_2)\in U$.
-Con queste ipotesi diremo che
-$f(x,\vec y)$ è localmente Lipschitziana in $\vec y$ uniformemente rispetto a $x$.
+una funzione con la proprietà di Cauchy-Lipschitz
+(definizione~\ref{def:cauchy_lipschitz}).
 
 Allora dato $(x_0,\vec y_0)\in \Omega$
 esiste $\delta>0$
-tale che posto $I = [x_0-\delta,x_0+\delta]$
-esiste una funzione $\vec u\colon I \to \RR^n$
-di classe $C^1$
+tale che preso qualunque  intervallo $I\subset [x_0-\delta,x_0+\delta]$
+esiste una unica funzione $\vec u\colon I \to \RR^n$
 tale che $(x,\vec u(x))\in \Omega$ per ogni $x\in I$
 che soddisfa il problema di Cauchy~\eqref{eq:problema_cauchy}.
-
-Inoltre $\vec u$ è unica nel senso che
-se $J\subset I$ e $v\colon J\to \RR^n$ è una qualunque soluzione
-del problema di Cauchy~\eqref{eq:problema_cauchy} allora $v(x) = u(x)$ per
-ogni $x\in J$.
 \end{theorem}
 %
 %
 \begin{proof}
 \mymark{***}
-Innanzitutto vogliamo trasformare il problema differenziale in un problema
+L'idea della dimostrazione è che integrando ambo i lati dell'equazione
+$\vec u' = f(x,\vec u)$ e tenendo conto della condizione iniziale, si
+ottiene una equazione del tipo $\vec u = T(\vec u)$ dove $T$ è un operatore
+sullo spazio delle funzioni continue.
+Scegliendo $\delta$ abbastanza piccolo si riuscirà a mostrare che le funzioni
+definite su un intervallo di raggio $\delta$ intorno a $x_0$ risultano
+essere uno spazio invariante per $T$ e, eventualmente rimpicciolendo ulteriormente
+$\delta$ si riuscità poi a dimostrare che $T$ è una contrazione e quindi
+l'esistenza e unicità della soluzione si ottiene dall'esistenza e unicità
+del punto fisso di $T$.
+
+Il primo passo è quello di trasformare il problema differenziale in un problema
 integrale.
 Se $\vec u$ è una funzione derivabile soluzione di \eqref{eq:problema_cauchy}
 allora è chiaro che $\vec u'(x) = \vec f(x,\vec u(x))$ è continua in quanto
@@ -1004,10 +973,15 @@ $T(\vec u)=\vec u$ ovvero~\eqref{eq:cauchy_integrale}
 ovvero~\eqref{eq:problema_cauchy}.
 \end{proof}
 
+La condizione di Cauchy-Lipschitz può sembrare piuttosto complicata
+da verificare. Una condizione molto più semplice  è che la funzione $\vec f$
+sia di classe $C^1$. La seguente proposizione ci dice che tale
+condizione è sufficiente per applicare il teorema di Cauchy-Lipschitz.
+
 \begin{proposition}
 \mymark{***}
-Il teorema precedente si applica in particolare se
-$\vec f \in C^1(\Omega, \RR^n)$.
+Se $\vec f\in C^1(\Omega,\RR^n)$ allora $f$ soddisfa la condizione
+di Cauchy-Lipschitz.
 \end{proposition}
 %
 \begin{proof}
@@ -1056,25 +1030,44 @@ Dire che $f\in C^\infty$ significa che $f\in C^k$ per ogni $k$. Dunque $\vec u$ 
 \end{proof}
 \end{comment}
 
-\begin{definition}[estensione di una soluzione, soluzione massimale]
-Sia $I\subset \RR$ un intervallo non vuoto e sia $\vec u \colon I \to \RR^n$ una soluzione dell'equazione differenziale in forma normale del primo ordine:
-\begin{equation}\label{eq:edo_normale_ordine_uno}
-  \vec u'(x) = \vec f(x,\vec u(x))
-\end{equation}
-dove $\vec f\colon \Omega \subset \RR \times \RR^n \to \RR^n$
- e $\Omega$ è un aperto di $\RR \times \RR^n$.
+Il teorema di Cauchy-Lipschitz garantisce l'esistenza di una soluzione
+definita in un
+piccolo intervallo $[x_0-\delta_0, x_0+\delta_0]$ intorno al punto iniziale $x_0$.
+Se scegliamo $x_1 = x_0+\delta_0$ possiamo applicare nuovamente lo stesso
+teorema per trovare una soluzione definita nell'intervallo
+$[x_1-\delta, x_1+\delta]$
+che coincida con la precedente soluzione nel punto $x_1$.
+Le due soluzioni coincidono sull'intersezione dei due intervalli (grazie
+all'unicità della soluzione su ogni sotto-intervallo) e quindi possono
+essere incollate per ottenere una soluzione definita sull'unione dei due intervalli.
+Questo procedimento può essere ripetuto infinite volte ma gli intervalli
+potrebbero diventare sempre più piccoli, quindi non c'è garanzia di ottenere una
+soluzione definita su intervalli arbitrariamente grandi.
+Nel seguito cercheremo di capire quanto grande può essere l'intervallo
+\emph{massimale} su cui si riesce ad estendere la soluzione.
 
- Se $J\supset I$, $J \neq I$ è un intervallo e se $\vec v\colon J \to \RR^n$ risolve la stessa equazione~\eqref{eq:edo_normale_ordine_uno}
- e se $\vec v(x)=\vec u(x)$ per ogni $x\in I$, diremo che $\vec v$ è una \myemph{estensione della soluzione} $u(x)$.
+\begin{definition}[soluzione/intervallo massimale]
+Sia $I\subset \RR$ un intervallo non vuoto e sia $\vec u \colon I \to \RR^n$
+una soluzione di una equazione differenziale.
 
- Se la soluzione $\vec u$ non ammette estensioni, diremo che $\vec u$ è una soluzione definita su un intervallo massimale o, più semplicemente, diremo che $\vec u$ è una \myemph{soluzione massimale}.
+Se $J\supset I$, $J \neq I$ è un intervallo, se $\vec v\colon J \to \RR^n$
+risolve la stessa equazione differenziale
+e se $\vec v(x)=\vec u(x)$ per ogni $x\in I$,
+diremo che $\vec v$ è una \myemph{estensione della soluzione} $u(x)$.
+
+Se la soluzione $\vec u$ non ammette estensioni, diremo che $\vec u$ è una
+soluzione definita su un intervallo massimale o, più semplicemente, diremo
+che $\vec u$ è una \myemph{soluzione massimale}.
 \end{definition}
 
 \begin{proposition}[caratterizzazione delle soluzioni massimali]
 \label{prop:edo_massimale}
 Supponiamo che $\vec f\colon \Omega\subset \RR\times\RR^n\to\RR^n$
 soddisfi le ipotesi del teorema di Cauchy-Lipschitz.
-Allora una soluzione $\vec u$ di \eqref{eq:edo_normale_ordine_uno}
+Allora una soluzione $\vec u$ dell'equazione
+\begin{equation}\label{eq:edo_normale_ordine_uno}
+  \vec u'(x) = \vec f(x, \vec u(x))
+\end{equation}
 è definita su un intervallo massimale $I$ se e solo se
 $I$ è aperto e per ogni $K$ compatto $K\subset \Omega$
 e per ogni $x_0 \in I$ esistono $x_1,x_2\in I$, $x_1 < x_0 < x_2$ tali che $\vec u(x_1)\not \in K$ e $\vec u(x_2) \not \in K$.
