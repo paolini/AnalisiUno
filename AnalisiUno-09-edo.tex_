@@ -2215,51 +2215,62 @@ degli autovalori complessi. Se la matrice è a coefficienti
 reali gli autovalori, quando
 non reali, saranno certamente complessi coniugati:
 \[
-  \lambda = \alpha + i \beta,
+  \lambda = \alpha - i \beta,
   \qquad
-  \mu = \alpha - i \beta
+  \mu = \alpha + i \beta
 \]
 con $\alpha,\beta\in \RR$, $\beta\neq 0$.
 
 Sia $\vec v + i \vec w$ un autovettore complesso relativo
-all'autovalore $\alpha + i \beta$.
+all'autovalore $\alpha - i \beta$.
 Allora si ha
 \[
  A\vec v + i A \vec w
  = A(\vec v + i \vec w)
- = (\alpha + i \beta)(\vec v + i \vec w)
- = \alpha \vec v - \beta \vec w +i(\beta \vec v + \alpha \vec w).
+ = (\alpha - i \beta)(\vec v + i \vec w)
+ = \alpha \vec v + \beta \vec w +i(-\beta \vec v + \alpha \vec w).
 \]
 Uguagliando parte reale e parte immaginaria si trova
 \[
-  A \vec v = \alpha \vec v - \beta vec w,
+  A \vec v = \alpha \vec v + \beta \vec w,
   \qquad
-  A \vec w = \beta \vec v + \alpha \vec w.
+  A \vec w = -\beta \vec v + \alpha \vec w.
 \]
 A questo punto non è difficile verificare che $\vec v - i \vec w$
-è un autovettore relativo all'autovalore coniugato $\alpha - i\beta$.
-Visto che $\vec v\pm \vec w$ sono due autovettori con autovalori
-distinti sicuramente sono vettori indipendenti. Dunque anche la loro
-semisomma $\vec v$ e semidifferenza $\vec w$ sono vettori (stavolta reali)
+è un autovettore relativo all'autovalore coniugato $\alpha + i\beta$.
+Visto che $\vec v\pm i\vec w$ sono due autovettori con autovalori
+distinti sicuramente sono vettori indipendenti.
+Dunque anche $\vec v$ e $\vec w$
+(che si ottengono come multipli di somma e differenza)
+sono vettori, stavolta reali
 indipendenti.
 Se $X,Y$ sono le coordinate nella base $\vec v$, $\vec w$, l'equazione
 differenziale diventa:
 \[
 \begin{cases}
- X' = \alpha X + \beta Y \\
- Y' = -\beta X + \alpha Y.
+ X' = \alpha X - \beta Y \\
+ Y' = \beta X + \alpha Y.
 \end{cases}
 \]
-Si ha allora
+Si ha allora%
+\footnote{Si potrebbe osservare che la matrice
+$\begin{pmatrix}\alpha&-\beta\\ \beta & \alpha\end{pmatrix}$
+è la matrice che rappresenta la moltiplicazione
+complessa per il numero $\alpha + i\beta$. Dunque chiamando $Z=X+iY$
+il sistema si potrebbe scrivere nella forma $Z'=(\alpha +i\beta)Z$
+e si potrebbe quindi osservare immediatamente
+che la soluzione deve essere della forma $Z = c e^{(\alpha+i\beta)t}$
+con $c$ costante complessa. Ponendo poi $c=\rho e^{i\theta}$
+si ottiene il risultato.}
 \[
- X'' = \alpha X' + \beta Y'
- = \alpha X' + \beta (-\beta X + \alpha Y)
+ X'' = \alpha X' - \beta Y'
+ = \alpha X' - \beta (\beta X + \alpha Y)
 \]
-da cui, usando $\beta Y = X' - \alpha X$ possiamo eliminare la variabile $Y$
+da cui, usando $\beta Y = \alpha X - X'$ possiamo eliminare la variabile $Y$
 e ottenere una equazione del secondo ordine in $X$:
 \[
- X'' = \alpha X' - \beta^2 X + \alpha (X' -\alpha X)
-  = 2 \alpha X' - (\alpha^2+\beta^2 X)
+ X'' = \alpha X' - \beta^2 X - \alpha (\alpha X - X')
+  = 2 \alpha X' - (\alpha^2+\beta^2) X
 \]
 ovvero
 \[
@@ -2269,13 +2280,34 @@ Risolvendo questa equazione del secondo ordine ci si accorge
 che le radici del polinomio caratteristico sono proprio $\alpha \pm i \beta$
 e quindi le soluzioni si scrivono nella forma
 \[
-X(t) = e^{\alpha t}(a \cos \beta t + b \sin \beta t)
+X = e^{\alpha t}(a \cos \beta t + b \sin \beta t)
 \]
 da cui
 \begin{align*}
-\beta Y(t)
-&= X' - \alpha X
-&= \alpha e^{\alpha t}(a\cos \beta t + b \sin \beta t)
- + e^{\alpha t}(-\beta a \sin \beta t + b \beta \cos \beta t)\\
- &\quad - \alpha e^{\alpha t}(a \cos \beta t + b \sin \beta t)
+\beta Y
+&= \alpha X - X'\\
+& = \alpha e^{\alpha t}(a \cos \beta t + b \sin \beta t) \\
+&\quad - \alpha e^{\alpha t}(a\cos \beta t + b \sin \beta t)
+  - e^{\alpha t}(-\beta a \sin \beta t + b \beta \cos \beta t) \\
+ &= \beta e^{\alpha t}(a\sin \beta t - b \cos \beta t).
 \end{align*}
+Dunque, ponendo $\rho=\sqrt{a^2+b^2}$ e scegliendo $\theta$
+tale che $\cos \theta = \frac a \rho$ e $\sin \theta = - \frac b \rho$,
+si ha
+\[
+  \begin{cases}
+   X = \rho e^{\alpha t} \cos(\beta t + \theta),\\
+   Y = \rho e^{\alpha t} \sin(\beta t + \theta).
+  \end{cases}
+\]
+Se $\alpha \neq 0$ le traiettorie corrispondenti formano delle spirali
+ellittiche che si avvitano nella direzione che porta il vettore $\vec v$ verso
+il vettore $\vec w$. Se $\alpha < 0$ le spirali convergono verso l'origine del
+sistema: avremo un \myemph{fuoco stabile}. Se $\alpha >0$ le orbite
+divergono chiameremo la configurazione un \myemph{fuoco instabile}.
+Se $\alpha = 0$ le traiettorie sono delle ellissi concentriche,
+le soluzioni sono quindi periodiche e la configurazione
+si chiama \myemph{centro}.
+
+Se almeno uno dei due autovalori è nullo il comportamento del sistema è degenere,
+si hanno delle soluzioni banali che non andremo a investigare.
