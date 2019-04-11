@@ -2010,7 +2010,8 @@ scrive in generale nella forma:
 \[
   \vec u'(x) = A \vec u(x)
 \]
-dove $A$ è una matrice $n\times n$ costante e la funzione vettoriale incognita sarà
+dove $A$ è una matrice $n\times n$ costante
+e la funzione vettoriale incognita sarà
 $\vec u \colon \RR\to \RR^n$.
 Come per i sistemi lineari algebrici sarà utile, se possibile,
 cercare un sistema di riferimento
@@ -2031,7 +2032,7 @@ ovvero
 A meno di un cambio di variabili potremo quindi sostituire la matrice $A$
 con una qualunque matrice simile ad essa: $M^{-1} A M$. In particolare se
 la matrice $A$ è diagonalizzabile (ad esempio se gli autovalori di $A$ sono
-tutti reali e distinti
+tutti reali e distinti)
 potremo ricondurci a un sistema diagonale:
 \[
 \begin{cases}
@@ -2042,11 +2043,28 @@ potremo ricondurci a un sistema diagonale:
 \]
 dove $\lambda_1, \dots, \lambda_n$ sono gli autovalori della matrice $A$.
 La matrice $M$ del cambio di base avrà come vettori colonna gli autovettori
-della matrice $A$, che quindi rappresentano la nuova base.
+della matrice $A$, che quindi rappresentano la nuova base. A questo punto
+abbiamo $n$ equazioni indipendenti che possono essere risolte
+senza difficoltà:
+\begin{align*}
+  v_1(x) &= c_1 e^{\lambda_1 x}\\
+  v_2(x) &= c_2 e^{\lambda_2 x}\\
+  &\vdots \\
+  v_n(x) &= c_n e^{\lambda_n x}
+\end{align*}
+con $c_1, \dots, c_n$ costanti arbitrarie.
 
-Nel caso $n=2$ sarà utile usare $t$ come variabile indipendente (al posto di $x$)
+Se la matrice $A$ non è diagonalizzabile sul campo reale è possibile che
+risulti diagonalizzabile nel campo complesso. Più in generale la matrice
+potrà essere portata in forma di Jordan. Per brevità non cercheremo di
+trattare il caso generale, ma ci concentreremo sul caso $n=2$ che
+contiene comunque una casistica piuttosto ampia.
+
+\subsection{sistemi $2\times 2$}
+
+Nel caso $n=2$ sarà comodo usare $t$ come variabile indipendente (al posto di $x$)
 e chiamare $x(t)$ e $y(t)$ le due coordinate della funzione vettoriale incognita.
-Il sistema sarà quindi della forma:
+Il sistema che vogliamo trattare sarà quindi della forma:
 \[
 \begin{cases}
   x'(t) = a\cdot  x(t) + b \cdot y(t)\\
@@ -2060,3 +2078,204 @@ dove $a,b,c,d$ sono i coefficienti costanti (reali) della matrice
    c & d
    \end{pmatrix}.
 \]
+Vedremo che il comportamento del sistema potrà essere classificato in
+base agli autovalori della matrice.
+Siano $\lambda$ e $\mu$ gli autovalori (eventualmente complessi)
+della matrice $A$ cioè gli zeri del polinomio caratteristico:
+\[
+ P(z)
+ = \det (A - z I)
+ = z^2 - (a+d) z + ad - bc.
+\]
+
+Se gli autovalori sono reali e distinti la matrice è
+diagonalizzabile, se $\vec v, \vec w$ sono gli autovettori corrispondeti
+agli autovettori $\lambda, \mu$, si potrà quindi fare il cambio
+di variabile
+\[
+\begin{pmatrix} x \\ y \end{pmatrix}
+= X \vec v + Y \vec w
+\]
+tramite il quale le equazioni si separano:
+\[
+  \begin{cases}
+  X' = \lambda X \\
+  Y' = \mu Y
+  \end{cases}
+\]
+da cui si ottiene $X = a e^{\lambda t}$, $Y= b e^{\mu t}$
+con $a,b\in \RR$ costanti arbitrarie.
+
+Visto che le equazioni a coefficienti costanti sono autonome
+sappiamo che una traslazione temporale di una soluzione rimane
+una soluzione. Infatti si osserva che
+\[
+\begin{cases}
+  X(t+c) = a e^{\lambda (t+c)} = a e^{\lambda c} e^{\lambda t}, \\
+  Y(t+c) = b e^{\mu (t+c)} = b e^{\mu c} e^{\mu t}.
+\end{cases}
+\]
+Questo ci permette di disegnare le traiettorie delle soluzioni
+nel piano $(x,y)$. Su tale piano le traslazioni temporali
+di una soluzione si rappresentano sulla stessa traiettoria.
+Traiettorie diverse non potranno invece mai incontrarsi
+per l'unicità della soluzione.
+
+Se $a=b=0$ si ottiene la soluzione nulla $X=0$, $Y=0$ che,
+nel piano delle fasi, si rappresenta con un singolo punto
+nell'origine. Se $b=0$ le soluzioni sono della forma
+$X=a e^{\lambda t}$, $Y=0$ che ha una traiettoria,
+nel piano $xy$ lungo la semiretta uscente dall'origine
+con direzione $\vec v$
+se $a>0$ e con direzione $-\vec v$ se $a<0$.
+La soluzione andrà verso $0$ (all'aumentare di $t$)
+se $\lambda<0$ e sarà invece uscente da $0$ se $\lambda >0$.
+Analogamente si ha una traiettoria sulle due semirette
+con direzione $\vec w$ e $-\vec w$ quando $a=0$ e $b\neq 0$.
+
+Se entrambi $a$ e $b$ sono non nulli potremo trovare
+l'equazione della traiettoria eliminando la variabile
+$t$ nelle
+equazioni che rappresentano la soluzione.
+Se $X=a e^{\lambda t}$, $Y=b e^{\mu t}$ risulta
+\[
+  \frac{\abs{b}^\lambda \abs{X}^\mu}{\abs{a}^\mu \abs{Y}^\lambda}
+  = \frac{e^{\lambda t \mu}}{e^{\mu t \lambda}} = 1
+\]
+da cui
+\[
+ Y = k \abs{X}^{\frac \mu \lambda}
+\]
+con $k$ costante arbitraria.
+
+\begin{figure}
+\centering
+ \begin{subfigure}{5cm}
+  \includegraphics[width=0.75\textwidth]{sistemi_sella.png}
+  \caption[1a]{sella (instabile)}
+ \end{subfigure}
+ \begin{subfigure}{5cm}
+  \includegraphics[width=0.75\textwidth]{sistemi_nodo.png}
+  \caption{nodo stabile}
+ \end{subfigure}
+ \begin{subfigure}{5cm}
+  \includegraphics[width=0.75\textwidth]{sistemi_nodo_improprio.png}
+  \caption{nodo improprio stabile}
+ \end{subfigure}
+ \begin{subfigure}{5cm}
+  \includegraphics[width=0.75\textwidth]{sistemi_stella.png}
+  \caption{stella stabile}
+ \end{subfigure}
+ \begin{subfigure}{5cm}
+  \includegraphics[width=0.75\textwidth]{sistemi_fuoco.png}
+  \caption{fuoco stabile}
+ \end{subfigure}
+ \begin{subfigure}{5cm}
+  \includegraphics[width=0.75\textwidth]{sistemi_centro.png}
+  \caption{centro (stabile)}
+ \end{subfigure}
+\end{figure}
+
+Se i segni di $\lambda$ e $\mu$ sono opposti,
+si ottiene una configurazione chiamata
+\myemph{sella} (si veda figura).
+Lungo l'autovettore con autovalore negativo
+ci sarà convergenza verso l'origine, ma questa
+convergenza è instabile in quanto ogni altra
+curva tenderà invece a essere deviata
+e a tendere asintoticamente verso la direzione
+dell'autovettore con autovalore positivo.
+
+Se $\lambda$ e $\mu$ sono entrambi negativi si
+ha un \myemph{nodo stabile} in cui tutte le
+curve convergono verso l'origine (soluzione
+attrattiva). Se invece $\lambda$ e $\mu$
+sono entrambi positivi le curve
+saranno percorse in senso inverso e saranno
+uscenti dall'origine: si avrà allora
+un \myemph{nodo instabile}.
+
+Se gli autovalori sono coincidenti $\lambda=\mu$
+e se la matrice è diagonalizzabile allora
+si ripete lo stesso ragionamento precedente ma
+le curve che si ottengono sono rettilinee.
+La configurazione si
+chiama \myemph{stella} (stabile o instabile a seconda
+del segno negativo o positivo).
+
+Se gli autovalori sono coincidenti la matrice
+potrebbe non essere diagonalizzabile. In tal
+caso si potrà solo triangolarizzare la matrice
+e uno studio più dettagliato (che evitiamo di
+riportare) ci porterà ad una configurazione
+chiamata \myemph{nodo improprio} (si veda la figura).
+
+Proviamo a trattare il caso, più interessante,
+degli autovalori complessi. Se la matrice è a coefficienti
+reali gli autovalori, quando
+non reali, saranno certamente complessi coniugati:
+\[
+  \lambda = \alpha + i \beta,
+  \qquad
+  \mu = \alpha - i \beta
+\]
+con $\alpha,\beta\in \RR$, $\beta\neq 0$.
+
+Sia $\vec v + i \vec w$ un autovettore complesso relativo
+all'autovalore $\alpha + i \beta$.
+Allora si ha
+\[
+ A\vec v + i A \vec w
+ = A(\vec v + i \vec w)
+ = (\alpha + i \beta)(\vec v + i \vec w)
+ = \alpha \vec v - \beta \vec w +i(\beta \vec v + \alpha \vec w).
+\]
+Uguagliando parte reale e parte immaginaria si trova
+\[
+  A \vec v = \alpha \vec v - \beta vec w,
+  \qquad
+  A \vec w = \beta \vec v + \alpha \vec w.
+\]
+A questo punto non è difficile verificare che $\vec v - i \vec w$
+è un autovettore relativo all'autovalore coniugato $\alpha - i\beta$.
+Visto che $\vec v\pm \vec w$ sono due autovettori con autovalori
+distinti sicuramente sono vettori indipendenti. Dunque anche la loro
+semisomma $\vec v$ e semidifferenza $\vec w$ sono vettori (stavolta reali)
+indipendenti.
+Se $X,Y$ sono le coordinate nella base $\vec v$, $\vec w$, l'equazione
+differenziale diventa:
+\[
+\begin{cases}
+ X' = \alpha X + \beta Y \\
+ Y' = -\beta X + \alpha Y.
+\end{cases}
+\]
+Si ha allora
+\[
+ X'' = \alpha X' + \beta Y'
+ = \alpha X' + \beta (-\beta X + \alpha Y)
+\]
+da cui, usando $\beta Y = X' - \alpha X$ possiamo eliminare la variabile $Y$
+e ottenere una equazione del secondo ordine in $X$:
+\[
+ X'' = \alpha X' - \beta^2 X + \alpha (X' -\alpha X)
+  = 2 \alpha X' - (\alpha^2+\beta^2 X)
+\]
+ovvero
+\[
+ X'' - 2 \alpha X' + (\alpha^2 + \beta^2) X = 0.
+\]
+Risolvendo questa equazione del secondo ordine ci si accorge
+che le radici del polinomio caratteristico sono proprio $\alpha \pm i \beta$
+e quindi le soluzioni si scrivono nella forma
+\[
+X(t) = e^{\alpha t}(a \cos \beta t + b \sin \beta t)
+\]
+da cui
+\begin{align*}
+\beta Y(t)
+&= X' - \alpha X
+&= \alpha e^{\alpha t}(a\cos \beta t + b \sin \beta t)
+ + e^{\alpha t}(-\beta a \sin \beta t + b \beta \cos \beta t)\\
+ &\quad - \alpha e^{\alpha t}(a \cos \beta t + b \sin \beta t)
+\end{align*}
