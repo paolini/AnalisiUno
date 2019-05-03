@@ -291,6 +291,58 @@ Questa equazione è lineare non omogenea.
 Come nel caso generale le equazioni lineari di ordine $n$ si riconducono
 a sistemi lineari di $n$ equazioni del primo ordine.
 
+Se le equazioni differenziali di ordine $n$ hanno uno spazio di
+soluzioni di
+dimensione $n$ ci si aspetta che qualcosa del genere succeda anche
+per le equazioni differenziali di ordine $n$ in forma normale.
+Lo spazio delle soluzioni non sarà lineare ma, in un certo senso,
+avrà comunque dimensione $n$ cioè le soluzioni potranno essere identificate
+da $n$ parametri.
+Per fare questo ad una equazione differenziale in forma normale
+di ordine $n$
+\[
+u^{(n)}(x) = f(x, u(x), \dots, u^{n-1}(x))
+\]
+si aggiunge una \myemph{condizione iniziale} ovvero scelto un
+\emph{punto iniziale} $x_0$ e un \emph{valore iniziale}
+per ognuna delle derivate di ordine inferiore a $n$:
+$u(x_0) = y_0$, $u'(x_0)=y_1$, \dots, $u^{n-1}(x_0) = y_{n-1}$.
+Questa condizione
+si chiama \emph{condizione di Cauchy} e il problema
+che si ottiene mettendo una condizione di Cauchy ad una
+equazione differenziale:
+\[
+  \begin{cases}
+  u^{(n)}(x) = f(x, u(x), \dots, u^{n-1}(x))\\
+  u(x_0) = y_0, \\
+  u'(x_0) = y_1, \\
+  \vdots\\
+  u^{(n-1)}(x_0) = y_{n-1}
+  \end{cases}
+\]
+si chiama \myemph{problema di Cauchy}.
+Vedremo che, sotto opportune ipotesi, il problema di Cauchy
+ammette una unica soluzione e questo significa, sostanzialmente,
+che l'insieme di tutte le soluzioni dell'equazione differenziale
+può essere descritto dal variare
+degli $n$ parametri $y_0, y_1, \dots, y_{n-1}$.
+
+Una delle ipotesi fondamentali per garantire l'unicità delle
+soluzioni di un problema di Cauchy è che le soluzioni siano
+definite su un intervallo. E' chiaro infatti che se ho due
+soluzioni definite su due intervalli separati, potrei unire
+le due soluzioni e ottenere una soluzione definita sull'unione dei
+due intervalli. Viceversa una soluzione definita
+su un intervallo $I$ è soluzione anche se ristretta ad ogni sottoinsieme
+di $I$ (che sia o no un intervallo).
+Se restringo una soluzione o unisco due soluzioni ottengo formalmente
+soluzioni diverse in quanto i domini di definizione sono diversi, ma
+queste soluzioni assumono, dove sono definite, gli stessi valori.
+Per evitare questa ambiguità considereremo sempre solamente
+le soluzioni definite su un \myemph{intervallo massimale} cioè
+soluzioni definite su un intervallo che non possono essere
+estese su intervalli più grandi.
+
 
 \section{metodi risolutivi}
 
@@ -301,25 +353,27 @@ Una tipologia di equazioni differenziali che abbiamo già trattato
 \]
 Banalmente l'insieme delle soluzioni è dato dalle primitive di $f$:
 \[
-  u(x) \in \int f(x)\, dx.
+  u \in \int f.
 \]
 Se $f$ è definita su un intervallo tutte le soluzioni $u$ definite sullo stesso
-intervallo si scrivono quindi nella forma
+intervallo e, grazie al Teorema~\ref{th:primitive}
+si scrivono quindi nella forma
 \[
   u(x) = F(x) + c
 \]
 dove $F$ è una qualunque primitiva di $f$ e $c\in \RR$ è una costante additiva
 arbitraria.
-Osserviamo che se $f$ è continua il problema di Cauchy associato
+Se $f$ è continua e consideriamo il problema di Cauchy:
 \[
   \begin{cases}
     u'(x) = f(x) \\
-    u(x_0) = y_0
+    u(x_0) = y_0.
   \end{cases}
 \]
-ha quindi una unica soluzione che si può scrivere nella forma:
+possiamo identificare una unica soluzione
+che si scrive nella forma:
 \[
-  u(x) = y_0 + \int_{x_0}^x f(t)\, dt
+  u(x) = y_0 + \int_{x_0}^x f(t)\, dt.
 \]
 
 \subsection{equazioni lineari del primo ordine}
@@ -329,9 +383,10 @@ Sono le equazioni del tipo:
 \[
    u'(x) + a(x) u(x) = b(x).
 \]
-Per risolvere queste equazioni si cerca di ricondurre la somma al lato sinistro alla derivata di un prodotto.
+Per risolvere queste equazioni si cerca di ricondurre la somma
+nel lato sinistro alla derivata di un prodotto.
 Per fare ciò si considera una qualunque primitiva
-$A(x) \in \int a(x)\, dx$ e si moltiplicano ambo i membri
+$A\in \int a$ e si moltiplicano ambo i membri
 per $e^{A(x)}$:
 \[
   e^{A(x)} u'(x) + a(x) e^{A(x)} u(x) = b(x) e^{A(x)}
@@ -346,7 +401,7 @@ da cui
   e^{A(x)} u(x) \in \int b(x) e^{A(x)}\, dx.
 \]
 Moltiplicando ambo i membri per $e^{-A(x)}$ (visto che l'esponenziale
-non si annulla mai questa operazione non modifica le soluzioni)
+non si annulla mai questa operazione non modifica lo spazio delle soluzioni)
 si ottiene
 \[
 u(x) = e^{-A(x)} \int b(x) e^{A(x)}\, dx, \qquad
@@ -377,8 +432,9 @@ Ogni soluzione della equazione non omogenea si può scrivere come somma di una
 soluzione particolare $u_0$ della equazione non omogenea
 più una generica soluzione dell'equazione omogenea associata. Infatti:
 \[
-  u(x) = u_0(x) + c e^{-A(x)}.
+  u(x) = u_0(x) + c e^{-A(x)}
 \]
+dove
 \[
   u_0(x) = e^{-A(x)}F(x)
 \]
@@ -423,13 +479,13 @@ Abbiamo dunque trovato che le soluzioni sono definite su tutto $\RR$, una soluzi
 \begin{exercise}
 \begin{enumerate}
 \item
-Trovare tutte le soluzioni dell'equazione differenziale
+Trovare le soluzioni dell'equazione differenziale
 \[
   u' - \frac{u}{x} = x^2.
 \]
 
 \item
-Trovare tutte le soluzioni dell'equazione differenziale
+Trovare le soluzioni dell'equazione differenziale
 \[
   x u' - u = x^3.
 \]
@@ -518,9 +574,10 @@ Questa è una equazioni del primo ordine in forma normale:
 \[
   u'(x) = F(x, u(x))
 \]
-dove nella funzione $F$ risulta possibile separare le variabili $x$ e $u$ in un prodotto:
+dove nella funzione $F$ risulta possibile separare le variabili
+due variabili in un prodotto:
 \[
-  F(x, u) = f(x)\cdot g(u).
+  F(x, y) = f(x)\cdot g(y).
 \]
 
 Se $u$ è una soluzione dell'equazione~\eqref{eq:edo_separabile}
@@ -534,7 +591,7 @@ Vogliamo ora scrivere il lato sinistro come la derivata della funzione composta.
 \]
 si osserva che
 \[
-  \enclose{H(u(x))}' = H'(u(x))u'(x) = \frac{u'(x)}{g(u(x))} = f(x).
+  \enclose{H(u(x))}' = H'(u(x))\cdot u'(x) = \frac{u'(x)}{g(u(x))} = f(x).
 \]
 dunque se $F\in \int f$, su ogni intervallo in cui $g(u(x))\neq 0$ dovrà esistere $c\in \RR$ tale che
 \[
@@ -580,8 +637,9 @@ Con questa condizione possiamo invertire l'arcotangente ottenendo finalmente una
 \end{equation}
 
 \begin{figure}
+\online{http://paolini.github.io/recurrence/ode.html?r=5&x=0&y=0&points=0_0_0_0.5_0_1_0_1.5_0_2_0_-.5_0_-1_0_-1.5_0_-2_2_0_2.5_0_3_0_3.5_0_4_0_1.8_0_-1.75_0_-2_0_-2.5_0_-3_0_-3.5_0_-4_0&f=x*y\%5E2\%2Bx}
 \centering
-\includegraphics[width=0.8\textwidth]{fig43856.png}
+--\includegraphics[width=0.8\textwidth]{fig_43856.pdf}
 \label{fig:43856}
 \caption{i grafici delle soluzioni dell'equazione differenziale~\eqref{eq:43856}}.
 \end{figure}
@@ -608,8 +666,9 @@ tutti gli infiniti intervalli.
 
 \begin{remark}
 L'esempio precedente mette in evidenza il fatto che le soluzioni massimali possono essere definite
-su intervalli arbitrariamente piccoli coerentemente con quanto affermato
-nel teorema di esistenza e unicità locale.
+su intervalli arbitrariamente piccoli anche se l'equazione differenziale
+non presenta singolarità. Diremo in questo caso che
+la soluzione non è globale.
 \end{remark}
 
 \begin{example}
@@ -671,12 +730,23 @@ equazione) due diverse soluzioni non
 possono mai incontrarsi.
 \end{example}
 
-\begin{example}[baffo di Peano]
-Si determinino tutte le soluzioni massimali dell'equazione
+\begin{exercise}
+Fissato $p>1$ si risolva l'equazione differenziale
 \[
-  u'(x) = \sqrt[3]{u(x)}
+  u' = u^p
 \]
-con la condizione $u(0)=0$.
+e si osservi che la soluzione presenta sempre un asintoto verticale
+(dunque non c'è esistenza globale).
+\end{exercise}
+
+\begin{example}[baffo di Peano]
+Si determinino tutte le soluzioni del problema di Cauchy
+\[
+\begin{cases}
+  u'(x) = \sqrt[3]{u(x)}\\
+  u(0)=0
+\end{cases}
+\]
 \end{example}
 %
 \begin{proof}[Svolgimento.]
@@ -721,7 +791,23 @@ Affinché valga la condizione $u(0)=0$ sarà dunque sufficiente
 imporre la restrizione $-c\ge 0$.
 
 Il nostro problema ha dunque infinite soluzioni definite
-su tutto $\RR$.
+su tutto $\RR$. Per la precisione, per ogni $c\ge 0$
+(cambiamo segno alla costante trovata prima, in modo che risulti
+positiva)
+si hanno le soluzioni
+\[
+  u(x) = \begin{cases}
+    0 & \text{per $x\le c$}\\
+    \sqrt{\enclose{\frac 2 3 (x-c)}^3} & \text{per $x>c$}
+  \end{cases}
+\]
+e
+\[
+  u(x) = \begin{cases}
+    0 & \text{per $x\le c$}\\
+    -\sqrt{\enclose{\frac 2 3 (x-c)}^3} & \text{per $x>c$}
+  \end{cases}
+\]
 \end{proof}
 
 
