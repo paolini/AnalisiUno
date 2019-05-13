@@ -2086,7 +2086,7 @@ e visto che la differenza tende a zero, necessariamente si deve avere anche
 \end{comment}
 
 \begin{proposition}[criterio di derivabilità]
-\mymark{**}
+\label{prop:4384774}\mymark{**}
 Sia $I\subset \RR$ un intervallo, $x_0\in I$
 $f\colon I \to \RR$ una funzione continua su tutto $I$ e derivabile in $I\setminus\{x_0\}$.
 Se il limite della derivata
@@ -2441,8 +2441,18 @@ scelti comunque $x,y\in [a,+\infty)$ con $\abs{x-y}< \delta$ siamo certamente in
 
 Nel caso particolare $g(x) = mx +q$ si osserva semplicemente che $g$ è uniformemente continua in quanto è $L$-lipschitziana con $L=\abs{m}$.
 \end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \section{formula di Taylor}
 \index{formula!di Taylor}
+
+
+
+
 \begin{definition}[polinomio di Taylor]
 \mymark{***}
 Sia $A\subset \RR$ e $x_0$ un punto di accumulazione per $A$.
@@ -2528,6 +2538,7 @@ in quanto
 \end{remark}
 
 \begin{theorem}[formula di Taylor con resto di Lagrange]
+\label{th:taylor_lagrange}%
 \mymark{**}%
 \index{formula!di Taylor!con resto di Lagrange}%
 \index{teorema!di Taylor con resto di Lagrange}%
@@ -3161,4 +3172,252 @@ cioè $f$ è crescente.
 Dunque anche $f^\alpha$ è crescente e, per $k$ abbastanza grande,
 $a_k$ è decrescente. Si può quindi applicare il criterio di Leibniz e
 concludere che la serie è convergente per ogni $\alpha >0$.
+\end{proof}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{funzioni analitiche}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Nel capitolo sulle serie di potenze abbiamo studiato le serie di potenze
+della forma
+\begin{equation}\label{eq:4748219}
+    f(z) = \sum_{k=0}^{+\infty} a_k z^k.
+\end{equation}
+E' chiaro che se fissiamo un punto $z_0$ possiamo fare un cambio di variabile
+e osservare che la serie
+\begin{equation}\label{eq:33783}
+  g(z) = f(z-z_0) = \sum_{k=0}^{+\infty} a_k (z-z_0)^k
+\end{equation}
+converge nel cerchio $B_R(z_0) = \{z \in \ZZ\colon \abs{z-z_0}< R\}$
+dove $R$ è il raggio della serie di potenze~\eqref{eq:4748219}.
+Diremo che la serie nell'equazione~\eqref{eq:33783} è una
+serie di potenze centrata in $z_0$ e chiameremo $R$ il suo raggio di convergenza.
+
+Risulta allora naturale chiedersi se una serie di potenza centrata in un punto $z_0$
+può essere traslata in un punto $z_1\neq z_0$ almeno quando $z_1 \in B_R(z_0)$.
+La risposta, affermativa, è data dal seguente.
+
+\begin{theorem}[traslazione di una serie di potenze]
+\label{th:488456367}
+Si consideri la serie di potenze~\eqref{eq:4748219} con raggio di convergenza
+$R\in (0,+\infty]$ si prenda un punto $z_1 \in B_R(z_0)$
+e si ponga $r=R-\abs{z_1-z_0}$ cosicché $B_r(z_1)\subset B_R(z_0)$.
+Allora
+per ogni $z\in B_r(z_1)$ si ha
+\begin{equation}\label{eq:48478643}
+  f(z) = \sum_{k=0}^{+\infty} b_k (z - z_1)^k
+\end{equation}
+per opportuni coefficienti $b_k$. In particolare la serie
+di potenze in~\eqref{eq:48478643}, centrata in $z_1$,
+ha raggio di convergenza non inferiore a $r$.
+\end{theorem}
+%
+\begin{proof}
+Per semplificare le notazioni possiamo supporre, senza perdere di generalità,
+che sia $z_0=0$.
+Informalmente vorremmo svolgere i seguenti passaggi:
+\begin{align*}
+  f(z)
+  &= \sum_{k=0}^{+\infty} a_k z^k
+  = \sum_{k=0}^{+\infty} a_k (z-z_1+z_1)^k \\
+  &= \sum_{k=0}^{+\infty} a_k \sum_{j=0}^k {k \choose j} z_1^{k-j}(z-z_1)^j\\
+  &= \sum_{j=0}^{+\infty} \enclose{\sum_{k=j}^{+\infty} a_k{k \choose j} z_1^{k-j}} (z-z_1)^j
+\end{align*}
+ottenendo quindi il risultato voluto con
+\[
+  b_j = \sum_{k=j}^{+\infty} a_k{k \choose j} z_1^{k-j}.
+\]
+Affinché questi passaggi siano validi bisogna garantire che i termini
+\[
+  c_{k,j} = a_k {k \choose j} z_1^{k-j}
+\]
+siano assolutamente sommabili, cosicché i passaggi fatti sopra risultano
+validi in quanto stiamo associando e commutando i termini di una serie
+assolutamente convergente. Ma ripetendo gli stessi passaggi con gli
+opportuni moduli si osserva che
+\[
+  \sum_{k,j} \abs{c_{k,j}} = \sum_{k=0}^{+\infty} \abs{a_k}(\abs{z-z_1}+\abs{z_1})^k.
+\]
+Visto che la serie di potenze originale è assolutamente convergente
+all'interno del raggio di convergenza, possiamo affermare che essendo
+$\abs{z-z_1}+\abs{z_1} < r + \abs{z_1} = R$
+la serie $\sum c_{k,j}$ è assolutamente convergente,
+i passaggi informali sono giustificati e la dimsotrazione è conclusa.
+\end{proof}
+
+La teoria delle funzioni analitiche potrebbe essere svolta, senza cambiare
+sostanzialmente nulla, per le funzioni di variabile complessa.
+Si dovrebbe però introdurre il concetto di derivata in senso complesso
+un argomento che richiederebbe molto spazio e che esula dagli scopi di questo corso.
+Ci limitiamo quindi alle funzioni reali, che sono il nostro argomento di studio.
+
+\begin{definition}[funzione analitica]
+\mymargin{funzione!analitica}
+Sia $A\subset \RR$ un insieme aperto e sia
+$f\colon A\subset \to \RR$ una funzione. Diremo che
+$f$ è \emph{analitica} se per ogni $x_0\in A$ esiste una successione
+di numeri reali $a_k$ ed esiste $R>0$ tali che per ogni $x\in (x_0-R,x_0+R)\subset A$
+si ha:
+\[
+  f(x) = \sum_{k=0}^{+\infty} a_k (x-x_0)^k.
+\]
+\end{definition}
+
+Il teorema~{th:488456367} ci dice in particolare che la somma di una serie
+di potenze è una funzione analitica, almeno all'interno del raggio di convergenza.
+Ad esempio le funzioni $e^x$, $\sin x$ e $\cos x$ sono state definite
+come somma di una serie di potenze (centrata in $x=0$) di raggio infinito
+e dunque risultano essere funzioni analitiche su tutto $\RR$.
+
+\begin{theorem}[Sviluppabilità in serie di Taylor]
+\label{th:48765}
+Se $f\colon A\subset \RR\to\RR$ è una funzione analitica allora
+$f\in \C^\infty(A)$ e per ogni $x_0\in A$ esiste $R>0$, tale che
+per ogni $x \in (x_0-R, x_0+R)\subset A$ risulta
+\[
+  f(x) = \sum_{k=0}^{+\infty} \frac{f^{(k)}(x_0)}{k!}(x-x_0)^k.
+\]
+\end{theorem}
+%
+\begin{proof}
+Senza perdere di generalità supponiamo che sia $x_0=0$. Essendo $f$
+una funzione analitica per definizione sappiamo che esiste $R>0$
+tale che per $\abs{x}<R$ si ha
+\[
+f(x) = \sum_{k=0}^{+\infty} a_k x^k
+\]
+con opportuni coefficienti $a_k$. Vogliamo mostrare che $f(x)$ è derivabile.
+Informalmente vorremmo svolgere i seguenti passaggi:
+\begin{align*}
+\frac{f(x+h) - f(x)}{h}
+&= \sum_{k=1}^{+\infty} a_k \frac{(x+h)^k-x^k}{h}
+= \sum_{k=1}^{+\infty} a_k \frac{\sum_{j=1}^k {k\choose j} h^j x^{k-j}}{h} \\
+&= \sum_{k=1}^{+\infty} a_k \sum_{j=1}^k {k\choose j} h^{j-1} x^{k-j} \\
+&= \sum_{k=1}^{+\infty} a_k \sum_{j=0}^{k-1} {k\choose j+1} h^j x^{k-j-1} \\
+&= \sum_{j=0}^{+\infty} \enclose{\sum_{k=j+1}^{+\infty} a_k {k\choose j+1} x^{k-j-1}} h^j.
+\end{align*}
+Se poniamo
+\[
+  c_{k,j} = a_k {k\choose j+1} x^{k-j-1}
+\]
+i passaggi risultano giustificati se la serie $\sum_{k,j} c_{k,j}$
+è assolutamente convergente. Ma, mettendo opportunamente
+i valori assoluti nei passaggi già fatti, si ha
+\[
+  \sum_{j=0}^{+\infty} \sum_{k=j+1}^{+\infty} \abs{c_{k,j}}
+  =  \sum_{k=1}^{+\infty} \abs{a_k} \frac{\abs{x+h}^k-\abs{x}^k}{\abs{h}}
+\]
+e dunque possiamo affermare che c'è convergenza assoluta
+se $\abs{x}<R$ e $\abs{x+h}<R$ cioè se $\abs{h}< R-\abs{x}$. In tal caso
+i passaggi fatti prima sono giustificati e quindi il risultato
+è una serie di potenze convergente per $\abs{h}<R-\abs{x}$. In particolare
+fissato $x$
+la somma della serie di potenze ottenuta alla fine è una funzione continua
+e per $h\to 0$
+tende al termine noto della serie (quello con $j=0$), dunque si ha
+\[
+  \lim_{h\to 0} \frac{f(x+h)-f(x)}{h}
+  = \sum_{k=1}^{+\infty} a_k {k \choose 1} x^{k-1}
+  = \sum_{k=1}^{+\infty} k a_k x^{k-1}.
+\]
+Abbiamo trovato che la derivata della serie di potenze è uguale
+alla serie di potenze delle derivate.
+
+Visto che la serie delle derivate ha lo stesso raggio di convergenza $R$
+della serie originaria (teorema~\ref{th:raggio_serie_derivate})
+il procedimento può essere iterato trovando che ogni derivata è derivabile
+e per ogni $x\in (-R,R)$ si avrà dunque:
+\[
+  f^{(n)}(x) = \sum_{k=n}^{+\infty}k (k-1) \cdots (k-n+1) a_k x^{k-n}.
+\]
+In particolare
+\[
+  f^{(n)}(0) = n! \cdot a_n
+\]
+e quindi
+\[
+  f(x) = \sum_{k=0}^{+\infty} \frac{f^{(k)}(0)}{k!} x^k
+\]
+come dovevamo dimostrare.
+\end{proof}
+
+Abbiamo visto che le funzioni analitiche sono di classe $C^\infty$. Il seguente
+esempio ci mostra che il viceversa non è vero e dunque la classe delle funzioni
+analitiche è strettamente contenuta nella classe delle funzioni $C^\infty$.
+
+\begin{example}[funzione $C^\infty$ non analitica]
+La funzione
+\[
+  f(x) =
+  \begin{cases}
+    e^{-\frac 1 {x^2}} & \text{se $x\neq 0$}\\
+    0 & \text{se $x=0$}
+  \end{cases}
+\]
+è di classe $C^\infty$ in quanto per $x\neq 0$ possiamo calcolare
+tutte le derivate e osservare che si possono scrivere nella forma
+\[
+  f^{(n)}(x) = \frac{P_n(x)}{x^{3n}}e^{-\frac 1 {x^2}}
+\]
+per un opportuno polinomio $P_n$ (lo si dimostri per induzione).
+Dunque per $x\to 0$ si ha, per ogni $n\in \NN$
+\[
+  f^{(n)}(x) \to 0
+\]
+e quindi la funzione $f$ è derivabile infinite volte anche nel
+punto $x=0$ (grazie alla proposizione~\ref{prop:4384774})
+e risulta $f^{(n)}(0) = 0$ per ogni $n\in \NN$. Se la funzione $f$
+fosse analitica in un intorno di $0$ dovremmo avere, per il teorema~\ref{th:48765}:
+\[
+  f(x) = \sum_{k=0}^{+\infty} 0\cdot x^k = 0
+\]
+che è assurdo in quanto $f(x)>0$ per ogni $x\neq 0$.
+\end{example}
+
+Risulta allora interessante un criterio che garantisca l'analiticità
+delle funzioni $C^\infty$ sotto opportune ipotesi.
+
+\begin{theorem}[criterio di analiticità]
+Sia $f\in C^\infty(A)$ una funzione reale analitica definita su un
+insieme aperto $A\subset \RR$. Supponiamo che per ogni $x_0\in A$ esistano $R>0$
+ed $M>0$ tali che per ogni $x\in (x_0-R,x_0+R)$ e per
+ogni $n\in \NN$ si abbia
+\[
+  \abs{f^{(n)}(x)} \le M\frac{n!}{R^n}.
+\]
+Allora $f$ è analitica in $A$.
+\end{theorem}
+%
+\begin{proof}
+Fissiamo $x_0\in A$.
+Dobbiamo dimostrare che in un intorno di $x_0$ è possibile
+scrivere $f$ come somma di una serie di potenze $\sum a_k (x-x_0)^k$.
+Necessariamente, per il teorema precedente, la serie
+di potenze dovrà essere la serie di Taylor, cioè vogliamo dimostrare che
+esiste $R>0$ tale che per ogni $x\in (x_0-R,x_0+R)$ si abbia
+\[
+  f(x) = \sum_{k=0}^{+\infty} \frac{f^{(k)}(x_0)}{k!}(x-x_0)^k.
+\]
+Ma, grazie alla formula di Taylor con resto di Lagrange (teorema~\ref{th:taylor_lagrange}),
+noi sappiamo che
+\[
+  f(x) = \sum_{k=0}^{n} \frac{f^{(k)}(x_0)}{k!}(x-x_0)^k
+   + \frac{f^{(n+1)(y)}}{(n+1)!}(x-x_0)^{n+1}.
+\]
+Dunque sarà sufficiente mostrare che fissato $x$ per $n\to +\infty$ il resto
+tende a zero.
+Ma infatti si ha
+\begin{align*}
+ \abs{\frac{f^{(n+1)}(y)}{(n+1)!}(x-x_0)^{n+1}}
+ & \le  M\frac{(n+1)!}{R^{n+1}}\cdot  \frac{\abs{x-x_0}^{n+1}}{(n+1)!}
+ = M \abs{\frac{x-x_0}{R}}^{n+1} \to 0
+\end{align*}
+se $\abs{x-x_0}<R$.
 \end{proof}
