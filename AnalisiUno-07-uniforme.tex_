@@ -274,6 +274,102 @@ S(f)(x) = \int_{x_0}^x f(t)\, dt
 \]
 che fissato $x_0 \in [a,b]$ associa ad una funzione $f\in C^0([a,b])$ la sua funzione integrale, è un operatore continuo rispetto alla norma uniforme.
 
+In realtà le ipotesi per garantire la possibilità di scambiare
+il limite con l'integrale sono molto più deboli, per avere un teorema
+con ipotesi ottimali sarebbe però necessario introdurre l'integrale di Lebesgue,
+cosa che non vogliamo fare in questo corso. Un enunciato più generale
+che possiamo dimostrare facilmente con gli strumenti
+a nostra disposizione è il seguente.
+
+\begin{theorem}[convergenza dominata quasi uniforme]
+\label{th:convergenza_dominata}%
+\mymargin{convergenza dominata}%
+\index{teorema!di convergenza dominata}%
+Siano $f_k\colon [a,b) \to \RR$, funzioni continue
+sull'intervallo $[a,b)$ con $a\in \RR$, $b\in (a,+\infty]$
+e supponiamo che esista $g\colon [a,b)\to \RR$
+integrabile in senso improprio su $[a,b)$ con integrale finito e tale
+che
+\[
+\abs{f_k(x)}\le g(x)
+\]
+per ogni $k\in \NN$ e ogni $x\in [a,b)$.
+
+Supponiamo inoltre che per
+ogni $x\in[a,b)$ esista e sia finito il limite
+\[
+  f(x) = \lim_{k\to +\infty} f_k(x)
+\]
+e che per ogni $\beta<b$ la successione $f_k$ converga uniformemente
+ad $f$ sull'intervallo $[a,\beta]$.
+
+Allora $f_k$ ed $f$ sono integrabili in senso improprio su $[a,b)$ e si ha
+\[
+  \lim_{k\to+\infty} \int_a^b f_k(x)\, dx = \int_a^b f(x)\, dx.
+\]
+
+Ovviamente, per simmetria, vale un risultato analogo per funzioni definite su intervalli
+aperti a sinistra $(a,b]$ e su unioni finite di tali intervalli.
+\end{theorem}
+%
+\begin{proof}
+Ogni $f_k$ è assolutamente integrabile in senso improprio in quanto
+$\abs{f_k}\le g$ dove $g$ ha integrale finito per ipotesi.
+Visto che $f_k$ converge uniformemente a $f$ su ogni intervallo $[a,\beta]$
+la funzione $f$ è anch'essa continua su ogni $[a,\beta]\subset[a,b)$
+e quindi è continua su tutto $[a,b)$. Inoltre passando al limite (puntuale)
+nella stima $\abs{f_k(x)}\le g(x)$ si trova che vale anche $\abs{f(x)}\le g(x)$
+e quindi anche $f$ è integrabile su $[a,b)$ con integrale finito.
+
+Su ogni $[a,\beta]\subset [a,b)$ possiamo applicare il teorema precedente
+in quanto abbiamo convergenza uniforme:
+\[
+  \lim_{k\to+\infty} \int_a^\beta f_k(x)\, dx = \int_a^\beta f(x)\, dx.
+\]
+razie alla continuità della funzione integrale,
+per ogni $\eps>0$ esiste $\beta<b$ per cui risulta
+\[
+  \int_{\beta}^b g(x)\, dx < \eps.
+\]
+Allora si ha
+\begin{equation}\label{eq:438948}
+\begin{aligned}
+  \abs{\int_a^b f_k(x)\, dx - \int_a^b f(x)\, dx}
+  &= \abs{\int_a^\beta f_k(x)\, dx - \int_a^\beta f(x)\, dx}\\
+  &\quad + \abs{\int_\beta^b (f_k(x) - f(x))\, dx }.
+   \end{aligned}
+\end{equation}
+Il primo addendo tende a zero per $k\to +\infty$ in quanto
+sull'intervallo $[a,\beta]$ c'è convergenza uniforme di $f_k$
+a $f$ e quindi possiamo applicare il teorema precedente
+di scambio del limite con l'integrale. Per il secondo addendo
+si ha invece
+\begin{align*}
+\abs{\int_\beta^b (f_k(x) - f(x))\, dx }
+&\le \int_\beta^b \abs{f_k(x)-f(x)}\, dx\\
+&\le \int_\beta^b \abs{f_k(x)}\, dx + \int_\beta^b \abs{f(x)}\, dx\\
+&\le 2 \int_\beta^b g(x)\, dx \le \eps.
+\end{align*}
+Dunque per ogni $\eps>0$ esiste $\beta<b$ tale che per $k$ abbastanza
+grande
+la quantità in~\eqref{eq:438948} risulta essere inferiore a $2\eps$.
+Abbiamo quindi verficato la tesi tramite la definizione di limite.
+\end{proof}
+
+\begin{example}
+La successione $f_k(x) = \sin(x^k)$ converge puntualmente a $f(x)=0$ sull'intervallo
+$\left[0,\frac \pi2\right)$ e la convergenza è uniforme su ogni intervallo $[0,\beta]$
+con $\beta < \frac \pi 2$ (verificare!).
+Inoltre $\abs{f_k(x)} = \sin(x^k) \le 1$ per ogni $x\in \Enclose{0,\frac \pi 2}$
+e $\int_0^{\frac \pi 2} 1\, dx = \frac \pi 2 < +\infty$.
+Dunque possiamo applicare il teorema di convergenza dominata e,
+scambiando il limite con l'integrale possiamo dedurre che
+\[
+  \int_0^{\frac \pi 2} \sin (x^k)\, dx \to 0, \qquad \text{per $k\to +\infty$.}
+\]
+
+\end{example}
+
 \begin{theorem}[scambio del limite con la derivata]
 \mymark{***}
 Sia $I\subset \RR$ un intervallo e siano $f_k\in C^1(I)$ funzioni tali che $f_k(x_0)$ converge per almeno un punto $x_0\in I$ e la successione delle derivate $f_k'$ converge
@@ -360,10 +456,11 @@ I teoremi che abbiamo dimostrato per le successioni di funzioni sono quindi vali
 
 
 \begin{theorem}[integrale di una serie di funzioni]
-\mymark{**}
-\index{teorema!integrazione di una serie di funzioni}
-\index{serie!integrale}
-\mynote{integrazione di una serie}
+\label{th:integrale_serie}
+\mymark{**}%
+\index{teorema!integrazione di una serie di funzioni}%
+\index{serie!integrale}%
+\mynote{integrazione di una serie}%
 Sia $f_k\colon [a,b]\to\RR$ una successione di funzioni continue definite sull'intervallo $[a,b]\subset \RR$.
 Se la serie $\sum f_k$ converge uniformemente
 allora si può scambiare l'integrale con la somma della serie:
@@ -393,7 +490,6 @@ e dall'altro lato:
   \int_a^b S(t)\, dt = \int_a^b \enclose{\sum_{k=0}^{+\infty} f_k(t)}\, dt.
 \]
 \end{proof}
-
 
 \begin{theorem}[derivata di una serie di funzioni]
 \mymark{**}
@@ -477,7 +573,8 @@ $n\to +\infty$ si ha:
 \end{proof}
 
 \begin{theorem}[convergenza totale delle serie di potenze]
-\mymark{***}
+\label{th:convergenza_totale}
+\mymark{***}%
 Sia $\sum a_n z^n$ una serie di potenze e sia $R\in[0,+\infty]$ il suo raggio di convergenza. Allora la serie converge totalmente su ogni disco $D_r$ con $r<R$.
 \end{theorem}
 %

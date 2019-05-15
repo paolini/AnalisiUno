@@ -3262,7 +3262,7 @@ si ha:
 \]
 \end{definition}
 
-Il teorema~{th:488456367} ci dice in particolare che la somma di una serie
+Il teorema~\ref{th:488456367} ci dice in particolare che la somma di una serie
 di potenze è una funzione analitica, almeno all'interno del raggio di convergenza.
 Ad esempio le funzioni $e^x$, $\sin x$ e $\cos x$ sono state definite
 come somma di una serie di potenze (centrata in $x=0$) di raggio infinito
@@ -3377,12 +3377,14 @@ Risulta allora interessante un criterio che garantisca l'analiticità
 delle funzioni $C^\infty$ sotto opportune ipotesi.
 
 \begin{theorem}[criterio di analiticità]
-Sia $f\in C^\infty(A)$ una funzione reale analitica definita su un
-insieme aperto $A\subset \RR$. Supponiamo che per ogni $x_0\in A$ esistano $R>0$
-ed $M>0$ tali che per ogni $x\in (x_0-R,x_0+R)$ e per
+\label{criterio_analitica}
+Sia $f\in C^\infty(A)$ una funzione reale definita su un
+insieme aperto $A\subset \RR$. Supponiamo che per ogni $x_0\in A$ esistano $r>0$,
+$M>0$ e $L>0$ tali che $[x_0-r, x_0+r] \subset A$ e
+per ogni $x\in [x_0-r, x_0+r]$ e per
 ogni $n\in \NN$ si abbia
 \[
-  \abs{f^{(n)}(x)} \le M\frac{n!}{R^n}.
+  \frac{\abs{f^{(n)}(x)}}{n!} \le M\cdot L^n.
 \]
 Allora $f$ è analitica in $A$.
 \end{theorem}
@@ -3393,11 +3395,11 @@ Dobbiamo dimostrare che in un intorno di $x_0$ è possibile
 scrivere $f$ come somma di una serie di potenze $\sum a_k (x-x_0)^k$.
 Necessariamente, per il teorema precedente, la serie
 di potenze dovrà essere la serie di Taylor, cioè vogliamo dimostrare che
-esiste $R>0$ tale che per ogni $x\in (x_0-R,x_0+R)$ si abbia
+esiste $\rho>0$ tale che se $\abs{x-x_0}< \rho$ si ha
 \[
   f(x) = \sum_{k=0}^{+\infty} \frac{f^{(k)}(x_0)}{k!}(x-x_0)^k.
 \]
-Ma, grazie alla formula di Taylor con resto di Lagrange (teorema~\ref{th:taylor_lagrange}),
+Grazie alla formula di Taylor con resto di Lagrange (teorema~\ref{th:taylor_lagrange}),
 noi sappiamo che
 \[
   f(x) = \sum_{k=0}^{n} \frac{f^{(k)}(x_0)}{k!}(x-x_0)^k
@@ -3405,11 +3407,89 @@ noi sappiamo che
 \]
 Dunque sarà sufficiente mostrare che fissato $x$ per $n\to +\infty$ il resto
 tende a zero.
-Ma infatti si ha
+Ma infatti se $\abs{x-x_0}\le \rho$ si ha
 \begin{align*}
  \abs{\frac{f^{(n+1)}(y)}{(n+1)!}(x-x_0)^{n+1}}
- & \le  M\frac{(n+1)!}{R^{n+1}}\cdot  \frac{\abs{x-x_0}^{n+1}}{(n+1)!}
- = M \abs{\frac{x-x_0}{R}}^{n+1} \to 0
+ & \le  M\cdot L^{n+1}\abs{x-x_0}^{n+1}
+ = M (L\rho)^{n+1}\to 0
 \end{align*}
-se $\abs{x-x_0}<R$.
+se scegliamo $\rho$ in modo che sia $\rho < 1/L$.
+\end{proof}
+
+\begin{example}
+La funzione $f(x) = \frac{1}{\sqrt x}$ è analitica sull'intervallo
+$(0,+\infty)$.
+\end{example}
+%
+\begin{proof}
+Scriviamo $f(x) = x^\alpha$ con $\alpha=-\frac 1 2$ e, facendo le derivate
+successive osserviamo che si ha:
+\[
+  f^{(n)}(x) = \alpha(\alpha-1) \cdots (\alpha-n+1) x^{\alpha-n}
+\]
+Dunque
+\[
+  \frac{f^{(n)}(x)}{n!}
+  = \frac{\alpha}{1}\cdot \frac{\alpha-1}{2} \cdots \frac{\alpha-n+1}{n} x^{\alpha-n}
+\]
+e per $\alpha=-\frac 1 2$ possiamo notare che per $k=1,\dots,n$
+si ha $\abs{\alpha-k + 1} = \abs{\frac 1 2 - k}
+< k$ e dunque
+\[
+\frac{\abs{f^{(n)}(x)}}{n!} \le x^{\alpha - n} = \frac{1}{x^{n+\frac 1 2}}.
+\]
+Fissato un punto $x_0>0$ possiamo quindi prendere $\rho = x_0/2$
+cosicché se $\abs{x-x_0}<\rho$ risulta $x>\rho$ e quindi
+\[
+\frac{\abs{f^{(n)}(x)}}{n!} \le \frac{1}{\sqrt \rho\cdot \rho^n} = M L^n
+\]
+avendo scelto $M=1/\sqrt{\rho}$ e $L=1/\rho$.
+\end{proof}
+
+Con non poca fatica si può aggiustare la dimostrazione precedente
+in modo da dimostrare che $x^\alpha$ è analitica per ogni $\alpha \in \RR$.
+Vedremo però più avanti che c'è una dimostrazione più semplice.
+
+\begin{theorem}[principio di identità delle funzioni analitiche]
+Se $f$ e $g$ sono due funzioni analitiche definite su uno stesso intervallo
+aperto $I\subset \RR$ allora risultano fatti equivalenti:
+\begin{enumerate}
+ \item $f(x)=g(x)$ per ogni $x\in I$,
+ \item esiste $x_0\in I$ tale che per ogni $k\in \NN$ si ha $f^{(k)}(x_0) = g^{(k)}(x_0)$,
+ \item esiste $x_0\in I$ e $\rho>0$ tale che per ogni $x\in I$ con $\abs{x-x_0}<\rho$ si ha
+ $f(x)=g(x)$.
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+Se $f=g$ allora chiaramente le derivate di $f$ e $g$ coincidono in tutti i punti,
+quindi $1\implies 2$.
+
+Se $f$ e $g$ sono analitiche e $x_0\in I$ esiste un intorno del punto
+$x_0$ in cui entrambe le funzioni possono essere scritte come
+somma della serie di Taylor. Ma se $f$ e $g$ hanno le stesse derivate
+nel punto $x_0$ le loro serie di Taylor coincidono e dunque le funzioni
+coincidono all'interno del raggio di convergenza. Dunque $2\implies 3$.
+
+Ci rimane da dimostrare che $3 \implies 1$.
+Per ipotesi sappiamo che esiste $x_0\in I$ tale che $f(x) = g(x)$ in un intorno
+di $x_0$. Supponiamo per assurdo che esista almeno un punto $x\in I$ in cui
+$f(x) \neq g(x)$. Senza perdita di generalità possiamo supporre che sia
+$x>x_0$ e possiamo prendere l'estremo inferiore di tali punti:
+\[
+  x_1 = \inf\{x\in I\colon x>x_0, f(x)\neq g(x)\}.
+\]
+Sappiamo che $x_1>x_0$ perché in un intorno di $x_0$ le due funzioni
+coincidono per ipotesi. Per definizione di $x_1$ sappiamo anche
+che $f(x)=g(x)$ per ogni $x\in [x_0,x_1)$ e quindi, facendo le derivate,
+possiamo affermare che $f^{(k)}(x) = g^{(k)}(x)$ per ogni $k\in \NN$
+e per ogni $x\in [x_0,x_1)$. Visto che $f$ e $g$ sono di classe $C^\infty$
+possiamo concludere, per continuità, che anche $f^{(k)}(x_1)=g^{(k)}(x_1)$
+per ogni $k\in \NN$. Dunque le due funzioni hanno le stesse derivate
+nel punto $x_1$. Essendo $f$ e $g$ funzioni analitiche sappiamo
+che c'è un intorno del punto $x_1$ in cui entrambe le funzioni
+coincidono con la somma della propria serie di Taylor. Ma avendo le
+stesse derivate in $x_1$ le due funzioni hanno anche la stessa serie
+di Taylor e quindi coincidono in un intorno di $x_1$. Questo
+è assurdo perché per come abbiamo definito $x_1$ ci devono
+essere dei punti arbitrariamente vicini a $x_1$ in cui $f(x)\neq g(x)$.
 \end{proof}

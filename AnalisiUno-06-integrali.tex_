@@ -2663,10 +2663,10 @@ Allora la serie
   \int_1^{+\infty} f(x)\, dx.
 \]
 
-E, più precisamente:
+E, più precisamente, per ogni $n\in \NN\cup\{+\infty\}$ si ha
 \begin{equation}\label{eq:39185}
   0
-  \le \sum_{k=1}^{+\infty} a_k - \int_1^{+\infty}f(x)\, dx
+  \le \sum_{k=1}^{n} a_k - \int_1^{n}f(x)\, dx
   \le a_1.
 \end{equation}
 
@@ -2675,9 +2675,10 @@ E, più precisamente:
 \begin{proof}
 \mymark{**}
 Visto che la funzione $f$, è non negativa e monotona,
-l'integrale improprio di $f$ su $[0,+\infty)$ esiste (finito o infinito)
+l'integrale improprio di $f$ su $[1,+\infty)$ esiste (finito o infinito)
 per il teorema~\ref{th:integrabilita_positive}.
 Anche la serie $\sum f(k)$ essendo a termini non negativi risulta essere determinata.
+
 Essendo $f$ decrescente, per ogni $x \in [k,k+1]$ si ha
 \[
   f(k+1) \le f(x) \le f(k)
@@ -2686,20 +2687,15 @@ integrando su $[k,k+1]$ si ottiene
 \[
   f(k+1) \le \int_{k}^{k+1} f(x)\, dx \le f(k)
 \]
-e sommando per $k=1,\dots, N$ si ottiene:
+e sommando per $k=1,\dots, n-1$ si ottiene:
 \[
-  \sum_{k=2}^{N+1} f(k) \le \int_{1}^{N+1} f(x)\, dx \le \sum_{k=1}^{N} f(k).
+  \sum_{k=2}^{n} f(k) \le \int_{1}^{n} f(x)\, dx \le \sum_{k=1}^{n-1} f(k)
 \]
-Possiamo passare al limite per $N \to +\infty$ in quanto già sappiamo che
-i limiti esistono:
-\[
-  \sum_{k=2}^{+\infty} f(k)
-  \le \int_{1}^{+\infty} f(x)\, dx
-  \le \sum_{k=1}^{+\infty} f(k).
-\]
-Queste ultime disuguaglianze sono equivalenti alle \eqref{eq:39185}
-e ci dicono immediatamente che se l'integrale converge anche la serie
-converge e viceversa.
+che implica la~\eqref{eq:39185} se $n\in \NN$. Facendo
+tendere $n\to+\infty$ la ~\eqref{eq:39185} rimane comunque verificata.
+La prima disequazione ci permette di stimare l'integrale con la serie
+e la seconda ci permette viceversa di stimare la serie con l'integrale.
+Dunque se uno dei due converge anche l'altro converge, come volevamo dimostrare.
 \end{proof}
 
 \begin{example}[stima asintotica di $\ln n!$]
@@ -2841,11 +2837,12 @@ abbiamo quindi ottenuto l'assurdo.
 \end{proof}
 
 \begin{theorem}[prodotto di Wallis]
-\mymark{*}
-\mynote{prodotto di Wallis}
-\index{$\pi$!prodotto di Wallis}
-\index{Wallis!approssimazione di $\pi$}
-\index{formula!di Wallis}
+\label{th:wallis}%
+\mymark{*}%
+\mynote{prodotto di Wallis}%
+\index{$\pi$!prodotto di Wallis}%
+\index{Wallis!approssimazione di $\pi$}%
+\index{formula!di Wallis}%
 Si ha
 \[
   \frac{\pi}{2}
@@ -2912,7 +2909,8 @@ da cui ottieniamo che $I_{2n+1} / I_{2n} \to 1$.
 Ma la formula ricorsiva ci permette di calcolare separatamente
 i termini pari e dispari della successione:
 \begin{align*}
-  I_{2n} &= \frac{2n-1}{2n}\cdot \frac{2n-3}{2n-2} \cdots \frac {3}{4}\cdot \frac{1}{2} \cdot I_0 = \enclose{\prod_{k=1}^n \frac{2k-1}{2k}} \cdot \pi \\
+  I_{2n} &= \frac{2n-1}{2n}\cdot \frac{2n-3}{2n-2} \cdots \frac {3}{4}\cdot \frac{1}{2} \cdot I_0
+  = \enclose{\prod_{k=1}^n \frac{2k-1}{2k}} \cdot \pi \\
   I_{2n+1} &= \frac{2n}{2n+1}\cdot \frac {2n-2}{2n-1} \cdots
   \frac{4}{5}\cdot \frac{2}{3} \cdot I_1
   = \enclose{\prod_{k=1}^n \frac{2k}{2k+1}}\cdot 2.

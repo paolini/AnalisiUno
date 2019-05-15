@@ -819,40 +819,388 @@ e
 \]
 \end{proof}
 
-Abbiamo visto che le equazioni lineari del primo ordine e le equazioni
+\begin{exercise}[serie binomiale]
+\label{ex:serie_binomiale}%
+\mymargin{serie!binomiale}\index{binomiale!serie}
+Per ogni $\alpha\in \RR$ per ogni $x\in (-1,1)$ si ha
+\[
+  (1+x)^{\alpha}  = \sum_{k=0}^{+\infty} {\alpha \choose k} x^k.
+\]
+Di conseguenza la funzione $x^\alpha$ è analitica.
+\end{exercise}
+%
+\begin{proof}
+Innanzitutto osserviamo che la serie di potenze di coefficiente
+$a_k = {\alpha \choose k}$ ha raggio di convergenza $R=1$.
+Infatti, tramite il criterio del rapporto, si trova:
+\[
+  \frac{\abs{a_{n+1}}}{\abs{a_n}}
+  = \frac{\abs{\alpha (\alpha-1) \cdots (\alpha-n)}}{(n+1)!}
+  \cdot \frac{n!}{\abs{\alpha(\alpha-1) \cdots (\alpha-n+1)}}
+  = \frac{\abs{\alpha-n}}{n+1} \to 1.
+\]
+Dunque la funzione
+\[
+ u(x) = \sum_{k=0}^{+\infty} {\alpha \choose k} x^k
+\]
+è definita per ogni $x\in(-1,1)$.
+All'interno del raggio di convergenza possiamo quindi derivare
+la serie termine a termine per trovare:
+\[
+  u'(x) = \sum_{k=1}^{\infty} k{\alpha \choose k} x^{k-1}.
+\]
+Osserviamo allora che
+\begin{align*}
+(1+x)u'(x)
+&= \sum_{k=1}^{+\infty} k{\alpha \choose k} x^{k-1}
++ \sum_{k=1}^{+\infty} k{\alpha \choose k} x^{k}\\
+&= \sum_{k=0}^{+\infty} (k+1){\alpha \choose k+1} x^k
++ \sum_{k=0}^{+\infty} k {\alpha \choose k} x^k \\
+&= \sum_{k=0}^{+\infty} \Enclose{\frac{\alpha(\alpha-1) \cdots (\alpha-k)}{k!}
+ + k \frac{\alpha(\alpha-1)\cdots(\alpha-k+1)}{k!}} x^k \\
+ &= \sum_{k=0}^{+\infty} \frac{\alpha(\alpha-1)\cdots(\alpha-k+1)}{k!}\Enclose{(\alpha-k)+k} x^k\\
+ &= \alpha \sum_{k=0}^{+\infty} {\alpha \choose k} x^k = \alpha \cdot u(x).
+\end{align*}
+Dunque $u(x)$ risolve una equazione a variabili separabili:
+\[
+  (1+x) u'(x) = \alpha \cdot u(x).
+\]
+Separiamo le variabili:
+\[
+\frac{u'(x)}{u(x)} = \frac{\alpha}{1+x}
+\]
+integriamo
+\[
+ \ln u(x) = \alpha \ln (1+x) + c
+\]
+e osservando che $u(0) = 1$ troviamo che $c=0$ e quindi
+\[
+ u(x) = e^{\alpha \ln(1+x)} = (1+x)^\alpha
+\]
+come volevamo dimostrare.
+
+Dunque la funzione $(1+x)^\alpha$ è sviluppabile in serie di potenze
+per $x\in (-1,1)$. Più in generale osserviamo che se $\abs{x-x_0}<x_0$ si ha
+\begin{align*}
+  x^\alpha
+  &= (x_0 + x-x_0)^\alpha
+  = x_0^\alpha \enclose{1+\frac {x-x_0} {x_0}}^\alpha \\
+  &= x_0^\alpha \sum_{k=0}^{+\infty} {\alpha \choose k} \enclose{\frac{x-x_0}{x_0}}^k
+  = \sum_{k=0}^{+\infty} x_0^{\alpha-k}{\alpha \choose k} (x-x_0)^k
+\end{align*}
+e dunque anche $x^\alpha$ è sviluppabile in serie di potenze
+nell'intorno di un qualunque punto $x_0>0$ ed è quindi una
+funzione analitica.
+\end{proof}
+
+
+\subsection{altri metodi risolutivi}
+
+Nella sezione precedente abbiamo visto che le equazioni lineari del primo ordine
+e le equazioni
 a variabili separabili possono essere ricondotte al calcolo di una primitiva.
+Nella sezione~\ref{sec:edo_lineari} verranno esposti i metodi risolutivi per le
+equazioni lineari di ordine $n$ a coefficienti costanti.
 
-A loro volta ci sono molti altri tipi di equazioni che possono essere ricondotti
-alle equazioni lineare o alle equazioni a variabili separabili.
+Ci sono molti altri tipi di equazioni che possono essere ricondotti
+alle equazioni lineari o alle equazioni a variabili separabili.
+Non potremo dilungarci su questi metodi ma può essere utile,
+come riferimento non esaustivo,
+un elenco di alcune tipologie di equazioni per le quali esiste un metodo
+risoluvtivo:
 
-Il metodo consiste, usualmente, nel fare un opportuno cambio di variabile
-nell'equazione. Non potremo dilungarci su questi metodi risolutivi, alcuni
-dei quali richiedono anche conoscenze di concetti che non abbiamo sviluppato
-in questo corso.
-
-Per futura referenza riportiamo comunque un elenco di equazioni per le quali
-esiste un metodo risolutivo:
 \begin{enumerate}
-\item equazione del secondo ordine senza dipendenza da $u$
-(si risolve ponendo $v(x)=u'(x)$)
+\item \emph{equazione del secondo ordine senza dipendenza da $u$}
 \[
-  F(x, u', u'') = 0;
+  F(x, u', u'') = 0
 \]
-\item equazione del secondo ordine autonoma (si risolve ponendo $z(u(x)) = u'(x)$)
+si riconduce al primo ordine ponendo $v(x)=u'(x)$;
+\item \emph{equazione del secondo ordine autonoma}
 \[
-  F(u, u', u'') = 0;
+  F(u, u', u'') = 0
 \]
-\item equazione di Bernoulli (si risolve ponendo $v(x) = u(x)^{1-\alpha}$)
+si riconduce al primo ordine
+ponendo $v(u(x)) = u'(x)$;
+\item \emph{equazione di Bernoulli}
 \[
-  u' = a(x) u + b(z) u^\alpha;
+  u' = a(x) u + b(z) u^\alpha
 \]
-\item \emph{equazione di Clairaut}:
+si riconduce ad una equazione lineare ponendo
+$v(x) = u(x)^{1-\alpha}$;
+\item \emph{equazione di Clairaut}
 \[
-  u = x u' + g(u')
+  u = x u' + f(u');
 \]
-\item
+la derivata dell'equazione si fattorizza: un
+fattore dà soluzioni della forma $u(x)=mx+q$ l'altro fattore diventa
+una equazione algebrica facendo la sostituzione $u(x) = v(u'(x))$;
+\item \emph{equazione di Riccati}
+\[
+  u' = u^2 + b(x) u + c(x).
+\]
+si ponga $u'(x) = -v'(x)/v(x)$ per ricondursi ad
+una equazione lineare del secondo ordine in $v$;
 \end{enumerate}
 
+\begin{example}[equazione di Newton]
+Un sistema fisico unidimensionale soggetto a forze che dipendono solamente
+dalla posizione può essere descritto da un problema di Cauchy:
+\[
+\begin{cases}
+  u''(x) = F(u(x)) \\
+  u(x_0) = u_0 \\
+  u'(x_0) = v_0
+\end{cases}
+\]
+(ad esempio per il pendolo si ha $F(y) = -\sin y$).
+La funzione $v$ definita da $v(u(x)) = u'(x)$ mette in relazione
+la velocità con la posizione e descrive quindi il moto nel
+cosiddetto \emph{spazio delle fasi}. Con tale sostituzione si
+trova
+\[
+  u''(x) = v'(u(x)) u'(x) = v'(u(x)) v(u(x))
+\]
+che sostituita in $u'' = F(u)$ ci dà una equazione
+differenziale del primo ordine per $v=v(u)$:
+\[
+ v' v  = F(u).
+\]
+Questa è una equazione del primo ordine a variabili separabili
+che può essere interpretata come la legge di conservazione dell'energia,
+infatti è equivalente a
+\[
+  \frac{d}{dx}\enclose{\frac 1 2 v^2 - \int F(u)} = 0
+\]
+dove $\frac 1 2 v^2$ si interpreta come energia cinetica e $-\int F$
+come energia potenziale.
+Integrando tra $x_0$ e $x$ e utilizzando le condizioni iniziali si ottiene,
+con $u=u(x)$:
+\[
+  \frac 1 2 v^2(u) = \frac 1 2 v_0^2 + \int_{u_0}^{u} F(y)\, dy.
+\]
+Questa equazione descrive la traiettoria del sistema nel piano delle fasi $(u,v)$
+e ci permette di ricavare $v$ in funzione di $u$:
+\[
+  v(u) = \pm\sqrt{v_0^2 + 2\int_{u_0}^u F(u)\, du}
+\]
+che significa:
+\[
+  u'(x) = \pm \sqrt{v_0^2 + 2 \int_{u_0}^{u(x)} F(y)\, dy}.
+\]
+Questa è una equazione autonoma in $u$, quindi a variabili separabili:
+\[
+  \pm\frac{u'(x)}{\sqrt{v_0^2 - \int_{u_0}^{u(x)} F(y)\, dy}} = 1
+\]
+che può essere integrata tra $x_0$ e $x$ facendo il cambio di variabile $u=u(x)$
+\[
+  \pm\int_{u_0}^{u(x)} \frac{du}{\sqrt{v_0^2-\int_{u_0}^u F(y)\, dy}} = x-x_0.
+\]
+In questo modo abbiamo determinato la funzione inversa della soluzione $u(x)$.
+\end{example}
+
+\begin{example}[periodo del pendolo]
+Sia $u(x)$
+l'angolo di scostamento dalla verticale
+al tempo $x$ di un pendolo semplice di lunghezza $\ell$.
+Considerando la componente tangenziale della accelerazione di gravità
+(il cui modulo è $g$)
+l'equazione di Newton può essere scritta nella forma:
+\[
+  u''(x) = -\frac{\ell}{g} \sin u(x).
+\]
+Siamo quindi nel caso dell'esempio precedente dove $F(u) = -\frac{\ell}{g} \sin u$
+e se al tempo $x=0$ lasciamo cadere da fermo il pendolo da un angolo $u_0$,
+si avrà $v_0=0$. L'energia potenziale sarà data allora da
+\[
+\frac{-\ell}{g}\int_{u_0}^u \sin y\, dy = \frac{\ell}{g}\enclose{\cos u - \cos u_0}.
+\]
+Si ottiene dunque
+\[
+  u'(x) = \pm \sqrt{\frac{2L}{g}(\cos u(x) - \cos u_0)}.
+\]
+Separando le variabili e integrando tra $0$ e $x$ si ottiene
+\[
+\sqrt{\frac g \ell}\int_0^x \frac{u'(x)\, dx}{\pm\sqrt{2\cos u(x)-2\cos u_0}} = \int_0^x dx  = x.
+\]
+e cambiando variabile $u=u(x)$, $du = u'(x) dx$:
+\begin{equation}\label{eq:4898944}
+\sqrt{\frac g \ell}\int_0^{u(x)} \frac{du}{\pm\sqrt{2\cos u-2\cos u_0}} = x.
+\end{equation}
+La scelta del segno $\pm$ è arbitraria ma visto che $u$ è continua
+anche $u'=-\sin u$ deve essere una funzione continua. Dunque il segno
+$\pm$ può cambiare solo quando $u'=0$. Nel punto iniziale $x=0$ abbiamo
+imposto $u'(0) = 0$ e dunque l'energia cinetica è nulla. Visto che l'energia
+cinetica non può essere negativa significa che l'energia potenziale
+non può aumentare e quindi inizialmente l'angolo $u(x)$ dovrà diminuire
+(o almeno: non potrà aumentare). Dunque inizialmente il segno di $u'$ è negativo
+e rimarrà negativo finché non si avrà nuovamente $u'(x)=0$.
+L'integrale in~\eqref{eq:4898944} è un integrale improprio in quanto
+la funzione integranda presenta un asintoto per $u\to u_0^-$ dobbiamo dunque
+assicurarci che l'integrale sia finito. Sviluppando $\cos u$ nel punto $u=u_0$
+si trova $\cos u = \cos u_0  - \sin u_0 \cdot (u-u_0) + o(u-u_0)$ da cui
+\[
+ \frac{1}{\sqrt{2 \cos u - 2 \cos u_0}}
+ =\frac{1}{\sqrt{2\sin u_0\cdot (u_0-u) + o(u-u_0)}}
+ \sim \frac{C}{\sqrt{u_0-u}}
+\]
+che è notoriamente una funzione integrabile per $u\to u_0^-$.
+
+Vogliamo ora calcolare il tempo $x_1$ in cui il pendolo raggiunge per la prima
+volta la verticale, cioè $u(x_1)=0$.
+Ricordiamo che al tempo $x=0$ il pendolo parte da un angolo $u_0$
+con velocità nulla. Nell'intervallo $x\in[0,x_1]$ si avrà $u'(x)<0$
+(l'angolo diminuisce) dunque:
+\[
+-\sqrt{\frac{g}{\ell}}\int_{u_0}^{0} \frac{du}{\sqrt{2\cos u - 2\cos u_0}}
+= x_1.
+\]
+
+Una volta raggiunta la verticale, per simmetria il pendolo tornerà a risalire
+fino ad un angolo $-u_0$ mettendoci lo stesso tempo $x_1$. Poi tornerà a scendere
+e risalire fino a tornare all'angolo $u_0$ mettendoci in totale un tempo
+$T=4x_1$ che è quindi il periodo di oscillazione. Si ha dunque
+\[
+  \frac{T}{4} = \sqrt{\frac g \ell}\int_0^{u_0} \frac{du}{\sqrt{2\cos u - 2\cos u_0}}.
+\]
+
+Purtroppo l'integrale che abbiamo trovato non ha una primitiva
+esprimibile mediante funzioni elementari (è un integrale ellittico).
+Il nostro obiettivo è ora quello di farne uno sviluppo di Taylor
+per $u_0\to 0$ che significa determinare
+il periodo del pendolo per \myemph{piccole oscillazioni}.
+
+Tramite formule di bisezione possiamo scrivere $\cos u = 1 - 2 \sin^2\frac u 2$
+da cui
+\[
+ \sqrt{2\cos u - 2\cos u_0}
+ = \sqrt{4\sin^2 \frac {u_0} 2 - 4 \sin^2 \frac{u}{2}}
+ = 2\sin u_0 \sqrt{1-\enclose{\frac{\sin \frac u 2}{\sin \frac {u_0}2}}^2}
+\]
+dunque ponendo
+\begin{equation}\label{eq:4847843}
+ \sin t = \frac{\sin \frac u 2}{\sin \frac{u_0} 2}
+\end{equation}
+si ha
+\[
+  \sqrt{\frac \ell g} \cdot \frac T 4
+  =  \int_0^{u_0} \frac{du}{2\sin \frac {u_0}2 \sqrt{1-\sin^2 t}}
+  = \int_0^{u_0} \frac{du}{2\sin \frac{u_0}2 \cos t}
+\]
+ma per il cambio di variabile~\eqref{eq:4847843} si ha
+\[
+  \cos t \, dt = \frac{\cos \frac u 2 }{2 \sin \frac{u_0} 2}\, du
+\]
+ovvero
+\[
+ \frac{du}{2\sin \frac {u_0} 2 \cos t} = \frac{dt}{\cos \frac u 2}
+ = \frac{dt}{\sqrt{1-\sin^2 t \sin^2\frac{u_0}{2}}}
+\]
+e quindi
+\[
+\sqrt{\frac \ell g} \cdot \frac{T}{4}
+= \int_0^{\frac \pi 2} \frac{dt}{\cos \frac u 2}
+= \int_0^{\frac \pi 2} \frac{dt}{\sqrt{1-\sin^2 \frac u 2}}
+= \int_0^{\frac \pi 2} \frac{dt}{\sqrt{1-\sin^2 \frac{u_0}{2} \sin^2 t}}.
+\]
+Utilizzando ora la serie binomiale (esercizio~\ref{ex:serie_binomiale})
+possiamo scrivere
+\begin{align*}
+\sqrt{\frac \ell g} \cdot\frac{T}{4}
+&= \int_0^{\frac \pi 2} \sum_{k=0}^{+\infty}{-\frac 1 2 \choose k} \enclose{-\sin^2 t\sin^2 \frac{u_0}2}^{k}\, dt.\\
+&= \int_0^{\frac \pi 2} \sum_{k=0}^{+\infty}\frac{(2k-1)!!}{(2k)!!} \enclose{\sin^2 t\sin^2 \frac{u_0}2}^{k}\, dt.
+\end{align*}
+in quanto si ha
+\begin{align*}
+  {-\frac 1 2 \choose k}
+  &= \frac{\enclose{-\frac 1 2}\cdot \enclose{-\frac 3 2} \cdots \enclose{-\frac{2k-1} 2}}{k!}\\
+  &= (-1)^k\frac{(2k-1)!!}{2^k \cdot k!} = (-1)^k \frac{(2k-1)!!}{(2k)!!}.
+\end{align*}
+Rispetto alla variabile $\sin^2 t$ dentro all'integrale abbiamo ora una serie di potenze
+con coefficienti
+\[
+ a_k = \frac{(2k-1)!!}{(2k)!!} \enclose{\sin^2\frac{u_0} 2}^{k}
+\]
+e si verifica facilmente che
+\[
+  \frac{a_{k+1}}{a_k} \to \sin^2 \frac{u_0}{2}
+\]
+dunque la serie di potenze converge se
+\[
+ \sin^2 t \le \frac{1}{\sin^2 \frac{u_0}{2}}
+\]
+che significa semplicemente
+\[
+  \sin \frac u 2 < 1.
+\]
+Stiamo quindi facendo un integrale esteso all'intero raggio
+di convergenza della serie. Sappiamo che la serie
+converge totalmente e quindi uniformemente sugli intervalli
+chiusi strettamente contenuti nel raggio di convergenza.
+Visto che la serie è a termini positivi le somme parziali
+convergono alla somma della serie e sono tutte inferiori
+a tale somma.
+Abbiamo già visto, inoltre, che la somma della serie
+è integrabile con integrale finito.
+Dunque possiamo applicare
+il teorema di convergenza dominata (teorema~\ref{th:convergenza_dominata} con $f=g$)
+per scambiare la serie con l'integrale:
+\[
+\sqrt{\frac \ell g} \cdot\frac{T}{4}
+= \sum_{k=0}^{+\infty}\frac{(2k-1)!!}{(2k)!!} \enclose{\sin \frac{u_0}2}^{2k}
+\int_0^{\frac \pi 2}  \enclose{\sin t}^{2k}\, dt
+\]
+l'integrale è ora sostanzialmente lo stesso $I_n$ che abbiamo calcolato nel teorema~\ref{th:wallis}:
+\[
+  \int_0^{\frac \pi 2} \enclose{\sin t}^{2k}\, dt
+  = \frac 1 2 \int_0^{\pi} \enclose{\sin t}^{2k}\, dt
+  = \frac{I_{2k}}{2}
+  = \frac \pi 2 \cdot\frac{(2k-1)!!}{(2k)!!}
+\]
+da cui
+\[
+T
+= 2\pi\sqrt{\frac g \ell}\sum_{k=0}^{+\infty} \enclose{\frac{(2k-1)!!}{(2k)!}}^2
+\enclose{\sin \frac{u_0} 2}^{2k}.
+\]
+
+Possiamo allora cercare di scrivere i primi termini dello sviluppo di
+Taylor di $T = T(u_0)$ per $u_0\to 0$ diciamo, per esempio, fino all'ordine 8
+in $u_0$. Basterà quindi considerare la somma dei termini della
+serie per $k=0,1,2,3,4$ in quanto la somma dei termini per $k\ge 5$ mi darà
+ un contributo dell'ordine di $O\enclose{\sin \frac {u_0} 2}^{10} = o(u_0^8)$. Dunque
+ \begin{align*}
+ T &= 2 \pi \sqrt{\frac g \ell}\left[
+ 1 + \enclose{\frac 1 2}^2 \sin^2 \frac{u_0} 2
+ + \enclose{\frac{1\cdot 3}{2\cdot 4}}^2\enclose{\sin^2 \frac {u_0} 2}^2 \right.\\
+ &\quad + \left.\enclose{\frac{1\cdot 3 \cdot 5}{2\cdot 4 \cdot 6}}^2
+ \enclose{\sin^2 \frac {u_0} 2}^3 + \enclose{\frac{1\cdot 3\cdot 5 \cdot 7}{2\cdot 4\cdot 6\cdot 8}}^2
+ \enclose{\sin^2 \frac {u_0} 2}^4 + o(u_0^8)\right] \\
+ %
+ &= 2 \pi \sqrt{\frac g \ell}\left[
+1 + \frac 1 4 \enclose{\frac{u_0^2}{4} - \frac{u_0^4}{2^4\cdot 3} + \frac{u_0^6}{2^5\cdot 3^2\cdot 5}
+- \frac{u_0^8}{2^8\cdot 3^2\cdot 5\cdot 7}}\right. \\
+&\quad + \frac{3^2}{2^6}\enclose{\frac{u_0^2}{4} - \frac{u_0^4}{2^4\cdot 3}
++ \frac{u_0^6}{2^5\cdot 3^2\cdot 5}}^2\\
+&\quad \left. + \frac{5^2}{2^8}\enclose{\frac{u_0^2}{4} - \frac{u_0^4}{2^4\cdot 3}}^3
++ \frac{5^2\cdot 7^2}{2^{14}}
+\frac {u_0^8} {2^8} + o(u_0^8)\right]\\
+%
+&= 2 \pi \sqrt{\frac g \ell}\left[
+1 + \frac{u_0^2}{2^4} - \frac{u_0^4}{2^6\cdot 3} + \frac{u_0^6}{2^7\cdot 3^2\cdot 5}
+- \frac{u_0^8}{2^{10}\cdot 3^2\cdot 5\cdot 7}\right. \\
+&\quad + \frac{3^2}{2^6}\enclose{\frac{u_0^4}{2^4} - \frac{u_0^6}{2^5\cdot 3} + \frac{u_0^8}{2^8\cdot 3^2} + \frac{u_0^8}{2^6\cdot 3^2\cdot 5}}\\
+&\quad \left. + \frac{5^2}{2^8}\enclose{\frac{u_0^6}{2^6} - \frac{u_0^8}{2^8}}
++ \frac{5^2\cdot 7^2}{2^{22}}
+u_0^8 + o(u_0^8)\right]\\
+%
+&= 2 \pi \sqrt{\frac g \ell}\left[
+1 + \frac{u_0^2}{2^4} + \frac{11}{2^{10}\cdot 3} u_0^4
+ + \frac{173}{2^{14}\cdot 3^2\cdot 5} u_0^6
+ + \frac{22931}{2^{22}\cdot 3^2\cdot 5\cdot 7} u_0^8
+ + o(u_0^8)\right]\\
+\end{align*}
+
+\end{example}
 
 %%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%
@@ -1517,6 +1865,7 @@ L'esistenza globale segue in maniera analoga dal teorema per i sistemi del primo
 \end{proof}
 
 \section{equazioni lineari di ordine $n$}
+\label{sec:edo_lineari}
 
 \index{equazione!differenziale!lineari di ordine $n$}
 \mynote{equazioni lineari di ordine $n$}
