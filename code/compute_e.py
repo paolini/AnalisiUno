@@ -1,3 +1,5 @@
+# la libreria decimal ci permette di effettuare calcoli su numeri
+# con sviluppo decimale arbitrariamente lungo
 from decimal import Decimal, getcontext
 def compute_e(digits):
     sum = Decimal(0)
@@ -9,5 +11,5 @@ def compute_e(digits):
         k_factorial *= k
     return sum
 
-getcontext().prec = 1100
+getcontext().prec = 1100  # numero di cifre da utilizzare nei calcoli
 print("e: {:.1001}".format(compute_e(1100)))

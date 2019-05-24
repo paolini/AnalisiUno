@@ -28,4 +28,6 @@ mandelbrot = np.logical_not(np.abs(z) < 2.0)
 # utilizziamo la libreria scipy che ci permette di
 # trasformare facilmente una matrice in una immagine
 from scipy.misc import imsave
-imsave('mandelbrot.png', mandelbrot)
+filename = 'mandelbrot.png'
+print("saving image to", filename)
+imsave(filename, mandelbrot)

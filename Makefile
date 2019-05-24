@@ -1,12 +1,13 @@
-DEPENDS=*.tex_ *.png koch.*
+all: AnalisiUno.pdf
 
-%.pdf: %.tex $(DEPENDS)
-	rubber -f --pdf -s $<
+AnalisiUno.pdf: AnalisiUno.tex chapters/*.tex_ figures/* code/*
+	lockfile-create $<
+	rubber --force --pdf --short $<
+	lockfile-remove $<
 
 strutture.pdf: strutture.gv
 	dot -Tpdf $< -o $@
 
-all: AnalisiUno.pdf
 
 clean:
 	rm -fr *.aux *.log *.out *.toc
