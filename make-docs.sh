@@ -31,6 +31,7 @@ MathJax.Hub.Config({
 </head>
 <body>
 <h1>Appunti di Analisi Matematica Uno</h1>
+<p>di <a href='http://pagine.dm.unipi.it/paolini'>Emanuele Paolini</a>
 <p>
 EOF
 
