@@ -5,6 +5,7 @@
 \usepackage{babel}
 \usepackage{caption,subcaption}
 \usepackage[nochapters,pdfspacing]{classicthesis}
+%\usepackage{hyperref} % enable if classicthesis is disabled
 %\usepackage{createspace/createspace}
 \usepackage[paperwidth=7in,paperheight=10in,bindingoffset=0.625in,marginparwidth=53.3pt,top=70.7pt,bottom=70.7pt,marginparsep=11.9pt]{geometry}
 \usepackage[utf8]{inputenc}
@@ -18,7 +19,7 @@
 \usepackage{hyphenat}
 \usepackage{marginnote}
 \usepackage{mparhack} % fix margin notes (otherwise sometime they go to wrong margin!)
-\usepackage{expl3,l3regex} % per il comando \regex_replace_once
+\usepackage{expl3} % per il comando \regex_replace_once
 \usepackage{xifthen}
 \usepackage{listings} % per il codice python
 \AfterPreamble{\hypersetup{hidelinks=true,}}
@@ -175,14 +176,14 @@ qed=,
 \immediate\openout\myauxfile=AnalisiUno.myaux
 \newcommand{\myaux}[1]{\write\myauxfile{#1}}
 
-% \newcommand{\myhref}[2]{\href{#1}{\underline{#2}}\myaux{#1 -- #2 -- \thepage}} %% currently not used?
+% \newcommand{\myhref}[2]{\href{#1}{\underline{#2}}} %% currently not used?
 %% negli URL i caratteri % vanno sostituiti con \%
 % #1 url del Diagramma
 % #2 testo HTML da scrivere nel link della documentazione
 \newcommand{\online}[2]{%
   \marginnote{\qrcode[height=1.7cm]{#1}\\%
   \scriptsize{(interagisci)}~}%
-  \write\myauxfile{<!--ONLINE--><li><a href="#1">#2</a> (pagina \thepage)</li>}%
+  \write\myauxfile{<!--ONLINE--><li><a href="#1">#2</a> (pagina \thepage, capitolo \thechapter)</li>}%
   }
 %
 % #1: url della pagina
@@ -202,7 +203,8 @@ qed=,
 \makeindex
 
 %\includeonly{chapters/AnalisiUno-00-introduzione}
-\includeonly{chapters/AnalisiUno-08-ricorrenza}
+%\includeonly{chapters/AnalisiUno-01-reali}
+%\includeonly{chapters/AnalisiUno-08-ricorrenza}
 
 \begin{document}
 \maketitle
