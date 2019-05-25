@@ -171,10 +171,28 @@ qed=,
     {\mynote{#1}%
     \index{#2}}}%
 
-\newcommand{\myhref}[2]{\href{#1}{\underline{#2}}}
+\newwrite\myauxfile
+\immediate\openout\myauxfile=AnalisiUno.myaux
+\newcommand{\myaux}[1]{\write\myauxfile{#1}}
+
+% \newcommand{\myhref}[2]{\href{#1}{\underline{#2}}\myaux{#1 -- #2 -- \thepage}} %% currently not used?
 %% negli URL i caratteri % vanno sostituiti con \%
-\newcommand{\online}[1]{\marginnote{\qrcode[height=1.7cm]{#1}\\\scriptsize{(interagisci)}~}}
-\newcommand{\myqrcode}[2]{\marginnote{\qrcode[height=1.7cm]{#1}\\{\footnotesize #2}}}
+% #1 url del Diagramma
+% #2 testo HTML da scrivere nel link della documentazione
+\newcommand{\online}[2]{%
+  \marginnote{\qrcode[height=1.7cm]{#1}\\%
+  \scriptsize{(interagisci)}~}%
+  \write\myauxfile{<!--ONLINE--><li><a href="#1">#2</a> (pagina \thepage)</li>}%
+  }
+%
+% #1: url della pagina
+% #2: testo da scrivere sotto il qrcode
+% #3: testo HTML da scrivere nel link della documentazione
+\newcommand{\myqrcode}[3]{%
+  \marginnote{\qrcode[height=1.7cm]{#1}\\%
+  {\footnotesize #2}}%
+  \myaux{<!--MYQRCODE--><li><a href="#1">#2 #3</a> (pagina \thepage)</li>}%
+  }
 
 \title{Appunti di\\Analisi Matematica Uno\\\mbox{}\\
 \qrcode{http://pagine.dm.unipi.it/paolini/}%
@@ -183,40 +201,43 @@ qed=,
 
 \makeindex
 
+%\includeonly{chapters/AnalisiUno-00-introduzione}
+\includeonly{chapters/AnalisiUno-08-ricorrenza}
+
 \begin{document}
 \maketitle
 
 \frontmatter
 
-\input{chapters/AnalisiUno-00-introduzione.tex_}
+\include{chapters/AnalisiUno-00-introduzione}
 
 \tableofcontents
 
 \mainmatter
 
-\input{chapters/AnalisiUno-01-reali.tex_}
+\include{chapters/AnalisiUno-01-reali}
 
-\input{chapters/AnalisiUno-02-successioni.tex_}
+\include{chapters/AnalisiUno-02-successioni}
 
-\input{chapters/AnalisiUno-03-serie.tex_}
+\include{chapters/AnalisiUno-03-serie}
 
-\input{chapters/AnalisiUno-04-complessi.tex_}
+\include{chapters/AnalisiUno-04-complessi}
 
-\input{chapters/AnalisiUno-05-funzioni.tex_}
+\include{chapters/AnalisiUno-05-funzioni}
 
-\input{chapters/AnalisiUno-06-integrali.tex_}
+\include{chapters/AnalisiUno-06-integrali}
 
-\input{chapters/AnalisiUno-07-spazi.tex_}
+\include{chapters/AnalisiUno-07-spazi}
 
-\input{chapters/AnalisiUno-07-uniforme.tex_}
+\include{chapters/AnalisiUno-07-uniforme}
 
-\input{chapters/AnalisiUno-08-ricorrenza.tex_}
+\include{chapters/AnalisiUno-08-ricorrenza}
 
-\input{chapters/AnalisiUno-09-edo.tex_}
+\include{chapters/AnalisiUno-09-edo}
 
 \backmatter
 
-\input{chapters/AnalisiUno-99-appendix.tex_}
+\include{chapters/AnalisiUno-99-appendix}
 
 \nocite{Giusti}
 \nocite{Courant}
@@ -229,6 +250,5 @@ qed=,
 \bibliography{biblio}
 
 \printindex
-
 
 \end{document}

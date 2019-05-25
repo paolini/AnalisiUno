@@ -1,15 +1,16 @@
-all: AnalisiUno.pdf
+all: AnalisiUno.pdf README.md
 
-AnalisiUno.pdf: AnalisiUno.tex chapters/*.tex_ figures/* code/*
-	lockfile-create $<
-	rubber --force --pdf --short $<
-	lockfile-remove $<
+README.md: make-docs.sh AnalisiUno.myaux
+	bash $<
+
+AnalisiUno.pdf AnalisiUno.myaux: AnalisiUno.tex chapters/*.tex figures/* code/*
+	lockfile-create --retry 2 $<
+	rubber --force --pdf --short $<; lockfile-remove $<
 
 strutture.pdf: strutture.gv
 	dot -Tpdf $< -o $@
 
-
 clean:
-	rm -fr *.aux *.log *.out *.toc
+	rubber --clean AnalisiUno
 
 build_site: all

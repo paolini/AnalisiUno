@@ -1,11 +1,42 @@
-Questo repository contiene gli appunti del mio (emanuele.paolini@unipi.it) corso di Analisi Matematica tenuto dal 2017-2018 per il corso di studi in Fisica dell'università di Pisa.
-
-Gli appunti sono scritti in LaTeX e sono messi liberamente a disposizione su github https://github.com/paolini/AnalisiUno/.
-Gli appunti possono essere stampati e modificati con l'unica condizione di mantenere un riferimento agli originali.
-
-Puoi scaricare il PDF dell'ultima versione qui: https://github.com/paolini/AnalisiUno/releases/latest
-
-Puoi contribuire in vari modi:
-* puoi segnalare errori o richiedere modifiche aprendo una issue: https://github.com/paolini/AnalisiUno/issues
-* puoi scaricare il codice e modificarlo sul tuo computer utilizzando git
-* puoi proporre le tue modifiche perché vengano incluse in questo repository tramite una pull-request
+Questo repository contiene gli appunti del
+corso di Analisi Matematica tenuto da me (emanuele.paolini@gmail.com)
+dal 2017-2018 per il corso di studi in Fisica dell'Università di Pisa.
+Queste note sono nate come appunti per il corso di Analisi Matematica 
+del corso di studi in Fisica dell'Università 
+di Pisa negli anni accademici 2017/18 e 2018/19. 
+ 
+Queste note sono estensive, non c'è alcun tentativo di concisione. 
+L'obiettivo è quello di raccogliere tutti quei risultati che non sempre è 
+possibile esporre in maniera dettagliata e rigorosa a lezione. 
+Troveremo, ad esempio, 
+definizioni equivalenti della funzione esponenziale e una definizione 
+analitica (tramite serie di potenze) 
+delle funzioni trigonometriche (e di $\pi$). 
+Proponiamo la dimostrazione del teorema fondamentale dell'algebra, 
+della formula di Stirling e di Wallis, 
+e dell'irrazionalità di $e$ e di $\pi$. 
+Viene proposta una definizione formale dei simboli di Landau 
+$o$-piccolo e $O$-grande con i relativi teoremi per trattare queste espressioni. 
+Lo stesso viene fatto per il simbolo di integrale indefinito. 
+Vengono trattati quei risultati algebrici che permettono di 
+giustificare gli algoritmi per il calcolo delle primitive 
+delle funzioni razionali e per risolvere le equazioni differenziali 
+lineari con il metodo di similarità. 
+ 
+Le note (come il corso a cui fanno riferimento) 
+riguardano l'analisi delle funzioni di una variabile 
+reale. 
+Gli argomenti trattati sono serie e successioni numeriche, 
+il calcolo differenziale e il calcolo integrale. 
+Viene anche introdotta la convergenza uniforme allo scopo di considerare, 
+come ultimo argomento, lo studio delle equazioni differenziali ordinarie. 
+Da subito vengono introdotti i numeri complessi che vengono utilizzati 
+laddove possono aiutare a dare una visione più unitaria e concettualmente 
+più semplice degli argomenti trattati (in particolare nello studio delle serie 
+di potenze e nella definizione delle funzioni trigonometriche). 
+Queste note sono rese disponibili liberamente sia in formato PDF che 
+in forma di sorgente 
+LaTeX 
+Il materiale è costantemente in evoluzione 
+e certamente contiene errori e incoerenze. Ogni suggerimento o commento è 
+benvenuto! 
