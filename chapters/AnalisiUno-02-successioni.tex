@@ -1507,7 +1507,10 @@ Dunque il numero $\ell$ non è un termine della successione $a_n$
 ovvero la funzione $a\colon \NN \to [0,1]$ non è suriettiva.
 \end{proof}
 
-\begin{proposition}[proprietà fondamentale della convergenza]
+
+\section{punti limite}
+
+\begin{proposition}[proprietà caratteristica della convergenza]
   \label{prop:convergenza}
 Sia data una successione e un candidato punto limite $\ell$.
 Se da ogni sottosuccessione è possibile estrarre una sotto-sottosuccessione
@@ -1871,7 +1874,7 @@ si avrà dunque $f(x)=y$, come volevamo dimostrare.
 \end{proof}
 
 \begin{lemma}
-Si dimostri che se $I$ è un intervallo di $\RR$ ogni funzione $f\colon I \to \RR$
+Se $I$ è un intervallo di $\RR$ ogni funzione $f\colon I \to \RR$
 iniettiva e continua è strettamente monotona.
 \end{lemma}
 %
@@ -1989,6 +1992,119 @@ Sia $f\colon I\to J$ una funzione continua e invertibile definita tra due
 intervalli $I\subset \RR$ e $J\subset \RR$. Dimostrare che $f$ è strettamente
 monotona (e quindi $f^{-1}$ è continua).
 \end{exercise}
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%
+\section{il teorema di Weierstrass}
+
+\begin{definition}[massimi e minimi assoluti]
+\mymark{**}
+Sia $A$ un insieme e sia $f\colon A \to \RR$.
+Il \emph{massimo} $M$ e il \emph{minimo} $m$
+\mymargin{massimo/minimo}%
+\index{massimo}%
+\index{minimo}%
+di $f$ su $A$ sono,
+se esistono, i valori
+\begin{align*}
+  M &= \max f(A) = \max\{f(x)\colon x \in A\} \\
+  m &= \min f(A) = \min\{f(x)\colon x \in A\}.
+\end{align*}
+Si indicano anche con
+\mymargin{$\max$, $\min$}
+\index{$\max$}
+\index{$\min$}
+\[
+  M = \max_{x\in A} f(x), \qquad m = \min_{x\in A} f(x).
+\]
+
+Diremo inoltre che $x_0$ è un \emph{punto di massimo assoluto}
+per $f$ se $f(x_0) = M$ e diremo che $x_0$ è un \emph{punto di minimo assoluto} per $f$ se $f(x_0) = m$.
+\mymargin{massimo/minimo assoluto}
+\index{punto!di massimo assoluto}
+\index{punto!di minimo assoluto}
+\index{massimo!assoluto}
+\index{minimo!assoluto}
+
+Equivalentemente $x_0$ è un massimo assoluto se $f(x_0) \ge f(x)$ per ogni $x\in A$ e invece $x_0$ è un minimo assoluto se $f(x_1) \le f(x)$ per ogni $x\in A$.
+\end{definition}
+
+Si faccia attenzione a non confondere i \emph{valori} massimo e minimo con i \emph{punti} di massimo e minimo. I valori sono elementi della immagine della funzione, i punti sono elementi del dominio.
+
+\begin{example}
+Si consideri la funzione $f\colon \RR \to \RR$ definita da $f(x) = \frac{1}{1+x^2}$.
+Per ogni $x$ si ha $x^2\ge 0$ quindi $1+x^2\ge 1$ e dunque $f(x)\le 1$.
+Inoltre si ha $f(0)=1$. Dunque $1$ è il massimo della funzione
+e il punto $x=0$ è un punto di massimo (in questo caso l'unico).
+
+Ma chiaramente $f(x)>0$ per ogni $x\in \RR$.
+Inoltre $f(n) \to 0$ per $n\to +\infty$ e quindi $\inf f(\RR) = 0$.
+Se $f$ avesse minimo si dovrebbe avere $\min f(\RR) = \inf f(\RR) = 0$ ma $0$ non può essere minimo in quanto $f(x) >0$ per ogni $x$.
+Risulta quindi che la funzione $f$ non ha minimo.
+\end{example}
+
+\begin{lemma}[successioni minimizzanti/massimizzanti]
+\mynote{successioni mi\-ni\-miz\-zan\-ti/mas\-si\-miz\-zan\-ti}
+\index{successioni!minimizzanti}
+\index{successioni!massimizzanti}
+Sia $A$ un insieme non vuoto e
+sia $f\colon A \to \RR$ una funzione. Allora esistono
+due successioni $a_n$ e $b_n$ di punti di $A$ tali che
+\[
+  \lim_{n\to +\infty} f(a_n) = \inf f(A), \qquad
+  \lim_{n\to +\infty} f(b_n) = \sup f(A).
+\]
+\end{lemma}
+%
+\begin{proof}
+Ricordiamo che $f(A) = \{f(x)\colon x \in A\}$ è l'immagine
+della funzione $f$. Facciamo la dimostrazione per l'estremo inferiore,
+risultato analogo si potrà ottenere per l'estremo superiore.
+
+Sia $m=\inf f(A)$.
+Se $m=-\infty$ significa che $f(A)$ non è inferiormente limitato, in particolare per ogni $n\in \RR$ esiste $a_n$ tale che $f(a_n) < - n$.
+Dunque (per confronto) $f(a_n) \to -\infty$ come volevamo dimostrare.
+
+Se $m\in \RR$ per le proprietà caratterizzanti l'estremo inferiore sappiamo che per ogni $\eps>0$ esiste $a\in A$ tale che $f(a) < m + \eps$.
+Per ogni $n\in\NN$ possiamo scegliere $\eps=1/n$ e ottenere quindi una successione $a_n$ tale che $f(a_n) < m + 1/n$.
+D'altra parte essendo $m$ un minorante di $f(A)$ sappiamo che $m \le f(a_n)$. Abbiamo dunque $m \le f(a_n) < m+ 1/n$ e per il teorema dei carabinieri possiamo quindi concludere che $f(a_n) \to m$ per $n\to +\infty$.
+\end{proof}
+
+\begin{theorem}[Weierstrass]
+\mymark{***}
+\mynote{teorema di Weierstrass}
+\index{teorema!di Weierstrass}
+Siano $a,b\in \RR$ con $a\le b$
+e sia $f\colon [a,b]\to \RR$ una funzione continua.
+Allora
+esistono punti di massimo e di minimo per $f$ su $[a,b]$.
+\end{theorem}
+%
+\begin{proof}
+\mymark{***}
+Dimostriamo solamente che $f$ ha minimo, per il massimo la dimostrazione procede
+infatti in maniera del tutto analoga.
+
+Sia $m= \inf f([a,b])$.
+Per il lemma precedente sappiamo che esiste una successione $a_n$ minimizzante ovvero tale che
+$a_n \in A$ e $f(a_n)\to m$ per $n\to +\infty$.
+
+Per il teorema di Bolzano-Weierstrass dalla successione $a_n$ possiamo estrarre una sottosuccessione $a_{n_k}$ convergente: $a_{n_k} \to x_0$.
+Visto che $a_{n_k} \in [a,b]$ si avrà, per il teorema della permanenza del segno, anche $x_0 \in [a,b]$ (si applichi la permanenza del segno alle successioni $a_{n_k}-a$ e $b-a_{n_k}$).
+
+Dunque abbiamo una successione $a_{n_k}\to x_0$ con $a_{n_k}\in [a,b]$ e
+$x_0 \in [a,b]$. Essendo $f$ sequenzialmente continua si avrà dunque $f(a_{n_k}) \to f(x_0)$. Ma noi sapevamo che $f(a_n)\to m$ e dunque anche $f(a_{n_k}) \to m$. Concludiamo quindi che $f(x_0) = m$ cioè $m$, l'estremo inferiore, è un valore assunto dalla funzione ed è quindi un minimo. Dal canto suo $x_0$ è un punto di minimo assoluto.
+\end{proof}
+
+\begin{corollary}[limitatezza delle funzioni continue]
+Sia $f\colon [a,b]\to \RR$ una funzione continua. Allora $f$ è limitata.
+\end{corollary}
+\begin{proof}
+Visto che $f$ ha massimo $M$ e minimo $m$ si ha $f(x)\in [m,M]$ per ogni $x\in[a,b]$.
+Ovviamente $m>-\infty$ e $M<+\infty$ in quanto $m$ e $M$ sono valori della funzione $f$.
+\end{proof}
 
 %%%%%%%%%%%%%
 %%%%%%%%%%%%%
@@ -2308,7 +2424,7 @@ nella relazione
 sfruttando la continuità di $f$ si ottiene il risultato voluto.
 
 Nel caso $a<1$ si procede in maniera analoga, la funzione risulterà strettamente
- decrescente su $\QQ$ e si potrà estendere in maniera su tutto $\RR$ mantenendo
+ decrescente su $\QQ$ e si potrà estendere su tutto $\RR$ mantenendo
  la monotonia. Nel caso $a=1$ si vede che la funzione $f$ è costante $f(x)=1$
  su $\QQ$ e quindi
 per mantenere la monotonia l'unico modo per estendere $f$ a tutto $\RR$ è quello
@@ -2551,7 +2667,7 @@ Dunque, ponendo $\Delta t=s/n$ si ha
 \]
 in particolare per $t=0$ e $s=1/c$ si ottiene:
 \[
-  q(1/c) = {1+\frac{1}{n}}^n q(0)
+  q(1/c) = \enclose{1+\frac{1}{n}}^n q(0)
 \]
 e ricordando che $q(t)=a^t q(0)$ otteniamo:
 \[
@@ -2559,7 +2675,7 @@ e ricordando che $q(t)=a^t q(0)$ otteniamo:
 \]
 Se per $n\to +\infty$ (che corrisponde a $\Delta t \to 0$)
 la quantità sul lato destro tende ad un numero $e$ (che chiameremo costante
-di nepero) avremo allora
+di Nepero) avremo allora
 \[
   a = e^c, \qquad q(t) = q(0) e^{ct}
 \]
@@ -2742,7 +2858,19 @@ Ma allora
 \]
 \end{proof}
 
-\begin{corollary}
+\begin{definition}[logaritmi naturali]
+Vedremo che il numero $e$ risulta essere una base naturale per la funzione
+esponenziale e di conseguenza per il logaritmo. Il logaritmo in base
+$e$ viene chiamato \myemph{logaritmo naturale} e viene indicato con $\ln = \log_e$.
+\end{definition}
+
+In alcuni testi si utilizza l'operatore $\log$, indicato senza una base esplicita,
+ma la definizione non è completamente condivisa.
+In certi testi (per lo più in ambito matematico)
+si definisce $\log  = \ln = \log_e$,
+in altri testi si considera $\log = \log_{10}$.
+
+\begin{corollary}[limite notevole]
 Se $a_n \to 0$, $a_n>0$ allora
 \[
  \lim_{n\to +\infty} \frac{\ln \enclose{1+ a_n}}{a_n} = 1.
@@ -2770,18 +2898,6 @@ Mostrare che
 \lim n\cdot \ln\enclose{1 + \frac 1 n} = 1.
 \]
 \end{exercise}
-
-\begin{definition}[logaritmi naturali]
-Vedremo che il numero $e$ risulta essere una base naturale per la funzione
-esponenziale e di conseguenza per il logaritmo. Il logaritmo in base
-$e$ viene chiamato \myemph{logaritmo naturale} e viene indicato con $\ln = \log_e$.
-\end{definition}
-
-In alcuni testi si utilizza l'operatore $\log$, indicato senza una base esplicita,
-ma la definizione non è completamente condivisa.
-In certi testi (per lo più in ambito matematico)
-si definisce $\log  = \ln = \log_e$,
-in altri testi si considera $\log = \log_{10}$.
 
 %%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%
@@ -3092,114 +3208,3 @@ Calcolare i seguenti limiti
   \lim_{n\to +\infty} \sqrt[n]{e^n + \sqrt{10^n}}.
 \end{gather*}
 \end{exercise}
-
-%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{definition}[massimi e minimi assoluti]
-\mymark{**}
-Sia $A$ un insieme e sia $f\colon A \to \RR$.
-Il \emph{massimo} $M$ e il \emph{minimo} $m$
-\mymargin{massimo/minimo}%
-\index{massimo}%
-\index{minimo}%
-di $f$ su $A$ sono,
-se esistono, i valori
-\begin{align*}
-  M &= \max f(A) = \max\{f(x)\colon x \in A\} \\
-  m &= \min f(A) = \min\{f(x)\colon x \in A\}.
-\end{align*}
-Si indicano anche con
-\mymargin{$\max$, $\min$}
-\index{$\max$}
-\index{$\min$}
-\[
-  M = \max_{x\in A} f(x), \qquad m = \min_{x\in A} f(x).
-\]
-
-Diremo inoltre che $x_0$ è un \emph{punto di massimo assoluto}
-per $f$ se $f(x_0) = M$ e diremo che $x_0$ è un \emph{punto di minimo assoluto} per $f$ se $f(x_0) = m$.
-\mymargin{massimo/minimo assoluto}
-\index{punto!di massimo assoluto}
-\index{punto!di minimo assoluto}
-\index{massimo!assoluto}
-\index{minimo!assoluto}
-
-Equivalentemente $x_0$ è un massimo assoluto se $f(x_0) \ge f(x)$ per ogni $x\in A$ e invece $x_0$ è un minimo assoluto se $f(x_1) \le f(x)$ per ogni $x\in A$.
-\end{definition}
-
-Si faccia attenzione a non confondere i \emph{valori} massimo e minimo con i \emph{punti} di massimo e minimo. I valori sono elementi della immagine della funzione, i punti sono elementi del dominio.
-
-\begin{example}
-Si consideri la funzione $f\colon \RR \to \RR$ definita da $f(x) = \frac{1}{1+x^2}$.
-Per ogni $x$ si ha $x^2\ge 0$ quindi $1+x^2\ge 1$ e dunque $f(x)\le 1$.
-Inoltre si ha $f(0)=1$. Dunque $1$ è il massimo della funzione
-e il punto $x=0$ è un punto di massimo (in questo caso l'unico).
-
-Ma chiaramente $f(x)>0$ per ogni $x\in \RR$.
-Inoltre $f(n) \to 0$ per $n\to +\infty$ e quindi $\inf f(\RR) = 0$.
-Se $f$ avesse minimo si dovrebbe avere $\min f(\RR) = \inf f(\RR) = 0$ ma $0$ non può essere minimo in quanto $f(x) >0$ per ogni $x$.
-Risulta quindi che la funzione $f$ non ha minimo.
-\end{example}
-
-\begin{lemma}[successioni minimizzanti/massimizzanti]
-\mynote{successioni mi\-ni\-miz\-zan\-ti/mas\-si\-miz\-zan\-ti}
-\index{successioni!minimizzanti}
-\index{successioni!massimizzanti}
-Sia $A$ un insieme non vuoto e
-sia $f\colon A \to \RR$ una funzione. Allora esistono
-due successioni $a_n$ e $b_n$ di punti di $A$ tali che
-\[
-  \lim_{n\to +\infty} f(a_n) = \inf f(A), \qquad
-  \lim_{n\to +\infty} f(b_n) = \sup f(A).
-\]
-\end{lemma}
-%
-\begin{proof}
-Ricordiamo che $f(A) = \{f(x)\colon x \in A\}$ è l'immagine
-della funzione $f$. Facciamo la dimostrazione per l'estremo inferiore,
-risultato analogo si potrà ottenere per l'estremo superiore.
-
-Sia $m=\inf f(A)$.
-Se $m=-\infty$ significa che $f(A)$ non è inferiormente limitato, in particolare per ogni $n\in \RR$ esiste $a_n$ tale che $f(a_n) < - n$.
-Dunque (per confronto) $f(a_n) \to -\infty$ come volevamo dimostrare.
-
-Se $m\in \RR$ per le proprietà caratterizzanti l'estremo inferiore sappiamo che per ogni $\eps>0$ esiste $a\in A$ tale che $f(a) < m + \eps$.
-Per ogni $n\in\NN$ possiamo scegliere $\eps=1/n$ e ottenere quindi una successione $a_n$ tale che $f(a_n) < m + 1/n$.
-D'altra parte essendo $m$ un minorante di $f(A)$ sappiamo che $m \le f(a_n)$. Abbiamo dunque $m \le f(a_n) < m+ 1/n$ e per il teorema dei carabinieri possiamo quindi concludere che $f(a_n) \to m$ per $n\to +\infty$.
-\end{proof}
-
-\begin{theorem}[Weierstrass]
-\mymark{***}
-\mynote{teorema di Weierstrass}
-\index{teorema!di Weierstrass}
-Siano $a,b\in \RR$ con $a\le b$
-e sia $f\colon [a,b]\to \RR$ una funzione continua.
-Allora
-esistono punti di massimo e di minimo per $f$ su $[a,b]$.
-\end{theorem}
-%
-\begin{proof}
-\mymark{***}
-Dimostriamo solamente che $f$ ha minimo, per il massimo la dimostrazione procede infatti in maniera del tutto analoga.
-
-Sia $m= \inf f([a,b])$.
-Per il lemma precedente sappiamo che esiste una successione $a_n$ minimizzante ovvero tale che
-$a_n \in A$ e $f(a_n)\to m$ per $n\to +\infty$.
-
-Per il teorema di Bolzano-Weierstrass dalla successione $a_n$ possiamo estrarre una sottosuccessione $a_{n_k}$ convergente: $a_{n_k} \to x_0$.
-Visto che $a_{n_k} \in [a,b]$ si avrà, per il teorema della permanenza del segno, anche $x_0 \in [a,b]$ (si applichi la permanenza del segno alle successioni $a_{n_k}-a$ e $b-a_{n_k}$).
-
-Dunque abbiamo una successione $a_{n_k}\to x_0$ con $a_{n_k}\in [a,b]$ e
-$x_0 \in [a,b]$. Essendo $f$ sequenzialmente continua si avrà dunque $f(a_{n_k}) \to f(x_0)$. Ma noi sapevamo che $f(a_n)\to m$ e dunque anche $f(a_{n_k}) \to m$. Concludiamo quindi che $f(x_0) = m$ cioè $m$, l'estremo inferiore, è un valore assunto dalla funzione ed è quindi un minimo. Dal canto suo $x_0$ è un punto di minimo assoluto.
-\end{proof}
-
-\begin{corollary}[limitatezza delle funzioni continue]
-Sia $f\colon [a,b]\to \RR$ una funzione continua. Allora $f$ è limitata.
-\end{corollary}
-\begin{proof}
-Visto che $f$ ha massimo $M$ e minimo $m$ si ha $f(x)\in [m,M]$ per ogni $x\in[a,b]$.
-Ovviamente $m>-\infty$ e $M<+\infty$ in quanto $m$ e $M$ sono valori della funzione $f$.
-\end{proof}
