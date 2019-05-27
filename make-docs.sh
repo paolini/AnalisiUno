@@ -8,7 +8,7 @@ corso di Analisi Matematica tenuto da me (emanuele.paolini@gmail.com)
 dal 2017-2018 per il corso di studi in Fisica dell'Università di Pisa.
 EOF
 
-grep "%% README" chapters/AnalisiUno-00*.tex | cut -f1 -d"%" >> ${out}
+grep "%% README" chapters/AnalisiUno-00*.tex | cut -f1 -d"%" | sed "s/\\\\emph{\\([^}]*\\)}/\\*\\1\\*/g" >> ${out}
 
 out=docs/index.html
 
@@ -35,7 +35,11 @@ MathJax.Hub.Config({
 <p>
 EOF
 
-grep "%% README" chapters/AnalisiUno-00*.tex | cut -f1 -d"%" | sed "s/^ *$/<\/p><p>/g" >> ${out}
+grep "%% README" chapters/AnalisiUno-00*.tex \
+  | cut -f1 -d"%" \
+  | sed "s/^ *$/<\/p><p>/g" \
+  | sed "s/\\\\emph{\\([^}]*\\)}/<i>\\1<\\/i>/g" \
+  >> ${out}
 
 cat <<EOF >> ${out}
 <h2>collegamenti utili</h2>
@@ -45,7 +49,7 @@ cat <<EOF >> ${out}
   (da qui puoi scaricare il file PDF)</a></li>
   <li><a href="https://www.amazon.it/dp/1718794134/">compra il libro su amazon</a></li>
 </ul>
-<h2>diagrammi interattivi</h2>
+<h2>riferimenti presenti nel testo</h2>
 <ul>
 EOF
 

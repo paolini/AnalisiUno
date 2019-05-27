@@ -34,9 +34,24 @@ Da subito vengono introdotti i numeri complessi che vengono utilizzati
 laddove possono aiutare a dare una visione più unitaria e concettualmente 
 più semplice degli argomenti trattati (in particolare nello studio delle serie 
 di potenze e nella definizione delle funzioni trigonometriche). 
+ 
+I risultati più importanti sono marcati con degli asterischi sul margine 
+della pagina: *** molto importante, ** importante, * rilevante. 
+Il lettore è invitato a non perdere tempo sui risultati più marginali 
+se i risultati importanti non sono del tutto chiari. 
+Le figure non sono frequenti ma a margine di molte di esse  
+è presente un *QR-code* (un quadrato formato da una nuvola di pixel) 
+che permette di accedere alla figura  
+*online* e modicarne i parametri.  
+Nella versione PDF il *QR-code* è *cliccabile*.  
+Nella versione cartacea si può usare la fotocamera del proprio 
+*smartphone* per scansionare il codice e visitare la pagina corrispondente. 
+Di seguito in questa pagina trovate l'elenco 
+con i collegamenti alle figure interattive. 
+ 
 Queste note sono rese disponibili liberamente sia in formato PDF che 
 in forma di sorgente 
-LaTeX 
+LaTeX. 
 Il materiale è costantemente in evoluzione 
 e certamente contiene errori e incoerenze. Ogni suggerimento o commento è 
 benvenuto! 
