@@ -56,26 +56,6 @@ e si potrebbero usare le notazioni $+\infty = \infty^-$ e $-\infty = \infty^
 unilaterali del punto all'infinito.
 \end{remark}
 
-\begin{example}
-Si consideri la funzione segno:
-\[
-\sgn(x) =
-\begin{cases}
-  1 & \text{se $x>0$},\\
-  0 & \text{se $x=0$},\\
-  -1 & \text{se $x<0$}.
-\end{cases}
-\]
-Si può verificare che
-\[
-\sgn(x) \to 1 \qquad \text{per $x\to 0^+$}
-\]
-e
-\[
-\sgn(x) \to -1 \qquad \text{per $x\to 0^-$}
-\]
-\end{example}
-
 \begin{definition}[punto di accumulazione]
 \mymark{*}
 Siano $A\subset  \RR$ un insieme e $x\in [-\infty, +\infty]$.
@@ -128,6 +108,26 @@ Osserviamo che se $A=\NN$ e $x_0=+\infty$ la definizione di limite di funzione
 per $x\to +\infty$ coincide con la definizione di limite della successione $a_n = f(n)$.
 Non c'è quindi ambiguità nell'usare gli stessi simboli per i limiti di funzione e i limiti di successione.
 Si noti che $+\infty$ è l'unico punto di accumulazione di $\NN$ in $\bar \RR$ (verificare!) e dunque se $n\in \NN$ l'unico limite che possiamo considerare è per $n\to +\infty$.
+
+\begin{example}
+Si consideri la funzione segno:
+\[
+\sgn(x) =
+\begin{cases}
+  1 & \text{se $x>0$},\\
+  0 & \text{se $x=0$},\\
+  -1 & \text{se $x<0$}.
+\end{cases}
+\]
+Si può verificare che
+\[
+\sgn(x) \to 1 \qquad \text{per $x\to 0^+$}
+\]
+e
+\[
+\sgn(x) \to -1 \qquad \text{per $x\to 0^-$}
+\]
+\end{example}
 
 \begin{remark}[definizione di limite con gli epsilon e delta]
 Sia $f\colon A\subset \RR \to \RR$ e sia $x_0$ un punto di accumulazione di $A$.
@@ -417,134 +417,38 @@ dunque posto $\delta = x_0 - x_1$ abbiamo verificato la definizione di limite:
 \]
 \end{proof}
 
-\section{continuità}
-\index{continuità}
-\begin{definition}
+Possiamo ora esprimere il concetto di \emph{funzione continua} già definito
+nel capitolo~\ref{sec:continuita} mediante i limiti di funzione.
+
+\begin{theorem}
 \mymark{***}
 Sia $A\subset \RR$, $f\colon A \to \RR$, $x_0 \in A$. Se $x_0$ è punto di
-accumulazione di $A$ diremo che $f$ è \emph{continua nel punto}
-\mynote{continuità in un punto}
-\index{continuità!in un punto}
-$x_0$ quando
+accumulazione di $A$.
+Allora $f$ è continua in $x_0$ se e solo se
 \[
   \lim_{x\to x_0}f(x) = f(x_0).
 \]
-Se $x_0$ non è punto di accumulazione di $A$ (e quindi $x_0$ è un \myemph{punto!isolato} di $A$) diremo, senz'altro,
-che $f$ è continua in $x_0$.
-
-La funzione $f\colon A\to \RR$ si dice essere \emph{continua}
-\mynote{funzione continua}
-\index{funzione!continua}
-\index{continuità}
-se $f$ è continua in ogni punto $x_0\in A$.
-\end{definition}
-
-Espandendo la definizione di limite si trova che la funzione $f\colon A \to \RR$ per $A\subset \RR$ è continua nel punto $x_0\in A$ se vale la seguente
-proprietà:
-\[
-  \forall \eps>0 \colon \exists \delta>0 \colon \forall x \in A\colon \abs{x-x_0} < \delta \implies \abs{f(x) - f(x_0)} < \eps
-\]
-che a sua volta può essere riscritta con il linguaggio degli intorni
-in maniera piuttosto espressiva:
-\[
-  \forall U\in \U_{f(x_0)}\colon
-  \exists V\in \U_{x_0}\colon
-  f(V)\subset U.
-\]
-Si noti che la condizione $x\neq x_0$ presente nella definizione di limite risulta inutile in questo caso in quanto se $x=x_0$ si ha certamente $\abs{f(x)-f(x_0)} = 0 < \eps$. Osserviamo inoltre che non è necessario distinguere tra punti di accumulazione e punti isolati, la proprietà appena enunciata, infatti, è sempre valida se $x_0$ è un punto isolato.
-
-\begin{theorem}[continuità della funzione composta]
-\mymark{**}
-Siano $A\subset \RR$, $B\subset \RR$. Se $f\colon A \to B$ è una funzione continua e $g\colon B\to \RR$ è una funzione continua allora $g\circ f\colon A \to \RR$ è una funzione continua.
 \end{theorem}
-%
+
 \begin{proof}
-\mymark{**}
-Se utilizziamo la caratterizzazione delle funzioni continue tramite
-il linguaggio degli intorni, la dimostrazione risulta immediata.
-Fissato $x_0 \in A$ per ogni $U$ intorno di $g(f(x_0))$ per la continuità di $g$ esistere un intorno $V$ di $f(x_0)$ tale che $g(V)\subset U$.
-Per la continuità di $f$ esiste un intorno $W$ di $x_0$ tale che $f(W)\subset V$. E dunque $g(f(W)) \subset g(V) \subset U$.
-Dunque $g\circ f$ è continua in $x_0$.
-\end{proof}
-
-Nel capitolo precedente abbiamo introdotto il concetto di \emph{continuità sequenziale}: una funzione è sequenzialmente continua se manda successioni convergenti in successioni convergenti. Verifichiamo che la continuità sequenziale è equivalente alla continuità.
-
-\begin{theorem}[continuità vs sequenziale continuità]
-Sia $A\subset \RR$, $f\colon A \to \RR$. Allora sono equivalenti
-\begin{enumerate}
-\item $f$ è sequenzialmente continua;
-\item $f$ è continua.
-\end{enumerate}
-\end{theorem}
-%
-\begin{proof}
-Se la funzione $f$ è sequenzialmente continua significa che per ogni
-successione $a_n \in A$ tale che $a_n\to a$ con $a\in A$ si ha $f(a_n)\to f(a)$. Fissato un qualunque punto $x_0\in A$ vogliamo dimostrare che
-$f$ è continua nel punto $x_0$.
-Se $x_0$ è un punto isolato (un punto di $A$ che non è punto di accumulazione) allora la funzione $f$ è automaticamente
-continua (per definizione).
-Se $x_0$ invece è un punto di accumulazione dobbiamo mostrare che
+In base alla definizione~\ref{def:continua} la funzione $f$ è continua nel
+punto $x_0$ se
 \[
-  \lim_{x\to x_0} f(x) = f(x_0).
+ \forall \eps>0 \colon \exists \delta >0 \colon
+ \forall x \in A\colon
+ \abs{x-x_0}<\delta \implies \abs{f(x)-f(x_0)} < \eps
 \]
-Usando il teorema di collegamento tra limite di funzione e limite di successione basterà dimostrare che per ogni successione $a_n\to x_0$ con $a_n\neq x_0$ si ha $f(a_n) \to f(x_0)$. Ma questo è garantito dalla
-definizione di continuità sequenziale.
-
-Viceversa supponiamo che $f$ sia continua. Per dimostrare che $f$
-è anche sequenzialmente continua dobbiamo considerare una qualunque
-successione $a_n \to x_0$ con $a_n,x_0\in A$
-e dimostrare che $f(a_n)\to f(x_0)$.
-Per la continuità di $f$ sappiamo che $\lim_{x\to x_0} f(x) = f(x_0)$.
-Se per ogni $n$ si ha $a_n \neq x_0$ allora possiamo applicare il teorema di collegamento tra limite di successione e limite di funzione
-e concludere che $f(a_n)\to f(x_0)$.
-Ma $a_n$ potrebbe coincidere con $x_0$ su uno o più indici $n\in \NN$.
-Sia $N=\{n \in \NN \colon a_n = x_0\}$ l'insieme degli indici su cui
-$a_n=x_0$. Se $N$ è finito sappiamo che il limite di $a_n$ non cambia rimuovendo un numero finito di termini quindi ci si riconduce al caso precedente. Se $N$ è infinito possiamo considerare la successione $a_n$ ristretta ai due insiemi $N$ e $\NN \setminus N$.
-La prima sottosuccessione è costante $a_n = a$ e quindi banalmente $f(a_n) = f(x_0) \to f(x_0)$ per $n\in N$.
-La seconda sottosuccessione verifica $a_n \neq x_0$ e quindi su di essa  possiamo procedere come prima e ottenere che $f(a_n) \to f(x_0)$ anche per $n\in \NN\setminus N$.
-Dunque l'intera successione $f(a_n)$ converge ad $f(x_0)$, come volevamo dimostrare.
-\end{proof}
-
-\begin{definition}[operazioni sulle funzioni]
-Sia $A \subset \RR$ e siano $f,g$ funzioni $A \to \RR$.
-Possiamo allora definire
-$f+g$, $-f$, $f-g$, $f\cdot g$ e
-(se $g(x)\neq 0$ per ogni $x\in A$) anche $f/g$
-come funzioni $A \to \RR$ mediante le seguenti ovvie
-definizioni
-\begin{gather*}
-(f+g)(x) = f(x) + g(x), \qquad
-(f-g)(x) = f(x) - g(x), \\
-(f\cdot g)(x) = f(x) \cdot g(x), \qquad
-(f/g)(x) = f(x) / g(x),\\
-(-f)(x) = -(f(x)). \\
-\end{gather*}
-
-Se $c\in \RR$ è un numero considereremo a volte $c\colon A \to \RR$
-come una funzione $A\to \RR$ \emph{costante}, intendendo che
+mentre la definizione di limite $f(x)\to f(x_0)$ per $x\to x_0$
+si espande in
 \[
- c(x) = c\qquad \forall x \in A.
+\forall \eps>0 \colon \exists \delta>0\colon
+\forall x \in A, x\neq x_0\colon
+\abs{x-x_0}<\delta \implies \abs{f(x)-f(x_0)} <\delta.
 \]
-
-Risulta quindi inteso che se $c\in \RR$ e $f\colon A \to \RR$ allora $c\cdot f$ è la funzione definita da $(c\cdot f)(x) = c\cdot (f(x))$.
-
-Queste operazioni rendono l'insieme $A \to \RR$ delle funzioni definite
-su $A$ a valori in $\RR$, denotato anche come $\RR^A$, uno spazio vettoriale sul campo $\RR$.
-\end{definition}
-
-\begin{theorem}[continuità delle operazioni elementari]
-Sia $A\subset \RR$ e siano $f,g \colon A \to \RR$ funzioni continue.
-Allora $f+g$, $f-g$ e $f\cdot g$ sono funzioni continue.
-Se $g(x)\neq 0$ per ogni $x\in A$ anche $f/g$ è una funzione continua.
-
-In particolare la famiglia di tutte le funzioni continue,
-\[
- C^0(A) = \{f\colon A \to \RR\colon \text{$f$ continua}\}
-\]
-è uno spazio vettoriale sul campo $\RR$.
-\end{theorem}
-\begin{proof}
-Il teorema discende direttamente dalle corrispondenti proprietà del limite (limite della somma, del prodotto, etc).
+L'unica differenza è che nella definizione di limite
+c'è la condizione $x\neq x_0$. Ma visto che per $x=x_0$
+si ha $\abs{f(x)-f(x_0)}=0$ quella condizione è inutile e quindi
+le due definizioni sono equivalenti.
 \end{proof}
 
 \section{derivata}

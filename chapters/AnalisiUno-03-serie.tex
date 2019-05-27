@@ -377,7 +377,7 @@ Siano $\sum a_n$ e $\sum b_n$ serie a
 termini positivi che si confrontano: $0\le a_n\le b_n$.
 Allora
 \[
-  \sum_{k=0}^\infty a_n \le \sum_{k=0}^\infty b_n.
+  \sum_{k=0}^{+\infty} a_n \le \sum_{k=0}^{+\infty} b_n.
 \]
 In particolare se $\sum b_n$ converge anche $\sum a_n$ converge
 e se $\sum a_n$ diverge anche $\sum b_n$ diverge.
@@ -415,9 +415,9 @@ Infatti osservando che si ha per ogni $n>0$
 \]
 possiamo affermare che
 \[
-  \sum_{k=1}^\infty \frac{1}{k^2}
-  = 1 + \sum_{k=1}^\infty \frac{1}{(k+1)^2}
-  \le 1+ \sum_{k=1}^\infty \frac{1}{k(k+1)}
+  \sum_{k=1}^{+\infty} \frac{1}{k^2}
+  = 1 + \sum_{k=1}^{+\infty} \frac{1}{(k+1)^2}
+  \le 1+ \sum_{k=1}^{+\infty} \frac{1}{k(k+1)}
   = 2
 \]
 in quanto ci siamo ricondotti alla
@@ -588,6 +588,8 @@ Applichiamo il criterio del rapporto. Posto $a_n = x^n / n!$ si ha
 Dunque la serie converge.
 \end{proof}
 
+\subsection{la serie armonica}
+
 Osserviamo invece che il criterio del rapporto non si applica alla
 \emph{serie armonica}%
 \mynote{serie armonica}%
@@ -611,7 +613,7 @@ L'idea è semplicemente quella di raggruppare gli addendi della serie armonica
 in gruppi di lunghezza potenze di due e stimare la somma di ogni gruppo dal basso
 con il termine più piccolo (cioè l'ultimo) di ogni gruppo:
 \begin{align*}
- \sum_{k=1}^\infty \frac{1}{k}
+ \sum_{k=1}^{+\infty} \frac{1}{k}
  & = 1 + \frac 1 2
      + \enclose{\frac 1 3 + \frac 1 4}
      + \enclose{\frac 1 5 + \frac 1 6 + \frac 1 7 + \frac 1 8}
@@ -732,6 +734,15 @@ se invece $\alpha \le 1$ allora $q\ge 1$ e la serie
 armonica è divergente.
 \end{proof}
 
+\begin{exercise}
+  Per quali valori dei parametri $\alpha\in \RR$ e $\beta\in \RR$
+  la serie
+  \[
+    \sum n^\alpha (\ln n)^\beta
+  \]
+  converge?
+\end{exercise}
+
 \section{convergenza assoluta}
 
 Per le serie a termini positivi abbiamo molti criteri di convergenza
@@ -755,7 +766,7 @@ Diremo che una serie (a termini reali o complessi) $\sum a_n$
 Se una serie $\sum a_n$ (reale o complessa)
 è assolutamente convergente allora è convergente e vale
 \[
-  \abs{\sum_{k=0}^\infty a_k} \le \sum_{k=0}^\infty \abs{a_k}.
+  \abs{\sum_{k=0}^{+\infty} a_k} \le \sum_{k=0}^{+\infty} \abs{a_k}.
 \]
 \end{theorem}
 %
@@ -844,7 +855,7 @@ Dunque, stimando il valore assoluto della somma con la somma dei valori
 assoluti e aggiungendo alla somma anche tutti gli altri valori $a_k$ con $k>m_n$, si ottiene:
 \begin{align*}
 \abs{R_n - S_{m_n}}
-\le \sum_{k=m_n}^\infty \abs{a_k}.
+\le \sum_{k=m_n}^{+\infty} \abs{a_k}.
 \end{align*}
 Ma, essendo la serie $\sum a_k$ assolutamente convergente, la coda della serie dei valori assoluti tende a zero e quindi anche la sottosuccessione
 delle code che partono dall'indice $m_n$ tende a zero (cambio di variabile
@@ -1107,8 +1118,8 @@ si ha
 Dunque il seguente teorema è una estensione del criterio
 di Leibniz per le serie a segni alterni.
 
-\begin{theorem}\label{th:dirichlet}
-[criterio di Dirichlet]
+\begin{theorem}[criterio di Dirichlet]%
+\label{th:dirichlet}%
 Siano $a_k$ e $B_k$ successioni (reali o complesse) tali che
 \begin{enumerate}
 \item $\displaystyle A_n = \sum_{k=0}^{n-1} a_k$ è una successione limitata;
@@ -1123,7 +1134,7 @@ $
 \end{theorem}
 %
 \begin{proof}
-Per la formula precedente si ha
+Per la formula di somma per parti si ha
 \begin{equation}\label{eq:3498954}
  \sum_{k=0}^n a_k B_k
  = A_{n+1} B_{n+1} - A_0 B_0 + \sum_{k=0}^n A_{k+1}(B_k -B_{k+1}).
@@ -1147,19 +1158,24 @@ dell'equazione~\eqref{eq:3498954}
 \end{proof}
 
 \begin{exercise}
-Fissato $z\in \CC$, $\abs{z} \le 1$, $z\neq 1$ allora la serie
+Fissato $z\in \CC$, $\abs{z} \le 1$, $z\neq 1$ la serie
 \[
   \sum_{k=1}^{+\infty} \frac{z^k}{k}
 \]
 è convergente.
-Vogliamo applicare il teorema~\ref{th:dirichlet}.
+\end{exercise}
+\begin{proof}
+Si noti che per $\abs{z}<1$ si può facilmente applicare
+il criterio del rapporto o della radice.
+Ma per $\abs{z}=1$ quei criteri non si applicano e
+bisogna invece utilizzare il teorema~\ref{th:dirichlet}.
 
 Posto $a_k=z^k$ si osserva che $\sum a_k$ è una
-serie geometrica e dunque (essendo $z\neq 1$) si ha
+serie geometrica e (essendo $z\neq 1$) si ha
 \[
   A_n = \sum_{k=0}^{n-1} z^k = \frac{1-z^n}{1-z}
 \]
-è limitata essendo $\abs{z}\le 1$, dunque:
+che è limitata, infatti:
 \[
   \abs{A_n} = \frac{\abs{1-z^n}}{\abs{1-z}} \le \frac{1+\abs{z^n}}{\abs{1-z}}
   = \frac{2}{\abs{1-z}}.
@@ -1177,21 +1193,10 @@ Si applica quindi il teorema~\ref{th:dirichlet}
 per ottenere la convergenza
 della serie data.
 
-Si osservi che se $\abs{z}>1$ oppure se $z=1$ la serie in questione non
+Si osservi che se $\abs{z}>1$ la serie in questione non
 converge perché il termine generico $z^k/k$ non è infinitesimo.
-\end{exercise}
-
-\begin{exercise}
-Determinare il carattere delle seguenti serie
-\[
-  \sum_n \frac{n^2-n^3}{3^n}, \qquad
-  \sum_n \frac{(n!)^2}{(2n)!}
-\]
-\[
-\sum_n \frac{(-1)^n}{\ln\abs{n^7 - 10n^5 + 3}},  \qquad
-\sum_n \frac{n-10}{n^2+10}
-\]
-\end{exercise}
+Per $z=1$ si ottiene la serie armonica, che pure non converge.
+\end{proof}
 
 \begin{theorem}[convergenza alla Cesàro]
 \mymark{*}
@@ -1266,14 +1271,22 @@ se e solo se converge la serie $\sum (a_k-1)$.
 \index{primi!somma dei reciproci}
 \index{somma!dei reciproci dei primi}
 Possiamo utilizzare i prodotti infiniti per dimostrare che la somma
-dei reciproci dei numeri primi è divergente. Sia $p_k$ la successione dei numeri
+dei reciproci dei numeri primi è divergente.
+Sia $p_k$ la successione dei numeri
 primi ($p_1=2$, $p_2=3$, $p_3=5$, $\dots$ stiamo dando per scontato che i numeri
 primi sono infiniti). Allora vogliamo dimostrare che
-\[
+\begin{equation}\label{eq:489467523}
   \sum_{k=1}^{+\infty} \frac{1}{p_k} = \sum_{n=1}^{+\infty} \frac{1}{n} = +\infty.
-\]
+\end{equation}
 
-Si noti infatti che ogni $n\in \NN$ può essere decomposto come il prodotto di
+Questo risultato ha una certa rilevanza nell'ambito della teoria dei numeri
+in quanto ci dice che $p_k$ non può andare all'infinito come una
+potenza $k^\alpha$ con $\alpha>1$ in quanto la serie $\sum 1/k^\alpha$
+è convergente.
+
+Mostriamo quindi che vale~\eqref{eq:489467523}.
+Si noti che per ogni $n\in \NN$ il termine $\frac 1 n$
+può essere decomposto come il prodotto di
 potenze dei reciproci dei numeri primi. Dunque:
 \begin{equation}\label{eq:8834884}
 \begin{aligned}
@@ -1415,7 +1428,7 @@ Essendo $q<1$ la serie geometrica $\sum q^k$ converge e, per confronto,
 anche la serie $\sum \abs{a_k z^k}$ converge.
 Dunque la serie $\sum a_k z^k$ converge assolutamente.
 
-Viceversa supponiamo che $\sum a_k z_0^k$ non converga o
+Viceversa supponiamo che $\sum a_k z_0^k$ non converga
 e prendiamo $z$ con $\abs{z} > \abs{z_0}$.
 Allora $\sum a_k z^k$ non può convergere,
 $a_k z^k$ non può neanche essere infinitesima perché
@@ -1423,8 +1436,9 @@ se lo fosse allora, scambiando i ruoli di $z_0$ e $z$,
 per il punto precedente la serie $\sum a_k z_0^k$ dovrebbe convergere.
 \end{proof}
 
-\begin{corollary}[l'insieme di convergenza è circolare]
-\label{cor:insieme_convergenza}
+\begin{corollary}[l'insieme di convergenza è circolare]%
+\mymark{**}
+\label{cor:insieme_convergenza}%
 Sia $\sum a_k z^k$ una serie di potenze e sia $A$ il suo insieme di convergenza.
 Allora $A$ non è vuoto e posto
 \[
@@ -1619,7 +1633,7 @@ e quindi
 \end{align*}
 Ora osserviamo che la somma
 \[
-   C = \sum_{k=0}^\infty k \abs{a_k} \rho^{k-1}
+   C = \sum_{k=0}^{+\infty} k \abs{a_k} \rho^{k-1}
      = \frac{1}{\rho} \sum_{k=0}^{+\infty} k \abs{a_k} \rho^k
 \]
 è finita in quanto la serie $\sum k\abs{a_k}z^k$ ha raggio di convergenza
@@ -1696,7 +1710,7 @@ Definiamo la funzione $\exp \colon \CC \to \CC$
 \mymargin{$\exp z$}
 tramite la serie di potenze
 \[
-\exp(z) = \sum_{k=0}^\infty \frac{z^k}{k!}.
+\exp(z) = \sum_{k=0}^{+\infty} \frac{z^k}{k!}.
 \]
 La funzione è definita su tutto $\CC$ in quanto (grazie al criterio del rapporto)
 è facile verificare che il raggio di convergenza di questa serie è $R=+\infty$
@@ -1717,7 +1731,7 @@ $  \enclose{1+\frac z n}^n $
 è convergente
 e si ha
 \[
-  \lim_{n \to +\infty} \enclose{1+\frac z n}^n  = \sum_{k=0}^\infty \frac{z^k}{k!}.
+  \lim_{n \to +\infty} \enclose{1+\frac z n}^n  = \sum_{k=0}^{+\infty} \frac{z^k}{k!}.
 \]
 
 In particolare se $x\in \RR$ si ha
@@ -1840,7 +1854,7 @@ per ogni $z\in \CC$ si ha $\exp(z) \neq 0$ e
  \exp(-z) = \frac{1}{\exp(z)};
 \]
 
-\item la funzione $\exp\colon \CC \to \CC$ è (sequenzialmente) continua.
+\item la funzione $\exp\colon \CC \to \CC$ è continua.
 
 \item Se $z_n\to 0$ allora
 \begin{equation}\label{eq:limite_exp_complesso}
@@ -1905,12 +1919,12 @@ somma di una serie di potenze: teorema~\ref{th:continuita_somma_serie}.
 \item
 Da
 \[
-\exp(z) = 1 + \sum_{k=1}^\infty \frac{z^k}{k!}
+\exp(z) = 1 + \sum_{k=1}{+\infty} \frac{z^k}{k!}
 \]
 si ottiene
 \[
- \exp(z) - 1 \le \sum_{k=1}^\infty \frac{z^k}{k!}
- = z \cdot \sum_{k=0}^\infty \frac{z^k}{(k+1)!}.
+ \exp(z) - 1 \le \sum_{k=1}^{+\infty} \frac{z^k}{k!}
+ = z \cdot \sum_{k=0}^{+\infty} \frac{z^k}{(k+1)!}.
 \]
 Osserviamo ora che la serie $\sum \frac{z^k}{(k+1)!}$ ha raggio di
 convergenza infinito e quindi è assolutamente convergente per ogni $z\in \CC$.
@@ -2396,10 +2410,11 @@ Dimostrare che per ogni $x>0$ si ha
 \begin{exercise}
 La serie
 \[
- \sum_{k=1}^\infty \frac{\sin k}{k}
+ \sum_{k=1}^{+\infty} \frac{\sin k}{k}
 \]
 è convergente.
-
+\end{exercise}
+\begin{proof}
 Applichiamo il teorema~\ref{th:dirichlet}.
 Posto $a_k = \sin k$ e $B_k=1/k$
 si ha
@@ -2420,12 +2435,12 @@ e dunque $A_n$ è limitata.
 
 D'altro canto posto $B_k = 1/k$ è chiaro che $B_k$ è
 decrescente e infinitesima.
-\end{exercise}
+\end{proof}
 
 \begin{exercise}
 Determinare il carattere delle seguenti serie
 \[
-  \sum_n \enclose{\sin \frac 1 n - \frac 1 n},
+  \sum_n \enclose{\sin \frac 1 n - \frac 1 n},\qquad
   \sum_n \sin\enclose{\pi n + \frac 1 n}
 \]
 \end{exercise}
@@ -2435,7 +2450,6 @@ Determinare il carattere delle seguenti serie
 \begin{definition}[funzioni iperboliche]
 Le funzioni \emph{seno iperbolico},
 \emph{coseno iperbolico}
-e \emph{tangente iperbolica}
 sono definite, per ogni $x\in \RR$,
 come segue:
 \mymargin{$\sinh$, $\cosh$}
@@ -2568,5 +2582,19 @@ Si dimostri quindi che vale
 In modo analogo si dimostri che vale
 \[
   \settcosh x = \ln\enclose{x + \sqrt{x^2 - 1}}.
+\]
+\end{exercise}
+
+
+\section{esercizi}
+\begin{exercise}
+Determinare il carattere delle seguenti serie
+\[
+  \sum_n \frac{n^2-n^3}{3^n}, \qquad
+  \sum_n \frac{(n!)^2}{(2n)!}
+\]
+\[
+\sum_n \frac{(-1)^n}{\ln\abs{n^7 - 10n^5 + 3}},  \qquad
+\sum_n \frac{n-10}{n^2+10}
 \]
 \end{exercise}

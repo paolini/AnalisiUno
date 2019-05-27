@@ -911,21 +911,11 @@ Possiamo ricondurci ai teoremi precedenti osservando che
 \end{proof}
 
 \section{funzioni continue}
-
-\begin{definition}[continuità sequenziale su $\RR$]
-Sia $f\colon A \subset \RR \to \RR$ una funzione. Diremo che
-$f$ è \myemph{sequenzialmente continua in un punto} $a\in A$ se per ogni
-successione convergente $a_n \to a$ con $a_n\in A$
- si ha
- \[
-   f(a_n) \to f(a).
- \]
-
- Diremo che $f$ è \myemph{sequenzialmente continua} se è sequenzialmente
- continua in ogni punto $a\in A$.
-\end{definition}
-
+\label{sec:continuita}
 \begin{definition}[continuità su $\RR$]
+\label{def:continua}%
+\index{funzione!continua}%
+\index{continuità}%
 Sia $f\colon A \to \RR$ una funzione. Diremo che
 $f$ è \myemph{continua in un punto} $a\in A$ se
 \[
@@ -937,14 +927,21 @@ $f$ è \myemph{continua in un punto} $a\in A$ se
 Diremo che $f$ è \myemph{continua} se è continua in ogni punto $a \in A$.
 \end{definition}
 
-\begin{theorem}[equivalenza delle due definizioni di continuità]
+\begin{theorem}[continuità sequenziale]%
+\label{th:cont_sequenziale}%
+\index{continuità!sequenziale}
+\index{funzione!sequenzialmente continua}%
 Sia $f\colon A \subset \RR \to \RR$ una funzione e $a\in A$.
-Allora $f$ è continua in $a$ se e solo se è sequenzialmente continua in $a$.
+Allora $f$ è continua in $a$ se e solo se per ogni successione
+$a_n\in A$, $a_n\to a$ risulta
+\[
+   f(a_n) \to f(a).
+\]
 \end{theorem}
 %
 \begin{proof}
-Supponiamo che $f$ sia continua nel punto $a$ e dimostriamo che è anche sequenzialmente
-continua nello stesso punto. Sia dunque $a_n\in A$ una successione tale che
+Supponiamo che $f$ sia continua nel punto $a$ e sia $a_n\in A$
+una successione tale che
 $a_n \to a$. Scriviamo di seguito la definizione di continuità nel punto $a$
 e la definizione di convergenza $a_n \to a$:
 \begin{align*}
@@ -961,8 +958,9 @@ condizione si ottiene $n>N \implies \abs{a_n-a}< \delta \implies \abs{f(a_n)-f(a
   n>N\implies \abs{f(a_n)-f(a)} < \eps.
 \]
 
-Viceversa supponiamo che $f$ sia sequenzialmente continua nel punto $a$ e
-supponiamo, per assurdo che non sia continua in $a$. Allora negando la
+Viceversa supponiamo che per ogni $a_n\to a$, $a_n\in A$
+si abbia $f(a_n)\to f(a)$ e supponiamo,
+per assurdo, che $f$ non sia continua in $a$. Allora negando la
 condizione di continuità in $a$ si ottiene:
 \[
   \exists \eps>0 \colon \forall \delta>0 \colon \exists x\in A\colon
@@ -975,16 +973,8 @@ Si ottiene allora che esiste $x_n$ che soddisfa le due condizioni:
 \]
 La prima condizione garantisce che si abbia $a_n \to a$.
 Ma la seconda condizione impedisce che si abbia $f(x_n)\to a$.
-Abbiamo quindi trovato una successione che viola la condizione di continuità
-sequenziale nel punto $a$ e abbiamo dunque concluso la dimostrazione.
+Abbiamo quindi trovato un assurdo.
 \end{proof}
-
-In base al teorema precedente, nel seguito parleremo sempre
-di \emph{continuità}
-anche se la condizione che useremo è quella di
-\emph{continuità sequenziale}.
-
-La funzione $f(x)=x$ è ovviamente continua.
 
 \begin{exercise}
 Le funzioni $f(x) = x$ e $g(x)=\abs{x}$ sono continue.
@@ -994,7 +984,7 @@ non sono continue (sono continue solamente nei punti $x\in \RR \setminus \ZZ$).
 
 \begin{example}
 La funzione $f\colon \RR \to \RR$, $f(x) = x^2$ è continua.
-Basta mostrare che è sequenzialmente continua:
+Utilizziamo il teorema~\ref{th:th:cont_sequenziale}:
 se $x_n\to x$ allora per il teorema sul limite del prodotto si ha
 \[
   x_n^2 = x_n \cdot x_n \to x\cdot x = x^2.
@@ -1004,11 +994,11 @@ se $x_n\to x$ allora per il teorema sul limite del prodotto si ha
 \begin{example}
 La funzione $f\colon \RR\setminus\{0\}\to \RR$, $f(x) = \frac 1 x$
 è continua.
-Basta osservare che è sequenzialmente continua.
 Preso $a_n \to a$ con $a_n,a\neq 0$,
 per il teorema sul limite del rapporto si ha $f(a_n) = \frac{1}{a_n} \to \frac{1}{a}$.
 Si noti infatti che $a\neq 0$ essendo $\RR\setminus\{0\}$ il dominio di $f$
 e quindi il teorema sul limite del rapporto si applica.
+\end{example}
 
 In alcuni testi si definisce il concetto di \emph{discontinuità}
 che viene applicato anche a punti che non stanno nel dominio della funzione.
@@ -1018,7 +1008,36 @@ punto $x_0=0$. Comunque risulta che tale funzione è continua in tutti gli altri
 punti e quindi è continua in ogni punto del dominio. Questo è sufficiente
 (si riguardi la definizione) a garantire che la funzione $f(x) = 1/x$
 sia continua.
-\end{example}
+
+
+\begin{definition}[operazioni sulle funzioni]
+Sia $A \subset \RR$ e siano $f,g$ funzioni $A \to \RR$.
+Possiamo allora definire
+$f+g$, $-f$, $f-g$, $f\cdot g$ e
+(se $g(x)\neq 0$ per ogni $x\in A$) anche $f/g$
+come funzioni $A \to \RR$ mediante le seguenti ovvie
+definizioni
+\begin{gather*}
+(f+g)(x) = f(x) + g(x), \qquad
+(f-g)(x) = f(x) - g(x), \\
+(f\cdot g)(x) = f(x) \cdot g(x), \qquad
+(f/g)(x) = f(x) / g(x),\\
+(-f)(x) = -(f(x)). \\
+\end{gather*}
+
+Se $c\in \RR$ è un numero considereremo a volte $c\colon A \to \RR$
+come una funzione $A\to \RR$ \emph{costante}, intendendo che
+\[
+ c(x) = c\qquad \forall x \in A.
+\]
+
+Risulta quindi inteso che se $c\in \RR$ e $f\colon A \to \RR$ allora $c\cdot f$ è la funzione definita da $(c\cdot f)(x) = c\cdot (f(x))$.
+
+Queste operazioni rendono l'insieme $A \to \RR$ delle funzioni definite
+su $A$ a valori in $\RR$, denotato anche come $\RR^A$, uno spazio vettoriale sul campo $\RR$.
+\end{definition}
+
+
 
 \begin{theorem}[composizione di funzioni continue]
 \label{th:limite_composizione}
@@ -1051,18 +1070,18 @@ ha lo stesso dominio della funzione $f$.
 \begin{proof}
 Se $f(x)=c$ e $a_n\to a$ allora $f(a_n) = c \to c = f(a)$ in quanto
 si ha $\abs{f(a_n)-a} = \abs{c-c} = 0 < \eps$ per ogni $\eps >0$.
-Dunque $f(x)=c$ è sequenzialmente continua.
+Dunque $f(x)=c$ è continua.
 Se $f(x)=x$ e $a_n\to a$ allora $f(a_n)=a_n \to a =f(a)$. Dunque $f(x)=x$
-è sequenzialmente continua.
+è continua.
 
-Se $a_n \to a$ allora per definizione di continuità sequenziale
+Se $a_n \to a$ allora per il teorema~\ref{th:th:cont_sequenziale}
 si ha $f(a_n)\to f(a)$ e $g(a_n)\to g(a)$.
 Per il teorema~\ref{th:limite_somma} si ottiene quindi che
-$f(a_n)+g(a_n)\to f(a) + g(a)$ e dunque $f+g$ è sequenzialmente continua.
-Per lo stesso teorema anche $f-g$ è sequenzialmente continua.
+$f(a_n)+g(a_n)\to f(a) + g(a)$ e dunque $f+g$ è continua.
+Per lo stesso teorema anche $f-g$ è continua.
 Analogamente tramite il teorema~\ref{th:limite_prodotto} si ottiene che
-$f\cdot g$ è sequenzialmente continua, con il teorema~\ref{th:limite_rapporto}
-si ottiene che $f/g$ è sequenzialmente continua e con il teorema
+$f\cdot g$ è continua, con il teorema~\ref{th:limite_rapporto}
+si ottiene che $f/g$ è continua e con il teorema
 ~\ref{th:limite_abs} si ottiene che $\abs{f}$ è continua.
 
 Per quanto riguarda la composizione si ha $(f\circ g)(a_n) = f(g(a_n))$.
@@ -2095,7 +2114,11 @@ Per il teorema di Bolzano-Weierstrass dalla successione $a_n$ possiamo estrarre 
 Visto che $a_{n_k} \in [a,b]$ si avrà, per il teorema della permanenza del segno, anche $x_0 \in [a,b]$ (si applichi la permanenza del segno alle successioni $a_{n_k}-a$ e $b-a_{n_k}$).
 
 Dunque abbiamo una successione $a_{n_k}\to x_0$ con $a_{n_k}\in [a,b]$ e
-$x_0 \in [a,b]$. Essendo $f$ sequenzialmente continua si avrà dunque $f(a_{n_k}) \to f(x_0)$. Ma noi sapevamo che $f(a_n)\to m$ e dunque anche $f(a_{n_k}) \to m$. Concludiamo quindi che $f(x_0) = m$ cioè $m$, l'estremo inferiore, è un valore assunto dalla funzione ed è quindi un minimo. Dal canto suo $x_0$ è un punto di minimo assoluto.
+$x_0 \in [a,b]$. Essendo $f$ continua si avrà dunque $f(a_{n_k}) \to f(x_0)$.
+Ma noi sapevamo che $f(a_n)\to m$ e dunque anche $f(a_{n_k}) \to m$.
+Concludiamo quindi che $f(x_0) = m$ cioè $m$, l'estremo inferiore,
+è un valore assunto dalla funzione ed è quindi un minimo.
+Dal canto suo $x_0$ è un punto di minimo assoluto.
 \end{proof}
 
 \begin{corollary}[limitatezza delle funzioni continue]
@@ -2149,7 +2172,7 @@ In ogni caso abbiamo verificato che esistono $a,b$ tali che $g(a)\le 0$ e $g(b)\
 
 Osserviamo che, per il teorema sul limite del prodotto,
 se $x_k \to x$ allora $x_k^2 = x_k\cdot x_k \to x\cdot x = x^2$.
-Questo dimostra che la funzione $x^2$ è (sequenzialmente) continua.
+Questo dimostra che la funzione $x^2$ è continua.
 Per induzione si dimostra che $x^n$ è continua per ogni $n\in \NN$.
 Per il teorema sul limite della differenza risulta che anche $g$ è
 continua.
