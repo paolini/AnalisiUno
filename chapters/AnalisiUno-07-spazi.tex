@@ -883,9 +883,9 @@ se
 \end{definition}
 
 La proprietà che definisce le successioni di Cauchy
-potrebbe essere scritta con la notazione
+si potrebbe anche scrivere così:
 \[
-  \lim_{j,k \to +\infty} d(x_j, x_k) = 0.
+  \lim_{k \to +\infty} \sup_{j\ge k} d(x_j, x_k) = 0.
 \]
 
 \begin{theorem}[le successioni convergenti sono di Cauchy]
@@ -914,24 +914,6 @@ si ottiene il risultato desiderato:
 Uno spazio metrico $(X,d)$ si dice essere \myemph{completo}
 se ogni successione di Cauchy è convergente.
 \end{definition}
-
-\begin{theorem}[completezza dei compatti]
-Ogni spazio metrico compatto è completo.
-\end{theorem}
-%
-\begin{proof}
-Visto che lo spazio è compatto ogni successione di Cauchy
-ammette una sottosuccessione convergente. Ma se una sottosuccessione di una successione di Cauchy è convergente ad un punto, è facile osservare che l'intera successione di Cauchy converge a quel punto.
-\end{proof}
-
-\begin{theorem}[chiusi in spazi compatti e in spazi completi]
-Sia $(X,d)$ uno spazio metrico e sia $A\subset X$ un sottoinsieme chiuso in $X$. Se $X$ è compatto allora anche $A$ è compatto, se $X$ è completo allora anche $A$ è completo.
-\end{theorem}
-\begin{proof}
-Se $X$ è compatto da ogni successione in $A$ si può estrarre una sottosuccessione convergente ad un punto di $X$. Ma siccome $A$ è chiuso il punto sta in $A$ e dunque la sottosuccessione è convergente in $A$.
-
-Una successione di Cauchy in $A$ è di Cauchy anche in $X$. Se $X$ è completo tale successione converge ad un punto di $x$. Se $A$ è chiuso tale punto è in $A$ e dunque la successione converge in $A$.-
-\end{proof}
 
 \begin{definition}[spazio di Banach]
 Uno spazio vettoriale normato si dice essere uno
@@ -1018,15 +1000,35 @@ sono completi.
 Basta osservare che la convergenza (o la condizione di Cauchy) di una successione in $\RR^n$ si ha se e solo se ogni componente è convergente (o di Cauchy) in $\RR$. Dunque essendo $\RR$ completo anche $\RR^n$ lo è. Come spazio metrico $\CC$ è isomorfo ad $\RR^2$ dunque anch'esso è completo.
 \end{proof}
 
+\begin{theorem}[completezza dei compatti]
+Ogni spazio metrico compatto è completo.
+\end{theorem}
+%
+\begin{proof}
+Visto che lo spazio è compatto ogni successione di Cauchy
+ammette una sottosuccessione convergente.
+Ma allora, grazie al lemma~\ref{lm:cauchy_estratta_convergente},
+l'intera successione converge e dunque lo spazio è completo.
+\end{proof}
+
+\begin{theorem}[chiusi in spazi compatti e in spazi completi]
+Sia $(X,d)$ uno spazio metrico e sia $A\subset X$ un sottoinsieme chiuso in $X$. Se $X$ è compatto allora anche $A$ è compatto, se $X$ è completo allora anche $A$ è completo.
+\end{theorem}
+\begin{proof}
+Se $X$ è compatto da ogni successione in $A$ si può estrarre una sottosuccessione convergente ad un punto di $X$. Ma siccome $A$ è chiuso il punto sta in $A$ e dunque la sottosuccessione è convergente in $A$.
+
+Una successione di Cauchy in $A$ è di Cauchy anche in $X$. Se $X$ è completo tale successione converge ad un punto di $x$. Se $A$ è chiuso tale punto è in $A$ e dunque la successione converge in $A$.-
+\end{proof}
 
 \begin{definition}[lipschitz]
 \mymark{***}
 Sia $f\colon X \to Y$ una funzione definita tra due spazi metrici e sia $L\ge 0$.
-Diremo che $f$ è $L$-lipschitziana se
+Dato $L\ge 0$
+diremo che $f$ è $L$-lipschitziana se
 \index{funzione!lipschitziana}
 per ogni $x,y \in X$ si ha
 \[
-  d(f(x),f(y)) \le L d(x,y).
+  d(f(x),f(y)) \le L \cdot d(x,y).
 \]
 Diremo che $f$ è lipschitziana se esiste $L\ge 0$ tale che $f$ sia $L$-lipschitziana.
 \end{definition}
@@ -1335,7 +1337,7 @@ può denotare nel modo seguente:
   \qquad\text{per $f\in C^0([a,b])$.}
 \]
 
-\section{limite uniforme di derivate e integrali}
+\subsection{limite uniforme di derivate e integrali}
 
 \begin{theorem}[scambio del limite con l'integrale]
 \mymark{***}
@@ -1539,7 +1541,7 @@ In base al teorema di scambio del limite con la derivata possiamo affermare che 
 Il teorema di scambio del limite con l'integrale ci dice che
 l'operatore integrale $S\colon C^0 \to C^1$ è continuo tra i due spazi di Banach. Anche l'operatore differenziale $D\colon C^1 \to C^0$ $f\mapsto Df = f'$ è ovviamente continuo.
 
-\section{serie di funzioni}
+\subsection{serie di funzioni}
 
 Se $f_k\colon A \to \RR$ è una successione di funzioni
 definite su uno stesso insieme $A$, possiamo considerare (come abbiamo già fatto per le successioni numeriche) la successione delle somme parziali:
@@ -1984,7 +1986,17 @@ all'uguaglianza di Bessel: $\abs{v_N}^2 \to \abs{v}^2$.
 \end{proof}
 
 Il nostro obiettivo è ora quello di produrre una base hilbertiana di $H(-\pi,\pi)$.
-Consideriamo le seguenti funzioni trigonometriche:
+Consideriamo le seguenti funzioni trigonometriche%
+\footnote{
+Dal punto di vista algebrico sarebbe molto più semplice considerare le
+funzioni a valori complessi:
+\[
+  e_k(x) = \frac{e^{ikx}}{\sqrt{2\pi}}
+\]
+al variare di $k\in \ZZ$. Preferiamo però rimanere nell'ambito delle funzioni
+reali per non dover introdurre la struttura hermitiana
+degli spazi vettoriali complessi.}%
+:
 \begin{equation}\label{eq:54741346}
 \begin{aligned}
   e_0 (x) &= \frac{1}{\sqrt{2\pi}} \\
@@ -2152,7 +2164,7 @@ $
 f_{61}(x)=
 \frac{4\sin(x)}{\pi} + \frac{4\sin(3x)}{3\pi} + \frac{4\sin(5x)}{5\pi} + \frac{4\sin(7x)}{7\pi} + \frac{4\sin(9x)}{9\pi} + \frac{4\sin(11x)}{11\pi} + \frac{4\sin(13x)}{13\pi} + \frac{4\sin(15x)}{15\pi} + \frac{4\sin(17x)}{17\pi} + \frac{4\sin(19x)}{19\pi} + \frac{4\sin(21x)}{21\pi} + \frac{4\sin(23x)}{23\pi} + \frac{4\sin(25x)}{25\pi} + \frac{4\sin(27x)}{27\pi} + \frac{4\sin(29x)}{29\pi} + \frac{4\sin(31x)}{31\pi}
 $.
-Il codice python per generare il grafico
+Il codice python per calcolare i coefficienti e generare il grafico
 a pagina~\pageref{code:Fourier}
 }
 \label{fig:fourier}
@@ -2179,12 +2191,12 @@ in $H(a,b)$ in quanto si ha, banalmente:
 \[
   \Abs{f}_2^2 = \int_a^b f(x)^2\, dx
   \le \int_a^b \Abs{f}_\infty^2\, dx
-  = (b-a) \Abs{f}_\infty^2.
+  = (b-a) \cdot \Abs{f}_\infty^2.
 \]
 Dunque il teorema precedente garantisce che ogni funzione continua
 in $\H(a,b)$ può essere approssimata, rispetto alla norma $\Abs{\cdot}_2$,
 tramite polinomi trigonometrici. Il teorema seguente ci permette
-di estendere questa proprietà a tutte le funzioni di $\H/(a,b)$.
+di estendere questa proprietà a tutte le funzioni di $\H(a,b)$.
 
 \begin{theorem}[densità delle funzioni continue]
 Data una qualunque $f\in H(a, b)$ per ogni $\eps>0$
@@ -2283,7 +2295,8 @@ completo, come si può vedere nel seguente esempio.
 
 \begin{example}[razionali ingrassati]
 \label{ex:incompletezza_di_H}
-Vogliamo mostrare che lo spazio $H(0,1)$ non è completo.
+Vogliamo dimostrare che lo spazio $H(0,1)$ non è completo.
+
 Sappiamo che l'insieme $[0,1]\cap \QQ$ è numerabile, quindi esiste una
 successione $q_k$ che elenca tutti i numeri razionali nell'intervallo $[0,1]$.
 Poniamo inoltre $r_k = \frac{1}{4\cdot 2^k}$ e consideriamo gli intervalli
@@ -2306,9 +2319,11 @@ mai identicamente uguali ad $1$. Anzi, si può osservare che
   \le \frac{1}{2}\sum_{k=1}^{+\infty}\frac{1}{2^k} = \frac 1 2.
 \]
 
-Vogliamo ora mostrare che $f_k$ è una successione di Cauchy in $H(0,1)$ e
+Si può mostrare che $f_k$ è una successione di Cauchy in $H(0,1)$ e
 che però non converge in $H(0,1)$.
+\end{example}
 
+\begin{proof}
 Per verificare che $f_n$ è una successione di Cauchy possiamo semplicemente
 osservare che se $n\ge m$ risulta che $f_n$ e $f_m$ differiscono solamente
 sugli intervalli $I_k$ con $k$ compreso tra $m$ ed $n$. Dunque:
@@ -2386,7 +2401,7 @@ Ma abbiamo visto che
   \ge 1 - \frac 1 2 = \frac 1 2
 \]
 ottenendo quindi un assurdo.
-\end{example}
+\end{proof}
 
 Il fatto di avere trovato una base hilbertiana di $H(a,b)$ ci permette di
 dire che ogni funzione in $H(a,b)$ può essere rappresentata dalle sue
@@ -2422,6 +2437,11 @@ rappresenta una successione di coefficienti di Fourier che non possono
 essere ottenuti da nessuna funzione $f\in H(a,b)$.
 
 \section{divagazione sui frattali autosimili}
+
+In questo capitolo mostriamo una applicazione geometrica del teorema delle contrazioni.
+Considereremo uno spazio metrico i cui punti sono le figure geometriche
+e vedremo che i frattali autosimili non sono altro che punti fissi
+di opportune mappe contrattive.
 
 \begin{definition}
 Siano $A$ e $B$ sottoinsiemi non vuoti di $\RR^n$.
@@ -2591,7 +2611,7 @@ L'insieme di Cantor è un frattale autosimile in quanto si ottiene come l'unione
 
 E' facile mostrare che $C\subset [0,1]$ in quanto $T$ manda sottoinsiemi di $[0,1]$ in sottoinsiemi di $[0,1]$.
 Ogni $x\in [0,1]$ può essere rappresentato in base $3$ con una sequenza di cifre ternarie: $0,1,2$. La funzione $\phi(x)$ aggiunge uno $0$ in cima alla sequenza di cifre, mentre la funzione $\psi(x)$ aggiunge un $2$ in cima alla sequenza.
-Vogliamo mostrare che $C$ è l'insieme di tutti i numeri in $[0,1]$ che possono essere scritti in base $3$ utilizzando solamente le cifre $0$ e $2$. Osserviamo innanzitutto che $C$ è chiuso: il suo complementare in $[0,1]$ è formato da tutti i numeri che in base $3$ si devono scrivere utilizzando almeno una cifra $1$. Ma se c'è una cifra $1$ possono modificare tutte le cifre successive rimanendo nel complementare di $C$: dunque il complementare di $C$ è aperto. Si osservi che gli unici numeri che hanno una doppia rappresentazione in base $3$ sono quelli che terminano con una sequenza infinita di $2$,
+Vogliamo mostrare che $C$ è l'insieme di tutti i numeri in $[0,1]$ che possono essere scritti in base $3$ utilizzando solamente le cifre $0$ e $2$. Osserviamo innanzitutto che $C$ è chiuso: il suo complementare in $[0,1]$ è formato da tutti i numeri che in base $3$ si devono scrivere utilizzando almeno una cifra $1$. Ma se c'è una cifra $1$ posso modificare tutte le cifre successive rimanendo nel complementare di $C$: dunque il complementare di $C$ è aperto. Si osservi che gli unici numeri che hanno una doppia rappresentazione in base $3$ sono quelli che terminano con una sequenza infinita di $2$,
 \end{example}
 
 \begin{figure}
@@ -2607,7 +2627,7 @@ A pagina~\pageref{code:Koch} il codice per generare la figura in copertina.
 \end{figure}
 
 \begin{example}[curva di K{\"o}ch]
-Sia $R_\theta\colon \RR^2 \to \RR^2$ la rotazione di $\RR^2$ con centro l'origine di $\theta$ radianti in senso antiorario.
+Sia $R_\theta\colon \RR^2 \to \RR^2$ la rotazione con centro l'origine di $\theta$ radianti in senso antiorario.
 Sia $\alpha = \pi/3$, $p=(1,0)$ e
 siano $\phi_1, \phi_2, \phi_3, \phi_4 \colon \RR^2 \to \RR^2$
 le funzioni definite da:
