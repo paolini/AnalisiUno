@@ -16,7 +16,7 @@ echo "writing file" ${out}
 
 cat <<EOF > ${out}
 <html>
-<!---- questo file e' stato creato automaticamente da make-docs.sh -- non modificarlo! ---->
+<!-- questo file e' stato creato automaticamente da make-docs.sh. non modificarlo! -->
 <head>
 <link rel="stylesheet" type="text/css" href="index.css">
 <script type="text/x-mathjax-config">
@@ -61,7 +61,9 @@ MathJax.Hub.Config({
     if (url) {
       window.location.href = url;
     } else {
-      html = "<p>Rimando alla pagina '" + id + "' sconosciuto. Spiacente! Di seguito un elenco dei rimandi disponibili.</p>\n";
+      html = "<p>Rimando alla pagina '" + id + "' sconosciuto.\n"
+      html += "Puoi <a href="mailto:emanuele.paolini@gmail.com">segnalarmi il problema</a>.\n"
+      html += "Di seguito un elenco dei rimandi disponibili.</p>\n"
       html += "<ul>\n"
       for (var key in urls) {
         html += "<li><a href='" + urls[key] +"'>" + key + "</a></li>\n";
@@ -86,7 +88,7 @@ cat <<EOF >> ${out}
   <li><a href="https://github.com/paolini/AnalisiUno">codice sorgente su GitHub</a></li>
   <li><a href="https://github.com/paolini/AnalisiUno/releases/latest">ultimo rilascio
   (da qui puoi scaricare il file PDF)</a></li>
-  <li><a href="https://www.amazon.it/dp/1718794134/">compra il libro su amazon</a></li>
+  <li><a href="https://www.amazon.it/dp/1718794134/">ordina il libro su amazon</a></li>
 </ul>
 <h2>riferimenti presenti nel testo</h2>
 <ul>
