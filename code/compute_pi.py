@@ -1,10 +1,14 @@
-def wallis(err):
-    prod = 2.0
-    k = 1
-    N = 1/err
-    while k < N:
-        prod *= ((2*k)**2)/((2*k-1.0)*(2*k+1.0))
-        k += 1
-    return prod
+from decimal import Decimal, getcontext
 
-print("pi: {:.7}".format(wallis(0.5E-7)))
+def compute_pi(digits):
+    sum = Decimal(0)
+    k = 0
+    factor = Decimal(1)/2
+    while 3*(2*k+1)*4**k < 4*10**digits:
+        sum += factor / (2*k+1)
+        factor *= Decimal(2*k+1) / (2*k+2) / 4
+        k += 1
+    return sum * 6
+
+getcontext().prec = 1100  # numero di cifre da utilizzare nei calcoli
+print("pi: {:.1001}".format(compute_pi(1100)))
