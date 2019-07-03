@@ -2,9 +2,12 @@
 
 Una \myemph{successione} in un insieme $X$ è una
 funzione\footnote{%
-Nella scrittura a mano si
-sottolineano i caratteri invece di utilizzare il grassetto:
-scriveremo $\underline a$ invece che $\vec a$.}
+Utilizziamo il grassetto per evidenziare il fatto
+che $\vec a$ è una \emph{lista} (o vettore) di numeri.
+Nella scrittura a mano non è possibile usare il grassetto, ma potremmo
+sottolineare il nome della variabile scrivendo $\underline a$ invece che $\vec a$.
+In alternativa si potrebbe scrivere $\oldvec a$ oppure evitare
+qualunque distinzione e scrivere più semplicemente $a$.}
 $\vec a\colon \NN \to X$.
 L'insieme delle funzioni $\NN \to X$ viene usualmente indicato
 con $X^\NN$. In effetti una successione $\vec a$ può essere interpretata
@@ -24,9 +27,10 @@ oppure $(a_n)_n$ oppure,
 più semplicemente, con $a_n$ quando sia chiaro che si intende l'intera
 successione $\vec a$ e non un singolo termine della stessa.
 
-Per noi il caso più interessante sarà per quello delle \emph{successioni reali}
+Per noi il caso più interessante sarà quello delle \emph{successioni reali}
 $a_n\in \RR$ cioè il caso $X=\RR$. Considereremo però anche il caso di
-\emph{successioni complesse} $a_n\in \CC$ (dunque $X=\CC$).
+\emph{successioni complesse} $a_n\in \CC$ (dunque $X=\CC$) perché questo
+potrà essere utile in alcune situazioni.
 
 Le successioni vengono usualmente
 considerate nei procedimenti di approssimazione.
@@ -39,7 +43,6 @@ Diremo che una successione $a_n\in \RR$ converge
 \mymargin{convergenza}
 \index{successione!convergente}
 ad un numero $\ell \in \RR$
-ovvero ha limite finito
 e scriveremo:
 \[
   a_n \to \ell \qquad\text{(per $n\to +\infty$)}
@@ -53,6 +56,7 @@ dal punto limite $\ell$. Formalmente:
 n>N \implies \abs{a_n - \ell}
 < \eps.
 \]
+Il valore $\ell$ verrà in tal caso chiamato \emph{limite} della successione.
 
 La stessa definizione è valida per le successioni complesse
 $a_n \in \CC$ dove il simbolo $\abs{\cdot}$ rappresenta il modulo complesso
@@ -94,9 +98,11 @@ reali. Si può allora verificare che $z_n\to z$ per $z\in \CC$ se e solo se
 $x_n\to x$ e $y_n\to y$ dove $z=x+ iy$ con $x,y\in \RR$.
 \end{exercise}
 
-Le successioni reali possono anche avere limite infinito,
- in tal
-caso si dice che divergono.
+Le successioni convergenti sono quelle che approssimano un
+certo numero finito.
+Vogliamo ora catturare l'idea di successioni che vanno verso i
+punti all'infinito.
+
 \begin{definition}[successione divergente]
 \mymark{***}
 \mymargin{divergente}
@@ -125,8 +131,15 @@ se $-a_n\to +\infty$ ovvero se
   n>N\implies a_n < -M.
 \]
 
-Se $a_n$ è una successione complessa diremo che $a_n \to \infty$ se
-$\abs{a_n}\to +\infty$ (si osservi che $\abs{a_n}$ è una successione reale).
+Se $a_n$ è una successione complessa diremo che $a_n$ diverge e scriveremo
+$a_n \to \infty$
+se
+\[
+  \forall M\in \RR\colon \exists N \in \NN \colon \forall n\in \NN \colon
+  n>N \implies \abs{a_n} > M
+\]
+che, è equivalente a richiedere che $\abs{a_n}\to +\infty$
+(si osservi infatti che $\abs{a_n}$ è una successione reale).
 \end{definition}
 
 \begin{example}
@@ -168,18 +181,18 @@ di tutti questi intorni del punto $\ell$:
 Questa famiglia di insiemi si chiama \myemph{base di intorni} del punto $\ell$.
 La definizione
 di limite finito si può dunque riscrivere così:
-\[
+\begin{equation}\label{eq:034333}
   a_n\to \ell
   \qquad \iff \qquad
   \forall B \in \B_\ell\colon \exists N\in \NN\colon \forall n>N\colon a_n\in B.
-\]
+\end{equation}
 Il vantaggio di questa \emph{astrazione} è che ora possiamo definire
 gli intorni di $+\infty$ e di $-\infty$ nel modo seguente:
 \begin{align*}
   \B_{+\infty} &= \{ (M,+\infty]\colon M\in \RR\}\\
   \B_{-\infty} &= \{ [-\infty, -M)\colon M \in \RR\}
 \end{align*}
-e la definizione data per il caso $\ell$ finito risulta valida anche nel
+e la definizione~\eqref{eq:034333} risulta valida anche nel
 caso in cui $\ell$ sia infinito.
 
 In generale se per ogni punto $x$ di un insieme $X$ specifichiamo quale
@@ -191,29 +204,12 @@ Nel caso $X=\CC$ gli intorni di un punto $z_0\in \CC$ sono gli insiemi
   B_\rho(z_0) = \{z\in \CC \colon \abs{z-z_0}<\rho\}
 \]
 e dunque $\B_{z} = \{B_\rho(z)\colon \rho>0\}$. Se $X=\bar \CC$ dovremo
-definire anche gli intorni di $\infty$ ad esempio come:
+definire anche gli intorni di $\infty$:
 \[
-  \B_\infty = \{ \CC \setminus B_\rho(0)\colon \rho>0\}.
+  \B_\infty = \{ \{z\in \CC\colon \abs{z}>\rho\} \colon \rho>0\}.
 \]
-
-\begin{definition}[definizione topologica di limite]
-\index{spazio topologico!limite di successione}
-\index{limite!definizione topologica}
-Sia $X$ uno spazio topologico (cioè un insieme
-tale che per ogni $x\in X$ è definita una famiglia
-$\mathcal U_x$ di sottoinsiemi di $X$ che chiameremo
-\emph{base di intorni}).
-Sia $a_n\in X$ una successione e sia $\ell \in X$.
-Diremo che $a_n$ ha limite $\ell$ e scriveremo
-\[
-  a_n \to \ell
-\]
-se
-\[
-  \forall U \in \U_\ell\colon \exists N\in \NN \colon \forall n\in \NN\colon
-  n > N \implies a_n\in U.
-\]
-\end{definition}
+Con queste definizioni la condizione~\eqref{eq:034333} è valida
+anche per le successioni complesse.
 
 \begin{definition}[proprietà frequenti e definitive]
 Sia $P(n)$ un predicato dipendente da un numero naturale $n\in \NN$.
@@ -288,10 +284,10 @@ Per $\ell_1,\ell_2 \in \bar \CC$ la dimostrazione si fa in maniera del tutto ana
 per due punti in $\CC$ si può prendere come $\eps=\abs{\ell_2-\ell_1}/2$
 metà della distanza tra i due
 punti: la disuguaglianza triangolare del modulo garantirà che
-$B_\rho(\ell_1)\cap B_\rho(\ell_2)=\emptyset$
+$B_\rho(\ell_1)\cap B_\rho(\ell_2)=\emptyset$.
  Se uno dei due punti è $\ell_2=+\infty$ e l'altro è $\ell_1\in \CC$
-si potrà prendere $B_1(\ell_1)$ l'intorno di raggio unitario di $\ell_2$ e
-$\CC\setminus B_{\abs{\ell_2}+1}(0)$
+si potrà prendere $B_1(\ell_1)$  come intorno di raggio unitario di $\ell_2$ e
+$\{z\colon \abs{z}>\abs{\ell_2}+1 \}$
 come intorno del punto $\infty$. La disuguaglianza triangolare ci assicura
 che questi due intorni sono disgiunti, come ovvio da una interpretazione geometrica.
 \end{proof}
@@ -371,6 +367,16 @@ di una successione
 significa specificare a quale delle tre categorie appartiene.
 \end{definition}
 
+Si faccia attenzione al fatto che una successione $a_n\in \RR$
+può essere interpretata sia come successione reale che come successione complessa.
+Le condizioni di convergenza in $\RR$ o $\CC$ sono allora equivalenti. Ma
+se $a_n \to \infty$ (in $\bar \CC$) significa che $\abs{a_n}\to +\infty$ quindi
+se $a_n > 0$ definitivamente allora si ha $a_n\to +\infty$
+se $a_n < 0$ definitivamente allora
+$a_n\to -\infty$ ma se frequentemente $a_n> 0$ e frequentemente $a_n < 0$
+allora $a_n$ non ha limite in $\bar \RR$ pur avendolo in $\bar \CC$
+(un esempio è $a_n = (-n)^n$).
+
 \section{criteri di convergenza}
 
 \begin{theorem}[criteri di confronto]
@@ -392,12 +398,12 @@ a \le b.
 \]
 
 \item
-Supponiamo per ogni $n$ si abbia:
+Se per ogni $n$ si ha:
 \[
 a_n \le b_n
 \]
-Se $a_n \to +\infty$ allora $b_n \to +\infty$.
-Se $b_n \to -\infty$ allora $a_n \to -\infty$.
+e se $a_n\to +\infty$ allora anche $b_n \to +\infty$.
+Viceversa se $a_n \le b_n$ e $b_n \to -\infty$ allora anche $a_n \to -\infty$.
 
 \item
 (teorema dei carabinieri)
@@ -714,7 +720,7 @@ Per la seconda parte è sufficiente osservare che essendo $\big\lvert\abs{x}\big
 \mymargin{limite!della somma}
 Siano $a_n \to a$ e $b_n \to b$ successioni reali con $a,b\in \bar \RR$.
 Se $a$ e $b$ non sono
-infiniti di segno opposto (nel qual caso $a+b$ non è stato definito),
+infiniti di segno opposto
 allora
 \[
     a_n + b_n \to a+b.
@@ -781,7 +787,9 @@ che per le successioni complesse.
 \end{theorem}
 %
 \begin{proof}
-  Per la definizione di limite applicata a $b_n$, per ogni $\eps>0$
+  Se $a_n$ è limitata significa che esiste $M>0$ tale che $\abs{a_n}\le M$ per
+  ogni $n\in \NN$.
+  Per la definizione di limite applicata a $b_n\to 0$, per ogni $\eps>0$
   esiste $N\in \NN$ tale che per ogni $n>N$ si ha $\abs{b_n -0}=\abs{b_n} < \eps / M$.
   Allora per ogni $n>N$ si ha
   \[
