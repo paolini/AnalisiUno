@@ -5,7 +5,7 @@ Queste note sono nate come appunti per il corso di Analisi Matematica
 del corso di studi in Fisica dell'Università 
 di Pisa negli anni accademici 2017/18 e 2018/19. 
  
-Queste note sono estensive, non c'è alcun tentativo di concisione. 
+Le note sono estensive, non c'è alcun tentativo di concisione. 
 L'obiettivo è quello di raccogliere tutti quei risultati che non sempre è 
 possibile esporre in maniera dettagliata e rigorosa a lezione. 
 Troveremo, ad esempio, 
