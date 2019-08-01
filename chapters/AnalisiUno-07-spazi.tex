@@ -341,8 +341,7 @@ Questo prodotto scalare induce la norma euclidea:
   \abs{\vec x} = \sqrt{\vec x \cdot \vec x}
   = \sqrt{x_1^2 + x_2^2+ \dots + x_n^2}.
 \]
-La distanza indotta da tale norma si chiama \myemph{distanza euclidea}:
-\index{distanza!euclidea di $\RR^n$}%
+La distanza indotta da tale norma si chiama \myemph{distanza!euclidea}:
 \[
   d(\vec x, \vec y)
   = \abs{\vec x-\vec y}
@@ -889,7 +888,8 @@ si potrebbe anche scrivere così:
 \]
 
 \begin{theorem}[le successioni convergenti sono di Cauchy]
-\mymark{**}
+\mymark{**}%
+\label{th:se_converge_cauchy}
 Sia $x_k\to x$ una successione convergente in uno spazio metrico $(X,d)$. Allora $x_k$ è di Cauchy.
 \end{theorem}
 %
@@ -914,6 +914,14 @@ si ottiene il risultato desiderato:
 Uno spazio metrico $(X,d)$ si dice essere \myemph{completo}
 se ogni successione di Cauchy è convergente.
 \end{definition}
+
+Il prototipo di spazio metrico completo è $\RR$, come vedremo nel teorema~\ref{th:R-completo}.
+Un esempio di spazio metrico non completo è $\QQ$.
+Infatti se prendiamo una
+successione $q_n \in\QQ$ con $q_n\to \sqrt 2$ la successione $q_n$ è convergente
+in $\RR$ e quindi è di Cauchy in $\RR$. Ma visto che $q_n\in \QQ$ risulta
+che $q_n$ è di Cauchy anche in $\QQ$ (la condizione di Cauchy è la stessa).
+Ma in $\QQ$ tale successione non converge in quanto $\sqrt 2\not \in \QQ$.
 
 \begin{definition}[spazio di Banach]
 Uno spazio vettoriale normato si dice essere uno
@@ -975,9 +983,10 @@ E questo è vero per ogni $k > m$ da cui risulta verificata la definizione di li
 \end{proof}
 
 \begin{theorem}[completezza di $\RR$]
-\mymark{***}
-\mynote{$\RR$ è completo}
-\index{completezza!di $\RR$}
+\mymark{***}%
+\mynote{$\RR$ è completo}%
+\index{completezza!di $\RR$}%
+\label{th:R-completo}%
 $\RR$ è completo.
 \end{theorem}
 %
@@ -1020,6 +1029,74 @@ Se $X$ è compatto da ogni successione in $A$ si può estrarre una sottosuccessi
 Una successione di Cauchy in $A$ è di Cauchy anche in $X$. Se $X$ è completo tale successione converge ad un punto di $x$. Se $A$ è chiuso tale punto è in $A$ e dunque la successione converge in $A$.-
 \end{proof}
 
+\begin{theorem}[estendibilità delle funzioni uniformemente continue]
+\mymark{**}
+\label{th:estensione_uniformemente_continua}%
+Sia $f\colon A \subset X \to Y$ una funzione definita su un sottoinsieme $A$
+di uno spazio metrico $X$ a valori in uno spazio metrico completo $Y$
+(ad esempio $X=\RR$ e $Y=\RR$). Se $f$ è uniformemente continua allora
+esiste una unica funzione continua $\tilde f \colon \bar A \to Y$
+tale che per ogni $x\in A$ si ha $\tilde f(x) = f(x)$.
+Inoltre $\tilde f$ è anch'essa uniformemente continua.
+\end{theorem}
+%
+\begin{proof}
+La prima osservazione è
+che se una funzione $f$ è uniformemente continua allora $f$
+manda successioni di Cauchy in successioni di Cauchy.
+Incatti se $f$ è uniformemente continua si ha
+\[
+ \forall \eps>0\colon \exists \delta>0 \colon d(x,y)<\delta \implies d(f(x),f(y))<\eps
+\]
+e se $a_n$ è di Cauchy si ha
+\[
+ \exists N\in\NN \colon k,j>n \implies d(a_k,a_j)< \delta
+\]
+dunque mettendo insieme le due proprietà
+si ottiene la condizione
+di Cauchy per $f(a_k)$:
+\[
+\forall \eps>0\colon \exists N\in \NN\colon k,j>n \implies d(f(a_k),f(a_j))< \eps.
+\]
+
+Preso un punto $x \in \bar A$ esiste certamente $a_n \in A$ con $a_n\to x$.
+Vogliamo dimostrare che $f(a_n)$ ha limite in $Y$ e che tale limite non
+dipende dalla successione $a_n$ scelta. Se $a_n \to a$ allora $a_n$ è di Cauchy in $X$
+(teorema~\ref{th:se_converge_cauchy}).
+Per quanto detto prima possiamo affermare che anche $f(a_n)$ è di Cauchy
+e quindi converge in $Y$, in quanto $Y$ è completo per ipotesi.
+Inoltre il $\lim f(a_n)$ non dipende dalla successione scelta perché
+se $b_n\to x$ fosse un'altra successione potremmo costruire una successione
+$c_n$ che alterna i punti di $a_n$ e $b_n$ (ponendo, ad esempio, $c_{2n} = a_n$ e
+$c_{2n+1} = b_n$). Anche $c_n \to x$ ed è di Cauchy, dunque $f(c_n)$ converge.
+Ma $f(a_n)$ e $f(b_n)$ sono sotto-successioni di $f(c_n)$ e dunque convergono
+allo stesso limite.
+Abbiamo quindi dimostrato che per ogni $x\in \bar A$ esiste $\ell \in Y$
+tale che se $a_n\to x$, $a_n\in A$ allora $f(a_n) \to \ell$. Possiamo
+quindi definire $\tilde f(x)=\ell$. Se esiste una estensione continua di
+$f$ non può che essere definita in questo modo, in quanto le funzioni continue
+mandano successioni convergenti in successioni convergenti.
+
+D'altra parte possiamo dimostrare che $\tilde f$ è una funzione uniformemente continua.
+Infatti per ogni $\eps>0$ possiamo scegliere $\delta>0$ dato dall'uniforme
+continuità di $f$: dati $x,y\in \bar A$ con $d(x,y)<\delta/3$ esisteranno
+$x_n,y_n \in A$ con $x_n\to x$, $y_n\to y$. Si potrà quindi trovare $n$
+sufficientemente grande in modo che
+$d(x_n,x)<\delta/3$, $d(y_n,y)<\delta/3$,
+$d(f(x_n),\tilde f(x)) < \eps$, $d(f(y_n),\tilde f(y)) < \eps$.
+Si avrà allora
+$d(x_n,y_n)< d(x_n,x)+d(x,y)+d(y,y_n) < \delta$, dunque $d(f(x_n),f(y_n))<\eps$
+e in conclusione
+\[
+d(f(x),f(y))
+\le d(f(x),f(x_n)) + d(f(x_n),f(y_n)) + d(f(y_n),f(y))
+\le 3\eps.
+\]
+Abbiamo quindi dimostrato l'uniforme continuità di $\tilde f$ con $3\eps$ al posto
+di $\eps$ e $\delta/3$
+al posto di $\delta$.
+\end{proof}
+
 \begin{definition}[lipschitz]
 \mymark{***}
 Sia $f\colon X \to Y$ una funzione definita tra due spazi metrici e sia $L\ge 0$.
@@ -1034,7 +1111,8 @@ Diremo che $f$ è lipschitziana se esiste $L\ge 0$ tale che $f$ sia $L$-lipschit
 \end{definition}
 
 \begin{theorem}
-\mymark{*}
+\label{th:lipschitz_uniformemente_continua}%
+\mymark{*}%
 Se $f\colon X \to Y$ è lipschitziana allora
 $f$ è sequenzialmente continua, cioè
 \[
@@ -1056,12 +1134,13 @@ Osserviamo che la distanza $d(x,y)$ di uno spazio metrico $X$ risulta sempre ess
 Di conseguenza la norma di uno spazio normato è anch'essa $1$-lip\-schit\-zia\-na. In particolare la distanza e la norma risultano essere funzioni continue.
 
 \begin{theorem}[delle contrazioni o punto fisso di Banach-Caccioppoli]
-\mymark{***}
-\mynote{teor. contrazioni}
-\index{teorema!di Banach-Caccioppoli}
-\index{teorema!delle contrazioni}
-\index{punto!fisso}
-\index{contrazione}
+\mymark{***}%
+\mynote{teor. contrazioni}%
+\index{teorema!di Banach-Caccioppoli}%
+\index{teorema!delle contrazioni}%
+\index{punto!fisso}%
+\index{contrazione}%
+\label{th:banach-caccioppoli}
 Sia $X$ uno spazio metrico completo non vuoto e sia $f\colon X \to X$ una funzione $L$-lipschitziana con $L<1$ (diremo che $f$ è una \emph{contrazione}).
 Allora esiste ed è unico un punto
 $x\in X$ tale che $f(x) = x$.
