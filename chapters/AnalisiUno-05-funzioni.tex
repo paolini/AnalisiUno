@@ -1785,12 +1785,13 @@ Scambiando $x$ con $y$ e sommando si ottiene:
 \]
 \end{proof}
 
-\section{teorema di de l'Hospital}
+\section{teoremi di Cauchy e de l'Hospital}
 
 \begin{theorem}[Cauchy]
-\mymark{**}
-\index{teorema!di Cauchy}
-\mymargin{Cauchy}
+\label{th:cauchy}%
+\mymark{**}%
+\index{teorema!di Cauchy}%
+\mymargin{Cauchy}%
 Siano $f\colon[a,b]\to \RR$ e $g\colon[a,b]\to \RR$ funzioni continue su tutto $[a,b]$ e derivabili su $(a,b)$.
 Supponiamo inoltre che $g'(x)\neq 0$ per ogni $x\in (a,b)$.
 Allora $g(b) \neq g(a)$ ed esiste $x_0\in(a,b)$ tale che
@@ -1950,7 +1951,9 @@ si ha
  \lim_{x\to a^+}\frac{f(x)}{g(x)} = \ell.
 \]
 
-Risultato analogo si ha facendo i limiti per $x\to b^-$ invece che per $x\to a^+$ e di conseguenza anche nel caso in cui la funzione sia definita su un intervallo ``bucato`` $f\colon (a,b)\setminus\{x_0\} \to \RR$ e si considerino i limiti ``pieni'' per $x\to x_0$.
+Risultato analogo si ha facendo i limiti per $x\to b^-$ invece che per $x\to a^+$ e di conseguenza anche nel caso in cui la funzione sia definita su un intervallo ``bucato''
+$f\colon (a,b)\setminus\{x_0\} \to \RR$
+e si considerino i limiti ``pieni'' per $x\to x_0$.
 \end{theorem}
 %
 \begin{proof}
@@ -2048,7 +2051,8 @@ si ha
  \lim_{x\to a^+}\frac{f(x)}{g(x)} = \ell.
 \]
 
-Risultato analogo si ha facendo i limiti per $x\to b^-$ invece che per $x\to a^+$ e di conseguenza anche nel caso in cui la funzione sia definita su un intervallo ``bucato`` $f\colon (a,b)\setminus\{x_0\} \to \RR$ e si considerino i limiti ``pieni'' per $x\to x_0$.
+Risultato analogo si ha facendo i limiti per $x\to b^-$ invece che per $x\to a^+$ e di conseguenza anche nel caso in cui la funzione sia definita su un intervallo ``bucato''
+$f\colon (a,b)\setminus\{x_0\} \to \RR$ e si considerino i limiti ``pieni'' per $x\to x_0$.
 \end{theorem}
 %
 \begin{proof}
@@ -2357,20 +2361,22 @@ Nel caso particolare $g(x) = mx +q$ si osserva semplicemente che $g$ è uniforme
 \index{formula!di Taylor}
 
 
-
-
 \begin{definition}[polinomio di Taylor]
 \mymark{***}
-Sia $A\subset \RR$ e $x_0$ un punto di accumulazione per $A$.
-Sia $f\colon A \to \RR$ una funzione derivabile $n$ volte nel punto $x_0$.
-Il \emph{polinomio di Taylor}
+Sia $A\subset \RR$, $f\colon A \to \RR$ una funzione
+e sia $x_0\in A$ un punto in cui la derivata $n$-esima
+(e quindi anche le derivate precedenti) sia definita.
+
+Allora il polinomio:
+\[
+  P(x) = \sum_{k=0}^n \frac{f^{(k)}(x_0)}{k!}(x-x_0)^k
+\]
+viene detto \emph{polinomio di Taylor}
 \index{polinomio!di Taylor}%
 \mynote{polinomio di Taylor}%
+di ordine $n$
 della funzione $f$,
-di ordine $n$, centrato in $x_0$ è il polinomio:
-\[
-  P(x) = \sum_{k=0}^n \frac{f^{(k)}(x_0)}{k!}(x-x_0)^k.
-\]
+centrato in $x_0$.
 \end{definition}
 
 Nel caso particolare in cui sia $x_0=0$ il polinomio di Taylor viene anche chiamato \myemph{polinomio!di MacLaurin}.
@@ -2428,8 +2434,8 @@ Viceversa se
 \]
 è il polinomio di Taylor di ordine $n$ della derivata $f'(x)$, allora
 il polinomio di Taylor di ordine $n+1$ di $f$ sarà%
-\footnote{Chiameremo questa una \emph{primitiva} del polinomio dato,
-nel prossimo capitolo, quando parleremo del calcolo integrale.}
+\footnote{Chiameremo questa una \emph{primitiva} del polinomio dato (si veda la
+definizione~\ref{def:primitiva}).}
 \begin{equation}\label{eq:4993725}
   P_{n+1}(x) = f(x_0) + \sum_{k=0}^{n} \frac{a_{k}}{k+1}\cdot (x-x_0)^{k+1}
 \end{equation}
@@ -2452,7 +2458,8 @@ in quanto
 \mynote{Taylor con resto di Lagrange}
 Sia $I\subset \RR$ un intervallo, $x_0\in I$, $f\in C^{n+1}(I)$.
 Sia $P$ il polinomio di Taylor di $f$ di ordine $n$ centrato in $x_0$.
-Per ogni $x\in I$ esiste $y$ con $\abs{y-x_0}\le \abs{x-x_0}$ tale che
+Per ogni $x\in I$ esiste $y\in [x_0,x]$ tale che\footnote{%
+Ricordiamo che abbiamo definito $[x_0,x] = [x,x_0]$ se $x<x_0$.}
 \[
   f(x) = P(x) + \frac{f^{(n+1)}(y)}{(n+1)!}(x-x_0)^{n+1}.
 \]
@@ -2654,6 +2661,67 @@ formula~\eqref{eq:Taylor} allora $P$ è il polinomio di Taylor di $f$.
 %
 \begin{proof}
 \mymark{***}
+Iniziamo come per la dimostrazione del teorema~\ref{th:taylor_lagrange}.
+Posto $R(x) = f(x)-P(x)$ dobbiamo
+mostrare che
+\[
+  \lim_{x\to x_0} \frac{R(x)}{(x-x_0)^n} = 0.
+\]
+Osserviamo che si ha $R^{(k)}(x_0) = f^{(k)}(x_0) - P^{(k)}(x_0) = 0$
+per ogni $k=0,1, \dots, n$. Anche la funzione $(x-x_0)^k$ si annulla
+per $x=x_0$.
+Dunque se $n>0$ si ha
+\[
+  \frac{R(x)}{(x-x_0)^n}  = \frac{R(x) - R(x_0)}{(x-x_0)^n - (x_0-x_0)^n}
+\]
+e possiamo applicare il teorema \ref{th:cauchy} di Cauchy ottenendo
+che esiste un punto $x_1\in[x_0,x]$ tale che
+\[
+  \frac{R(x)}{(x-x_0)^n} = \frac{R'(x_1)}{n(x_1-x_0)^n}.
+\]
+Possiamo iterare questo procedimento $n-1$ volte\footnote{%
+Se sapessimo che $f\in C^n(I)$ potremmo iterare $n$ volte e arrivare immediatamente al risultato
+in quanto $R^{(n)}(x_n)\to R^{(n)}(x_0) = 0$ per $x_n\to x_0$.
+Ma noi abbiamo supposto che la derivata $n$-esima esiste solamente nel punto $x_0$
+e quindi nell'ultimo passaggio dovremo utilizzare la definizione di derivata invece
+che il teorema di Cauchy.}
+ottenendo
+\[
+  \frac{R(x)}{(x-x_0)^n}
+  = \frac{R'(x_1)}{n(x_1-x_0)^n}
+  = \frac{R''(x_2)}{n(n-1)(x_2-x_0)^{n-2}}
+  = \dots
+  = \frac{R^{(n-1)}(x_{n-1})}{n!(x_{n-1}-x_0)}
+\]
+con $x_1 \in [x_0,x]$, $x_2\in [x_0,x_1]$, \dots, $x_{n-1} \in [x_0,x_{n-2}]\subset[x_0,x]$.
+In particolare si avrà $x_{n-1}\to x_0$ per $x\to x_0$ e basterà
+quindi dimostrare che
+\[
+\frac{R^{(n-1)}(x)}{x-x_0} \to 0, \qquad \text{per $x\to x_0$}.
+\]
+
+Ma visto che la derivata del polinomio di Taylor coincide con il
+polinomio di Taylor della derivata si ha che $P^{(n-1)}(x)$
+è il polinomio di Taylor di ordine $1$ della funzione $f^{(n-1)}(x)$
+si avrà
+\[
+  P^{(n-1)} (x) = f^{(n-1)}(x_0) + f^{(n)}(x_0) (x-x_0)
+\]
+da cui
+\begin{align*}
+\frac{R^{(n-1)}(x)}{x-x_0}
+&= \frac{f^{(n-1)}(x) - P^{(n-1)}(x)}{x-x_0}
+= \frac{f^{(n-1)}(x) - f^{(n-1)}(x_0)}{x-x_0} - f^{(n)}(x_0)\\
+&\to f^{(n)}(x_0) - f^{(n)}(x_0)
+ = 0
+\end{align*}
+per definizione di derivata $n$-esima:
+\[
+  f^{(n)}(x_0) = \lim_{x\to x_0} \frac{f^{(n-1)}(x)-f^{(n-1)}(x_0)}{x-x_0}.
+\]
+
+\begin{comment}
+  %% dimostrazione con l'hospital
 Osserviamo che il limite
 \[
 \lim_{x\to x_0}\frac{f(x) - P(x)}{(x-x_0)^n} = 0
@@ -2717,6 +2785,7 @@ Ma allora possiamo scrivere
 e visto che tutti gli addendi
 $a_k t^{k-m}$ tendono a zero per $t\to 0$ se fosse $a_m\neq 0$ il lato
 destro di questa uguaglianza tenderebbe a $\pm \infty$, assurdo.
+\end{comment}
 \end{proof}
 
 \begin{definition}[coefficiente binomiale reale]
