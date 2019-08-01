@@ -1,9 +1,203 @@
 \chapter{calcolo integrale}
 
+\begin{comment}
+
+\section{misura di Peano-Jordan}
+
+In questo capitolo vogliamo dare una definizione di \emph{misura} di un
+sottoinsieme $A\subset \RR^n$ formalizzando le stesse nozioni che sostanzialmente
+venivano già usate dagli antichi greci.
+Lo faremo nel caso per noi più rilevante ovvero il caso planare $n=2$ in cui la \emph{misura}
+di un insieme si chiama \emph{area}. Ma l'intera costruzione potrebbe essere fatta senza
+nessuna difficoltà (se non per le notazioni che si complicano) nel caso generale della
+dimensione $n$.
+
+Dato un insieme $A\subset \RR^2$ vorremmo definire la sua area $m(A)\in \RR$
+in modo che valgano le seguenti proprietà:
+\begin{enumerate}
+  \item se $A\cap B=\emptyset$ allora $m(A\cup B) = m(A) + m(B)$ (additività);
+  \item se $A \subset B$ allora $m(A) \le m(B)$ (monotonia);
+  \item se $A=[a_1,b_1]\times [a_2,b_2]$ (con $a_1\le b_1$, $a_2\le b_2$)
+  allora $m(A) = (b_1-a_1)\cdot (b_2-a_2)$ (normalizzazione).
+\end{enumerate}
+
+Andremo a definire la misura $m$ su una famiglia di sottoinsiemi di $\RR^2$ che
+chiameremo \emph{misurabili} secondo Peano-Jordan.
+Si potrebbe dimostrare che non è possibile definire $m$ su tutti i sottoinsiemi di $\RR^2$
+in modo che valgano le proprietà enunciate qui sopra. Sarebbe però possibile
+definire la misura su una classe molto più amplia di insiemi, imponendo inoltre
+l'additività non solo su unioni finite ma anche su unioni numerabili
+($\sigma$ additività). Quello che si otterrebbe
+è la cosiddetta misura di \emph{Lebesgue} che è ormai una costruzione standard
+dell'analisi matematica ma ci richiederebbe una teoria molto più complessa da sviluppare.
+Ci accontenteremo qui di introdurre la misura $m$ finitamente additiva di Peano-Jordan
+che poi ci permetterà di dare significato geometrico all'integrale di Riemann.
+
+Diremo che un insieme $R\subset \RR^2$ è un
+\myemph{rettangolo}
+se $R$ è il prodotto cartesiano di due intervalli limitati
+cioè
+\[
+  R = I\times J
+\]
+con $a=\inf I>-\infty$,
+$b=\sup I<+\infty$,
+$c=\inf J > -\infty$,
+$d=\sup J < +\infty$.
+
+Se $I=[a,b]$ e $J=[c,d]$ (con $a\le b$ e $c\le d$) allora,
+affinché valga la proprietà di normalizzazione,
+porremo:
+\[
+  m([a,b]\times[c,d]) = (b-a)\cdot(c-d).
+\]
+Chiaramente se uno dei due intervalli
+
+Se $I=(a,b)$ e $J=(c,d)$ sono intervalli aperti (e limitati) allora
+per ogni $\eps>0$ con $\eps<(b-a)/2$ e $\eps<(d-c)/2$ si ha
+\[
+  [a+\eps,b-\eps] \subset (a,b)\times (c,d) \subset [a,b]\times [c,d]
+\]
+da cui, per la proprietà di monotonia, si dovrà avere:
+\[
+  (b-a-2\eps)\cdot (c-d-2\eps) \le m((a,b)\times(c,d)) \le (b-a)\cdot (d-c).
+\]
+Ma affinché questo sia vero per ogni $\eps>0$ si dovrà porre:
+\[
+  m((a,b)\times(c,d)) = (b-a)\cdot(c-d).
+\]
+Lo stesso vale se gli intervalli sono semiaperti.
+Dunque l'area di un rettangolo non cambia se il rettangolo contiene
+o meno i segmenti che identificano i suoi lati.
+
+Se un insieme $A\subset \RR^2$ può essere scritto come unione finita
+di rettangoli disgiunti:
+\[
+  A = R_1 \cup R_2 \cup \dots \cup R_N
+\]
+$R_i \cap R_j=\emptyset$ se $i,j=1,\dots,N$, $i\neq j$
+diremo che $A$ è un \myemph{polirettangolo}.
+In tal caso per garantire l'additività dell'area
+porremo:
+\[
+  m(A) = m(R_1) + \dots + m(R_N).
+\]
+Affinché questa sia una buona definizione dobbiamo verificare che
+se $A$ può essere scritto come unione di rettangoli disgiunti in due modi
+diversi, allora la somma delle misure dei rettangoli dà lo stesso
+risultato con entrambe le decomposizioni.
+Questo è intuitivamente ovvio, e dipende dal fatto che date due
+diverse decomposizioni in rettangoli è possibile considerare
+una griglia formata da tutte le rette che contengono i lati di ogni rettangolo.
+Questa griglia identifica una decomposizione in rettangolini che possono essere
+utilizzati per ricostruire sia l'una che l'altra decomposizione.
+Ogni rettangolo delle due decomposizioni sarà unione di rettangolini e la sua
+area sarà la somma delle aree dei rettangolini. Ma visto che le due
+decomposizioni si suddividono negli stessi rettangolini, le aree definite
+dalle due decomposizioni devono coincidere.
+
+Per lo stesso motivo risulta chiaro che se $A$ e $B$ sono due polirettangoli
+anche $A\cup B$ e $A \cap B$ sono polirettangoli e risulta
+\[
+  m(A \cup B) = m(A) + m(B) - m(A\cap B).
+\]
+Infatti è possibile trovare una famiglia di rettangolini (quelli identificati
+dalla griglia di tutte le rette contenenti i lati dei rettangoli di $A$ e dei rettangoli di $B$)
+che sono tra loro disgiunti e tali che $A\cap B$, $A\setminus B$ e $B\setminus A$
+possono essere scritti come unione di questi rettangolini. Questi insiemi
+sono tra loro disgiunti e quindi, scrivendo l'area di ognuno come la somma delle
+aree dei rettangoli, si trova che:
+\begin{gather*}
+  m(A) = m(A\cap B) + m(A\setminus B),
+  \qquad
+  m(B) = m(A\cap B) + m(B\setminus A),
+  \\
+  m(A\cup B) = m(A\setminus B) + m(A\cap B) + m (B\setminus A)
+\end{gather*}
+da cui si ottiene il risultato voluto.
+
+Se ora prendiamo un insieme $A\subset \RR^2$ qualunque
+e imponiamo che valga la proprietà di monotonia,
+dovremo avere che $m(A)$, se è definibile, deve
+essere l'elemento di separazione tra le misure
+dei polirettangoli contenuti in $A$ e di quelli contenenti $A$.
+Si giustifica quindi la seguente.
+
+\begin{definition}[misura di Peano-Jordan]
+\label{def:peano-jordan}%
+\mymargin{Peano-Jordan}%
+\index{misura!di Peano-Jordan}%
+\index{Peano-Jordan!misura di}%
+\index{Jordan!misura di}%
+Sia $A\subset \RR^2$ un insieme limitato. Definiamo:
+\begin{align*}
+m^*(A) &= \inf\{m(P)\colon \text{$P\supset A$, $P$ polirettangolo}\}, \\
+m_*(A) &= \sup\{m(P)\colon \text{$P\subset A$, $P$ polirettangolo}\}.
+\end{align*}
+
+Visto che $A$ è limitato si ha $m^*(A)<+\infty$ e visto che $\emptyset \subset A$
+e $m(\emptyset)=0$ (l'insieme vuoto $\emptyset = (a,a) \times (c,c)$ è un
+polirettangolo di area nulla) si ha $m_*(A)\ge 0$. Inoltre $m_*(A)\le m^*(A)$
+in quanto ogni polirettangolo contenuto in $A$ è contenuto, e quindi ha area non superiore,
+ad ogni polirettangolo contenente $A$.
+
+Se $m^*(A) = m_*(A)$ diremo che $A$ è \myemph{misurabile} secondo Peano-Jordan
+e definiremo $m(A) = m^*(A) = m_*(A)$ la sua misura di Peano-Jordan.
+\end{definition}
+
+*** MI SERVE LA TOPOLOGIA DI R^n !!! ****
+
+\begin{theorem}[proprietà degli insiemi misurabili]
+  Se $A\subset \RR^2$ è un insieme limitato, $A$ è misurabile secondo
+  Peano-Jordan se e solo se $m^*(\partial A)=0$.
+  Se $A$ e $B$ sono insiemi limitati e misurabili secondo Peano-Jordan,
+  allora anche $A\cup B$, $A\cap B$, $A\setminus B$ e $B\setminus A$
+  sono insiemi limitati e misurabili secondo Peano-Jordan, inoltre
+  risulta
+  \[
+    m(A\cup B) = m(A) + m(B) - m(A\cap B).
+  \]
+\end{theorem}
+%
+\begin{proof}
+**** DA COMPLETARE ***
+
+
+Se $A$ e $B$ sono misurabili significa che per ogni $\eps>0$ esistono
+dei polirettangoli $A_*$, $A^*$, $B_*$ e $B^*$ con $A_* \subset A \subset A^*$,
+$B_* \subset B \subset B^*$
+tali che $m(A^*)-m(A_*)\le \eps$ e $m(B^*)-m(B_*)\le \eps$.
+Considerando la griglia formata da tutte le rette che contengono lati
+dei rettangolini che formano i polirettangoli presi in considerazione si ottiene
+una suddivisione del piano che identifica dei rettangolini disgiunti $R_{j,k}$
+con i quali è possibile comporre tutti e quattro i polirettangoli considerati.
+
+Inoltre è possibile considerare il polirettangolo $P_*$ di tutti i rettangolini $R_{j,k}$
+contenuti in $A\cap B$, il polirettangolo $P^*$ formato da tutti i rettangolini
+che intersecano $R_{j,k}$ e, analogamente, i polirettangoli $Q_*$ e $Q^*$ formati
+dai rettangolini contenuti in $A\cup B$ e da quelli che intersecano $A\cup B$.
+
+Chiaramente ogni rettangolino contenuto in $A\cap B$ è contenuto
+sia in $A_*$ che in $B_*$.
+
+\end{proof}
+
+E' chiaro che se $P$ è un polirettangolo allora $m^*(P) = m_*(P)$ in quanto
+$P$ stesso può essere preso in considerazione sia come polirettangolo contenente
+$P$ che come polirettangolo contenuto in $P$. Dunque certamente i polirettangoli
+sono esempi di insiemi misurabili. L'integrale di Riemann, che andremo a definire
+nella prossima sezione, ci permetterà di osservare che ogni figura geometrica
+delimitata da una curva continua (in un senso da precisare) risulta
+essere misurabile secondo Peano-Jordan. Inoltre il calcolo integrale ci permetterà
+di determinare l'area di tali figure in modo piuttosto semplice.
+
+\end{comment}
+
+\section{integrale di Riemann}
+
 \begin{definition}[integrale di Riemann]
 \mymark{***}
 Siano $a,b\in \RR$, $a \le b$.
-
 Un insieme $P\subset [a,b]$ si dice essere una \myemph{suddivisione di Riemann}
 \index{Riemann!suddivisione di}
 \index{partizione di Riemann}
