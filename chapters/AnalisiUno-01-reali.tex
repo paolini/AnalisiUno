@@ -52,6 +52,14 @@ $(P \Leftarrow Q) \land (P\Rightarrow Q)$
 valore di verità: diremo quindi che sono equivalenti e
 scriveremo $P \Leftrightarrow Q$.
 
+Nella tabella~\ref{tab:verita_operatori_logici} sono riportati
+tutti i valori di verità che si possono ottenere combinando
+tra loro due proposizioni. Nella tabella~\ref{tab:operatori_logici}
+sono riportate alcune proprietà di tali operatori: queste
+proprietà possono essere capite interpretando il loro significato
+ma possono anche essere dedotte meccanicamente tramite la tabella
+di verità delle operazioni.
+
 \begin{table}
 \begin{center}
   \begin{tabular}{cc|cccccc}
@@ -63,6 +71,26 @@ scriveremo $P \Leftrightarrow Q$.
     \texttt{F} & \texttt{F} & \texttt{V} & \texttt{F} & \texttt{F} & \texttt{V} & \texttt{V} & \texttt{V} \\
     \end{tabular}
 \end{center}
+\caption{La tabella di verità degli operatori logici.}
+\label{tab:verita_operatori_logici}
+\end{table}
+
+\begin{table}
+\begin{tabular}{rcll}
+                         $\neg \neg P$ & $\iff$ & $ P$                           & doppia negazione\\
+                                    $P \land Q$ & $\iff$ & $ Q \land P$                   & simmetria\\
+                                     $P \lor Q$ & $\iff$ & $ Q \lor P$                    & \\
+                              $\neg (P\land Q)$ & $\iff$ & $ (\neg P) \lor (\neg Q)$      & formule di De Morgan\\
+                               $\neg (P\lor Q)$ & $\iff$ & $ (\neg P) \land (\neg Q)$     & \\
+                            $(P\land Q) \lor R$ & $\iff$ & $ (P\lor R) \land (Q \lor R)$  & proprietà distributiva\\
+                            $(P\lor Q) \land R$ & $\iff$ & $ (P\land R) \lor (Q \land R)$ & \\
+                            $(P \Rightarrow Q)$ & $\iff$ & $ (Q \Leftarrow P)$            & antisimmetria\\
+                        $\neg (P\Rightarrow Q)$ & $\iff$ & $ P \land (\neg Q)$            & controesempio\\
+                             $(P\Rightarrow Q)$ & $\iff$ & $ \lnot(P \land (\neg Q))$     & dimostrazione per assurdo\\
+                             $(P\Rightarrow Q)$ & $\iff$ & $ (\neg Q\Rightarrow\neg P)$   & implicazione contropositiva
+\end{tabular}
+\caption{Alcune proprietà degli operatori logici.}
+\label{tab:operatori_logici}
 \end{table}
 
 Un \myemph{predicato} è una proposizione che contiene
@@ -74,7 +102,6 @@ e falso altrimenti.
 Se un predicato dipende da una o più variabili queste
 si chiamano \myemph{variabili libere}. E' possibile
 \emph{chiudere} una variabile libera mediante un quantificatore.
-
 Il \myemph{quantificatore universale} denotato col simbolo
 $\forall$ serve ad affermare che il predicato è vero
 per ogni possibile valore della variabile quantificata.
@@ -97,6 +124,28 @@ per $x=3$ il predicato è vero.
 Un predicato può dipendere da più variabili ed è quindi
 possibile inserire più quantificatori. In tal caso l'ordine
 dei quantificatori può essere rilevante.
+Delle seguenti proposizioni la prima è vera, la seconda
+invece è falsa:
+\begin{gather*}
+\forall x\colon \exists y\colon x+2=y \\
+\exists y\colon \forall x\colon x+2=y.
+\end{gather*}
+
+\begin{table}
+\begin{center}
+\begin{tabular}{lcl}
+$\lnot \forall x \colon P(x)$ & $\iff$ & $\exists x \colon \lnot P(x)$\\
+$\lnot \exists x \colon P(x)$ & $\iff$ & $\forall x \colon \lnot P(x)$\\
+$\forall x \colon P(x)$ & $\Longrightarrow$ & $\exists x \colon P(x)$
+\end{tabular}
+\end{center}
+\caption{Alcune proprietà dei quantificatori logici.}
+\label{tab:proprieta_quantificatori}
+\end{table}
+
+Alcune proprietà dei quantificatori logici sono riportate
+nella tabella~\ref{tab:proprieta_quantificatori}.
+
 
 \section{teoria degli insiemi}
 Nei paragrafi precedenti abbiamo visto che i predicati possono essere
@@ -105,7 +154,8 @@ Ma quali sono i predicati elementari che possiamo considerare?
 La teoria degli insiemi ci fornisce la formalizzazione del concetto
 di \emph{appartenenza}: il predicato di base (l'unico che ci servirà) è
 un predicato della forma $x \in A$ che significa ``l'oggetto $x$ è un elemento
-dell'insieme $A$''. La teoria degli insiemi non spiega (né tantomento definisce)
+dell'insieme $A$''.
+La teoria degli insiemi non spiega (né tantomento definisce)
 cosa siano gli oggetti e cosa siano gli insiemi perché questi sono concetti
 primitivi (come lo sono i \emph{punti} e le \emph{rette} per la geometria euclidea).
 La teoria degli insiemi ci fornisce, semplicemente, le regole formali che
@@ -120,13 +170,14 @@ denotato con il simbolo $\emptyset$.
 Altri opportuni assiomi della teoria degli insiemi garantiscono l'esistenza
 dell'unione $A\cup B$, intersezione $A\cap B$ e differenza $A\setminus B$
 di due insiemi qualunque $A$ e $B$. Tali operazioni
-tra insiemi possono essere ricondotte (e quindi definite) come segue:
+tra insiemi possono essere ricondotte alla relazione di appartenenza
+e possono quindi essere definite come segue:
 \begin{align*}
     x \in A \cup B &\iff (x\in A) \lor (x\in B)\\
     x \in A \cap B &\iff (x\in A) \land (x\in B)\\
     x \in A \setminus B &\iff (x\in A) \land \lnot (x \in B).
 \end{align*}
-La negazione dell'appartenenza $\lnot x \in A$ viene usualmente
+La negazione dell'appartenenza $\lnot (x \in A)$ viene usualmente
 abbreviata con $x \not \in A$.
 
 Sempre utilizzando la semplice relazione di appartenenza possiamo definire
