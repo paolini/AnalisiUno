@@ -1665,6 +1665,389 @@ scambiati non vengono definiti oppure vengono considerati vuoti.
 
 %%%%%%%%%%%%%%%%%%%
 
+\section{funzioni reali}
+
+Lo scopo principale di questo corso è quello di studiare le
+funzioni con dominio e codominio nei numeri reali:
+\[
+  f \colon A \subset \RR \to \RR.
+\]
+Ad esempio per ogni $n\in \ZZ$ abbiamo già definito la funzione
+potenza:
+\[
+  f(x) = x^n.
+\]
+Se $n\ge 0$ si ha $f\colon \RR \to \RR$ (la funzione è definita
+per ogni $x\in \RR$), se invece $n<0$ si ha
+$f\colon \RR\setminus\{0\}\to \RR$ in quanto le potenze
+con esponente negativo non sono definite se la base è $0$.
+
+Se $f\colon A \subset \RR\to \RR$ è una funzione, un modo molto
+utile di rappresentarla graficamente è quello di disegnarne il
+grafico, ovvero la curva del piano cartesiano:
+\[
+   G_f = \{(x,y)\in A\times \RR\colon y = f(x)\}.
+\]
+Molte proprietà della funzione potranno essere riconosciute
+geometricamente guardandone il grafico.
+
+\begin{definition}[simmetrie]
+Sia $f\colon A \subset \RR \to \RR$ una funzione. Diremo che
+\begin{enumerate}
+\item $f$ è \myemph{pari}
+\index{funzione!pari}%
+se $A=-A$ (significa che se $x\in A$ allora anche $-x\in A$) e
+\[
+  f(-x) = f(x);
+\]
+\item $f$ è \myemph{dispari}
+\index{funzione!dispari}%
+se $A=-A$ e
+\[
+  f(-x) = -f(x);
+\]
+\item $f$ è \myemph{periodica}
+\index{funzione!periodica}%
+di periodo $T$ se $A+T=A$
+(significa che $x\in A \iff x+T \in A$)
+se per ogni $x\in A$ si ha
+\[
+  f(x+T)=f(x)
+\]
+\item $f$ è \myemph{periodica}
+\end{enumerate}
+\end{definition}
+
+Ad esempio se $n\in \ZZ$ la funzione $f(x)=x^n$
+è pari se $n$ è pari ed è dispari se $n$ è dispari.
+Il grafico di una funzione dispari ha una simmetria
+centrale, in quanto se $(x,f(x))\in G_f$ allora
+anche $(-x,-f(x)) = (-x,f(-x))\in G_f$.
+Il grafico di una funzione pari ha invece una
+simmetria rispetto all'asse delle ordinate $x=0$
+infatti se $(x,f(x))\in G_f$ allora $(-x,f(x)) = (-x,f(-x)) \in G_f$.
+
+La funzione $f(x) = x - \lfloor x\rfloor$ (la parte frazionaria di $x$)
+è un esempio di funzione periodica di periodo $T=1$. Infatti
+è chiaro che $\lfloor x+1\rfloor = \lfloor x \rfloor +1$ e quindi
+$f(x+1)=f(x)$.
+
+\begin{definition}[funzioni monotòne]
+\label{def:monotonia}%
+\mymark{***}%
+\mynote{funzioni monotòne}%
+\index{funzione!monotòna}%
+\index{monotonia}%
+Una funzione $f\colon A \to \RR$ con $A\subset \RR$, si
+dice essere
+\begin{enumerate}
+\item \myemph{crescente} se $x < y \implies f(x) \le f(y)$;
+\item \myemph{decrescente} se $x < y \implies f(x) \ge f(y)$;
+\item \myemph{monotòna} se crescente o decrescente;
+\item \myemph{costante} se crescente e decrescente;
+\item \myemph{strettamente crescente} se $x<y \implies f(x) < f(y)$;
+\item \myemph{strettamente decrescente} se $x<y \implies f(x) > f(y)$;
+\item \myemph{strettamente monotòna} se strettamente crescente o strettamente decrescente.
+\end{enumerate}
+\end{definition}
+
+Si osservi che se $f\colon A \to \RR$ è costante allora esiste $c$ tale che
+$f(x)=c$ per ogni $x\in A$. Si osservi anche che ogni funzione strettamente monotona è anche iniettiva. Si osservi infine (fare un esempio!) che esistono funzioni che non rientrano in nessuna delle categorie sopra elencate (cioè che non sono né crescenti né decrescenti).
+
+Si faccia attenzione alla terminologia. In alcuni testi (in particolare nei testi anglosassoni) si utilizza il termine \emph{crescente} con il significato di \emph{strettamente crescente} e si usa la dizione \emph{non decrescente} per indicare il concetto che noi abbiamo definito con \emph{crescente}. In
+effetti con le nostre definizioni una funzione crescente può essere costante
+e quindi non crescere affatto!
+E' questo uno dei casi in cui il termine utilizzato nelle definizioni non corrisponde esattamente alla dizione utilizzata
+nel linguaggio comune.
+
+Dal punto di vista grafico una funzione $f$ è crescente
+se preso qualunque punto $(x,f(x))$ sul grafico della funzione
+e tracciati gli assi paralleli agli assi cartesiani, passanti
+per il punto fissato, si osserva che il grafico della funzione
+è tutto contenuto nel primo e terzo quadrante determinati
+dagli assi traslati.
+
+E' facile verificare che la funzione $f\colon [0,+\infty)\to \RR$
+definita da $f(x)=x^n$
+è strettamente crescente se $n$ è un intero positivo.
+Se però consideriamo la funzione definita su tutto
+$\RR$: $f\colon \RR \to \RR$,
+$f(x)=x^n$ allora solo se $n$ è dispari la funzione rimane
+strettamente decrescente
+(le funzioni pari non possono mai essere strettamente crescenti se
+il loro dominio contiene almeno due punti distinti).
+
+\section{continuità}
+
+Il concetto di \emph{continuità} è centrale
+nei corsi di analisi matematica.
+Intuitivamente una funzione continua ha la proprietà
+che se in un punto $x_0$ assume un valore $y_0=f(x_0)$ allora
+in punti abbastanza vicini ad $x_0$ i valori assunti
+non potranno essere molto distanti dal valore $y_0$.
+Nella definizione seguente questo viene formalizzato:
+fissato il punto $x_0$ e scelto un errore $\eps>0$
+che siamo disposti ad avere sui valori della funzione
+esiste un errore $\delta>0$ per cui nei punti
+che differiscono da $x_0$ per meno di $\delta$ il valore
+della funzione differisce da $y_0$ per meno di $\eps$.
+
+\begin{definition}[continuità su $\RR$]
+\label{def:continua}%
+\index{funzione!continua}%
+\index{continuità}%
+Sia $f\colon A \subset \RR \to \RR$ una funzione. Diremo che
+$f$ è \myemph{continua nel punto} $x_0\in A$ se
+\[
+\forall \eps>0 \colon \exists \delta>0 \colon
+\forall x\in A\colon
+\abs{x-x_0} < \delta \implies \abs{f(x)-f(x_0)} < \eps.
+\]
+
+Diremo che $f\colon A \to \RR$ è \myemph{continua} se è continua
+in ogni punto $x_0 \in A$.
+\end{definition}
+
+Attenzione: la funzione $f(x)=\frac{1}{x}$
+assume vicino a $x=0$ valori molto diversi tra loro (ad esempio $f(0.01)-f(-0.01)=200$)
+ma nonostante questo è una funzione continua in quanto il punto
+$x=0$ non appartiene al dominio e quindi,
+in base alla definizione precedente, non ha senso e non ha importanza
+verificare se la funzione è continua in tale punto.
+
+\begin{theorem}[continuità del reciproco]
+La funzione $f(x)\colon \RR\setminus\{0\}\to \RR$ definita
+da $f(x)=\frac 1 x$ è una funzione continua.
+\end{theorem}
+%
+\begin{proof}
+Siano $x,x_0\neq 0$.
+Se prendiamo $\delta < \frac{\abs{x_0}}2$
+e se $\abs{x-x_0} < \delta$ si avrà,
+per disuguaglianza triangolare,
+$\abs{x} > \frac{\abs{x_0}}2$. Dunque
+\[
+\abs{\frac 1 x - \frac 1 {x_0}}
+= \frac{\abs{x-x_0}}{\abs{x\cdot x_0}}
+\le \frac{2\delta}{\abs{x_0}^2}.
+\]
+Si ottiene quindi la condizione $\abs{f(x)-f(x_0)}<\eps$
+se si sceglie $\delta$ in modo che
+risulti anche $\delta < \frac{\abs{x_0}^2\cdot \eps}{2}$.
+\end{proof}
+
+\begin{example}
+La \myemph{funzione segno} $\sgn\colon \RR \to \RR$ definita da
+\[
+  \sgn(x) = \begin{cases}
+  1 & \text{se $x> 0$}\\
+  0 & \text{se $x=0$}\\
+  -1 & \text{se $x<0$}
+  \end{cases}
+\]
+è un esempio di funzione non continua.
+\end{example}
+%
+\begin{proof}
+Mostriamo che la funzione non è continua
+nel punto $x_0=0$.
+Infatti se $x\neq 0$ si ha
+\[
+\abs{\sgn(x)-\sgn(x-0)} = \abs{\sgn(x)} = 1
+\]
+e quindi se scegliamo $\eps<1$ non è possibile
+trovare $\delta>0$ per cui valga la condizione di discontinuità
+nel punto $x_0=0$.
+\end{proof}
+
+\begin{exercise}
+Dimostrare che le funzioni $f(x) = x$ e $g(x)=\abs{x}$ sono continue.
+Dimostrare che le funzioni $h(x) = \lfloor x\rfloor$ e $k(x)=\lceil x \rceil$
+non sono continue (ma sono continue in ogni punto
+$x_0\in \RR \setminus \ZZ$).
+\end{exercise}
+
+Nella dimostrazione del teorema~\ref{th:radice_quadrata}
+abbiamo sostanzialmente dimostrato che la funzione $f(x)=x\cdot x$
+è continua. Più in generale possiamo dimostrare che
+sostanzialmente tutte le operazioni elementari mantengono la
+continuità delle funzioni.
+
+\begin{definition}[operazioni sulle funzioni]
+Sia $A \subset \RR$ e siano $f,g$ funzioni $A \to \RR$.
+Possiamo allora definire
+$f+g$, $-f$, $f-g$, $f\cdot g$, $\abs f$, $f^n$ (con $n\in \NN$)
+e (se $g(x)\neq 0$ per ogni $x\in A$) anche $f/g$
+come funzioni $A \to \RR$ mediante le seguenti ovvie
+definizioni
+\begin{gather*}
+(f+g)(x) = f(x) + g(x), \qquad
+(f-g)(x) = f(x) - g(x), \\
+(f\cdot g)(x) = f(x) \cdot g(x), \qquad
+(f/g)(x) = f(x) / g(x), \\
+(-f)(x) = -(f(x)), \qquad
+\abs f(x) = \abs{f(x)}, \qquad
+f^n(x) = (f(x))^n.
+\end{gather*}
+
+Se $f\colon A \to B$ e $g\colon B\to C$ definiamo
+la \myemph{funzione composta}
+$f\circ g\colon A \to C$:
+\[
+  (f\circ g)(x) = g(f(x)).
+\]
+
+Se $c\in \RR$ è un numero considereremo a volte $c\colon A \to \RR$
+come una funzione $A\to \RR$ \emph{costante}, intendendo che
+\[
+ c(x) = c\qquad \forall x \in A.
+\]
+Risulta quindi inteso che se $c\in \RR$ e $f\colon A \to \RR$
+allora $c\cdot f$ è la funzione definita da
+$(c\cdot f)(x) = c\cdot (f(x))$.
+La somma e il prodotto per costante rendono l'insieme $\RR^A$
+delle funzioni $A \to \RR$ uno spazio vettoriale sul campo $\RR$.
+\end{definition}
+
+\begin{theorem}[composizione di funzioni continue]
+\label{th:continuita_composizione}
+Se $f$ e $g$ sono funzioni definite e continue
+in uno stesso punto $x_0$
+allora anche
+\[
+  f+g \qquad
+  f\cdot g \qquad
+  f-g \qquad
+  \abs{f} \qquad
+  f^n
+\]
+(con $n\in \NN$)
+sono funzioni definite e continue nel punto $x_0$.
+Se inoltre $g(x_0)\neq 0$ anche la funzione
+\[
+  \frac{f}{g}
+\]
+è definita e continua nel punto $x_0$.
+
+Se $f\colon A\subset \RR \to \RR$ è una funzione continua
+nel punto $x_0\in A$ e
+$g\colon B\subset \RR \to \RR$ è una funzione
+continua nel punto $y_0=f(x_0)\in B$ allora la funzione $f\circ g$
+definita in $f^{(-1)}(B)$ da
+\[
+  (f\circ g)(x) = g(f(x))
+\]
+è continua nel punto $x_0$.
+\end{theorem}
+%
+\begin{proof}
+Mostriamo prima di tutto la continuità della composizione.
+Per la continuità di $f$ in $x_0$ e di $g$ in $y_0=f(x_0)$
+si ha che per ogni $\eps>0$ esiste un $\gamma>0$
+e per ogni $\gamma>0$ esiste un $\delta>0$ per cui
+\begin{align*}
+ \abs{x-x_0}< \delta &\implies \abs{f(x)-f(x_0)}<\gamma,\\
+ \abs{y-y_0}< \gamma & \implies \abs{g(y)-g(y_0)<\eps}
+\end{align*}
+da cui
+\[
+\abs{x-x_0}< \delta
+\implies \abs{f(x)-f(x_0)}< \gamma
+\implies \abs{g(f(x))-g(f(x_0))} < \eps
+\]
+che non è altro che la condizione di continuità
+per $f\circ g$.
+
+Se $f$ e $g$ sono continue nel punto $x_0$
+allora per ogni $\eps'>0$ esistono $\delta_1$
+e $\delta_2$ tali che
+\[
+ \abs{x-x_0} < \delta_1 \implies \abs{f(x)-f(x_0)} < \eps',
+ \qquad
+ \abs{x-x_0} < \delta_2 \implies \abs{g(x)-g(x_0)} < \eps'.
+\]
+In particolare scegliendo $\delta = \min\{\delta_1,\delta_2\}$
+se $\abs{x-x_0} < \delta$ valgono contemporaneamente
+entrambe le stime:
+\[
+ \abs{f(x)-f(x_0)}< \eps', \qquad
+ \abs{g(x)-g(x_0)}< \eps'.
+\]
+
+Dunque per la somma osserviamo che se $\abs{x-x_0}<\delta$
+si ha
+\[
+ \abs{(f+g)(x) - (f+g)(x_0)}
+  = \abs{f(x)+g(x)-f(x_0)-g(x_0)}
+  \le \abs{f(x)-f(x_0)} + \abs{g(x)-g(x_0)}
+  \le 2 \eps'.
+\]
+Dato $\eps>0$ basterà quindi scegliere $\eps' = \eps / 2$
+e $\delta$ come sopra per ottenere la condizione di continuità.
+
+Per il prodotto si ha
+\begin{align*}
+  \abs{f(x)g(x)-f(x_0)g(x_0)}
+  &= \abs{f(x)g(x) - f(x_0)g(x) + f(x_0)g(x) - f(x_0)g(x_0)}\\
+  &\le \abs{f(x)-f(x_0)}\cdot\abs{g(x)} + \abs{f(x_0)}\cdot \abs{g(x)-g(x_0)} \\
+  &\le \eps' \abs{g(x)} + \abs{f(x_0)} \eps'.
+\end{align*}
+Osserviamo ora che $\abs{g(x)}\le \abs{g(x)-g(x_0)} + \abs{g(x_0)}$
+e quindi $\abs{g(x)}\le \abs{g(x_0)+\eps'}$ da cui:
+\begin{align*}
+  \abs{f(x)g(x)-f(x_0)g(x_0)}
+  &\le \eps' \abs{g(x_0)+\eps'} + \abs{f(x_0)} \eps' \\
+  = \eps' \cdot(\abs{f(x_0)} + \abs{g(x_0)} + \eps').
+\end{align*}
+Possiamo facilmente rendere questa quantità inferiore a
+qualunque $\eps>0$: basterà prendere $\eps'<1$ e
+\[
+  \eps' < \frac{\eps}{\abs{f(x_0)} + \abs{g(x_0)} + 1}.
+\]
+
+La funzione $f^n$ è continua per induzione su $n$
+in quanto prodotto di funzioni
+continue: $f^{n+1} = f^{n} \cdot f$.
+
+Abbiamo già visto che la funzione $h(x) = \frac{1}{x}$ è continua,
+dunque se $g$ è continua anche la funzione $\frac{1}{g(x)} = g\circ h$
+è continua essendo composizione di funzioni continue. Di conseguenza anche la funzione $\frac{f}{g} = f \cdot \frac{1}{g}$
+è continua, essendo il prodotto di funzioni continue.
+
+Analogamente la funzione $f-g$ è la somma di $f$ con $-g$ e
+la funzione $-g$ è la composizione di $g$ con $h(x)=-x$.
+E' immediato verificare che la funzione $h(x)=-x$ è continua
+e dunque anche la differenza $f-g$ è continua.
+Lo stesso vale per la funzione $\abs f$ che è la composizione
+di $f$ con la funzione $h(x) = \abs{x}$.
+\end{proof}
+
+\begin{example}
+La funzione
+\[
+f(x) = \frac{(x-3)\cdot x -\frac{1}{x+x^2}}{\abs{x-\frac{1-x^3}{x}}}
+\]
+è continua.
+
+Si intende che tale funzione è definita sull'insieme degli $x\in \RR$
+per cui tutte le operazioni coinvolte sono definite ovvero
+$f\colon D \subset \RR \to \RR$
+con
+\[
+  D = \left\{x\in \RR \colon x+x^2 \neq 0,\ x\neq 0,\ \abs{x-\frac{1-x^3}{x}}\neq 0\right\}.
+\]
+
+Infatti le funzioni $x$ e le costanti $3$ e $1$ sono funzioni continue
+per il teorema~\ref{th:continuita_composizione}.
+Ma allora per lo stesso teorema le funzioni $x-3$ e $x^2=x\cdot x$ sono continue.
+Dunque anche $(x-3)\cdot x$, $x+x^2$ e $x^3$ e $1-x^3$ sono continue.
+Di conseguenza sono continue pure $\frac 1{1+x^2}$ e $\frac{1-x^3}{x}$.
+E poi saranno continue anche $(x-3)\cdot x - \frac 1{1+x^2}$ e $x-\frac{1-x^3}{x}$
+e quindi $x-\frac{1-x^3}{x}$ e pure $\abs{x-\frac{1-x^3}{x}}$. Infine sarà
+dunque continua $f(x)$.
+\end{example}
+%%%%%%%%%%%%%%%%%%%
+
 \section{i numeri complessi}
 
 Dal punto di vista geometrico l'insieme $\CC$ dei \myemph{numeri!complessi}
@@ -1742,7 +2125,8 @@ Si osservi che se $z=x+iy$ non è nullo, allora
 \[
   (x+iy) \cdot \frac{x-iy}{x^2+y^2} = 1.
 \]
-Significa che ogni $z\neq 0$ ammette inverso moltiplicativo e quindi $\CC$ risulta essere un campo.
+Significa che ogni $z\neq 0$ ammette inverso moltiplicativo e quindi $\CC$
+risulta essere un campo.
 
 Osserviamo che su $\CC$ non si definisce una relazione d'ordine perché
 in effetti non è possibile definire un ordine "compatibile" con le operazioni
@@ -1887,7 +2271,29 @@ rimane confermato che la divisione per zero non è una operazione valida
 se vogliamo un risultato finito.
 Una quantità $z\in \bar \CC$ sarà detta \emph{finita} se $z\in \CC$.
 
+La definizione di continuità per le funzioni complesse di variabile complessa
+è formalmente identica a quella già data per le funzioni reali.
+Si tratta semplicemente di sostituire il valore assoluto con il modulo complesso.
+%
+\begin{definition}[continuità in $\CC$]
+Una funzione $f\colon A \subset \CC \to \CC$ è
+continua nel punto $z_0\in A$ se
+\[
+\forall \eps>0\colon \exist \delta>0 \colon \forall z\in A\colon
+\abs{z-z_0}<\delta \implies \abs{f(z)-f(z_0)} < \eps.
+\]
 
+La funzione $f$ si dice essere \emph{continua} se
+è continua in ogni punto $z_0\in A$.
+\end{definition}
+
+Anche i teoremi sulla continuità della composizione di funzioni
+continue valgono identici e con la stessa dimostrazione
+se le funzioni hanno variabile e valori complessi.
+Osserviamo che questo vale
+in particolare anche per funzioni complesse di variabile reale
+$f\colon \RR\to CC$ e per funzioni reali di variabile complessa
+$f\colon \CC \to \RR$.
 
 %%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%
