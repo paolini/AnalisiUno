@@ -6,7 +6,7 @@ Utilizziamo il grassetto per evidenziare il fatto
 che $\vec a$ è una \emph{lista} (o vettore) di numeri.
 Nella scrittura a mano non è possibile usare il grassetto, ma potremmo
 sottolineare il nome della variabile scrivendo $\underline a$ invece che $\vec a$.
-In alternativa si potrebbe scrivere $\oldvec a$ oppure evitare
+In alternativa si potrebbe scrivere $\stackrel{\rightarrow}a$ oppure evitare
 qualunque distinzione e scrivere più semplicemente $a$.}
 $\vec a\colon \NN \to X$.
 L'insieme delle funzioni $\NN \to X$ viene usualmente indicato
@@ -361,8 +361,8 @@ Abbiamo dunque le seguenti alternative
  \item la successione è indeterminata (non ha limite).
 \end{enumerate}
 Determinare il \emph{carattere}
-\mynote{carattere di una successione}
-\index{carattere!di una successione}
+\mynote{carattere di una successione}%
+\index{carattere!di una successione}%
 di una successione
 significa specificare a quale delle tre categorie appartiene.
 \end{definition}
@@ -611,34 +611,33 @@ all'estremo inferiore cioè dovrebbe essere $0$. Ma questo è impossibile
 perché per ogni $n\in \NN$ si ha $a_n = 1/(n+1)\neq 0$.
 \end{proof}
 
-Diremo che una successione di numeri reali
-è limitata (superiormente o inferiormente) se
-\mynote{successioni limitate}
-\index{successioni limitate}
- l'insieme dei suoi valori
-è un insieme limitato (superiormente o inferiormente).
-Una successione $a_n$ è superiormente limitata se ammette un maggiorante:
+Per le successioni, come per tutte le funzioni,
+le operazioni $\sup$, $\inf$,
+$\max$, $\min$ si intendono eseguite sull'insieme
+dei valori della successione. In particolare
+una successione $a_n$ si dice essere
+\emph{superiormente limitata}
+\mymargin{successione limitata}%
+\index{successione!superiormente limitata}%
+se $\sup a_n < +\infty$
+ovvero:
 \[
-  \exists M\in \RR\colon \forall n \in \NN\colon a_n \le M
+  \exists M\in \RR\colon \forall n \in \NN\colon a_n \le M.
 \]
-ovvero il minimo dei maggioranti è finito:
-\[
-  \sup a_n < +\infty.
-\]
-Caratterizzazioni analoghe valgono per la limitatezza inferiore.
+In maniera analoga si dice che la successione $a_n$ è
+\emph{inferiormente limitata}
+\index{successione!inferiormente limitata}%
+quando $\inf a_n > +\infty$
+ed è \emph{limitata}
+\index{successione!limitata}%
+\index{limitato!successione}%
+quando $\sup \abs{a_n}< +\infty$.
 
-Una successione $a_n$
-è limitata se la successione dei suoi valori assoluti $\abs{a_n}$ è superioremente limitata, ovvero:
-\begin{equation}\label{eq:successione_limitata}
-  \sup \abs{a_n} < +\infty.
-\end{equation}
-Questo discende dalla proprietà $-\abs{x} \le x \le \abs{x}$ valida
-per ogni $x\in \RR$.
-
-Per le successioni di numeri complessi non potremo parlare di limitatezza superiore
-e inferiore in quanto sui complessi non c'è un ordinamento. Diremo però comunque
-che la successione $a_n\in \CC$ è limitata se vale~\eqref{eq:successione_limitata}
-(con il modulo al posto del valore assoluto).
+Per le successioni di numeri complessi non potremo parlare di
+limitatezza superiore e inferiore in quanto sui complessi non c'è
+un ordinamento.
+Diremo però comunque che la successione
+$a_n\in \CC$ è limitata se vale $\sup \abs{a_n} < \infty$.
 
 \begin{theorem}[limitatezza delle successioni convergenti]
 \mymark{**}
@@ -681,6 +680,55 @@ che la successione complessa $a_n$ è limitata.
 
 \section{operazioni con i limiti}
 
+\begin{theorem}[continuità sequenziale]%
+\label{th:cont_sequenziale}%
+\index{continuità!sequenziale}%
+\index{funzione!sequenzialmente continua}%
+Sia $f\colon A \subset \RR \to \RR$ una funzione e $a\in A$.
+Allora $f$ è continua nel punto $a$ se e solo se per ogni successione
+$a_n\in A$, $a_n\to a$ risulta
+\[
+   f(a_n) \to f(a).
+\]
+\end{theorem}
+%
+\begin{proof}
+Supponiamo che $f$ sia continua nel punto $a$ e sia $a_n\in A$
+una successione tale che
+$a_n \to a$. Scriviamo di seguito la definizione di continuità nel punto $a$
+e la definizione di convergenza $a_n \to a$:
+\begin{align*}
+  \forall \eps>0 \colon \exists \delta>0\colon
+  \abs{x-a}< \delta \implies \abs{f(x)-f(a)}< \eps \\
+  \forall \delta>0 \colon \exists N\in \NN \colon
+  n>N \implies \abs{a_n-a} < \delta.
+\end{align*}
+Scegliendo nella seconda condizione lo stesso $\delta$ dato dalla prima
+condizione si ottiene $n>N \implies \abs{a_n-a}< \delta \implies \abs{f(a_n)-f(a)}
+<\eps$ da cui si ottiene esattamente la definizione di limite $f(a_n)\to f(a)$:
+\[
+  \forall \eps>0\colon \exists N\in \NN\colon
+  n>N\implies \abs{f(a_n)-f(a)} < \eps.
+\]
+
+Viceversa supponiamo che per ogni $a_n\to a$, $a_n\in A$
+si abbia $f(a_n)\to f(a)$ e supponiamo,
+per assurdo, che $f$ non sia continua in $a$. Allora negando la
+condizione di continuità in $a$ si ottiene:
+\[
+  \exists \eps>0 \colon \forall \delta>0 \colon \exists x\in A\colon
+  \abs{x-a}<\delta \land \abs{f(x)-f(a)}\ge \eps.
+\]
+Fissato $\eps$ possiamo dunque porre $\delta = 1/n$ per ogni $n\in \NN$.
+Si ottiene allora che esiste $x_n$ che soddisfa le due condizioni:
+\[
+  \abs{x_n-a}<\frac 1 n, \qquad \abs{f(x_n)-f(a)}\ge \eps.
+\]
+La prima condizione garantisce che si abbia $a_n \to a$.
+Ma la seconda condizione impedisce che si abbia $f(x_n)\to a$.
+Abbiamo quindi trovato un assurdo.
+\end{proof}
+
 \begin{theorem}[limite del valore assoluto]
 \mymark{**}
 \mymargin{limite!del valore assoluto}
@@ -690,24 +738,23 @@ allora
 \[
   \abs{a_n} \to \abs{a}.
 \]
-Se $\abs{a_n} \to 0$ allora $a_n \to 0$.
+Viceversa se $\abs{a_n} \to 0$ allora $a_n \to 0$.
 
-Lo stesso vale per le successioni $a_n\in \CC$ che hanno limite $a_n\to a\in \bar \CC$
-(rimpiazzando il valore assoluto
+Lo stesso vale per le successioni $a_n\in \CC$ che hanno limite
+$a_n\to a\in \bar \CC$ (rimpiazzando il valore assoluto
 con il modulo).
 \end{theorem}
 %
 \begin{proof}
-Per la prima parte, se $a\in \RR$ è sufficiente osservare che
-(disuguaglianza triangolare inversa)
-\[
-  \big\lvert\abs{a_n} - \abs{a}\big\rvert \le \abs{a_n -a}.
-\]
+Se $a\in \RR$ è sufficiente applicare il teorema~\ref{th:cont_sequenziale}
+alla funzione $f(x)=\abs{x}$ che sappiamo essere una funzione continua.
 Quando $a$ è infinito la condizione $a_n\to a$ implica chiaramente
-$\abs{a_n}\to +\infty$ in quanto sia la condizione $a_n>M$ che la condizione
-$a_n < -M$ implicando $\abs{a_n}>M$ quando $M>0$.
+$\abs{a_n}\to +\infty$ in quanto sia la condizione $a_n>M$
+che la condizione
+$a_n < -M$ implicano $\abs{a_n}>M$ quando $M>0$.
 
-Per la seconda parte è sufficiente osservare che essendo $\big\lvert\abs{x}\big\rvert
+Per la seconda parte è sufficiente osservare che essendo
+$\big\lvert\abs{x}\big\rvert
  = \abs{x}$ la definizione di limite $a_n\to 0$ è equivalente a
  $\abs{a_n-0}=\abs{a_n}\to 0$.
 
@@ -916,58 +963,6 @@ Possiamo ricondurci ai teoremi precedenti osservando che
 \[
    \frac{a_n}{b_n} = a_n \cdot \frac{1}{b_n}.
 \]
-\end{proof}
-
-\section{funzioni continue}
-\label{sec:continuita}
-
-\begin{theorem}[continuità sequenziale]%
-\label{th:cont_sequenziale}%
-\index{continuità!sequenziale}
-\index{funzione!sequenzialmente continua}%
-Sia $f\colon A \subset \RR \to \RR$ una funzione e $a\in A$.
-Allora $f$ è continua in $a$ se e solo se per ogni successione
-$a_n\in A$, $a_n\to a$ risulta
-\[
-   f(a_n) \to f(a).
-\]
-\end{theorem}
-%
-\begin{proof}
-Supponiamo che $f$ sia continua nel punto $a$ e sia $a_n\in A$
-una successione tale che
-$a_n \to a$. Scriviamo di seguito la definizione di continuità nel punto $a$
-e la definizione di convergenza $a_n \to a$:
-\begin{align*}
-  \forall \eps>0 \colon \exists \delta>0\colon
-  \abs{x-a}< \delta \implies \abs{f(x)-f(a)}< \eps \\
-  \forall \delta>0 \colon \exists N\in \NN \colon
-  n>N \implies \abs{a_n-a} < \delta.
-\end{align*}
-Scegliendo nella seconda condizione lo stesso $\delta$ dato dalla prima
-condizione si ottiene $n>N \implies \abs{a_n-a}< \delta \implies \abs{f(a_n)-f(a)}
-<\eps$ da cui si ottiene esattamente la definizione di limite $f(a_n)\to f(a)$:
-\[
-  \forall \eps>0\colon \exists N\in \NN\colon
-  n>N\implies \abs{f(a_n)-f(a)} < \eps.
-\]
-
-Viceversa supponiamo che per ogni $a_n\to a$, $a_n\in A$
-si abbia $f(a_n)\to f(a)$ e supponiamo,
-per assurdo, che $f$ non sia continua in $a$. Allora negando la
-condizione di continuità in $a$ si ottiene:
-\[
-  \exists \eps>0 \colon \forall \delta>0 \colon \exists x\in A\colon
-  \abs{x-a}<\delta \land \abs{f(x)-f(a)}\ge \eps.
-\]
-Fissato $\eps$ possiamo dunque porre $\delta = 1/n$ per ogni $n\in \NN$.
-Si ottiene allora che esiste $x_n$ che soddisfa le due condizioni:
-\[
-  \abs{x_n-a}<\frac 1 n, \qquad \abs{f(x_n)-f(a)}\ge \eps.
-\]
-La prima condizione garantisce che si abbia $a_n \to a$.
-Ma la seconda condizione impedisce che si abbia $f(x_n)\to a$.
-Abbiamo quindi trovato un assurdo.
 \end{proof}
 
 \section{successioni estratte}
