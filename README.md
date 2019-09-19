@@ -5,6 +5,18 @@ Queste note sono nate come appunti per il corso di Analisi Matematica
 del corso di studi in Fisica dell'Università 
 di Pisa negli anni accademici 2017/18 e 2018/19. 
  
+Le note (come il corso a cui fanno riferimento) 
+riguardano l'analisi delle funzioni di una variabile 
+reale. 
+Gli argomenti trattati sono serie e successioni numeriche, 
+il calcolo differenziale e il calcolo integrale. 
+Viene anche introdotta la convergenza uniforme allo scopo di considerare, 
+come ultimo argomento, lo studio delle equazioni differenziali ordinarie. 
+Da subito vengono introdotti i numeri complessi che vengono utilizzati 
+laddove possono aiutare a dare una visione più unitaria e concettualmente 
+più semplice degli argomenti trattati (in particolare nello studio delle serie 
+di potenze e nella definizione delle funzioni trigonometriche). 
+
 Le note sono estensive, non c'è alcun tentativo di concisione. 
 L'obiettivo è quello di raccogliere tutti quei risultati che non sempre è 
 possibile esporre in maniera dettagliata e rigorosa a lezione. 
@@ -22,18 +34,6 @@ Vengono trattati quei risultati algebrici che permettono di
 giustificare gli algoritmi per il calcolo delle primitive 
 delle funzioni razionali e per risolvere le equazioni differenziali 
 lineari con il metodo di similarità. 
- 
-Le note (come il corso a cui fanno riferimento) 
-riguardano l'analisi delle funzioni di una variabile 
-reale. 
-Gli argomenti trattati sono serie e successioni numeriche, 
-il calcolo differenziale e il calcolo integrale. 
-Viene anche introdotta la convergenza uniforme allo scopo di considerare, 
-come ultimo argomento, lo studio delle equazioni differenziali ordinarie. 
-Da subito vengono introdotti i numeri complessi che vengono utilizzati 
-laddove possono aiutare a dare una visione più unitaria e concettualmente 
-più semplice degli argomenti trattati (in particolare nello studio delle serie 
-di potenze e nella definizione delle funzioni trigonometriche). 
  
 I risultati più importanti sono marcati con degli asterischi sul margine 
 della pagina: *** molto importante, ** importante, * rilevante. 
