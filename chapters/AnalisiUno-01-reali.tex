@@ -267,7 +267,8 @@ e si ottiene quindi una teoria incoerente
 l'incoerenza è necessario limitare l'assioma (chiamato \emph{assioma di specificazione})
 alla costruzione di sottoinsiemi di insiemi già costruiti.
 Se $B$ è un insieme e $P(x)$ è un predicato possiamo considerare
-il sottoinsieme di $B$ formato da tutti gli elementi di $B$
+l'insieme $\{x\in B\colon P(x)\}$ che è il sottoinsieme di
+$B$ formato da tutti gli elementi di $B$
 che soddisfano il predicato:
 \[
   a \in \{x\in B\colon P(x)\} \iff (a \in B \land P(a)).
@@ -330,6 +331,7 @@ il secondo elemento sta in $B$:
 Coppia e prodotto cartesiano possono essere definiti tramite gli
 assiomi precedenti (si veda, al solito, \cite{appunti_logica})
 ma non è veramente rilevante il modo in cui questo può essere fatto.
+
 Se rappresentiamo gli elementi di $A$ come dei punti su una retta
 orizzontale (asse delle $x$) e gli elementi di $B$ come dei punti
 su una retta verticale (asse delle $y$) gli elementi di $A\times B$
@@ -398,14 +400,14 @@ delle $x$ vanno in $A$ e proiettati sull'asse delle $y$ vanno in $B$.
 
 Una \myemph{relazione} $R$ tra gli elementi di un insieme $A$ e gli elementi
 di un insieme $B$ non è altro che un sottoinsieme di $A\times B$.
-Per una relazione $R\subset A\times B$ si userà la notazione $aRb$
-per indicare $(a,b)\in R$.
+Per una relazione $R\subset A\times B$ si userà la notazione infissa
+$aRb$ per indicare $(a,b)\in R$.
 Ad esempio se prendo $A=B=\{1,2,3\}$ e considero la relazione $R=\{(1,2),(1,3),(2,3)\}$
 il predicato $aRb$ rappresenta l'usuale relazione d'ordine $a<b$ sui
 tre numeri considerati.
 
 Per introdurre il concetto di \emph{funzione} è utile
-introdurre una notazione alternativa per la coppia: invece di denotarla
+utilizzare una notazione alternativa per la coppia: invece di denotarla
 con $(a,b)$ useremo la notazione $a \mapsto b$ e penseremo intuitivamente
 alla coppia come ad una \emph{freccia} che collega l'oggetto $a$
 all'oggetto $b$. Dunque il prodotto cartesiano
@@ -414,10 +416,11 @@ elementi di $A$ e arrivano agli elementi di $B$.
 
 Una funzione $f\colon A \to B$ è un insieme di frecce che mandano
 ogni punto di $A$ in modo univoco in un punto di $B$. Formalmente
-$f$ è quindi un sottoinsieme di $A\times B$ con la proprietà che
+$f$ è quindi un sottoinsieme di $A\times B$
+(ed è quindi una relazione) con la proprietà che
 per ogni $a\in A$ c'è una ed una sola freccia uscente da $a$:
-esiste cioè un unico $b\in B$ tale che $(a\mapsto b)\in f$.
-Invece di scrivere $(a\mapsto b)\in f$ potremo scrivere in modo più espressivo
+esiste cioè un unico $b\in B$ tale che $(a,b)\in f$.
+Invece di scrivere $(a,b)\in f$ potremo scrivere in modo più espressivo
 $a\stackrel f \mapsto b$.
 Dato $a\in A$ esiste dunque un unico $b\in B$ tale che
 $a\stackrel f \mapsto b$: chiameremo $f(a)$ tale oggetto $b$.
@@ -446,9 +449,7 @@ considerare l'insieme che rappresenta $f$ ma questo verrà chiamato
 \[
   G_f = \{(x,y)\in A \times B\colon f(x)=y\}.
 \]
-Nella nostra costruzione risulta effettivamente $G_f = f$ ma non
-useremo mai questa proprietà e tenderemo a distinguere il concetto di funzione
-dal suo grafico.
+Nella nostra costruzione risulta effettivamente $G_f = f$.
 Anticipiamo fin da subito che lo studio dei grafici delle funzioni reali è
 uno degli argomenti principali di questo corso.
 
@@ -516,11 +517,11 @@ L'insieme $f(C)\subset B$ si chiama \myemph[insieme!immagine]{immagine}
 \index{immagine!insieme}%
 di $C$ (tramite $f$) ed è formato
 da tutti i punti che si ottengono applicando $f$ agli elementi di $C$.
-L'immagine dell'intero dominio $f(A)$ si chiama immagine di $f$.
+L'immagine $f(A)$ dell'intero dominio $A$ si chiama immagine di $f$.
 Si noti che $f$ è surgettiva se e solo se $f(A)=B$ (cioè se l'immagine coincide
 col codominio).
-Anche se $f\colon A \to B$ non fosse iniettiva, per ogni $C\subset B$
-definiamo
+Anche se $f\colon A \to B$ non fosse iniettiva,
+per ogni $C\subset B$ possiamo definire
 \[
   f^{-1}(C) = \{a\in A\colon f(a) \in C\}.
 \]
@@ -604,9 +605,9 @@ esiste un insieme con cardinalità strettamente maggiore.
 \end{theorem}
 Per le dimostrazioni si veda~\cite{appunti_logica}.
 %
-Inoltre un esempio di insieme non numerabile è
-proprio $\RR$, l'insieme a cui dedicheremo il nostro studio
-come vedremo, nel teorema~\ref{th:cantor_secondo}.
+Vedremo inoltre, nel teorema~\ref{th:cantor_secondo}
+che l'insieme $\RR$, a cui dedicheremo il nostro studio,
+è un insieme non numerabile: $\#\RR > \#\NN$.
 
 \section{la retta dei numeri reali}
 \label{sec:reali}
@@ -1004,6 +1005,15 @@ Allora esiste una unica funzione $f\colon \NN \to X$ tale che
     f(n+1) = g(f(n)).
   \end{cases}
 \end{equation}
+Si avrà dunque
+\[
+  f(0) = \alpha,\quad
+  f(1) = g(\alpha),\quad
+  f(2) = g(g(\alpha)),\quad
+  f(3) = g(g(g(\alpha)))\dots
+\]
+La funzione $f(n)$ rappresenta l'$n$-esima iterazione di $g$
+calcolata nel punto $\alpha$ e si denota a volte con $g^n(\alpha)$.
 
 Più in generale se abbiamo $\alpha\in X$ e una funzione $g\colon X\times \NN \to X$
 esisterà una unica funzione $f\colon \NN \to X$ tale che
@@ -1048,7 +1058,8 @@ Si avrà dunque $\NN \subset \ZZ \subset \QQ \subset \RR$.
 \begin{definition}[potenza intera]
 \mymargin{potenza intera}
 Dato $x \in \RR$ possiamo definire la potenza $x^n$ per ogni
-$n\in \NN$ come l'unica funzione che soddisfa
+$n\in \NN$ come l'iterazione della moltiplicazione
+ovvero utilizzando
 \mymargin{$x^n$}
 la seguente definizione per induzione
 \[
@@ -1154,7 +1165,7 @@ e si dimostrino, per induzione, le formule nell'osservazione precedente.
 \end{exercise}
 
 In generale è possibile introdurre una notazione per ripetere le operazioni
-di somma e prodotto un numero arbitrario di volte:
+di somma e prodotto un numero arbitrario (ma finito) di volte:
 \begin{align*}
   \sum_{k=1}^n f(k) &= f(1) + f(2) + \dots + f(n) \\
   \prod_{k=1}^n f(k) &= f(1) \cdot f(2) \cdots f(n).
@@ -1320,7 +1331,7 @@ Osserviamo che $\QQ$ è un campo ordinato che però non soddisfa l'assioma
 di continuità.
 Infatti se consideriamo i due insiemi:
 \[
- A = \{x\in \QQ \colon x\ge 0, x^2 \le 2\},
+ A = \{x\in \QQ \colon x\ge 0, x^2 \le 2\},\qquad
  B = \{x\in \QQ \colon x\ge 0, x^2 \ge 2\}
 \]
 si può verificare che $A$ e $B$ sono non vuoti, $A \le B$, ma l'elemento
@@ -1354,7 +1365,7 @@ Abbiamo quindi dimostrato che $\sqrt{2} \in \RR \setminus \QQ$
 \begin{definition}
 \mymark{***}
 Siano $x \in \RR$ e $A \subset \RR$.
-Se $A\le x$ (ovvero $a\le x$ per ogni $a\in A$)
+Se $x \ge A$ (ovvero $x \ge a$ per ogni $a\in A$)
 diremo che $x$ è un \myemph{maggiorante} di $A$.
 Se $x \le A$ diremo invece che $x$ è un \myemph{minorante} di $A$.
 Se $A$ ammette un maggiorante diremo che $A$ è \emph{superiormente limitato},
@@ -1365,7 +1376,7 @@ se $A$ ammette un minorante diremo che $A$ è \emph{inferiormente limitato},
 \index{limitato!inferiormente}
 se $A$ ammette sia maggiorante che minorante diremo che $A$ è \myemph{limitato}.
 
-Se $A \le x$ e $x\in A$ diremo che $x$ è il massimo di $A$,
+Se $x\ge A$ e $x\in A$ diremo che $x$ è il massimo di $A$,
 se $x\le A$ e $x\in A$ diremo che $x$ è il minimo di $A$
 
 Se $x$ è minimo dei maggioranti di $A$ diremo che $x$ è
@@ -1396,7 +1407,7 @@ l'estremo superiore e l'estremo inferiore di un insieme $A$.
 Osserviamo che se l'insieme $A$ è finito e non vuoto,
 il massimo e il minimo esistono
 sempre.
-Se, ad esempio, non esistese il massimo di $A$ significa che scelto
+Se, ad esempio, non esistesse il massimo di $A$ significa che scelto
 $x_k\in A$ esisterebbe sempre $x_{k+1}\in A$ con $x_{k+1} > x$ e quindi l'insieme
 $A$ dovrebbe contenere infiniti punti $x_0,x_1, \dots, x_k,\dots $
 Insiemi infiniti, invece, potrebbero non avere massimo/minimo.
