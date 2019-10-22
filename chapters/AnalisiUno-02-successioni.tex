@@ -2557,28 +2557,39 @@ Rimangono esclusi i seguenti casi (forme indeterminate):
 La funzione esponenziale è legata ad un modello di crescita che si trova spesso
 in natura: la \myemph{crescita esponenziale}.
 Prendiamo come esempio una popolazione di batteri che cresce senza
-limitazioni di spazio e di nutrimento (oppure
-la crescita di un capitale dovuto ad una rendita finanziaria).
+limitazioni di spazio e di nutrimento oppure
+alla crescita di un capitale dovuto ad una rendita finanziaria.
 
-Se $q(t)$ indica il numero di batteri al tempo $t$
-(o il capitale accumulato)
-possiamo affermare che al tempo
-$t+s$ ho una popolazione $q(t+s)$ che, fissato $s$, è proporzionale a $q(t)$,
-perché ogni batterio avrà avuto la sua discendenza moltiplicata per un fattore
-$k(s)$ indipendentemente dalla numerosità dei batteri.
-
-Si avrà dunque
+Supponiamo che una popolazione che al tempo $t_0=0$
+ammonta ad un certo numero $c$ di batteri, al tempo
+$t>0$ raggiunga una numerosità $q(t,c)$.
+Se lascio crescere la popolazione per un ulteriore
+tempo $s>0$ troverò al tempo $t+s$ la stessa
+popolazione che avrei al tempo $s$ se al tempo
+zero fossi partito con la popolazione $q(t)$:
 \[
-  q(t+s) = q(t) \cdot k(s).
+  q(t+s,c) = q(s,q(t,c)).
 \]
-In particolare fissato $s$ si avrà
+L'equazione precedente si chiama proprietà
+di \emph{semigruppo}
+\index{semigruppo}%
+continuo.
+Ma fissato $t$ la popolazione $q(t,c)$ deve
+essere proporzionale a $c$ perché ogni batterio
+ha la sua discendenza indipendentemente dalla numerosità
+totale della popolazione. In pratica
+si deve avere $q(t,c) = k(t) \cdot c$ per una opportuna
+funzione $k(t)$ che non dipende da $c$.
+Dunque
 \[
- q(s) = q(0+s) = q(0) \cdot k(s)
+  q(t+s,c)
+  = q(s,q(t,c))
+  = k(s) \cdot q(t,c)
+  = k(s) \cdot k(t) \cdot c
 \]
-cioè $k(t)=q(t)/q(0)$.
-Ma allora
+da cui
 \[
-  k(t+s) = \frac{q(t+s)}{q(0)} = \frac{q(t) k(s)}{q(0)} = k(t)k(s).
+  k(t+s) = k(s) \cdot k(t).
 \]
 In base al teorema~\ref{th:esponenziale}
 possiamo affermare
@@ -2586,7 +2597,7 @@ che $k(t)$ è una funzione esponenziale $k(t)=a^t$
 per una qualche costante $a$.
 La costante $a$ può essere determinata mediante la formula:
 \[
-  a = k(1) = \frac{q(1)}{q(0)}
+  a = k(1) = \frac{q(1,c)}{c}
 \]
 ma questa espressione non ha un preciso significato fisico in quanto
 dipende dall'unità di tempo scelta.
@@ -2594,47 +2605,59 @@ dipende dall'unità di tempo scelta.
 La costante a cui possiamo dare significato è invece l'aumento relativo
 istantaneo della popolazione. Possiamo infatti supporre che
 se lasciamo la popolazione crescere per un tempo $\Delta t$ molto piccolo,
-si otterrà un aumento di popolazione proporzionale al tempo $\Delta t$ e
-alla popolazione:
+si otterrà un aumento di popolazione proporzionale al tempo $\Delta t$
+(stiamo qui anticipando il concetto di derivata) e alla popolazione:
 \begin{equation}\label{eq:488464}
-  q(t+\Delta t) = q(t) + c q(t) \Delta t = (1+c \Delta t) q(t).
+  q(\Delta t,c) = c + r c \Delta t = (1+r \Delta t) c.
 \end{equation}
-La costante $c$ rappresenta quindi l'aumento
-relativo istantaneo della popolazione. Questa definizione ha senso
+La costante $r$ rappresenta quindi l'aumento
+relativo istantaneo della popolazione (nel caso dell'investimento
+$r$ sarebbe il tasso di interesse istantaneo).
+Questa definizione ha senso
 quando $\Delta t$ è piccolo in quanto non tiene conto del fatto che
 nell'intervallo di tempo $[t,t+\Delta t]$ la popolazione che si
 è aggiunta genera anch'essa nuova popolazione (ovvero l'interesse
-accumulato genera anch'esso interesse).
+accumulato genera anch'esso interesse\footnote{%
+In effetti la scoperta della costante $e$
+è dovuta a Jacob Bernoulli nel 1683.
+Bernoulli si chiedeva qual è l'interesse annuo effettivo
+che si ottiene da un capitale che dia una rendita
+giornaliera (interesse composto).
+Se un capitale è investito ad un tasso di interesse $r$,
+si intende che ogni giorno il capitale
+viene aumentato di un fattore $1+r/365$
+e quindi dopo un anno il fattore moltiplicativo è $(1+r/365)^365$.
+}).
 
 Per calcolare l'aumento della popolazione su tempi ``grandi'' possiamo
 suddividere gli intervalli temporali in $n$ intervallini di ampiezza
 $\Delta t$ e applicare in ognuno di essi la relazione \eqref{eq:488464}.
 Si trova:
 \begin{align*}
- q(t+\Delta t) &= (1+c\Delta t)q(t) \\
- q(t+2\Delta t) &= (1+c\Delta t) q(t+\Delta t) = (1+c\Delta t)^2 q(t)\\
+ q(\Delta t,c) &= c(1+r\Delta t) \\
+ q(2\Delta t,c) &= q(\Delta t,c) (1+r\Delta t)  = c(1+r\Delta t)^2\\
  &\vdots \\
- q(t+n\Delta t) &= (1+c\Delta t)^n q(t).
+ q(n\Delta t) &= c(1+r\Delta t)^n.
 \end{align*}
-Dunque, ponendo $\Delta t=s/n$ si ha
+Dunque, ponendo $\Delta t=t/n$ si ha
 \[
-  q(t+s) = (1+\frac{cs}{n})^n q(t)
+  q(t,c) = c\enclose{1+r\frac{t}{n}}^n
 \]
-in particolare per $t=0$ e $s=1/c$ si ottiene:
+in particolare per $t=1/r$ si ottiene:
 \[
-  q(1/c) = \enclose{1+\frac{1}{n}}^n q(0)
+  q(1/r,c) = c\enclose{1+\frac{1}{n}}^n
 \]
-e ricordando che $q(t)=a^t q(0)$ otteniamo:
+e ricordando che $q(t,c)=c a^t$ otteniamo:
 \[
-  a^{\frac 1 c} = \enclose{1+\frac{1}{n}}^n.
+  a^{\frac 1 r} = \enclose{1+\frac{1}{n}}^n.
 \]
 Se per $n\to +\infty$ (che corrisponde a $\Delta t \to 0$)
 la quantità sul lato destro tende ad un numero $e$ (che chiameremo costante
 di Nepero) avremo allora
 \[
-  a = e^c, \qquad q(t) = q(0) e^{ct}
+  a = e^r, \qquad q(t,c) = c e^{rt}
 \]
-che è la relazione che lega le due costanti $a$ e $c$ che definiscono
+che è la relazione che lega le due costanti $a$ e $r$ che definiscono
 la crescita esponenziale.
 
 Risulta in effetti valido il seguente.
@@ -2707,10 +2730,15 @@ E' quindi giustificata la seguente.
 
 \begin{definition}[costante di Nepero]
 \mymark{***}
-Definiamo la \emph{costante di Nepero}
-\mynote{costante di Nepero}
-\index{costante!di Nepero}
-\index{$e$}
+Definiamo la \emph{costante di Nepero}%
+\mynote{costante di Nepero}%
+\index{costante!di Nepero}%
+\index{$e$}%
+\footnote{Nepero è l'italianizzazione del nome del
+matematico scozzese John Napier (1550-1617).
+Il nome $e$ è stato introdotto da Eulero (Leonhard Euler 1707-1783)
+%http://eulerarchive.maa.org//docs/originals/E853.pdf
+}
 \[
   e = \lim_{n\to +\infty} \enclose{1+\frac 1 n}^n.
 \]
@@ -3058,12 +3086,13 @@ di $a_n$ e scriveremo $b_n \gg a_n$.
 
 \begin{theorem}[ordini di infinito]
 \mymargin{ordini di infinito}
-\mymark{**}
-Per ogni $a>1$ si ha, per $n\to +\infty$
+\mymark{***}
+Per ogni $a>1$, $\alpha>0$ si ha, per $n\to +\infty$
 \[
-a^n \ll n! \ll n^n.
+\log_a n \ll n^\alpha \ll a^n \ll n! \ll n^n.
 \]
-Se $a>1$, $\alpha>0$ e $x_n \to +\infty$ si ha,
+Più in generale se $x_n \to +\infty$
+è una qualunque successione si ha,
 per $n\to+\infty$
 \[
 \log_a(x_n) \ll (x_n)^\alpha \ll a^{x_n}.
@@ -3087,12 +3116,9 @@ Si procede in modo analogo per mostrare che $n! \ll n^n$:
 &= \frac{1}{\enclose{1+\frac 1 n}^n} \to \frac 1 e < 1.
 \end{align*}
 
-Per la seconda parte del teorema cominciamo col dimostrare un caso particolare
-e cioè
-\[
-  n^\alpha \ll a^n.
-\]
-Si può procedere con il criterio del rapporto, come nei casi precedenti:
+Per dimostrare che
+$n^\alpha \ll a^n$
+si può procedere con il criterio del rapporto, come nei casi precedenti:
 \[
 \frac{(n+1)^\alpha}{n^\alpha}\cdot \frac{a^n}{a^{n+1}}
 = \frac 1 a \cdot \enclose{\frac{n+1}{n}}^\alpha \to \frac 1 a \cdot 1^\alpha = \frac 1 a < 1
