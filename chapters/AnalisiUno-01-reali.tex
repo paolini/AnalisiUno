@@ -991,6 +991,90 @@ e si conclude sommando $yz$ ad ambo i membri.
 \end{enumerate}
 \end{proof}
 
+\begin{definition}[valore assoluto]
+\mymark{***}
+Definiamo il \myemph{valore assoluto} $\abs{x}$ di un numero $x\in \RR$ nel seguente modo
+\[
+\abs{x} =
+\begin{cases}
+  x & \text{se $x\ge 0$}, \\
+  -x & \text{se $x<0 $}.
+\end{cases}
+\]
+\end{definition}
+
+\begin{proposition}[proprietà del valore assoluto]
+\mymark{**}
+Si ha
+\begin{enumerate}
+\item $\abs{x}\ge 0$ (positività)
+\item $\big\lvert\abs{x}\big\rvert = \abs{x}$ (idempotenza)
+\item $\abs{-x} = \abs{x}$ (simmetria)
+\item $\abs{x\cdot y} = \abs{x}\cdot \abs{y}$ (omogenità)
+\item $\abs{x+y} \le \abs{x} + \abs{y}$ (convessità)
+\item $\abs{x-y} \le \abs{x-z} + \abs{z-y}$ (disuguaglianza triangolare)
+\item $\big\lvert\abs{x}-\abs{y}\big\rvert \le \abs{x-y}$ (disuguaglianza triangolare inversa)
+\end{enumerate}
+Useremo inoltre spesso la seguente equivalenza (valida
+anche con $<$ al posto di $\le$). Se $r\ge 0$ allora
+\[
+ \abs{x-y} \le r
+ \iff
+ y - r \le x \le y + r.
+\]
+\end{proposition}
+%
+\begin{proof}
+\mymark{*}
+Le prime quattro proprietà sono immediate conseguenze della definizione.
+
+Dimostriamo innanzitutto l'ultima osservazione.
+Se $x\ge y$ allora $x-y\ge 0$ e quindi $\abs{x-y} \le r$ è
+equivalente a $x-y\le r$ cioè $x\le y+r$.
+Se $x<y$ allora $x-y<0$ e quindi $\abs{x-y} \le r$ è
+equivalente a $y-x \le r$ cioè $x\ge y-r$.
+Viceversa se $y-r \le x \le y+r$ allora vale sia $x-y \le r$ che $y-x \le r$ e dunque $\abs{x-y}\le r$.
+
+Osserviamo allora che per la precedente osservazione applicata
+a $\abs{x-0} \le \abs{x}$ si ottiene
+\[
+  -\abs{x} \le x \le \abs{x}
+\]
+e sommando la stessa disuguaglianza con $y$ al posto di $x$ si
+ottiene
+\[
+  -(\abs{x} + \abs{y}) \le x + y \le \abs{x} + \abs{y}
+\]
+che è equivalente alla proprietà di convessità:
+\[
+  \abs{x+y} \le \big\lvert\abs{x} + \abs{y}\big\rvert = \abs{x} + \abs{y}.
+\]
+
+Ponendo $y=z-x$ nella disuguaglianza precedente, si ottiene
+\[
+  \abs{z} \le \abs{x} + \abs{z-x}
+\]
+da cui
+\[
+  \abs{z} - \abs{x} \le \abs{z-x}.
+\]
+Scambiando $z$ con $x$ si ottiene la disuguaglianza opposta
+e mettendole assieme si ottiene
+la disuguaglianza triangolare inversa:
+\[
+\big\lvert \abs{z}-\abs{x} \big\rvert  \le \abs{z-x}.
+\]
+
+La disuguaglianza triangolare segue dalla convessità:
+\[
+ \abs{x-y} = \abs{x-z + z-y} \le \abs{x-z} + \abs{z-y}.
+\]
+\end{proof}
+
+Osserviamo che dal punto di vista geometrico
+$\abs{x-y}$ rappresenta la \emph{distanza} tra i punti
+$x$ e $y$ sulla retta reale.
+
 \section{i numeri naturali, interi, razionali}
 
 \begin{definition}[numeri naturali]
@@ -1050,6 +1134,7 @@ e quindi che $\NN \subset I$. Dunque $P(n)$ è vera per ogni $n\in \NN$.
 \end{proof}
 
 \begin{theorem}[definizione per induzione]
+\label{th:induzione}%
 Sia $X$ un insieme, sia $\alpha\in X$ e sia $g\colon X\to X$ una funzione.
 Allora esiste una unica funzione $f\colon \NN \to X$ tale che
 \begin{equation}\label{eq:4835628}
@@ -1198,6 +1283,26 @@ La definizione formale si ottiene mediante una definizione per induzione:
     (n+1)! = (n+1) \cdot n!
   \end{cases}
 \]
+
+\begin{table}
+\begin{center}
+\begin{tabular}{r|>{\small}r>{\small}r>{\small}r>{\small}r>{\small}r}
+$n$       & 0 & 1 & 2 & 3 & 4 \\
+\footnotesize $n+5$     & 5 & 6 & 7 & 8 & 9 \\ \hline
+$2^n$     & 1 & 2 & 4 & 8 & 16 \\
+\footnotesize $2^{5+n}$ & 32 & 64 & 128 & 256 & 512 \\
+\footnotesize $2^{10+n}$ & 1024 & 2048 & 4096 & 8192 & 16384 \\
+\footnotesize $2^{15+n}$ & 32768 & 65536 & 131072 & 262144 & 524288 \\
+\footnotesize $2^{20+n}$ & 1048576 & 2097152 & 4194304 & 8388608 & 16777216 \\  \hline
+$3^n$                    & 1 & 3 & 9 & 27 & 81 \\
+\footnotesize $3^{5+n}$  & 243 & 729 & 2187 & 6561 & 19683 \\  \hline
+$n!$      & 1 & 1 & 2 & 6 & 24 \\
+\footnotesize $(5+n)!$  & 120 & 720 & 5040 & 40320 & 362880 \\
+\footnotesize $(10+n)!$  & 3628800 & 39916800 & 479001600 & 6227020800 & 87178291200
+\end{tabular}
+\end{center}
+\caption{I primi valori di alcune delle sequenze che abbiamo definito.}
+\end{table}
 
 A volte sarà utile considerare anche i prodotti di solamente i numeri
 pari o i numeri dispari fino ad un certo numero $n$. Questo
@@ -1725,90 +1830,77 @@ come volevamo dimostrare,
 \]
 \end{proof}
 
-
-\begin{definition}[valore assoluto]
-\mymark{***}
-Definiamo il \myemph{valore assoluto} $\abs{x}$ di un numero $x\in \RR$ nel seguente modo
-\[
-\abs{x} =
-\begin{cases}
-  x & \text{se $x\ge 0$}, \\
-  -x & \text{se $x<0 $}.
-\end{cases}
-\]
-\end{definition}
-
-\begin{proposition}[proprietà del valore assoluto]
-\mymark{**}
-Si ha
-\begin{enumerate}
-\item $\abs{x}\ge 0$ (positività)
-\item $\big\lvert\abs{x}\big\rvert = \abs{x}$ (idempotenza)
-\item $\abs{-x} = \abs{x}$ (simmetria)
-\item $\abs{x\cdot y} = \abs{x}\cdot \abs{y}$ (omogenità)
-\item $\abs{x+y} \le \abs{x} + \abs{y}$ (convessità)
-\item $\abs{x-y} \le \abs{x-z} + \abs{z-y}$ (disuguaglianza triangolare)
-\item $\big\lvert\abs{x}-\abs{y}\big\rvert \le \abs{x-y}$ (disuguaglianza triangolare inversa)
-\end{enumerate}
-Useremo inoltre spesso la seguente equivalenza (valida
-anche con $<$ al posto di $\le$). Se $r\ge 0$ allora
-\[
- \abs{x-y} \le r
- \iff
- y - r \le x \le y + r.
-\]
-\end{proposition}
+\section{numeri decimali}
 %
-\begin{proof}
-\mymark{*}
-Le prime quattro proprietà sono immediate conseguenze della definizione.
+Le frazioni il cui denominatore è una potenza
+di $10$ si chiamano frazioni decimali:
+\[
+  x = \frac{p}{10^d}, \qquad p\in \ZZ, d\in \NN.
+\]
+Tali frazioni si possono rappresentare
+scrivendo il numero
+intero $p$ e segnando un punto\footnote{%
+in Italia si preferisce utilizzare la virgola, ma
+ci rassegnamo alla notazione anglosassone che ormai è
+ubiqua in tutta la strumentazione elettronica.
+}
+di separazione
+prima della $d$-esima cifra a partire da destra.
+Ad esempio scriveremo:
+\[
+  1.4142 = \frac{14142}{10^4}.
+\]
+In generale una frazione $\frac{p}{q}\in \QQ$
+può essere scritta in forma decimale solamente
+se, quando ridotta ai minimi termini,
+risulta che $q$ non ha fattori primi diversi
+da $2$ e $5$ (in quanto le potenze di dieci
+hanno solo questi fattori).
+In ogni caso le frazioni decimali sono dense in $\RR$
+in quanto dato $x\in \RR$ per ogni $\eps>0$ esiste
+$d\in \NN$ tale che $10^{-d}\le\eps$ e quindi
+posto $p=\lfloor 10^d\cdot x + \frac 1 2\rfloor$
+si avrà
+\[
+    \abs{\frac{p}{10^d} - x} \le \frac{1}{2\cdot 10^d} < \eps.
+\]
+In tal caso scriveremo
+\[
+  x \approx \frac{p}{10^d}.
+\]
+Ad esempio scriveremo
+\[
+  \sqrt 2 \approx 1.4142
+\]
+per intendere
+\begin{equation}\label{eq:approx_rad2}
+\abs{\sqrt 2 - \frac{14142}{10^4}}<\frac{1}{10^4}.
+\end{equation}
 
-Dimostriamo innanzitutto l'ultima osservazione.
-Se $x\ge y$ allora $x-y\ge 0$ e quindi $\abs{x-y} \le r$ è
-equivalente a $x-y\le r$ cioè $x\le y+r$.
-Se $x<y$ allora $x-y<0$ e quindi $\abs{x-y} \le r$ è
-equivalente a $y-x \le r$ cioè $x\ge y-r$.
-Viceversa se $y-r \le x \le y+r$ allora vale sia $x-y \le r$ che $y-x \le r$ e dunque $\abs{x-y}\le r$.
-
-Osserviamo allora che per la precedente osservazione applicata
-a $\abs{x-0} \le \abs{x}$ si ottiene
+Le frazioni non decimali si possono scrivere con uno sviluppo
+decimale \emph{periodico}. Non useremo mai questa notazione
+che ricordiamo solamente con un esempio.
+Il numero
 \[
-  -\abs{x} \le x \le \abs{x}
+  x = 12.34\overline{567}
+    = 12.34567\overline{567}
 \]
-e sommando la stessa disuguaglianza con $y$ al posto di $x$ si
-ottiene
+è la frazione che risolve l'equazione
 \[
-  -(\abs{x} + \abs{y}) \le x + y \le \abs{x} + \abs{y}
+  x-12.34567 = \frac{x - 12.34}{1000}
+  \qquad
+\enclose
+{0.00000\overline{567} = \frac{0.000\overline{567}}{1000}}
 \]
-che è equivalente alla proprietà di convessità:
+ovvero
 \[
-  \abs{x+y} \le \big\lvert\abs{x} + \abs{y}\big\rvert = \abs{x} + \abs{y}.
-\]
-
-Ponendo $y=z-x$ nella disuguaglianza precedente, si ottiene
-\[
-  \abs{z} \le \abs{x} + \abs{z-x}
-\]
-da cui
-\[
-  \abs{z} - \abs{x} \le \abs{z-x}.
-\]
-Scambiando $z$ con $x$ si ottiene la disuguaglianza opposta
-e mettendole assieme si ottiene
-la disuguaglianza triangolare inversa:
-\[
-\big\lvert \abs{z}-\abs{x} \big\rvert  \le \abs{z-x}.
+  12345.67 - 12.34 = 999 \cdot x,
+  \qquad x = \frac{1234567-1234}{99900}.
 \]
 
-La disuguaglianza triangolare segue dalla convessità:
-\[
- \abs{x-y} = \abs{x-z + z-y} \le \abs{x-z} + \abs{z-y}.
-\]
-\end{proof}
-
-Osserviamo che dal punto di vista geometrico
-$\abs{x-y}$ rappresenta la \emph{distanza} tra i punti
-$x$ e $y$ sulla retta reale.
+\begin{exercise}
+Dimostrare che vale~\eqref{eq:approx_rad2}.
+\end{exercise}
 
 \section{reali estesi}
 

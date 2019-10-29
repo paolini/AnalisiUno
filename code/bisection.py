@@ -1,4 +1,4 @@
-def bisection(f, a, b, digits=7):
+def bisection(f, a, b, digits=10):
     fa = f(a)
     fb = f(b)
     assert fb*fa <= 0
@@ -16,16 +16,19 @@ def bisection(f, a, b, digits=7):
 # la libreria decimal ci permette di effettuare calcoli su numeri
 # con sviluppo decimale arbitrariamente lungo
 from decimal import Decimal, getcontext
-getcontext().prec = 1100  # numero di cifre da utilizzare nei calcoli
+getcontext().prec = 110  # numero di cifre da utilizzare nei calcoli
 
-def x2_minus_2(x):
-    return x*x - 2
+# l'operatore lambda permette di definire una
+# funzione senza dovergli dare un nome
 
-x = bisection(x2_minus_2, Decimal(0), Decimal(2), digits=1100)
-print("solution to x^2 = 2: {:.1001}".format(x))
+x = bisection(lambda x: x*x-2, Decimal(0), Decimal(2), digits=100)
+print("solution to x^2 = 2 {:.101}".format(x))
 
-def x5_minus_x_minus_1(x):
-    return x*x*x*x*x - x - 1
+x = bisection(lambda x: x*x-3, Decimal(0), Decimal(2), digits=100)
+print("solution to x^2 = 3: {:.101}".format(x))
 
-x = bisection(x5_minus_x_minus_1, Decimal(0), Decimal(2), digits=110)
+x = bisection(lambda x: x*x-x-1, Decimal(0), Decimal(2), digits=100)
+print("solution to x^2 = x+1: {:.101}".format(x))
+
+x = bisection(lambda x: x*x*x*x*x - x - 1, Decimal(0), Decimal(2), digits=100)
 print("solution to x^5 - x = 1: {:.100}".format(x))
