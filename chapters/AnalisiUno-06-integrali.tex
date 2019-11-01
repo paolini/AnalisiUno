@@ -1581,115 +1581,146 @@ questo rimanga invariato.
 Per la cronaca: l'integrale in questione può essere calcolato per sostituzione,
 ponendo $y=\ln x$ trovando $F(x) = \ln\abs{\ln x}$ come una delle primitive.
 \end{remark}
+
+%
+%
+%
 \section{integrale di una funzione razionale}
+%
+In questa sezione presenteremo un metodo per
+calcolare esplicitamente l'integrale di una qualunque funzione razionale.
 
 \begin{definition}[funzione razionale]
 \mynote{funzione razionale}
 \index{funzione!razionale}
-Una funzione $f$ si dice essere \emph{razionale}
-se si può scrivere
+Una funzione $f\colon A \subset \RR \to \RR$
+si dice essere \emph{razionale} se si può scrivere nella forma
 \[
   f(x) = \frac{P(x)}{Q(x)}
 \]
 con $P$ e $Q$ funzioni polinomiali a coefficienti reali.
 \end{definition}
 
-In questa sezione cercheremo di trovare un metodo per
-calcolare esplicitamente l'integrale $\int P(x)/Q(x)\, dx$ di una qualunque funzione razionale.
-Per fare ciò vogliamo scrivere il rapporto $P(x)/Q(x)$ come combinazione lineare di funzioni più semplici, di cui saremo in grado di calcolare l'integrale.
+Il metodo che andremo a presentare può essere utilizzato ``alla cieca'' in
+quanto una volta trovata la decomposizione non c'è bisogno di sapere
+come mai il metodo utilizzato funziona (e perché funziona sempre).
+La dimostrazione del perché questo metodo funzioni è un esercizio non
+banale di algebra lineare a cui dedicheremo il resto di questo capitolo
+perché, tutto sommato, pensiamo che sia sempre utile avere la consapevolezza degli strumenti che si utilizzano.
 
-\begin{theorem}[decomposizione complessa in fratti semplici]
-Siano $u_1, \dots, u_n$ funzioni complesse della forma
-\begin{equation}
-\label{eq:483818}
-  u_k(z) = \frac{1}{(z-\lambda_k)^{p_k}}
+\begin{comment}
+Prima ancora di enunciare il teorema e di farne la dimostrazione,
+vogliamo presentare il metodo tramite un esempio. Probabilmente questo è il modo più semplice per capire come bisogna operare.
+
+\begin{example}
+  Calcolare
+  \[
+   \int \frac{x^{10}-3x^5+1}{x^8-x^7+2x^6-2x^5+x^4-x^3}\, dx
+  \]
+\end{example}
+\begin{proof}[Svolgimento.]
+Per prima cosa vogliamo ricondurci ad una funzione razionale
+in cui il grado del polinomio al numeratore sia inferiore
+al grado del polinomio al denominatore. Per fare questo svolgiamo
+la divisione tra polinomi:
+\[
+  \frac{x^{10}-3x^5+1}{x^8-x^7+2x^6-2x^5+x^4-x^3}
+  = x^2 + x + \frac{x^4+1}{x^8-x^7+2x^6-2x^5+x^4-x^3}.
+\]
+L'integrale di $x^2+x$ è immediato e quindi ci possiamo concentrare
+sulla funzione razionale con numeratore $x^4+1$.
+Per procedere è ora necessario determinare tutte le radici, reali e complesse, del polinomio a denominatore in modo da poterlo fattorizzare
+come prodotto di fattori lineari e quadratici.
+Non c'è un metodo generale per trovare le radici di un polinomio.
+Innanzitutto si osserva
+che tale polinomio è divisibile per $x^3$. Poi si osserva che il polinomio
+di quinto grado risultante si annulla per $x=1$ (caso fortunato!) ed
+è quindi divisibile per $x-1$. Il polinomio di quarto grado
+risulta infinie un quadrato perfetto e si ottiene quindi la fattorizzazione
+cercata:
+\[
+x^8-x^7+2x^6-2x^5+x^4-x^3 = x^3(x-1)(x^2+1)^2.
+\]
+Ora il teorema di decomposizione di Hermite (che andremo poi a dimostrare)
+ci garantisce che ogni funzione razionale della forma
+\[
+\frac{P(x)}{x^3(x-1)(x^2+1)^2}
+\]
+con $\deg P < 8$ (il grado del denominatore) può essere
+scritto nel modo seguente, con
+opportune costanti $A,B,C,\dots,H$:
+\begin{equation}\label{eq:438943}
+  \frac{A}{x} + \frac{B}{x-1} + \frac{Cx+D}{x^2+1}
+  + \enclose{\frac{Ex^3 + Fx^2 + G x + H}{x^2(x^2+1)}}'.
 \end{equation}
-con $\lambda_k\in \CC$, $p_k\in \NN$, $p_k>0$.
-Supponiamo che le $u_k$ siano tra loro distinte (cioè se $\lambda_k=\lambda_j$ allora $p_k \neq p_j$).
-Sia $\Omega = \CC \setminus\{\lambda_1, \dots, \lambda_k\}$ cosicché tutte le funzioni $u_k$ sono elementi dello spazio vettoriale complesso $V=\CC^\Omega$ cioè sono funzioni complesse definite su tutto $\Omega$.
-
-Allora le funzioni $u_k$ sono linearmente indipendenti come vettori di $V$ ovvero
-se esistono dei coefficienti $\alpha_1,\dots, \alpha_n \in \CC$ tali che
+I primi addendi hanno a denominatore i fattori in cui abbiamo
+decomposto il denominatore della funzione originale. A numeratore
+c'è sempre un polinomio di grado inferiore al grado del denominatore
+e quindi c'è una costante per i fattori lineari e una funzione lineare
+per i termini quadratici. Dopodiché si aggiunge la derivata di una funzione
+razionale in cui il denominatore ha gli stessi fattori ma elevati ad una
+potenza di uno inferiore a quella che c'era nel polinomio originale.
+A numeratore, di nuovo, un polinomio di grado inferiore al denominatore.
+Per trovare i coefficienti $A,B,C, \dots, H$ e sufficiente
+svolgere la derivata in~\eqref{eq:438943} mettere a denominatore
+comune la somma e uguagliare con la funzione razionali originale:
+\begin{align*}
+  &\frac{A}{x} + \frac{B}{x-1} + \frac{Cx+D}{x^2+1}
+  + \frac{3 E x^2 + 2 F x + G}{x^2(x^2+1)} \\
+  & \quad + (E x^3 + F x^2 + G x + H)\cdot \left[\frac{-2}{x^3}\cdot \frac{1}{x^2+1}
+  + \frac{1}{x^2}\cdot\frac{-2x}{(1+x^2)^2}\right]
+\end{align*}
+moltiplicando tutto per $x^3(x-1)(x^2+1)^2$ si ottiene
+\begin{align*}
+  &Ax^2(x-1)(x^2+1)^2 + Bx^3(x^2+1)^2 \\
+  &\quad + (Cx+D)x^3(x-1)(x^2+1) + (3Ex^2+2Fx+G)x(x-1)(x^2+1)\\
+  &\quad + (Ex^3+Fx^2+Gx+H)(-2(x-1)(x^2+1)-2x\cdot x(x-1))
+\end{align*}
+ovvero
+\begin{align*}
+  &(A+B+C)x^7+(-A-C+D-E)x^6 + (2A+2B+C-D+E-2F)x^5 \\
+  &\quad  +(-2A-C+D+E+2F-3G)x^4 + (A+B-D-E+3G-4H)x^3 \\
+  &\quad  + (-A-G+4H)x^2 + (G-2H) x + 2H.
+\end{align*}
+Ora imponiamo che quest'ultimo polinomio sia identicamente uguale
+al polinomio originario $x^4+1$ ottenendo il seguente sistema lineare
 \[
-\forall z \in \Omega\colon  \sum_{k=1}^n \alpha_k u_k(z) = 0
+  \begin{cases}
+    A+B+C=0 \\
+    -A-C+D-E=0 \\
+    2A + 2B + C - D + E - 2 F = 0\\
+    -2A-C+D+E+2F-3G = 1\\
+    A+B-D-E+3G-4H=0\\
+    -A-G+4H=0\\
+    G-2H=0\\
+    2H=1
+  \end{cases}
 \]
-allora ogni $\alpha_k=0$ per $k=1,\dots,n$.
-
-Di conseguenza se
-$P$ e $Q$ sono due polinomi con $\deg P < \deg Q = N$
-allora si può scrivere
-\begin{equation}\label{eq:46772341}
-  \frac{P(z)}{Q(z)} = \sum_{k=1}^n \sum_{j=1}^{p_k} \frac{A_{kj}}{(z-\lambda_k)^j}.
-\end{equation}
-dove $\lambda_1,\dots, \lambda_n$ sono le radici complesse distinte del polinomio $Q$,
-$p_1,\dots, p_n$ sono le rispettive molteplicità con $p_1 + \dots + p_n = \deg Q = N$
-e $A_{kj}\in \CC$ sono opportuni
-coefficienti.
-\end{theorem}
-%
-\begin{proof}
-Procediamo per induzione su $n$. Se $n=1$ abbiamo una unica funzione che non
-può essere identicamente nulla (anzi: non si annulla mai).
-
-Supponiamo allora di avere un insieme di $n$ funzioni $u_1, \dots, u_n$
-della forma~\eqref{eq:483818}.
-Eventualmente riordinando le funzioni
-possiamo supporre che $p_n$
-(l'esponente associato alla funzione $u_n$)
-sia il massimo degli esponenti: $p_n\ge p_k$ per $k=1,\dots,n$.
-Supponiamo allora di avere
-una combinazione lineare identicamente nulla:
-$\alpha_1 u_1 + \dots + \alpha_n u_n = 0$
-e consideriamo la funzione $f\colon \Omega \to \CC$
-definita da
-\begin{equation}
-\label{eq:567384}
-  f(z) = (z-\lambda)^{p_n}\sum_{k=1}^n \frac{\alpha_k}{(z-\lambda_k)^{p_k}}
-    = \sum_{k=1}^{n-1} \alpha_k \frac{(z-\lambda_n)^{p_n}}{(z-\lambda_k)^{p_k}}
-    + \alpha_n.
-\end{equation}
-Questa funzione è identicamente nulla
-(in quanto ottenuta moltiplicando la combinazione lineare identicamente
-nulla per il fattore $(z-\lambda)^p$).
-Ma si osserva che si ha
+che risolto ci dà: $A=1$, $B=\frac 1 2$, $C = -\frac 3 2$, $D=1$, $E=\frac 3 2$, $F=1$, $G=1$, $H=\frac 1 2$.
+Abbiamo ottenuto, in definitiva:
+\begin{align*}
+\frac{x^4+1}{x^3(x-1)(x^2+1)^2}
+&= \frac{1}{x} + \frac{\frac 1 2}{x-1} + \frac{1 - \frac 3 2 x}{x^2+1}
++ \enclose{\frac{\frac 3 2 x^3 + x^2 + x + \frac 1 2}{x^2(x^2+1)}}'
+\end{align*}
+e osservando che
 \[
-  \lim_{z\to \lambda_n} f(z) = \alpha_n
+ \int \frac{1 - \frac 3 2 x}{x^2+1}\, dx
+ = \arctg x - \frac 3 4 \int \frac{2x}{x^2+1}\, dx
+ = \arctg x - \frac 3 4 \ln(x^2+1)
 \]
-in quanto
-\[
-  \lim_{z\to \lambda_n}\frac{(z-\lambda_n)^{p_n}}{(z-\lambda_k)^{p_k}} = 0
-\]
-visto che se essendo $u_k\neq u_n$ per $k<n$, deve essere $\lambda_k \neq \lambda_n$
-oppure, se $\lambda_k=\lambda_n$ deve essere $p_k < p_n$. Dunque $\alpha_n=0$
-e quindi $\alpha_1 u_1 + \dots + \alpha_{n-1}u_{n-1} = 0$. Ci siamo dunque
-ricondotti ad una combinazione lineare nulla di $n-1$ funzioni. Per ipotesi
-induttiva si ottiene quindi $\alpha_1 = \dots = \alpha_{n-1} = 0$, concludendo
-la dimostrazione.
-
-Per dimostrare la seconda parte osserviamo che l'insieme
-dei polinomi
-\[
-  V_N = \{P\colon \text{$P$ polinomio, $\deg P < N$}\}
-\]
-è un sottospazio vettoriale di $V=\CC^\Omega$ ed ha dimensione
-$N$ (una base è data dai monomi $1, z, z^2, \dots, z^{N-1}$).
-Di conseguenza è facile verificare che anche lo spazio vettoriale
-\[
-  W = V_N \cdot \frac{1}{Q} = \left\{\frac{P}{Q}\colon \text{$\deg P < N$}\right\}
-\]
-delle funzioni razionali che stanno al lato sinistro di~\eqref{eq:46772341},
-ha la stessa dimensione $N$.
-D'altra parte il lato destro di~\eqref{eq:46772341}
-è una combinazione lineare di funzioni $u_{kj} = 1/(z-\lambda_k)^j$ che sono
-anch'esse elementi di $W$ in quanto $(z-\lambda_k)^j$ divide $Q(x)$.
-Ma per quanto visto prima i vettori $u_{kj}$ sono $N$ vettori indipendenti e quindi
-sono una base di $W$. Significa allora che ogni elemento di $W$ può
-essere scritto come combinazione lineare degli $u_{kj}$ cioè, per ogni
-polinomio $P$ con $\deg P < \deg Q$ si può ottenere
-l'uguaglianza~\eqref{eq:46772341}.
+si ottiene infine
+\begin{align*}
+\int \frac{x^4+1}{x^3(x-1)(x^2+1)^2}\, dx
+ &= \ln \abs{x} + \frac 1 2 \ln\abs{x-1} + \arctg x - \frac 3 4 \ln(x^2+1) \\
+ &\quad + \frac{\frac 3 2 x^3 + x^2+x+\frac 1 2}{x^2(x^2+1)}
+\end{align*}
 \end{proof}
 
+\end{comment}
+
 \begin{theorem}[fattorizzazione dei polinomi a coefficienti reali]
+  \label{th:fattorizzazione_polinomio_reale}
 Sia $Q(x)$ un polinomio a coefficienti reali. Allora
 \begin{equation}\label{eq:35549}
   Q(x) = a \cdot (x-x_1) \cdots (x-x_k)
@@ -1738,7 +1769,105 @@ tutte le radici e si completa quindi la decomposizione.
 A posteriori dunque dovrà essere $n=2m$ cosicchè $\deg Q = k + 2m = k + n$.
 \end{proof}
 
+\begin{theorem}[decomposizione complessa in fratti semplici]
+\label{th:fratti_semplici_complessi}%
+\index{decomposizione!in fratti semplici complessi}%
+\index{fatti semplici!decomposizione complessa}%
+Siano $u_1, \dots, u_n$ funzioni complesse della forma
+\begin{equation}
+\label{eq:483818}
+  u_k(z) = \frac{1}{(z-\lambda_k)^{p_k}}
+\end{equation}
+con $\lambda_k\in \CC$, $p_k\in \NN$, $p_k>0$.
+Supponiamo che le $u_k$ siano tra loro distinte (cioè se $\lambda_k=\lambda_j$ allora $p_k \neq p_j$).
+Sia $\Omega = \CC \setminus\{\lambda_1, \dots, \lambda_k\}$ cosicché tutte le funzioni $u_k$ sono elementi dello spazio vettoriale complesso $V=\CC^\Omega$ cioè sono funzioni complesse definite su tutto $\Omega$.
+
+Allora le funzioni $u_k$ sono linearmente indipendenti come vettori di $V$ ovvero
+se esistono dei coefficienti $\alpha_1,\dots, \alpha_n \in \CC$ tali che
+\[
+\forall z \in \Omega\colon  \sum_{k=1}^n \alpha_k u_k(z) = 0
+\]
+allora ogni $\alpha_k=0$ per $k=1,\dots,n$.
+
+Di conseguenza se
+$P$ e $Q$ sono due polinomi con $\deg P < \deg Q = N$
+allora si può scrivere
+\begin{equation}\label{eq:46772341}
+  \frac{P(z)}{Q(z)} = \sum_{k=1}^n \sum_{j=1}^{p_k} \frac{A_{kj}}{(z-\lambda_k)^j}.
+\end{equation}
+dove $\lambda_1,\dots, \lambda_n$ sono le radici complesse distinte del polinomio $Q$,
+$p_1,\dots, p_n$ sono le rispettive molteplicità con $p_1 + \dots + p_n = \deg Q = N$
+e $A_{kj}\in \CC$ sono opportuni
+coefficienti.
+\end{theorem}
+%
+\begin{proof}
+Procediamo per induzione su $n$. Se $n=1$ abbiamo una unica funzione che non
+può essere identicamente nulla (anzi: non si annulla mai).
+
+Supponiamo allora di avere un insieme di $n$ funzioni $u_1, \dots, u_n$
+della forma~\eqref{eq:483818}.
+Eventualmente riordinando le funzioni
+possiamo supporre che $p_n$
+(l'esponente associato alla funzione $u_n$)
+sia il massimo degli esponenti: $p_n\ge p_k$ per $k=1,\dots,n$.
+Supponiamo allora di avere
+una combinazione lineare identicamente nulla:
+$\alpha_1 u_1 + \dots + \alpha_n u_n = 0$
+e consideriamo la funzione $f\colon \Omega \to \CC$
+definita da
+\begin{equation}
+\label{eq:567384}
+  f(z) = (z-\lambda_n)^{p_n}\sum_{k=1}^n \frac{\alpha_k}{(z-\lambda_k)^{p_k}}
+    = \sum_{k=1}^{n-1} \alpha_k \frac{(z-\lambda_n)^{p_n}}{(z-\lambda_k)^{p_k}}
+    + \alpha_n.
+\end{equation}
+Questa funzione è identicamente nulla
+in $\Omega$
+in quanto ottenuta moltiplicando la combinazione lineare identicamente
+nulla per il fattore $(z-\lambda_n)^p$.
+Ma si osserva che si ha
+\[
+  \lim_{z\to \lambda_n} f(z) = \alpha_n
+\]
+in quanto se $k\neq n$ si ha
+\[
+  \lim_{z\to \lambda_n}\frac{(z-\lambda_n)^{p_n}}{(z-\lambda_k)^{p_k}} = 0
+\]
+visto che essendo $u_k\neq u_n$ deve essere $\lambda_k \neq \lambda_n$
+oppure, se $\lambda_k=\lambda_n$ deve essere $p_k < p_n$. Dunque $\alpha_n=0$
+e quindi $\alpha_1 u_1 + \dots + \alpha_{n-1}u_{n-1} = 0$. Ci siamo dunque
+ricondotti ad una combinazione lineare nulla di $n-1$ funzioni. Per ipotesi
+induttiva si ottiene quindi $\alpha_1 = \dots = \alpha_{n-1} = 0$, concludendo
+la dimostrazione.
+
+Per dimostrare la seconda parte osserviamo che l'insieme
+dei polinomi
+\[
+  V_N = \{P\colon \text{$P$ polinomio, $\deg P < N$}\}
+\]
+è un sottospazio vettoriale di $V=\CC^\Omega$ ed ha dimensione
+$N$ (una base è data dai monomi $1, z, z^2, \dots, z^{N-1}$).
+Di conseguenza è facile verificare che anche lo spazio vettoriale
+\[
+  W = V_N \cdot \frac{1}{Q} = \left\{\frac{P}{Q}\colon \text{$\deg P < N$}\right\}
+\]
+delle funzioni razionali che stanno al lato sinistro di~\eqref{eq:46772341},
+ha la stessa dimensione $N$.
+D'altra parte il lato destro di~\eqref{eq:46772341}
+è una combinazione lineare di funzioni $u_{kj} = 1/(z-\lambda_k)^j$ che sono
+anch'esse elementi di $W$ in quanto $(z-\lambda_k)^j$ divide $Q(x)$.
+Ma per quanto visto prima i vettori $u_{kj}$ sono $N$ vettori indipendenti e quindi
+sono una base di $W$. Significa allora che ogni elemento di $W$ può
+essere scritto come combinazione lineare degli $u_{kj}$ cioè, per ogni
+polinomio $P$ con $\deg P < \deg Q$ si può ottenere
+l'uguaglianza~\eqref{eq:46772341}.
+\end{proof}
+
 \begin{theorem}[decomposizione reale in fratti semplici]
+\label{th:fratti_semplici_reali}%
+\index{fratti semplici!decomposizione reale}%
+\index{decomposizione!in fratti semplici reali}%
 Sia $Q$ un polinomio monico a coefficienti reali che
 si fattorizzi nella forma:
 \begin{align*}
@@ -1763,11 +1892,13 @@ tali che
 %
 \begin{proof}
 Diamo un nome alle funzioni coinvolte nell'enunciato del teorema:
-\begin{align*}
+\begin{equation}\label{eq:547563843}
+\begin{aligned}
  u_\lambda^j(z) &= \frac{1}{(z-\lambda)^j},\\
  v_\lambda^j(z) &= \frac{1}{(z-\lambda)^j(z-\bar\lambda)^j},\\
  w_\lambda^j(z) &= z\cdot v_\lambda^j(z).
-\end{align*}
+\end{aligned}
+\end{equation}
 Osserviamo che
 \[
  (z-\lambda)(z-\bar \lambda)
@@ -1846,6 +1977,223 @@ Se la combinazione $u$ è anch'essa una funzione reale allora possiamo concluder
 Ma essendo le $u_1,\dots,u_n$ funzioni indipendenti, una combinazione lineare è nulla solamente quando tutti i coefficienti sono nulli: significa che la parte immaginaria di ogni $\alpha_k$ è nulla, cioè che gli $\alpha_k$ sono reali.
 \end{proof}
 
+Il teorema precedente ci permette di ricondurre l'integrale
+di una qualunque funzione razionale all'integrale dei fratti semplici.
+Gli integrali dei fratti semplici che corrispondono a radici reali
+si esprimono facilmente. Si ha infatti:
+\begin{align*}
+ \int \frac{1}{x-\lambda}\, dx
+ &\ni \ln \abs{x-\lambda} \\
+ \int \frac{1}{(x-\lambda)^k}\, dx
+ & \ni -\frac{1}{(k-1)(x-\lambda)^{k+1}}.
+\end{align*}
+
+Per quanto riguarda i fratti semplici corrispondenti a radici
+complesse coniugate bisogna innanzitutto ricondursi
+ad una forma canonica, tramite completamento del quadrato:
+\begin{align*}
+ x^2+\alpha x+\beta
+ &= (x-\frac{\alpha}{2})^2+ \beta - \frac{\alpha^2}{4}
+ = \enclose{\frac{2x-\alpha}{\sqrt{4\beta-\alpha^2}}}^2+1.
+\end{align*}
+Dunque con la sostituzione lineare $y=\frac{2x-\alpha}{\sqrt{4\beta-\alpha^2}}$ si può ricondurre l'integrale
+\[
+  \int \frac{Ax+B}{(x^2+\alpha x+\beta)^q}\, dx
+\]
+ad un integrale del tipo
+\[
+  \int \frac{Cy+D}{(y^2+1)^q}\, dy.
+\]
+Se $q=1$ questo integrale può essere facilmente risolto in quanto
+si ha
+\[
+  \int \frac{Cy+D}{y^2+1}\, dy
+  = \frac C 2 \int \frac{2}{y^2+1}\, dy
+  + \int \frac{D}{y^2+1}\, dy
+  = \frac C 2 \ln \abs{y^2+1} + \arctg y.
+\]
+Se invece $q>1$ l'integrale diventa più complesso da risolvere
+(potrebbe essere svolto per parti ricorsivamente in $q$)
+e conviene quindi evitare
+gli esponenti $q>1$ raffinando la decomposizione in fratti
+semplici con il seguente teorema.
+
+\begin{theorem}[scomposizione di Hermite]
+Sia $Q(x)$ un polinomio monico a coefficienti reali
+con radici reali $\lambda_1, \dots, \lambda_n$ di molteplicità
+$p_1, \dots, p_n$ e radici complesse coniugate $\mu_1, \overline{\mu_1}, \dots, \mu_m, \overline{\mu_m}$ di molteplicità
+$q_1, \dots, q_m$. Posto $\alpha_k = 2\Re \mu$ e $\beta_k = \abs{\mu_k}^2$
+potremo scrivere (grazie al teorema~\ref{th:fattorizzazione_polinomio_reale})
+\begin{equation}\label{eq:8845638}
+  Q(x) = \prod_{k=1}^n (x-\lambda_k)^{p_k} \cdot \prod_{k=1}^m (x^2+ \alpha_k x + \beta_k)^{q_k}.
+\end{equation}
+Sia $P(x)$ un qualunque polinomio a coefficienti reali
+con $\deg P < \deg Q$.
+
+Allora posto
+\[
+ \tilde Q(x) = \prod_{k=1}^n (x-\lambda_k)^{p_k-1} \cdot \prod_{k=1}^m (x^2+\alpha_k x+\beta_k)^{q_k-1}
+\]
+esistono (unici) dei coefficienti reali
+$A_1,\dots, A_n$, $B_1, \dots, B_m$, $C_1,\dots, C_m$
+e un polinomio a coefficienti reali $R(x)$ con $\deg R < \deg \tilde Q$
+per cui risulta:
+\begin{equation}\label{eq:scomposizione_hermite}
+  \frac{P(x)}{Q(x)} = \sum_{k=1}^n \frac{A_k}{x-\lambda_k}
+  + \sum_{k=1}^m \frac{B_k x + C_k}{x^2+\alpha_k x + \beta_k}
+  + \enclose{\frac{R(x)}{\tilde Q(x)}}'.
+\end{equation}
+Svolgendo la derivata si potrà
+riscrivere il lato destro con denominatore comune $Q(x)$
+e uguagliando i numeratori di lato destro e lato sinistro
+si otterrà un sistema lineare in $\deg Q$ incognite
+che avrà una unica soluzione.
+\end{theorem}
+%
+%
+\begin{proof}
+Per $\lambda\in \CC$ definiamo
+\[
+  U_\lambda^p = \ENCLOSE{\frac{P(z)}{(z-\lambda)^p}\colon \text{$P$ polinomio a coefficienti in $\CC$, $\deg P < p$}}
+\]
+per $\lambda \in \RR$ definiamo
+\[
+  V_\lambda^p = \ENCLOSE{\frac{P(x)}{(x-\lambda)^p}\colon \text{$P$ polinomio a coefficienti in $\RR$, $\deg P<p$}}
+\]
+e per $\mu\in \CC\setminus \RR$
+posto $(x-\mu)(x-\overline \mu) = x^2 + \alpha x + \beta$
+definiamo
+\[
+  W_\mu^q = \ENCLOSE{\frac{P(x)}{(x^2+\alpha x + \beta)^q}\colon
+  \text{$P$ polinomio a coeff. in $\RR$}, \deg P < 2q}.
+\]
+Chiaramente $U_\lambda^p$ è uno spazio vettoriale complesso
+di dimensione $p$
+$V_\lambda^p$ è uno spazio vettoriale
+reale di dimensione $p$
+e $W_\mu^q$ è uno spazio vettoriale
+reale di dimensione $2q$.
+
+Posto
+\[
+  V_Q = \ENCLOSE{\frac{P(x)}{Q(x)}\colon \text{$P$ polinomio a coefficienti
+  in $\RR$}, \deg P < \deg Q}
+\]
+il teorema~\ref{th:fratti_semplici_reali} ci dice lo spazio vettoriale
+$V$ può essere decomposto in somma diretta
+\begin{equation}\label{eq:47748393}
+  V_Q = V_{\lambda_1}^{p_1} \oplus \dots \oplus V_{\lambda_n}^{p_n}
+  \oplus W_{\mu_1}^{q_1} \oplus \dots \oplus W_{\lambda_n}^{q_m}.
+\end{equation}
+
+Ora osserviamo che se $D$ è l'operatore derivata, si ha
+\[
+  D(V_\lambda^{p-1}) \subset V_\lambda^p,
+  \qquad  D(W_\mu^{q-1}) \subset W_\mu^q.
+\]
+Dunque si può pensare all'operatore lineare $D$
+ristretto a questi spazi di dimensione
+finita:
+\[
+  D \colon V_\lambda^{p-1} \to V_\lambda^p,
+  \qquad
+  D \colon W_\mu^{q-1} \to W_\mu^q.
+\]
+E' facile osservare che questi operatori sono iniettivi in quanto
+due derivate coincido solamente se le funzioni differiscono per una costante,
+ma le costanti non stanno nei nostri spazi in quanto
+abbiamo sempre supposto che il numeratore delle nostre funzioni razionali abbia grado inferiore al denominatore.
+Dunque si ha $\dim D(V_\lambda^{p-1})=p-1$ e $\dim D(W_\mu^{q-1})=2q-2$.
+
+Se $p>1$ e $q>1$
+è facile verificare che $V_\lambda^1 \subset V_\lambda^{p-1}$
+e $W_\mu^1 \subset W_\mu^{q-1}$. Vogliamo ora dimostrare che
+in tal caso si ha
+\begin{equation}\label{eq:435694}
+V_\lambda^p = V_\lambda^1 \oplus D(V_\lambda^{p-1}),
+\qquad
+W_\mu^q = W_\mu^1 \oplus D(W_\mu^{q-1}).
+\end{equation}
+Essendo $D$ iniettivo sappiamo già che risulta
+\begin{align*}
+\dim V_\lambda^1 + \dim D(V_\lambda^{p-1}) &=
+1+(p-1) = \dim V_\lambda^p, \\
+\dim W_\mu^1 + \dim D(W_\mu^{q-1}) &=
+2 + 2(q-1) = \dim V_\mu^q
+\end{align*}
+dunque basterà dimostrare che
+\[
+V_\lambda^1 \cap D(V_\lambda^{p-1}) = \ENCLOSE{0},
+\qquad
+W_\mu^1 \cap D(W_\mu^{q-1}) = \ENCLOSE{0}.
+\]
+Per gli spazi $V_\lambda^p$ è più facile.
+Prendiamo una qualunque funzione
+\[
+\frac{P(x)}{(x-\lambda)^{p-1}}\in V_\lambda^{p-1}
+\]
+con $P\neq 0$.
+Senza perdita di generalità possiamo supporre
+che risulti $P(\lambda)\neq 0$ perché
+altrimenti possiamo dividere il polinomio $P(x)$
+per $(x-\lambda)$ e ricondurci (per induzione)
+al caso di un esponente $p$ più piccolo.
+Si ha allora
+\[
+  \enclose{\frac{P(x)}{(x-\lambda)^{p-1}}}'
+  = \frac{P'(x) (x-\lambda) - (p-1) \cdot P(x)}{(x-\lambda)^p}
+\]
+e visto che il numeratore non si annulla per $x=\lambda$ (in quanto
+il primo addendo si annulla, ma il secondo no) possiamo essere certi che la frazione non si semplifica e non può quindi
+essere scritta nella forma
+\[
+  \frac{A}{x-\lambda} \in V_\lambda^1.
+\]
+Dunque abbiamo mostrato che $V_\lambda^1 \cap D(V_\lambda^{p-1}) = \ENCLOSE{0}$.
+
+Per gli spazi $W$ il conto viene un poco più lungo ma è sostanzialmente
+lo stesso.
+\[
+  \enclose{\frac{P(x)}{(x^2+\alpha x + \beta)^{q-1}}}'
+  = \frac{P'(x)\cdot (x^2+\alpha x + \beta)-P(x)\cdot (q-1)\cdot (2x+\alpha)}{(x^2+ \alpha x + \beta)^q}.
+\]
+Ora, come prima, possiamo supporre che $P(x)$ non sia divisibile per
+$x^2 + \alpha x + \beta = (x-\mu)(x-\overline{\mu})$ e questo è equivalente
+a richiedere che $P(\mu)=\overline{P(\bar \mu)}\neq 0$.
+Ma ora osserviamo che il numeratore del risultato
+non può essere divisibile per il polinomio di secondo grado
+$x^2+\alpha x + \beta$
+in quanto il primo addendo si annulla in $\mu$
+e in $\bar mu$ ma il secondo no, in quanto se fosse
+\[
+P(\mu) \cdot (q-1) \cdot (2\mu + \alpha)
+= P(\mu) \cdot (q-1) \cdot (2\mu + 2\Re \mu)
+= 0
+\]
+visto che $P(\mu)\neq 0$ dovrebbe essere $\mu = - \Re \mu$
+che è assurdo in quanto $\mu$ non è reale. Abbiamo quindi dimostrato~\eqref{eq:435694}.
+
+Ora sempre il teorema~\ref{th:fratti_semplici_reali}
+ci dice che risulta
+\[
+  V_{\tilde Q} = V_{\lambda_1}^{p_1-1} \oplus \dots \oplus V_{\lambda_n}^{p_n-1}
+   \oplus W_{\mu_1}^{q_1-1} \oplus \dots \oplus W_{\mu_m}^{q_n-1}
+\]
+(se un esponente è nullo si può togliere il corrispondente
+addendo in quanto formalmente $V_\lambda^0 = W_\mu^0 = \ENCLOSE{0}$)
+dunque grazie
+a \eqref{eq:47748393} otteniamo la scomposizione cercata:
+\begin{align*}
+  V_Q &= V_{\lambda_1}^1 \oplus \dots \oplus V_{\lambda_n}^1
+   \oplus W_{\mu_1}^1 \oplus \dots W_{\mu_m}^1
+   \oplus D\enclose{V_{\tilde Q}}.
+\end{align*}
+\end{proof}
+
+
+\begin{comment}
+  %%% Questa è la vecchia versione
+  %%% che non utilizzava la scomposizione di Hermite
 In base ai teoremi precedenti, se $P(x)/Q(x)$ è una qualunque funzione razionale reale,
 possiamo innanzitutto
 eseguire la divisione tra polinomi e trovare quindi un
@@ -1942,6 +2290,9 @@ utilizzato l'integrale immediato:
 \]
 utilizzandolo per eliminare il termine di grado uno al numeratore della funzione integranda.
 \end{proof}
+
+\end{comment}
+
 
 \section{integrali che si riconducono a funzioni razionali}
 
