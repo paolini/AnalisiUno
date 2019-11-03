@@ -724,9 +724,9 @@ $P\colon \KK \to \KK$, $x\mapsto P(x)$ che chiameremo
 \emph{funzione polinomiale} associata a $P$.
 
 \begin{theorem}[Ruffini]
-\label{th:Ruffini}
-\index{teorema!di Ruffini}
-\index{Ruffini}
+\label{th:Ruffini}%
+\index{teorema!di Ruffini}%
+\index{Ruffini}%
 Sia $P\in \KK[x]$ un polinomio non nullo.
 Se $x_0 \in \KK$ è tale che $P(z_0)=0$
 allora esiste un polinomio $Q$ con $\deg Q = (\deg P) - 1$
@@ -802,7 +802,7 @@ e, per ipotesi induttiva, scopriamo che $Q$ deve
 essere nullo. Di conseguenza anche $P$ è nullo.
 \end{proof}
 
-Se $\KK$ è infinito (come nei casi $\KK=\RR$ o $\KK=\CC$)
+Se $\KK$ è un insieme infinito (come nei casi $\KK=\RR$ o $\KK=\CC$)
 si trova che
 se a due polinomi $P$, $Q$ corrisponde
 la stessa funzione polinomiale:
@@ -917,8 +917,9 @@ Dimostriamo ora che $A$ è anche limitato. Se non lo fosse esisterebbe, per assu
 \end{proof}
 
 \begin{theorem}[teorema fondamentale dell'algebra]
-\mynote{teorema fondamentale dell'algebra}
-\index{teorema!fondamentale dell'algebra}
+\label{th:fondamentale_algebra}
+\mynote{teorema fondamentale dell'algebra}%
+\index{teorema!fondamentale dell'algebra}%
 Sia $f(z)$ un polinomio di grado $N\ge 1$ a coefficienti complessi:
 \[
   f(z) = \sum_{j=0}^N a_j \cdot z^j
@@ -1011,12 +1012,16 @@ E' dunque possibile determinare un valore di $\rho$ abbastanza piccolo, ma non n
 in modo che posto $z= \rho e^{i\theta}$, si abbia $\abs{g(z)} < 1$ e la dimostrazione è completata.
 \end{proof}
 
-\begin{theorem}[Decomposizione dei polinomi sui complessi]
-\index{decomposizione dei polinomi}
+\section{fattorizzazione dei polinomi}
+
+\begin{theorem}[fattorizzazione dei polinomi complessi]
+\index{decomposizione!dei polinomi complessi}%
+\index{fattorizzazione!dei polinomi complessi}%
+\index{polinomio!fattorizzazione complessa}%
 Sia $p(z)$ un polinomio non nullo. Allora posto $n=\deg p$ esistono dei numeri complessi $z_1, z_2, \dots, z_n$ ed un numero complesso $c\neq 0$ tali che
-\[
+\begin{equation}\label{eq:34985}
   p(z) = c \prod_{k=1}^n (z-z_k).
-\]
+\end{equation}
 Gli $z_k$ sono unici a meno dell'ordine e $c$ pure è univocamente determinato.
 \end{theorem}
 %
@@ -1032,4 +1037,159 @@ con $q$ un qualche polinomio di grado $n-1$. Per ipotesi induttiva possiamo dunq
    q(z) = c \prod_{k=1}^{n-1} (z-z_k)
 \]
 e la tesi segue.
+\end{proof}
+
+Nella fattorizzazione~\eqref{eq:34985} le \emph{radici} $z_k$ possono
+anche ripetersi. Se mettiamo insieme i fattori corrispondenti alla stessa radice
+si ottiene una decomposizione della forma
+\begin{equation}\label{eq:358925}
+P(z) = c \prod_{k=1}^m (z-z_k)^{p_k}
+\end{equation}
+con $z_1, \dots, z_m$ numeri complessi distinti (le radici del polinomio $P$)
+e $p_k$ interi positivi.
+L'esponente $p_k$ si chiama
+\myemph{molteplicità} della radice $z_k$ e risulta
+\[
+  p_1 + \dots + p_m = n.
+\]
+Questa uguaglianza si esprime dicendo che un polinomio $P\in \CC[z]$
+di grado $n$ ha sempre $n$ radici contate con la loro molteplicità.
+Le radici distinte sono invece $m\le n$.
+
+Se invece $P\in \RR[x]$ è un polinomio a coefficienti reali
+non è detto che $P$ abbia radici: ad esempio il
+polinomio $x^2+1$ non ha radici reali in quanto $x^2+1>0$
+come succede in ogni campo ordinato.
+Potrà allora essere utile pensare a $P$ come ad un polinomio
+in $\CC[x]$ con coefficienti reali.
+
+Se $P\in \RR[x]$ è un polinomio a coefficienti reali
+\[
+  P = \sum_{k=0}^n a_k x^k, \qquad a_k\in \RR
+\]
+possiamo pensare a $P$ anche come un polinomio in
+$\CC[x]$, visto che $a_k\in \RR\subset \CC$.
+Il seguente teorema ci dà un criterio per distinguere
+i polinomi a coefficienti reali dentro a $\CC[x]$.
+
+\begin{theorem}
+\label{th:caratterizzazione_polinomi_reali}%
+Se $P\in \CC[x]$ è un polinomio a coefficienti complessi
+\[
+  P = \sum_{k=0}^n a_k x^k,\qquad a_k\in \CC
+\]
+e se esiste un insieme infinito $A\subset \RR$
+tale che per ogni $x\in A$ si abbia $P(x)\in \RR$
+allora $a_k\in\RR$ per ogni $k=0,\dots,n$ e dunque $P\in \RR[x]$.
+
+In particolare se la funzione polinomiale associata a
+$P\in\CC[x]$ manda $\RR$ in $\RR$ allora $P$ è un polinomio
+a coefficienti reali.
+\end{theorem}
+%
+\begin{proof}
+Consideriamo il polinomio:
+\[
+  Q = \sum_{k=0}^n (a_k-\bar a_k) x^k.
+\]
+Allora per ogni $x\in A$ si ha
+\[
+  Q(x) = \sum_{k=0}^n a_k x^k - \sum_{k=0}^n \bar a_k x^k
+     = P(x) - \overline{P(x)} = P(x) - P(x) = 0
+\]
+in quanto se $x\in \RR$ risulta
+$\overline{x^k} = {\bar x}^k = x^k$.
+Visto che $A$ è infinito,
+per il principio di annullamento dei polinomi
+(teorema~\ref{th:annullamento_polinomi})
+deduciamo che $Q=0$.
+Ma allora tutti i coefficienti di $Q$ devono
+essere nulli e cioè $\bar a_k = a_k$.
+Ne consegue che $a_k\in \RR$ per ogni $k=0,\dots,n$.
+\end{proof}
+
+Rifacendoci alla fattorizzazione dei polinomi a coefficienti
+complessi possiamo fattorizzare anche i polinomi a coefficienti
+reali se ci accontentiamo di avere fattori quadratici
+invece che lineari.
+
+\begin{theorem}[fattorizzazione dei polinomi reali]
+  \label{th:fattorizzazione_polinomio_reale}%
+Se $P\in \RR[x]$ è un polinomio a coefficienti reali
+potremo scrivere
+\begin{equation}\label{eq:35549}
+  P = a \cdot \prod_{k=1}^n (x-x_k)^{p_k} \cdot \prod_{j=1}^m (x^2 + \alpha_j x + \beta_j)^{q_j}
+\end{equation}
+dove $a\in \RR$, $x_k\in \RR$, $p_k\in \NN\setminus\ENCLOSE{0}$,
+$\alpha_j,\beta_j\in \RR$, $q_j\in \NN\setminus\ENCLOSE{0}$
+con $\alpha_j^2 - 4 \beta_j < 0$
+e
+\[
+  \sum_{k=1}^n p_k + 2 \sum_{j=1}^m q_k = \deg P.
+\]
+
+La fattorizzazione~\eqref{eq:35549} è unica a meno
+dell'ordine dei fattori.
+
+I numeri $x_1,\dots,x_n$ sono tutte le radici reali distinte
+del polinomio $P$ con rispettive molteplicità
+$p_1,\dots,p_n$ mentre tutte le radici complesse (non reali)
+distinte saranno $\mu_1,\dots, \mu_m$
+e $\bar \mu_2, \dots, \bar \mu_m$ con
+\[
+  x^2 + \alpha_j x + \beta_j = (x-\mu)\cdot(x-\bar \mu)
+\]
+da cui
+\[
+  \alpha_j = -2\Re \mu_j, \qquad \beta_j=\abs{\mu_j}^2
+\]
+e $q_j$ saranno le molteplicità delle radici $\mu_j$
+ e $\bar \mu_j$.
+\end{theorem}
+%
+\begin{proof}
+Osserviamo innanzitutto che se $P$ è a coefficienti reali
+si ha
+\[
+  \overline{P(z)} = P(\bar z), \qquad \forall z\in \CC
+\]
+dunque se $\mu$ è una radice di $P$ anche $\bar \mu$
+è una radice di $P$.
+Ora se $\mu$ è una radice non reale di $P$ sappiamo
+che in campo complesso $P$ risulta divisibile
+per $x-\mu$ (teorema~\ref{th:Ruffini} di Ruffini):
+\[
+  P = (x-\mu) \cdot P_1.
+\]
+Ma anche $\bar \mu$ è radice di $P$ ed essendo
+$\bar \mu \neq \mu$ si dovrà avere
+\[
+Q(\bar \mu) = \frac{P(\bar \mu)}{\bar \mu - \mu} = 0
+\]
+e dunque applicando nuovamente il teorema di Ruffini
+\[
+ P = (x-\mu)\cdot (x-\bar \mu)\cdot P_2.
+\]
+Ora osserviamo che
+\[
+(x-\mu)\cdot(x-\bar \mu) = x^2 - (\mu + \bar \mu) x + \mu \bar \mu
+ = x^2 - 2 (\Re \mu)\cdot x + \abs{\mu}^2
+\]
+è un polinomio a coefficienti reali e
+visto che $P_2$ si ottiene dividendo $P$ per tale polinomio,
+anche $P_2$ è un polinomio a coefficienti reali.
+
+Ripetendo lo stesso procedimento sul polinomio $P_2$
+potremo fattorizzare $P$ diminuendo il grado a passi
+di $2$ finché non si esauriscono tutte le radici complesse
+non reali accoppiandole a due a due.
+Dunque se $\mu$ è una radice complessa
+del polinomio reale $P$ la molteplicità di $\mu$ è
+uguale alla molteplicità di $\bar \mu$.
+
+Dopodiché
+si potrà completare la fattorizzazione dividendo
+per i fattori lineari $x-x_k$ corrispondenti
+alle radici reali del polinomio $P$.
+Si otterrà quindi la fattorizzazione desiderata.
 \end{proof}
