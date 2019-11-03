@@ -451,267 +451,372 @@ Scrivere le soluzioni in forma polare e cartesiana.
 
 \section{polinomi}
 
-\begin{definition}[funzione polinomiale]
-Diremo che una funzione $f\colon \CC \to \CC$ è una
-\emph{funzione polinomiale}
-\mynote{funzione polinomiale}%
-\index{funzione!polinomiale}%
-\index{polinomio}%
-a coefficienti complessi se esiste $N\in \NN$ ed esistono dei numeri complessi $a_0, a_1, \dots, a_N$ tali che per ogni $z\in \CC$ si abbia
+Se $\KK$ è un campo\footnote{%
+Ma più in generale è sufficiente
+avere un \emph{anello}: un insieme su cui sono definite le operazioni
+di somma e prodotto come su un campo ma su cui non si richiede
+l'esistenza dell'inverso moltiplicativo.
+E' abbastanza comune, ad esempio, considerare polinomi
+a coefficienti interi.}
+(a noi interessa in particolare $\KK=\RR$ o $\KK=\CC$)
+possiamo considerare tutte le espressioni
+(formalmente: alberi di valutazione)
+che possono essere costruite utilizzando le operazioni
+di somma e prodotto a partire da coefficienti presi da $\KK$
+e una variabile che possiamo chiamare $x$.
+Queste verranno chiamate \emph{espressioni polinomiali} su $\KK$
+(o a coefficienti in $\KK$)
+nella variabile $x$. Un esempio di espressione polinomiale
+nella variabile $x$ a coefficienti in $\RR$ può essere:
 \[
-  f(z) = \sum_{k=0}^N a_k z^k.
+  P(x) = \enclose{\frac 1 2 x+\sqrt 3}\cdot(x\cdot (2+x) + 3\cdot(-1+x))
 \]
-Usualmente si denota con $\CC[z]$
-l'insieme di tutte le funzioni polinomiali a coefficienti in $\CC$. \end{definition}
-
-Nel seguito chiameremo più semplicemente \emph{polinomi} le funzioni polinomiali. Dobbiamo però avvertire che a rigore il polinomio non è la funzione $f(z)$ definita più sopra ma è l'operazione astratta di applicare ad un oggetto qualunque $z$ (non necessariamente un numero) le opportune operazioni di moltiplicazione e di addizione. Ad esempio se $M$ è una matrice e $p$ è il polinomio $p(z) = 3 z^2+2$ ha senso considerare la matrice $f(M) = 3 M^2 + 2 M^0$ dove $M^2= M\cdot M$ e $M^0 = Id$.
-
-Più in generale possiamo considerare polinomi a coefficienti in un qualunque \myemph{anello commutativo}
-cioè su un insieme in cui sono definite la somma e il prodotto e su cui valgono le proprietà associativa (per somma e prodotto), commutativa (per somma e prodotto), esistenza dell'opposto (per la somma) e la proprietà distributiva.
-Ogni campo è un anello commutativo, ma negli anelli non è necessario esista sempre l'inverso moltiplicativo.
-Esempi di anelli commutativi sono: $\CC$, $\RR$, $\QQ$ e $\ZZ$.
-Tratteremo in questa sezione solamente i polinomi a coefficienti in $\CC$ e li considereremo come funzioni $\CC \to \CC$. E' chiaro che i risultati ottenuti potranno essere utilizzati anche per i polinomi a coefficienti in $\RR$ che, usualmente, vengono considerati come funzioni $\RR \to \RR$ ma potrebbero anche essere considerati un sottospazio dei polinomi $\CC \to \CC$.
-
-L'insieme $V = \CC^\CC$ di tutte le funzioni $f\colon \CC \to\CC$ è uno spazio vettoriale complesso in quanto se $f,g\in V$ e $\lambda, \mu \in \CC$ si può definire la combinazione lineare di $f$ e $g$ come
-\[
-  (\lambda f+ \mu g)(z) = \lambda f(z) + \mu g(z)
-\]
-e risulta quindi che $\lambda f + \mu g$ è ancora un elemento di $V$.
-
-Se per ogni $n\in \NN$ consideriamo le particolari funzioni $e_n\in V$ definite da
-\[
-  e_n(z) = z^n
-\]
-ci accorgiamo che l'insieme dei polinomi $\CC[z]$ non è altro
-che l'insieme delle funzioni che si ottengono facendo una combinazione
-lineare finita di queste funzioni. Cioè $\CC[z]$ è lo spazio generato dalle funzioni (vettori di $\CC^\CC$): $1, z, z^2, \dots, z^n,\dots$
-
-Osserviamo che gli spazi $\CC^\CC$ e $\CC[z]$ hanno una struttura di anello (è possibile fare il prodotto di funzioni, ma solo le funzioni che non si annullano mai hanno inverso moltiplicativo).
-
-\begin{theorem}[principio di annullamento dei polinomi]
-\label{th:annullamento_polinomi}
-\index{principio di annullamento dei polinomi}
-Sia $N \in \NN$ e siano $a_0, \dots, a_N$ numeri complessi tali che
-\[
-\forall z \in \NN \colon \sum_{k=0}^N a_k z^k = 0.
-\]
-Allora $a_k=0$ per ogni $k=0,\dots, N$.
-\end{theorem}
-%
-\begin{proof}
-Supponiamo per assurdo che ci sia almeno un coefficiente $a_k$ non nullo. Senza perdita di generalità possiamo supporre che sia l'ultimo cioè $a_N \neq 0$ in quanto se fosse $a_N=0$ potrei trascurare l'ultimo addendo e decrementare $N$.
-Se $a_N\neq 0$ possiamo allora scrivere
-\[
- \sum_{k=0}^N a_k z^k = a_N z^N \enclose{ 1 + \sum_{k=0}^{N-1} \frac{a_k}{a_N}\frac{1}{z^{N-k}}}.
-\]
-Per ipotesi il lato sinistro si annulla per ogni $z\in \NN$ e quindi si deve annullare il limite per $z\to +\infty$, $z \in \NN$ di ambo i lati dell'uguaglianza. Ma nel lato destro ogni termine della sommatoria
-tende a zero se $z \to +\infty$ e quindi la parentesi tende a $1$. Affinché il prodotto tenda a zero è quindi necessario che sia $a_N = 0$ in quanto $z^N \to +\infty$. Assurdo.
-\end{proof}
-
-In particolare il teorema precedente ci dice che il polinomio con tutti i coefficienti nulli è l'unico polinomio che si annulla su tutto $\CC$.
-
-Dal punto di vista dell'algebra lineare questo significa
-che i vettori $1,z,z^2, \dots$ dello spazio vettoriale $\CC^\CC$ sono vettori indipendenti. Per definizione essi generano $\CC[z]$ e dunque sono in effetti una base di $\CC[z]$.
-Risulta quindi che $\CC[z]$ e $\CC^\CC$ siano spazi vettoriali di dimensione infinita.
-
-L'enunciato è però più generale (basta che il polinomio si annulli sui numeri naturali) e questo ci garantisce che tale risultato può essere applicato anche ai polinomi visti come funzioni definite solamente su $\RR$ su $\QQ$ o anche solo su $\ZZ$. Dunque il risultato si applica anche a $\RR[x]$: i polinomi a coefficienti reali visti come funzioni $\RR \to \RR$. In effetti questo sarà il caso più importante per quanto riguarda il prosieguo del corso.
-
-\begin{theorem}[principio di identità dei polinomi]
-\label{th:identita_polinomi}
-\index{principio di identità dei polinomi}
-Dati due polinomi
-\[
-  f(z) = \sum_{k=0}^N a_k z^k, \qquad
-  g(z) = \sum_{k=0}^M b_k z^k
-\]
-si ha che $f=g$
-se e solo se $a_k=b_k$ per ogni $k\in \NN$ (intendendo che $a_k=0$ se $k>N$ e $b_k = 0$ se $k>M$).
-
-Il risultato è valido anche se consideriamo i polinomi come funzioni $\RR\to \RR$, $\QQ \to \QQ$ o $\ZZ \to \ZZ$.
-\end{theorem}
-%
-\begin{proof}
-Possiamo innanzitutto supporre $N=M$ semplicemente aggiungendo coefficienti nulli al polinomio con meno termini. Si potrà considerare  allora la differenza tra i due polinomi:
-\[
-  f(z)-g(z) = \sum_{k=0}^N (a_k - b_k)z^k.
-\]
-Chiaramente se $a_k=b_k$ per ogni $k=0,\dots,N$ il termine sul lato destro si annulla per ogni $z\in \CC$ e quindi si ottiene $f=g$. Viceversa se $f=g$ (anche solo su $\NN$)
-il lato sinistro è zero e per il teorema di annullamento dei polinomi possiamo quindi concludere che tutti i coefficienti $a_k-b_k$ sono nulli. Dunque $a_k = b_k$ per ogni $k$.
-\end{proof}
-
-\begin{definition}[grado]
-In
-\mymargin{grado di un polinomio}
-base al teorema precedente se $f$ è un polinomio non nullo esiste una unica sequenza di coefficienti $a_k\in \CC$ e un unico $N\in \NN$ tali che $a_k=0$ per ogni $k>N$ e $a_N\neq 0$, per cui si ha
-\[
-  f(z) = \sum_{k=0}^N a_k z^k.
-\]
-Il numero naturale $N$ si chiama \myemph{grado del polinomio $f$}
-e si denota con $\deg f$.
-
-Il polinomio nullo $f(z)=0$ si può rappresentare come una somma \emph{vuota} e non ha nessun coefficiente diverso da zero.
-Per convenzione il suo grado si pone uguale a $-\infty$:
-$\deg f = -\infty$.
-\end{definition}
-
-Si osservi che se il polinomio $f$ ha coefficienti $a_k$ potremmo definire
-\[
-  \deg f = \sup \{k\in \NN \colon a_k \neq 0\}.
-\]
-Se $f$ è il polinomio nullo l'insieme di cui si vuole prende l'estremo superiore è vuoto e, coerentemente con la definizione di $\sup$, il grado di $f$ risulta quindi $-\infty$.
-
-\begin{theorem}[grado della somma e del prodotto]
-Se $f$ e $g$ sono polinomi anche $f+g$ e $f\cdot g$ sono polinomi.
-Si ha sempre
-\[
-\deg (f+g) \le \max\{\deg f, \deg g\}
-\]
-e se $\deg f \neq \deg g$ si ha
-\[
-\deg (f+g) = \max\{\deg f, \deg g\}.
-\]
-Inoltre
-\[
- \deg (f\cdot g) = \deg f + \deg g.
-\]
-\end{theorem}
-%
-\begin{proof}
-Sia
-\[
-  f(z) = \sum_{k=0}^{\deg f} a_k z^k, \qquad g(z) = \sum_{k=0}^{\deg g} b_k z^k.
-\]
-Possiamo considerare $N=\max\{\deg f, \deg g\}$ e definire $a_k=0$ e $b_k=0$ per ogni $k$ maggiore del grado del polinomio corrispondente. Si ha allora
-\[
-  f(z) + g(z) = \sum_{k=0}^N a_k z^k + \sum_{k=0}^N b_k z^k
-    = \sum_{k=0}^N (a_k + b_k) z^k.
-\]
-E' possibile che $f+g$ abbia grado inferiore ad $N$ in quanto non possiamo garantire che $a_N+b_N$ sia non nullo a meno che i gradi dei due polinomi non siano diversi perché in tal caso uno tra $a_N$ e $b_N$ è nullo e l'altro, essendo il termine di grado massimo, è non nullo.
-
-Per quanto riguarda il prodotto supponiamo inizialmente che $f$ e $g$ non siano nulli. Allora si ha
+ovvero l'albero di valutazione:
+\begin{center}
+\begin{tikzpicture}
+\node [circle,draw] {$\cdot$}
+  child {
+    node [circle,draw,xshift=-15mm] {$+$}
+    child {
+      node [circle,draw] {$\cdot$}
+      child {node [draw]{$\frac 1 2$}}
+      child {node [draw]{$x$}}
+    }
+    child {node [draw] {$\sqrt 3$}}
+  }
+  child {
+    node [circle,draw,xshift=15mm] (M) {$+$}
+    child {
+      node [circle,draw,xshift=-10mm]{$\cdot$}
+      child {node [draw]{$x$}}
+      child {
+        node [circle,draw]{$+$}
+        child {node [draw] {$2$}}
+        child {node [draw] {$x$}}
+        }
+      }
+    child {
+      node [circle,draw,xshift=10mm]{$\cdot$}
+      child {node [draw] {$3$}}
+      child {
+        node [circle,draw] {$+$}
+        child {node [draw] {$-1$}}
+        child {node [draw] {$x$}}
+        }
+    }
+  };
+\end{tikzpicture}
+\end{center}
+Sviluppando tutti i prodotti tramite la proprietà distributiva,
+ogni espressione di questo tipo può essere ricondotta ad una
+somma di prodotti di costanti per potenze intere della variabile
+$x$:
 \begin{align*}
- f(z) \cdot g(z)
- &= \enclose{\sum_{k=0}^{\deg f} a_k z^k} \cdot \enclose{\sum_{j=0}^{\deg g} b_j z^j}\\
- &= \sum_{k=0}^{\deg f} \sum_{j=0}^{\deg g} a_k b_j z^{k+j} \\
- &= \sum_{n=0}^{\deg f + \deg g} \sum_{k=0}^n a_k b_{n-k} z^n.
+P &= \enclose{\frac 1 2 x+\sqrt 3}\cdot(x\cdot (2 + x)
++ 3\cdot(-1+x))\\
+&= \enclose{\frac 1 2 x + \sqrt 3} (2x+x^2-3+3x) \\
+&= - 3 \sqrt 3 + \enclose{-\frac{3}{2}+ 5\sqrt 3} x
+  + \enclose{\frac{5}{2}+\sqrt 3} x^2 + \frac 1 2 x^3.
 \end{align*}
-Nell'ultimo passaggio abbiamo cambiato variabile negli indici, ponendo $n=k+j$ da cui $j=n-k$ e inoltre stiamo supponendo, per comodità, che $a_k=0$ quando $k>\deg f$ e $b_k = 0$ per $k<0$.
-In effetti quando $n= \deg f + \deg g$ la somma
+Si ottiene quindi un polinomio in \emph{forma canonica}
 \[
-  c_n = \sum_{k=0}^n a_k b_{n-k}
+  P = a_0 + a_1 x + a_2 x^2 + \dots + a_n x^n
+       = \sum_{k=0}^n a_k x^k.
 \]
-ha un solo addendo non nullo che corrisonde a $k=\deg f$ e $n-k=\deg g$.
-Tale addendo è sicuramente non nullo in quanto è il prodotto dei coefficienti di grado massimo di $f$ e $g$. Risulta quindi che il polinomio prodotto ha grado esattamente uguale a $\deg f + \deg g$.
+Due espressioni polinomiali che hanno la stessa
+forma canonica si diranno equivalenti: diremo
+allora che rappresentano lo stesso \myemph{polinomio}.
+Nella forma canonica si intende che siano presenti tutte
+le potenze di $x$ da $x^0 = 1$, $x^1=x$ \dots fino ad
+una potenza massima $x^n$.
+Se una potenza non compare
+nell'espressione si può comunque inserire mettendo
+il coefficiente corrispondente uguale a zero.
+La potenza massima, invece, dovrà avere un coefficiente
+diverso da zero, altrimenti si dovrà decrementare
+$n$ finché non si giunge a tale proprietà.
+Tale esponente $n$ si chiama \myemph{grado del polinomio}
+che denoteremo con $\deg P$.
+Se la potenza massima è $0$ avremo un unico coefficiente
+$a_0$. In tal caso il grado del polinomio è nullo (zero)
+e diremo che il polinomio è \emph{costante}.
+Se tutti i coefficienti sono nulli (uguali a zero)
+avremo formalmente
+una somma vuota, diremo che il polinomio è nullo e,
+per convenzione, porremo $\deg P = -\infty$.
 
-Se almeno uno tra $f$ e $g$ è nullo allora chiaramente anche il prodotto è nullo. D'altra parte se uno tra $\deg f$ e $\deg g$ è uguale a $-\infty$ anche la somma è $-\infty$. Risulta quindi che il risultato è verificato anche nel caso particolare dei polinomi nulli.
-\end{proof}
+Se $\KK$ è un campo denoteremo con $\KK[x]$ l'insieme
+di tutti i polinomi con coefficienti in $\KK$ e variabile $x$.
+Si tratta quindi di espressioni polinomiali identificate
+a meno di equivalenza. Ogni polinomio è univocamente
+determinato dalla sua forma canonica ovvero dall'avere
+un grado $n \in \NN \cup \{-\infty\}$ e una lista
+di $n+1$ coefficienti:
+\[
+  (a_0, \dots, a_n) \in \KK^{n+1}
+\]
+(una lista vuota nel caso $n=-\infty$).
+I polinomi possono essere sommati tra di loro
+e moltiplicati per qualunque elemento $\KK$ del campo
+e formano dunque uno spazio vettoriale
+sul campo $\KK$. Inoltre è possibile moltiplicare
+tra loro due polinomi (si parla in questo
+caso di $\KK$-algebra).
 
-\begin{theorem}[divisione tra polinomi]
-\index{divisione tra polinomi}
-Dati due polinomi $p(z)$ e $d(z)$ con $d\neq 0$ è possibile trovare, in modo unico, due polinomi $q(z)$ (quoziente) e $r(z)$ (resto) con $\deg r < \deg d$
+Più esplicitamente se $P$ e $Q$ sono polinomi
+scritti in forma canonica:
+\[
+  P = \sum_{k=0}^n a_k x^k, \qquad Q = \sum_{k=0}^m b_k x^k
+\]
+si avrà:
+\[
+  P + Q = \sum_{k=0}^{\max\{n,m\}} (a_k+b_k) \cdot x^k
+\]
+dove si intende che $a_k=0$ per $k>n$ e $b_k=0$ per $k>m$.
+Si osserva quindi che il grado della somma di due polinomi
+è minore o uguale alla somma dei gradi dei due polinomi.
+Se $t\in \KK$ avremo:
+\[
+  t P = \sum_{k=0}^n (ta_k)\cdot x^k.
+\]
+Per quanto riguarda il prodotto si avrà invece:
+\begin{align*}
+  P\cdot Q
+  &= \enclose{\sum_{k=0}^n a_k x^k}\cdot \enclose{\sum_{j=0}^n b_j x^j}
+  = \enclose{\sum_{k=0}^n a_k \enclose{\sum_{j=0}^m a_j x^j} x^k} \\
+  &= \enclose{\sum_{k=0}^n \sum_{j=0}^m a_k a_j x^{j+k}}
+  = \sum_{s=0}^{m+n} \enclose{\sum_{j=0}^s a_j b_{s-j}} x^s.
+\end{align*}
+Dunque si osserva che il grado del prodotto è uguale
+alla somma dei gradi.
+
+Ogni polinomio in forma canonica è scritto come
+combinazione lineare dei \emph{monomi} $x^k$:
+significa che una base dello spazio vettoriale $\KK[x]$ è data dai
+polinomi
+\[
+  1, x, x^2, x^3, \dots, x^n, \dots
+\]
+Dunque $\KK[x]$ è uno spazio vettoriale di dimensione
+infinita. Fissato $n\in \NN$ possiamo considerare
+il sottoinsieme di $\KK[x]$ formato da tutti
+i polinomi di grado inferiore a $n$. E' chiaro
+che tale insieme è in realtà un sottospazio vettoriale
+di $\KK[x]$ di dimensione $n$ e una base di tale
+sottospazio è dato dai monomi:
+\[
+  1, x, x^2, \dots, x^{n-1}.
+\]
+
+\begin{theorem}[divisione di Euclide]
+\index{divisione tra polinomi}%
+\index{polinomio!divisione}%
+\index{polinomio!algoritmo di Euclide}%
+\index{Euclide!algoritmo di divisione}%
+\index{algoritmo!di Euclide}%
+Dati due polinomi $P$ e $S\neq 0$ in $\KK[x]$ è possibile
+trovare, in modo unico, due polinomi $Q$ (quoziente)
+e $R$ (resto) in $\KK[x]$ con $\deg R < \deg R$
 tali che:
 \[
-  p(z) = q(z) \cdot d(z) + r(z) \qquad \forall z\in \CC.
+  P = Q \cdot S + R.
 \]
 \end{theorem}
 %
 \begin{proof}
-\emph{Passo 1:} supponiamo che sia $\deg p < \deg d$.
-In questo caso deve necessariamente essere $q=0$ altrimenti si avrebbe $\deg (q\cdot d) = \deg q + \deg d \ge \deg d > \deg r$ da cui
-$\deg (q\cdot d + r) = \deg(q\cdot d) = \deg q + \deg d > \deg p$ e non si potrebbe avere l'uguaglianza $p = q\cdot d + r$.
-Ma posto $q=0$ e $r=p$ si ha $\deg r = \deg p < \deg d$ e l'uguaglianza è certamente (e unicamente) soddisfatta.
+\emph{Passo 1:} supponiamo che sia $\deg P < \deg S$.
+In questo caso deve necessariamente essere $Q=0$ altrimenti
+si avrebbe $\deg (Q\cdot S) = \deg Q + \deg S \ge \deg S > \deg R$ da cui
+$\deg (Q\cdot S + R) = \deg(Q\cdot S) = \deg Q + \deg S > \deg P$
+e non si potrebbe avere l'uguaglianza $P = Q\cdot S + R$.
+Ma posto $Q=0$ e $R=P$ si ha $\deg R = \deg P < \deg S$
+e l'uguaglianza è certamente (e unicamente) soddisfatta.
 
-\emph{Passo 2:} supponiamo che sia $\deg p \ge \deg d$.
-Poniamo $N=\deg p$ e $M=\deg d$. Sia $a_N\neq 0$ il coefficiente del termine di grado massimo di $p$ e $b_M\neq 0$ il coefficiente di grado massimo del polinomio $d$.
+\emph{Passo 2:} supponiamo che sia $\deg P \ge \deg S$.
+Poniamo $N=\deg P$ e $M=\deg S$.
+Sia $a_N\neq 0$ il coefficiente del termine di grado massimo
+di $P$ e $b_M\neq 0$ il coefficiente di grado massimo
+del polinomio $S$.
 E' allora facile verificare che il polinomio
 \[
-\frac{a_N}{b_M} z^{N-M}\cdot d(z)
+\frac{a_N}{b_M} \cdot x^{N-M}\cdot S
 \]
-ha lo stesso grado di $p(z)$ e il suo coefficiente di grado massimo è uguale ad $a_N$ in quanto è il prodotto di $a_N/b_M$ per $b_M$.
+ha lo stesso grado di $P$ e il suo coefficiente di grado
+massimo è uguale ad $a_N$ in quanto è il prodotto di
+$a_N/b_M$ per $b_M$.
 Dunque il polinomio
 \[
- p_1(z) = p(z) - \frac{a_N}{b_N} z^{N-M}\cdot d(z)
+ P_1 = P - \frac{a_N}{b_N} \cdot x^{N-M}\cdot S
 \]
-ha grado strettamente inferiore a $p$.
-Possiamo ora supporre, mediante un ragionamento induttivo su $\deg p - \deg d$
-che per il polinomio $p_1$ il risultato del teorema sia valido cioè
-che esistano unici dei polinomio $q_1$ e $r$ con $\deg r < \deg d$ tali che
+ha grado strettamente inferiore a $P$.
+Possiamo ora supporre, mediante un ragionamento induttivo
+su $\deg P - \deg S$
+che per il polinomio $P_1$ il risultato del teorema sia
+valido cioè
+che esistano, unici, dei polinomio $Q_1$ e $R$
+con $\deg R < \deg S$ tali che
 \[
-  p_1(z) = q_1(z) \cdot d(z) + r(z).
+  P_1 = Q_1 \cdot S + R.
 \]
-Il caso base del ragionamento induttivo, $\deg p = \deg d$, è garantito dal Passo 1.
+Il caso base del ragionamento induttivo,
+$\deg P = \deg S$, è garantito dal Passo 1.
 Avremo allora:
 \begin{align*}
-  p(z) &= p_1(z) + \frac{a_N}{b_N} z^{N-M}\cdot d(z)\\
-       &= q_1(z) \cdot d(z) + r_1(z) + \frac{a_N}{b_N} z^{N-M}\cdot d(z)\\
-       &= (\frac{a_N}{b_N} z^{N-M} + q_1(z)) \cdot d(z) + r_1(z).
+  P &= P_1 + \frac{a_N}{b_N} x^{N-M}\cdot S\\
+    &= Q_1 \cdot S + R_1 + \frac{a_N}{b_N} x^{N-M}\cdot S\\
+    &= (\frac{a_N}{b_N} x^{N-M} + Q_1) \cdot S + R_1.
 \end{align*}
 Posto quindi
 \[
- q(z) = \frac{a_N}{b_N} z^{N-M} + q_1(z)
+ Q = \frac{a_N}{b_N} x^{N-M} + Q_1
 \]
 il risultato è dimostrato.
 \end{proof}
 
-La dimostrazione del teorema precedente fornisce anche un algoritmo per eseguire la divisione (con resto) tra polinomi, come si può comprendere dallo svolgimento del seguente esercizio.
+La dimostrazione del teorema precedente fornisce anche un
+algoritmo, chiamato \emph{algoritmo di Euclide},
+per eseguire la divisione (con resto) tra polinomi.
+Lo sperimentiamo nel seguente esercizio.
 
 \begin{exercise}
-Sia $p(z) = z^4-3 z^2 + 2z + 1$ e $d(z) = z^2-1$.
+Sia $P = x^4-3 x^2 + 2x + 1$ e $S = x^2-1$.
 Eseguire la divisione con resto cioè:
-trovare $q(z)$ ed $r(z)$ con $\deg r < \deg d$ tali che
+trovare $Q$ ed $R$ con $\deg R < \deg S$ tali che
 \[
-p(z) = q(z) \cdot d(z) + r(z).
+P = Q \cdot S + R.
 \]
 \end{exercise}
 %
 \begin{proof}[Svolgimento.]
-Il rapporto tra i termini di grado massimo di $p(z)$ e $d(z)$ è $z^4/z^2 = z^2$. Dunque consideriamo come primo monomio $z^2$.
+Il rapporto tra i termini di grado massimo di
+$P$ e $S$ è $x^4/x^2 = x^2$.
+Dunque consideriamo come primo monomio $x^2$.
 Si ha
 \begin{align*}
-  p_1(z)
-  &= p(z) - z^2 \cdot d(z)
-  = z^4-3z^2+2z+1 - z^4+z^2 \\
-  &= -2z^2+2z+1.
+  P_1
+  &= P - x^2 \cdot S
+  = x^4-3x^2+2x+1 - x^4+x^2 \\
+  &= -2x^2+2x+1.
 \end{align*}
-Ripetiamo il procedimento con $p_1$ al posto di $p$.
-Il rapporto tra i termini di grado massimo di $p_1(z)$ e $d(z)$
+Ripetiamo il procedimento con $P_1$ al posto di $P$.
+Il rapporto tra i termini di grado massimo di $P_1$ e $S$
 è il monomio $-2$. Si ha
 \[
-  p_2(z) = p_1(z) - (-2) d(z) = -2z^2 + 2z + 1 + 2z^2 - 2 = 2z -1.
+  P_2 = P_1 - (-2) S = -2x^2 + 2x + 1 + 2x^2 - 2 = 2x -1.
 \]
-Visto che $\deg p_2 < \deg d$ la divisione termina e si pone $r(z) = 2z-1$. Si ha quindi $q(z) = z^2 - 2$ (la somma dei monomi trovati)
+Visto che $\deg P_2 < \deg S$ la divisione termina e
+si pone $R = 2z-1$.
+Si ha quindi $Q = x^2 - 2$ (la somma dei monomi trovati)
 e risulta:
 \[
-  p(z) = (z^2 - 2)\cdot d(z) + 2z -1.
+  P = (x^2 - 2)\cdot S + 2x -1.
 \]
 \end{proof}
+
+Dato un polinomio $P\in \KK[x]$ e un numero $a\in \KK$
+è possibile prendere l'espressione rappresentata da
+$P$ e sostiture alla variabile $x$ il valore $a$.
+E' chiaro allora che svolgendo le operazioni di somma
+e moltiplicazione si ottiene un valore in $\KK$
+che denoteremo con $P(a)$.
+Ogni polinomio $P\in \KK[x]$ identifica quindi una funzione
+$P\colon \KK \to \KK$, $x\mapsto P(x)$ che chiameremo
+\emph{funzione polinomiale} associata a $P$.
 
 \begin{theorem}[Ruffini]
 \label{th:Ruffini}
 \index{teorema!di Ruffini}
 \index{Ruffini}
-Sia $p(z)$ un polinomio non nullo.
-Se $z_0 \in \CC$ è tale che $p(z_0)=0$
-allora esiste un polinomio $q(z)$ con $\deg q = (\deg p) - 1$
+Sia $P\in \KK[x]$ un polinomio non nullo.
+Se $x_0 \in \KK$ è tale che $P(z_0)=0$
+allora esiste un polinomio $Q$ con $\deg Q = (\deg P) - 1$
 tale che
 \[
-  p(z) = (z-z_0)\cdot q(z).
+  P = (x-x_0)\cdot Q.
 \]
 \end{theorem}
 %
 \begin{proof}
-In base al teorema precedente si può fare la divisione tra $p(z)$ e $d(z) = z- z_0$ per ottenere un polinomio $q(z)$ e un resto $r(z)$ con $\deg r < 1$ tali che
+In base al teorema precedente si può fare la divisione tra
+$P$ e $S = x - x_0$ per ottenere un polinomio $Q$ e un resto
+$R$ con $\deg r < 1$ tali che
 \[
-  p(z) = (z-z_0)\cdot q(z) + r(z).
+  P = (x-x_0)\cdot Q + R.
 \]
-Siccome $\deg r(z) < 1$ si ha in effetti che $r(z)=c$ è una costante:
+Siccome $\deg R < 1$ si ha in effetti che $R=c\in \KK$
+è un polinomio costante e dunque
 \[
-  p(z) = (z-z_0) \cdot q(z) + c
+  P = (x-x_0) \cdot Q + c
 \]
-e sostituendo $z=z_0$ si scopre che $c = p(z_0) = 0$.
+ma valutando $P$ in $x=x_0$ si scopre che
+\[
+ P(x_0) = 0\cdot Q(x_0) + c = c
+\]
+dunque $c=P(x_0) = 0$.
 \end{proof}
 
+Possiamo ora chiederci se polinomi diversi corrispondono
+a funzioni polinomiali diverse.
+In generale questo non è vero, se ad esempio prendessimo
+come campo $\KK=\ZZ_2 = \{0,1\}$, un campo finito
+in cui $1+1=0$ scopriremmo che la funzione polinomiale
+$P(x) = x^2+x$ è identicamente nulla in quanto $0^2+0=0$
+e $1^2+1=1+1=0$ in questo campo.
+Ma nei casi che interessano a noi $\KK=\RR$ o $\KK=\CC$
+questo problema non si presenta e si potrà quindi identificare
+ogni polinomio con la corrispondente funzione polinomiale.
+Per avere questa garanzia ci servono i seguenti risultati.
+
+\begin{theorem}[principio di annullamento dei polinomi]
+\label{th:annullamento_polinomi}%
+\index{principio di annullamento dei polinomi}%
+Sia $P\in \KK[x]$ un polinomio non nullo di grado $n$.
+Allora la funzione polinomiale associata a $P$
+si annulla in al più $n$ punti distinti di $\KK$.
+
+In particolare se un polinomio si annulla in infiniti
+punti distinti allora tale polinomio è certamente nullo.
+\end{theorem}
+%
+\begin{proof}
+Dimostriamo per induzione su $n$ che se un polinomio
+$P$ di grado non superiore a $n$ si annulla in $n+1$
+punti distinti $x_1, \dots, x_{n+1}\in \KK$ allora
+$P=0$.
+
+Se $n=0$ il polinomio $P$ è costante ma si annulla
+in un punto e quindi è il polinomio nullo.
+Se $n>0$ per il teorema di Ruffini applicato al
+punto $x_{n+1}$ sappiamo che esise un polinomio $Q$
+di grado inferiore ad $n$ per cui si ha
+\[
+  P = (x-x_{n+1}) \cdot Q
+\]
+sostituendo $x=x_k$ con $k\le n$ si ha $x_k-x_{n+1}\neq 0$
+e quindi
+\[
+  Q(x_k) = \frac{P(x_k)}{x_k-x_{n+1}} = 0.
+\]
+Dunque $Q$ si annulla nei punti $x_1, \dots, x_n$
+e, per ipotesi induttiva, scopriamo che $Q$ deve
+essere nullo. Di conseguenza anche $P$ è nullo.
+\end{proof}
+
+Se $\KK$ è infinito (come nei casi $\KK=\RR$ o $\KK=\CC$)
+si trova che
+se a due polinomi $P$, $Q$ corrisponde
+la stessa funzione polinomiale:
+\[
+  P(x)=Q(x) \qquad \text{per ogni $x\in \KK$}
+\]
+allora $P$ e $Q$ sono lo stesso polinomio $P=Q$
+in quanto la differenza $P-Q$ si annulla in tutti i punti
+di $\KK$ e qualunque sia il suo grado, se $\KK$ è infinito,
+questo ci dice che $P-Q=0$.
+
 \section{il teorema fondamentale dell'algebra}
+
+
 
 Per dimostrare il teorema fondamentale dell'algebra dobbiamo estendere il teorema di Weierstrass alle funzioni di una variabile complessa.
 Nel teorema di Weierstrass la funzione per ipotesi è definita su un intervallo chiuso e limitato. Nel piano complesso non esiste il concetto di \emph{intervallo} in quanto non abbiamo un ordinamento ma vedremo che comunque il teorema di Weierstrass rimane valido per le funzioni continue definite su insiemi chiusi e limitati secondo le seguenti definizioni.
