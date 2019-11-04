@@ -1,3 +1,6 @@
+# per funzionare anche con python2
+from __future__ import print_function
+
 # la libreria numerica numpy ci permette di fare velocemente
 # operazioni su matrici di numeri complessi
 import numpy as np
@@ -25,9 +28,13 @@ for n in range(iterations):
 # non sono usciti dal disco di raggio 2.
 mandelbrot = np.logical_not(np.abs(z) < 2.0)
 
-# utilizziamo la libreria scipy che ci permette di
+# utilizziamo la libreria imageio che ci permette di
 # trasformare facilmente una matrice in una immagine
-from scipy.misc import imsave
+from imageio import imwrite
 filename = 'mandelbrot.png'
 print("saving image to", filename)
-imsave(filename, mandelbrot)
+
+# converti la matrice booleana in interi a 8 bit
+image = mandelbrot * np.uint8(255)
+# salva l'uimmagine su file
+imwrite(filename, image)
