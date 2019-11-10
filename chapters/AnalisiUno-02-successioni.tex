@@ -1179,6 +1179,118 @@ i simboli $+\infty$ e $-\infty$ non è ritenuta valida
 e si richiede di scrivere direttamente il risultato senza
 quel passaggio intermedio.
 \end{proof}
+
+%%%%%%%%%%%%%
+%%%%%%%%%%%%%
+%%%%%%%%%%%%%
+
+\begin{theorem}[limite di esponenziale e logaritmo]
+\label{th:limite_esponenziale}%
+\mynote{esponenziale e logaritmo}%
+\index{limite!esponenziale}%
+\index{limite!logaritmo}%
+Sia $a>1$.
+%Sia $a>1$ e $b>0$.
+\begin{enumerate}
+\item se $x_n \to +\infty$ allora $a^{x_n} \to +\infty$;
+\item se $x_n \to -\infty$ allora $a^{x_n} \to 0$;
+% \item se $a_n \to +\infty$ allora $(a_n)^b \to +\infty$;
+\item se $x_n \to +\infty$ allora $\log_a(x_n)\to +\infty$;
+\item se $x_n \to 0$, $x_n>0$ allora $\log_a(x_n)\to -\infty$.
+\end{enumerate}
+\end{theorem}
+%
+\begin{proof}
+Per il teorema~\ref{th:proprieta_potenze_reali}
+sappiamo che $f(x)=a^x$, $f\colon \RR \to (0,+\infty)$
+è strettamente crescente e bigettiva.
+Dunque la successione $a^n$ è strettamente crescente
+ed ha limite $\lim a_n = \sup a_n = +\infty$.
+Ma allora se $x_n \to +\infty$
+\[
+  a^{x_n} \ge a^{\lfloor x_n \rfloor}
+  \ge 1 + \lfloor x_n \rfloor (a-1)
+  \ge 1 + (x_n-1)\cdot(a-1)
+  \to +\infty.
+\]
+Se $x_n \to -\infty$ allora $-x_n \to +\infty$ ed essendo
+$a^{-x_n} = 1/ a^{x_n}$ si ottiene il risultato voluto.
+
+Per il logaritmo si procede in modo analogo.
+\end{proof}
+
+
+Per completezza enunciamo il seguente teorema che però
+probabilmente non conviene memorizzare.
+L'idea veramente rilevante, che si usa nella dimostrazione,
+è il fatto che quando in una potenza variano sia la base
+che l'esponente conviene riscrivere la potenza fissando
+una base $c>1$ qualunque
+tramite la seguente identità:
+\[
+  a^b = c^{b\cdot \log_c a}.
+\]
+In questo modo la base rimane fissata e quello
+che varia è solo l'esponente.
+
+\begin{theorem}[limite della potenza]
+\mymargin{limite!della potenza}
+Siano $a_n$ e $b_n$ successioni
+Se $a_n\to a$ e $b_n \to b$
+sono successioni convergenti e $a>0$
+allora
+\[
+  (a_n)^{b_n} \to a^b.
+\]
+Inoltre se $a_n \to a$, $a_n>0$, $b_n \to b$:
+\begin{enumerate}
+\item se $a<1$ e $b=+\infty$ allora ${a_n}^{b_n} \to 0$;
+\item se $a<1$ e $b=-\infty$ allora ${a_n}^{b_n} \to +\infty$;
+\item se $a>1$ e $b=+\infty$ allora ${a_n}^{b_n} \to +\infty$;
+\item se $a>1$ e $b=-\infty$ allora ${a_n}^{b_n} \to 0$;
+\item se $a=+\infty$ e $b>0$ allora ${a_n}^{b_n} \to +\infty$.
+\end{enumerate}
+
+\end{theorem}
+%
+\begin{proof}
+Scelto un qualunque numero $c>1$ (ad esempio $c=2$)
+si ha
+\[
+  a_n^{b_n} = c^{\log_c a_n^{b_n}}
+   = c^{b_n \cdot \log_c a_n}.
+\]
+
+Per la continuità del logaritmo si ha $\log_c a_n \to \log_c a$
+(oppure $\log_c a_n \to +\infty$ se $a=+\infty$),
+per il teorema sul limite del prodotto si ha $b_n\cdot \log_c a_n \to b\cdot \log_c a$
+e infine, per la continuità dell'esponenziale si ottiene
+\[
+  c^{b_n \cdot \log_c a_n} \to c^{b\log_c a} = a^b.
+\]
+
+Negli altri casi si procede con la stessa dimostrazione
+e si osserva che il prodotto $b_n \cdot \log a_n$ non risulta essere
+una forma indeterminata.
+\end{proof}
+
+Rimangono esclusi i seguenti casi (forme indeterminate):
+\begin{enumerate}
+\item $a=0$, $b=0$ forma indeterminata ``$0^0$'';
+\item $a=1$, $b=+\infty$ forma indeterminata ``$1^{+\infty}$'';
+\item $a=1$, $b=-\infty$ forma indeterminata ``$1^{-\infty}$'';
+\item $a=+\infty$, $b=0$ forma indeterminata ``$(+\infty)^0$''.
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
 \section{successioni estratte}
 
 Le successioni sono funzioni $\NN \to \RR$ dunque possiamo
@@ -2165,410 +2277,6 @@ Sia $f\colon [a,b]\to \RR$ una funzione continua. Allora $f$ è limitata.
 Visto che $f$ ha massimo $M$ e minimo $m$ si ha $f(x)\in [m,M]$ per ogni $x\in[a,b]$.
 Ovviamente $m>-\infty$ e $M<+\infty$ in quanto $m$ e $M$ sono valori della funzione $f$.
 \end{proof}
-
-%%%%%%%%%%%%%
-%%%%%%%%%%%%%
-%%%%%%%%%%%%%
-\section{potenze e radici $n$-esime}
-%%%%%%%%%%%%%
-%%%%%%%%%%%%%
-%%%%%%%%%%%%%
-\index{potenza}
-\index{radice}
-
-\begin{theorem}[disuguaglianza di Bernoulli]
-\mymark{**}
-\mynote{disuguaglianza di Bernoulli}
-\index{Bernoulli}
-\index{disuguaglianza!di Bernoulli}
-Se $x > -1$ e $n\in \NN$ si ha
-\[
-(1+x)^n \ge 1 + nx.
-\]
-\end{theorem}
-%
-\begin{proof}
-\mymark{**}
-Lo dimostriamo per induzione su $n$. Per $n=0$, sostituendo si ottiene $1\ge 1$.
-Supponendo che sia verificata la disuguaglianza per un certo $n$:
-\[
-(1+x)^n \ge 1 + nx
-\]
-moltiplicando ambo i membri per $1+x > 0$ si ottiene
-\[
-(1+x)^{n+1} \ge (1+x) (1+nx) = 1 + (n+1)x + n x^2
-\ge 1 + (n+1)x
-\]
-che è proprio quello che volevamo dimostrare.
-\end{proof}
-
-\begin{theorem}[limite della radice $n$-esima]
-\label{th:limite_radice}
-\mymark{**}
-\mymargin{limite!della radice $n$-esima}
-Se $a>0$
-\[
-   \lim_{n\to +\infty} \sqrt[n]{a} = 1
-\]
-\end{theorem}
-%
-\begin{proof}
-\mymark{*}
-Consideriamo innanzitutto il caso $a\ge 1$.
-Posto $x=\sqrt[n]{a}-1$ nella disuguaglianza di Bernoulli, si ha
-\[
-a
-= (1+x)^n
-\ge 1 + nx
-= 1 + n (\sqrt[n]{a}-1)
-\]
-da cui
-\[
- \sqrt[n]{a} \le 1 + \frac{a-1}{n} \to 1 + 0 = 1.
-\]
-D'altra parte se $a\ge 1$ si ha $\sqrt[n]{a} \ge 1$
-e dal confronto tra limiti si ottiene la tesi.
-
-Se $a<1$ basta osservare che
-\[
-\sqrt[n]{a} = \frac{1}{\sqrt[n]{\frac 1 a}} \to 1
-\]
-per il caso precedente applicato con $1/a$ al posto di $a$.
-\end{proof}
-
-Siamo ora intenzionati a definire le potenze $x^y$ con esponente $y\in \RR$.
-La funzione $f(x) = a^x$ si ottiene dal seguente teorema.
-
-\begin{theorem}[funzione esponenziale]
-  \label{th:esponenziale}
-\mynote{funzione esponenziale}
-\index{funzione!esponenziale}
-Per ogni $a>0$ esiste una unica funzione $f\colon \RR \to \RR$
-con le seguenti proprietà:
-\begin{enumerate}
-\item $f(1) = a$;
-\item per ogni $x,y\in \RR\colon f(x+y) = f(x)\cdot f(y)$;
-\item $f$ è monotòna.
-\end{enumerate}
-Tale funzione risulta inoltre essere positiva, e
-continua, soddisfa la relazione $f(-x)= 1/f(x)$ e
-se $p\in \ZZ$ e $q\in \NN\setminus\ENCLOSE{0}$ risulta
-\[
-  f\enclose{\frac p q} = \sqrt[q]{a^p}.
-\]
-Inoltre se $a>1$ tale funzione è strettamente crescente,
-se $a<1$ tale funzione è strettamente decrescente e se $a=1$
-tale funzione è costante.
-\end{theorem}
-%
-\begin{proof}
-Dimostriamo innanzitutto che $f$ non si può annullare mai.
-Infatti per ogni $x\in \RR$
-\[
-   a = f(1) = f(x+1-x) = f(x)\cdot f(1-x)
-\]
-e dunque se fosse $f(x)=0$ si avrebbe $a=0$ che abbiamo escluso per ipotesi.
-Possiamo anzi dire che $f$ non è mai negativa in quanto
-\[
-  f(x) = f(x/2 + x/2) = f(x/2)^2 \ge 0.
-\]
-Osserviamo anche che
-\[
-  f(0) = f(0+0) = f(0)\cdot f(0)
-\]
-da cui, dividendo per $f(0)$ si ottiene $f(0)=1$.
-E' anche facile verificare, per induzione, che
-per ogni $n\in \NN$ si ha
-\[
- f(nx) = (f(x))^n
-\]
-infatti $f((n+1)x) = f(nx+x)=f(nx)\cdot f(x)$.
-In particolare se $n\in \NN$ si ha
-\[
-  f(n) = f(1)^n = a^n.
-\]
-Ma poi
-\[
-1=f(0) = f(x-x) = f(x)\cdot f(-x)
-\]
-e quindi $f(-x)=1/f(x)$ e quindi $f(nx) = (f(x))^n$ per ogni $n\in \ZZ$.
-In particolare se $p\in \ZZ$ e $q \in \NN\setminus\ENCLOSE{0}$ si ha
-\[
- a^p = f(p) = f(q\cdot p/q) = (f(p/q))^q
-\]
-da cui
-\begin{equation}\label{eq:def_pow_0}
- f(p/q) = \sqrt[q]{a^p}.
-\end{equation}
-
-Dunque la funzione $f(x)$ è univocamente determinata per ogni $x\in \QQ$.
-Osserviamo che, per le proprietà delle radici, se $p/q = n/m$ allora
-\[
- \sqrt[m]{a^n}
- = \sqrt[mp]{a^{np}}
- = \sqrt[nq]{a^{np}}
- = \sqrt[q]{a^p}
-\]
-e questo significa che $f$ può effettivamente essere definita
-coerentemente su tutto $\QQ$
-tramite
-la \eqref{eq:def_pow_0}.
-
-Supponiamo d'ora in poi che sia $a>1$
-e verifichiamo che in tal caso $f$ deve essere strettamente crescente su $\QQ$.
-Se $x,y \in \QQ$
-con $x<y$ si avra $x=p/q$, $y=n/m$ con $pm < nq$ allora
-$a^{pm} < a^{nq}$ e quindi
-\[
-f(x)
-= \sqrt[q]{a^p}
-= \sqrt[qm]{a^{pm}}
-< \sqrt[qm]{a^{nq}}
-= \sqrt[m]{a^n}
-= f(y).
-\]
-
-Definiamo ora
-\begin{align*}
-  A_x &= \ENCLOSE{t\in \QQ\colon t<x} = \QQ \cap (-\infty,x),
-  \\
-  B_x &= \ENCLOSE{t\in \QQ\colon t>x} = \QQ \cap (x,+\infty).
-\end{align*}
-Ovviamente $A_x < x < B_x$ (nel senso che per ogni $\alpha \in A_x$
-e per ogni $\beta \in B_x$ si ha $\alpha < x < \beta$).
-Siccome vogliamo che $f$ sia crescente si dovrà avere
-$f(A_x) \le f(x) \le f(B_x)$ da cui in particolare
-$\sup f(A_x) \le f(x) \le \inf f(B_x)$.
-
-Vogliamo ora mostrare che deve essere
-$\sup f(A_x) = \inf f(B_x)$
-cosicché $f(x)$ sarà univocamente determinata
-per ogni $x\in \RR$ da:
-\begin{equation}\label{eq:def_pow_2}
-  f(x) = \sup f(A_x) = \inf f(B_x).
-\end{equation}
-(ricordiamo infatti che su $\QQ$ $f$ è già stata univocamente determinata
-e $A_x$ e $B_x$ sono sottoinsiemi di $\QQ$).
-
-Dato qualunque $x\in \RR$ esiste $k\in \NN$ tale che $x < k$.
-Scelto comunque $n \in \NN$, per la densità dei razionali
-esistono $y,z\in \QQ$ tali che
-\[
-  y < x < z < k
-\]
-e tali che $z-y< \frac 1 n$. Allora si avrà
-\begin{align*}
-  0 \le f(z) - f(y)
-  &= f(y)\cdot\enclose{\frac{f(z)}{f(y)}-1}
-  \le f(k)\cdot \enclose{f(z-y)-1}\\
-  &\le f(k)\cdot \enclose{f(1/n)-1}.
-\end{align*}
-Chiaramente $y\in A_x$ e $z\in B_x$ dunque
-\[
-\inf f(B_x) - \sup f(A_x) \le f(z) - f(y) \le f(k) \cdot (f(1/n)-1).
-\]
-Ricordiamo ora che $f(1/n) = \sqrt[n]{a} \to 1$ (teorema precedente)
-dunque il lato destro della precedente disuguaglianza può essere reso
-minore di qualunque $\eps>0$
-e quindi, come voluto,
-dovrà essere $\inf f(B_x) = \sup f(A_x)$.
-
-Mostriamo ora che $f(x)$ deve essere strettamente crescente su tutto $\RR$,
-ricordando
-che abbiamo già verificato che $f$ è strettamente crescente su $\QQ$.
-Ma presi $x,y\in \RR$ con $x<y$ esistono $z,w\in \QQ$ tale che $x<z<w<y$.
-Allora $z\in B_x$ e $w\in A_y$, dunque
-\[
-  f(x) = \inf f(B_x) \le f(z) < f(w) \le \sup A_y = f(y).
-\]
-
-Il teorema di caratterizzazione delle funzioni monotone e continue
-ci assicura che le condizione $f(x) = \sup A_x$ e $f(x)= \inf B_x$
-garantiscono la continuità di $f$.
-
-Infine, la relazione
-\[
-  f(x+y) = f(x) \cdot f(y)
-\]
-è verificata se $x,y \in \QQ$ (abbiamo costruito $f$ su $\QQ$ in modo
-che questa relazione fosse valida).
-Ma se $x,y \in \RR$ per densità esisteranno $x_n, y_n\in \QQ$ tali
-che $x_n\to x$ e $y_n\to y$. Allora passando al limite
-nella relazione
-\[
-  f(x_n+y_n) = f(x_n)\cdot f(y_n)
-\]
-sfruttando la continuità di $f$ si ottiene il risultato voluto.
-
-Nel caso $a<1$ si procede in maniera analoga, la funzione risulterà strettamente
- decrescente su $\QQ$ e si potrà estendere su tutto $\RR$ mantenendo
- la monotonia. Nel caso $a=1$ si vede che la funzione $f$ è costante $f(x)=1$
- su $\QQ$ e quindi
-per mantenere la monotonia l'unico modo per estendere $f$ a tutto $\RR$ è quello
-di mantenere la stessa costante.
-\end{proof}
-
-\begin{definition}[potenze con esponente reale]
-\index{potenza!con esponente reale}
-Sia $a\in \RR$, $a>0$ e $x\in \RR$.
-Definiamo $a^x$ come
-l'unica funzione definita dal teorema precedente.
-\mymargin{$a^x$}
-\end{definition}
-
-\begin{exercise}
-Si dimostri che $a^{xy} = (a^x)^y$
-e $(a\cdot b)^x = a^x \cdot b^x$.
-(sfruttare l'unicità data dal teorema della funzione esponenziale).
-\end{exercise}
-
-Osserviamo che abbiamo dato due diverse definizioni di $x^y$.
-La prima è quella delle potenze intere, valida se $x\in \RR$ e $y\in \ZZ$
-e se $x\neq 0$ quando $y<0$. La seconda, quella delle potenze con esponente
-reale è valida per $x>0$ e $y\in \RR$. Il teorema precedente ci garantisce
-che le due definizioni coincidono quando $x>0$ e $y\in \ZZ$.
-
-\begin{theorem}[limite dell'esponenziale]
-\label{th:limite_esponenziale}
-\mymargin{limite!dell'esponenziale}
-Sia $a>1$.
-%Sia $a>1$ e $b>0$.
-\begin{enumerate}
-\item se $x_n \to +\infty$ allora $a^{x_n} \to +\infty$;
-\item se $x_n \to -\infty$ allora $a^{x_n} \to 0$;
-% \item se $a_n \to +\infty$ allora $(a_n)^b \to +\infty$.
-\end{enumerate}
-\end{theorem}
-%
-\begin{proof}
-La disuguaglianza di Bernoulli garantisce che
-\[
-  a^n = (1+(a-1))^n \ge 1 + n(a-1).
-\]
-Ma allora se $x_n \to +\infty$
-\[
-  a^{x_n} \ge a^{\lfloor x_n \rfloor} \ge 1 + \lfloor x_n \rfloor (a-1)
-  \ge 1 + (x_n-1)\cdot(a-1)
-  \to +\infty.
-\]
-Se $x_n \to -\infty$ allora $-x_n \to +\infty$ ed essendo
-$a^{-x_n} = 1/ a^{x_n}$ si ottiene il risultato voluto.
-\end{proof}
-
-%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%
-\section{il logaritmo}
-%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%
-
-Fissato $a>1$ consideriamo la funzione esponenziale
-$f\colon \RR \to \RR$, $f(x) = a^x$.
-Sappiamo che $f$, essendo strettamente crescente, è iniettiva.
-Il teorema sulla funzione esponenziale ci dice che $f(x)>0$ e quindi
-$f(\RR) \subset (0,+\infty)$.
-Visto però che $a^n\to +\infty$ e $a^{-n} \to 0$ scopriamo che
-$\sup f(\RR)=+\infty$ e $\inf f(\RR)=0$.
-Per la continuità di $f$ risulta però che $f(\RR)$ sia un intervallo
-e dunque necessariamente $f(\RR) = (0,+\infty)$.
-Dunque $f\colon \RR \to (0,+\infty)$ è biettiva.
-Lo stesso vale nel caso $0<a<1$ (semplicemente per il fatto che $a^x = (1/a)^{-x}$).
-
-\begin{definition}[logaritmo]
-Per $a>0$, $a\neq 1$ definiamo $\log_a\colon (0,+\infty)\to \RR$,
-chiamato \emph{logaritmo in base $a$}\mymargin{logaritmo},
-la funzione inversa di $a^x$.
-Si ha dunque
-\[
-  \log_a x = y \iff a^y = x.
-\]
-\end{definition}
-
-\begin{theorem}[proprietà del logaritmo]
-\mymargin{proprietà!del logaritmo}
-Se $a>0$, $a\neq 1$
-\begin{enumerate}
-  \item $\log_a(a^x) = x$;
-  \item $\log_a(x\cdot y)= \log_a x + \log_a y$;
-  \item $\log_a(x^y) = y \log_a (x)$;
-  \item $\log_a(1) = 0$, $\log_a(a)=1$;
-  \item  $\displaystyle  \log_a x = \frac{\log_b x}{\log_b a}$
-  (qualunque sia $b>0$, $b\neq 1$);
-  \item se $a>1$ la funzione $\log_a(x)$ è strettamente crescente,
-  se $0<a<1$ è strettamente decrescente;
-  \item $\log_a(x)$ è una funzione continua;
-  \item se $a>1$ e $x_n \to +\infty$ allora $\log_a(x_n)\to +\infty$;
-  \item se $a>1$ e $x_n \to 0$, $x_n>0$ allora $\log_a(x_n)\to -\infty$.
-\end{enumerate}
-%
-\begin{proof}
-Tutte queste proprietà si ricavano direttamente dalle analoghe proprietà
-dell'esponenziale.
-\end{proof}
-\end{theorem}
-
-Per completezza enunciamo il seguente teorema che però
-probabilmente non conviene memorizzare.
-L'idea veramente rilevante, che si usa nella dimostrazione,
-è il fatto che quando in una potenza variano sia la base
-che l'esponente conviene riscrivere la potenza fissando
-una base $c>1$ qualunque
-tramite la seguente identità:
-\[
-  a^b = c^{b\cdot \log_c a}.
-\]
-In questo modo la base rimane fissata e quello
-che varia è solo l'esponente.
-
-\begin{theorem}[limite della potenza]
-\mymargin{limite!della potenza}
-Siano $a_n$ e $b_n$ successioni
-Se $a_n\to a$ e $b_n \to b$
-sono successioni convergenti e $a>0$
-allora
-\[
-  (a_n)^{b_n} \to a^b.
-\]
-Inoltre se $a_n \to a$, $a_n>0$, $b_n \to b$:
-\begin{enumerate}
-\item se $a<1$ e $b=+\infty$ allora ${a_n}^{b_n} \to 0$;
-\item se $a<1$ e $b=-\infty$ allora ${a_n}^{b_n} \to +\infty$;
-\item se $a>1$ e $b=+\infty$ allora ${a_n}^{b_n} \to +\infty$;
-\item se $a>1$ e $b=-\infty$ allora ${a_n}^{b_n} \to 0$;
-\item se $a=+\infty$ e $b>0$ allora ${a_n}^{b_n} \to +\infty$.
-\end{enumerate}
-
-\end{theorem}
-%
-\begin{proof}
-Scelto un qualunque numero $c>1$ (ad esempio $c=2$)
-si ha
-\[
-  a_n^{b_n} = c^{\log_c a_n^{b_n}}
-   = c^{b_n \cdot \log_c a_n}.
-\]
-
-Per la continuità del logaritmo si ha $\log_c a_n \to \log_c a$
-(oppure $\log_c a_n \to +\infty$ se $a=+\infty$),
-per il teorema sul limite del prodotto si ha $b_n\cdot \log_c a_n \to b\cdot \log_c a$
-e infine, per la continuità dell'esponenziale si ottiene
-\[
-  c^{b_n \cdot \log_c a_n} \to c^{b\log_c a} = a^b.
-\]
-
-Negli altri casi si procede con la stessa dimostrazione
-e si osserva che il prodotto $b_n \cdot \log a_n$ non risulta essere
-una forma indeterminata.
-\end{proof}
-
-Rimangono esclusi i seguenti casi (forme indeterminate):
-\begin{enumerate}
-\item $a=0$, $b=0$ forma indeterminata ``$0^0$'';
-\item $a=1$, $b=+\infty$ forma indeterminata ``$1^{+\infty}$'';
-\item $a=1$, $b=-\infty$ forma indeterminata ``$1^{-\infty}$'';
-\item $a=+\infty$, $b=0$ forma indeterminata ``$(+\infty)^0$''.
-\end{enumerate}
 
 %%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%

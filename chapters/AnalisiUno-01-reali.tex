@@ -1207,8 +1207,11 @@ Nel capitolo \ref{sec:radice_quadrata}
 vedremo però che $\QQ$ non soddisfa l'assioma di continuità.
 
 \begin{definition}[potenza intera]
-\mymargin{potenza intera}
-Dato $x \in \RR$ (ma più in generale $x\in A$ con $A$ un insieme qualunque su cui è definita una operazione di moltiplicazione associativa e con elemento neutro) possiamo definire la potenza $x^n$ per ogni
+\label{def:potenza_intera}%
+\mymargin{potenza intera}%
+Dato $x \in \RR$ (ma più in generale $x\in A$ con $A$ un insieme qualunque su
+cui è definita una operazione di moltiplicazione associativa e con elemento
+neutro) possiamo definire la potenza $x^n$ per ogni
 $n\in \NN$ come l'iterazione della moltiplicazione
 ovvero utilizzando
 \mymargin{$x^n$}
@@ -1454,11 +1457,13 @@ $n$ &$\vdots$&&   &   &   &   &   & $\ddots$ &
 \end{table}
 
 \begin{theorem}[sviluppo binomiale]
-\mymark{***}
+\label{th:sviluppo_binomiale}%
+\mymark{***}%
 Se $a,b\in \RR$ e $n\in \NN$ si ha:
-\[
+\begin{equation}
+\label{eq:sviluppo_binomiale}
 (a+b)^n = \sum_{k=0}^n {n \choose k} a^k \cdot b^{n-k}.
-\]
+\end{equation}
 \end{theorem}
 %
 \begin{proof}
@@ -1496,6 +1501,52 @@ Provare che
  \sum_{k=0}^n {n \choose k} = 2^n.
 \]
 \end{exercise}
+
+Si osservi che risulta, per ogni $n\in \NN$:
+\[
+  {n\choose 0} = {n \choose n} = 1,
+  \qquad
+  {n \choose 1} = {n \choose n-1} = n.
+\]
+Allora lo sviluppo del binomio~\eqref{sviluppo_binomiale}
+ci consente di affermare
+che per ogni $x\ge 0$ si ha:
+\[
+  (1+x)^n = 1 + nx + \sum_{k=2}^n {n\choose k} x^k
+  \ge 1 + nx.
+\]
+Nel seguito ci servirà sapere che questa
+disuguaglianza è vera, più in generale,
+se $x > -1$.
+
+\begin{theorem}[disuguaglianza di Bernoulli]
+\mymark{**}
+\mynote{disuguaglianza di Bernoulli}
+\index{Bernoulli}
+\index{disuguaglianza!di Bernoulli}
+Se $x > -1$ e $n\in \NN$ si ha
+\begin{equation}
+\label{eq:bernoulli}
+(1+x)^n \ge 1 + nx.
+\end{equation}
+\end{theorem}
+%
+\begin{proof}
+\mymark{**}
+Dimostriamo che vale~\eqref{eq:bernoulli}
+per induzione su $n$.
+Per $n=0$ la disequazione \eqref{eq:bernoulli} diventa $1\ge 1$
+ed è quindi verificata.
+Se~\eqref{eq:bernoulli}
+è verificata per un certo $n$
+moltiplicando ambo i membri per $1+x > 0$ si ottiene
+\[
+(1+x)^{n+1} \ge (1+x) (1+nx) = 1 + (n+1)x + n x^2
+\ge 1 + (n+1)x
+\]
+che è proprio la disuguaglianza~\eqref{eq:bernoulli}
+con $n+1$ al posto di $n$.
+\end{proof}
 
 \section{radice quadrata}
 \label{sec:radice_quadrata}
@@ -1811,8 +1862,9 @@ Per evitare ambiguità con il normale utilizzo delle parentesi
 noi preferiremo evitare queste notazioni.
 
 \begin{theorem}[densità di $\QQ$ in $\RR$]
-\mymark{*}
-\mymargin{densità di $\QQ$}
+\label{th:densita_Q}%
+\mymark{*}%
+\mymargin{densità di $\QQ$}%
 Dati $x,y \in \RR$ con $x<y$ esiste $q\in \QQ$ tale che $x<q<y$.
 \end{theorem}
 %
@@ -2690,15 +2742,16 @@ Dovrà essere $x_1<x_2$ perché $f(x_1)<f(x_2)$ e
 $f$ è strettamente crescente.
 Definiamo:
 \[
- A=\ENCLOSE{t\in I\colon f(t)<y},
- \qquad x = \sup A
+ x = \sup A
+\qquad
+\text{con } A=\ENCLOSE{t\in I\colon f(t)<y},
 \]
 e dimostriamo che $f(x)=y$.
 
 Se fosse $f(x)<y$ posto $\eps = y-f(x)$
 per la definizione di limite dovrebbe esistere
 $\delta>0$ tale che per ogni $t\in I$ con $\abs{t-x}<\delta$
-si avrebbe $\abs{f(t)-f(x)}<\eps$.
+si abbia $\abs{f(t)-f(x)}<\eps$.
 In particolare scelto $t=x+\frac \delta 2$
 si avrebbe, usando anche la stretta monotonia:
 \[
@@ -2710,7 +2763,7 @@ $\sup A = x < t$.
 Se fosse invece $f(x)>y$ posto $\eps = f(x)-y$
 dalla continuità di $f$ in $x$ sappiamo
 esistere $\delta>0$ tale che per ogni $t\in I$
-con $\abs{t-x}<\delta$ si avrebbe $\abs{f(t)-f(x)}<\eps$.
+con $\abs{t-x}<\delta$ si abbia $\abs{f(t)-f(x)}<\eps$.
 In particolare essendo $f$ strettamente crescente
 per ogni $t\in (x-\delta,x]$
 si avrebbe $f(t)>f(x)-\eps = y$ e
@@ -2723,7 +2776,8 @@ assurdo perchè $x=\sup A$ è il minimo dei maggioranti.
 Abbiamo quindi mostrato che $f(x)=y$ e dunque
 che $J=f(I)$ è un intervallo.
 Essendo strettamente crescente $f\colon I \to J$
-è iniettiva e dunque è invertibile.
+è iniettiva e dunque è bigettiva visto che $J=f(I)$
+per definizione.
 Mostriamo che l'inversa $f^{-1}\colon J \to I$
 è strettamente crescente.
 Presi $y_1,y_2\in J$
@@ -2855,16 +2909,435 @@ Per ogni $n,m \in \NN\setminus\ENCLOSE{0}$, $a\ge 0$, $b>0$ si ha:
 \item $\sqrt[n]{a^n} = a$;
 \item $\displaystyle \sqrt[nm]{a} = \sqrt[n]{\sqrt[m]{a}}$;
 \item $\displaystyle \sqrt[n]{a\cdot b} = \sqrt[n]{a}\sqrt[n]{b}$;
-\item $\displaystyle \sqrt[n]{\frac a b} = \frac{\sqrt[n]{a}}{\sqrt[n]{b}}$;
+\item $\displaystyle \sqrt[n]{\frac a b} = \frac{\sqrt[n]{a}}\cdot {\sqrt[n]{b}}$;
 \item la funzione $x\mapsto \sqrt[n]{x}$ è continua e strettamente crescente.
 \end{enumerate}
 \end{theorem}
 
 \begin{proof}
 Le proprietà della radice vengono dedotte dalle corrispondenti proprietà
-della potenza intera, sfruttando il fatto che la radice è la funzione inversa.
+della potenza intera, sfruttando il fatto che la radice
+ne è la funzione inversa.
 L'ultima proprietà discende dal teorema~\ref{th:inversa_continua}.
 \end{proof}
+
+\section{la funzione esponenziale}
+
+In questo capitolo vogliamo definire la potenza $a^x$
+con esponente $x\in \RR$ e base $a>0$.
+La costruzione richiede alcuni concetti preliminari.
+
+\begin{lemma}[unicità dell'estensione continua]
+\label{lm:unicita_continua}%
+Siano $f\colon \RR\to\RR$ e $g\colon \RR\to\RR$
+due funzioni continue tali che
+\[
+  f(x) = g(x) \qquad \forall x\in \QQ.
+\]
+Allora $f(x)=g(x)$ per ogni $x\in \RR$.
+\end{lemma}
+%
+\begin{proof}
+Consideriamo la funzione $h(x)=f(x)-g(x)$
+e supponiamo per assurdo che esista $x_0\in \RR$
+tale che $h(x_0)\neq 0$.
+Senza perdita di generalità possiamo supporre
+che sia $h(x_0) = \eps >0$.
+La funzione $h$ è continua (teorema~\ref{th:continuita_composizione})
+e quindi per
+la definizione
+di limite sappiamo che esiste $\delta>0$
+tale che se $\abs{x-x_0}<\delta$ si ha $\abs{h(x)-h(x_0)}< \eps$
+e dunque $h(x)>0$.
+Per la densità dei razionali, teorema~\ref{th:densita_Q}
+esiste $q \in (x_0-\delta,x_0+\delta)\cap \QQ$
+e allora da un lato dovrebbe essere $h(q)>0$
+come tutti i punti intorno a $x_0$
+ma dall'altro lato sappiamo che $h(q)=f(q)-g(q)=0$
+essendo $q\in \QQ$. Assurdo.
+\end{proof}
+
+\begin{definition}[uniforme continuità]
+Sia $A\subset \RR$ e $f\colon A \to \RR$ una funzione.
+Diremo che $f$ è \myemph{uniformemente continua}
+se
+\begin{equation}\label{eq:346963}
+ \forall \eps>0\colon \exists \delta>0 \colon
+ \forall x,y\in A\colon
+ \abs{x-y}<\delta \implies \abs{f(x)-f(y)}<\eps.
+\end{equation}
+\end{definition}
+
+Confrontando l'uniforme continuità con la continuità
+si deduce immediatamente che ogni funzione
+uniformemente continua è anche continua.
+Si tratta infatti di invertire due quantificatori:
+\[
+  \forall \eps \colon \exists \delta \colon \forall x,y
+  \colon P(x,y,\eps,\delta)
+  \implies \forall y \colon \forall \eps \colon \exists \delta
+  \colon\forall x\colon P(x,y,\eps,\delta).
+\]
+
+\begin{lemma}[estensione delle funzioni monotone]
+\label{lm:estensione_monotona}%
+Sia $f\colon \QQ\to \RR$ una funzione
+strettamente crescente
+tale che per ogni $M\in \RR$ la funzione
+$f$ ristretta all'insieme
+$\QQ \cap (-\infty,M]$ risulti essere uniformemente
+continua.
+Allora esiste una unica funzione crescente
+$g\colon \RR\to\RR$
+tale che $g(x)=f(x)$ per ogni $x\in \QQ$.
+Inoltre tale funzione $g$ risulta essere continua
+e strettamente crescente su tutto $\RR$.
+\end{lemma}
+%
+\begin{proof}
+Definiamo
+\begin{equation}\label{eq:16775}
+  g(x) = \sup A_x,
+  \qquad \text{dove }
+  A_x = \ENCLOSE{f(q)\colon q\in \QQ,\ q\le x}.
+\end{equation}
+Visto che $f$ è crescente è chiaro che se $x\in\QQ$
+allora $g(x) = f(x)$ inoltre per ogni $x\in \RR$
+si ha $g(x)\le f(\lceil x\rceil)<+\infty$
+dunque $g\colon \RR\to\RR$.
+
+Verifichiamo ora che $g$ è strettamente crescente.
+Se $x,y\in \RR$ con $x<y$ allora,
+grazie alla densità di $\QQ$,
+esisteranno $q,s\in \QQ$ tali che $x<q<s<y$.
+Ma allora dalla definizione~\eqref{eq:16775}
+si verifica immediatamente che $g(x)\le f(q)$
+(perché $f(q)$ è un maggiorante di $A_x$)
+e $g(y)\ge f(s)$ (perché $f(s)\in A_y$).
+Essendo $f(s)>f(q)$
+concludiamo quindi che $g(y)> g(x)$.
+
+Mostriamo ora che se $g$ è una qualunque
+estensione crescente di $f$ allora $g$
+è continua.
+Fissato $x_0\in \RR$ prendiamo $M>x_0$.
+Per ipotesi sappiamo che la funzione $f$
+è uniformemente continua su $(-\infty,M]\cap \QQ$
+dunque per ogni $\eps>0$ possiamo
+scegliere $\delta>0$
+che verifichi la condizione~\eqref{eq:346963}.
+Possiamo eventualmente rimpicciolire $\delta$
+in modo che valga anche la condizione $x_0+\delta < M$.
+Se ora prendiamo $x\in \RR$ tale che $\abs{x-x_0}<\frac\delta 2$
+possiamo sempre trovare dei razionali $q,s\in \QQ$
+tali che se si abbia:
+\begin{align*}
+\begin{cases}
+  x_0 - \frac\delta 2 < q < x_0 \le x < s < x_0 + \frac \delta 2 < M
+  & \text{se $x\ge x_0$ }\\
+  x_0 - \frac \delta 2 < q < x < x_0 < s < x_0 + \frac \delta 2 < M
+  & \text{se $x<x_0$}.
+\end{cases}
+\end{align*}
+Ma allora, per la monotonia di $g$:
+\[
+  \abs{g(x)-g(x_0)} \le g(s)-g(q) = f(s)-f(q)
+\]
+ed essendo $\abs{s-q} < \delta$ dalla uniforme
+continuità di $f$ possiamo dedurre
+\[
+  \abs{g(x)-g(x_0)} \le f(s)-f(q) < \eps.
+\]
+Era quello che volevamo dimostrare.
+
+L'unicità dell'estensione discende direttamente
+applicando lemma~\ref{lm:unicita_continua}
+in quanto abbiamo mostrato che
+ogni estensione crescente è anche continua.
+\end{proof}
+
+Possiamo ora enunciare il teorema
+che garantisce l'esistenza della funzione
+esponenziale.
+
+\begin{theorem}[funzione esponenziale]
+\label{th:esponenziale}%
+\mynote{funzione esponenziale}%
+\index{funzione!esponenziale}%
+Per ogni $a>1$ esiste una unica funzione $f\colon \RR \to \RR$
+con le seguenti proprietà:
+\begin{enumerate}
+\item $f(1) = a$;
+\item per ogni $x,y\in \RR\colon f(x+y) = f(x)\cdot f(y)$;
+\item $f$ è monotòna.
+\end{enumerate}
+Tale funzione risulta inoltre essere positiva
+continua, strettamente crescente,
+soddisfa la relazione $f(-x)= 1/f(x)$ e
+se $p\in \ZZ$ e $q\in \NN\setminus\ENCLOSE{0}$ risulta
+\[
+  f\enclose{\frac p q} = \sqrt[q]{a^p}.
+\]
+\end{theorem}
+%
+\begin{proof}
+Mostriamo innanzitutto che $f$, se esiste,
+non si può annullare mai.
+Infatti per ogni $x\in \RR$
+\[
+   a = f(1) = f(x+1-x) = f(x)\cdot f(1-x)
+\]
+e dunque se fosse $f(x)=0$ si avrebbe $a=0$ che abbiamo escluso per ipotesi.
+Possiamo anzi dire che $f$ non è mai negativa in quanto
+\[
+  f(x) = f(x/2 + x/2) = f(x/2)^2 \ge 0.
+\]
+Osserviamo anche che
+\[
+  f(0) = f(0+0) = f(0)\cdot f(0)
+\]
+da cui, dividendo per $f(0)$ si ottiene $f(0)=1$.
+E' anche facile verificare, per induzione, che
+per ogni $n\in \NN$ si deve avere
+\[
+ f(nx) = (f(x))^n
+\]
+infatti $f((n+1)x) = f(nx+x)=f(nx)\cdot f(x)$.
+In particolare se $n\in \NN$ si ha
+\[
+  f(n) = f(1)^n = a^n.
+\]
+Ma poi
+\[
+1=f(0) = f(x-x) = f(x)\cdot f(-x)
+\]
+e quindi $f(-x)=1/f(x)$ e $f(nx) = (f(x))^n$ per ogni $n\in \ZZ$.
+In particolare se $p\in \ZZ$ e $q \in \NN\setminus\ENCLOSE{0}$
+si dovrà avere
+\[
+ a^p = f(p) = f(q\cdot p/q) = (f(p/q))^q
+\]
+da cui
+\begin{equation}\label{eq:def_pow_0}
+ f(p/q) = \sqrt[q]{a^p}.
+\end{equation}
+
+Dunque la funzione $f(x)$, se esiste, è univocamente determinata
+per ogni $x\in \QQ$.
+Osserviamo che, per le proprietà delle radici, se $p/q = n/m$ allora
+\[
+ \sqrt[m]{a^n}
+ = \sqrt[mp]{a^{np}}
+ = \sqrt[nq]{a^{np}}
+ = \sqrt[q]{a^p}
+\]
+e questo significa che $f$ può effettivamente essere univocamente
+definita su tutto $\QQ$ tramite
+la \eqref{eq:def_pow_0}.
+
+Supponiamo d'ora in poi che sia $a>1$
+e verifichiamo che in tal caso $f$ deve essere strettamente
+crescente su $\QQ$.
+Se $x,y \in \QQ$
+con $x<y$ si avra $x=p/q$, $y=n/m$ con $pm < nq$ allora
+$a^{pm} < a^{nq}$ e quindi
+\[
+f(x)
+= \sqrt[q]{a^p}
+= \sqrt[qm]{a^{pm}}
+< \sqrt[qm]{a^{nq}}
+= \sqrt[m]{a^n}
+= f(y).
+\]
+
+Vogliamo ora estendere $f$ ad tutto $\RR$
+utilizzando il lemma~\ref{lm:estensione_monotona}.
+Occorre quindi dimostrare che per ogni $M\in \RR$
+la funzione $f\colon(-\infty,M]\to \RR$ è
+uniformemente continua.
+Dato $M$ prendiamo $N\in \NN$ con $N>M$
+e dato $\eps>0$ prendiamo $n\in \NN$
+in modo che risulti $n> \frac{a^{N+1}}{\eps}$
+e prendiamo $\delta = \frac 1 n$.
+
+Siano $q,s \in (-\infty,M]\cap \QQ$
+ con $\abs{q-s}<\delta$.
+ Senza perdita di generalità
+ possiamo supporre che sia $s<q$
+ e quindi $0<q-s<\frac{1}{n}$.
+Dalle proprietà di $f$
+ risulta quindi:
+\begin{align*}
+f(s) - f(q)
+&= f(q)\cdot\enclose{\frac{f(s)}{f(q)}-1}
+= f(q)\cdot\enclose{f(s-q)-1}\\
+&< f(N)\cdot\enclose{f\enclose{\frac 1 n}-1}
+= a^N\cdot(\sqrt[n]{a}-1).
+\end{align*}
+Posto $x=\sqrt[n]{a}-1$
+la disuguaglianza di Bernoulli~\eqref{eq:bernoulli}
+\[
+  (1+x)^n \ge 1 + nx
+\]
+ci dà
+\[
+  \sqrt[n]{a}-1 = x
+  \le \frac{(1+x)^n-1}{n}
+  = \frac{a}{n}.
+\]
+Dunque
+\[
+\abs{f(s)-f(q)} < a^N \cdot \frac{a}{n} < \eps
+\]
+come volevamo dimostrare.
+
+Possiamo quindi applicare il lemma
+per ottenere una (unica) estensione
+strettamente crescente $f\colon \RR\to\RR$.
+
+Rimane da dimostrare che $f(x+y)=f(x)\cdot f(y)$
+per ogni $x,y\in \RR$. Ma basta osservare che
+fissato $q\in \QQ$ le due funzioni
+\[
+  x \mapsto f(q+x), \qquad x \mapsto f(q)\cdot f(x)
+\]
+sono due funzioni continue che coincidono
+per ogni $x\in \QQ$.
+Dunque, per il lemma~\ref{lm:unicita_continua}
+le due funzioni coincidono per ogni $x\in \RR$.
+Dunque fissato $x\in \RR$ le funzioni
+\[
+ y\mapsto f(x+y), \qquad y \mapsto f(y)\cdot f(x)
+\]
+sono funzioni continue che coincidono per
+ogni $y\in \QQ$. Di nuovo concludiamo che
+devono coincidere per ogni $y\in \RR$.
+Questo conclude la dimostrazione.
+\end{proof}
+
+\begin{definition}[potenze con esponente reale]
+\label{def:potenza_reale}%
+\index{potenza!con esponente reale}%
+\mymargin{$a^x$}
+Sia $a\in \RR$, $a>0$ e $x\in \RR$.
+Se $a>1$ definiamo la potenza $a^x = f(x)$ come
+l'unica funzione definita dal teorema~\ref{th:esponenziale}.
+Se $a=1$ definiamo $1^x=1$ per ogni $x\in \RR$.
+Per $0<a<1$ definiamo
+$a^x = \enclose{\frac{1}{a}}^{-x}$.
+\end{definition}
+
+Osserviamo che abbiamo dato due diverse definizioni di potenza
+$x^y$.
+La prima è quella delle potenze intere (definizione~\ref{def:potenza_intera}),
+valida se $x\in \RR$ e $y\in \ZZ$
+(con $x\neq 0$ quando $y<0$).
+La seconda, quella delle potenze con esponente
+reale è valida per $x>0$ e $y\in \RR$.
+Per il teorema~\ref{th:esponenziale} e la
+definizione~\ref{def:potenza_reale}
+sappiamo che le due definizioni coincidono quando
+$x>0$ e $y\in \ZZ$.
+
+In alcuni testi si pone $x^{\frac pq}=\sqrt[q]{x^p}$
+anche quando $x<0$, se $p$ e $q$ non hanno fattori in comune
+e $p$ è pari oppure $q$ è dispari.
+Noi preferiamo non farlo, perché tale definizione
+è raramente utile e non soddisfa le proprietà
+elencate nel seguente teorema.
+
+\begin{theorem}[proprietà delle potenze reali]
+\label{th:proprieta_potenze_reali}%
+Sia $a>0$, $x,y\in \RR$. Allora:
+\begin{enumerate}
+ \item $a^0=1$, $a^1=a$;
+ \item $a^{x+y} = a^x\cdot a^y$;
+ \item $a^{x\cdot y} = \enclose{a^x}^y$;
+ \item la funzione $f(x)=a^x$
+ è strettamente crescente se $a>1$,
+ è costante se $a=1$ ed è strettamente
+ decrescente se $0<a<1$.
+\end{enumerate}
+\end{theorem}
+%
+\begin{proof}
+Se $a>1$ le prime due proprietà e la monotonia
+vengono direttamente
+dal teorema~\ref{th:esponenziale}.
+Se $a=1$ sono banali. Se $a<1$ si riconducono al caso
+$a>1$ considerando $\frac{1}{a}$ al posto di $a$.
+
+Per la terza proprietà fissato $y\in\RR$
+consideriamo la funzione $f(x) = a^{x\cdot y}$
+e osserviamo che $f(1)=a^y$ e $f(y+z)=a^{xy + zy}
+=f(y)\cdot f(z)$.
+Inoltre se $x>0$ la funzione $f$ è strettamente
+crescente e dunque, per il teorema~\ref{th:esponenziale}
+deve essere $f(x) = \enclose{a^y}^x$. Se $x=0$
+si ha ovviamente $f(0) = 1 = \enclose{a^y}^0$
+e se $x<0$ si ha $f(x) = \frac{1}{a^{(-x)\cdot y}}
+= \frac{1}{\enclose{a^y}^{-x}} = \enclose{a^y}^x$.
+\end{proof}
+
+\section{il logaritmo}
+
+\section{il logaritmo}
+
+Fissato $a>1$ consideriamo la funzione esponenziale
+$f\colon \RR \to \RR$, $f(x) = a^x$.
+Sappiamo che la funzione $f$ è strettamente crescente
+positiva e continua.
+Sia $J=f(\RR)$.
+Grazie al teorema~\ref{th:inversa_monotona}
+sappiamo che $J$ è un intervallo e $f\colon \RR\to J$
+è invertibile.
+Grazie alla disuguaglianza di Bernoulli sappiamo che
+per $n\in \NN$ sia ha
+\[
+a^n = (1+(a-1))^n \ge 1 + n(a-1)
+\]
+dunque $\sup J \ge \sup \ENCLOSE{1+n(a-1)\colon n\in \NN} = +\infty$.
+Sappiamo anche che $\inf J>=0$ in quanto $f$ è positiva.
+Ma risulta anche $\inf J \le \inf \ENCLOSE{a^{-n}\colon n \in \NN}=0$.
+Dunque $J=(0,+\infty)$ e $f\colon \RR \to (0,+\infty)$
+è bigettiva con inversa continua e strettamente crescente.
+
+Se $a<1$ sappiamo che $a^x = \frac{1}{a^{-x}}$ e dunque
+in questo caso $f\colon \RR \to (0,+\infty)$ è
+strettamente decrescente, bigettiva, continua con inversa
+$(0,+\infty)\to \RR$
+strettamente decrescente, bigettiva e continua.
+
+\begin{definition}[logaritmo]
+Per $a>0$, $a\neq 1$ definiamo $\log_a\colon (0,+\infty)\to \RR$,
+chiamato \emph{logaritmo in base $a$}\mymargin{logaritmo},
+la funzione inversa di $a^x$.
+Si ha dunque
+\[
+  \log_a x = y \iff a^y = x.
+\]
+\end{definition}
+
+\begin{theorem}[proprietà del logaritmo]
+\mymargin{proprietà!del logaritmo}
+Se $a>0$, $a\neq 1$
+\begin{enumerate}
+  \item $\log_a(a^x) = x$;
+  \item $\log_a(x\cdot y)= \log_a x + \log_a y$;
+  \item $\log_a(x^y) = y \log_a (x)$;
+  \item $\log_a(1) = 0$, $\log_a(a)=1$;
+  \item  $\displaystyle  \log_a x = \frac{\log_b x}{\log_b a}$
+  (qualunque sia $b>0$, $b\neq 1$);
+  \item se $a>1$ la funzione $\log_a(x)$ è strettamente crescente,
+  se $0<a<1$ è strettamente decrescente;
+  \item $\log_a(x)$ è una funzione continua;
+\end{enumerate}
+%
+\begin{proof}
+Tutte queste proprietà si ricavano direttamente dalle analoghe proprietà
+dell'esponenziale.
+\end{proof}
+\end{theorem}
 
 \section{i numeri complessi}
 
