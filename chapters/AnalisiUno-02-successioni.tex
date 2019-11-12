@@ -786,7 +786,7 @@ ovvero:
 In maniera analoga si dice che la successione $a_n$ è
 \emph{inferiormente limitata}
 \index{successione!inferiormente limitata}%
-quando $\inf a_n > +\infty$
+quando $\inf a_n > -\infty$
 ed è \emph{limitata}
 \index{successione!limitata}%
 \index{limitato!successione}%
@@ -1033,7 +1033,7 @@ Dunque (prodotto di limitata per infinitesima) si ha $a_n(b_n-b)\to 0$ e $(a_n-a
 infine che $a_n b_n - ab\to 0$ il che è equivalente (sommo $ab$) ad $a_n b_n\to ab$, come volevamo dimostrare.
 
 Se $a = +\infty$ e $b>0$ allora per la definizione di limite applicata a $b_n$
-esiste $N_b\in \NN$ tale che per ogni $n>N$ si ha $b_n > b/2$. La definizione
+esiste $N_b\in \NN$ tale che per ogni $n>N_b$ si ha $b_n > b/2$. La definizione
 di limite applicata ad $a_n$ ci dice invece che per ogni $M\in \RR$
 esiste $N_a\in \NN$ tale che per ogni $n>N_a$ si ha $a_n > 2M/b$.
 Deduciamo che per ogni $n> N=\max\ENCLOSE{N_a, N_b}$ si ha
@@ -1457,8 +1457,9 @@ Dunque la sotto-sotto-successione $a_{n_{k_j}}$ è convergente.
 \end{proof}
 
 \begin{corollary}\label{cor:12394}
-  Sia $a_n$ una successione qualunque (reale o complessa). Allora esiste
-  una sottosuccessione $a_{n_k}$ che ha limite (in $\bar \RR$ o in $\bar \CC$).
+  Sia $a_n$ una successione reale o complessa.
+  Allora esiste
+  una sottosuccessione $a_{n_k}$ regolare (cioè $a_{n_k}$ ha limite in $\bar \RR$ o in $\bar \CC$).
 
   Più precisamente se la successione è limitata allora ammette una estratta convergente,
   se è reale e superiormente illimitata allora ammette
@@ -1473,21 +1474,23 @@ Dunque la sotto-sotto-successione $a_{n_{k_j}}$ è convergente.
   Se $a_n$ è limitata il risultato segue dal teorema di Bolzano-Weierstrass.
 
   Se $a_n$ è reale e non è superiormente limitata
-  allora per ogni $M\in \RR$ esiste $n$ tale che $a_n \ge M$.
-  Allora scegliamo $n_0\in \NN$ in modo che $a_{n_0}\ge 0$ e poi
-  definiamo, induttivamente $n_k$ in modo che
+  possiamo definire per induzione la successione di indici $n_k$:
   \[
-   a_{n_{k+1}}\ge \max\ENCLOSE{k+1, a_0, a_1, \dots, a_{n_k}}.
+  \begin{cases}
+      n_0 = 0 \\
+      n_{k+1} = \min\ENCLOSE{n \in \NN \colon n>n_k, a_n > k+1}.
+  \end{cases}
   \]
-  Se $a_n$ è superiormente limitata è sempre possibile soddisfare la precedente
-  relazione. Chiaramente $a_{n_k} \ge k \to +\infty$ e quindi abbiamo
-  mostrato che esiste una sottosuccessione che tende a $+\infty$.
+  L'insieme di cui si prende il minimo non può essere vuoto,
+  perché se per un certo $k$ tale insieme fosse vuoto
+  risulterebbe che $a_n\le k+1$ per ogni $n>N_k$ e quindi
+  la successione $a_n$ sarebbe superiormente limitata.
 
   In modo analogo si svolge il caso in cui $a_n$ si inferiormente illimitata.
 
   Se $a_n$ è una successione illimitata complessa allora significa che
   $\abs{a_n}$ è superiormente illimitata e quindi, per quanto detto sopra,
-  esiste una sottosuccessione tale che $\abs{a_{n_l}}\to +\infty$.
+  esiste una sottosuccessione tale che $\abs{a_{n_k}}\to +\infty$.
   Ma questo significa che $a_{n_k} \to \infty$.
 \end{proof}
 
@@ -1524,7 +1527,7 @@ Otterremo due successioni $A_n$, $B_n$ che soddisfano queste proprietà:
 Essendo $A_n$ monotona e limitata, essa ha limite finito $\lim A_n = \ell$.
 Fissato $n$ osserviamo che per ogni $k\ge n$ si ha
 \[
-  A_n \le A_k \le B_n
+  A_n \le A_k \le b_k \le B_n
 \]
 passando al limite in $k$ (con $n$ fissato) si ottiene
 \[
