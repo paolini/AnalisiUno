@@ -2561,6 +2561,26 @@ Mostrare che
 %%%%%%%%%%%%%%%%%%%
 \section{ordini di infinito}
 
+Succede spesso di dover determinare il limite
+del rapporto di due successioni che tendono entrambe a infinito
+oppure entrambe a zero.
+In queste situazioni il teorema del limite del rapporto non
+si applica in quanto siamo di fronte ad una forma indeterminata.
+Dovremo quindi capire quale delle due successioni
+tende a infinito o a zero ``più velocemente''.
+
+I teoremi che seguono si basano (in maniera più o meno implicita)
+sull'andamento della successione geometrica:
+\[
+  a_n = q^n
+\]
+dove $q>0$ è una costante fissata.
+Grazie al teorema~\ref{th:limite_esponenziale}
+sappiamo che se $q>1$ si ha $q^n\to \infty$.
+Se $q=1$ chiaramente $q^n=1\to 1$
+e se $q<1$ si ha $q^{-1}>1$ e quindi $q^{-n} \to +\infty$
+da qui $q^n \to 0$.
+
 \begin{theorem}[criterio della radice]
 \label{th:criterio_radice}
 \mymark{***}
@@ -2574,6 +2594,7 @@ con $\ell \in \bar \RR$.
 Allora se $\ell<1$ si ha $a_n \to 0$ se invece $\ell > 1$ si ha $a_n \to +\infty$.
 \end{theorem}
 %
+\begin{comment}
 \begin{proof}
 \mymark{**}
 Consideriamo prima il caso $\ell < 1$.
@@ -2588,16 +2609,118 @@ cambia né il carattere né il limite della successione).
 
 Se $\ell>1$ si potrà procedere in maniera analoga. Esisterà $q$ con $1 < q < \ell$ tale che definitivamente $\sqrt[n]{a_n} > q$ da cui $a_n > q^n \to +\infty$.
 \end{proof}
+\end{comment}
 
-\begin{proof}[Dimostrazione alternativa]
+\begin{proof}
   Si può osservare che
   \[
     a_n = \enclose{\sqrt[n]{a_n}}^n
      = e^{n \cdot \ln \sqrt[n]{a_n}}.
   \]
   Se $\ell <1$ allora il logaritmo tende ad un numero negativo,
-  l'argomento dell'esponenziale tende a $-\infty$ e quindi l'esponenziale tende a zero. Se invece $\ell>1$ il logaritmo tende ad un numero positivo e quindi l'esponenziale tende a $+\infty$.
+  l'argomento dell'esponenziale tende a $-\infty$ e quindi l'esponenziale tende a zero (teorema~\ref{th:limite_esponenziale}).
+
+  Se invece $\ell>1$ il logaritmo tende ad un numero positivo e quindi l'esponenziale tende a $+\infty$.
 \end{proof}
+
+\begin{theorem}[convergenza alla Cesàro]
+\label{th:criterio_cesaro}%
+\mymark{*}%
+\mymargin{Cesàro}%
+\index{criterio!del rapporto alla Cesàro}%
+\index{somma!di Cesàro}%
+Sia $a_n$ una successione a termini positivi.
+\begin{enumerate}
+\item
+  Se
+  $   a_n \to \ell \in \bar \RR$
+  allora
+  \[
+  \frac{a_1 + \dots + a_n}{n} \to \ell.
+  \]
+
+\item
+  Se $a_n>0$,
+  $\displaystyle\frac{a_{n+1}}{a_n} \to \ell \in [0,+\infty]$
+  allora
+  $\displaystyle \sqrt[n]{a_n}\to \ell$.
+\end{enumerate}
+\end{theorem}
+%
+\begin{proof}
+Dimostriamo il primo punto.
+Se $\ell\in \RR$ possiamo scrivere
+\begin{align*}
+b_n &= \abs{\frac{a_1 + \dots + a_n}{n} - \ell}
+  = \abs{\frac{(a_1-\ell) + \dots + (a_n-\ell)}{n}}\\
+  &\le \frac{\abs{a_1-\ell} + \dots + \abs{a_n-\ell}}{n}.
+\end{align*}
+Sapendo che $a_n\to \ell$ per ogni $\eps>0$
+esiste $N\in \NN$ tale che per ogni $n>N$ si ha
+$\abs{a_n-\ell}<\eps$.
+Dunque continuando le disuguaglianze precedenti,
+se $n>N$
+si ha
+\[
+b_n \le \frac{\abs{a_1-\ell} + \dots + \abs{a_N-\ell}}{n}
+    + \frac{(n-N)\cdot\eps}{n}.
+\]
+Fissati $\eps$ e $N$ possiamo
+passare al $\limsup$ per $n\to +\infty$
+\[
+\limsup_{n\to+\infty} b_n
+\le 0 + \eps.
+\]
+Ma ovviamente il $\liminf b_n \ge 0$ e
+dunque abbiamo mostrato che per ogni $\eps >0$ si ha
+\[
+0 \le \liminf_{n\to+\infty} b_n \le \limsup_{n\to+\infty} b_n \le \eps.
+\]
+Significa che $\limsup b_n = \liminf b_n = \lim b_n = 0$.
+
+Se $a_n\to \ell=+\infty$ si ragiona in maniera simile.
+Per ogni $M\in \RR$ esiste $N$ tale che per $n>N$ si ha $a_n>M$.
+Dunque:
+\[
+  \frac{a_1+\dots + a_n}{n}
+  \ge \frac{a_1 + \dots + a_N}{n} + \frac{(n-N)M}{n}
+\]
+e passando al $\liminf $ per $n\to +\infty$ si trova
+\[
+ \liminf_{n\to+\infty} \frac{a_1 + \dots + a_n}{n}
+ \ge M
+\]
+che ci porta al risultato desiderato.
+In maniera del tutto analoga si dimostra il caso $\ell=-\infty$.
+
+Il punto 2 si può ricondurre all'1.
+Infatti
+\[
+  \ln \sqrt[n]{a_n}
+  = \ln \sqrt[n]{a_0\cdot \frac{a_1}{a_0} \cdots \frac{a_n}{a_{n-1}}}
+  = \frac{\ln a_0 + \ln \frac{a_1}{a_0} + \dots + \ln \frac{a_n}{a_{n-1}}}{n}.
+\]
+Posto $x_n = \ln \frac{a_n}{a_{n-1}}$
+se $\frac{a_n}{a_{n-1}}\to \ell$
+si ha $x_n\to \ln \ell$ (intendendo $\ln 0 = -\infty$ e $\ln (+\infty)=+\infty$) e dunque
+\[
+  \ln \sqrt[n]{a_n} = \frac{\ln a_0}{n} + \frac{x_1 + \dots + x_n}{n}
+  \to \ln \ell.
+\]
+Facendo l'esponenziale di ambo i membri si trova il risultato desiderato.
+\end{proof}
+
+\begin{exercise}
+Si applichi il risultato precedente per
+verificare che
+\[
+   \lim \sqrt[n]{n} = 1
+\]
+e
+\[
+  \lim \frac{n}{\sqrt[n]{n!}} = e.
+\]
+\end{exercise}
 
 \begin{theorem}[criterio del rapporto]
 \label{th:criterio_rapporto}
@@ -2606,12 +2729,24 @@ Se $\ell>1$ si potrà procedere in maniera analoga. Esisterà $q$ con $1 < q < \
   Sia $a_n$ una successione reale a termini non negativi
   $a_n \ge 0$ tale che esista il limite del rapporto di due termini consecutivi:
   \[
-     \frac{a_{n+1}}{a_n} \to \ell \in \bar \RR.
+     \frac{a_{n+1}}{a_n} \to \ell \in [0,+\infty].
   \]
   Se $\ell < 1$ allora $a_n \to 0$, se $\ell >1$ allora $a_n \to +\infty$.
 \end{theorem}
 %
-\begin{proof}
+\begin{proof}\footnote{%
+  la dimostrazione di questo teorema si potrebbe fare in maniera
+  molto simile alla dimostrazione del teorema~\ref{th:criterio_radice}
+  senza tirare in ballo il teorema~\ref{th:criterio_cesaro} che è decisamente più complesso.
+  }
+Grazie al teorema~\ref{th:criterio_cesaro} sappiamo
+che $\sqrt[n]{a_n}\to \ell$ e quindi il risultato
+segue direttametne dal teorema~\ref{th:criterio_radice}.
+\end{proof}
+
+
+
+\begin{comment}
 Supponiamo sia $\ell<1$. Posto $q=(1+\ell)/2$ si ha $q < \ell < 1$ e posto $\eps=q-\ell>0$ per la definizione di limite $\frac{a_{n+1}}{a_n}\to \ell$ dovrà esistere un $N\in \NN$ tale
 che per ogni $n\ge N$ si abbia:
 \[
@@ -2639,6 +2774,7 @@ che per un certo $N\in \NN$ e per ogni $k\in \NN$ si ha
   a_{N+k} > q^k \cdot a_N \to +\infty.
 \]
 \end{proof}
+\end{comment}
 
 Osserviamo che, nel teorema precedente (ma anche nel criterio della radice),
 non si può concludere alcunché nel
@@ -2652,95 +2788,24 @@ Mostrare che
 \[
   \lim \frac{n^n}{n!} = +\infty.
 \]
-Posto $a_n = 2^n / n!$ possiamo provare ad applicare il criterio del rapporto.
-Ci si riconduce all'esercizio~\ref{ex:4876765} dove abbiamo già visto
-che $a_{n+1} / a_n \to e$.
-Visto che $e>1$ per il criterio del rapporto possiamo affermare che
-$a_n \to +\infty$.
 \end{exercise}
-
-\begin{theorem}[Cesàro, relazione tra rapporto e radice]
-\label{th:criterio_cesaro}
-\mymark{*}
-\mynote{criterio del rapporto alla Cesàro}
-\index{Cesàro}
-\index{criterio!del rapporto alla Cesàro}
-Sia $a_n$ una successione a termini positivi.
-Se
-\[
-  \frac{a_{n+1}}{a_n} \to \ell \in \RR
-\]
-allora
-\[
- \sqrt[n]{a_n}\to \ell.
-\]
-\end{theorem}
-%
-\begin{proof}
-Chiaramente deve essere $\ell\ge 0$. Supponiamo inizialmente
-che sia $\ell>0$ e scegliamo qualunque $\eps>0$, con $\eps < \min\ENCLOSE{1,\ell}$.
-Per la definizione di limite $a_{n+1}/a_n \to \ell$ esisterà $N$ tale che per $n>N-1$ si abbia
-\[
-  \ell -\eps < \frac{a_{n+1}}{a_n} < \ell + \eps.
-\]
-Osserviamo che in generale, per ogni $n\ge N$ si ha
-\[
- a_n  = \frac{a_n}{a_{n-1}}\cdot\frac{a_{n-1}}{a_{n-2}}
- \cdot\cdots\cdot
-     \frac{a_{N+2}}{a_{N+1}}\cdot\frac{a_{N+1}}{a_N}
-     \cdot a_N.
-\]
-Dunque potendo stimare,
-dall'alto e dal basso,
-ognuno degli $n-N$ fattori di questo
-prodotto di rapporti, si ottiene
-\[
-(\ell -\eps)^{n-N} \cdot a_N < a_n < (\ell +\eps)^{n-N} \cdot a_N
-\]
-da cui
-\[
-(\ell -\eps)^{\frac{n-N}{n}} \cdot \sqrt[n]{a_N}
-< \sqrt[n]{a_n}
-< (\ell +\eps)^{\frac{n-N}{n}} \cdot \sqrt[n]{a_N}
-\]
-ovvero
-\begin{equation}\label{eq:39846}
-(\ell -\eps) \cdot \sqrt[n]{\frac{a_N}{(\ell -\eps)^N}}
-< \sqrt[n]{a_n}
-< (\ell +\eps) \cdot \sqrt[n]{\frac{a_N}{(\ell -\eps)^N}}.
-\end{equation}
-Ricordiamo ora che per $n\to +\infty$ si ha (teorema~\ref{th:limite_radice})
-\[
-\sqrt[n]{\frac{a_N}{(\ell -\eps)^N}} \to 1
-\]
-dunque passando al $\liminf$ e al $\limsup$ nelle disuguaglianze \eqref{eq:39846}
-si ottiene
-\[
- \ell-\eps \le \liminf_n \sqrt[n]{a_n}\le \limsup_n \sqrt[n]{a_n}\le \ell+\eps.
-\]
-Essendo questo vero per ogni $\eps>0$ si ottiene
-\[
-\ell \le \liminf_n \sqrt[n]{a_n}\le \limsup_n \sqrt[n]{a_n}\le \ell
-\]
-dunque le disuguaglianze sono uguaglianze, $\liminf$ e $\limsup$ coincidono
-dunque il limite esiste ed è $\ell$, come volevamo dimostrare.
-\end{proof}
 
 \begin{exercise}
-Si applichi il risultato precedente per
-verificare che
+Si consideri la successione
 \[
-   \lim \sqrt[n]{n} = 1
+a_n =
+\begin{cases}
+   2^n &\text{se $n$ pari},\\
+   n\cdot 2^n &\text{se $n$ dispari}.
+\end{cases}
 \]
-e (più difficile)
-\[
-  \lim \frac{n}{\sqrt[n]{n!}} = e.
-\]
+Verificare che alla successione $a_n$
+si può applicare il criterio della radice ma
+non il criterio del rapporto.
+Usare questo esempio per mostrare che le implicazioni
+enunciate nel teorema~\ref{th:criterio_cesaro} non
+possono essere invertite.
 \end{exercise}
-
-Si osservi che il teorema~\ref{th:criterio_cesaro} fornisce una dimostrazione
-alternativa del teorema~\ref{th:criterio_rapporto} in quanto lo riconduce
-al teorema~\ref{th:criterio_radice}.
 
 \begin{definition}[ordine di infinito/infinitesimo]
 \mymark{***}
