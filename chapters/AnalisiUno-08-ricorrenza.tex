@@ -925,9 +925,83 @@ Calcolare
 \]
 \end{exercise}
 
+\begin{exercise}[Mandelbrot reale]
+\label{ex:mandelbrot_reale}
+Si consideri, fissato il parametro $c$, la successione definita per ricorrenza:
+\[
+  \begin{cases}
+    a_0 = 0\\
+    a_{n+1} = a_n^2 + c.
+  \end{cases}
+\]
+
+Determinare i valori di $c\in \RR$ per i quali la successione $a_n$ risulta
+essere limitata.
+\end{exercise}
+%
+\begin{proof}[Svolgimento.]
+\emph{Caso 1: $c > \frac 1 4$}.
+In tal caso non ci sono punti fissi, in quanto l'equazione $x=x^2+c$ ha
+discriminante negativo. Significa che $x^2+c > x$ per ogni $x\in \RR$. Dunque
+la successione $a_n$ è strettamente crescente e tende a $+\infty$.
+Non è limitata.
+
+\emph{Caso 2:} $0\le c \le \frac 1 4$.
+In questo caso l'equazione $x=x^2+c$ ha due soluzioni entrambe positive
+(le soluzioni hanno somma $1$ e prodotto $c\ge 0$).
+Se chiamiamo $x_1$ la più piccola delle due soluzioni possiamo dimostrare che
+l'intervallo $[0,x_1)$ è invariante. Infatti su tali intervallo la funzione
+$f(x)=x^2+c$ è crescente, dunque se $0\le x < x_1$ si ha $f(0) \le f(x) < f(x_1)$
+cioè $c \le f(x) < x_1$. Visto che $c\ge 0$ abbiamo mostrato che l'intervallo è
+invariante e la successione è dunque limitata.
+Se $c=0$ la successione $a_n$ rimane costante $a_n=0$. Se $c>0$ la successione
+converge al punto fisso $x_1$. In ogni caso è limitata.
+
+\emph{Caso 3:} $-1 \le c < 0$.
+In questo caso vogliamo mostrare che l'intervallo $[c,0]$ è invariante.
+La funzione $f(x) = x^2+c$ è decrescente su tale intervallo, dunque
+se $c\le x \le 0$ risulta $f(0)\le x \le f(c)$. Ma $f(0)=c$ e $f(c)=c^2+c
+= c(c+1) \le 0$ se $c\ge -1$. Dunque $[c,0]$ è invariante e $a_n$ rimane
+limitata in tale intervallo.
+
+\emph{Caso 4:} $-2\le c < -1$.
+In questo caso l'equazione $x=x^2+c$ ha una soluzione negativa ed una soluzione
+positiva. Chiamiamo $x_2$ la soluzione positiva. Vogliamo mostrare che
+l'intervallo $[c,x_2]$ è invariante.
+La funzione $f(x)=x^2+c$ è decrescente in $[c,0]$ e crescente in $[0,x_2]$.
+Se $0\le x \le x_2$ si ha dunque $f(0)\le f(x) \le f(x_2)$
+cioè $c \le f(x) \le x_2$. Dunque i punti in $[0,x_2]$ rimangono nell'intervallo
+$[c,x_2]$.
+Se invece $c\le x \le 0$ si ha $f(0)\le f(x) \le f(c)$ cioè $c \le f(x) \le c^2+c$.
+Affinché sia $c^2+c\le x_2$ basta verificare che $f(c^2+c)\le c^2+c$
+cioè:
+\[
+  (c^2+c)^2 + c \le c^2+c
+\]
+che, sviluppando il quadrato, si riduce a $c^3(c+2)\le 0$ che è verificata
+se $-2 \le c \le 0$.
+Dunque l'intervallo $[c,x_2]$ è invariante. La successione rimane dunque
+limitata in tale intervallo.
+
+\emph{Caso 5:} $c < -2$.
+In questo caso $a_0=0$, $a_1=c$, $a_2=c^2+c$ e possiamo verificare che
+$c^2+c > x_2$ in quanto, come nel caso precedente, questo accade se
+\[
+   (c^2+c)^2 + c > c^2+c
+\]
+che si riduce a $c^3(c+2)>0$ che è verificata se $c<-2$.
+Ma l'intervallo $(x_2,+\infty)$ è invariante e su tale intervallo
+si ha $f(x)>x$ dunque la successione $a_n$ è strettamente crescente per $n\ge 2$
+e diverge a $+\infty$. Non è dunque limitata.
+
+\emph{Conclusione}. La successione è limitata se $c\in[-2,1/4]$.
+Altrimenti $a_n\to +\infty$.
+
+\end{proof}
+
 \section{approfondimenti}
 
-I risultati esposti finora non richiedeva
+I risultati esposti finora non richiedevano
 alcuna nozione del calcolo differenziale
 e potevano essere compresi utilizzando solamente
 le nozioni del capitolo~\ref{ch:successioni}.
@@ -992,80 +1066,6 @@ allora applicare il teorema di Lagrange per ottenere che per ogni $n$ esiste $b_
 \end{align*}
 Risulta quindi che la distanza $\abs{a_n - x_0}$ deve essere crescente
 e quindi l'unica possibilità perché $a_n \to x_0$ è che sia $a_n = x_0$.
-\end{proof}
-
-\begin{exercise}[Mandelbrot reale]
-\label{ex:mandelbrot_reale}
-Si consideri, fissato il parametro $c$, la successione definita per ricorrenza:
-\[
-  \begin{cases}
-    a_0 = 0\\
-    a_{n+1} = a_n^2 + c.
-  \end{cases}
-\]
-
-Determinare i valori di $c\in \RR$ per i quali la successione $a_n$ risulta
-essere limitata.
-\end{exercise}
-%
-\begin{proof}[Svolgimento.]
-\emph{Caso 1: $c > \frac 1 4$}.
-In tal caso non ci sono punti fissi, in quanto l'equazione $x=x^2+c$ ha
-discriminante negativo. Significa che $x^+c > x$ per ogni $x\in \RR$. Dunque
-la successione $a_n$ è strettamente crescente e tende a $+\infty$.
-Non è limitata.
-
-\emph{Caso 2:} $0\le c \le \frac 1 4$.
-In questo caso l'equazione $x=x^2+c$ ha due soluzioni entrambe positive
-(le soluzioni hanno somma $1$ e prodotto $c\ge 0$).
-Se chiamiamo $x_1$ la più piccola delle due soluzioni possiamo dimostrare che
-l'intervallo $[0,x_1)$ è invariante. Infatti su tali intervallo la funzione
-$f(x)=x^2+c$ è crescente, dunque se $0\le x < x_1$ si ha $f(0) \le f(x) < f(x_1)$
-cioè $c \le f(x) < x_1$. Visto che $c\ge 0$ abbiamo mostrato che l'intervallo è
-invariante. Dunque la successione $a_n$ rimane in tale intervallo.
-Se $c=0$ la successione $a_n$ rimane costante $a_n=0$. Se $c>0$ la successione
-converge al punto fisso $x_1$. In ogni caso è limitata.
-
-\emph{Caso 3:} $-1 \le c < 0$.
-In questo caso vogliamo mostrare che l'intervallo $[c,0]$ è invariante.
-La funzione $f(x) = x^2+c$ è decrescente su tale intervallo, dunque
-se $c\le x \le 0$ risulta $f(0)\le x \le f(c)$. Ma $f(0)=c$ e $f(c)=c^2+c
-= c(c+1) \le 0$ se $c\ge -1$. Dunque $[c,0]$ è invariante e $a_n$ rimane
-limitata in tale intervallo.
-
-\emph{Caso 4:} $-2\le c < -1$.
-In questo caso l'equazione $x=x^2+c$ ha una soluzione negativa ed una soluzione
-positiva. Chiamiamo $x_2$ la soluzione positiva. Vogliamo mostrare che
-l'intervallo $[c,x_2]$ è invariante.
-La funzione $f(x)=x^2+c$ è decrescente in $[c,0]$ e crescente in $[0,x_2]$.
-Se $0\le x \le x_2$ si ha dunque $f(0)\le f(x) \le f(x_2)$
-cioè $c \le f(x) \le x_2$. Dunque i punti in $[0,x_2]$ rimangono nell'intervallo
-$[c,x_2]$.
-Se invece $c\le x \le 0$ si ha $f(0)\le f(x) \le f(c)$ cioè $c \le f(x) \le c^2+c$.
-Affinché sia $c^2+c\le x_2$ basta verificare che $f(c^2+c)\le c^2+c$
-cioè:
-\[
-  (c^2+c)^2 + c \le c^2+c
-\]
-che, sviluppando il quadrato, si riduce a $c^3(c+2)\le 0$ che è verificata
-se $-2 \le c \le 0$.
-Dunque l'intervallo $[c,x_2]$ è invariante. La successione rimane dunque
-limitata in tale intervallo.
-
-\emph{Caso 5:} $c < -2$.
-In questo caso $a_0=0$, $a_1=c$, $a_2=c^2+c$ e possiamo verificare che
-$c^2+c > x_2$ in quanto, come nel caso precedente, questo accade se
-\[
-   (c^2+c)^2 + c > c^2+c
-\]
-che si riduce a $c^3(c+2)>0$ che è verificata se $c<-2$.
-Ma l'intervallo $(x_2,+\infty)$ è invariante e su tale intervallo
-si ha $f(x)>x$ dunque la successione $a_n$ è strettamente crescente per $n\ge 2$
-e diverge a $+\infty$. Non è dunque limitata.
-
-\emph{Conclusione}. La successione è limitata se $c\in[-2,1/4]$.
-Altrimenti $a_n\to +\infty$.
-
 \end{proof}
 
 \section{equazioni ricorsive lineari}

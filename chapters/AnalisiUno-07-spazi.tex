@@ -2016,6 +2016,7 @@ esistono $c_k\in \RR$ con $k\in\NN$ per cui si abbia
 \end{definition}
 
 \begin{theorem}[disuguaglianza di Bessel]
+\label{th:bessel}%
 Sia $e_0, e_1, e_2, \dots$ un sistema ortonormale in uno spazio euclideo $V$.
 Per ogni $v\in V$ e per ogni $k\in \NN$ si ponga $c_k = \langle v,e_k\rangle$.
 Allora vale la
@@ -2025,11 +2026,14 @@ Allora vale la
 \sum_{k=0}^{+\infty} c_k^2 \le \abs{v}^2.
 \end{equation}
 
-Inoltre possiamo affermare che il sistema ortonormale $e_0, e_1, e_2, \dots$
-è una base hilbertiana se e solo se per ogni $v\in V$ vale l'uguaglianza:
+Vale inoltre l'uguaglianza
 \begin{equation}\label{eq:487562}
-\sum_{k=0}^{+\infty} c_k^2 = \abs{v}^2.
+\sum_{k=0}^{+\infty} c_k^2 = \abs{v}^2
 \end{equation}
+se e solo se vale la~\eqref{eq:49346}.
+
+Possiamo quindi affermare che il sistema ortonormale $e_0, e_1, e_2, \dots$
+è una base hilbertiana se e solo se per ogni $v\in V$ vale l'uguaglianza~\eqref{eq:487562}.
 \end{theorem}
 %
 \begin{proof}
@@ -2060,11 +2064,11 @@ dunque possiamo concludere, grazie al teorema di Pitagora~\eqref{eq:Pitagora}
 Passando al limite per $N\to +\infty$ si ottiene la disuguaglianza
 di Bessel.
 
+Abbiamo visto che $\abs{w_N}^2 = \abs{v}^2 - \abs{v_N}^2$
+dunque la condizione $\abs{w_N}^2\to 0$ è equivalente
+all'uguaglianza di Bessel: $\abs{v_N}^2 \to \abs{v}^2$.
 Il sistema è hilbertiano, per definizione, se e solo se $v_N \to v$
 ovvero se $w_N\to 0$.
-Ma abbiamo visto che $\abs{w_N}^2 = \abs{v}^2 - \abs{v_N}^2$
-dunque la condixione $\abs{w_N}^2\to 0$ è equivalente
-all'uguaglianza di Bessel: $\abs{v_N}^2 \to \abs{v}^2$.
 \end{proof}
 
 Il nostro obiettivo è ora quello di produrre una base hilbertiana di $H(0,2\pi)$.
@@ -2113,7 +2117,7 @@ si può trovare la formula di Werner:
 \end{align*}
 da cui se $m\neq n$:
 \begin{align*}
- \int_{}^{2\pi} \sin(mx)\cos(nx)\, dx &=
+ \int_{0}^{2\pi} \sin(mx)\cos(nx)\, dx &=
  -\frac 1 {2(m+n)} \Enclose{\cos\enclose{(m+n)x}}_{0}^{2\pi} \\
   &\quad - \frac{1}{2(m-n)}\Enclose{\cos\enclose{(m-n)x}}_{0}^{2\pi} = 0
 \end{align*}
@@ -2228,8 +2232,8 @@ e la serie
 \[
   \sum_{k=0}^{+\infty} c_k e_k
 \]
-si chiama \myemph{serie di Fourier} di $f$. Il polinomio
-trigonometrico
+si chiama \myemph{serie di Fourier} di $f$.
+Il polinomio trigonometrico
 \[
   f_N = \sum_{k=0}^{N} c_k e_k
 \]
@@ -2344,9 +2348,9 @@ ad $N$, ma questo si può sempre assumere, scartando
 o ripetendo i termini della successione.
 
 Se ora consideriamo gli sviluppi di Fourier:
-\[
+\begin{equation}\label{eq:48948784}
   f_N = \sum_{k=0}^N c_k e_k, \qquad c_k = \langle f,e_k\rangle
-\]
+\end{equation}
 ci ricordiamo che per ogni $k\le N$ risulta
 \[
    \langle f-f_N, e_k \rangle
@@ -2363,6 +2367,19 @@ Dunque, applicando il teorema di Pitagora,
   \Abs{f-f_N}_2^2 = \Abs{f-g_N}_2^2 - \Abs{f_N-g_N}_2^2
   \le \Abs{f-g_N}_2^2 \to 0.
 \]
+
+Abbiamo quindi dimostrato il seguente.
+\begin{theorem}[serie di Fourier]
+Se $f\in \H(0,2\pi)$ e $c_k$, $f_N$
+sono definiti da~\eqref{eq:48948784}
+allora $f_k\to f$ in norma $\Abs{\cdot}_2$.
+In particolare vale l'uguaglianza di Bessel
+\begin{equation}\label{eq:uguaglianza_Bessel}
+  \sum_{k=0}^{+\infty} c_k = \Abs{f}_2^2.
+\end{equation}
+\end{theorem}
+
+
 Questo significa, dunque, che il sistema ortonormale che abbiamo introdotto
 è una base hilbertiana e quindi che ogni funzione $f\in \H(0,2\pi)$
 si approssima
@@ -2520,6 +2537,54 @@ considerata nell'esempio~\ref{ex:incompletezza_di_H}
 e dunque converge in $\ell^2$. Il limite $c$ della successione $\phi(f_n)$
 rappresenta una successione di coefficienti di Fourier che non possono
 essere ottenuti da nessuna funzione $f\in H(0,2\pi)$.
+
+\begin{exercise}[problema di Basilea]
+Dimostriamo che
+\[
+  \sum_{k=1}^{+\infty} \frac{1}{k^2} = \frac{\pi^2}{6}.
+\]
+\end{exercise}
+%%
+%%
+\begin{proof}[Svolgimento.]
+Calcoliamo i coefficienti di Fourier della funzione $f(x)=x$ in $H(0,2\pi)$.
+Si ha
+\[
+ c_0 = \int_0^{2\pi} f(x)\cdot e_0(x)\, dx = \int_0^{2\pi} \frac{x}{\sqrt{2\pi}}\, dx = \frac{1}{\sqrt{2\pi}}\Enclose{\frac{x^2}{2}}_0^{2\pi}
+  = \sqrt{2\pi^3}
+\]
+poi
+\begin{align*}
+  c_{2k+1} &= \int_0^{2\pi} x \cdot \frac{\sin(kx)}{\sqrt \pi}\, dx \\
+   &= \Enclose{\frac{x(-\cos(kx))}{k\sqrt \pi}}_0^{2\pi}
+   - \int_0^{2\pi} \frac{-\cos(kx)}{k\sqrt \pi}\, dx\\
+   &= \frac{-2\pi}{k\sqrt \pi} - 0 = -\frac{2\sqrt \pi}{k}
+\end{align*}
+e infine
+\begin{align*}
+  c_{2k} &= \int_0^{2\pi} x \cdot \frac{\cos (kx)}{\sqrt \pi}\, dx \\
+  &= \Enclose{\frac{x \sin(kx)}{\sqrt \pi k}}_0^{2\pi}
+  - \int_0^{2\pi} \frac{\sin(kx)}{\sqrt \pi k}\, dx
+  = 0.
+\end{align*}
+Allora l'equazione di Bessel~\eqref{eq:uguaglianza_Bessel} ci dice
+che vale
+\[
+  \Abs{x}_2^2 = \sum_{k=0}^{+\infty} c_k^2
+  = c_0 + \sum_{k=0}^{+\infty} c_{2k+1}^2
+  = 2\pi^3 + \sum_{k=1}^{+\infty} \frac{4\pi}{k^2}.
+\]
+Ma è facile calcolare
+\[
+ \Abs{x}_2^2 = \int_0^{2\pi} x^2\, dx = \Enclose{\frac{x^3}{3}}_0^{2\pi}
+  = \frac{8\pi^3}{3}
+\]
+e quindi
+\[
+  \frac{8\pi^3}{3} = 2\pi^3 + 4\pi \sum_{k=1}^{+\infty}\frac{1}{k^2}
+\]
+da cui segue il risultato voluto.
+\end{proof}
 
 \section{divagazione sui frattali autosimili}
 
