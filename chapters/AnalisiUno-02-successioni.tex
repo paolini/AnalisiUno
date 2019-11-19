@@ -2301,33 +2301,42 @@ In certi testi (per lo più in ambito matematico)
 si definisce $\log  = \ln = \log_e$,
 in altri testi si considera $\log = \log_{10}$.
 
-\begin{corollary}[limite notevole]
+\begin{corollary}[limiti notevoli]
+\mymark{*}%
 Se $a_n \to 0$, $a_n>0$ allora
-\[
- \lim_{n\to +\infty} \frac{\ln \enclose{1+ a_n}}{a_n} = 1.
-\]
+\begin{gather}
+ \lim_{n\to +\infty} \frac{\ln \enclose{1+ a_n}}{a_n} = 1; \\
+ \lim_{n\to +\infty} \frac{e^{a_n}-1}{a_n} = 1.
+\end{gather}
 \end{corollary}
 %
 \begin{proof}
-Per ricondursi al teorema precedente basta osservare che
+Per quanto riguarda il logaritmo ci si riconduce al teorema precedente
+osservando che:
 \[
   \frac{\ln(1+a_n)}{a_n}
   = \ln \enclose{(1+a_n)^{\frac 1 {a_n}}}.
 \]
+Per quanto riguarda l'esponenziale ci si riconduce al logaritmo
+osservando che posto
+\[
+  b_n = e^{a_n}-1
+\]
+se $a_n\to 0$ anche $b_n\to 0$ e quindi si ha:
+\[
+\frac{e^{a_n}-1}{a_n} = \frac{b_n}{\ln(1+b_n)} \to 1.
+\]
+
 \end{proof}
 
 \begin{exercise}
 Mostrare che
-\[
-  \lim n^n\cdot \enclose{\frac{n+1}{n^2+1}}^n = e.
-\]
-\end{exercise}
-
-\begin{exercise}
-Mostrare che
-\[
-\lim n\cdot \ln\enclose{1 + \frac 1 n} = 1.
-\]
+\begin{gather*}
+  \lim_{n\to+\infty} n^n\cdot \enclose{\frac{n+1}{n^2+1}}^n = e; \\
+  \lim_{n\to+\infty} n\cdot \ln\enclose{1 + \frac 1 n} = 1; \\
+  \lim_{n\to+\infty} \enclose{1-\frac{n+1}{n!}}^{(n-1)!} = \frac 1 e; \\
+  \lim_{n\to+\infty} n \cdot \enclose{\sqrt[n]{2}-1} = \ln 2.
+\end{gather*}
 \end{exercise}
 
 %%%%%%%%%%%%%%%%%%%
@@ -2354,7 +2363,75 @@ Grazie al teorema~\ref{th:limite_esponenziale}
 sappiamo che se $q>1$ si ha $q^n\to \infty$.
 Se $q=1$ chiaramente $q^n=1\to 1$
 e se $q<1$ si ha $q^{-1}>1$ e quindi $q^{-n} \to +\infty$
-da qui $q^n \to 0$.
+da cui $q^n \to 0$.
+
+\begin{theorem}[criterio del rapporto]
+\label{th:criterio_rapporto}
+\index{criterio!del rapporto per le successioni}
+\index{rapporto!criterio del}
+  Sia $a_n$ una successione reale a termini non negativi
+  $a_n \ge 0$ tale che esista il limite del rapporto di due termini consecutivi:
+  \[
+     \frac{a_{n+1}}{a_n} \to \ell \in [0,+\infty].
+  \]
+  Se $\ell < 1$ allora $a_n \to 0$, se $\ell >1$ allora $a_n \to +\infty$.
+\end{theorem}
+%
+\begin{comment}
+\begin{proof}\footnote{%
+  la dimostrazione di questo teorema si potrebbe fare in maniera
+  molto simile alla dimostrazione del teorema~\ref{th:criterio_radice}
+  senza tirare in ballo il teorema~\ref{th:criterio_cesaro} che è decisamente più complesso.
+  }
+Grazie al teorema~\ref{th:criterio_cesaro} sappiamo
+che $\sqrt[n]{a_n}\to \ell$ e quindi il risultato
+segue direttametne dal teorema~\ref{th:criterio_radice}.
+\end{proof}
+\end{comment}
+
+\begin{proof}
+Supponiamo sia $\ell<1$. Posto $q=(1+\ell)/2$ si ha $\ell < q < 1$ e posto $\eps=q-\ell>0$ per la definizione di limite $\frac{a_{n+1}}{a_n}\to \ell$ dovrà esistere un $N\in \NN$ tale
+che per ogni $n\ge N$ si abbia:
+\[
+  \frac{a_{n+1}}{a_n} < \ell + \eps = q
+\]
+ovvero $a_{n+1} < q \cdot a_n$. In particolare si avrà:
+\begin{align*}
+  a_{N+1} &< q \cdot a_N \\
+  a_{N+2} &< q \cdot a_{N+1} < q^2\cdot a_N \\
+  a_{N+3} &< q \cdot a_{N+2} < q^3\cdot a_N \\
+  \vdots
+\end{align*}
+ed è chiaro che per induzione potremo dimostrare che per
+ogni $k\in \NN$ si ha
+\[
+  a_{N+k} < q^k\cdot a_N.
+\]
+Osserviamo però che $q^k \cdot a_N \to 0$ per $k\to +\infty$
+in quanto $q<1$ e quindi $q^k \to 0$. Dunque, tolti i primi $N$ termini, la successione $a_n$ tende a zero. Ma i primi $N$ termini non influenzano né il carattere né il limite della successione e quindi l'intera successione $a_n$ tende a zero.
+
+Il caso $\ell>1$ si fa in maniera analoga. Si sceglie $q$ tale
+che $1<q<\ell$ e si trova, in maniera analoga al caso precedente,
+che per un certo $N\in \NN$ e per ogni $k\in \NN$ si ha
+\[
+  a_{N+k} > q^k \cdot a_N \to +\infty.
+\]
+\end{proof}
+
+Osserviamo che, nel teorema precedente (ma anche nel criterio della radice teorema~\ref{th:criterio_radice}),
+non si può concludere alcunché nel
+caso in cui sia $\ell = 1$.
+Ad esempio le due successioni $a_n = 1/n$ e $b_n = n$
+hanno limiti diversi ($a_n \to 0$, $b_n\to +\infty$) ma per entrambe
+il limite del rapporto di termini consecutivi tende ad $\ell=1$.
+
+\begin{exercise}
+Mostrare che
+\begin{gather*}
+  \lim \frac{n!}{n^n}{n!} = 0 \\
+  \lim \frac{(2n)!}{(2n)^n} = +\infty
+\end{gather*}
+\end{exercise}
 
 \begin{theorem}[criterio della radice]
 \label{th:criterio_radice}%
@@ -2494,74 +2571,6 @@ verificare che
 e
 \[
   \lim \frac{n}{\sqrt[n]{n!}} = e.
-\]
-\end{exercise}
-
-\begin{theorem}[criterio del rapporto]
-\label{th:criterio_rapporto}
-\index{criterio!del rapporto per le successioni}
-\index{rapporto!criterio del}
-  Sia $a_n$ una successione reale a termini non negativi
-  $a_n \ge 0$ tale che esista il limite del rapporto di due termini consecutivi:
-  \[
-     \frac{a_{n+1}}{a_n} \to \ell \in [0,+\infty].
-  \]
-  Se $\ell < 1$ allora $a_n \to 0$, se $\ell >1$ allora $a_n \to +\infty$.
-\end{theorem}
-%
-\begin{proof}\footnote{%
-  la dimostrazione di questo teorema si potrebbe fare in maniera
-  molto simile alla dimostrazione del teorema~\ref{th:criterio_radice}
-  senza tirare in ballo il teorema~\ref{th:criterio_cesaro} che è decisamente più complesso.
-  }
-Grazie al teorema~\ref{th:criterio_cesaro} sappiamo
-che $\sqrt[n]{a_n}\to \ell$ e quindi il risultato
-segue direttametne dal teorema~\ref{th:criterio_radice}.
-\end{proof}
-
-
-
-\begin{comment}
-Supponiamo sia $\ell<1$. Posto $q=(1+\ell)/2$ si ha $q < \ell < 1$ e posto $\eps=q-\ell>0$ per la definizione di limite $\frac{a_{n+1}}{a_n}\to \ell$ dovrà esistere un $N\in \NN$ tale
-che per ogni $n\ge N$ si abbia:
-\[
-  \frac{a_{n+1}}{a_n} < \ell + \eps = q
-\]
-ovvero $a_{n+1} < q \cdot a_n$. In particolare si avrà:
-\begin{align*}
-  a_{N+1} &< q \cdot a_N \\
-  a_{N+2} &< q \cdot a_{N+1} < q^2\cdot a_N \\
-  a_{N+3} &< q \cdot a_{N+2} < q^3\cdot a_N \\
-  \vdots
-\end{align*}
-ed è chiaro che per induzione potremo dimostrare che per
-ogni $k\in \NN$ si ha
-\[
-  a_{N+k} < q^k\cdot a_N.
-\]
-Osserviamo però che $q^k \cdot a_N \to 0$ per $k\to +\infty$
-in quanto $q<1$ e quindi $q^k \to 0$. Dunque, tolti i primi $N$ termini, la successione $a_n$ tende a zero. Ma i primi $N$ termini non influenzano né il carattere né il limite della successione e quindi l'intera successione $a_n$ tende a zero.
-
-Il caso $\ell>1$ si fa in maniera analoga. Si sceglie $q$ tale
-che $1<q<\ell$ e si trova, in maniera analoga al caso precedente,
-che per un certo $N\in \NN$ e per ogni $k\in \NN$ si ha
-\[
-  a_{N+k} > q^k \cdot a_N \to +\infty.
-\]
-\end{proof}
-\end{comment}
-
-Osserviamo che, nel teorema precedente (ma anche nel criterio della radice),
-non si può concludere alcunché nel
-caso in cui sia $\ell = 1$.
-Ad esempio le due successioni $a_n = 1/n$ e $b_n = n$
-hanno limiti diversi ($a_n \to 0$, $b_n\to +\infty$) ma per entrambe
-il limite del rapporto di termini consecutivi tende ad $\ell=1$.
-
-\begin{exercise}
-Mostrare che
-\[
-  \lim \frac{n^n}{n!} = +\infty.
 \]
 \end{exercise}
 
