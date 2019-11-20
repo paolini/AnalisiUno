@@ -1,14 +1,14 @@
 \chapter{successioni ricorsive}
 \label{ch:successioni_ricorsive}
 
-In questo capitolo prenderemo in considerazione le successioni $a_n$
+Nella maggior parte di questo capitolo prenderemo in considerazione le successioni $a_n$
 definite \emph{per ricorrenza} o \emph{ricorsivamente} dalle condizioni:
 \index{successioni!ricorsive}
 \index{successioni!definite per ricorrenza}
 \index{ricorsione}
 \begin{equation}\label{eq1}
 \begin{cases}
-  a_1 = \alpha,\\
+  a_0 = \alpha,\\
   a_{n+1} = f(a_n)
 \end{cases}
 \end{equation}
@@ -17,27 +17,30 @@ Fissato il termine iniziale $\alpha$ e la legge di ricorrenza $f$,
 c'è una unica successione che soddisfa \eqref{eq1} e i suoi termini
 sono:
 \begin{align*}
-a_1 & =\alpha,\\
-a_2 &= f(a_1)=f(\alpha),\\
-a_3 &= f(a_2)=f(f(\alpha)),\\
-a_4 &= f(a_3)=f(f(f(\alpha))),\\
-\vdots
+a_0 & =\alpha,\\
+a_1 &= f(a_1)=f(\alpha),\\
+a_2 &= f(a_2)=f(f(\alpha)),\\
+a_3 &= f(a_3)=f(f(f(\alpha))),\\
+&\ \vdots\\
+a_n &= f(a_{n-1}) = f^n(\alpha),\\
+&\ \vdots
 \end{align*}
 
+
 Il valore di $a_n$ potrebbe rappresentare lo stato di un sistema che
-si evolve a partire da uno stato iniziale $a_1$ tramite la
+si evolve a partire da uno stato iniziale $a_0=\alpha$ tramite la
 funzione $f$ che rappresenta il cambiamento di stato.
 Il numero naturale $n$ potrebbe quindi rappresentare un passo temporale.
 In tal senso \eqref{eq1} si chiama anche \myemph{sistema!dinamico!discreto}.
 
-L'equazione $a_{n+1} = f(a_n)$ viene chiamata una \emph{equazione
-  autonoma del primo ordine}. Osserviamo infatti
-che ci sono altre tipologie di equazioni che però
-non considereremo in queste note. Ad esempio quando vogliamo definire
-il fattoriale: $a_n = n!$ diamo le condizioni:
+L'equazione $a_{n+1} = f(a_n)$ viene chiamata una \emph{equazione ricorsiva autonoma del primo ordine}.
+Ci sono altre tipologie di equazioni che considereremo
+solo marginalmente nei capitoli successivi.
+Ad esempio quando abbiamo definito
+il fattoriale: $a_n = n!$ abbiamo dato le condizioni:
 \[
 \begin{cases}
-  a_1 = 1\\
+  a_0 = 1\\
   a_{n+1} = (n+1) \cdot a_n
 \end{cases}
 \]
@@ -47,15 +50,26 @@ ricorrenza $f$ dipende esplicitamente da $n$ oltre che dal termine
 precedente $a_n$.
 
 Si potrebbero anche considerare equazioni di ordine maggiore del
-primo. Ad esempio la successione di \emph{Fibonacci}
-\mymargin{Fibonacci}
-\index{Fibonacci!successione di}
-\index{successione!di Fibonacci}
-$F_n$ è definita da
+primo. Ad esempio la successione $F_n$ di \emph{Fibonacci}
+(Leonardo Pisano, 1170--1242)
+i cui primi termini sono riportati nella tabella~\ref{tab:Fibonacci}
+\begin{table}
+  \begin{center}
+  0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144,
+  233, 377, 610, 987\dots
+\end{center}
+\caption{I primi termini della succession di Fibonacci.
+Ogni termine è la somma dei due precedenti.}
+\label{tab:Fibonacci}
+\end{table}
+\mymargin{Fibonacci}%
+\index{Fibonacci!successione di}%
+\index{successione!di Fibonacci}%
+soddisfa l'equazione ricorsiva:
 \begin{equation}\label{eq:Fibonacci}
 \begin{cases}
+  F_0 = 0 \\
   F_1 = 1 \\
-  F_2 = 1 \\
   F_{n+2} = F_{n+1} + F_n
 \end{cases}
 \end{equation}
@@ -66,7 +80,7 @@ formule esplicite per scrivere l'$n$-esimo termine della successione.
 Lo faremo nella sezione~\ref{sec:ricorrenza_lineare}
 
 Si potrebbero anche considerare i sistemi di equazioni ricorsive.
-Ad esempio se $f$ fosse una funzione complessa $f\colon \CC \to \CC$
+Ad esempio se $f$ fosse una funzione complessa $f\colon \CC \to \CC$,
 $f(x+iy) = f_1(x,y) + i f_2(x,y)$ con $f_1,f_2 \colon \RR\to\RR$
 si potrebbe scrivere $a_n = x_n + i y_n$ con $x_n, y_n \in \RR$
 l'equazione ricorsiva $a_{n+1} = f(a_n)$
@@ -82,29 +96,29 @@ ma accenneremo solamente ad un esempio nella sezione~\ref{sec:mandelbrot}.
 
 \section{equazioni ricorsive autonome del primo ordine}
 
-\begin{exercise}[algoritmo di Erone]\label{ex_Erone}
-\index{Erone!algoritmo di}
-\index{algoritmo!di Erone}
-\index{algoritmo!calcolo della radice $n$-esima}
-\index{radice $n$-esima!algoritmo di Erone}
+\begin{example}[algoritmo di Erone]\label{ex_Erone}
+\index{Erone!algoritmo di}%
+\index{algoritmo!di Erone}%
+\index{algoritmo!calcolo della radice $n$-esima}%
+\index{radice $n$-esima!algoritmo di Erone}%
   Fissato un numero reale $p>1$ consideriamo la successione definita
   per
 ricorrenza da
 \[
 \begin{cases}
-  a_1 = p\\
+  a_0 = p\\
   a_{n+1} = \frac{a_n + p/a_n}{2}.
 \end{cases}
 \]
 Si dimostri che $a_n \to \sqrt p$.
-\end{exercise}
+\end{example}
 Osserviamo, ad esempio, che per $p=2$ i
 primi termini della successione sono:
 \begin{align*}
-a_1 &= 2, \\
-a_2 &= \frac{2+2/2}{2} = 3/2 = 1.5, \\
-a_3 &= \frac{3/2 + 2/(3/2)}{2} = 17/12 \approx 1.4166666, \\
-a_4 &= \frac{17/12 + 2/(17/12)}{2} = 577 / 408 \approx 1.4142157,\\
+a_0 &= 2, \\
+a_1 &= \frac{2+2/2}{2} = 3/2 = 1.5, \\
+a_2 &= \frac{3/2 + 2/(3/2)}{2} = 17/12 \approx 1.4166666, \\
+a_3 &= \frac{17/12 + 2/(17/12)}{2} = 577 / 408 \approx 1.4142157,\\
 \vdots
 \end{align*}
 che effettivamente \emph{sembrano} avvicinarsi molto al numero
@@ -114,13 +128,13 @@ che effettivamente \emph{sembrano} avvicinarsi molto al numero
 
 \begin{proof}
 \emph{Passo 1.} Dimostriamo per induzione che $a_n>0$ per ogni $n\in \NN$.
-Infatti per $n=1$ osserviamo che $a_1=p>0$ mentre se supponiamo che
-$a_n>0$ otteniamo che $a_{n+1} = (a_n + p/a_n)/2$ è positivo in quanto
+Infatti per $n=1$ osserviamo che $a_0=p>0$ mentre se supponiamo che
+$a_n>0$ otteniamo che $a_{n+1} = \frac{a_n + \frac p {a_n}}2$ è positivo in quanto
 è la metà della somma di due quantità positive. Quindi, applicando il
 principio di induzione, possiamo concludere che $a_n>0$ per ogni $n$.
 
 Abbiamo in effetti identificato un insieme $A=\ENCLOSE{x\colon x>0} = (0,
-+\infty)$ tale che la funzione $f(x) = \frac{x + p/x}{2}$ è definita
++\infty)$ tale che la funzione $f(x) = \frac{x + \frac p x}{2}$ è definita
 su $A$ e, contemporaneamente, ha valori in $A$.
 Quindi questo passaggio è fondamentale anche solo per
 garantire che la successione $a_n$ sia ben definita.
@@ -130,7 +144,7 @@ Per fare questo osserviamo che essere decrescente significa:
 $ a_{n+1} \le a_n$
 e cioé
 \[
-\frac{a_n + p/a_n}{2} \le a_n
+\frac{a_n + \frac p {a_n}}{2} \le a_n
 \]
 ovvero (moltiplicando ambo i lati per $a_n>0$)
 \[
@@ -140,7 +154,7 @@ che è equivalente a $a_n^2 - p \ge 0$. E, in effetti, questa
 disuguaglianza è sempre vera in quanto per $n=1$ si riduce a $a_1^2 - p
 = p^2 - p \ge 0$ che è soddisfatta nel caso $p>1$. Mentre
 \begin{align*}
-a_{n+1}^2 - p & = \left(\frac{a_n+p/a_n}{2}\right)^2 - p
+a_{n+1}^2 - p & = \left(\frac{a_n+\frac p{a_n}}{2}\right)^2 - p
 = \frac{a_n^4 + 2 p a_n^2 + p^2 - 4 p a_n^2}{4 a_n^2} \\
 & = \frac{a_n^2 - 2 p a_n^2 + p^2}{4 a_n^2}
  = \frac{\left(a_n^2 - p\right)^2}{4a_n^2} \ge 0.
@@ -149,7 +163,7 @@ Dunque $a_{n+1}^2 \ge p$ per ogni $n\in \NN$ e di conseguenza $a_n$ è
 decrescente e inoltre $a_n > \sqrt p$.
 
 \emph{Passo 3.}
-Visto che $a_n$ è una successione decrescente
+Visto che $a_n$ è una successione decrescente,
 per il teorema sulle successioni monotòne possiamo
 affermare che $a_n$ ammette limite, e cioé: $a_n \to \ell$ con $\ell
 \in [-\infty, +\infty]$. Possiamo immediatamente escludere
@@ -158,13 +172,13 @@ anche escludere $\ell<\sqrt{p}$ in quanto sappiamo che $a_n > \sqrt{p}$ e quindi
 (per il teorema della permanenza del segno) $\ell \ge \sqrt p$.
 Inoltre
 \[
-  a_{n+1} = \frac{a_n + p/a_n}{2} \to \frac{\ell + p/\ell}{2}.
+  a_{n+1} = \frac{a_n + \frac p{a_n}}{2} \to \frac{\ell + \frac p \ell}{2}.
 \]
 Ma sappiamo che se $a_n\to \ell$ anche $a_{n+1}\to \ell$ (visto che
 $a_{n+1}$ è una sottosuccessione di $a_n$) e quindi (per l'unicità del
 limite)
 \begin{equation}\label{ex_1_fixed}
-  \ell = \frac{\ell + p/\ell}{2}
+  \ell = \frac{\ell + \frac p \ell}{2}
 \end{equation}
 da cui si ricava $\ell^2 = p$ ovvero (essendo $\ell\ge 0$) concludiamo
 $a_n \to \ell =
@@ -186,14 +200,14 @@ delle successioni definite da~ \eqref{eq1}.
 Osserviamo che se $\alpha$ è un punto fisso per $f$ la successione costante
 $a_n=\alpha$ soddisfa l'equazione $a_{n+1} = f(a_n)$. Inoltre se
 $a_{n+1} = f(a_n)$, se $a_n$ converge ad un limite $\ell$ e se
-$\lim_{x\to \ell} f(x) = f(\ell)$ (diremo: $f$ è continua in $\ell$) allora
+$f$ è continua in $\ell$ allora
 \[
 a_{n+1} = f(a_n) \to f(\ell)
 \]
 ma visto che $a_{n+1}$ ha lo stesso limite di $a_n$ si trova che
 $f(\ell)=\ell$ ovvero il limite della successione è un punto fisso.
 
-Nell'esercizio precedente la funzione $f(x) = (x+p/x)/2$ ha come punti
+Nell'esempio precedente la funzione $f(x) = \frac{x+\frac p x}2$ ha come punti
 fissi $\sqrt{p}$ e $-\sqrt{p}$ e l'equazione~\eqref{ex_1_fixed} non è
 altro che $f(x)=x$. E in effetti abbiamo mostrato che la successione
 $a_n$ converge proprio ad un punto fisso.
@@ -203,13 +217,14 @@ $a_n$ converge proprio ad un punto fisso.
   Un insieme $A$ si dice essere \emph{invariante}
   \mynote{insieme invariante}
   per $f$ se
-  $f(A)\subseteq A$.
+  $f(A)\subseteq A$
+  (ovvero: per ogni $x\in A$ si ha $f(x)\in A$).
 \end{definition}
 
-Osserviamo che se $A$ è un insieme invariante e $a_1\in A$ allora la
+Osserviamo che se $A$ è un insieme invariante e $a_0\in A$ allora la
 successione definita da $a_{n+1}=f(a_n)$ assume sempre valori in $A$.
 
-Nell'esercizio~\ref{ex_Erone} abbiamo dimostrato che gli insiemi
+Nell'esercizio~\ref{ex_Erone} abbiamo dimostrato che gli intervalli
 $(0,+\infty)$ e $(\sqrt{p},+\infty)$ sono invarianti.
 
 \begin{theorem}\label{th_1}
@@ -254,7 +269,7 @@ equazioni:
 \begin{theorem}
 \mymark{**}
   Sia $A\subset \RR$ un insieme invariante per $f$ e sia $a_n$ una successione
-  con $a_1\in A$ e $a_{n+1} = f(a_n)$. Se $f$ è crescente
+  con $a_0\in A$ e $a_{n+1} = f(a_n)$. Se $f$ è crescente
   \mynote{$f$ crescente}
   su $A$ allora $a_n$
   è monotòna.
@@ -267,7 +282,7 @@ equazioni:
     a_{n+2} \ge a_{n+1}\\
     a_{n+1} \le a_n \Rightarrow f(a_{n+1}) \le f(a_n) \Rightarrow a_{n+2} \le a_{n+1}.
   \end{align*}
-  Dunque se per i primi due termini si ha $a_2 \ge a_1$ allora, per
+  Dunque se per i primi due termini si ha $a_1 \ge a_0$ allora, per
   induzione, si ha $a_{n+1} \ge a_n$ per ogni $n$ e quindi la
   successione è crescente. Se invece $a_2 \le a_1$ si dimostra per
   induzione che $a_{n+1} \le a_n$ per ogni $n$ e quindi la successione
@@ -311,7 +326,7 @@ esercizi.
 \index{Fibonacci!successione di}
 \index{successione!di Fibonacci}
   Si consideri il rapporto $a_n = \frac{F_{n+1}}{F_n}$ di due termini
-  successivi della successione di Fibonacci: $F_1=1$, $F_2=1$,
+  successivi della successione di Fibonacci: $F_0=1$, $F_1=1$,
   $F_{n+2} = F_{n+1} + F_n$. Determinare il limite di $a_n$.
 \end{exercise}
 
@@ -321,11 +336,11 @@ esercizi.
    a_{n+1} = \frac{F_{n+2}}{F_{n+1}} = \frac{F_{n+1}+F_n}{F_{n+1}} = 1
    + \frac{F_n}{F_{n+1}} = 1 + \frac{1}{a_n}.
    \]
-   Inoltre $a_1=F_2 / F_1 = 1$. Dunque la successione $a_n$ soddisfa
+   Inoltre $a_0=F_2 / F_1 = 1$. Dunque la successione $a_n$ soddisfa
    le seguenti proprietà:
    \[
    \begin{cases}
-     a_1 = 1 \\
+     a_0 = 1 \\
      a_{n+1} = 1 + \frac{1}{a_n}.
    \end{cases}
    \]
@@ -339,7 +354,7 @@ esercizi.
    1 x \ge 1 + \frac 1 y
    \Rightarrow f(x) \ge f(y).
    \]
-   Visto che $a_1 = 1 \in A$, $A$ invariante, $f$ decrescente su $A$,
+   Visto che $a_0 = 1 \in A$, $A$ invariante, $f$ decrescente su $A$,
    il Teorema~\ref{th_decr} ci dice che le due successioni $a_{2n}$ e
    $a_{2n+1}$ sono monotone e quindi ammettono limite: $a_{2n}\to
    \ell$, $a_{2n+1} \to \ell'$ con $\ell,\ell' \in [0,+\infty]$.
@@ -393,19 +408,21 @@ esercizi.
     \includegraphics[width=\textwidth]{fig_fibonacci.png}
   \end{center}
   \caption{Diagramma a ragnatela relativo
-    all'esercizio~\ref{ex_fibonacci}.}
+    all'esercizio~\ref{ex_fibonacci}:
+    sul rapporto dei termini successivi della successione di Fibonacci.}
   \label{fig_fibonacci}
 \end{figure}
 
 Un metodo grafico per visualizzare l'andamento dei termini della
 successione definita da \eqref{eq1} è il \emph{diagramma a
   ragnatela}. Si disegna la curva $y=f(x)$ su un piano
-cartesiano. Partendo dal punto di coordinate $(\alpha, 0)=(a_1, 0)$ si procede
+cartesiano. Partendo dal punto di coordinate $(\alpha, 0)=(a_0, 0)$ si procede
 lungo una retta verticale fino a raggiungere il grafico della funzione
-nel punto $(a_1, f(a_1)) = (a_1, a_2)$. Dopodiché si procede in
-orizzontale fino ad incontrare la retta $y=x$ nel punto $(a_2,a_2)$ e
+nel punto $(a_0, f(a_0)) = (a_0, a_1)$.
+Dopodiché si procede in
+orizzontale fino ad incontrare la retta $y=x$ nel punto $(a_1,a_1)$ e
 si ripete il procedimento in modo che le coordinate $x$ (ma anche le $y$)
-dei vertici della spezzata mi danno la successione $a_1, a_2, a_3,
+dei vertici della spezzata mi danno la successione $a_0, a_1, a_2,
 \dots$. Ad esempio il diagramma a ragnatela corrispondente
 all'esercizio~\ref{ex_fibonacci} è rappresentato in
 Figura~\ref{fig_fibonacci}.
@@ -414,7 +431,7 @@ Figura~\ref{fig_fibonacci}.
   Si consideri la successione definita per ricorrenza
   \[
   \begin{cases}
-    a_1 = 0\\
+    a_0 = 0\\
     a_{n+1} =1 + a_n^2.
   \end{cases}
   \]
@@ -462,7 +479,7 @@ Figura~\ref{fig_fibonacci}.
   Si consideri la successione definita per ricorrenza
   \[
   \begin{cases}
-    a_1 = 1\\
+    a_0 = 1\\
     a_{n+1} =4-\frac 1 {a_n}.
   \end{cases}
   \]
@@ -481,15 +498,16 @@ Figura~\ref{fig_fibonacci}.
   2-\sqrt 3 < f(x) < 2+\sqrt 3.
   \end{align*}
 
-  Inoltre se $a_1 \in A$ allora per ogni $n\ge 1$ si ha $a_n\in A$ ed essendo
+  Inoltre se $a_0 \in A$ allora per ogni $n\in\NN$ si ha $a_n\in A$ ed essendo
   $f(x)>x$ la successione sarà crescente. Dunque ammette
-  limite: $a_n \to \ell \in \bar A$, $\ell \ge a_1$. Ma allora
+  limite: $a_n \to \ell \in [2-\sqrt 3,2+\sqrt 3]$, $\ell \ge a_0$.
+  Ma allora
   \[
   a_{n+1} = 4-\frac 1 {a_n} \to 4 - \frac 1 \ell = f(\ell)
   \]
   e visto che $a_{n+1}$ ha lo stesso limite di $a_n$ si ha $\ell =
   f(\ell)$ le cui uniche soluzioni sono $2\pm \sqrt 3$. Ma $2-\sqrt 3$
-  va scartata in quanto $\ell\ge a_1 > 2-\sqrt 3$ e quindi rimane
+  va scartata in quanto $\ell\ge a_0 > 2-\sqrt 3$ e quindi rimane
   $a_n \to \ell = 2+\sqrt 3$.
 \end{proof}
 
@@ -507,7 +525,7 @@ Figura~\ref{fig_fibonacci}.
   Si consideri la successione definita per ricorrenza
   \[
   \begin{cases}
-    a_1 = \frac 1 2\\
+    a_0 = \frac 1 2\\
     a_{n+1} = 1- \frac{1}{a_n}
   \end{cases}
   \]
@@ -517,17 +535,17 @@ Figura~\ref{fig_fibonacci}.
 \begin{proof}[Soluzione.]
   Osserviamo che:
   \begin{align*}
-    a_1 &= \frac 1 2 \\
-    a_2 &= 1 - \frac{1}{1/2} = -1\\
-    a_3 &= 1 - \frac{1}{-1} = 2\\
-    a_4 &= 1 - \frac{1}{2} = \frac 1 2 = a_1
+    a_0 &= \frac 1 2 \\
+    a_1 &= 1 - \frac{1}{1/2} = -1\\
+    a_2 &= 1 - \frac{1}{-1} = 2\\
+    a_3 &= 1 - \frac{1}{2} = \frac 1 2 = a_0
   \end{align*}
-  Essendo $a_4 = a_1$ la successione si ripete e, (per induzione) si
+  Essendo $a_3 = a_0$ la successione si ripete e, (per induzione) si
   dimostra che $a_{3n+k} = a_k$. Dunque si ha
   \begin{align*}
-    a_{3n} &= a_3 = 2 \to 2\\
-    a_{3n+1} &= a_1 = 1/2 \to 1/2\\
-    a_{3n+2} &= a_2 = -1 \to -1
+    a_{3n} &= a_0 = \frac 1 2\\
+    a_{3n+1} &= a_1 = -1\\
+    a_{3n+2} &= a_2 = 2
   \end{align*}
   e la successione $a_n$ non ammette limite.
 \end{proof}
@@ -546,7 +564,7 @@ Figura~\ref{fig_fibonacci}.
   Si consideri la successione definita per ricorrenza
   \[
   \begin{cases}
-    a_1 = 0\\
+    a_0 = 0\\
     a_{n+1} = \frac{5-a_n^2}{4}.
   \end{cases}
   \]
@@ -559,9 +577,9 @@ che la funzione $f$ è decrescente per $x \ge 0$ (infatti $0 \le x_1 <
 x_2$ implica $x_1^2 < x_2^2$ da cui $-x_1^2 > -x_2^2$ e quindi $f(x_1)
 > f(x_2)$). Osserviamo inoltre che
 \begin{align*}
-a_1 &= 0\\
-a_2 &= f(a_1) = 5/4.\\
-a_3 &= f(5/4) = \frac{5-25/16}{4} = \frac{55}{64}
+a_0 &= 0\\
+a_1 &= f(a_1) = \frac 5 4.\\
+a_2 &= f\enclose{\frac 5 4} = \frac{5-25/16}{4} = \frac{55}{64}
 \end{align*}
 Vogliamo dimostrare che l'intervallo $A=[0,5/4]$ è invariante. Visto
 che $f$ è decrescente su tale intervallo, si ha:
@@ -616,8 +634,8 @@ possiamo facilmente risolvere:
   x_{12} = -2 \pm \sqrt{4 + 5} = -2 \pm 3.
 \end{gather*}
 
-Dunque abbiamo trovato due zeri del polinomio di quarto grado e quindi
-tale polinomio deve essere divisibile per
+Dunque abbiamo trovato due zeri del polinomio di quarto grado e
+tale polinomio deve essere quindi divisibile per
 \[
  x^2 + 4x - 5 = (x-1)(x+5).
 \]
@@ -649,7 +667,7 @@ successione ha limite: $a_n \to 1$.
   Si consideri la successione definita per ricorrenza
   \[
   \begin{cases}
-    a_1 = \alpha\\
+    a_0 = \alpha\\
     a_{n+1} = 2- a_n^2.
   \end{cases}
   \]
@@ -703,15 +721,15 @@ successione ha limite: $a_n \to 1$.
 
   Caso $\alpha=4$. In questo caso si ha:
   \begin{align*}
-    a_1 &= \alpha = 4\\
-    a_2 &= f(a_1) = 2 - 4^2 = -14.
+    a_0 &= \alpha = 4\\
+    a_1 &= f(a_0) = 2 - 4^2 = -14.
   \end{align*}
-  quindi $a_2 \in A$ (l'intervallo invariante del punto precedente) e
+  quindi $a_1 \in A$ (l'intervallo invariante del punto precedente) e
   dall'indice $2$ in poi ci si riconduce quindi ai risultati
   precedenti. Dunque anche in questo caso $a_n \to -\infty$.
 
-  Caso $\alpha = 1/42$. Questo caso è decisamente più complesso dei
-  precedenti. Prendiamo l'insieme $A_2 = [-2, 2]$, vogliamo dimostrare
+  Caso $\alpha = \frac 1{42}$. Questo caso è decisamente più complesso dei
+  precedenti. Prendiamo l'insieme $A_2 = [-2, 2]$: vogliamo dimostrare
   che è un insieme invariante. Nell'intervallo $[-2,0]$ la funzione è
   crescente e quindi ha minimo in $-2$ dove vale $f(-2)=-2$ ed ha
   massimo in $0$ dove assume il valore $f(0) = 2$. Nell'intervallo
@@ -719,11 +737,11 @@ successione ha limite: $a_n \to 1$.
   minimo $f(2)=-2$. Dunque per ogni $x\in [-2,2]$ si ha $f(x) \in
   [-2,2]$ cioè, come volevamo dimostrare, $A_2$ è invariante.
 
-  Dunque visto che $a_1 = \alpha \in A_2$ scopriamo che per ogni $n$
+  Dunque visto che $a_0 = \alpha \in A_2$ scopriamo che per ogni $n$
   si ha $a_n \in [-2,2]$. Supponiamo ora che la successione abbia
   limite: $a_n \to \ell$. In tal caso, passando al limite
   nell'equazione $a_{n+1} = f(a_n)$ otteniamo, come al solito, che il
-  limite dovrebbe essere un punto fisso di $f$: o $\ell=-2$ o
+  limite dovrebbe essere un punto fisso di $f$: o $\ell=-2$ oppure
   $\ell=1$. Cercheremo ora di dimostrare che questo è assurdo. Ci sono
   due possibilità che dobbiamo escludere. La prima è che la
   successione tenda al punto fisso $\ell$ senza mai uguagliarlo. La
@@ -735,7 +753,7 @@ successione ha limite: $a_n \to 1$.
   deve, da un certo indice in poi, stare nell'intervallo $[-2, 0]$. Ma
   in tale intervallo si ha $f(x)>x$ e quindi la successione sarebbe,
   da un certo indice in poi, crescente. Ma visto che $a_n \ge -2$ per
-  ogni $n$ non è possibile che la successione converga, crescendo, a
+  ogni $n$, non è possibile che la successione converga, crescendo, a
   $-2$.
 
   Supponiamo allora di essere nel primo caso (la successione è sempre
@@ -760,7 +778,7 @@ successione ha limite: $a_n \to 1$.
     \ge \frac 3 2 \abs{a_n-1}
   \]
   in quanto se $\abs{a_n-1}<1/2$ allora (per la disuguaglianza triangolare inversa)
-  $\abs{1+a_n}\ge 3/2$. Questo è assurdo perché significa che $\abs{a_n -1}\to +\infty$
+  $\abs{1+a_n}\ge \frac 3 2$. Questo è assurdo perché significa che $\abs{a_n -1}\to +\infty$
   (per il criterio del rapporto) quando invece dovrebbe essere $\abs{a_n-1}\to 0$.
 
   \textbf{Nota.} Vedremo nei prossimi teoremi che
@@ -788,8 +806,8 @@ successione ha limite: $a_n \to 1$.
   \[
   -1 = a_{n-1} = 2-(a_{n-2})^2
   \]
-  da cui $a_{n-2} = \pm \sqrt 3$. Ma ora osserviamo che essendo $a_1=
-  \alpha = 1/42$ un numero razionale, e osservando che $\QQ$ è un
+  da cui $a_{n-2} = \pm \sqrt 3$. Ma ora osserviamo che essendo $a_0=
+  \alpha = \frac 1 {42}$ un numero razionale, e osservando che $\QQ$ è un
   insieme invariante per $f$ (perché? verificare per induzione...)
   sappiamo che ogni $a_k \in \QQ$ e quindi
   avremmo $a_{n_2} = \sqrt 3 \in \QQ$: assurdo.
@@ -804,7 +822,7 @@ successione ha limite: $a_n \to 1$.
   Si consideri la successione definita per ricorrenza
   \[
   \begin{cases}
-    a_1 = \alpha\\
+    a_0 = \alpha\\
     a_{n+1} = \frac{1}{2-a_n}.
   \end{cases}
   \]
@@ -858,11 +876,11 @@ dato dunque dai valori della successione
 Osserviamo che in questo caso specifico è possibile ricavare una
 formula esplicita per il termine $b_n$. Osserviamo infatti che:
 \[
-b_1 = 2,\quad
-b_2 = \frac{3}{2},\quad
-b_3 = \frac{4}{3}
+b_0 = 2,\quad
+b_1 = \frac{3}{2},\quad
+b_2 = \frac{4}{3}
 \]
-e proviamo a congetturare che sia $b_n = (n+1) / n$. In effetti questo
+e proviamo a congetturare che sia $b_n = \frac{n+1} n$. In effetti questo
 si può dimostrare per induzione. Per $n=1$ si ha $(n+1)/n = 2 =
 b_1$. E se supponiamo che valga $b_n = (n+1)/n$ si ha
 \[
@@ -893,7 +911,7 @@ riconduce al primo studiato, e la successione tende a $1$.
   Si consideri la successione definita per ricorrenza
   \[
   \begin{cases}
-    a_1 = \alpha\\
+    a_0 = \alpha\\
     a_{n+1} = \frac{a_n^2-a_n}{2}.
   \end{cases}
   \]
@@ -904,7 +922,7 @@ riconduce al primo studiato, e la successione tende a $1$.
   Si consideri la successione definita per ricorrenza
   \[
   \begin{cases}
-    a_1 = \alpha \\
+    a_0 = \alpha \\
     a_{n+1} = 1 - a_n^2.
   \end{cases}
   \]
@@ -1289,8 +1307,7 @@ decomporre il polinomio $P$ tramite il teorema~\ref{th:Ruffini} di Ruffini
   P(\lambda)
   = a_n (\lambda -\lambda_1)(\lambda- \lambda_2)\cdots (\lambda - \lambda_n).
 \end{equation}
-è chiaro (ma si veda il teorema~\ref{th:6822095} per una spiegazione più dettagliata)
-che la stessa decomposizione può essere fatta per $P(\sigma)$
+la stessa decomposizione può essere fatta per $P(\sigma)$
 e quindi l'equazione~\eqref{eq:ricorsione_lineare}
 può essere scritta nella forma:
 \begin{equation}\label{eq:437343}
