@@ -30,5 +30,6 @@ print("solution to x^2 = 3: {:.101}".format(x))
 x = bisection(lambda x: x*x-x-1, Decimal(0), Decimal(2), digits=100)
 print("solution to x^2 = x+1: {:.101}".format(x))
 
-x = bisection(lambda x: x*x*x*x*x - x - 1, Decimal(0), Decimal(2), digits=100)
+x = bisection(lambda x: x*x*x*x*x - x - 1,
+    Decimal(0), Decimal(2), digits=100)
 print("solution to x^5 - x = 1: {:.100}".format(x))

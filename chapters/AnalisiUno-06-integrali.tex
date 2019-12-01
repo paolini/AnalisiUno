@@ -8,7 +8,8 @@ In questo capitolo vogliamo dare una definizione di \emph{misura} di un
 sottoinsieme $A\subset \RR^n$ formalizzando le stesse nozioni che sostanzialmente
 venivano già usate dagli antichi greci.
 Lo faremo nel caso per noi più rilevante ovvero il caso planare $n=2$ in cui la \emph{misura}
-di un insieme si chiama \emph{area}. Ma l'intera costruzione potrebbe essere fatta senza
+di un insieme si chiama \emph{area}.
+Ma l'intera costruzione potrebbe essere fatta senza
 nessuna difficoltà (se non per le notazioni che si complicano) nel caso generale della
 dimensione $n$.
 
@@ -24,10 +25,12 @@ in modo che valgano le seguenti proprietà:
 Andremo a definire la misura $m$ su una famiglia di sottoinsiemi di $\RR^2$ che
 chiameremo \emph{misurabili} secondo Peano-Jordan.
 Si potrebbe dimostrare che non è possibile definire $m$ su tutti i sottoinsiemi di $\RR^2$
-in modo che valgano le proprietà enunciate qui sopra. Sarebbe però possibile
+in modo che valgano le proprietà enunciate qui sopra.
+Sarebbe però possibile
 definire la misura su una classe molto più amplia di insiemi, imponendo inoltre
 l'additività non solo su unioni finite ma anche su unioni numerabili
-($\sigma$ additività). Quello che si otterrebbe
+($\sigma$ additività).
+Quello che si otterrebbe
 è la cosiddetta misura di \emph{Lebesgue} che è ormai una costruzione standard
 dell'analisi matematica ma ci richiederebbe una teoria molto più complessa da sviluppare.
 Ci accontenteremo qui di introdurre la misura $m$ finitamente additiva di Peano-Jordan
@@ -51,7 +54,6 @@ porremo:
 \[
   m([a,b]\times[c,d]) = (b-a)\cdot(c-d).
 \]
-Chiaramente se uno dei due intervalli
 
 Se $I=(a,b)$ e $J=(c,d)$ sono intervalli aperti (e limitati) allora
 per ogni $\eps>0$ con $\eps<(b-a)/2$ e $\eps<(d-c)/2$ si ha
@@ -145,7 +147,7 @@ Se $m^*(A) = m_*(A)$ diremo che $A$ è \myemph{misurabile} secondo Peano-Jordan
 e definiremo $m(A) = m^*(A) = m_*(A)$ la sua misura di Peano-Jordan.
 \end{definition}
 
-*** MI SERVE LA TOPOLOGIA DI R^n !!! ****
+*** MI SERVE LA TOPOLOGIA DI $\\R^n$ !!! ****
 
 \begin{theorem}[proprietà degli insiemi misurabili]
   Se $A\subset \RR^2$ è un insieme limitato, $A$ è misurabile secondo
@@ -185,7 +187,89 @@ sia in $A_*$ che in $B_*$.
 E' chiaro che se $P$ è un polirettangolo allora $m^*(P) = m_*(P)$ in quanto
 $P$ stesso può essere preso in considerazione sia come polirettangolo contenente
 $P$ che come polirettangolo contenuto in $P$. Dunque certamente i polirettangoli
-sono esempi di insiemi misurabili. L'integrale di Riemann, che andremo a definire
+sono esempi di insiemi misurabili.
+
+
+\begin{theorem}
+Sia $A\subset \RR^2$ e sia $L\colon \RR^2\to\RR^2$ una trasformazione
+lineare affine:
+\[
+  L(x,y) = M\cdot \begin{pmatrix}x \\ y\end{pmatrix}+\begin{pmatrix}x_0 \\ y_0\end{pmatrix}
+\]
+con $M$ matrice $2\times 2$ e $(x_0 ,y_0)\in \RR^2$.
+Allora se $A$ è misurabile secondo Peano-Jordan anche $L(A)$ lo è.
+E in tal caso si ha
+\[
+  m(L(A)) = \abs{\det M} \cdot m(A).
+\]
+\end{theorem}
+%
+\begin{proof}
+\emph{Passo 1.}
+Supponiamo che sia $A=[a,b]\times[c,d]$ (un rettangolo)
+e $L(x,y) = (\lambda x,\mu y)$  (una trasformazione diagonale).
+Se $\lambda\ge 0$ e $\mu\ge 0$ allora $L(A) = [\lambda a,\lambda b]\times [\mu c, \mu d]$ e dunque
+$m(L(A)) = (\lambda b- \lambda a)\cdot (\mu d - \mu c)= \lambda \mu (b-a)\cdot(d-c) = \lambda \mu m(A)$.
+Visto che in questo caso $M$ è diagonale e $\det M=\lambda \mu$
+abbiamo ottenuto la formula richiesta.
+Se $\lambda<0$ o $\mu<0$ si osserva che cambiando segno ad una o ad
+entrambe le coordinate il rettangolo non cambia la sua misura,
+dunque ci si riconduce al caso precedente. Ma in questo caso si
+ha comunque $\abs{\det M} = \abs{\lambda}\cdot\abs{\mu}$ e quindi
+di nuovo otteniamo il risultato voluto.
+
+\emph{Passo 2.}
+Supponiamo che sia $A=[a,b]\times[c,d]$ e $L(x,q)=(x,mx+q)$
+con $m\in \RR$ fissato.
+(stiamo utilizzando le coordinate $(x,q)$ nel dominio di $L$
+e le coordianate $(x,y)$ nel codominio).
+Allora
+\[
+  L(A) = \{(x,y)\in \RR^2\colon x\in[a,b], mx+c \le y \le mx+d\}
+\]
+è un parallelogramma. Supponiamo per fissare le idee che sia $m\ge 0$.
+Per ogni $n\in \NN$ posso affettare l'insieme
+$L(A)$ con le rette verticali $x_k = a+\frac{k}{n}(b-a)$ e posso
+identificare i rettangoli, per $k=1,\dots, n$:
+\begin{align*}
+   R_{k,n}^-
+   &= \{(x,y)\in \RR^2 \colon x\in [x_{k-1},x_k), y\in[m x_k+c,m x_{k-1}+d]\},
+   \\
+   R_{k,n}^+
+   &= \{(x,y)\in \RR^2 \colon x\in [x_{k-1},x_k), y\in[m x_{k-1}+c,m x_k+d]\}.
+\end{align*}
+e i polirettangoli ottenuti mettendo insieme questi rettangoli:
+\begin{align*}
+  P^-_n &= R_{1,n}^- \cup R_{2,n}^- \cup \dots \cup R_{n,n}^-, \\
+  P^+_n & = R_{1,n}^+ \cup R_{2,n}^+ \cup \dots \cup R_{n,n}^+.
+\end{align*}
+Per come li abbiamo costruiti si osserva che
+\[
+  P^-_n \subset L(A) \subset P^+_n.
+\]
+Ma è facile calcolare le misure di questi polirettangoli:
+\begin{align*}
+  m(P^-_n) &= \sum_{k=1}^n m(R_{k,n}^-)
+          = \sum_{k=1}^n(x_k-x_{k-1})\cdot (d-c-m(x_k-x_{k-1}))\\
+         &= \sum_{k=1}^n \frac {b-a} n \cdot \enclose{d-c-\frac{m}{n}}
+          = (b-a)\cdot \enclose{d-c-\frac{m}{n}} \\
+  m(P^+) &= \sum_{k=1}^n m(R_{k,n}^+) = \dots = (b-a)\cdot \enclose{d-c+\frac{m}{n}}
+\end{align*}
+ma visto che per $n\to +\infty$ si ha $m(P^-_n)\to (b-a)\cdot(d-c)$
+e $m(P^+_n) \to (b-a)\cdot(d-c)$ e visto che si ha
+\[
+  m(P^-_n)\le m_*(L(A))\le m^*(L(A)) \le m(P^+_n)
+\]
+otteniamo che $L(A)$ è misurabile e $m(L(A)) = (b-a)\cdot(d-c) = m(A)$.
+La matrice associata ad $L$ è $M=\begin{pmatrix}1 & 0 \\ m & 1 \end{pmatrix}$
+e dunque $\det M = 1$. Abbiamo quindi trovato il risultato voluto.
+
+\emph{Passo 2.}
+Se
+
+\end{proof}
+
+L'integrale di Riemann, che andremo a definire
 nella prossima sezione, ci permetterà di osservare che ogni figura geometrica
 delimitata da una curva continua (in un senso da precisare) risulta
 essere misurabile secondo Peano-Jordan. Inoltre il calcolo integrale ci permetterà
