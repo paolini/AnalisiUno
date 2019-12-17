@@ -843,47 +843,49 @@ si ha
 \end{theorem}
 %
 \begin{proof}
-Posto
+Dobbiamo mostrare che
+\begin{equation}
+\label{eq:488464}
+\lim_{n\to +\infty} \Enclose{\sum_{k=0}^n a_k
+ - \sum_{j=0}^n a_{\sigma(j)}} = 0.
+\end{equation}
+Visto che la serie $\sum a_k$ è assolutamente convergente
+per il teorema~\ref{th:coda} sappiamo
+che per ogni $\eps>0$ esiste $N_\eps\in \NN$ tale che
 \[
-  S_n = \sum_{k=0}^n a_k
-  \qquad\text{e}\qquad
-  R_n = \sum_{k=0}^{n} a_{\sigma(k)}
+  \sum_{k=N_\eps}^{+\infty} \abs{a_k} < \eps.
 \]
-consideriamo, per ogni $n\in \NN$ il più grande numero
-$m_n\in \NN$ tale per cui
-l'insieme di indici $A_n = \ENCLOSE{ \sigma(0), \sigma(1), \dots, \sigma(n)}$
-contiene l'insieme dei primi $m_n$ naturali $\ENCLOSE{0, 1, \dots, m_n -1 }$.
-Formalmente si può definire
+Inoltre visto che $\sigma\colon \NN \to \NN$ è suriettiva
+deve esistere $M_\eps \in \NN$ per cui risulti
 \[
-  m_n = \min (\NN \setminus A_n).
+ \ENCLOSE{\sigma(0), \sigma(1), \dots, \sigma(M_\eps-1)}
+ \supset \ENCLOSE{0,1,\dots, N_\eps - 1}
 \]
-
-Osserviamo che $m_n\to +\infty$ perché altrimenti ci sarebbero dei
-numeri naturali che non vengono mai assunti dalla successione $\sigma(k)$.
-
-Allora si osserva che ogni addendo nella somma che definisce
-$S_{m_n}$ è presente anche
-nella somma che definisce $R_n$ e quindi
-facendo la differenza $R_n - S_{m_n}$ si ottiene la somma di tutti
-gli $a_{\sigma(k)}$ per $k=0,\dots,n$ tali che $\sigma(k) > m_n$.
-Dunque, stimando il valore assoluto della somma con la somma dei valori
-assoluti e aggiungendo alla somma anche tutti gli altri valori $a_k$ con $k>m_n$, si ottiene:
+ovvero per ogni $k<N_\eps$ esiste $j<M_\eps$ tale
+che $\sigma(j)=k$.
+Necessariamente deve essere $M_\eps\ge N_\eps$.
+Per ogni $n>M_\eps$ consideriamo
+la differenza tra le somme parziali:
+\[
+\sum_{k=0}^n a_k - \sum_{j=0}^n a_{\sigma(j)}
+\]
+e osserviamo che se $j\le n$ e $k=\sigma(j)\le n$ allora
+i termini $a_k$ e $a_{\sigma(j)}$ si elidono.
+I termini che non si elidono sono gli $a_k$ della prima somma
+in cui $\sigma^{-1}(k)>n$ e gli $a_{\sigma(j)}$
+della seconda somma in cui $\sigma(j)>n$.
+In ogni caso tali termini hanno indice maggiore
+o uguale a $N_\eps$ e quindi la loro somma
+può essere stimata con la somma dei loro moduli
+che a sua volta può essere stimata con la somma
+dei moduli di tutti i termini con indice
+non inferiore a $N_\eps$:
 \begin{align*}
-\abs{R_n - S_{m_n}}
-\le \sum_{k=m_n}^{+\infty} \abs{a_k}.
+  \abs{\sum_{k=0}^n a_k - \sum_{j=0}^n a_{\sigma(j)}}
+  \le 2 \sum_{k=N_\eps}^{+\infty} \abs{a_k} \le 2\eps.
 \end{align*}
-Ma, essendo la serie $\sum a_k$ assolutamente convergente, la coda della serie dei valori assoluti tende a zero e quindi anche la sottosuccessione
-delle code che partono dall'indice $m_n$ tende a zero (cambio di variabile
-nel limite). Dunque
-\[
-  \lim_{n\to +\infty} R_n - S_{m_n} = 0.
-\]
-D'altra parte $S_n\to S$ dove $S$ è la somma della serie convergente
-$\sum a_k$ e di conseguenza anche $S_{m_n} \to S$.
-Dunque si ottiene, come volevamo dimostrare:
-\[
- R_n = (R_n - S_{m_n}) + S_{m_n} \to 0 + S = S.
-\]
+Questo garantisce la validità dell'equazione~\eqref{eq:488464} in base
+alla definizione di limite.
 \end{proof}
 
 \begin{theorem}[associatività delle serie convergenti]
