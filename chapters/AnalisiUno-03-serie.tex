@@ -927,6 +927,151 @@ devono coincidere e se una delle due serie è convergente
 anche l'altra lo è.
 \end{proof}
 
+\begin{theorem}[somma alla Cauchy]%
+\label{th:somma_Cauchy}%
+\index{Cauchy!somma alla}\index{somma!alla Cauchy}%
+Sia $c_{k,j}$ una successione (reale o complessa)
+a due indici $k,j\in \NN$.
+Se
+\[
+  \sum_{m=0}^{+\infty} \sum_{k=0}^m \abs{c_{k,m-k}}
+\]
+è assolutamente convergente
+allora per ogni $k$ la serie $\sum_j c_{k,j}$ è
+assolutamente convergente e risulta
+\[
+  \sum_{k=0}^{+\infty} \sum_{j=0}^{+\infty} c_{k,j}
+  = \sum_{m=0}^{+\infty} \sum_{k=0}^m c_{k,m-k}.
+\]
+\end{theorem}
+
+Per dimostrare il teorema utilizzeremo questo
+lemma leggermente più generale.
+
+\begin{lemma}
+Sia $\sigma\colon \NN\times\NN\to \NN$ una bigezione.
+Se $\sum_n a_n$ è una serie (reale o complessa)
+assolutamente convergente allora si ha:
+\begin{equation}\label{eq:582095}
+  \sum_{k=0}^{+\infty} a_n
+  = \sum_{k=0}^{+\infty} \sum_{j=0}^{+\infty} a_{\sigma(k,j)}.
+\end{equation}
+\end{lemma}
+\begin{proof}
+In generale osserviamo che se $x_n\ge 0$ è una successione
+e se $\gamma\colon \NN\to\NN$ è iniettiva allora
+si ha
+\[
+\sum_{k=0}^{+\infty} x_{\gamma(k)} \le \sum_{n=0}^{+\infty} x_n
+\]
+in quanto per ogni $K\in \NN$ esiste $N\in\NN$ per cui
+\[
+\sum_{k=0}^{K} x_{\gamma(k)} \le \sum_{n=0}^{N} x_n
+\]
+infatti basta prendere $N=\max\ENCLOSE{\gamma(0),\gamma(1),\dots,\gamma(K)}$.
+
+Dunque per ogni $k\in\NN$ sappiamo che la somma
+\[
+  b_k = \sum_{j=0}^{+\infty} a_{\sigma(k,j)}
+\]
+è assolutamente convergente perché $\sum a_n$ è assolutamente convergente
+e $j\mapsto \sigma(k,j)$ è iniettiva.
+Fissato $\eps>0$ per il teorema~\ref{th:coda} (della coda)
+deve esistere $N\in\NN$ tale che
+\[
+  \sum_{n=N+1}^{+\infty} \abs{a_n} < \eps.
+\]
+Per lo stesso motivo
+per ogni $k\in \NN$ deve esistere $J_k\in \NN$ tale che
+\[
+  \sum_{j=0}^{J_k+1} \abs{a_{\sigma(k,j)}} < \frac{\eps}{2^k}.
+\]
+Eventualmente aumentando $J_k$ possiamo anche supporre
+che per ogni $j>J_k$ si abbia $\sigma(k,j)>N$
+(l'insieme $\ENCLOSE{j\in \NN \colon \sigma(k,j)<\le N}$ è finito
+in quanto $\sigma$ è iniettiva).
+
+Scegliamo ora $M\in \NN$ tale che
+per ogni $k>M$ e ogni $j\in \NN$ si abbia $\sigma(k,j)>N$
+(l'insieme $\ENCLOSE{(k,j)\in \NN\times\NN \colon \sigma(k,j)\le N}$
+è finito).
+Per ottenere l'uguaglianza~\eqref{eq:582095} è sufficiente
+mostrare che per ogni $m>M$ si ha
+\begin{equation}\label{eq:93655}
+  \abs{\sum_{k=0}^m b_k - \sum_{n=0}^{+\infty} a_n}
+  < 5 \eps.
+\end{equation}
+
+Ma per ogni $m>M$ si ha
+\begin{equation}\label{eq:58382}
+\begin{aligned}
+\sum_{k=0}^m b_k - \sum_{n=0}^{+\infty} a_n
+&=\sum_{k=0}^m \enclose{\sum_{j=0}^{J_k} a_{\sigma(k,j)} +
+\sum_{j=J_k+1}^{+\infty} a_{\sigma(k,j)}} - \sum_{n=0}^N a_n - \sum_{n=N+1}^{+\infty} a_n \\
+&= \enclose{\sum_{k=0}^M \sum_{j=0}^{J_k} a_{\sigma(k,j)} - \sum_{n=0}^N a_n}
+- \sum_{n=N+1}^{+\infty} a_n \\
+\qquad &
++ \sum_{k=M+1}^{m} \sum_{j=0}^{J_k} a_{\sigma(k,j)}
++ \sum_{k=0}^{m} \sum_{j=J_k+1}^{+\infty} a_{\sigma(k,j)}.
+\end{aligned}
+\end{equation}
+Stimiamo separatamente gli addendi sul lato destro.
+Per il primo si ha:
+\[
+ \abs{\sum_{k=0}^M \sum_{j=0}^{J_k} a_{\sigma(k,j)} - \sum_{n=0}^N a_n}
+ \le \sum_{n=N+1}^{+\infty} \abs{a_k} < \eps.
+\]
+in quanto tutti gli addendi della seconda somma si semplificano
+(per come abbiamo scelto $M$ e $J_k$)
+e rimangono solamente gli addendi $a_{\sigma(k,j)}$
+della prima somma (finita) che
+hanno indice $\sigma(k,j)>N$.
+
+Per il secondo addendo si ha (teorema~\ref{th:convergenza_assoluta})
+\[
+ \abs{\sum_{n=N+1}^{+\infty} a_n}
+ \le \sum_{n=N+1}^{+\infty} \abs{a_n} < \eps.
+\]
+
+Il terzo addendo è una somma (finita) di termini
+$a_{\sigma(k,j)}$ con $k> M$ e dunque $\sigma(k,j)>N$.
+Dunque anche in questo caso si ha
+\[
+\abs{\sum_{k=M+1}^{m} \sum_{j=0}^{J_k} a_{\sigma(k,j)}}
+\le\sum_{n=N+1}^{+\infty} \abs{a_n}<\eps.
+\]
+
+Per il quarto addendo, grazie a come è stato definito $J_k$:
+\[
+ \abs{\sum_{j=J_k+1}^{+\infty} a_{\sigma(k,j)}}
+ \le \sum_{j=J_k+1}^{+\infty} \abs{a_{\sigma(k,j)}}
+ < \frac{\eps}{2^k}
+\]
+e dunque
+\[
+\abs{\sum_{k=0}^{M}\sum_{j=J_k+1}^{+\infty} a_{\sigma(k,j)}}
+\le \sum_{k=0}^{M} \frac{\eps}{2^k}
+\le \eps \sum_{k=0}^{+\infty}\frac{1}{2^k} = 2\eps.
+\]
+
+Abbiamo quindi dimostrato~\eqref{eq:93655}.
+\end{proof}
+
+\begin{proof}[Dimostrazione del teorema~\ref{th:somma_Cauchy}]
+Sia $\sigma\colon \NN\times \NN\to \NN$ la bigezione utilizzata
+nel primo metodo diagonale di Cantor (teorema~\ref{th:Cantor_primo})
+e poniamo $a_n = c_{\sigma^{-1}(n)}$ cosicché
+$a_{\sigma(k,j)} = c_{k,j}$.
+Allora le somme parziali
+\[
+  \sum_{n=0}^N \sum_{k=0}^n c_{k,n-k}
+\]
+sono una sottosuccessione delle somme parziali della serie
+$\sum a_n$.
+In particolare se vale l'ipotesi del teorema la serie
+$\sum a_n$ è assolutamente convergente e si può applicare
+il lemma precedente da cui si ottiene il risultato desiderato.
+\end{proof}
 
 \section{serie a segni alterni}
 \index{serie!a segni alterni}
