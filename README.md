@@ -3,7 +3,7 @@ corso di Analisi Matematica tenuto da me (emanuele.paolini@gmail.com)
 dal 2017-2018 per il corso di studi in Fisica dell'Università di Pisa.
 Queste note sono nate come appunti per il corso di Analisi Matematica 
 del corso di studi in Fisica dell'Università 
-di Pisa negli anni accademici 2017/18 e 2018/19. 
+di Pisa negli anni accademici 2017/18, 2018/19 e 2019/20. 
  
 Le note (come il corso a cui fanno riferimento) 
 riguardano l'analisi delle funzioni di una variabile 
@@ -15,7 +15,7 @@ come ultimo argomento, lo studio delle equazioni differenziali ordinarie.
 Da subito vengono introdotti i numeri complessi che vengono utilizzati 
 laddove possono aiutare a dare una visione più unitaria e concettualmente 
 più semplice degli argomenti trattati (in particolare nello studio delle serie 
-di potenze e nella definizione delle funzioni trigonometriche). 
+di potenze, nella definizione delle funzioni trigonometriche, nella risoluzione delle equazioni differenziali lineari). 
 
 Le note sono estensive, non c'è alcun tentativo di concisione. 
 L'obiettivo è quello di raccogliere tutti quei risultati che non sempre è 
