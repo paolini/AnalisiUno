@@ -2997,7 +2997,9 @@ L'ultima proprietà discende dal teorema~\ref{th:inversa_continua}.
 
 In questo capitolo vogliamo definire la potenza $a^x$
 con esponente $x\in \RR$ e base $a>0$.
-La costruzione richiede alcuni concetti preliminari.
+Tale funzione verrà prima definita per $x\in \QQ$ e poi
+estesa per continuità ad ogni $x \in \RR$.
+Per fare ciò avremo bisogno di alcuni strumenti preliminari.
 
 \begin{lemma}[unicità dell'estensione continua]
 \label{lm:unicita_continua}%
@@ -3010,23 +3012,24 @@ Allora $f(x)=g(x)$ per ogni $x\in \RR$.
 \end{lemma}
 %
 \begin{proof}
-Consideriamo la funzione $h(x)=f(x)-g(x)$
-e supponiamo per assurdo che esista $x_0\in \RR$
-tale che $h(x_0)\neq 0$.
-Senza perdita di generalità possiamo supporre
-che sia $h(x_0) = \eps >0$.
-La funzione $h$ è continua (teorema~\ref{th:continuita_composizione})
-e quindi per
-la definizione
-di limite sappiamo che esiste $\delta>0$
-tale che se $\abs{x-x_0}<\delta$ si ha $\abs{h(x)-h(x_0)}< \eps$
-e dunque $h(x)>0$.
-Per la densità dei razionali, teorema~\ref{th:densita_Q}
-esiste $q \in (x_0-\delta,x_0+\delta)\cap \QQ$
-e allora da un lato dovrebbe essere $h(q)>0$
-come tutti i punti intorno a $x_0$
-ma dall'altro lato sappiamo che $h(q)=f(q)-g(q)=0$
-essendo $q\in \QQ$. Assurdo.
+Consideriamo la funzione $h(x)=f(x)-g(x)$.
+Per ipotesi sappiamo che $h(x)=0$ per ogni $x\in \RR$
+e $h$ è una funzione continua in quanto somma di funzioni continue (teorema~\ref{th:continuita_composizione}).
+Supponiamo per assurdo che esista $x_0\in \RR$
+tale che $\abs{h(x_0)}= \eps > 0$. Visto che $h$
+è continua nel punto $x_0$ deve esistere $\delta>0$
+tale che per ogni $x\in (x_0-\delta,x_0+\delta)$
+si abbia $\abs{h(x)-h(x_0)}<\eps$.
+Per disuguaglianza triangolare inversa
+si ha allora per ogni $x$ in tale intervallo:
+\[
+  \abs{h(x)} \ge \abs{h(x_0)} - \abs{h(x)-h(x_0)}
+  > \eps - \eps = 0.
+\]
+Dunque $h(x)\neq 0$.
+Ma per il teorema~\ref{th:densita_Q} di densità dei
+numeri razionali, in tale intervallo, per quanto piccolo, esistono dei numeri $x$ razionali su cui si
+dovrebbe invece avere $h(x)=0$: assurdo!
 \end{proof}
 
 \begin{definition}[uniforme continuità]
@@ -3051,6 +3054,20 @@ Si tratta infatti di invertire due quantificatori:
   \colon\forall x\colon P(x,y,\eps,\delta).
 \]
 
+Non è invece vero il contrario come mostrato nel seguente.
+
+\begin{example}[funzione continua non uniformemente continua]
+Si consideri la funzione $f\colon \RR\to\RR$, $f(x)=x^2$.
+Sappiamo che $f$ è continua. Se $f$ fosse uniformemente continua scelto $\eps=1$ dovrebbe esistere $\delta>0$ tale
+che se $\abs{x-y}<\delta$ allora $\abs{x^2-y^2}<1$.
+Ma invece possiamo sempre scegliere $x=\frac 1 \delta$
+e $y=x+\frac \delta 2$ e osservare che nonostante
+si abbia $\abs{x-y}=\frac \delta 2 < \delta$ risulta
+\[
+ \abs{x^2-y^2} = y^2-x^2 = 1 + \frac{\delta^2}{4} > 1.
+\]
+\end{example}
+
 \begin{lemma}[estensione delle funzioni monotone]
 \label{lm:estensione_monotona}%
 Sia $f\colon \QQ\to \RR$ una funzione
@@ -3074,9 +3091,10 @@ Definiamo
   A_x = \ENCLOSE{f(q)\colon q\in \QQ,\ q\le x}.
 \end{equation}
 Visto che $f$ è crescente è chiaro che se $x\in\QQ$
-allora $g(x) = f(x)$ inoltre per ogni $x\in \RR$
-si ha $g(x)\le f(\lceil x\rceil)<+\infty$
-dunque $g\colon \RR\to\RR$.
+allora $g(x) = \max A_x = f(x)$. Inoltre per ogni $x\in \RR$
+esiste $q\in \QQ$, $q>x$, da cui
+$g(x)\le f(q)<+\infty$
+dunque $g\colon \RR\to\RR$ è una estensione di $f$.
 
 Verifichiamo ora che $g$ è strettamente crescente.
 Se $x,y\in \RR$ con $x<y$ allora,
@@ -3101,16 +3119,13 @@ che verifichi la condizione~\eqref{eq:346963}.
 Possiamo eventualmente rimpicciolire $\delta$
 in modo che valga anche la condizione $x_0+\delta < M$.
 Se ora prendiamo $x\in \RR$ tale che $\abs{x-x_0}<\frac\delta 2$
-possiamo sempre trovare dei razionali $q,s\in \QQ$
-tali che se si abbia:
-\begin{align*}
-\begin{cases}
-  x_0 - \frac\delta 2 < q < x_0 \le x < s < x_0 + \frac \delta 2 < M
-  & \text{se $x\ge x_0$ }\\
-  x_0 - \frac \delta 2 < q < x < x_0 < s < x_0 + \frac \delta 2 < M
-  & \text{se $x<x_0$}.
-\end{cases}
-\end{align*}
+possiamo sempre trovare dei razionali $q,s\in \QQ\cap\enclose{x_0-\frac \delta 2,x_0+\frac \delta 2}$
+tali che si abbia:
+\[
+  q < x_0 < s
+  \qquad \text{e}\qquad
+  q < x < s.
+\]
 Ma allora, per la monotonia di $g$:
 \[
   \abs{g(x)-g(x_0)} \le g(s)-g(q) = f(s)-f(q)
@@ -3125,7 +3140,8 @@ Era quello che volevamo dimostrare.
 L'unicità dell'estensione discende direttamente
 applicando lemma~\ref{lm:unicita_continua}
 in quanto abbiamo mostrato che
-ogni estensione crescente è anche continua.
+ogni estensione crescente è anche continua
+ma ci può essere una unica estensione continua.
 \end{proof}
 
 Possiamo ora enunciare il teorema
@@ -3141,7 +3157,7 @@ con le seguenti proprietà:
 \begin{enumerate}
 \item $f(1) = a$;
 \item per ogni $x,y\in \RR\colon f(x+y) = f(x)\cdot f(y)$;
-\item $f$ è monotòna.
+\item $f(x)$ è monotòna.
 \end{enumerate}
 Tale funzione risulta inoltre essere positiva
 continua, strettamente crescente,
