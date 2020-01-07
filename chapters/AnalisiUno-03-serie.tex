@@ -373,12 +373,12 @@ Quando scriveremo $a_n >0$ (o $a_n \ge 0$) sarà sempre
 sottointeso che $a_n\in \RR$ visto che per i numeri complessi non
 reali non abbiamo definito la relazione d'ordine.
 
-\begin{theorem}[carattere delle serie a termini positivi]
-\mymark{***}
-\mynote{carattere delle serie a termini positivi}
-\index{carattere!di una serie a termini positivi}
+\begin{theorem}[carattere delle serie a termini positivi]\label{th:serie_positiva}
+\mymark{***}%
+\mynote{carattere delle serie a termini positivi}%
+\index{carattere!di una serie a termini positivi}%
 Se $a_n\ge 0$
-la serie $\sum a_n$ non può essere indeterminata:
+la serie $\sum a_n$ è regolare:
 o converge oppure diverge a $+\infty$.
 \end{theorem}
 %
@@ -605,9 +605,95 @@ Posto $a_n = x^n / n!$ si ha
 Dunque la serie converge.
 \end{proof}
 
+\subsection{associatività della somma di una serie}
+
+\begin{example}
+Posto $a_k = (-1)^k$ sappiamo che la serie corrispondente:
+\[
+  1 - 1 + 1 - 1 + 1 \dots
+\]
+è indeterminata perché le somme parziali sono
+\[
+  S_n = \sum_{k=0}^n (-1)^k
+  = \begin{cases}
+   1 & \text{se $n$ pari}\\
+   0 & \text{se $n$ è dispari.}
+  \end{cases}
+\]
+Se però associamo i termini a due a due otteniamo la serie
+\[
+  (1-1) + (1-1) + (1-1) \dots = 0 + 0 + 0 + \dots = 0
+\]
+che è convergente.
+Il motivo è che la successione delle somme
+parziali di questa nuova serie è una particolare estratta (quella
+con gli indici pari) della successione delle somme parziali della
+serie originale. Quindi non ci dovrebbe sorprendere il fatto che
+nonostante la serie originale fosse indeterminata è possibile
+associare i termini della serie in modo da ottenere una serie
+regolare (in questo caso convergente).
+In effetti per il corollario~\ref{cor:Bolzano} di Bolzano-Weierstrass
+sappiamo che
+è sempre possibile estrarre una sottosuccessione regolare (convergente o divergente)
+da qualunque successione.
+Anche quando da una serie indeterminata si estrae una serie
+convergente la somma della serie può dipendere da come i termini
+vengono associati.
+Se ad esempio nella serie precedente prendessimo
+solamente le somme di indice dispari
+otterremmo:
+\[
+  1 + (-1+1) + (-1+1) + \dots = 1.
+\]
+\end{example}
+
+L'esempio precedente ci mostra che associando i termini di una
+serie indeterminata è possibile ottenere serie con carattere
+e somma diversi.
+Il seguente teorema ci dice che questo fenomeno \emph{cattivo}
+può solo avvenire quando si parte da una serie indeterminata.
+Se la serie è regolare allora possiamo associarne i termini
+senza modificarne né il carattere né la somma.
+In particolare questo è vero per le serie a termini positivi.
+
+\begin{theorem}[associatività delle serie regolari]
+Se $\sum a_k$ è una serie, scelta comunque
+una successione crescente $k_n$ con $k_0=0$
+possiamo considerare la serie $\sum b_n$
+i cui termini
+\[
+  b_n = \sum_{j=k_n}^{k_{n+1}-1} a_j
+\]
+si ottengono associando i termini di $a_k$ a gruppi
+consecutivi delimitati dalla successione di indici
+$k_n$.
+
+Se la serie $\sum a_k$ è regolare (convergente o divergente)
+allora anche la serie $\sum b_n$ è regolare e si ha
+\[
+\sum_{n=0}^{+\infty} b_n
+= \sum_{k=0}^{+\infty} a_k.
+\]
+
+In particolare questo vale se la serie $\sum a_k$ è a termini
+positivi.
+\end{theorem}
+%
+\begin{proof}
+Siano $S_k = \sum_{j=0}^k a_j$ le somme parziali della
+serie $\sum a_j$. Allora le somme parziali della serie $\sum b_n$
+non sono altro che la sottosuccessione $S_{k_n}$.
+Dunque se $S_k$ converge anche ogni sua sottosuccessione
+converge allo stesso limite.
+
+Il teorema~\ref{th:serie_positiva} ci dice
+che le serie a termini positivi sono regolari e quindi
+soddisfano le ipotesi del teorema.
+\end{proof}
+
 \subsection{la serie armonica}
 
-Osserviamo invece che il criterio del rapporto non si applica alla
+Osserviamo che il criterio del rapporto non si applica alla
 \emph{serie armonica}%
 \mynote{serie armonica}%
 \index{serie!armonica}%
@@ -626,7 +712,7 @@ ma che può essere meglio compreso se applicato al caso particolare
 della serie armonica.
 
 Mostreremo che la serie armonica diverge.
-L'idea è semplicemente quella di raggruppare gli addendi della serie armonica
+L'idea è semplicemente quella di associare gli addendi della serie armonica
 in gruppi di lunghezza potenze di due e stimare la somma di ogni gruppo dal basso
 con il termine più piccolo (cioè l'ultimo) di ogni gruppo:
 \begin{align*}
@@ -658,61 +744,34 @@ la serie
 Supponiamo per comodità che le somme partano da $k=1$.
 Si tratta di raggruppare i termini $a_k$ in gruppi di potenze di due:
 \begin{align*}
-  &a_1, \\
-  &a_2,\ a_3, \\
-  &a_4,\ a_5,\ a_6,\ a_7, \\
-  &a_8,\ a_9,\ a_{10},\ \dots,\ a_{15}, \\
+  b_0 & = a_1, \\
+  b_1 &= a_2,\ a_3, \\
+  b_3 &= a_4,\ a_5,\ a_6,\ a_7, \\
+  b_4 &= a_8,\ a_9,\ a_{10},\ \dots,\ a_{15}, \\
   &\vdots\\
-  &a_{2^n},\ a_{2^n+1},\ \dots,a_{2^{n+1}-1},\\
+  b_n &= a_{2^{n-1}},\ a_{2^{n-1}+1},\ \dots,a_{2^n-1},\\
   &\vdots
 \end{align*}
-Posto $S_n = \sum_{k=1}^n a_k$,
-sommando i termini delle prime $N$ righe si osserva quindi che:
+Grazie al teorema~\ref{th:serie_associativa} sulla associatività
+delle serie a termini positivi sappiamo che
+  \[
+  \sum_{k=1}^{+\infty} a_k = \sum_{n=0}^{+\infty} b_n.
+  \]
+Ogni termine $b_n$ è la somma di $2^n$ termini della
+successione $a_k$ che, essendo la successione crescente,
+possono essere stimati dal basso e dall'alto con il primo
+e l'ultimo termine di ogni somma:
 \[
-  S_{2^N-1}
-  = \sum_{k=1}^{2^N-1} a_k
-  = \sum_{n=0}^{N-1}\,\, \sum_{j=0}^{2^n-1} a_{2^n+j}
+  2^n a_{2^n-1} \le b_n \le 2^n a_{2^{n-1}}.
 \]
-Visto che la successione $a_k$ è decrescente i termini di ogni gruppo si
-possono stimare dall'alto e dal basso con il primo e l'ultimo termine:
-\[
-  a_{2^n} \ge a_{2^n+1} \ge \dots \ge a_{2^{n+1}-1} \ge a_{2^{n+1}}
-\]
-e quindi
-\begin{equation}\label{eq:37546435}
-\sum_{n=0}^{N-1} 2^n a_{2^{n+1}}
-\le S_{2^N-1}
-\le \sum_{n=0}^{N-1} 2^n a_{2^n}.
-\end{equation}
+Se la serie $\sum 2^n a_{2^n}$ è convergente
+anche la serie $\sum 2^{n-1} a_{2^{n-1}}$ è convergente
+e quindi anche $\sum 2^n a_{2^{n-1}}$ lo è.
+Per confronto la serie $\sum b_n$ è convergente.
 
-Dunque se la serie $\sum 2^n a_{2^n}$ converge allora la sottosuccessione
-di somme parziali $S_{2^N-1}$ è superiormente limitata: $S_{2^N-1}\le C$.
-Essendo $a_k \ge 0$ la successione $S_k$ è crescente.
-Ma allora l'intera
-successione $S_k$ è limitata
-perché per ogni $k\in \NN$ esiste $N\in \NN$ tale che $k\le 2^N-1$ per cui
-$S_k \le S_{2^N-1} \le C$.
-Visto che $S_k$ è crescente $S_k$ ha limite e visto che abbiamo
-appena verificato che $S_k$ è limitata allora il limite è finito
-e la serie è convergente.
-
-Viceversa se la serie $\sum a_k$ converge significa che
-$S_k$ converge e dunque anche la sottosuccessione
-$S_{2^N-1}$ converge e di conseguenza esiste
-$C\in \RR$ tale che per ogni $N \in \NN$:
- $S_{2^N-1}\le C$.
-
-Ma allora, usando la prima disuguaglianza in~\eqref{eq:37546435}, si ottiene che la serie
-$\sum 2^n a_{2^{n+1}}$ è limitata da $C$ ma allora
-\begin{align*}
-  \sum_{n=0}^{N} 2^n a_{2^n}
-  &= a_1 + \sum_{n=1}^N 2^n a_{2^n}
-  = a_1 + 2 \sum_{n=1}^{N} 2^{n-1} a_{2^n} \\
-  &= a_1 + 2 \sum_{n=0}^{N-1} 2^n a_{2^{n+1}}
-  \le a_1 + 2C
-\end{align*}
-e dunque anche la serie $\sum 2^n a_{2^n}$ risulta essere limitata e
-di conseguenza (essendo una serie a termini positivi) è convergente.
+Viceversa se la serie $\sum 2^n a_{2^n}$ è divergente
+noi sappiamo che $b_n\ge 2^n a_{2^n-1}\ge 2^n a_{2^n}$
+e dunque, per confronto, anche la serie $\sum b_n$ è divergente.
 \end{proof}
 
 
@@ -888,48 +947,8 @@ Dunque si ottiene, come volevamo dimostrare:
 \]
 \end{proof}
 
-\begin{theorem}[associatività delle serie convergenti]
-Se $\sum a_k$ è una serie, scelta comunque
-una successione crescente $k_n$ con $k_0=0$
-possiamo considerare la serie $\sum b_n$
-i cui termini
-\[
-  b_n = \sum_{j=k_n}^{k_{n+1}-1} a_j
-\]
-si ottengono associando i termini di $a_k$ a gruppi
-consecutivi delimitati dalla successione di indici
-$k_n$.
-
-Se la serie $\sum a_k$ non è indeterminata
-allora neanche la serie $\sum b_n$ è indeterminata e si ha
-\[
-\sum_{n=0}^{+\infty} b_n
-= \sum_{k=0}^{+\infty} a_k.
-\]
-
-Inoltre se $\sum a_k$ è a termini positivi e se
-$\sum b_n$ è convergente, anche $\sum a_n$ è convergente.
-\end{theorem}
-%
-\begin{proof}
-Siano $S_k = \sum_{j=0}^k a_j$ le somme parziali della
-serie $\sum a_j$. Allora le somme parziali della serie $\sum b_n$
-non sono altro che la sottosuccessione $S_{k_n}$.
-Dunque se $S_k$ converge anche ogni sua sottosuccessione
-converge allo stesso limite. Si ottiene dunque
-la prima parte del teorema.
-
-Se inoltre $a_k \ge 0$, entrambe le serie sono a termini positivi
-e quindi entrambe ammettono limite. Ma visto che le somme parziali
-della seconda serie sono una sottosuccessione delle somme
-parziali della prima serie, anche in questo caso i due limiti
-devono coincidere e se una delle due serie è convergente
-anche l'altra lo è.
-\end{proof}
-
-\begin{theorem}[somma alla Cauchy]%
+\begin{theorem}%
 \label{th:somma_Cauchy}%
-\index{Cauchy!somma alla}\index{somma!alla Cauchy}%
 Sia $c_{k,j}$ una successione (reale o complessa)
 a due indici $k,j\in \NN$.
 Se
@@ -950,25 +969,28 @@ lemma leggermente più generale.
 
 \begin{lemma}
 Sia $\sigma\colon \NN\times\NN\to \NN$ una bigezione.
-Se $\sum_n a_n$ è una serie (reale o complessa)
-assolutamente convergente allora si ha:
+Se $\displaystyle\sum_n a_n$ è una serie
+assolutamente convergente  (reale o complessa) allora si ha:
 \begin{equation}\label{eq:582095}
   \sum_{k=0}^{+\infty} a_n
   = \sum_{k=0}^{+\infty} \sum_{j=0}^{+\infty} a_{\sigma(k,j)}.
 \end{equation}
 \end{lemma}
+%
+%
 \begin{proof}
-In generale osserviamo che se $x_n\ge 0$ è una successione
-e se $\gamma\colon \NN\to\NN$ è iniettiva allora
-si ha
+Per ogni $k$ la serie
 \[
-\sum_{k=0}^{+\infty} x_{\gamma(k)} \le \sum_{n=0}^{+\infty} x_n
+  \sum_{j=0}^{+\infty} \abs{a_{\sigma(k,j)}}
 \]
-in quanto per ogni $K\in \NN$ esiste $N\in\NN$ per cui
+è convergente in quanto per ogni $L\in \NN$,
+visto che $j \mapsto \sigma(k,j)$ è iniettiva,
+esiste $H\in \NN$ per cui si ha
 \[
-\sum_{k=0}^{K} x_{\gamma(k)} \le \sum_{n=0}^{N} x_n
+  \sum_{j=0}^L \abs{a_{\sigma(k,j)}}
+  \le \sum_{n=0}^{H} \abs{a_n}
+  \le \sum_{n=0}^{+\infty} \abs{a_n}.
 \]
-infatti basta prendere $N=\max\ENCLOSE{\gamma(0),\gamma(1),\dots,\gamma(K)}$.
 
 Dunque per ogni $k\in\NN$ sappiamo che la somma
 \[
