@@ -656,7 +656,8 @@ Se la serie è regolare allora possiamo associarne i termini
 senza modificarne né il carattere né la somma.
 In particolare questo è vero per le serie a termini positivi.
 
-\begin{theorem}[associatività delle serie regolari]
+\begin{theorem}[associatività delle serie regolari]%
+\label{th:serie_associativa}%
 Se $\sum a_k$ è una serie, scelta comunque
 una successione crescente $k_n$ con $k_0=0$
 possiamo considerare la serie $\sum b_n$
@@ -770,18 +771,9 @@ e quindi anche $\sum 2^n a_{2^{n-1}}$ lo è.
 Per confronto la serie $\sum b_n$ è convergente.
 
 Viceversa se la serie $\sum 2^n a_{2^n}$ è divergente
-noi sappiamo che $b_n\ge 2^n a_{2^n-1}\ge 2^n a_{2^n}$
-e dunque, per confronto, anche la serie $\sum b_n$ è divergente.
+sapendo che $b_n\ge 2^n a_{2^n-1}\ge 2^n a_{2^n}$
+otteniamo, per confronto, che anche la serie $\sum b_n$ è divergente.
 \end{proof}
-
-
-\begin{exercise}
-Utilizzare il criterio di condensazione per dimostrare che la serie
-\[
-  \sum \frac{1}{n \cdot \ln n}
-\]
-diverge.
-\end{exercise}
 
 
 \begin{corollary}[serie armonica generalizzata]
@@ -798,7 +790,7 @@ diverge se $0\le \alpha\le 1$.
 %
 \begin{proof}
 \mymark{***}
-Applichiamo il criterio di condensazione. Posto $a_n = 1/n^\alpha$ Si ha
+Applichiamo il criterio di condensazione. Posto $a_n = \frac 1{n^\alpha}$ Si ha
 \[
   \sum_n 2^n a_{2^n} = \sum_n 2^n \frac{1}{(2^n)^\alpha}
   = \sum_n 2^{n(1-\alpha)}
@@ -809,6 +801,14 @@ Se $\alpha>1$ allora $q<1$ e la serie armonica è convergente
 se invece $\alpha \le 1$ allora $q\ge 1$ e la serie
 armonica è divergente.
 \end{proof}
+
+\begin{exercise}
+Utilizzare il criterio di condensazione per dimostrare che la serie
+\[
+  \sum \frac{1}{n \cdot \ln n}
+\]
+diverge.
+\end{exercise}
 
 \begin{exercise}
   Per quali valori dei parametri $\alpha\in \RR$ e $\beta\in \RR$
@@ -837,8 +837,8 @@ Diremo che una serie (a termini reali o complessi) $\sum a_n$
 è convergente.
 \end{definition}
 
-\begin{theorem}[convergenza assoluta]
-\mymark{***}
+\begin{theorem}[convergenza assoluta]\label{th:convergenza_assoluta}
+\mymark{***}%
 Se una serie $\sum a_n$ (reale o complessa)
 è assolutamente convergente allora è convergente e vale
 \[
@@ -1082,57 +1082,6 @@ e dunque
 Abbiamo quindi dimostrato~\eqref{eq:93655}.
 \end{proof}
 
-\begin{definition}[sommabilità di una funzione]
-Sia $A$ un insieme qualunque.
-Sia $A_n$ una successione di sottoinsiemi finiti di $A$.
-Diremo che $A_n$ tende ad $A$ e scriveremo
-\[
-  A_n \to A
-\]
-se per ogni insieme finito $B\subset A$ esiste $N\in \NN$
-tale che per ogni $n\ge N$ si ha $A_n\supset B$.
-
-Sia ora $f$ una funzione reale (o complessa) definita
-su $A$: $f\colon A \to \RR$ (oppure $f\colon A \to \CC$).
-
-Se $A = \ENCLOSE{a_1, a_2, \dots, a_m}$ è finito si può definire
-\[
-  \sum_{a \in A} f(a) = f(a_1) + f(a_2) + \dots + f(a_m).
-\]
-(la definizione può essere formalizzata mediante una
-induzione sulla cardinalità dell'insieme finito $A$).
-
-Se invece $A$ è infinito scriveremo
-\[
-  \sum_{a\in A} f(a) = S
-\]
-con $S\in \bar \RR$ (oppure $S\in \bar \CC$)
-se per ogni successione di sottoinsiemi finiti $A_n \to A$
-si ha
-\begin{equation}\label{eq:589421}
-  \lim_{n\to +\infty}\sum_{a\in A_n}f(a) = S.
-\end{equation}
-\end{definition}
-
-Osserviamo che se $A=\NN$ e $f$ è una funzione definita
-su $A$ allora risulta
-\[
-  \sum_{k=0}^{+\infty} f(k) = S
-\]
-se per la singola successione $A_n = \ENCLOSE{0,1,2, \dots, n}$ vale~\eqref{eq:589421}.
-Dunque la convergenza (semplice) della serie $\sum_k f(k)$
-è più
-
-
-In base al teorema~\ref{th:convergenza_incondizionata}
-sappiamo che se $f$ è una funzione definita su $\NN$
-(a valori reali o complessi) tale che
-la serie $\sum_k f(k)$ è assolutamente convergente
-allora si ha
-\[
-  \sum_{k=0}^{+\infty} f(k) = \sum_{k\in \NN}f(k)
-\]
-in quanto
 \begin{proof}[Dimostrazione del teorema~\ref{th:somma_Cauchy}]
 Sia $\sigma\colon \NN\times \NN\to \NN$ la bigezione utilizzata
 nel primo metodo diagonale di Cantor (teorema~\ref{th:Cantor_primo})
@@ -1149,7 +1098,7 @@ $\sum a_n$ è assolutamente convergente e si può applicare
 il lemma precedente da cui si ottiene il risultato desiderato.
 \end{proof}
 
-\section{serie a segni alterni}
+\section{serie a segno variabile}
 \index{serie!a segni alterni}
 
 La serie $\sum \frac{(-1)^k}{k+1}$ la cui somma si può scrivere come
@@ -1250,13 +1199,13 @@ dunque è verificata anche la seconda parte dell'enunciato.
 \end{proof}
 
 Abbiamo dunque un esempio, la serie $\sum (-1)^k / k$ di una serie convergente ma non assolutamente convergente.
-Il seguente teorema ci dice che per le serie di questo tipo non è garantito
-che riordinando i termini la somma si conservi.
+Il seguente teorema ci dice che per le serie di questo tipo non è mai garantito che riordinando i termini la somma si conservi.
 
-\begin{theorem}[convergenza condizionata]
-\index{convergenza!condizionata di una serie}
-\mynote{convergenza condizionata}
-Sia $\sum a_k$ una serie convergente ma non assolutamente convergente.
+\begin{theorem}[convergenza condizionata]%
+\label{th:convergenza_condizionata}%
+\index{convergenza!condizionata di una serie}%
+\mynote{convergenza condizionata}%
+Sia $\sum a_k$ una serie convergente ma non assolutamente convergente a termini reali.
 Allora fissato qualunque $x \in [-\infty , +\infty]$ esiste un riordinamento
 $\sigma \colon \NN \to \NN$ biettivo tale che
 \[
@@ -1297,7 +1246,7 @@ $a^+_k$ finché non si raggiunge o si supera il valore $x$. A quel punto cominci
 Poi continuiamo a sommare i termini positivi finché non si torna a superare $x$
 e di nuovo poi continuiamo con i termini negativi finché non si torna a scendere
 sotto $x$. Intermezzando opportunamente termini positivi e termini negativi
-riusciamo quindi ad ottenere delle somme parziali che oscillano intorno al valore di $x$ e si avvicinano sempre di più a $x$ in quanto ad ogni cambio di "rotta" la distanza da $x$ è inferiore all'ultimo termine sommato e la successione dei termini $a_k$ è infinitesima in quanto la serie $\sum a_k$ è convergente.
+riusciamo quindi ad ottenere delle somme parziali che oscillano intorno al valore di $x$ e si avvicinano sempre di più a $x$ in quanto ad ogni cambio di ``rotta'' la distanza da $x$ è inferiore all'ultimo termine sommato e la successione dei termini $a_k$ è infinitesima in quanto la serie $\sum a_k$ è convergente.
 
 Stessa cosa si può fare per ottenere una somma $x=+\infty$. Fissata una qualunque
 successione $x_n \to +\infty$ comincio a sommare i termini positivi finché non supero il valore $x_1+a_1^-$. Poi sommo un solo termine negativo, $-a_1^-$ e ottengo una somma maggiore di $x_1$. Poi sommo tanti positivi finché non supero $x_2+a_2^-$. Poi sommo un altro unico termine negativo e così via. Chiaramente le somme tenderanno a $+\infty$.
@@ -1421,6 +1370,176 @@ converge perché il termine generico $z^k/k$ non è infinitesimo.
 Per $z=1$ si ottiene la serie armonica, che pure non converge.
 \end{proof}
 
+\section{somme su insiemi qualunque}
+
+La teoria che abbiamo visto finora ci permette di definire
+la somma di una sequenza di numeri $\vec a \colon \NN\to \RR$
+(o $\vec a \colon \NN \to \CC$).
+In questo capitolo daremo una definizione di somma che può
+essere applicata a una funzione definita su un insieme di indici qualunque, non necessariamente l'insieme $\NN$ dei
+numeri naturali.
+
+Scopriremo che la definizione che stiamo introducendo se
+applicata al caso $A=\NN$ corrisponde esattamente alla convergenza assoluta.
+
+\begin{definition}[funzioni sommabili]
+Sia $A$ un insieme qualunque.
+Sia $A_n$ una successione di sottoinsiemi finiti di $A$.
+Diremo che $A_n$ tende ad $A$ e scriveremo
+\[
+  A_n \to A
+\]
+se per ogni insieme finito $B\subset A$ esiste $N\in \NN$
+tale che per ogni $n\ge N$ si ha $A_n\supset B$.
+
+Sia ora $f$ una funzione reale (o complessa) definita
+su $A$: $f\colon A \to \RR$ (oppure $f\colon A \to \CC$).
+
+Se $A = \ENCLOSE{a_1, a_2, \dots, a_m}$ è finito si può definire
+\[
+  \sum_{a \in A} f(a) = f(a_1) + f(a_2) + \dots + f(a_m).
+\]
+(la definizione può essere formalizzata mediante una
+induzione sulla cardinalità dell'insieme finito $A$).
+
+Se invece $A$ è infinito scriveremo
+\[
+  \sum_{a\in A} f(a) = S
+\]
+con $S\in \bar \RR$ (oppure $S\in \bar \CC$)
+se per ogni successione di sottoinsiemi finiti $A_n \to A$
+si ha
+\begin{equation}\label{eq:589421}
+  \lim_{n\to +\infty}\sum_{a\in A_n}f(a) = S.
+\end{equation}
+
+In tal caso diremo che esiste la somma di $f$ su $A$.
+Se tale somma $S$ è finita diremo che $f$ è sommabile su $A$.
+\end{definition}
+
+\begin{theorem}[invarianza per permutazioni]
+  Sia $f$ una funzione definita su un insieme $A$
+  a valori reali o complessi. Sia $\sigma\colon A \to A$
+  una qualunque funzione bigettiva.
+  Allora la funzione $f$ ha somma su $A$ se e solo se
+  la funzione $\sigma\circ f$ ha somma su $A$ e in tal
+  caso le somme coincidono:
+  \[
+    \sum_{x\in A} f(x) = \sum_{x\in A} f(\sigma(x)).
+  \]
+\end{theorem}
+%
+\begin{proof}
+  Basta osservare che se $A_n$ è una qualunque successione
+  di sottoinsiemi finiti di $A$ tale che $A_n\to A$
+  allora anche $B_n=\sigma(A_n)$ è una successione
+  di sottoinsiemi finiti di $A$ tale che $B_n\to A$.
+  E viceversa.
+  Dunque le definizione di somma per $f$ e per $\sigma\circ f$ sono equivalenti.
+\end{proof}
+
+\begin{theorem}[collegamento tra serie e somme arbitrarie]
+Sia $a_k$ con $k\in \NN$, una successione numerica (reale o complessa).
+
+Se $S$ è un numero finito (reale o complesso)
+sono equivalenti:
+\begin{enumerate}
+  \item la funzione $f(k)=a_k$ è sommabile su $\NN$ e
+\begin{equation}\label{eq:488484}
+  \sum_{k\in \NN} a_k = S;
+\end{equation}
+\item la serie $\sum_k a_k$ è assolutamente
+convergente e
+\begin{equation}\label{eq:499494}
+  \sum_{k=0}^{+\infty} a_k = S.
+\end{equation}
+\end{enumerate}
+
+Se $a_k\ge 0$ (dunque reale) allora anche
+\[
+  \sum_{k\in \NN} a_k = +\infty
+\qquad
+\text{e}
+\qquad
+\sum_{k=0}^{+\infty} a_k = +\infty
+\]
+sono equivalenti.
+\end{theorem}
+%
+\begin{proof}
+  Se vale \eqref{eq:488484} allora per ogni successione
+  di insiemi finiti $A_n \to \NN$ si deve avere
+  \[
+    S_n = \sum_{k\in A_n} a_k  \to S.
+  \]
+  In particolare se scegliamo $A_k=\ENCLOSE{0,1,2, \dots, n}$
+  risulta che $S_n$ non è altro che la successione delle somme parziali della serie $\sum a_k$ e dunque deve valere \eqref{eq:499494}.
+  Inoltre se la serie non fosse assolutamente convergente
+  per il teorema~\ref{th:convergenza_condizionata} di convergenza condizionata esisterebbe una permutazione $\sigma\colon \NN \to \NN$ per cui
+  \[
+    \sum_{k=0}^{+\infty} a_{\sigma(k)} = S' \neq S.
+  \]
+  Ma le somme parziali $S'_n\to S'$
+  di quest'ultima serie non sono
+  altro che
+  \[
+    S'_n = \sum_{k=0}^n a_{\sigma(k)}
+    = \sum_{j\in \sigma(A_n)} a_j.
+  \]
+  Se vale \eqref{eq:488484} si dovrebbe avere $S'_n \to S$
+  e quindi $S'=S$: assurdo.
+
+  Viceversa supponiamo che $\sum a_n$ sia una serie assolutamente convergente e poniamo
+  \[
+    S = \sum_{k=0}^{\infty} a_k.
+  \]
+  Dovremo dimostrare che per ogni successione
+  $A_n\to A$ di sottoinsiemi finiti vale~\eqref{eq:589421}.
+  Cioè dovremo dimostrare che per ogni $\eps>0$
+  esiste $N\in \NN$ tale che per ogni $n>N$ si ha
+  \begin{equation}\label{eq:4389567}
+    \abs{\sum_{k\in A_n} a_k - S} < \eps.
+  \end{equation}
+  Dato $\eps>0$ per il teorema~\ref{th:coda} esiste $M\in \NN$
+  tale che
+  \[
+    \sum_{k=N+1}^{+\infty} \abs{a_k} < \eps.
+  \]
+  Ma visto che $A_n \to A$ deve esistere $N\in \NN$
+  tale che per ogni $n\ge N$ si ha $A_n \supset \ENCLOSE{0,1,2,\dots ,M}$.
+  Ma allora per ogni $n\ge N$
+  \[
+    \sum_{k \in A_n} a_k - S = \sum_{k=0}^M a_k + \sum_{k\in A_n, k>M} a_k - \sum_{k=0}^{+\infty} a_k
+    = \sum_{k\in A_n, k>M} a_k - \sum_{k=M+1}^{+\infty} a_k
+  \]
+  ma è chiaro che
+  \[
+    \abs{\sum_{k\in A_n, k>M} a_k}
+    \le \sum_{k=M+1}^{+\infty} \abs{a_k} < \eps
+  \]
+  da cui si ottiene, come voluto, \eqref{eq:4389567}.
+\end{proof}
+
+
+Osserviamo che se $A=\NN$ e $f$ è una funzione definita
+su $A$ allora risulta
+\[
+  \sum_{k=0}^{+\infty} f(k) = S
+\]
+se per la singola successione $A_n = \ENCLOSE{0,1,2, \dots, n}$ vale~\eqref{eq:589421}.
+Dunque la convergenza (semplice) della serie $\sum_k f(k)$
+è più
+
+
+In base al teorema~\ref{th:convergenza_incondizionata}
+sappiamo che se $f$ è una funzione definita su $\NN$
+(a valori reali o complessi) tale che
+la serie $\sum_k f(k)$ è assolutamente convergente
+allora si ha
+\[
+  \sum_{k=0}^{+\infty} f(k) = \sum_{k\in \NN}f(k)
+\]
+in quanto
 %%%
 \section{prodotti infiniti}
 %%%
