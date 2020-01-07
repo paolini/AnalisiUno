@@ -373,12 +373,12 @@ Quando scriveremo $a_n >0$ (o $a_n \ge 0$) sarà sempre
 sottointeso che $a_n\in \RR$ visto che per i numeri complessi non
 reali non abbiamo definito la relazione d'ordine.
 
-\begin{theorem}[carattere delle serie a termini positivi]
-\mymark{***}
-\mynote{carattere delle serie a termini positivi}
-\index{carattere!di una serie a termini positivi}
+\begin{theorem}[carattere delle serie a termini positivi]\label{th:serie_positiva}
+\mymark{***}%
+\mynote{carattere delle serie a termini positivi}%
+\index{carattere!di una serie a termini positivi}%
 Se $a_n\ge 0$
-la serie $\sum a_n$ non può essere indeterminata:
+la serie $\sum a_n$ è regolare:
 o converge oppure diverge a $+\infty$.
 \end{theorem}
 %
@@ -570,7 +570,8 @@ La serie
 \mymark{***}
 \mynote{criterio del rapporto}
 \index{criterio!del rapporto per serie}
-Sia $\sum a_n$ una serie a termini positivi
+Sia $\sum a_n$ una serie a termini non negativi
+($a_n\ge 0$)
 tale che $a_{n+1} / a_n \to \ell \in [0,+\infty]$.
 Se $\ell <1$ allora la serie converge.
 Se $\ell > 1$ la serie diverge.
@@ -580,7 +581,7 @@ Se $\ell > 1$ la serie diverge.
 \mymark{*}
 Non sarebbe difficile fare una dimostrazione diretta, simile alla dimostrazione fatta per il criterio della radice.
 Possiamo però osservare che
-per il criterio del rapporto alla Cesàro (teorema~\ref{th:criterio_cesaro}) si ha $\sqrt[n]{a_n} \to \ell$
+per il criterio di convergenza alla Cesàro (teorema~\ref{th:criterio_cesaro}) si ha $\sqrt[n]{a_n} \to \ell$
 quindi ci riconduciamo al criterio della radice senza dover fare ulteriori dimostrazioni.
 \end{proof}
 
@@ -594,7 +595,8 @@ converge.
 \end{example}
 %
 \begin{proof}
-Applichiamo il criterio del rapporto. Posto $a_n = x^n / n!$ si ha
+Applichiamo il criterio del rapporto.
+Posto $a_n = x^n / n!$ si ha
 \[
 \frac{a_{n+1}}{a_n}
 = \frac{x^{n+1}}{(n+1)!}\cdot \frac{n!}{x^n}
@@ -603,9 +605,95 @@ Applichiamo il criterio del rapporto. Posto $a_n = x^n / n!$ si ha
 Dunque la serie converge.
 \end{proof}
 
+\subsection{associatività della somma di una serie}
+
+\begin{example}
+Posto $a_k = (-1)^k$ sappiamo che la serie corrispondente:
+\[
+  1 - 1 + 1 - 1 + 1 \dots
+\]
+è indeterminata perché le somme parziali sono
+\[
+  S_n = \sum_{k=0}^n (-1)^k
+  = \begin{cases}
+   1 & \text{se $n$ pari}\\
+   0 & \text{se $n$ è dispari.}
+  \end{cases}
+\]
+Se però associamo i termini a due a due otteniamo la serie
+\[
+  (1-1) + (1-1) + (1-1) \dots = 0 + 0 + 0 + \dots = 0
+\]
+che è convergente.
+Il motivo è che la successione delle somme
+parziali di questa nuova serie è una particolare estratta (quella
+con gli indici pari) della successione delle somme parziali della
+serie originale. Quindi non ci dovrebbe sorprendere il fatto che
+nonostante la serie originale fosse indeterminata è possibile
+associare i termini della serie in modo da ottenere una serie
+regolare (in questo caso convergente).
+In effetti per il corollario~\ref{cor:Bolzano} di Bolzano-Weierstrass
+sappiamo che
+è sempre possibile estrarre una sottosuccessione regolare (convergente o divergente)
+da qualunque successione.
+Anche quando da una serie indeterminata si estrae una serie
+convergente la somma della serie può dipendere da come i termini
+vengono associati.
+Se ad esempio nella serie precedente prendessimo
+solamente le somme di indice dispari
+otterremmo:
+\[
+  1 + (-1+1) + (-1+1) + \dots = 1.
+\]
+\end{example}
+
+L'esempio precedente ci mostra che associando i termini di una
+serie indeterminata è possibile ottenere serie con carattere
+e somma diversi.
+Il seguente teorema ci dice che questo fenomeno \emph{cattivo}
+può solo avvenire quando si parte da una serie indeterminata.
+Se la serie è regolare allora possiamo associarne i termini
+senza modificarne né il carattere né la somma.
+In particolare questo è vero per le serie a termini positivi.
+
+\begin{theorem}[associatività delle serie regolari]
+Se $\sum a_k$ è una serie, scelta comunque
+una successione crescente $k_n$ con $k_0=0$
+possiamo considerare la serie $\sum b_n$
+i cui termini
+\[
+  b_n = \sum_{j=k_n}^{k_{n+1}-1} a_j
+\]
+si ottengono associando i termini di $a_k$ a gruppi
+consecutivi delimitati dalla successione di indici
+$k_n$.
+
+Se la serie $\sum a_k$ è regolare (convergente o divergente)
+allora anche la serie $\sum b_n$ è regolare e si ha
+\[
+\sum_{n=0}^{+\infty} b_n
+= \sum_{k=0}^{+\infty} a_k.
+\]
+
+In particolare questo vale se la serie $\sum a_k$ è a termini
+positivi.
+\end{theorem}
+%
+\begin{proof}
+Siano $S_k = \sum_{j=0}^k a_j$ le somme parziali della
+serie $\sum a_j$. Allora le somme parziali della serie $\sum b_n$
+non sono altro che la sottosuccessione $S_{k_n}$.
+Dunque se $S_k$ converge anche ogni sua sottosuccessione
+converge allo stesso limite.
+
+Il teorema~\ref{th:serie_positiva} ci dice
+che le serie a termini positivi sono regolari e quindi
+soddisfano le ipotesi del teorema.
+\end{proof}
+
 \subsection{la serie armonica}
 
-Osserviamo invece che il criterio del rapporto non si applica alla
+Osserviamo che il criterio del rapporto non si applica alla
 \emph{serie armonica}%
 \mynote{serie armonica}%
 \index{serie!armonica}%
@@ -624,7 +712,7 @@ ma che può essere meglio compreso se applicato al caso particolare
 della serie armonica.
 
 Mostreremo che la serie armonica diverge.
-L'idea è semplicemente quella di raggruppare gli addendi della serie armonica
+L'idea è semplicemente quella di associare gli addendi della serie armonica
 in gruppi di lunghezza potenze di due e stimare la somma di ogni gruppo dal basso
 con il termine più piccolo (cioè l'ultimo) di ogni gruppo:
 \begin{align*}
@@ -656,61 +744,34 @@ la serie
 Supponiamo per comodità che le somme partano da $k=1$.
 Si tratta di raggruppare i termini $a_k$ in gruppi di potenze di due:
 \begin{align*}
-  &a_1, \\
-  &a_2,\ a_3, \\
-  &a_4,\ a_5,\ a_6,\ a_7, \\
-  &a_8,\ a_9,\ a_{10},\ \dots,\ a_{15}, \\
+  b_0 & = a_1, \\
+  b_1 &= a_2,\ a_3, \\
+  b_3 &= a_4,\ a_5,\ a_6,\ a_7, \\
+  b_4 &= a_8,\ a_9,\ a_{10},\ \dots,\ a_{15}, \\
   &\vdots\\
-  &a_{2^n},\ a_{2^n+1},\ \dots,a_{2^{n+1}-1},\\
+  b_n &= a_{2^{n-1}},\ a_{2^{n-1}+1},\ \dots,a_{2^n-1},\\
   &\vdots
 \end{align*}
-Posto $S_n = \sum_{k=1}^n a_k$,
-sommando i termini delle prime $N$ righe si osserva quindi che:
+Grazie al teorema~\ref{th:serie_associativa} sulla associatività
+delle serie a termini positivi sappiamo che
+  \[
+  \sum_{k=1}^{+\infty} a_k = \sum_{n=0}^{+\infty} b_n.
+  \]
+Ogni termine $b_n$ è la somma di $2^n$ termini della
+successione $a_k$ che, essendo la successione crescente,
+possono essere stimati dal basso e dall'alto con il primo
+e l'ultimo termine di ogni somma:
 \[
-  S_{2^N-1}
-  = \sum_{k=1}^{2^N-1} a_k
-  = \sum_{n=0}^{N-1}\,\, \sum_{j=0}^{2^n-1} a_{2^n+j}
+  2^n a_{2^n-1} \le b_n \le 2^n a_{2^{n-1}}.
 \]
-Visto che la successione $a_k$ è decrescente i termini di ogni gruppo si
-possono stimare dall'alto e dal basso con il primo e l'ultimo termine:
-\[
-  a_{2^n} \ge a_{2^n+1} \ge \dots \ge a_{2^{n+1}-1} \ge a_{2^{n+1}}
-\]
-e quindi
-\begin{equation}\label{eq:37546435}
-\sum_{n=0}^{N-1} 2^n a_{2^{n+1}}
-\le S_{2^N-1}
-\le \sum_{n=0}^{N-1} 2^n a_{2^n}.
-\end{equation}
+Se la serie $\sum 2^n a_{2^n}$ è convergente
+anche la serie $\sum 2^{n-1} a_{2^{n-1}}$ è convergente
+e quindi anche $\sum 2^n a_{2^{n-1}}$ lo è.
+Per confronto la serie $\sum b_n$ è convergente.
 
-Dunque se la serie $\sum 2^n a_{2^n}$ converge allora la sottosuccessione
-di somme parziali $S_{2^N-1}$ è superiormente limitata: $S_{2^N-1}\le C$.
-Essendo $a_k \ge 0$ la successione $S_k$ è crescente.
-Ma allora l'intera
-successione $S_k$ è limitata
-perché per ogni $k\in \NN$ esiste $N\in \NN$ tale che $k\le 2^N-1$ per cui
-$S_k \le S_{2^N-1} \le C$.
-Visto che $S_k$ è crescente $S_k$ ha limite e visto che abbiamo
-appena verificato che $S_k$ è limitata allora il limite è finito
-e la serie è convergente.
-
-Viceversa se la serie $\sum a_k$ converge significa che
-$S_k$ converge e dunque anche la sottosuccessione
-$S_{2^N-1}$ converge e di conseguenza esiste
-$C\in \RR$ tale che per ogni $N \in \NN$:
- $S_{2^N-1}\le C$.
-
-Ma allora, usando la prima disuguaglianza in~\eqref{eq:37546435}, si ottiene che la serie
-$\sum 2^n a_{2^{n+1}}$ è limitata da $C$ ma allora
-\begin{align*}
-  \sum_{n=0}^{N} 2^n a_{2^n}
-  &= a_1 + \sum_{n=1}^N 2^n a_{2^n}
-  = a_1 + 2 \sum_{n=1}^{N} 2^{n-1} a_{2^n} \\
-  &= a_1 + 2 \sum_{n=0}^{N-1} 2^n a_{2^{n+1}}
-  \le a_1 + 2C
-\end{align*}
-e dunque anche la serie $\sum 2^n a_{2^n}$ risulta essere limitata e
-di conseguenza (essendo una serie a termini positivi) è convergente.
+Viceversa se la serie $\sum 2^n a_{2^n}$ è divergente
+noi sappiamo che $b_n\ge 2^n a_{2^n-1}\ge 2^n a_{2^n}$
+e dunque, per confronto, anche la serie $\sum b_n$ è divergente.
 \end{proof}
 
 
@@ -831,45 +892,6 @@ E per continuità del modulo, posto $S= \lim S_n$ si ha
 \]
 \end{proof}
 
-\begin{theorem}[associatività delle serie convergenti]
-Se $\sum a_k$ è una serie, scelta comunque
-una successione crescente $k_n$ con $k_0=0$
-possiamo considerare la serie $\sum b_n$
-i cui termini
-\[
-  b_n = \sum_{j=k_n}^{k_{n+1}-1} a_k
-\]
-si ottengono associando i termini di $a_k$ a gruppi
-consecutivi delimitati dalla successione di indici
-$k_n$.
-
-Se la serie $\sum a_k$ non è indeterminata
-allora neanche la serie $\sum b_n$ è indeterminata e si ha
-\[
-\sum_{n=0}^{+\infty} b_n
-= \sum_{k=0}^{+\infty} a_k.
-\]
-
-Inoltre se $\sum a_k$ è a termini positivi e se
-$\sum b_n$ è convergente, anche $\sum a_n$ è convergente.
-\end{theorem}
-%
-\begin{proof}
-Siano $S_k = \sum_{j=0}^k a_j$ le somme parziali della
-serie $\sum a_j$. Allora le somme parziali della serie $\sum b_n$
-non sono altro che la sottosuccessione $S_{k_n}$.
-Dunque se $S_k$ converge anche ogni sua sottosuccessione
-converge allo stesso limite. Si ottiene dunque
-la prima parte del teorema.
-
-Se inoltre $a_k \ge 0$, entrambe le serie sono a termini positivi
-e quindi entrambe ammettono limite. Ma visto che le somme parziali
-della seconda serie sono una sottosuccessione delle somme
-parziali della prima serie, anche in questo caso i due limiti
-devono coincidere e se una delle due serie è convergente
-anche l'altra lo è.
-\end{proof}
-
 \begin{theorem}[convergenza incondizionata]%
 \label{th:convergenza_incondizionata}%
 \mymark{*}%
@@ -883,7 +905,7 @@ si ha
 \end{theorem}
 %
 \begin{proof}
-Dobbiamo mostrare che
+Basta mostrare che
 \begin{equation}
 \label{eq:488464}
 \lim_{n\to +\infty} \Enclose{\sum_{k=0}^n a_k
@@ -928,6 +950,138 @@ Questo garantisce la validità dell'equazione~\eqref{eq:488464} in base
 alla definizione di limite.
 \end{proof}
 
+\begin{theorem}%
+\label{th:somma_Cauchy}%
+Sia $c_{k,j}$ una successione (reale o complessa)
+a due indici $k,j\in \NN$.
+Se
+\[
+  \sum_{m=0}^{+\infty} \sum_{k=0}^m \abs{c_{k,m-k}}
+\]
+è assolutamente convergente
+allora per ogni $k$ la serie $\sum_j c_{k,j}$ è
+assolutamente convergente e risulta
+\[
+  \sum_{k=0}^{+\infty} \sum_{j=0}^{+\infty} c_{k,j}
+  = \sum_{m=0}^{+\infty} \sum_{k=0}^m c_{k,m-k}.
+\]
+\end{theorem}
+
+Per dimostrare il teorema utilizzeremo questo
+lemma leggermente più generale.
+
+\begin{lemma}
+Sia $\sigma\colon \NN\times\NN\to \NN$ una bigezione.
+Se $\displaystyle\sum_n a_n$ è una serie
+assolutamente convergente  (reale o complessa) allora si ha:
+\begin{equation}\label{eq:582095}
+  \sum_{k=0}^{+\infty} a_n
+  = \sum_{k=0}^{+\infty} \sum_{j=0}^{+\infty} a_{\sigma(k,j)}.
+\end{equation}
+\end{lemma}
+%
+%
+\begin{proof}
+Per ogni $k$ la serie
+\[
+  \sum_{j=0}^{+\infty} \abs{a_{\sigma(k,j)}}
+\]
+è convergente in quanto per ogni $L\in \NN$,
+visto che $j \mapsto \sigma(k,j)$ è iniettiva,
+esiste $H\in \NN$ per cui si ha
+\[
+  \sum_{j=0}^L \abs{a_{\sigma(k,j)}}
+  \le \sum_{n=0}^{H} \abs{a_n}
+  \le \sum_{n=0}^{+\infty} \abs{a_n}.
+\]
+
+Dunque per ogni $k\in\NN$ sappiamo che la somma
+\[
+  b_k = \sum_{j=0}^{+\infty} a_{\sigma(k,j)}
+\]
+è assolutamente convergente perché $\sum a_n$ è assolutamente convergente
+e $j\mapsto \sigma(k,j)$ è iniettiva.
+Fissato $\eps>0$ per il teorema~\ref{th:coda} (della coda)
+deve esistere $N\in\NN$ tale che
+\[
+  \sum_{n=N+1}^{+\infty} \abs{a_n} < \eps.
+\]
+Per lo stesso motivo
+per ogni $k\in \NN$ deve esistere $J_k\in \NN$ tale che
+\[
+  \sum_{j=0}^{J_k+1} \abs{a_{\sigma(k,j)}} < \frac{\eps}{2^k}.
+\]
+Eventualmente aumentando $J_k$ possiamo anche supporre
+che per ogni $j>J_k$ si abbia $\sigma(k,j)>N$
+(l'insieme $\ENCLOSE{j\in \NN \colon \sigma(k,j)<\le N}$ è finito
+in quanto $\sigma$ è iniettiva).
+
+Scegliamo ora $M\in \NN$ tale che
+per ogni $k>M$ e ogni $j\in \NN$ si abbia $\sigma(k,j)>N$
+(l'insieme $\ENCLOSE{(k,j)\in \NN\times\NN \colon \sigma(k,j)\le N}$
+è finito).
+Per ottenere l'uguaglianza~\eqref{eq:582095} è sufficiente
+mostrare che per ogni $m>M$ si ha
+\begin{equation}\label{eq:93655}
+  \abs{\sum_{k=0}^m b_k - \sum_{n=0}^{+\infty} a_n}
+  < 5 \eps.
+\end{equation}
+
+Ma per ogni $m>M$ si ha
+\begin{equation}\label{eq:58382}
+\begin{aligned}
+\sum_{k=0}^m b_k - \sum_{n=0}^{+\infty} a_n
+&=\sum_{k=0}^m \enclose{\sum_{j=0}^{J_k} a_{\sigma(k,j)} +
+\sum_{j=J_k+1}^{+\infty} a_{\sigma(k,j)}} - \sum_{n=0}^N a_n - \sum_{n=N+1}^{+\infty} a_n \\
+&= \enclose{\sum_{k=0}^M \sum_{j=0}^{J_k} a_{\sigma(k,j)} - \sum_{n=0}^N a_n}
+- \sum_{n=N+1}^{+\infty} a_n \\
+\qquad &
++ \sum_{k=M+1}^{m} \sum_{j=0}^{J_k} a_{\sigma(k,j)}
++ \sum_{k=0}^{m} \sum_{j=J_k+1}^{+\infty} a_{\sigma(k,j)}.
+\end{aligned}
+\end{equation}
+Stimiamo separatamente gli addendi sul lato destro.
+Per il primo si ha:
+\[
+ \abs{\sum_{k=0}^M \sum_{j=0}^{J_k} a_{\sigma(k,j)} - \sum_{n=0}^N a_n}
+ \le \sum_{n=N+1}^{+\infty} \abs{a_k} < \eps.
+\]
+in quanto tutti gli addendi della seconda somma si semplificano
+(per come abbiamo scelto $M$ e $J_k$)
+e rimangono solamente gli addendi $a_{\sigma(k,j)}$
+della prima somma (finita) che
+hanno indice $\sigma(k,j)>N$.
+
+Per il secondo addendo si ha (teorema~\ref{th:convergenza_assoluta})
+\[
+ \abs{\sum_{n=N+1}^{+\infty} a_n}
+ \le \sum_{n=N+1}^{+\infty} \abs{a_n} < \eps.
+\]
+
+Il terzo addendo è una somma (finita) di termini
+$a_{\sigma(k,j)}$ con $k> M$ e dunque $\sigma(k,j)>N$.
+Dunque anche in questo caso si ha
+\[
+\abs{\sum_{k=M+1}^{m} \sum_{j=0}^{J_k} a_{\sigma(k,j)}}
+\le\sum_{n=N+1}^{+\infty} \abs{a_n}<\eps.
+\]
+
+Per il quarto addendo, grazie a come è stato definito $J_k$:
+\[
+ \abs{\sum_{j=J_k+1}^{+\infty} a_{\sigma(k,j)}}
+ \le \sum_{j=J_k+1}^{+\infty} \abs{a_{\sigma(k,j)}}
+ < \frac{\eps}{2^k}
+\]
+e dunque
+\[
+\abs{\sum_{k=0}^{M}\sum_{j=J_k+1}^{+\infty} a_{\sigma(k,j)}}
+\le \sum_{k=0}^{M} \frac{\eps}{2^k}
+\le \eps \sum_{k=0}^{+\infty}\frac{1}{2^k} = 2\eps.
+\]
+
+Abbiamo quindi dimostrato~\eqref{eq:93655}.
+\end{proof}
+
 \begin{definition}[sommabilità di una funzione]
 Sia $A$ un insieme qualunque.
 Sia $A_n$ una successione di sottoinsiemi finiti di $A$.
@@ -967,7 +1121,7 @@ su $A$ allora risulta
 \]
 se per la singola successione $A_n = \ENCLOSE{0,1,2, \dots, n}$ vale~\eqref{eq:589421}.
 Dunque la convergenza (semplice) della serie $\sum_k f(k)$
-è più 
+è più
 
 
 In base al teorema~\ref{th:convergenza_incondizionata}
@@ -979,6 +1133,21 @@ allora si ha
   \sum_{k=0}^{+\infty} f(k) = \sum_{k\in \NN}f(k)
 \]
 in quanto
+\begin{proof}[Dimostrazione del teorema~\ref{th:somma_Cauchy}]
+Sia $\sigma\colon \NN\times \NN\to \NN$ la bigezione utilizzata
+nel primo metodo diagonale di Cantor (teorema~\ref{th:Cantor_primo})
+e poniamo $a_n = c_{\sigma^{-1}(n)}$ cosicché
+$a_{\sigma(k,j)} = c_{k,j}$.
+Allora le somme parziali
+\[
+  \sum_{n=0}^N \sum_{k=0}^n c_{k,n-k}
+\]
+sono una sottosuccessione delle somme parziali della serie
+$\sum a_n$.
+In particolare se vale l'ipotesi del teorema la serie
+$\sum a_n$ è assolutamente convergente e si può applicare
+il lemma precedente da cui si ottiene il risultato desiderato.
+\end{proof}
 
 \section{serie a segni alterni}
 \index{serie!a segni alterni}
@@ -1486,19 +1655,18 @@ Ma visto che la serie converge in $z_0$ (per definizione di $A$) grazie al teore
 precedente possiamo affermare che la serie converge, anzi, converge assolutamente
 in $z$. Dunque si ottiene la prima inclusione in~\eqref{eq:48463}.
 
-Se invece prendiamo $z\in \CC$ con $\abs{z}>R$ scegliamo un numero
-complesso $z_0$ tale che $r < \abs{z_0} < \abs{z}$ (ad esempio)
-potremmo prendere $z_0 = \frac{\abs{z_0}+R}{2} \in \RR$.
-Se fosse $\abs{z_0}\in A$ per la definizione di $R$ si dovrebbe avere $R\ge \abs{z_0}$
-cosa che non è. Dunque la serie non converge in $z_0$ e quindi, sempre per il teorema
-precedente, essendo $\abs{z}>\abs{z_0}$ la serie di potenze
-non può convergere
-neanche in $z$ (e anzi la successione $a_kz^k$ non è nemmeno infinitesima).
+Se invece prendiamo $z\in \CC$ con $\abs{z}>R$ allora
+certamente la serie non converge in $z$ altrimenti (per come è definito $R$)
+avremmo $R\ge \abs{z}$.
+Inoltre possiamo certamente considerare un punto $z_1\in\CC$
+tale che $R < \abs{z_1} \le \abs{z}$ e la serie
+di potenze non può convergere neanche in $z_1$.
+Ma allora, per il teorema precedente,
+deduciamo che $a_k z^k$ non è nemmeno infinitesima.
 
 Abbiamo quindi mostrato l'esistenza di $R\in \bar \RR$ che soddisfa \eqref{eq:48463}.
-Chiaramente deve essere $R\ge 0$ perché $A$ è un insieme non vuoto di numeri positivi
+Chiaramente risulta $R\ge 0$ perché $A$ è un insieme non vuoto di numeri positivi
 (per ogni serie di potenze si ha $0\in A$).
-
 \end{proof}
 
 \begin{definition}[raggio di convergenza]
@@ -1555,7 +1723,7 @@ Il criterio della radice si applica anche nel caso in cui $\ell$ è definito
 tramite $\limsup$.
 
 Nel caso esista il limite del rapporto $\abs{a_{n+1}} / \abs{a_n}$
-sappiamo (grazie al criterio del rapporto alla Cesàro) che
+sappiamo (grazie al criterio di convergenza alla Cesàro teorema~teorema~\ref{th:criterio_cesaro}) che
 il limite della radice coincide con il limite del rapporto e quindi
 ci si riconduce al caso precedente (oppure si può ripetere la dimostrazione
 utilizzando il criterio del rapporto invece del criterio della radice).
