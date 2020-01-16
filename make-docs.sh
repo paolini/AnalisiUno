@@ -51,8 +51,9 @@ MathJax.Hub.Config({
     'computepi': "https://github.com/paolini/AnalisiUno/blob/master/code/compute_pi.py",
     'Koch': "https://github.com/paolini/AnalisiUno/blob/master/code/Koch.py",
     'Fourier': "https://github.com/paolini/AnalisiUno/blob/master/code/Fourier.py",
-    'logica': "http://pagine.dm.unipi.it/paolini/didattica/appunti/logica.pdf"
-  };
+    'logica': "http://pagine.dm.unipi.it/paolini/didattica/appunti/logica.pdf",
+    'figtrigo': "https://paolini.github.io/funplot/#q=%7B%22p%22%3A%7B%22x%22%3A0.6317763501997922%2C%22y%22%3A0.14774102772394218%2C%22r%22%3A6.954840642318821%7D%2C%22l%22%3A%5B%7B%22t%22%3A%22graph%22%2C%22e%22%3A%22tan(x)%22%2C%22c%22%3A%22%238B572A%22%7D%2C%7B%22t%22%3A%22graph%22%2C%22e%22%3A%22cos(x)%22%2C%22c%22%3A%22%230000FF%22%7D%2C%7B%22t%22%3A%22graph%22%2C%22e%22%3A%22sin(x)%22%2C%22c%22%3A%22%23417505%22%7D%2C%7B%22t%22%3A%22graph_inverted%22%2C%22e%22%3A%22pi%2F2%22%2C%22c%22%3A%22%23CED1CB%22%7D%2C%7B%22t%22%3A%22graph_inverted%22%2C%22e%22%3A%22-pi%2F2%22%2C%22c%22%3A%22%23CECFCB%22%7D%5D%7D",
+    'figiperb': "https://paolini.github.io/funplot/#q=%7B%22p%22%3A%7B%22x%22%3A-0.05295440431163167%2C%22y%22%3A-0.3520883830793602%2C%22r%22%3A11.010098668753743%7D%2C%22l%22%3A%5B%7B%22t%22%3A%22graph%22%2C%22e%22%3A%221%22%2C%22c%22%3A%22%23D9D9D8%22%7D%2C%7B%22t%22%3A%22graph%22%2C%22e%22%3A%22-1%22%2C%22c%22%3A%22%23D3D3D3%22%7D%2C%7B%22t%22%3A%22graph%22%2C%22e%22%3A%22tanh(x)%22%2C%22c%22%3A%22%238B572A%22%7D%2C%7B%22t%22%3A%22graph%22%2C%22e%22%3A%22cosh(x)%22%2C%22c%22%3A%22%23020BFA%22%7D%2C%7B%22t%22%3A%22graph%22%2C%22e%22%3A%22sinh(x)%22%2C%22c%22%3A%22%23D0021B%22%7D%5D%7D"  };
 
   var id = window.location.search.substring(1);
   if (id) {
