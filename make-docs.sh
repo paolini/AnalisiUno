@@ -2,12 +2,6 @@ out=README.md
 
 echo "writing file" ${out}
 
-cat <<EOF > ${out}
-Questo repository contiene gli appunti del
-corso di Analisi Matematica tenuto da me (emanuele.paolini@gmail.com)
-dal 2017-2018 per il corso di studi in Fisica dell'Università di Pisa.
-EOF
-
 grep "%% README" chapters/AnalisiUno-00*.tex | cut -f1 -d"%" | sed "s/\\\\emph{\\([^}]*\\)}/\\*\\1\\*/g" >> ${out}
 
 out=docs/index.html
