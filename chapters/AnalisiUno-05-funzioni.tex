@@ -984,10 +984,10 @@ possiamo applicare il teorema di Weiestrass per dedurre che $f$ ha massimo e min
 In caso contrario sia il punto di massimo che il punto di minimo sono estremi dell'intervallo, cioè sono uguali ad $a$ o a $b$. Ma visto che $f(a)=f(b)$ i valori massimo e minimo coincidono e quindi la funzione è costante. Ma in tal caso $f'(x)=0$ per ogni $x\in [a,b]$.
 \end{proof}
 
-\begin{theorem}[Lagrange]
-\mymark{***}
-\index{teorema!di Lagrange}
-\mymargin{Lagrange}
+\begin{theorem}[Lagrange]\label{th:lagrange}%
+\mymark{***}%
+\index{teorema!di Lagrange}%
+\mymargin{Lagrange}%
 Sia $f\colon [a,b]\to \RR$ una funzione continua su $[a,b]$ e derivabile su $(a,b)$. Allora esiste un punto $x_0\in (a,b)$ tale che
 \[
   f'(x_0) = \frac{f(b) - f(a)}{b-a}
@@ -998,11 +998,11 @@ Sia $f\colon [a,b]\to \RR$ una funzione continua su $[a,b]$ e derivabile su $(a,
 \mymark{***}
 Consideriamo la funzione ausiliaria:
 \[
-  g(x) = f(x) - \frac{f(b)-f(a)}{b-a} (x-a).
+  g(x) = f(x) - \frac{f(b)-f(a)}{b-a} x.
 \]
 Per verifica diretta si osserva che
 \[
-  g(b) = g(a).
+  g(b) = g(a) = \frac{b f(a) - a f(b)}{b-a}.
 \]
 La funzione $g$ soddisfa quindi le ipotesi del teorema di Rolle e dunque esisterà $x_0\in (a,b)$ tale che $g'(x_0)=0$.
 Ma si osserva che
@@ -1012,10 +1012,11 @@ Ma si osserva che
 e dunque se $g'(x_0)=0$ si ottiene il risultato desiderato.
 \end{proof}
 
-\begin{theorem}[criteri di monotonia]
-\mymark{***}
-\mynote{criteri di monotonia}
-\index{criterio!di monotonia}
+\begin{theorem}[criteri di monotonia]%
+\label{th:criteri_monotonia}
+\mymark{***}%
+\mynote{criteri di monotonia}%
+\index{criterio!di monotonia}%
 Sia $f\colon I \to \RR$ una funzione definita su un intervallo $I\subset \RR$. Sia $J= (\inf I, \sup I)$ l'intervallo aperto con gli stessi estremi di $I$.
 Supponiamo che $f$ sia continua su $I$ e derivabile su $J$. Allora valgono i seguenti criteri:
 \begin{enumerate}
@@ -1130,6 +1131,65 @@ Risolvere l'equazione
 \end{equation}
 \end{exercise}
 %
+\begin{proof}[Svolgimento.]
+Il lato sinistro dell'equazione è un numero positivo e quindi
+certamente possiamo supporre che sia $x>0$ altrimenti il lato destro non sarebbe anch'esso positivo.
+Possiamo quindi prendere il logaritmo di ambo i membri
+e ottenere l'equazione
+\[
+  x = 3 \ln x
+\]
+che è equivalente all'equazione data.
+
+Consideriamo allora la funzione
+\[
+ f(x) = x - 3 \ln x
+\]
+cosicché le soluzioni cercate risultano essere gli zeri di $f$.
+Si ha
+\[
+  f'(x) = 1 - \frac{3}{x}
+\]
+e possiamo quindi affermare che%
+\footnote{Il simbolo $\gtrless$ serve per indicare che questa
+diseguazione e le seguenti possono essere scritte sia con il segno
+$>$ che con il segno $<$.}
+ $f'(x) \gtrless 0$
+se e solo se
+\[
+  1 \gtrless \frac 3 x
+\]
+ovvero (ricordiamo che stiamo supponendo $x>0$)
+\[
+  x \gtrless 3.
+\]
+Cioè: se $x>3$ si ha $f'(x)>0$ e di conseguenza
+(teorema~\ref{th:criteri_monotonia})
+$f$ è strettamente crescente se ristretta all'intervallo
+$[3,+\infty)$,
+se invece $x<3$ si ha $f'(x)<0$ e di conseguenza
+$f$ è strettamente decrescente se ristretta all'intervallo
+$(0,3]$.
+Per capire se la funzione $f$ si annulla in qualche punto
+dobbiamo ora valutare $f$ negli estremi degli intervalli su cui risulta monotona. Si ha
+\[
+  \lim_{x\to 0^+} f(x) = +\infty, \qquad
+  f(3) = 3 (1 - \ln 3) <0, \qquad
+  \lim_{x\to +\infty} f(x) = +\infty.
+\]
+Osserviamo quindi che agli estremi degli intervalli
+$(0,3]$ e $[3,+\infty)$ la funzione assume segni opposti e quindi, per il teorema degli zeri (teorema~\ref{th:zeri}), deve annullarsi almeno una volta in ognuno dei due intervalli. D'altra parte su ognuno dei due intervalli la funzione è strettamente monotona e quindi iniettiva, dunque non può annullarsi più di una volta. Deduciamo quindi che la funzione $f$ si annulla in esattamente due punti $x_1$, $x_2$ con
+\[
+  0 < x_1 < 3 < x_2.
+\]
+
+I punti $x_1$ e $x_2$ sono quindi univocamente determinati
+e possono essere calcolati, con un errore piccolo a piacere,
+utilizzando il metodo di bisezione, come abbiamo
+visto nella dimostrazione del teorema degli zeri.
+\end{proof}
+
+\begin{comment} %% dimostrazione più lunga e complicata
 \begin{proof}
 Si consideri la funzione
 \[
@@ -1263,6 +1323,7 @@ rispettivamente negli intervalli $[\ln 6, 1]$ e $[3,4]$ dove
 la funzione $f$ è strettamente monotona e cambia segno. Approssimazioni
 numeriche di $x_6$ e $x_7$ possono essere trovate mediante il metodo di bisezione.
 \end{proof}
+\end{comment}
 
 \begin{example}
 Si consideri la funzione
@@ -1432,6 +1493,41 @@ e dunque $f'(0) = 0$.
 Osserviamo però che $f'(x)$ non ammette limite per $x\to 0$
 in quanto per $x \to 0$ si ha $2x \sin(1/x) \to 0$ ma il limite di $\cos (1/x)$ invece non esiste. Dunque $f'(x)$ è la somma di una funzione che ha limite zero e di una funzione il cui limite non esiste per $x\to 0$. Dunque $f'(x)$ non ammette limite per $x\to 0$.
 \end{proof}
+
+\begin{proposition}[criterio di derivabilità]
+\label{prop:4384774}\mymark{**}
+Sia $I\subset \RR$ un intervallo, $x_0\in I$
+$f\colon I \to \RR$ una funzione continua su tutto $I$ e derivabile in $I\setminus\ENCLOSE{x_0}$.
+Se il limite della derivata
+\[
+  \lim_{x\to x_0} f'(x) = m
+\]
+esiste ed è finito la funzione $f$ è derivabile anche in $x_0$ e vale $f'(x_0) = m$.
+\end{proposition}
+%
+\begin{proof}
+\mymark{*}
+Prendiamo un generico punto $x>x_0$ (il caso $x<x_0$ è del tutto analogo).
+Per il teorema
+di Lagrange sappiamo esistere un punto $y\in (x_0,x)$ tale che
+\[
+  \frac{f(x)-f(x_0)}{x-x_0} = f'(y).
+\]
+Per $x\to x_0$ si ha certamente anche $y\to x_0$ e dunque
+esiste il limite del rapporto incrementale:
+\[
+  f'(x_0) = \lim_{x\to x_0} \frac{f(x)-f(x_0)}{x-x_0}
+  = \lim_{y\to x_0} f'(y) = m.
+\]
+\end{proof}
+%
+La proposizione precedente dice che la derivata di una funzione in un
+punto non può avere un valore diverso dal suo limite, se tale limite esiste.
+Esistono però funzioni derivabili la cui derivata non è
+continua, come abbiamo visto
+nell'esempio~\ref{ex:derivata_non_continua}
+in quanto il limite della derivata potrebbe non esistere.
+
 
 \section{convessità}
 
@@ -1877,7 +1973,7 @@ che $\tilde f$ e $\tilde g$ siano funzioni continue su tutto l'intervallo $[x_0,
 inoltre, sempre per ipotesi, sono derivabili nell'intervallo $(x_0,b]$
 visto che l'estensione per $x=x_0$ non modifica le derivate negli altri punti.
 In particolare le funzioni estese soddisfano le ipotesi del teorema di Cauchy in
-ogni intervallo $[x_0,x]$ con $x\in (x_0,b]$, dunque possiammo affermare
+ogni intervallo $[x_0,x]$ con $x\in (x_0,b]$, dunque possiamo affermare
 che per ogni $x$ esiste $c(x)\in (x_0,x)$ tale che
 \[
   \frac{f(x)}{g(x)}
@@ -1999,42 +2095,6 @@ e visto che la differenza tende a zero, necessariamente si deve avere anche
 \end{proof}
 
 \end{comment}
-
-\begin{proposition}[criterio di derivabilità]
-\label{prop:4384774}\mymark{**}
-Sia $I\subset \RR$ un intervallo, $x_0\in I$
-$f\colon I \to \RR$ una funzione continua su tutto $I$ e derivabile in $I\setminus\ENCLOSE{x_0}$.
-Se il limite della derivata
-\[
-  \lim_{x\to x_0} f'(x) = m
-\]
-esiste ed è finito la funzione $f$ è derivabile anche in $x_0$ e vale $f'(x_0) = m$.
-\end{proposition}
-%
-\begin{proof}
-\mymark{**}
-Consideriamo il limite del rapporto incrementale
-\[
-  \lim_{x\to x_0} \frac{f(x) - f(x_0)}{x - x_0}.
-\]
-Visto che la funzione è continua in $x_0$ si ha $f(x)-f(x_0) \to 0$
-per $x\to x_0$ e chiaramente si ha anche $x-x_0 \to 0$
-come richiesto nelle ipotesi del teorema di De L'Hospital.
-Se facciamo il limite del rapporto delle derivate si ha
-\[
- \lim_{x\to x_0} \frac{f'(x)}{1} = m
-\]
-e dunque applicando il teorema si trova che anche il limite del
-rapporto incrementale è uguale ad $m$ e dunque $f'(x_0) = m$.
-\end{proof}
-
-La proposizione precedente dice che la derivata di una funzione in un
-punto non può avere un valore diverso dal suo limite, se tale limite esiste.
-Esistono però funzioni derivabili la cui derivata non è
-continua, come abbiamo visto
-nell'esempio~\ref{ex:derivata_non_continua}
-in quanto il limite della derivata potrebbe non esistere.
-
 %
 \begin{theorem}[de l'Hospital $\cdot/\infty$]
 \mymark{*}
@@ -2387,8 +2447,9 @@ centrato in $x_0$.
 
 Nel caso particolare in cui sia $x_0=0$ il polinomio di Taylor viene anche chiamato \myemph{polinomio!di MacLaurin}.
 
-\begin{theorem}[caratterizzazione polinomio di Taylor]
-\mymark{***}
+\begin{theorem}[caratterizzazione polinomio di Taylor]%
+\label{th:caratterizzazioneTaylor}%
+\mymark{***}%
 Il polinomio di Taylor di una funzione $f$, di ordine $n$, centrato in $x_0$ è l'unico polinomio $P$ di grado non superiore ad $n$ tale che
 \[
   P^{(k)}(x_0) = f^{(k)}(x_0), \qquad \forall k \in \ENCLOSE{0,\dots,n}.
@@ -2396,7 +2457,8 @@ Il polinomio di Taylor di una funzione $f$, di ordine $n$, centrato in $x_0$ è 
 \end{theorem}
 %
 \begin{proof}
-E' facile mostrare, per induzione su $j$ che per ogni $j\in \NN$ la derivata $j$-esima di $(x-x_0)^k$ è:
+  \begin{comment}
+E' facile mostrare, per induzione su $j$ che per ogni $j\in \NN$ la derivata  $j$-esima di $(x-x_0)^k$ è:
 \[
   D^j (x-x_0)^k =
   \begin{cases}
@@ -2404,6 +2466,7 @@ E' facile mostrare, per induzione su $j$ che per ogni $j\in \NN$ la derivata $j$
     0 & \text{se $j>k$.}
   \end{cases}
 \]
+\end{comment}
 Ogni polinomio di grado non superiore ad $n$ può essere scritto nella forma:
 \[
   P(x) = \sum_{k=0}^{n} a_k (x-x_0)^k
@@ -2440,7 +2503,7 @@ Viceversa se
 \]
 è il polinomio di Taylor di ordine $n$ della derivata $f'(x)$, allora
 il polinomio di Taylor di ordine $n+1$ di $f$ sarà%
-\footnote{Chiameremo questa una \emph{primitiva} del polinomio dato (si veda la
+\footnote{Vedremo che questa è una \emph{primitiva} del polinomio dato (si veda la
 definizione~\ref{def:primitiva}).}
 \begin{equation}\label{eq:4993725}
   P_{n+1}(x) = f(x_0) + \sum_{k=0}^{n} \frac{a_{k}}{k+1}\cdot (x-x_0)^{k+1}
@@ -2452,7 +2515,6 @@ in quanto
   = \frac{a_k \cdot k!}{ (k+1)!}
   = \frac{a_k}{k+1}.
 \]
-
 \end{remark}
 
 \begin{theorem}[formula di Taylor con resto di Lagrange]
@@ -2464,50 +2526,49 @@ in quanto
 \mynote{Taylor con resto di Lagrange}
 Sia $I\subset \RR$ un intervallo, $x_0\in I$, $f\in C^{n+1}(I)$.
 Sia $P$ il polinomio di Taylor di $f$ di ordine $n$ centrato in $x_0$.
-Per ogni $x\in I$ esiste $y\in [x_0,x]$ tale che\footnote{%
-Ricordiamo che abbiamo definito $[x_0,x] = [x,x_0]$ se $x<x_0$.}
+Per ogni $x\in I$ esiste $y\in [x_0,x)$
+(se $x>x_0$ altrimenti si intende $y\in (x,x_0]$) tale che
 \[
   f(x) = P(x) + \frac{f^{(n+1)}(y)}{(n+1)!}(x-x_0)^{n+1}.
 \]
 \end{theorem}
 %
-\begin{proof}
-\mymark{*}
-Posto $R(x) = f(x)-P(x)$ osserviamo che essendo $P^{(k)}(x_0) = f^{(k)}(x_0)$ per ogni $k=0,1,\dots, n$, per gli stessi $k$
-si ha $R^{(k)}(x_0) = 0$.
-In particolare $R(x) = R(x)-R(x_0)$ è l'incremento di $R$
+\begin{proof}\mymark{*}%
+Se $x=x_0$ basta prendere $y=x_0$.
+Supponiamo allora che sia $x>x_0$ (il caso $x<x_0$ è del tutto analogo).
+
+Posto $R(x) = f(x)-P(x)$ osserviamo che essendo $P^{(k)}(x_0) = f^{(k)}(x_0)$
+(teorema~\ref{th:caratterizzazioneTaylor})
+si ha $R^{(k)}(x_0) = 0$ per $k=0,1, \dots, n$.
+In particolare $R^{(k)}(x) = R^{(k)}(x)-R^{(k)}(x_0)$ è l'incremento di $R^{(k)}$
 sull'intervallo $[x_0,x]$.
 Analogamente osserviamo che $(x-x_0)^{n+1}$ è anch'essa
-una funzione che si annulla in $x_0$ e dunque $(x-x_0)^{n+1}$ è
+una funzione che si annulla in $x_0$ con tutte le sue derivate
+e dunque $(x-x_0)^{n+1}$ è
 l'incremento della funzione sullo stesso intervallo.
 
 Dunque possiamo applicare il teorema di Cauchy alle funzioni
-$R(x)$ e $(x-x_0)^{n+1}$ sull'intervallo $[x_0,x]$ per ottenere
+$f(x)-P(x)$ e $(x-x_0)^{n+1}$ sull'intervallo $[x_0,x]$ per ottenere
 l'esistenza di un punto $x_1\in (x_0,x)$ tale che
 \[
-  \frac{R(x)}{(x-x_0)^{n+1}}
-  = \frac{R'(x_1)}{(n+1)(x_1-x_0)^n}.
+  \frac{f(x)-P(x)}{(x-x_0)^{n+1}}
+  = \frac{f'(x_1)-P'(x_1)}{(n+1)(x_1-x_0)^n}.
 \]
 Di nuovo applichiamo il teorema di Cauchy alle funzioni $R'(x)$ e $(n+1)(x-x_0)^n$ sull'intervallo $[x_0,x_1]$ per ottenere
-l'esistenza di un punto $x_2\in(x_0,x_1)$ tale che
+l'esistenza di un punto $x_2\in(x_0,x_1)\subset(x_0,x)$ tale che
 \[
-\frac{R'(x_1)}{(n+1)(x_1-x_0)^n} = \frac{R''(x_2)}{(n+1)n(x_2-x_0)^{n-1}}.
+\frac{f'(x_1)-P'(x_1)}{(n+1)(x_1-x_0)^n} = \frac{f''(x_2)-R''(x_2)}{(n+1)n(x_2-x_0)^{n-1}}.
 \]
-Possiamo iterare il procedimento ottenendo al passo $k$:
-\begin{align*}
-\MoveEqLeft \frac{R^{(k)}(x_{k})}{(n+1)n(n-1) \cdots (n-k+2)(x_k-x_0)^{n+1-k}}\\
-&=
-\frac{R^{(k+1)}(x_{k+1})}{(n+1)n(n-1) \cdots (n-k+1)(x_{k+1}-x_0)^{n-k}}.
-\end{align*}
-Proseguendo fino al passo $n$-esimo si ottiene dunque
+Possiamo iterare il procedimento per $n+1$ volte ottenendo quindi
+l'esistenza di
 un punto $x_{n+1}\in(x_0,x)$ tale che
 \[
-  \frac{R(x)}{(x-x_0)^{n+1}} = \frac{R^{(n+1)}(x_{n+1})}{(n+1)!}.
+  \frac{f(x)-P(x)}{(x-x_0)^{n+1}} = \frac{f^{(n+1)}(x_{n+1}) - P^{(n+1)}(x_{n+1})}{(n+1)!}.
 \]
-Ma $R^{(n+1)} = f^{(n+1)} - P^{(n+1)} = f^{(n+1)}$ in quanto
-$P$ è un polinomio di grado al più $n$ e quindi la sua derivata $(n+1)$-esima è nulla. Perciò otteniamo, ponendo $y=x_{n+1}$:
+Ma $P$ è un polinomio di grado al più $n$ e quindi la sua derivata $(n+1)$-esima è nulla
+perciò otteniamo, ponendo $y=x_{n+1}$:
 \[
-R(x) = \frac{f^{(n+1)}(y)}{(n+1)!}(x-x_0)^{n+1}
+f(x) - P(x) = \frac{f^{(n+1)}(y)}{(n+1)!}(x-x_0)^{n+1}
 \]
 che è quanto volevamo dimostrare.
 \end{proof}
@@ -2545,7 +2606,6 @@ da cui
    e &> P(1) + \frac{1}{720} = \frac{1957}{720} > 2.718.
 \end{align*}
 \end{example}
-\end{comment}
 
 \begin{example}[calcolo delle cifre di $\pi$]
   \label{ex:4899264}
@@ -2642,7 +2702,39 @@ cioè
 \]
 \end{example}
 
+\end{comment}
 
+\begin{example}[somma della serie armonica a segni alterni]
+Consideriamo la funzione $f(x) = \ln x$.
+Si osservi che
+\begin{gather*}
+  f'(x) = x^{-1},\qquad
+  f''(x) = -x^{-2},\\
+  f'''(x) = 2x^{-3}, \qquad
+  \dots, \qquad
+  f^{(k)}(x) = \frac{(-1)^{k-1}(k-1)!}{x^k}
+\end{gather*}
+e si ha quindi, per ogni $k\ge 1$
+\[
+  \frac{f^{(k)}(1)}{k!} = \frac{(-1)^{k-1}}{k}
+\]
+da cui si deduce che per $x_0=1$ si ha il polinomio di taylor di ordine $n$
+centrato in $x_0=1$ è
+\[
+P(x) = \sum_{k=1}^n (-1)^{k-1}\frac{(x-1)^k}{k}.
+\]
+La formula di Taylor con resto di Lagrange ci dice allora che per
+ogni $x>1$ esiste $y\in(1,x)$ tale che
+\[
+  \ln(x) - \sum_{k=1}^n (-1)^{k-1}\frac{(x-1)^k}{k} = \frac{(-1)^n(x-1)^{n+1}}{(n+1)y^{n+1}}.
+\]
+Se $x=2$ si ha $y>1$ e $(x-1)^{n+1}=1$ dunque
+il lato destro tende a zero per $n\to +\infty$ (attenzione che $y$ dipende anch'esso da $n$). Abbiamo quindi trovato la somma della serie armonica
+a segni alterni:
+\[
+  \sum_{k=1}^{+\infty} \frac{(-1)^{k-1}}{k} = \ln 2.
+\]
+\end{example}
 
 \begin{theorem}[formula di Taylor con resto di Peano]
 \label{th:taylor_peano}
@@ -2669,37 +2761,33 @@ formula~\eqref{eq:Taylor} allora $P$ è il polinomio di Taylor di $f$.
 \begin{proof}
 \mymark{**}
 Iniziamo come per la dimostrazione del teorema~\ref{th:taylor_lagrange}.
-Posto $R(x) = f(x)-P(x)$ dobbiamo
+dobbiamo
 mostrare che
 \[
-  \lim_{x\to x_0} \frac{R(x)}{(x-x_0)^n} = 0.
+  \lim_{x\to x_0} \frac{f(x)- P(x)}{(x-x_0)^n} = 0.
 \]
-Osserviamo che si ha $R^{(k)}(x_0) = f^{(k)}(x_0) - P^{(k)}(x_0) = 0$
-per ogni $k=0,1, \dots, n$. Anche la funzione $(x-x_0)^k$ si annulla
-per $x=x_0$.
-Dunque se $n>0$ si ha
-\[
-  \frac{R(x)}{(x-x_0)^n}  = \frac{R(x) - R(x_0)}{(x-x_0)^n - (x_0-x_0)^n}
-\]
-e possiamo applicare il teorema \ref{th:cauchy} di Cauchy ottenendo
+Posto $R(x) = f(x)-P(x)$
+osserviamo che si ha $R^{(k)}(x_0) =  0$ per $k=0,1, \dots, n$
+e lo stesso vale per la funzione $S(x) = (x-x_0)^n$.
+Dunque possiamo applicare il teorema~\ref{th:cauchy} di Cauchy ottenendo
 che esiste un punto $x_1\in[x_0,x]$ tale che
 \[
-  \frac{R(x)}{(x-x_0)^n} = \frac{R'(x_1)}{n(x_1-x_0)^n}.
+  \frac{f(x)-P(x)}{(x-x_0)^n} = \frac{f'(x_1)-P'(x_1)}{n(x_1-x_0)^n}.
 \]
 Possiamo iterare questo procedimento $n-1$ volte\footnote{%
 Se sapessimo che $f\in C^n(I)$ potremmo iterare $n$ volte e arrivare immediatamente al risultato
-in quanto $R^{(n)}(x_n)\to R^{(n)}(x_0) = 0$ per $x_n\to x_0$.
+in quanto $f^{(n)}(x_n)\to f^{(n)}(x_0) = 0$ per $x_n\to x_0$.
 Ma noi abbiamo supposto che la derivata $n$-esima esiste solamente nel punto $x_0$
 e quindi nell'ultimo passaggio dovremo utilizzare la definizione di derivata invece
 che il teorema di Cauchy.}
 ottenendo
-\[
-  \frac{R(x)}{(x-x_0)^n}
-  = \frac{R'(x_1)}{n(x_1-x_0)^n}
-  = \frac{R''(x_2)}{n(n-1)(x_2-x_0)^{n-2}}
-  = \dots
-  = \frac{R^{(n-1)}(x_{n-1})}{n!(x_{n-1}-x_0)}
-\]
+\begin{align*}
+  \frac{f(x) - P(x)}{(x-x_0)^n}
+  &= \frac{f'(x_1)-P'(x_1)}{n(x_1-x_0)^n}
+  = \frac{f''(x_2)-P''(x_2)}{n(n-1)(x_2-x_0)^{n-2}}
+  = \dots \\
+  &= \frac{f^{(n-1)}(x_{n-1}) - P^{(n-1)}(x_{n-1})}{n!(x_{n-1}-x_0)}
+\end{align*}
 con $x_1 \in [x_0,x]$, $x_2\in [x_0,x_1]$, \dots, $x_{n-1} \in [x_0,x_{n-2}]\subset[x_0,x]$.
 In particolare si avrà $x_{n-1}\to x_0$ per $x\to x_0$ e basterà
 quindi dimostrare che
