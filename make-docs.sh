@@ -2,6 +2,9 @@ out=README.md
 
 echo "writing file" ${out}
 
+# truncate
+echo "" > ${out}
+
 grep "%% README" chapters/AnalisiUno-00*.tex | cut -f1 -d"%" | sed "s/\\\\emph{\\([^}]*\\)}/\\*\\1\\*/g" >> ${out}
 
 out=docs/index.html
