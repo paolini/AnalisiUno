@@ -18,8 +18,8 @@ in modo che valgano le seguenti proprietà:
 \begin{enumerate}
   \item se $A\cap B=\emptyset$ allora $m(A\cup B) = m(A) + m(B)$ (additività);
   \item se $A \subset B$ allora $m(A) \le m(B)$ (monotonia);
-  \item se $A=[a_1,b_1]\times [a_2,b_2]$ (con $a_1\le b_1$, $a_2\le b_2$)
-  allora $m(A) = (b_1-a_1)\cdot (b_2-a_2)$ (normalizzazione).
+  \item se $A=[x_1,x_2]\times [y_1,y_2]$
+  allora $m(A) = \abs {x_2-x_1}\cdot \abs{y_2-y_1}$ (normalizzazione).
 \end{enumerate}
 
 Andremo a definire la misura $m$ su una famiglia di sottoinsiemi di $\RR^2$ che
@@ -27,7 +27,7 @@ chiameremo \emph{misurabili} secondo Peano-Jordan.
 Si potrebbe dimostrare che non è possibile definire $m$ su tutti i sottoinsiemi di $\RR^2$
 in modo che valgano le proprietà enunciate qui sopra.
 Sarebbe però possibile
-definire la misura su una classe molto più amplia di insiemi, imponendo inoltre
+definire la misura su una classe molto più amplia di insiemi di quelli che andremo a considerare noi, imponendo
 l'additività non solo su unioni finite ma anche su unioni numerabili
 ($\sigma$ additività).
 Quello che si otterrebbe
@@ -43,41 +43,46 @@ cioè
 \[
   R = I\times J
 \]
-con $a=\inf I>-\infty$,
-$b=\sup I<+\infty$,
-$c=\inf J > -\infty$,
-$d=\sup J < +\infty$.
+con $x_1=\inf I>-\infty$,
+$x_2=\sup I<+\infty$,
+$y_1=\inf J > -\infty$,
+$y_2=\sup J < +\infty$.
 
-Se $I=[a,b]$ e $J=[c,d]$ (con $a\le b$ e $c\le d$) allora,
+Se $I=[x_1,x_2]$ e $J=[y_1,y_2]$ allora,
 affinché valga la proprietà di normalizzazione,
-porremo:
+dovremo porre:
 \[
-  m([a,b]\times[c,d]) = (b-a)\cdot(c-d).
+  m([x_1,x_2]\times[y_1,y_2]) = \abs{x_2-x_1}\cdot\abs{y_2-y_1}.
 \]
 
-Se $I=(a,b)$ e $J=(c,d)$ sono intervalli aperti (e limitati) allora
-per ogni $\eps>0$ con $\eps<(b-a)/2$ e $\eps<(d-c)/2$ si ha
+Se $I=(x_1,x_2)$ e $J=(y_1,y_2)$ sono intervalli aperti (e limitati) allora
+per ogni $\eps>0$ con $\eps<(x_2-x_1)/2$ e $\eps<(y_2-y_1)/2$ si ha
 \[
-  [a+\eps,b-\eps] \subset (a,b)\times (c,d) \subset [a,b]\times [c,d]
+  [x_1+\eps,x_2-\eps] \times [y_1+\eps,y_2-\eps]
+  \subset (x_1,x_2)\times (y_1,y_2)
+  \subset [x_1,x_2]\times [y_1,y_2]
 \]
-da cui, per la proprietà di monotonia, si dovrà avere:
+da cui, affinché valga la proprietà di monotonia, si dovrà avere:
 \[
-  (b-a-2\eps)\cdot (c-d-2\eps) \le m((a,b)\times(c,d)) \le (b-a)\cdot (d-c).
+  (x_2-x_1-2\eps)\cdot (y_2-y_1-2\eps) \le m((x_1,x_2)\times(y_1,y_2)) \le \abs{x_2-x_1}\cdot \abs{y_2-y_1}.
 \]
-Ma affinché questo sia vero per ogni $\eps>0$ si dovrà porre:
+Ma affinché questo sia vero per ogni $\eps>0$ si dovrà necessariamente
+porre:
 \[
-  m((a,b)\times(c,d)) = (b-a)\cdot(c-d).
+  m((x_1,x_2)\times(y_1,y_2)) = \abs{x_2-x_1}\cdot\abs{y_2-y_1}.
 \]
-Lo stesso vale se gli intervalli sono semiaperti.
-Dunque l'area di un rettangolo non cambia se il rettangolo contiene
-o meno i segmenti che identificano i suoi lati.
+Lo stesso vale se gli intervalli sono semiaperti o comunque
+se consideriamo qualunque insieme $E$ tale che $(x_1,x_2)\times (y_1,y_2) \subset E \subset [x_1,x_2]\times[y_1,y_2]$.
+Dunque l'area di un rettangolo non cambia se aggiungiamo o togliamo punti
+dai suoi lati.
 
 Se un insieme $A\subset \RR^2$ può essere scritto come unione finita
 di rettangoli disgiunti:
 \[
   A = R_1 \cup R_2 \cup \dots \cup R_N
+  \qquad
+  R_i \cap R_j=\emptyset\text{ se } i\neq j
 \]
-$R_i \cap R_j=\emptyset$ se $i,j=1,\dots,N$, $i\neq j$
 diremo che $A$ è un \myemph{polirettangolo}.
 In tal caso per garantire l'additività dell'area
 porremo:
@@ -98,31 +103,55 @@ area sarà la somma delle aree dei rettangolini. Ma visto che le due
 decomposizioni si suddividono negli stessi rettangolini, le aree definite
 dalle due decomposizioni devono coincidere.
 
+\begin{figure}
+  \hfill
+  \subcaptionbox{}
+  {\begin{tikzpicture}[x=0.5cm, y=0.5cm]
+      \draw[thick] (1,1) -- (5,1) -- (5,3) -- (3,3) -- (3,4) -- (1,4) -- (1,1);
+      \draw (1,2) -- (3,2);
+      \draw (3,1) -- (3,3);
+  \end{tikzpicture}}
+  \hfill
+  \subcaptionbox{}
+  {\begin{tikzpicture}[x=0.5cm, y=0.5cm]
+      \draw[thick] (1,1) -- (5,1) -- (5,3) -- (3,3) -- (3,4) -- (1,4) -- (1,1);
+      \draw (1,3) -- (3,3);
+      \draw (2,1) -- (2,3);
+  \end{tikzpicture}}
+  \hfill
+  \subcaptionbox{}
+  {\begin{tikzpicture}[x=0.5cm, y=0.5cm]
+      \draw[thick] (1,1) -- (5,1) -- (5,3) -- (3,3) -- (3,4) -- (1,4) -- (1,1);
+      \draw (1,2) -- (5,2);
+      \draw (1,3) -- (3,3);
+      \draw (2,1) -- (2,4);
+      \draw (3,1) -- (3,4);
+  \end{tikzpicture}}
+  \hfill\mbox{}
+  \caption{Lo stesso polirettangolo si può ottenere
+  come due diverse unioni di rettangoli: (a), (b). Prendendo in considerazione
+  tutte le rette che contengono i lati di tutti i rettangoli coinvolti si
+  ottiene una suddivisione (c) per cui ogni rettangolo in (a) o in (b) è unione di rettangoli in (c).}
+\end{figure}
+
 Per lo stesso motivo risulta chiaro che se $A$ e $B$ sono due polirettangoli
-anche $A\cup B$ e $A \cap B$ sono polirettangoli e risulta
-\[
-  m(A \cup B) = m(A) + m(B) - m(A\cap B).
-\]
+anche $A\cup B$, $A \cap B$, $A\setminus B$  e $B\setminus A$ sono polirettangoli e risulta
+\begin{equation}\label{eq:48474624}
+  m(A \cup B) = m(A\setminus B) + m(A\cap B) + m(B\setminus A).
+\end{equation}
 Infatti è possibile trovare una famiglia di rettangolini (quelli identificati
 dalla griglia di tutte le rette contenenti i lati dei rettangoli di $A$ e dei rettangoli di $B$)
-che sono tra loro disgiunti e tali che $A\cap B$, $A\setminus B$ e $B\setminus A$
+che sono tra loro disgiunti e tali che
+$A\cap B$, $A\setminus B$ e $B\setminus A$
 possono essere scritti come unione di questi rettangolini. Questi insiemi
 sono tra loro disgiunti e quindi, scrivendo l'area di ognuno come la somma delle
-aree dei rettangoli, si trova che:
-\begin{gather*}
-  m(A) = m(A\cap B) + m(A\setminus B),
-  \qquad
-  m(B) = m(A\cap B) + m(B\setminus A),
-  \\
-  m(A\cup B) = m(A\setminus B) + m(A\cap B) + m (B\setminus A)
-\end{gather*}
-da cui si ottiene il risultato voluto.
+aree dei rettangoli, si trova~\eqref{eq:48474624}.
 
-Se ora prendiamo un insieme $A\subset \RR^2$ qualunque
+Se ora prendiamo un insieme $E\subset \RR^2$ qualunque
 e imponiamo che valga la proprietà di monotonia,
-dovremo avere che $m(A)$, se è definibile, deve
+dovremo avere che $m(E)$, se è definibile, deve
 essere l'elemento di separazione tra le misure
-dei polirettangoli contenuti in $A$ e di quelli contenenti $A$.
+dei polirettangoli contenuti in $E$ e di quelli contenenti $E$.
 Si giustifica quindi la seguente.
 
 \begin{definition}[misura di Peano-Jordan]
@@ -131,64 +160,24 @@ Si giustifica quindi la seguente.
 \index{misura!di Peano-Jordan}%
 \index{Peano-Jordan!misura di}%
 \index{Jordan!misura di}%
-Sia $A\subset \RR^2$ un insieme limitato. Definiamo:
+Sia $E\subset \RR^2$ un insieme limitato. Definiamo:
 \begin{align*}
-m^*(A) &= \inf\ENCLOSE{m(P)\colon \text{$P\supset A$, $P$ polirettangolo}}, \\
-m_*(A) &= \sup\ENCLOSE{m(P)\colon \text{$P\subset A$, $P$ polirettangolo}}.
+m^*(E) &= \inf\ENCLOSE{m(P)\colon \text{$P\supset A$, $P$ polirettangolo}}, \\
+m_*(E) &= \sup\ENCLOSE{m(P)\colon \text{$P\subset A$, $P$ polirettangolo}}.
 \end{align*}
 
-Visto che $A$ è limitato si ha $m^*(A)<+\infty$ e visto che $\emptyset \subset A$
+Visto che $E$ è limitato (dunque è contenuto in un rettangolo limitato)
+si ha $m^*(E)<+\infty$ e visto che $\emptyset \subset E$
 e $m(\emptyset)=0$ (l'insieme vuoto $\emptyset = (a,a) \times (c,c)$ è un
-polirettangolo di area nulla) si ha $m_*(A)\ge 0$. Inoltre $m_*(A)\le m^*(A)$
-in quanto ogni polirettangolo contenuto in $A$ è contenuto, e quindi ha area non superiore,
-ad ogni polirettangolo contenente $A$.
+polirettangolo di area nulla) si ha $m_*(E)\ge 0$. Inoltre $m_*(E)\le m^*(E)$
+in quanto ogni polirettangolo contenuto in $E$ è contenuto, e quindi ha area non superiore, ad ogni polirettangolo contenente $E$.
 
-Se $m^*(A) = m_*(A)$ diremo che $A$ è \myemph{misurabile} secondo Peano-Jordan
-e definiremo $m(A) = m^*(A) = m_*(A)$ la sua misura di Peano-Jordan.
+Se $m^*(E) = m_*(E)$ diciamo che $E$ è \myemph{misurabile} secondo Peano-Jordan
+e poniamo $m(E) = m^*(E) = m_*(E)$ la sua misura di Peano-Jordan.
 \end{definition}
 
-*** MI SERVE LA TOPOLOGIA DI $\\R^n$ !!! ****
-
-\begin{theorem}[proprietà degli insiemi misurabili]
-  Se $A\subset \RR^2$ è un insieme limitato, $A$ è misurabile secondo
-  Peano-Jordan se e solo se $m^*(\partial A)=0$.
-  Se $A$ e $B$ sono insiemi limitati e misurabili secondo Peano-Jordan,
-  allora anche $A\cup B$, $A\cap B$, $A\setminus B$ e $B\setminus A$
-  sono insiemi limitati e misurabili secondo Peano-Jordan, inoltre
-  risulta
-  \[
-    m(A\cup B) = m(A) + m(B) - m(A\cap B).
-  \]
-\end{theorem}
-%
-\begin{proof}
-**** DA COMPLETARE ***
-
-
-Se $A$ e $B$ sono misurabili significa che per ogni $\eps>0$ esistono
-dei polirettangoli $A_*$, $A^*$, $B_*$ e $B^*$ con $A_* \subset A \subset A^*$,
-$B_* \subset B \subset B^*$
-tali che $m(A^*)-m(A_*)\le \eps$ e $m(B^*)-m(B_*)\le \eps$.
-Considerando la griglia formata da tutte le rette che contengono lati
-dei rettangolini che formano i polirettangoli presi in considerazione si ottiene
-una suddivisione del piano che identifica dei rettangolini disgiunti $R_{j,k}$
-con i quali è possibile comporre tutti e quattro i polirettangoli considerati.
-
-Inoltre è possibile considerare il polirettangolo $P_*$ di tutti i rettangolini $R_{j,k}$
-contenuti in $A\cap B$, il polirettangolo $P^*$ formato da tutti i rettangolini
-che intersecano $R_{j,k}$ e, analogamente, i polirettangoli $Q_*$ e $Q^*$ formati
-dai rettangolini contenuti in $A\cup B$ e da quelli che intersecano $A\cup B$.
-
-Chiaramente ogni rettangolino contenuto in $A\cap B$ è contenuto
-sia in $A_*$ che in $B_*$.
-
-\end{proof}
-
-E' chiaro che se $P$ è un polirettangolo allora $m^*(P) = m_*(P)$ in quanto
-$P$ stesso può essere preso in considerazione sia come polirettangolo contenente
-$P$ che come polirettangolo contenuto in $P$. Dunque certamente i polirettangoli
-sono esempi di insiemi misurabili.
-
+Ora è chiaro che i rettangoli e i polirettangoli sono in particolare insiemi
+misurabili e dunque la misura di Peano-Jordan soddisfa le proprietà *******
 
 \begin{theorem}
 Sia $A\subset \RR^2$ e sia $L\colon \RR^2\to\RR^2$ una trasformazione
