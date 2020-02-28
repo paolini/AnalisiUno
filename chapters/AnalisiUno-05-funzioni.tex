@@ -1089,6 +1089,8 @@ Questo esempio mostra che nei criteri di monotonia l'ipotesi che il dominio sia 
 \end{example}
 
 \begin{exercise}
+\index{problema!della lattina}%
+\index{lattina!problema della}%
 Determinare base e altezza di una lattina cilindrica di volume $33 cl$
 che a parità di volume ha la minima superficie totale.
 \end{exercise}
@@ -1219,7 +1221,7 @@ proprietà in forma di tabella, come segue.
 Cerchiamo di determinare il segno di $f''$ agli estremi degli intervalli su
 cui $f''$ è monotona.
 Per $x\to -\infty$ si ha $f''(x)\to +\infty$, per $x\to +\infty$ si ha $f''(x)\to +\infty$
-e per $x=\ln 6$ si ha $f(\ln 6)=6-6\ln 6 < 0$.
+e per $x=\ln 6$ si ha $f''(\ln 6)=6-6\ln 6 < 0$.
 Dunque sui due intervalli $(-\infty,\ln 6]$ e $[\ln 6,+\infty]$ la funzione $f''$
 è strettamente monotona e cambia segno. Per il teorema degli zeri tale funzione
 si annulla in ognuno dei due intervalli e per la stretta monotonia si annulla
@@ -1393,7 +1395,7 @@ Risulta
 Dunque $f''(x) > 0$ per $x > 1$ e $f''(x)< 0$ per $x<1$.
 Dunque per i criteri di monotonia
 $f'$ è strettamente crescente su $[1,+\infty)$ e strettamente
-decrescente su $(-\infty, 0]$. Visto che $f'(1)=0$ risulta quindi che
+decrescente su $(-\infty, 1]$. Visto che $f'(1)=0$ risulta quindi che
 $f'(x)\ge 0$ per ogni $x\in \RR$ e $f'(x)=0$ solo per $x=1$.
 Dunque $f$ è crescente per il criterio di monotonia ma anche
 strettamente crescente perché se fosse crescente ma non strettamente
@@ -2737,6 +2739,24 @@ a segni alterni:
 \]
 \end{example}
 
+Nel teorema seguente utilizzeremo una nuova notazione. Scriveremo
+\[
+  f(x) = P(x) + o(g(x)), \qquad \text{per $x\to x_0$}
+\]
+(si legga: ``$f(x)$ è uguale a $P(x)$ più un $o$-piccolo di $g(x)$'')
+se risulta
+\[
+  f(x) - P(x) \ll g(x)
+  \qquad\text{ovvero}\qquad
+  \lim_{x\to x_0} \frac{f(x)-P(x)}{g(x)} = 0.
+\]
+cioè la quantità $o(g(x))$ rappresenta una funzione incognita
+che però sappiamo essere trascurabile (nel senso appena descritto)
+della funzione $g(x)$.
+Questa notazione è molto comoda ma va utilizzata con cautela:
+ci dedicheremo il capitolo~\ref{sec:landau} a cui rimandiamo
+per maggiori dettagli.
+
 \begin{theorem}[formula di Taylor con resto di Peano]
 \label{th:taylor_peano}
 \mymark{***}%
@@ -2992,6 +3012,7 @@ Si ottengono quindi i coefficienti:
 \end{proof}
 
 \section{operazioni con i simboli di Landau}
+\label{sec:landau}
 
 Le
 \index{simboli di Landau}%
@@ -3245,16 +3266,50 @@ $a_k$ è decrescente. Si può quindi applicare il criterio di Leibniz e
 concludere che la serie è convergente per ogni $\alpha >0$.
 \end{proof}
 
+\begin{exercise}
+  Dimostrare che la seguente serie è convergente:
+  \[
+    \sum_k \sqrt{k} \enclose{k\tg{\frac 1 k} - \cos \frac 1 k}.
+  \]
+\end{exercise}
+\begin{proof}[Soluzione.]
+In questo esercizio utilizziamo la nozione di $O$-grande (ma l'esercizio potrebbe essere risolto anche utilizzando gli $o$-piccolo, come al solito).
+Per $x\to 0$ si ha\footnote{qui sfruttiamo il fatto che lo sviluppo di Taylor del terzo ordine esiste e usando la notazione degli $O$-grande evitiamo di doverci ricordare qual è il coefficiente $c=\frac 1 3$ che compare nella formula}:
+\[
+  \tg x = x + c x^3 + o(x^3) = x + O(x^3)
+\]
+e analogamente
+\[
+  \cos x = 1 + O(x^2)
+\]
+da cui
+\[
+  \frac{\tg x}{x} - \cos x = O(x^2).
+\]
+Dunque per $k\to +\infty$ si ha
+\[
+  a_k = \sqrt{k} \enclose{k\tan{\frac 1 k} - \cos \frac 1 k}
+   = \sqrt{k} \cdot O\enclose{\frac 1 {k^2}} = O\enclose{\frac 1 {k^{\frac 3 2}}}.
+\]
+Significa che per $k$ sufficientemente grande esiste una costante $C$
+per cui
+\[
+  a_k \le \frac{C}{k^{\frac 3 2}}.
+\]
+Siccome sappiamo che la serie $\sum \frac{1}{k^p}$ è convergente
+se $p>1$ per il criterio del confronto $\sum a_k$ (che è una serie a termini positivi) è anch'essa convergente.
+\end{proof}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{funzioni analitiche}
+\index{funzione!analitica}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 Nel capitolo sulle serie di potenze abbiamo studiato le serie di potenze
 della forma
@@ -3349,7 +3404,7 @@ come somma di una serie di potenze (centrata in $x=0$) di raggio infinito
 e dunque risultano essere funzioni analitiche su tutto $\RR$.
 
 \begin{theorem}[Sviluppabilità in serie di Taylor]
-\label{th:48765}
+\label{th:48765}%
 Se $f\colon A\subset \RR\to\RR$ è una funzione analitica allora
 $f\in \C^\infty(A)$ e per ogni $x_0\in A$ esiste $R>0$, tale che
 per ogni $x \in (x_0-R, x_0+R)\subset A$ risulta
@@ -3482,7 +3537,7 @@ Dunque la funzione
 \]
 è definita per ogni $x\in(-1,1)$.
 Grazie al teorema~\ref{th:488456367} la funzione $f$ è sviluppabile
-in serie di potenze nell'intorno di ogni punto dell'intervallo $(-1.1)$
+in serie di potenze nell'intorno di ogni punto dell'intervallo $(-1,1)$
 e dunque è una funzione analitica su tale intervallo. Inoltre la sua
 derivata ha come sviluppo la serie delle derivate:
 \[
@@ -3517,7 +3572,7 @@ Dunque $u'(x)=0$ e $f(x) = (1+x)^\alpha$ per ogni $x\in(-1,1)$, come
 volevamo dimostrare.
 \end{proof}
 
-Non basta quindi che una funzione sia di classe $C^\infty$ per garantire
+Non basta che una funzione sia di classe $C^\infty$ per garantire
 che sia anche analitica e quindi non è ovvio il seguente.
 
 \begin{theorem}[criterio di analiticità]
@@ -3537,7 +3592,7 @@ Allora $f$ è analitica in $A$.
 Fissiamo $x_0\in A$.
 Dobbiamo dimostrare che in un intorno di $x_0$ è possibile
 scrivere $f$ come somma di una serie di potenze $\sum a_k (x-x_0)^k$.
-Necessariamente, per il teorema precedente, la serie
+Necessariamente, per il teorema~\ref{th:48765}, la serie
 di potenze dovrà essere la serie di Taylor, cioè vogliamo dimostrare che
 esiste $\rho>0$ tale che se $\abs{x-x_0}< \rho$ si ha
 \[
