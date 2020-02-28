@@ -180,70 +180,134 @@ e poniamo $m(E) = m^*(E) = m_*(E)$ la sua misura di Peano-Jordan.
 Se $E$ e $F$ sono Peano-Jordan misurabili allora anche
 $E\cup F$, $E\setminus F$, $F\setminus E$, $E\cap F$
 sono Peano-Jordan misurabili e risulta
-\[
-  m(E\cup F) = m(E\setminus F) + m(E\cap F) + m(F\setminus E)
-\]
-o equivalentemente
-\[
-  m(E\cup F) + m(E\cap F) = m(E) + m(F).
-\]
-In particolare si deduce che la misura di Peano-Jordan è additiva e monotona.
-Inoltre se $E=[x_1,x_2]\times [y_1,y_2]$ allora $E$ è Peano-Jordan misurabile
-e risulta
-\[
-  m(E) = \abs{x_2-x_1} \cdot \abs{y_2-y_1}.
-\]
+\begin{align*}
+  m(E\cup F)
+  &= m(E\setminus F) + m(E\cap F) + m(F\setminus E)\\
+  &= m(E) + m(F) - m(E\cap F).
+\end{align*}
 \end{theorem}
 %
 \begin{proof}
+Osserviamo che un insieme $E$ è misurabile se e solo se
+per ogni $\eps>0$ esistono dei polirettangoli $E_*, E^*$
+con $E_* \subset E \subset E^*$ tali che $m(E^*)-m(E_*)<\eps$
+(basta utilizzare la caratterizzazione di estremo superiore e inferiore).
+
 \begin{figure}
   \centering\input{figurePJ}
   \caption{Gli insiemi $E$ ed $F$ e i polirettangoli approssimanti dall'interno e dall'esterno. Le apporssimanti possono essere scelte in modo che la cornice tra i polirettangoli esterni ed interni abbia area minore di un qualunque $\eps>0$.}
+  \label{fig:PeanoJordan}
 \end{figure}
-
+Dunque nelle nostre ipotesi per ogni
+$\eps>0$ esistono dei polirettangoli $E^*$, $E_*$, $F^*$, $F_*$
+tali che
+\[
+   E_* \subset E \subset E^*, \qquad
+   F_* \subset F \subset F^*
+\]
+con
+\[
+  m(E^*)-m(E_*) < \eps,\qquad
+  m(F^*)-m(F_*) < \eps.
+\]
+Possiamo allora approssimare gli insiemi $E\cap F$, $E\cup F$ e $E\setminus F$ dall'interno e dall'esterno con polirettangoli:
+\begin{gather*}
+  E_*\cap F_* \subset E\cap F \subset E^*\cap F^*, \\
+  E_*\cup F_* \subset E\cup F \subset E^* \cup F^*, \\
+  E_* \setminus F^* \subset E\setminus F \subset E^*\setminus F_*.
+\end{gather*}
+Le differenze tra gli approssimanti esterni e gli approssimanti
+interni è sempre contenuta nell'unione
+delle cornici $\Delta = (E^*\setminus E_*)\cup (F^*\setminus F_*)$
+(si faccia riferimento alla figura~\ref{fig:PeanoJordan}):
+\begin{align*}
+  (E^*\cap F^*) \setminus (E_* \cap F_*) \subset \Delta \\
+  (E^*\cup F^*) \setminus (E_*\cup F_*) \subset \Delta \\
+  (E^*\setminus F_*) \setminus (E_* \setminus F^*) \subset \Delta
+\end{align*}
+e dunque essendo $m(\Delta)<2\eps$ ed essendo $\eps>0$ arbitrario
+possiamo concludere che gli insiemi $E\cap F$, $E\cup F$ ed $E\setminus F$ sono misurabili.
+Con le stesse considerazioni si può facilmente verificare
+che l'unione dei polirettangoli disgiunti
+$E_*\setminus F^*$ e $E_*\cap F_*$ differisce dal polirettangolo
+$E_*$ per un insieme di misura minore di $\eps$ e dunque, passando al limite per $\eps\to 0$ si ottiene:
+\[
+  m(E\setminus F) + m(E\cap F) = m(E).
+\]
+Invertendo i ruoli di $E$ ed $F$ si ottiene che anche $F\setminus E$
+è misurabile e vale la relazione analoga. Con considerazioni del
+tutto simili si ottiene
+\[
+  m(E\cup F) = m(E) + m(F\setminus E).
+\]
+Di conseguenza si ottengono le uguaglianza enunciate nel teorema.
 \end{proof}
 
-
 \begin{theorem}
-Sia $A\subset \RR^2$ e sia $L\colon \RR^2\to\RR^2$ una trasformazione
-lineare affine:
+Sia $E\subset \RR^2$ e sia $L\colon \RR^2\to\RR^2$ una trasformazione
+lineare omogenea:
 \[
-  L(x,y) = M\cdot \begin{pmatrix}x \\ y\end{pmatrix}+\begin{pmatrix}x_0 \\ y_0\end{pmatrix}
+  L(x,y) = M\cdot \begin{pmatrix}x \\ y\end{pmatrix}\begin{pmatrix}x_0 \\ y_0\end{pmatrix}
 \]
 con $M$ matrice $2\times 2$ e $(x_0 ,y_0)\in \RR^2$.
-Allora se $A$ è misurabile secondo Peano-Jordan anche $L(A)$ lo è.
+Allora se $E$ è misurabile secondo Peano-Jordan anche $L(E)$ lo è.
 E in tal caso si ha
-\[
-  m(L(A)) = \abs{\det M} \cdot m(A).
-\]
+\begin{equation}\label{eq:formula_area}
+  m(L(E)) = \abs{\det M} \cdot m(E).
+\end{equation}
 \end{theorem}
 %
 \begin{proof}
+
+Osserviamo innanzitutto che è sufficiente verificare
+quello che succede nel caso in cui $E$ sia un rettangolo.
+Infatti un generico insieme misurabile $E$ può essere approssimato,
+per ogni $\eps>0$ con polirettangoli $E^\pm$ con $E^-\subset E \subset E^+$ e $m(E^+) - m(E^-) < \eps$.
+Supponiamo che $R^+_k$, $k=1,\dots, N$ siano i rettangoli che compongono $E^+$ e $R^-_k$, $k=1,\dots, M$ siano i rettangoli che compongono $E^-$.
+Se sappiamo che la trasformazione $L$ manda rettangoli in insiemi
+misurabili e se sappiamo che sui rettangoli vale $m(L(R_k^\pm)) = c \cdot m(R_k^\pm)$
+(per una qualche costante $c\ge 0$) allora si deduce che $L(R_k^+)$ può essere approssimato dall'esterno con un polirettangolo
+$F_k^+$ in modo che risulti $m(F_k^+) - m(L(R_k^+)) < \eps/N$ mentre $L(R_k^-)$ può essere approssimato dall'interno con un polirettangolo $F_k^-$ in modo che si abbia $m(L(R_k^-))-m(F_k^-) < \eps/M$. Facendo l'unione $F^+ = F_1^+ \cup \dots \cup F_N^+$
+e $F^- = F_1^- \cup \dots \cup F_M^-$ si ottengono dei polirettangoli tali che $F^- \subset L(E)\subset F^+$ e
+$m(F^+) - m(F^-) < (c\cdot  m(E^+) + \eps) - (c \cdot m(E^-) -\eps)
+< (c+1) \eps$. Essendo $\eps>0$ arbitrario si deduce
+che $F=L(E)$ è misurabile e $m(L(E)) = c\cdot  m(E)$.
+
+
 \emph{Passo 1.}
-Supponiamo che sia $A=[a,b]\times[c,d]$ (un rettangolo)
-e $L(x,y) = (\lambda x,\mu y)$  (una trasformazione diagonale).
-Se $\lambda\ge 0$ e $\mu\ge 0$ allora $L(A) = [\lambda a,\lambda b]\times [\mu c, \mu d]$ e dunque
-$m(L(A)) = (\lambda b- \lambda a)\cdot (\mu d - \mu c)= \lambda \mu (b-a)\cdot(d-c) = \lambda \mu m(A)$.
-Visto che in questo caso $M$ è diagonale e $\det M=\lambda \mu$
-abbiamo ottenuto la formula richiesta.
-Se $\lambda<0$ o $\mu<0$ si osserva che cambiando segno ad una o ad
-entrambe le coordinate il rettangolo non cambia la sua misura,
-dunque ci si riconduce al caso precedente. Ma in questo caso si
-ha comunque $\abs{\det M} = \abs{\lambda}\cdot\abs{\mu}$ e quindi
-di nuovo otteniamo il risultato voluto.
+Supponiamo che sia
+$L(x,y) = (\lambda x,\mu y)$  (una trasformazione lineare diagonale).
+Se $E$ è un rettangolo $E=[x_1,x_2]\times[y_1,y_2]$
+allora se $\lambda\ge 0$, $\mu\ge 0$ allora $L(E) = [\lambda x_1, \lambda x_2] \times [\mu y_1, \mu y_2]$
+e chiaramente $m(L(E)) = \lambda (x_2-x_1) \mu (y_2-y_1) = \lambda \mu m(E)$. Visto che $\det L = \lambda \mu$ abbiamo ottenuto il risultato voluto.
+Se $\lambda$ o $\mu$ hanno segno negativo
+gli estremi degli intervalli si possono
+scambiare e in tal caso si ottiene $m(L(E)) = \abs{\lambda}\abs{x_2-x_1} \cdot \abs{\mu} \cdot \abs{y_2-y_1}$ e quindi, come
+voluto, $m(L(E))=\abs{\det L} \cdot m(E)$.
+
+Una eventuale componente di traslazione $(x_0,y_0)$ non ha nessuna
+rilevanza e non la considereremo mai nel seguito in quanto i rettangoli traslati mantengono la stessa misura.
 
 \emph{Passo 2.}
-Supponiamo che sia $A=[a,b]\times[c,d]$ e $L(x,q)=(x,mx+q)$
+Supponiamo che sia $L(x,y) = (y,x)$ (la riflessione rispetto alla retta $y=x$). Questa trasformazione ha matrice associata $M=\begin{pmatrix}0&1\\1&0\end{pmatrix}$ che ha determinante
+$-1$. Analiticamente scambia tra loro le coordinate $x$ ed $y$.
+E' quindi immediato verificare che i rettangoli vengono mandati
+in rettangoli con base e altezza scambiata e dunque la misura di
+Peano-Jordan (e la misurabilità) rimangono invariate.
+Dunque il teorema è banalmente valido in questo caso.
+
+\emph{Passo 3.}
+Supponiamo che sia $E=[a,b]\times[c,d]$ e $L(x,q)=(x,mx+q)$
 con $m\in \RR$ fissato.
 (stiamo utilizzando le coordinate $(x,q)$ nel dominio di $L$
 e le coordianate $(x,y)$ nel codominio).
 Allora
 \[
-  L(A) = \{(x,y)\in \RR^2\colon x\in[a,b], mx+c \le y \le mx+d\}
+  L(E) = \{(x,y)\in \RR^2\colon x\in[a,b], mx+c \le y \le mx+d\}
 \]
 è un parallelogramma. Supponiamo per fissare le idee che sia $m\ge 0$.
 Per ogni $n\in \NN$ posso affettare l'insieme
-$L(A)$ con le rette verticali $x_k = a+\frac{k}{n}(b-a)$ e posso
+$L(E)$ con le rette verticali $x_k = a+\frac{k}{n}(b-a)$ e posso
 identificare i rettangoli, per $k=1,\dots, n$:
 \begin{align*}
    R_{k,n}^-
@@ -272,20 +336,72 @@ Ma è facile calcolare le misure di questi polirettangoli:
 ma visto che per $n\to +\infty$ si ha $m(P^-_n)\to (b-a)\cdot(d-c)$
 e $m(P^+_n) \to (b-a)\cdot(d-c)$ e visto che si ha
 \[
-  m(P^-_n)\le m_*(L(A))\le m^*(L(A)) \le m(P^+_n)
+  m(P^-_n)\le m_*(L(A))\le m^*(L(E)) \le m(P^+_n)
 \]
-otteniamo che $L(A)$ è misurabile e $m(L(A)) = (b-a)\cdot(d-c) = m(A)$.
+otteniamo che $L(E)$ è misurabile e $m(L(E)) = (b-a)\cdot(d-c) = m(E)$.
 La matrice associata ad $L$ è $M=\begin{pmatrix}1 & 0 \\ m & 1 \end{pmatrix}$
 e dunque $\det M = 1$. Abbiamo quindi trovato il risultato voluto.
 
-\emph{Passo 2.}
-Se
+\emph{Passo 4.}
+Sia $L$ una qualunque applicazione lineare che si ottiene come
+composizione delle applicazioni considerate in precedenza: $L= L_1 \circ L_2\circ  \dots \circ L_n$. Allora per quanto già visto sappiamo
+che se $E$ è un qualunque insieme Peano-Jordan misurabile risulta
+\[
+L(E) = L_n(\dots(L_2(L_1(E)))\dots)
+     = \abs{\det L_n} \cdots \abs{\det L_2} \cdot \abs{\det L_1} \cdot m(E)
+\]
+e dunque anche $L(E)$ è Peano-Jordan misurabile e visto che
+\[
+ \abs{\det L} = \abs{\det L_n} \cdots \abs{\det L_1}
+\]
+la formula~\eqref{eq:formula_area} è verificata.
 
+\emph{Passo 5.}
+Per concludere la dimostrazione è dunque sufficiente
+verificare che ogni trasformazione lineare si può scrivere come composizione delle trasformazioni già considerate.
+In generale il teorema può essere formulato in dimensione qualunque (in $\RR^n$ invece che $\RR^2$) e la dimostrazione procede esattamente nello stesso modo considerando solo trasformazioni che coinvolgono due coordinate. La trasformazione che scambia due coordinate (passo 2) è rappresentata da una matrice che se moltiplicata a sinistra di una matrice generica $M$ ne scambia le righe, se moltiplicata a destra ne scambia le colonne. La trasformazione del passo 3 se applicata a sinistra somma ad una riga il multiplo di un'altra riga, se applicata a destra somma ad una colonna il multiplo di un'altra colonna.
+Tramite il metodo di riduzione di Gauss (riduzione completa) è possibile trasformare ogni matrice utilizzando solamente queste trasfromazioni in modo da mantenere invariato il modulo del determinante e rendere la matrice diagonale. A quel punto ci siamo ricondotti al passo 1.
+
+Nel caso planare $n=2$ che stiamo considerando possiamo fare esplicitamente la riduzione di Gauss. Supponiamo che la trasformazione lineare $L$ sia associata ad una matrice generica:
+\[
+  M = \begin{pmatrix} a&b\\c&d\end{pmatrix}.
+\]
+A meno di scambiare righe e colonne possiamo supporre che sia $a\neq 0$ (se tutti gli elementi fossero nulli avremmo $M=0$ che è già in forma diagonale). Allora moltiplichiamo la seconda riga per un multiplo $m$ della prima in modo da annullare il termine $b$:
+\[
+\begin{pmatrix} 1&0\\m&1\end{pmatrix}\cdot
+    \begin{pmatrix} a&b\\c&d\end{pmatrix}
+  =
+  \begin{pmatrix} a&b\\c+ma&d+mb\end{pmatrix}
+\]
+scegliendo $m=-\frac c a$
+e ponendo $d'=d+mb$
+abbiamo ottenuto la matrice:
+\[
+\begin{pmatrix} a&b\\0&d'\end{pmatrix}.
+\]
+Ora osserviamo che
+\[
+      \begin{pmatrix} 0&1\\1&0\end{pmatrix}\cdot
+      \begin{pmatrix} 1&0\\k&1\end{pmatrix}\cdot
+      \begin{pmatrix} 0&1\\1&0\end{pmatrix}
+      =
+      \begin{pmatrix} 1&k\\0&1\end{pmatrix}\cdot
+\]
+Dunque possiamo utilizzare anche quest'ultima matrice
+moltiplicandola a destra:
+\[
+\begin{pmatrix} a&b\\0&d'\end{pmatrix}\cdot
+  \begin{pmatrix} 1&k\\0&1\end{pmatrix}
+  =
+  \begin{pmatrix} a&ak+b\\0&d'\end{pmatrix}
+\]
+dunque scegliendo $k=-\frac b a$ si ottiene finalmente
+una matrice diagonale.
 \end{proof}
 
 L'integrale di Riemann, che andremo a definire
 nella prossima sezione, ci permetterà di osservare che ogni figura geometrica
-delimitata da una curva continua (in un senso da precisare) risulta
+delimitata dal grafico di una curva continua risulta
 essere misurabile secondo Peano-Jordan. Inoltre il calcolo integrale ci permetterà
 di determinare l'area di tali figure in modo piuttosto semplice.
 
