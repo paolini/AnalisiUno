@@ -15,14 +15,14 @@ figurePJA.pdf: figurePJ_standalone.tex figurePJ.tex
 	mv figurePJ_standalone.pdf $@
 
 figurePJA.tif: figurePJA.pdf
-	pdftoppm $< figurePJA -tiff -singlefile -mono
+	pdftoppm $< figurePJA -r 600 -tiff -singlefile -mono
 
 figurePJB.pdf: figurePJ_standalone.tex figurePJ.tex
 	pdflatex "\\def\\figurePJB{1} \\input{$<}"
 	mv figurePJ_standalone.pdf $@
 
 figurePJB.tif: figurePJB.pdf
-	pdftoppm $< figurePJB -tiff -singlefile -mono
+	pdftoppm $< figurePJB -r 600 -tiff -singlefile -mono
 
 figurePJAinside.tex: polyrectangle.py figurePJA.tif
 	python $^ inside 61 50 > $@
