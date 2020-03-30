@@ -1118,8 +1118,9 @@ e di conseguenza (sempre grazie al teorema~\ref{th:additivita_integrale})
 
 \section{teorema fondamentale del calcolo integrale}
 
-\begin{theorem}[del valor medio]
-\mymark{***}
+\begin{theorem}[del valor medio]%
+\label{th:media_integrale}%
+\mymark{***}%
 Siano $a,b\in \RR$, $a<b$ e sia
 $f\colon [a,b] \to \RR$ una funzione continua.
 Allora esiste un punto $y \in (a,b)$
@@ -2467,9 +2468,10 @@ che $f$ sia limitata e Riemann-integrabile su $[\alpha,\beta]$.
 \begin{remark}
 Se $f\colon A \to \RR$ è una funzione continua, allora su ogni
 intervallo $[\alpha,\beta]\subset A$ la funzione $f$ risulta essere continua
-e quindi Riemann-integrabile per il teorema~\ref{th:integrabilita_continue}.
-Lo stesso vale per le funzioni monotone: grazie al teorema~\ref{th:integrabilita_monotone}
-sappiamo che una funzione monotona e
+e quindi limitata e Riemann-integrabile per il teorema~\ref{th:integrabilita_continue}.
+Lo stesso vale per le funzioni monotone:
+grazie al teorema~\ref{th:integrabilita_monotone}
+sappiamo che una funzione monotona è limitata e
 Riemann-integrabile su ogni intervallo $[\alpha,\beta]$ dunque anch'essa
 è localmente Riemann-integrabile. Sarà molto raro avere a che fare con
 funzioni localmente Riemann-integrabili che non si riconducono
@@ -2528,6 +2530,7 @@ Se l'integrale improprio $\int_a^b f(x)\, dx$ esiste ed è finito
 la funzione $f$ è
 \mynote{integrabile}
 \emph{integrabile in senso improprio}
+(o \emph{integrabile in senso generalizzato})
 e diremo che l'integrale \emph{converge}.
 \mynote{convergente}%
 \index{congergenza!integrale}%
@@ -3240,6 +3243,168 @@ ovvero
 Nella sezione seguente daremo la formula di Stirling: una stima asintotica più
 precisa (ma molto più complicata
 da dimostrare) del fattoriale.
+\end{example}
+
+\section{studio di funzioni integrali}
+
+\begin{theorem}[derivata di una funzione integrale]
+Sia $I\subset \RR$ un intervallo e $f\colon I \to \RR$
+una funzione localmente Riemann-integrabile.
+Siano $a,b\colon A \to I$ funzioni definite
+su un insieme $A \subset \RR$.
+Allora è ben definita la funzione $F\colon A \to \RR$
+\[
+  F(x) = \int_{a(x)}^{b(x)} f(t)\, dt.
+\]
+Se inoltre $f$ è continua e se $a,b$ sono derivabili
+allora anche $F$ è derivabile e si ha
+\[
+  F'(x) = f(b(x)) \cdot b'(x) - f(a(x)) \cdot a'(x).
+\]
+\end{theorem}
+%
+\begin{proof}
+Per le ipotesi enunciate per ogni $x\in A$ risulta
+che $f$ è integrabile sull'intervallo $[a(x),b(x)]$
+e dunque la funzione $F$ è ben definita.
+Fissato $x_0\in I$
+possiamo considerare la funzione integrale
+\[
+  G(x) = \int_{x_0}^x f(t)\, dt
+\]
+e scrivere
+\[
+  F(x)
+    = \Enclose{G(x)}_{a(x)}^{b(x)}
+    = G(b(x)) - G(a(x)).
+\]
+Se $f$ è continua possiamo applicare il
+teorema fondamentale del calcolo integrale
+che garantisce che $G$ è derivabile e $G'(x) = f(x)$
+per ogni $x\in I$. Dunque se anche $a$ e $b$
+sono derivabili si ha, per la formula di derivazione
+della funzioen composta:
+\[
+F'(x)
+= G'(b(x)) \cdot b'(x) - G'(a(x)) \cdot a'(x)
+= f(b(x)) \cdot b'(x) - f(a(x)) \cdot a'(x).
+\]
+\end{proof}
+
+\begin{example}
+La funzione
+\[
+ F(x) = \int_{x^2}^{x^4} \frac{1}{\ln t}\, dt
+\]
+è definita per ogni $x\neq 0$ in quanto l'intervallo
+$[x^2,x^4]$ è contenuto nell'insieme di definizione
+della funzione integranda.
+Si ha inoltre
+\[
+F'(x)
+= \frac{4x^3}{\ln (x^4)} - \frac{2x}{\ln (x^2)}
+= \frac{x^3-x^2}{\ln \abs{x}}.
+\]
+\end{example}
+
+\begin{theorem}[integrale dell'$o$-piccolo]
+Sia $f(x)$ una funzione continua definita
+su un intervallo $[0,b]$ e tale che
+per $x\to 0^+$ si ha
+$f(x) = o(x^\alpha)$ per un qualche $\alpha\ge 0$.
+Allora posto
+\[
+  F(x) = \int_0^x f(t)\, dt
+\]
+risulta $F(x) = o(x^{\alpha+1})$.
+In modo più conciso si può dunque scrivere
+\[
+  \int_0^x o(t^\alpha)\, dt = o (x^{\alpha+1}),
+  \qquad \text{per $x\to 0^+$}
+\]
+se la funzione integranda è continua.
+\end{theorem}
+%
+\begin{proof}
+Per il teorema della media integrale (teorema~\ref{th:media_integrale})
+per ogni $x\in [0,b]$ deve esistere $c(x)\in[0,x]$ tale che
+\[
+  F(x)
+  = \int_0^x f(t)\, dt
+  = x \cdot f(c(x)).
+\]
+Dunque, essendo $0\le c(x)\le x$ si ha
+\[
+\abs{\frac{F(x)}{x^{\alpha+1}}}
+= \abs{\frac{f(c(x))}{x^\alpha}}
+= \abs{\frac{f(c(x))}{c^\alpha(x)}}
+\cdot \abs{\frac{c(x)}{x}}^\alpha
+\le \abs{\frac{f(c(x))}{c^\alpha(x)}} \to 0
+\]
+visto che $f(x) = o(x^\alpha)$
+e che per $x\to 0$ anche $c(x)\to 0$
+si ha
+\[
+  \lim_{x\to 0} \frac{f(c(x))}{c^\alpha(x)} = 0.
+\]
+\end{proof}
+
+\begin{example}
+Si voglia calcolare
+\[
+  \lim_{x\to 0^+} \frac{1}{x^4}\int_{\sin^2 x}^{\sin x} \frac{2- t\sin t - 2 \cos t}{e^t - 1}\, dt.
+\]
+Chiamata $f(x)$ la funzione integranda non è difficile
+verificare, tramite le formule di Taylor, che risulta
+\[
+  f(x)
+  = \frac{\frac{x^4}{12}-o(x^4)}{x+o(x)}
+  = \frac{x^3}{12} + o(x^3).
+\]
+In particolare la funzione $f$ può essere estesa per
+continuità ponendo $f(0)=0$.
+Si ha dunque, per il teorema precedente,
+\[
+  F(x) = \int_0^x f(t)\, dt
+  = \int_0^x \enclose{\frac{t^3}{12}+o(t^3)}\, dt
+  = \frac{x^4}{48} + o(x^4)
+\]
+da cui
+\begin{align*}
+ \frac{1}{x^4} \int_{\sin^2 x}^{\sin x}
+ f(t) \, dt
+ &= \frac{F(\sin x) - F(\sin^2 x)}{x^4}\\
+ &= \frac{\frac{(\sin x)^4}{48} + o(\sin^4 x) - \frac{(\sin^2 x)^4}{48} + o(\sin^8 x)}{x^4} \\
+ &= \frac{\frac{x^4}{48} + o(x^4)}{x^4} \to \frac{1}{48}.
+\end{align*}
+\end{example}
+
+\begin{example}
+Si voglia calcolare
+\[
+  \lim_{x\to 0^+} \int_{x}^{2x} \frac{1}{t+\sin t}\, dt.
+\]
+Posto
+\[
+  f(x) = \frac{1}{x+\sin x}
+\]
+si ha
+\[
+ f(x)
+  = \frac{1}{2x+o(x^2)} = \frac{1}{2x(1+o(x))}
+  = \frac{1+o(x)}{2x} = \frac{1}{2x} + o(1).
+\]
+La funzione $f(x)-\frac 1{2x} = o(1)$
+può essere estesa per continuità anche in $x=0$
+e dunque possiamo applicare il teorema precedente
+per ottenere
+\begin{align*}
+  \int_x^{2x} f(t)\, dt
+  &= \int_x^{2x} \enclose{\frac 1 {2t} + o(1)}\, dt \\
+  &= \frac 1 2 \Enclose{\ln t}_x^{2x} +  \Enclose{o(t)}_x^{2x} \\
+  &= \frac {\ln 2x - \ln x} 2 + o(2x) - o(x)
+  = \frac {\ln 2} 2 + o(x) \to \frac{\ln 2}{2}. 
+\end{align*}
 \end{example}
 
 \section{alcune applicazioni del calcolo integrale}
