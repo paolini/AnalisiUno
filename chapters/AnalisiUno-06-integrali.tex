@@ -3403,7 +3403,7 @@ per ottenere
   &= \int_x^{2x} \enclose{\frac 1 {2t} + o(1)}\, dt \\
   &= \frac 1 2 \Enclose{\ln t}_x^{2x} +  \Enclose{o(t)}_x^{2x} \\
   &= \frac {\ln 2x - \ln x} 2 + o(2x) - o(x)
-  = \frac {\ln 2} 2 + o(x) \to \frac{\ln 2}{2}. 
+  = \frac {\ln 2} 2 + o(x) \to \frac{\ln 2}{2}.
 \end{align*}
 \end{example}
 
@@ -3448,13 +3448,28 @@ ricorsive per il calcolo del seguente integrale:
 \[
   I_n = \int_0^\pi x^n (\pi-x)^n \sin x\, dx.
 \]
-Per fare ciò osserviamo che se $n\ge 1$ la funzione $x^n (\pi-x)^n$ si
+Innanzitutto osserviamo che si ha
+\[
+  I_0 = \int_0^\pi \sin x\, dx = \Enclose{-\cos x}_0^\pi = 2
+\]
+e, utilizzando l'integrazione per parti:
+\begin{align*}
+  I_1 &= \int_0^\pi x(\pi-x)\sin x\, dx\\
+      &= \Enclose{x(\pi-x)(-\cos x)}_0^\pi
+       -\int_0^\pi (\pi-2x)(-\cos x)\, dx \\
+      &= \int_0^\pi (\pi-2x)\cos x\, dx
+      = \pi \Enclose{\cos x}_0^\pi - 2 \int_0^\pi x\cos x\, dx \\
+      &= - 2 \enclose{\Enclose{x\sin x}_0^\pi - \int_0^\pi \sin x\, dx}
+      = 2 \Enclose{\cos x}_0^\pi = 4.
+\end{align*}
+Per $n\ge 2$ si procede in maniera simile,
+la funzione $x^n (\pi-x)^n$ si
 annulla agli estremi di integrazione quindi integrando per parti
  si ottiene:
 \[
   I_n = \int_0^\pi \Enclose{n x^{n-1}(\pi-x)^n - n x^n (\pi-x)^{n-1}} \cos x\, dx
 \]
-supponendo ora $n\ge 2$ di nuovo la funzione tra parentesi quadre si annulla
+anche la funzione tra parentesi quadre si annulla
 agli estremi dell'intervallo di integrazione e quindi integrando nuovamente
 per parti si ottiene:
 \begin{align*}
@@ -3469,42 +3484,48 @@ da cui
 \begin{align}\label{eq:9530978}
    I_n = (4n^2-2n)I_{n-1} -(n^2-n)\pi^2 I_{n-2}.
 \end{align}
-Supponiamo ora per assurdo che sia $\pi = p/q$ con $p,q\in \NN$ e consideriamo
+
+Supponiamo ora per assurdo che sia $\pi = \frac p q$ con $p,q\in \NN$ e consideriamo
 la successione
 \[
    a_n = \frac{q^{2n}}{n!} I_n.
 \]
-Possiamo calcolare i primi due termini della successione $a_n$:
-\begin{align*}
-  a_0 &= \frac{q^0}{0!}\int_0^\pi \sin x\, dx
-    = 2 \in \ZZ, \\
-  a_1 &= \frac{q^2}{1!}\int_0^\pi x(\pi -x)\sin x\, dx
-   = q^2 \int_0^\pi (2x - \pi)\cos x\, dx \\
-   &= 2q^2 \int_0^\pi \sin x\, dx
-   = 4q^2 \in \ZZ.
-\end{align*}
-Inoltre la relazione di ricorrenza~\eqref{eq:9530978}
-si traduce in:
+Dalla relazione~\eqref{eq:9530978} deduciamo
+un relazione ricorsiva per $a_n$:
 \begin{align*}
   a_n &= \frac{q^{2n}}{n!}\enclose{-(n^2-n)\frac{p^2}{q^2} \frac{(n-2)!}{q^{2n-4}}a_{n-2}
   + (4n^2-2n) \frac{(n-1)!}{q^{2n-2}}a_{n-1}} \\
-  &= - q^2 p^2 a_{n-2} + (4n-2)q^2 a_{n-1}.
+  &= - q^2 p^2 a_{n-2} + (4n-2)q^2 a_{n-1}
 \end{align*}
-Per induzione si trova quindi che $a_n \in \ZZ$ per ogni $n\in \NN$.
-
-D'altra parte osservando che per $x\in [0,\pi]$ si ha
+che ci dice, in particolare, che se $a_{n-2}$ e $a_{n-1}$
+sono interi allora anche $a_n$ è intero (in quanto somma di prodotti
+di numeri interi).
+Visto che anche i primi due termini:
 \[
-  0 \le x^n(\pi-x)^n \sin x \le x^n (\pi-x)^n \le \pi^n \pi^n = \pi^{2n}
+  a_0 = I_0 = 2, \qquad
+  a_1 = q^2 I_1 = 4 q^2
 \]
-otteniamo
+sono interi possiamo dedurre, per induzione, che
+tutti i termini della successione $a_n$ sono interi.
+
+D'altra parte osservando che $y=x(\pi-x)$
+è il grafico di una parabola con asse $x=\frac \pi 2$
+sappiamo che per ogni $x$ si ha $x(\pi-x) \le \frac{\pi^2}{4}$
+e quindi
 \[
-  0 \le I_n \le \pi^{2n+1}
+  0 \le x^n(\pi-x)^n \sin x
+    \le x^n (\pi-x)^n \le \frac{\pi^{2n}}{4^n}.
+\]
+Dunque
+\[
+  0 \le I_n \le \frac{\pi^{2n+1}}{4^n}
 \]
 cioè
 \[
-  0 \le a_n \le \frac{q^{2n}}{n!}\pi^{2n+1} \to 0.
+  0 \le a_n \le \frac{q^{2n}}{n!}\frac{\pi^{2n+1}}{4^n}.
 \]
-Dunque abbiamo scoperto che $a_n\to 0$. D'altra parte abbiamo visto che
+Visto che $n! \gg C^n$, possiamo dunque affermare che $a_n\to 0$.
+D'altra parte abbiamo visto che
 $a_n \in \ZZ$ e certamente $a_n > 0$ in quanto $I_n \neq 0$ visto che $f_n$ è
 una funzione continua, non negativa e non identicamente nulla.
 Ma non è
@@ -3555,95 +3576,82 @@ Da un calcolo diretto troviamo che
   I_0 = \int_0^\pi 1\, dx = \pi, \qquad
   I_1 = \int_0^\pi \sin(x)\, dx = \Enclose {-\cos x}_0^\pi = 2.
 \]
-Se $n\ge 0$,
+Se $n\ge 2$,
 integrando per parti troviamo invece una relazione ricorsiva
 \begin{align*}
- I_{n+2} &= \int_0^\pi \sin^{n+1}(x) \sin(x)\, dx \\
-     &= \Enclose{-\sin^{n+1}(x)\cos(x)}_0^\pi + (n+1)\int_0^\pi \sin^{n} \cos^2(x)\, dx \\
-     &= 0 + (n+1)\int_0^\pi\sin^{n}(1-\sin^2(x))\, dx \\
-     &= (n+1) I_{n} - (n+1) I_{n+2}
+ I_n &= \int_0^\pi \sin^{n-1}(x) \sin(x)\, dx \\
+     &= \Enclose{-\sin^{n-1}(x)\cos(x)}_0^\pi + (n-1)\int_0^\pi \sin^{n-2} \cos^2(x)\, dx \\
+     &= 0 + (n-1)\int_0^\pi\sin^{n-2}(1-\sin^2(x))\, dx \\
+     &= (n-1) I_{n-2} - (n-1) I_{n}
 \end{align*}
 da cui
-\[
-  I_{n+2} = \frac{n+1}{n+2} I_{n}.
-\]
-Ricordando che $I_n$ è decrescente si ottiene (mettendo $2n$ al posto di $n$)
-\[
-  \frac{2n+1}{2n+2} \cdot I_{2n}
-  = I_{2n+2}
-  \le I_{2n+1}
-  \le I_{2n}
-\]
-Cioè
-\[
-  1
-  \le \frac{I_{2n}}{I_{2n+1}}
-  \le \frac{2n+2}{2n+1} \to 1
-\]
-da cui ottieniamo che $I_{2n+1} / I_{2n} \to 1$.
-
-Ma la formula ricorsiva ci permette di calcolare separatamente
-i termini pari e dispari della successione:
+\begin{equation}
+\label{eq:487464}%
+  I_n = \frac{n-1}{n} I_{n-2}.
+\end{equation}
+Questa formula ricorsiva ci permette di calcolare separatamente
+i termini pari e dispari della successione
+utilizzando la notazione del \emph{doppio fattoriale}
+(si veda l'osservazione~\ref{rem:doppio_fattoriale}):
 \begin{align*}
-  I_{2n} &= \frac{2n-1}{2n}\cdot \frac{2n-3}{2n-2} \cdots \frac {3}{4}\cdot \frac{1}{2} \cdot I_0
-  = \enclose{\prod_{k=1}^n \frac{2k-1}{2k}} \cdot \pi \\
+  I_{2n}
+  &= \frac{2n-1}{2n}\cdot \frac{2n-3}{2n-2} \cdots \frac {3}{4}\cdot \frac{1}{2} \cdot I_0
+  = \frac{(2n-1)!!}{(2n)!!} \cdot \pi \\
   I_{2n+1} &= \frac{2n}{2n+1}\cdot \frac {2n-2}{2n-1} \cdots
   \frac{4}{5}\cdot \frac{2}{3} \cdot I_1
-  = \enclose{\prod_{k=1}^n \frac{2k}{2k+1}}\cdot 2.
+  = \frac{(2n)!!}{(2n+1)!!}\cdot 2.
 \end{align*}
+
+Ricordando che $I_n$ è decrescente si osserva
+che vale
+\[
+  \frac{I_{2n+2}}{I_{2n}}
+  \le \frac{I_{2n+1}}{I_{2n}}
+  \le \frac{2n}{2n} = 1
+\]
+e grazie a~\eqref{eq:487464}
+\[
+ \frac{I_{2n+2}}{I_{2n}}
+ = \frac{2n+1}{2n} \to 1
+\]
+da cui ottieniamo che $\frac{I_{2n+1}}{I_{2n}}\to 1$.
+
 In conclusione, visto che $\pi$ compare nella formula dei termini pari, ma
 non in quella dei termini dispari, e visto che le due espressioni sono
 asintotiche possiamo ottenere
-la formula per il calcolo di $\pi$:
+la formula per il calcolo di $\frac \pi 2$:
 \begin{align*}
 \frac{\pi}{2}
 &= \frac{\pi}{2} \lim_{n\to +\infty} \frac{I_{2n+1}}{I_{2n}}
-= \lim_{n\to +\infty} \frac{\displaystyle\prod_{k=1}^n \frac{2k}{2k+1}}{\displaystyle\prod_{k=1}^n \frac{2k-1}{2k}}\\
-&= \lim_{n\to +\infty} \prod_{k=1}^{n} \frac{(2k)^2}{(2k-1)(2k+1)}.
+= \lim_{n\to +\infty} \frac{\frac{(2n)!!}{(2n+1)!!}}{\frac{(2n-1)!!}{(2n)!!}}
+= \lim_{n\to +\infty} \frac{\enclose{(2n)!!}^2}{(2n+1)!!(2n-1)!!} \\
+&= \lim_{n\to +\infty} \frac{(2n)(2n)(2n-2)(2n-2) \cdots 4\cdot 4 \cdot 2 \cdot 2}
+  {(2n+1)(2n-1)(2n-1)(2n-3)(2n-3)\cdots 3 \cdot 3 \cdot 1}.
 \end{align*}
 
-Per ottenere una stima sul binomiale centrale cerchiamo di riscrivere le
-formule precedenti tramite il fattoriale.
-Denotiamo con $n!!$ (doppio fattoriale) il prodotto dei numeri fino a $n$ e
-con la stessa parità di $n$ (cioè un numero ogni due):
-\[
-\begin{cases}
-  0!! = 1\\
-  1!! = 1\\
-  (n+2)!! = (n+2) \cdot n!!
-\end{cases}
-\]
-Più esplicitamente possiamo scrivere il doppio fattoriale
-distinguendo tra i pari i dispari:
+Per ottenere una stima asintotica del coefficiente binomiale centrale
+ricordiamo che si ha (osservazione~\ref{rem:doppio_fattoriale})
 \begin{align*}
-  (2n)!! &= (2n) \cdot (2n-2) \cdot (2n-4) \dots 4 \cdot 2 = \prod_{k=1}^n 2k, \\
-  (2n+1)!! &= (2n+1)\cdot(2n-1)\cdot(2n-3)\dots 4\cdot 3
-   = \prod_{k=1}^n (2k+1).
+  (2n)!! &= 2^n n! \\
+  (2n+1)!! &= \frac{(2n+1)!}{2^n n!}
 \end{align*}
-Osserviamo dunque che
-\[
-  (2n)!! = \prod_{k=1}^n (2k) = 2^n n!
-\]
-ma anche
-\[
-  (2n)! = (2n)!! (2n-1)!!
-\]
-Dunque la stima asintotica di Wallis si può scrivere come
+dunque la stima asintotica di Wallis si può scrivere come
 \begin{align*}
- \sqrt{\frac{\pi}{2}} &\sim \sqrt{\frac{((2n)!!)^2}{(2n-1)!!(2n+1)!!}}
- = \frac{1}{\sqrt{2n+1}} \frac{(2n)!!}{(2n-1)!!} \\
- &= \frac{1}{\sqrt{2n+1}}\frac{(2n)!!(2n)!!}{(2n)!}
- = \frac{1}{\sqrt{2n+1}}\frac{(2^n)^2 (n!)^2}{(2n)!}
+ \sqrt{\frac{\pi}{2}}
+ &\sim \frac{(2n)!!}{\sqrt{2n+1}(2n-1)!!}\\
+ &= \frac{2^n n!}{\sqrt{2n+1}\frac{(2n-1)!}{2^{n-1}(n-1)!}} \\
+ &= \frac{2^n (n!)^2 2^{n-1}}{\sqrt{2n+1}(2n)!} \\
+ &\sim \frac{4^n (n!)^2}{\sqrt{n}(2n)!}
 \end{align*}
 da cui
 \[
-{2n \choose n} = \frac{(2n)!}{(n!)^2}
-\sim \frac{4^n}{\sqrt{2n+1}}\sqrt{\frac 2 \pi}
-\sim \frac{4^n}{\sqrt{2n}}\sqrt{\frac 2 \pi}
- = \frac{4^n}{\sqrt{\pi n}}.
+{2n \choose n}
+= \frac{(2n)!}{(n!)^2}
+\sim \frac{4^n}{\sqrt{n}}\sqrt{\pi n}.
 \]
 \end{proof}
 
+\begin{comment}
 \begin{remark}\label{rem:cifre_pi}
 Non è difficile stimare l'errore che si commette nell'approssimare
 $\pi$ tramite la formula di Wallis. Posto
@@ -3674,6 +3682,7 @@ Si scopre dunque che la convergenza è piuttosto lenta,
 per calcolare $N$ cifre decimale bisogna moltiplicare
 tra loro $10^N$ termini.
 \end{remark}
+\end{comment}
 
 \begin{theorem}[formula di Stirling]
 \mymark{*}
