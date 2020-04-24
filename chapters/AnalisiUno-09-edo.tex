@@ -1319,9 +1319,9 @@ rispetto a $x$.
 \end{definition}
 
 \begin{theorem}[Cauchy-Lipschitz, esistenza e unicità locale]
-\label{th:cauchy_lipschitz}
-\mymargin{esistenza e unicità locale per i sistemi del primo ordine}
-\mymark{***}
+\label{th:cauchy_lipschitz}%
+\mymargin{esistenza e unicità locale per i sistemi del primo ordine}%
+\mymark{***}%
 Sia $\Omega$ un aperto di $\RR\times \RR^n$ e sia $\vec f\colon \Omega \to \RR^n$,
 una funzione con la proprietà di Cauchy-Lipschitz
 (definizione~\ref{def:cauchy_lipschitz}).
@@ -1605,7 +1605,7 @@ prendiamo $K=\ENCLOSE{(x,\vec v(x))\colon x\in [x_0,b]}$. Visto che $\vec v\colo
 \end{proof}
 
 \begin{proposition}[separazione delle soluzioni]
-\label{prop:separazione_soluzioni}
+\label{prop:separazione_soluzioni}%
 Se $\vec f\colon \Omega\subset \RR \times \RR^n\to \RR^n$ soddisfa
 la condizione di Cauchy-Lipschitz
 e se $\vec u\colon I \to \RR^n$ e $\vec v\colon J\to\RR^n$ sono due soluzioni
@@ -3129,4 +3129,277 @@ calcolata esplicitamente.
 
 10. L'ultima proprietà è una osservazione che non richiede dimostrazione.
 \end{proof}
+\end{theorem}
+
+\section{studio qualitativo delle soluzioni}
+
+Non sempre è possibile determinare esplicitamente le soluzioni
+di una equazione differenziale.
+Ci proponiamo quindi di trovare dei metodi per
+determinare alcune proprietà salienti delle soluzioni, senza
+doverle determinare esplicitamente.
+Considereremo unicamente equazioni del primo ordine in forma normale:
+\begin{equation}\label{eqdiff}
+	u'(x)= f(x,u(x))
+\end{equation}
+con $f\colon \Omega \subset \RR^2\to \RR$.
+
+Ricordiamo che se $f$ soddisfa la condizione di Cauchy-Lipschitz
+(definizione~\ref{def:cauchy_lipschitz}), in particolare
+se $f$ è di classe $C^1$ allora i grafici delle soluzioni
+massimali dell'equazione differenziale~\eqref{eqdiff}
+\emph{fibrano} la regione $\Omega$ nel senso che per ogni punto di
+$\Omega$ passa una unica soluzione massimale (teorema~\ref{th:cauchy_lipschitz}
+di Cauchy-Lipschitz e proposizione~\ref{prop:separazione_soluzioni}).
+Inoltre la proposizione~\ref{prop:edo_massimale} ci dice
+che le soluzioni massimali escono da qualunque compatto contenuto in
+$\Omega$ ovvero raggiungono sempre la frontiera di $\Omega$.
+
+\begin{example}\label{ex:edo_463}
+Dimostrare che il seguente problema di Cauchy
+\[
+	\left\{ \begin{array}{l}
+		u'(x) = (u^2(x)-1)\cdot x\cdot \sin x \\
+		u(0) = 0
+	\end{array}\right.
+\]
+ammette una unica soluzione massimale $u(x)$
+definita su tutto $\RR$ (dunque la soluzione è globale).
+\end{example}
+\begin{figure}
+  \myurl{edo_463}{Studio qualitativo esempio~\ref{ex:edo_463}}
+  \centering\includegraphics[width=\textwidth]{edo_463}
+  \label{fig:edo_463}
+  \caption{Studio qualitativo dell'esempio~\ref{ex:edo_463}}
+\end{figure}
+%
+\begin{proof}[Svolgimento.]
+In questo caso si ha $f(x,y)=(y^2-1)x\sin x$, che \`e una funzione
+di classe $\CC^1$ su tutto $\Omega=\RR^2$.
+Vale dunque il teorema di esistenza ed
+unicità delle soluzioni.
+Notiamo inoltre (per verifica diretta)
+che $u_0(x)=-1$ e $u_1(x)=1$ sono
+soluzioni costanti dell'equazione differenziale (\ref{eqdiff})
+in quanto $f(x,-1)=f(x,1)=0$ per ogni $x\in \RR$
+(se $x$ rappresenta il tempo le soluzioni costanti si chiamano
+anche \emph{stazionarie}).
+Il grafico della soluzione $u(x)$ dunque
+non può toccare i grafici delle due funzioni $u_0=-1$ e $u_1=1$ e visto
+che $u(0)=0$ e che $u$ è una funzione continua significa
+che per ogni $x$ si ha $-1 < u(x) < 1$.
+Consideriamo ora il compatto
+$K_M=[-M,M] \times [-1,1]$.
+Sappiamo che la soluzione
+massimale $u(x)$ del problema di Cauchy preso in considerazione deve
+uscire da ogni compatto $K_M$.
+Visto però che $u(x)\in (-1,1)$ significa che necessariamente
+il grafico della soluzione massimale $u(x)$
+raggiunge i due segmenti verticali
+$x=-M$ e $x=M$ e dunque l'intervallo massimale di esistenza
+contiene l'intervallo $[-M,M]$.
+Siccome questo è vero per ogni $M$, l'intervallo massimale
+di esistenza della soluzione è $I=\RR$ e dunque la soluzione
+è globale.
+\end{proof}
+
+\subsection{monotonia e punti critici delle soluzioni}
+
+Dopo aver determinato le zone di $\Omega$ su cui vale il teorema di
+esistenza e unicit\`a, \`e utile studiare il segno di $f$. Infatti
+le soluzioni $u(x)$ dell'equazione differenziale (\ref{eqdiff})
+saranno strettamente crescenti dove $f>0$, strettamente decrescenti
+dove $f<0$ e avranno un punto critico dove $f=0$.
+
+Un primo caso notevole è il caso in cui $f$ si annulla su una
+retta orizzontale $y=c$.
+In questo caso la funzione costante $u(x)=c$ è una
+soluzione dell'equazione differenziale (\ref{eqdiff}).
+Inoltre
+(nell'ipotesi $f\in\CC^1$) tale costante non può essere
+attraversata dalle altre soluzioni dell'equazione differenziale.
+
+\`E importante capire se le soluzioni dell'equazione differenziale
+attraversano o no la curva $\{f=0\}$. Infatti questo ci permette di
+determinare il segno della derivata $u'(x)$ e quindi di ottenere
+importanti informazioni sull'andamento della soluzione $u(x)$
+(monotonia, massimi e minimi relativi...).
+
+Più in generale è interessante capire quando una soluzione di una
+equazione differenziale può attraversare una determinata curva.
+
+\begin{theorem}\label{nonpassa}
+Sia $u(x)$ una soluzione dell'equazione differenziale $(\ref{eqdiff})$
+definita su un intervallo $I$ e sia $u_0(x)$ una funzione qualunque
+definita su $I$, di classe $\CC^1$ e tale che il suo grafico sia
+interamente contenuto nel dominio $\Omega$ di definizione di $f$.
+Supponiamo che in un punto fissato $x_0$ interno ad $I$ si abbia
+$u(x_0)<u_0(x_0)$ e supponiamo inoltre che per ogni $x>x_0$ si abbia
+$u_0'(x)>f(x,u_0(x))$. Allora per ogni $x>x_0$ si ha $u(x)<u_0(x)$.
+
+Analogamente se $u(x_0)>u_0(x_0)$ e se per ogni $x$ si ha
+$u_0'(x)<f(x,u_0(x)$ risulterà $u(x)>u_0(x)$ per ogni $x>x_0$.
+
+Risultati analoghi si hanno per $x<x_0$.
+\end{theorem}
+
+\begin{proof}
+Supponiamo per assurdo che l'insieme $J=\{x\in I: x\ge x_0\
+\mathrm{e}\ u(x)=u_0(x)\}$ non sia vuoto.
+Tale insieme è chiuso ed
+inferiormente limitato, quindi se non è vuoto, ammette minimo.
+Sia $\bar x$ il minimo di $J$.
+Sicuramente $\bar x>x_0$ in quanto $u(\bar
+x)=u_0(\bar x)$.
+Inoltre per ogni $x\in \left[x_0,\bar x\right[$ si ha
+$u(x)-u_0(x)<0$ e quindi $u'(\bar x) \ge u_0'(\bar x)$ (in quanto
+il rapporto incrementale sinistro di $y-y_0$ è sempre positivo).
+
+Questo è assurdo in quanto per ipotesi si ha invece $u'(\bar x) =
+f(\bar x, u(\bar x)) = f(\bar x ,u_0(\bar x)) < u_0'(\bar x)$.
+\end{proof}
+
+Se ad esempio $u_0(x)$ è una funzione
+il cui grafico è contenuto in $\{f=0\}$
+(cioé $f(x,u_0(x))=0$) allora una soluzione $u(x)$ dell'equazione
+differenziale può attraversare la curva $u_0(x)$ dall'alto verso il
+basso nei punti in cui $u'_0(x)>0$ e dal basso verso l'alto nei punti
+in cui $u'_0(x)<0$.
+
+\begin{example}
+Mostrare che il seguente problema di Cauchy
+\[
+\left\{\begin{array}{l}
+  u'=1-x u^3\\
+  u(0)=0
+	\end{array}\right.
+\]
+ammette una soluzione $u(x)$ definita su tutto $\RR$.
+\end{example}
+%
+\begin{proof}[Svolgimento.]
+Posto $f(x,y)=xy^3$ abbiamo che $f$ si annulla sul grafico della
+funzione $u_0(x)=1/\sqrt[3] x$. Per $x>0$ la soluzione è crescente
+quando si trova al di sotto della funzione $u_0$ ed è decrescente
+quando si trova al di sopra. Inoltre essendo $u_0'<0$ le soluzioni possono
+attraversare la funzione $u_0(x)$ solo passando da sotto a
+sopra.
+
+Sia $u(x)$ la soluzione del problema di Cachy in questione, definita su
+un intervallo massimale $I$. Il dato
+iniziale è $(0,0)\in \{f>0\}$. Dunque la soluzione risulta essere
+strettamente crescente in un intorno di $0$.
+
+Vogliamo dimostrare innanzitutto che necessariamente la soluzione
+incontra entrambi i rami del grafico di $u_0(x)$. Sia infatti
+$\epsilon>0$ sufficientemente piccolo da appartenere all'intervallo
+$I$ di
+esistenza della soluzione e sia $\delta=u(\epsilon)$.
+Consideriamo il compatto $K=\{(x,y):
+\epsilon/2 \le x \le 1/\delta^2,\ 0\le y\le 1/sqrt{x}\}$. Il punto
+$(\epsilon,u(\epsilon))$ è interno al compatto $K$ ma la soluzione deve
+uscire dal compatto
+per un qualche $x>\epsilon$.
+La soluzione però non può toccare la
+retta $y=0$ in quanto all'interno del compatto rimane sempre positiva
+e crescente.
+Non può neanche toccare il segmento verticale
+$x=1/\delta^2$, $y\in[0,\delta]$ in quanto $u(\epsilon)=\delta$ e per
+$x>0$ la soluzione è strettamente crescente.
+Dunque necessariamente
+la soluzione deve incontrare il grafico della funzione
+$u_0(x)=1/\sqrt{x}$ in un punto $\bar x>0$.
+
+Nel punto $x=\bar x$ la soluzione $u(x)$ attraversa la curva
+$u_0(x)$. Infatti in tale punto $u'(\bar x)=0$ mentre $u_0'(\bar
+x)<0$.
+Dunque in un intorno destro di $\bar x$ la soluzione si trova
+al di sopra della curva $u_0(x)$ e quindi risulta essere decrescente
+(in $\bar x$ la soluzione presenta un massimo relativo).
+
+Il Teorema~\ref{nonpassa} garantisce inoltre che la soluzione non
+può più riattraversare il grafico della funzione $u_0$ in quanto
+$u'_0<0$. Dunque la soluzione è decrescente e limitata.
+Dunque (usando come al solito la proposizione~\ref{prop:edo_massimale})
+possiamo dedurre che la soluzione massimale è definita per ogni $x>0$.
+
+Un ragionamento analogo si fa per $x<0$ ottenendo l'esistenza globale
+della soluzione.
+\end{proof}
+
+\begin{example}
+Dimostriamo che il problema di Cauchy
+\[
+\begin{cases}
+	u' = -x(u^3 - \sin x) \\
+	u(0) = 0
+\end{cases}
+\]
+ammette una soluzione $u(x)$ definita su tutto $\RR$.
+\end{example}
+%
+\begin{proof}
+Sia $u(x)$ la soluzione massimale del problema di Cauchy
+definita su un intervallo massimale $I$.
+
+Mostriamo innanzitutto che $\vert u(x) \vert < 2$ per ogni $x\in
+I$.
+Infatti per $x>0$ sulla curva $u_1(x)=2$ si ha $f(x,2) = -x
+(8-\sin x) < -x < 0 = u_1'(x)$.
+Dunque per il Teorema~\ref{nonpassa} la
+soluzione per $x>0$ non può mai attraversare la retta
+$y=2$.
+Discorso analogo si fa per la retta $y=-2$ e anche per $x<0$
+mostrando che il grafico della  soluzione non può mai toccare le
+rette $y=2$ e $y=-2$ né per $x>0$ né per $x<0$
+e che quindi $u(x)$ risulta limitata (in realtà si
+può essere più precisi e mostrare che $\vert u(x)\vert \le 1$).
+
+A questo punto si applica, come al solito, il Teorema~\ref{esce} ai
+compatti $K_M=[-M,M]\times[-2,2]$ mostrando che la soluzione deve
+avere esistenza globale.
+\end{proof}
+
+\subsection{teoremi di confronto}
+
+\begin{theorem}
+Sia $I\subset \RR$ un intervallo su cui sono definite due funzioni derivabili
+$f(x)$ e $g(x)$.
+Siano $x_0<x_1$ due punti di $I$. Se $f(x_1)<g(x_1)$ e $f(x_2)>g(x_2)$
+allora esiste un punto $\bar x \in (x_1,x_2)$ tale che $f(\bar
+x)=g(\bar x)$ e $f'(\bar x)\ge g'(\bar x)$.
+\end{theorem}
+
+\begin{theorem}
+Consideriamo due funzioni $u(x)$ e $v(x)$ soluzioni dei rispettivi
+problemi di Cauchy
+\[
+\begin{cases}
+  u'(x)  = f(x,u(x))\\
+  u(x_0) = u_0
+\end{cases}
+\qquad
+\begin{cases}
+  v'(x) = g(x,v(x))\\
+  v(x_0) = v_0
+\end{cases}
+\]
+su un intervallo $I$ che contiene il punto $x_0$.
+Sia $\Omega\subset \RR^2$ un sottoinsieme degli insiemi di definizione
+di $f$ e $g$ tale che i grafici delle soluzioni $u(x)$ e $v(x)$ siano
+contenuti in $\Omega$ al variare di $x\in I$.
+Supponiamo che per ogni $(x,y)\in\Omega$ si abbia $f(x,y)<g(x,y)$.
+Allora per ogni $x\in I$, $x> x_0$ si ha $u(x)< v(x)$ mentre per ogni
+$x\in I$, $x<x_0$ si ha $u(x)>v(x)$.
+\end{theorem}
+
+\begin{theorem}
+Sia $f\colon (x_0,+\infty)\to \RR$ una funzione di classe
+$C^1$ tale
+che il limite
+\[
+  \lim_{x\to +\infty} f'(x) = \ell
+\]
+esiste, finito o infinito. Se $\ell\neq 0$ allora $f$ non può avere
+un asintoto orizzontale per $x\to +\infty$.
 \end{theorem}
