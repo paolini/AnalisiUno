@@ -451,12 +451,12 @@ e stimando l'errore tramite la serie di Mengoli,
 di cui sappiamo calcolare la somma.
 Infatti se $S_N$ è la somma parziale dei primi
 $N$ termini e $S = \lim S_N$ è la somma della serie,
-essendo $1/k^2 \le 1/(k^2+k)$ si ha
+essendo $1/(k+1)^2 \le 1/(k^2+k)$ si ha
 \[
 S_N
 \le S
-\le S_N + \sum_{k=N+1}^{+\infty} \frac{1}{k(k+1)}
-\le S_N + \frac{1}{N+1}.
+\le S_N + \sum_{k=N}^{+\infty} \frac{1}{k(k+1)}
+\le S_N + \frac{1}{N}.
 \]
 Per calcolare le prime 6 cifre decimali esatte basterà
 quindi sommare il primo milione di termini della serie.
@@ -746,11 +746,11 @@ Supponiamo per comodità che le somme partano da $k=1$.
 Si tratta di raggruppare i termini $a_k$ in gruppi di potenze di due:
 \begin{align*}
   b_0 & = a_1, \\
-  b_1 &= a_2,\ a_3, \\
-  b_3 &= a_4,\ a_5,\ a_6,\ a_7, \\
-  b_4 &= a_8,\ a_9,\ a_{10},\ \dots,\ a_{15}, \\
+  b_1 &= a_2 +  a_3, \\
+  b_3 &= a_4 +  a_5 +  a_6 +  a_7, \\
+  b_4 &= a_8 +  a_9 +  a_{10} + \dots + a_{15}, \\
   &\vdots\\
-  b_n &= a_{2^{n-1}},\ a_{2^{n-1}+1},\ \dots,a_{2^n-1},\\
+  b_n &= a_{2^{n-1}} +  a_{2^{n-1}+1} + \dots + a_{2^n-1},\\
   &\vdots
 \end{align*}
 Grazie al teorema~\ref{th:serie_associativa} sulla associatività
@@ -759,7 +759,7 @@ delle serie a termini positivi sappiamo che
   \sum_{k=1}^{+\infty} a_k = \sum_{n=0}^{+\infty} b_n.
   \]
 Ogni termine $b_n$ è la somma di $2^n$ termini della
-successione $a_k$ che, essendo la successione crescente,
+successione $a_k$ che, essendo la successione decrescente,
 possono essere stimati dal basso e dall'alto con il primo
 e l'ultimo termine di ogni somma:
 \[
@@ -992,15 +992,14 @@ esiste $H\in \NN$ per cui si ha
 \[
   \sum_{j=0}^L \abs{a_{\sigma(k,j)}}
   \le \sum_{n=0}^{H} \abs{a_n}
-  \le \sum_{n=0}^{+\infty} \abs{a_n}.
+  \le \sum_{n=0}^{+\infty} \abs{a_n} < +\infty.
 \]
 
 Dunque per ogni $k\in\NN$ sappiamo che la somma
 \[
   b_k = \sum_{j=0}^{+\infty} a_{\sigma(k,j)}
 \]
-è assolutamente convergente perché $\sum a_n$ è assolutamente convergente
-e $j\mapsto \sigma(k,j)$ è iniettiva.
+è assolutamente.
 Fissato $\eps>0$ per il teorema~\ref{th:coda} (della coda)
 deve esistere $N\in\NN$ tale che
 \[
@@ -1013,7 +1012,7 @@ per ogni $k\in \NN$ deve esistere $J_k\in \NN$ tale che
 \]
 Eventualmente aumentando $J_k$ possiamo anche supporre
 che per ogni $j>J_k$ si abbia $\sigma(k,j)>N$
-(l'insieme $\ENCLOSE{j\in \NN \colon \sigma(k,j)<\le N}$ è finito
+(l'insieme $\ENCLOSE{j\in \NN \colon \sigma(k,j)\le N}$ è finito
 in quanto $\sigma$ è iniettiva).
 
 Scegliamo ora $M\in \NN$ tale che
@@ -1044,7 +1043,7 @@ Stimiamo separatamente gli addendi sul lato destro.
 Per il primo si ha:
 \[
  \abs{\sum_{k=0}^M \sum_{j=0}^{J_k} a_{\sigma(k,j)} - \sum_{n=0}^N a_n}
- \le \sum_{n=N+1}^{+\infty} \abs{a_k} < \eps.
+ \le \sum_{n=N+1}^{+\infty} \abs{a_n} < \eps.
 \]
 in quanto tutti gli addendi della seconda somma si semplificano
 (per come abbiamo scelto $M$ e $J_k$)
@@ -1110,8 +1109,7 @@ non è assolutamente convergente
 infinitesimo. Non abbiamo quindi nessun criterio che ci permetta di
 determinarne il carattere.
 Possiamo però sfruttare il fatto che i segni sono \emph{alterni} cioè
-che i termini di indice pari e i termini di indice dispari hanno tutti
-lo stesso segno. Si nota infatti che posto
+che i termini di indice pari hanno segno opposto ai termini di indice dispari. Si nota infatti che posto
 \[
   S_n = \sum_{k=0}^n \frac{(-1)^k}{k+1}
 \]
@@ -1128,23 +1126,25 @@ S_{2n+3}
 \end{align*}
 Dunque la successione delle somme parziali di indice pari è decrescente mentre
 sui termini di indice dispari è crescente. Avremo quindi che entrambe
-le sottosuccessioni convergono: $S_{2n} \to S$, $S_{2n+1} \to R$.
+le sottosuccessioni hanno limite: $S_{2n} \to S$, $S_{2n+1} \to R$.
 
 Ma
 \[
   S - R = \lim_{n\to +\infty} (S_{2n} - S_{2n+1}) = \lim_{n\to+\infty}\frac{1}{2n+2} = 0.
 \]
-Dunque $S=R$ e l'intera successione ha limite $S$. D'altra parte $S \le S_0$ in quanto $S_{2n}$ è decrescente e $S\ge S_1$ in quanto $S_{2n+1}$ è crescente. Concludiamo che $S$ è finito e dunque la serie è convergente.
+Dunque $S=R$ e l'intera successione ha limite $S$. 
+D'altra parte $S \le S_0$ in quanto $S_{2n}$ è decrescente e $S\ge S_1$ in quanto $S_{2n+1}$ è crescente. 
+Concludiamo che $S$ è finito e dunque la serie è convergente.
 
 Questa dimostrazione può essere resa più in generale nel seguente.
 
 \begin{theorem}[serie a segni alterni: criterio di Leibniz]
-\label{th:Leibniz}
-\mymark{***}
-\mynote{criterio di Leibniz}
-\index{criterio!di Leibniz}
-\index{teorema!di Leibniz}
-\index{Leibniz!criterio di}
+\label{th:Leibniz}%
+\mymark{***}%
+\mynote{criterio di Leibniz}%
+\index{criterio!di Leibniz}%
+\index{teorema!di Leibniz}%
+\index{Leibniz!criterio di}%
 Sia $b_n$ una successione monotòna e infinitesima. Allora
 la serie
 \[
@@ -1157,7 +1157,7 @@ sono le somme parziali,
 si osserva che la somma della serie $S= \lim S_n$ è sempre compresa
 tra due termini consecutivi della successione $S_n$:
 \[
-  S \in [S_n, S_{n+1}] \cup [S_{n+1}, S_n].
+  S \in [\min\{S_n, S_{n+1}\}, \max\{S_n, S_{n+1}\}].
 \]
 \end{theorem}
 %
@@ -1246,10 +1246,17 @@ $a^+_k$ finché non si raggiunge o si supera il valore $x$. A quel punto cominci
 Poi continuiamo a sommare i termini positivi finché non si torna a superare $x$
 e di nuovo poi continuiamo con i termini negativi finché non si torna a scendere
 sotto $x$. Intermezzando opportunamente termini positivi e termini negativi
-riusciamo quindi ad ottenere delle somme parziali che oscillano intorno al valore di $x$ e si avvicinano sempre di più a $x$ in quanto ad ogni cambio di ``rotta'' la distanza da $x$ è inferiore all'ultimo termine sommato e la successione dei termini $a_k$ è infinitesima in quanto la serie $\sum a_k$ è convergente.
+riusciamo quindi ad ottenere delle somme parziali che oscillano intorno al valore 
+di $x$ e si avvicinano sempre di più a $x$ in quanto ad ogni cambio di ``rotta'' 
+la distanza da $x$ è inferiore al valore assoluto dell'ultimo termine sommato 
+e la successione dei termini $a_k$ è infinitesima in quanto la serie $\sum a_k$ è convergente.
 
 Stessa cosa si può fare per ottenere una somma $x=+\infty$. Fissata una qualunque
-successione $x_n \to +\infty$ comincio a sommare i termini positivi finché non supero il valore $x_1+a_1^-$. Poi sommo un solo termine negativo, $-a_1^-$ e ottengo una somma maggiore di $x_1$. Poi sommo tanti positivi finché non supero $x_2+a_2^-$. Poi sommo un altro unico termine negativo e così via. Chiaramente le somme tenderanno a $+\infty$.
+successione $x_n \to +\infty$ comincio a sommare i termini positivi finché non supero il valore $x_1+a_1^-$. 
+Poi sommo un solo termine negativo, $-a_1^-$ e ottengo una somma maggiore di $x_1$. 
+Poi sommo tanti positivi finché non supero $x_2+a_2^-$. 
+Poi sommo un altro unico termine negativo e così via. 
+Chiaramente le somme tenderanno a $+\infty$.
 
 Il caso $x=-\infty$ si tratta in maniera analoga.
 \end{proof}
@@ -1809,7 +1816,7 @@ Ma allora, per il teorema precedente,
 deduciamo che $a_k z^k$ non è nemmeno infinitesima.
 
 Abbiamo quindi mostrato l'esistenza di $R\in \bar \RR$ che soddisfa \eqref{eq:48463}.
-Chiaramente risulta $R\ge 0$ perché $A$ è un insieme non vuoto di numeri positivi
+Chiaramente risulta $R\ge 0$ perché $A$ è un insieme non vuoto
 (per ogni serie di potenze si ha $0\in A$).
 \end{proof}
 
@@ -1867,7 +1874,7 @@ Il criterio della radice si applica anche nel caso in cui $\ell$ è definito
 tramite $\limsup$.
 
 Nel caso esista il limite del rapporto $\abs{a_{n+1}} / \abs{a_n}$
-sappiamo (grazie al criterio di convergenza alla Cesàro teorema~teorema~\ref{th:criterio_cesaro}) che
+sappiamo (grazie al criterio di convergenza alla Cesàro teorema~\ref{th:criterio_cesaro}) che
 il limite della radice coincide con il limite del rapporto e quindi
 ci si riconduce al caso precedente (oppure si può ripetere la dimostrazione
 utilizzando il criterio del rapporto invece del criterio della radice).
@@ -2095,14 +2102,14 @@ per ogni $z\in \CC$ si ha $\exp(z) \neq 0$ e
 \mymark{*}
 \begin{enumerate}
 \item
-La proprietà $\exp(0)=1$ segue per verifica diretta (ricordiamo che $0^0=1$
+La proprietà $\exp(0)=1$ si ottiene per verifica diretta (ricordiamo che $0^0=1$
 e $0!=1$).
 
 \item La proprietà $\exp(\bar z) = \overline{\exp z}$ si ottiene
-passando al limite nelle somme parziali la seguente uguaglianza
+passando al limite la seguente uguaglianza tra le somme parziali
 che sfrutta le proprietà del coniugio di somma e prodotto:
 \[
-\sum_{k=0}^{n} \frac{\bar z^k}{k!} = \overline{\sum_{k=0} \frac{z^k}{k!}}.
+\sum_{k=0}^{n} \frac{\bar z^k}{k!} = \overline{\sum_{k=0}^n \frac{z^k}{k!}}.
 \]
 
 
@@ -2817,7 +2824,7 @@ La funzione $\sin\colon[-\pi/2,\pi/2]\to [-1,1]$ risulta essere strettamente cre
 e $\sin(\pi/2) = 1$ per il  teorema dei valori intermedi
 la funzione assume tutti i valori in $[-1,1]$.
 Dunque restringendo il dominio all'intervallo $[-\pi/2, \pi/2]$
-e il codomonio all'intervallo $[-1,1]$ la funzione risulta invertibile.
+e il codominio all'intervallo $[-1,1]$ la funzione risulta invertibile.
 La funzione inversa
 \[
   \arcsin\colon[-1,1]\to [-\pi/2, \pi/2]
@@ -2899,7 +2906,8 @@ si ha
   A_n = \sum_{k=0}^{n-1} \sin k = \Im \sum_{k=0}^{n-1} e^{ik}.
 \]
 Osserviamo allora che $e^{ik}=(e^i)^k$ e dunque $A_n$ è la parte immaginaria
-di una somma di una serie geometria. Si può quindi calcolare esplicitamente
+della somma di una serie geometrica. 
+Si può quindi calcolare esplicitamente
 \[
   A_n = \Im \frac{1-(e^i)^n}{1-e^i}
 \]
@@ -3040,14 +3048,15 @@ Osserviamo che $\cosh 0 = 1$ e, per le proprietà di monotonia viste nel teorema
 precedente si ha $\cosh x \ge \cosh 0 = 1 > 0$. Dunque $\cosh x$ non si annulla
 mai e si può definire per ogni $x\in \RR$ la \emph{tangente iperbolica}
 \index{tangente iperbolica}
-\mymargin{$\tanh$}
+\mymargin{$\tgh$}
 \[
  \tgh x = \frac{\sinh x}{\cosh x}.
 \]
 
 La funzione $\sinh\colon \RR\to\RR$ è iniettiva in quanto strettamente crescente ed
 è surgettiva in quanto è continua e quindi assume tutti i valori compresi tra
-$\sup \sinh = +\infty$, $\inf \sinh = -\infty$. Dunque $\sinh\colon \RR \to \RR$
+$\lim_{x\to+\infty} \sinh(x) = +\infty$ e $\lim_{x\to -\infty} \sinh(x) = -\infty$. 
+Dunque $\sinh\colon \RR \to \RR$
 è invertibile e la funzione inversa si chiama \emph{settore di seno iperbolico}
 e si denota con
 \mymargin{$\settsinh$}
@@ -3055,10 +3064,10 @@ e si denota con
 \[
   \settsinh \colon \RR \to \RR.
 \]
-Analogamente la funzione $\cosh\colon [0,+\infty)\to [1,+\infty)$ è
+Analogamente la funzione ristretta $\cosh\colon [0,+\infty)\to [1,+\infty)$ è
 iniettiva in quanto strettamente crescente ed è surgettiva in quanto
 è continua e assume su $[0,+\infty)$ tutti i valori compresi tra $\cosh(0)=1$ e
-$\sup \cosh x = +\infty$.
+$\lim_{x\to +\infty} \cosh x = +\infty$.
 Dunque la funzione $\cosh x$ ristretta a $[0,+\infty)\to [1,+\infty)$
 è invertibile e la funzione inversa si chiama \emph{settore di coseno iperbolico}
 \mymargin{$\settcosh$}
@@ -3067,7 +3076,7 @@ Dunque la funzione $\cosh x$ ristretta a $[0,+\infty)\to [1,+\infty)$
  \settcosh \colon [1,+\infty)\to [0,+\infty).
 \]
 
-La funzione $\tanh x$ è strettamente crescente su tutto $\RR$ e assume tutti i valori strettamente compresi tra $-1$ e $1$.
+La funzione $\tgh x$ è strettamente crescente su tutto $\RR$ e assume tutti i valori strettamente compresi tra $-1$ e $1$.
 La funzione inversa si chiama $\setttgh$.
 
 \begin{exercise}

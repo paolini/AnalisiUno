@@ -80,7 +80,7 @@ $\theta\in [0,2\pi)$ tale che
 \[
   u
   = x + i y
-  = \cos \theta + i\sin \theta)
+  = \cos \theta + i\sin \theta
   = e^{i\theta}.
 \]
 da cui
@@ -326,7 +326,7 @@ Se poniamo $\psi = \arg w$ possiamo interpretare la moltiplicazione complessa
 in coordinate polari:
 \[
   z \cdot w = \abs{z}e^{i\theta}\cdot \abs{w} e^{i\psi}
-   = \abs{z} \cdot \abs{w} \cdot e^{i(\theta + \phi)}.
+   = \abs{z} \cdot \abs{w} \cdot e^{i(\theta + \psi)}.
 \]
 Dunque il prodotto di due numeri complessi è quel numero complesso
 che ha come modulo il prodotto dei moduli e come argomento
@@ -615,9 +615,9 @@ sottospazio è dato dai monomi:
 \index{polinomio!algoritmo di Euclide}%
 \index{Euclide!algoritmo di divisione}%
 \index{algoritmo!di Euclide}%
-Dati due polinomi $P$ e $S\neq 0$ in $\KK[x]$ è possibile
+Dati due polinomi $P$ e $S$ in $\KK[x]$ con $S\neq 0$ è possibile
 trovare, in modo unico, due polinomi $Q$ (quoziente)
-e $R$ (resto) in $\KK[x]$ con $\deg R < \deg R$
+e $R$ (resto) in $\KK[x]$ con $\deg R < \deg S$
 tali che:
 \[
   P = Q \cdot S + R.
@@ -654,13 +654,13 @@ Possiamo ora supporre, mediante un ragionamento induttivo
 su $\deg P - \deg S$
 che per il polinomio $P_1$ il risultato del teorema sia
 valido cioè
-che esistano, unici, dei polinomio $Q_1$ e $R$
+che esistano, dei polinomio $Q_1$ e $R$
 con $\deg R < \deg S$ tali che
 \[
   P_1 = Q_1 \cdot S + R.
 \]
 Il caso base del ragionamento induttivo,
-$\deg P = \deg S$, è garantito dal Passo 1.
+$\deg P = \deg S$, è garantito dal passo 1.
 Avremo allora:
 \begin{align*}
   P &= P_1 + \frac{a_N}{b_N} x^{N-M}\cdot S\\
@@ -672,6 +672,19 @@ Posto quindi
  Q = \frac{a_N}{b_N} x^{N-M} + Q_1
 \]
 il risultato è dimostrato.
+
+\emph{Passo 3:} dimostriamo che $Q$ e $R$ sono unici. Se infatti avvessimo 
+\[
+  P = Q_1 S + R_1 = Q_2 S + R_2   
+\]
+con $\deg R_1<\deg S$ e $\deg R_2 < \deg S$ si avrebbe 
+\[
+(Q_2 - Q_1) S = R_1 - R_2.    
+\]
+Se fosse $Q_2 \neq Q_1$ il polinomio al lato sinistro avrebbe grado non inferiore al grado di 
+$S$ mentre il lato destro ha certamente grado minore di $S$.
+Dunque $Q_2=Q_1$ ma allora il lato sinistro è nullo e quindi anche il lato destro deve 
+esserlo: $R_2=R_1$.
 \end{proof}
 
 La dimostrazione del teorema precedente fornisce anche un
@@ -706,7 +719,7 @@ Il rapporto tra i termini di grado massimo di $P_1$ e $S$
   P_2 = P_1 - (-2) S = -2x^2 + 2x + 1 + 2x^2 - 2 = 2x -1.
 \]
 Visto che $\deg P_2 < \deg S$ la divisione termina e
-si pone $R = 2z-1$.
+si pone $R = 2x-1$.
 Si ha quindi $Q = x^2 - 2$ (la somma dei monomi trovati)
 e risulta:
 \[
@@ -729,7 +742,7 @@ $P\colon \KK \to \KK$, $x\mapsto P(x)$ che chiameremo
 \index{teorema!di Ruffini}%
 \index{Ruffini}%
 Sia $P\in \KK[x]$ un polinomio non nullo.
-Se $x_0 \in \KK$ è tale che $P(z_0)=0$
+Se $x_0 \in \KK$ è tale che $P(x_0)=0$
 allora esiste un polinomio $Q$ con $\deg Q = (\deg P) - 1$
 tale che
 \[
@@ -740,7 +753,7 @@ tale che
 \begin{proof}
 In base al teorema precedente si può fare la divisione tra
 $P$ e $S = x - x_0$ per ottenere un polinomio $Q$ e un resto
-$R$ con $\deg r < 1$ tali che
+$R$ con $\deg R < 1$ tali che
 \[
   P = (x-x_0)\cdot Q + R.
 \]
@@ -968,7 +981,7 @@ e quindi $w$ non sarebbe un punto di minimo per $\abs{f}$.
 
 Il polinomio $g$ si può scrivere, al solito, come somma di monomi
 \[
-  g(z) = b_0 + b_1 z + \dots + b_N z^n.
+  g(z) = b_0 + b_1 z + \dots + b_N z^N.
 \]
 Essendo $g(0)=1$ si ha $b_0=1$. Vicino a $z=0$ il comportamento del polinomio è dominato dai termini di grado più basso.
 Sia $k\ge 1$ il primo indice per cui $b_k\neq 0$. Osserviamo che tale $k$ esiste perché se tutti i coefficienti $b_k$ fossero nulli per $k\ge 1$
@@ -977,7 +990,7 @@ il polinomio $g$ sarebbe costante e allora anche $f$ sarebbe costante, cosa che 
 Il polinomio $g$
 si potrà dunque scrivere nella forma:
 \begin{align*}
-  g(z) &= 1 + b_k z^k + b_{k+1} z^{k+1}\dots + b_N z^n \\
+  g(z) &= 1 + b_k z^k + b_{k+1} z^{k+1}+\dots + b_N z^n \\
        &= 1 + b_k z^k + z^{k+1}\enclose{b_{k+1} + b_{k+2}z + \dots + b_N
        z^{n-k-1}}\\
        &= 1 + b_k z^k + z^{k+1} \cdot q(z)
@@ -1034,7 +1047,7 @@ Gli $z_k$ sono unici a meno dell'ordine e $c$ pure è univocamente determinato.
 \begin{proof}
 Dimostriamo il teorema per induzione su $n=\deg p$. Se $n=0$ il polinomio $p$ è costante: $p(z) = c$. Ricordando che un prodotto di $n=0$ fattori è uguale a $1$ si ottiene quindi il risultato voluto.
 
-Sia ora $p(z)$ un qualunque polinomio di grado $n>1$. Per il teorema fondamentale dell'algebra sappiamo che esiste un numero complesso $z_n$ tale che $p(z_n)=0$. Per il teorema di Ruffini si ha allora
+Sia ora $p(z)$ un qualunque polinomio di grado $n>0$. Per il teorema fondamentale dell'algebra sappiamo che esiste un numero complesso $z_n$ tale che $p(z_n)=0$. Per il teorema di Ruffini si ha allora
 \[
   p(z) = (z-z_n) q(z)
 \]
@@ -1131,7 +1144,7 @@ $\alpha_j,\beta_j\in \RR$, $q_j\in \NN\setminus\ENCLOSE{0}$
 con $\alpha_j^2 - 4 \beta_j < 0$
 e
 \[
-  \sum_{k=1}^n p_k + 2 \sum_{j=1}^m q_k = \deg P.
+  \sum_{k=1}^n p_k + 2 \sum_{j=1}^m q_j = \deg P.
 \]
 
 La fattorizzazione~\eqref{eq:35549} è unica a meno
@@ -1141,7 +1154,7 @@ I numeri $x_1,\dots,x_n$ sono tutte le radici reali distinte
 del polinomio $P$ con rispettive molteplicità
 $p_1,\dots,p_n$ mentre tutte le radici complesse (non reali)
 distinte saranno $\mu_1,\dots, \mu_m$
-e $\bar \mu_2, \dots, \bar \mu_m$ con
+e $\bar \mu_1, \dots, \bar \mu_m$ con
 \[
   x^2 + \alpha_j x + \beta_j = (x-\mu)\cdot(x-\bar \mu)
 \]
