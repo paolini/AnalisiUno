@@ -1,4 +1,4 @@
-all: figurePJA.pdf
+all: figurePJAinside.tex figurePJBinside.tex figurePJAoutside.tex figurePJBoutside.tex
 
 figurePJA.pdf: figurePJ_standalone.tex figurePJ.tex
 	pdflatex "\\def\\figurePJA{1} \\input{$<}"
