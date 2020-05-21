@@ -1,9 +1,8 @@
 """
-Compute the sum of the series: 1/k^2 up to
-a given error
+Calcola la somma della serie 1/k^2 con un errore prefissato
 """
 
-err = 0.5E-6 # error below the sixth decimal place
+err = 0.5E-6 # errore al di sotto della sesta cifra decimale
 S = 0.0
 k = 1
 while k < 1/err:
