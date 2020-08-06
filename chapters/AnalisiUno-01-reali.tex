@@ -655,29 +655,18 @@ un punto $1$. Il segmento compreso tra i punti $0$ e $1$ sarà la nostra unità 
 misura.
 
 L'addizione viene definita utilizzando i movimenti rigidi.
-Dati due punti qualunque $x$ e $y$ sarà possibile
-traslare la retta lungo se stessa
-(fisicamente utilizzando un secondo righello che possa essere sovrapposto al primo)
-in modo da mandare il punto $0$ nel punto $x$. Il punto $y$ andrà allora nel
-punto $x+y$.
-
-Per definire la moltiplicazione utilizzeremo il riscalamento, che può
-essere ottenuto, fisicamente, utilizzando ad esempio un pantografo.
-Dati i punti $x$ e $y$ sulla retta consideriamo il riscalamento (o dilatazione)
-che lasciando fissato il punto $0$ manda il punto $1$ nel punto $x$. Il punto $y$
-andrà allora nel punto $x\cdot y$.
-
-Con questa interpretazione tutte le proprietà che di seguito vengono assunte come
-valide possono essere interpretate geometricamente (o fisicamente).
-Ad esempio la proprietà distributiva:
-\[
-  x \cdot (y +z) = x \cdot y + x \cdot z.
-\]
-si giustifica con il fatto (fisicamente ovvio) che se prendo due segmenti
-li riscalo e poi li affianco ottengo un segmento sovrapponibile a quello che
-si ottiene prima affiancando i due segmenti e poi riscalandoli.
-
-\begin{comment}
+Traslando il punto $1$ di una unità alla volta si ottengono tutti i numeri naturali.
+Traslando all'indietro si ottengono i numeri interi. 
+Assumendo che tra due punti qualunque esistano sempre punti intermedi (divisibilità) e
+assumendo che suddividendo la retta in due parti esista sempre un punto di 
+suddivisione (continuità) mostreremo come si può suddividere 
+ogni segmento in $n$ parti uguali per ogni numero naturale $n$. 
+In tal modo potremo definire i numeri razionali e la moltiplicazione per un numero razionale.
+Con una estensione continua riusciremo quindi a definire la moltiplicazione 
+tra numeri reali. 
+Osserveremo poi che la struttura moltiplicativa dei numeri reali positivi soddisfa 
+gli stessi assiomi della struttura additiva dei reali e che quindi la costruzione fatta 
+per costruire la moltiplicazione si può ripetere identica per costruire l'elevamento a potenza.
 
 \begin{definition}[gruppo]
 Un insieme $X$ su cui è definita una \emph{operazione}\footnote{%
@@ -697,6 +686,9 @@ se vale la proprietà:
 \end{enumerate}
 \end{definition}
 
+L'elemento neutro di un gruppo è unico. Se infatti $x$ e $y$ fossero due elementi neutri 
+si avrebbe $x = x*y = y$.
+
 \begin{definition}[relazione d'ordine]
 Una relazione\footnote{%
 Una relazione $R$ su un insieme $X$ è un sottoinsieme
@@ -711,7 +703,8 @@ se soddisfa le seguenti proprietà (per ogni $x,y,z\in X$):
   \item[3.] transitiva: $x\le y \land y\le z \implies x\le z$.
 \end{enumerate}
 Si dice inoltre che la relazione d'ordine $\le$
-è una \myemph{relazione d'ordine totale} se vale
+è una \myemph{relazione d'ordine totale} (o \emph{lineare}) 
+se vale
 \begin{enumerate}
   \item[4.] dicotomia: $x\le y \lor y\le x$.
 \end{enumerate}
@@ -721,7 +714,8 @@ $x\ge y$ quando $y\le x$, $x < y$ quando $x\le y \land x\neq y$
 e $x>y$ quando $y<x$.
 
 Un ordinamento $\le$ si dice essere
-\myemph[ordinamento!denso]{denso} se esistono sempre punti intermedi:
+\myemph[ordinamento!denso]{denso} o \emph{divisibile} 
+se esistono sempre punti intermedi:
 \begin{enumerate}
   \item[5.] densità: $\forall x,y\in X\colon x<y \implies \exists z \in X\colon x < y < z$.
 \end{enumerate}
@@ -736,168 +730,772 @@ Un ordinamento $\le$ si dice essere
 \end{enumerate}
 \end{definition}
 
+\begin{definition}[gruppo ordinato]
+  Diremo che $X$ è un \myemph{gruppo ordinato} se $X$ è un gruppo
+  (con operazione $*$ ed elemento neutro $e$) 
+  se è anche un insieme ordinato (con relazione $\le$)
+  e se vale la proprietà:
+  \begin{enumerate}
+    \item[1.] monotonia: se $x\le y$ allora per ogni $z$ si ha:
+     \[
+     x*z \le y*z \qquad\text{e}\qquad z*x \le z*y.
+     \] 
+  \end{enumerate}
+\end{definition}
 
-\begin{theorem}[isomorfismo gruppi lineari]
-Sia $G$ un insieme su cui su cui è definita
-una relazione d'\emph{ordine totale} $<$ cioè una relazione
-che soddisfa le seguenti proprietà:
-\begin{gather*}
-  a < b \land b < c \implies a < c, \\
-  (a < b) \lor (b < a) \lor (a=b), \\
-  \lnot ((a < b) \land (b < a)).
-\end{gather*}
-Scriveremo $a\le b$ per intendere $a< b \lor a = b$.
-Supponiamo inoltre che l'ordine sia \emph{denso}
-cioè che per ogni $a,b\in G$ se $a < b$
-allora esiste $x\in G$ tale che $a < x < b$ (significa:
-$a < x \land x < b$) e \emph{continuo} cioè
-dati $A,B$ sottoinsiemi non vuoti di $G$ se $A\le B$
-allora esiste $x\in G$ tale che $A\le x \le B$.
+Possiamo allora introdurre come assioma l'esistenza dei 
+numeri reali.
 
-Supponiamo inoltre sia definita su $G$
-una operazione $+$ \emph{associativa} e \emph{commutativa}
-$+$ cioè tale che per ogni $a,b,c\in G$ si abbia
-\begin{align*}
-  a + (b+c) = (a+b)+c,\\
-  a + b = b + a.
-\end{align*}
-Supponiamo che esista un elemento neutro
-cioè un elemento $0_G \in G$ tale che
+\begin{axiom}[numeri reali]
+  Esiste un insieme $\RR$ con una operazione di gruppo $+$ (addizione) 
+  ed una relazione d'ordinamento 
+  totale $\le$ che rendono $\RR$ un gruppo ordinato, denso, completo 
+  (vedremo che la proprietà commutativa è valida di conseguenza).
+  Chiamiamo $0$ l'elemento neutro dell'addizione e fissiamo un punto arbitrario $1>0$ 
+  che chiameremo \emph{unità}. 
+\end{axiom}
+
+L'inverso additivo di un elemento $x$ sarà chiamato 
+\myemph{opposto} e verrà denotato con $-x$, si avrà quindi $x + (-x) = 0$.
+e definiamo l'operazione di \myemph{sottrazione}:
 \[
-  \forall a\in A: 0_G + a = a.
+    x- y = x + (-y).
 \]
-Supponiamo infine che l'operazione rispetti l'ordine cioè che
-se $a,b\in G$ con $a\ge 0_G$ e $b\ge 0_G$ allora $a+b\ge 0_G$.
+Diremo che un numero $x\in \RR$ è \myemph{positivo} se $x>0$ 
+e \myemph{negativo} se $x<0$.
 
-Sia $H$ un altro insieme totalmente ordinato con le stesse proprietà:
-un ordine $\le$, una operazione $+$ e un elemento neutro $0_H\in H$.
+Se $x\le y$ sommando $-x$ da ambo i lati si ottiene 
+$0 \le y-x$ e sommando ancora $-y$ si ottiene 
+$-y \le -x$. Lo stesso vale con le disuguaglianze strette
+e con le disuguaglianze inverse.
 
-Allora dato $u\in G$ con $u>0_G$ e dato $v\in H$
-con $v>0_H$ esiste una unica funzione $f\colon G \to H$ tale che
-\begin{gather}
-  f(u) = v  \label{eq:49932}\\
-  f(x+y) = f(x)+f(y) \label{eq:4882824}\\
-  x\ge y \implies f(x) \ge f(y).
-\end{gather}
-Inoltre tale funzione $f$ risulta essere bigettiva
-ed è dunque un isomorfismo delle due strutture.
+Vediamo adesso come identificare, all'interno dei numeri reali $\RR$,
+l'insieme dei numeri naturali $\NN$.
+
+\begin{definition}[numeri naturali]
+  \label{def:naturali}%
+  \mymargin{numeri!naturali}%
+  \index{naturali}%
+  Un sottoinsieme $A\subset \RR$ si dice essere \emph{induttivo}
+  se valgono le due proprietà:
+  \begin{gather*}
+    0 \in A, \\
+    n\in A \implies n+1 \in A.
+  \end{gather*}
+  La famiglia di tutti i sottoinsiemi induttivi di $\RR$ non è vuota
+  in quanto $\RR$ stesso è induttivo. Definiamo $\NN$ come l'intersezione
+  di tutti i sottoinsiemi induttivi di $\RR$ (ovvero: il più piccolo sottoinsieme induttivo di $\RR$).
+  \mymargin{$\NN$}
+\end{definition}
+
+Oltre ai numeri $0$ e $1$ che abbiamo già definito, si definiscono 
+le altre cifre decimali $2,3,4,5,6,7,8,9$ direttamente come segue:
+\begin{gather*}
+ 2 = 1+1,\quad
+ 3 = 2+1,\quad 
+ 4 = 3+1,\quad
+ 5 = 4+1,\\ 
+ 6 = 5+1,\quad
+ 7 = 6+1,\quad
+ 8 = 7+1,\quad
+ 9 = 8+1.
+\end{gather*}
+Per convenzione si usa la usuale notazione decimale posizionale
+per rappresentare in maniera efficiente
+tutti i numeri naturali. 
+Formalmente una sequenza di cifre decimali rappresenta un numero naturale 
+tramite una definizione ricorsiva. 
+Le cifre singole rappresentano se stesse e ogni volta che si concatena una cifra 
+a destra di una sequenza il numero che si ottiene è il numero rappresentato 
+dalla sequenza precedente moltiplicato per $9+1$ (dieci) a cui si aggiunge la cifra
+stessa. 
+Un esempio in cui utilizziamo il puntino $\cdot$ per distinguere la moltiplicazione dalla concatenazione 
+delle cifre:
+\begin{align*}
+7501 &= 750\cdot (9+1) + 1 = (75\cdot (9+1)+0)\cdot (9+1) + 1 \\
+&= ((7\cdot (9+1)+5)\cdot(9+1)+0)\cdot (9+1) + 1.
+\end{align*}
+In particolare $10 = 1\cdot (9+1) + 0 = 9+1$ e quindi
+\[
+7501 = ((7\cdot 10+5)\cdot 10+0)\cdot 10 + 1.
+\]
+
+Risulta immediato dimostrare che l'insieme $\NN$ così definito
+soddisfa gli assiomi di Peano (si veda \cite{appunti_logica})
+in particolare vale il seguente. 
+
+\begin{theorem}[principio di induzione]
+Se $P(n)$ è un predicato nella variabile $n\in \NN$ tale che:
+\begin{enumerate}
+\item $P(0)$ è vero;
+\item per ogni $n\in \NN$ se $P(n)$ è vero allora anche $P(n+1)$ è vero.
+\end{enumerate}
+Allora $P(n)$ è vero per ogni $n\in \NN$.
 \end{theorem}
 %
 \begin{proof}
-Andremo a definire $f$ per gradi. Innanzitutto
-dovrà essere $f(u)=v$ per soddisfare~\eqref{eq:49932}.
-Poi dovrà essere $f(u+u) = f(u)+f(u) = v+v$,
-$f(u+u+u) = f(u+u)+f(u) = v+v+v$
-per soddisfare~\eqref{eq:4882824}.
-In generale, dato $n\in \NN$ possiamo definire
-i multipli $nx$ di un numero $x\in G$ con la seguente
-definizione ricorsiva:
-\[
- \begin{cases}
- 0x = 0_G, \\
- (n+1) x = nx + x.
- \end{cases}
-\]
-....
+Si consideri l'insieme $A = \ENCLOSE{n \in \NN\colon P(n) \text{ è vera}}$.
+Le ipotesi del principio di induzione garantiscono che $A$ sia induttivo
+(definizione~\ref{def:naturali})
+e quindi che $\NN \subset A$. Dunque $P(n)$ è vera per ogni $n\in \NN$.
 \end{proof}
-\end{comment}
 
-% \section{assiomi dei numeri reali}
+Per induzione non è difficile dimostrare che se $n,m\in \NN$ allora $n+m\in \NN$ 
+e che per ogni $n\in \NN$ si ha $n\ge 0$.
 
-Introduciamo ora le proprietà caratterizzanti dei numeri reali.
+\begin{theorem}[definizione per induzione]
+\label{th:induzione}%
+Sia $X$ un insieme, sia $\alpha\in X$ e sia $g\colon X\to X$ una funzione.
+Allora esiste una unica funzione $f\colon \NN \to X$ tale che
+\begin{equation}\label{eq:4835628}
+  \begin{cases}
+    f(0) = \alpha, \\
+    f(n+1) = g(f(n)).
+  \end{cases}
+\end{equation}
+Si avrà dunque
+\[
+  f(0) = \alpha,\quad
+  f(1) = g(\alpha),\quad
+  f(2) = g(g(\alpha)),\quad
+  f(3) = g(g(g(\alpha)))\dots
+\]
+La funzione $f(n)$ rappresenta l'$n$-esima iterazione di $g$
+calcolata nel punto $\alpha$ e si denota a volte con $g^n(\alpha)$.
 
-\begin{definition}[campo]\label{def:field}
-\label{def:campo}%
-Si dice \myemph{campo}
-un insieme su cui sono definite le operazioni di addizione $+$ e
-moltiplicazione $\cdot$ che soddisfano le seguenti proprietà
-valide per ogni $x,y,z$:
-\begin{enumerate}
-\item associativa: $(x+y)+z = x + (y+z)$, $(x\cdot y)\cdot z = x \cdot (y \cdot z)$;
-\item commutativa: $x+y=y+x$, $x\cdot y = y \cdot x$;
-\item distributiva: $x\cdot (y+z) = x\cdot y + x \cdot z$;
-\item esistenza degli elementi neutri: esistono $0$ e $1$
-tali che $0\neq 1$, $0+x = x$, $1\cdot x = x$;
-\item esistenza dell'opposto: per ogni $x$ esiste $y$ tale che $x+y = 0$;
-\item esistenza del reciproco: per ogni $x\neq 0$ esiste $y$ tale che $x \cdot y = 1$.
-\end{enumerate}
+Più in generale se abbiamo $\alpha\in X$ e una funzione $g\colon \NN \times X \to X$
+esisterà una unica funzione $f\colon \NN \to X$ tale che
+%
+\begin{equation}
+  \begin{cases}
+    f(0) = \alpha, \\
+    f(n+1) = g(n, f(n)).
+  \end{cases}
+\end{equation}
+\end{theorem}
+%
+\begin{proof}
+Si rimanda agli appunti di logica \cite{appunti_logica}
+per una dimostrazione formale.
+Informalmente sarà possibile definire una
+funzione $f_n$ sull'insieme dei primi $n+1$ numeri naturali
+che soddisfi le proprietà richieste. Bisognerà poi
+fare l'unione delle funzioni $f_n$ per ottenere una funzione
+definita su tutto $\NN$.
+\end{proof}
+
+\begin{definition}[iterata]
+  Sia $f\colon A \to A$ una funzione definita su un insieme $A$ qualunque.
+  Definiamo allore le iterate di $f$ come segue:
+  \[
+    f^0(x) = x, \quad f^1(x) = f(x), \quad
+    f^2(x) = f(f(x)), \quad f^3(x) = f(f(f(x))), \dots
+  \]
+  Formalmente possiamo definire l'iterata $n$-esima
+  come la funzione $f^n\colon A \to A$ che soddisfa
+  per ogni $x\in A$ la
+  seguente definizione ricorsiva
+  \[
+    \begin{cases}
+        f^0(x) = x,\\
+        f^{n+1}(x) = f(f^n(x)).
+    \end{cases}
+  \]
+  Per induzione si dimostra che 
+  \[
+    (f^n)^m = f^{n+m}.  
+  \]
 \end{definition}
 
-\begin{definition}[ordine totale]
-\label{def:order}
-Si dice \myemph{ordine!totale}
-una relazione $\le$ con le seguenti proprietà
-\mymargin{$\le$}
-\begin{enumerate}
-\item dicotomica: $x \le y$ o $y \le x$;
-\item riflessiva: $x \le x$;
-\item antisimmetrica: se $ x\le y$ e $y \le x$ allora $x=y$;
-\item transitiva: se $x\le y $ e $ y \le z$ allora $x\le z$.
-\end{enumerate}
-Un insieme su cui è definita una relazione di
-ordine totale si dice essere \emph{totalmente ordinato}.
+Se $n\in \NN$ e $x\in \RR$ si può definire induttivamente il prodotto $n x$
+mediante le seguenti proprietà ricorsive:
+\[
+\begin{cases}
+   0 x = 0,\\
+   (n+1) x = n x + x.
+\end{cases}  
+\]
+(definizione del prodotto come somma ripetuta).  
+Per induzione è facile dimostrare che 
+dati $x,y\in \RR$ e $n,m\in \NN$
+si ha la proprietà distributiva 
+\[
+  (n+m)(x+y) = n x + n y + m x + m y
+\]
+e di conseguenza $n(-x) = -(n x)$.
+Dalle proprietà dell'iterata si ha la proprietà associativa del prodotto
+\[
+ (nm)x = n(mx).  
+\]
+Inoltre se 
+$0 \le x \le y$ e $n \le m$ si ha la proprietà di monotonia:
+\[
+  n x \le m y
+\]
+(e se $x<y$ oppure $n<m$ la disuguaglianza è stretta).
+In particolare se $n x = 0$ se e solo se $n=0$ oppure $x=0$.
+
+\begin{definition}
+  \mymark{***}
+  Siano $x \in \RR$ e $A \subset \RR$.
+  Se $x \ge A$ (ovvero $x \ge a$ per ogni $a\in A$)
+  diremo che $x$ è un \myemph{maggiorante} di $A$.
+  Se $x \le A$ diremo invece che $x$ è un \myemph{minorante} di $A$.
+  Se $A$ ammette un maggiorante diremo che $A$ è \emph{superiormente limitato},
+  se $A$ ammette un minorante diremo che $A$ è \emph{inferiormente limitato},
+  \index{superiormente limitato}
+  \index{inferiormente limitato}
+  \index{limitato!superiormente}
+  \index{limitato!inferiormente}
+  se $A$ ammette sia maggiorante che minorante diremo che $A$ è \myemph{limitato}.
+  
+  Se $x\ge A$ e $x\in A$ diremo che $x$ è il massimo di $A$,
+  se $x\le A$ e $x\in A$ diremo che $x$ è il minimo di $A$
+  
+  Se $x$ è minimo dei maggioranti di $A$ diremo che $x$ è
+  \myemph[estremo superiore e inferiore]{estremo!superiore}
+  di $A$ se invece $x$ è massimo dei minoranti diremo che $x$ è
+  \myemph[]{estremo!inferiore} di $A$.
 \end{definition}
 
-Dalla relazione $\le$ possono essere definite di conseguenza
-le relazioni $\ge$, $<$ e $>$ tramite le seguenti naturali definizioni:
-\mymargin{$\ge$ $<$ $>$}%
+Massimo e minimo di un insieme $A$, se esistono, sono unici.
+Infatti se $x$ e $y$ fossero due minimi di $A$ si avrebbe $x\le y$ in
+quanto $x\le A$ e $y\in A$. Analogamente si avrebbe $y\le x$ e
+quindi $x=y$. Ragionamento analogo se $x$ e $y$ fossero due massimi.
+Anche l'estremo superiore e l'estremo inferiore se esistono sono
+unici in quanto sono essi stessi un minimo ed un massimo
+(rispettivamente dei maggioranti e dei minoranti).
+
+Useremo quindi le notazioni:
+\mynote{$\max$ $\min$ $\sup$ $\inf$}%
+\index{sup}%
+\index{inf}%
+\index{max}%
+\index{min}%
+\index{$\sup$}%
+\index{$\inf$}%
+\index{$\max$}%
+\index{$\min$}%
+\[
+  \max A, \qquad
+  \min A, \qquad
+  \sup A, \qquad
+  \inf A
+\]
+per denotare univocamente (quando esistono) il massimo, il minimo,
+l'estremo superiore e l'estremo inferiore di un insieme $A$.
+
+Osserviamo che se l'insieme $A$ è finito e non vuoto,
+il massimo e il minimo esistono
+sempre.
+Se, ad esempio, non esistesse il massimo di $A$ significa che scelto
+$x_k\in A$ esisterebbe sempre $x_{k+1}\in A$ con $x_{k+1} > x$ e quindi l'insieme
+$A$ dovrebbe contenere infiniti punti $x_0,x_1, \dots, x_k,\dots $
+Insiemi infiniti, invece, potrebbero non avere massimo/minimo.
+Un esempio di insieme che non ha né massimo né minimo è
+l'insieme $A = \ENCLOSE{x\in \RR\colon 0<x<1}$ infatti per ogni
+$x\in A$ si ha $\frac x 2<x$, $\frac{1+x}{2}>x$
+con $\frac x 2\in A$ e $\frac{1+x}{2}\in A$,
+dunque nessun $x\in A$ può essere
+massimo o minimo. L'insieme $B=\ENCLOSE{x\in \RR \colon 0\le x \le 1}$
+ha invece massimo $\max B= 1$ e minimo $\min B=0$.
+
+\begin{theorem}[esistenza del $\sup$]
+  \label{th:sup}
+  \mymark{**}
+  Se $A$ è un insieme non vuoto,
+  superiormente limitato, allora esiste l'estremo superiore di $A$.
+  Tale numero $x=\sup A$ è caratterizzato dalle seguenti proprietà
+  \begin{enumerate}
+  \item $\forall a\in A\colon x \ge a$;
+  \item $\forall \eps>0\colon \exists a\in A \colon x < a + \eps$.
+  \end{enumerate}
+
+  Risultato analogo vale per l'estremo inferiore.
+  \end{theorem}
+  %
+  \begin{proof}
+  \mymark{*}
+  Consideriamo l'insieme dei maggioranti
+  \[
+  B = \ENCLOSE{ b\in \RR \colon b \ge A}.
+  \]
+  Per ipotesi $B$ è non vuoto e per come è definito risulta $A\le B$.
+  Dunque dall'assioma di continuità deduciamo l'esistenza di un numero $x\in \RR$
+  tale che $A\le x \le B$. La prima disuguaglianza $A\le x$ ci dice che $x$ è un
+  maggiorante e quindi $x\in B$, la seconda $x\le B$ ci dice che $x$ è il minimo
+  di $B$ e quindi concludiamo che $x$ è l'estremo superiore di $A$.
+
+  La prima delle due proprietà caratterizzanti il $\sup$ traduce la condizione
+  che $x$ sia un maggiorante di $A$. La seconda delle due proprietà esprime il
+  fatto che $x$ sia il minimo dei maggioranti, infatti se $x$ è il minimo
+  dei maggioranti significa che nessun numero minore di $x$ è un maggiorante, ovvero
+  che ogni $x-\eps$ con $\eps>0$ non è un maggiorante, ovvero
+  che esiste $a\in A$ tale che $a > x-\eps$.
+\end{proof}
+
+La precedente dimostrazione è l'unica in cui 
+utilizzeremo l'assioma di continuità dei numeri reali.
+D'ora in poi non utilizzeremo più tale assioma ma useremo invece
+cone maggiore facilità gli operatori: $\sup$ e $\inf$.
+In effetti è molto semplice verificare che l'esistenza del $\sup$
+è una condizione equivalente all'assioma di continuità
+(basta osservare che se $A\le B$ allora $\sup A$ è )
+un elemento di separazione).
+
+La seguente proprietà dei numeri reali esprime il fatto
+che non esistono gli \emph{infinitesimi} ovvero numeri reali positivi
+che siano più piccoli di ogni $1/n$ con $n\in \NN$.
+
+\begin{theorem}[proprietà archimedea dei numeri reali]
+\mymark{**}%
+\mymargin{proprietà!archimedea}%
+  Dato $x\in \RR$ esiste $n\in \NN$ tale che $n > x$.
+  E se $y>0$ esiste $n\in \NN$ tale che $ny>1$.
+\end{theorem}
+%
+\begin{proof}
+\mymark{*}
+  Fissati $x,y\in \RR$, $x>0$, $y>0$ consideriamo l'insieme 
+  \[
+     A = \NN y = \ENCLOSE{ny\colon n\in \NN}.
+  \]
+  Basta dimostrare che $A$ non è superiormente limitato perché 
+  in tal caso dato $x\in \RR$ esisterebbe $n\in \NN$ per cui $ny> x$
+  ed entrambe le affermazioni del teorema sarebbero vere (la prima 
+  prendendo $y=1$ e la seconda prendendo $x=1$).
+
+  Chiaramente $A$ non è vuoto in quanto $0\in A$ dunque se $A$ 
+  per assurdo fosse superiormente limitato esisterebbe 
+  $m=\sup A$, $m\in \RR$. 
+  Siccome $m$ è il minimo dei maggioranti di $A$
+  e $m-y$ è più piccolo di $m$, allora $m-y$ non è un maggiorante. 
+  Dunque deve esistere $n\in \NN$ tale che $ny>m-y$.
+  Ma allora $(n+1)y = ny + y > m$ ed essendo $n+1\in \NN$ troviamo che $m$
+  non poteva essere un maggiorante di $A$: assurdo.
+\end{proof}
+
+\begin{theorem}[parte intera]
+\mymark{*}%
+  Dato $x\in \RR$ esiste un unico $m\in \ZZ$ tale che $m-1 \le x < m$.
+\end{theorem}
+%
+\begin{proof}
+  Supponiamo per un attimo che sia $x\ge 1$.
+  In tal caso consideriamo l'insieme $A=\ENCLOSE{n\in \NN\colon n > x}$.
+  Per la proprietà archimedea tale insieme non può essere vuoto e,
+  per il buon ordinamento di $\NN$ (si vedano gli appunti di logica),
+  deve avere un minimo $m$.
+  Dunque $m>x$ (in quanto $m\in A$) e $m\ge 1$ (in quanto $x\ge 1$).
+  Quindi necessariamente $m-1 \le x$ altrimenti avremmo che $m-1\in A$ e $m$
+  non poteva essere il minimo. Si ottiene dunque $m-1\le x < m$ come volevamo
+  dimostrare.
+
+  Nel caso fosse $x<1$ possiamo trovare un $N\in \NN$ (sempre per la proprietà archimedea) per cui $x+N \ge 1$. Applicando il ragionamento precedente a $x+N$ si trova comunque il risultato desiderato.
+\end{proof}
+
+\begin{definition}[parte intera]
+  \mymark{**}
+  \mymargin{parte!intera}
+  Dato $x\in \RR$ denotiamo con $\lfloor x\rfloor$ l'unico intero
+  che soddisfa
+  \mynote{$\lfloor\cdot\rfloor$} %% *** non viene bene nell'indice!
+  \[
+    x - 1 < \lfloor x \rfloor \le x
+  \]
+  e denotiamo con $\lceil x \rceil = - \lfloor -x \rfloor$ l'unico intero che soddisfa (verificare!)
+  \mynote{$\lceil\cdot\rceil$} %% *** non viene bene nell'indice!
+  \[
+    x \le \lceil x \rceil < x + 1.
+  \]
+  Si ha dunque
+  \[
+    \lfloor x \rfloor \le x \le \lceil x \rceil
+  \]
+  con entrambe le uguaglianze che si realizzano quando $x\in \ZZ$.
+  I due interi $\lfloor x \rfloor$ e $\lceil x \rceil$
+  sono la migliore approssimazione intera di $x$ rispettivamente
+  per difetto e per eccesso.
+  L'intero più vicino ad $x$ (approssimazione per \myemph{arrotondamento})
+  è
+  \[
+    \left\lfloor x + \frac 1 2 \right\rfloor
+  \quad \text{ossia} \quad
+    \left\lceil x-\frac 1 2 \right\rceil
+  \]
+  (le due espressioni differiscono solamente quando $x$ si trova nel punto medio tra due interi consecutivi, nel qual caso la prima approssima per eccesso e la seconda per difetto).
+\end{definition}
+
+In alcuni testi si usa la notazione $[x]$ per denotare la parte intera $\lfloor x \rfloor$ e si definisce
+anche la \emph{parte frazionaria}
+\[
+  \ENCLOSE{x} = x - [x].
+\]
+Per evitare ambiguità con il normale utilizzo delle parentesi
+noi preferiremo evitare queste notazioni.
+  
+\begin{theorem}[divisibilità dei numeri reali]
+  Dato $x\in \RR$ e dato $n\in \NN$, $n\neq 0$ esiste un unico $y\in \RR$ 
+  tale che $n y = x$. Scriveremo in tal caso $y=\frac{x}{n}$ o $y=x/n$.
+\end{theorem}
+  %
+\begin{proof}
+  Preliminarmente vogliamo dimostrare che  
+  preso qualunque $n\in \NN$ con $n>0$
+  vale la proprietà di esistenza di numeri piccoli:
+  \begin{equation}\label{eq:p5534}
+    \forall \eps>0\, \exists \delta>0 \colon n\delta < \eps.
+  \end{equation}
+  E' facile dimostrare che 
+  \[
+    \forall \eps>0\, \exists \alpha>0 \colon 2 \alpha \le \eps  
+  \]
+  infatti dato $\eps>0$ sappiamo, per la proprietà di
+  densità dei numeri reali, che esiste $x\in \RR$ tale che $0<x<\eps$.
+  Ma allora se $2x\le \eps$ basta scegliere $\alpha = x$ 
+  se invece $2x>\eps$ si sceglie $\alpha = \eps-x$
+  così da avere comunque
+  \[
+  2 \alpha = 2 \eps - 2 x < 2\eps - \eps = \eps.
+  \]
+  Ma allora \eqref{eq:p5534} può essere dimostrata per induzione.
+  Per $n=1$ non è altro che la proprietà di densità (se $0<\eps$ esiste $\delta$ tale 
+  che $0<\delta<\eps$). Supponendo la proprietà vera per un certo $n\ge 1$
+  sappiamo esistere $\delta>0$ tale che $n\delta < \eps$ ma anche $\alpha>0$ 
+  tale che $2\alpha \le \delta$. Allora
+  \[
+   (n+1)\alpha \le (n+n)\alpha = 2n\alpha \le n\delta < \eps
+  \]
+  e dunque la proprietà~\eqref{eq:p5534} è verificata per ogni $n\in \NN$.
+
+  Passiamo ora alla dimostrazione del teorema.
+  Senza perdita di generalità possiamo supporre che sia $x>0$ 
+  in quanto $x=0$ è banale e se $x<0$ basta considerare $-x$ al posto di $x$. 
+  Dato $n\in \NN$, $n\neq 0$, dobbiamo 
+  risolvere l'equazione $n y = x$ per trovare $y$.
+  Consideriamo l'insieme 
+  \[
+    A = \{a\in \RR\colon a\ge 0,\ n a \le x\}.
+  \]
+  Chiaramente $A$ non è vuoto in quanto $0\in A$. 
+  Inoltre se $a>x$ si ha $n a > n x \ge x$ e dunque $a\not in A$.
+  Significa che $x$ è un maggiorante di $A$ e quindi $A$ è superiormente limitato.
+  Scegliamo allora
+  \[
+    y = \sup A.  
+  \]
+  Dobbiamo mostrare che $n\cdot y = x$. 
+  Se fosse $n y < x$ posto $\eps = x - n y$ avremmo $\eps>0$
+  e per~\eqref{eq:p5534} sappiamo che dovrà esistere $\delta>0$ 
+  per cui $n\delta < \eps$ da cui:
+  \[
+      n(y+\delta) = ny + n\delta < ny + \eps = x.
+  \]
+  Dunque si avrebbe $y+\delta \in A$ da cui si conclude che $y$ non 
+  può essere un maggiorante di $A$.
+  Se invece fosse $n y > x$ posto $\eps = ny - x$
+  prendiamo anche in questo caso un $\delta >0$ con $n\delta < \eps$.
+  Allora $y-\delta$ sarebbe un maggiorante di $A$ perché preso qualunque 
+  $a>y-\delta$ si avrebbe
+  \[
+    na > ny-n\delta > ny -\eps = x
+  \]
+  e dunque non ci può essere $a\in A$ con $a>y-\delta$. Ma se $y-\delta$ è un 
+  maggiorante $y$ non può essere il minimo dei maggioranti: assurdo.
+  
+  Significa quindi che $ny = \eps$, come volevamo dimostrare.
+
+  Rimane da verificare che c'è un unico $y$ con tale proprietà. 
+  Ma se avessimo due soluzioni: $ny_1 = \eps$ e $ny_2 = \eps$ facendo la differenza 
+  si ottiene $n(y_1-y_2)=0$ da cui (essendo $n>1$) si ottiene $y_1-y_2=0$ cioè $y_1=y_2$. 
+\end{proof}
+
+Grazie al teorema precedente possiamo definire i \myemph{numeri razionali}:
+\[
+\QQ = \ZZ / (\NN\setminus\ENCLOSE{0}) = \ENCLOSE{\frac{p}{q}\colon p\in \ZZ, q\in \NN, q\neq 0}.
+\]
+Le seguenti proprietà discendono immediatamente dalle proprietà della moltiplicazione:
+\[
+  \frac{p}{1} = p, \qquad 
+  \frac{0}{q} = 0, \qquad
+  \frac{p}{q} + \frac{s}{q} = \frac{p+s}{q},\qquad 
+  n \frac{p}{q} = \frac{np}{q}.
+\]
+
+\begin{theorem}[densità di $\QQ$ in $\RR$]
+\label{th:densita_Q}%
+\mymark{*}%
+\mymargin{densità di $\QQ$}%
+Dati $x,y \in \RR$ con $x<y$ esiste $q\in \QQ$ tale che $x<q<y$.
+\end{theorem}
+%
+\begin{proof}
+Per la proprietà archimedea dei numeri reali essendo $y-x>0$
+deve esistere $n\in \NN$ tale che $y-x > 1/n$ così si avrà
+\[
+    nx + 1 < ny.
+\]
+Prendiamo allora $m=\lfloor nx + 1\rfloor$ cosicché si abbia
+\[
+  nx < m \le nx + 1.
+\]
+Mettendo insieme le due disuguaglianze e dividendo per n si ottiene,
+come volevamo dimostrare,
+\[
+  x < \frac{m}{n} < y.
+\]
+\end{proof}
+
+\begin{definition}[funzioni monotòne]
+  \label{def:monotonia}%
+  \mymark{***}%
+  \mynote{funzioni monotòne}%
+  \index{funzione!monotòna}%
+  \index{monotonia}%
+  Una funzione $f\colon A \to B$ con $A,B$ insiemi ordinati, si
+  dice essere
+  \begin{enumerate}
+  \item \myemph{crescente} se $x \le y \implies f(x) \le f(y)$;
+  \item \myemph{decrescente} se $x \le y \implies f(x) \ge f(y)$;
+  \item \myemph{monotòna} se crescente o decrescente;
+  \item \myemph{costante} se crescente e decrescente;
+  \item \myemph{strettamente crescente} se $x<y \implies f(x) < f(y)$;
+  \item \myemph{strettamente decrescente} se $x<y \implies f(x) > f(y)$;
+  \item \myemph{strettamente monotòna} se strettamente crescente o strettamente decrescente.
+  \end{enumerate}
+  \end{definition}
+  
+  Si osservi che se $f\colon A \to \RR$ è costante allora esiste $c$ tale che
+  $f(x)=c$ per ogni $x\in A$. Si osservi anche che ogni funzione strettamente monotona è anche iniettiva. Si osservi infine (fare un esempio!) che esistono funzioni che non rientrano in nessuna delle categorie sopra elencate (cioè che non sono né crescenti né decrescenti).
+  
+  Si faccia attenzione alla terminologia.
+  In alcuni testi (in particolare nei testi anglosassoni) si utilizza il termine
+  \emph{crescente} con il significato di \emph{strettamente crescente} e si usa la dizione \emph{non decrescente} per indicare il concetto che noi abbiamo definito con \emph{crescente}. In
+  effetti con le nostre definizioni una funzione crescente può essere costante
+  e quindi non crescere affatto!
+  E' questo uno dei casi in cui il termine utilizzato nelle definizioni non corrisponde esattamente alla dizione utilizzata
+  nel linguaggio comune.
+  
+\begin{lemma}[estensione di funzioni monotone]
+Sia $S$ un gruppo additivo totalmente ordinato, denso, completo 
+(come abbiamo definito $\RR$) con unità $u\in S$.
+Sia $f\colon \QQ\to S$ una funzione strettamente crescente.
+Allora esiste una funzione strettamente crescente $g\colon \RR\to S$ 
+tale che $g(x)=f(x)$ per ogni $x\in QQ$ (cioè $g$ estende $f$ su tutto $\RR$).
+
+Se inoltre per ogni $x\in \QQ$ e ogni $n\in \NN$ si ha
+\[
+  f\enclose{x+\frac 1 n} \le f(x) + \frac{u}{n}
+\]
+la funzione $g$ è unica.
+\end{lemma}
+%
+\begin{proof}
+Osserviamo che $S$ ha tutte le proprietà dell'insieme $\RR$ e quindi possiamo usare 
+su $S$ gli stessi strumenti che abbiamo già definito per $\RR$. 
+Avremo solo l'accortezza di chiamare $u$ l'unità di $S$ per distinguerla da $1\in\RR$.
+Dato $x\in \RR$ consideriamo l'insieme 
+\[
+    A_x = \ENCLOSE{f(r)\colon r\in \QQ, r\le x}.
+\]
+Tale insieme non è vuoto in quanto $f(\lfloor x\rfloor)\in A_x$ 
+ed è superiormente limitato da $f(\lceil x\rceil)$ in quanto se $r\le x$ 
+si ha $f(r) \le f(\lceil x \rceil)$ visto che $f$ è crescente.
+Dunque possiamo definire $g\colon \RR\to S$, $g(x) = \sup A_x$. 
+
+Mostriamo innanzitutto che $g(x)=f(x)$ se $x\in \QQ$. 
+Da un lato se $r\le x$, $r\in \QQ$ si ha $f(r)\le f(x)$ per ipotesi 
+e dunque $f(x)$ è un maggiorante di $A_x$. 
+D'altro canto visto che $x\in \QQ$ si ha $f(x)\in A_x$ e quindi 
+$f(x)$ è il massimo di $A_x$. Dunque $f(x) = \sup A_x$.
+
+Mostriamo ora che se $x < y$ si ha $g(x) < g(y)$.
+Per la densità di $\QQ$ sappiamo esistere $r,s\in \QQ$ tale che $x < r < s < y$.
+Per ipotesi sappiamo che $f(r)<f(s)$.
+Visto che $s\le y$ si ha $f(s) \in A_y$ e quindi $g(y)\ge f(s)$.
+D'altra parte se $t\le x$, $t \in \QQ$ sarà anche $t\le r$ e quindi $f(t)\le f(r)$.
+Dunque $f(r)$ è un maggiorante di $A_x$ per cui $g(x)\le f(r)$.
+Abbiamo quindi trovato che $g(x) \le f(r) < f(s) \le g(y)$ da cui $g(x) < g(y)$.
+
+Rimane da mostrare l'unicità.
+Supponiamo per assurdo che ci siano due diverse estensioni $g$ e $h$. 
+Ci sarà un punto 
+$x\in\RR$ per cui $g(x)\neq h(x)$. 
+Senza perdere di generalità supponiamo $g(x)<h(x)$ e poniamo $\eps = h(x) - g(x)$.
+Per la proprietà Archimedea esiste $q\in \NN$ tale che $q \eps > u$.
+Considerando allora l'intero $p = \lfloor qx\rfloor$ si avrà
+\[
+  p \le qx < p+1  
+\]
+da cui 
+\[
+  \frac p q \le x < \frac{p+1}q.
+\]
+Ma allora, usando la seconda ipotesi, si ha 
 \begin{align*}
-  x \ge y &\iff y \le x \\
-  x < y & \iff (x\le y) \land (x \neq y)\\
-  x > y & \iff y< x.
+  \eps & = h(x) - g(x) \le h\enclose{\frac{p+1}q} - g\enclose{\frac p q}
+   = f\enclose{\frac{p+1}q}-f\enclose{\frac p q}
+   \le \frac{u}{q} \\ 
+   &< \frac{q\eps}{q} = \eps
 \end{align*}
-Grazie alla proprietà dicotomica risulta anche che
-$x<y$ è la negazione logica di $x \ge y$ e, analogamente,
-$x>y$ è la negazione di $x \le y$.
+che è assurdo ($\eps<\eps$).
+\end{proof}
 
-\begin{definition}[campo ordinato]
-\label{def:campo_ordinato}%
-Un campo su cui è definito un ordinamento totale
-si dice essere un \myemph{campo!ordinato}
-se le operazioni e l'ordinamento sono compatibili
-nel senso che
-valgono le seguenti proprietà:
+\begin{theorem}[unicità di $\RR$]%
+  \label{th:unicitaR}%
+  Sia $S$ un gruppo additivo totalmente ordinato, denso e completo (come $\RR$)
+  con unità $u$. Allora esiste una unica funzione bigettiva
+  $f\colon \RR\to S$ tale che:
+  \begin{gather*}
+    f(x+y) = f(x) + f(y),\\
+    f(1) = u, \\
+    x\le y \implies f(x) \le f(y).
+  \end{gather*}
+\end{theorem}
+%
+\begin{proof}
+Se tale $f$ esiste si avrà $f(0+0)=f(0)+f(0) = 2f(0)$ da cui $f(0) = 0$.
+Di conseguenza $f(x) + f(-x) = f(x-x) = 0$ da cui $f(-x) = -f(x)$
+per ogni $x\in \RR$.
+
+Inoltre se $n\in \NN$ si avrà
+\[
+  f(n+1) = f(n) + f(1) = f(n) + u  
+\]
+per ogni $n\in \NN$ e dunque $f$ è univocamente definita su $\NN$ 
+dalle proprietà:
+\[
+\begin{cases}
+  f(0) = 0, \\
+  f(n+1) = f(n) + u.
+\end{cases}  
+\]
+Per induzione su $n\in \NN$ si può quindi mostrare che $f(nx) = nf(x)$ 
+per ogni $x\in \RR$. 
+Di conseguenza per ogni $p,q\in \NN$, $q\neq 0$:
+\[
+  f\enclose{\frac p q} = \frac{pf(u)}{q}
+\]
+e lo stesso vale se $p\in \ZZ$ visto che $f(-x) = -f(x)$.
+Significa che $f$ è univocamente determinata su tutto $\QQ$.
+Per il lemma precedente $f$ si estende ad una funzione crescente 
+su tutto $\RR$. E tale estensione è unica in quanto 
+\[
+  f\enclose{\frac{p+1}{q}} = f\enclose{\frac p q}+\frac{u}{q}.
+\]
+La funzione $f$ è strettamente crescente in quanto dato $x<y$ si possono trovare 
+due interi $p_1,p_2\in \ZZ$ e un denominatore $q\in \NN$ 
+per cui si abbia $x\le \frac{p_1}{q} < \frac{p_2} \le y$.
+Ma $f$ è strettamente crescente su $\QQ$ in quanto
+\[
+  f\enclose{\frac{p_2}q} - f\enclose{\frac{p_1}q}
+= f(\enclose{p_2-p_1}{q}) = \frac{(p_2-p_1)u}{q}>0
+\]
+e dunque $f(x)\le f\enclose{\frac{p_1}q} < f\enclose{\frac{p_2}q}\le f(y)$
+e scopriamo quindi che $f$ è strettamente crescente su tutto $\RR$.
+Dunque in particolare $f$ è iniettiva.
+
+Per dimostrare che $f$ è suriettiva applichiamo il teorema dimostrato finora 
+scambiando i due insiemi $\RR$ e $S$ (le ipotesi sono infatti le stesse sui due insiemi).
+Dovrà quindi esistere una funzione iniettiva $g\colon S\to \RR$ che, 
+sull'insieme $T=f(\RR)\subset S$ ha le stesse proprietà di $f^{-1}\colon T \to \RR$
+e, per unicità, deve coincidere quindi con essa su $T$. 
+Ma allora $g(T)=\RR$ ed essendo $g$ iniettiva dovrà essere $T=S$.
+\end{proof}
+
+\begin{theorem}[moltiplicazione]
+Esiste una unica unica operazione $\cdot$ su $\RR$ che soddisfa le seguenti 
+proprietà: 
 \begin{enumerate}
-\item positività: se $x\ge 0$ e $y \ge 0$ allora $x+y \ge 0$ e $x\cdot y\ge 0$;
-\item monotonia: se $x \ge y$ allora $x+z \ge y+z$.
+    \item distributiva: $x\cdot(y+z) = x\cdot y + x\cdot z$;
+    \item elemento neutro: $1\cdot x = x$;
+    \item positività: se $x \ge 0$ e $y\ge 0$ allora $x\cdot y \ge 0$.
 \end{enumerate}
-\end{definition}
+Inoltre tale operazione, che chiamiamo \myemph{moltiplicazione},
+ha anche le seguenti proprietà:
+\begin{enumerate}
+  \item associativa: $(x\cdot y)\cdot z = x \cdot (y\cdot z)$;
+  \item esistenza del reciproco: se $x\neq 0$ esiste $y$ tale 
+  che $xy = 1$;
+  \item elemento assorbente: $0\cdot x = 0$;
+  \item annullamento: se $x\cdot y=0$ allora $x=0$ oppure $y=0$.
+  \item stretta positività: se $x>0$ e $y>0$ allora $x\cdot y > 0$.
+\end{enumerate}
+\end{theorem}
+%
+\begin{proof}
+Dato $u\in \RR$, $u>0$, consideriamo $u$ come nuova unità su $\RR$.
+Per il teorema~\ref{th:unicitaR} esiste una unica bigezione additiva 
+$f\colon \RR \to \RR$.
+\end{proof}
 
-Nel modello intuitivo di retta geometrica a cui abbiamo accennato
-all'inizio di questa sezione, c'è l'idea che se spezziamo la retta in due
-parti $A$ e $B$ in modo che ogni punto di $A$ si trovi
-a sinistra di ogni punto di $B$, ci deve essere un punto $x$ in
-cui avviene il taglio. Questo motiva la seguente definizione.
-
-\begin{definition}[proprietà di Dedekind o continuità]
-\label{def:dedekind}
-\index{ordine!continuo}
-\mymark{***}
-Diremo che un insieme totalmente ordinato è
-\emph{continuo} o \myemph{Dedekind-completo}
-se
-dati comunque due sottoinsiemi non vuoti $A$ e $B$ se $A \le B$
-(cioè: per ogni $a \in A$ e per ogni $b\in B$ vale $a\le b$) allora esiste
-$x$, elemento del campo, tale che $A\le x \le B$ (cioè per ogni $a\in A$ e per ogni $b\in B$
-risulta $a\le x \le b$).
-\end{definition}
-
-\begin{axiom}[esistenza dei numeri reali]
-Supponiamo
-\mymargin{$\RR$}%
-che esista un insieme $\RR$
-chiamato insieme dei
-\myemph[reali]{numeri!reali}
-\index{reali}%
-su cui sono definite le
-operazioni $+$ (addizione) e $\cdot$ (moltiplicazione)
-e la relazione d'ordine $\le$ che
-lo rendono un \emph{campo ordinato continuo} cioè
-un insieme che soddisfa tutte le proprietà enunciate
-nelle definizioni~\ref{def:campo},
-\ref{def:order}, \ref{def:campo_ordinato} e \ref{def:dedekind}.
-Gli elementi di tale insieme vengono chiamati \myemph{numeri reali}.
-\end{axiom}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{theorem}[isomorfismo gruppi lineari]
+  Sia $G$ un insieme su cui su cui è definita
+  una relazione d'\emph{ordine totale} $<$ cioè una relazione
+  che soddisfa le seguenti proprietà:
+  \begin{gather*}
+    a < b \land b < c \implies a < c, \\
+    (a < b) \lor (b < a) \lor (a=b), \\
+    \lnot ((a < b) \land (b < a)).
+  \end{gather*}
+  Scriveremo $a\le b$ per intendere $a< b \lor a = b$.
+  Supponiamo inoltre che l'ordine sia \emph{denso}
+  cioè che per ogni $a,b\in G$ se $a < b$
+  allora esiste $x\in G$ tale che $a < x < b$ (significa:
+  $a < x \land x < b$) e \emph{continuo} cioè
+  dati $A,B$ sottoinsiemi non vuoti di $G$ se $A\le B$
+  allora esiste $x\in G$ tale che $A\le x \le B$.
+  
+  Supponiamo inoltre sia definita su $G$
+  una operazione $+$ \emph{associativa} e \emph{commutativa}
+  $+$ cioè tale che per ogni $a,b,c\in G$ si abbia
+  \begin{align*}
+    a + (b+c) = (a+b)+c,\\
+    a + b = b + a.
+  \end{align*}
+  Supponiamo che esista un elemento neutro
+  cioè un elemento $0_G \in G$ tale che
+  \[
+    \forall a\in A: 0_G + a = a.
+  \]
+  Supponiamo infine che l'operazione rispetti l'ordine cioè che
+  se $a,b\in G$ con $a\ge 0_G$ e $b\ge 0_G$ allora $a+b\ge 0_G$.
+  
+  Sia $H$ un altro insieme totalmente ordinato con le stesse proprietà:
+  un ordine $\le$, una operazione $+$ e un elemento neutro $0_H\in H$.
+  
+  Allora dato $u\in G$ con $u>0_G$ e dato $v\in H$
+  con $v>0_H$ esiste una unica funzione $f\colon G \to H$ tale che
+  \begin{gather}
+    f(u) = v  \label{eq:49932}\\
+    f(x+y) = f(x)+f(y) \label{eq:4882824}\\
+    x\ge y \implies f(x) \ge f(y).
+  \end{gather}
+  Inoltre tale funzione $f$ risulta essere bigettiva
+  ed è dunque un isomorfismo delle due strutture.
+  \end{theorem}
+  %
+  \begin{proof}
+  Andremo a definire $f$ per gradi. Innanzitutto
+  dovrà essere $f(u)=v$ per soddisfare~\eqref{eq:49932}.
+  Poi dovrà essere $f(u+u) = f(u)+f(u) = v+v$,
+  $f(u+u+u) = f(u+u)+f(u) = v+v+v$
+  per soddisfare~\eqref{eq:4882824}.
+  In generale, dato $n\in \NN$ possiamo definire
+  i multipli $nx$ di un numero $x\in G$ con la seguente
+  definizione ricorsiva:
+  \[
+   \begin{cases}
+   0x = 0_G, \\
+   (n+1) x = nx + x.
+   \end{cases}
+  \]
+  ....
+  \end{proof}
+  
 
 \begin{theorem}
 \label{th:campo_ordinato}%
@@ -1078,123 +1676,6 @@ $x$ e $y$ sulla retta reale.
 
 \section{i numeri naturali, interi, razionali}
 
-\begin{definition}[numeri naturali]
-\label{def:naturali}%
-\mymargin{numeri!naturali}%
-\index{naturali}%
-Un sottoinsieme $A\subset \RR$ si dice essere \emph{induttivo}
-se valgono le due proprietà:
-\begin{gather*}
-  0 \in A, \\
-  n\in A \implies n+1 \in A.
-\end{gather*}
-La famiglia di tutti i sottoinsiemi induttivi di $\RR$ non è vuota
-in quanto $\RR$ stesso è induttivo. Definiamo $\NN$ come l'intersezione
-di tutti i sottoinsiemi induttivi di $\RR$ (ovvero: il più piccolo sottoinsieme induttivo di $\RR$).
-\mymargin{$\NN$}
-\end{definition}
-
-A partire da $\NN$ si può definire l'insieme $\ZZ$ dei
-\myemph[interi]{numeri!interi}%
-\index{interi}%
-come l'insieme di tutte le possibili
-differenze di numeri naturali
-e l'insieme $\QQ$ dei
-\myemph[razionali]{numeri!razionali}%
-\index{razionali}
-come l'insieme di tutte le frazioni:
-\begin{align*}
-  \ZZ
-  \mymargin{$\ZZ$}
-    &= \NN -\NN
-    = \ENCLOSE{n-m \colon n,m\in\NN } \\
-  \QQ
-  \mymargin{$\QQ$}
-    &= \frac{\ZZ}{\ZZ\setminus\ENCLOSE{0}}
-    = \ENCLOSE{\frac p q \colon p\in \ZZ, q\in \ZZ, q\neq 0}.
-\end{align*}
-
-Risulta immediato dimostrare che l'insieme $\NN$ così definito
-soddisfa gli assiomi di Peano (si veda \cite{appunti_logica})
-in particolare vale il seguente.
-
-\begin{theorem}[principio di induzione]
-Se $P(n)$ è un predicato nella variabile $n\in \NN$ tale che:
-\begin{enumerate}
-\item $P(0)$ è vero;
-\item per ogni $n\in \NN$ se $P(n)$ è vero allora anche $P(n+1)$ è vero.
-\end{enumerate}
-Allora $P(n)$ è vero per ogni $n\in \NN$.
-\end{theorem}
-%
-\begin{proof}
-Si consideri l'insieme $I = \ENCLOSE{n \in \NN\colon P(n) \text{ è vera}}$.
-Le ipotesi del principio di induzione garantiscono che $I$ sia induttivo
-(definizione~\ref{def:naturali})
-e quindi che $\NN \subset I$. Dunque $P(n)$ è vera per ogni $n\in \NN$.
-\end{proof}
-
-\begin{theorem}[definizione per induzione]
-\label{th:induzione}%
-Sia $X$ un insieme, sia $\alpha\in X$ e sia $g\colon X\to X$ una funzione.
-Allora esiste una unica funzione $f\colon \NN \to X$ tale che
-\begin{equation}\label{eq:4835628}
-  \begin{cases}
-    f(0) = \alpha, \\
-    f(n+1) = g(f(n)).
-  \end{cases}
-\end{equation}
-Si avrà dunque
-\[
-  f(0) = \alpha,\quad
-  f(1) = g(\alpha),\quad
-  f(2) = g(g(\alpha)),\quad
-  f(3) = g(g(g(\alpha)))\dots
-\]
-La funzione $f(n)$ rappresenta l'$n$-esima iterazione di $g$
-calcolata nel punto $\alpha$ e si denota a volte con $g^n(\alpha)$.
-
-Più in generale se abbiamo $\alpha\in X$ e una funzione $g\colon \NN \times X \to X$
-esisterà una unica funzione $f\colon \NN \to X$ tale che
-%
-\begin{equation}
-  \begin{cases}
-    f(0) = \alpha, \\
-    f(n+1) = g(n, f(n)).
-  \end{cases}
-\end{equation}
-\end{theorem}
-%
-\begin{proof}
-Si rimanda agli appunti di logica \cite{appunti_logica}
-per una dimostrazione formale.
-Informalmente sarà possibile definire una
-funzione $f_n$ sull'insieme dei primi $n+1$ numeri naturali
-che soddisfi le proprietà richieste. Bisognerà poi
-fare l'unione delle funzioni $f_n$ per ottenere una funzione
-definita su tutto $\NN$.
-\end{proof}
-
-Si avrà dunque $\NN \subset \ZZ \subset \QQ \subset \RR$.
-
-\begin{definition}[iterata]
-  Sia $f\colon A \to A$ una funzione definita su un insieme $A$ qualunque.
-  Definiamo allore le iterate di $f$ come segue:
-  \[
-    f^0(x) = x, \quad f^1(x) = f(x), \quad
-    f^2(x) = f(f(x)), \quad f^3(x) = f(f(f(x))), \dots
-  \]
-  Formalmente possiamo definire l'iterata $n$-esima
-  come la funzione $f^n\colon A \to A$ che soddisfa
-  per ogni $x\in A$ la
-  seguente definizione ricorsiva
-  \[
-   \begin{cases}
-       f^0(x) = x,\\
-       f^{n+1}(x) = f(f^n(x)).
-   \end{cases}
-  \]
-\end{definition}
 
 
 %\section{potenza intera, fattoriale, coefficiente binomiale}
@@ -1673,222 +2154,6 @@ deduciamo che in $\QQ$ questi due insiemi non hanno elemento di separazione.
 
 \section{estremo superiore}
 
-\begin{definition}
-\mymark{***}
-Siano $x \in \RR$ e $A \subset \RR$.
-Se $x \ge A$ (ovvero $x \ge a$ per ogni $a\in A$)
-diremo che $x$ è un \myemph{maggiorante} di $A$.
-Se $x \le A$ diremo invece che $x$ è un \myemph{minorante} di $A$.
-Se $A$ ammette un maggiorante diremo che $A$ è \emph{superiormente limitato},
-se $A$ ammette un minorante diremo che $A$ è \emph{inferiormente limitato},
-\index{superiormente limitato}
-\index{inferiormente limitato}
-\index{limitato!superiormente}
-\index{limitato!inferiormente}
-se $A$ ammette sia maggiorante che minorante diremo che $A$ è \myemph{limitato}.
-
-Se $x\ge A$ e $x\in A$ diremo che $x$ è il massimo di $A$,
-se $x\le A$ e $x\in A$ diremo che $x$ è il minimo di $A$
-
-Se $x$ è minimo dei maggioranti di $A$ diremo che $x$ è
-\myemph[estremo superiore e inferiore]{estremo!superiore}
-di $A$ se invece $x$ è massimo dei minoranti diremo che $x$ è
-\myemph[]{estremo!inferiore} di $A$.
-\end{definition}
-
-Massimo e minimo di un insieme $A$, se esistono, sono unici.
-Infatti se $x$ e $y$ fossero due minimi di $A$ si avrebbe $x\le y$ in
-quanto $x\le A$ e $y\in A$. Analogamente si avrebbe $y\le x$ e
-quindi $x=y$. Ragionamento analogo se $x$ e $y$ fossero due massimi.
-Anche l'estremo superiore e l'estremo inferiore se esistono sono
-unici in quanto sono essi stessi un minimo ed un massimo
-(rispettivamente dei maggioranti e dei minoranti).
-
-Useremo quindi le notazioni:
-\mynote{$\max$ $\min$ $\sup$ $\inf$}%
-\index{sup}%
-\index{inf}%
-\index{max}%
-\index{min}%
-\index{$\sup$}%
-\index{$\inf$}%
-\index{$\max$}%
-\index{$\min$}%
-\[
- \max A, \qquad
- \min A, \qquad
- \sup A, \qquad
- \inf A
-\]
-per denotare univocamente (quando esistono) il massimo, il minimo,
-l'estremo superiore e l'estremo inferiore di un insieme $A$.
-
-Osserviamo che se l'insieme $A$ è finito e non vuoto,
-il massimo e il minimo esistono
-sempre.
-Se, ad esempio, non esistesse il massimo di $A$ significa che scelto
-$x_k\in A$ esisterebbe sempre $x_{k+1}\in A$ con $x_{k+1} > x$ e quindi l'insieme
-$A$ dovrebbe contenere infiniti punti $x_0,x_1, \dots, x_k,\dots $
-Insiemi infiniti, invece, potrebbero non avere massimo/minimo.
-Un esempio di insieme che non ha né massimo né minimo è
-l'insieme $A = \ENCLOSE{x\in \RR\colon 0<x<1}$ infatti per ogni
-$x\in A$ si ha $\frac x 2<x$, $\frac{1+x}{2}>x$
-con $\frac x 2\in A$ e $\frac{1+x}{2}\in A$,
-dunque nessun $x\in A$ può essere
-massimo o minimo. L'insieme $B=\ENCLOSE{x\in \RR \colon 0\le x \le 1}$
-ha invece massimo $\max B= 1$ e minimo $\min B=0$.
-
-\begin{theorem}[esistenza del $\sup$]
-\label{th:sup}
-\mymark{**}
-Se $A$ è un insieme non vuoto,
-superiormente limitato, allora esiste l'estremo superiore di $A$.
-Tale numero $x=\sup A$ è caratterizzato dalle seguenti proprietà
-\begin{enumerate}
-\item $\forall a\in A\colon x \ge a$;
-\item $\forall \eps>0\colon \exists a\in A \colon x < a + \eps$.
-\end{enumerate}
-
-Risultato analogo vale per l'estremo inferiore.
-\end{theorem}
-%
-\begin{proof}
-\mymark{*}
-Consideriamo l'insieme dei maggioranti
-\[
-B = \ENCLOSE{ b\in \RR \colon b \ge A}.
-\]
-Per ipotesi $B$ è non vuoto e per come è definito risulta $A\le B$.
-Dunque dall'assioma di continuità deduciamo l'esistenza di un numero $x\in \RR$
-tale che $A\le x \le B$. La prima disuguaglianza $A\le x$ ci dice che $x$ è un
-maggiorante e quindi $x\in B$, la seconda $x\le B$ ci dice che $x$ è il minimo
-di $B$ e quindi concludiamo che $x$ è l'estremo superiore di $A$.
-
-La prima delle due proprietà caratterizzanti il $\sup$ traduce la condizione
-che $x$ sia un maggiorante di $A$. La seconda delle due proprietà esprime il
-fatto che $x$ sia il minimo dei maggioranti, infatti se $x$ è il minimo
-dei maggioranti significa che nessun numero minore di $x$ è un maggiorante, ovvero
-che ogni $x-\eps$ con $\eps>0$ non è un maggiorante, ovvero
-che esiste $a\in A$ tale che $a > x-\eps$.
-\end{proof}
-
-Nella precedente dimostrazione abbiamo utilizzato per l'ultima volta
-l'assioma di continuità dei numeri reali.
-D'ora in poi non utilizzeremo più tale assioma ma useremo invece
-le operazioni $\sup$ e $\inf$.
-In effetti è molto semplice verificare che l'esistenza del $\sup$
-è una condizione equivalente all'assioma di continuità
-(basta osservare che se $A\le B$ allora $\sup A$ è )
-un elemento di separazione).
-
-La seguente proprietà dei numeri reali esprime il fatto
-che non esistono gli \emph{infinitesimi} ovvero numeri reali positivi
-che siano più piccoli di ogni $1/n$ con $n\in \NN$.
-
-\begin{theorem}[proprietà archimedea dei numeri reali]
-\mymark{**}
-\mymargin{proprietà!archimedea}
-Dato $x\in \RR$ esiste $n\in \NN$ tale che $n > x$.
-E se $x>0$ esiste $m\in \NN$ tale che $1/m < x$.
-\end{theorem}
-%
-\begin{proof}
-\mymark{*}
-Se esistesse $x\in \RR$ tale che $x \ge \NN$
-allora $\NN$ sarebbe superiormente limitato.
-Dunque avrebbe un estremo superiore $m= \sup \NN$.
-Siccome $m$ è il minimo dei maggioranti di $\NN$
-e $m-1$ è più piccolo di $m$, allora $m-1$ non è un maggiorante
-di $\NN$. Dunque deve esistere $n\in \NN$ tale che $n>m-1$.
-Ma allora $n+1 > m$ ed essendo $n+1\in \NN$ troviamo che $m$
-non poteva essere un maggiorante di $\NN$.
-
-Dunque per ogni $y\in \RR$ esiste $n\in \NN$ tale che $n>y$.
-Se $x\in \RR$ e $x>0$ allora posto $y=1/x$ possiamo trovare
-$n\in \NN$ con $n>y = 1/x$ da cui $x > 1/n$.
-\end{proof}
-
-\begin{theorem}[parte intera]
-\mymark{*}
-Dato $x\in \RR$ esiste un unico $m\in \ZZ$ tale che $m-1 \le x < m$.
-\end{theorem}
-%
-\begin{proof}
-Supponiamo per un attimo che sia $x\ge 1$.
-In tal caso consideriamo l'insieme $A=\ENCLOSE{n\in \NN\colon n > x}$.
-Per la proprietà archimedea tale insieme non può essere vuoto e,
-per il buon ordinamento di $\NN$ (si vedano gli appunti di logica),
-deve avere un minimo $m$.
-Dunque $m>x$ (in quanto $m\in A$) e $m\ge 1$ (in quanto $x\ge 1$).
-Quindi necessariamente $m-1 \le x$ altrimenti avremmo che $m-1\in A$ e $m$
-non poteva essere il minimo. Si ottiene dunque $m-1\le x < m$ come volevamo
-dimostrare.
-
-Nel caso fosse $x<1$ possiamo trovare un $N\in \NN$ (sempre per la proprietà archimedea) per cui $x+N \ge 1$. Applicando il ragionamento precedente a $x+N$ si trova comunque il risultato desiderato.
-\end{proof}
-
-\begin{definition}[parte intera]
-\mymark{**}
-\mymargin{parte!intera}
-Dato $x\in \RR$ denotiamo con $\lfloor x\rfloor$ l'unico intero
-che soddisfa
-\mynote{$\lfloor\cdot\rfloor$} %% *** non viene bene nell'indice!
-\[
-  x - 1 < \lfloor x \rfloor \le x
-\]
-e denotiamo con $\lceil x \rceil = - \lfloor -x \rfloor$ l'unico intero che soddisfa (verificare!)
-\mynote{$\lceil\cdot\rceil$} %% *** non viene bene nell'indice!
-\[
-  x \le \lceil x \rceil < x + 1.
-\]
-Si ha dunque
-\[
-  \lfloor x \rfloor \le x \le \lceil x \rceil
-\]
-con entrambe le uguaglianze che si realizzano quando $x\in \ZZ$.
-I due interi $\lfloor x \rfloor$ e $\lceil x \rceil$
-sono la migliore approssimazione intera di $x$ rispettivamente
-per difetto e per eccesso.
-L'intero più vicino ad $x$ (approssimazione per \myemph{arrotondamento})
-è
-\[
-  \left\lfloor x + \frac 1 2 \right\rfloor
-\quad \text{ossia} \quad
-  \left\lceil x-\frac 1 2 \right\rceil
-\]
-(le due espressioni differiscono solamente quando $x$ si trova nel punto medio tra due interi consecutivi, nel qual caso la prima approssima per eccesso e la seconda per difetto).
-\end{definition}
-In alcuni testi si usa la notazione $[x]$ per denotare la parte intera $\lfloor x \rfloor$ e si definisce
-anche la \emph{parte frazionaria}
-\[
-   \ENCLOSE{x} = x - [x].
-\]
-Per evitare ambiguità con il normale utilizzo delle parentesi
-noi preferiremo evitare queste notazioni.
-
-\begin{theorem}[densità di $\QQ$ in $\RR$]
-\label{th:densita_Q}%
-\mymark{*}%
-\mymargin{densità di $\QQ$}%
-Dati $x,y \in \RR$ con $x<y$ esiste $q\in \QQ$ tale che $x<q<y$.
-\end{theorem}
-%
-\begin{proof}
-Per la proprietà archimedea dei numeri reali essendo $y-x>0$
-deve esistere $n\in \NN$ tale che $y-x > 1/n$ così si avrà
-\[
-    nx + 1 < ny.
-\]
-Prendiamo allora $m=\lfloor nx + 1\rfloor$ cosicché si abbia
-\[
-  nx < m \le nx + 1.
-\]
-Mettendo insieme le due disuguaglianze e dividendo per n si ottiene,
-come volevamo dimostrare,
-\[
- x < \frac{m}{n} < y.
-\]
-\end{proof}
 
 \section{numeri decimali}
 %
@@ -2208,35 +2473,9 @@ La funzione $f(x) = x+1$ non è né pari, né dispari, né periodica
   \]
 \end{definition}
 
-\begin{definition}[funzioni monotòne]
-\label{def:monotonia}%
-\mymark{***}%
-\mynote{funzioni monotòne}%
-\index{funzione!monotòna}%
-\index{monotonia}%
-Una funzione $f\colon A \to \RR$ con $A\subset \RR$, si
-dice essere
-\begin{enumerate}
-\item \myemph{crescente} se $x \le y \implies f(x) \le f(y)$;
-\item \myemph{decrescente} se $x \le y \implies f(x) \ge f(y)$;
-\item \myemph{monotòna} se crescente o decrescente;
-\item \myemph{costante} se crescente e decrescente;
-\item \myemph{strettamente crescente} se $x<y \implies f(x) < f(y)$;
-\item \myemph{strettamente decrescente} se $x<y \implies f(x) > f(y)$;
-\item \myemph{strettamente monotòna} se strettamente crescente o strettamente decrescente.
-\end{enumerate}
-\end{definition}
-
-Si osservi che se $f\colon A \to \RR$ è costante allora esiste $c$ tale che
-$f(x)=c$ per ogni $x\in A$. Si osservi anche che ogni funzione strettamente monotona è anche iniettiva. Si osservi infine (fare un esempio!) che esistono funzioni che non rientrano in nessuna delle categorie sopra elencate (cioè che non sono né crescenti né decrescenti).
-
-Si faccia attenzione alla terminologia.
-In alcuni testi (in particolare nei testi anglosassoni) si utilizza il termine
-\emph{crescente} con il significato di \emph{strettamente crescente} e si usa la dizione \emph{non decrescente} per indicare il concetto che noi abbiamo definito con \emph{crescente}. In
-effetti con le nostre definizioni una funzione crescente può essere costante
-e quindi non crescere affatto!
-E' questo uno dei casi in cui il termine utilizzato nelle definizioni non corrisponde esattamente alla dizione utilizzata
-nel linguaggio comune.
+Riprendiamo ora la definizione~\ref{def:monotonia} (monotonia) che da ora in avanti 
+potrà essere applicata alle funzioni $f\colon A \to \RR$ definite 
+su un insieme $A\subset \RR$.
 
 Dal punto di vista grafico una funzione $f$ è crescente
 se preso qualunque punto $(x,f(x))$ sul grafico della funzione
