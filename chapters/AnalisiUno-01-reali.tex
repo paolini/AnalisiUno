@@ -284,32 +284,7 @@ che è l'insieme di tutti i sottoinsiemi di $A$:
   x \in P(A) \iff x \subset A.
 \end{equation}
 
-\begin{comment}
-\section{numeri naturali}
-%
-La teoria degli insiemi prevede che ogni ``oggetto''
-sia in effetti un insieme.
-Possiamo ad esempio definire i numeri naturali partendo dall'insieme
-vuoto e costruendo insiemi di insiemi, così:
-\begin{align*}
-  0 = \emptyset, \qquad
-  1 = \ENCLOSE{0}, \qquad
-  2 = \ENCLOSE{0,1}, \qquad
-  3 = \ENCLOSE{0,1,2}, \qquad
-  4 = \ENCLOSE{0,1,2,3}, \\
-  5 = \ENCLOSE{0,1,2,3,4}, \qquad
-  6 = \ENCLOSE{0,1,2,3,4,5}, \qquad
-  7 = \ENCLOSE{0,1,2,3,4,5,6}, \\
-  8 = \ENCLOSE{0,1,2,3,4,5,6,7}, \qquad
-  9 = \ENCLOSE{0,1,2,3,4,5,6,7,8}.
-\end{align*}
-Risulta quindi che l'$n$-esimo numero naturale coincide
-con l'insieme dei primi $n$ numeri naturali.
-Ovviamente potremmo andare avanti: se $n$ è un numero naturale
-il successivo non è altro che $n\cup \ENCLOSE{n}$.
-\end{comment}
-
-\section{relazioni e funzioni}
+\section{relazioni}
 
 Grazie agli assiomi precedenti è possibile definire il prodotto cartesiano
 di due insiemi: sarà questo un concetto molto importante nel seguito.
@@ -408,11 +383,62 @@ Ad esempio se prendo $A=B=\ENCLOSE{1,2,3}$ e considero la relazione $R=\ENCLOSE{
 il predicato $aRb$ rappresenta l'usuale relazione d'ordine $a<b$ sui
 tre numeri considerati.
 
+\begin{definition}[relazione di equivalenza]
+  Se $R\subset A\times A$ è una relazione sull'insieme $A$, diremo che 
+  $R$ è una \myemph{relazione di equivalenza} se valgono le seguenti proprietà
+  (tipiche dell'uguaglianza)
+  \begin{enumerate}
+    \item riflessiva: $x R x$;
+    \item simmetrica: se $x R y$ allora $y R x$;
+    \item transitiva: $x R y$ e $yRz$ allora $x R z$.
+  \end{enumerate}
+  Se $R$ è una relazione di equivalenza diremo che $x$ è equivalente a $y$ 
+  (tramite $R$) se $xRy$.
+  Dato $x \in A$ l'insieme di tutti gli elementi di $A$ che sono equivalenti 
+  a $y$ tramite $R$ si chiama \myemph{classe di equivalenza} di $x$. 
+  Si definisce in questo modo:
+  \[
+    [x]_R = \ENCLOSE{y\in A \colon xRy}.  
+  \]
+
+  Se $R$ è una relazione di equivalenza su $A$ definiamo l'\myemph{insieme quoziente}
+  come l'insieme di tutte le classi di equivalenza:
+  \[
+   A/R 
+   = \ENCLOSE{[x]_R\colon x\in A} 
+   = \ENCLOSE{B\in \mathcal P(A)\colon \exists x\in A\, B=[x]}.  
+  \]
+\end{definition}
+
+Se $R$ è una relazione $A$ l'insieme quoziente $A/R$ rappresenta l'insieme 
+degli oggetti di $A$ in cui vengono identificati tra loro gli oggetti equivalenti.
+Spesso diremo che $A/R$ rappresenta $A$ a meno della equivalenza $R$.
+
+Ad esempio se $A=\ENCLOSE{1,2,3,4,5}$ e prendiamo $D=\ENCLOSE{1,3,5}$ (i numeri dispari)
+e $P=\ENCLOSE{2,4}=A\setminus B$ 
+(i numeri pari) possiamo definire una relazione $R$ su $A$ mediante la proprietà:
+\[
+ x R  y \iff (x\in P \land y\in P) \lor (x\in D \land y\in D).
+\]
+La relazione $R$ rappresenta la proprietà degli elementi di $A$ 
+di avere la stessa ``parità''. 
+Si avrà $[1]_R = [3]_R=[5]_R= D$ e $[2]_R=[4]_R=P$.
+Dunque 
+\[
+   A/R = \ENCLOSE{P,D}
+\]
+e, in effetti, questo insieme ha due elementi $P$ e $D$ che è quello 
+che si ottiene identificando i numeri di $A$ in base alla proprietà 
+di essere pari o dispari. 
+
+\section{funzioni}
+
 Per introdurre il concetto di \emph{funzione} è utile
 utilizzare una notazione alternativa per la coppia: invece di denotarla
 con $(a,b)$ useremo la notazione $a \mapsto b$ e penseremo intuitivamente
 alla coppia come ad una \emph{freccia} che collega l'oggetto $a$
-all'oggetto $b$. Dunque il prodotto cartesiano
+all'oggetto $b$. 
+Dunque il prodotto cartesiano
 $A\times B$ risulta essere l'insieme di tutte le frecce che partono dagli
 elementi di $A$ e arrivano agli elementi di $B$.
 
@@ -474,11 +500,13 @@ se non esistono due punti distinti $a,a' \in A$, $a\neq a'$ tali
 che $f(a) = f(a')$. Questo significa che il problema dell'inversione
 $f(x)=b$ ha al più una soluzione (la soluzione, se esiste, è unica).
 Una funzione $f\colon A \to B$ si dice essere \emph{bigettiva}
+(o \myemph{biettiva})
 \mymargin{bigettiva\\invertibile}%
 \index{bigettiva}%
 \index{funzione!bigettiva}%
 \index{invertibile}%
 \index{funzione!invertibile}%
+\index{biettiva}%
 o
 \emph{invertibile}%
 \footnote{Attenzione: in alcuni testi (tra cui~\cite{Giusti}) si considerano
@@ -548,6 +576,165 @@ per indendere che ogni elemento di $A$ è minore o uguale ad ogni elemento di $B
 oppure $A+B$ per intendere l'insieme di tutti i numeri che si ottengono sommando
 un numero di $A$ ad un numero di $B$.
 
+\section{cardinalità}
+
+\begin{definition}[cardinalità]
+  Diremo che due insiemi $A$ e $B$ hanno la stessa \myemph{cardinalità} 
+  (oppure sono \emph{equipotenti}) 
+  \index{equipotenza}%
+  \index{insiemi!equipotenti}%
+  \index{insieme!equipotente}%
+  se esiste una funzione bigettiva $f\colon A \to B$.
+  Scriveremo in tal caso:
+  \[
+    \# A = \# B.  
+  \] 
+  Se esiste una funzione iniettiva $f\colon A\to B$ significa che 
+  $A$ ha la stessa cardinalità di un sottoinsieme di $B$ (in quanto $f\colon A \to f(A)$
+  risulta essere bigettiva). Scriveremo in tal caso:
+  \[
+    \# A \le \#B.
+  \]
+\end{definition}
+
+Intuitivamente se due insiemi hanno la stessa cardinalità 
+significa che hanno lo stesso numero di elementi.
+Ma la precedente definizione riesce a catturare tale concetto senza dover 
+ricorrere al concetto di numero. 
+Questo ha il vantaggio che questa definizione si applica a qualunque insieme, anche 
+con un numero ``infinito'' di elementi.
+
+Si osservi che non abbiamo dato una definizione di $\#A$ e quindi non stiamo 
+definendo la cardinalità di un insieme ma stiamo soltanto definendo 
+una relazione tra insiemi che 
+denotiamo, impropriamente, come una uguaglianza: $\#A = \#B$.
+E' ovvio che $\#A = \#A$ in quanto l'identità $f\colon A\to A$, $f(x)=x$ è bigettiva.
+E' anche chiaro che se $\#A = \#B$ e $\#B = \#C$ allora $\#A = \#C$ in quanto 
+componendo tra loro due funzioni bigettive si ottiene ancora una funzione 
+bigettiva.
+
+Il seguente teorema, affatto banale, 
+giustifica l'utilizzo del simbolo $\le$ nella definizione precedente.
+
+\begin{theorem}[Cantor-Bernstein]
+  Se $\#A \le \#B$ e $\#B \le \#A$ allora $\#A = \#B$.
+\end{theorem}
+%
+\begin{figure}
+  \centering
+  \begin{tikzpicture}
+    \foreach \x in {1,0.5,0.25,0.25*0.5,0.25*0.25,0.25*0.25*0.5} {
+      \path[draw,fill=black!20] (2*\x,2*\x)--(-2*\x,2*\x)--(-2*\x,-2*\x)--(2*\x,-2*\x)--cycle;
+      \draw[fill=white] (0,0) circle (1.6*\x);
+    };
+    \node at (-1.0,2.2) {$A$};
+    \node at (-1.5,1.5) {$A\setminus B$};
+    \node at (0,1.3) {$B$};
+%    \node at (-0.75,0.75) {$$};
+  \end{tikzpicture}
+  \caption{
+  Nella dimostrazione del teorema di Cantor-Bernstein
+  $A$ è rappresentato da un quadrato e $B$ da un cerchio contenuto
+  in $A$. L'immagine di $A$ in $B$ è rappresentata da un quadrato contenuto
+  in $B$ e così via. La parte ombreggiata è l'insieme $D$.
+  }
+  \label{fig:omotetia}
+\end{figure}
+%
+\begin{proof}
+Per prima cosa al posto dell'ipotesi $\# B \le \#A$ prendiamo
+l'ipotesi apparentemente più forte $B\subset A$.
+Vedremo alla fine che questa ipotesi non ci fa perdere di generalità.
+
+Essendo per ipotesi $\#A \le \#B$ esiste $f\colon A \to B$ iniettiva.
+Intuitivamente l'idea è quella di definire l'insieme
+\[
+ D = (A\setminus B)  \cup f(A\setminus B) \cup f^2(A\setminus B) \cup \dots
+\]
+e di definire la biezione $\phi \colon A \to B$ mandando ogni "buccia"
+$f^n(A\setminus B)$ in $f^{n+1}(A\setminus B)$ e lasciando fisso
+il resto di $B$.
+
+Per farlo in maniera rigorosa
+consideriamo allora la famiglia di insiemi $\F = \{X \subset A \colon X \supset A \setminus B, f(X) \subset X\}$ e definiamo $D = \bigcap \F$.
+Osserviamo che $A \in \F$ quindi $\F\neq \emptyset$.
+
+E' facile verificare che $f(D) \subset D$ infatti dato $x\in D$ per ogni $X\in \F$ deve essere $x\in X$ ma allora $f(x) \in X$ (per come è definito $\F$), dunque $f(x) \in D$. In modo analogo si dimostra che $D\supset A\setminus B$ e dunque concludiamo che $D\in \F$.
+
+Verifichiamo ora che $f(D)=D\cap B$. Da un lato se $x\in D$ allora
+$f(x) \in f(D)\subset D$ e $f(x)\subset f(A)\subset B$ da cui $f(x) \in D\cap B$.
+Dall'altro lato se $y\in D \cap B$ e non fosse $y \in f(D)$
+allora potremmo considerare l'insieme $X=D\setminus\{y\}$
+e osservare che $X\in \F$.
+Infatti in primo luogo $X \supset A \setminus B$ in quanto $D$ ha questa proprietà e $y \in B$.
+Inoltre dato qualunque $x \in X$ visto che $X\subset D$ allora
+$f(x) \in f(D)$ e, per ipotesi,
+$y\not \in f(D)$ dunque $f(x)\neq y$ da cui $f(x) \in X$.
+Dunque $X\in \F$ ma allora dovrebbe essere $D\subset X$ mentre
+per costruzione abbiamo $y\in D$ ma non in $X$.
+
+% Avendo visto che $f(D)=D\cap B$ possiamo facilmente
+% osservare che $f(A\setminus D) \subset A \setminus D$.
+% Infatti $f(A\setminus D)\subset f(A)=B$ e quindi
+% $f(A\setminus D)\cap D \subset D \cap B = f(D)$
+% ma essendo $f$ iniettiva si deve avere
+% $f(A\setminus D) \cap f(D)=\emptyset$.
+
+Possiamo allora definire $\phi \colon A \to B$
+\[
+\phi(x) =
+\begin{cases}
+   f(x) & \text{se $x\in D$}, \\
+   x & \text{altrimenti.}
+\end{cases}
+\]
+Chiaramente $\phi$ è iniettiva in quanto $f$ è iniettiva e manda $D$ in $D$
+e l'identità è iniettiva e manda $A\setminus D$ in $A\setminus D$.
+
+Per dimostrare che $\phi$ è suriettiva consideriamo qualunque $y \in B$.
+Se $y\not \in D$ allora $\phi(y)=y$.
+Se invece $y\in D$ essendo $y\in D\cap B = f(D)$ esisterà $x\in D$ tale
+che $\phi(x) = f(x) = y$.
+
+Abbiamo dimostrato il teorema nel caso $B\subset A$.
+Nel caso generale sappiamo che esiste $f\colon A\to B$ iniettiva
+ed esiste $g\colon B\to A$ iniettiva. Definiamo $\tilde B=g(B)$ e
+definiamo $\tilde f\colon A\to \tilde B$ tramite $\tilde f(x) = g(f(x))$.
+Chiaramente $\tilde B\subset A$ e $\tilde f$ è iniettiva.
+Dunque ci siamo ricondotti alle ipotesi particolari e sappiamo che esiste
+$\tilde \phi \colon A \to \tilde B$ bigettiva. Ma allora possiamo definire
+$\phi\colon A\to B$ come $\phi(x) = g^{-1}(\tilde \phi(x))$.
+Essendo $\tilde \phi(A)=\tilde B$ ed essendo $g\colon B\to \tilde B$
+bigettiva, risulta che anche $\phi$ sia bigettiva.
+\end{proof}
+
+\begin{comment}
+  \section{numeri naturali}
+  %
+  La teoria degli insiemi prevede che ogni ``oggetto''
+  sia in effetti un insieme.
+  Possiamo ad esempio definire i numeri naturali partendo dall'insieme
+  vuoto e costruendo insiemi di insiemi, così:
+  \begin{align*}
+    0 = \emptyset, \qquad
+    1 = \ENCLOSE{0}, \qquad
+    2 = \ENCLOSE{0,1}, \qquad
+    3 = \ENCLOSE{0,1,2}, \qquad
+    4 = \ENCLOSE{0,1,2,3}, \\
+    5 = \ENCLOSE{0,1,2,3,4}, \qquad
+    6 = \ENCLOSE{0,1,2,3,4,5}, \qquad
+    7 = \ENCLOSE{0,1,2,3,4,5,6}, \\
+    8 = \ENCLOSE{0,1,2,3,4,5,6,7}, \qquad
+    9 = \ENCLOSE{0,1,2,3,4,5,6,7,8}.
+  \end{align*}
+  Risulta quindi che l'$n$-esimo numero naturale coincide
+  con l'insieme dei primi $n$ numeri naturali.
+  Ovviamente potremmo andare avanti: se $n$ è un numero naturale
+  il successivo non è altro che $n\cup \ENCLOSE{n}$.
+  \end{comment}
+  
+  
+
 \section{la retta dei numeri reali}
 \label{sec:reali}
 
@@ -587,17 +774,28 @@ $*$ si dice essere un \myemph{gruppo} se l'operazione
 ha le seguenti proprietà:
 \begin{enumerate}
   \item associativa: $\forall x,y,z\in X\colon (x*y)*z = x*(y*z)$;
-  \item esistenza elemento neutro: $\exists e\in X\colon \forall x\in X \colon e*x=x*e = x$;
-  \item esistenza inverso: $\forall x\in X\colon \exists y\in X\colon x*y=y*x=e$.
+  \index{proprietà!associativa}%
+  \index{associatività}%
+  \item esistenza elemento neutro: 
+  \index{elemento!neutro}%
+  \index{neutro}%
+  $\exists e\in X\colon \forall x\in X \colon e*x=x*e = x$;
+  \item esistenza inverso: 
+  \index{elemento!inverso}%
+  \index{inverso}%
+  $\forall x\in X\colon \exists y\in X\colon x*y=y*x=e$.
 \end{enumerate}
 Inoltre il gruppo si dice essere \myemph[gruppo!abeliano]{abeliano} o \emph{commutativo}
 se vale la proprietà:
 \begin{enumerate}
   \item[4.] commutativa: $\forall x,y\in X\colon x*y = y*x$.
+  \index{proprietà!commutativa}%
+  \index{commutatività}% 
 \end{enumerate}
 \end{definition}
 
-L'elemento neutro di un gruppo è unico. Se infatti $x$ e $y$ fossero due elementi neutri 
+L'elemento neutro di un gruppo è unico. 
+Se infatti $x$ e $y$ fossero due elementi neutri 
 si avrebbe $x = x*y = y$.
 
 \begin{definition}[relazione d'ordine]
@@ -633,7 +831,12 @@ se esistono sempre punti intermedi:
 
 Un ordinamento $\le$ si dice essere
 \myemph[ordinamento!continuo]{continuo}
-(o \myemph{Dedekind-completo}) se vale la seguente proprietà:
+\index{continuità!ordinamento}%
+\index{ordine!continuo}%
+(o \emph{Dedekind-completo})
+\index{Dedekind-completo}%
+\index{completo!Dedekind}%
+se vale la seguente proprietà:
 \begin{enumerate}
   \item[6.] continuità: se $A,B$ sono due sottoinsiemi non vuoti di $X$
   per cui se per ogni $a\in A$ e per ogni $b\in B$ risulta $a\le b$
@@ -670,7 +873,7 @@ L'inverso additivo di un elemento $x$ sarà chiamato
 \myemph{opposto} e verrà denotato con $-x$, si avrà quindi $x + (-x) = 0$.
 e definiamo l'operazione di \myemph{sottrazione}:
 \[
-    x- y = x + (-y).
+    x - y = x + (-y).
 \]
 Diremo che un numero $x\in \RR$ è \myemph{positivo} se $x>0$ 
 e \myemph{negativo} se $x<0$.
@@ -798,27 +1001,6 @@ le altre cifre decimali $2,3,4,5,6,7,8,9$ direttamente come segue:
  8 = 7+1,\quad
  9 = 8+1.
 \end{gather*}
-Ogni insieme induttivo contiene questi numeri, quindi questi sono 
-tutti numeri naturali.
-Per convenzione si usa la usuale notazione decimale posizionale
-per rappresentare in maniera efficiente
-tutti i numeri naturali. 
-Formalmente una sequenza di cifre decimali rappresenta un numero naturale 
-tramite una definizione ricorsiva. 
-Le cifre singole rappresentano se stesse e ogni volta che si concatena una cifra 
-a destra di una sequenza il numero che si ottiene è il numero rappresentato 
-dalla sequenza precedente moltiplicato per $9+1$ (dieci) a cui si aggiunge la cifra
-stessa. 
-Un esempio in cui utilizziamo il puntino $\cdot$ per distinguere la moltiplicazione dalla concatenazione 
-delle cifre:
-\begin{align*}
-7501 &= 750\cdot (9+1) + 1 = (75\cdot (9+1)+0)\cdot (9+1) + 1 \\
-&= ((7\cdot (9+1)+5)\cdot(9+1)+0)\cdot (9+1) + 1.
-\end{align*}
-In particolare $10 = 1\cdot (9+1) + 0 = 9+1$ e quindi
-\[
-7501 = ((7\cdot 10+5)\cdot 10+0)\cdot 10 + 1.
-\]
 
 Risulta immediato dimostrare che l'insieme $\NN$ appena definito
 soddisfa gli assiomi di Peano\footnote{%
@@ -960,7 +1142,7 @@ Le definizioni per induzione ci permettono di definire le iterate di una funzion
 \end{definition}
 
 Se $n\in \NN$ e $x\in \RR$ 
-si può definire induttivamente il prodotto $n x$
+si può definire induttivamente il \myemph{prodotto} $n x$
 (a volte scriveremo $n\cdot x$ per motivi tipografici)
 mediante le seguenti proprietà ricorsive:
 \[
@@ -985,10 +1167,82 @@ $0 \le x \le y$ e $n \le m$ si ha la proprietà di monotonia:
 (e se $x<y$ oppure $n<m$ la disuguaglianza è stretta).
 In particolare se $n x = 0$ se e solo se $n=0$ oppure $x=0$.
 
-Se $n,m\in \NN$ si ha $nm\in \NN$
-e, per induzione, si trova facilmente che $nm = mn$.
-Dunque possiamo anche iterare la moltiplicazione per ottenere l'elevamento 
-a potenza;
+Per rappresentare in modo efficiente tutti i numeri naturali utilizziamo la 
+\myemph{notazione posizionale decimale}.
+Il numero rappresentato da una sequenza finita di cifre decimali può essere 
+definito ricorsivamente: una sequenza di una sola cifra rappresenta il numero 
+corrispondente alla cifra stessa, una sequenza di $n+1$ cifre rappresenta il 
+numero rappresentato dalle prime $n$ cifre, moltiplicato per $9+1$ (dieci)
+e sommato alla ultima cifra. 
+Ad esempio la sequenza di cifre $4701$ (leggi: quattromilasettecentouno) significa
+\[ 
+  4701 = ((4\cdot(9+1)+7)\cdot(9+1)+0)\cdot(9+1)+1.
+\]
+Osservando che $10=1\cdot (9+1)+0 = 9+1$ si scriverà
+\[
+  4701 = ((4\cdot 10 + 7)\cdot 10 +0)\cdot 10 + 1.  
+\]
+
+Se $m,n\in \NN$ con $m < n$ si ha $m - n = -(n-m)$ che è l'opposto di un numero naturale.
+L'insieme dei naturali e dei loro opposti si chiama insieme dei 
+\myemph{numeri interi} e si denota con\footnote{
+Da \emph{zahlen} che significa ``numeri'' in tedesco.
+} $\ZZ$:
+\index{$\ZZ$}%
+\[
+  \ZZ = \NN - \NN = \NN \cup (-\NN).  
+\]
+Se $m,n$ sono numeri interi anche $m+n$, $m-n$ e $m\cdot n$ sono numeri interi.
+I numeri interi sono dunque un gruppo additivo e totalmente ordinato.
+Si potrebbe anche verificare che $\ZZ$ è continuo
+ma, a differenza di $\RR$, non soddisfa la proprietà di densità:
+se $n$ è un intero tra $n$ e $n+1$ non ci sono altri numeri interi.
+
+Diremo anche che $\ZZ$ è un \myemph{anello} abeliano con unità, in base alla seguente.
+%
+\begin{definition}[anello]
+  Sia $A$ un insieme su cui sono definite due operazioni: $+$ (addizione) e $\cdot$ (moltiplicazione).  
+  Diremo che $A$ è un \emph{anello} se $A$ è un gruppo abeliano rispetto alla 
+  addizione, 
+  se la moltiplicazione è associativa $(x\cdot y)\cdot z = x\cdot (y\cdot x)$ 
+  e se vale la proprietà distributiva $x\cdot(y+z) = x\cdot y + x\cdot z$,
+  $(x+y)\cdot z = x\cdot z + y\cdot z$.
+  Se inoltre la moltiplicazione è commutativa diremo che $A$ è un \emph{anello abeliano}.
+  Se inoltre esiste un elemento $1\in A$ neutro per la moltiplicazione 
+  diremo che $A$ è un anello \emph{con unità}.
+\end{definition}
+
+Se $A$ è un anello allora si può dimostrare che valgono anche le usuali proprietà:
+\[
+  0\cdot x = x\cdot 0 = 0, \qquad
+  (-1)\cdot x = x \cdot (-1) = -x.
+\]
+Per la prima abbiamo: 
+\[
+  0\cdot x = 0\cdot x + x + (-x) = (0+1)\cdot x + (-x) = x + (-x) = 0
+\]
+e scrivendo gli addendi in ordine opposto si ottiene anche $x\cdot 0 = 0$.
+Allora possiamo dimostrare anche la seconda proprietà:
+\[
+   (-1)\cdot x = (-1)\cdot x + x + (-x) = (-1 + 1)\cdot x + (-x) = 0 + (-x) = -x
+\]
+e anche in questo caso scrivendo gli addendi in ordine opposto si ottiene $x\cdot(-1)=-x$.
+
+Se $n,m\in\ZZ$ con $m\neq 0$ e 
+\mynote{multiplo}%
+se esiste $k\in\ZZ$ tale 
+che $n=km$ diremo che $n$ è un \emph{multiplo}
+di $m$ oppure che $m$ è un \myemph{divisore} di $n$
+e scriveremo:
+\[
+  \frac{n}{m} = k.  
+\]
+
+I multipli di $2$ si chiamano numeri \myemph{pari}.
+Se $n$ non è pari diremo che è \myemph{dispari}. 
+
+Iterando la moltiplicazione si ottiene 
+l'\myemph{elevamento a potenza};
 fissato $m\in \NN$ definiamo, per ogni $n\in \NN$ la potenza $m^n$ 
 ricorsivamente come segue:
 \[
@@ -999,7 +1253,13 @@ ricorsivamente come segue:
 \]
 Si avrà quindi: $m^0=1$, $m^1=m$, $m^2=m\cdot m$, $m^3=m\cdot m\cdot m$, \dots
 
-Definiamo anche il 
+Possiamo utilizzare le potenze di $10$ per rappresentare in maniera alternativa 
+le sequenze decimali:
+\[
+  4701 = 4\cdot 10^3 + 7\cdot 10^2+0\cdot 10 + 1.
+\]
+
+Definiamo il 
 \myemph{fattoriale} 
 \index{"!}%
 \index{$n$"!}%
@@ -1052,7 +1312,10 @@ in tal modo risulta che $n!$ sia il prodotto dei primi $n$ numeri naturali posit
   
   A volte sarà utile considerare anche i prodotti di solamente i numeri
   pari o i numeri dispari fino ad un certo numero $n$. Questo
-  si chiama \myemph{semi fattoriale} e si indica con $n!!$
+  si chiama \myemph{semi fattoriale} e si indica con $n!!$. 
+  Lo possiamo definire separatamente sui numeri pari (cioè 
+  i numeri che si possono scrivere nella forma $2n$ con $n\in \NN$)
+  e i numeri dispari (che scriviamo nella forma $2n+1$):
   \index{"!"!}
   \index{$n$"!"!}
   \index{doppio fattoriale}%
@@ -1086,18 +1349,756 @@ in tal modo risulta che $n!$ sia il prodotto dei primi $n$ numeri naturali posit
   e si dimostrino, per induzione, le formule nell'osservazione precedente.
 \end{exercise}
 
-\subsection{numeri interi}
+In generale è possibile introdurre una notazione per ripetere le operazioni
+di somma e prodotto un numero arbitrario (ma finito) di volte:
+\begin{align*}
+  \sum_{k=1}^n f(k) &= f(1) + f(2) + \dots + f(n) \\
+  \prod_{k=1}^n f(k) &= f(1) \cdot f(2) \cdots f(n).
+\end{align*}
+Formalmente questo può essere fatto tramite una definizione per induzione,
+osservando che ogni somma (o prodotto) di $n$ numeri si ottiene mediante
+la somma dei primi $n-1$ a cui si aggiunge (o si moltiplica) l'ultimo numero.
 
-Se $m,n\in \NN$, risulta $m\ge n$ se e solo se $m-n\in \NN$.
-Se invece $m< n$ si ha $m-n = -(n-m)$ che è l'opposto di un numero naturale.
-L'insieme dei naturali e dei loro opposti si chiama insieme dei numeri 
-interi e si denota con\footnote{
-Da \emph{zahlen} che significa ``numeri'' in tedesco.
-} $\ZZ$:
+\begin{definition}[somme e prodotti]
+\label{def:sommatoria}%
+\mymargin{sommatoria}%
+Se $a,b\in \ZZ$, $b-1 \ge a$ e 
+$f\colon \ENCLOSE{x\in \ZZ\colon a\le x \le b}\to X$
+è una funzione a valori in un gruppo additivo $X$ (ad esempio $\RR$)
+si definisce
 \[
-  \ZZ = \NN - \NN = \NN \cup (-\NN).  
+  \sum_a^b f
+  \qquad \text{ovvero} \qquad
+  \sum_{k=a}^b f(k).
 \]
-Se $m,n$ sono numeri interi anche $m+n$ e $m-n$ sono numeri interi.
+tramite la definizione per induzione:
+\[
+    \displaystyle \sum_a^{a-1} f = 0, \qquad
+    \displaystyle \sum_{a}^{a+n} f = \enclose{\sum_a^{a+n-1} f} + f(a+n).
+\]
+Analogamente se $X$ è un gruppo moltiplicativo si definisce
+\[
+  \prod_a^b f
+  \qquad\text{ovvero}\qquad
+  \prod_{k=a}^b f(k)
+\]
+ponendo:
+\[
+    \displaystyle \prod_{a}^{a - 1} f = 1, \qquad
+    \displaystyle \prod_{a}^{a+n} f = \enclose{\prod_a^{a+n-1} f} \cdot f(a+n).
+\]
+\end{definition}
+
+La definizione precedente ci permette, ad esempio, 
+di definire le potenze e il fattoriale
+come prodotti ripetuti:
+\[
+  x^n = \prod_{k=1}^n x, \qquad
+  n! = \prod_{k=1}^n k.
+\]
+
+Il simbolo $\sum_{k=a}^b$ è chiamato \myemph{sommatoria} ed è importante 
+imparare a manipolarlo nel modo corretto.
+La variabile $k$ si chiama \emph{indice} della sommatoria ed è una variabile 
+muta: significa che l'espressione non dipende da $k$, e che al posto di $k$
+potremmo usare una qualunque altra variabile (sempre che non sia stata utilizzata 
+altrove nella stessa proposizione).
+I numeri $a$ e $b$ si chiamano \emph{estremi} della somma perché sono gli indici 
+del primo e dell'ultimo termine che viene sommato.
+L'operatore sommatoria è lineare nel senso che risulta:
+\[
+  \sum_{k=a}^b c\cdot f(k) = c\cdot \sum_{k=a}^b f(k), \qquad 
+  \sum_{k=a}^b \enclose{f(k) + g(k)} = \sum_{k=a}^b f(k) + \sum_{k=a}^b g(k).
+\]
+ed è additivo:
+\[
+  sum_{k=a}^c f(k) = \sum_{k=a}^{b-1} f(k) + \sum_{k=b}^c f(k).
+\]
+
+\begin{exercise}
+  Dimostrare che 
+  \[
+    \sum_{k=1}^n k = \frac{n\cdot (n+1)}{2}, \qquad
+    \sum_{k=1}^n k^2 = \frac{n(n+1)(2n+1)}{6}
+  \]
+\end{exercise}
+\begin{proof}
+Il risultato della prima somma può essere interpretato nel modo seguente:
+la media di una progressione aritmetica $\frac{1+2+ \dots + n}{n}$ 
+è uguale alla media tra il primo 
+e l'ultimo termine della progressione: $\frac{1+n}{2}$.
+
+Una volta identificata la formula la possiamo dimostrare per induzione.
+Per $n=0$ la somma è pari a $0$ per definizione.
+Se la formula è vera per un certo $n$, si ha 
+\[
+  \sum_{k=1}^{n+1} k = \enclose{\sum_{k=1}^n k} + (n+1)
+   = \frac{n\cdot(n+1)}{2} + (n+1) 
+   = \frac{(n+2)(n+1)}{2}
+\]
+che è quanto volevamo dimostrare.
+
+La formula per la somma dei quadrati si può dimostrare facilmente per 
+induzione (lo si faccia per esercizio) se già conosciamo la formula da 
+dimostrare.
+
+Un metodo per trovare la formula è quello di osservare che la differenza 
+di due termini cubici consecutivi risulta essere quadratico:
+\[
+(k+1)^3 - k^3 = 3 k^2+ 3k + 1.  
+\]
+Sommando ambo i lati della precedente equazione si ottiene:
+\[
+\sum_{k=1}^n (k+1)^3 - \sum_{k=1}^n k^3 = \sum_{k=1}^n (3k^2+3k+1).
+\]
+Al lato sinistro tutti i termini delle due somme si cancellano 
+a vicenda,\footnote{%
+si chiama \emph{somma telescopica}
+\index{somma!telescopica}%
+\index{telescopico}%
+in quanto i termini delle due sommatorie si chiudono uno nell'altro 
+come i tubi di un cannocchiale.}
+tranne l'ultimo della prima somma 
+e il primo della seconda: dunque si ottiene $(n+1)^3 - 1$.
+Per il lato destro abbiamo (utilizzando anche la formula trovata in precedenza):
+\begin{align*}
+\sum_{k=1}^n (3k^2+3k+1) 
+= 3\sum_{k=1}^n k^2 + 3\sum_{k=1}^n k + \sum_{k=1}^n 1
+= 3\sum_{k=1}^n k^2 + 3 \frac{n(n+1)}{2} + n  
+\end{align*}
+da cui 
+\begin{align*}
+  3 \sum_{k=1}^n k^2 
+  &=  (n+1)^3 - 1 - 3\frac{n(n+1)}{2} - n
+  = (n+1)\cdot \Enclose{(n+1)^2 - 3\frac n 2 - 1} \\
+  &= (n+1)\cdot \Enclose{n^2+2n - 3 \frac n 2}
+  = \frac 1 2 (n+1)\cdot n \cdot (2n + 1)
+\end{align*}
+che è quanto volevamo dimostrare.
+
+Con lo stesso metodo si può trovare una formula per il calcolo 
+di $\sum_{k=1}^n k^3$ e così via. 
+\end{proof}
+
+\begin{exercise}
+  Dimostrare che 
+  \[
+    (1-a)\cdot \sum_{k=0}^{n-1} a^k = 1-a^n
+  \]
+\end{exercise}
+
+L'utilizzo della variabile muta nella notazione delle sommatorie
+ci permette di effettuare il \emph{cambio di variabile:}
+posto $I_n = \ENCLOSE{0,1, \dots, n-1}$ (l'insieme dei primi $n$ numeri naturali) 
+se $g\colon I_n \to I_n$ è bigettiva possiamo fare il cambio di variabile 
+$k = g(j)$ e ottenere:
+\[
+    \sum_{k=0}^{n-1} f(k) = \sum_{j=0}^{n-1} f(g(j)).
+\]
+Questa proprietà è sostanzialmente la proprietà commutativa della somma 
+estesa ad un numero qualunque di addendi.
+Grazie a questa proprietà possiamo definire la somma di una funzione 
+definita su qualunque insieme finito. 
+Se $f\colon A \to \RR$ e $g\colon I_n \to A$ è una bigezione (dunque $\#A = n$)
+allora si può definire 
+\[
+  \sum_{k\in A} f(k) = \sum_{j=0}^{n-1} f(g(j))  
+\]
+in quanto la somma sul lato destro non dipende dalla bigezione $g$ che 
+abbiamo scelto.
+
+\section{polinomi}
+
+Il concetto di ``polinomio'' è una astrazione che non risulta facile esplicitare formalmente.
+Nel capitolo~\ref{ch:edo} ci sarà molto utile applicare un polinomio ad un operatore 
+differenziale e dunque ci teniamo ora a rendere molto chiaro cosa intendiamo per polinomio.
+In particolare distingueremo tre concetti che spesso vengono sovrapposti: 
+\emph{espressione polinomiale}, \emph{polinomio} e \emph{funzione polinomiale}.
+
+Se $A$ è un anello abeliano con unità 
+(per ora noi abbiamo un unico esempio $A=\ZZ$ ma più avanti potremo scegliere 
+$A=\QQ$, $A=\RR$ o $A=\CC$)
+possiamo considerare tutte le espressioni
+(formalmente: alberi di valutazione)
+che possono essere costruite utilizzando le operazioni
+di addizione e moltiplicazione che coinvolgo coefficienti presi da $A$
+e una variabile che possiamo chiamare $x$ 
+(e più in generale è possibile considerare polinomi in più variabili).
+Queste espressioni verranno chiamate \myemph{espressioni polinomiali} su $A$
+(o a coefficienti in $A$) nella variabile $x$. 
+Un esempio di espressione polinomiale
+è riportato in Figura~\ref{fig:49389}.
+\begin{figure}
+\begin{center}
+\begin{tikzpicture}
+\node [circle,draw] {$\cdot$}
+  child {
+    node [circle,draw,xshift=-15mm] {$+$}
+    child {
+      node [circle,draw] {$\cdot$}
+      child {node [draw]{$-7$}}
+      child {node [draw]{$x$}}
+    }
+    child {node [draw] {$42$}}
+  }
+  child {
+    node [circle,draw,xshift=15mm] (M) {$+$}
+    child {
+      node [circle,draw,xshift=-10mm]{$\cdot$}
+      child {node [draw]{$x$}}
+      child {
+        node [circle,draw]{$+$}
+        child {node [draw] {$2$}}
+        child {node [draw] {$x$}}
+        }
+      }
+    child {
+      node [circle,draw,xshift=10mm]{$\cdot$}
+      child {node [draw] {$3$}}
+      child {
+        node [circle,draw] {$+$}
+        child {node [draw] {$-1$}}
+        child {node [draw] {$x$}}
+        }
+    }
+  };
+\end{tikzpicture}
+\end{center}
+\caption{Il polinomio $P = \enclose{(-7)\cdot x + 42}\cdot(x\cdot (2+x) + 3\cdot(-1+x))$
+rappresentato come albero di valutazione.}
+\label{fig:49389}%
+\end{figure}
+Le espressioni polinomiali possono essere sommate e moltiplicate tra loro 
+per ottenere nuove espressioni. 
+Come comoda notazione si utilizzano le potenze intere per 
+denotare un prodotto ripetuto $n$ volte: $x^n = x\cdots x$.
+
+Diremo che due espressioni sono \emph{equivalenti} se è possibile trasformare 
+una nell'altra utilizzando le proprietà valide negli anelli abeliani: 
+proprietà associativa 
+e commutativa per somma e prodotto, proprietà distributiva, elementi 
+neutri $1\cdot x = x$, $0 + x = x$.
+Inoltre se un ramo dell'espressione non contiene la variabile $x$ è possibile valutare 
+(nell'anello $A$) le operazioni e sostituire l'intero ramo con il 
+risultato di tali operazioni (e viceversa).
+
+In particolare se abbiamo una qualunque espressione possiamo sviluppare tutti i prodotti
+mediante la proprietà distributiva e poi riassociare i termini 
+con le stesse potenze di $x$, ad esempio:
+\begin{align*}
+P &= \enclose{(-7)\cdot x+42}\cdot(x\cdot (2 + x)
++ 3\cdot(-1+x))\\
+&= \enclose{(-7)\cdot x + 42}\cdot (2x+x^2-3+3x) \\
+% (42-7x)  *  (-3 + 5x + x^2)
+&= 126 + 231 x + 7 x^2 - 7 x^3
+\end{align*}
+In generale si otterrà una espressione polinomiale che diremo 
+essere in \emph{forma canonica}:
+\[
+  P = a_0 + a_1 x + a_2 x^2 + \dots + a_n x^n
+       = \sum_{k=0}^n a_k x^k.
+\]
+Dunque ogni espressione polinomiale è equivalente ad una 
+espressione polinomiale in forma canonica. 
+
+Se due espressioni polinomiali sono equivalenti 
+diremo che rappresentano lo stesso \myemph{polinomio}.
+Se $A$ è un anello denoteremo con 
+$A[x]$ \index{$\KK[x]$}\index{$A[x]$}%
+l'insieme di tutti i polinomi con coefficienti in $A$ e variabile $x$. 
+Formalmente $A[x]$ è il quoziente dell'insieme 
+di tutte le espressioni polinomiali rispetto alla relazione di equivalenza
+che abbiamo appena definito. 
+Possiamo fare la somma e il prodotto di polinomi e queste operazioni 
+rendono $A[x]$ anch'esso un anello.
+
+Più esplicitamente se $P$ e $Q$ sono polinomi in forma canonica
+\[
+  P = \sum_{k=0}^n a_k x^k, \qquad Q = \sum_{k=0}^m b_k x^k
+\]
+si avrà:
+\[
+  P + Q = \sum_{k=0}^{N} (a_k+b_k) \cdot x^k
+\]
+dove $N$ è il più grande tra $n$ e $m$ e si intende che $a_k=0$ per $k>n$ e 
+$b_k=0$ per $k>m$.
+Se $t\in A$ avremo:
+\[
+  t P = \sum_{k=0}^n (ta_k)\cdot x^k.
+\]
+Per quanto riguarda il prodotto si avrà invece:
+\begin{align*}
+  P\cdot Q
+  &= \enclose{\sum_{k=0}^n a_k x^k}\cdot \enclose{\sum_{j=0}^n b_j x^j}
+  = \enclose{\sum_{k=0}^n a_k \enclose{\sum_{j=0}^m b_j x^j} x^k} \\
+  &= \enclose{\sum_{k=0}^n \sum_{j=0}^m a_k b_j x^{j+k}}
+  = \sum_{s=0}^{m+n} \enclose{\sum_{j=0}^s a_j b_{s-j}} x^s.
+\end{align*}
+
+Le formule per la somma e il prodotto dei polinomi in forma canonica 
+possono essere applicate ad ognuna delle proprietà di anello per dimostrare
+che polinomi equivalenti hanno la stessa forma canonica e che quindi 
+due espressioni polinomiali sono equivalenti se e solo se i coefficienti 
+della loro forma canonica coincidono.
+
+Se il polinomio $P$ si scrive in forma canonica
+\[
+  P = \sum_{k=0}^n a_k x^k
+\]
+se $n>0$ possiamo supporre che il coefficiente $a_n$ sia diverso da $0$ 
+perché altrimenti potremmo rimuovere il termine corrispondente e ridurci 
+ad una somma di $n-1$ termini. 
+In tal caso diremo che il polinomio $P$ ha \myemph{grado} $n$.
+\index{polinomio!grado}%
+\index{grado!polinomio}% 
+Se $n=0$ diremo anche che il polinomio è costante.
+Se $n=0$ e $a_n=0$ diremo che $P$ è il polinomio \emph{nullo}.
+I polinomi costanti non nulli hanno grado pari a $0$, mentre il polinomio nullo, 
+per convenzione, diremo avere grado $-\infty$ (questa definizione ha senso se si pensa 
+al grado di un polinomio come al più piccolo numero per cui tutti i coefficienti di
+indice maggiore a lui sono nulli).
+
+Capiterà spesso di imbattersi in alcuni polinomi particolari, che vengono 
+a volte chiamati \myemph{prodotti!notevoli}. 
+Di fondamentale iportanza quelli di grado 2:
+\[
+  (x+1)\cdot(x-1) = x^2-1, \qquad (x+1)^2 = x^2+2x + 1.
+\]
+Ma anche quelli di grado $n$:
+\[
+  (x-1)\cdot \sum_{k=0}^{n-1} x^k
+  = \sum_{k=0}^{n-1} x^{k+1} - \sum_{k=0}^n x^k = x^n - 1
+\]
+e, mettendo $-x$ al posto di $x$ e cambiando di segno:
+\[
+  (x+1)\cdot \sum_{k=0}^{n-1} (-1)^k x^k
+  = 1 + (-1)^n x^n.
+\]
+
+Le potenze del binomio $x+1$ sono decisamente rilevanti. 
+Se scriviamo il polinomio $(x+1)^n$ in forma canonica:
+\[
+  (x+1)^n = \sum_{k=0}^n c_{n,k} x^k  
+\]
+i coefficienti $c_{n,k}$ vengono chiamati 
+\myemph{coefficienti binomiali}
+e si denotano nel modo seguente:
+\[
+    a_k = {n \choose k}
+\]
+
+\begin{definition}[campo]
+  Diremo che $\KK$ è un campo se $\KK$ è un anello commutativo con identità 
+  e se ogni $x\in \KK$, $x\neq 0$ ha un inverso moltiplicativo cioè 
+  esiste $y\in \KK$ tale che $x\cdot y = 1$.
+  L'inverso moltiplicativo si chiama anche \myemph{reciproco}
+  e si denota con $x^{-1}$.
+  La moltiplicazione per l'inverso si chiama anche 
+  \myemph{divisione} e si denota nel modo seguente:
+  \[
+    x\cdot y^{-1} = x/y = \frac{x}{y}.
+  \]
+\end{definition}
+
+\begin{theorem}[divisione di Euclide]
+\label{th:divisione_polinomi}%
+\index{divisione tra polinomi}%
+\index{polinomio!divisione}%
+\index{polinomio!algoritmo di Euclide}%
+\index{Euclide!algoritmo di divisione}%
+\index{algoritmo!di Euclide}%
+Se $\KK$ è un campo,
+dati due polinomi $P$ e $S$ in $\KK[x]$ con $S\neq 0$ è possibile
+trovare, in modo unico, due polinomi $Q$ (quoziente)
+e $R$ (resto) in $\KK[x]$ con $\deg R < \deg S$
+tali che:
+\[
+  P = Q \cdot S + R.
+\]
+\end{theorem}
+%
+\begin{proof}
+\emph{Passo 1:} supponiamo che sia $\deg P < \deg S$.
+In questo caso basta prendere $Q=0$ e $R=P$.
+
+\emph{Passo 2:} supponiamo che sia $\deg P \ge \deg S$.
+Poniamo $N=\deg P$ e $M=\deg S$.
+Sia $a_N\neq 0$ il coefficiente del termine di grado massimo
+di $P$ e $b_M\neq 0$ il coefficiente di grado massimo
+del polinomio $S$.
+E' allora facile verificare che il polinomio
+\[
+\frac{a_N}{b_M} \cdot x^{N-M}\cdot S
+\]
+ha lo stesso grado di $P$ e il suo coefficiente di grado
+massimo è uguale ad $a_N$ in quanto è il prodotto di
+$a_N/b_M$ per $b_M$.
+Dunque il polinomio
+\[
+ P_1 = P - \frac{a_N}{b_M} \cdot x^{N-M}\cdot S
+\]
+ha grado strettamente inferiore a $P$.
+Possiamo ora supporre, mediante un ragionamento induttivo
+su $\deg P - \deg S$
+che per il polinomio $P_1$ il risultato del teorema sia
+valido cioè
+che esistano, dei polinomio $Q_1$ e $R$
+con $\deg R < \deg S$ tali che
+\[
+  P_1 = Q_1 \cdot S + R.
+\]
+Il caso base del ragionamento induttivo,
+$\deg P = \deg S$, è garantito dal passo 1.
+Avremo allora:
+\begin{align*}
+  P &= P_1 + \frac{a_N}{b_M} x^{N-M}\cdot S\\
+    &= Q_1 \cdot S + R_1 + \frac{a_N}{b_M} x^{N-M}\cdot S\\
+    &= (\frac{a_N}{b_M} x^{N-M} + Q_1) \cdot S + R_1.
+\end{align*}
+Posto quindi
+\[
+ Q = \frac{a_N}{b_N} x^{N-M} + Q_1
+\]
+il risultato è dimostrato.
+
+\emph{Passo 3:} dimostriamo che $Q$ e $R$ sono unici. Se infatti avvessimo 
+\[
+  P = Q_1 S + R_1 = Q_2 S + R_2   
+\]
+con $\deg R_1<\deg S$ e $\deg R_2 < \deg S$ si avrebbe 
+\[
+(Q_2 - Q_1) S = R_1 - R_2.    
+\]
+Se fosse $Q_2 \neq Q_1$ il polinomio al lato sinistro avrebbe grado non inferiore al grado di 
+$S$ mentre il lato destro ha certamente grado minore di $S$.
+Dunque $Q_2=Q_1$ ma allora il lato sinistro è nullo e quindi anche il lato destro deve 
+esserlo: $R_2=R_1$.
+\end{proof}
+
+La dimostrazione del teorema precedente fornisce anche un
+algoritmo, chiamato \emph{algoritmo di Euclide},
+per eseguire la divisione (con resto) tra polinomi.
+Lo sperimentiamo nel seguente esercizio.
+
+\begin{exercise}
+Sia $P = x^4-3 x^2 + 2x + 1$ e $S = x^2-1$.
+Eseguire la divisione con resto cioè:
+trovare $Q$ ed $R$ con $\deg R < \deg S$ tali che
+\[
+P = Q \cdot S + R.
+\]
+\end{exercise}
+%
+\begin{proof}[Svolgimento.]
+Il rapporto tra i termini di grado massimo di
+$P$ e $S$ è $x^4/x^2 = x^2$.
+Dunque consideriamo come primo monomio $x^2$.
+Si ha
+\begin{align*}
+  P_1
+  &= P - x^2 \cdot S
+  = x^4-3x^2+2x+1 - x^4+x^2 \\
+  &= -2x^2+2x+1.
+\end{align*}
+Ripetiamo il procedimento con $P_1$ al posto di $P$.
+Il rapporto tra i termini di grado massimo di $P_1$ e $S$
+è il monomio $-2$. Si ha
+\[
+  P_2 = P_1 - (-2) S = -2x^2 + 2x + 1 + 2x^2 - 2 = 2x -1.
+\]
+Visto che $\deg P_2 < \deg S$ la divisione termina e
+si pone $R = 2x-1$.
+Si ha quindi $Q = x^2 - 2$ (la somma dei monomi trovati)
+e risulta:
+\[
+  P = (x^2 - 2)\cdot S + 2x -1.
+\]
+\end{proof}
+
+Dato un polinomio $P\in \KK[x]$ e un numero $a\in \KK$
+è possibile prendere l'espressione rappresentata da
+$P$ e sostiture alla variabile $x$ il valore $a$.
+E' chiaro allora che svolgendo le operazioni di somma
+e moltiplicazione si ottiene un valore in $\KK$
+che denoteremo con $P(a)$.
+Ogni polinomio $P\in \KK[x]$ identifica quindi una funzione
+$P\colon \KK \to \KK$, $x\mapsto P(x)$ che chiameremo
+\myemph{funzione polinomiale} associata a $P$.
+
+\begin{theorem}[Ruffini]
+\label{th:Ruffini}%
+\index{teorema!di Ruffini}%
+\index{Ruffini}%
+Sia $P\in \KK[x]$ un polinomio non nullo.
+Se $x_0 \in \KK$ è tale che $P(x_0)=0$
+allora esiste un polinomio $Q$ con $\deg Q = (\deg P) - 1$
+tale che
+\[
+  P = (x-x_0)\cdot Q.
+\]
+\end{theorem}
+%
+\begin{proof}
+In base al teorema precedente si può fare la divisione tra
+$P$ e $S = x - x_0$ per ottenere un polinomio $Q$ e un resto
+$R$ con $\deg R < 1$ tali che
+\[
+  P = (x-x_0)\cdot Q + R.
+\]
+Siccome $\deg R < 1$ si ha in effetti che $R=c\in \KK$
+è un polinomio costante e dunque
+\[
+  P = (x-x_0) \cdot Q + c
+\]
+ma valutando $P$ in $x=x_0$ si scopre che
+\[
+ P(x_0) = 0\cdot Q(x_0) + c = c
+\]
+dunque $c=P(x_0) = 0$.
+\end{proof}
+
+Possiamo ora chiederci se polinomi diversi corrispondono
+a funzioni polinomiali diverse.
+In generale questo non è vero, se ad esempio prendessimo
+come campo $\KK=\ZZ_2 = \ENCLOSE{0,1}$, un campo finito
+in cui poniamo $1+1=0$ scopriremmo che la funzione polinomiale
+$P(x) = x^2+x$ è identicamente nulla in quanto $0^2+0=0$
+e $1^2+1=1+1=0$ in questo campo.
+Ma nei casi che interessano a noi $\KK=\RR$ o $\KK=\CC$
+questo problema non si presenta e si potrà quindi identificare
+ogni polinomio con la corrispondente funzione polinomiale.
+Per avere questa garanzia ci servono i seguenti risultati.
+
+\begin{theorem}[principio di annullamento dei polinomi]
+\label{th:annullamento_polinomi}%
+\index{principio di annullamento dei polinomi}%
+Sia $P\in \KK[x]$ un polinomio non nullo di grado $n$.
+Allora la funzione polinomiale associata a $P$
+si annulla in al più $n$ punti distinti di $\KK$.
+
+In particolare se un polinomio si annulla in infiniti
+punti distinti allora tale polinomio è certamente nullo.
+\end{theorem}
+%
+\begin{proof}
+Dimostriamo per induzione su $n$ che se un polinomio
+$P$ di grado non superiore a $n$ si annulla in $n+1$
+punti distinti $x_1, \dots, x_{n+1}\in \KK$ allora
+$P=0$.
+
+Se $n=0$ il polinomio $P$ è costante ma si annulla
+in un punto e quindi è il polinomio nullo.
+Se $n>0$ per il teorema di Ruffini applicato al
+punto $x_{n+1}$ sappiamo che esise un polinomio $Q$
+di grado inferiore ad $n$ per cui si ha
+\[
+  P = (x-x_{n+1}) \cdot Q
+\]
+sostituendo $x=x_k$ con $k\le n$ si ha $x_k-x_{n+1}\neq 0$
+e quindi
+\[
+  Q(x_k) = \frac{P(x_k)}{x_k-x_{n+1}} = 0.
+\]
+Dunque $Q$ si annulla nei punti $x_1, \dots, x_n$
+e, per ipotesi induttiva, scopriamo che $Q$ deve
+essere nullo. Di conseguenza anche $P$ è nullo.
+\end{proof}
+
+Se $\KK$ è un insieme infinito (come nei casi $\KK=\RR$ o $\KK=\CC$)
+si trova che
+se a due polinomi $P$, $Q$ corrisponde
+la stessa funzione polinomiale:
+\[
+  P(x) = Q(x) \qquad \text{per ogni $x\in \KK$}
+\]
+allora $P$ e $Q$ sono lo stesso polinomio $P=Q$
+in quanto la differenza $P-Q$ si annulla in tutti i punti
+di $\KK$ e qualunque sia il suo grado, se $\KK$ è infinito,
+questo ci dice che $P-Q=0$. 
+
+Questo corollario viene spesso enunciato come segue.
+\begin{theorem}[principio di identità dei polinomi]
+  Siano $a_k$ e $b_k$ coefficienti nel campo $\KK=\RR$ o $\KK=\CC$.
+  Se per ogni $x\in \KK$ si ha 
+  \[
+     \sum_{k=1}^n a_k x^k = \sum_{k=1}^m b_k x^k
+  \]
+  allora $m=n$ e $a_k=b_k$ per ogni $k=0, \dots, n$.
+\end{theorem}
+%
+\begin{proof}
+Facendo la differenza dei due lati dell'uguaglianza si ottiene 
+che una espressione polinomiale si annulla identicamente. 
+Allora per il teorema~\ref{th:annullamento_polinomi} tale espressione 
+rappresenta il polinomio nullo e di conseguenza tutti i coefficienti, 
+che sono dati dalla differenza $a_k-b_k$, devono essere nulli.
+\end{proof}
+
+\begin{definition}[coefficiente binomiale]
+  \label{def:binomiale}
+  \mymark{***}
+  Definiamo per ogni $n\in \NN$ e per ogni $k\in \NN$, $k\le n$
+  il \myemph{coefficiente binomiale}
+  \[
+  {n \choose k}
+  =\frac{n!}{k!(n-k)!}.
+  \]
+  Per convenzione può essere utile porre
+  ${n \choose k}=0$ se $k\in \ZZ$ con $k< 0$ o $k>n$.
+  Questa definizione verrà estesa nella definizione~\ref{def:binomiale_reale}.
+  \end{definition}
+  %
+  Si osservi che risulta
+  \begin{align*}
+  \frac{n!}{(n-k)!} &= \frac{n (n-1) \cdots (n-k+1)(n-k) \cdots 2\cdot 1}{(n-k) \cdots 2\cdot 1}\\
+   &= n (n-1) \cdots (n-k+1) = \prod_{j=1}^k (n+1-j)
+  \end{align*}
+  e questo permette in pratica di calcolare il coefficiente binomiale ${n \choose k}$
+  svolgendo solamente $k$ prodotti a numeratore e a denominatore, indipendentemente
+  da quanto è grande $n$.
+  
+  \begin{theorem}[triangolo di Tartaglia]
+  \mymark{*}
+  Per ogni $n\in \NN$ e $k \in \NN$ con $1 \le k \le n$ si ha
+  \[
+    {n+1 \choose k} =
+        {n \choose k-1} + {n \choose k}
+  \]
+  mentre
+  \[
+    {n+1 \choose 0} = 1 = {n+1 \choose n+1}
+  \]
+  \end{theorem}
+  %
+  \begin{proof}
+  La seconda parte si ottiene direttamente dalla definizione.
+  Per la prima parte si ha:
+  \begin{align*}
+  {n \choose k-1} + {n \choose k}
+  &= \frac{n!}{(k-1)!(n-k+1)!} + \frac{n!}{k!(n-k)!} \\
+  &= \frac{k\cdot n! + (n-k+1)\cdot n!}{k!(n-k+1)!} \\
+  &= \frac{(n+1)\cdot n!}{k!(n+1-k)!}
+  = {n+1 \choose k}.
+  \end{align*}
+  \end{proof}
+  
+  In base al teorema precedente i coefficienti binomiali si possono
+  elencare come nella tabella~\ref{tab:binomiali}:
+  ogni riga inizia e finisce con il numero $1$
+  e ogni termine intermedio coincide con la somma dei
+  due termini nella riga precedente sopra e
+  a sinistra del numero considerato.
+  
+  \begin{table}
+  \begin{tabular}{c|ccccccccc}
+  $\displaystyle{n \choose k}$& 0 & 1 & 2 & 3 & 4 & 5 & 6 & $k$ &\\ \hline
+    0 & 1 &   &   &   &   &   &   & &\\
+    1 & 1 & 1 &   &   &   &   &   & &\\
+    2 & 1 & 2 & 1 &   &   &   &   & &\\
+    3 & 1 & 3 & 3 & 1 &   &   &   & &\\
+    4 & 1 & 4 & 6 & 4 & 1 &   &   & &\\
+    5 & 1 & 5 & 10& 10& 5 & 1 &   & &\\
+    6 & 1 & 6 & 15& 20& 15& 6 & 1 & &\\
+  $n$ &$\vdots$&&   &   &   &   &   & $\ddots$ &
+  \end{tabular}
+  \caption{Il triangolo di Tartaglia (o di Pascal):
+  ogni numero è la somma dei due numeri che si trovano 
+  nella riga precedente sopra e immediatamente a sinistra.}
+  \label{tab:binomiali}
+  \end{table}
+  
+  \begin{theorem}[sviluppo binomiale]
+  \label{th:sviluppo_binomiale}%
+  \mymark{***}%
+  Se $a,b\in \RR$ e $n\in \NN$ si ha:
+  \begin{equation}
+  \label{eq:sviluppo_binomiale}
+  (a+b)^n = \sum_{k=0}^n {n \choose k} a^k \cdot b^{n-k}.
+  \end{equation}
+  \end{theorem}
+  %
+  \begin{proof}
+  Lo dimostriamo per induzione su $n$.
+  Per $n=0$ l'uguaglianza è soddisfatta per verifica diretta (ambo i membri sono uguali ad $1$).
+  
+  Supponendo valida l'uguaglianza per un certo $n\in \NN$ proviamo a verificarla
+  per $n+1$:
+  \begin{align*}
+  (a+b)^{n+1}
+  &= (a+b)\cdot (a+b)^n
+   = (a+b) \sum_{k=0}^n {n \choose k} a^k \cdot b^{n-k}\\
+  &= \sum_{k=0}^n {n \choose k} a^{k+1}\cdot b^{n-k}
+     + \sum_{k=0}^n {n \choose k} a^k \cdot b^{n-k+1} \\
+  &= \sum_{k=1}^{n+1} {n \choose k-1} a^k \cdot b^{n-k+1}
+     + \sum_{k=0}^n {n \choose k}a^k \cdot b^{n-k+1} \\
+  &= \sum_{k=0}^{n+1} \enclose{{n \choose k-1} + {n \choose k}} a^k \cdot b^{n+1-k}.
+  \end{align*}
+  Nell'ultimo passaggio abbiamo sfruttato il fatto che per $k<0$ e per $k>n$ il coefficiente binomiale è nullo.
+  Sfruttando la relazione del triangolo di Tartaglia si ottiene infine,
+  come volevamo dimostrare
+  \[
+    = \sum_{k=0}^{n+1}{n+1 \choose k} a^k \cdot b^{n+1-k}.
+  \]
+  \end{proof}
+  
+  \begin{exercise}[interpretazione combinatoria del coefficiente binomiale]
+  Il numero di sottoinsiemi di $k$ elementi di un insieme con $n$ elementi
+  è ${n\choose k}$.
+  \end{exercise}
+  
+  \begin{exercise}
+  Provare che
+  \[
+   \sum_{k=0}^n {n \choose k} = 2^n.
+  \]
+  \end{exercise}
+  
+  Si osservi che risulta, per ogni $n\in \NN$:
+  \[
+    {n\choose 0} = {n \choose n} = 1,
+    \qquad
+    {n \choose 1} = {n \choose n-1} = n.
+  \]
+  Allora lo sviluppo del binomio~\eqref{eq:sviluppo_binomiale}
+  ci consente di affermare
+  che per ogni $x\ge 0$ si ha:
+  \[
+    (1+x)^n = 1 + nx + \sum_{k=2}^n {n\choose k} x^k
+    \ge 1 + nx.
+  \]
+  Nel seguito ci servirà sapere che questa
+  disuguaglianza è vera, più in generale,
+  se $x > -1$.
+  
+  \begin{theorem}[disuguaglianza di Bernoulli]
+  \label{th:disuguaglianza_bernoulli}%
+  \mymark{**}%
+  \mynote{disuguaglianza di Bernoulli}%
+  \index{Bernoulli}%
+  \index{disuguaglianza!di Bernoulli}%
+  Se $x > -1$ e $n\in \NN$ si ha
+  \begin{equation}
+  \label{eq:bernoulli}
+  (1+x)^n \ge 1 + nx.
+  \end{equation}
+  \end{theorem}
+  %
+  \begin{proof}
+  \mymark{**}
+  Dimostriamo che vale~\eqref{eq:bernoulli}
+  per induzione su $n$.
+  Per $n=0$ la disequazione \eqref{eq:bernoulli} diventa $1\ge 1$
+  ed è quindi verificata.
+  Se~\eqref{eq:bernoulli}
+  è verificata per un certo $n$
+  moltiplicando ambo i membri per $1+x > 0$ si ottiene
+  \[
+  (1+x)^{n+1} \ge (1+x) (1+nx) = 1 + (n+1)x + n x^2
+  \ge 1 + (n+1)x
+  \]
+  che è proprio la disuguaglianza~\eqref{eq:bernoulli}
+  con $n+1$ al posto di $n$.
+  \end{proof}
 
 
 \subsection{cardinalità finite}
@@ -1384,6 +2385,7 @@ Per evitare ambiguità con il normale utilizzo delle parentesi
 non useremo queste notazioni.
   
 \begin{theorem}[divisibilità dei numeri reali]
+  \label{th:divisibilita}%
   Dato $x\in \RR$ e dato $n\in \NN$, $n\neq 0$ esiste un unico $y\in \RR$ 
   tale che $n y = x$. 
   Scriveremo in tal caso $y=\frac{x}{n}$ o $y=x/n$.
@@ -1839,381 +2841,97 @@ rende $\RR$ un campo ordinato continuo in base alla seguente.
   è un \myemph{campo ordinato continuo}.
 \end{definition}
 
-\begin{theorem}
-\label{th:campo_ordinato}%
-In un campo ordinato
-valgono le seguenti
-familiari proprietà:
-\begin{enumerate}
-  \item l'opposto e il reciproco sono unici
-  (denotiamo con $-x$ l'unico opposto di $x$ e con $x^{-1}$ l'unico inverso di $x\neq 0$);
-  \item $-(-x) = x$, $\enclose{x^{-1}}^{-1}$;
-  \item $x \cdot 0 = 0$;
-  \item $x\ge 0 \iff -x \le 0$;
-  \item $(-x)\cdot y = -(x\cdot y)$;
-  \item $(-1)\cdot x = -x$;
-  \item $(-1)\cdot(-1) = 1$;
-  \item $x\cdot x \ge 0$;
-  \item $1 > 0$;
-  \item se $x\cdot y = 0$ allora $x = 0$ o $y = 0$;
-  \item se $x>0$ e $y>0$  allora $x\cdot y > 0$;
-  \item se $x\ge y\ge 0$ e $z\ge 0$ allora $x\cdot z \ge y \cdot z$.
-\end{enumerate}
-\end{theorem}
-%
-\begin{proof}
-\begin{enumerate}
-\item
-Supponiamo $y$ e $z$ siano due opposti di $x$ cioè $x+y=0$, $x+z=0$.
-Allora da un lato $x+y+z = 0+z = z$, dall'altro $x+y+z = y+x+z= y+ 0 = y$.
-Dunque $y=z$. Dimostrazione analoga si può fare per il reciproco.
+\subsection{esponenziale e logaritmo}
 
-\item
-Se $x$ è opposto di $y$ allora $y$ è opposto di $x$ in quanto la somma
-è commutativa. Dunque l'opposto di $-x$ è $x$ cioè $-(-x)=x$. Lo stesso
-vale per il reciproco.
+Osserviamo che l'insieme $\RR_+ = \ENCLOSE{x\in \RR\colon x>0}$ 
+dei reali positivi rispetto alla operazione di moltiplicazione 
+risulta essere un gruppo moltiplicativo totalmente ordinato, 
+denso e continuo. 
+Abbiamo già dimostrato tutte queste proprietà della moltiplicazione.
+La densità e continuità non vanno verificate in quanto sono proprietà 
+dell'ordinamento e non dell'operazione, e l'ordinamento considerato 
+è sempre lo stesso.
 
-\item
-Si ha
+Dunque fissato $a>0$ per il teorema~\ref{th:estensione_additiva}
+esiste una unica funzione $f\colon \RR \to \RR_+$ additiva\footnote{%
+In questo caso il termine \emph{additivo} è fuorviante in quanto la funzione 
+soddisfa la proprietà $f(x+y) = f(x)\cdot f(y)$ e quindi in corrispondenza 
+di una addizione sul dominio otteniamo una moltiplicazione sul codominio: 
+più propriamente queste funzioni andrebbero chiamate \emph{moltiplicative}.
+}, 
+monotona e tale che $f(1)=a$.
+Denotiamo con $a^x = f(x)$ questa funzione (si legga: $a$ elevato alla $x$)
+che chiamiamo \myemph{funzione esponenziale} di base $a$. 
+L'operazione $a^b$ si chiama \myemph{potenza}.
+Si osservi che l'additività/moltiplicatività in questo caso ci dice che vale 
+la seguente regola 
 \[
-x\cdot 0 = x \cdot 0 + x + (-x) %= x\cdot 0 + x\cdot 1 + (-x)
-=x\cdot(0+1) + (-x) = x + (-x) = 0.
+    a^{x+y} = a^x\cdot a^y.
+\]
+Sui numeri naturali tale funzione coincide con la moltiplicazione ripetuta 
+$n$ volte:
+$a^n=a\cdots a$.
+Il teorema~\ref{th:divisibilita} di divisibilità garantisce l'esistenza della 
+\myemph{radice} $n$-esima:
+\[
+   \sqrt[n]{x} = y \iff y^n = x
+\]
+e la costruzione della funzione additiva nel teorema~\ref{th:estensione_additiva}
+ci dice che se $p\in \ZZ$ e $q\in \NN\setminus\ENCLOSE{0}$ si ha 
+\[
+  a^{\frac p q} = \sqrt[q]{a^p}.  
 \]
 
-\item
-Se $x\ge 0$ sommando ad ambo i membri $-x$ si ottiene $x+(-x) \ge 0 + (-x)$
-cioè $0 \ge -x$. Sommando $x$ ad ambo i membri si riottiene $x\ge 0$.
+Se $a>1$ (ricordiamo che $1$ è l'elemento neutro della moltiplicazione) la funzione 
+risulta essere strettamente crescente, se $a<1$ la funzione è strettamente decrescente 
+e se $a=1$ la funzione $1^x=1$ è costante.
 
-
-\item
-Osserviamo che $(-x)\cdot y + x\cdot y = ((-x)+x)\cdot y = 0$ dunque $(-x)\cdot y$ è l'opposto di $x\cdot y$.
-
-\item
-Dunque $(-1)\cdot x = - (1 \cdot x) = - x$
-
-\item
-e per $x=-1$ si ottiene $(-1)\cdot(-1) = -(-1) = 1$.
-
-\item
-Si ha
+Vogliamo infine dimostrare la proprietà delle potenze ripetute:
 \[
-(-x)\cdot(-x) = (-1)\cdot x \cdot (-1)\cdot x = x\cdot x.
+  \enclose{a^b}^c = a^{b\cdot c}.
 \]
-Dunque se $x\ge 0$ per assioma di positività
-abbiamo $x\cdot x\ge 0$ e se $x\le 0$ abbiamo $-x\ge 0$ e quindi
-$x\cdot x = (-x)\cdot(-x) \ge 0$.
+Fissati $a>0$ e $b\in \RR$ consideriamo la funzione $f(x) = a^{b\cdot x}$.
+osserviamo che $f(x+y) = a^{bx+by}=a^{bx}\cdot a^{by}$ dunque 
+la funzione $f$ soddisfa la proprietà di additività. 
+Inoltre è una funzione monotona perché composizione di funzioni monotone.
+Infine $f(1) = a^b$ e dunque, per l'unicità data dal teorema~\ref{th:estensione_additiva}
+dovrà essere $f(x) = \enclose{a^b}^x$, come volevamo dimostrare. 
 
-\item
-In particolare per $x=1$ otteniamo $1\ge 0$.
-Essendo inoltre per assioma $0\neq 1$ otteniamo $1> 0$.
-
-\item
-Se fosse $x\cdot y = 0$ e $x\neq 0$ allora $x$ avrebbe inverso $x^{-1}$
-e avremmo:
+Sappiamo inoltre che se $a\neq 1$ la funzione esponenziale $a^x$ è bigettiva $\RR\to \RR_+$. 
+La funzione inversa $\log_a\colon \RR_+\to \RR$ si chiama \myemph{logaritmo} in base $a$ 
+e si caratterizza con la seguente proprietà:
 \[
-  y = x^{-1} \cdot x \cdot y = x^{-1}\cdot 0 = 0.
+  \log_a x = y \iff a^y = x.
 \]
-Dunque o $x=0$ oppure $y=0$.
-
-\item
-Se $x>0$ e $y>0$ allora $x\ge 0$ e $y\ge 0$ da cui $x\cdot y\ge 0$.
-Se fosse $x\cdot y=0$ uno dei due fattori si dovrebbe annullare
-cosa che abbiamo escluso per ipotesi.
-
-\item
-Basta osservare che $x\ge y$ è equivalente
-(sommando $-y$ ad ambo i membri) a $x-y\ge 0$
-dunque essendo anche $z\ge 0$ per la positività
-del prodotto si ottiene:
+L'additività del logaritmo si esprime in questo modo:
 \[
-xz - yz = (x-y)z \ge 0
+  \log_a(x\cdot y) =  \log_a x + \log_a y.
 \]
-e si conclude sommando $yz$ ad ambo i membri.
-\end{enumerate}
-\end{proof}
-
-\section{i numeri naturali e interi}
-
-Utilizzando il principio di induzione non è difficile mostrare che
-la somma e il prodotto di numeri naturali è un numero naturale,
-somma, prodotto e differenza
-di numeri interi è un numero intero e che l'insieme dei numeri
-razionali è un campo ordinato.
-Nel capitolo \ref{sec:radice_quadrata}
-vedremo però che $\QQ$ non soddisfa l'assioma di continuità.
-
-\begin{definition}[potenza intera]
-\label{def:potenza_intera}%
-\mymargin{potenza intera}%
-Dato $x \in \RR$ (ma più in generale $x\in A$ con $A$ un insieme qualunque su
-cui è definita una operazione di moltiplicazione associativa e con elemento
-neutro) possiamo definire la potenza $x^n$ per ogni
-$n\in \NN$ come l'iterazione della moltiplicazione
-ovvero utilizzando
-\mymargin{$x^n$}
-la seguente definizione per induzione
+Ovviamente vale $\log_a a = 1$ e $\log_a 1 = 0$.
+Se $a>1$ la funzione logaritmo è strettamente crescente, se $a<1$ è strettamente decrescente.
+La proprietà dell'esponenziale ripetuto si traduce nella seguente:
 \[
-\begin{cases}
-  x^0 = 1\\
-  x^{n+1} = x\cdot x^n.
-\end{cases}
+  \log_a (x^y) = y \log_a x.
 \]
-Per $x\in \RR\setminus\ENCLOSE{0}$ possiamo anche definire $x^{-n}$ con $n\in \NN$
-come
+E' anche piuttosto utile ricordare la formula per il cambiamento di base:
 \[
-x^{-n} = \frac{1}{x^n}.
+\log_a x = \frac{\log_b x}{\log_a b}
 \]
-Risulta quindi che $x^n$ è definito per ogni $n\in \ZZ$ se $x\neq 0$.
-\end{definition}
+(valida, come tutte le formule enunciate, se l'argomento del logaritmo 
+è positivo e se le basi sono positive diverse da $1$ e diverse tra loro).
+Quest'ultima formula si dimostra moltiplicando ambo i membri per $\log_a b$ 
+e prendendo quindi l'esponenziale con base $b$ di ambo i membri.
 
-In base alla definizione si ha $x^0 = 1$, $x^1=x$, $x^2=x\cdot x$,
-$x^3=x\cdot x \cdot x$ e così via. Dunque in generale
-$x^n$ è il prodotto di $n$ fattori tutti uguali a $x$.
-Si osservi in particolare che abbiamo definito $0^0=1$.
-In alcuni testi si preferisce lasciare indefinito $0^0$
-ma vedremo che questa definizione risulterà
-molto utile e naturale.
+
+\section{AVANZI}
+
 
 Si osservi che la notazione
 $x^{-1}$ appena introdotta coincide
 con l'inverso moltiplicativo che, per questo motivo, avevamo già denotato
 con $x^{-1}$.
 
-\begin{theorem}[proprietà delle potenze intere]
-Per ogni $x,y\in \RR$, e per ogni $n,m \in \NN$
-valgono le seguenti proprietà:
-\begin{enumerate}
-  \item  $x^{n+m} = x^n \cdot x^m$;
-  \item $(x^n)^m = x^{n\cdot m}$;
-  \item $(x\cdot y)^n = x^n \cdot y^n$;
-  \item $\displaystyle \enclose{\frac{x}{y}}^n = \frac{x^n}{y^n}$ se $y\neq 0$.
-\end{enumerate}
-Le stesse proprietà valgono per $n,m \in\ZZ$ se $x\neq 0$, $y\neq 0$.
-\end{theorem}
-%
-\begin{proof}
-Dimostriamo, come esempio, solamente la prima proprietà: $x^{n+m} = x^n \cdot x^m$.
-Fissato $m\in \NN$ procediamo per induzione su $n$.
-Se $n=0$ si ha $x^{0+m} = x^m = x^m \cdot 1 = x^m \cdot x^0$.
-Supponendo la proprietà sia stata verificata per $n$, verifichiamo
-che vale anche con $n+1$ al posto di $n$. Si ha infatti
-\[
- x^{(n+1)+m} = x^{n+m+1} = x \cdot x^{n+m} = x \cdot x^n \cdot x^m
-  = x^{n+1} \cdot x^m.
-\]
-\end{proof}
 
-In generale è possibile introdurre una notazione per ripetere le operazioni
-di somma e prodotto un numero arbitrario (ma finito) di volte:
-\begin{align*}
-  \sum_{k=1}^n f(k) &= f(1) + f(2) + \dots + f(n) \\
-  \prod_{k=1}^n f(k) &= f(1) \cdot f(2) \cdots f(n).
-\end{align*}
-Formalmente questo può essere fatto tramite una definizione per induzione,
-osservando che ogni somma (o prodotto) di $n$ numeri si ottiene mediante
-la somma dei primi $n-1$ a cui si aggiunge (o si moltiplica) l'ultimo numero.
-
-\begin{definition}[somme e prodotti]
-\label{def:sommatoria}%
-\mymargin{sommatoria}%
-Se $a,b\in \ZZ$, $a\le b$ e $f\colon \ENCLOSE{a, a+1, a+2, \dots, b}\to X$
-è una funzione a valori in un insieme $X$ in cui è definita una
-operazione $+$ di addizione (ad esempio $\RR$)
-si definisce
-\[
-  \sum_a^b f
-  \qquad \text{ovvero} \qquad
-  \sum_{k=a}^b f(k).
-\]
-tramite la definizione per induzione:
-\[
-    \displaystyle \sum_a^a f = f(a), \qquad
-    \displaystyle \sum_{a}^{n+1} f = \enclose{\sum_a^n f} + f(n+1).
-\]
-Analogamente si definisce
-\[
-  \prod_a^b f
-  \qquad\text{ovvero}\qquad
-  \prod_{k=a}^b f(k)
-\]
-quando su $X$ è definita una operazione di moltiplicazione,
-ponendo:
-\[
-    \displaystyle \prod_{a}^a f = f(a), \qquad
-    \displaystyle \prod_{a}^{n+1} f = \enclose{\prod_a^n f} \cdot f(n+1).
-\]
-\end{definition}
-
-La definizione precedente ci permette, ad esempio, di definire le potenze e il fattoriale
-come prodotti ripetuti, almeno quando $n\ge 1$:
-\[
-  x^n = \prod_{k=1}^n x, \qquad
-  n! = \prod_{k=1}^n k.
-\]
-
-\begin{definition}[coefficiente binomiale]
-\label{def:binomiale}
-\mymark{***}
-Definiamo per ogni $n\in \NN$ e per ogni $k\in \NN$, $k\le n$
-il \myemph{coefficiente binomiale}
-\[
-{n \choose k}
-=\frac{n!}{k!(n-k)!}.
-\]
-Per convenzione può essere utile porre
-${n \choose k}=0$ se $k\in \ZZ$ con $k< 0$ o $k>n$.
-Questa definizione verrà estesa nella definizione~\ref{def:binomiale_reale}.
-\end{definition}
-%
-Si osservi che risulta
-\begin{align*}
-\frac{n!}{(n-k)!} &= \frac{n (n-1) \cdots (n-k+1)(n-k) \cdots 2\cdot 1}{(n-k) \cdots 2\cdot 1}\\
- &= n (n-1) \cdots (n-k+1) = \prod_{j=1}^k (n+1-j)
-\end{align*}
-e questo permette in pratica di calcolare il coefficiente binomiale ${n \choose k}$
-svolgendo solamente $k$ prodotti a numeratore e a denominatore, indipendentemente
-da quanto è grande $n$.
-
-\begin{theorem}[triangolo di Tartaglia]
-\mymark{*}
-Per ogni $n\in \NN$ e $k \in \NN$ con $1 \le k \le n$ si ha
-\[
-  {n+1 \choose k} =
-      {n \choose k-1} + {n \choose k}
-\]
-mentre
-\[
-  {n+1 \choose 0} = 1 = {n+1 \choose n+1}
-\]
-\end{theorem}
-%
-\begin{proof}
-La seconda parte si ottiene direttamente dalla definizione.
-Per la prima parte si ha:
-\begin{align*}
-{n \choose k-1} + {n \choose k}
-&= \frac{n!}{(k-1)!(n-k+1)!} + \frac{n!}{k!(n-k)!} \\
-&= \frac{k\cdot n! + (n-k+1)\cdot n!}{k!(n-k+1)!} \\
-&= \frac{(n+1)\cdot n!}{k!(n+1-k)!}
-= {n+1 \choose k}.
-\end{align*}
-\end{proof}
-
-In base al teorema precedente i coefficienti binomiali si possono
-elencare come nella tabella~\ref{tab:binomiali}:
-ogni riga inizia e finisce con il numero $1$
-e ogni termine intermedio coincide con la somma dei
-due termini nella riga precedente sopra e
-a sinistra del numero considerato.
-
-\begin{table}
-\begin{tabular}{c|ccccccccc}
-$\displaystyle{n \choose k}$& 0 & 1 & 2 & 3 & 4 & 5 & 6 & $k$ &\\ \hline
-  0 & 1 &   &   &   &   &   &   & &\\
-  1 & 1 & 1 &   &   &   &   &   & &\\
-  2 & 1 & 2 & 1 &   &   &   &   & &\\
-  3 & 1 & 3 & 3 & 1 &   &   &   & &\\
-  4 & 1 & 4 & 6 & 4 & 1 &   &   & &\\
-  5 & 1 & 5 & 10& 10& 5 & 1 &   & &\\
-  6 & 1 & 6 & 15& 20& 15& 6 & 1 & &\\
-$n$ &$\vdots$&&   &   &   &   &   & $\ddots$ &
-\end{tabular}
-\caption{Il triangolo di Tartaglia (o di Pascal).}
-\label{tab:binomiali}
-\end{table}
-
-\begin{theorem}[sviluppo binomiale]
-\label{th:sviluppo_binomiale}%
-\mymark{***}%
-Se $a,b\in \RR$ e $n\in \NN$ si ha:
-\begin{equation}
-\label{eq:sviluppo_binomiale}
-(a+b)^n = \sum_{k=0}^n {n \choose k} a^k \cdot b^{n-k}.
-\end{equation}
-\end{theorem}
-%
-\begin{proof}
-Lo dimostriamo per induzione su $n$.
-Per $n=0$ l'uguaglianza è soddisfatta per verifica diretta (ambo i membri sono uguali ad $1$).
-
-Supponendo valida l'uguaglianza per un certo $n\in \NN$ proviamo a verificarla
-per $n+1$:
-\begin{align*}
-(a+b)^{n+1}
-&= (a+b)\cdot (a+b)^n
- = (a+b) \sum_{k=0}^n {n \choose k} a^k \cdot b^{n-k}\\
-&= \sum_{k=0}^n {n \choose k} a^{k+1}\cdot b^{n-k}
-   + \sum_{k=0}^n {n \choose k} a^k \cdot b^{n-k+1} \\
-&= \sum_{k=1}^{n+1} {n \choose k-1} a^k \cdot b^{n-k+1}
-   + \sum_{k=0}^n {n \choose k}a^k \cdot b^{n-k+1} \\
-&= \sum_{k=0}^{n+1} \enclose{{n \choose k-1} + {n \choose k}} a^k \cdot b^{n+1-k}.
-\end{align*}
-Nell'ultimo passaggio abbiamo sfruttato il fatto che per $k<0$ e per $k>n$ il coefficiente binomiale è nullo.
-Sfruttando la relazione del triangolo di Tartaglia si ottiene infine,
-come volevamo dimostrare
-\[
-  = \sum_{k=0}^{n+1}{n+1 \choose k} a^k \cdot b^{n+1-k}.
-\]
-\end{proof}
-
-\begin{exercise}[interpretazione combinatoria del coefficiente binomiale]
-Il numero di sottoinsiemi di $k$ elementi di un insieme con $n$ elementi
-è ${n\choose k}$.
-\end{exercise}
-
-\begin{exercise}
-Provare che
-\[
- \sum_{k=0}^n {n \choose k} = 2^n.
-\]
-\end{exercise}
-
-Si osservi che risulta, per ogni $n\in \NN$:
-\[
-  {n\choose 0} = {n \choose n} = 1,
-  \qquad
-  {n \choose 1} = {n \choose n-1} = n.
-\]
-Allora lo sviluppo del binomio~\eqref{eq:sviluppo_binomiale}
-ci consente di affermare
-che per ogni $x\ge 0$ si ha:
-\[
-  (1+x)^n = 1 + nx + \sum_{k=2}^n {n\choose k} x^k
-  \ge 1 + nx.
-\]
-Nel seguito ci servirà sapere che questa
-disuguaglianza è vera, più in generale,
-se $x > -1$.
-
-\begin{theorem}[disuguaglianza di Bernoulli]
-\label{th:disuguaglianza_bernoulli}%
-\mymark{**}%
-\mynote{disuguaglianza di Bernoulli}%
-\index{Bernoulli}%
-\index{disuguaglianza!di Bernoulli}%
-Se $x > -1$ e $n\in \NN$ si ha
-\begin{equation}
-\label{eq:bernoulli}
-(1+x)^n \ge 1 + nx.
-\end{equation}
-\end{theorem}
-%
-\begin{proof}
-\mymark{**}
-Dimostriamo che vale~\eqref{eq:bernoulli}
-per induzione su $n$.
-Per $n=0$ la disequazione \eqref{eq:bernoulli} diventa $1\ge 1$
-ed è quindi verificata.
-Se~\eqref{eq:bernoulli}
-è verificata per un certo $n$
-moltiplicando ambo i membri per $1+x > 0$ si ottiene
-\[
-(1+x)^{n+1} \ge (1+x) (1+nx) = 1 + (n+1)x + n x^2
-\ge 1 + (n+1)x
-\]
-che è proprio la disuguaglianza~\eqref{eq:bernoulli}
-con $n+1$ al posto di $n$.
-\end{proof}
 
 \section{radice quadrata}
 \label{sec:radice_quadrata}
@@ -2478,7 +3196,7 @@ come in Figura~\ref{fig:cantor1}.
     di una scacchiera infinita. Si potrebbe verificare
     che il numero presente nella casella di coordinate $(n,m)$
     si scrive come $f(n,m) = \frac{(n+m+1)(n+m)}{2}+m$
-    ed è una funzione biettiva $f\colon \NN\times\NN \to\NN$.}
+    ed è una funzione bigettiva $f\colon \NN\times\NN \to\NN$.}
   \label{fig:cantor1}
 \end{figure}
 
@@ -3409,13 +4127,13 @@ Per ogni $n\in \NN\setminus\ENCLOSE{0}$, la funzione
   f\colon [0,+\infty) &\to [0,+\infty)\\
    x &\mapsto x^n
 \end{align*}
-è continua, strettamente crescente e biettiva.
+è continua, strettamente crescente e bigettiva.
 Inoltre, se $n$ è dispari, la funzione
 \begin{align*}
   f\colon \RR & \to \RR\\
     x &\mapsto x^n
 \end{align*}
-è continua, strettamente crescente e biettiva.
+è continua, strettamente crescente e bigettiva.
 \end{theorem}
 %
 \begin{proof}
