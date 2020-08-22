@@ -839,8 +839,10 @@ Un ordinamento $\le$ si dice essere
 se vale la seguente proprietà:
 \begin{enumerate}
   \item[6.] continuità: se $A,B$ sono due sottoinsiemi non vuoti di $X$
-  per cui se per ogni $a\in A$ e per ogni $b\in B$ risulta $a\le b$
-  (nel seguito scriveremo più concisamente $A\le B$).
+  tali che per ogni $a\in A$ e per ogni $b\in B$ risulta $a\le b$
+  (concisamente potremmo scrivere $A\le B$)
+  allora esiste $c\in X$ tale che per ogni $a\in A$ e ogni $b\in B$ 
+  si ha $a\le c \le b$ (concisamente $A\le c \le B$).
 \end{enumerate}
 \end{definition}
 
@@ -858,25 +860,41 @@ se vale la seguente proprietà:
 \end{definition}
 
 Possiamo allora introdurre come assioma l'esistenza dei 
-numeri reali.
+numeri reali.\footnote{%
+Gli assiomi della teoria degli insiemi che abbiamo introdotto finora 
+non possono garantire l'esistenza di insiemi infiniti in quanto un 
+universo fatto solo da insiemi finiti soddisfa tutti gli assiomi.
+E' quindi necessario un \myemph{assioma!di infinito} che garantisca 
+l'esistenza di almeno un insieme infinito.
+Usualmente tale insieme è l'insieme $\NN$ dei numeri naturali da cui,
+con una costruzione non semplice, si può costruire l'insieme $\RR$ 
+dei numeri reali. 
+Tuttavia visto che l'insieme $\RR$ è il fondamento dell'analisi matematica 
+reputiamo sia piuttosto naturale assumere l'esistenza di $\RR$ come assioma 
+e ritrovare (come faremo tra poco) l'insieme $\NN$ all'interno di $\RR$.
+}
 
 \begin{axiom}[numeri reali]
   Esiste un insieme $\RR$ con una operazione di gruppo $+$ (addizione) 
   ed una relazione d'ordinamento 
-  totale $\le$ che rendono $\RR$ un gruppo ordinato, denso, continuo 
+  totale $\le$ che rendono $\RR$ un gruppo ordinato, denso e continuo 
   (vedremo che la proprietà commutativa è valida di conseguenza).
-  Chiamiamo $0$ l'elemento neutro dell'addizione e fissiamo un punto arbitrario $1>0$ 
-  che chiameremo \emph{unità}. 
+  Chiamiamo $0$ l'elemento neutro dell'addizione e 
+  supponiamo inoltre che esista almeno un altro punto $1\in X$ 
+  tale che $1>0$ che chiameremo \emph{unità}. 
 \end{axiom}
 
 L'inverso additivo di un elemento $x$ sarà chiamato 
 \myemph{opposto} e verrà denotato con $-x$, si avrà quindi $x + (-x) = 0$.
-e definiamo l'operazione di \myemph{sottrazione}:
+Potremo quindi definiamo l'operazione di \myemph{sottrazione}:
 \[
     x - y = x + (-y).
 \]
-Diremo che un numero $x\in \RR$ è \myemph{positivo} se $x>0$ 
-e \myemph{negativo} se $x<0$.
+Diremo che un numero $x\in \RR$ è \myemph{positivo} 
+\index{numero!positivo}%
+\index{numero!negativo}%
+\index{negativo}%
+se $x>0$ e \emph{negativo} se $x<0$.
 
 Se $x\le y$ sommando $-x$ da ambo i lati si ottiene 
 $0 \le y-x$ e sommando ancora $-y$ si ottiene 
@@ -1012,9 +1030,10 @@ E sua l'assiomatizzazione che caratterizza i numeri naturali:
   \item $0\in \NN$;
   \item se $n\in \NN$ allora $n+1\in \NN$;
   \item se $n,m\in\NN$ e $n+1=m+1$ allora $n=m$;
+  \item se $n\in \NN$ allora $n+1\neq 0$;
   \item se $A\subset \NN$ è induttivo allora $A=\NN$.
 \end{enumerate}
-}%
+}
 in particolare vale il seguente. 
 
 \begin{theorem}[principio di induzione]
@@ -1480,13 +1499,6 @@ Con lo stesso metodo si può trovare una formula per il calcolo
 di $\sum_{k=1}^n k^3$ e così via. 
 \end{proof}
 
-\begin{exercise}
-  Dimostrare che 
-  \[
-    (1-a)\cdot \sum_{k=0}^{n-1} a^k = 1-a^n
-  \]
-\end{exercise}
-
 L'utilizzo della variabile muta nella notazione delle sommatorie
 ci permette di effettuare il \emph{cambio di variabile:}
 posto $I_n = \ENCLOSE{0,1, \dots, n-1}$ (l'insieme dei primi $n$ numeri naturali) 
@@ -1521,7 +1533,7 @@ $A=\QQ$, $A=\RR$ o $A=\CC$)
 possiamo considerare tutte le espressioni
 (formalmente: alberi di valutazione)
 che possono essere costruite utilizzando le operazioni
-di addizione e moltiplicazione che coinvolgo coefficienti presi da $A$
+di addizione e moltiplicazione che coinvolgono coefficienti presi da $A$
 e una variabile che possiamo chiamare $x$ 
 (e più in generale è possibile considerare polinomi in più variabili).
 Queste espressioni verranno chiamate \myemph{espressioni polinomiali} su $A$
@@ -1658,6 +1670,29 @@ per convenzione, diremo avere grado $-\infty$ (questa definizione ha senso se si
 al grado di un polinomio come al più piccolo numero per cui tutti i coefficienti di
 indice maggiore a lui sono nulli).
 
+Finora abbiamo definito il polinomio come una classe di equivalenza di 
+espressioni polinomiali. 
+Se prendiamo una espressione $P$ e al posto della variabile $x$ 
+mettiamo un elemento $a$ dell'anello $A$ (o di qualunque anello che estende 
+$A$) allora possiamo valutare tutte le operazioni (somme e prodotti) ed 
+ottenere un risultato nell'anello scelto: il risultato 
+ottenuto si indica con $P(a)$ (stessa notazione utilizzata per le funzioni).
+Se $P$ è un polinomio nella variabile $x$ la funzione $x\mapsto P(x)$ 
+può essere chiamata \myemph{funzione!polinomiale} e si indica usualmente 
+con con lo stesso nome $P$ dato al polinomio. Sarà il contesto a dirci 
+se con $P$ si intende il polinomio (l'espressione) o la funzione.
+
+Come già anticipato è utile tenere separato il concetto di polinomio da quello di 
+funzione polinomiale in quanto lo stesso polinomio può essere valutato su diversi 
+anelli (ad esempio nel corso di geometria si potrà mettere una matrice al posto 
+della variabile $x$, e nell'ultimo capitolo di questi appunti 
+sostituiremo la $x$ con un operatore differenziale).
+
+Proseguiremo con la trattazione dei polinomi 
+nel capitolo~\ref{ch:ancora_polinomi}.
+
+\section{coefficienti binomiali}
+
 Capiterà spesso di imbattersi in alcuni polinomi particolari, che vengono 
 a volte chiamati \myemph{prodotti!notevoli}. 
 Di fondamentale iportanza quelli di grado 2:
@@ -1678,308 +1713,74 @@ e, mettendo $-x$ al posto di $x$ e cambiando di segno:
 Le potenze del binomio $x+1$ sono decisamente rilevanti. 
 Se scriviamo il polinomio $(x+1)^n$ in forma canonica:
 \[
-  (x+1)^n = \sum_{k=0}^n c_{n,k} x^k  
+  (x+1)^n = \sum_{k=0}^n a_k x^k  
 \]
-i coefficienti $c_{n,k}$ vengono chiamati 
+saremmo interessati a calcolare il valore
+dei coefficienti $a_k$. 
+Innanzitutto gli diamo un nome: questi coefficienti vengono chiamati 
 \myemph{coefficienti binomiali}
-e si denotano nel modo seguente:
+\index{binomio!coefficienti}%
+e si denotano nel modo seguente:\footnote{%
+I coefficienti binomiali nell'ambito del calcolo combinatorio 
+vengono anche chiamati \emph{combinazioni}
+e denotati con il simbolo $C_{n,k} = {n \choose k}$.
+La coincidenza tra le combinazioni e i coefficienti binomiali 
+è espressa nel teorema~\ref{th:combinatoria}.
+}
 \[
-    a_k = {n \choose k}
+    a_k = {n \choose k}.
 \]
 
-\begin{definition}[campo]
-  Diremo che $\KK$ è un campo se $\KK$ è un anello commutativo con identità 
-  e se ogni $x\in \KK$, $x\neq 0$ ha un inverso moltiplicativo cioè 
-  esiste $y\in \KK$ tale che $x\cdot y = 1$.
-  L'inverso moltiplicativo si chiama anche \myemph{reciproco}
-  e si denota con $x^{-1}$.
-  La moltiplicazione per l'inverso si chiama anche 
-  \myemph{divisione} e si denota nel modo seguente:
-  \[
-    x\cdot y^{-1} = x/y = \frac{x}{y}.
-  \]
-\end{definition}
+Non è difficile convincersi che se sviluppiamo il binomio $(x+y)^n$
+si ottengono gli stessi coefficienti dunque
+in generale vale la seguente formula per la \myemph{potenza!del binomio}:
+\index{binomio!potenza}% 
+\begin{equation*}
+  (x+y)^n = \sum_{k=0}^n {n \choose k} x^k y^{n-k}. 
+\end{equation*}
 
-\begin{theorem}[divisione di Euclide]
-\label{th:divisione_polinomi}%
-\index{divisione tra polinomi}%
-\index{polinomio!divisione}%
-\index{polinomio!algoritmo di Euclide}%
-\index{Euclide!algoritmo di divisione}%
-\index{algoritmo!di Euclide}%
-Se $\KK$ è un campo,
-dati due polinomi $P$ e $S$ in $\KK[x]$ con $S\neq 0$ è possibile
-trovare, in modo unico, due polinomi $Q$ (quoziente)
-e $R$ (resto) in $\KK[x]$ con $\deg R < \deg S$
-tali che:
-\[
-  P = Q \cdot S + R.
-\]
-\end{theorem}
-%
-\begin{proof}
-\emph{Passo 1:} supponiamo che sia $\deg P < \deg S$.
-In questo caso basta prendere $Q=0$ e $R=P$.
-
-\emph{Passo 2:} supponiamo che sia $\deg P \ge \deg S$.
-Poniamo $N=\deg P$ e $M=\deg S$.
-Sia $a_N\neq 0$ il coefficiente del termine di grado massimo
-di $P$ e $b_M\neq 0$ il coefficiente di grado massimo
-del polinomio $S$.
-E' allora facile verificare che il polinomio
-\[
-\frac{a_N}{b_M} \cdot x^{N-M}\cdot S
-\]
-ha lo stesso grado di $P$ e il suo coefficiente di grado
-massimo è uguale ad $a_N$ in quanto è il prodotto di
-$a_N/b_M$ per $b_M$.
-Dunque il polinomio
-\[
- P_1 = P - \frac{a_N}{b_M} \cdot x^{N-M}\cdot S
-\]
-ha grado strettamente inferiore a $P$.
-Possiamo ora supporre, mediante un ragionamento induttivo
-su $\deg P - \deg S$
-che per il polinomio $P_1$ il risultato del teorema sia
-valido cioè
-che esistano, dei polinomio $Q_1$ e $R$
-con $\deg R < \deg S$ tali che
-\[
-  P_1 = Q_1 \cdot S + R.
-\]
-Il caso base del ragionamento induttivo,
-$\deg P = \deg S$, è garantito dal passo 1.
-Avremo allora:
-\begin{align*}
-  P &= P_1 + \frac{a_N}{b_M} x^{N-M}\cdot S\\
-    &= Q_1 \cdot S + R_1 + \frac{a_N}{b_M} x^{N-M}\cdot S\\
-    &= (\frac{a_N}{b_M} x^{N-M} + Q_1) \cdot S + R_1.
-\end{align*}
-Posto quindi
-\[
- Q = \frac{a_N}{b_N} x^{N-M} + Q_1
-\]
-il risultato è dimostrato.
-
-\emph{Passo 3:} dimostriamo che $Q$ e $R$ sono unici. Se infatti avvessimo 
-\[
-  P = Q_1 S + R_1 = Q_2 S + R_2   
-\]
-con $\deg R_1<\deg S$ e $\deg R_2 < \deg S$ si avrebbe 
-\[
-(Q_2 - Q_1) S = R_1 - R_2.    
-\]
-Se fosse $Q_2 \neq Q_1$ il polinomio al lato sinistro avrebbe grado non inferiore al grado di 
-$S$ mentre il lato destro ha certamente grado minore di $S$.
-Dunque $Q_2=Q_1$ ma allora il lato sinistro è nullo e quindi anche il lato destro deve 
-esserlo: $R_2=R_1$.
-\end{proof}
-
-La dimostrazione del teorema precedente fornisce anche un
-algoritmo, chiamato \emph{algoritmo di Euclide},
-per eseguire la divisione (con resto) tra polinomi.
-Lo sperimentiamo nel seguente esercizio.
-
-\begin{exercise}
-Sia $P = x^4-3 x^2 + 2x + 1$ e $S = x^2-1$.
-Eseguire la divisione con resto cioè:
-trovare $Q$ ed $R$ con $\deg R < \deg S$ tali che
-\[
-P = Q \cdot S + R.
-\]
-\end{exercise}
-%
-\begin{proof}[Svolgimento.]
-Il rapporto tra i termini di grado massimo di
-$P$ e $S$ è $x^4/x^2 = x^2$.
-Dunque consideriamo come primo monomio $x^2$.
-Si ha
-\begin{align*}
-  P_1
-  &= P - x^2 \cdot S
-  = x^4-3x^2+2x+1 - x^4+x^2 \\
-  &= -2x^2+2x+1.
-\end{align*}
-Ripetiamo il procedimento con $P_1$ al posto di $P$.
-Il rapporto tra i termini di grado massimo di $P_1$ e $S$
-è il monomio $-2$. Si ha
-\[
-  P_2 = P_1 - (-2) S = -2x^2 + 2x + 1 + 2x^2 - 2 = 2x -1.
-\]
-Visto che $\deg P_2 < \deg S$ la divisione termina e
-si pone $R = 2x-1$.
-Si ha quindi $Q = x^2 - 2$ (la somma dei monomi trovati)
-e risulta:
-\[
-  P = (x^2 - 2)\cdot S + 2x -1.
-\]
-\end{proof}
-
-Dato un polinomio $P\in \KK[x]$ e un numero $a\in \KK$
-è possibile prendere l'espressione rappresentata da
-$P$ e sostiture alla variabile $x$ il valore $a$.
-E' chiaro allora che svolgendo le operazioni di somma
-e moltiplicazione si ottiene un valore in $\KK$
-che denoteremo con $P(a)$.
-Ogni polinomio $P\in \KK[x]$ identifica quindi una funzione
-$P\colon \KK \to \KK$, $x\mapsto P(x)$ che chiameremo
-\myemph{funzione polinomiale} associata a $P$.
-
-\begin{theorem}[Ruffini]
-\label{th:Ruffini}%
-\index{teorema!di Ruffini}%
-\index{Ruffini}%
-Sia $P\in \KK[x]$ un polinomio non nullo.
-Se $x_0 \in \KK$ è tale che $P(x_0)=0$
-allora esiste un polinomio $Q$ con $\deg Q = (\deg P) - 1$
-tale che
-\[
-  P = (x-x_0)\cdot Q.
-\]
-\end{theorem}
-%
-\begin{proof}
-In base al teorema precedente si può fare la divisione tra
-$P$ e $S = x - x_0$ per ottenere un polinomio $Q$ e un resto
-$R$ con $\deg R < 1$ tali che
-\[
-  P = (x-x_0)\cdot Q + R.
-\]
-Siccome $\deg R < 1$ si ha in effetti che $R=c\in \KK$
-è un polinomio costante e dunque
-\[
-  P = (x-x_0) \cdot Q + c
-\]
-ma valutando $P$ in $x=x_0$ si scopre che
-\[
- P(x_0) = 0\cdot Q(x_0) + c = c
-\]
-dunque $c=P(x_0) = 0$.
-\end{proof}
-
-Possiamo ora chiederci se polinomi diversi corrispondono
-a funzioni polinomiali diverse.
-In generale questo non è vero, se ad esempio prendessimo
-come campo $\KK=\ZZ_2 = \ENCLOSE{0,1}$, un campo finito
-in cui poniamo $1+1=0$ scopriremmo che la funzione polinomiale
-$P(x) = x^2+x$ è identicamente nulla in quanto $0^2+0=0$
-e $1^2+1=1+1=0$ in questo campo.
-Ma nei casi che interessano a noi $\KK=\RR$ o $\KK=\CC$
-questo problema non si presenta e si potrà quindi identificare
-ogni polinomio con la corrispondente funzione polinomiale.
-Per avere questa garanzia ci servono i seguenti risultati.
-
-\begin{theorem}[principio di annullamento dei polinomi]
-\label{th:annullamento_polinomi}%
-\index{principio di annullamento dei polinomi}%
-Sia $P\in \KK[x]$ un polinomio non nullo di grado $n$.
-Allora la funzione polinomiale associata a $P$
-si annulla in al più $n$ punti distinti di $\KK$.
-
-In particolare se un polinomio si annulla in infiniti
-punti distinti allora tale polinomio è certamente nullo.
-\end{theorem}
-%
-\begin{proof}
-Dimostriamo per induzione su $n$ che se un polinomio
-$P$ di grado non superiore a $n$ si annulla in $n+1$
-punti distinti $x_1, \dots, x_{n+1}\in \KK$ allora
-$P=0$.
-
-Se $n=0$ il polinomio $P$ è costante ma si annulla
-in un punto e quindi è il polinomio nullo.
-Se $n>0$ per il teorema di Ruffini applicato al
-punto $x_{n+1}$ sappiamo che esise un polinomio $Q$
-di grado inferiore ad $n$ per cui si ha
-\[
-  P = (x-x_{n+1}) \cdot Q
-\]
-sostituendo $x=x_k$ con $k\le n$ si ha $x_k-x_{n+1}\neq 0$
-e quindi
-\[
-  Q(x_k) = \frac{P(x_k)}{x_k-x_{n+1}} = 0.
-\]
-Dunque $Q$ si annulla nei punti $x_1, \dots, x_n$
-e, per ipotesi induttiva, scopriamo che $Q$ deve
-essere nullo. Di conseguenza anche $P$ è nullo.
-\end{proof}
-
-Se $\KK$ è un insieme infinito (come nei casi $\KK=\RR$ o $\KK=\CC$)
-si trova che
-se a due polinomi $P$, $Q$ corrisponde
-la stessa funzione polinomiale:
-\[
-  P(x) = Q(x) \qquad \text{per ogni $x\in \KK$}
-\]
-allora $P$ e $Q$ sono lo stesso polinomio $P=Q$
-in quanto la differenza $P-Q$ si annulla in tutti i punti
-di $\KK$ e qualunque sia il suo grado, se $\KK$ è infinito,
-questo ci dice che $P-Q=0$. 
-
-Questo corollario viene spesso enunciato come segue.
-\begin{theorem}[principio di identità dei polinomi]
-  Siano $a_k$ e $b_k$ coefficienti nel campo $\KK=\RR$ o $\KK=\CC$.
-  Se per ogni $x\in \KK$ si ha 
-  \[
-     \sum_{k=1}^n a_k x^k = \sum_{k=1}^m b_k x^k
-  \]
-  allora $m=n$ e $a_k=b_k$ per ogni $k=0, \dots, n$.
-\end{theorem}
-%
-\begin{proof}
-Facendo la differenza dei due lati dell'uguaglianza si ottiene 
-che una espressione polinomiale si annulla identicamente. 
-Allora per il teorema~\ref{th:annullamento_polinomi} tale espressione 
-rappresenta il polinomio nullo e di conseguenza tutti i coefficienti, 
-che sono dati dalla differenza $a_k-b_k$, devono essere nulli.
-\end{proof}
-
-\begin{definition}[coefficiente binomiale]
-  \label{def:binomiale}
-  \mymark{***}
-  Definiamo per ogni $n\in \NN$ e per ogni $k\in \NN$, $k\le n$
-  il \myemph{coefficiente binomiale}
-  \[
-  {n \choose k}
-  =\frac{n!}{k!(n-k)!}.
-  \]
-  Per convenzione può essere utile porre
-  ${n \choose k}=0$ se $k\in \ZZ$ con $k< 0$ o $k>n$.
-  Questa definizione verrà estesa nella definizione~\ref{def:binomiale_reale}.
-  \end{definition}
-  %
-  Si osservi che risulta
-  \begin{align*}
-  \frac{n!}{(n-k)!} &= \frac{n (n-1) \cdots (n-k+1)(n-k) \cdots 2\cdot 1}{(n-k) \cdots 2\cdot 1}\\
-   &= n (n-1) \cdots (n-k+1) = \prod_{j=1}^k (n+1-j)
-  \end{align*}
-  e questo permette in pratica di calcolare il coefficiente binomiale ${n \choose k}$
-  svolgendo solamente $k$ prodotti a numeratore e a denominatore, indipendentemente
-  da quanto è grande $n$.
+Per determinare il valore effettivo dei coefficienti 
+binomiali si utilizza usualmente il seguente.
   
-  \begin{theorem}[triangolo di Tartaglia]
-  \mymark{*}
-  Per ogni $n\in \NN$ e $k \in \NN$ con $1 \le k \le n$ si ha
-  \[
-    {n+1 \choose k} =
-        {n \choose k-1} + {n \choose k}
-  \]
-  mentre
-  \[
-    {n+1 \choose 0} = 1 = {n+1 \choose n+1}
-  \]
-  \end{theorem}
+\begin{theorem}[triangolo di Tartaglia]
+\mymark{*}%
+\label{th:tartaglia}%
+Per ogni $n\in \NN$ e $k \in \NN$ con $1 \le k \le n$ si ha
+\[
+  {n+1 \choose k} =
+      {n \choose k-1} + {n \choose k}
+\]
+mentre
+\[
+  {n+1 \choose 0} = 1 = {n+1 \choose n+1}
+\]
+\end{theorem}
   %
   \begin{proof}
-  La seconda parte si ottiene direttamente dalla definizione.
-  Per la prima parte si ha:
+  Infatti si ha 
   \begin{align*}
-  {n \choose k-1} + {n \choose k}
-  &= \frac{n!}{(k-1)!(n-k+1)!} + \frac{n!}{k!(n-k)!} \\
-  &= \frac{k\cdot n! + (n-k+1)\cdot n!}{k!(n-k+1)!} \\
-  &= \frac{(n+1)\cdot n!}{k!(n+1-k)!}
-  = {n+1 \choose k}.
-  \end{align*}
+    \sum_{k=0}^{n+1} {n+1 \choose k} x^k
+    &= (1+x)^{n+1} 
+    = (1+x)\cdot \sum_{k=0}^n {n \choose k} x^k \\
+    &= \sum_{k=0}^n {n\choose k} x^k 
+    + \sum_{k=0}^n {n\choose k} x^{k+1}\\
+    &= \sum_{k=0}^n {n\choose k} x^k 
+    + \sum_{k=1}^{n+1} {n\choose k-1} x^{k}\\
+    &= {n\choose 0} x^0 
+      + \sum_{k=1}^n \Enclose{{n\choose k} + {n\choose k-1}} x^k
+      + {n \choose n} x^{n+1}.
+    \end{align*}
+  Per l'unicità della forma canonica dei polinomi 
+  i coefficienti corrispondenti devono essere uguali e quindi 
+  troviamo
+  \[
+  {n+1 \choose 0} = {n \choose 0}, \qquad 
+  {n+1 \choose k} = {n \choose k} + {n \choose k-1}, \qquad 
+  {n+1 \choose n+1} = {n \choose n}.
+  \]
+
+  Si può facilmente verificare che  ${0 \choose 0} = 1$ 
+  e questo conclude la dimostrazione.
   \end{proof}
   
   In base al teorema precedente i coefficienti binomiali si possono
@@ -2007,101 +1808,49 @@ che sono dati dalla differenza $a_k-b_k$, devono essere nulli.
   \label{tab:binomiali}
   \end{table}
   
-  \begin{theorem}[sviluppo binomiale]
-  \label{th:sviluppo_binomiale}%
+  \begin{theorem}[formula per i coefficienti binomiali]
   \mymark{***}%
-  Se $a,b\in \RR$ e $n\in \NN$ si ha:
-  \begin{equation}
-  \label{eq:sviluppo_binomiale}
-  (a+b)^n = \sum_{k=0}^n {n \choose k} a^k \cdot b^{n-k}.
-  \end{equation}
+  Se $n\in \NN$ e $k\in \NN$, $k\le n$
+  si ha 
+  \[
+  {n \choose k}  
+  = \frac{n!}{k!(n-k)!}.  
+  \]
   \end{theorem}
   %
   \begin{proof}
   Lo dimostriamo per induzione su $n$.
-  Per $n=0$ l'uguaglianza è soddisfatta per verifica diretta (ambo i membri sono uguali ad $1$).
-  
-  Supponendo valida l'uguaglianza per un certo $n\in \NN$ proviamo a verificarla
-  per $n+1$:
+  Per $n=0$ sappiamo che ${0 \choose 0} = 1$ che 
+  è ugule a $\frac{0!}{0!0!}$.
+  Utilizziamo il teorema~\ref{th:tartaglia}.
+  Se $k=0$ o $k=n$ sappiamo che ${n \choose k}=1$ che coincide 
+  con la formula enunciata. 
+  Per gli altri casi, supponendo per induzione che la formula sia 
+  vera per un certo $n\in \NN$ si ha: 
   \begin{align*}
-  (a+b)^{n+1}
-  &= (a+b)\cdot (a+b)^n
-   = (a+b) \sum_{k=0}^n {n \choose k} a^k \cdot b^{n-k}\\
-  &= \sum_{k=0}^n {n \choose k} a^{k+1}\cdot b^{n-k}
-     + \sum_{k=0}^n {n \choose k} a^k \cdot b^{n-k+1} \\
-  &= \sum_{k=1}^{n+1} {n \choose k-1} a^k \cdot b^{n-k+1}
-     + \sum_{k=0}^n {n \choose k}a^k \cdot b^{n-k+1} \\
-  &= \sum_{k=0}^{n+1} \enclose{{n \choose k-1} + {n \choose k}} a^k \cdot b^{n+1-k}.
+   {n+1 \choose k} 
+   &= {n \choose k} + {n \choose k-1}
+   =  \frac{n!}{k!(n-k)!} + \frac{n!}{(k-1)!(n-k+1)!} \\
+   &= \frac{n!(n-k+1) + n! k}{k!(n-k+1)!}
+   = \frac{n!(n+1)}{k!(n+1-k)!} \\
+   &= \frac{(n+1)!}{k!(n+1-k)!}
   \end{align*}
-  Nell'ultimo passaggio abbiamo sfruttato il fatto che per $k<0$ e per $k>n$ il coefficiente binomiale è nullo.
-  Sfruttando la relazione del triangolo di Tartaglia si ottiene infine,
-  come volevamo dimostrare
-  \[
-    = \sum_{k=0}^{n+1}{n+1 \choose k} a^k \cdot b^{n+1-k}.
-  \]
-  \end{proof}
+  che è quanto dovevamo dimostrare.
+\end{proof}
+
+Si osservi che risulta, per ogni $n\in \NN$:
+\[
+  {n \choose 1} = {n \choose n-1} = n.
+\]
   
-  \begin{exercise}[interpretazione combinatoria del coefficiente binomiale]
-  Il numero di sottoinsiemi di $k$ elementi di un insieme con $n$ elementi
-  è ${n\choose k}$.
-  \end{exercise}
-  
-  \begin{exercise}
+\begin{exercise}
   Provare che
   \[
    \sum_{k=0}^n {n \choose k} = 2^n.
   \]
-  \end{exercise}
+\end{exercise}
   
-  Si osservi che risulta, per ogni $n\in \NN$:
-  \[
-    {n\choose 0} = {n \choose n} = 1,
-    \qquad
-    {n \choose 1} = {n \choose n-1} = n.
-  \]
-  Allora lo sviluppo del binomio~\eqref{eq:sviluppo_binomiale}
-  ci consente di affermare
-  che per ogni $x\ge 0$ si ha:
-  \[
-    (1+x)^n = 1 + nx + \sum_{k=2}^n {n\choose k} x^k
-    \ge 1 + nx.
-  \]
-  Nel seguito ci servirà sapere che questa
-  disuguaglianza è vera, più in generale,
-  se $x > -1$.
-  
-  \begin{theorem}[disuguaglianza di Bernoulli]
-  \label{th:disuguaglianza_bernoulli}%
-  \mymark{**}%
-  \mynote{disuguaglianza di Bernoulli}%
-  \index{Bernoulli}%
-  \index{disuguaglianza!di Bernoulli}%
-  Se $x > -1$ e $n\in \NN$ si ha
-  \begin{equation}
-  \label{eq:bernoulli}
-  (1+x)^n \ge 1 + nx.
-  \end{equation}
-  \end{theorem}
-  %
-  \begin{proof}
-  \mymark{**}
-  Dimostriamo che vale~\eqref{eq:bernoulli}
-  per induzione su $n$.
-  Per $n=0$ la disequazione \eqref{eq:bernoulli} diventa $1\ge 1$
-  ed è quindi verificata.
-  Se~\eqref{eq:bernoulli}
-  è verificata per un certo $n$
-  moltiplicando ambo i membri per $1+x > 0$ si ottiene
-  \[
-  (1+x)^{n+1} \ge (1+x) (1+nx) = 1 + (n+1)x + n x^2
-  \ge 1 + (n+1)x
-  \]
-  che è proprio la disuguaglianza~\eqref{eq:bernoulli}
-  con $n+1$ al posto di $n$.
-  \end{proof}
-
-
-\subsection{cardinalità finite}
+\section{cardinalità finite}
   
 \begin{definition}[cardinalità finite]
   Definiamo $I_n = \ENCLOSE{k\in \NN \colon k<n} = \{ 0,1, 2, \dots, n-1\}$.
@@ -2137,6 +1886,7 @@ allora $n\le m$.
 Lasciamo al lettore il piacere di dimostrare (utilizzando il principio di induzione)
 il seguente.
 \begin{theorem}[operazioni con le cardinalità finite]
+  \label{th:combinatoria}
   Se $A$ e $B$ sono insiemi disgiunti e finiti allora  
   \[
     \#(A\cup B) = \#A + \#B.
@@ -2147,11 +1897,30 @@ il seguente.
     \#(A \times B) = \#A\cdot \#B, \qquad
     \#(B^A) = \#B^{\#A}, \qquad
     \#\mathcal P(A) = 2^{\# A}, \\
-    \#\ENCLOSE{f\in A^A\colon \text{$f$ bigettiva}} = (\#A)!
+    \#\ENCLOSE{f\in A^A\colon \text{$f$ bigettiva}} = (\#A)!, \\
+     \#\ENCLOSE{X\in \mathcal P(A)\colon \#X = k}.  
+     = {\#A \choose k}. 
   \end{gather*}
 \end{theorem}
 
+
+  Lo sviluppo del binomio~\eqref{eq:sviluppo_binomiale}
+  ci consente di affermare
+  che per ogni $x\ge 0$ si ha:
+  \[
+    (1+x)^n = 1 + nx + \sum_{k=2}^n {n\choose k} x^k
+    \ge 1 + nx.
+  \]
+  Nel seguito ci servirà sapere che questa
+  disuguaglianza è vera, più in generale,
+  se $x > -1$.
+  
 \section{proprietà di continuità della retta reale}
+
+Riprendiamo ora la trattazione dell'insieme $\RR$ dei numeri reali.
+Vediamo ora quali sono le conseguenze della \emph{continuità}
+dell'ordinamento di $\RR$, proprietà che finora non abbiamo mai 
+utilizzato.
 
 \begin{definition}
   \mymark{***}
@@ -2258,7 +2027,7 @@ D'ora in poi non utilizzeremo più tale assioma ma useremo invece
 cone maggiore facilità gli operatori: $\sup$ e $\inf$.
 In effetti è molto semplice verificare che l'esistenza del $\sup$
 è una condizione equivalente all'assioma di continuità
-(basta osservare che se $A\le B$ allora $\sup A$ è )
+(basta osservare che se $A\le B$ allora $\sup A$ è
 un elemento di separazione).
 
 La seguente proprietà dei numeri reali esprime il fatto
@@ -2523,8 +2292,10 @@ come volevamo dimostrare,
   
   Si faccia attenzione alla terminologia.
   In alcuni testi (in particolare nei testi anglosassoni) si utilizza il termine
-  \emph{crescente} con il significato di \emph{strettamente crescente} e si usa la dizione \emph{non decrescente} per indicare il concetto che noi abbiamo definito con \emph{crescente}. In
-  effetti con le nostre definizioni una funzione crescente può essere costante
+  \emph{crescente} con il significato di \emph{strettamente crescente} 
+  e si usa la dizione \emph{non decrescente} o \emph{debolmente crescente} 
+  per indicare il concetto che noi abbiamo definito con \emph{crescente}. 
+  In effetti con le nostre definizioni una funzione crescente può essere costante
   e quindi non crescere affatto!
   E' questo uno dei casi in cui il termine utilizzato nelle definizioni non corrisponde esattamente alla dizione utilizzata
   nel linguaggio comune.
@@ -2547,13 +2318,15 @@ come volevamo dimostrare,
 
   Inoltre se $m>0$ la funzione $f$ è strettamente crescente,
   se $m=0$ la funzione è costante nulla, se $m<0$ la funzione 
-  è strettamente decrescente. E se $p\in \ZZ$, $q \in \NN\setminus\ENCLOSE{0}$ 
+  è strettamente decrescente (dunque se $m\neq 0$ la funzione 
+  è bigettiva). 
+  
+  Infine se $p\in \ZZ$, $q \in \NN\setminus\ENCLOSE{0}$ 
   si ha 
   \[
     f\enclose{\frac{pu} q} = \frac{pm}{q}.
   \] 
 
-  Infine se $m\neq 0$ tale funzione è bigettiva.
 \end{theorem}
 %
 \begin{proof}
@@ -2576,7 +2349,7 @@ come volevamo dimostrare,
     f(x) = \sup A_x.  
   \]
 
-  Per prima cosa dimostriamo che se $x=\frac a b\in \QQ$ si ha 
+  Per prima cosa osserviamo che se $x=\frac a b\in \QQ$ si ha 
   \[ 
     f(x) = \frac{am}{b}
   \]
@@ -2742,8 +2515,6 @@ E questo è l'unico modo per garantire queste proprietà.
 
 Dobbiamo ora verificare che tale definizione soddisfa anche le altre 
 proprietà enunciate. 
-La
-
 Per fare ciò ci servirà innanzitutto dimostrare 
 che fissati $a,b\in \RR$ si ha 
 \begin{equation}\label{eq:295254}
@@ -2819,14 +2590,15 @@ L'operazione di moltiplicazione che abbiamo appena definito su $\RR$
 rende $\RR$ un campo ordinato continuo in base alla seguente.
 
 \begin{definition}[campo]
-  Un insieme $K$ su cui sono definite due operazioni di addizione $+$ e moltiplicazione $\cdot$
-  si dice essere un \myemph{campo}
-  se $K$ con l'addizione risulta essere 
-  un gruppo abeliano con elemento neutro $0$ mentre $K\setminus\ENCLOSE{0}$ è un gruppo abeliano 
-  rispetto alla moltiplicazione con elemento neutro $1 \neq 0$ e infine 
-  vale la proprietà distributiva:
+  Diremo che $\KK$ è un campo se $\KK$ è un anello commutativo con identità 
+  e se ogni $x\in \KK$, $x\neq 0$ ha un inverso moltiplicativo cioè 
+  esiste $y\in \KK$ tale che $x\cdot y = 1$.
+  L'inverso moltiplicativo si chiama anche \myemph{reciproco}
+  e si denota con $x^{-1}$.
+  La moltiplicazione per l'inverso si chiama anche 
+  \myemph{divisione} e si denota nel modo seguente:
   \[
-  x\cdot (y+z) = x\cdot y + x\cdot z.  
+    x\cdot y^{-1} = x/y = \frac{x}{y}.
   \]
 
   Se $K$ è anche totalmente ordinato da una relazione $\le$

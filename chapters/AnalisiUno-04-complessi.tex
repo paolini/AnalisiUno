@@ -451,408 +451,246 @@ Scrivere le soluzioni in forma polare e cartesiana.
 \end{gather*}
 \end{exercise}
 
-\section{polinomi}
-
-Il concetto di ``polinomio'' è una astrazione che non risulta facile esplicitare formalmente.
-Nel capitolo~\ref{ch:edo} ci sarà molto utile valutare un polinomio su un operatore 
-differenziale e dunque ci teniamo ora a rendere molto chiaro cosa intendiamo per polinomio.
-In particolare distingueremo tre concetti che spesso vengono sovrapposti: 
-\emph{espressione polinomiale}, \emph{polinomio} e \emph{funzione polinomiale}.
-
-Se $\KK$ è un campo\footnote{%
-Ma più in generale è sufficiente
-avere un \emph{anello}: un insieme su cui sono definite le operazioni
-di somma e prodotto come su un campo ma su cui non si richiede
-l'esistenza dell'inverso moltiplicativo.
-E' abbastanza comune, ad esempio, considerare polinomi
-a coefficienti interi.}
-(a noi interessa in particolare $\KK=\RR$ o $\KK=\CC$)
-possiamo considerare tutte le espressioni
-(formalmente: alberi di valutazione)
-che possono essere costruite utilizzando le operazioni
-di somma e prodotto a partire da coefficienti presi da $\KK$
-e una variabile che possiamo chiamare $x$.
-Queste verranno chiamate \myemph{espressioni polinomiali} su $\KK$
-(o a coefficienti in $\KK$)
-nella variabile $x$. Un esempio di espressione polinomiale
-nella variabile $x$ a coefficienti in $\RR$ può essere:
-\[
-  P(x) = \enclose{\frac 1 2 x+\sqrt 3}\cdot(x\cdot (2+x) + 3\cdot(-1+x))
-\]
-ovvero l'albero di valutazione:
-\begin{center}
-\begin{tikzpicture}
-\node [circle,draw] {$\cdot$}
-  child {
-    node [circle,draw,xshift=-15mm] {$+$}
-    child {
-      node [circle,draw] {$\cdot$}
-      child {node [draw]{$\frac 1 2$}}
-      child {node [draw]{$x$}}
-    }
-    child {node [draw] {$\sqrt 3$}}
-  }
-  child {
-    node [circle,draw,xshift=15mm] (M) {$+$}
-    child {
-      node [circle,draw,xshift=-10mm]{$\cdot$}
-      child {node [draw]{$x$}}
-      child {
-        node [circle,draw]{$+$}
-        child {node [draw] {$2$}}
-        child {node [draw] {$x$}}
-        }
-      }
-    child {
-      node [circle,draw,xshift=10mm]{$\cdot$}
-      child {node [draw] {$3$}}
-      child {
-        node [circle,draw] {$+$}
-        child {node [draw] {$-1$}}
-        child {node [draw] {$x$}}
-        }
-    }
-  };
-\end{tikzpicture}
-\end{center}
-Sviluppando tutti i prodotti tramite la proprietà distributiva,
-ogni espressione di questo tipo può essere ricondotta ad una
-somma di prodotti di costanti per potenze intere della variabile
-$x$:
-\begin{align*}
-P &= \enclose{\frac 1 2 x+\sqrt 3}\cdot(x\cdot (2 + x)
-+ 3\cdot(-1+x))\\
-&= \enclose{\frac 1 2 x + \sqrt 3} (2x+x^2-3+3x) \\
-&= - 3 \sqrt 3 + \enclose{-\frac{3}{2}+ 5\sqrt 3} x
-  + \enclose{\frac{5}{2}+\sqrt 3} x^2 + \frac 1 2 x^3.
-\end{align*}
-Si ottiene quindi un polinomio in \emph{forma canonica}
-\[
-  P = a_0 + a_1 x + a_2 x^2 + \dots + a_n x^n
-       = \sum_{k=0}^n a_k x^k.
-\]
-Due espressioni polinomiali che hanno la stessa
-forma canonica si diranno equivalenti: diremo
-allora che rappresentano lo stesso \myemph{polinomio}.
-Nella forma canonica si intende che siano presenti tutte
-le potenze di $x$ da $x^0 = 1$, $x^1=x$ \dots fino ad
-una potenza massima $x^n$.
-Se una potenza non compare
-nell'espressione può comunque essere inserita mettendo
-a zero il coefficiente corrispondente.
-La potenza massima, invece, dovrà avere un coefficiente
-diverso da zero, altrimenti si dovrà decrementare
-$n$ finché non si giunge a tale proprietà.
-Tale esponente $n$ si chiama \myemph{grado del polinomio}
-che denoteremo con $\deg P$.
-Se la potenza massima è $0$ avremo un unico coefficiente
-$a_0$. In tal caso il grado del polinomio è nullo (zero)
-e diremo che il polinomio è \emph{costante}.
-Se tutti i coefficienti sono nulli (uguali a zero)
-avremo formalmente
-una somma vuota, diremo che il polinomio è nullo e,
-per convenzione, porremo $\deg P = -\infty$.
-
-Se $\KK$ è un campo denoteremo con 
-$\KK[x]$ \index{$\KK[x]$}%
-l'insieme
-di tutti i polinomi con coefficienti in $\KK$ e variabile $x$. 
-Formalmente $\KK[x]$ è il quoziente dell'insieme 
-di tutte le espressioni polinomiali rispetto alla relazione di equivalenza,
-per cui si considerano uguali in $\KK[x]$ le espressioni con la stessa forma canonica.
-Ogni polinomio di grado $n$ è univocamente
-determinato dalla lista dei suoi coefficienti 
-\[
-  (a_0, \dots, a_n) \in \KK^{n+1}
-\]
-(una lista vuota nel caso $n=-\infty$).
-I polinomi possono essere sommati tra di loro
-e moltiplicati per qualunque elemento di $\KK$
-e formano dunque uno spazio vettoriale
-sul campo $\KK$. Inoltre è possibile moltiplicare
-tra loro due polinomi (si parla in questo
-caso di $\KK$-algebra).
-
-Più esplicitamente se $P$ e $Q$ sono polinomi rappresentati da
-\[
-  P = \sum_{k=0}^n a_k x^k, \qquad Q = \sum_{k=0}^m b_k x^k
-\]
-si avrà:
-\[
-  P + Q = \sum_{k=0}^{\max\ENCLOSE{n,m}} (a_k+b_k) \cdot x^k
-\]
-dove si intende che $a_k=0$ per $k>n$ e $b_k=0$ per $k>m$.
-Si osserva quindi che il grado della somma di due polinomi
-è minore o uguale alla somma dei gradi dei due polinomi.
-Se $t\in \KK$ avremo:
-\[
-  t P = \sum_{k=0}^n (ta_k)\cdot x^k.
-\]
-Per quanto riguarda il prodotto si avrà invece:
-\begin{align*}
-  P\cdot Q
-  &= \enclose{\sum_{k=0}^n a_k x^k}\cdot \enclose{\sum_{j=0}^n b_j x^j}
-  = \enclose{\sum_{k=0}^n a_k \enclose{\sum_{j=0}^m a_j x^j} x^k} \\
-  &= \enclose{\sum_{k=0}^n \sum_{j=0}^m a_k a_j x^{j+k}}
-  = \sum_{s=0}^{m+n} \enclose{\sum_{j=0}^s a_j b_{s-j}} x^s.
-\end{align*}
-Dunque si osserva che il grado del prodotto è uguale
-alla somma dei gradi.
-
-Ogni polinomio in forma canonica è scritto come
-combinazione lineare dei \emph{monomi} $x^k$:
-significa che una base dello spazio vettoriale $\KK[x]$ è data dai
-polinomi
-\[
-  1, x, x^2, x^3, \dots, x^n, \dots
-\]
-Dunque $\KK[x]$ è uno spazio vettoriale di dimensione
-infinita. Fissato $n\in \NN$ possiamo considerare
-il sottoinsieme di $\KK[x]$ formato da tutti
-i polinomi di grado inferiore a $n$. E' chiaro
-che tale insieme è in realtà un sottospazio vettoriale
-di $\KK[x]$ di dimensione $n$ e una base di tale
-sottospazio è dato dai monomi:
-\[
-  1, x, x^2, \dots, x^{n-1}.
-\]
+\section{ancora polinomi}
+\label{ch:ancora_polinomi}
+Proseguiamo la trattazione dei polinomi 
+che abbiamo iniziato nel capitolo~\ref{ch:polinomi}.
 
 \begin{theorem}[divisione di Euclide]
-\label{th:divisione_polinomi}%
-\index{divisione tra polinomi}%
-\index{polinomio!divisione}%
-\index{polinomio!algoritmo di Euclide}%
-\index{Euclide!algoritmo di divisione}%
-\index{algoritmo!di Euclide}%
-Dati due polinomi $P$ e $S$ in $\KK[x]$ con $S\neq 0$ è possibile
-trovare, in modo unico, due polinomi $Q$ (quoziente)
-e $R$ (resto) in $\KK[x]$ con $\deg R < \deg S$
-tali che:
-\[
-  P = Q \cdot S + R.
-\]
-\end{theorem}
-%
-\begin{proof}
-\emph{Passo 1:} supponiamo che sia $\deg P < \deg S$.
-In questo caso basta prendere $Q=0$ e $R=P$.
-
-\emph{Passo 2:} supponiamo che sia $\deg P \ge \deg S$.
-Poniamo $N=\deg P$ e $M=\deg S$.
-Sia $a_N\neq 0$ il coefficiente del termine di grado massimo
-di $P$ e $b_M\neq 0$ il coefficiente di grado massimo
-del polinomio $S$.
-E' allora facile verificare che il polinomio
-\[
-\frac{a_N}{b_M} \cdot x^{N-M}\cdot S
-\]
-ha lo stesso grado di $P$ e il suo coefficiente di grado
-massimo è uguale ad $a_N$ in quanto è il prodotto di
-$a_N/b_M$ per $b_M$.
-Dunque il polinomio
-\[
- P_1 = P - \frac{a_N}{b_M} \cdot x^{N-M}\cdot S
-\]
-ha grado strettamente inferiore a $P$.
-Possiamo ora supporre, mediante un ragionamento induttivo
-su $\deg P - \deg S$
-che per il polinomio $P_1$ il risultato del teorema sia
-valido cioè
-che esistano, dei polinomio $Q_1$ e $R$
-con $\deg R < \deg S$ tali che
-\[
-  P_1 = Q_1 \cdot S + R.
-\]
-Il caso base del ragionamento induttivo,
-$\deg P = \deg S$, è garantito dal passo 1.
-Avremo allora:
-\begin{align*}
-  P &= P_1 + \frac{a_N}{b_M} x^{N-M}\cdot S\\
-    &= Q_1 \cdot S + R_1 + \frac{a_N}{b_M} x^{N-M}\cdot S\\
-    &= (\frac{a_N}{b_M} x^{N-M} + Q_1) \cdot S + R_1.
-\end{align*}
-Posto quindi
-\[
- Q = \frac{a_N}{b_N} x^{N-M} + Q_1
-\]
-il risultato è dimostrato.
-
-\emph{Passo 3:} dimostriamo che $Q$ e $R$ sono unici. Se infatti avvessimo 
-\[
-  P = Q_1 S + R_1 = Q_2 S + R_2   
-\]
-con $\deg R_1<\deg S$ e $\deg R_2 < \deg S$ si avrebbe 
-\[
-(Q_2 - Q_1) S = R_1 - R_2.    
-\]
-Se fosse $Q_2 \neq Q_1$ il polinomio al lato sinistro avrebbe grado non inferiore al grado di 
-$S$ mentre il lato destro ha certamente grado minore di $S$.
-Dunque $Q_2=Q_1$ ma allora il lato sinistro è nullo e quindi anche il lato destro deve 
-esserlo: $R_2=R_1$.
-\end{proof}
-
-La dimostrazione del teorema precedente fornisce anche un
-algoritmo, chiamato \emph{algoritmo di Euclide},
-per eseguire la divisione (con resto) tra polinomi.
-Lo sperimentiamo nel seguente esercizio.
-
-\begin{exercise}
-Sia $P = x^4-3 x^2 + 2x + 1$ e $S = x^2-1$.
-Eseguire la divisione con resto cioè:
-trovare $Q$ ed $R$ con $\deg R < \deg S$ tali che
-\[
-P = Q \cdot S + R.
-\]
-\end{exercise}
-%
-\begin{proof}[Svolgimento.]
-Il rapporto tra i termini di grado massimo di
-$P$ e $S$ è $x^4/x^2 = x^2$.
-Dunque consideriamo come primo monomio $x^2$.
-Si ha
-\begin{align*}
-  P_1
-  &= P - x^2 \cdot S
-  = x^4-3x^2+2x+1 - x^4+x^2 \\
-  &= -2x^2+2x+1.
-\end{align*}
-Ripetiamo il procedimento con $P_1$ al posto di $P$.
-Il rapporto tra i termini di grado massimo di $P_1$ e $S$
-è il monomio $-2$. Si ha
-\[
-  P_2 = P_1 - (-2) S = -2x^2 + 2x + 1 + 2x^2 - 2 = 2x -1.
-\]
-Visto che $\deg P_2 < \deg S$ la divisione termina e
-si pone $R = 2x-1$.
-Si ha quindi $Q = x^2 - 2$ (la somma dei monomi trovati)
-e risulta:
-\[
-  P = (x^2 - 2)\cdot S + 2x -1.
-\]
-\end{proof}
-
-Dato un polinomio $P\in \KK[x]$ e un numero $a\in \KK$
-è possibile prendere l'espressione rappresentata da
-$P$ e sostiture alla variabile $x$ il valore $a$.
-E' chiaro allora che svolgendo le operazioni di somma
-e moltiplicazione si ottiene un valore in $\KK$
-che denoteremo con $P(a)$.
-Ogni polinomio $P\in \KK[x]$ identifica quindi una funzione
-$P\colon \KK \to \KK$, $x\mapsto P(x)$ che chiameremo
-\myemph{funzione polinomiale} associata a $P$.
-
-\begin{theorem}[Ruffini]
-\label{th:Ruffini}%
-\index{teorema!di Ruffini}%
-\index{Ruffini}%
-Sia $P\in \KK[x]$ un polinomio non nullo.
-Se $x_0 \in \KK$ è tale che $P(x_0)=0$
-allora esiste un polinomio $Q$ con $\deg Q = (\deg P) - 1$
-tale che
-\[
-  P = (x-x_0)\cdot Q.
-\]
-\end{theorem}
-%
-\begin{proof}
-In base al teorema precedente si può fare la divisione tra
-$P$ e $S = x - x_0$ per ottenere un polinomio $Q$ e un resto
-$R$ con $\deg R < 1$ tali che
-\[
-  P = (x-x_0)\cdot Q + R.
-\]
-Siccome $\deg R < 1$ si ha in effetti che $R=c\in \KK$
-è un polinomio costante e dunque
-\[
-  P = (x-x_0) \cdot Q + c
-\]
-ma valutando $P$ in $x=x_0$ si scopre che
-\[
- P(x_0) = 0\cdot Q(x_0) + c = c
-\]
-dunque $c=P(x_0) = 0$.
-\end{proof}
-
-Possiamo ora chiederci se polinomi diversi corrispondono
-a funzioni polinomiali diverse.
-In generale questo non è vero, se ad esempio prendessimo
-come campo $\KK=\ZZ_2 = \ENCLOSE{0,1}$, un campo finito
-in cui poniamo $1+1=0$ scopriremmo che la funzione polinomiale
-$P(x) = x^2+x$ è identicamente nulla in quanto $0^2+0=0$
-e $1^2+1=1+1=0$ in questo campo.
-Ma nei casi che interessano a noi $\KK=\RR$ o $\KK=\CC$
-questo problema non si presenta e si potrà quindi identificare
-ogni polinomio con la corrispondente funzione polinomiale.
-Per avere questa garanzia ci servono i seguenti risultati.
-
-\begin{theorem}[principio di annullamento dei polinomi]
-\label{th:annullamento_polinomi}%
-\index{principio di annullamento dei polinomi}%
-Sia $P\in \KK[x]$ un polinomio non nullo di grado $n$.
-Allora la funzione polinomiale associata a $P$
-si annulla in al più $n$ punti distinti di $\KK$.
-
-In particolare se un polinomio si annulla in infiniti
-punti distinti allora tale polinomio è certamente nullo.
-\end{theorem}
-%
-\begin{proof}
-Dimostriamo per induzione su $n$ che se un polinomio
-$P$ di grado non superiore a $n$ si annulla in $n+1$
-punti distinti $x_1, \dots, x_{n+1}\in \KK$ allora
-$P=0$.
-
-Se $n=0$ il polinomio $P$ è costante ma si annulla
-in un punto e quindi è il polinomio nullo.
-Se $n>0$ per il teorema di Ruffini applicato al
-punto $x_{n+1}$ sappiamo che esise un polinomio $Q$
-di grado inferiore ad $n$ per cui si ha
-\[
-  P = (x-x_{n+1}) \cdot Q
-\]
-sostituendo $x=x_k$ con $k\le n$ si ha $x_k-x_{n+1}\neq 0$
-e quindi
-\[
-  Q(x_k) = \frac{P(x_k)}{x_k-x_{n+1}} = 0.
-\]
-Dunque $Q$ si annulla nei punti $x_1, \dots, x_n$
-e, per ipotesi induttiva, scopriamo che $Q$ deve
-essere nullo. Di conseguenza anche $P$ è nullo.
-\end{proof}
-
-Se $\KK$ è un insieme infinito (come nei casi $\KK=\RR$ o $\KK=\CC$)
-si trova che
-se a due polinomi $P$, $Q$ corrisponde
-la stessa funzione polinomiale:
-\[
-  P(x) = Q(x) \qquad \text{per ogni $x\in \KK$}
-\]
-allora $P$ e $Q$ sono lo stesso polinomio $P=Q$
-in quanto la differenza $P-Q$ si annulla in tutti i punti
-di $\KK$ e qualunque sia il suo grado, se $\KK$ è infinito,
-questo ci dice che $P-Q=0$. 
-
-Questo corollario viene spesso enunciato come segue.
-\begin{theorem}[principio di identità dei polinomi]
-  Siano $a_k$ e $b_k$ coefficienti nel campo $\KK=\RR$ o $\KK=\CC$.
-  Se per ogni $x\in \KK$ si ha 
+  \label{th:divisione_polinomi}%
+  \index{divisione tra polinomi}%
+  \index{polinomio!divisione}%
+  \index{polinomio!algoritmo di Euclide}%
+  \index{Euclide!algoritmo di divisione}%
+  \index{algoritmo!di Euclide}%
+  Se $\KK$ è un campo,
+  dati due polinomi $P$ e $S$ in $\KK[x]$ con $S\neq 0$ è possibile
+  trovare, in modo unico, due polinomi $Q$ (quoziente)
+  e $R$ (resto) in $\KK[x]$ con $\deg R < \deg S$
+  tali che:
   \[
-     \sum_{k=1}^n a_k x^k = \sum_{k=1}^m b_k x^k
+    P = Q \cdot S + R.
   \]
-  allora $m=n$ e $a_k=b_k$ per ogni $k=0, \dots, n$.
-\end{theorem}
-%
-\begin{proof}
-Facendo la differenza dei due lati dell'uguaglianza si ottiene 
-che una espressione polinomiale si annulla identicamente. 
-Allora per il teorema~\ref{th:annullamento_polinomi} tale espressione 
-rappresenta il polinomio nullo e di conseguenza tutti i coefficienti, 
-che sono dati dalla differenza $a_k-b_k$, devono essere nulli.
-\end{proof}
-
+  \end{theorem}
+  %
+  \begin{proof}
+  \emph{Passo 1:} supponiamo che sia $\deg P < \deg S$.
+  In questo caso basta prendere $Q=0$ e $R=P$.
+  
+  \emph{Passo 2:} supponiamo che sia $\deg P \ge \deg S$.
+  Poniamo $N=\deg P$ e $M=\deg S$.
+  Sia $a_N\neq 0$ il coefficiente del termine di grado massimo
+  di $P$ e $b_M\neq 0$ il coefficiente di grado massimo
+  del polinomio $S$.
+  E' allora facile verificare che il polinomio
+  \[
+  \frac{a_N}{b_M} \cdot x^{N-M}\cdot S
+  \]
+  ha lo stesso grado di $P$ e il suo coefficiente di grado
+  massimo è uguale ad $a_N$ in quanto è il prodotto di
+  $a_N/b_M$ per $b_M$.
+  Dunque il polinomio
+  \[
+   P_1 = P - \frac{a_N}{b_M} \cdot x^{N-M}\cdot S
+  \]
+  ha grado strettamente inferiore a $P$.
+  Possiamo ora supporre, mediante un ragionamento induttivo
+  su $\deg P - \deg S$
+  che per il polinomio $P_1$ il risultato del teorema sia
+  valido cioè
+  che esistano, dei polinomio $Q_1$ e $R$
+  con $\deg R < \deg S$ tali che
+  \[
+    P_1 = Q_1 \cdot S + R.
+  \]
+  Il caso base del ragionamento induttivo,
+  $\deg P = \deg S$, è garantito dal passo 1.
+  Avremo allora:
+  \begin{align*}
+    P &= P_1 + \frac{a_N}{b_M} x^{N-M}\cdot S\\
+      &= Q_1 \cdot S + R_1 + \frac{a_N}{b_M} x^{N-M}\cdot S\\
+      &= (\frac{a_N}{b_M} x^{N-M} + Q_1) \cdot S + R_1.
+  \end{align*}
+  Posto quindi
+  \[
+   Q = \frac{a_N}{b_N} x^{N-M} + Q_1
+  \]
+  il risultato è dimostrato.
+  
+  \emph{Passo 3:} dimostriamo che $Q$ e $R$ sono unici. Se infatti avvessimo 
+  \[
+    P = Q_1 S + R_1 = Q_2 S + R_2   
+  \]
+  con $\deg R_1<\deg S$ e $\deg R_2 < \deg S$ si avrebbe 
+  \[
+  (Q_2 - Q_1) S = R_1 - R_2.    
+  \]
+  Se fosse $Q_2 \neq Q_1$ il polinomio al lato sinistro avrebbe grado non inferiore al grado di 
+  $S$ mentre il lato destro ha certamente grado minore di $S$.
+  Dunque $Q_2=Q_1$ ma allora il lato sinistro è nullo e quindi anche il lato destro deve 
+  esserlo: $R_2=R_1$.
+  \end{proof}
+  
+  La dimostrazione del teorema precedente fornisce anche un
+  algoritmo, chiamato \emph{algoritmo di Euclide},
+  per eseguire la divisione (con resto) tra polinomi.
+  Lo sperimentiamo nel seguente esercizio.
+  
+  \begin{exercise}
+  Sia $P = x^4-3 x^2 + 2x + 1$ e $S = x^2-1$.
+  Eseguire la divisione con resto cioè:
+  trovare $Q$ ed $R$ con $\deg R < \deg S$ tali che
+  \[
+  P = Q \cdot S + R.
+  \]
+  \end{exercise}
+  %
+  \begin{proof}[Svolgimento.]
+  Il rapporto tra i termini di grado massimo di
+  $P$ e $S$ è $x^4/x^2 = x^2$.
+  Dunque consideriamo come primo monomio $x^2$.
+  Si ha
+  \begin{align*}
+    P_1
+    &= P - x^2 \cdot S
+    = x^4-3x^2+2x+1 - x^4+x^2 \\
+    &= -2x^2+2x+1.
+  \end{align*}
+  Ripetiamo il procedimento con $P_1$ al posto di $P$.
+  Il rapporto tra i termini di grado massimo di $P_1$ e $S$
+  è il monomio $-2$. Si ha
+  \[
+    P_2 = P_1 - (-2) S = -2x^2 + 2x + 1 + 2x^2 - 2 = 2x -1.
+  \]
+  Visto che $\deg P_2 < \deg S$ la divisione termina e
+  si pone $R = 2x-1$.
+  Si ha quindi $Q = x^2 - 2$ (la somma dei monomi trovati)
+  e risulta:
+  \[
+    P = (x^2 - 2)\cdot S + 2x -1.
+  \]
+  \end{proof}
+  
+  Dato un polinomio $P\in \KK[x]$ e un numero $a\in \KK$
+  è possibile prendere l'espressione rappresentata da
+  $P$ e sostiture alla variabile $x$ il valore $a$.
+  E' chiaro allora che svolgendo le operazioni di somma
+  e moltiplicazione si ottiene un valore in $\KK$
+  che denoteremo con $P(a)$.
+  Ogni polinomio $P\in \KK[x]$ identifica quindi una funzione
+  $P\colon \KK \to \KK$, $x\mapsto P(x)$ che chiameremo
+  \myemph{funzione polinomiale} associata a $P$.
+  
+  \begin{theorem}[Ruffini]
+  \label{th:Ruffini}%
+  \index{teorema!di Ruffini}%
+  \index{Ruffini}%
+  Sia $P\in \KK[x]$ un polinomio non nullo.
+  Se $x_0 \in \KK$ è tale che $P(x_0)=0$
+  allora esiste un polinomio $Q$ con $\deg Q = (\deg P) - 1$
+  tale che
+  \[
+    P = (x-x_0)\cdot Q.
+  \]
+  \end{theorem}
+  %
+  \begin{proof}
+  In base al teorema precedente si può fare la divisione tra
+  $P$ e $S = x - x_0$ per ottenere un polinomio $Q$ e un resto
+  $R$ con $\deg R < 1$ tali che
+  \[
+    P = (x-x_0)\cdot Q + R.
+  \]
+  Siccome $\deg R < 1$ si ha in effetti che $R=c\in \KK$
+  è un polinomio costante e dunque
+  \[
+    P = (x-x_0) \cdot Q + c
+  \]
+  ma valutando $P$ in $x=x_0$ si scopre che
+  \[
+   P(x_0) = 0\cdot Q(x_0) + c = c
+  \]
+  dunque $c=P(x_0) = 0$.
+  \end{proof}
+  
+  Possiamo ora chiederci se polinomi diversi corrispondono
+  a funzioni polinomiali diverse.
+  In generale questo non è vero, se ad esempio prendessimo
+  come campo $\KK=\ZZ_2 = \ENCLOSE{0,1}$, un campo finito
+  in cui poniamo $1+1=0$ scopriremmo che la funzione polinomiale
+  $P(x) = x^2+x$ è identicamente nulla in quanto $0^2+0=0$
+  e $1^2+1=1+1=0$ in questo campo.
+  Ma nei casi che interessano a noi $\KK=\RR$ o $\KK=\CC$
+  questo problema non si presenta e si potrà quindi identificare
+  ogni polinomio con la corrispondente funzione polinomiale.
+  Per avere questa garanzia ci servono i seguenti risultati.
+  
+  \begin{theorem}[principio di annullamento dei polinomi]
+  \label{th:annullamento_polinomi}%
+  \index{principio di annullamento dei polinomi}%
+  Sia $P\in \KK[x]$ un polinomio non nullo di grado $n$.
+  Allora la funzione polinomiale associata a $P$
+  si annulla in al più $n$ punti distinti di $\KK$.
+  
+  In particolare se un polinomio si annulla in infiniti
+  punti distinti allora tale polinomio è certamente nullo.
+  \end{theorem}
+  %
+  \begin{proof}
+  Dimostriamo per induzione su $n$ che se un polinomio
+  $P$ di grado non superiore a $n$ si annulla in $n+1$
+  punti distinti $x_1, \dots, x_{n+1}\in \KK$ allora
+  $P=0$.
+  
+  Se $n=0$ il polinomio $P$ è costante ma si annulla
+  in un punto e quindi è il polinomio nullo.
+  Se $n>0$ per il teorema di Ruffini applicato al
+  punto $x_{n+1}$ sappiamo che esise un polinomio $Q$
+  di grado inferiore ad $n$ per cui si ha
+  \[
+    P = (x-x_{n+1}) \cdot Q
+  \]
+  sostituendo $x=x_k$ con $k\le n$ si ha $x_k-x_{n+1}\neq 0$
+  e quindi
+  \[
+    Q(x_k) = \frac{P(x_k)}{x_k-x_{n+1}} = 0.
+  \]
+  Dunque $Q$ si annulla nei punti $x_1, \dots, x_n$
+  e, per ipotesi induttiva, scopriamo che $Q$ deve
+  essere nullo. Di conseguenza anche $P$ è nullo.
+  \end{proof}
+  
+  Se $\KK$ è un insieme infinito (come nei casi $\KK=\RR$ o $\KK=\CC$)
+  si trova che
+  se a due polinomi $P$, $Q$ corrisponde
+  la stessa funzione polinomiale:
+  \[
+    P(x) = Q(x) \qquad \text{per ogni $x\in \KK$}
+  \]
+  allora $P$ e $Q$ sono lo stesso polinomio $P=Q$
+  in quanto la differenza $P-Q$ si annulla in tutti i punti
+  di $\KK$ e qualunque sia il suo grado, se $\KK$ è infinito,
+  questo ci dice che $P-Q=0$. 
+  
+  Questo corollario viene spesso enunciato come segue.
+  \begin{theorem}[principio di identità dei polinomi]
+    Siano $a_k$ e $b_k$ coefficienti nel campo $\KK=\RR$ o $\KK=\CC$.
+    Se per ogni $x\in \KK$ si ha 
+    \[
+       \sum_{k=1}^n a_k x^k = \sum_{k=1}^m b_k x^k
+    \]
+    allora $m=n$ e $a_k=b_k$ per ogni $k=0, \dots, n$.
+  \end{theorem}
+  %
+  \begin{proof}
+  Facendo la differenza dei due lati dell'uguaglianza si ottiene 
+  che una espressione polinomiale si annulla identicamente. 
+  Allora per il teorema~\ref{th:annullamento_polinomi} tale espressione 
+  rappresenta il polinomio nullo e di conseguenza tutti i coefficienti, 
+  che sono dati dalla differenza $a_k-b_k$, devono essere nulli.
+  \end{proof}
+  
 \section{il teorema fondamentale dell'algebra}
-
-
 
 Per dimostrare il teorema fondamentale dell'algebra dobbiamo estendere il teorema 
 di Weierstrass alle funzioni di una variabile complessa.
