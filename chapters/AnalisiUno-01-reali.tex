@@ -277,7 +277,10 @@ che soddisfano il predicato:
 \]
 
 Per completare la teoria degli insiemi introduciamo anche il concetto di
-\myemph{insieme delle parti}. Un apposito assioma garantisce
+\myemph{insieme!delle parti}.
+\index{$\mathcal P(\cdot)$}% 
+\label{def:insieme_parti}%
+Un apposito assioma garantisce
 che dato un qualunque insieme $A$ esiste l'insieme $\P(A)$ delle parti di $A$
 che è l'insieme di tutti i sottoinsiemi di $A$:
 \begin{equation}\label{eq:insieme_delle_parti}
@@ -617,6 +620,7 @@ Il seguente teorema, affatto banale,
 giustifica l'utilizzo del simbolo $\le$ nella definizione precedente.
 
 \begin{theorem}[Cantor-Bernstein]
+  \label{th:cantor_bernstein}%
   Se $\#A \le \#B$ e $\#B \le \#A$ allora $\#A = \#B$.
 \end{theorem}
 %
@@ -1431,7 +1435,7 @@ L'operatore sommatoria è lineare nel senso che risulta:
 \]
 ed è additivo:
 \[
-  sum_{k=a}^c f(k) = \sum_{k=a}^{b-1} f(k) + \sum_{k=b}^c f(k).
+  \sum_{k=a}^c f(k) = \sum_{k=a}^{b-1} f(k) + \sum_{k=b}^c f(k).
 \]
 
 \begin{exercise}
@@ -1441,7 +1445,7 @@ ed è additivo:
     \sum_{k=1}^n k^2 = \frac{n(n+1)(2n+1)}{6}
   \]
 \end{exercise}
-\begin{proof}
+\begin{proof}[Svolgimento]
 Il risultato della prima somma può essere interpretato nel modo seguente:
 la media di una progressione aritmetica $\frac{1+2+ \dots + n}{n}$ 
 è uguale alla media tra il primo 
@@ -1855,17 +1859,21 @@ Si osservi che risulta, per ogni $n\in \NN$:
 \begin{definition}[cardinalità finite]
   Definiamo $I_n = \ENCLOSE{k\in \NN \colon k<n} = \{ 0,1, 2, \dots, n-1\}$.
   L'insieme $I_n$ è il prototipo di insieme finito con $n$ elementi.
-  Se $A$ è un insieme qualunque diremo che $A$ è finito se esiste 
-  un funzione bigettiva $f\colon I_n \to A$ per qualche $n\in \NN$.
+  Se $A$ è un insieme qualunque diremo che $A$ è \myemph[insieme!finito]{finito} 
+  se $\#A = \#I_n$ per qualche $n\in \NN$ ovvero se esiste 
+  un funzione bigettiva $f\colon I_n \to A$.
   In tal caso diremo che $A$ ha $n$ elementi e scriveremo:
   \[
     \# A = n\qquad\text{(leggi: la cardinalità di $A$ è $n$)}
   \]
+
+  In caso contrario diremo che $A$ è \myemph[insieme!infinito]{infinito}
 \end{definition}
 
-Affinché la precedente definizione abbia senso bisogna osservare che un insieme 
+Affinché la notazione $\# A = n$ abbia senso bisogna osservare che un insieme 
 $A$ può essere messo in corrispondenza biunivoca con un unico $I_n$. 
-Ovvero basta dimostrare il seguente.
+Se fosse $\# A = n$ e $\# A = m$ esisterebbe una funzione bigettiva 
+tra $I_n$ e $I_m$. Allora basterà dimostrare il seguente.
 
 \begin{lemma}
 Se esiste una funzione iniettiva $f\colon I_n \to I_m$ 
@@ -1883,15 +1891,20 @@ allora $n\le m$.
   iniettiva $I_n \to I_{m-1}$. Per ipotesi induttiva $m-1\ge n$ e quindi $m\ge n+1$.
 \end{proof}
 
+Il precedente lemma ci dice in particolare che $\NN$ è un esempio di insieme infinito.
+Se infatti fosse $\#\NN \le I_n$ per qualche $n\in \NN$ si avrebbe
+$\# I_{n+1}\le \#\NN \le \#I_n$ che, utilizzando il teorema~\ref{th:cantor_bernstein},
+è in contraddizione con il lemma.
+
 Lasciamo al lettore il piacere di dimostrare (utilizzando il principio di induzione)
-il seguente.
+le seguenti proprietà.
 \begin{theorem}[operazioni con le cardinalità finite]
   \label{th:combinatoria}
   Se $A$ e $B$ sono insiemi disgiunti e finiti allora  
   \[
     \#(A\cup B) = \#A + \#B.
   \]
-  Se $A$ e $B$ sono insiemi finiti qualunque allora 
+  Se $A$ e $B$ sono insiemi finiti allora 
   (ricordiamo che $B^A$ è l'insieme delle funzioni $A\to B$)
   \begin{gather*}
     \#(A \times B) = \#A\cdot \#B, \qquad
@@ -1902,20 +1915,10 @@ il seguente.
      = {\#A \choose k}. 
   \end{gather*}
 \end{theorem}
-
-
-  Lo sviluppo del binomio~\eqref{eq:sviluppo_binomiale}
-  ci consente di affermare
-  che per ogni $x\ge 0$ si ha:
-  \[
-    (1+x)^n = 1 + nx + \sum_{k=2}^n {n\choose k} x^k
-    \ge 1 + nx.
-  \]
-  Nel seguito ci servirà sapere che questa
-  disuguaglianza è vera, più in generale,
-  se $x > -1$.
   
-\section{proprietà di continuità della retta reale}
+
+
+\section{estremo superiore}
 
 Riprendiamo ora la trattazione dell'insieme $\RR$ dei numeri reali.
 Vediamo ora quali sono le conseguenze della \emph{continuità}
@@ -2029,10 +2032,6 @@ In effetti è molto semplice verificare che l'esistenza del $\sup$
 è una condizione equivalente all'assioma di continuità
 (basta osservare che se $A\le B$ allora $\sup A$ è
 un elemento di separazione).
-
-La seguente proprietà dei numeri reali esprime il fatto
-che non esistono gli \emph{infinitesimi} ovvero numeri reali positivi
-che siano più piccoli di ogni $1/n$ con $n\in \NN$.
 
 Il seguente risultato ci dice, informalmente, che non 
 esistono quantità infinite (ma neanche infinitesime) in $\RR$.
@@ -2153,6 +2152,8 @@ anche la \emph{parte frazionaria}
 Per evitare ambiguità con il normale utilizzo delle parentesi
 non useremo queste notazioni.
   
+\section{l'insieme dei numeri razionali}
+
 \begin{theorem}[divisibilità dei numeri reali]
   \label{th:divisibilita}%
   Dato $x\in \RR$ e dato $n\in \NN$, $n\neq 0$ esiste un unico $y\in \RR$ 
@@ -2233,7 +2234,8 @@ non useremo queste notazioni.
 
 Grazie al teorema precedente possiamo definire i \myemph{numeri razionali}:
 \[
-\QQ = \ZZ / (\NN\setminus\ENCLOSE{0}) = \ENCLOSE{\frac{p}{q}\colon p\in \ZZ, q\in \NN, q\neq 0}.
+\QQ = \frac{\ZZ}{\NN\setminus\ENCLOSE{0}} 
+    = \ENCLOSE{\frac{p}{q}\colon p\in \ZZ, q\in \NN, q\neq 0}.
 \]
 Le seguenti proprietà discendono immediatamente dalle proprietà già dimostrare 
 per i numeri interi:
@@ -2267,6 +2269,93 @@ come volevamo dimostrare,
   x < \frac{m}{n} < y.
 \]
 \end{proof}
+
+\section{numeri decimali}
+%
+Le frazioni il cui denominatore è una potenza
+di $10$ si chiamano frazioni decimali:
+\[
+  x = \frac{p}{10^d}, \qquad p\in \ZZ, d\in \NN.
+\]
+Tali frazioni si possono rappresentare
+scrivendo il numero
+intero $p$ e segnando un punto\footnote{%
+in Italia si preferisce utilizzare la virgola, ma
+ci rassegnamo alla notazione anglosassone che ormai è
+ubiqua in tutta la strumentazione elettronica.
+}
+di separazione
+prima della $d$-esima cifra a partire da destra.
+Ad esempio scriveremo:
+\[
+  1.4142 = \frac{14142}{10^4}.
+\]
+In generale una frazione $\frac{p}{q}\in \QQ$
+può essere scritta in forma decimale solamente
+se, quando ridotta ai minimi termini,
+risulta che $q$ non ha fattori primi diversi
+da $2$ e $5$ (in quanto le potenze di dieci
+hanno solo questi fattori).
+In ogni caso le frazioni decimali sono dense in $\RR$
+in quanto dato $x\in \RR$ per ogni $\eps>0$ esiste
+$d\in \NN$ tale che $10^{-d}\le\eps$ e quindi
+posto $p=\lfloor 10^d\cdot x + \frac 1 2\rfloor$
+si avrà
+\[
+    \abs{\frac{p}{10^d} - x} \le \frac{1}{2\cdot 10^d} < \eps.
+\]
+In tal caso scriveremo
+\mymargin{$\approx$}
+\[
+  x \approx \frac{p}{10^d}.
+\]
+Ad esempio scriveremo
+\[
+  \frac 2 3 \approx 0.6667 = \frac{6667}{10^4}
+\]
+per intendere\footnote{%
+Si osservi che in base alla definizione data sarebbe anche corretto 
+scrivere $\frac 2 3 \approx 0.6666$ che però sarebbe una approssimazione 
+peggiore. 
+Questa ambiguità è necessaria se vogliamo evitare i casi 
+limite in cui bisogna conoscere molte più cifre decimali di quelle richieste 
+per capire qual è la migliore approssimazione.
+}
+\begin{equation}\label{eq:approx_23}
+\abs{\frac 2 3 - \frac{6667}{10^4}}<\frac{1}{10^4}.
+\end{equation}
+Nel calcolo scientifico ogni uguaglianza numerica è intesa nel 
+senso precedente, se non specificato diversamente. 
+
+Le frazioni non decimali si possono scrivere con uno sviluppo
+decimale \emph{periodico}. 
+Non useremo mai questa notazione
+che ricordiamo solamente con un esempio.
+Il numero
+\[
+  x = 12.34\overline{567}
+    = 12.34567\overline{567}
+\]
+è la frazione che risolve l'equazione
+\[
+  \frac{100x - 1234}{1000}
+  = 100x-1234.567
+  \qquad
+\enclose
+{\frac{0.\overline{567}}{1000}
+= 0.000\overline{567} }
+\]
+ovvero
+\[
+  1234567 - 1234 = 99900 \cdot x,
+  \qquad x = \frac{1234567-1234}{99900}.
+\]
+
+\begin{exercise}
+Dimostrare che vale~\eqref{eq:approx_23}.
+\end{exercise}
+
+\section{isomorfismi di gruppi ordinati}
 
 \begin{definition}[funzioni monotòne]
   \label{def:monotonia}%
@@ -2326,7 +2415,6 @@ come volevamo dimostrare,
   \[
     f\enclose{\frac{pu} q} = \frac{pm}{q}.
   \] 
-
 \end{theorem}
 %
 \begin{proof}
@@ -2477,8 +2565,38 @@ lo identificano univocamente a meno di isomorfismi.
   $f\colon \RR\to S$ bigettiva, additiva, crescente con $f(1)=u$.
 \end{corollary}
 
-Possiamo finalmente definire su $\RR$ l'operazione di moltiplicazione.
+Possiamo inoltre finalmente dimostrare che l'addizione è commutativa.
+\begin{theorem}
+  Se $x,y\in \RR$ si ha $x+y=y+x$.
+\end{theorem}
+%
+\begin{proof}
+Se consideriamo il gruppo additivo $\RR$ ma definiamo 
+l'addizione con gli addendi scambiati, il teorema~\ref{th:estensione_additiva}
+ci garantisce l'esistenza di 
+una funzione $f\colon \RR\to \RR$ crescente, con $f(1)=1$, tale che 
+\begin{equation}\label{eq:49613244}
+  f(x+y) = f(y)+f(x)
+\end{equation}
+e se $x\in \QQ$ dovrà risultare $f(x)=x$.
+Ma allora, essendo $f$ crescente, possiamo facilmente verificare che $f(x)=x$ per 
+ogni $x\in \RR$. Infatti per ogni $q\in \NN$ si ha 
+\[
+   \frac{\lfloor q x\rfloor}{q} \le x \le \frac{\lceil qx \rceil}{q} 
+\]
+e applicando $f$ si ottiene 
+\[
+  \frac{\lfloor q x\rfloor}{q} \le f(x) \le \frac{\lceil qx \rceil}{q}.
+\]
+Ma allora $\abs{f(x)-x}\le \frac{2}{q}$ e per l'arbitrarietà di $q\in \NN$
+dovrà essere $f(x) = x$. 
 
+Ma se $f$ è l'identità l'equazione~\eqref{eq:49613244} non è 
+altro che la proprietà commutativa dell'addizione.
+\end{proof}
+%
+Possiamo finalmente definire su $\RR$ l'operazione di moltiplicazione.
+%
 \begin{theorem}[moltiplicazione]
 Su $\RR$ esiste una unica unica operazione $\cdot$ che chiameremo 
 \myemph{moltiplicazione} che soddisfa le seguenti 
@@ -2613,6 +2731,11 @@ rende $\RR$ un campo ordinato continuo in base alla seguente.
   è un \myemph{campo ordinato continuo}.
 \end{definition}
 
+Si può osservare che in un campo ordinato l'ordinamento 
+è necessariamente denso in quanto dati $a,b$ elementi 
+del campo possiamo definire $\frac{a+b}{2}$ che è certamente 
+strettamente compreso tra $a$ e $b$.
+
 \subsection{esponenziale e logaritmo}
 
 Osserviamo che l'insieme $\RR_+ = \ENCLOSE{x\in \RR\colon x>0}$ 
@@ -2622,19 +2745,23 @@ denso e continuo.
 Abbiamo già dimostrato tutte queste proprietà della moltiplicazione.
 La densità e continuità non vanno verificate in quanto sono proprietà 
 dell'ordinamento e non dell'operazione, e l'ordinamento considerato 
-è sempre lo stesso.
+è quello ereditato da $\RR$.
 
 Dunque fissato $a>0$ per il teorema~\ref{th:estensione_additiva}
 esiste una unica funzione $f\colon \RR \to \RR_+$ additiva\footnote{%
 In questo caso il termine \emph{additivo} è fuorviante in quanto la funzione 
-soddisfa la proprietà $f(x+y) = f(x)\cdot f(y)$ e quindi in corrispondenza 
-di una addizione sul dominio otteniamo una moltiplicazione sul codominio: 
-più propriamente queste funzioni andrebbero chiamate \emph{moltiplicative}.
+soddisfa la proprietà $f(x+y) = f(x)\cdot f(y)$ e quindi potrebbe 
+essere chiamata \emph{moltiplicative}.
+In generale si chiamano \emph{omomorfismi} 
+\index{omomorfismo}%
+le funzioni definite tra due gruppi
+che rispettano l'operazione del gruppo, qualunque essa sia.
 }, 
 monotona e tale che $f(1)=a$.
 Denotiamo con $a^x = f(x)$ questa funzione (si legga: $a$ elevato alla $x$)
 che chiamiamo \myemph{funzione esponenziale} di base $a$. 
-L'operazione $a^b$ si chiama \myemph{potenza}.
+L'operazione $a^b$ si chiama \emph{potenza}.
+\index{potenza}%
 Si osservi che l'additività/moltiplicatività in questo caso ci dice che vale 
 la seguente regola 
 \[
@@ -2694,23 +2821,20 @@ E' anche piuttosto utile ricordare la formula per il cambiamento di base:
 Quest'ultima formula si dimostra moltiplicando ambo i membri per $\log_a b$ 
 e prendendo quindi l'esponenziale con base $b$ di ambo i membri.
 
+Possiamo osservare che $\QQ\subset \RR$ è anch'esso un campo totalmente ordinato.
+Se $\QQ$ fosse anche continuo si avrebbe $\QQ = \RR$ in quanto abbiamo visto 
+che esiste un unico gruppo totalmente ordinato, denso e continuo
+e quindi esiste anche un unico campo ordinato e continuo.
+Si pone quindi la questione di dimostrare che $\RR\setminus \QQ$ non è vuoto, 
+ovvero che esistono numeri \myemph[irrazionale]{irrazionali}.
 
-\section{AVANZI}
-
-
-Si osservi che la notazione
-$x^{-1}$ appena introdotta coincide
-con l'inverso moltiplicativo che, per questo motivo, avevamo già denotato
-con $x^{-1}$.
-
-
-
-\section{radice quadrata}
-\label{sec:radice_quadrata}
+Il seguente teorema ci mostra che $\sqrt 2$ (che esiste in $\RR$, ed è l'unico 
+numero positivo $x$ che risolve l'equazione $x^2=2$) 
+non è elemento di $\QQ$.
 
 \begin{theorem}[irrazionalità di $\sqrt 2$, Pitagora]
 \mymark{**}%
-\label{th:pitagora}
+\label{th:pitagora}%
 L'equazione $x^2=2$ non ha soluzioni in $\QQ$.
 \end{theorem}
 %
@@ -2730,6 +2854,7 @@ Dunque anche $q$ è pari. Ma avevamo supposto che $p$ e $q$ non avessero
 fattori in comune quindi questo non può accadere.
 \end{proof}
 
+\begin{comment}
 Come applicazione dell'assioma di continuità possiamo mostrare l'esistenza
 della \myemph{radice!quadrata} in $\RR$.
 Più avanti, con qualche strumento in più, rivedremo più in generale
@@ -2824,120 +2949,29 @@ E' quindi chiaro che in $\RR$ l'unico elemento di separazione
 deduciamo che in $\QQ$ questi due insiemi non hanno elemento di separazione.
 
 \section{estremo superiore}
+\end{comment}
 
+\section{cardinalità infinite}
 
-\section{numeri decimali}
-%
-Le frazioni il cui denominatore è una potenza
-di $10$ si chiamano frazioni decimali:
-\[
-  x = \frac{p}{10^d}, \qquad p\in \ZZ, d\in \NN.
-\]
-Tali frazioni si possono rappresentare
-scrivendo il numero
-intero $p$ e segnando un punto\footnote{%
-in Italia si preferisce utilizzare la virgola, ma
-ci rassegnamo alla notazione anglosassone che ormai è
-ubiqua in tutta la strumentazione elettronica.
-}
-di separazione
-prima della $d$-esima cifra a partire da destra.
-Ad esempio scriveremo:
-\[
-  1.4142 = \frac{14142}{10^4}.
-\]
-In generale una frazione $\frac{p}{q}\in \QQ$
-può essere scritta in forma decimale solamente
-se, quando ridotta ai minimi termini,
-risulta che $q$ non ha fattori primi diversi
-da $2$ e $5$ (in quanto le potenze di dieci
-hanno solo questi fattori).
-In ogni caso le frazioni decimali sono dense in $\RR$
-in quanto dato $x\in \RR$ per ogni $\eps>0$ esiste
-$d\in \NN$ tale che $10^{-d}\le\eps$ e quindi
-posto $p=\lfloor 10^d\cdot x + \frac 1 2\rfloor$
-si avrà
-\[
-    \abs{\frac{p}{10^d} - x} \le \frac{1}{2\cdot 10^d} < \eps.
-\]
-In tal caso scriveremo
-\mymargin{$\approx$}
-\[
-  x \approx \frac{p}{10^d}.
-\]
-Ad esempio scriveremo
-\[
-  \sqrt 2 \approx 1.4142
-\]
-per intendere
-\begin{equation}\label{eq:approx_rad2}
-\abs{\sqrt 2 - \frac{14142}{10^4}}<\frac{1}{10^4}.
-\end{equation}
+Abbiamo già osservato che $\NN$ è un insieme infinito e dunque (per il teorema~\ref{th:cantor_bernstein})
+anche $\ZZ$, $\QQ$ e $\RR$ sono infiniti.
+Per gli insiemi finiti se $A\subset B$ ma $A\neq B$ risulta $\#A < \# B$
+in quanto $\#A - \#B = \#(B\setminus A) > 0$. 
+Dobbiamo però osservare che lo stesso non vale per gli insiemi infiniti.
+In effetti la funzione $s\colon \NN \to \NN$ definita da $s(x)=x+1$
+risulta essere una bigezione tra $\NN$ e $\NN\setminus\ENCLOSE{0}$. 
+Dunque $\#\NN = \#(\NN\setminus\ENCLOSE{0})$ 
+nonostante la differenza tra i due insiemi $\ENCLOSE{0}$ abbia 
+cardinalità $1$. 
+Anche l'insieme dei numeri pari o l'insieme 
+dei quadrati perfetti (come aveva notato già Galileo)
+hanno la stessa cardinalità di $\NN$ in quanto le funzioni $n\mapsto 2n$
+e la funzione $n\mapsto n^2$ sono iniettive.
 
-Le frazioni non decimali si possono scrivere con uno sviluppo
-decimale \emph{periodico}. Non useremo mai questa notazione
-che ricordiamo solamente con un esempio.
-Il numero
-\[
-  x = 12.34\overline{567}
-    = 12.34567\overline{567}
-\]
-è la frazione che risolve l'equazione
-\[
-  \frac{100x - 1234}{1000}
-  = 100x-1234.567
-  \qquad
-\enclose
-{\frac{0.\overline{567}}{1000}
-= 0.000\overline{567} }
-\]
-ovvero
-\[
-  1234567 - 1234 = 99900 \cdot x,
-  \qquad x = \frac{1234567-1234}{99900}.
-\]
+Non è difficile trovare una funzione iniettiva da $\ZZ$ in $\NN$
+(lo lasciamo per esercizio): questo dimostra che anche $\#\ZZ = \# \NN$
 
-\begin{exercise}
-Dimostrare che vale~\eqref{eq:approx_rad2}.
-\end{exercise}
-
-\section{insiemi infiniti}
-
-La teoria degli insiemi è stata introdotta da Cantor (e poi formalizzata
-da Whitehead e Russel) per definire rigorosamente come possono essere
-manipolati gli insiemi infiniti. Bisogna però innanzitutto assicurarsi
-di avere almeno un insieme infinito perché altrimenti, con gli assiomi
-che abbiamo introdotto fin'ora, non c'è nessuna garanzia che tali insiemi esistano.
-
-Tipicamente si assume l'esistenza dell'insieme $\NN$ dei numeri naturali: $0,1,2,3,\dots$
-Una volta assunta l'esistenza dell'insieme $\NN$ si potrà costruire l'insieme
-$\ZZ$ dei numeri interi (che comprendono anche i numeri negativi) quindi
-l'insieme $\QQ$ dei numeri razionali (le frazioni) e poi,
-l'insieme $\RR$ dei numeri reali.
-Siccome queste costruzioni sono molto faticose
-e richiederebbero molto tempo per essere fatte in modo rigoroso, noi
-assumeremo da subito (nella sezione~\ref{sec:reali})
-l'esistenza dei numeri reali $\RR$ e da lì costruiremo,
-come sottoinsiemi di $\RR$ gli insiemi $\NN$, $\ZZ$ e $\QQ$.
-
-\begin{definition}[cardinalità]
-Diremo che gli insiemi $A$ e $B$ hanno la stessa \myemph{cardinalità}
-e scriveremo $\# A = \# B$
-se esiste una funzione bigettiva $f\colon A \to B$.
-Diremo che l'insieme $A$ ha cardinalità minore o uguale a quella di $B$
-e scriveremo $\#A \le \#B$ se esiste una funzione iniettiva $f\colon A \to B$.
-Se invece non esiste una funzione iniettiva $f\colon A \to B$ scriveremo
-$\#A > \#B$.
-
-Un insieme $A$ per cui risulta $\#A \le \#\NN$ si dice essere \emph{numerabile}
-(perché ad ogni elemento di $A$ può essere associato, in modo univoco, un numero
-naturale).
-\end{definition}
-
-Come suggerito dalla notazione utilizzata si può verificare (cosa non ovvia)
-che se $\#A \le \#B$ e $\#B \le \#C$ allora $\#A \le \#C$
-\cite[teorema di Cantor-Bernstein]{appunti_logica}.
-Vale anche la seguente proprietà
+Cantor dimostra addirittura che $\#\QQ = \NN$: per farlo utilizza il seguente.
 
 \begin{theorem}[primo metodo diagonale di Cantor]
 \label{th:Cantor_primo}%
@@ -2972,21 +3006,43 @@ come in Figura~\ref{fig:cantor1}.
   \label{fig:cantor1}
 \end{figure}
 
-Dunque gli insiemi $\ZZ$ e $\QQ$ sono numerabili e, dal punto di vista della cardinalità,
-non sono più grandi dell'insieme $\NN$.
+Visto che è piuttosto facile trovare una funzione iniettiva 
+da $\QQ$ in $\NN \times \ZZ$ si deduce facilmente che $\#QQ = \#NN$.
 A questo punto si potrebbe pensare che
 tutti gli insiemi infiniti siano numerabili.
 Invece preso un qualunque insieme (anche infinito)
 esiste un insieme con cardinalità strettamente maggiore.
+La dimostrazione del seguente teorema è un piccolo gioiello della logica.
+In effetti il metodo utilizzato è assimilabile al paradosso del mentitore 
+ed è la stessa idea ripresa da Russel nel paradosso che ha demolito la teoria 
+ingenua degli insiemi.
+L'insieme delle parti $\mathcal P(A)$ è definito a pag.~\pageref{def:insieme_parti}.
 %
 \begin{theorem}[Cantor]
-  Se $A$ è un qualunque insieme allora $\# \mathcal P(A)> \# A$.
+  Se $A$ è un qualunque insieme allora $\# \mathcal P(A) > \# A$.
 \end{theorem}
-Per le dimostrazioni si veda~\cite{appunti_logica}.
 %
-Vedremo inoltre, nel teorema~\ref{th:cantor_secondo}
-che l'insieme $\RR$, a cui dedicheremo il nostro studio,
-è un insieme non numerabile: $\#\RR > \#\NN$.
+\begin{proof}
+  E' chiaro che $\# A \le \#\mathcal P(A)$ in quanto 
+  la funzione $f\colon A \to \mathcal P(A)$ definita da $f(x)=\ENCLOSE{x}$
+  è ovviamente iniettiva.
+
+  Supponiamo allora per assurdo che esista $f\colon A\to \mathcal P(A)$
+  bigettiva e consideriamo l'insieme 
+  \[
+    C = \ENCLOSE{x\in A \colon x\not\in f(x)}.  
+  \]
+  Se $f$ fosse surgettiva dovrebbe esistere $c\in A$ tale che $f(c) = C$.
+  Possiamo allora chiederci se $c\in C$ e scoprire che, 
+  per definizione di $C$ la proposizione $c\in C$ è equivalente 
+  a $c\not\in f(c) = C$. 
+  Dunque $c\in C \iff c\not\in C$, che è assurdo.
+\end{proof}
+%
+Per quanto riguarda l'insieme $\RR$ si
+scopre in effetti che $\#\RR > \#\NN$
+(sempre grazie a Cantor, teorema~\ref{th:cantor_secondo})
+e si potrebbe dimostrare che effettivamente $\#\RR = \#\mathcal P(\NN)$.
 
 \section{reali estesi}
 
