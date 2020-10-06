@@ -874,7 +874,7 @@ e ritrovare (come faremo tra poco) l'insieme $\NN$ all'interno di $\RR$.
 
 L'inverso additivo di un elemento $x$ sarà chiamato 
 \myemph{opposto} e verrà denotato con $-x$, si avrà quindi $x + (-x) = 0$.
-Potremo quindi definiamo l'operazione di \myemph{sottrazione}:
+Potremo quindi definire l'operazione di \myemph{sottrazione}:
 \[
     x - y = x + (-y).
 \]
@@ -989,11 +989,28 @@ l'insieme dei numeri naturali $\NN$.
   \end{gather*}
   La famiglia di tutti i sottoinsiemi induttivi di $\RR$ non è vuota
   in quanto $\RR$ stesso è induttivo. Definiamo $\NN$ come l'intersezione
-  di tutti i sottoinsiemi induttivi di $\RR$. 
+  di tutti i sottoinsiemi induttivi di $\RR$:
+  \[
+     \NN 
+     = \bigcap_{A\text{ induttivo}} \!\!\!\!A 
+     = \bigcap\ENCLOSE{A\subset \mathcal P(\RR)\colon A \text{ induttivo}}.
+  \]
   Ovviamente $\NN$ deve essere a sua volta induttivo (lo si verifichi) 
   e quindi è il ``più piccolo'' sottoinsieme induttivo di $\RR$.
   \mymargin{$\NN$}
 \end{definition}
+
+\begin{exercise}
+\label{ex:521098}%
+Dimostrare che se $x\in \NN$, $x\neq 0$ allora $x-1\in\NN$.
+\end{exercise}
+\begin{proof}
+Se così non fosse esisterebbe $x \in \NN$, $x \neq 0$ tale 
+che $x-1\not\in \NN$. 
+Ma allora l'insieme $\NN \setminus\ENCLOSE{x}$ sarebbe induttivo 
+(verificare) il che è assurdo perché $\NN$ 
+è il più piccolo insieme induttivo.
+\end{proof}
 
 Oltre ai numeri $0$ e $1$ che abbiamo già definito, si definiscono 
 le altre cifre decimali $2,3,4,5,6,7,8,9$ direttamente come segue:
@@ -1008,7 +1025,7 @@ le altre cifre decimali $2,3,4,5,6,7,8,9$ direttamente come segue:
  9 = 8+1.
 \end{gather*}
 
-Risulta immediato dimostrare che l'insieme $\NN$ appena definito
+E' facile dimostrare che l'insieme $\NN$ appena definito
 soddisfa gli assiomi di Peano\footnote{%
 Giuseppe Peano (1858--1932), matematico torinese, contribuì a porre 
 i fondamenti della logica matematica. 
@@ -1041,17 +1058,61 @@ e quindi che $\NN \subset A$. Dunque $P(n)$ è vera per ogni $n\in \NN$.
 \end{proof}
 
 Utilizzando il principio di induzione si possono dimostare le seguenti 
-ben note proprietà dei numeri naturali. Omettiamo la dimostrazione.
+ben note proprietà dei numeri naturali.
 \begin{theorem}[proprietà dei numeri naturali]
   Se $n,m\in \NN$ si ha:
   \begin{enumerate}
+    \item $n\ge 0$;
     \item $n+m\in \NN$;
     \item $n+m = m+n$;
-    \item $n\ge 0$;
     \item se $n\ge m$ allora $n-m\in \NN$;
     \item se $n>m$ allora $n\ge m+1$.
   \end{enumerate}
 \end{theorem}
+\begin{proof}
+Per il primo punto: ovviamente $0\ge 0$. D'altra parte 
+se $n\ge 0$ allora $n+1>n+0 \ge 0$. 
+Dunque per induzione $n\ge 0$ per ogni $n\in \NN$.
+
+Per il secondo punto consideriamo il predicato 
+\[
+P(n)\colon \forall m\in \NN\colon m+n\in \NN.  
+\]
+Chiaramente $P(0)$ è vero in quanto $m+0 = m\in \NN$ se $m\in \NN$.
+Ma se $P(n)$ è verificata allora $m+n\in \NN$ e visto che $\NN$ 
+è induttivo anche $m+(n+1) = (m+n)+1\in \NN$. 
+Dunque vale $P(n+1)$ e dunque per ogni $n$ vale $P(n)$.
+
+Per dimostrare la proprietà commutativa possiamo innanzitutto dimostrare 
+per induzione che $n+1=1+n$ per ogni $n\in \NN$ (lo si faccia per esercizio).
+Dopodiché si considera la proposizione 
+\[
+ P(n)\colon \forall m\in \NN\colon n+m = m+n.  
+\]
+$P(0)$ è vera per le proprietà dell'elemento neutro 
+e se $P(n)$ è vera allora 
+$n+1+m = 1+n+m = 1 + m + n = m + 1 + n = m + n +1$
+e quindi anche $P(n+1)$ è vera. Il risultato segue per induzione.
+
+Consideriamo ora il predicato
+\[
+P(n): \forall m\in \NN \colon m\ge n \implies m-n\in \NN.  
+\]
+E' facile verificare che $P(0)$ è vero.
+Supponiamo allora che $P(n)$ sia vero e consideriamo 
+$P(n+1)\colon m\ge n+1 \implies m-(n+1)\in \NN$.
+Se $m\ge n+1$ allora certamente $m-1\ge n$ e $m\neq 0$.
+Grazie all'esercizio~\ref{ex:521098} sappiamo allora che $m-1\in\NN$
+e quindi, applicando $P(n)$, possiamo dedurre che $m-1-n\in \NN$.
+Ma $m-1-n = m-(n+1)$ e quindi abbiamo verificato $P(n+1)$.
+
+L'ultima affermazione è equivalente a dire che se $m\in \NN$ 
+non ci sono numeri naturali strettamente compresi tra $m$ e $m+1$.
+Sottraendo $m$ ci si riconduce a osservare che non ci sono naturali 
+tra $0$ e $1$.
+Ma se $0<x<1$ allora $x-1<0$ non può essere un naturale e quindi 
+per l'esercizio~\ref{ex:521098} deduciamo che $x\not \in \NN$.
+\end{proof}
 
 \begin{theorem}[definizione per induzione]
 \label{th:induzione}%
@@ -1100,7 +1161,8 @@ la funzione
 $f_N$ era l'unica possibile e il valore in $N+1$ è l'unico 
 che soddisfa le condizioni in~\eqref{eq:4835628}.
 A questo punto possiamo definire $f\colon \NN\to X$ 
-mediante la ``diagonale'' $f(n) = f_n(n)$.
+tale che $f(n) = f_n(n)$
+(procedimento diagonale).
 Si osserva che $f$ ristretta ad ogni $J_N$ coincide con $f_N$
 e quindi ha le proprietà richieste. Inoltre tale funzione è l'unica con le 
 proprietà richieste in quanto su ogni $J_N$ è necessario che coincida con $f_N$
@@ -1245,8 +1307,8 @@ e scriveremo:
   \frac{n}{m} = k.  
 \]
 
-I multipli di $2$ si chiamano numeri \myemph{pari}.
-Se $n$ non è pari diremo che è \myemph{dispari}. 
+I multipli di $2$ si chiamano numeri \myemph{pari},
+gli interi non pari si chiamano \myemph{dispari}. 
 
 Iterando la moltiplicazione si ottiene 
 l'\myemph{elevamento a potenza};
@@ -1342,8 +1404,8 @@ in tal modo risulta che $n!$ sia il prodotto dei primi $n$ numeri naturali posit
   \]
   mentre
   \[
-    2^n n! (2n+1)!! 
-    = (2n)!! (2n+1)!!
+    2^n \cdot n! \cdot (2n+1)!! 
+    = (2n)!! \cdot (2n+1)!!
     = (2n+1)!
   \]
   Queste formule permettono di esprimere il semi fattoriale utilizzando
@@ -1356,8 +1418,10 @@ in tal modo risulta che $n!$ sia il prodotto dei primi $n$ numeri naturali posit
   e si dimostrino, per induzione, le formule nell'osservazione precedente.
 \end{exercise}
 
-In generale è possibile introdurre una notazione per ripetere le operazioni
-di somma e prodotto un numero arbitrario (ma finito) di volte:
+Se $f$ è una funzione definita sull'insieme $\ENCLOSE{1,\dots,n}$ 
+a valori in un qualunque gruppo additivo (o moltiplicativo) 
+sarà possibile introdurre una notazione per ripetere le operazioni
+di somma (e prodotto) un numero arbitrario di volte:
 \begin{align*}
   \sum_{k=1}^n f(k) &= f(1) + f(2) + \dots + f(n) \\
   \prod_{k=1}^n f(k) &= f(1) \cdot f(2) \cdots f(n).
@@ -1365,68 +1429,39 @@ di somma e prodotto un numero arbitrario (ma finito) di volte:
 Formalmente questo può essere fatto tramite una definizione per induzione,
 osservando che ogni somma (o prodotto) di $n$ numeri si ottiene mediante
 la somma dei primi $n-1$ a cui si aggiunge (o si moltiplica) l'ultimo numero.
+La variabile $k$ nelle formule precedenti è \emph{muta}: 
+al suo posto si può utilizzare qualunque altra variabile che 
+compaia altrove all'interno del simbolo di somma (o di prodotto).
 
-\begin{definition}[somme e prodotti]
-\label{def:sommatoria}%
-\mymargin{sommatoria}%
-Se $a,b\in \ZZ$, $b-1 \ge a$ e 
-$f\colon \{a, a+1, \dots, b\}\to X$
-è una funzione a valori in un gruppo additivo $X$ (ad esempio $\RR$)
-si definisce
+E' possibile anche fare una somma a partire da un indice 
+diverso da $1$. Se $a,b\in \ZZ$ porremo:
 \[
-  \sum_a^b f
-  \qquad \text{ovvero} \qquad
-  \sum_{k=a}^b f(k).
+  \sum_{k=a}^b f(k) = \sum_{j=1}^{b-a+1} f(j-a).
 \]
-tramite la definizione per induzione:
-\[
-    \displaystyle \sum_a^{a-1} f = 0, \qquad
-    \displaystyle \sum_{a}^{a+n} f = \enclose{\sum_a^{a+n-1} f} + f(a+n).
-\]
-Analogamente se $X$ è un gruppo moltiplicativo si definisce
-\[
-  \prod_a^b f
-  \qquad\text{ovvero}\qquad
-  \prod_{k=a}^b f(k)
-\]
-ponendo:
-\[
-    \displaystyle \prod_{a}^{a - 1} f = 1, \qquad
-    \displaystyle \prod_{a}^{a+n} f = \enclose{\prod_a^{a+n-1} f} \cdot f(a+n).
-\]
-\end{definition}
+Dal punto di vista mnemonico abbiamo fatto 
+un \emph{cambio di variabile} $j=k-a+1$:
+per $k=a$ si trova $j=1$ e per $k=b$ si trova $j=b-a+1$.
 
-La definizione precedente ci permette, ad esempio, 
-di definire le potenze e il fattoriale
-come prodotti ripetuti:
-\[
-  x^n = \prod_{k=1}^n x, \qquad
-  n! = \prod_{k=1}^n k.
-\]
-
-Il simbolo $\sum_{k=a}^b$ è chiamato \myemph{sommatoria} ed è importante 
-imparare a manipolarlo nel modo corretto.
-La variabile $k$ si chiama \emph{indice} della sommatoria ed è una variabile 
-muta: significa che l'espressione non dipende da $k$, e che al posto di $k$
-potremmo usare una qualunque altra variabile (sempre che non sia stata utilizzata 
-altrove nella stessa proposizione).
-I numeri $a$ e $b$ si chiamano \emph{estremi} della somma perché sono gli indici 
-del primo e dell'ultimo termine che viene sommato.
-L'operatore sommatoria è lineare nel senso che risulta:
-\[
-  \sum_{k=a}^b c\cdot f(k) = c\cdot \sum_{k=a}^b f(k), \qquad 
-  \sum_{k=a}^b \enclose{f(k) + g(k)} = \sum_{k=a}^b f(k) + \sum_{k=a}^b g(k).
-\]
-ed è additivo:
-\[
-  \sum_{k=a}^c f(k) = \sum_{k=a}^{b-1} f(k) + \sum_{k=b}^c f(k).
-\]
+\begin{exercise}
+  Convincersi che la somma è \emph{lineare}:
+  \[
+  \sum_{k=a}^b  \Enclose{f(k) + g(k)} 
+  = \sum_{k=a}^b f(k) + \sum_{k=a} g(k), 
+  \qquad
+  \sum_{k=a}^b c\cdot f(k) 
+  =c\cdot \sum_{k=a}^b f(k)
+  \]
+  e \emph{additiva}:
+  \[
+    \sum_{k=a+1}^c f(k) = \sum_{k=a+1}^b f(k) + \sum_{k=b+1}^c f(k).  
+  \]
+\end{exercise}
 
 \begin{exercise}
   Dimostrare che 
   \[
     \sum_{k=1}^n k = \frac{n\cdot (n+1)}{2}, \qquad
-    \sum_{k=1}^n k^2 = \frac{n(n+1)(2n+1)}{6}
+    \sum_{k=1}^n k^2 = \frac{n\cdot (n+1)\cdot (2n+1)}{6}
   \]
 \end{exercise}
 \begin{proof}[Svolgimento]
@@ -1484,17 +1519,21 @@ da cui
 che è quanto volevamo dimostrare.
 
 Con lo stesso metodo si può trovare una formula per il calcolo 
-di $\sum_{k=1}^n k^3$ e così via. 
+di $\sum_{k=1}^n k^3$ e così via\dots
 \end{proof}
 
-L'utilizzo della variabile muta nella notazione delle sommatorie
-ci permette di effettuare il \emph{cambio di variabile:}
-posto $I_n = \ENCLOSE{0,1, \dots, n-1}$ (l'insieme dei primi $n$ numeri naturali) 
-se $g\colon I_n \to I_n$ è bigettiva possiamo fare il cambio di variabile 
-$k = g(j)$ e ottenere:
+Se $g\colon \ENCLOSE{1,\dots, n} \to \ENCLOSE{1,\dots, n}$
+è bigettiva (una tale funzione si chiama \myemph{permutazione})
+allora si può fare il cambio di variabile $k=g(j)$:
 \[
     \sum_{k=0}^{n-1} f(k) = \sum_{j=0}^{n-1} f(g(j)).
 \]
+Questa uguaglianza può essere dimostrata facilmente nel caso 
+in cui $g$ scambi due soli indici lasciando fissi tutti gli altri 
+(trasposizione) e poi può essere estesa a tutte le permutazioni
+osservando che ogni permutazione si scrivere come composizione 
+di trasposizioni.
+
 Questa proprietà è sostanzialmente la proprietà commutativa della somma 
 estesa ad un numero qualunque di addendi.
 Grazie a questa proprietà possiamo definire la somma di una funzione 
