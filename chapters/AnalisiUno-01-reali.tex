@@ -137,10 +137,13 @@ invece è falsa:
 \begin{tabular}{lcl}
 $\lnot \forall x \colon P(x)$ & $\iff$ & $\exists x \colon \lnot P(x)$\\
 $\lnot \exists x \colon P(x)$ & $\iff$ & $\forall x \colon \lnot P(x)$\\
-$\forall x \colon P(x)$ & $\Longrightarrow$ & $\exists x \colon P(x)$
+$\forall x \colon P(x)$ & $\Longrightarrow$ & $P(c)$\\
+$\exists x \colon P(x)$ & $\Longleftarrow$ & $P(c)$\\
+$P \land \forall x \colon Q(x)$ & $\iff$ & $\forall x\colon P\land Q(x)$\\
+$P \land \exists x \colon Q(x)$ & $\iff$ & $\exists x \colon P \land Q(x)$
 \end{tabular}
 \end{center}
-\caption{Alcune proprietà dei quantificatori logici.}
+\caption{Alcune proprietà dei quantificatori logici ($c$ è una qualunque costante)}
 \label{tab:proprieta_quantificatori}
 \end{table}
 
@@ -205,7 +208,11 @@ che abbiamo definito sopra risulta ben definita per ogni coppia di oggetti
 
 Visto che gli elementi di un insieme $\mathcal A$ sono a loro volta insiemi,
 è possibile considerare l'unione $\bigcup \mathcal A$
-e l'intersezione $\bigcap \mathcal A$ di tutti gli elementi
+e, se\footnote{%
+L'intersezione di una famiglia vuota di insiemi darebbe l'insieme 
+universo, che vedremo non può essere definito.
+} 
+$\mathcal A \neq \emptyset$, l'intersezione $\bigcap \mathcal A$ di tutti gli elementi
 di $\mathcal A$.
 Questo estende il concetto di unione e intersezione anche a famiglie
 eventualmente infinite:
@@ -742,6 +749,20 @@ Osserveremo poi che la struttura moltiplicativa dei numeri reali positivi soddis
 gli stessi assiomi della struttura additiva dei reali e che quindi la costruzione fatta 
 per costruire la moltiplicazione si può ripetere identica per costruire l'elevamento a potenza.
 
+Se volessimo postulare le proprietà delle traslazioni (cioè i movimenti rigidi della retta in sé)
+potremmo farlo come segue. L'insieme $T$ di tutte le \emph{traslazioni} di 
+$\RR$ è un sottoinsieme di $\RR^\RR$ (cioè $T$ è in insieme di funzioni $t\colon \RR\to\RR$)
+che soddisfa le seguenti proprietà:
+\begin{enumerate}
+  \item l'identità $t(x)=x$ è in $T$;
+  \item dati $x,y\in \RR$ esiste una unica $t\in T$ tale che $t(x)=y$;
+  \item se $t_1,t_2\in T$ allora $t_1\circ t_2 \in T$.
+\end{enumerate}
+Si potrà allora fissare un punto $0\in \RR$ e definire $x+y = t_{0y}(x)$
+dove $t_{0y}$ è l'unica traslazione che manda $0$ in $y$. 
+E' un esercizio molto interessante dedurre le proprietà di gruppo dell'addizione 
+dalle proprietà delle traslazioni.
+
 \begin{definition}[gruppo]
 Un insieme $X$ su cui è definita una \emph{operazione}\footnote{%
 una operazione su $X$ è una funzione $f\colon X\times X \to X$ per la quale
@@ -1000,18 +1021,6 @@ l'insieme dei numeri naturali $\NN$.
   \mymargin{$\NN$}
 \end{definition}
 
-\begin{exercise}
-\label{ex:521098}%
-Dimostrare che se $x\in \NN$, $x\neq 0$ allora $x-1\in\NN$.
-\end{exercise}
-\begin{proof}
-Se così non fosse esisterebbe $x \in \NN$, $x \neq 0$ tale 
-che $x-1\not\in \NN$. 
-Ma allora l'insieme $\NN \setminus\ENCLOSE{x}$ sarebbe induttivo 
-(verificare) il che è assurdo perché $\NN$ 
-è il più piccolo insieme induttivo.
-\end{proof}
-
 Oltre ai numeri $0$ e $1$ che abbiamo già definito, si definiscono 
 le altre cifre decimali $2,3,4,5,6,7,8,9$ direttamente come segue:
 \begin{gather*}
@@ -1057,6 +1066,15 @@ Le ipotesi del principio di induzione garantiscono che $A$ sia induttivo
 e quindi che $\NN \subset A$. Dunque $P(n)$ è vera per ogni $n\in \NN$.
 \end{proof}
 
+\begin{exercise}
+  Dimostrare, utilizzando il principio di induzione, la seguente 
+  proposizione:
+  \[
+  \forall n\in \NN\colon \enclose{\enclose{\exists m\in \NN \colon n = m + m} 
+  \lor \enclose{\exists m\colon n = m + m + 1}}.  
+  \]
+\end{exercise}
+
 Utilizzando il principio di induzione si possono dimostare le seguenti 
 ben note proprietà dei numeri naturali.
 \begin{theorem}[proprietà dei numeri naturali]
@@ -1094,7 +1112,10 @@ e se $P(n)$ è vera allora
 $n+1+m = 1+n+m = 1 + m + n = m + 1 + n = m + n +1$
 e quindi anche $P(n+1)$ è vera. Il risultato segue per induzione.
 
-Consideriamo ora il predicato
+Per il quarto punto si verifica innanzitutto che se $n\ge 1$ allora 
+$n-1\in \NN$ 
+(lo si dimostra per induzione osservando che $(n+1)-1=n\in\NN$).
+Dopodiché si considera il predicato
 \[
 P(n): \forall m\in \NN \colon m\ge n \implies m-n\in \NN.  
 \]
@@ -1102,7 +1123,7 @@ E' facile verificare che $P(0)$ è vero.
 Supponiamo allora che $P(n)$ sia vero e consideriamo 
 $P(n+1)\colon m\ge n+1 \implies m-(n+1)\in \NN$.
 Se $m\ge n+1$ allora certamente $m-1\ge n$ e $m\neq 0$.
-Grazie all'esercizio~\ref{ex:521098} sappiamo allora che $m-1\in\NN$
+Abbiamo già dimostrato che $m-1\in\NN$
 e quindi, applicando $P(n)$, possiamo dedurre che $m-1-n\in \NN$.
 Ma $m-1-n = m-(n+1)$ e quindi abbiamo verificato $P(n+1)$.
 
@@ -1110,8 +1131,8 @@ L'ultima affermazione è equivalente a dire che se $m\in \NN$
 non ci sono numeri naturali strettamente compresi tra $m$ e $m+1$.
 Sottraendo $m$ ci si riconduce a osservare che non ci sono naturali 
 tra $0$ e $1$.
-Ma se $0<x<1$ allora $x-1<0$ non può essere un naturale e quindi 
-per l'esercizio~\ref{ex:521098} deduciamo che $x\not \in \NN$.
+Ma se $0<x<1$ allora $x-1<0$ non può essere un naturale ed essendo 
+diverso da $0$ deduciamo che $x\not \in \NN$.
 \end{proof}
 
 \begin{theorem}[definizione per induzione]
@@ -3226,6 +3247,13 @@ L'insieme delle parti $\mathcal P(A)$ è definito a pag.~\pageref{def:insieme_pa
   a $c\not\in f(c) = C$. 
   Dunque $c\in C \iff c\not\in C$, che è assurdo.
 \end{proof}
+%
+\begin{corollary}[non esiste l'insieme di tutti gli insiemi]
+  Se esistesse un insieme $\mathcal U$ (universo) 
+  tale che $\forall x\colon x \in U$, allora 
+  si avrebbe $\mathcal \P(\mathcal U) \subset \mathcal U$
+  contraddicendo il teorema precedente.
+\end{corollary}
 %
 Per quanto riguarda l'insieme $\RR$ si
 scopre in effetti che $\#\RR > \#\NN$
