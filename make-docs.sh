@@ -15,6 +15,15 @@ cat <<EOF > ${out}
 <html>
 <!-- questo file e' stato creato automaticamente da make-docs.sh. non modificarlo! -->
 <head>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VRBT3T3Q7E"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-VRBT3T3Q7E');
+</script>
 <link rel="stylesheet" type="text/css" href="index.css">
 <script type="text/x-mathjax-config">
 MathJax.Hub.Config({
