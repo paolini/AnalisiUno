@@ -1119,7 +1119,46 @@ Se $f$ non fosse iniettiva esisterebbero $n,m\in \NN$
 tali che $f(n)=f(m)$.
 \end{proof}
   
-  
+\section{spazi prodotto}
+
+Abbiamo già visto che se $A$ è un insieme possiamo definire l'insieme 
+delle coppie di elementi di $A$ con il prodotto tra insiemi: $A\times A$. 
+Cosa rappresenta un prodotto ripetuto?
+Gli insiemi $(A\times A)\times A$ e $A\times(A\times A)$ non sono 
+uguali, in quanto il primo è un insieme di coppie il cui primo elemento 
+è a sua volta una coppia, il secondo insieme invece è un insieme di coppie 
+il cui secondo elemento è una coppia:
+\[
+  (A\times A)\times A = \ENCLOSE{((a_0,a_1),a_2)\colon a_0,a_1,a_2\in A},
+  \qquad
+  A \times (A\times A) = \ENCLOSE{(a_0,(a_1,a_2))\colon a_0,a_1,a_2\in A}.
+\]
+Questi insiemi sono molto simili tra loro e potrebbero essere identificati.
+Un'altro insieme molto simile è l'insieme $A^3$.  
+Se pensiamo al numero $3$ come all'insieme $3 = \ENCLOSE{0,1,2}$ l'insieme 
+$A^3$ rappresenta l'insieme di tutte le funzioni $\vec a\colon {0,1,2}\to A$.
+La funzione $\vec a$ è univocamente determinata dal suo valore nei 
+tre punti del dominio: $a_0 = \vec a(0)$, $a_1=\vec a(1)$, $a_2=\vec a(2)$
+in quanto $\vec a = \ENCLOSE{0\mapsto a_0, 1\mapsto a_1, 2\mapsto a_2}$.
+Possiamo quindi identificare $\vec a$ con la tripla (o vettore) di valori:
+\[
+  \vec a = (a_0, a_1, a_2), \qquad a_0,a_1,a_2 \in A.  
+\]
+I valori $a_0$, $a_1$ e $a_2$ vengono anche chiamate \emph{coordinate}
+o \emph{componenti} del \emph{vettore} $\vec a$.
+\mymargin{coordinate, componenti, vettore}%
+\index{coordinate!vettore}%
+\index{componenti!vettore}%
+\index{vettore}%
+In effetti l'insieme $A^2$ può essere identificato con $A\times A$, l'insieme 
+$A^3$ sarà l'insieme delle triple di elementi di $A$ e in generale se $n\in\NN$ 
+identifichiamo con $A^n$ l'insieme delle $n$-uple (leggi: ennuple) di elementi 
+\index{ennuple}%
+di $A$:
+\[
+   \vec a \in A^n \iff 
+   \vec a = (a_0, a_1, \dots, a_{n-1}).  
+\]  
 
 \end{comment}
 
@@ -3768,6 +3807,7 @@ scopre in effetti che $\#\RR > \#\NN$
 e si potrebbe dimostrare che effettivamente $\#\RR = \#\mathcal P(\NN)$.
 
 \section{punti all'infinito}
+\label{sec:reali_estesi}
 %%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%
@@ -4447,399 +4487,6 @@ Questi strumenti presuppongono il concetto
 di limite e continuità: è sostanzialmente questo che identifica 
 la materia chiamata analisi matematica.
 
-\section{funzioni continue}
-\label{sec:continuita}
-
-Intuitivamente una funzione continua ha la proprietà
-che se in un punto $x_0$ assume un valore $y_0=f(x_0)$ allora
-in punti abbastanza vicini ad $x_0$ i valori assunti
-non saranno molto diversi dal valore $y_0$.
-Nella definizione seguente questo viene formalizzato:
-fissato il punto $x_0$ e scelto un errore $\eps>0$
-che siamo disposti a commettere sui valori della funzione
-possiamo trovare un errore $\delta>0$ per cui nei punti
-che differiscono da $x_0$ per meno di $\delta$ il valore
-della funzione differisce da $y_0$ per meno di $\eps$.
-
-\begin{definition}[continuità su $\RR$]
-\label{def:continua}%
-\index{funzione!continua}%
-\index{continuità}%
-Sia $f\colon A \subset \RR \to \RR$ una funzione. Diremo che
-$f$ è \myemph{continua nel punto} $x_0\in A$ se
-\begin{equation}\label{eq:continuita}
-\forall \eps>0 \colon \exists \delta>0 \colon
-\forall x\in A\colon
-\abs{x-x_0} < \delta \implies \abs{f(x)-f(x_0)} < \eps.
-\end{equation}
-
-Diremo che $f\colon A \to \RR$ 
-è \myemph{continua} se è continua in ogni punto $x_0 \in A$.
-\end{definition}
-
-%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%
-
-Attenzione: la funzione $f(x)=\frac{1}{x}$
-assume vicino a $x=0$ valori molto diversi tra loro (ad esempio $f(0.01)-f(-0.01)=200$)
-ma ciò non toglie che la funzione possa essere continua in quanto il punto
-$x=0$ non appartiene al dominio e quindi,
-in base alla definizione precedente, non ha senso e non ha importanza
-verificare se la funzione è continua in tale punto.
-
-\begin{theorem}[continuità del reciproco]
-\label{th:cont_reciproco}%
-La funzione $f\colon \RR\setminus\ENCLOSE{0}\to \RR$ definita
-da $f(x)=\frac 1 x$ è una funzione continua.
-\end{theorem}
-%
-\begin{proof}
-Siano $x,x_0\neq 0$.
-Se prendiamo $\delta < \frac{\abs{x_0}}2$
-e se $\abs{x-x_0} < \delta$ si avrà,
-per disuguaglianza triangolare inversa,
-$\abs{x} > \frac{\abs{x_0}}2$. Dunque
-\[
-\abs{\frac 1 x - \frac 1 {x_0}}
-= \frac{\abs{x-x_0}}{\abs{x\cdot x_0}}
-\le \frac{2\delta}{\abs{x_0}^2}.
-\]
-Si ottiene quindi la condizione $\abs{f(x)-f(x_0)}<\eps$
-se si sceglie $\delta$ in modo che
-risulti anche $\delta < \frac{\abs{x_0}^2\cdot \eps}{2}$.
-\end{proof}
-
-\begin{example}
-La \myemph{funzione segno} $\sgn\colon \RR \to \RR$ definita da
-\[
-  \sgn(x) = \begin{cases}
-  1 & \text{se $x> 0$}\\
-  0 & \text{se $x=0$}\\
-  -1 & \text{se $x<0$}
-  \end{cases}
-\]
-è un esempio di funzione non continua.
-\end{example}
-%
-\begin{proof}
-Verifichiamo che la funzione non è continua
-nel punto $x_0=0$.
-Infatti se $x\neq 0$ si ha
-\[
-\abs{\sgn(x)-\sgn(x_0)} = \abs{\sgn(x)} = 1
-\]
-e quindi se scegliamo $\eps<1$ non è possibile
-trovare $\delta>0$ per cui valga la condizione
-di continuità~\eqref{eq:continuita}
-nel punto $x_0=0$.
-\end{proof}
-
-\begin{exercise}
-Dimostrare che le funzioni $f(x) = x$ e $g(x)=\abs{x}$ sono continue.
-Dimostrare che le funzioni $h(x) = \lfloor x\rfloor$ e $k(x)=\lceil x \rceil$
-non sono continue (ma sono continue in ogni punto
-$x_0\in \RR \setminus \ZZ$).
-\end{exercise}
-
-\begin{definition}[operazioni sulle funzioni]
-Sia $A \subset \RR$ e siano $f,g$ funzioni $A \to \RR$.
-Possiamo allora definire
-$f+g$, $-f$, $f-g$, $f\cdot g$, $\abs f$, $f^n$ (con $n\in \NN$)
-e (se $g(x)\neq 0$ per ogni $x\in A$) anche $f/g$
-come funzioni $A \to \RR$ mediante le seguenti ovvie
-definizioni
-\begin{gather*}
-(f+g)(x) = f(x) + g(x), \qquad
-(f-g)(x) = f(x) - g(x), \\
-(f\cdot g)(x) = f(x) \cdot g(x), \qquad
-(f/g)(x) = f(x) / g(x), \\
-(-f)(x) = -(f(x)), \qquad
-\abs f(x) = \abs{f(x)}, \qquad
-f^n(x) = (f(x))^n.
-\end{gather*}
-
-Se $f\colon A \to B$ e $g\colon B\to C$ ricordiamo
-che abbiamo definito la funzione composta
-$g\circ f\colon A \to C$:
-\[
-  (g\circ f)(x) = g(f(x)).
-\]
-
-Se $c\in \RR$ è un numero considereremo a volte $c\colon A \to \RR$
-come una funzione \emph{costante}.
-Risulta quindi inteso che se $c\in \RR$ e $f\colon A \to \RR$
-allora $c\cdot f$ è la funzione definita da
-$(c\cdot f)(x) = c\cdot (f(x))$.
-La somma e il prodotto per costante rendono l'insieme $\RR^A$
-delle funzioni $A \to \RR$ uno spazio vettoriale sul campo $\RR$.
-\end{definition}
-
-\begin{theorem}[composizione di funzioni continue]
-\label{th:continuita_composizione}%
-Se $f$ e $g$ sono funzioni definite e continue
-in uno stesso punto $x_0$
-allora anche
-\[
-  f+g, \qquad
-  f\cdot g, \qquad
-  f-g, \qquad
-  \abs{f}, \qquad
-  f^n\ \text{(con $n\in \NN$)}
-\]
-sono funzioni definite e continue nel punto $x_0$.
-Se inoltre $g(x_0)\neq 0$ anche la funzione
-$f/g$
-è definita e continua nel punto $x_0$.
-
-Se $f\colon A\subset \RR \to \RR$ è una funzione continua
-nel punto $x_0\in A$ e
-$g\colon B\subset \RR \to \RR$ è una funzione
-continua nel punto $y_0=f(x_0)\in B$ allora la funzione $g\circ f$
-definita in $f^{-1}(B)$ è continua nel punto $x_0$.
-\end{theorem}
-%
-\begin{proof}
-Mostriamo prima di tutto la continuità
-della composizione $g\circ f$.
-Per la continuità di $f$ in $x_0$ e di $g$ in $y_0=f(x_0)$
-si ha che per ogni $\eps>0$ esiste un $\gamma>0$
-e per ogni $\gamma>0$ esiste un $\delta>0$ per cui
-\begin{align*}
- \abs{x-x_0}< \delta &\implies \abs{f(x)-f(x_0)}<\gamma,\\
- \abs{y-y_0}< \gamma & \implies \abs{g(y)-g(y_0)}<\eps
-\end{align*}
-da cui
-\[
-\abs{x-x_0}< \delta
-\implies \abs{f(x)-f(x_0)}< \gamma
-\implies \abs{g(f(x))-g(f(x_0))} < \eps
-\]
-che non è altro che la condizione di
-continuità~\eqref{eq:continuita} per $g\circ f$.
-
-Se $f$ e $g$ sono continue nel punto $x_0$
-allora per ogni $\eps'>0$ esistono $\delta_1$
-e $\delta_2$ tali che
-\begin{align*}
- \abs{x-x_0} < \delta_1 &\implies \abs{f(x)-f(x_0)} < \eps',
- \\
- \abs{x-x_0} < \delta_2 &\implies \abs{g(x)-g(x_0)} < \eps'.
-\end{align*}
-In particolare scegliendo $\delta = \min\ENCLOSE{\delta_1,\delta_2}$
-se $\abs{x-x_0} < \delta$ valgono contemporaneamente
-entrambe le stime:
-\[
- \abs{f(x)-f(x_0)}< \eps', \qquad
- \abs{g(x)-g(x_0)}< \eps'.
-\]
-
-Dunque per la somma osserviamo che se $\abs{x-x_0}<\delta$
-si ha
-\begin{align*}
- \abs{(f+g)(x) - (f+g)(x_0)}
-  &= \abs{f(x)+g(x)-f(x_0)-g(x_0)}\\
-  &\le \abs{f(x)-f(x_0)} + \abs{g(x)-g(x_0)}
-  \le 2 \eps'.
-\end{align*}
-Dato $\eps>0$ basterà quindi scegliere $\eps' = \eps / 2$
-e $\delta$ come sopra per ottenere la condizione di continuità.
-
-Per il prodotto si ha
-\begin{align*}
-  \MoveEqLeft \abs{f(x)g(x)-f(x_0)g(x_0)}\\
-  &= \abs{f(x)g(x) - f(x_0)g(x) + f(x_0)g(x) - f(x_0)g(x_0)}\\
-  &\le \abs{f(x)-f(x_0)}\cdot\abs{g(x)} + \abs{f(x_0)}\cdot \abs{g(x)-g(x_0)} \\
-  &\le \eps' \abs{g(x)} + \abs{f(x_0)} \eps'.
-\end{align*}
-Osserviamo ora che $\abs{g(x)}\le \abs{g(x)-g(x_0)} + \abs{g(x_0)}$
-e quindi $\abs{g(x)}\le \abs{g(x_0)}+\eps'$ da cui:
-\begin{align*}
-  \abs{f(x)g(x)-f(x_0)g(x_0)}
-  &\le \eps' \enclose{\abs{g(x_0)}+\eps'} + \abs{f(x_0)} \eps' \\
-  &= \eps' \cdot(\abs{f(x_0)} + \abs{g(x_0)} + \eps').
-\end{align*}
-Possiamo facilmente rendere questa quantità inferiore a
-qualunque $\eps>0$: basterà prendere $\eps'<1$ e
-\[
-  \eps' < \frac{\eps}{\abs{f(x_0)} + \abs{g(x_0)} + 1}.
-\]
-
-La funzione $f^n$ è continua per induzione su $n$
-in quanto prodotto di funzioni
-continue: $f^{n+1} = f^{n} \cdot f$.
-
-Abbiamo già visto che la funzione $h(x) = \frac{1}{x}$ è continua,
-dunque se $g$ è continua anche la funzione $\frac{1}{g(x)} = h\circ g$
-è continua essendo composizione di funzioni continue. 
-Di conseguenza anche la funzione $\frac{f}{g} = f \cdot \frac{1}{g}$
-è continua, essendo il prodotto di funzioni continue.
-
-Analogamente la funzione $f-g$ è la somma di $f$ con $-g$ e
-la funzione $-g$ è la composizione di $g$ con $h(x)=-x$.
-E' immediato verificare che la funzione $h(x)=-x$ è continua
-e dunque anche la differenza $f-g$ è continua.
-Lo stesso vale per la funzione $\abs f$ che è la composizione
-di $f$ con la funzione $h(x) = \abs{x}$.
-\end{proof}
-
-Il precedente teorema è molto importante ed utile in quanto
-garantisce che ogni funzione definita tramite una espressione
-che coinvolge solamente le funzioni e le operazioni
-elencate nell'enunciato del teorema, risulta certamente
-essere una funzione continua. Come nel seguente.
-
-\begin{example}
-La funzione
-\[
-f(x) = \frac{(x-3)\cdot x -\frac{1}{x+x^2}}{\abs{x-\frac{1-x^3}{x}}}
-\]
-è continua.
-
-Si intende che tale funzione è definita sull'insieme degli $x\in \RR$
-per cui tutte le operazioni coinvolte sono definite ovvero
-$f\colon D \subset \RR \to \RR$
-con
-\[
-  D = \ENCLOSE{x\in \RR \colon x+x^2 \neq 0,\ x\neq 0,\ \abs{x-\frac{1-x^3}{x}}\neq 0}.
-\]
-
-Per convincersi che questa funzione $f$ è continua
-si nota che le funzioni $x$ e le costanti $3$ e $1$ sono
-funzioni continue.
-Ma allora, per il teorema~\ref{th:continuita_composizione},
-anche le funzioni $x-3$ e $x^2=x\cdot x$ sono continue.
-Dunque anche $(x-3)\cdot x$, $x+x^2$ e $x^3$ e $1-x^3$ sono continue.
-Di conseguenza sono continue pure $\frac 1{1+x^2}$ e $\frac{1-x^3}{x}$.
-E poi saranno continue anche $(x-3)\cdot x - \frac 1{1+x^2}$ e $x-\frac{1-x^3}{x}$
-e quindi $x-\frac{1-x^3}{x}$ e pure $\abs{x-\frac{1-x^3}{x}}$. Infine sarà
-dunque continua $f(x)$.
-\end{example}
-
-In particolare è chiaro che le funzioni lineare e quadratiche 
-che abbiamo introdotto nelle sezioni precedenti sono funzioni continue
-in quanto sono ottenute sommando e moltiplicando tra loro funzioni continue.
-
-%%%%%%%%%%%%%%%%%%%
-
-\begin{theorem}[continuità delle funzioni monotone]
-  \label{th:monotona_continua}%
-  \mymark{*}%
-  \index{funzione!continua}%
-  \index{funzione!monotona}%
-  \index{funzione!suriettiva}%
-  Sia $I\subset \RR$ un intervallo e sia
-  $f\colon I \to \RR$ una funzione monotòna.
-  Allora $f$ è continua se e solo se $f(I)$ è 
-  un intervallo.
-\end{theorem}
-%
-\begin{proof}
-Senza perdita di generalità possiamo supporre che $f$ 
-sia crescente. 
-Dimostriamo innanzitutto che se $f(I)$ è intervallo allora $f$ è continua.
-
-Prendiamo un punto $x_0\in I$ e sia $\eps>0$.
-Vogliamo trovare $x_1<x_0$ tale che  
-per ogni $x\in [x_1,x_0]\cap I$ si abbia $f(x)>f(x_0)-\eps$.
-Siccome $f(I)$ è un intervallo che contiene il punto $f(x_0)$ 
-ci sono due possibilità: o $f(x)>f(x_0)-\eps$ per ogni $x\in I$
-e quindi possiamo scegliere $x_1<x_0$ a piacere
-oppure esiste $x_1\in I$ tale che $f(x_1)=f(x_0) - \frac \eps 2$.
-In questo secondo caso dovrà essere $x_1<x_0$ (in quanto $f$ è crescente)
-e per monotonia si avrà, come voluto $f(x)\ge f(x_1) > f(x_0)-\eps$ 
-per ogni $x\in [x_1,x_0]$.
-
-In modo analogo possiamo trovare $x_2>x_0$ tale 
-che per ogni $x\in [x_0,x_2]\cap I$ si abbia $f(x) < f(x_0)+\eps$.
-Essendo $f$ crescente se $x\ge x_0$ si avrà anche $f(x)\ge f(x_0)$ 
-e se $x\le x_0$ si avrà $f(x) \le f(x_0)$. 
-Dunque per ogni $x\in [x_1,x_2]$ si avrà $\abs{f(x)-f(x_0)}<\eps$.
-Basterà scegliere $\delta = \min\ENCLOSE{x_0-x_1,x_2-x_0}$ 
-per ottenere la continuità di $f$ in $x_0$.
-
-Supponiamo ora che $f$ sia una funzione continua e crescente.
-Vogliamo dimostrare che $f(I)$ è un intervallo.
-
-Siano $y_1, y_2 \in f(I)$ e sia $y_0\in \RR$
-con $y_1 < y_0 < y_2$.
-Vogliamo dimostrare che $y_0\in f(I)$ cioè che esiste $x_0\in I$
-tale che $f(x_0)=y_0$.
-Sappiamo che esistono $x_1,x_2$ in $I$ tali che
-$f(x_1) = y_1$ e $f(x_2) = y_2$.
-Dovrà essere $x_1<x_2$ perché $f(x_1)<f(x_2)$ e
-$f$ è strettamente crescente.
-Definiamo:
-\[
- x_0 = \sup A
-\qquad
-\text{con } A=\ENCLOSE{x\in I\colon f(x)<y_0},
-\]
-e dimostriamo che $f(x_0)=y_0$. 
-Chiaramente $x_0\in [x_1,x_2]$ in quanto 
-$x_1\in A$ e $x_2$ è un maggiorante di $A$
-e dunque $f$ è definita e continua in $x_0$.
-
-Se fosse $f(x_0)<y_0$ scelto $\eps = y_0-f(x_0)$
-per la definizione di continuità dovrebbe esistere
-$\delta>0$ tale che per ogni $x\in I$ con $\abs{x-x_0}<\delta$
-si abbia $\abs{f(x)-f(x_0)}<\eps$.
-In particolare scelto $x=x_0+\frac \delta 2$
-si avrebbe $f(x) < f(x_0) + \eps = y_0$.
-Ma allora avremmo $x\in A$ che è assurdo in quanto
-$\sup A = x_0 < x$.
-
-Se fosse invece $f(x_0)>y_0$ posto $\eps = f(x_0)-y_0$,
-grazie alla continuità di $f$ in $x_0$,
-possiamo trovare $\delta>0$ tale che per ogni $x\in I$
-con $\abs{x-x_0}<\delta$ si abbia $\abs{f(x)-f(x_0)}<\eps$.
-In particolare scelto $t = x_0 - \frac \delta 2$
-si ha $f(t) > f(x_0)-\eps = y_0$. 
-Ma essendo $t<x_0 = \sup A$ sappiamo che $t$ non può essere 
-un maggiorante di $A$ dunque deve esistere $x\in A$
-tale che $t<x$. 
-Ma se $x\in A$ allora $f(x) < y_0 < f(t)$
-che è assurdo in quanto $f$ è crescente.
-
-Abbiamo quindi mostrato che $f(x_0)=y_0$ e dunque
-che $f(I)$ è un intervallo.
-\end{proof}
-%
-\begin{exercise}
-Si dimostri che se $I$ è un intervallo e $f\colon I\to \RR$
-è iniettiva allora $f$ è monotona. 
-\end{exercise}
-
-Il teorema~\ref{th:monotona_continua} precedente ci permette di affermare che per $a>0$, $a\neq 1$ 
-le funzioni 
-$\exp_a$ e $\log_a$ sono continue. 
-Infatti tali funzioni sono bigezioni monotone tra 
-gli intervalli $\RR$ e $\RR_+$.
-
-Grazie al teorema~\ref{th:continuita_composizione} sappiamo 
-che se $n\in \NN$ la funzione $x^n$ è continua su tutto il suo 
-dominio $\RR$. 
-La funzione inversa $\sqrt[n]{x}$ è anch'essa crescente e 
-bigettiva come funzione $[0,+\infty)\to[0,+\infty)$ e dunque 
-anch'essa risulta essere continua.
-Per simmetria (si veda l'esercizio~\ref{ex:simmetrica_continua}) 
-possiamo concludere 
-%che sia la potenza $x^n$ 
-che le radici $\sqrt[n]{x}$ sono 
-funzioni continue su tutto il loro dominio.
-Anche la funzione $f(x) = x^\alpha$, $f\colon [0,+\infty)\to [0,+\infty]$ 
-con $\alpha>0$ è crescente ed è invertibile (l'inversa è $x^{\frac 1 \alpha}$)
-e dunque è surgettiva e continua.
-Se $\alpha<0$ la funzione $f(x)=x^\alpha$ è definita sull'intervallo 
-$(0,+\infty)$ ed è anch'essa continua in quanto 
-composizione di funzioni continue: $x^{\alpha} = \frac{1}{x^{-\alpha}}$.
-
-%
-\begin{exercise}\label{ex:simmetrica_continua}
-  Sia $f\colon \RR\to \RR$ una funzione pari oppure dispari.
-  Se la restrizione di $f$ all'intervallo $[0,+\infty)$ 
-  è continua allora $f$ è continua su tutto $\RR$.
-\end{exercise}
 
 \section{i numeri complessi}
 
