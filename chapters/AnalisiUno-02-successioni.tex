@@ -676,6 +676,61 @@ Lo stesso si può fare per il limite destro $x\to x_0^+$
 e sinistro $x\to x_0^-$.
 \end{definition}
 
+Abbiamo visto che in un punto di accumulazione se il limite 
+esiste allora è unico.
+Sarà però utile osservare che in effetti il limite può non 
+esistere, come si può verificare con un esempio.
+
+\begin{example}[in generale il limite non esiste]
+Il limite 
+\[
+  \lim_{x\to 0} \frac{x}{\abs{x}}
+\]
+non esiste. 
+Osserviamo infatti che la funzione $f(x) = \frac{x}{\abs x}$ 
+vale $1$ se $x>0$ e $-1$ se $x<0$.
+Dunque se il limite esistesse e fosse $\ell\in \bar \RR$ 
+scelto $\eps=1$ dovrebbe esistere un intervallo intorno di $0$ 
+della forma $\openinterval{-\delta}{\delta}$ tale che 
+$\abs{f(x)-\ell}<1$ per ogni $x$ in tale intervallo.
+In particolare siccome in tale intervallo ci sono sicuramente 
+sia numeri positivi che negativi si dovrà avere 
+contemporaneamente
+\[
+  \abs{1-\ell}<1, \qquad 
+  \abs{-1-\ell}<1  
+\]
+che è impossibile in quanto per disuguaglianza triangolare 
+\[
+ 2 = \abs{1-(-1)} 
+ \le \abs{1-\ell} + \abs{-1-\ell}
+ < 1 + 1 = 2
+\]
+che è assurdo.
+\end{example}
+
+Si noti che nell'esempio precedente il limite per $x\to 0$ 
+non esiste ma in realtà esistono sia il limite per $x\to 0^+$ 
+(vale $1$) che i limite per $x\to 0^-$ (vale $0$).
+Possiamo esibire un esempio ``patologico'' di funzione 
+che non ammette limite (né da destra né da sinistra)
+in nessun punto:
+\[
+  f(x) = 
+  \begin{cases}
+     1 & \text{se $x\in \QQ$}\\ 
+     0 & \text{se $x\in \RR\setminus \QQ$}.
+  \end{cases}
+\]
+In ogni intervallo $\openinterval a b$ con $a<b$ questa funzione 
+assume sia il valore $0$ che il valore $1$ 
+in quanto sia $\QQ$ che $\RR\setminus \QQ$ intersecano 
+l'intervallo (sono insiemi densi).
+Ma se $f$ avesse limite $\ell$ dovrebbe esistere un intervallo 
+in cui i valori distano meno di $\eps$ da $\ell$ e quindi 
+dovrebbe essere $\abs{1-\ell}<\eps$ e $\abs{0-\ell}<\eps$
+che è impossibile se scegliamo $\eps < \frac 1 2$.
+
 \begin{theorem}[collegamento tra limiti e continuità]%
 \mymark{***}%
   Sia $A\subset \RR$, $f\colon A \to \RR$. 
@@ -722,7 +777,8 @@ e sinistro $x\to x_0^-$.
   tutti i punti del suo dominio sono punti isolati.
 \end{example}
   
-\begin{theorem}[località del limite]
+\begin{theorem}[località del limite]%
+%\label{th:localita_limite}
 Il limite di una funzione per $x\to x_0$ dipende solamente dai valori di $f$
 in un intorno di $x_0$ e non dipende dal valore di $f$ in $x_0$.
 
@@ -1265,6 +1321,7 @@ frequentemente $f(x)\not\in U$.
 \index{teorema!del confronto}%
 \index{limite!confronto}%
 \index{teorema!dei due carabinieri}%
+\index{carabineri!teorema dei}%
 \mymark{***}%
 Siano 
 $f$, $g$, $h$ tre funzioni reali%
@@ -1315,10 +1372,11 @@ allora anche $h(x) \to \ell$.
 \item
 Se per assurdo fosse $\ell_1 > \ell_2$
 la funzione $f(x)-g(x)$ avrebbe limite positivo e per il teorema
-della permanenza del segno dovrebbe essere positiva in un intorno di 
-$x_0$. Ma questo contraddice l'ipotesi $f(x)-g(x)\le 0$. 
+della permanenza del segno dovrebbe essere definitivamente positiva. 
+Ma questo contraddice l'ipotesi $f(x)-g(x)\le 0$. 
 
-\item Se non fosse $g(x)\to +\infty$ significa che 
+\item 
+Se non fosse $g(x)\to +\infty$ significa che 
 esiste $\alpha \in \RR$ tale che $g(x)<\alpha$ frequentemente. 
 Ma visto che definitivamente $f(x)>\alpha$ troviamo 
 che frequentemente si ha $f(x)>g(x)$ in contrasto con l'ipotesi 
@@ -1327,32 +1385,51 @@ $f(x)\le g(x)$.
 \item
 Se $f$ e $g$ hanno lo stesso limite $\ell$ significa che per ogni
 $U$ intorno di $\ell$ si ha definitivamente $f(x)\in U$ e $g(x)\in U$.
-Visto che $U$ è un intervallo anche $g(x)$ è definitivamente in $U$ 
-e quindi $g(x)\to \ell$.
+Visto che $U$ è un intervallo anche $h(x)$ è definitivamente in $U$ 
+e quindi $h(x)\to \ell$.
 \end{enumerate}
 \end{proof}
 
 \begin{example}
-  Sapendo che $f(x)=x\to +\infty$ per $x\to +\infty$ dimostrare
-  che anche la funzione $g(x) = \sqrt{x^3-3x+1}\to+\infty$.
-  \end{example}
-  %
-  \begin{proof}
-    Osserviamo che si ha 
-    \[
-    \sqrt{x^3-3x+1} 
-    =\sqrt{x^3\enclose{1-\frac 3{x^2}+\frac 1 {x^3}}}
-    = x\sqrt x\cdot \sqrt{1- \frac 3 {x^2}+\frac 1 {x^3}}  
-    \]
-e se $x\ge 4$ sarà quindi 
-\[
-  \sqrt{x^3-3x+1} 
-    \ge x\sqrt 4 \cdot \sqrt{1-\frac 3{16}}
-    \ge 2 \cdot \frac{13}{16} \cdot x \ge x \to +\infty
-\] 
-\end{proof}
-  
+  Dimostrare che 
+  \[
+    \lim_{x\to +\infty} \enclose{2x - \lfloor x\rfloor} = +\infty. 
+  \]
+  Sappiamo che $\lfloor x\lfloor \le x$ dunque 
+  \[
+    2x - \lfloor x \rfloor \ge 2x -x = x \to +\infty.  
+  \]
+  Dunque per confronto si ottiene il risultato richiesto.
+\end{example}
 
+\begin{corollary}[limitata per infinitesima]%
+\label{cor:limitata_per_infinitesima}%
+\mymark{**}%
+  Se $f(x)$ è una funzione limitata e $g(x)\to 0$ per 
+  $x\to x_0$ allora anche
+  \[
+    f(x)\cdot g(x) \to 0 \qquad \text{per $x\to x-0.$} 
+  \]
+\end{corollary}
+%
+\begin{proof}
+  Se $f$ è limitata significa che esiste $R>0$ tale che $\abs{f(x)}\le R$
+  per ogni $x$ nel dominio di $f$.
+  Ma allora 
+  \[
+     0\le \abs{f(x)\cdot g(x)} = \abs{f(x)}\cdot \abs{g(x)} 
+     \le R \abs{g(x)} \to R\cdot 0 = 0.
+  \]
+  Per confronto deduciamo che $\abs{f(x)\cdot g(x)}\to 0$ 
+  che è equivalente alla tesi.
+\end{proof}
+
+\begin{exercise}
+  Mostrare che 
+  \[
+   \lim_{x\to +\infty} \frac{x-\lfloor x \rfloor}{x} = 0.  
+  \]
+\end{exercise}
 %\input{chapters/AnalisiUno-02-funzioni.tex}
 
 \section{successioni}
@@ -1482,7 +1559,8 @@ In generale potremmo avere delle successioni definite solamente
 su un sottoinsieme $\NN$ dei numeri naturali. 
 Finché la successione è definita in un intorno di $+\infty$ (cioè 
 da un certo $n_0$ in poi) questo non ha nessuna conseguenza sul 
-limite per $n\to +\infty$ (grazie alla località del limite).
+limite per $n\to +\infty$ (grazie alla località del limite, 
+teorema~\ref{th:localita_limite}).
 
 \begin{example}
   La successione $a_n = 1/n$ è definita per $n\in \NN$ ma $n\neq 0$.
@@ -1490,7 +1568,7 @@ limite per $n\to +\infty$ (grazie alla località del limite).
   successione. Per evidenziare il fatto che il primo indice è $n=1$
   si potrà usare la notazione $(a_n)_{n=1}^\infty$.
 \end{example}
-
+ 
 \section{successioni limitate}
 
 Se abbiamo una successione $a_n$ reale possiamo anche considerare gli operatori:
@@ -1613,9 +1691,9 @@ che per successioni complesse).
 
 \section{successioni monotòne}
 
-Le successioni sono funzioni $\NN \to \RR$ dunque possiamo
-utilizzare la definizione~\ref{def:monotonia} per verificare
-se una successione è (strettamente) crescente/decrescente.
+Le successioni sono funzioni $\NN \to \RR$ si applicano 
+le definizioni~\ref{def:monotonia} per
+classificare le successioni in base alla monotonia.
 Per le successioni, tuttavia, si possono dare delle definizioni
 equivalenti utilizzando il principio di induzione,
 come viene esplicitato nel seguente teorema.
@@ -1777,7 +1855,7 @@ giornaliera (interesse composto).
 Se un capitale è investito ad un tasso di interesse $r$,
 si intende che ogni giorno il capitale
 viene aumentato di un fattore $1+r/365$
-e quindi dopo un anno il fattore moltiplicativo è $(1+r/365)^365$.
+e quindi dopo un anno il fattore moltiplicativo è $(1+r/365)^{365}$.
 }).
 
 Per calcolare l'aumento della popolazione su tempi ``grandi'' possiamo
@@ -1941,11 +2019,44 @@ e ponendo $n=1$ otteniamo $2\le e \le 4$.
 Posto $a_n = \frac{n^n}{n!}$ mostrare che $\frac{a_{n+1}}{a_n} \to e$.
 \end{exercise}
 
+\begin{theorem}[ponte di collegamento tra limiti di funzione e limiti di successione]%
+  \label{th:ponte}%
+  \mymark{***}%
+  Sia $A \subset \RR$, $f\colon A \to \RR$, sia $x_0$ un punto di accumulazione di $A$ e sia
+  $\ell \in [-\infty, +\infty]$.
+  Le due seguenti condizioni sono equivalenti:
+  \begin{enumerate}
+  \item $\displaystyle \lim_{x\to x_0} f(x) = \ell$;
+  \item per ogni successione $a_n\to x_0$ con $a_n\in A\setminus\ENCLOSE{x_0}$ risulta
+  \[
+  \lim_{n\to+\infty} f(a_n) = \ell.
+  \]
+  \end{enumerate}
+  \end{theorem}
+  %
+  \begin{proof}
+  \mymark{***}
+  Se per $x\to x_0$ si ha $f(x)\to \ell$ e se $a_n \to x_0$ con $a_n\in A\setminus\ENCLOSE{x_0}$ la successione $f(a_n)$ non è altro che la composizione
+  della funzione $f$ con la funzione $n\mapsto a_n$. Si può quindi applicare
+  il teorema sul limite della funzione composta per ottenere che $f(a_n)\to \ell$.
+  
+  Supponiamo viceversa di sapere che per ogni successione $a_n\to x_0$ si ha $f(a_n)\to \ell$. Vogliamo mostrare allora che $f(x)\to \ell$. Lo facciamo per assurdo: supponiamo che esista un intorno $U$ di $\ell$ tale che preso un qualunque intorno $V$ di $x_0$ non si abbia $f((A\setminus\ENCLOSE{x_0})\cap V)\subset U$.
+  Possiamo considerare per ogni $n\in \NN$ degli intorni $V_n$ sempre più piccoli. Ad esempio nel caso $x_0 \in \RR$ potremo scegliere $V_n = (x_0-1/n, x_0+1/n)$, nel caso $x_0 = +\infty$ si potrà scegliere $V_n = (n,+\infty]$ e nel caso $x_0=-\infty$ si sceglierà $V_n = [-\infty, -n)$.
+  Se per assurdo $f((A\setminus\ENCLOSE{x_0}\cap V_n))$ non fosse contenuto in $U$
+  significherebbe che per ogni $n\in\NN$ esisterebbe $a_n \in (A\setminus\ENCLOSE{x_0})\cap V_n$ tale che $f(a_n)\not \in U$. Ma allora $a_n$ risulterebbe essere una successione in
+  $A\setminus \ENCLOSE{x_0}$ con limite $x_0$
+  (in quanto per ogni intorno di $x_0$ esiste un $N$ tale che $V_N$ sia contenuto in tale intorno e per ogni $n>N$ si ha $V_n\subset V_N$)
+  ma $f(a_n)$ non potrebbe avere limite $\ell$
+  (essendo fuori dall'intorno $U$).
+  Ma questo nega l'ipotesi e conclude quindi la dimostrazione del teorema.
+  \end{proof}
+  
+
 \begin{theorem}[limiti che si riconducono al numero $e$]
 \mymargin{limiti che si riconducono al numero $e$}
 Si ha 
 \[
-\lim_{x\to 0}  \enclose{1 + x}^{\frac 1 {x}} \to e.
+\lim_{x\to 0}  \enclose{1 + x}^{\frac 1 {x}} = e.
 \]
 \end{theorem}
 %
@@ -2166,41 +2277,8 @@ la sottosuccessione $b_k=a_{n_k}$:
   b_0 = a_0,\ b_1 = a_2,\ b_2 = a_4,\ \dots,\ b_k = a_{n_k},\ \dots
 \]
 
-\begin{theorem}[ponte di collegamento tra limiti di funzione e limiti di successione]%
-\label{th:ponte}%
-\mymark{***}%
-Sia $A \subset \RR$, $f\colon A \to \RR$, sia $x_0$ un punto di accumulazione di $A$ e sia
-$\ell \in [-\infty, +\infty]$.
-Le due seguenti condizioni sono equivalenti:
-\begin{enumerate}
-\item $\displaystyle \lim_{x\to x_0} f(x) = \ell$;
-\item per ogni successione $a_n\to x_0$ con $a_n\in A\setminus\ENCLOSE{x_0}$ risulta
-\[
-\lim_{n\to+\infty} f(a_n) = \ell.
-\]
-\end{enumerate}
-\end{theorem}
-%
-\begin{proof}
-\mymark{***}
-Se per $x\to x_0$ si ha $f(x)\to \ell$ e se $a_n \to x_0$ con $a_n\in A\setminus\ENCLOSE{x_0}$ la successione $f(a_n)$ non è altro che la composizione
-della funzione $f$ con la funzione $n\mapsto a_n$. Si può quindi applicare
-il teorema sul limite della funzione composta per ottenere che $f(a_n)\to \ell$.
-
-Supponiamo viceversa di sapere che per ogni successione $a_n\to x_0$ si ha $f(a_n)\to \ell$. Vogliamo mostrare allora che $f(x)\to \ell$. Lo facciamo per assurdo: supponiamo che esista un intorno $U$ di $\ell$ tale che preso un qualunque intorno $V$ di $x_0$ non si abbia $f((A\setminus\ENCLOSE{x_0})\cap V)\subset U$.
-Possiamo considerare per ogni $n\in \NN$ degli intorni $V_n$ sempre più piccoli. Ad esempio nel caso $x_0 \in \RR$ potremo scegliere $V_n = (x_0-1/n, x_0+1/n)$, nel caso $x_0 = +\infty$ si potrà scegliere $V_n = (n,+\infty]$ e nel caso $x_0=-\infty$ si sceglierà $V_n = [-\infty, -n)$.
-Se per assurdo $f((A\setminus\ENCLOSE{x_0}\cap V_n))$ non fosse contenuto in $U$
-significherebbe che per ogni $n\in\NN$ esisterebbe $a_n \in (A\setminus\ENCLOSE{x_0})\cap V_n$ tale che $f(a_n)\not \in U$. Ma allora $a_n$ risulterebbe essere una successione in
-$A\setminus \ENCLOSE{x_0}$ con limite $x_0$
-(in quanto per ogni intorno di $x_0$ esiste un $N$ tale che $V_N$ sia contenuto in tale intorno e per ogni $n>N$ si ha $V_n\subset V_N$)
-ma $f(a_n)$ non potrebbe avere limite $\ell$
-(essendo fuori dall'intorno $U$).
-Ma questo nega l'ipotesi e conclude quindi la dimostrazione del teorema.
-\end{proof}
-  
-  
-
 \begin{theorem}[Bolzano-Weierstrass]\label{th:Bolzano}
+\label{th:bolzano_weierstrass}%
 \mymark{***}%
 \mymargin{Bolzano-Weierstrass}%
 \index{teorema!di Bolzano-Weierstrass}%
@@ -3389,7 +3467,9 @@ dimostra che non ci può essere un minimo che non sia la sfera, ma non dimostra 
 tendere all'area della sfera. 
 In astratto questo è quanto viene enunciato nel teorema che porta il suo nome.
 Dunque Weiestrass completò la dimostrazione della proprietà isoperimetrica
-in dimensione $n=2$.
+in dimensione $n=2$ (in realtà il risultato è comunque attribuito a Steiner che,
+pur non avendo colto il problema obiettato da Weierstrass, aveva in effetti 
+dimostrato tutte le proprietà necessarie per giungere alla conclusione).
 Salendo alla dimensione $n=3$ è naturale immaginare che 
 la superficie che racchiude il volume maggiore con area fissata 
 sia la sfera. 
