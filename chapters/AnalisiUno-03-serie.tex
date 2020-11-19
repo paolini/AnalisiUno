@@ -817,6 +817,147 @@ diverge.
   converge?
 \end{exercise}
 
+%%%
+%%%
+\section{rappresentazione decimale dei numeri reali}
+%%%
+%%%
+Quando scriviamo $\frac{3}{8} = 0.375$ intendiamo che vale 
+\[
+\frac 3 8 = \frac{3}{10} + \frac{7}{10^2} + \frac{5}{10^3}.  
+\]
+Più in generale data una base $d\in \NN$, $d\ge 2$, ($d=10$ nel 
+caso della rappresentazione decimale)
+consideriamo l'insieme $\Enclose{d} = \ENCLOSE{0,1,2,\dots, d-1}$ 
+delle cifre in base $d$.
+Una sequenza infinita di cifre sarà quindi un elemento 
+$\vec a \in \Enclose{d}^\NN$, $\vec a = (a_0,a_1,\dots, a_n, \dots)$
+con $a_k\in \Enclose{d}$.
+Potremo quindi considerare il numero ``$0.a_0 a_1 a_2 \ldots$'' rappresentato 
+dalla sequenza di cifre $\vec a$:
+\[
+  r(\vec a) = \sum_{k=0}^{+\infty} \frac{a_k}{d^{k+1}}.
+\]
+Chiaramente $r(\vec a)\in [0,1]$ in quanto essendo $0\le a_k\le d-1$ 
+risulta
+\begin{equation}\label{eq:10445934}
+ 0 \le r(\vec a) \le \sum_{k=0}^{+\infty} \frac{d-1}{d^{k+1}}
+  = \frac{d-1}{d}\sum_{k=0}^{+\infty}\frac 1 {d^k}
+  = \frac{d-1}{d}\cdot \frac{1}{1-\frac 1 d} = 1.
+\end{equation}
+
+Ogni numero $x\in [0,1)$ ammette una rappresentazione in cifre $x=r(\vec a)$ 
+con $\vec a \in \Enclose{d}^\NN$. 
+Infatti per ogni $N\in \NN$ possiamo scrivere 
+\[
+  \lfloor x\cdot 10^N \rfloor= \sum_{k=0}^{N-1} a_k 10^{N-1-k}
+\]
+e al crescere di $N$ otteniamo una sequenza di cifre $a_k\in \Enclose{d}$ 
+tali che 
+\[
+  \abs{x \cdot d^N - \sum_{k=0}^{N-1} a_k \cdot d^{N-1-k}} \le 1
+\]
+da cui 
+\[
+  \abs{x - \sum_{k=0}^{N-1} \frac{a_k}{d^{k+1}}} \le \frac{1}{d^{N}}
+\]
+che, facendo tendere $N\to +\infty$, significa $r(\vec a) = x$.
+Il numero $x=1$ può essere anch'esso rappresentato, basta prendere 
+$a_k=d-1$ per ogni $k\in \NN$ cosicché si ottiene l'uguaglianza 
+nel lato destro di \eqref{eq:10445934}. 
+In base $d=10$ questo si esprime dicendo che 
+\[
+ 0.999\ldots = 1.  
+\]
+
+Ci possiamo chiedere se è possibile che lo stesso numero 
+abbia due rappresentazioni in cifre distinte.
+Supponiamo quindi che esistano $\vec a,\vec b\in \Enclose{d}^\NN$
+con $\vec a \neq \vec b$ 
+tali che $r(\vec a) = r(\vec b)$. 
+Sia $m = \min\ENCLOSE{n\in\NN\colon a_n\neq b_n}$ la posizione 
+della prima cifra diversa tra $\vec a$ e $\vec b$.
+Si ha allora 
+\[
+ r(b) - r(a) = \sum_{k=0}^{+\infty}\frac{b_k - a_k}{d^{k+1}}
+ = \frac{b_m - a_m}{d^{m+1}} + \sum_{k=m+1}^{+\infty} \frac{b_k - a_k}{d^{k+1}}
+ = A+B
+\]
+con 
+\[
+\abs{A} = \abs{\frac{b_m - a_m}{d^{m+1}}} \ge \frac{1}{d^{m+1}}  
+\]
+e 
+\begin{align*}
+\abs{B} &= \abs{\sum_{k=m+1}^{+\infty} \frac{b_k - a_k}{d^{k+1}}}
+        \le \sum_{k=m+1}^{+\infty} \frac{d-1}{d^{k+1}}\\
+        &= \frac{d-1}{d^{m+2}}\sum_{k=0}^{+\infty}\frac{1}{d^k}
+        = \frac{d-1}{d^{m+2}}\cdot \frac{1}{1-\frac 1 d} = \frac{1}{d^{m+1}}.
+\end{align*}
+Dunque, per disuguaglianza triangolare inversa,
+\[
+0 = \abs{r(b)-r(a)}\ge \abs{A} - \abs{B} \ge 0.  
+\]
+Significa che tutte le disuguaglianze sono in realtà uguaglianze
+e quindi deve essere $\abs{b_m-a_m}=1$ 
+e per ogni $k>m$ deve essere $\abs{b_k-a_k}=d-1$. 
+Supponendo che sia $b_m=a_m+1$ (l'altro caso è analogo)
+per $k>m$ dovrà necessariamente essere $b_k=0$ e $a_k=d-1$.
+
+Ad esempio se $d=10$, $\vec a = (1,2,3,9,9,9,9,\dots )$ 
+e $\vec b = (1,2,4,0,0,0,0,\dots)$ si avrà 
+$r(\vec a) = r(\vec b) = 0.124$.
+
+\begin{theorem}[Cantor]
+  \label{th:cantor_secondo}
+Fissata una base $d>2$ l'insieme 
+\[
+  C = \{r(\vec a)\colon \vec a \in \ENCLOSE{0,2}^\NN\}
+\]
+ha cardinalità
+\[
+\# C = \# \mathcal P(\NN).
+\]
+In particolare $\#\RR > \#\NN$.
+\end{theorem}
+%
+\begin{proof}
+Vogliamo verificare che $r\colon \ENCLOSE{0,2}^\NN \to \closeinterval{0}{1}$
+è iniettiva.
+Abbiamo già visto in generale che $r(\vec a) = r(\vec b)$ solamente 
+se la prima cifra diversa in $\vec a$ e $\vec b$ differisce di una unità.
+Ma siccome tutte le cifre di $\vec a$ e $\vec b$ per ipotesi sono $0$ oppure 
+$2$, non differiscono di una unità e quindi $r$ è iniettiva.
+Dunque $\# C = \#\ENCLOSE{0,2}^\NN$.
+D'altra parte $\#\ENCLOSE{0,2}^\NN = \#\mathcal P(\NN)$ in quanto 
+ogni $\vec a \in \ENCLOSE{0,2}^\NN$ può essere messo in corrispondenza 
+biunivoca con l'insieme $\vec a^{-1}(\ENCLOSE{0})$ degli indici $k\in \NN$
+per cui $a_k=0$.
+
+Dal teorema~\ref{th:Cantor} deduciamo che $\# C \#\mathcal P(\NN) > \#\NN$ 
+e visto che $C\subset \RR$ a maggior ragione $\# \RR \ge \# C >\#\NN$.
+
+D'altra parte possiamo mostrare che $\#\RR \le \# \mathcal P(\NN)$
+in quanto possiamo costruire una funzione $f\colon \RR \to \mathcal P(\QQ)$
+in questo modo:
+\[
+f(x) = \ENCLOSE{q\in \QQ\colon q<x}.
+\]
+Per la densità di $\QQ$ in $\RR$ sappiamo che se $x<y$ 
+esiste $q\in \QQ$ con $x<q<y$ e dunque $q\in f(y)\setminus f(x)$ 
+da cui $f(x)\neq f(y)$. 
+Dunque $f$ è iniettiva, che significa $\#\RR\le \# \mathcal P(\QQ)$
+Ma $\#\NN = \#\QQ$ dunque $\#\mathcal P(\QQ) = \#\mathcal P(\NN)$ 
+e la dimostrazione è conclusa.
+\end{proof}
+
+L'insieme $C$ definito nella precedente dimostrazione con $d=3$ 
+è lo stesso \myemph{insieme di Cantor} considerato nell'esempio~\ref{eq:10445934}.
+Infatti si potrebbe mostrare facilmente che 
+$C=\frac 1 3 C \cup (\frac 2 3 + \frac 1 3 C)$.
+
+%%%%%%%%%%%%%
+%%%%%%%%%%%%%
 \section{convergenza assoluta}
 
 Per le serie a termini positivi abbiamo molti criteri di convergenza
@@ -1095,6 +1236,8 @@ $\sum a_n$ è assolutamente convergente e si può applicare
 il lemma precedente da cui si ottiene il risultato desiderato.
 \end{proof}
 
+%%%%%%%%%%%
+%%%%%%%%%%%
 \section{serie a segno variabile}
 \index{serie!a segni alterni}
 

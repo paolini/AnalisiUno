@@ -2626,17 +2626,78 @@ la sottosuccessione $b_k=a_{n_k}$:
   b_0 = a_0,\ b_1 = a_2,\ b_2 = a_4,\ \dots,\ b_k = a_{n_k},\ \dots
 \]
 
+\begin{lemma}[estratte monotone]%
+\label{lem:estratte_monotone}%
+Ogni successione $a_n\in \RR$ ha una estratta $a_{n_k}$ monotona.
+Inoltre se $\sup a_n = +\infty$ c'è una estratta $a_{n_k}$
+strettamente crescente che tende a $+\infty$.
+\end{lemma}
+%
+\begin{proof}
+Consideriamo l'insieme $P$ dei punti di ``picco'', ovvero degli indici
+di quei termini della successione che sono maggiori o uguali a tutti i termini
+seguenti:
+\[
+  P = \ENCLOSE{n\in \NN\colon m\ge n \implies a_n\ge a_m}.
+\]
+Se $P$ è finito
+significa che esiste un indice $n_1\in \NN$ tale
+che non ci sono picchi da $n_1$ in poi. In particolare $n_1$ non è un punto di
+picco
+quindi deve esistere $n_2>n_1$ tale che $a_{n_2}>a_{n_1}$.
+Ma neanche $n_2$ è un punto di picco quindi deve esistere $n_3>n_2$ tale
+che $a_{n_3}>a_{n_2}$... procedendo induttivamente si riesce quindi a definire
+una successione $n_k$ di indici tali che $a_{n_k}$ risulta essere strettamente
+crescente.
+
+In particolare se $\sup a_n = +\infty$ siamo nella situazione precedente 
+perché chiaramente in tal caso $P$ è vuoto visto che per ogni $n\in \NN$ 
+deve esistere $m\in \NN$ tale che $a_m > \max\ENCLOSE{a_0, a_1, \dots a_n}$
+e certamente $m>n$.
+
+Se, viceversa, $P$ è infinito allora elencando in ordine i suoi elementi otterremo
+una successione $n_1 < n_2 < n_3, \dots$ di indici ognuno dei quali corrisponde ad un valore
+di picco. 
+Se $j>k$ si ha dunque $n_j>n_k$ ed essendo $n_k\in P$ significa che
+$a_{n_j} \le a_{n_k}$. 
+Dunque la successione $a_{n_k}$ risulta essere decrescente.
+\end{proof}
+
+
 \begin{theorem}[Bolzano-Weierstrass]\label{th:Bolzano}
 \label{th:bolzano_weierstrass}%
 \mymark{***}%
 \mymargin{Bolzano-Weierstrass}%
 \index{teorema!di Bolzano-Weierstrass}%
-Se $a_n$ è limitata allora esiste una sottosuccessione
-$a_{n_k}$ convergente. Il teorema è valido sia per successioni reali
-che complesse.
+Ogni successione $a_n$ ha una estratta regolare.
+
+Più precisamente se $a_n$ è una successione limitata
+allora esiste una sottosuccessione
+$a_{n_k}$ convergente.
+
+Se $a_n$ è una successione non limitata allora 
+esiste una estratta $a_{n_k}$ divergente.
 \end{theorem}
 %
 \begin{proof}
+\mymark{***}
+Cominciamo con il caso reale $a_n\in \RR$.
+Il lemma~\ref{lem:estratte_monotone} garantisce 
+che esiste una estratta $a_{n_k}$ monotona. 
+Ma per il teorema~\ref{th:limite_monotona} concludiamo 
+immediatamente che $a_{n_k}$ ha limite.
+Se $a_n$ è limitata anche $a_{n_k}$ è limitata e quindi 
+in tal caso il limite è finito e dunque la successione 
+estratta è convergente.
+
+Se $a_n$ non è superiormente limitata il lemma 
+ci garantisce che l'estratta tende a $+\infty$ 
+e dunque è divergente.
+Per simmetria se $a_n$ non è inferiormente limitata 
+esiste una estratta che tende a $-\infty$ e quindi anche in
+questo caso l'estratta è divergente.
+
+\begin{comment} %% VECCHIA DIMOSTRAZIONE (QUELLA SOLITA CON LA BISEZIONE)
 Facciamo dapprima il caso $a_n\in \RR$.
 \mymark{***}
 Sia $A_0=\inf a_n$ e $B_0=\sup a_n$. Essendo $a_n$ limitata
@@ -2685,6 +2746,7 @@ si ottiene (teorema dei carabinieri)
   a_{n_k} \to \ell.
 \]
 Questo conclude la dimostrazione per le successioni reali.
+\end{comment}
 
 Se $a_n$ è una successione di numeri complessi, si potrà scrivere
 $a_n = x_n + i y_n$ con
@@ -2696,6 +2758,10 @@ Allora $x_n$ ammette una sotto-successione convergente $x_{n_k}$.
 Ma $y_{n_k}$ è anch'essa limitata e quindi anch'essa ammette una
 sotto-sotto-successione $y_{n_{k_j}}$ convergente.
 Dunque la sotto-sotto-successione $a_{n_{k_j}}$ è convergente.
+
+Se $a_n\in \CC$ non è limitata, applicando il teorema al suo modulo $\abs{a_n}$
+troviamo che c'è una estratta $a_{n_k}$ tale che $\abs{a_{n_k}}\to +\infty$.
+Ma questo significa che $a_n\to \infty \in \bar \CC$.
 \end{proof}
 
 \begin{corollary}\label{cor:Bolzano}
@@ -2735,6 +2801,8 @@ Dunque la sotto-sotto-successione $a_{n_{k_j}}$ è convergente.
   esiste una sottosuccessione tale che $\abs{a_{n_k}}\to +\infty$.
   Ma questo significa che $a_{n_k} \to \infty$.
 \end{proof}
+
+\begin{comment}%% SECONDO METODO DIAGONALE DI CANTOR
 
 Il seguente teorema è molto importante dal punto di vista
 culturale, ma non verrà utilizzato nella teoria seguente.
@@ -2782,38 +2850,7 @@ ogni $n\in \NN$ si ha $\ell \neq a_n$.
 Dunque il numero $\ell$ non è un termine della successione $a_n$
 ovvero la funzione $a\colon \NN \to [0,1]$ non è suriettiva.
 \end{proof}
-
-Il seguente lemma
-non verrà usato in seguito ma può essere interessante di per sé.
-Si osservi che tale lemma fornisce una dimostrazione alternativa
-del teorema di Bolzano-Weierstrass in quanto ogni sottosuccessione monotona
-è regolare.
-
-\begin{lemma}[estratte monotone]
-Ogni successione $a_n\in \RR$ ammette una estratta monotona.
-\end{lemma}
-%
-\begin{proof}
-Consideriamo l'insieme $P$ dei punti di ``picco'', ovvero degli indici
-di quei termini della successione che sono maggiori o uguali a tutti i termini
-seguenti:
-\[
-  P = \ENCLOSE{n\in \NN\colon m\ge n \implies a_n\ge a_m}.
-\]
-Se $P$ è finito significa che esiste un indice $n_1\in \NN$ tale
-che non ci sono picchi da $n_1$ in poi. In particolare $n_1$ non è un punto di
-picco
-quindi deve esistere $n_2>n_1$ tale che $a_{n_1}<a_{n_2}$.
-Ma neanche $n_2$ è un punto di picco quindi deve esistere $n_3>n_2$ tale
-che $a_{n_2}<a_{n_3}$... procedendo induttivamente si riesce quindi a definire
-una successione $n_k$ di indici tali che $a_{n_k}$ risulta essere strettamente
-crescente.
-
-Se, viceversa, $P$ è infinito allora elencando in ordine i suoi elementi otterremo
-una successione $n_1 < n_2 < n_3, \dots$ di indici ognuno dei quali corrisponde ad un valore
-di picco. Se $j>k$ si ha dunque $n_j>n_k$ ed essendo $n_k\in P$ significa che
-$a_{n_j} \le a_{n_k}$. Dunque la successione $a_{n_k}$ risulta essere decrescente.
-\end{proof}
+\end{comment}
 
 %%%%%%%%%%%%
 %%%%%%%%%%%%
@@ -2873,13 +2910,14 @@ $a_{n_j} \le a_{n_k}$. Dunque la successione $a_{n_k}$ risulta essere decrescent
     che abbia limite $\ell$, e questo è contrario alle
     ipotesi.
 \end{proof}
-  
+
 \begin{definition}[punti limite, limite superiore, limite inferiore]
 Sia $f\colon A\subset \RR \to \RR$ una funzione e $x_0\in \bar \RR$ 
 un punto di accumulazione per $A$.
 Una quantità $\ell\in \bar\RR$ si dice essere
-un \myemph{punto!limite} di $f(x)$ per $x\to x_0$ se esiste una successione
-$a_k\to x_0$, $a_k\neq x_0$ tale $f(a_k)\to \ell$.
+un \myemph{punto!limite} di $f(x)$ per $x\to x_0$ se 
+per ogni $U$ intorno di $\ell$ si ha $f(x)\in U$ 
+frequentemente per $x\to x_0$.
 
 Se denotiamo con $L\subset \bar\RR$ l'insieme
 dei punti limite possiamo definire il \emph{limite superiore} e il
@@ -2892,6 +2930,74 @@ rispettivamente come
 \]
 \end{definition}
 
+\begin{proposition}[base numerabile di intorni]%
+  \label{prop:base_numerabile}%
+  Per ogni $\ell\in \bar \RR$ esiste una successione $U_n$ di intorni di $\ell$ 
+  con queste proprietà:
+  \begin{enumerate}
+    \item $U_{n+1}\subset U_n$;
+    \item per ogni $U$ intorno di $\ell$ esiste $n\in \NN$ tale che $U_n\subset U$;
+    \item se $a_n\in U_n$ allora $a_n\to \ell$.
+  \end{enumerate}
+\end{proposition}
+\begin{proof}
+Possiamo esplicitamente definire gli intorni $U_n$ come segue:
+\[
+  U_n = 
+  \begin{cases}
+    \openinterval{\ell-\frac 1 n}{\ell+\frac 1 n} & \text{se $\ell\in \RR$}\\ 
+    \opencloseinterval{n}{+\infty} & \text{se $\ell=+\infty$}\\
+    \closeopeninterval{-\infty}{-n} & \text{se $\ell=-\infty$.}
+  \end{cases}
+\]
+La prima proprietà è ovviamente verificata.
+La proprietà archimedea dei numeri reali garantisce la validità della seconda 
+proprietà, da cui segue immediatamente la terza.
+\end{proof}
+
+\begin{proposition}[caratterizzazione dei punti limite]
+  Sia $f\colon A\subset \RR\to \RR$, $x_0\in \bar \RR$ 
+  punto di accumulazione per $A$. 
+  Sono equivalenti:
+  \begin{enumerate}
+    \item $\ell$ è un punto limite di $f(x)$ per $x\to x_0$.
+    \item esiste una successione $a_n\in A$, $a_n\neq x_0$, $a_n\to x_0$ 
+    tale che $f(a_n)\to \ell$.
+  \end{enumerate}
+\end{proposition}
+%
+\begin{proof}
+  Siano $U_n$ intorni di $\ell$ e $V_n$ intorni di $x_0$ definiti 
+  come nella proposizione~\ref{prop:base_numerabile}.
+  Se $\ell$ è un punto limite di $f(x)$ per $x\to x_0$ 
+  significa che per ogni $U$ intorno di $\ell$ e per ogni $V$ 
+  intorno di $x_0$ esiste $x\in A\cap V\setminus\ENCLOSE{x_0}$ 
+  tale che $f(x)\in U$.
+  Dunque per ogni $n$ esiste $a_n\in A \cap V\setminus\ENCLOSE{x_0}$ 
+  tale che $a_n\in V_n$ e $f(a_n)\in U_n$. 
+  Significa che $a_n\to x_0$, $a_n\neq x_0$, $f(a_n)\to \ell$ 
+  come volevasi dimostrare.
+  
+  Viceversa se esiste una tale successione $a_n\to x_0$ allora 
+  per ogni $V$ intorno di $x_0$ si ha definitivamente $a_n\in V$.
+  E se $f(a_n)\to \ell$ per ogni $U$ intorno di $\ell$
+  si ha anche $f(a_n)\in U$ definitivamente.
+  Dunque esiste $n$ tale che $a_n\in V$ e $f(a_n)\in U$ confermando 
+  quindi che $f(x)\in U$ frequentemente. 
+\end{proof}
+
+Molto spesso considereremo i punti limite di una successione $a_n$
+per $n\to +\infty$.
+In tal caso la caratterizzazione precedente ci dice che $\ell$ 
+è un punto limite di $a_n$ per $n\to+\infty$ se esiste 
+una successione di indici $n_k\to+\infty$ tale che $a_{n_k}\to \ell$.
+Potremmo anche supporre $n_k$ strettamente crescente in quanto se 
+$n_k\to \infty$ possiamo estrarre da $n_k$ una sottosuccessione 
+strettamente crescente. 
+Dunque l'insieme dei punti limite di una successione $a_n$ 
+corrisponde all'insieme dei limiti di tutte le possibili 
+sottosuccessioni di $a_n$.
+
 \begin{example}
   La successione $a_n=(-1)^n$ ha due punti limite:
   \[
@@ -2899,6 +3005,9 @@ rispettivamente come
   \]
   Infatti la sottosuccessione dei termini con indice pari è costante $1$ mentre
   quella dei termini di indice dispari è costante $-1$.
+  Non ci possono essere altri punti limite perché se ci fosse $a_{n_k}\to \ell$
+  allora certamente $a_{n_k}=1$ frequentemente oppure $a_{n_k}=-1$
+  frequentemente da cui o $\ell=1$ oppure $\ell=-1$.
 \end{example}
 %
 \begin{example}
@@ -2908,26 +3017,41 @@ rispettivamente come
   $a_n = \vec a(n)$ è tutto $\bar \RR$.
 \end{example}
 
+\begin{exercise}
+  Si consideri la successione $a_n = \sqrt n -\lfloor \sqrt n\rfloor$.
+  Calcolare 
+  \[
+    \liminf_{n\to+\infty} a_n, \qquad 
+    \limsup_{n\to+\infty} a_n.
+  \]
+  Qual è l'insieme dei punti limite di $a_n$ per $n\to +\infty$?
+\end{exercise}
+
 %
 \begin{theorem}[proprietà del limite superiore/inferiore]
 Sia $f\colon A\subset \RR \to \RR$ e sia $x_0$ un punto di accumulazione per $A$.
 Sia $L$ l'insieme dei punti limite di $f(x)$ per $x\to x_0$.
 \begin{enumerate}
-  \item $L\neq \emptyset$
+  \item %1
+  $L\neq \emptyset$ 
 
-  \item $\displaystyle\limsup_{x\to x_0} f(x) \ge \liminf_{x\to x_0} f(x)$;
+  \item %2
+  $\displaystyle\limsup_{x\to x_0} f(x) \ge \liminf_{x\to x_0} f(x)$;
 
-  \item se $\displaystyle\limsup_{x\to x_0} f(x) = \liminf_{x\to x_0} f(x) = \ell$ 
+  \item %3
+  se $\displaystyle\limsup_{x\to x_0} f(x) = \liminf_{x\to x_0} f(x) = \ell$ 
   allora $\displaystyle\lim_{x\to x_0} f(x) = \ell$;
 
-  \item
+  \item %4
   l'insieme dei punti limite è chiuso per passaggio al limite:
-  se $x_k\in L$ e $x_k \to \ell$ per qualche $\ell \in \bar \RR$ allora $\ell \in L$;
+  se $\ell_k\in L$ e $\ell_k \to \ell$ per qualche $\ell \in \bar \RR$ 
+  allora $\ell \in L$;
 
-  \item 
+  \item %5
   $\displaystyle\limsup_{x\to x_0} f(x)$ e $\liminf_{x\to x_0} f(x)$ sono punti limite;
 
-  \item la condizione
+  \item %6
+  la condizione
   $\displaystyle\limsup_{x\to x_0} f(x) = \ell$ è equivalente a
   \[
   \begin{cases}
@@ -2943,7 +3067,8 @@ Sia $L$ l'insieme dei punti limite di $f(x)$ per $x\to x_0$.
   \end{cases}
   \]
 
-  \item se $a_n$ è una successione 
+  \item %7
+  se $a_n$ è una successione 
   \[
     \limsup_{n\to +\infty} a_n = \lim_{n\to +\infty} \enclose{\sup_{k\ge n} a_k},
     \quad
@@ -2968,16 +3093,13 @@ Sia $L$ l'insieme dei punti limite di $f(x)$ per $x\to x_0$.
 
   Per il punto 4.\ sia $\ell_k\in L$ una successione di punti limite
   e sia $\ell\in \bar \RR$ tale che $\ell_k \to \ell$ per $k\to +\infty$.
-  Ora consideriamo una successione $U_n$ di intorni di $\ell$ tale che 
-  per ogni $U$ intorno di $\ell$ esiste $n$ tale che $U_n\subset U$:
-  basterà prendere $U_n = \openinterval{\ell-\frac 1 n}{\ell+\frac 1 n}$ 
-  se $\ell\in \RR$, $U_n = \opencloseinterval{n}{+\infty}$ se $\ell=+\infty$ 
-  e $U_n = \closeopeninterval{-\infty}{-n}$ se $\ell=-\infty$.
+  Ora consideriamo la successione $U_n$ di intorni di $\ell$ 
+  data dalla proposizione~\ref{prop:base_numerabile}.
   Visto che $\ell_k\to \ell$ per ogni $n$ deve esistere $k_n$ tale 
   che $\ell_{k_n}\in U_n$. Senza perdita di generalità possiamo 
   supporre direttamente che sia $\ell_n\in U_n$.
-  Come abbiamo costruito gli intorni $U_n$ di $\ell$ possiamo anche
-  considerare degli intorni $V_n$ di $x_0$ con la stessa proprietà.
+  Consideriamo anche gli intorni $V_n$ di $x_0$ dati sempre 
+  dalla proposizione~\ref{prop:base_numerabile}.
   Per ogni $\ell_n \in L$ deve esistere una successione $a_k\to x_0$ 
   con $a_k\neq x_0$ tale che $f(a_k)\to \ell_n$.
   Ma allora certamente esiste $k=k_n$ tale che $a_{k_n}\in V_n$ 
