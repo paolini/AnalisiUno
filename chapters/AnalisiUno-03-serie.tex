@@ -952,7 +952,8 @@ e la dimostrazione è conclusa.
 \end{proof}
 
 L'insieme $C$ definito nella precedente dimostrazione con $d=3$ 
-è lo stesso \myemph{insieme di Cantor} considerato nell'esempio~\ref{eq:10445934}.
+è lo stesso \myemph{insieme di Cantor} considerato 
+nell'esempio~\label{ex:insieme_Cantor}.
 Infatti si potrebbe mostrare facilmente che 
 $C=\frac 1 3 C \cup (\frac 2 3 + \frac 1 3 C)$.
 
@@ -1089,6 +1090,7 @@ Questo garantisce la validità dell'equazione~\eqref{eq:487464} in base
 alla definizione di limite.
 \end{proof}
 
+\begin{comment}
 \begin{theorem}%
 \label{th:somma_Cauchy}%
 Sia $c_{k,j}$ una successione (reale o complessa)
@@ -1235,6 +1237,7 @@ In particolare se vale l'ipotesi del teorema la serie
 $\sum a_n$ è assolutamente convergente e si può applicare
 il lemma precedente da cui si ottiene il risultato desiderato.
 \end{proof}
+\end{comment}
 
 %%%%%%%%%%%
 %%%%%%%%%%%
@@ -1402,6 +1405,115 @@ Chiaramente le somme tenderanno a $+\infty$.
 Il caso $x=-\infty$ si tratta in maniera analoga.
 \end{proof}
 
+\section{somme multiple}
+
+\begin{theorem}[somme alla Cauchy]
+  \label{th:somma_Cauchy}%
+Sia $a_{k,j}\in \CC$ una successione a due indici $k\in \NN$, $j\in\NN$.
+Se 
+\[
+  \sum_{k=0}^{+\infty} \sum_{j=0}^{+\infty} \abs{a_{k,j}} < +\infty
+\]  
+allora 
+\[
+  \sum_{k=0}^{+\infty} \sum_{j=0}^{+\infty} a_{k,j}
+   = \sum_{n=0}^{+\infty} \sum_{k=0}^{+\infty} a_{k,n-k}.
+\]
+\end{theorem}
+%
+\begin{proof}
+Poniamo 
+\[
+  b_k = \sum_{j=0}^{+\infty} a_{k,j},\qquad
+  c_n = \sum_{k=0}^{n} a_{k,n-k}.
+\]
+Se immaginiamo i termini $a_{k,j}$ come i termini di una matrice 
+infinita dove $k$ è l'indice di riga e $j$ è l'indice di colonna,
+osserviamo che $b_k$ rappresenta la somma dei termini sulla riga 
+$k$-esima e la successione $c_n$ rappresenta la somma (finita)
+dei termini sulla diagonale $k+j=n$. 
+L'idea è che sommare i termini lungo le righe oppure lungo le diagonali 
+ci deve dare lo stesso risultato. 
+L'ipotesi è infatti una sorta di assoluta convergenza della serie di tutti 
+i termini $a_{k,j}$.
+
+La tesi del teorema è
+\[
+\sum_{k=0}^{+\infty} b_k = \lim_{N\to +\infty} \sum_{n=0}^N c_n  
+\]
+cioè per ogni $\eps>0$ dobbiamo trovare $\alpha\in \NN$ tale che per 
+ogni $N > \alpha$ si abbia
+\[
+  \abs{\sum_{n=0}^N c_n - \sum_{k=0}^{+\infty} b_k} < 4\eps.  
+\]
+Fissato $\eps>0$ applicando la proprietà della coda 
+(teorema~\ref{th:coda}) alla serie convergente data per ipotesi,
+si ottiene che esiste $K$ tale che:
+\[
+  \sum_{k=K+1}^{+\infty} \sum_{j=0}^{+\infty} \abs{a_{k,j}} < \frac{\eps} 2.
+\]
+Sempre grazie alla proprietà della coda applicata ai singoli termini 
+della serie convergente per ipotesi possiamo affermare che per ogni 
+$k\in \ENCLOSE{0,1,\dots, K}$ esiste un indice $J_k$ tale che 
+\[
+  \sum_{j=J_k+1}^{+\infty} \abs{a_{k,j}} \le \frac{\eps}{2^{k+2}}.
+\]
+Poniamo $J=\max\ENCLOSE{J_0,J_1, \dots, J_K}$ e $\alpha = J + K$.
+Se $N\ge \alpha$ si ha allora 
+\begin{align*}
+  \abs{\sum_{n=0}^N c_n - \sum_{k=0}^{+\infty} b_k}
+  &\le \abs{\sum_{n=0}^N c_n - \sum_{k=0}^{K} b_k} + \eps \\
+\end{align*}
+Osserviamo ora che i termini che vengono sommati nella serie 
+$\sum_{n=0}^N c_n$ sono tutti i termini $a_{k,j}$ tali che $k+j\le N$,
+mentre i termini che vengono sommati in $\sum_{k=0}^K b_k$ 
+sono tutti i termini $a_{k,j}$ con $k\le K$. 
+Quindi i termini in comune alle due somme si cancellano e rimangono solamente 
+i termini della prima somma che non compaiono nella seconda e i termini 
+della seconda somma che non compaiono nella prima. 
+Non ci interessa il segno di questi termini quindi possiamo stimare la somma 
+di tutti questi termini residui facendone la somma dei valori assoluti:
+\begin{align*}
+  \abs{\sum_{n=0}^N c_n - \sum_{k=0}^{K} b_k}
+  & \le \sum_{k=K+1}^N \sum_{j=0}^{N-k} \abs{a_{k,j}}
+   + \sum_{k=0}^{K}\sum_{j=N-K}^{+\infty} \abs{a_{k,j}}\\ 
+  & \le \sum_{k=K+1}^{+\infty}\sum_{j=0}^{+\infty} \abs{a_{k,j}}
+   + \sum_{k=0}^K \sum_{j=J_k+1}^{+\infty} \abs{a_{k,j}} \\ 
+  & \le \frac\eps 2 + \sum_{k=0}^{+\infty} \frac{\eps}{2^{k+2}}
+   = \eps.
+\end{align*}
+\end{proof}
+
+\begin{comment}
+\begin{corollary}[scambio delle somme]
+Sia $a_{k,j}\in \CC$ una successione a due indici $k\in \NN$, $j\in\NN$.
+Se 
+\[
+  \sum_{k=0}^{+\infty} \sum_{j=0}^{+\infty} \abs{a_{k,j}} < +\infty
+\]  
+allora 
+\[
+  \sum_{k=0}^{+\infty} \sum_{j=0}^{+\infty} a_{k,j}
+  \sum_{j=0}^{+\infty} \sum_{k=0}^{+\infty} a_{k,j}
+\]
+\end{corollary}
+%
+\begin{proof}
+L'ipotesi 
+\[
+  \sum_{k=0}^{+\infty} \sum_{j=0}^{+\infty} \abs{a_{k,j}} = S < 
+\]  
+
+
+data garantisce che vale anche 
+\[
+  \sum_{j=0}^{+\infty} \sum_{k=0}^{+\infty} \abs{a_{k,j}} < +\infty
+  \]
+  in quanto 
+\end{proof}
+\end{comment}
+
+\section{Somma per parti}
 \begin{theorem}[somma per parti]
 \label{th:somma_per_parti}%
 Siano $a_k$ e $B_k$ successioni (reali o complesse).
@@ -1518,6 +1630,7 @@ converge perché il termine generico $z^k/k$ non è infinitesimo.
 Per $z=1$ si ottiene la serie armonica, che pure non converge.
 \end{proof}
 
+\begin{comment}
 \section{somme su insiemi qualunque}
 
 La teoria che abbiamo visto finora ci permette di definire
@@ -1660,6 +1773,7 @@ sono equivalenti.
   da cui si ottiene, come voluto, \eqref{eq:4389567}.
 \end{proof}
 
+\end{comment}
 \begin{comment}
 \begin{theorem}[somme più che numerabili]
   Sia $f$ una funzione definita su un insieme $A$
@@ -1689,6 +1803,7 @@ esistono dunque $x_0,x_1, \dots, x_k, \dots$ infiniti punti di $A$ tali che $f(x
 esiste $A_n$ finito tale che $A_n\to A$?
 \end{proof}
 \end{comment}
+\begin{comment}
 
 \begin{theorem}[somme iterate]
 Sia $f$ una funzione definita su un insieme $A$ a
@@ -1704,6 +1819,7 @@ Allora
 \]
 se almeno uno dei due lati dell'uguaglianza esiste.
 \end{theorem}
+\end{comment}
 
 %%%
 \section{prodotti infiniti}
@@ -1871,45 +1987,45 @@ qualunque sia $z\in \CC$.
 
 \begin{theorem}[convergenza delle serie di potenze]
 \mymark{***}
-Se la serie di potenze $\sum a_k z^k$ converge in un punto $z_0\in \CC$
-(anzi, basta che la successione $a_k z^k$ sia infinitesima)
+Se la serie di potenze $\sum a_k z^k$ converge in un punto $z\in \CC$
+(anzi, basta che la successione $a_k z^k$ sia limitata)
 allora la serie
-converge assolutamente per ogni $z\in \CC$ tale che $\abs{z}< \abs{z_0}$.
-Viceversa, se la serie non converge in un punto $z_0\in \CC$
+converge assolutamente per ogni $w\in \CC$ tale che $\abs{w}< \abs{z}$.
+Viceversa, se la serie non converge in un punto $z\in \CC$
 allora
-non  converge in nessuno $z$ tale che $\abs{z} > \abs{z_0}$ (anzi la successione
-$a_n z^n$ non è nemmeno infinitesima).
+non  converge in nessun $w$ tale che $\abs{w} > \abs{w}$ (anzi la successione
+$a_n w^n$ non è nemmeno limitata e tantomento infinitesima).
 \end{theorem}
 %
 \begin{proof}
 \mymark{*}
-Se la serie $\sum a_k z_0^k$ converge significa che la successione
-$a_k z_0^k$ è infinitesima e in particolare è limitata.
+Se la serie $\sum a_k z^k$ converge significa che la successione
+$a_k z^k$ è infinitesima e in particolare è limitata.
 Esiste dunque $M$ tale che per ogni $k\in \NN$
 \[
- \abs{a_k z_0^k} \le M.
+ \abs{a_k z^k} \le M.
 \]
-Se $z_0=0$ non c'è niente da dimostrare (perché non esiste $z$ tale che $\abs{z}<0$).
-Se $z_0\neq 0$ si ha
+Se $z=0$ non c'è niente da dimostrare.
+Se $z\neq 0$ si ha
 \[
- \abs{a_k} \le \frac{M}{\abs{z_0}^k}.
+ \abs{a_k} \le \frac{M}{\abs{z}^k}.
 \]
-Scelto ora qualunque $z\in \CC$ con $\abs{z} < \abs{z_0}$ si ha
+Scelto ora qualunque $w\in \CC$ con $\abs{w} < \abs{z}$ si ha
 \[
-  \abs{a_k z^k} = \abs{a_k}\cdot \abs{z}^k \le M \frac{\abs{z}^k}{\abs{z_0}^k}
+  \abs{a_k w^k} = \abs{a_k}\cdot \abs{w}^k \le M \frac{\abs{w}^k}{\abs{z}^k}
   \le M q^k
 \]
-avendo posto $q = \frac{\abs{z}}{\abs{z_0}}$.
+avendo posto $q = \frac{\abs{w}}{\abs{z}}$.
 Essendo $q<1$ la serie geometrica $\sum q^k$ converge e, per confronto,
-anche la serie $\sum \abs{a_k z^k}$ converge.
-Dunque la serie $\sum a_k z^k$ converge assolutamente.
+anche la serie $\sum \abs{a_k w^k}$ converge.
+Dunque la serie $\sum a_k w^k$ converge assolutamente.
 
-Viceversa supponiamo che $\sum a_k z_0^k$ non converga
-e prendiamo $z$ con $\abs{z} > \abs{z_0}$.
-Allora $\sum a_k z^k$ non può convergere,
-$a_k z^k$ non può neanche essere infinitesima perché
-se lo fosse allora, scambiando i ruoli di $z_0$ e $z$,
-per il punto precedente la serie $\sum a_k z_0^k$ dovrebbe convergere.
+Viceversa supponiamo che $\sum a_k z^k$ non converga
+e prendiamo $w$ con $\abs{w} > \abs{z}$.
+Allora $\sum a_k w^k$ non può convergere,
+ansi $a_k w^k$ non può neanche essere limitata perché
+se lo fosse allora, scambiando i ruoli di $z$ e $w$,
+per il punto precedente la serie $\sum a_k z^k$ dovrebbe convergere.
 \end{proof}
 
 \begin{corollary}[l'insieme di convergenza è circolare]%
@@ -1929,7 +2045,7 @@ e di raggio $R$ a meno dei punti di bordo, nel senso che:
 \end{equation}
 Inoltre la serie converge assolutamente in ogni $z\in \CC$ con $\abs{z}<R$
 mentre
-il termine generico $a_k z^k$ non è nemmeno infinitesimo (e quindi la serie non converge)
+il termine generico $a_k z^k$ non è nemmeno limitato (e quindi la serie non converge)
 quando $\abs{z}>R$.
 \end{corollary}
 %
@@ -1946,7 +2062,7 @@ Inoltre possiamo certamente considerare un punto $z_1\in\CC$
 tale che $R < \abs{z_1} \le \abs{z}$ e la serie
 di potenze non può convergere neanche in $z_1$.
 Ma allora, per il teorema precedente,
-deduciamo che $a_k z^k$ non è nemmeno infinitesima.
+deduciamo che $a_k z^k$ non è nemmeno limitata.
 
 Abbiamo quindi mostrato l'esistenza di $R\in \bar \RR$ che soddisfa \eqref{eq:48463}.
 Chiaramente risulta $R\ge 0$ perché $A$ è un insieme non vuoto
@@ -2041,23 +2157,33 @@ lo stesso raggio di convergenza.
 \end{theorem}
 %
 \begin{proof}
-  Supponiamo che $\sum a_k z_0^k$ sia convergente e
-  dimostriamo che se $\abs{z}<\abs{z_0}$ allora anche
-  $\sum k a_k z^k$ è convergente.
-  Se la prima serie è convergente allora il termine generico
-   deve essere infinitesimo e quindi limitato:
-   \[
-     \abs{a_k z_0^k} \le C.
-   \]
-  Ma allora posto $q=\frac{\abs{z}}{\abs{z_0}} < 1$ si ha
+  Sia $R$ il raggio di convergenza della serie $\sum a_k z^k$ 
+  e $r$ il raggio di convergenza della serie $\sum k a_k z^k$.
+  
+  Visto che per $k>0$ si ha $\abs{a_k z^k} \le \abs{k a_k z^k}$
+  la serie $\sum a_k z^k$ converge assolutamente nei punti 
+  in cui converge assolutamente la serie $\sum k a_k z^k$.
+  Questo significa che $R\ge r$.
+
+  Preso ora un punto $w$ con $\abs{w}<R$ consideriamo un
+  qualunque punto $z$ con $\abs{w}<\abs{z}<R$.
+  La serie $\sum a_k z^k$ converge assolutamente in $z$ 
+  quindi $\abs{a_k z^k}$ è infinitesima e limitata.
+  Esiste quindi $M$ per cui $\abs{a_k z^k}\le M$ 
+  che significa $\abs{a_k} \le \frac{M}/{\abs{z}^k}$.
+  Ma allora 
   \[
-  \abs{ k a_k z^k} = k \abs{a_k z_0^k} q^k \le C k q^k.
+    \abs{k a_k w^k} 
+    \le k \abs{a_k} \frac{\abs{w}^k}
+    \le k M \frac{\abs{w}^k}{\abs{z}^k}
   \]
-  Essendo $q<1$ sappiamo che la serie $\sum k q^k$ è convergente
-  e dunque la serie $\sum k a_k z^k$ è assolutamente convergente.
-  Viceversa se $\sum k a_k z^k$ è convergente ripetendo lo stesso
-  ragionamento ci si riconduce alla serie $\sum \frac{q^k}{k}$ che,
-  a maggior ragione, è convergente.
+  da cui, posto $q=\frac{\abs w}{\abs z}$, si ottiene 
+  $\abs{k a_k w^k} \le k M q^k$. 
+  Visto che $q<1$ sappiamo che la serie $\sum k M q^k$ 
+  è convergente e dunque, per confronto, anche la 
+  serie $\sum k a_k w^k$ è assolutamente convergente.
+  Siccome questo è vero per ogni $w$ con $\abs{w}<R$
+  significa che $r\ge R$ e questo conclude la dimostrazione.
 \end{proof}
 %
 \begin{proof}[Dimostrazione alternativa]
@@ -2083,46 +2209,42 @@ definita da
 \end{theorem}
 %
 \begin{proof}
-Preso $z\in B$ vogliamo dimostrare che $f$ è continua nel
-punto $z$, cioè che
-\begin{equation}\label{eq:38465}
- \forall \eps>0\colon \exists \delta>0 \colon
- \forall w\in B\colon
- \abs{z-w}<\delta \implies \abs{f(z)-f(w)}< \eps.
-\end{equation}
-Si scelga un $\rho>0$ tale che $\abs{z}< \rho < R$.
-Dovendo scegliere $\delta$ imponiamo che sia $\delta < \rho-\abs{z}$
-cosicché si avrà $\abs{w} < \abs{z} + \delta  = \rho$
-quando $\abs{z-w}< \delta$.
-Di conseguenza si osserva che
-\begin{align*}
- \abs{z^k - w^k}
- &= \abs{(z - w)\cdot(z^{k-1} + z^{k-2}w + \dots + z w^{k-2}+ w^{k-1})} \\
- &\le \abs{z-w}\cdot \enclose{\abs{z}^{k-1} + \abs{z}^{k-2}\abs{w} + \dots + \abs{z} \abs{w}^{k-2} + \abs{w}^{k-1}} \\
- &\le \abs{z-w}\cdot k \cdot \rho^{k-1}
-\end{align*}
-e quindi
-\begin{align*}
-\abs{f(z) - f(w)}
-&= \abs{\sum_{k=0}^{+\infty} a_k z^k - \sum_{k=0}^{+\infty} a_k w^k}
-= \abs{\sum_{k=0}^{+\infty} a_k (z^k - w^k)} \\
-&\le \sum_{k=0}^{+\infty} \abs{a_k} \cdot \abs{z^k - w^k}
-\le \sum_{k=0}^{+\infty} \abs{a_k} \cdot \abs{z - w} k \rho^{k-1}\\
-&= \abs{z -w}\cdot \sum_{k=0}^{+\infty} k \abs{a_k} \rho^{k-1}.
-\end{align*}
-Ora osserviamo che la somma
+Supponiamo $R>0$ altrimenti non c'è niente da dimostrare.
+Fissiamo $r<R$ e consideriamo due punti $z,w\in \CC$ 
+con $\abs{z}<r$ e $\abs{w}<r$.
+Ricordiamo che si ha 
 \[
-   C = \sum_{k=0}^{+\infty} k \abs{a_k} \rho^{k-1}
-     = \frac{1}{\rho} \sum_{k=0}^{+\infty} k \abs{a_k} \rho^k
+  z^n - w^n = (z-w)\cdot(z^{n-1} + wz^{n-2} + \dots + w^{n-2}z + w^{n-1}).
 \]
-è finita in quanto la serie $\sum k\abs{a_k}z^k$ ha raggio di convergenza
-$R>\rho$ grazie al teorema~\ref{th:raggio_serie_derivate}.
-Dunque si ha
+Osservando che per ogni addendo sul lato destro si ha 
+$\abs{w^k z^{n-k-1}}\le r^{n-1}$, essendoci $n$ addendi si ottiene 
 \[
-  \abs{f(z)-f(w)} \le C\cdot \abs{z-w} < C\cdot  \delta.
+  \abs{z^n - w^n} \le \abs{z-w}\cdot n\cdot  r^{n-1}.
 \]
-Scegliendo $\delta\le \frac{\eps}{C}$ si ottiene dunque
-la validità di~\eqref{eq:38465}.
+Dunque 
+\begin{align*}
+  \abs{f(z)-f(w)} 
+  &= \abs{\sum_{n=0}^{+\infty} a_n z^n - \sum_{n=0}^{+\infty} a_n w^n}
+   = \abs{\sum_{n=0}^{+\infty} a_n (z^n - w^n)} \\
+& \le \sum_{n=0}^{+\infty} \abs{a_n} \cdot \abs{z^n - w^n}
+\le \abs{z-w}\sum_{n=0}^{+\infty} \abs{a_n} n r^{n-1}.
+\end{align*}
+Ma noi sappiamo che la serie $\sum n a_n z^n$ 
+ha lo stesso raggio di convergenza $R$ della serie originaria 
+(per il teorema~\ref{th:raggio_serie_derivate})
+dunque la serie $\sum n a_n r^n$ è assolutamente convergente e, 
+dividendo per $r$, 
+scopriamo che anche la serie $\sum n a_n r^{n-1}$
+è convergente. 
+Posto $L = \sum_{n=0}^{+\infty} n \abs{a_n} r^{n-1}$
+per quanto scritto sopra possiamo concludere che 
+\[
+\abs{f(z)-f(w)} \le L\cdot \abs{z-w}.
+\]
+Dunque per ogni $\eps>0$ scelto $\delta = \frac{\eps}{L}$
+se $\abs{z-w}<\delta$ risulta $\abs{f(z)-f(w)}\le \eps$.
+Significa che la funzione $f$ è continua nel punto $z$ e 
+questo è vero per ogni $z$ con $\abs{z}<R$.
 \end{proof}
 
 Il teorema precedente ci garantisce che la somma di una serie di potenze
@@ -2321,10 +2443,13 @@ Inoltre se $y>x$ si ha $f(y-x)>1$ e dunque
 \[
  f(y) = f(x+y-x) = f(x)\cdot f(y-x) > f(x).
 \]
-La funzione è quindi strettamente crescente.
-Dunque la funzione $f$ soddisfa tutte le ipotesi
-del teorema~\ref{th:esponenziale} e coincide
-quindi con la funzione $a^x$:
+La funzione è quindi strettamente crescente. 
+Dunque è un omomorfismo monotono dal gruppo additivo $\RR$ al 
+gruppo moltiplicativo $(0,+\infty)$.
+Fissato $a=f(1)$ sappiamo,
+per quanto visto nella sezione~\ref{sec:esponenziale},
+che c'è una unica funzione con queste proprietà e dunque 
+deve essere: 
 \[
   f(x)= a^x.
 \]
