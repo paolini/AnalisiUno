@@ -2455,15 +2455,15 @@ deve essere:
 \]
 Non ci rimane che dimostrare che $a=e$.
 Ma grazie al teorema~\ref{th:exp_complesso}
-appena dimostrato sappiamo che se $x_n\to 0$ si ha
+appena dimostrato sappiamo che per $x\to 0$ si ha
 \[
-  \frac{f(x_n)-1}{x_n}\to 1.
+  \frac{f(x)-1}{x}\to 1.
 \]
 D'altra parte sappiamo che $f(x)=a^x$ e quindi
 per il limite notevole (corollario~\ref{cor:limite_notevole_e})
 \[
-\frac{f(x_n)-1}{x_n} = \frac{a^{x_n}-1}{x_n}
-= \frac{e^{x_n \ln a}-1}{x_n \ln a} \cdot \ln a
+\frac{f(x)-1}{x} = \frac{a^{x}-1}{x}
+= \frac{e^{x \ln a}-1}{x \ln a} \cdot \ln a
 \to \ln a.
 \]
 Deduciamo quindi che $\ln a= 1$ ovvero che $a=e$.
@@ -2486,14 +2486,16 @@ della funzione esponenziale già definita
 sulla retta reale.
 
 In analogia con il corollario~\ref{cor:limite_notevole_ex}
-si ha il seguente.
+si ha il seguente risultato che fornisce anche un 
+modo alternativo per dimostrare il teorema~\ref{th:exp=ex}.
 
 \begin{theorem}[limite notevole esponenziale complesso]%
 \label{th:limite_notevole_esponenziale_complesso}%
 \mymark{*}%
 Per ogni $z\in \CC$ risulta
 \[
-  \lim_{n \to +\infty} \enclose{1+\frac z n}^n  = \exp(z).
+  \lim_{n \to +\infty} \enclose{1+\frac z n}^n  
+  = \sum_{k=0}^{+\infty} \frac{z^k}{k!}.
 \]
 \end{theorem}
 %
@@ -2614,56 +2616,57 @@ Si veda il codice a pagina~\pageref{code:compute_e}.}
 \index{cifre!$e$}
 \end{table}
 
-\begin{theorem}[approssimazione di $e$]
-\label{th:approx_e}%
-\index{$e$!approssimazione}%
-\index{approssimazione!di $e$}%
-Risulta
-\[
-   0 < e - \sum_{k=0}^n \frac{1}{k!} \le \frac{1}{n \cdot n!}.
-\]
-In particolare per $n=5$ si ottiene
-\[
-  2.716 < e < 2.719
-\]
-\end{theorem}
-%
-\begin{proof}
-Posto
-\[
-  R_n = e - \sum_{k=0}^n \frac{1}{k!} = \sum_{k=n+1}^{+\infty} \frac{1}{k!}
-\]
-risulta
-\[
-  n! R_n = \sum_{k=n+1}^{+\infty} \frac{n!}{k!}
-\]
-e osservando che per $k>n$ si ha
-\[
-\frac{n!}{k!} = \frac{1}{k (k-1) \dots (n+1)} \le \frac{1}{(n+1)^{k-n}}
-\]
-otteniamo
-\begin{align*}
- n! R_n  & \le \sum_{k=n+1}^{+\infty}\frac{1}{(n+1)^{k-n}}
- = \frac 1 {n+1} \sum_{j=0}^{+\infty} \enclose{\frac{1}{n+1}}^j \\
- &= \frac 1 {n+1} \cdot \frac{1}{1-\frac{1}{n+1}} = \frac 1 n.
-\end{align*}
-
-Per $n=5$ si ha
-\[
- \sum_{k=0}^5 \frac{1}{k!} = 1 + 1 + \frac 1 2 + \frac{1}{6} + \frac {1}{24} + \frac{1}{120}
- = \frac{326}{120}
-\]
-Dunque da un lato
-\[
-  e \ge \frac{326}{120} \ge 2.716
-\]
-e dall'altro
-\[
- e \le \frac{326}{120} + \frac{1}{5\cdot 5!}
-   \le 2.717 + 0.002 = 2.719
-\]
+\begin{theorem}[approssimazione dell'esponenziale]
+  \label{th:approx_exp}%
+  \label{th:approx_e}%
+  \index{$\exp$!approssimazione}%
+  \index{approssimazione!di $\exp$}%
+  Se $\abs{z}\le 1$ si ha 
+  \begin{equation}\label{eq:stima_exp}
+    \abs{\exp(z) - \sum_{k=0}^n \frac{z^k}{k!}}
+    \le \frac{\abs{z}^{n+1}}{n\cdot n!}.
+  \end{equation}
+  In particolare ponendo $z=1$ si trova
+  \begin{equation}\label{eq:stima_e}
+     0 < e - \sum_{k=0}^n \frac{1}{k!} \le \frac{1}{n \cdot n!}.
+  \end{equation}
+  e per $n=5$ si ottiene
+  \begin{equation}
+    2.716 < e < 2.719
+  \end{equation}
+  \end{theorem}
+  %
+  \begin{proof}
+  La coda della serie esponenziale può essere stimata 
+  tramite la somma di una serie geometrica:
+  \begin{align*}
+    \abs{\exp z - \sum_{k=0}^n \frac 1 {k!}}
+    & \le \sum_{k=n+1}^{+\infty} \frac{\abs{z}^k}{k!} 
+     = \sum_{k=0}^{+\infty}\frac{\abs{z}^{n+k+1}}{(n+k+1)!} \\
+    & \le \sum_{k=0}^{+\infty}\frac{\abs{z}^{n+1+k}}{(n+1)^{k+1}\cdot n!}
+     = \frac{\abs{z}^{n+1}}{n!}\sum_{k=0}^{+\infty} \enclose{\frac{\abs{z}}{(n+1)}}^k \\
+    & = \frac{\abs{z}^{n+1}}{(n+1)\cdot n!} \cdot \frac{1}{1-\frac{\abs{z}}{(n+1)}} 
+     = \frac{\abs{z}^{n+1}}{(n+1-\abs{z})\cdot n!}.
+  \end{align*}
+  Se $\abs{z}\le 1$ si ottiene quindi la stima~\eqref{eq:stima_exp}.
+  Se $z=1$ la serie esponenziale è a termini positivi e dunque 
+  approssima $e$ per difetto: si ottiene dunque~\eqref{eq:stima_e}.
+  Per $n=5$ si ha
+  \[
+   \sum_{k=0}^5 \frac{1}{k!} = 1 + 1 + \frac 1 2 + \frac{1}{6} + \frac {1}{24} + \frac{1}{120}
+   = \frac{326}{120}
+  \]
+  Dunque da un lato
+  \[
+    e \ge \frac{326}{120} \ge 2.716
+  \]
+  e dall'altro
+  \[
+   e \le \frac{326}{120} + \frac{1}{5\cdot 5!}
+     \le 2.717 + 0.002 = 2.719
+  \]
 \end{proof}
-
+  
 \begin{theorem}[irrazionalità di $e$]
 \mymargin{$e\not\in \QQ$}%
 \mymark{**}%
@@ -2677,26 +2680,74 @@ Supponiamo per assurdo che sia $e=p/q$ con $p\in \ZZ$ e $q \in \NN$.
 Possiamo supporre $q>1$
 (non importa che la frazione sia ridotta ai minimi termini).
 
-Allora si ha
+Per ogni $n\in \NN$ si ha 
 \[
-  q! e = \sum_{k=0}^{+\infty} \frac{q!}{k!}
-   = \sum_{k=0}^q \frac{q!}{k!} + q!\sum_{k=q+1}^{+\infty} \frac{1}{k!}
+  n! e = \sum_{k=0}^{+\infty} \frac{n!}{k!}
+   = \sum_{k=0}^n \frac{n!}{k!} + n!\sum_{k=n+1}^{+\infty} \frac{1}{k!}.
 \]
 Il primo addendo nella somma precedente è intero
-in quanto se $k\le q$ il rapporto $q!/k!$ è intero.
-D'altra parte per il teorema~\ref{th:approx_e}
-per il secondo addendo abbiamo
+in quanto se $k\le n$ il rapporto $n!/k!$ è intero.
+Grazie al teorema~\ref{th:approx_e}
+per il secondo addendo se $n>1$ si ha:
 \[
-0 < q! \sum_{k=q+1}^{+\infty} \frac{1}{k!}
-\le \frac{1}{q} < 1
+0 < n! \sum_{k=n+1}^{+\infty} \frac{1}{k!}
+\le \frac{1}{n} < 1.
 \]
-e dunque risulterebbe che $q! e$ non è intero in quanto strettamente compreso
-tra due interi consecutivi. Ma questo è assurdo perché abbiamo supposto
-$e=p/q$ e quindi $q! e = p(q-1)!$ dovrebbe essere intero.
+Risulta dunque che per ogni $n\ge 2$ il numero $n! e$
+è strettamente compreso tra due interi consecutivi e quindi non 
+è mai intero. Dunque $e$ non può essere razionale perché 
+se fosse $e=\frac p q$ si avrebbe $n! e \in \ZZ$ per ogni 
+$n>q$.
 \end{proof}
 
 
 \section{le funzioni trigonometriche}
+Se $t\in \RR$ il numero complesso $e^{it}$ è unitario (ha modulo uno)
+in quanto, per le proprietà dell'esponenziale complesso, si ha
+\[
+\abs{e^{it}}^2 
+  = e^{it}\cdot \overline{e^{it}}  
+  = e^{it}\cdot e^{-it} = e^{it-it} = e^0 = 1.
+\]
+Ci ricordiamo che il prodotto di due numeri unitari $e^{it}$,
+$e^{is}$
+è un numero unitario che geometricamente identifica un angolo 
+che è la somma degli angoli identificati dai due fattori.
+Visto che si ha $e^{it}\cdot e^{is} = e^{i(t+s)}$ significa 
+che l'angolo identificato dal numero complesso $e^{i(t+s)}$
+è la somma degli angoli geometrici identificati da $e^{it}$ e da $e^{is}$.
+Essendo inoltre $e^{it}$ una funzione continua dobbiamo 
+dedurre che dal punto di vista geometrico il parametro $t$ 
+misura l'ampiezza dell'angolo identificato da $e^{it}$ 
+sulla circonferenza unitaria. 
+Più precisamente possiamo osservare che se $\Delta t\to 0$ 
+grazie al limite notevole dell'esponenziale complesso otteniamo 
+\[
+\lim_{\Delta t\to 0 }\frac{e^{i(t+\Delta t)} - e^{it}}{\Delta t}
+= i e^{it} \lim_{t\to 0}\frac{e^{i\Delta t} - 1}{i \Delta t}
+= i e^{it}.
+\]
+Significa che se interpretiamo $t\mapsto e^{it}$ come la legge oraria 
+di un punto che si muove sulla circonferenza unitaria, 
+la velocità del punto, al tempo $t$, è rappresentata dal 
+vettore (numero complesso) $v = ie^{it}$ che non è altro che il ruotato 
+di $e^{it}$ di un angolo retto in senso antiorario.
+Dunque il punto $e^{it}$ si muove di moto circolare uniforme 
+in senso antiorario sulla circonferenza unitaria 
+con velocità di modulo unitario.
+Scopriamo quindi che il punto $e^{it}$ ha percorso dal tempo $t=0$ 
+un arco di lunghezza pari a $t$.
+
+La definizione seguente dunque può essere interpretata geometricamente 
+dicendo che le funzioni $\cos t$ e $\sin t$ sono le coordinate 
+$x$ e $y$ del punto sulla circonferenza unitaria $x^2+y^2=1$ 
+che identifica un arco di lunghezza $t$ misurato in senso antiorario 
+a partire dal punto di coordinate $(1,0)$. 
+La lunghezza di un arco unitario sulla circonferenza unitaria 
+si chiama \myemph{radiante} e diremo quindi che $t$
+è la misura in radianti dell'angolo identificato dal punto $e^{it}$
+di coordinate $(\cos t, \sin t)$ sul piano complesso.
+
 \index{funzioni!trigonometriche}
 
 \begin{definition}[funzioni trigonometriche]%
@@ -2768,11 +2819,11 @@ sono continue;
   = x - \frac{x^3}{6} + \frac{x^5}{5!} - \frac{x^7}{7!} + \dots
 \end{align}
 \item
-se $a_n \to 0$ ($a_n\in \RR$) per $n\to +\infty$ si ha
+vale il seguente limite notevole
 \[
- \lim_{n\to +\infty} \frac{\sin a_n}{a_n} = 1
+ \lim_{x\to 0} \frac{\sin x}{x} = 1
  \qquad\text{e}\qquad
- \lim_{n\to +\infty} \frac{1-\cos a_n}{a_n^2} = \frac 1 2.
+ \lim_{x\to 0} \frac{1-\cos x}{x^2} = \frac 1 2.
 \]
 \end{enumerate}
 
@@ -2871,33 +2922,37 @@ Dunque queste due serie coincidono con la parte reale e la parte immaginaria di 
 
 \item
 Per la corrispondente proprietà dell'esponenziale
-sappiamo che per $a_n \to 0$ si ha
+sappiamo che per $x \to 0$ si ha
 \[
-  \frac{e^{ia_n}-1}{i a_n} \to 1.
+  \frac{e^{i x}-1}{i x} \to 1.
 \]
 Ma
 \[
-  \frac{e^{ia_n}-1}{i a_n}
-  = \frac{\cos a_n - 1 + i \sin a_n}{i a_n}
-  = \frac{\sin a_n}{a_n} + i\frac{1- \cos a_n  }{a_n}.
+  \frac{e^{ix}-1}{i x}
+  = \frac{\cos x - 1 + i \sin x}{i x}
+  = \frac{\sin x}{x} + i\frac{1- \cos x}{x}.
 \]
 Scopriamo dunque che
 \[
-  \frac{1-\cos a_n}{a_n} \to 0
+  \frac{1-\cos x}{x} \to 0
   \qquad\text{e}\qquad
-  \frac{\sin a_n}{a_n} \to 1.
+  \frac{\sin x}{x} \to 1.
 \]
 D'altra parte si ha
 \begin{align*}
- \frac{1-\cos a_n}{a_n^2}
- &=\frac{(1-\cos a_n)\cdot(1+\cos a_n)}{a_n^2(1+\cos a_n)}
- = \frac{1-\cos^2 a_n}{a_n^2} \cdot \frac{1}{1+\cos a_n}\\
- &= \enclose{\frac{\sin a_n}{a_n}}^2\cdot \frac 1{1+\cos a_n}
+ \frac{1-\cos x}{x^2}
+ &=\frac{(1-\cos x)\cdot(1+\cos x)}{x^2(1+\cos x)}
+ = \frac{1-\cos^2 x}{x^2} \cdot \frac{1}{1+\cos x}\\
+ &= \enclose{\frac{\sin x}{x}}^2\cdot \frac 1{1+\cos x}
  \to 1 \cdot \frac 1 {1+\cos 0} = \frac 1 2.
 \end{align*}
 
 \end{enumerate}
 \end{proof}
+
+Definiamo $\pi$ come la misura in radianti dell'angolo piatto, 
+cioè dell'angolo dell'angolo identificato dal numero $e^{i\pi} = -1$ 
+sul piano complesso.
 
 \begin{theorem}[definizione di $\pi$]
 \index{$\pi$!definizione}%
@@ -2906,7 +2961,7 @@ D'altra parte si ha
 \mynote{$\pi$}%
 Definiamo $\pi$ come il più piccolo numero reale
 positivo in cui si annulla la funzione $\sin x$.
-Si ha $\pi \in [3,3.2]$.
+Si ha $\pi \in [2.8,4]$.
 Le funzioni $e^{ix}$, $\sin x$ e $\cos x$ sono
 periodiche di periodo $\tau = 2\pi$:
 \mynote{$\tau$}%
@@ -2915,11 +2970,19 @@ periodiche di periodo $\tau = 2\pi$:
   \cos(x + 2\pi) = \cos x, \qquad
   \sin(x + 2\pi) = \sin x.
 \]
-La funzione $\sin x$ è crescente nell'intervallo
-$\Enclose{-\frac \pi 2,\frac \pi 2}$ mentre
-la funzione $\cos x$ è decrescente nell'intervallo $[0,\pi]$.
+La funzione $\sin x$ è strettamente crescente nell'intervallo
+$\closeinterval{-\frac \pi 2}{\frac \pi 2}$ e strettamente 
+mentre la funzione $\cos x$ è strettamente decrescente 
+nell'intervallo $\closeinterval{0}{\pi}$.
+Si ha infine:
+\begin{align*}
+\sin(\pi + x) =_ -\sin x, \qquad 
+\cos(\pi + x) = -\cos x.
+\end{align*}
 
 Vale inoltre la celeberrima formula di Eulero:
+\index{Eulero!formula di}%
+\index{formula!di Eulero}%
 \[
   e^{i\pi} + 1 = 0.
 \]
@@ -2927,144 +2990,158 @@ Vale inoltre la celeberrima formula di Eulero:
 %%
 %%
 \begin{proof}
-Grazie alle formule~\eqref{eq:serie_cos} e \eqref{eq:serie_sin}
-possiamo scrivere
-\begin{align*}
-\cos x &= 1 - \frac{x^2}{2}
-+ \sum_{k=0}^{+\infty} (-1)^k\frac{x^{4+2k}}{(4+2k)!}, \\
-  &= 1 - \frac{x^2}{2} + \frac{x^4}{24}
-  - \sum_{k=0}^{+\infty} (-1)^k\frac{x^{6+2k}}{(6+2k)!}, \\
-\sin x &= x - \frac{x^3}{6} + \sum_{k=0}^{+\infty} (-1)^k \frac{x^{5+2k}}{(5+2k)!}.
-\end{align*}
-Osserviamo che per ogni $n\in \NN$ si ha
-\begin{align*}
-  \sum_{k=0}^{+\infty}(-1)^k \frac{x^{n+2k}}{(n+2k)!}
-  &= \sum_{k=0}^{+\infty}\Enclose{\frac{x^{n+4k}}{(n+4k)!}
-    - \frac{x^{n+4k+2}}{(n+4k+2)!}}\\
-  &= \sum_{k=0}^{+\infty}\frac{x^{n+4k}\Enclose{(n+4k+1)(n+4k+2) - x^2}}{(n+4k+2)!}
-\end{align*}
-e questa serie ha tutti i termini non negativi
-e quindi ha somma non negativa se $0 \le x \le \sqrt 2$.
-Dunque se $x\in [0,\sqrt 2]$ si ha
-\begin{align*}
-1 - \frac{x^2}{2}
-\le  \cos x \le 1 - \frac{x^2}{2} + \frac{x^4}{24},
-\qquad
-  \sin x \ge x - \frac{x^3}{6}.
-\end{align*}
-Vogliamo ora dimostrare che la funzione
-$\cos x$ è strettamente decrescente su tale intervallo.
-Presi $x_1,x_2\in[0,\sqrt 2]$ con $x_1<x_2$
-si ha
-\begin{align*}
-\cos x_1 - \cos x_2
-&= \cos x_1 - \cos (x_1+(x_2-x_1)) \\
-&= \cos x_1 - \cos x_1 \cdot \cos(x_2-x_1) + \sin x_1 \cdot \sin (x_2-x_1)\\
-&= \cos x_1 \cdot (1-\cos (x_2-x_1)) + \sin x_1 \cdot \sin (x_2-x_1).
-\end{align*}
-Ora, se $x\in [0,\sqrt 2]$ si ha
-\begin{align*}
-\cos x \ge 1 - \frac{x^2}{2}
-\ge 0,
- \qquad
-\sin x \ge x - \frac{x^3}{6}
-= x \cdot \enclose{1-\frac{x^2}{6}}
-\ge x \cdot \frac 2 3\\
-\end{align*}
-e quindi
-\begin{gather*}
-\cos x_1 \ge 0, \qquad
-\sin x_1 \ge 0, \\
-\sin (x_2-x_1) > 0, \qquad
-\cos (x_2-x_1) = \sqrt{1-\sin^2(x_2-x_1)} < 1
-\end{gather*}
-per cui
-\[
-  \cos x_1 - \cos x_2 > 0.
-\]
-Significa che $\cos x$ è strettamente
-decrescente sull'intervallo $[0,\sqrt 2]$.
-Vogliamo ora dimostrare che esiste\ $\alpha\in[0,\sqrt 2]$
-tale che $\cos \alpha = \frac 1 2$.
-Visto che su tale intervallo
-\[
-1-\frac{x^2}{2} \le \cos x \le 1 - \frac{x^2}{2} + \frac{x^4}{24}
-\]
-per approssimare $\alpha$ vogliamo trovare
-due numeri $a<b$ per cui
-\[
-1 - \frac{b^2}{2} + \frac{b^4}{24}
-\le \frac 1 2
-\le 1-\frac{a^2}{2}.
-\]
-La disequazione di destra è verificata da $a=1$.
-La disequazione di sinistra è verificata se
-\[
-    b^4 - 12 b^2 + 12 < 0
-\]
-cioè (risolvendo l'equazione biquadratica) basta che sia
-\[
-  6 - 2\sqrt 6 \le
-  b^2 \le 6 + 2\sqrt 6
-\]
-che è soddisfatta se scegliamo $b = \frac{\sqrt{10}}{3}$.
-Per il teorema~\ref{th:zeri_monotona} esiste
-$\alpha\in [1,\sqrt{10}/3]$
-tale che $\cos \alpha = \frac 1 2$.
-Inoltre $\sin \alpha=\sqrt{1-\cos^2 \alpha}= \frac{\sqrt{3}}{2}$
-e quindi
-\begin{align*}
-  e^{i\alpha} &= \cos \alpha + i \sin \alpha = \frac{1+ i\sqrt 3}{2}\\
-  e^{2i\alpha} &= (e^{i\alpha})^2
-  = \frac{(1+i\sqrt 3)^2}{4}
-  = \frac{-2+2i\sqrt 3}{4}\\
-  e^{3i\alpha} &= e^{2i\alpha}\cdot e^{i\alpha}
-  = \frac{(-2+2i\sqrt 3)(1+i\sqrt 3)}{8}
-  = -1 \\
-  e^{6i\alpha} &= (e^{3i\alpha})^2 = 1.
-\end{align*}
-Se scegliamo $\pi = 3\alpha$ scopriamo quindi
-che $\pi\in [3,\sqrt{10}]
-\subset [3,3.2]$
-e che
-$e^{2\pi i} = 1$ dunque
-\[
-  e^{i(x+2\pi)} = e^{ix} \cdot e^{2\pi i} = e^{ix}.
-\]
-Significa che la funzione $e^{ix}$
-è periodica di periodo $2\pi$ e di conseguenza anche
-$\sin$ e $\cos$ sono periodiche di periodo $2\pi$.
+Il teorema~\ref{th:approx_exp} ci permette di approssimare la 
+funzione esponenziale $e^{ix}$ per $x\in [0,1]$. 
+Ci proponiamo quindi di determinare l'andamento delle funzioni 
+$\sin x$ e $\cos x$ in tale intervallo e definire in tale intervallo 
+il valore di $\alpha=\frac \pi 4$.
+Tramite tale valore $\alpha$ e tramite le formule di addizione riusciremo 
+a determinare l'andamento delle funzioni $\sin$ e $\cos$ su tutta la 
+retta reale.
 
-Rimangono da mostrare le proprietà di monotonia.
-Per quanto già detto sappiamo
-che il coseno è strettamente
-decrescente nell'intervallo
-$\Enclose{0,\frac \pi 4}\subset [0,\sqrt 2]$.
-Dunque la funzione $\sin x = \sqrt{1-\cos^2 x}$
-è strettamente crescente su tale intervallo.
-Poi, visto che
+Se $x\in[0,1]$ grazie al teorema~\ref{th:approx_exp} applicato 
+con $n=3$ sappiamo che 
+\begin{align*}
+  \abs{e^{ix} - \enclose{1 + ix  + \frac{(ix)^2}{2} + \frac{(ix)^3}{6}}}
+  \le \frac{\abs{ix}^4}{18}
+\end{align*}
+sviluppando
+\begin{align*}
+  \abs{\cos x + i \sin x - 1 - ix + \frac{x^2}{2} + i\frac{x^3}{6}}
+  \le \frac{x^4}{18}.
+\end{align*}
+Il valore assoluto delle parti reale e immaginaria di un numero 
+complesso sono minori del modulo del numero complesso.
+Dunque si ottiene:
+\begin{align}\label{eq:86035}
+    \abs{\cos x - 1 + \frac{x^2}{2}} \le \frac{x^4}{18}\smallskip
+    \qquad\text{e}\qquad
+    \abs{\sin x - x + \frac{x^3}{6}} \le \frac{x^4}{18}.
+\end{align}
+Per la funzione $\sin x$ si ha dunque
+\begin{align*}
+   x - \frac{x^3}{6} - \frac{x^4}{18}
+   \le \sin x 
+   \le x - \frac{x^3}{6} + \frac{x^4}{18}
+\end{align*}
+e sapendo che $0<x<1$ possiamo affermare che 
 \[
- \cos x  = \sin\enclose{\frac \pi 2 - x},
- \qquad
- \sin x = \cos\enclose{\frac \pi 2 - x}
+  x - \frac{x^3}{6} - \frac{x^4}{18}
+  \ge x - \frac{x}{6} - \frac{x}{18}
+  = \frac{7}{9} x
 \]
-possiamo dedurre che anche nell'intervallo
-$\Enclose{\frac \pi 4, \frac \pi 2}$
-il coseno è decrescente e seno è crescente.
-Ma usando anche
+e 
 \[
-\cos x = -\cos(\pi-x), \qquad \sin(-x)=-\sin x
+  x - \frac{x^3}{6} + \frac{x^4}{18}
+  \le x - \frac{x^3}{6} + \frac{x^3}{18}
+  \le x.
 \]
-troviamo infine che il coseno è strettamente
-decrescente anche
-nell'intervallo $\Enclose{\frac \pi 2, \pi}$
-e il seno è strettamente crescente anche
-nell'intervallo $\Enclose{-\frac \pi 2, 0}$.
+Dunque se $x\in[0,1]$ si ha 
+\begin{equation}\label{eq:4757614}
+  \frac{7}{9} x \le \sin x \le x.
+\end{equation}
+Per il coseno da un lato osserviamo che da~\eqref{eq:86035}
+si ottiene, se $x\in [0,1]$:
+\[
+\cos x 
+ \ge 1 - \frac{x^2}{2} -\frac{x^4}{18}   
+ \ge 1 - \frac{1}{2} - \frac{1}{18}
+ = \frac 4 9 > 0.
+\]
+Dall'altro lato si ha
+\[
+\cos x 
+\le 1 - \frac{x^2}{2} + \frac{x^4}{18}
+= 1 - \frac{x^2}{2} + \frac{x^2}{18}
+\le 1 - \frac{4}{9} x^2.
+\]
+
+Vogliamo ora dimostrare che la funzione $\cos x$ 
+è strettamente decrescente sull'intervallo $[0,1]$.
+Infatti se $x\in[0,1]$ e $t\in(0,1]$ si ha 
+\begin{align*}
+  \cos(x+t) 
+  = \cos x \cos t - \sin x \sin t
+  \le \cos x \cos t < \cos x
+\end{align*}
+in quanto $\sin x\ge 0$, $\sin t \ge 0$ 
+e $\cos t < 1 - \frac{5}{9}t^2 < 1$ se $t>0$.
+Dunque la funzione $\cos x$ è strettamente 
+decrescente su $[0,1]$. 
+Visto che $\cos^2 x + \sin^2 x = 1$ 
+deduciamo che la funzione $\sin^2 x$ 
+è strettamente crescente in $[0,1]$.
+Inoltre $\sin x$ è positiva su tale 
+intervallo e dunque anche $\sin x$
+è strettamente crescente in $[0,1]$.
+
+Vogliamo ora dimostrare che esiste 
+$\alpha \in [0,1]$ tale per cui 
+$\sin \alpha = \frac{\sqrt 2}{2}$.
+Visto che $\sin x$ è una funzione continua, 
+e $\sin 0 = 0$, per utilizzare 
+il teorema~\ref{th:zeri} dei valori intermedi 
+basterà verificare che $\sin 1 > \frac{\sqrt 2}{2}$.
+E infatti si ha:
+\[
+\sin 1 \ge \frac 7 9 > \frac{\sqrt 2}{2}.
+\]
+Dunque esiste un unico $\alpha\in [0,1]$ 
+tale che $\sin \alpha = \frac{\sqrt 2}{2}$.
+Allora anche $\cos \alpha = \frac{\sqrt 2}{2}$ 
+(in quanto $\sin^2 + \cos^2 = 1$)
+e quindi
+\[
+  e^{2i\alpha} 
+  = \enclose{\frac{\sqrt 2}{2} \enclose{1+i}}^2
+  = \frac 1 2 \enclose{1+2i-1} = i.
+\]
+Dunque $\alpha$ è la misura in radianti di metà 
+angolo retto.
+
+Se poniamo $\pi = 4\alpha$ scopriamo dunque che 
+\[
+  e^{i\pi} 
+  = \enclose{e^{2i\alpha}}^2
+  = i^2 = -1
+\]
+da cui $\sin \pi = 0$ e $\cos \pi = -1$.
+Analogamente da $e^{2i\alpha}=i$ 
+troviamo che $\sin \frac \pi 2 = 1$
+$\cos \frac \pi 2 = 0$.
+
+Dalla stima~\eqref{eq:4757614} si ottiene 
+\[
+ \frac 7 9 \alpha 
+ \le \frac{\sqrt 2}{2}
+ \le \alpha
+\]
+da cui $\pi=4\alpha \in [2.8, 4]$.
+
+Abbiamo verificato che sull'intervallo 
+$\closeinterval{0}{\frac \pi 4}$ la funzione $\sin x$ è strettamente 
+crescente mentre $\cos x$ è strettamente decrescente.
+Dalle formule di addizione possiamo quindi dedurre che 
+$\sin\enclose{\frac \pi 2 - x} = \cos x$ 
+e $\cos\enclose{\frac \pi 2 -x} = \sin x$.
+Dunque anche sull'intervallo $\closeinterval{\frac \pi 4}{\frac \pi 2}$ 
+la funzione $\sin x$ è crescente e $\cos x$ è decrescente.
+Ancora, tramite le formula di addizione troviamo che 
+$\sin(\pi - x)=\sin x$ e $\cos(\pi - x) = -\cos x$ 
+da cui possiamo dedurre che sia la funzione $\sin x$ 
+che la funzione $\cos x$ sono strettamente decrescenti 
+sull'intervallo $\closeopeninterval{\frac \pi 2}{\pi}$.
+Possiamo dunque affermare che $\sin x>0$ se $0<x<\pi$ 
+e dunque $\pi$ è il più piccolo reale positivo in cui 
+la funzione $\sin$ si annulla.
+
+Visto che $\sin(\pi+x) = -\sin x$ e $\cos(\pi+x)=-\cos x$
+possiamo stabilire l'andamento delle funzioni $\sin$ e $\cos$
+anche sull'intervallo $\closeinterval{\pi}{2\pi}$.
+Infine essendo $e^{2i\pi} = 1$ si osserva che la funzione 
+$e^{2ix}$ e di conseguenza le funzioni $\sin x$ e $\cos x$
+sono periodiche di periodo $2\pi$.
 \end{proof}
-
-Nel teorema precedente abbiamo definito $\pi$ in maniera analitica.
-L'usuale definizione geometrica ($\pi$ è il rapporto tra la lunghezza della
-circonferenza e il suo diametro) verrà recuperata nella sezione~\ref{sec:radianti}.
 
 \begin{exercise}
   Utilizzando il teorema~\ref{th:approx_e} dimostrare che
