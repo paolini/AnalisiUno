@@ -968,47 +968,52 @@ Osservando che $f(0)=2/e$ si trova quindi
 \end{proof}
 
 \begin{theorem}[proprietà di Darboux]
-Sia $f\colon I \to \RR$ una funzione derivabile su un intervallo $I\subset \RR$.
-Allora la derivata soddisfa la proprietà dei valori intermedi: per ogni $x,y\in I$ e per ogni $m$
-se $f'(x) \le m \le f'(y)$ allora esiste
-$z\in I$ tale che $f'(z)=m$.
+  \label{th:darboux}%
+  Sia $f\colon I \to \RR$ una funzione derivabile su un intervallo $I\subset \RR$.
+  Allora la derivata soddisfa la proprietà dei valori intermedi:
+  se $a,b\in I$, $a<b$ e se $m$ è un valore intermedio tra 
+  $f'(a)$ e $f'(b)$ (cioè $f'(a) < m < f'(b)$ o $f'(b) < m < f'(a)$)
+  allora esiste $x\in(a,b)$ tale che $f'(x) = m$. 
 \end{theorem}
-%
 \begin{proof}
-Siano $x,y \in I$ con $x<y$ e sia $m$ compreso tra $f'(x)$ e $f'(y)$.
-E' sufficiente trovare una coppia di punti $a,b\in I$ tali che
-\[
-  R(a,b) = \frac{f(b)-f(a)}{b-a} = m
-\]
-perché in tal caso, per il teorema di Lagrange, dovrà esistere un punto $z\in (a,b)$ tale che $f'(z)=m$.
-Senza perdita di generalità possiamo supporre che sia $f'(x) \le m \le R(x,y)$.
-Il caso in cui $m\ge R(x,y)$ si risolve infatti in maniera analoga.
-
-Consideriamo la funzione
-\[
-F(t)
-= \begin{cases}
-  f'(x) & \text{se $t=x$};\\
-  R(x,t) & \text{se $t\in(x,y]$}.
-\end{cases}
-\]
-La funzione $F\colon [x,y]\to \RR$ è continua in $(x,y]$ in quanto $R(x,t)$ è continua (essendo $f$ continua
-anche il rapporto incrementale lo è). E' anche continua in $x$ in quanto $f'(x)$
-per definizione è il limite del rapporto incrementale, dunque
-\[
-  F(x) = f'(x) = \lim_{t\to x} R(x,t) = \lim_{t\to x} F(t).
-\]
-Allora la funzione $F(t)$ assume i valori intermedi tra $F(x)=f'(x)$ e $F(y)=R(x,y)$.
-Ci sarà dunque un punto $t\in [x,y]$ per cui $F(t) = m$ e per il teorema di Lagrange
-esisterà un punto $z\in[x,t]$ tale che $f'(z) = R(x,t) = F(t) = m$.
+Dati $x,y\in [a,b]$, $x\neq y$, possiamo considerare 
+il rapporto incrementale:
+  \[
+    R(x,y) = \frac{f(y)-f(x)}{y-x}.
+  \]
+Fissato $x=a$ la funzione $y\mapsto R(a,y)$ è continua e tende a $f'(a)$
+quando $y$ tende ad $a$.
+Dunque, per il teorema~\ref{th:zeri} dei valori intermedi,
+tale funzione assume tutti i valori compresi tra $f'(a)$ e 
+$R(a,b)$. Analogamente fissato $y=b$ la funzione $x\mapsto R(x,b)$ 
+è continua e tende a $f'(b)$ quando $x$ tende a $b$.
+Dunque tale funzione assume tutti i valori intermedi 
+tra $R(a,b)$ e $f'(b)$. 
+Dunque esistono $x,y$ tali 
+che $R(x,y)=m$ e, per il teorema~\ref{th:lagrange}
+di Lagrange
+esisterà un punto intermedio $t\in(x,y)$ in cui 
+$f'(t)=R(x,y) = m$.
 \end{proof}
+
+\begin{figure}
+  \myurl{darboux}{Funzione con derivata non continua esempio \getrefnumber{ex:derivata_non_continua}}%
+  \centering\includegraphics[height=3cm]{darboux.pdf}
+  \caption{Il grafico di una funzione derivabile ma con 
+    derivata non continua (vedi esempio~\ref{ex:derivata_non_continua}).
+    La proprietà di Darboux (teorema~\ref{th:darboux})
+    rimane soddisfatta: la derivata assume tutti i valori 
+    compresi tra $1$ e $-1$ in ogni intorno di $x=0$ ma 
+    non ha limite per $x\to 0$.
+}
+\end{figure}
 
 \begin{example}
 [funzione derivabile con derivata non continua]
-\label{ex:derivata_non_continua}
-\mymark{**}
-\index{funzione!derivabile con derivata non continua}
-\index{derivata!non continua}
+\label{ex:derivata_non_continua}%
+\mymark{**}%
+\index{funzione!derivabile con derivata non continua}%
+\index{derivata!non continua}%
 La funzione $f\colon \RR \to \RR$ definita da
 \[
   f(x)
@@ -1326,6 +1331,7 @@ come volevamo dimostrare. Per $t=0$ e $t=1$ la disuguaglianza è sempre banalmen
 La funzione $f(x) = \sqrt{x}$ è definita su $[0,+\infty)$ ma è derivabile solamente in $(0,+\infty)$. La sua derivata è $f'(x) = x^{-\frac 1 2 }/2$ e la derivata seconda è $f''(x) = -x^{-\frac 3 2}/4 < 0$. Dunque la funzione è concava sull'intervallo aperto $(0,+\infty)$. Ma essendo continua possiamo concludere che $f$ è concava su tutto il dominio $[0,+\infty)$.
 \end{example}
 
+\begin{comment}
 \begin{theorem}[continuità delle funzioni convesse]
 Siano $a,b \in \bar \RR$ con $a< b$.
 Sia $f\colon (a,b) \to \RR$ una funzione convessa. Allora $f$ è continua.
@@ -1348,55 +1354,156 @@ Moltiplicando per $\abs{x-x_0}$ si ottiene allora
 e per $x\to x_0$ il lato destro tende a zero e quindi per confronto anche il lato sinistro deve tendere a zero. Dunque $f(x)\to f(x_0)$
 e $f$ è continua in $x_0$.
 \end{proof}
+\end{comment}
 
-\begin{theorem}[combinazioni baricentriche]
-\mymark{*}%
-\label{th:combinazioni_baricentriche}%
-Se $f$ è una funzione convessa definita su un intervallo $I$, dati $x_1, \dots, x_n \in I$ e $\lambda_1, \dots, \lambda_n\in \RR$ tali che $\sum_{k=1}^n \lambda_k = 1$ e $\lambda_k \ge 0$ per ogni $k=1, \dots, n$ allora
-\[
-  f\enclose{\sum_{k=1}^n \lambda_k x_k}
-  \le \sum_{k=1}^n \lambda_k f(x_k).
-\]
-Per le funzioni concave vale la disuguaglianza inversa.
-\end{theorem}
-%
-La seguente è una dimostrazione algebrica. 
-Dopo il teorema~\ref{th:supporto_convessa}
-proporremo una dimostrazione alternativa valida in ambito molto più generale.
-%
-\begin{proof}
-Procediamo per induzione su $n$. Nel caso $n=1$ si ha $\lambda_1=1$ e i due lati della disuguaglianza sono effettivamente uguali. Supponendo il teorema dimostrato per un certo $n$, procediamo a dimostrarlo per $n+1$.
-Osserviamo che
-\begin{align*}
-  \sum_{k=1}^{n+1} \lambda_k x_k
-  &= \sum_{k=1}^n \lambda_k x_k  + \lambda_{n+1} x_{n+1} \\
-  &= (1-\lambda_{n+1})\sum_{k=1}^n\frac{\lambda_k}{1-\lambda_{n+1}} x_k + \lambda_{n+1} x_{n+1}.
-\end{align*}
-Visto che
-\[
-  \sum_{k=1}^{n+1} \lambda_k = 1
-\]
-si ha
-\[
-  \sum_{k=1}^n \frac{\lambda_k}{1-\lambda_{n+1}}
-  = \frac{1-\lambda_{n+1}}{1-\lambda_{n+1}} = 1.
-\]
-Dunque, per ipotesi induttiva si ha allora
-\[
-  f\enclose{\sum_{k=1}^n\frac{\lambda_k}{1-\lambda_{n+1}} x_k}
-  \le \sum_{k=1}^n \frac{\lambda_k}{1-\lambda_{n+1}}f(x_k).
-\]
-Usando di nuovo la convessità di $f$ con $t=\lambda_{n+1}$ si ha
-\begin{align*}
-f\enclose{\sum_{k=1}^{n+1} \lambda_k x_k}
-&=f\enclose{(1-\lambda_{n+1})\sum_{k=1}^n \frac{\lambda_k}{1-\lambda_{n+1}}x_k + \lambda_{n+1}x_{n+1}}\\
-&\le (1-\lambda_{n+1})f\enclose{\sum_{k=1}^n \frac{\lambda_k}{1-\lambda_{n+1}}x_k} + \lambda_{n+1}f(x_{n+1}) \\
-&\le (1-\lambda_{n+1})\sum_{k=1}^n \frac{\lambda_k}{1-\lambda_{n+1}} f(x_k) + \lambda_{n+1} f(x_{n+1})\\
-&= \sum_{k=1}^{n+1}\lambda_k f(x_k).
-\end{align*}
-come volevamo dimostrare.
-\end{proof}
-
+\begin{theorem}[derivabilità delle funzioni convesse]
+  Sia $I\subset \RR$ un intervallo e sia $f\colon I \to \RR$ una funzione convessa.
+  Se $x_0\in (\inf I, \sup I)$ esistono e sono finite la derivata destra 
+  e sinistra di $f$ in $x_0$:
+  \begin{align*}
+    f'_+(x_0) &= \lim_{x\to x_0^+} \frac{f(x)-f(x_0)}{x-x_0}\\
+    f'_-(x_0)  &= \lim_{x\to x_0^-} \frac{f(x)-f(x_0)}{x-x_0}  
+  \end{align*}
+  e risulta
+  \[
+    f'_-(x_0) \le f'_+(x_0).
+  \]
+  Inoltre se $\inf I < x_1 < x_2 < \sup I$ si ha 
+  \[
+    f'_+(x_1) \le f'_(x_2).
+  \]
+  Se ne deduce che $f$ è continua in tutti i punti interni di $I$ 
+  e che l'insieme dei punti in cui $f$ non è derivabile 
+  è al più numerabile.
+  \end{theorem}
+  %
+  \begin{proof}
+    Nel lemma~\ref{lemma:547091} abbiamo osservato che il rapporto incrementale
+    \[
+      R(x_0,x) = \frac{f(x)-f(x_0)}{x-x_0}
+    \] 
+    di una funzione convessa è crescente rispetto alla variabile $x$. 
+    Dunque per il teorema~\ref{th:limite_monotona} si 
+    ha 
+    \[
+      f'_-(x_0) = \sup_{x<x_0} R(x_0,x)>-\infty, \qquad 
+      f'_+(x_0) = \inf_{x>x_0} R(x_0,x)<+\infty
+    \]
+    e visto che se $x<x_0$ e $y>x_0$ si ha $R(x_0,x)\le R(x_0,y)$ 
+    deduciamo che $f'_-(x_0)\le f'_+(x_0)$ ed entrambi i limiti 
+    sono dunque finiti. Se $x_1 < x_2$ allora preso un qualunque 
+    punto $x$ con $x_1<x<x_2$ si ha (sempre per il lemma~\ref{lemma:547091})
+    \[
+      R(x_1,x) \le R(x,x_2)
+    \]
+    e dunque passando al limite si trova $f'_+(x_1) \le f'_-(x_2)$.
+    Le derivate destra e sinistra esistono dunque in tutti i punti interni 
+    all'intervallo $I$. 
+    In particolare $f$ è continua in tali punti in quanto è continua sia da destra 
+    che da sinistra.
+    I punti di non derivabilità di $f$ sono i punti in cui 
+    le derivate destra e sinistra differiscono. 
+    Ma ad ogni punto $x$ di non differenziabilità 
+    posso associare l'intervallo aperto non vuoto $I_x = (f'_-(x),f'_+(x))$ e per 
+    le proprietà appena viste è chiaro che questi intervalli sono a due a due disgiunti
+    in quanto se $x_1<x_2$ l'estremo destro di $I_{x_1}$ è minore o uguale all'estremo 
+    sinistro di $I_{x_2}$.
+    Siccome ognuno di questi intervalli contiene almeno un numero razionale concludiamo che 
+    il numero di punti di discontinuità non può essere maggiore della cardinalità 
+    dei numeri razionali.
+  \end{proof}
+  
+  \begin{theorem}[retta di supporto]
+    \label{th:supporto_convessa}%
+    Sia $I\subset \RR$ un intervallo, $f\colon I\to\RR$ una funzione convessa 
+    e $x_0$ un punto interno ad $I$. Allora esiste una funzione lineare affine 
+    \[
+      L(x) = mx+q
+    \]
+    tale che $f(x_0) = L(x_0)$ e per ogni $x\in I$ si abbia $f(x)\ge L(x)$.
+  \end{theorem}
+  %
+  \begin{proof}
+    Basta scegliere qualunque $m\in [f'_-(x_0),f'_+(x_0)]$ e considerare la funzione 
+    lineare affine $L(x) = m(x-x_0)$. Se $x>x_0$ allora si ha $R(x_0,x)\ge m$ 
+    e dunque $f(x) - f(x_0) \ge m (x-x_0) = L(x)$. Viceversa se $x<x_0$ 
+    si ha $R(x_0,x)\le m$ da cui, di nuovo, $f(x)-f(x_0) \ge m(x-x_0) = L(x)$.
+  \end{proof}
+  %
+  Il seguente teorema può essere enunciato anche per gli integrali 
+  come vedremo nel teorema~\ref{th:jensen}. 
+  La dimostrazione è sostanzialmente identica ed è valida anche 
+  per funzioni convesse di più variabili.
+  %
+  \begin{theorem}[combinazioni baricentriche]
+    \mymark{*}%
+    \label{th:combinazioni_baricentriche}%
+    Se $f$ è una funzione convessa definita su un intervallo $I$, dati $x_1, \dots, x_n \in I$ e $\lambda_1, \dots, \lambda_n\in \RR$ tali che $\sum_{k=1}^n \lambda_k = 1$ e $\lambda_k \ge 0$ per ogni $k=1, \dots, n$ allora
+    \[
+      f\enclose{\sum_{k=1}^n \lambda_k x_k}
+      \le \sum_{k=1}^n \lambda_k f(x_k).
+    \]
+    Per le funzioni concave vale la disuguaglianza inversa.
+    \end{theorem}
+    %
+    La seguente è una dimostrazione algebrica. 
+    Dopo il teorema~\ref{th:supporto_convessa}
+    proporremo una dimostrazione alternativa valida in ambito molto più generale.
+    %
+    \begin{comment}
+    \begin{proof}
+    Procediamo per induzione su $n$. Nel caso $n=1$ si ha $\lambda_1=1$ e i due lati della disuguaglianza sono effettivamente uguali. Supponendo il teorema dimostrato per un certo $n$, procediamo a dimostrarlo per $n+1$.
+    Osserviamo che
+    \begin{align*}
+      \sum_{k=1}^{n+1} \lambda_k x_k
+      &= \sum_{k=1}^n \lambda_k x_k  + \lambda_{n+1} x_{n+1} \\
+      &= (1-\lambda_{n+1})\sum_{k=1}^n\frac{\lambda_k}{1-\lambda_{n+1}} x_k + \lambda_{n+1} x_{n+1}.
+    \end{align*}
+    Visto che
+    \[
+      \sum_{k=1}^{n+1} \lambda_k = 1
+    \]
+    si ha
+    \[
+      \sum_{k=1}^n \frac{\lambda_k}{1-\lambda_{n+1}}
+      = \frac{1-\lambda_{n+1}}{1-\lambda_{n+1}} = 1.
+    \]
+    Dunque, per ipotesi induttiva si ha allora
+    \[
+      f\enclose{\sum_{k=1}^n\frac{\lambda_k}{1-\lambda_{n+1}} x_k}
+      \le \sum_{k=1}^n \frac{\lambda_k}{1-\lambda_{n+1}}f(x_k).
+    \]
+    Usando di nuovo la convessità di $f$ con $t=\lambda_{n+1}$ si ha
+    \begin{align*}
+    f\enclose{\sum_{k=1}^{n+1} \lambda_k x_k}
+    &=f\enclose{(1-\lambda_{n+1})\sum_{k=1}^n \frac{\lambda_k}{1-\lambda_{n+1}}x_k + \lambda_{n+1}x_{n+1}}\\
+    &\le (1-\lambda_{n+1})f\enclose{\sum_{k=1}^n \frac{\lambda_k}{1-\lambda_{n+1}}x_k} + \lambda_{n+1}f(x_{n+1}) \\
+    &\le (1-\lambda_{n+1})\sum_{k=1}^n \frac{\lambda_k}{1-\lambda_{n+1}} f(x_k) + \lambda_{n+1} f(x_{n+1})\\
+    &= \sum_{k=1}^{n+1}\lambda_k f(x_k).
+    \end{align*}
+    come volevamo dimostrare.
+    \end{proof}
+  \end{comment}
+  %    
+  \begin{proof}
+  Poniamo 
+  \[
+    \bar x =  \sum_{k=1}^n \lambda_k x_k  
+  \]
+  e scegliamo $L(x) = mx + q$ una funzione lineare tale che $L(\bar x) = f(\bar x)$ 
+  e $L(x)\le f(x)$ per ogni $x \in I$.
+  Allora si ha 
+  \[
+  L \enclose{\sum_{k=1}^n \lambda_k x_k}
+  = \sum_{k=1}^n m \lambda_k x_k + q \sum_{k=1}^n \lambda_k 
+  = \sum_{k=1}^n \lambda_k L(x_k).  
+  \]
+  Dunque 
+  \[
+  f(\bar x) = L(\bar x) = \sum_{k=1}^n \lambda_k L(x_k) \le 
+  \sum_{k=1}^n \lambda_k f(x_k).
+  \]
+  \end{proof}
 
 \begin{example}[disuguaglianza tra media aritmetica e media geometrica]
 \mymark{*}
@@ -1442,108 +1549,6 @@ f(x) &= f\enclose{\frac{y}{x+y}\cdot 0 + \frac{x}{x+y}\cdot (x+y)}\\ &\ge \frac{
 Scambiando $x$ con $y$ e sommando si ottiene:
 \[
   f(x) + f(y) \ge \frac{x}{x+y}f(x+y) + \frac{y}{x+y}f(x+y) = f(x+y).
-\]
-\end{proof}
-
-
-\begin{theorem}[derivabilità delle funzioni convesse]
-Sia $I\subset \RR$ un intervallo e sia $f\colon I \to \RR$ una funzione convessa.
-Se $x_0\in I$ è un punti interno di $I$ allora esistono e sono finite la derivata destra 
-e sinistra di $f$ in $x_0$:
-\begin{align*}
-  f'_+(x_0) &= \lim_{x\to x_0^+} \frac{f(x)-f(x_0)}{x-x_0}\\
-  f'_-(x_0)  &= \lim_{x\to x_0^-} \frac{f(x)-f(x_0)}{x-x_0}  
-\end{align*}
-e risulta
-\[
-  f'_-(x_0) \le f'_+(x_0).
-\]
-Inoltre se $x_1 < x_2$ sono punti interni ad $I$ si ha 
-\[
-  f'_+(x_1) \le f'_(x_2).
-\]
-Se ne deduce che $f$ è continua in tutti i punti interni di $I$ ed che 
-l'insieme dei punti in cui $f$ non è derivabile 
-è al più numerabile.
-\end{theorem}
-%
-\begin{proof}
-  Nel lemma~\ref{lemma:547091} abbiamo osservato che il rapporto incrementale
-  \[
-    R(x_0,x) = \frac{f(x)-f(x_0)}{x-x_0}
-  \] 
-  di una funzione convessa è crescente rispetto alla variabile $x$. 
-  Dunque per il teorema~\ref{th:limite_monotona} si 
-  ha 
-  \[
-    f'_-(x_0) = \sup_{x<x_0} R(x_0,x)>-\infty, \qquad 
-    f'_+(x_0) = \inf_{x>x_0} R(x_0,x)<+\infty
-  \]
-  e visto che se $x<x_0$ e $y>x_0$ si ha $R(x_0,x)\le R(x_0,y)$ 
-  deduciamo che $f'_-(x_0)\le f'_+(x_0)$ ed entrambi i limiti 
-  sono dunque finiti. Se $x_1 < x_2$ allora preso un qualunque 
-  punto $x$ con $x_1<x<x_2$ si ha (sempre per il lemma~\ref{lemma:547091})
-  \[
-    R(x_1,x) \le R(x,x_2)
-  \]
-  e dunque passando al limite si trova $f'_+(x_1) \le f'_-(x_2)$.
-  Le derivate destra e sinistra esistono dunque in tutti i punti interni 
-  all'intervallo $I$. 
-  In particolare $f$ è continua in tali punti in quanto è continua sia da destra 
-  che da sinistra.
-  I punti di non derivabilità di $f$ sono i punti in cui 
-  le derivate destra e sinistra differiscono. 
-  Ma ad ogni punto $x$ di non differenziabilità 
-  posso associare l'intervallo aperto non vuoto $I_x = (f'_-(x),f'_+(x))$ e per 
-  le proprietà appena viste è chiaro che questi intervalli sono a due a due disgiunti
-  in quanto se $x_1<x_2$ l'estremo destro di $I_{x_1}$ è minore o uguale all'estremo 
-  sinistro di $I_{x_2}$.
-  Siccome ognuno di questi intervalli contiene almeno un numero razionale concludiamo che 
-  il numero di punti di discontinuità non può essere maggiore della cardinalità 
-  dei numeri razionali.
-\end{proof}
-
-\begin{theorem}[retta di supporto]
-  \label{th:supporto_convessa}%
-  Sia $I\subset \RR$ un intervallo, $f\colon I\to\RR$ una funzione convessa 
-  e $x_0$ un punto interno ad $I$. Allora esiste una funzione lineare affine 
-  \[
-    L(x) = mx+q
-  \]
-  tale che $f(x_0) = L(x_0)$ e per ogni $x\in I$ si abbia $f(x)\ge L(x)$.
-\end{theorem}
-%
-\begin{proof}
-  Basta scegliere qualunque $m\in [f'_-(x_0),f'_+(x_0)]$ e considerare la funzione 
-  lineare affine $L(x) = m(x-x_0)$. Se $x>x_0$ allora si ha $R(x_0,x)\ge m$ 
-  e dunque $f(x) - f(x_0) \ge m (x-x_0) = L(x)$. Viceversa se $x<x_0$ 
-  si ha $R(x_0,x)\le m$ da cui, di nuovo, $f(x)-f(x_0) \ge m(x-x_0) = L(x)$.
-\end{proof}
-
-Il teorema precedente ci permette di dare la seguente dimostrazione alternativa
-della disuguaglianza di convessità per le combinazioni baricentriche.
-Questa dimostrazione è di una generalità estrema in quanto si potrà estendere 
-a misure di probabilità qualunque e spazi di dimensione arbitraria (anche infinita).
-Il teorema~\ref{th:jensen} usa questa stessa dimostrazione nel caso di misure continue.
-%
-\begin{proof}[Dimostrazione alternativa del 
-teorema~\ref{th:combinazioni_baricentriche}]
-Poniamo 
-\[
-  \bar x =  \sum_{k=1}^n \lambda_k x_k  
-\]
-e scegliamo $L(x) = mx + q$ una funzione lineare tale che $L(\bar x) = f(\bar x)$ 
-e $L(x)\le f(x)$ per ogni $x \in I$.
-Allora si ha 
-\[
-L \enclose{\sum_{k=1}^n \lambda_k x_k}
-= \sum_{k=1}^n m \lambda_k x_k + q \sum_{k=1}^n \lambda_k 
-= \sum_{k=1}^n \lambda_k L(x_k).  
-\]
-Dunque 
-\[
-f(\bar x) = L(\bar x) = \sum_{k=1}^n \lambda_k L(x_k) \le 
-\sum_{k=1}^n \lambda_k f(x_k).
 \]
 \end{proof}
 
