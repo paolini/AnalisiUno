@@ -999,6 +999,21 @@ $f'(t)=R(x,y) = m$.
 \begin{figure}
   \myurl{darboux}{Funzione con derivata non continua esempio \getrefnumber{ex:derivata_non_continua}}%
   \centering\includegraphics[height=3cm]{darboux.pdf}
+  \begin{comment}
+  \begin{tikzpicture}[scale=5]
+    \draw[->] (-0.5, 0) -- (0.5, 0) node[above] {$x$};
+    \draw[->] (0, -0.3) -- (0, 0.3) node[right] {$y$};
+    \draw[domain=-0.51:0.5, smooth, variable=\x, gray] plot ({\x}, {\x*\x});
+    \draw[domain=-0.51:0.5, smooth, variable=\x, gray] plot ({\x}, {-\x*\x});
+    \draw[domain=-0.51:0.5, variable=\x, samples=200, blue, thick] plot ({\x}, {\x*\x*sin(deg(1/\x))});
+  \end{tikzpicture}
+  \begin{tikzpicture}[scale=5000]
+    \draw[->] (0.0045, 0) -- (0.0055, 0) node[above] {$x$};
+    \draw[domain=0.0045:0.0055, smooth, variable=\x, gray] plot ({\x}, {\x*\x});
+    \draw[domain=0.0045:0.0055, smooth, variable=\x, gray] plot ({\x}, {-\x*\x});
+    \draw[domain=0.0045:0.0055, variable=\x, samples=200, blue, thick] plot ({\x}, {\x*\x*sin(deg(1/\x))});
+  \end{tikzpicture}
+  \end{comment}
   \caption{Il grafico di una funzione derivabile ma con 
     derivata non continua (vedi esempio~\ref{ex:derivata_non_continua}).
     La proprietà di Darboux (teorema~\ref{th:darboux})
@@ -1435,9 +1450,12 @@ e $f$ è continua in $x_0$.
   La dimostrazione è sostanzialmente identica ed è valida anche 
   per funzioni convesse di più variabili.
   %
-  \begin{theorem}[combinazioni baricentriche]
+  \begin{theorem}[combinazioni baricentriche/disuguaglianza di Jensen]
     \mymark{*}%
     \label{th:combinazioni_baricentriche}%
+    \index{combinazioni baricentriche}%
+    \index{disuguaglianza!di Jensen}%
+    \index{Jensen!disuguaglianza di}%
     Se $f$ è una funzione convessa definita su un intervallo $I$, dati $x_1, \dots, x_n \in I$ e $\lambda_1, \dots, \lambda_n\in \RR$ tali che $\sum_{k=1}^n \lambda_k = 1$ e $\lambda_k \ge 0$ per ogni $k=1, \dots, n$ allora
     \[
       f\enclose{\sum_{k=1}^n \lambda_k x_k}
@@ -1445,10 +1463,6 @@ e $f$ è continua in $x_0$.
     \]
     Per le funzioni concave vale la disuguaglianza inversa.
     \end{theorem}
-    %
-    La seguente è una dimostrazione algebrica. 
-    Dopo il teorema~\ref{th:supporto_convessa}
-    proporremo una dimostrazione alternativa valida in ambito molto più generale.
     %
     \begin{comment}
     \begin{proof}
@@ -1488,9 +1502,11 @@ e $f$ è continua in $x_0$.
   \begin{proof}
   Poniamo 
   \[
-    \bar x =  \sum_{k=1}^n \lambda_k x_k  
+    \bar x =  \sum_{k=1}^n \lambda_k x_k.
   \]
-  e scegliamo $L(x) = mx + q$ una funzione lineare tale che $L(\bar x) = f(\bar x)$ 
+  Per il teorema~\ref{th:supporto_convessa} precedente 
+  sappiamo che esiste una retta $L(x) = mx + q$ 
+  tale che $L(\bar x) = f(\bar x)$ 
   e $L(x)\le f(x)$ per ogni $x \in I$.
   Allora si ha 
   \[
@@ -1551,6 +1567,79 @@ Scambiando $x$ con $y$ e sommando si ottiene:
   f(x) + f(y) \ge \frac{x}{x+y}f(x+y) + \frac{y}{x+y}f(x+y) = f(x+y).
 \]
 \end{proof}
+
+Si osservi che sviluppando la disuguaglianza $(x-y)^2\ge 0$ si ottiene:
+\[
+  x y \le \frac{x^2 + y^2}{2}.
+\]
+Questa disuguaglianza può essere generalizzata ad esponenti diversi 
+come si vede nel seguente.
+
+\begin{theorem}[disuguaglianza di Young]%
+\label{th:young}%
+\index{Young!disuguaglianza di}%
+\index{disuguaglianza!di Young}%
+Se $p>1$, $q>1$, $\frac{1}{p}+\frac{1}{q}=1$, $x,y\ge 0$:
+\begin{equation}\label{eq:young}
+  x y \le \frac{x^p}{p} + \frac{y^q}{q}.
+\end{equation}
+\end{theorem}
+%
+\begin{proof}
+Si utilizza la disuguaglianza di convessità per la funzione $\exp(x)=e^x$. 
+Visto che la derivata seconda dell'esponenziale è positiva, la funzione $\exp$ 
+è convessa e dunque, se $x>0$ e $y>0$ si ha:
+\begin{align*}
+ x\cdot y 
+  &= \exp(\ln x + \ln y)
+  = \exp\enclose{\frac 1 p \ln (x^p) + \frac 1 q \ln (y^q)}  \\
+  &\le \frac 1 p \cdot \exp \ln (x^p) + \frac 1 q \exp \ln (y^q)
+  = \frac{x^p}{p} + \frac{y^q}{q}.
+\end{align*}
+Se $x=0$ o $y=0$ la disuguaglianza è ovvia in quanto il lato sinistro 
+di~\eqref{eq:young} è nullo.
+\end{proof}
+
+\begin{theorem}[disuguaglianza di Hölder]
+Se $a_k\ge 0$ e $b_k\ge 0$ per $k\in \NN$
+e siano $p>1$ e $q>1$ tali che $\frac 1 p + \frac 1 q = 1$.
+Allora 
+\[
+ \sum_k a_k b_k  \le \enclose{\sum_k a_k^p}^{1 \over p} \cdot \enclose{\sum_k b_k^q}^{1\over q}.
+\]
+\end{theorem}
+\begin{proof}
+Poniamo 
+\[
+A = \enclose{\sum_k a_k^p}^{1 \over p}, \qquad 
+B = \enclose{\sum_k b_k^q}^{1\over q}.
+\]
+Se $A>0$ e $B>0$ possiamo dividere il lato sinistro della disuguaglianza 
+per il lato destro e applicare la disuguaglianza~\eqref{eq:young} di Young:
+\begin{align*}
+  \frac{\sum_k a_k b_k}{A\cdot B} 
+  & = \sum_k \frac{a_k}{A}\cdot \frac{b_k}{B} 
+  \le \sum_k \frac 1 p \frac{a_k^p}{A^p} + \frac 1 q \frac{b_k^q}{B^q} \\
+  &= \frac 1 p \frac{\sum_k a_k^p}{A^p} + \frac 1 q \frac{\sum_k b_k^q}{B^q}
+  = \frac 1 p + \frac 1 q = 1.
+\end{align*}
+E il teorema e dimostrato. 
+
+Se fosse $A=0$ tutti i termini $a_k$ sarebbero nulli e la disuguaglianza 
+si riduce banalmente a $0\le 0$. Lo stesso se fosse $B=0$.  
+\end{proof}
+
+Nel caso $p=q=2$ si ottiene la 
+\myemph{disuguaglianza di Cauchy-Schwarz}
+\index{disuguaglianza!di Cauchy-Schwarz}%
+\index{Cauchy-Schwarz!disuguaglianza di}%
+\index{Schwarz!disuguaglianza di Cauchy-}%
+\[
+   \sum_k \abs{a_k b_k} \le \sqrt{\sum_k a_k^2} \cdot \sqrt{\sum_k b_k^2}
+\]
+che potrebbe però essere più facilmente dimostrata 
+per un generico prodotto scalare, come faremo 
+nel teorema~\ref{th:spazio_euclideo}.
 
 \section{teoremi di Cauchy e de l'Hospital}
 
@@ -2430,9 +2519,9 @@ Sia $I\subset \RR$ un intervallo, $x_0\in I$, $f\in C^{n-1}(I)$ con $f^{(n-1)}$
 derivabile in $x_0$
 (in particolare è sufficiente che sia $f\in C^n(I)$).
 Sia $P$ il polinomio di Taylor di $f$ di ordine $n$ centrato in $x_0$. Allora si ha
-\[
+\begin{equation}\label{eq:taylor_peano}
   \lim_{x\to x_0}\frac{f(x) - P(x)}{(x-x_0)^n} = 0
-\]
+\end{equation}
 ovvero, scritto in maniera più espressiva:
 \begin{equation}\label{eq:Taylor}
   f(x) = P(x) + o((x-x_0)^n).
@@ -2499,6 +2588,31 @@ per definizione di derivata $n$-esima:
   f^{(n)}(x_0) = \lim_{x\to x_0} \frac{f^{(n-1)}(x)-f^{(n-1)}(x_0)}{x-x_0}.
 \]
 
+Per completare la dimostrazione dobbiamo dimostrare che il polinomio di 
+Taylor $P$ è l'unico polinomio di grado non superiore ad $n$ che soddisfa 
+la condizione~\eqref{eq:taylor_peano}.
+Se ci fosse un altro polinomio $Q$ con la stessa proprietà la differenza 
+$R=(f-P)-(f-Q)=Q-P$ dovrebbe essere un polinomio di grado 
+non superiore ad $n$ che soddisfa la condizione 
+\begin{equation}\label{eq:496390}
+  \lim_{x\to x_0}\frac{R(x)}{(x-x_0)^n}=0.  
+\end{equation}
+Posto 
+\[
+  R(x) = \sum_{k=0}^n a_k (x-x_0)^k  
+\]
+osserviamo che $R(x)\to R(x_0) = a_0$ per $x\to x_0$. 
+Affinché valga~\eqref{eq:496390} deve necessariamente 
+essere $a_0 = 0$.
+Ma in tal caso possiamo raccogliere $x-x_0$ a numeratore 
+e denominatore e da~\eqref{eq:496390} ottenere 
+\[
+  \lim_{x\to x_0}\frac{\sum_{k=1}^n a_k (x-x_0)^{k-1}}{(x-x_0)^{n-1}}=0.  
+\]
+Iterando il procedimento scopriamo che tutti i coefficienti $a_k$ 
+devono essere nulli e dunque $Q=P$.
+\end{proof}
+
 \begin{comment}
   %% dimostrazione con l'hospital
 Osserviamo che il limite
@@ -2564,8 +2678,8 @@ Ma allora possiamo scrivere
 e visto che tutti gli addendi
 $a_k t^{k-m}$ tendono a zero per $t\to 0$ se fosse $a_m\neq 0$ il lato
 destro di questa uguaglianza tenderebbe a $\pm \infty$, assurdo.
-\end{comment}
 \end{proof}
+\end{comment}
 
 \begin{definition}[coefficiente binomiale reale]
 \label{def:binomiale_reale}
