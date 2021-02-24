@@ -20,7 +20,7 @@ def f(g):
     in (-pi,0) e 1 in (0,pi)
     """
     x = symbols("x")
-    return integrate(g(x), (x, 0, pi)) - integrate(g(x), (x, -pi, 0))
+    return integrate(g(x), (x, 0, pi)) - integrate(g(x), (x, pi, 2*pi))
 
 def fourier(f, n):
     """
@@ -37,5 +37,8 @@ n = 61
 print("polinomio trigonometrico di ordine {}".format(n))
 pol = fourier(f,n)(x)
 print(pol)
-fig = plot(pol, (x, -pi, pi))
-fig.savefig("fourier.png", dpi=600)
+fig = plot(pol, (x, 0, 2*pi))
+if hasattr(fig, "savefig"):
+    fig.savefig("fourier.png", dpi=600)
+else:
+    fig.save("fourier.png")
