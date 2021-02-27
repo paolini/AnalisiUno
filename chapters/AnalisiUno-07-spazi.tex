@@ -1881,7 +1881,7 @@ In particolare per $x=1$ si ottiene la formula di \myemph{Gregory-Leibniz}
 \]
 \end{example}
 
-\section{Convergenza integrale}
+\section{convergenza integrale}
 
 Motivati da come viene definita la norma di un vettore
 in $\RR^n$ risulta naturale
@@ -1952,9 +1952,7 @@ Chiamiamo $H(a,b)$ il quoziente:
   H(a,b) = \H(a,b)/\sim
 \]
 cioè lo spazio vettoriale delle funzioni in $\H(a,b)$ dove due funzioni
-vengono identificate se la norma della differenza è nulla
-(si vedano gli appunti di logica~\cite{appunti_logica}
-per la definizione di insieme quoziente).
+vengono identificate se la norma della differenza è nulla.
 
 Lo spazio quoziente $H(a,b)$ risulta finalmente essere uno spazio
 euclideo.
@@ -2249,23 +2247,70 @@ Il polinomio trigonometrico
 si chiama \myemph{sviluppo di Fourier} di ordine $N$ per $f$.
 \end{definition}
 
-\begin{figure}
-\begin{center}
-\includegraphics[height=5cm]{fourier.png}
-\end{center}
-\captionsetup{singlelinecheck=off}
-\caption{Lo sviluppo di Fourier della funzione
-che vale $1$ su $[0,\pi]$ e $-1$ su $[\pi,2\pi]$:
-$
-f_{61}(x)=
-\frac{4\sin(x)}{\pi} + \frac{4\sin(3x)}{3\pi} + \frac{4\sin(5x)}{5\pi} + \frac{4\sin(7x)}{7\pi} + \frac{4\sin(9x)}{9\pi} + \frac{4\sin(11x)}{11\pi} + \frac{4\sin(13x)}{13\pi} + \frac{4\sin(15x)}{15\pi} + \frac{4\sin(17x)}{17\pi} + \frac{4\sin(19x)}{19\pi} + \frac{4\sin(21x)}{21\pi} + \frac{4\sin(23x)}{23\pi} + \frac{4\sin(25x)}{25\pi} + \frac{4\sin(27x)}{27\pi} + \frac{4\sin(29x)}{29\pi} + \frac{4\sin(31x)}{31\pi}
-$.
-Il codice python per calcolare i coefficienti e generare il grafico
-a pagina~\pageref{code:Fourier}
-}
-\label{fig:fourier}
-\end{figure}
+\begin{example}
+Calcoliamo lo sviluppo di Fourier della funzione:
+\[
+  f(x) = 
+  \begin{cases}
+    1 & \text{se $x\in [0,\pi]$}\\
+    -1 & \text{se $x\in [\pi,2\pi]$}.
+  \end{cases}
+\]
+Per quanto riguarda $c_0 = \langle f, e_0\rangle$ si ha
+banalmente: 
+\[
+c_0 = \int_0^{2\pi} f(x) \cdot \frac{1}{\sqrt{2\pi}}\, dx 
+  = \frac{1}{\sqrt{2\pi}}\Enclose{\int_0^\pi 1 \, dx + \int_0^\pi (-1)\, dx}
+  = 0.  
+\]
+Per $c_{2k} = \langle f, e_{2k}\rangle$ si ha 
+\begin{align*}
+  c_{2k}
+  &= \int_0^{2\pi} f(x)\frac{\cos (kx)}{\sqrt{\pi}}\, dx \\
+  &= \frac{1}{\sqrt \pi} \Enclose{\int_0^\pi \cos (kx)\, dx 
+  - \int_{\pi}^{2\pi} \cos(kx)\, dx}
+  = 0 
+\end{align*}
+per motivi di simmetria.
+Per calcolare $c_{2k+1}=\langle f, e_{2k+1}\rangle$ 
+si trova 
+\begin{align*}
+  c_{2k+1}
+  &= \int_0^\pi \frac{\sin(kx)}{\sqrt \pi}\, dx 
+    - \int_\pi^{2\pi} \frac{\sin(kx)}{\sqrt \pi}\, dx \\
+  &= \frac{2}{\sqrt \pi}\int_0^\pi \sin(kx)\, dx
+  = \frac{2}{k\sqrt \pi}\int_0^{k\pi}\sin t\, dt\\
+  &= 
+  \begin{cases}
+    0 & \text{se $k$ pari,}\\
+    \frac{4}{k\sqrt \pi} & \text{se $k$ dispari.}
+  \end{cases}
+\end{align*}
+Si trova quindi che   
+\[
+ f_{2n+1}(x)
+ = \sum_{k=0}^n \frac{4}{(2k+1)\sqrt \pi}\sin((2k+1)x).
+\]
+Si veda la figura~\ref{fig:fourier}.
+\end{example}
 
+\begin{figure}
+  \begin{center}
+  \includegraphics[height=5cm]{fourier.png}
+  \end{center}
+  \captionsetup{singlelinecheck=off}
+  \caption{Lo sviluppo di Fourier della funzione
+  che vale $1$ su $[0,\pi]$ e $-1$ su $[\pi,2\pi]$:
+  $
+  f_{61}(x)=
+  \frac{4\sin(x)}{\pi} + \frac{4\sin(3x)}{3\pi} + \frac{4\sin(5x)}{5\pi} + \frac{4\sin(7x)}{7\pi} + \frac{4\sin(9x)}{9\pi} + \frac{4\sin(11x)}{11\pi} + \frac{4\sin(13x)}{13\pi} + \frac{4\sin(15x)}{15\pi} + \frac{4\sin(17x)}{17\pi} + \frac{4\sin(19x)}{19\pi} + \frac{4\sin(21x)}{21\pi} + \frac{4\sin(23x)}{23\pi} + \frac{4\sin(25x)}{25\pi} + \frac{4\sin(27x)}{27\pi} + \frac{4\sin(29x)}{29\pi} + \frac{4\sin(31x)}{31\pi}
+  $.
+  Il codice per calcolare i coefficienti e generare il grafico
+  si trova a pagina~\pageref{code:Fourier}.
+  }
+  \label{fig:fourier}
+  \end{figure}
+    
 Risulta naturale chiedersi se quella che abbiamo introdotto è una
 \emph{base hilbertiana} perché solo in tal caso gli sviluppi di Fourier
 approssimano la funzione.

@@ -274,9 +274,10 @@ possiamo utilizzare le formule per la derivata del prodotto e la derivata della 
 \end{align*}
 \end{proof}
 
-\begin{theorem}[derivate delle funzioni elementari]
-\index{derivata!delle funzioni elementari}
-\mymark{**}
+\begin{theorem}[derivate delle funzioni elementari]%
+\label{th:derivate_elementari}%
+\index{derivata!delle funzioni elementari}%
+\mymark{**}%
 Per $m,q,\alpha \in \RR$, $\alpha \neq 0$, $n\in \NN$, $n\neq 0$
 si ha
 \begin{gather*}
@@ -316,9 +317,20 @@ Per quanto riguarda le funzioni lineari si ha:
 \begin{align*}
 (mx+q)' &= \lim_{h\to 0}\frac{m(x+h)+q - (mx+q)}{h} = \lim_{h\to 0} m = m.
 \end{align*}
-Ricordando che la derivata è un limite e che il limite in un punto dipende solo dai valori della funzione in un intorno del punto, possiamo affermare che la derivata del valore assoluto $\abs{x}$ coincide con la derivata di $x$ cioè $1$ sugli $x>0$ e coincide con la derivata di $-x$ sugli $x<0$. Dunque $D \abs{x} = x / \abs{x}$ se $x\neq 0$. Se $x=0$ i limiti destro e sinistro del rapporto incrementale di $\abs{x}$ tendono rispettivamente a $1$ e $-1$ e quindi la derivata non esiste.
+Ricordando che la derivata è un limite e che il limite in un punto dipende 
+solo dai valori della funzione in un intorno del punto, 
+possiamo affermare che la derivata del valore assoluto $\abs{x}$ 
+coincide con la derivata di $x$ cioè $1$ sugli $x>0$ e coincide 
+con la derivata di $-x$ sugli $x<0$. Dunque $D \abs{x} = x / \abs{x}$ 
+se $x\neq 0$. 
+Se $x=0$ i limiti destro e sinistro del rapporto incrementale di $\abs{x}$ 
+tendono rispettivamente a $1$ e $-1$ e quindi la derivata non esiste.
 
-Dimostriamo che $Dx^n = n D x^{n-1}$ per $n\in \NN$, $n>0$, per induzione su $n$. Per $n=1$ abbiamo $x^n=x^1$ è lineare e quindi dalla formula precedente $Dx^1 = 1 = 1 \cdot x^0$. Supponendo di sapere che $D x^n = n x^{n-1}$ si ha, applicando la regola di derivazione del prodotto:
+Dimostriamo che $Dx^n = n D x^{n-1}$ per $n\in \NN$, $n>0$, 
+per induzione su $n$. Per $n=1$ abbiamo $x^n=x^1$ è lineare 
+e quindi dalla formula precedente $Dx^1 = 1 = 1 \cdot x^0$. 
+Supponendo di sapere che $D x^n = n x^{n-1}$ si ha, applicando 
+la regola di derivazione del prodotto:
 \[
   D x^{n+1} = D x\cdot x^n = 1 \cdot x^n + x \cdot n x^{n-1}
    = x^n + n x^n = (n+1) x^n
@@ -433,7 +445,34 @@ $\sinh x = \sqrt{\cosh^2 x -1}$:
 \end{align*}
 \end{proof}
 
-\section nomenclatura
+\begin{proposition}[trucco di Feynman per le derivate]
+Siano $f_1,\dots, f_n$ funzioni derivabili e siano $\alpha_1,\dots, \alpha_n$ 
+esponenti reali. Allora:
+  \[
+  \enclose{\prod_{k=1}^n f_k^{\alpha_k}}'
+  = \prod_{k=1}^n f_k \cdot \sum_{k=1}^n \alpha_k \frac{f_k'}{f_k}.
+  \]
+\end{proposition}
+\begin{proof}
+Basta osservare che 
+\begin{align*}
+  \enclose{\prod_{k=1}^n f_k^{\alpha_k}}
+  &= \sum_{k=1}^n \alpha_k f_k' f_k^{\alpha_k-1} \prod_{j\neq k} f_j^{\alpha_j}
+  = \sum_{k=1}^n \alpha_k \frac{f_k'}{f_k} \prod_{j=1}^n f_j^{\alpha_j}.
+\end{align*}
+\end{proof}
+Se ad esempio vogliamo calcolare la derivata della funzione 
+\[
+ \frac{\sqrt{1-x^2}\cdot \ln x}{x\cdot \cos^2 x}
+ = (1-x^2)^{\frac 1 2} \cdot \ln x \cdot x^{-1}\cdot (\cos x)^{-2}
+\]
+otteniamo 
+\[
+  \frac{\sqrt{1-x^2}\cdot \ln x}{x\cdot \sin^2 x}
+  \cdot \Enclose{\frac 1 2 \cdot \frac{-2x}{1-x^2} + \frac{1}{x\ln x} - \frac{1}{x}-2\frac{-\sin x}{\cos x}}.
+\]
+
+\section{nomenclatura}
 
 In questa sezione introdurremo una terminologia che è largamente utilizzata 
 nello studio di funzione.
@@ -501,6 +540,9 @@ per $x\to +\infty$ se risulta
   \lim_{x\to +\infty} f(x) - (mx+q) = 0.
 \]
 Se $m=0$ diremo che il grafico di $f$ ha un \emph{asintoto orizzontale} $y=q$
+\mymargin{asintoto orizzontale/obliquo}%
+\index{asintoto!orizzontale}%
+\index{asintoto!obliquo}%
 altrimenti diremo che $y=mx+q$ è un \emph{asintoto obliquo}.
 Stessa cosa si può dire per $x\to -\infty$.
 
@@ -508,7 +550,7 @@ Se $x_0\in \RR$ e si ha
 \[
   \lim_{x\to x_0} \abs{f(x)} = +\infty
 \]
-diremo che la retta $x=x_0$ è un \myemph{asintoto verticale} per il 
+diremo che la retta $x=x_0$ è un \myemph{asintoto!verticale} per il 
 grafico della funzione $f$.
 \end{definition}
 
@@ -1063,6 +1105,7 @@ $f'(t)=R(x,y) = m$.
 \begin{figure}
   \myurl{darboux}{Funzione con derivata non continua esempio \getrefnumber{ex:derivata_non_continua}}%
   \centering\includegraphics[height=3cm]{darboux.pdf}
+  \centering\includegraphics[width=\textwidth]{darboux2.pdf}
   \begin{comment}
   \begin{tikzpicture}[scale=5]
     \draw[->] (-0.5, 0) -- (0.5, 0) node[above] {$x$};
@@ -1080,8 +1123,11 @@ $f'(t)=R(x,y) = m$.
   \end{comment}
   \caption{Il grafico di una funzione derivabile ma con 
     derivata non continua (vedi esempio~\ref{ex:derivata_non_continua}).
+    L'ingrandimento nel disegno in basso rende evidente 
+    il fatto che la derivata oscilla tra i valori 
+    $-1$ e $1$ in ogni intorno di $0$.
     La proprietà di Darboux (teorema~\ref{th:darboux})
-    rimane soddisfatta: la derivata assume tutti i valori 
+    rimane comunque soddisfatta: la derivata assume tutti i valori 
     compresi tra $1$ e $-1$ in ogni intorno di $x=0$ ma 
     non ha limite per $x\to 0$.
 }
@@ -1180,8 +1226,9 @@ se per ogni $x,y\in I$ e per ogni $t\in [0,1]$ si ha
 f((1-t)x + ty) \le (1-t) f(x) + t f(y).
 \]
 
-Analogamente diremo che $f$ è \emph{concava} \mynote{funzione concava}
-\index{funzione!concava}
+Analogamente diremo che $f$ è \emph{concava} 
+\mynote{funzione concava}%
+\index{funzione!concava}%
 se vale la disuguaglianza inversa:
 \[
 f((1-t)x + ty) \ge (1-t) f(x) + t f(y)
