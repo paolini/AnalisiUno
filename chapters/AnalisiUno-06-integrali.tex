@@ -1,7 +1,5 @@
 \chapter{calcolo integrale}
 
-%\begin{comment}
-
 \section{misura di Peano-Jordan}
 
 In questo capitolo vogliamo dare una definizione di \emph{misura} di un
@@ -27,12 +25,12 @@ chiameremo \emph{misurabili} secondo Peano-Jordan.
 Si potrebbe dimostrare che non è possibile definire $m$ su tutti i sottoinsiemi di $\RR^2$
 in modo che valgano le proprietà enunciate qui sopra.
 Sarebbe però possibile
-definire la misura su una classe molto più amplia di insiemi di quelli che andremo a considerare noi, imponendo
-l'additività non solo su unioni finite ma anche su unioni numerabili
+definire la misura su una classe molto più amplia di insiemi di quelli che andremo a considerare noi, 
+imponendo l'additività non solo su unioni finite ma anche su unioni numerabili
 ($\sigma$ additività).
 Quello che si otterrebbe
 è la cosiddetta misura di \emph{Lebesgue} che è ormai una costruzione standard
-dell'analisi matematica ma ci richiederebbe una teoria molto più complessa da sviluppare.
+dell'analisi matematica ma richiederebbe una teoria molto più complessa da sviluppare.
 Ci accontenteremo qui di introdurre la misura $m$ finitamente additiva di Peano-Jordan
 che poi ci permetterà di dare significato geometrico all'integrale di Riemann.
 
@@ -83,7 +81,7 @@ di rettangoli disgiunti:
   \qquad
   R_i \cap R_j=\emptyset\text{ se } i\neq j
 \]
-diremo che $E$ è un \myemph{polirettangolo}.
+diremo che $E$ è un \myemph{polirettangolo!cartesiano}.
 In tal caso per garantire l'additività dell'area
 porremo:
 \[
@@ -196,7 +194,11 @@ con $E_* \subset E \subset E^*$ tali che $m(E^*)-m(E_*)<\eps$
 
 \begin{figure}
   \centering\input{figures/figurePJ}
-  \caption{Gli insiemi $E$ ed $F$ e i polirettangoli approssimanti dall'interno e dall'esterno. Le apporssimanti possono essere scelte in modo che la cornice tra i polirettangoli esterni ed interni abbia area minore di un qualunque $\eps>0$.}
+  \caption{Gli insiemi $E$ ed $F$ e i polirettangoli approssimanti 
+  dall'interno e dall'esterno. 
+  Le approssimanti possono essere scelte in modo che la cornice tra 
+  i polirettangoli esterni ed interni abbia area minore di un 
+  qualunque $\eps>0$.}
   \label{fig:PeanoJordan}
 \end{figure}
 Dunque nelle nostre ipotesi per ogni
@@ -244,11 +246,15 @@ tutto simili si ottiene
 Di conseguenza si ottengono le uguaglianze enunciate nel teorema.
 \end{proof}
 
-\begin{theorem}
+\begin{theorem}[elemento d'area di una trasformazione lineare]
+\label{th:area_lineare}%
+\index{elemento!d'area}%
+\index{misura!trasformazione lineare}%
 Sia $E\subset \RR^2$ e sia $L\colon \RR^2\to\RR^2$ una trasformazione
-lineare omogenea:
+lineare affine:
 \[
-  L(x,y) = M\cdot \begin{pmatrix}x \\ y\end{pmatrix}\begin{pmatrix}x_0 \\ y_0\end{pmatrix}
+  L(x,y) = M\cdot \begin{pmatrix}x \\ y\end{pmatrix}
+  + \begin{pmatrix}x_0 \\ y_0\end{pmatrix}
 \]
 con $M$ matrice $2\times 2$ e $(x_0 ,y_0)\in \RR^2$.
 Allora se $E$ è misurabile secondo Peano-Jordan anche $L(E)$ lo è.
@@ -299,7 +305,7 @@ Dunque il teorema è banalmente valido in questo caso.
 
 \emph{Passo 3.}
 Supponiamo che sia $E=[a,b]\times[c,d]$ e $L(x,q)=(x,mx+q)$
-con $m\in \RR$ fissato.
+con $m\in \RR$ fissato
 (stiamo utilizzando le coordinate $(x,q)$ nel dominio di $L$
 e le coordianate $(x,y)$ nel codominio).
 Allora
@@ -402,13 +408,31 @@ dunque scegliendo $k=-\frac b a$ si ottiene finalmente
 una matrice diagonale.
 \end{proof}
 
+\begin{comment}
+\section{area di un poligono}
+
+Il teorema~\ref{th:area_lineare} ci dice che se applichiamo ad un insieme 
+$E$ una trasformazione lineare affine $L$ la cui matrice associata ha determinante 
+$1$ o $-1$, otteniamo un insieme $L(E)$ con la stessa misura.
+In particolare la misura di un insieme è invariante per isometrie:
+cioè per quelle trasformazioni la cui matrice associata è ortogonale 
+(traslazioni, rotazioni, riflessioni).
+
+Se $E$ è un triangolo rettangolo con cateti di lunghezza $a$ e $b$ 
+a meno di rotazioni e traslazioni possiamo supporre che $E$ si ottenga 
+dividendo il rettangolo $[0,a]\times[0,b]$ lungo una diagonale. 
+Visto che le due parti in cui il rettangolo viene suddiviso sono tra 
+loro isometriche, esse devono avere ...
+
+*** mi serve dimostrare che i poligoni sono misurabili ***
+\end{comment}
+
 L'integrale di Riemann, che andremo a definire
 nella prossima sezione, ci permetterà di osservare che ogni figura geometrica
-delimitata dal grafico di una curva continua risulta
-essere misurabile secondo Peano-Jordan. Inoltre il calcolo integrale ci permetterà
+delimitata dal grafico di una curva sufficientemente regolare risulta
+essere misurabile secondo Peano-Jordan. 
+Inoltre il calcolo integrale ci permetterà
 di determinare l'area di tali figure in modo piuttosto semplice.
-
-%\end{comment}
 
 \section{integrale di Riemann}
 
@@ -472,6 +496,56 @@ definiamo per convenzione:
 \]
 \end{definition}
 
+\begin{lemma}
+Sia $f\colon[a,b]\to \RR$ una funzione limitata.
+Se $P$ e $Q$ sono due suddivisioni qualunque dell'intervallo
+$[a,b]$ si ha
+\begin{equation}\label{eq:5112309}
+  S_*(f,P) \le S_*(f,P\cup Q)\le S^*(f,P\cup Q) \le S^*(f,Q).
+\end{equation}
+Di conseguenza $I_*(f) \le I^*(f)$.
+\end{lemma}
+\begin{proof}
+  Sia $P$ una qualunque suddivisione di $[a,b]$ e sia $y\in [a,b]$ un punto qualunque. Posto $P' = P \cup \ENCLOSE{y}$ vogliamo mostrare
+  che si ha
+  \begin{equation}\label{eq:39543}
+    S_*(f,P) \le S_*(f,P') \le S^*(f,P') \le S^*(f,P).
+  \end{equation}
+  Se $y\in P$ non c'è niente da dimostrare in quanto
+  risulterebbe $P'=P$ e la disuguaglianza $S_*(f,P') \le S^*(f,P')$ è sempre verificata in quanto ogni estremo superiore che compare nella definizione di $S^*$ è maggiore o uguale al corrispondente
+  estremo inferiore che compare nella definizione di $S_*$.
+  Supponiamo allora che $y \not \in P$ e dunque che $y$ sia compreso tra due punti consecutivi $x_{k-1}, x_k$ della suddivisione $P$:
+  \[
+    a= x_0 < x_1 < \dots < x_{k-1} < y < x_k < \dots < x_N=b.
+  \]
+  Allora le somme che definiscono $S_*(f,P)$ e $S_*(f,P')$ 
+  differiscono solo sull'intervallo $[x_{k-1},x_k]$. 
+  % e si ha
+  % \begin{align*}
+  %   S_*(f,P') - S_*(f,P)
+  %  &= (y-x_{k-1})\cdot \!\!\inf_{[x_{k-1},y]}\!\!\! f
+  %  + (x_k - y)\cdot\! \inf_{[y,x_k]}\! f\\
+  %  &\quad - (x_k - x_{k-1})\cdot \!\!\inf_{[x_{k-1}, x_k]}\!\!\!f
+  % \end{align*}
+  Ma osservando che
+  \[
+  \inf_{[x_{k-1}, x_k]}\!\!f
+  \le\inf_{[x_{k-1},y]}\!\! f
+  \qquad \text{e} \qquad
+  \inf_{[x_{k-1}, x_k]}\!\!f
+  \le\inf_{[y,x_k]}\!\! f
+  \]
+  si ottiene $S_*(f,P) \le S_*(f,P')$.
+  In maniera analoga si ottiene $S^*(f,P) \ge S^*(f,P')$.
+  Dunque \eqref{eq:39543} è dimostrata.
+  Ma allora se $P$ e $Q$ sono suddivisioni qualunque osserviamo che $P\cup Q$ 
+  si può ottenere da $P$ aggiungendo uno alla volta i punti di $Q$. 
+  Iterando la \eqref{eq:39543} si ottiene \eqref{eq:5112309}.
+  Facendo l'estremo inferiore al variare di $Q$
+  si ottiene $S_*(f,P) \le I^*(f)$ e facendo l'estremo superiore al variare 
+  di $P$ si ottiene $I_*(f) \le I^*(f)$.
+  \end{proof}
+
 \begin{theorem}[criteri di integrabilità]
 \label{th:criteri_integrabilita}
 \mymark{*}
@@ -479,14 +553,6 @@ definiamo per convenzione:
 \index{criterio!di integrabilità}
 Sia $f\colon[a,b]\to \RR$ una funzione limitata.
 \begin{enumerate}
-\item
-Se $P$ e $Q$ sono due suddivisioni qualunque dell'intervallo
-$[a,b]$ si ha
-\[
-  S_*(f,P) \le S^*(f,Q).
-\]
-Di conseguenza $I_*(f) \le I^*(f)$.
-
 \item
 La funzione $f$ è Riemann-integrabile se e solo se
 per ogni $\eps>0$ esiste una suddivisione $P$
@@ -503,8 +569,8 @@ esiste una successione $P_n$ di suddivisioni tali che
   = \lim_{n\to+\infty} S_*(f,P_n)
   = \int_a^b f.
 \end{equation}
-Viceversa se esiste una successione $P_n$ di suddivisioni di $[a,b]$
-per cui si ha
+Viceversa se $f$ è limitata ed esiste una successione $P_n$ 
+di suddivisioni di $[a,b]$ per cui si ha
 \begin{equation*}
   \lim_{n\to +\infty} \enclose{S^*(f,P_n) - S_*(f,P_n)} = 0
 \end{equation*}
@@ -513,45 +579,6 @@ allora la funzione $f$ è Riemann-integrabile e vale~\eqref{eq:93765}.
 \end{theorem}
 %
 \begin{proof}
-Sia $P$ una qualunque suddivisione di $[a,b]$ e sia $y\in [a,b]$ un punto qualunque. Posto $P' = P \cup \ENCLOSE{y}$ vogliamo mostrare
-che si ha
-\begin{equation}\label{eq:39543}
-  S_*(f,P) \le S_*(f,P') \le S^*(f,P') \le S^*(f,P).
-\end{equation}
-Se $y\in P$ non c'è niente da dimostrare in quanto
-risulterebbe $P'=P$ e la disuguaglianza $S_*(f,P') \le S^*(f,P')$ è sempre verificata in quanto ogni estremo superiore che compare nella definizione di $S^*$ è maggiore o uguale al corrispondente
-estremo inferiore che compare nella definizione di $S_*$.
-Supponiamo allora che $y \not \in P$ e dunque che $y$ sia compreso tra due punti consecutivi $x_{k-1}, x_k$ della suddivisione $P$:
-\[
-  a= x_0 < x_1 < \dots < x_{k-1} < y < x_k < \dots < x_N=b.
-\]
-Allora le somme che definiscono $S_*(f,P)$ e $S_*(f,P')$ differiscono solo sull'intervallo $[x_{k-1},x_k]$ e si ha
-\begin{align*}
-  S_*(f,P') - S_*(f,P)
-  &= (y-x_{k-1})\cdot \!\!\inf_{[x_{k-1},y]}\!\!\! f
-  + (x_k - y)\cdot\! \inf_{[y,x_k]}\! f\\
-  &\quad - (x_k - x_{k-1})\cdot \!\!\inf_{[x_{k-1}, x_k]}\!\!\!f
-\end{align*}
-ma osservando che
-\[
-\inf_{[x_{k-1}, x_k]}\!\!f
-\le\inf_{[x_{k-1},y]}\!\! f
-\qquad \text{e} \qquad
-\inf_{[x_{k-1}, x_k]}\!\!f
-\le\inf_{[y,x_k]}\!\! f
-\]
-si ottiene $S_*(f,P) \le S_*(f,P')$.
-In maniera analoga si ottiene $S^*(f,P) \ge S^*(f,P')$.
-Dunque \eqref{eq:39543} è dimostrata.
-Ma allora se $P$ e $Q$ sono suddivisioni qualunque osserviamo che $P\cup Q$ si può ottenere da $P$ aggiungendo uno alla volta i punti di $Q$. Iterando la \eqref{eq:39543} si può dunque concludere che
-\[
- S_*(f,P) \le S_*(f,P\cup Q) \le S^*(f,P\cup Q) \le S^*(f,Q)
-\]
-da cui discende il primo punto del teorema: $S_*(f,P) \le S^*(f,Q)$.
-Facendo l'estremo inferiore al variare di $Q$
-si ottiene $S_*(f,P) \le I^*(f)$ e facendo l'estremo superiore al variare di $P$ si ottiene $I_*(f) \le I^*(f)$.
-
-Dimostriamo il secondo punto.
 Se esiste una suddivisione $P$ tale che $S^*(f,P)-S_*(f,P) < \eps$ possiamo immediatamente concludere che
 \[
 I^*(f) - I_*(f) \le S^*(f,P) - S_*(f,P) < \eps.
@@ -566,7 +593,7 @@ esistono $Q$ e $R$ suddivisioni tali che
   \qquad\text{e}\qquad
   I_*(f) \le S_*(f,R) + \frac\eps 2
 \]
-da cui, per il punto precedente, ponendo $P=Q\cup R$
+da cui, per il lemma precedente, ponendo $P=Q\cup R$
 se $f$ è Riemann integrabile
 si ottiene
 \begin{align*}
@@ -574,8 +601,8 @@ S^*(f,P)-S_*(f,P) &\le S^*(f,Q) - S_*(f,R) \\
 &\le I^*(f) + \frac\eps 2 - \enclose{I_*(f) - \frac \eps 2} = \eps.
 \end{align*}
 
-Per il terzo punto del teorema
-supponiamo dapprima che $f$ sia Riemann-integrabile su $[a,b]$.
+Dimostriamo ora il secondo punto.
+Supponiamo dapprima che $f$ sia Riemann-integrabile su $[a,b]$.
 Allora per il punto precedente per ogni $n\in \NN$ ponendo $\eps=1/n$ possiamo trovare una suddivisione $P_n$ tale che
 \[
   S^*(f,P_n) - S_*(f,P_n) < \frac 1 n
@@ -836,6 +863,10 @@ Se $f$ è una funzione Riemann-integrabile sull'intervallo $[a,b]$ allora
 anche $\abs{f}$, $f^+$ e $f^-$ sono integrabili e, se
 anche $g$ è Riemann-integrabile su $[a,b]$, allora anche $f\vee g$ e $f\wedge g$
 sono integrabili sullo stesso intervallo.
+Inoltre si ha 
+\begin{equation}\label{eq:489732}
+  \int_a^b \abs{f} \ge \abs{\int_a^b f}.  
+\end{equation}
 \end{theorem}
 %
 \begin{proof}
@@ -869,6 +900,12 @@ per dedurre che anche $f^+$, $f^-$, $f\wedge g$ e $f\vee g$
 sono integrabili,
  grazie
 alla linearità dell'integrale (teorema~\ref{th:integrale_lineare}).
+
+Per dimostrare~\eqref{eq:489732} basta osservare che 
+\[
+\abs{\int_a^b f} = \abs{\int_a^b f^+ - \int_a^n f^-}
+\le \int_a^b f^+ - \int_a^b f^- = \int_a^b \abs{f}.   
+\]
 \end{proof}
 
 \begin{theorem}[additività dell'integrale]
@@ -946,6 +983,83 @@ S^*(f,Q) - S_*(f,Q) < \eps.
 \]
 Dunque $f$ è integrabile sia su $[a,c]$ che su $[c,b]$.
 E nuovamente possiamo osservare che l'integrale è additivo sul dominio.
+\end{proof}
+
+Il seguente risultato mette in corrispondenza l'integrale di Riemann 
+con la misura di Peano-Jordan ed è un modo formale per dare all'integrale 
+di Riemann il significato di area (con segno) del sottografico della 
+funzione integranda. 
+Nel seguito non faremo mai uso di questo risultato che serve solo 
+a soddisfare la nostra intuizione.
+
+\begin{theorem}[interpretazione geometrica dell'integrale]
+Sia $f\colon[a,b]\to \RR$, una funzione limitata, $a\leq b$. Posto 
+\begin{align*}
+  E^+ &= \ENCLOSE{(x,y)\in [a,b]\times\RR\colon 0\le y \le f(x)}, \\
+  E^- &= \ENCLOSE{(x,y)\in [a,b]\times\RR\colon f(x)\le y \le 0}   
+\end{align*}
+si ha che $f$ è Riemann-integrabile su $[a,b]$ se e solo se 
+gli insiemi $E^+$ ed $E^-$ sono misurabili secondo Peano-Jordan.
+E in tal caso risulta:
+\[
+   \int_a^b f = m(E^+) - m(E^-)  
+\]
+dove $m$ è la misura di Peano-Jordan.
+\end{theorem}
+%
+\begin{proof}
+\emph{Passo 1:} supponiamo che sia $f(x)\ge 0$ per ogni $x\in [a,b]$.
+Se $P=\ENCLOSE{x_0,x_1, \dots, x_N}$ è una suddivione di $[a,b]$ 
+è chiaro che posto $I_k = [x_k,x_{k+1}]$ l'unione dei rettangoli 
+$R_k = I_k \times [0,\inf_{I_k} f]$ ci dà
+un polirettangolo contenuto in $E^+$.
+E $S_*(f,P)$ rappresenta proprio la misura di tale polirettangolo.
+Dunque $m_*(E^+)\ge S_*(f,P)$ per ogni suddivisione $P$ 
+e quindi $m_*(E^+)\ge I_*(f,P)$.
+Ragionando in maniera analoga con i rettangoli la cui altezza 
+è il $\sup$ di $f$, si osserva che $S^*(f,P)$ rappresenta 
+la misura di un polirettangolo contenente $E^+$ e dunque 
+$m^*(E^+)\le I^*(f,P)$.
+
+D'altra parte preso un qualunque polirettangolo che contenuto in $E^+$
+possiamo considerare la suddivisione $P$ formata da $a$, $b$ e da tutte le coordinate $x$ 
+dei lati dei rettangoli che compongono il polirettangolo. 
+E' chiaro il polirettangolo sarà allora contenuto nell'unione
+dei rettangoli determinati da $P$ con altezza l'estremo inferiore di $f$.
+Dunque $m_*(E^+)\le I_*(f)$.
+Analogamente se prendiamo un polirettangolo che contiene $E^+$ possiamo 
+innanzitutto tagliare tutti i rettangoli con le rette $x=a$ e $x=b$
+e rimuovere eventuali rettangoli che si trovino a sinistra di $x=a$ 
+o a destra di $x=b$. 
+Questo diminuisce la misura del polirettangolo e mantiene l'inclusione di $E^+$.
+A questo punto consideriamo la suddivisione $P$ ottenuta prendendo i punti 
+$a$, $b$ e tutte le coordinate $x$ dei lati verticali dei rettangoli che formano 
+il polirettangolo.
+E' chiaro allora che la misura del polirettangolo originario è maggiore o uguale 
+a $S^*(f,P)$ e dunque $m^*(E^+)\ge I^*(f)$.
+
+Essendo dunque $m_*(E^+)=I_*(f)$ e $m^*(E^+)=I_*(f)$ risulta 
+che se $f\ge0$ allora $f$ è Riemann-integrabile se e solo se $E^+$ è Peano-Jordan 
+misurabile e in tal caso si ha $\int_a^b f = m(E^+)$.
+
+\emph{Passo 2:} sia $f\colon[a,b]\to \RR$ qualunque.
+Allora si avrà $f = f^+ - f^-$. 
+A $f^+$ e $f^-$ potremo applicare il passo precedente.
+Osserviamo che l'insieme $E^+$ di $f^-$ non è altro che la riflessione 
+(rispetto all'asse delle ascisse) dell'insieme $E^-$ di $f$
+e questi insiemi hanno la stessa misura di Peano-Jordan.
+Dunque, se $f$ è Riemann-integrabile anche $f^+$ e $f^-$ 
+lo sono (Teorema~\ref{th:reticolo}) 
+dunque $E^+$ ed $E^-$ sono Peano-Jordan misurabili per il passo precedente
+e si ha 
+\begin{equation}
+  \label{47694}
+\int_a^b f = \int_a^b f^+ - \int_a^b f^- = m(E^+) - m(E^-).  
+\end{equation}
+Viceversa se $E^+$ ed $E^-$ sono Peano-Jordan misurabili 
+allora $f^+$ ed $f^-$ sono Riemann-integrabili (per il passo precedente)
+e anche $f=f^+-f^-$ è Riemann-integrabile (Teorema~\ref{th:integrale_lineare})
+e di nuovo deve valere~\eqref{47694}.
 \end{proof}
 
 \begin{theorem}[integrabilità delle funzioni continue]
@@ -1492,7 +1606,7 @@ per ogni $\alpha \in \RR$, $\alpha\neq -1$
 %
 \begin{proof}
 E' sufficiente fare riferimento alla corrispondente tabella
-delle derivate delle funzioni elementari.
+delle derivate delle funzioni elementari (teorema~\ref{th:derivate_elementari}).
 \end{proof}
 
 \begin{theorem}[linearità dell'integrale indefinito]
@@ -1692,6 +1806,14 @@ Dunque otteniamo:
  &\stackrel{(t=\arcsin x)}= \frac{\arcsin x + x \sqrt{1-x^2}}{2}.
 \end{align*}
 \end{example}
+
+Si osservi che il grafico $y=\sqrt{1-x^2}$ dell'esempio precedente
+è una semicirconferenza e dunque l'integrale 
+\[
+ \int_{-1}^1 \sqrt{1-x^2}\, dx = \Enclose{\frac{\arcsin x +x\sqrt{1-x^2}}{2}}_{-1}^{1}
+ = \frac{\pi}{2}.
+\]
+rappresenta l'area di un semicerchio unitario.
 
 \begin{theorem}[integrazione per parti]
 \mymark{*}
@@ -1981,7 +2103,7 @@ Abbiamo ottenuto, in definitiva:
 e osservando che
 \[
  \int \frac{1 - \frac 3 2 x}{x^2+1}\, dx
- = \arctg x - \frac 3 4 \int \frac{2x}{x^2+1}\, dx
+ = \int \frac{1}{x^2+1}\, dx - \frac 3 4 \int \frac{2x}{x^2+1}\, dx
  = \arctg x - \frac 3 4 \ln(x^2+1)
 \]
 si ottiene infine
@@ -1992,8 +2114,8 @@ si ottiene infine
 \end{align*}
 \end{proof}
 
-Il metodo esposto nell'esempio precedente è sostanzialmente
-un algoritmo generale:
+Il metodo esposto nell'esempio precedente è un algoritmo 
+valido in generale:
 \begin{enumerate}
   \item si effettua la divisione con resto per ricondursi
   al caso in cui il numeratore della funzione razionale
@@ -2493,6 +2615,68 @@ Procedendo con la divisione tra polinomi si ottiene
 + \frac{12}{5}\sqrt[12]{x^5} - 4 \sqrt[4]{x} + 12 \sqrt[12]{x} - 12 \arctg \sqrt[12]{x}.
 \end{align*}
 \end{proof}
+
+\section{integrali senza primitiva elementare}
+
+E' certamente molto utile conoscere i metodi di integrazione 
+per poter scrivere esplicitamente la primitiva di una 
+generica funzione. 
+Ma è anche molto utile sapere che esistono alcune funzioni 
+elementari la cui primitiva non è una funzione elementare.
+Un esempio su tutti è la 
+\myemph{campana di Gauss}
+\index{Gauss!campana}%
+\index{funzione!gaussiana}%
+$f(x) = e^{-x^2}$ la cui funzione integrale 
+\[
+ F(x) = \int_0^x e^{-t^2}\, dt
+\]
+non può essere espressa mediante composizione di funzioni 
+elementari.
+Questo fatto non ci deve scoraggiare più di tanto,
+daremo un nome alla funzione $F$ e ne studieremo le proprietà 
+utilizzando la teoria che abbiamo sviluppato.
+Ovviamente è probabile che prima di noi qualcun'altro 
+si sia imbattutto in tali funzioni e gli abbia già dato 
+un nome e ne abbia studiato le proprietà. 
+Nell'esempio specifico è stato definita la 
+\myemph{funzione!di errore}
+\[
+  \erf x = \frac{2}{\sqrt \pi} \int_0^x e^{-t^2}\, dt.
+\]
+
+Altri esempi di funzioni la cui primitiva non si esprime mediante 
+funzioni elementari sono i seguenti:
+\[
+  \frac{1}{\ln x}, \qquad 
+  \frac{e^x}{x}, \qquad
+  \frac{\sin x}{x}
+\]
+per le quali si definiscono le rispettive primitive:
+\emph{logaritmo integrale}, \emph{integrale esponenziale}
+e \emph{seno integrale}:
+\[
+\li x, \qquad 
+\ei x, \qquad 
+\Si x.
+\]
+
+Il teorema tramite il quale si dimostra che queste 
+funzioni non ammettono una primitiva esprimibile come 
+composizione di funzioni elementari (funzioni razionali, 
+esponenziali, trigonometriche e loro inverse) si chiama 
+Teorema di Liouville\footnote{%
+Il teorema di Liouville è un teorema di tipo algebrico 
+e quindi va ben lontano dagli scopi di questo corso.
+Per chi fosse interessato a vederne la dimostrazione 
+consiglio la lettura del seguente piacevole articolo
+di Camillo De Lellis: 
+``Il teorema di Liouville\dots``
+\myurl{http://cvgmt.sns.it/paper/3456/}{Il teorema di Liouville}.
+}.
+
+
+
 
 \section{integrali impropri}
 
