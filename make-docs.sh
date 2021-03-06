@@ -101,10 +101,10 @@ grep "%% README" chapters/AnalisiUno-00*.tex \
 cat <<EOF >> ${out}
 <h2>collegamenti utili</h2>
 <ul>
-  <li><a href="https://github.com/paolini/AnalisiUno">codice sorgente su GitHub</a></li>
+  <li><a href="https://github.com/paolini/AnalisiUno">codice sorgente</a></li>
   <li><a href="https://github.com/paolini/AnalisiUno/releases/latest">ultimo rilascio
   (da qui puoi scaricare il file PDF)</a></li>
-  <li><a href="https://www.amazon.it/dp/1718794134/">ordina il libro su amazon</a></li>
+  <li><a href="https://www.amazon.it/dp/1718794134/">ordina una copia cartacea</a></li>
 </ul>
 <h2>riferimenti presenti nel testo</h2>
 <ul>
