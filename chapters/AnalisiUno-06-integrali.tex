@@ -1580,7 +1580,7 @@ su un singolo intervallo. Infatti se scrivessimo:
 avremmo comunque scritto solo una parte delle primitive (per quanto visto nell'esempio
 precedente).
 
-\begin{theorem}[integrali di alcune funzioni elementari]
+\begin{theorem}[primitive di alcune funzioni elementari]
 \index{integrali!di alcune funzioni elementari}
 Si ha
 per ogni $\alpha \in \RR$, $\alpha\neq -1$
@@ -1661,23 +1661,19 @@ allora $g^{-1}$ è definita su $g([a,b])$
 e si ha
 \mymargin{sostituzione!inversa}
 \index{integrali!sostituzione inversa}
-\[
+\begin{equation}\label{eq:239455}
   \int f(x)\, dx \supset \Enclose{\int f(g(t)) g'(t)\, dt}_{t=g^{-1}(x)}
-\]
+\end{equation}
 \end{enumerate}
 \end{theorem}
 %
 \begin{proof}
-Per la prima parte prendiamo una qualunque funzione
-$H$ appartenente all'insieme sul lato destro.
-Essa sarà della forma $H(x) = F(g(x))$ con $F\in \int f$ ovvero con $F'=f$.
-Facciamo la derivata:
-\[
-  H'(x) = (F(g(x)))' = F'(g(x)) g'(x) = f(g(x)) g'(x).
-\]
-Abbiamo quindi mostrato che $H$ è una primitiva di $f(g(x))g'(x)$ e quindi è
-elemento anche dell'insieme sul lato sinistro:
-era quanto dovevamo dimostrare
+Per la prima parte 
+basta osservare che se $F(y)$ è una qualunque primitiva di $f(y)$ 
+allora $F(g(x))$ è una primitiva di $f(g(x))\cdot g'(x)$
+(basta applicare la formula di derivazione della funzione composta).
+Dunque ogni elemento dell'insieme di destra in~\eqref{eq:239455}
+è elemento dell'insieme di sinistra.
 
 Per la seconda parte sappiamo che $f$, essendo continua, ammette almeno una
 primitiva $F(x)$. Per il punto precedente sappiamo che $F(g(t))$ è una
@@ -1900,20 +1896,23 @@ ovvero
 \]
 \end{example}
 
-\begin{theorem}[ancora integrali di funzioni elementari]
+\begin{theorem}[ancora primitive di funzioni elementari]
 \mymark{***}
 Si ha
 \begin{align*}
   \int \ln x\, dx  &= x \ln x - x, \\
-  \int \arctg x\, dx &= x \arctg x - \ln \sqrt{1+x^2}.\\
+  \int \arctg x\, dx &= x \arctg x - \ln \sqrt{1+x^2},\\
+  \int \arcsin x\, dx &= x \arcsin x + \sqrt{1-x^2},\\
+  \int \arccos x\, dx &= x \arccos x - \sqrt{1-x^2}.
 \end{align*}
 \end{theorem}
 %
 \begin{proof}
 \mymark{***}
-In entrambi i casi l'idea è che la derivata della funzione integranda trasforma
-la funzione trascendente in una funzione
-razionale. Può quindi risultare utile applicare l'integrazione
+L'idea, in tutti i casi, è che la derivata della funzione integranda
+è molto più semplice della funzione stessa (nei primi due casi è una funzione 
+razionale negli altri due una funzione irrazionale ma non trascendente).
+Può quindi risultare utile applicare l'integrazione
 per parti nella forma:
 \[
   \int f(x)\, dx = \int 1\cdot f(x)\, dx = x f(x) - \int x f'(x)\, dx.
@@ -1938,6 +1937,15 @@ da cui, in conclusione:
 \[
  \int \arctg x\, dx = x \arctg x - \frac 1 2 \ln\enclose{1+x^2}.
 \]
+Nel terzo caso:
+\[
+ \int 1\cdot \arcsin x\, dx = x\cdot \arcsin x - \int\frac{x}{\sqrt{1-x^2}}\, dx  
+\]
+e operando la sostituzione $y=1-x^2$ si arriva a 
+\[
+  \int \arcsin x\, dx = x \cdot \arcsin x + \sqrt{1-x^2}.  
+\]
+L'ultimo integrale si svolge in maniera analoga.
 \end{proof}
 
 \begin{remark}
@@ -2616,7 +2624,7 @@ Procedendo con la divisione tra polinomi si ottiene
 \end{align*}
 \end{proof}
 
-\section{integrali senza primitiva elementare}
+\section{funzioni speciali}
 
 E' certamente molto utile conoscere i metodi di integrazione 
 per poter scrivere esplicitamente la primitiva di una 
@@ -2639,6 +2647,12 @@ utilizzando la teoria che abbiamo sviluppato.
 Ovviamente è probabile che prima di noi qualcun'altro 
 si sia imbattutto in tali funzioni e gli abbia già dato 
 un nome e ne abbia studiato le proprietà. 
+Queste funzioni si chiamano usualmente \emph{funzioni speciali}
+per distinguerle dalle \emph{funzioni elementari}.
+\index{funzione!speciale}%
+\index{speciale!funzione}%
+\index{funzioni!elementari}%
+\index{elementare!funzione}%
 Nell'esempio specifico è stato definita la 
 \myemph{funzione!di errore}
 \[
@@ -2650,15 +2664,17 @@ funzioni elementari sono i seguenti:
 \[
   \frac{1}{\ln x}, \qquad 
   \frac{e^x}{x}, \qquad
-  \frac{\sin x}{x}
+  \frac{\sin x}{x}, \qquad \sin\frac{\pi x^2}{2}
 \]
 per le quali si definiscono le rispettive primitive:
-\emph{logaritmo integrale}, \emph{integrale esponenziale}
-e \emph{seno integrale}:
+\emph{logaritmo integrale}, \emph{integrale esponenziale},
+\emph{seno integrale},
+\emph{integrale di Fresnel}:
 \[
 \li x, \qquad 
 \ei x, \qquad 
-\Si x.
+\Si x, \qquad
+S x.
 \]
 
 Il teorema tramite il quale si dimostra che queste 
@@ -2669,9 +2685,9 @@ Teorema di Liouville\footnote{%
 Il teorema di Liouville è un teorema di tipo algebrico 
 e quindi va ben lontano dagli scopi di questo corso.
 Per chi fosse interessato a vederne la dimostrazione 
-consiglio la lettura del seguente piacevole articolo
-di Camillo De Lellis: 
-``Il teorema di Liouville\dots``
+una lettura piacevole può essere l'articolo di Camillo De Lellis: 
+\emph{Il teorema di Liouville ovvero perché ``non esiste'' la primitiva
+di $\exp(x^2)$}.
 \myurl{http://cvgmt.sns.it/paper/3456/}{Il teorema di Liouville}.
 }.
 
