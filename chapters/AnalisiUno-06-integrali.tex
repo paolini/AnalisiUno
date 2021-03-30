@@ -3725,9 +3725,10 @@ possiamo dedurre che il limite cercato è proprio $\ln 3$.
 
 \section{alcune applicazioni del calcolo integrale}
 
-\begin{example}[la funzione $\Gamma$ Eulero]
-\index{$\Gamma$ funzione di Eulero}
-\index{funzione!$\Gamma$ di Eulero}
+\begin{example}[la funzione $\Gamma$ Eulero]%
+\label{ex:gamma_eulero}%
+\index{$\Gamma$ funzione di Eulero}%
+\index{funzione!$\Gamma$ di Eulero}%
 Si definisce $\Gamma\colon (0,+\infty) \to \RR$ come
 \[
   \Gamma(x) = \int_0^{+\infty} e^{-t} t^{x-1}\, dt.
@@ -4115,3 +4116,223 @@ da cui si ottiene
 \]
 e quindi $c=\sqrt{2\pi}$.
 \end{proof}
+
+\section{passaggio al limite sotto il segno di integrale}
+
+Nell'esempio~\ref{ex:gamma_eulero} abbiamo definito una 
+funzione $\Gamma(x)$ tramite l'integrale in $dt$ di una funzione 
+che dipende dal parametro $x$:
+\[
+  \Gamma(x) = \int_a^b f(x,t)\, dt, \qquad 
+  f(x,t) = e^{-t}t^{x-1}.
+\] 
+Se la funzione $f(x,t)$ è continua e derivabile
+è naturale chiedersi se anche la funzione integrale $\Gamma$ 
+risulta essere continua e derivabile. 
+E se è derivabile è naturale chiedersi come si può calcolare
+la derivata.
+
+In generale si può rispondere facilmente a queste domande se siamo in grado di 
+scambiare tra loro gli operatori di limite e di integrale. Infatti osserviamo che 
+si ha 
+\begin{align*}
+  \lim_{x\to x_0} \Gamma(x) 
+  &= \lim_{x\to x_0} \int_a^b f(x,t)\, dt 
+  \stackrel{?}= \int_a^b \lim_{x\to x_0} f(x,t)\, dt\\
+  &= \int_a^b f(x_0,t)\, dt
+  = \Gamma(x_0)
+\end{align*}
+e 
+\begin{align*}
+  \Gamma'(x) 
+  &= \lim_{h\to 0}\frac{\Gamma(x+h) - \Gamma(x)}{h} 
+  = \lim_{h\to 0} \int_a^b \frac{f(x+h,t)-f(x,t)}{h}\, dt \\
+  &\stackrel{?}= \int_a^b \lim_{h\to 0}\frac{f(x+h,t)-f(x,t)}{h}\, dt \\
+  &= \int_a^b \frac{\partial f}{\partial x}(x,t)\, dt.
+\end{align*}
+In entrambi i casi l'unico passaggio non formalmente giustificato è quello marcato
+con il punto interrogativo. 
+Lo scopo di questo capitolo è quello di determinare alcune condizioni che permettono 
+di effettuare lo scambio del limite con l'integrale e lo scambio della derivata con l'integrale.
+
+Per semplificare le notazioni invece di considerare una funzione di una variabile continua $x$
+con $x\to x_0$ considereremo delle funzioni che dipendono da una variabile discreta $n$ 
+con $n\to +\infty$. 
+Avremo quindi una \myemph{successione di funzioni} ovvero per ogni $n\in \NN$ 
+avremo una funzione $f_n\colon A\to \RR$ definita su un certo dominio comune $A\subset \RR$.
+Diremo che la succession $f_n$ \emph{converge puntualmente}%
+\index{convergenza!puntuale} ad una funzione $f\colon A\to \RR$ se risulta 
+\[
+  \forall x \in A\colon \lim_{n\to+\infty} f_n(x) = f(x).
+\]
+
+\begin{example}[convergenza puntuale]%
+  \label{ex:puntuale_non_uniforme}%
+La successione di funzioni $f_n\colon (-1,1]$ $\to \RR$ definita da 
+\[
+  f_n(x) = x^n
+\]
+converge puntualmente alla funzione 
+\[
+  f(x) = 
+  \begin{cases}
+    0 &\text{se $-1 < x < 1$,}\\
+    1 &\text{se $x=1$.}
+  \end{cases}
+\]
+in quanto se $\abs{x}<1$ si ha $x^n\to 0$ mentre se $x=1$ si ha $x^n=1$.
+
+Si osservi che in questo caso il limite può essere scambiato con l'integrale:
+\begin{align*}
+\lim_{n\to +\infty} \int_{-1}^1 f_n(x)\, dx 
+&= \lim_{n\to+\infty} \Enclose{\frac{x^{n+1}}{n+1}}_{-1}^1
+ = \lim_{n\to+\infty} \frac{1}{n+1} = 0 \\
+\int_{-1}^1 \lim_{n\to+\infty} f_n(x)\, dx 
+&= \int_{-1}^1 f(x)\, dx = 0.
+\end{align*}
+Ovviamente la funzione $x^n$ diverge per $n\to+\infty$ quando $x>1$ ed oscilla 
+tra valori positivi e negativi quando $x\le -1$. 
+Dunque l'intervallo $(-1,1]$ è il più grande intervallo su cui si può avere 
+convergenza puntuale.
+\end{example}
+
+L'esempio precedente ci dice che lo scambio tra il limite e l'integrale in certi casi 
+può essere fatto. 
+Intuitivamente l'idea è che se le funzioni $f_n(x)$ e $f(x)$ sono vicine tra loro 
+in ogni punto $x$, allora l'integrale di queste funzioni non dovrebbe essere anch'esso 
+molto vicino. 
+Questa idea in generale è fallace come si vede nel seguente esempio.
+
+\begin{example}
+Si consideri la successione di funzione $f_n\colon[0,1]\to\RR$ definita da 
+\[
+ f_n(x) = \frac{nx}{1+n^2x^4}.  
+\]
+Chiaramente si ha per ogni $x\in \RR$:
+\[
+  \lim_{n\to+\infty} \frac{nx}{1+n^2x^4} = 0.
+\]
+Dunque la successione $f_n$ converge puntualmente alla funzione $f=0$ identicamente nulla.
+Ma lo scambio del limite con l'integrale in questo caso 
+non è possibile in quanto risulta 
+\begin{align*}
+\lim_{n\to +\infty} \int_0^1 f_n(x)\, dx 
+&= \lim_{n\to +\infty} \int_0^1 \frac{nx}{1+n^2x^4}\, dx 
+ = \lim_{n\to +\infty} \int_0^1 \frac{nx}{1+n^2x^4}\, dx \\
+&=\lim_{n\to +\infty} \frac 1 2 \Enclose{\arctg(nx^2)}_0^1 
+ = \frac 1 2 \lim_{n\to +\infty} \arctg n = \frac \pi 4 
+\end{align*}
+mentre ovviamente 
+\[
+ \int_0^1 \lim_{n\to +\infty} f_n(x)\, dx = \int_0^1 0\, dx = 0.
+\]
+\end{example}
+
+Il motivo per cui nell'esempio precedente non si può passare 
+al limite sotto il segno di integrale è dovuto al fatto che la funzione 
+$f_n(x)$ pur tendendo a zero in ogni punto $x\in \RR$ nei punti vicini 
+ad $x=0$ diventa, al crescere di $n$, molto grande.
+In effetti il grafico della funzione $f_n(x)$ si ottiene dal grafico 
+della funzione $f(x) = \frac{x}{1+x^4}$ schiacciando la variabile $x$ 
+di un fattore $n$ e dilatando la variabile $y$ dello stesso fattore $n$.
+Questo fa sì che l'area sotto il grafico rimanga invariata.
+La funzione $f_n$ ha un punto di massimo per $x=\frac{1}{\sqrt[4]3 \sqrt x}$
+(lo si verifichi studiando il segno della derivata) e in tale 
+punto assume un valore che tende ad infinito quando $n\to +\infty$.
+Dunque la funzione $f_n$ pur tendendo puntualmente a zero, non ci tende 
+in maniera \emph{uniforme} nel senso seguente.
+
+\begin{definition}[convergenza uniforme]
+\label{def:convergenza_uniforme}%
+\mymark{**}%
+\index{convergenza!uniforme}%
+\index{uniforme!convergenza}%
+Sia $f_n$ una successione di funzioni $f_n\colon A\to \RR$ e sia $f\colon A\to \RR$ 
+con $A\subset \RR$.
+Diremo che $f_n$ \emph{converge uniformemente} ad $f$ se risulta 
+\[
+  \lim_{n\to+\infty} \sup_{x\in A} \abs{f_n(x)-f(x)} = 0.
+\]
+In tal caso scriveremo 
+\[
+  f_n \rightrightarrows f.
+\]
+\end{definition}
+
+Ovviamente se $f_n$ converge uniformemente ad $f$ allora c'è anche convergenza puntuale.
+Infatti per ogni $x\in A$ si ha 
+\[
+ \abs{f_n(x)-f(x)} \le \sup_{t\in A}\abs{f_n(t)-f(t)} \to 0
+ \qquad \text{per $n\to +\infty$}
+\]
+dunque la convergenza uniforme è una condizione \emph{più forte} della convergenza puntuale.
+
+Se una successione di funzioni converge uniformemente è molto 
+facile verificare che vale il teorema di passaggio al limite sotto il segno di integrale 
+se l'intervallo di integrazione è limitato:
+
+\begin{theorem}[passaggio al limite sotto il segno di integrale]
+Siano $f_n,f\colon [a,b]$ funzioni Riemann integrabili sull'intervallo $[a,b]$
+e supponiamo che ci sia convergenza uniforme: $f_n \rightrightarrows f$.
+Allora 
+\[
+    \lim_{n\to+\infty} \int_a^b f_n(x)\, dx = \int_a^b f(x)\, dx.
+\]
+\end{theorem}
+%
+\begin{proof}
+Se $f_n$ e $f$ sono Riemann-integrabili anche $f_n-f$ e $\abs{f_n-f}$ lo sono 
+e si ha:
+\begin{align*}
+  \abs{\int_a^b f_n(x)\, dx - \int_a^b f(x)\, dx}
+  &\le \int_a^b \abs{f_n(x)-f(x)}\, dx \\
+  &\le \int_a^b \sup_{t\in[a,b]} \abs{f_n(t)-f(t)}\, dx \\
+  &= \sup_{t\in [a,b]}\abs{f_n(t)-f(t)}\cdot \int_a^b 1\, dx
+  \to 0.
+\end{align*}
+\end{proof}
+
+La convergenza puntuale viene usata in particolare per definire la convergenza 
+nello spazio delle funzioni continue. 
+L'esempio~\ref{ex:puntuale_non_uniforme} ci dice che il limite puntuale 
+di funzioni continue potrebbe non essere una funzione continua.
+Invece il seguente teorema garantisce che lo spazio delle funzioni continue 
+è \emph{chiuso} per passaggio al limite uniforme.
+
+\begin{theorem}[limite uniforme di funzioni continue]
+\label{th:limite_continue}%
+Siano $f_n\colon A\to \RR$ funzioni che convergono uniformemente alla 
+funzione $f\colon A\to \RR$.
+Se ogni $f_n$ è continua allora anche $f$ è continua.
+\end{theorem}
+%
+\begin{proof}
+Fissato $x_0\in A$ dobbiamo dimostrare che $f$ è continua nel punto $x_0$
+cioè che per ogni $\eps>0$ esiste $\delta>0$ tale che se $\abs{x-x_0}<\delta$ 
+allora $\abs{f(x)-f(x_0)} < \eps$.
+
+Sappiamo che $\sup_{x\in A}\abs{f_n(x)-f(x)}\to 0$ dunque 
+dato $\eps>0$ possiamo trovare $n$ tale che per ogni $x\in A$ 
+si abbia $\abs{f_n(x)-f(x)} \le \frac\eps 3$. 
+D'altra parte sappiamo che la funzione $f_n$ è continua in $x_0$
+e dunque possiamo trovare $\delta>0$ tale per cui 
+se $\abs{x-x_0}<\delta$ si abbia $\abs{f_n(x)-f_n(x_0)}<\frac \eps 3$.
+Ma allora se $\abs{x-x_0}<\delta$ risulta 
+\begin{align*}
+  \abs{f(x)-f(x_0)} 
+  &\le \abs{f(x)-f_n(x)} + \abs{f_n(x)-f_n(x_0)} + \abs{f_n(x_0)-f(x_0)}\\
+  &< \frac \eps 3 + \frac \eps  3 + \frac \eps 3 = \eps.
+\end{align*}
+come volevamo dimostrare.
+\end{proof}
+
+Se abbiamo una serie convergente e ne consideriamo la somma:
+\[
+  S(x) = \sum_{k=1}^{+\infty} f_k(x)
+\]
+osserviamo che $S(x)$ non è altro che il limite puntuale delle somme 
+parziali
+\[
+  S_n(x) = \sum_{k=1}^n f_k(x)
+\]
+dunque abbiamo convergenza puntuale di $S_n$ a $S$.
