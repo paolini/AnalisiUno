@@ -4118,6 +4118,8 @@ e quindi $c=\sqrt{2\pi}$.
 \end{proof}
 
 \section{passaggio al limite sotto il segno di integrale}
+\index{integrale!passagio al limite}
+\index{limite!di un integrale}
 
 Nell'esempio~\ref{ex:gamma_eulero} abbiamo definito una 
 funzione $\Gamma(x)$ tramite l'integrale in $dt$ di una funzione 
@@ -4292,6 +4294,188 @@ e si ha:
 \end{align*}
 \end{proof}
 
+Purtroppo il teorema precedente non può essere valido in generale per gli integrali impropri,
+abbiamo infatti il seguente esempio negativo.
+\begin{example}
+Consideriamo la successione di funzioni $f_n\colon \RR\to\RR$
+\[
+  f_n(x) = \frac 1 n \cdot \frac{1}{1+\enclose{\frac{x-n} n}^2}.
+\]
+Si può osservare che $\sup_{x\in \RR} \abs{f_n(x)} = f_n(n) = \frac 1 n$ 
+e quindi $f_n \rightrightarrows 0$ su tutto $\RR$. 
+Nonostante questo si ha 
+\[
+\int_{-\infty}^{+\infty} f_n(x) \, dx  
+= \int_{-\infty}^{+\infty} \frac{1}{1+t^2}\, dt = \pi
+\]
+e quindi gli integrali non tendono a zero.
+\end{example}
+
+Il più importante teorema di scambio di passaggio al limite sotto il segno di derivata 
+è il teorema di convergenza dominata di Lebesgue. 
+Questo teorema richiede però la nozione di integrale di Lebesgue che va oltre gli obiettivi 
+di questo corso. 
+\index{Lebesgue!integrale di}%
+\index{teorema!convergenza dominata}%
+\index{convergenza!dominata}%
+\index{teorema!Lebesgue}%
+\index{integrale!di Lebesgue}%
+Possiamo però enunciare una versione adattata agli integrali impropri: il teorema risulta 
+un poco metto flessibile ma potrà essere comunque utilizzato in molti casi interessanti.
+
+\begin{theorem}[convergenza dominata quasi uniforme]
+  \label{th:convergenza_dominata}%
+  \mymargin{convergenza dominata}%
+  \index{teorema!di convergenza dominata}%
+  Sia $f_k\colon [a,b) \to \RR$ e $f\colon [a,b)\to \RR$ funzioni 
+  localmente Riemann integrabili
+  sull'intervallo $[a,b)$ con $a\in \RR$,$b\in (a,+\infty]$
+  tali che per ogni $\beta<b$ 
+  si abbia convergenza uniforme: $f_k\rightrightarrows f$ 
+  sull'intervallo $[a,\beta]$.
+  
+  Supponiamo inoltre che esista $g\colon [a,b)\to \RR$
+  integrabile in senso improprio su $[a,b)$ con integrale finito e tale
+  che
+  \[
+  \abs{f_k(x)}\le g(x)
+  \]
+  per ogni $k\in \NN$ e ogni $x\in [a,b)$.
+    
+  Allora $f_k$ ed $f$ sono integrabili in senso improprio su $[a,b)$ e si ha
+  \[
+    \lim_{k\to+\infty} \int_a^b f_k(x)\, dx = \int_a^b f(x)\, dx.
+  \]
+  
+  Ovviamente, per simmetria, vale un risultato analogo per funzioni definite su intervalli
+  aperti a sinistra $(a,b]$ e su unioni finite di tali intervalli.
+  \end{theorem}
+  %
+  \begin{proof}
+  Ogni $f_k$ è assolutamente integrabile in senso improprio in quanto
+  $\abs{f_k}\le g$ dove $g$ ha integrale finito per ipotesi.
+  Visto che $f_k(x)\to f(x)$ per ogni  $x\in [a,b)$
+  si ha anche $\abs{f(x)}\le g(x)$ per ogni $x\in [a,b)$ 
+  e dunque anche l'integrale di $f$ è assolutamente convergente su $[a,b)$.
+  
+  Per definizione di integrale improprio sappiamo che 
+  per ogni $\eps>0$ esiste $\beta<b$ per cui risulta
+  \[
+    \int_\beta^b g(x)\, dx < \frac \eps 3
+  \]
+  Ma su $[a,\beta]$ abbiamo la convergenza degli integrali per il teorema precedente
+  dunque esiste $N$ tale che per ogni $k > N$ si ha 
+  \[
+   \abs{\int_a^\beta f_k(x)\, dx - \int_a^\beta f(x)\, dx} \le \frac \eps 3. 
+  \]
+  Mettendo insieme le due cose si ottiene,
+  per ogni $k>N$
+  \begin{align*}
+    \MoveEqLeft{\abs{\int_a^b f_k(x)\, dx - \int_a^b f(x)\, dx}} \\
+    &\le \abs{\int_a^\beta f_k(x)\, dx - \int_a^\beta f(x)\, dx}
+        + \abs{\int_\beta^b (f_k(x) - f(x))\, dx } \\
+    &\le \frac \eps 3 + \int_\beta^b \abs{f_k(x)}\, dx + \int_\beta^b\abs{f(x)}\, dx\\
+    &\le \frac \eps 3 + 2 \int_\beta^b g(x)\,dx \le \eps.
+  \end{align*}
+  Abbiamo quindi verficato la tesi tramite la definizione di limite.
+  \end{proof}
+  
+  \begin{comment}
+  \begin{example}
+  La successione $f_k(x) = \sin(x^k)$ converge puntualmente a $f(x)=0$ sull'intervallo
+  $\left[0,\frac \pi2\right)$ e la convergenza è uniforme su ogni intervallo $[0,\beta]$
+  con $\beta < \frac \pi 2$ (verificare!).
+  Inoltre $\abs{f_k(x)} = \sin(x^k) \le 1$ per ogni $x\in \Enclose{0,\frac \pi 2}$
+  e $\int_0^{\frac \pi 2} 1\, dx = \frac \pi 2 < +\infty$.
+  Dunque possiamo applicare il teorema di convergenza dominata e,
+  scambiando il limite con l'integrale possiamo dedurre che
+  \[
+    \int_0^{\frac \pi 2} \sin (x^k)\, dx \to 0, \qquad \text{per $k\to +\infty$.}
+  \]  
+  \end{example}
+\end{comment}
+
+\begin{example}[derivata della funzione $\Gamma(x)$]
+Possiamo utilizzare il teorema di convergenza dominata (quasi uniforme) per 
+dimostrare che la funzione 
+\[
+ \Gamma (x) = \int_0^{+\infty} e^{-t} t^{x-1}\, dt 
+\]
+introdotta 
+nell'esempio~\ref{ex:gamma_eulero} è derivabile e la derivata si ottiene 
+passando l'operatore $\frac{d}{d x}$ attraverso il segno 
+di integrazione:
+\[
+ \Gamma'(x) = \frac{d}{dx} \int_0^{+\infty} \frac{\partial }{\partial x}e^{-t}t^{x-1}\, dt 
+ =\int_0^{+\infty} e^{-t}\ln t t^{x-1}\, dt.
+\]
+
+Per fare ciò consideriamo la funzione di due variabili $f(x,t)=e^{-t}t^{x-1}$ 
+e fissato $x>0$ consideriamo il limite 
+\[
+ \lim_{h\to 0} \frac{\Gamma(x+h)-\Gamma(x)}{h}
+ = \lim_{h\to 0} \int_0^{+\infty} \frac{f(x+h,t) - f(x,t)}{h}\, dt.  
+\]
+Posto 
+\[
+  g_h(t) = \frac{f(x+h,t)-f(x,t)}{h}, \qquad 
+  g_0(t) = \frac{\partial f}{\partial x}(x,t)
+\]
+sappiamo che $g_0(t)$ è il limite puntuale di $g_h(t)$ per $h\to 0$.
+
+Nonostante $h$ sia un parametro continuo possiamo utilizzare gli stessi risultati 
+che abbiamo dimostrato per le successioni di funzioni. 
+Infatti quei risultati si riproducono esattamente nel continuo con solo qualche 
+piccola complicazione nelle notazioni.
+
+Vogliamo dunque dimostrare che si può applicare il teorema~\ref{th:convergenza_dominata}
+e quindi dobbiamo verificare che su ogni intervallo $[\alpha,\beta]\subset (0,+\infty)$ 
+si ha convergenza uniforme $g_h\rightrightarrows g_0$ e 
+che esiste una funzione $G\colon(0,+\infty)\to \RR$ con integrale convergente 
+su $\int_0^{+\infty}G(t)\, dt <+\infty$ e tale che $\abs{g_h(t)}\le G(t)$ 
+for all $t\in(0,+\infty)$. 
+Chiaramente le funzioni $g_h$ e $g_0$ sono localmente Riemann integrabili 
+in quanto funzioni continue.
+
+Fissiamo un intervallo chiuso e limitato $[\alpha,\beta]\subset (0,+\infty)$
+e osserviamo che per il teorema~\ref{th:lagrange} di Lagrange si ha
+\[
+  g_h(t) = \frac{\partial f}{\partial x}(x+k,t)
+\]
+per qualche $k$ con $\abs{k} < \abs{h}$.
+Abbiamo quindi 
+\begin{align*}
+  \abs{g_h(t)-g_0(t)} 
+  &= \abs{\frac{\partial f}{\partial x}(x+k,t)-\frac{\partial f}{\partial x}(x,t)}\\
+  &= \abs{e^{-t}\cdot \ln t \cdot t^{x+k-1} - e^{-t}\cdot \ln t \cdot t^{x-1}}\\
+   &= e^{-t}\cdot \abs{\ln t}\cdot t^{x-1}\cdot \abs{t^k-1}.
+\end{align*}
+Ora sull'intervallo $[\alpha,\beta]$ la funzione $e^{-t}\cdot \abs{\ln t}\cdot t^{x-1}$
+assume un valore massimo $M<+\infty$ (per il teorema di Weiestrass) mentre la funzione 
+$\abs{t^k-1}$, essendo monotona in $t$, 
+assume valore massimo in uno dei due punti $t=\alpha$ o $t=\beta$.
+Dunque, essendo $\alpha^k\to 1$ e $\beta^k\to 1$ per $k\to 0$, si ha
+\[
+  \abs{g_h(t)-g_0(t)} \le M\cdot \max\ENCLOSE{\alpha^k-1, \beta^k-1} \to 0
+  \text{per $\abs{k}< \abs{h} \to 0$}.
+\]
+Questo significa che $\sup_{t\in[\alpha,\beta]}\abs{g_h(t)-g_0(t)}\to 0$ 
+e quindi $g_h\rightrightarrows g_0$ per $h\to 0$, come volevamo dimostrare.
+
+Per concludere dobbiamo trovare la funzione dominante $G$ tale che $\abs{g_h}(t)\le G(t)$
+per ogni $t>0$. Si può verificare che la funzione 
+\[
+  G(t) = \begin{cases}
+      e^{-t}\cdot \abs{\ln t}\cdot t^{\frac{x_0}{2}-1} 
+        & \text{se $t\le 1$} \\ 
+      e^{-t}\cdot \abs{\ln t}\cdot t^{2 x_0 -1}
+        & \text{se $t\ge 1$}
+  \end{cases}
+\]
+ha integrale $\int_0^{+\infty} G(t)\,dt$ convergente e che 
+$\abs{g_h(t)}\le G(t)$ per ogni $t>0$.
+\end{example}
+  
 La convergenza puntuale viene usata in particolare per definire la convergenza 
 nello spazio delle funzioni continue. 
 L'esempio~\ref{ex:puntuale_non_uniforme} ci dice che il limite puntuale 
