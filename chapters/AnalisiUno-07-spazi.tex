@@ -1355,7 +1355,8 @@ E' sufficiente osservare che per ogni $x\in A$ si ha
 \end{proof}
 
 \begin{example}[successione che converge puntualmente ma non uniformemente]
-\mymark{***}
+\mymark{***}%
+\label{ex:puntuale_non_uniforme}%
 Sia $f_k\colon [0,1]\to \RR$ la successione di funzioni definita da $f_k(x)=x^k$. Se $x\in[0,1)$ si ha $x^k \to 0$ mentre se $x=1$ si ha $x^k \to 1$. Dunque la successione $f_k$ converge puntualmente alla funzione
 \[
 f(x) =
@@ -1425,136 +1426,236 @@ può denotare nel modo seguente:
   \qquad\text{per $f\in C^0([a,b])$.}
 \]
 
-\subsection{limite uniforme di derivate e integrali}
+\subsection{passaggio al limite sotto il segno di integrale}
 
-\begin{theorem}[scambio del limite con l'integrale]
-\mymark{***}
-Siano $a,b\in \RR$, $a\le b$.
-Siano $f_k\in C^0([a,b])$ funzioni che convergono uniformemente
-ad una funzione $f\in C^0([a,b])$.
-Allora
+Nell'esempio~\ref{ex:gamma_eulero} abbiamo definito una 
+funzione $\Gamma(x)$ tramite l'integrale in $dt$ di una funzione 
+che dipende dal parametro $x$:
 \[
-  \lim_{k\to+\infty}\enclose{\int_a^b f_k(x)\, dx}
-  = \int_a^b f(x)\, dx
-  = \int_a^b \enclose{\lim_{k\to +\infty} f_k(x)} \, dx.
-\]
+  \Gamma(x) = \int_a^b f(x,t)\, dt, \qquad 
+  f(x,t) = e^{-t}t^{x-1}.
+\] 
+Se la funzione $f(x,t)$ è continua e derivabile
+è naturale chiedersi se anche la funzione integrale $\Gamma$ 
+risulta essere continua e derivabile. 
+E se è derivabile è naturale chiedersi come si può calcolare
+la derivata.
 
-Inoltre scelto qualunque $x_0\in [a,b]$ e posto
-\[
-  F_k(x) = \int_{x_0}^x f_k(t)\, dt,
-  \qquad
-  F(x) = \int_{x_0}^x f(t)\, dt
-\]
-si ha che $F_k$ converge uniformemente a $F$.
-\end{theorem}
-%
-\begin{proof}
-\mymark{***}
-Banalmente si ha
+In generale si può rispondere facilmente a queste domande se siamo in grado di 
+scambiare tra loro gli operatori di limite e di integrale. 
+Infatti osserviamo che 
+si ha 
 \begin{align*}
-  \abs{\int_a^b f_k(x)\, dx - \int_a^b f(x)\, dx}
-  &\le \int_a^b \abs{f_k(x) - f(x)}\, dx \\
-  &\le \int_a^b \Abs{f_k - f}_\infty\, dx \\
-  &= (b-a) \Abs{f_k -f}_\infty
-  \to 0.
+  \lim_{x\to x_0} \Gamma(x) 
+  &= \lim_{x\to x_0} \int_a^b f(x,t)\, dt 
+  \stackrel{?}= \int_a^b \lim_{x\to x_0} f(x,t)\, dt\\
+  &= \int_a^b f(x_0,t)\, dt
+  = \Gamma(x_0)
 \end{align*}
-
-Se poi definiamo $F$ e $F_k$ come nell'enunciato, si ha
+e 
 \begin{align*}
-  \Abs{F_k-F}
+  \Gamma'(x) 
+  &= \lim_{h\to 0}\frac{\Gamma(x+h) - \Gamma(x)}{h} 
+  = \lim_{h\to 0} \int_a^b \frac{f(x+h,t)-f(x,t)}{h}\, dt \\
+  &\stackrel{?}= \int_a^b \lim_{h\to 0}\frac{f(x+h,t)-f(x,t)}{h}\, dt \\
+  &= \int_a^b \frac{\partial f}{\partial x}(x,t)\, dt.
+\end{align*}
+In entrambi i casi l'unico passaggio non formalmente giustificato è quello marcato
+con il punto interrogativo. 
+Lo scopo di questo capitolo è quello di determinare alcune condizioni che permettono 
+di effettuare lo scambio del limite con l'integrale e lo scambio della derivata con l'integrale.
+
+
+\begin{example}%
+La successione $f_n(x)=x^n$ dell'esempio~\ref{ex:puntuale_non_uniforme}
+converge puntualmente alla funzione che vale $0$ sull'intervallo $[0,1)$.
+
+In questo caso il limite può essere scambiato con l'integrale:
+\begin{align*}
+\lim_{n\to +\infty} \int_{-1}^1 f_n(x)\, dx 
+&= \lim_{n\to+\infty} \Enclose{\frac{x^{n+1}}{n+1}}_{-1}^1
+ = \lim_{n\to+\infty} \frac{1}{n+1} = 0 \\
+\int_{-1}^1 \lim_{n\to+\infty} f_n(x)\, dx 
+&= \int_{-1}^1 f(x)\, dx = 0.
+\end{align*}
+\end{example}
+
+L'esempio precedente ci dice che lo scambio tra il limite e l'integrale in certi casi 
+può essere fatto. Purtroppo la convergenza puntuale non è una ipotesi sufficiente 
+come si vede nel seguente esempio.
+
+\begin{example}
+Si consideri la successione di funzione $f_n\colon[0,1]\to\RR$ definita da 
+\[
+ f_n(x) = \frac{nx}{1+n^2x^4}.  
+\]
+Chiaramente si ha per ogni $x\in \RR$:
+\[
+  \lim_{n\to+\infty} \frac{nx}{1+n^2x^4} = 0.
+\]
+Dunque la successione $f_n$ converge puntualmente alla funzione $f=0$ identicamente nulla.
+Ma lo scambio del limite con l'integrale in questo caso 
+non è possibile in quanto risulta 
+\begin{align*}
+\lim_{n\to +\infty} \int_0^1 f_n(x)\, dx 
+&= \lim_{n\to +\infty} \int_0^1 \frac{nx}{1+n^2x^4}\, dx 
+ = \lim_{n\to +\infty} \int_0^1 \frac{nx}{1+n^2x^4}\, dx \\
+&=\lim_{n\to +\infty} \frac 1 2 \Enclose{\arctg(nx^2)}_0^1 
+ = \frac 1 2 \lim_{n\to +\infty} \arctg n = \frac \pi 4 
+\end{align*}
+mentre ovviamente 
+\[
+ \int_0^1 \lim_{n\to +\infty} f_n(x)\, dx = \int_0^1 0\, dx = 0.
+\]
+\end{example}
+
+Il motivo per cui nell'esempio precedente non si può passare 
+al limite sotto il segno di integrale è dovuto al fatto che la funzione 
+$f_n(x)$ pur tendendo a zero in ogni punto $x\in \RR$ nei punti vicini 
+ad $x=0$ diventa, al crescere di $n$, molto grande.
+In effetti il grafico della funzione $f_n(x)$ si ottiene dal grafico 
+della funzione $f(x) = \frac{x}{1+x^4}$ schiacciando la variabile $x$ 
+di un fattore $n$ e dilatando la variabile $y$ dello stesso fattore $n$.
+Questo fa sì che l'area sotto il grafico rimanga invariata.
+La funzione $f_n$ ha un punto di massimo per $x=\frac{1}{\sqrt[4]3 \sqrt x}$
+(lo si verifichi studiando il segno della derivata) e in tale 
+punto assume un valore che tende ad infinito quando $n\to +\infty$.
+
+Se però c'è convergenza uniforme e l'integrale non è improprio, 
+vale il seguente.
+
+\begin{theorem}[passaggio al limite sotto il segno di integrale]
+  \mymark{***}%
+  Siano $f_n,f\colon [a,b]$ funzioni limitate 
+  e Riemann integrabili sull'intervallo chiuso e limitato $[a,b]$.
+  Supponiamo inolte che ci sia convergenza uniforme: 
+  $f_n \rightrightarrows f$.
+  Allora 
+  \[
+      \lim_{n\to+\infty} \int_a^b f_n(x)\, dx 
+      = \int_a^b f(x)\, dx.
+  \]
+
+  Inoltre scelto qualunque $c\in [a,b]$ e posto
+  \[
+    F_k(x) = \int_{c}^x f_k(t)\, dt,
+    \qquad
+    F(x) = \int_{c}^x f(t)\, dt
+  \]
+  si ha convergenza uniforme $F_k \rightrightarrows F$.
+\end{theorem}
+  %
+\begin{proof}
+  Se $f_n$ e $f$ sono Riemann-integrabili anche $f_n-f$ e $\abs{f_n-f}$ lo sono 
+  (teorema~\ref{th:reticolo})
+  e si ha:
+  \begin{align*}
+    \abs{\int_a^b f_n(x)\, dx - \int_a^b f(x)\, dx}
+    &\le \int_a^b \abs{f_n(x)-f(x)}\, dx \\
+    &\le \int_a^b \sup_{t\in[a,b]} \abs{f_n(t)-f(t)}\, dx \\
+    &= \sup_{t\in [a,b]}\abs{f_n(t)-f(t)}\cdot \int_a^b 1\, dx
+    \to 0.
+  \end{align*}
+
+  Se poi definiamo $F$ e $F_k$ come nell'enunciato, si ha
+  \begin{align*}
+  \Abs{F_k-F}_\infty
   &= \sup_{x\in [a,b]} \abs{\int_c^x f_k(t)-f(t)\, dt} \\
   &\le \sup_{x\in [a,b]} \abs{x-c} \cdot \Abs{f_k-f}_\infty \\
   &\le (b-a) \cdot \Abs{f_k-f}_\infty
   \to 0.
-\end{align*}
+  \end{align*}
 \end{proof}
-
-Il teorema precedente è equivalente a dire che l'operatore integrale $S\colon C^0([a,b]) \to C^0([a,b])$
+  
+Ci ricordiamo che le funzioni continue sono localmente Riemann integrabili.
+Dunque il teorema precedente ci permette di affermare che l'operatore integrale 
+$S\colon C^0([a,b]) \to C^0([a,b])$
 \[
-S(f)(x) = \int_{x_0}^x f(t)\, dt
+S(f)(x) = \int_{c}^x f(t)\, dt
 \]
-che fissato $x_0 \in [a,b]$ associa ad una funzione $f\in C^0([a,b])$ la sua funzione integrale, è un operatore continuo rispetto alla norma uniforme.
+(che fissato $c \in [a,b]$ associa ad una funzione $f\in C^0([a,b])$ la sua funzione integrale) 
+è un operatore continuo rispetto alla norma uniforme.
 
-In realtà le ipotesi per garantire la possibilità di scambiare
-il limite con l'integrale sono molto più deboli, per avere un teorema
-con ipotesi ottimali sarebbe però necessario introdurre l'integrale di Lebesgue,
-cosa che non vogliamo fare in questo corso. Un enunciato più generale
-che possiamo dimostrare facilmente con gli strumenti
-a nostra disposizione è il seguente.
+Purtroppo il teorema precedente non può essere valido in generale per gli integrali impropri,
+abbiamo infatti il seguente esempio negativo.
 
-\begin{theorem}[convergenza dominata quasi uniforme]
-\label{th:convergenza_dominata}%
-\mymargin{convergenza dominata}%
-\index{teorema!di convergenza dominata}%
-Siano $f_k\colon [a,b) \to \RR$, funzioni continue
-sull'intervallo $[a,b)$ con $a\in \RR$, $b\in (a,+\infty]$
-e supponiamo che esista $g\colon [a,b)\to \RR$
-integrabile in senso improprio su $[a,b)$ con integrale finito e tale
-che
-\[
-\abs{f_k(x)}\le g(x)
-\]
-per ogni $k\in \NN$ e ogni $x\in [a,b)$.
+\begin{example}\label{ex:convergenza_non_dominata}
+  Consideriamo la successione di funzioni $f_n\colon \RR\to\RR$
+  \[
+    f_n(x) = \frac 1 n \cdot \frac{1}{1+\enclose{\frac{x-n} n}^2}.
+  \]
+  Si può osservare che $\sup_{x\in \RR} \abs{f_n(x)} = f_n(n) = \frac 1 n$ 
+  e quindi $f_n \rightrightarrows 0$ su tutto $\RR$. 
+  Nonostante questo si ha 
+  \[
+  \int_{-\infty}^{+\infty} f_n(x) \, dx  
+  = \int_{-\infty}^{+\infty} \frac{1}{1+t^2}\, dt = \pi
+  \]
+  e quindi gli integrali non tendono a zero.
+\end{example}
 
-Supponiamo inoltre che per
-ogni $x\in[a,b)$ esista e sia finito il limite
-\[
-  f(x) = \lim_{k\to +\infty} f_k(x)
-\]
-e che per ogni $\beta<b$ la successione $f_k$ converga uniformemente
-ad $f$ sull'intervallo $[a,\beta]$.
+Per poter effettuare il passaggio al limite all'interno di un integrale 
+improprio ci serve una ipotesi in più, come vediamo nel seguente.
 
-Allora $f_k$ ed $f$ sono integrabili in senso improprio su $[a,b)$ e si ha
-\[
-  \lim_{k\to+\infty} \int_a^b f_k(x)\, dx = \int_a^b f(x)\, dx.
-\]
-
-Ovviamente, per simmetria, vale un risultato analogo per funzioni definite su intervalli
-aperti a sinistra $(a,b]$ e su unioni finite di tali intervalli.
+\begin{theorem}[convergenza dominata localmente uniforme]
+  \label{th:convergenza_dominata_uniforme}%
+  \mymargin{convergenza dominata uniforme}%
+  \index{teorema!di convergenza dominata}%
+  \\
+  Siano $f_k\colon (a,b) \to \RR$ e $f\colon (a,b)\to \RR$ funzioni 
+  localmente Riemann integrabili
+  sull'intervallo $(a,b)$ con $-\infty \le a < b \le +\infty$
+  tali che per ogni $[\alpha,\beta]\subset (a,b)$ 
+  si abbia convergenza uniforme: $f_k\rightrightarrows f$ 
+  sull'intervallo $[a,\beta]$.
+  
+  Supponiamo inoltre che esista $g\colon (a,b)\to \RR$
+  integrabile in senso improprio su $(a,b)$ con integrale convergente e tale
+  che
+  \[
+  \abs{f_k(x)}\le g(x)
+  \]
+  per ogni $k\in \NN$ e ogni $x\in [a,b)$.
+    
+  Allora $f_k$ ed $f$ hanno integrale improprio convergente su $(a,b)$ e si ha
+  \[
+    \lim_{k\to+\infty} \int_a^b f_k(x)\, dx = \int_a^b f(x)\, dx.
+  \]
 \end{theorem}
 %
 \begin{proof}
-Ogni $f_k$ è assolutamente integrabile in senso improprio in quanto
-$\abs{f_k}\le g$ dove $g$ ha integrale finito per ipotesi.
-Visto che $f_k$ converge uniformemente a $f$ su ogni intervallo $[a,\beta]$
-la funzione $f$ è anch'essa continua su ogni $[a,\beta]\subset[a,b)$
-e quindi è continua su tutto $[a,b)$. Inoltre passando al limite (puntuale)
-nella stima $\abs{f_k(x)}\le g(x)$ si trova che vale anche $\abs{f(x)}\le g(x)$
-e quindi anche $f$ è integrabile su $[a,b)$ con integrale finito.
-
-Su ogni $[a,\beta]\subset [a,b)$ possiamo applicare il teorema precedente
-in quanto abbiamo convergenza uniforme:
-\[
-  \lim_{k\to+\infty} \int_a^\beta f_k(x)\, dx = \int_a^\beta f(x)\, dx.
-\]
-razie alla continuità della funzione integrale,
-per ogni $\eps>0$ esiste $\beta<b$ per cui risulta
-\[
-  \int_{\beta}^b g(x)\, dx < \eps.
-\]
-Allora si ha
-\begin{equation}\label{eq:438948}
-\begin{aligned}
-  \abs{\int_a^b f_k(x)\, dx - \int_a^b f(x)\, dx}
-  &= \abs{\int_a^\beta f_k(x)\, dx - \int_a^\beta f(x)\, dx}\\
-  &\quad + \abs{\int_\beta^b (f_k(x) - f(x))\, dx }.
-   \end{aligned}
-\end{equation}
-Il primo addendo tende a zero per $k\to +\infty$ in quanto
-sull'intervallo $[a,\beta]$ c'è convergenza uniforme di $f_k$
-a $f$ e quindi possiamo applicare il teorema precedente
-di scambio del limite con l'integrale. Per il secondo addendo
-si ha invece
-\begin{align*}
-\abs{\int_\beta^b (f_k(x) - f(x))\, dx }
-&\le \int_\beta^b \abs{f_k(x)-f(x)}\, dx\\
-&\le \int_\beta^b \abs{f_k(x)}\, dx + \int_\beta^b \abs{f(x)}\, dx\\
-&\le 2 \int_\beta^b g(x)\, dx \le \eps.
-\end{align*}
-Dunque per ogni $\eps>0$ esiste $\beta<b$ tale che per $k$ abbastanza
-grande
-la quantità in~\eqref{eq:438948} risulta essere inferiore a $2\eps$.
-Abbiamo quindi verficato la tesi tramite la definizione di limite.
+  Ogni $f_k$ è assolutamente integrabile in senso improprio in quanto
+  $\abs{f_k}\le g$ dove $g$ ha integrale finito per ipotesi.
+  Visto che $f_k(x)\to f(x)$ per ogni  $x\in (a,b)$
+  si ha anche $\abs{f(x)}\le g(x)$ per ogni $x\in (a,b)$ 
+  e dunque anche l'integrale di $f$ è assolutamente convergente su $(a,b)$.
+  
+  Visto che l'integrale improprio è convergente sappiamo che 
+  per ogni $\eps>0$ esistono $\alpha>a$ e $\beta<b$ per cui risulta
+  \[
+    \int_\beta^b g(x)\, dx < \eps, \qquad 
+    \int_a^\alpha g(x)\, dx < \eps.
+  \]
+  Ma su $[\alpha ,\beta]$ abbiamo la convergenza degli integrali per il teorema precedente
+  dunque esiste $N$ tale che per ogni $k > N$ si ha 
+  \[
+   \abs{\int_\alpha^\beta f_k(x)\, dx - \int_\alpha^\beta f(x)\, dx} \le \eps. 
+  \]
+  Mettendo insieme le due cose si ottiene,
+  per ogni $k>N$
+  \begin{align*}
+    \MoveEqLeft{\abs{\int_a^b f_k(x)\, dx - \int_a^b f(x)\, dx}} \le \abs{\int_\alpha^\beta f_k(x)\, dx - \int_\alpha^\beta f(x)\, dx} \\
+    & \quad + \abs{\int_a^\alpha (f_k(x) - f(x))\, dx }
+      + \abs{\int_\beta^b (f_k(x) - f(x))\, dx } \\
+    &\le \eps 
+    + \int_a^\alpha \abs{f_k(x)}\, dx + \int_a^\alpha\abs{f(x)}\, dx
+    + \int_\beta^b \abs{f_k(x)}\, dx + \int_\beta^b\abs{f(x)}\, dx\\
+    &\le \eps 
+    + 2 \int_a^\alpha g(x)\,dx
+    + 2 \int_\beta^b g(x)\,dx 
+    \le 5 \eps.
+  \end{align*}
+  Abbiamo quindi verficato la tesi tramite la definizione di limite.
 \end{proof}
 
 \begin{example}
@@ -1568,8 +1669,265 @@ scambiando il limite con l'integrale possiamo dedurre che
 \[
   \int_0^{\frac \pi 2} \sin (x^k)\, dx \to 0, \qquad \text{per $k\to +\infty$.}
 \]
-
 \end{example}
+
+Nel teorema~\ref{th:convergenza_dominata}
+l'ipotesi che esista una funzione $g$ che ``domina'' l'intera successione 
+è essenziale, come abbiamo visto nell'esempio~\ref{ex:convergenza_non_dominata}.
+Invece l'ipotesi che la successione converga uniformemente non è veramente necessaria:
+la convergenza puntuale (a patto che la successione sia dominata) è sufficiente 
+per poter effettuare il passaggio al limite sotto il segno di integrale.
+Nella sua generalità questo risultato (teorema di convergenza dominata di Lebesgue) 
+viene dimostrato per l'integrale di Lebesgue.
+\index{Lebesgue!integrale di}%
+\index{teorema!convergenza dominata}%
+\index{convergenza!dominata}%
+\index{teorema!Lebesgue}%
+\index{integrale!di Lebesgue}%
+Siamo però in grado di enunciarne una versione un poco più debole valida per gli 
+integrali impropri di Riemann che potrà essere molto utile in tanti casi concreti.
+
+\begin{theorem}[convergenza dominata]
+  \label{th:convergenza_dominata}%
+Siano $I\subset \RR$ un intervallo e siano $-\infty \le a < b \le +\infty$ reali estesi.
+Sia $f\colon I \times(a,b)\to \RR$ una funzione continua 
+e sia $g\colon(a,b)\to \RR$ una funzione continua con integrale convergente
+\[
+ \int_a^b g(t) < +\infty
+\]
+tale per ogni $x\in I$ e per ogni $t\in(a,b)$ si abbia $\abs{f(x,t)} \le g(t)$.
+
+Allora per ogni $x\in I$ l'integrale $\int_a^b f(x,t)\, dt$ è convergente ed è continuo 
+nella variabile $x$, cioè:
+\[
+  \lim_{y\to x} \int_a^b f(y,t)  \, dt = \int_a^b f(x,t)\, dt.
+\]
+\end{theorem}
+%
+\begin{proof}
+Si noti che l'indice $k\to +\infty$, $k\in \NN$ nel teorema~\ref{th:convergenza_dominata_uniforme} 
+può essere tranquillamente sostituito con un parametro continuo $y\to x$, $y\in \RR$.
+Vogliamo quindi ricondurci al teorema~\ref{th:convergenza_dominata_uniforme} 
+e per fare questo andremo quindi a dimostrare che fissato $[\alpha,\beta]\subset (a,b)$ 
+e fissato $x\in I$ si ha convergenza uniforme delle funzioni $t\mapsto f(y,t)$ alla funzione $t\mapsto f(x,t)$
+quando $y\to x$. 
+
+Senza perdere di generalità possiamo supporre che $I$ sia un intervallo chiuso e limitato 
+che contiene il punto fissato $x$. 
+La funzione $f$ è dunque continua sull'insieme sequenzialmente compatto $I\times [\alpha,\beta]$ 
+e quindi è uniformemente continua
+per il teorema di Cantor (in due variabili).
+Significa che per ogni $\eps>0$ esiste $\delta>0$ tale che per ogni $x_1,x_2\in I$ 
+e per ogni $t,s\in[\alpha,\beta]$ si ha:
+\[
+\sqrt{(x_1-x_2)^2+(t_1-t_2)^2} < \delta \implies \abs{f(x_1,t_1)-f(x_2,t_2)} < \eps.  
+\]
+Ma allora per ogni $\eps>0$ se $y\in I$ e $\abs{x-y} < \delta$ si ha 
+\[
+  \sup_{t\in\closeinterval{\alpha}{\beta}} \abs{f(y,t)-f(x,t)} \le \eps
+\]
+e quindi
+\[
+  \lim_{y\to x}  d_\infty(t\mapsto f(y,t), t\mapsto f(x,t)) = 0.
+\]
+come volevamo dimostrare.
+\end{proof}
+%
+Il teorema di convergenza dominata viene spesso utilizzato 
+per scambiare la derivata con l'integrale come enunciato nel seguente.
+%
+\begin{theorem}[passaggio della derivata sotto il segno di integrale]
+  \mymark{**}%
+  \label{th:derivata_integrale}%
+  \mymargin{scambio della derivata con l'integrale}%
+\\
+Sia $f\colon I\times(a,b)\to \RR$ una funzione, $I\subset \RR$ 
+un intervallo e $a,b\in \bar\RR$ con $-\infty \le a < b \le +\infty$.
+Supponiamo che per ogni $t\in (a,b)$ la funzione sia derivabile rispetto a $x$
+per ogni $x\in I$
+e che la derivata $\frac{\partial f}{\partial x}$ sia continua su tutto il rettangolo 
+$I\times(a,b)$.
+Supponiamo infine che esista una funzione $G\colon(a,b)\to \RR$ localmente Riemann integrabile 
+e con integrale $\int_a^b G(t)\, dt$ convergente tale che per ogni $x\in I$ 
+e per ogni $t\in (a,b)$ si abbia 
+\[
+  \abs{\frac{\partial f}{\partial x}x(x,t)} \le G(t).
+\]
+
+Allora per ogni $x\in I$ si ha
+\[
+  \frac{d}{dx} \int_a^b f(x,t)\, dt = \int_a^b \frac{\partial f}{\partial x}(x,t)\, dt.  
+\]
+\end{theorem}
+%
+\begin{proof}
+Fissiamo $x_0\in I$ e definiamo 
+\[
+ g(x,t) = \begin{cases}
+ \frac{f(x,t) - f(x_0,t)}{x-x_0} &\text{se $x\neq x_0$}\\
+ \frac{\partial f}{\partial x}(x,t) & \text{se $x = x_0$}.
+\end{cases}  
+\]
+Osserviamo allora che la derivata dell'integrale nel punto $x_0$ 
+è:
+\begin{align*}
+    \Enclose{\frac{d}{dx} \int_a^b f(x,t)\, dt}_{x=x_0}
+  &= \lim_{x\to x_0} \frac{\int_a^b f(x,t)\, dt - \int_a^b f(x_0,t)\, dt }{x-x_0}\\
+  &= \lim_{x\to x_0} \int_a^b g(x,t)\, dt  
+\end{align*}
+mentre l'integrale della derivata è 
+$\int_a^b g(x_0,t)\, dt.$
+Basterà quindi dimostrare che è possibile applicare il teorema~\ref{th:convergenza_dominata}
+alla funzione $g(x,t)$.
+
+E' facile verificare che $G$ domina $g$ in quanto per il teorema di Lagrange sappiamo 
+che per ogni $x$ e per ogni $t$ esiste $x'$ con $\abs{x'-x_0}<\abs{x-x_0}$ tale che 
+\[
+  \abs{g(x,t)} = \abs{\frac{\partial f}{\partial x}(x',t)} \le G(t).
+\]
+
+Ci rimane quindi solo da dimostrare che la funzione $g\colon I\times (a,b)\to \RR$ 
+è continua. 
+Chiaramente se $x\neq x_0$ la funzione è continua, bisogna verificare che lo 
+sia anche nei punti $(x_0,t_0)$ per ogni $t_0\in (a,b)$. 
+Visto che per ipotesi $\partial f / \partial x$ è continua, sappiamo 
+che 
+\[
+  \forall \eps>0 \colon \exists \delta>0\colon 
+  {\scriptstyle\sqrt{(x-x_0)^2+(t-t_0)^2}<\delta} 
+  \implies \abs{\frac{\partial f}{\partial x}(x,t) - \frac{\partial f}{\partial x}(x_0,t_0)}<\eps.
+\]
+Applicando, come prima, il teorema di Lagrange sappiamo che se $(x,t)$ dista da $(x_0,t_0)$
+per meno di $\delta$ si ha 
+\[
+\abs{g(x,t) - g(x_0,t_0)} 
+= \abs{\frac{\partial f}{\partial x}(x',t) - \frac{\partial f}{\partial x}(x_0,t_0)}
+ < \eps.
+\]
+Questo conclude la dimostrazione della continuità di $g(x,t)$.
+\end{proof}
+
+\begin{exercise}[derivata della funzione $\Gamma$]
+  Mostrare 
+  che la funzione $\Gamma$ definita da (si veda esempio~\ref{ex:gamma_eulero})
+  \[
+   \Gamma(x) = \int_0^{+\infty} e^{-t}\cdot t^{x-1}\, dt 
+  \]
+  è derivabile e la sua derivata vale 
+  \[
+  \Gamma'(x) = \int_0^{\infty} e^{-t}\cdot \ln t \cdot t^{x-1}\, dt.  
+  \]
+\end{exercise}
+\begin{proof}[Svolgimento.]
+Basta verificare che si può applicare il teorema~\ref{th:derivata_integrale}
+alla funzione 
+\[
+  f(x,t) = e^{-t}t^{x-1}
+\]
+la cui derivata parziale rispetto a $x$ è 
+\[
+  \frac{\partial f}{\partial x}(x,t) = e^{-t}\cdot \ln t \cdot t^{x-1}.  
+\]
+Chiaramente questa funzione è continua, dobbiamo solo trovare una funzione 
+che la domina. Fissato $x_0>0$ possiamo restringere il dominio della 
+variabile $x$ all'intervallo $\closeinterval{\frac{x_0} 2}{2x_0}$ e considerare
+la funzione 
+\[
+  g(t) = e^{-t} \cdot \abs{\ln t}\cdot \max\ENCLOSE{t^{\frac {x_0} 2 -1},t^{2x_0 -1}}.
+\]
+Si tratta di una funzione continua (in quanto composizione di funzioni continue, 
+osservando che anche il massimo tra due funzioni continue è una funzione continua).
+Inoltre per $t\to 0^+$ si ha 
+\[
+  g(t) \sim \abs{\ln t}\cdot t^{\frac{x_0}{2}-1} 
+  \ll t^{-1+\eps}
+\]
+pur di prendere $\eps < \frac{x_0}{2}$.
+Dunque l'integrale $\int_0^1 g(t)\, dt$ è convergente per 
+il criterio di confronto asintotico.
+Se invece $t\to +\infty$ si ha 
+\[
+  g(t) \sim e^{-t}\cdot \ln t \cdot t^{2x_0-1} \ll \frac{1}{t^2}  
+\]
+in quanto l'esponenziale tende a zero molto più velocemente 
+di quanto non tendano ad infinito logaritmo e potenza.
+Dunque, per il criterio di confronto asintotico, 
+anche l'integrale $\int_1^{+\infty} g(t)\, dt$ è convergente.
+\end{proof}
+
+\begin{exercise}[integrale della gaussiana]
+  \index{funzione!gaussiana}%
+  \index{integrale!gaussiana}%
+Dimostriamo che 
+\[
+  \int_{-\infty}^{+\infty} e^{-s^2}\, ds = \sqrt \pi.
+\]
+\end{exercise}
+%
+\begin{proof}[Svolgimento.]
+Il metodo qui utilizzato viene a volte chiamato \emph{trucco di Feynman}.
+\index{Feynman!trucco per gli integrali}%
+\index{trucco di Feynman!per gli integrali}%
+Poniamo
+\[
+  I = \int_{-\infty}^{+\infty} e^{-s^2}\, ds.
+\]
+e consideriamo la seguente funzione
+\[ 
+  F(x) = \int_0^{+\infty} \frac{e^{-x^2(1+t^2)}}{1+t^2}\, dt.
+\]
+Possiamo facilmente calcolare 
+\[
+  F(0) = \int_0^{+\infty} \frac{1}{1+t^2}\, dt = \Enclose{\arctg t}_0^{+\infty} = \frac \pi 2.
+\]
+Mentre se $x>1$ si ha 
+\[
+  0\le \frac{e^{-x^2(1+t^2)}}{1+t^2}
+  = e^{-x^2}\cdot \frac{e^{-x^2t^2}}{1+t^2}
+  \le e^{-x^2}\cdot e^{-t^2}
+\]
+e quindi per $x\to +\infty$:
+\[
+  0\le F(x) \le e^{-x^2} \int_0^x e^{-t^2}\, dt \le e^{-x^2}\cdot I \to 0.
+\]
+Calcoliamo ora la derivata di $F$ applicando il teorema~\ref{th:derivata_integrale}.
+La funzione integranda ha derivata 
+\[
+ \frac{\partial}{\partial x}\enclose {\frac{e^{-x^2(1+t^2)}}{1+t^2}}
+ = -2x e^{-x^2(1+t^2)}.
+\]
+Se restringiamo la variabile $x$ ad un intervallo $\closeinterval{x_1}{x_2}$
+abbiamo 
+\[
+ \abs{-2x e^{-x^2(1+t^2)}}
+ \le 2 x_2 e^{-x_1^2(1+t^2)} \ll \frac{1}{t^2}
+\]
+e dunque la funzione dominante ha integrale finito sull'intervallo 
+$\openinterval{0}{+\infty}$. 
+Possiamo quindi scambiare la derivata con l'integrale per ottenere 
+\[
+ F'(x) = - 2 x\int_0^{+\infty} e^{-x^2(1+t^2)}\, dt
+       = - 2 x e^{-x^2}\int_0^{+\infty} e^{-x^2t^2}\, dt. 
+\]
+Con il cambio di variabile $s=xt$, $ds=x dt$ si ottiene
+\[
+ F'(x) = -2 e^{-x^2}\int_0^{+\infty} e^{-s^2}\, ds = - e^{-x^2}\cdot I.
+\]
+Ma allora da un lato abbiamo 
+\[
+  \int_0^{+\infty} F'(x)\, dx 
+  = \Enclose{F'(x)}_0^{+\infty}  = 0 - \frac{\pi}{2}.
+\]
+Dall'altro 
+\[
+ \int_0^{+\infty} F'(x)\, dx 
+ = - I \cdot \int_0^{+\infty} e^{-x^2}\, dx
+ = - \frac{I^2}{2}. 
+\]
+Concludiamo quindi che $I^2=\pi$, come volevamo dimostrare.
+\end{proof}
+
+\section{scambio della derivata con il limite}
 
 \begin{theorem}[scambio del limite con la derivata]
 \mymark{***}
