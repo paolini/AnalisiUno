@@ -620,7 +620,7 @@ per $x\to +\infty$ se risulta
   \lim_{x\to +\infty} f(x) - (mx+q) = 0.
 \]
 Se $m=0$ diremo che il grafico di $f$ ha un \emph{asintoto orizzontale} $y=q$
-\mymargin{asintoto orizzontale/obliquo}%
+\mymargin{asintoto orizzontale e obliquo}%
 \index{asintoto!orizzontale}%
 \index{asintoto!obliquo}%
 altrimenti diremo che $y=mx+q$ è un \emph{asintoto obliquo}.
@@ -1138,10 +1138,12 @@ strettamente crescente perché se fosse crescente ma non strettamente
 ci dovrebbe essere un intero intervallo in cui $f'$ si annulla.
 Dunque $f$ è iniettiva. Visto che $f(x)\to \pm\infty$ per $x\to \pm\infty$
 si ha $\sup f(\RR) = +\infty$, $\inf f(\RR) = -\infty$ e per il teorema dei valori intermedi
-otteniamo che $f(\RR)=\RR$. Dunque $f$ è anche suriettiva.
+otteniamo che $f(\RR)=\RR$. 
+Dunque $f$ è anche suriettiva ed è quindi invertibile.
 
-La funzione inversa di $f$ è continua per il Teorema~\ref{th:inversa_continua}
-ed è derivabile nei punti corrispondenti ai punti in cui $f$ ha derivata non nulla.
+La funzione inversa di $f$ è anch'essa monotona, 
+è quindi continua per il Teorema~\ref{th:monotona_continua} ed 
+è derivabile nei punti corrispondenti ai punti in cui $f$ ha derivata non nulla.
 L'unico punto in cui $f$ ha derivata nulla è $x=1$ e visto che $f(1) = 1$ risulta
 che $f^{-1}(y)$ è derivabile per ogni $y\neq 1$ e vale
 \[
@@ -2874,14 +2876,14 @@ destro di questa uguaglianza tenderebbe a $\pm \infty$, assurdo.
 \end{comment}
 
 \begin{definition}[coefficiente binomiale reale]
-\label{def:binomiale_reale}
-\mymark{***}
+\label{def:binomiale_reale}%
+\mymark{***}%
 Dato $\alpha \in \RR$, $k \in \NN$ definiamo
 \[
  {\alpha \choose k } = \frac{\alpha \cdot (\alpha-1) \cdots (\alpha -k +1)}{k!}.
 \]
 Osserviamo che se $\alpha \in \NN$ questa definizione coincide
-con la definizione~\ref{def:binomiale}.
+con la definizione data nel capitolo~\ref{ch:binomiale}.
 \end{definition}
 
 \begin{theorem}[sviluppi di Taylor di alcune funzioni elementari]
@@ -3542,7 +3544,7 @@ volevamo dimostrare.
 \end{proof}
 
 Non basta che una funzione sia di classe $C^\infty$ per garantire
-che sia anche analitica e quindi non è ovvio il seguente.
+che sia anche analitica e quindi può essere utile il seguente.
 
 \begin{theorem}[criterio di analiticità]
 \label{th:criterio_analitica}
@@ -3599,8 +3601,10 @@ e^x &= \sum_{k=0}^{+\infty} \frac{x^k}{k!}\\
 \sin x &= \sum_{k=0}^{+\infty} (-1)^k\frac{x^{2k+1}}{(2k+1)!}\\
 \cos x &= \sum_{k=0}^{+\infty} (-1)^k\frac{x^{2k}}{(2k)!}\\
 (1+x)^\alpha &= \sum_{k=0}^{+\infty} {\alpha \choose k} x^k, \qquad \text{se $\abs{x}<1$} \\
-\ln (1+x) &= \sum_{k=1}^{+\infty} (-1)^{k-1} \frac{x^k}{k}, \qquad \text{se $\abs{x}<1$} \\
-\arcsin x &= \sum_{k=0}^{+\infty} \frac{(2k-1)!!}{(2k)!!} \frac{x^{2k+1}}{2k+1}, \qquad \text{se $\abs{x}< 1$} \\
+\ln (1+x) &= \sum_{k=1}^{+\infty} (-1)^{k-1} \frac{x^k}{k}, \qquad \text{se $x\in(-1,1]$} \\
+\arctg x &= \sum_{k=0}^{+\infty} (-1)^k \frac{x^{2k+1}}{2k+1}, \qquad \text{se $x\in [-1,1]$} \\
+\arcsin x &= \sum_{k=0}^{+\infty} \frac{(2k-1)!!}{(2k)!!} \frac{x^{2k+1}}{2k+1}, 
+  \qquad \text{se $x\in[-1,1]$} \\
 \arccos x &= \frac \pi 2 - \arcsin x
 \end{align*}
 \caption{sviluppi in serie di Taylor, di alcune funzioni elementari.
@@ -3620,7 +3624,7 @@ Si veda il teorema~\ref{th:serie_taylor}}.
   $\sin$ e $\cos$ hanno derivata limitata, quindi le ipotesi del teorema
   sono facilmente verificate. Ma anche la funzione $e^x$ ha derivata limitata
   se ci restringiamo ad un qualunque intervallo limitato e dunque anche in quel
-  caso il teorema si applica.
+  caso il teorema~\ref{th:criterio_analitica} si applica.
 
   Per quanto riguarda la funzione $f(x)=x^\alpha$ scelto un punto qualunque $x_0>0$
   possiamo utilizzare il teorema~\ref{th:serie_binomiale}:
@@ -3650,97 +3654,74 @@ Si veda il teorema~\ref{th:serie_taylor}}.
   ma chiaramente $g(x_0) = f(x_0)$ e $g'(x) = f'(x)$ per ogni $x\in I$,
   dunque $g-f$ è costantemente uguale a $0$ cioè $f(x) = g(x)$.
 
-  La precedente osservazione si applica alle funzioni $\ln x$, $\arcsin x$ e
-  $\arccos x$ in quanto la loro derivata è una funzione potenza e quindi
-  è analitica per quanto già visto.
+  La precedente osservazione si applica alle funzioni 
+  $\ln x$, $\arctg x$, $\arcsin x$ e $\arccos x$ 
+  in quanto la loro derivata è una funzione potenza e quindi
+  è analitica per quanto già visto:
+  \begin{align*}
+    D \ln (1+x) &= \enclose{1+x}^{-1}, &
+    D \arctg x &= \enclose{1+x^2}^{-1}, \\
+    D \arcsin x &= \enclose{1+x^2}^{-\frac 1 2}, &
+    D \arccos x &= -\enclose{1+x^2}^{-\frac 1 2}.
+  \end{align*}
 
-  Osserviamo ora che se una funzione è analitica allora può essere scritta
-  in serie di Taylor e i coefficienti della serie di Taylor coincidono
-  con i coefficienti dei polinomi di Taylor. Dunque gli sviluppi
-  in tabella~\ref{tb:taylor2} hanno gli stessi termini dei polinomi
-  nella tabella~\ref{tb:taylor} a pagina \pageref{tb:taylor}.
-  \end{proof}
+  Si trovano quindi gli sviluppi in serie riportati nella tabella~\ref{tb:taylor2}
+  validi all'interno del raggio di convergenza di queste serie ovvero per $x\in (-1,1)$.
 
-\begin{comment}
-\begin{example}
-La funzione $f(x) = \frac{1}{\sqrt x}$ è analitica sull'intervallo
-$(0,+\infty)$.
-\end{example}
-%
-\begin{proof}
-Scriviamo $f(x) = x^\alpha$ con $\alpha=-\frac 1 2$ e, facendo le derivate
-successive osserviamo che si ha:
-\[
-  f^{(n)}(x) = \alpha(\alpha-1) \cdots (\alpha-n+1) x^{\alpha-n}
-\]
-Dunque
-\[
-  \frac{f^{(n)}(x)}{n!}
-  = \frac{\alpha}{1}\cdot \frac{\alpha-1}{2} \cdots \frac{\alpha-n+1}{n} x^{\alpha-n}
-\]
-e per $\alpha=-\frac 1 2$ possiamo notare che per $k=1,\dots,n$
-si ha $\abs{\alpha-k + 1} = \abs{\frac 1 2 - k}
-< k$ e dunque
-\[
-\frac{\abs{f^{(n)}(x)}}{n!} \le x^{\alpha - n} = \frac{1}{x^{n+\frac 1 2}}.
-\]
-Fissato un punto $x_0>0$ possiamo quindi prendere $\rho = x_0/2$
-cosicché se $\abs{x-x_0}<\rho$ risulta $x>\rho$ e quindi
-\[
-\frac{\abs{f^{(n)}(x)}}{n!} \le \frac{1}{\sqrt \rho\cdot \rho^n} = M L^n
-\]
-avendo scelto $M=1/\sqrt{\rho}$ e $L=1/\rho$.
+  Ci ricordiamo però il teorema~\ref{th:lemma_abel} (lemma di Abel) il quale 
+  garantisce che se abbiamo una serie di potenze il cui raggio di convergenza 
+  è $R$ e se la serie è convergente nel punto $x$ con $x=\pm R$ allora 
+  la somma della serie risulta essere una funzione continua fino al punto $x$.
+  Ad esempio la somma della serie di Taylor della funzione $\ln(1+x)$
+  è continua nel punto $x=1$ in quanto in tale punto è convergente 
+  (si tratta infatti della serie armonica a segni alterni, 
+  convergente per il criterio di Leibniz). 
+  Dunque si ha 
+  \begin{equation}\label{eq:somma_serie_leibniz}
+    \sum_{k=1}^{+\infty} \frac{(-1)^{k-1}} k 
+    = \lim_{x\to 1^-} \sum_{k=1}^{+\infty} (-1)^{k-1} \frac{x^k}{k}
+    = \lim_{x\to 1^-} \ln (1+x) = \ln 2 
+  \end{equation}
+  e lo sviluppo in serie del logaritmo $\ln(1+x)$ è valido su 
+  tutto l'intervallo semiaperto $(-1,1]$. 
+
+  Lo stesso vale per le funzioni $\arctg x$, $\arcsin x$ e $\arccos x$ le cui serie 
+  sono convergenti su tutto l'intervallo chiuso $[-1,1]$.
+
+  Naturalmente i coefficienti delle serie di Taylor che abbiamo trovato ora
+  coincidono con i coefficienti 
+  dei polinomi di Taylor che avevamo già trovato nella tabella~\ref{tb:taylor}
+  a pagina \pageref{tb:taylor} in quanto troncando la serie di Taylor otteniamo 
+  un polinomio che soddisfa la formula di Taylor~\eqref{eq:Taylor} 
+  e quindi è proprio il polinomio di Taylor.
 \end{proof}
 
-Con non poca fatica si può aggiustare la dimostrazione precedente
-in modo da dimostrare che $x^\alpha$ è analitica per ogni $\alpha \in \RR$.
-Vedremo però più avanti che c'è una dimostrazione più semplice.
-\end{comment}
-
-\begin{theorem}[principio di identità delle funzioni analitiche]
-Se $f$ e $g$ sono due funzioni analitiche definite su uno stesso intervallo
-aperto $I\subset \RR$ allora risultano fatti equivalenti:
-\begin{enumerate}
- \item $f(x)=g(x)$ per ogni $x\in I$,
- \item esiste $x_0\in I$ tale che per ogni $k\in \NN$ si ha $f^{(k)}(x_0) = g^{(k)}(x_0)$,
- \item esiste $x_0\in I$ e $\rho>0$ tale che per ogni $x\in I$ con $\abs{x-x_0}<\rho$ si ha
- $f(x)=g(x)$.
-\end{enumerate}
-\end{theorem}
-\begin{proof}
-Se $f=g$ allora chiaramente le derivate di $f$ e $g$ coincidono in tutti i punti,
-quindi $1\implies 2$.
-
-Se $f$ e $g$ sono analitiche e $x_0\in I$ esiste un intorno del punto
-$x_0$ in cui entrambe le funzioni possono essere scritte come
-somma della serie di Taylor. Ma se $f$ e $g$ hanno le stesse derivate
-nel punto $x_0$ le loro serie di Taylor coincidono e dunque le funzioni
-coincidono all'interno del raggio di convergenza. Dunque $2\implies 3$.
-
-Ci rimane da dimostrare che $3 \implies 1$.
-Per ipotesi sappiamo che esiste $x_0\in I$ tale che $f(x) = g(x)$ in un intorno
-di $x_0$. Supponiamo per assurdo che esista almeno un punto $x\in I$ in cui
-$f(x) \neq g(x)$. Senza perdita di generalità possiamo supporre che sia
-$x>x_0$ e possiamo prendere l'estremo inferiore di tali punti:
+Il teorema precedente ci permette di scrivere delle identità notevoli. 
+Ponendo $x=1$ nella serie che definisce il logaritmo abbiamo già osservato 
+che si ottiene la somma della serie armonica a segni alterni di \myemph{Newton-Mercator}:
+\index{formula!di Newton-Mercator}%
+\index{serie!di Newton-Mercator}%
+\index{serie!armonica!a segni alterni}%
+\index{$\sqrt 2$!sviluppo in serie}%
+\begin{equation}\label{eq:serie_ln2}
+  \ln 2 = 1 - \frac 1 2 + \frac 1 3 - \frac 1 4 + \frac 1 5 - \frac 1 6 + \dots
+\end{equation}
+Ponendo $x=1$ nella serie di Taylor dell'arcotangente otteniamo 
+la formula di \myemph{Gregory-Leibniz}
+\index{$\pi$!formula di Gregory-Leibniz}%
+\index{Gregory!approssimazione $\pi$}%
+\index{Leibniz!approssimazione $\pi$}%
+\index{formula!di Gregory-Lebniz per $\pi/4$}%
 \[
-  x_1 = \inf\ENCLOSE{x\in I\colon x>x_0, f(x)\neq g(x)}.
+  \frac \pi 4 =
+   1 - \frac 1 3 + \frac 1 5 - \frac 1 7 + \frac 1 9 - \frac 1 {10} + \dots
 \]
-Sappiamo che $x_1>x_0$ perché in un intorno di $x_0$ le due funzioni
-coincidono per ipotesi. Per definizione di $x_1$ sappiamo anche
-che $f(x)=g(x)$ per ogni $x\in [x_0,x_1)$ e quindi, facendo le derivate,
-possiamo affermare che $f^{(k)}(x) = g^{(k)}(x)$ per ogni $k\in \NN$
-e per ogni $x\in [x_0,x_1)$. Visto che $f$ e $g$ sono di classe $C^\infty$
-possiamo concludere, per continuità, che anche $f^{(k)}(x_1)=g^{(k)}(x_1)$
-per ogni $k\in \NN$. Dunque le due funzioni hanno le stesse derivate
-nel punto $x_1$. Essendo $f$ e $g$ funzioni analitiche sappiamo
-che c'è un intorno del punto $x_1$ in cui entrambe le funzioni
-coincidono con la somma della propria serie di Taylor. Ma avendo le
-stesse derivate in $x_1$ le due funzioni hanno anche la stessa serie
-di Taylor e quindi coincidono in un intorno di $x_1$. Questo
-è assurdo perché per come abbiamo definito $x_1$ ci devono
-essere dei punti arbitrariamente vicini a $x_1$ in cui $f(x)\neq g(x)$.
-\end{proof}
 
+Anche lo sviluppo in serie dell'arcoseno determina una formula utile per calcolare 
+le cifre decimali di $\pi$. 
+Per avere una convergenza più rapida conviene prendere $x$ più possibile 
+vicino a zero, nel seguente esercizio prendiamo $x=\frac 1 2$ per trovare 
+la ben nota approssimazione $\pi \approx 3.14$.
 
 \begin{exercise}[calcolo cifre di $\pi$]
   \label{ex:cifre_pi}
@@ -3820,6 +3801,50 @@ Si veda il codice a pagina~\pageref{code:compute_pi}.}
 \index{cifre!$\pi$}
 \end{table}
 
+\begin{theorem}[principio di identità delle funzioni analitiche]
+  Se $f$ e $g$ sono due funzioni analitiche definite su uno stesso intervallo
+  aperto $I\subset \RR$ allora risultano fatti equivalenti:
+  \begin{enumerate}
+   \item $f(x)=g(x)$ per ogni $x\in I$,
+   \item esiste $x_0\in I$ tale che per ogni $k\in \NN$ si ha $f^{(k)}(x_0) = g^{(k)}(x_0)$,
+   \item esiste $x_0\in I$ e $\rho>0$ tale che per ogni $x\in I$ con $\abs{x-x_0}<\rho$ si ha
+   $f(x)=g(x)$.
+  \end{enumerate}
+  \end{theorem}
+  \begin{proof}
+  Se $f=g$ allora chiaramente le derivate di $f$ e $g$ coincidono in tutti i punti,
+  quindi $1\implies 2$.
+  
+  Se $f$ e $g$ sono analitiche e $x_0\in I$ esiste un intorno del punto
+  $x_0$ in cui entrambe le funzioni possono essere scritte come
+  somma della serie di Taylor. Ma se $f$ e $g$ hanno le stesse derivate
+  nel punto $x_0$ le loro serie di Taylor coincidono e dunque le funzioni
+  coincidono all'interno del raggio di convergenza. Dunque $2\implies 3$.
+  
+  Ci rimane da dimostrare che $3 \implies 1$.
+  Per ipotesi sappiamo che esiste $x_0\in I$ tale che $f(x) = g(x)$ in un intorno
+  di $x_0$. Supponiamo per assurdo che esista almeno un punto $x\in I$ in cui
+  $f(x) \neq g(x)$. Senza perdita di generalità possiamo supporre che sia
+  $x>x_0$ e possiamo prendere l'estremo inferiore di tali punti:
+  \[
+    x_1 = \inf\ENCLOSE{x\in I\colon x>x_0, f(x)\neq g(x)}.
+  \]
+  Sappiamo che $x_1>x_0$ perché in un intorno di $x_0$ le due funzioni
+  coincidono per ipotesi. Per definizione di $x_1$ sappiamo anche
+  che $f(x)=g(x)$ per ogni $x\in [x_0,x_1)$ e quindi, facendo le derivate,
+  possiamo affermare che $f^{(k)}(x) = g^{(k)}(x)$ per ogni $k\in \NN$
+  e per ogni $x\in [x_0,x_1)$. Visto che $f$ e $g$ sono di classe $C^\infty$
+  possiamo concludere, per continuità, che anche $f^{(k)}(x_1)=g^{(k)}(x_1)$
+  per ogni $k\in \NN$. Dunque le due funzioni hanno le stesse derivate
+  nel punto $x_1$. Essendo $f$ e $g$ funzioni analitiche sappiamo
+  che c'è un intorno del punto $x_1$ in cui entrambe le funzioni
+  coincidono con la somma della propria serie di Taylor. Ma avendo le
+  stesse derivate in $x_1$ le due funzioni hanno anche la stessa serie
+  di Taylor e quindi coincidono in un intorno di $x_1$. Questo
+  è assurdo perché per come abbiamo definito $x_1$ ci devono
+  essere dei punti arbitrariamente vicini a $x_1$ in cui $f(x)\neq g(x)$.
+  \end{proof}
+  
 \section{derivata complessa}
 \label{sec:derivata_complessa}
 
@@ -3845,17 +3870,19 @@ e la derivata del prodotto si ripetono formalmente identiche
 a come le abbiamo fatte per la derivata reale.
 Potremo quindi affermare che se $f$ e $g$ sono derivabili
 in senso complesso in un punto $z_0\in \CC$ risulta
-\[
-  (f+g)'(z_0) = f'(z_0) + g'(z_0), \qquad
-  (f\cdot g)'(z_0) = f'(z_0)\cdot g(z_0) + f(z_0)\cdot g'(z_0).
-\]
+\begin{align*}
+  (f+g)'(z_0) 
+    &= f'(z_0) + g'(z_0), \\
+  (f\cdot g)'(z_0) 
+    &= f'(z_0)\cdot g(z_0) + f(z_0)\cdot g'(z_0).
+\end{align*}
 Dunque si avrà, se $n\in \NN\setminus\ENCLOSE{0}$,
 \[
   \enclose{z^n}' = n z^{n-1}.
 \]
 Ovviamente la derivata di una costante è nulla.
-Anche la derivata della funzione composta è valida e si
-dimostra ripetendo formalmente la stessa dimostrazione che
+La formula per la derivata della funzione composta è anch'essa valida 
+e si dimostra ripetendo formalmente la stessa dimostrazione che
 abbiamo già visto:
 \[
   \enclose{f(g(z))}'  = f'(g(z))\cdot g'(z).
