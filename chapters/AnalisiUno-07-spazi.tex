@@ -1857,6 +1857,63 @@ Dunque, per il criterio di confronto asintotico,
 anche l'integrale $\int_1^{+\infty} g(t)\, dt$ è convergente.
 \end{proof}
 
+Il metodo utilizzato nei prossimi esempi viene a volte chiamato
+ \myemph{trucco!di Feynman}:
+\index{Feynman!trucco per gli integrali}%
+\index{trucco!di Feynman!per gli integrali}%
+si tratta di moltiplicare la funzione integranda per una funzione 
+che dipende da un parametro in modo che derivando rispetto al parametro 
+la funzione integranda si semplifichi.
+
+\begin{exercise}[integrale notevole]
+  \label{ex:integrale_sin_integrale}%
+Mostriamo che 
+  \[
+    \int_0^{+\infty} \frac{\sin t}{t}\, dt = \frac \pi 2.
+  \] 
+\end{exercise}
+\begin{proof}
+Consideriamo la funzione 
+\[
+  F(x) = \int_0^{+\infty} \frac{\sin t}{t}e^{-tx}\, dt.
+\]
+Possiamo derivare la funzione utilizzando il teorema~\ref{th:derivata_integrale}
+in quanto la derivata della funzione integranda 
+\[
+  \frac{\partial}{\partial x}\enclose{\frac{\sin t}{t}e^{-tx}} 
+  = -\sin t \cdot e^{-tx}
+\]
+è dominata dalla funzione $e^{-t}$
+che ha integrale convergente.
+Dunque si ha 
+\[
+  F'(x) = - \int_0^{+\infty} \sin t \cdot e^{-tx}\, dt. 
+\]
+Questo integrale si può calcolare integrando due volte per parti 
+(si veda esercizio~\ref{ex:821685}) e si trova 
+$F'(x) = -\frac{1}{1+x^2}$ da cui 
+\[
+  \int_0^{+\infty} F'(x)\, dx = -\Enclose{\arctg x}_0^{+\infty} = - \frac \pi 2.
+\]
+D'altra parte per la formula fondamentale del calcolo 
+sappiamo che il precedente integrale 
+non è altro che $\Enclose{F(x)}_0^{+\infty}$ ed è facile 
+verificare che $F(0)$ è proprio l'integrale richiesto.
+
+Basterà quindi calcolare $\lim_{x\to+\infty} F(x)$.
+Ma anche in questo caso è possibile passare al limite 
+dentro al segno di integrale in quanto la funzione 
+integranda è dominata da una funzione con integrale convergente:
+\[
+\abs{\frac{\sin t}{t}e^{-tx}} \le 
+\begin{cases}
+  1 & \text{se $t\le 1$}\\
+  \frac{e^{-t}}{t} & \text{se $t>1$}. 
+\end{cases}
+\]
+Allora $F(x) \to 0$ per $x\to +\infty$ e si ottiene il risultato voluto.
+\end{proof}
+
 \begin{exercise}[integrale della gaussiana]
   \index{funzione!gaussiana}%
   \index{integrale!gaussiana}%
@@ -1868,9 +1925,6 @@ Dimostriamo che
 \end{exercise}
 %
 \begin{proof}[Svolgimento.]
-Il metodo qui utilizzato viene a volte chiamato \myemph{trucco!di Feynman}.
-\index{Feynman!trucco per gli integrali}%
-\index{trucco!di Feynman!per gli integrali}%
 Poniamo
 \[
   I = \int_{-\infty}^{+\infty} e^{-s^2}\, ds.
