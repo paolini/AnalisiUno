@@ -171,33 +171,46 @@ name=Osservazione,sibling=theorem]{remark}
 \immediate\openout\myauxfile=AnalisiUno.myaux
 \newcommand{\myaux}[1]{\write\myauxfile{#1}}
 
-% #1 shorten url della pagina: l'url completo va messo in make-docs.sh
-% #2 testo HTML da scrivere nel link della documentazione
-\newcommand{\myurl}[2]{%
-\marginnote{\qrcode[height=1.3cm]{http://paolini.github.io/AnalisiUno?#1}\\%
-\scriptsize{(interagisci)}~}%
-\write\myauxfile{<!--MYURL--><li><a href="?#1">#2</a> (pagina \thepage, capitolo \thechapter)</li>}%
+% aggiungi un link nella pagina HTML della documentazione
+% #1: url completo
+% #2: descrizione HTML
+\newcommand{\mydoclink}[2]{%
+\myaux{<!--MYDOCLINK--><li><a href="?#1">#2</a> (pagina \thepage, capitolo \thechapter)</li>}% 
 }
-% come \myurl ma con un offset verticale #3
-\newcommand{\myurloff}[3]{%
-\marginnote{\qrcode[height=1.3cm]{http://paolini.github.io/AnalisiUno?#1}\\%
-\scriptsize{(interagisci)}~}[#3]%
-\write\myauxfile{<!--MYURL--><li><a href="?#1">#2</a> (pagina \thepage, capitolo \thechapter)</li>}%
+
+% crea qr code
+% #1: url completo della pagina
+% #2: testo da scrivere sotto il qrcode
+\newcommand{\myqr}[2]{%
+  \begin{minipage}{1.5cm}\qrcode[height=1.3cm]{#1}\\%
+    \scriptsize{#2}%
+  \end{minipage}%   
 }
-% come \myurl ma non va nel margine
-\newcommand{\myurlhere}[2]{%
-\begin{minipage}{1.5cm}\qrcode[height=1.3cm]{http://paolini.github.io/AnalisiUno?#1}\\%
-\scriptsize{(interagisci)}%
-\end{minipage}%
-\write\myauxfile{<!--MYURL--><li><a href="?#1">#2</a> (pagina \thepage, capitolo \thechapter)</li>}%
-}
-%
+
 % #1: url della pagina
 % #2: testo da scrivere sotto il qrcode
 % #3: testo HTML da scrivere nel link della documentazione
+\newcommand{\myqrdoclink}[3]{%
+\mydoclink{#1}{#3}\myqr{#1}{#2}%
+}
 %% negli URL i caratteri % vanno sostituiti con \%
 \newcommand{\myqrcode}[3]{%
-  \marginnote{\qrcode[height=1.7cm]{#1}\\%
-  {\footnotesize #2}}%
-  \myaux{<!--MYQRCODE--><li><a href="#1">#2 #3</a> (pagina \thepage)</li>}%
-  }
+  \marginnote{\myqrdoclink{#1}{#2}{#3}}%
+}
+%
+% #1 shorten url della pagina: l'url completo va messo in make-docs.sh
+\newcommand{\myshorturl}[1]{http://paolini.github.io/AnalisiUno?#1}
+%
+% #1 shorten url della pagina: l'url completo va messo in make-docs.sh
+% #2 testo HTML da scrivere nel link della documentazione
+\newcommand{\myurl}[2]{%
+\marginnote{\myqrdoclink{\myshorturl{#1}}{(interagisci)}{#2}}%
+}
+% come \myurl ma con un offset verticale #3
+\newcommand{\myurloff}[3]{%
+\marginnote{\myqrdoclink{\myshorturl{#1}}{(interagisci)}{#2}}[#3]%
+}
+% come \myurl ma non va nel margine
+\newcommand{\myurlhere}[2]{%
+\myqrdoclink{\myshorturl{#1}}{(interagisci)}{#2}%
+}
