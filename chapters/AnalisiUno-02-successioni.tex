@@ -16,383 +16,382 @@ che differiscono da $x_0$ per meno di $\delta$ il valore
 della funzione differisce da $y_0$ per meno di $\eps$.
 
 \begin{definition}[continuità su $\RR$]
-\label{def:continua}%
-\index{funzione!continua}%
-\index{continuità}%
-Sia $f\colon A \subset \RR \to \RR$ una funzione. Diremo che
-$f$ è \myemph{continua nel punto} $x_0\in A$ se
-\begin{equation}\label{eq:continuita}
-\forall \eps>0 \colon \exists \delta>0 \colon
-\forall x\in A\colon
-\abs{x-x_0} < \delta \implies \abs{f(x)-f(x_0)} < \eps.
-\end{equation}
-
-Diremo che $f\colon A \to \RR$ 
-è \myemph{continua} se è continua in ogni punto $x_0 \in A$.
-\end{definition}
-
-%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%
-
-Attenzione: la funzione $f(x)=\frac{1}{x}$
-assume vicino a $x=0$ valori molto diversi tra loro (ad esempio $f(0.01)-f(-0.01)=200$)
-ma ciò non toglie che la funzione possa essere continua in quanto il punto
-$x=0$ non appartiene al dominio e quindi,
-in base alla definizione precedente, non ha senso e non ha importanza
-verificare se la funzione è continua in tale punto.
-
-\begin{theorem}[continuità del reciproco]
-\label{th:cont_reciproco}%
-La funzione $f\colon \RR\setminus\ENCLOSE{0}\to \RR$ definita
-da $f(x)=\frac 1 x$ è una funzione continua.
-\end{theorem}
-%
-\begin{proof}
-Siano $x,x_0\neq 0$.
-Se prendiamo $\delta < \frac{\abs{x_0}}2$
-e se $\abs{x-x_0} < \delta$ si avrà,
-per disuguaglianza triangolare inversa,
-$\abs{x} > \frac{\abs{x_0}}2$. Dunque
-\[
-\abs{\frac 1 x - \frac 1 {x_0}}
-= \frac{\abs{x-x_0}}{\abs{x\cdot x_0}}
-\le \frac{2\delta}{\abs{x_0}^2}.
-\]
-Si ottiene quindi la condizione $\abs{f(x)-f(x_0)}<\eps$
-se si sceglie $\delta$ in modo che
-risulti anche $\delta < \frac{\abs{x_0}^2\cdot \eps}{2}$.
-\end{proof}
-
-\begin{example}
-La \myemph{funzione segno} $\sgn\colon \RR \to \RR$ definita da
-\[
-  \sgn(x) = \begin{cases}
-  1 & \text{se $x> 0$}\\
-  0 & \text{se $x=0$}\\
-  -1 & \text{se $x<0$}
-  \end{cases}
-\]
-è un esempio di funzione non continua.
-\end{example}
-%
-\begin{proof}
-Verifichiamo che la funzione non è continua
-nel punto $x_0=0$.
-Infatti se $x\neq 0$ si ha
-\[
-\abs{\sgn(x)-\sgn(x_0)} = \abs{\sgn(x)} = 1
-\]
-e quindi se scegliamo $\eps<1$ non è possibile
-trovare $\delta>0$ per cui valga la condizione
-di continuità~\eqref{eq:continuita}
-nel punto $x_0=0$.
-\end{proof}
-
-\begin{exercise}
-Dimostrare che le funzioni $f(x) = x$ e $g(x)=\abs{x}$ sono continue.
-Dimostrare che le funzioni $h(x) = \lfloor x\rfloor$ e $k(x)=\lceil x \rceil$
-non sono continue (ma sono continue in ogni punto
-$x_0\in \RR \setminus \ZZ$).
-\end{exercise}
-
-\begin{definition}[operazioni sulle funzioni]
-Sia $A \subset \RR$ e siano $f,g$ funzioni $A \to \RR$.
-Possiamo allora definire
-$f+g$, $-f$, $f-g$, $f\cdot g$, $\abs f$, $f^n$ (con $n\in \NN$)
-e (se $g(x)\neq 0$ per ogni $x\in A$) anche $f/g$
-come funzioni $A \to \RR$ mediante le seguenti ovvie
-definizioni
-\begin{gather*}
-(f+g)(x) = f(x) + g(x), \qquad
-(f-g)(x) = f(x) - g(x), \\
-(f\cdot g)(x) = f(x) \cdot g(x), \qquad
-(f/g)(x) = f(x) / g(x), \\
-(-f)(x) = -(f(x)), \qquad
-\abs f(x) = \abs{f(x)}, \qquad
-f^n(x) = (f(x))^n.
-\end{gather*}
-
-Se $f\colon A \to B$ e $g\colon B\to C$ ricordiamo
-che abbiamo definito la funzione composta
-$g\circ f\colon A \to C$:
-\[
-  (g\circ f)(x) = g(f(x)).
-\]
-
-Se $c\in \RR$ è un numero considereremo a volte $c\colon A \to \RR$
-come una funzione \emph{costante}.
-Risulta quindi inteso che se $c\in \RR$ e $f\colon A \to \RR$
-allora $c\cdot f$ è la funzione definita da
-$(c\cdot f)(x) = c\cdot (f(x))$.
-La somma e il prodotto per costante rendono l'insieme $\RR^A$
-delle funzioni $A \to \RR$ uno spazio vettoriale sul campo $\RR$.
-\end{definition}
-
-\begin{theorem}[composizione di funzioni continue]
-\label{th:continuita_composizione}%
-Se $f$ e $g$ sono funzioni definite e continue
-in uno stesso punto $x_0$
-allora anche
-\[
-  f+g, \qquad
-  f\cdot g, \qquad
-  f-g, \qquad
-  \abs{f}, \qquad
-  f^n\ \text{(con $n\in \NN$)}
-\]
-sono funzioni definite e continue nel punto $x_0$.
-Se inoltre $g(x_0)\neq 0$ anche la funzione
-$f/g$
-è definita e continua nel punto $x_0$.
-
-Se $f\colon A\subset \RR \to \RR$ è una funzione continua
-nel punto $x_0\in A$ e
-$g\colon B\subset \RR \to \RR$ è una funzione
-continua nel punto $y_0=f(x_0)\in B$ allora la funzione $g\circ f$
-definita in $f^{-1}(B)$ è continua nel punto $x_0$.
-\end{theorem}
-%
-\begin{proof}
-Mostriamo prima di tutto la continuità
-della composizione $g\circ f$.
-Per la continuità di $f$ in $x_0$ e di $g$ in $y_0=f(x_0)$
-si ha che per ogni $\eps>0$ esiste un $\gamma>0$
-e per ogni $\gamma>0$ esiste un $\delta>0$ per cui
-\begin{align*}
- \abs{x-x_0}< \delta &\implies \abs{f(x)-f(x_0)}<\gamma,\\
- \abs{y-y_0}< \gamma & \implies \abs{g(y)-g(y_0)}<\eps
-\end{align*}
-da cui
-\[
-\abs{x-x_0}< \delta
-\implies \abs{f(x)-f(x_0)}< \gamma
-\implies \abs{g(f(x))-g(f(x_0))} < \eps
-\]
-che non è altro che la condizione di
-continuità~\eqref{eq:continuita} per $g\circ f$.
-
-Se $f$ e $g$ sono continue nel punto $x_0$
-allora per ogni $\eps'>0$ esistono $\delta_1$
-e $\delta_2$ tali che
-\begin{align*}
- \abs{x-x_0} < \delta_1 &\implies \abs{f(x)-f(x_0)} < \eps',
- \\
- \abs{x-x_0} < \delta_2 &\implies \abs{g(x)-g(x_0)} < \eps'.
-\end{align*}
-In particolare scegliendo $\delta = \min\ENCLOSE{\delta_1,\delta_2}$
-se $\abs{x-x_0} < \delta$ valgono contemporaneamente
-entrambe le stime:
-\[
- \abs{f(x)-f(x_0)}< \eps', \qquad
- \abs{g(x)-g(x_0)}< \eps'.
-\]
-
-Dunque per la somma osserviamo che se $\abs{x-x_0}<\delta$
-si ha
-\begin{align*}
- \abs{(f+g)(x) - (f+g)(x_0)}
-  &= \abs{f(x)+g(x)-f(x_0)-g(x_0)}\\
-  &\le \abs{f(x)-f(x_0)} + \abs{g(x)-g(x_0)}
-  \le 2 \eps'.
-\end{align*}
-Dato $\eps>0$ basterà quindi scegliere $\eps' = \eps / 2$
-e $\delta$ come sopra per ottenere la condizione di continuità.
-
-Per il prodotto si ha
-\begin{align*}
-  \MoveEqLeft \abs{f(x)g(x)-f(x_0)g(x_0)}\\
-  &= \abs{f(x)g(x) - f(x_0)g(x) + f(x_0)g(x) - f(x_0)g(x_0)}\\
-  &\le \abs{f(x)-f(x_0)}\cdot\abs{g(x)} + \abs{f(x_0)}\cdot \abs{g(x)-g(x_0)} \\
-  &\le \eps' \abs{g(x)} + \abs{f(x_0)} \eps'.
-\end{align*}
-Osserviamo ora che $\abs{g(x)}\le \abs{g(x)-g(x_0)} + \abs{g(x_0)}$
-e quindi $\abs{g(x)}\le \abs{g(x_0)}+\eps'$ da cui:
-\begin{align*}
-  \abs{f(x)g(x)-f(x_0)g(x_0)}
-  &\le \eps' \enclose{\abs{g(x_0)}+\eps'} + \abs{f(x_0)} \eps' \\
-  &= \eps' \cdot(\abs{f(x_0)} + \abs{g(x_0)} + \eps').
-\end{align*}
-Possiamo facilmente rendere questa quantità inferiore a
-qualunque $\eps>0$: basterà prendere $\eps'<1$ e
-\[
-  \eps' < \frac{\eps}{\abs{f(x_0)} + \abs{g(x_0)} + 1}.
-\]
-
-La funzione $f^n$ è continua per induzione su $n$
-in quanto prodotto di funzioni
-continue: $f^{n+1} = f^{n} \cdot f$.
-
-Abbiamo già visto che la funzione $h(x) = \frac{1}{x}$ è continua,
-dunque se $g$ è continua anche la funzione $\frac{1}{g(x)} = h\circ g$
-è continua essendo composizione di funzioni continue. 
-Di conseguenza anche la funzione $\frac{f}{g} = f \cdot \frac{1}{g}$
-è continua, essendo il prodotto di funzioni continue.
-
-Analogamente la funzione $f-g$ è la somma di $f$ con $-g$ e
-la funzione $-g$ è la composizione di $g$ con $h(x)=-x$.
-E' immediato verificare che la funzione $h(x)=-x$ è continua
-e dunque anche la differenza $f-g$ è continua.
-Lo stesso vale per la funzione $\abs f$ che è la composizione
-di $f$ con la funzione $h(x) = \abs{x}$.
-\end{proof}
-
-Il precedente teorema è molto importante ed utile in quanto
-garantisce che ogni funzione definita tramite una espressione
-che coinvolge solamente le funzioni e le operazioni
-elencate nell'enunciato del teorema, risulta certamente
-essere una funzione continua. Come nel seguente.
-
-\begin{example}
-La funzione
-\[
-f(x) = \frac{(x-3)\cdot x -\frac{1}{x+x^2}}{\abs{x-\frac{1-x^3}{x}}}
-\]
-è continua.
-
-Si intende che tale funzione è definita sull'insieme degli $x\in \RR$
-per cui tutte le operazioni coinvolte sono definite ovvero
-$f\colon D \subset \RR \to \RR$
-con
-\[
-  D = \ENCLOSE{x\in \RR \colon x+x^2 \neq 0,\ x\neq 0,\ \abs{x-\frac{1-x^3}{x}}\neq 0}.
-\]
-
-Per convincersi che questa funzione $f$ è continua
-si nota che le funzioni $x$ e le costanti $3$ e $1$ sono
-funzioni continue.
-Ma allora, per il teorema~\ref{th:continuita_composizione},
-anche le funzioni $x-3$ e $x^2=x\cdot x$ sono continue.
-Dunque anche $(x-3)\cdot x$, $x+x^2$ e $x^3$ e $1-x^3$ sono continue.
-Di conseguenza sono continue pure $\frac 1{1+x^2}$ e $\frac{1-x^3}{x}$.
-E poi saranno continue anche $(x-3)\cdot x - \frac 1{1+x^2}$ e $x-\frac{1-x^3}{x}$
-e quindi $x-\frac{1-x^3}{x}$ e pure $\abs{x-\frac{1-x^3}{x}}$. Infine sarà
-dunque continua $f(x)$.
-\end{example}
-
-In particolare è chiaro che le funzioni lineare e quadratiche 
-che abbiamo introdotto nelle sezioni precedenti sono funzioni continue
-in quanto sono ottenute sommando e moltiplicando tra loro funzioni continue.
-
-%%%%%%%%%%%%%%%%%%%
-
-\begin{theorem}[continuità delle funzioni monotone]
-  \label{th:monotona_continua}%
-  \mymark{*}%
+  \label{def:continua}%
   \index{funzione!continua}%
-  \index{funzione!monotòna}%
-  \index{funzione!suriettiva}%
-  Sia $I\subset \RR$ un intervallo e sia
-  $f\colon I \to \RR$ una funzione monotòna.
-  Allora $f$ è continua se e solo se $f(I)$ è 
-  un intervallo.
-\end{theorem}
-%
-\begin{proof}
-Senza perdita di generalità possiamo supporre che $f$ 
-sia crescente. 
-Dimostriamo innanzitutto che se $f(I)$ è intervallo allora $f$ è continua.
-
-Prendiamo un punto $x_0\in I$ e sia $\eps>0$.
-Vogliamo trovare $x_1<x_0$ tale che  
-per ogni $x\in [x_1,x_0]\cap I$ si abbia $f(x)>f(x_0)-\eps$.
-Siccome $f(I)$ è un intervallo che contiene il punto $f(x_0)$ 
-ci sono due possibilità: o $f(x)>f(x_0)-\eps$ per ogni $x\in I$
-e quindi possiamo scegliere $x_1<x_0$ a piacere
-oppure esiste $x_1\in I$ tale che $f(x_1)=f(x_0) - \frac \eps 2$.
-In questo secondo caso dovrà essere $x_1<x_0$ (in quanto $f$ è crescente)
-e per monotonia si avrà, come voluto $f(x)\ge f(x_1) > f(x_0)-\eps$ 
-per ogni $x\in [x_1,x_0]$.
-
-In modo analogo possiamo trovare $x_2>x_0$ tale 
-che per ogni $x\in [x_0,x_2]\cap I$ si abbia $f(x) < f(x_0)+\eps$.
-Essendo $f$ crescente se $x\ge x_0$ si avrà anche $f(x)\ge f(x_0)$ 
-e se $x\le x_0$ si avrà $f(x) \le f(x_0)$. 
-Dunque per ogni $x\in [x_1,x_2]$ si avrà $\abs{f(x)-f(x_0)}<\eps$.
-Basterà scegliere $\delta = \min\ENCLOSE{x_0-x_1,x_2-x_0}$ 
-per ottenere la continuità di $f$ in $x_0$.
-
-Supponiamo ora che $f$ sia una funzione continua e crescente.
-Vogliamo dimostrare che $f(I)$ è un intervallo.
-
-Siano $y_1, y_2 \in f(I)$ e sia $y_0\in \RR$
-con $y_1 < y_0 < y_2$.
-Vogliamo dimostrare che $y_0\in f(I)$ cioè che esiste $x_0\in I$
-tale che $f(x_0)=y_0$.
-Sappiamo che esistono $x_1,x_2$ in $I$ tali che
-$f(x_1) = y_1$ e $f(x_2) = y_2$.
-Dovrà essere $x_1<x_2$ perché $f(x_1)<f(x_2)$ e
-$f$ è strettamente crescente.
-Definiamo:
-\[
- x_0 = \sup A
-\qquad
-\text{con } A=\ENCLOSE{x\in I\colon f(x)<y_0},
-\]
-e dimostriamo che $f(x_0)=y_0$. 
-Chiaramente $x_0\in [x_1,x_2]$ in quanto 
-$x_1\in A$ e $x_2$ è un maggiorante di $A$
-e dunque $f$ è definita e continua in $x_0$.
-
-Se fosse $f(x_0)<y_0$ scelto $\eps = y_0-f(x_0)$
-per la definizione di continuità dovrebbe esistere
-$\delta>0$ tale che per ogni $x\in I$ con $\abs{x-x_0}<\delta$
-si abbia $\abs{f(x)-f(x_0)}<\eps$.
-In particolare scelto $x=x_0+\frac \delta 2$
-si avrebbe $f(x) < f(x_0) + \eps = y_0$.
-Ma allora avremmo $x\in A$ che è assurdo in quanto
-$\sup A = x_0 < x$.
-
-Se fosse invece $f(x_0)>y_0$ posto $\eps = f(x_0)-y_0$,
-grazie alla continuità di $f$ in $x_0$,
-possiamo trovare $\delta>0$ tale che per ogni $x\in I$
-con $\abs{x-x_0}<\delta$ si abbia $\abs{f(x)-f(x_0)}<\eps$.
-In particolare scelto $t = x_0 - \frac \delta 2$
-si ha $f(t) > f(x_0)-\eps = y_0$. 
-Ma essendo $t<x_0 = \sup A$ sappiamo che $t$ non può essere 
-un maggiorante di $A$ dunque deve esistere $x\in A$
-tale che $t<x$. 
-Ma se $x\in A$ allora $f(x) < y_0 < f(t)$
-che è assurdo in quanto $f$ è crescente.
-
-Abbiamo quindi mostrato che $f(x_0)=y_0$ e dunque
-che $f(I)$ è un intervallo.
-\end{proof}
-%
-
-Il teorema~\ref{th:monotona_continua} precedente ci permette di affermare che per $a>0$, $a\neq 1$ 
-le funzioni 
-$\exp_a$ e $\log_a$ sono continue. 
-Infatti tali funzioni sono bigezioni monotone tra 
-gli intervalli $\RR$ e $\RR_+$.
-
-Grazie al teorema~\ref{th:continuita_composizione} sappiamo 
-che se $n\in \NN$ la funzione $x^n$ è continua su tutto il suo 
-dominio $\RR$. 
-La funzione inversa $\sqrt[n]{x}$ è anch'essa crescente e 
-bigettiva come funzione $[0,+\infty)\to[0,+\infty)$ e dunque 
-anch'essa risulta essere continua.
-Per simmetria (si veda l'esercizio~\ref{ex:simmetrica_continua}) 
-possiamo concludere 
-%che sia la potenza $x^n$ 
-che le radici $\sqrt[n]{x}$ sono 
-funzioni continue su tutto il loro dominio.
-Anche la funzione $f(x) = x^\alpha$, $f\colon [0,+\infty)\to [0,+\infty]$ 
-con $\alpha>0$ è crescente ed è invertibile (l'inversa è $x^{\frac 1 \alpha}$)
-e dunque è surgettiva e continua.
-Se $\alpha<0$ la funzione $f(x)=x^\alpha$ è definita sull'intervallo 
-$(0,+\infty)$ ed è anch'essa continua in quanto 
-composizione di funzioni continue: $x^{\alpha} = \frac{1}{x^{-\alpha}}$.
-
-%
-\begin{exercise}\label{ex:simmetrica_continua}
-  Sia $f\colon \RR\to \RR$ una funzione pari oppure dispari.
-  Se la restrizione di $f$ all'intervallo $[0,+\infty)$ 
-  è continua allora $f$ è continua su tutto $\RR$.
-\end{exercise}
-
-
-\section{limite di funzione}
+  \index{continuità}%
+  Sia $f\colon A \subset \RR \to \RR$ una funzione. Diremo che
+  $f$ è \myemph{continua nel punto} $x_0\in A$ se
+  \begin{equation}\label{eq:continuita}
+  \forall \eps>0 \colon \exists \delta>0 \colon
+  \forall x\in A\colon
+  \abs{x-x_0} < \delta \implies \abs{f(x)-f(x_0)} < \eps.
+  \end{equation}
+  
+  Diremo che $f\colon A \to \RR$ 
+  è \myemph{continua} se è continua in ogni punto $x_0 \in A$.
+  \end{definition}
+  
+  %%%%%%%%%%%%%%%%%%%
+  %%%%%%%%%%%%%%%%%%%
+  %%%%%%%%%%%%%%%%%%%
+  
+  Attenzione: la funzione $f(x)=\frac{1}{x}$
+  assume vicino a $x=0$ valori molto diversi tra loro (ad esempio $f(0.01)-f(-0.01)=200$)
+  ma ciò non toglie che la funzione possa essere continua in quanto il punto
+  $x=0$ non appartiene al dominio e quindi,
+  in base alla definizione precedente, non ha senso e non ha importanza
+  verificare se la funzione è continua in tale punto.
+  
+  \begin{theorem}[continuità del reciproco]
+  \label{th:cont_reciproco}%
+  La funzione $f\colon \RR\setminus\ENCLOSE{0}\to \RR$ definita
+  da $f(x)=\frac 1 x$ è una funzione continua.
+  \end{theorem}
+  %
+  \begin{proof}
+  Siano $x,x_0\neq 0$.
+  Se prendiamo $\delta < \frac{\abs{x_0}}2$
+  e se $\abs{x-x_0} < \delta$ si avrà,
+  per disuguaglianza triangolare inversa,
+  $\abs{x} > \frac{\abs{x_0}}2$. Dunque
+  \[
+  \abs{\frac 1 x - \frac 1 {x_0}}
+  = \frac{\abs{x-x_0}}{\abs{x\cdot x_0}}
+  \le \frac{2\delta}{\abs{x_0}^2}.
+  \]
+  Si ottiene quindi la condizione $\abs{f(x)-f(x_0)}<\eps$
+  se si sceglie $\delta$ in modo che
+  risulti anche $\delta < \frac{\abs{x_0}^2\cdot \eps}{2}$.
+  \end{proof}
+  
+  \begin{example}
+  La \myemph{funzione segno} $\sgn\colon \RR \to \RR$ definita da
+  \[
+    \sgn(x) = \begin{cases}
+    1 & \text{se $x> 0$}\\
+    0 & \text{se $x=0$}\\
+    -1 & \text{se $x<0$}
+    \end{cases}
+  \]
+  è un esempio di funzione non continua.
+  \end{example}
+  %
+  \begin{proof}
+  Verifichiamo che la funzione non è continua
+  nel punto $x_0=0$.
+  Infatti se $x\neq 0$ si ha
+  \[
+  \abs{\sgn(x)-\sgn(x_0)} = \abs{\sgn(x)} = 1
+  \]
+  e quindi se scegliamo $\eps<1$ non è possibile
+  trovare $\delta>0$ per cui valga la condizione
+  di continuità~\eqref{eq:continuita}
+  nel punto $x_0=0$.
+  \end{proof}
+  
+  \begin{exercise}
+  Dimostrare che le funzioni $f(x) = x$ e $g(x)=\abs{x}$ sono continue.
+  Dimostrare che le funzioni $h(x) = \lfloor x\rfloor$ e $k(x)=\lceil x \rceil$
+  non sono continue (ma sono continue in ogni punto
+  $x_0\in \RR \setminus \ZZ$).
+  \end{exercise}
+  
+  \begin{definition}[operazioni sulle funzioni]
+  Sia $A \subset \RR$ e siano $f,g$ funzioni $A \to \RR$.
+  Possiamo allora definire
+  $f+g$, $-f$, $f-g$, $f\cdot g$, $\abs f$, $f^n$ (con $n\in \NN$)
+  e (se $g(x)\neq 0$ per ogni $x\in A$) anche $f/g$
+  come funzioni $A \to \RR$ mediante le seguenti ovvie
+  definizioni
+  \begin{gather*}
+  (f+g)(x) = f(x) + g(x), \qquad
+  (f-g)(x) = f(x) - g(x), \\
+  (f\cdot g)(x) = f(x) \cdot g(x), \qquad
+  (f/g)(x) = f(x) / g(x), \\
+  (-f)(x) = -(f(x)), \qquad
+  \abs f(x) = \abs{f(x)}, \qquad
+  f^n(x) = (f(x))^n.
+  \end{gather*}
+  
+  Se $f\colon A \to B$ e $g\colon B\to C$ ricordiamo
+  che abbiamo definito la funzione composta
+  $g\circ f\colon A \to C$:
+  \[
+    (g\circ f)(x) = g(f(x)).
+  \]
+  
+  Se $c\in \RR$ è un numero considereremo a volte $c\colon A \to \RR$
+  come una funzione \emph{costante}.
+  Risulta quindi inteso che se $c\in \RR$ e $f\colon A \to \RR$
+  allora $c\cdot f$ è la funzione definita da
+  $(c\cdot f)(x) = c\cdot (f(x))$.
+  La somma e il prodotto per costante rendono l'insieme $\RR^A$
+  delle funzioni $A \to \RR$ uno spazio vettoriale sul campo $\RR$.
+  \end{definition}
+  
+  \begin{theorem}[composizione di funzioni continue]
+  \label{th:continuita_composizione}%
+  Se $f$ e $g$ sono funzioni definite e continue
+  in uno stesso punto $x_0$
+  allora anche
+  \[
+    f+g, \qquad
+    f\cdot g, \qquad
+    f-g, \qquad
+    \abs{f}, \qquad
+    f^n\ \text{(con $n\in \NN$)}
+  \]
+  sono funzioni definite e continue nel punto $x_0$.
+  Se inoltre $g(x_0)\neq 0$ anche la funzione
+  $f/g$
+  è definita e continua nel punto $x_0$.
+  
+  Se $f\colon A\subset \RR \to \RR$ è una funzione continua
+  nel punto $x_0\in A$ e
+  $g\colon B\subset \RR \to \RR$ è una funzione
+  continua nel punto $y_0=f(x_0)\in B$ allora la funzione $g\circ f$
+  definita in $f^{-1}(B)$ è continua nel punto $x_0$.
+  \end{theorem}
+  %
+  \begin{proof}
+  Mostriamo prima di tutto la continuità
+  della composizione $g\circ f$.
+  Per la continuità di $f$ in $x_0$ e di $g$ in $y_0=f(x_0)$
+  si ha che per ogni $\eps>0$ esiste un $\gamma>0$
+  e per ogni $\gamma>0$ esiste un $\delta>0$ per cui
+  \begin{align*}
+   \abs{x-x_0}< \delta &\implies \abs{f(x)-f(x_0)}<\gamma,\\
+   \abs{y-y_0}< \gamma & \implies \abs{g(y)-g(y_0)}<\eps
+  \end{align*}
+  da cui
+  \[
+  \abs{x-x_0}< \delta
+  \implies \abs{f(x)-f(x_0)}< \gamma
+  \implies \abs{g(f(x))-g(f(x_0))} < \eps
+  \]
+  che non è altro che la condizione di
+  continuità~\eqref{eq:continuita} per $g\circ f$.
+  
+  Se $f$ e $g$ sono continue nel punto $x_0$
+  allora per ogni $\eps'>0$ esistono $\delta_1$
+  e $\delta_2$ tali che
+  \begin{align*}
+   \abs{x-x_0} < \delta_1 &\implies \abs{f(x)-f(x_0)} < \eps',
+   \\
+   \abs{x-x_0} < \delta_2 &\implies \abs{g(x)-g(x_0)} < \eps'.
+  \end{align*}
+  In particolare scegliendo $\delta = \min\ENCLOSE{\delta_1,\delta_2}$
+  se $\abs{x-x_0} < \delta$ valgono contemporaneamente
+  entrambe le stime:
+  \[
+   \abs{f(x)-f(x_0)}< \eps', \qquad
+   \abs{g(x)-g(x_0)}< \eps'.
+  \]
+  
+  Dunque per la somma osserviamo che se $\abs{x-x_0}<\delta$
+  si ha
+  \begin{align*}
+   \abs{(f+g)(x) - (f+g)(x_0)}
+    &= \abs{f(x)+g(x)-f(x_0)-g(x_0)}\\
+    &\le \abs{f(x)-f(x_0)} + \abs{g(x)-g(x_0)}
+    \le 2 \eps'.
+  \end{align*}
+  Dato $\eps>0$ basterà quindi scegliere $\eps' = \eps / 2$
+  e $\delta$ come sopra per ottenere la condizione di continuità.
+  
+  Per il prodotto si ha
+  \begin{align*}
+    \MoveEqLeft \abs{f(x)g(x)-f(x_0)g(x_0)}\\
+    &= \abs{f(x)g(x) - f(x_0)g(x) + f(x_0)g(x) - f(x_0)g(x_0)}\\
+    &\le \abs{f(x)-f(x_0)}\cdot\abs{g(x)} + \abs{f(x_0)}\cdot \abs{g(x)-g(x_0)} \\
+    &\le \eps' \abs{g(x)} + \abs{f(x_0)} \eps'.
+  \end{align*}
+  Osserviamo ora che $\abs{g(x)}\le \abs{g(x)-g(x_0)} + \abs{g(x_0)}$
+  e quindi $\abs{g(x)}\le \abs{g(x_0)}+\eps'$ da cui:
+  \begin{align*}
+    \abs{f(x)g(x)-f(x_0)g(x_0)}
+    &\le \eps' \enclose{\abs{g(x_0)}+\eps'} + \abs{f(x_0)} \eps' \\
+    &= \eps' \cdot(\abs{f(x_0)} + \abs{g(x_0)} + \eps').
+  \end{align*}
+  Possiamo facilmente rendere questa quantità inferiore a
+  qualunque $\eps>0$: basterà prendere $\eps'<1$ e
+  \[
+    \eps' < \frac{\eps}{\abs{f(x_0)} + \abs{g(x_0)} + 1}.
+  \]
+  
+  La funzione $f^n$ è continua per induzione su $n$
+  in quanto prodotto di funzioni
+  continue: $f^{n+1} = f^{n} \cdot f$.
+  
+  Abbiamo già visto che la funzione $h(x) = \frac{1}{x}$ è continua,
+  dunque se $g$ è continua anche la funzione $\frac{1}{g(x)} = h\circ g$
+  è continua essendo composizione di funzioni continue. 
+  Di conseguenza anche la funzione $\frac{f}{g} = f \cdot \frac{1}{g}$
+  è continua, essendo il prodotto di funzioni continue.
+  
+  Analogamente la funzione $f-g$ è la somma di $f$ con $-g$ e
+  la funzione $-g$ è la composizione di $g$ con $h(x)=-x$.
+  E' immediato verificare che la funzione $h(x)=-x$ è continua
+  e dunque anche la differenza $f-g$ è continua.
+  Lo stesso vale per la funzione $\abs f$ che è la composizione
+  di $f$ con la funzione $h(x) = \abs{x}$.
+  \end{proof}
+  
+  Il precedente teorema è molto importante ed utile in quanto
+  garantisce che ogni funzione definita tramite una espressione
+  che coinvolge solamente le funzioni e le operazioni
+  elencate nell'enunciato del teorema, risulta certamente
+  essere una funzione continua. Come nel seguente.
+  
+  \begin{example}
+  La funzione
+  \[
+  f(x) = \frac{(x-3)\cdot x -\frac{1}{x+x^2}}{\abs{x-\frac{1-x^3}{x}}}
+  \]
+  è continua.
+  
+  Si intende che tale funzione è definita sull'insieme degli $x\in \RR$
+  per cui tutte le operazioni coinvolte sono definite ovvero
+  $f\colon D \subset \RR \to \RR$
+  con
+  \[
+    D = \ENCLOSE{x\in \RR \colon x+x^2 \neq 0,\ x\neq 0,\ \abs{x-\frac{1-x^3}{x}}\neq 0}.
+  \]
+  
+  Per convincersi che questa funzione $f$ è continua
+  si nota che le funzioni $x$ e le costanti $3$ e $1$ sono
+  funzioni continue.
+  Ma allora, per il teorema~\ref{th:continuita_composizione},
+  anche le funzioni $x-3$ e $x^2=x\cdot x$ sono continue.
+  Dunque anche $(x-3)\cdot x$, $x+x^2$ e $x^3$ e $1-x^3$ sono continue.
+  Di conseguenza sono continue pure $\frac 1{1+x^2}$ e $\frac{1-x^3}{x}$.
+  E poi saranno continue anche $(x-3)\cdot x - \frac 1{1+x^2}$ e $x-\frac{1-x^3}{x}$
+  e quindi $x-\frac{1-x^3}{x}$ e pure $\abs{x-\frac{1-x^3}{x}}$. Infine sarà
+  dunque continua $f(x)$.
+  \end{example}
+  
+  In particolare è chiaro che le funzioni lineare e quadratiche 
+  che abbiamo introdotto nelle sezioni precedenti sono funzioni continue
+  in quanto sono ottenute sommando e moltiplicando tra loro funzioni continue.
+  
+  %%%%%%%%%%%%%%%%%%%
+  
+  \begin{theorem}[continuità delle funzioni monotone]
+    \label{th:monotona_continua}%
+    \mymark{*}%
+    \index{funzione!continua}%
+    \index{funzione!monotòna}%
+    \index{funzione!suriettiva}%
+    Sia $I\subset \RR$ un intervallo e sia
+    $f\colon I \to \RR$ una funzione monotòna.
+    Allora $f$ è continua se e solo se $f(I)$ è 
+    un intervallo.
+  \end{theorem}
+  %
+  \begin{proof}
+  Senza perdita di generalità possiamo supporre che $f$ 
+  sia crescente. 
+  Dimostriamo innanzitutto che se $f(I)$ è intervallo allora $f$ è continua.
+  
+  Prendiamo un punto $x_0\in I$ e sia $\eps>0$.
+  Vogliamo trovare $x_1<x_0$ tale che  
+  per ogni $x\in [x_1,x_0]\cap I$ si abbia $f(x)>f(x_0)-\eps$.
+  Siccome $f(I)$ è un intervallo che contiene il punto $f(x_0)$ 
+  ci sono due possibilità: o $f(x)>f(x_0)-\eps$ per ogni $x\in I$
+  e quindi possiamo scegliere $x_1<x_0$ a piacere
+  oppure esiste $x_1\in I$ tale che $f(x_1)=f(x_0) - \frac \eps 2$.
+  In questo secondo caso dovrà essere $x_1<x_0$ (in quanto $f$ è crescente)
+  e per monotonia si avrà, come voluto $f(x)\ge f(x_1) > f(x_0)-\eps$ 
+  per ogni $x\in [x_1,x_0]$.
+  
+  In modo analogo possiamo trovare $x_2>x_0$ tale 
+  che per ogni $x\in [x_0,x_2]\cap I$ si abbia $f(x) < f(x_0)+\eps$.
+  Essendo $f$ crescente se $x\ge x_0$ si avrà anche $f(x)\ge f(x_0)$ 
+  e se $x\le x_0$ si avrà $f(x) \le f(x_0)$. 
+  Dunque per ogni $x\in [x_1,x_2]$ si avrà $\abs{f(x)-f(x_0)}<\eps$.
+  Basterà scegliere $\delta = \min\ENCLOSE{x_0-x_1,x_2-x_0}$ 
+  per ottenere la continuità di $f$ in $x_0$.
+  
+  Supponiamo ora che $f$ sia una funzione continua e crescente.
+  Vogliamo dimostrare che $f(I)$ è un intervallo.
+  
+  Siano $y_1, y_2 \in f(I)$ e sia $y_0\in \RR$
+  con $y_1 < y_0 < y_2$.
+  Vogliamo dimostrare che $y_0\in f(I)$ cioè che esiste $x_0\in I$
+  tale che $f(x_0)=y_0$.
+  Sappiamo che esistono $x_1,x_2$ in $I$ tali che
+  $f(x_1) = y_1$ e $f(x_2) = y_2$.
+  Dovrà essere $x_1<x_2$ perché $f(x_1)<f(x_2)$ e
+  $f$ è strettamente crescente.
+  Definiamo:
+  \[
+   x_0 = \sup A
+  \qquad
+  \text{con } A=\ENCLOSE{x\in I\colon f(x)<y_0},
+  \]
+  e dimostriamo che $f(x_0)=y_0$. 
+  Chiaramente $x_0\in [x_1,x_2]$ in quanto 
+  $x_1\in A$ e $x_2$ è un maggiorante di $A$
+  e dunque $f$ è definita e continua in $x_0$.
+  
+  Se fosse $f(x_0)<y_0$ scelto $\eps = y_0-f(x_0)$
+  per la definizione di continuità dovrebbe esistere
+  $\delta>0$ tale che per ogni $x\in I$ con $\abs{x-x_0}<\delta$
+  si abbia $\abs{f(x)-f(x_0)}<\eps$.
+  In particolare scelto $x=x_0+\frac \delta 2$
+  si avrebbe $f(x) < f(x_0) + \eps = y_0$.
+  Ma allora avremmo $x\in A$ che è assurdo in quanto
+  $\sup A = x_0 < x$.
+  
+  Se fosse invece $f(x_0)>y_0$ posto $\eps = f(x_0)-y_0$,
+  grazie alla continuità di $f$ in $x_0$,
+  possiamo trovare $\delta>0$ tale che per ogni $x\in I$
+  con $\abs{x-x_0}<\delta$ si abbia $\abs{f(x)-f(x_0)}<\eps$.
+  In particolare scelto $t = x_0 - \frac \delta 2$
+  si ha $f(t) > f(x_0)-\eps = y_0$. 
+  Ma essendo $t<x_0 = \sup A$ sappiamo che $t$ non può essere 
+  un maggiorante di $A$ dunque deve esistere $x\in A$
+  tale che $t<x$. 
+  Ma se $x\in A$ allora $f(x) < y_0 < f(t)$
+  che è assurdo in quanto $f$ è crescente.
+  
+  Abbiamo quindi mostrato che $f(x_0)=y_0$ e dunque
+  che $f(I)$ è un intervallo.
+  \end{proof}
+  %
+  
+  Il teorema~\ref{th:monotona_continua} precedente ci permette di affermare che per $a>0$, $a\neq 1$ 
+  le funzioni 
+  $\exp_a$ e $\log_a$ sono continue. 
+  Infatti tali funzioni sono bigezioni monotone tra 
+  gli intervalli $\RR$ e $\RR_+$.
+  
+  Grazie al teorema~\ref{th:continuita_composizione} sappiamo 
+  che se $n\in \NN$ la funzione $x^n$ è continua su tutto il suo 
+  dominio $\RR$. 
+  La funzione inversa $\sqrt[n]{x}$ è anch'essa crescente e 
+  bigettiva come funzione $[0,+\infty)\to[0,+\infty)$ e dunque 
+  anch'essa risulta essere continua.
+  Per simmetria (si veda l'esercizio~\ref{ex:simmetrica_continua}) 
+  possiamo concludere 
+  %che sia la potenza $x^n$ 
+  che le radici $\sqrt[n]{x}$ sono 
+  funzioni continue su tutto il loro dominio.
+  Anche la funzione $f(x) = x^\alpha$, $f\colon [0,+\infty)\to [0,+\infty]$ 
+  con $\alpha>0$ è crescente ed è invertibile (l'inversa è $x^{\frac 1 \alpha}$)
+  e dunque è surgettiva e continua.
+  Se $\alpha<0$ la funzione $f(x)=x^\alpha$ è definita sull'intervallo 
+  $(0,+\infty)$ ed è anch'essa continua in quanto 
+  composizione di funzioni continue: $x^{\alpha} = \frac{1}{x^{-\alpha}}$.
+  
+  %
+  \begin{exercise}\label{ex:simmetrica_continua}
+    Sia $f\colon \RR\to \RR$ una funzione pari oppure dispari.
+    Se la restrizione di $f$ all'intervallo $[0,+\infty)$ 
+    è continua allora $f$ è continua su tutto $\RR$.
+  \end{exercise}
+  
+  \section{limite di funzione}
 
 Se una funzione $f$ non è definita in un punto $x_0$ non ha senso chiedersi
 se in tale punto è continua. 
@@ -459,7 +458,7 @@ che a sua volta si può scrivere nella forma:
   f(B_\delta(x_0)\setminus\ENCLOSE{x_0}) \subset  B_\eps(\ell).    
 \]
 
-L'idea è che gli insiemi del tipo\footnote{%
+L'idea è che gli insiemi del tipo\marginnote{%
 la lettera $B$ sta per \emph{ball} in quanto 
 più in generale (se fossimo in $\RR^3$ invece che in $\RR$)
 l'insieme dei punti che distano meno di $\rho$ da un punto fissato 
@@ -1067,7 +1066,7 @@ allora si ha
   \lim_{x\to x_0} \frac{f(x)}{g(x)} = \frac{\ell_1}{\ell_2}
 \end{gather*}
 sempre che le operazioni utilizzate sul lato destro delle uguaglianze
-siano state definite\footnote{%
+siano state definite\marginnote{%
 Si veda la sezione~\ref{sec:reali_estesi}.
 I casi in cui le operazioni non sono definite si chiamano 
 usualmente \emph{forme indeterminate}
@@ -1326,7 +1325,7 @@ frequentemente $f(x)\not\in U$.
 \mymark{***}%
 Siano 
 $f$, $g$, $h$ tre funzioni reali%
-\footnote{Non è possibile fare confronti tra valori complessi, visto che
+\marginnote{Non è possibile fare confronti tra valori complessi, visto che
 sui numeri complessi non abbiamo un ordinamento}
 definite su uno stesso dominio $A\subset \RR$ 
 con punto di accumulazione $x_0$
@@ -1437,7 +1436,7 @@ e quindi $h(x)\to \ell$.
 \label{ch:successioni}
 
 Una \myemph{successione} in un insieme $X$ è una
-funzione\footnote{%
+funzione\marginnote{%
 Utilizziamo il grassetto per evidenziare il fatto
 che $\vec a$ non è un numero ma una \emph{lista} (o vettore) di numeri.
 Nella scrittura a mano non è possibile usare il grassetto, ma potremmo
@@ -1462,7 +1461,7 @@ successione $\vec a$ può essere indicata con $(a_n)_{n=0}^\infty$
 oppure $(a_n)_n$ oppure,
 più semplicemente, con $a_n$ quando sia chiaro che si intende l'intera
 successione $\vec a$ e non un singolo termine della stessa.%
-\footnote{In alcuni testi le successioni vengono indicate
+\marginnote{In alcuni testi le successioni vengono indicate
 con la notazione $\ENCLOSE{a_n}$ che però è fuorviante in quanto
 una successione in $X$ non è semplicemente un sottoinsieme di $X$:
 l'ordine in cui vengono presi gli elementi è rilevante.}
@@ -1472,13 +1471,12 @@ $a_n\in \RR$ cioè il caso $X=\RR$. Considereremo però anche il caso di
 \emph{successioni complesse} $a_n\in \CC$ (dunque $X=\CC$) perché questo
 potrà essere utile in alcune situazioni.
 
-
 \section{limite di successione}
 
 Visto che $\vec a \colon \NN\to\RR$ (o in $\CC$) è una funzione 
 con dominio $\NN\subset \RR$ 
 e visto che $+\infty$ è l'unico punto di accumulazione di $\NN$ 
-sarà possibile considerare il limite (unico possibile)
+sarà possibile considerare il limite
 \[
   \ell = \lim_{n\to +\infty} \vec a(n)
 \]
@@ -1497,15 +1495,15 @@ Esplicitando la definizione astratta di limite osserviamo che se $(\alpha,+\inft
 un numero naturale. Dunque se $\ell \in \RR$ 
 la condizione $a_n \to \ell$ si esplicita nel modo seguente:
 \begin{equation}\label{eq:limite_successione_convergente}
-\forall \eps>0 \exists N\in \NN\colon n>N\implies \abs{a_n-\ell} < \eps.  
+\forall \eps>0\colon \exists N\in \NN\colon n>N\implies \abs{a_n-\ell} < \eps.  
 \end{equation}
 La condizione $a_n\to +\infty$ si scrive
 \[
-  \forall \alpha\in \RR \exists N\in \NN \colon n>N \implies a_n > \alpha  
+  \forall \alpha\in \RR \colon \exists N\in \NN \colon n>N \implies a_n > \alpha  
 \]
 e infine $a_n\to-\infty$ diventa
 \[
-  \forall \alpha\in \RR \exists N\in \NN \colon n>N \implies a_n < -\alpha.    
+  \forall \alpha\in \RR \colon \exists N\in \NN \colon n>N \implies a_n < -\alpha.    
 \]
 
 \begin{definition}[carattere di una successione]
@@ -1847,7 +1845,7 @@ Questa definizione ha senso
 quando $\Delta t$ è piccolo in quanto non tiene conto del fatto che
 nell'intervallo di tempo $[t,t+\Delta t]$ la popolazione che si
 è aggiunta genera anch'essa nuova popolazione (ovvero l'interesse
-accumulato genera anch'esso interesse\footnote{%
+accumulato genera anch'esso interesse\marginnote{%
 In effetti la scoperta della costante $e$
 è dovuta a Jacob Bernoulli nel 1683.
 Bernoulli si chiedeva qual è l'interesse annuo effettivo
@@ -2000,7 +1998,7 @@ Definiamo la \emph{costante di Nepero}%
 \mynote{costante di Nepero}%
 \index{costante!di Nepero}%
 \index{$e$}%
-\footnote{Nepero è l'italianizzazione del nome del
+\marginnote{Nepero è l'italianizzazione del nome del
 matematico scozzese John Napier (1550-1617).
 Il nome $e$ è stato introdotto da Eulero (Leonhard Euler 1707-1783)
 %http://eulerarchive.maa.org//docs/originals/E853.pdf
@@ -2211,7 +2209,7 @@ da cui $q^n \to 0$.
 \end{theorem}
 %
 \begin{comment}
-\begin{proof}\footnote{%
+\begin{proof}\marginnote{%
   la dimostrazione di questo teorema si potrebbe fare in maniera
   molto simile alla dimostrazione del teorema~\ref{th:criterio_radice}
   senza tirare in ballo il teorema~\ref{th:criterio_cesaro} che è decisamente più complesso.
@@ -2319,43 +2317,43 @@ Se $\ell>1$ si potrà procedere in maniera analoga. Esisterà $q$ con $1 < q < \
 %%%%%
 %%%%%
 
-\begin{definition}[ordine di infinito/infinitesimo]
-\label{def:ordine_infinito}
-\mymark{***}%
-\mymargin{ordine di infinito/infinitesimo}%
-\index{ordine!di infinito}%
-\index{infinito}%
-\index{infinitesimo}%
-Sia $A\subset \RR$, $f,g\colon A \to (0,+\infty)$.
-Sia $x_0\in \bar \RR$ un punto di accumulazione di $A$.
-\begin{enumerate}
-\item
-Diremo che
-per $x\to x_0$ la funzione $f$ è \emph{molto più piccola}
-della funzione $g$ e scriveremo $f(x) \ll g(x)$ se vale
-\mymargin{$\ll$}
-\[
-\frac{f(x)}{g(x)} \to 0, \qquad \text{per $x\to x_0$}
-\]
-diremo invece che $f$ è \emph{molto più grande}
-di $g$ e scriveremo $f(x) \gg g(x)$ se
-\mymargin{$\gg$}
-\[
-\frac{f(x)}{g(x)} \to +\infty, \qquad \text{per $x\to x_0$.}
-\]
-\item
-Diremo infine che $f$ e $g$
-sono \myemph[equivalenza asintotica]{asintoticamente equivalenti}
-\mymargin{equivalenza!asintotica}%
-per $x\to x_0$
-e scriveremo $f(x) \sim g(x)$ se
-\[
-\mymargin{$\sim$}
-\frac{f(x)}{g(x)} \to 1, \qquad \text{per $x\to x_0.$}
-\]
-\end{enumerate}
+\begin{definition}[ordine di infinito/infinitesimo]%
+  \label{def:ordine_infinito}%
+  \mymark{***}%
+  \mymargin{ordine di infinito/infinitesimo}%
+  \index{ordine!di infinito}%
+  \index{infinito}%
+  \index{infinitesimo}%
+  Sia $A\subset \RR$, $f,g\colon A \to (0,+\infty)$.
+  Sia $x_0\in \bar \RR$ un punto di accumulazione di $A$.
+  \begin{enumerate}
+  \item
+  Diremo che
+  per $x\to x_0$ la funzione $f$ è \emph{molto più piccola}
+  della funzione $g$ e scriveremo $f(x) \ll g(x)$ se vale
+  \mymargin{$\ll$}
+  \[
+  \frac{f(x)}{g(x)} \to 0, \qquad \text{per $x\to x_0$}
+  \]
+  diremo invece che $f$ è \emph{molto più grande}
+  di $g$ e scriveremo $f(x) \gg g(x)$ se
+  \mymargin{$\gg$}
+  \[
+  \frac{f(x)}{g(x)} \to +\infty, \qquad \text{per $x\to x_0$.}
+  \]
+  \item
+  Diremo infine che $f$ e $g$
+  sono \myemph[equivalenza asintotica]{asintoticamente equivalenti}
+  \mymargin{equivalenza!asintotica}%
+  per $x\to x_0$
+  e scriveremo $f(x) \sim g(x)$ se
+  \mymargin{$\sim$}
+  \[
+  \frac{f(x)}{g(x)} \to 1, \qquad \text{per $x\to x_0.$}
+  \]
+  \end{enumerate}
 \end{definition}
-
+  
 Ad esempio è facile verificare che se $\alpha > \beta > 0$
 allora $x^\alpha \gg x^\beta$ per $x\to +\infty$
 mentre $x^\alpha \ll x^\beta$ per $x\to 0^+$.
@@ -2399,7 +2397,7 @@ Si procede in modo analogo per mostrare che $n! \ll n^n$:
 &= (n+1) \cdot \enclose{\frac{n}{n+1}}^n \frac {1}{n+1}\\
 &= \frac{1}{\enclose{1+\frac 1 n}^n} \to \frac 1 e < 1.
 \end{align*}
-
+  
 Per dimostrare che
 $n^\alpha \ll a^n$
 si può procedere con il criterio del rapporto, come nei casi precedenti:
@@ -2862,77 +2860,76 @@ ovvero la funzione $a\colon \NN \to [0,1]$ non è suriettiva.
 %%%%%%%%%%%%
 
 \begin{theorem}[ponte di collegamento tra limiti di funzione e limiti di successione]%
-  \label{th:ponte}%
-  \mymark{***}%
-  Sia $A \subset \RR$, $f\colon A \to \RR$, sia $x_0$ un punto di accumulazione di $A$ e sia
-  $\ell \in [-\infty, +\infty]$.
-  Le due seguenti condizioni sono equivalenti:
-  \begin{enumerate}
-  \item $\displaystyle \lim_{x\to x_0} f(x) = \ell$;
-  \item per ogni successione $a_n\to x_0$ con $a_n\in A\setminus\ENCLOSE{x_0}$ risulta
-  \[
-  \lim_{n\to+\infty} f(a_n) = \ell. 
-  \]
-  \end{enumerate}
-  \end{theorem}
-  %
-  \begin{proof}
-  \mymark{***}
-  Se per $x\to x_0$ si ha $f(x)\to \ell$ e se $a_n \to x_0$ con $a_n\in A\setminus\ENCLOSE{x_0}$ la successione $f(a_n)$ non è altro che la composizione
-  della funzione $f$ con la funzione $n\mapsto a_n$. Si può quindi applicare
-  il teorema sul limite della funzione composta per ottenere che $f(a_n)\to \ell$.
-  
-  Supponiamo viceversa di sapere che per ogni successione $a_n\to x_0$ si ha $f(a_n)\to \ell$. Vogliamo mostrare allora che $f(x)\to \ell$. Lo facciamo per assurdo: supponiamo che esista un intorno $U$ di $\ell$ tale che preso un qualunque intorno $V$ di $x_0$ non si abbia $f((A\setminus\ENCLOSE{x_0})\cap V)\subset U$.
-  Possiamo considerare per ogni $n\in \NN$ degli intorni $V_n$ sempre più piccoli. Ad esempio nel caso $x_0 \in \RR$ potremo scegliere $V_n = (x_0-1/n, x_0+1/n)$, nel caso $x_0 = +\infty$ si potrà scegliere $V_n = (n,+\infty]$ e nel caso $x_0=-\infty$ si sceglierà $V_n = [-\infty, -n)$.
-  Se per assurdo $f((A\setminus\ENCLOSE{x_0}\cap V_n))$ non fosse contenuto in $U$
-  significherebbe che per ogni $n\in\NN$ esisterebbe $a_n \in (A\setminus\ENCLOSE{x_0})\cap V_n$ tale che $f(a_n)\not \in U$. Ma allora $a_n$ risulterebbe essere una successione in
-  $A\setminus \ENCLOSE{x_0}$ con limite $x_0$
-  (in quanto per ogni intorno di $x_0$ esiste un $N$ tale che $V_N$ sia contenuto in tale intorno e per ogni $n>N$ si ha $V_n\subset V_N$)
-  ma $f(a_n)$ non potrebbe avere limite $\ell$
-  (essendo fuori dall'intorno $U$).
-  Ma questo nega l'ipotesi e conclude quindi la dimostrazione del teorema.
-  \end{proof}
+\label{th:ponte}%
+\mymark{***}%
+Sia $A \subset \RR$, $f\colon A \to \RR$, sia $x_0$ un punto di accumulazione di $A$ e sia
+$\ell \in [-\infty, +\infty]$.
+Le due seguenti condizioni sono equivalenti:
+\begin{enumerate}
+\item $\displaystyle \lim_{x\to x_0} f(x) = \ell$;
+\item per ogni successione $a_n\to x_0$ con $a_n\in A\setminus\ENCLOSE{x_0}$ risulta
+\[
+\lim_{n\to+\infty} f(a_n) = \ell. 
+\]
+\end{enumerate}
+\end{theorem}
+%
+\begin{proof}
+\mymark{***}
+Se per $x\to x_0$ si ha $f(x)\to \ell$ e se $a_n \to x_0$ con $a_n\in A\setminus\ENCLOSE{x_0}$ la successione $f(a_n)$ non è altro che la composizione
+della funzione $f$ con la funzione $n\mapsto a_n$. Si può quindi applicare
+il teorema sul limite della funzione composta per ottenere che $f(a_n)\to \ell$.
 
-  \begin{proposition}[proprietà caratteristica della convergenza]
-    \label{prop:convergenza}
-  Sia $f\colon A\subset \RR\to \RR$ e $x_0$ punto di accumulazione di $A$.
-  Sia $\ell\in \bar \RR$.
-  Se per ogni $a_n\to x_0$, $a_n\in A\setminus\ENCLOSE{x_0}$
-  esiste una estratta $a_{n_k}$ tale che $f(a_{n_k})\to \ell$ 
-  allora $f(x)\to \ell$ per $x\to x_0$.
-  \end{proposition}
-  %
-  \begin{proof}
-    Se per assurdo non fosse $f(x) \to \ell$
-    esisterebbe un intorno $U\in \B_\ell$
-    per cui frequentemente $f(x) \not \in U$.
-    Questo significa che esiste una successione
-    $a_n\to x_0$ con $a_n\neq x_0$ tale che $f(a_n)\not \in U$.
-    Ma allora da $f(a_n)$
-    non è possibile estrarre una sottosuccessione
-    che abbia limite $\ell$, e questo è contrario alle
-    ipotesi.
+Supponiamo viceversa di sapere che per ogni successione $a_n\to x_0$ si ha $f(a_n)\to \ell$. Vogliamo mostrare allora che $f(x)\to \ell$. Lo facciamo per assurdo: supponiamo che esista un intorno $U$ di $\ell$ tale che preso un qualunque intorno $V$ di $x_0$ non si abbia $f((A\setminus\ENCLOSE{x_0})\cap V)\subset U$.
+Possiamo considerare per ogni $n\in \NN$ degli intorni $V_n$ sempre più piccoli. Ad esempio nel caso $x_0 \in \RR$ potremo scegliere $V_n = (x_0-1/n, x_0+1/n)$, nel caso $x_0 = +\infty$ si potrà scegliere $V_n = (n,+\infty]$ e nel caso $x_0=-\infty$ si sceglierà $V_n = [-\infty, -n)$.
+Se per assurdo $f((A\setminus\ENCLOSE{x_0}\cap V_n))$ non fosse contenuto in $U$
+significherebbe che per ogni $n\in\NN$ esisterebbe $a_n \in (A\setminus\ENCLOSE{x_0})\cap V_n$ tale che $f(a_n)\not \in U$. Ma allora $a_n$ risulterebbe essere una successione in
+$A\setminus \ENCLOSE{x_0}$ con limite $x_0$
+(in quanto per ogni intorno di $x_0$ esiste un $N$ tale che $V_N$ sia contenuto in tale intorno e per ogni $n>N$ si ha $V_n\subset V_N$)
+ma $f(a_n)$ non potrebbe avere limite $\ell$
+(essendo fuori dall'intorno $U$).
+Ma questo nega l'ipotesi e conclude quindi la dimostrazione del teorema.
+\end{proof}
+\begin{proposition}[proprietà caratteristica della convergenza]
+  \label{prop:convergenza}
+Sia $f\colon A\subset \RR\to \RR$ e $x_0$ punto di accumulazione di $A$.
+Sia $\ell\in \bar \RR$.
+Se per ogni $a_n\to x_0$, $a_n\in A\setminus\ENCLOSE{x_0}$
+esiste una estratta $a_{n_k}$ tale che $f(a_{n_k})\to \ell$ 
+allora $f(x)\to \ell$ per $x\to x_0$.
+\end{proposition}
+%
+\begin{proof}
+  Se per assurdo non fosse $f(x) \to \ell$
+  esisterebbe un intorno $U\in \B_\ell$
+  per cui frequentemente $f(x) \not \in U$.
+  Questo significa che esiste una successione
+  $a_n\to x_0$ con $a_n\neq x_0$ tale che $f(a_n)\not \in U$.
+  Ma allora da $f(a_n)$
+  non è possibile estrarre una sottosuccessione
+  che abbia limite $\ell$, e questo è contrario alle
+  ipotesi.
 \end{proof}
 
 \begin{definition}[punti limite, limite superiore, limite inferiore]
-Sia $f\colon A\subset \RR \to \RR$ una funzione e $x_0\in \bar \RR$ 
-un punto di accumulazione per $A$.
-Una quantità $\ell\in \bar\RR$ si dice essere
-un \myemph{punto!limite} di $f(x)$ per $x\to x_0$ se 
-per ogni $U$ intorno di $\ell$ si ha $f(x)\in U$ 
-frequentemente per $x\to x_0$.
-
-Se denotiamo con $L\subset \bar\RR$ l'insieme
-dei punti limite possiamo definire il \emph{limite superiore} e il
-\emph{limite inferiore}
-\mymargin{limite!superiore/inferiore}
-rispettivamente come
-\[
-\limsup_{x\to x_0} a_n = \sup L, \qquad
-\liminf_{x\to x_0} a_n = \inf L.
-\]
+  Sia $f\colon A\subset \RR \to \RR$ una funzione e $x_0\in \bar \RR$ 
+  un punto di accumulazione per $A$.
+  Una quantità $\ell\in \bar\RR$ si dice essere
+  un \myemph{punto!limite} di $f(x)$ per $x\to x_0$ se 
+  per ogni $U$ intorno di $\ell$ si ha $f(x)\in U$ 
+  frequentemente per $x\to x_0$.
+  
+  Se denotiamo con $L\subset \bar\RR$ l'insieme
+  dei punti limite possiamo definire il \emph{limite superiore} e il
+  \emph{limite inferiore}
+  \mymargin{limite!superiore/inferiore}
+  rispettivamente come
+  \[
+  \limsup_{x\to x_0} a_n = \sup L, \qquad
+  \liminf_{x\to x_0} a_n = \inf L.
+  \]
 \end{definition}
-
+  
 \begin{proposition}[base numerabile di intorni]%
   \label{prop:base_numerabile}%
   Per ogni $\ell\in \bar \RR$ esiste una successione $U_n$ di intorni di $\ell$ 
@@ -3164,32 +3161,32 @@ Sia $L$ l'insieme dei punti limite di $f(x)$ per $x\to x_0$.
 \end{proof}
 
 \begin{theorem}[operazioni con $\limsup$ e $\liminf$]
-Siano $f,g\colon A\subset \RR\to\RR$ e sia $x_0$ un punto di accumulazione di $A$. 
-\begin{enumerate}
-  \item 
-    Per $x\to x_0$ si ha 
-    \begin{align*}
-    \limsup_{x\to x_0} (-f(x)) &= -\liminf_{x\to x_0} f(x)\\ 
-    \liminf_{x\to x_0} (-f(x)) &= -\limsup_{x\to x_0} f(x);
-    \end{align*}
-  \item
-    se $\lambda \ge 0$ allora
+  Siano $f,g\colon A\subset \RR\to\RR$ e sia $x_0$ un punto di accumulazione di $A$. 
+  \begin{enumerate}
+    \item 
+      Per $x\to x_0$ si ha 
       \begin{align*}
-      \limsup_{x\to x_0} (\lambda \cdot f(x)) &= \lambda \cdot \limsup_{x\to x_0} f(x), \\
-      \liminf_{x\to x_0} (\lambda \cdot f(x)) &= \lambda \cdot \liminf_{x\to x_0} f(x);
+      \limsup_{x\to x_0} (-f(x)) &= -\liminf_{x\to x_0} f(x)\\ 
+      \liminf_{x\to x_0} (-f(x)) &= -\limsup_{x\to x_0} f(x);
       \end{align*}
-  \item
-  inoltre
-  \begin{gather*}
-  \limsup_{x\to x_0} (f(x) + g(x)) \le \limsup_{x\to x_0} f(x) + \limsup_{x\to x_0} g(x),\\
-  \liminf_{x\to x_0} (f(x) + g(x)) \ge \liminf_{x\to x_0} f(x) + \liminf_{x\to x_0} g(x);
-  \end{gather*}
-  \item
-  e infine se $f(x) \ge g(x)$ allora
-  \[
-   \limsup_{x\to x_0} f(x) \ge \limsup_{x\to x_0} g(x), \qquad \liminf_{x\to x_0} f(x) \ge \liminf_{x\to x_0} g(x).
-  \]
-\end{enumerate}
+    \item
+      se $\lambda \ge 0$ allora
+        \begin{align*}
+        \limsup_{x\to x_0} (\lambda \cdot f(x)) &= \lambda \cdot \limsup_{x\to x_0} f(x), \\
+        \liminf_{x\to x_0} (\lambda \cdot f(x)) &= \lambda \cdot \liminf_{x\to x_0} f(x);
+        \end{align*}
+    \item
+    inoltre
+    \begin{gather*}
+    \limsup_{x\to x_0} (f(x) + g(x)) \le \limsup_{x\to x_0} f(x) + \limsup_{x\to x_0} g(x),\\
+    \liminf_{x\to x_0} (f(x) + g(x)) \ge \liminf_{x\to x_0} f(x) + \liminf_{x\to x_0} g(x);
+    \end{gather*}
+    \item
+    e infine se $f(x) \ge g(x)$ allora
+    \[
+     \limsup_{x\to x_0} f(x) \ge \limsup_{x\to x_0} g(x), \qquad \liminf_{x\to x_0} f(x) \ge \liminf_{x\to x_0} g(x).
+    \]
+  \end{enumerate}
 \end{theorem}
 %
 \begin{proof}
@@ -3225,7 +3222,7 @@ Siano $f,g\colon A\subset \RR\to\RR$ e sia $x_0$ un punto di accumulazione di $A
   allora anche $f(x)\ge q$ defitiviamente e quindi
   $\liminf f(x) \ge \ell$.
 \end{proof}
-
+    
 \begin{theorem}[convergenza alla Cesàro]
   \label{th:criterio_cesaro}%
   \mymark{*}%
@@ -3290,22 +3287,22 @@ Siano $f,g\colon A\subset \RR\to\RR$ e sia $x_0$ un punto di accumulazione di $A
   \[
      \lim \sqrt[n]{n} = 1
   \]
-  e
-  \[
-    \lim \frac{n}{\sqrt[n]{n!}} = e.
-  \]
-  \end{exercise}
-  
-  \begin{exercise}
-  Si consideri la successione
-  \[
-  a_n =
-  \begin{cases}
-     2^n &\text{se $n$ pari},\\
-     n\cdot 2^n &\text{se $n$ dispari}.
-  \end{cases}
-  \]
-  Verificare che alla successione $a_n$
+ e
+ \[
+   \lim \frac{n}{\sqrt[n]{n!}} = e.
+ \]
+ \end{exercise}
+ 
+ \begin{exercise}
+ Si consideri la successione
+ \[
+ a_n =
+ \begin{cases}
+    2^n &\text{se $n$ pari},\\
+    n\cdot 2^n &\text{se $n$ dispari}.
+ \end{cases}
+ \]
+ Verificare che alla successione $a_n$
   si può applicare il criterio della radice ma
   non il criterio del rapporto.
   Usare questo esempio per mostrare che le implicazioni
@@ -3498,7 +3495,7 @@ non sarebbe iniettiva.
 %%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%
 \section{il teorema di Weierstrass}
-
+    
 Ricordiamo che nella definizione~\ref{def:funzione_limitata}
 abbiamo definito i concetti di massimo, minimo, estremo superiore
 e inferiore di una funzione a valori reali.
@@ -3544,7 +3541,7 @@ per $n\to +\infty$.
 \mymark{***}%
 \mynote{teorema di Weierstrass}%
 \index{teorema!di Weierstrass}%
-\footnote{%
+\marginnote{%
 Probabilmente già dal IX secolo a.C.\ era noto ai greci che la circonferenza, tra tutte le figure piane che racchiudono una area prefissata, 
 è quella di lunghezza minima (proprietà isoperimetrica).
 Nell'Eneide Virgilio racconta che Didone si trovò ad affrontare un problema 
@@ -3644,3 +3641,4 @@ per uno studio approfondito di questo tipo di successioni.
 La prima parte di quel capitolo è infatti accessibile con le nozioni
 che sono state sviluppate finora.
 La seconda parte richiederà invece degli strumenti più avanzati.
+    
