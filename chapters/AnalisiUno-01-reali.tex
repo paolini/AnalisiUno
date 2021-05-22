@@ -1,4 +1,3 @@
-\begin{comment}
 \chapter{fondamenti}
 \section{proposizioni e predicati}
 
@@ -10,7 +9,7 @@ dello studio e della formalizzazione del linguaggio matematico.
 In questo capitolo riassumiamo in maniera breve ed intuitiva
 alcuni concetti che probabilmente sono noti e contemporaneamente
 fissiamo le notazioni che verranno utilizzate nel seguito.
-Per eventuali approfondimenti rimandiamo a \cite{appunti_logica}.
+%Per eventuali approfondimenti rimandiamo a \cite{appunti_logica}.
 
 Una \myemph{proposizione}
 è una frase (formalmente diremmo \emph{formula})
@@ -168,6 +167,7 @@ A volte, se non crea ambiguità, si potranno scrivere
 i quantificatori anche a fine frase $x+y=y+x, \forall x\forall y$.
 
 \section{teoria degli insiemi}
+
 Nei paragrafi precedenti abbiamo visto che i predicati possono essere
 combinati tra loro e quantificati.
 Ma quali sono i predicati elementari che possiamo considerare?
@@ -224,7 +224,8 @@ che abbiamo definito sopra risulta ben definita per ogni coppia di oggetti
 
 Visto che gli elementi di un insieme $\mathcal A$ sono a loro volta insiemi,
 è possibile considerare l'unione $\bigcup \mathcal A$
-e, se\footnote{%
+e, se
+\marginnote{%
 L'intersezione di una famiglia vuota di insiemi darebbe l'insieme 
 universo, che vedremo non può essere definito.
 } 
@@ -315,15 +316,16 @@ Grazie agli assiomi precedenti è possibile definire il prodotto cartesiano
 di due insiemi: sarà questo un concetto molto importante nel seguito.
 Innanzitutto dobbiamo definire il concetto di \myemph{coppia}: dati
 $a,b$ definiamo la coppia $(a,b)$ con primo elemento $a$ e secondo elemento $b$
-come un oggetto che ha questa proprietà\footnote{%
-Un modo formale definire la coppia tramite insiemi 
+come un oggetto che ha questa proprietà%
+\marginnote{%
+Un modo formale per definire la coppia tramite l'utilizzo di insiemi 
 è dovuto a Kuratowski:
 \[
    (a,b) = \ENCLOSE{a,\ENCLOSE{a,b}}.
 \]
 Non è difficile verificare che questa definizione soddisfa la 
 proprietà~\eqref{eq:coppia}
-}:
+}%
 \begin{equation}\label{eq:coppia}
   (a, b) = (a', b') \iff (a=a') \land (b=b').
 \end{equation}
@@ -333,15 +335,17 @@ cui vengono elencati (a differenza dell'insieme $\ENCLOSE{a,b}$, in cui
 l'ordine degli elementi è irrilevante).
 
 Il \emph{prodotto cartesiano} $A\times B$ di due insiemi $A$ e $B$
-è l'insieme di tutte le coppie\footnote{%
+è l'insieme di tutte le coppie%
+\marginnote{%
 Se definiamo $(a,b) = \ENCLOSE{a,\ENCLOSE{a,b}}$ (si veda nota precedente)
 possiamo formalmente definire 
-\[
-A\times B = \ENCLOSE{C\in \mathcal P(A\cup B)\colon 
-\exists a\colon \exists b\colon a\in A, b\in B, C=\ENCLOSE{a,\ENCLOSE{a,b}}
-}  
-\]
-} il cui primo elemento sta in $A$ e
+\begin{align*}
+A\times B = \big\{&C\in \mathcal P(A\cup B)\colon \\ 
+& \exists a\colon \exists b\colon a\in A, b\in B, \\
+& C=\ENCLOSE{a,\ENCLOSE{a,b}}\big\}
+\end{align*}
+}%
+il cui primo elemento sta in $A$ e
 il secondo elemento sta in $B$:
 \[
   (a, b) \in A \times B \iff (a\in A \land b\in B).
@@ -352,8 +356,9 @@ orizzontale (asse delle $x$) e gli elementi di $B$ come dei punti
 su una retta verticale (asse delle $y$) gli elementi di $A\times B$
 possono essere rappresentati come i punti del piano che proiettati sull'asse
 delle $x$ vanno in $A$ e proiettati sull'asse delle $y$ vanno in $B$.
-
+  
 \begin{figure}
+  \mbox{}
   \hfill
   \begin{tikzpicture}[x=0.8cm]
   	\draw[->] (0,0) -- (4,0);
@@ -381,36 +386,33 @@ delle $x$ vanno in $A$ e proiettati sull'asse delle $y$ vanno in $B$.
   	\fill (3.2,2.4) circle (2pt) node[above] {$\scriptstyle (a_4,b_3)$};
   \end{tikzpicture}
 %
-  \hfill
+\hfill
 %
-  \begin{tikzpicture}[x=1cm,y=0.8cm]
-  \fill (1,4) circle (2pt) node (a1) [label=left:$a_1$]{};
-  \fill (0.8,3) circle (2pt) node (a2) [label=left:$a_2$]{};
-  \fill (1.2,2) circle (2pt) node (a3) [label=left:$a_3$]{};
-  \fill (1,1) circle (2pt) node (a4) [label=left:$a_4$]{};
-
-  \fill (4,3.5) circle (2pt) node (b1) [label=right:$b_1$] {};
-  \fill (3.7,2.5) circle (2pt) node (b2) [label=right:$b_2$] {};
-  \fill (4,1.5) circle (2pt) node (b3) [label=right:$b_3$] {};
-
-  \draw[->] (a1) edge (b1);
-  \draw[->] (a2) edge (b3);
-  \draw[line width=3pt,white] (a3) edge (b2);
-  \draw[->] (a3) edge (b2);
-  \draw[->] (a4) edge (b3);
-
-  \draw[draw=gray](1,2.5) ellipse (1cm and 2cm);
-  \draw[draw=gray](4,2.5) ellipse (1cm and 1.5cm);
-  \node at (1,5.5) {$A$};
-  \node at (4,5) {$B$};
-  \node at (2.5,4.5) {$f$};
-  \end{tikzpicture}
-  \hfill
-  \mbox{}
-  \caption{La funzione $f\colon A\to B$,
-  $f=\{a_1\mapsto b_1,$ $a_2 \mapsto b_3,$ $a_3 \mapsto b_2,$ $a_4 \mapsto b_3\}$
-  rappresentata tramite grafico e
-  tramite diagrammi di Venn.}
+\begin{tikzpicture}[x=1cm,y=0.8cm]
+\fill (1,4) circle (2pt) node (a1) [label=left:$a_1$]{};
+\fill (0.8,3) circle (2pt) node (a2) [label=left:$a_2$]{};
+\fill (1.2,2) circle (2pt) node (a3) [label=left:$a_3$]{};
+\fill (1,1) circle (2pt) node (a4) [label=left:$a_4$]{};
+\fill (4,3.5) circle (2pt) node (b1) [label=right:$b_1$] {};
+\fill (3.7,2.5) circle (2pt) node (b2) [label=right:$b_2$] {};
+\fill (4,1.5) circle (2pt) node (b3) [label=right:$b_3$] {};
+\draw[->] (a1) edge (b1);
+\draw[->] (a2) edge (b3);
+\draw[line width=3pt,white] (a3) edge (b2);
+\draw[->] (a3) edge (b2);
+\draw[->] (a4) edge (b3);
+\draw[draw=gray](1,2.5) ellipse (1cm and 2cm);
+\draw[draw=gray](4,2.5) ellipse (1cm and 1.5cm);
+\node at (1,5.5) {$A$};
+\node at (4,5) {$B$};
+\node at (2.5,4.5) {$f$};
+\end{tikzpicture}
+\hfill
+\mbox{}
+\caption[]{La funzione $f\colon A\to B$,
+$f=\{a_1\mapsto b_1,$ $a_2 \mapsto b_3,$ $a_3 \mapsto b_2,$ $a_4 \mapsto b_3\}$
+rappresentata tramite grafico e
+tramite diagrammi di Venn.}
 \end{figure}
 
 Una \myemph{relazione} $R$ tra gli elementi di un insieme $A$ e gli elementi
@@ -422,30 +424,29 @@ il predicato $aRb$ rappresenta l'usuale relazione d'ordine $a<b$ sui
 tre numeri considerati.
 
 \begin{definition}[relazione di equivalenza]
-  Se $R\subset A\times A$ è una relazione sull'insieme $A$, diremo che 
-  $R$ è una \myemph{relazione di equivalenza} se valgono le seguenti proprietà
-  (tipiche dell'uguaglianza)
-  \begin{enumerate}
-    \item riflessiva: $x R x$;
-    \item simmetrica: se $x R y$ allora $y R x$;
-    \item transitiva: $x R y$ e $yRz$ allora $x R z$.
-  \end{enumerate}
-  Se $R$ è una relazione di equivalenza diremo che $x$ è equivalente a $y$ 
-  (tramite $R$) se $xRy$.
-  Dato $x \in A$ l'insieme di tutti gli elementi di $A$ che sono equivalenti 
-  a $y$ tramite $R$ si chiama \myemph{classe di equivalenza} di $x$. 
-  Si definisce in questo modo:
-  \[
-    [x]_R = \ENCLOSE{y\in A \colon xRy}.  
-  \]
-
-  Se $R$ è una relazione di equivalenza su $A$ definiamo l'\myemph{insieme quoziente}
-  come l'insieme di tutte le classi di equivalenza:
-  \[
-   A/R 
-   = \ENCLOSE{[x]_R\colon x\in A} 
-   = \ENCLOSE{B\in \mathcal P(A)\colon \exists x\in A\, B=[x]}.  
-  \]
+Se $R\subset A\times A$ è una relazione sull'insieme $A$, diremo che 
+$R$ è una \myemph{relazione di equivalenza} se valgono le seguenti proprietà
+(tipiche dell'uguaglianza)
+\begin{enumerate}
+  \item riflessiva: $x R x$;
+  \item simmetrica: se $x R y$ allora $y R x$;
+  \item transitiva: $x R y$ e $yRz$ allora $x R z$.
+\end{enumerate}
+Se $R$ è una relazione di equivalenza diremo che $x$ è equivalente a $y$ 
+(tramite $R$) se $xRy$.
+Dato $x \in A$ l'insieme di tutti gli elementi di $A$ che sono equivalenti 
+a $y$ tramite $R$ si chiama \myemph{classe di equivalenza} di $x$. 
+Si definisce in questo modo:
+\[
+  [x]_R = \ENCLOSE{y\in A \colon xRy}.  
+\]
+Se $R$ è una relazione di equivalenza su $A$ definiamo l'\myemph{insieme quoziente}
+come l'insieme di tutte le classi di equivalenza:
+\[
+ A/R 
+ = \ENCLOSE{[x]_R\colon x\in A} 
+ = \ENCLOSE{B\in \mathcal P(A)\colon \exists x\in A\, B=[x]}.  
+\]
 \end{definition}
 
 Se $R$ è una relazione $A$ l'insieme quoziente $A/R$ rappresenta l'insieme 
@@ -479,6 +480,7 @@ all'oggetto $b$.
 Dunque il prodotto cartesiano
 $A\times B$ risulta essere l'insieme di tutte le frecce che partono dagli
 elementi di $A$ e arrivano agli elementi di $B$.
+
 
 Una funzione $f\colon A \to B$ è un insieme di frecce che mandano
 ogni punto di $A$ in modo univoco in un punto di $B$. Formalmente
@@ -537,9 +539,8 @@ Una funzione $f\colon A \to B$ si dice essere \myemph{iniettiva}
 se non esistono due punti distinti $a,a' \in A$, $a\neq a'$ tali
 che $f(a) = f(a')$. Questo significa che il problema dell'inversione
 $f(x)=b$ ha al più una soluzione (la soluzione, se esiste, è unica).
-Una funzione $f\colon A \to B$ si dice essere \emph{bigettiva}
+Una funzione $f\colon A \to B$ si dice essere \myemph{bigettiva}
 (o \emph{biettiva})
-\mymargin{bigettiva\\invertibile}%
 \index{biettiva}%
 \index{bigettiva}%
 \index{funzione!bigettiva}%
@@ -547,8 +548,8 @@ Una funzione $f\colon A \to B$ si dice essere \emph{bigettiva}
 \index{funzione!invertibile}%
 \index{biettiva}%
 o
-\emph{invertibile}%
-\footnote{Attenzione: in alcuni testi (tra cui~\cite{Giusti}) si considerano
+\myemph{invertibile}%
+\marginnote{\textbf{Attenzione:} in alcuni testi (tra cui~\cite{Giusti}) si considerano
 invertibili le funzioni iniettive, anche se non surgettive.}
 se è sia iniettiva che surgettiva. Questo significa
 che il problema dell'inversione $f(x)=b$ ha una unica soluzione $x\in A$
@@ -782,6 +783,8 @@ assioma.
 
 \begin{axiom}[della scelta]%
   \label{axiom:AC}%
+  \index{assioma!della scelta}%
+  \index{scelta!assioma della}%
   Siq $F\colon A \to \mathcal P(B)$
   una funzione tale che $f(a)\neq \emptyset$ 
   per ogni $a\in A$. Allora esiste una funzione
@@ -789,23 +792,22 @@ assioma.
   per ogni $a\in A$.
 \end{axiom}
   
-L'assioma della scelta (denotato spesso con $AC$, \emph{axiom of choice})
+L'assioma della scelta (denotato spesso con \myemph{$AC$}, \emph{axiom of choice})
 è un assioma per certi versi controverso
 e alcuni matematici preferiscono non utilizzarlo nelle loro dimostrazioni.
 La teoria degli insiemi senza l'assioma della scelta 
-si chiama $ZF$ (Zermelo-Fraenkel) mentre 
+si chiama \myemph{$ZF$} (Zermelo-Fraenkel) mentre 
 se si aggiunge l'assioma della scelta (choice) la teoria si chiama 
-$ZFC$.
+\myemph{$ZFC$}.
 
-%\begin{comment}
 \section{i numeri naturali}
 
+\marginnote{%
+Giuseppe Peano (1858--1932), matematico torinese, contribuì a porre 
+i fondamenti della logica matematica. 
+La notazione $\exists$ per il quantificatore universale si deve a lui.
+}%    
 \begin{definition}[assiomi di Peano]
-  \footnote{%
-  Giuseppe Peano (1858--1932), matematico torinese, contribuì a porre 
-  i fondamenti della logica matematica. 
-  La notazione $\exists$ per il quantificatore universale si deve a lui.
-  }%    
   Un insieme $\NN$ dotato di una 
   funzione $\sigma\colon\NN\to\NN$ e di un elemento $0\in \NN$ che soddisfano
   le seguenti proprietà si dice essere un insieme di 
@@ -856,7 +858,8 @@ i numeri naturali, e che quindi non ci sono dei naturali \emph{irraggiungibili}
 partendo da zero.
 
 Normalmente la proprietà induttiva dei numeri naturali viene utilizzata tramite 
-il seguente \emph{meta}-teorema\footnote{%
+il seguente \emph{meta}-teorema.
+\marginnote{%
 Il principio di induzione non è un teorema della teoria degli insiemi 
 in quanto si riferisce il concetto di \emph{predicato} che è esterno 
 al sistema stesso.}
@@ -944,18 +947,18 @@ E non è restrittivo supporre che tale insieme sia un insieme $\NN$
 che soddisfa gli assiomi di Peano. 
 \end{axiom}
 
-\begin{comment} % DOVE SI USA?
-  \begin{lemma}
-    Per ogni $n\in \NN$ si ha $\sigma(n)\neq n$.
-    \end{lemma}
-    \begin{proof}
-      Lo si dimostra per induzione. Per $n=0$ sappiamo che $\sigma(0)\neq 0$ 
-      in quanto zero non è successore di nessun numero naturale.
-      Se ora supponiamo di sapere che $\sigma(n)\neq n$ sapendo che 
-      $\sigma$ è iniettiva possiamo dedurre $\sigma(\sigma(n))\neq \sigma(n)$ 
-      che è proprio il passo induttivo.
-  \end{proof}    
-  \end{comment}
+%% \begin{comment} % DOVE SI USA?
+%%   \begin{lemma}
+%%     Per ogni $n\in \NN$ si ha $\sigma(n)\neq n$.
+%%     \end{lemma}
+%%     \begin{proof}
+%%       Lo si dimostra per induzione. Per $n=0$ sappiamo che $\sigma(0)\neq 0$ 
+%%       in quanto zero non è successore di nessun numero naturale.
+%%       Se ora supponiamo di sapere che $\sigma(n)\neq n$ sapendo che 
+%%       $\sigma$ è iniettiva possiamo dedurre $\sigma(\sigma(n))\neq \sigma(n)$ 
+%%       che è proprio il passo induttivo.
+%%   \end{proof}    
+%% \end{comment}
   
 \begin{theorem}[definizione per induzione]
   \label{th:induzione}%
@@ -1066,6 +1069,7 @@ tale che $F(0) = (0,\alpha)$ e $F(\sigma(n)) = G(F(n))$.
 Basterà prendere come $f(n)$ la seconda componente di $G(n)$.
 \end{proof}
   
+
 Per induzione possiamo definire la somma tra numeri naturali:
 \begin{align*}
 \begin{cases}
@@ -1339,16 +1343,21 @@ per significare rispettivamente
   \#A = \#\Enclose{n}, \qquad \#A \ge \#\Enclose{n}, \qquad \#A\le \#\Enclose{n}.  
 \]
 
-La cardinalità di $\NN$ viene a volte indicata con il simbolo\footnote{%
+La cardinalità di $\NN$ viene a volte indicata con il simbolo
+\index{$\aleph_0$}%
+\index{aleph}%
+$\aleph_0$ dunque potremo scrivere  
+\marginnote{%
 Il simbolo $\aleph$ è la prima lettera dell'alfabeto ebraico 
-e si legge \emph{aleph}.
-
+e si legge \emph{aleph}. \\
 Nel seguente teorema dimostriamo che $\aleph_0$ è la più piccola 
 cardinalità infinita. 
 Si potrebbe anche dimostrare che deve esistere una cardinalità $\aleph_1>\aleph_0$
 che è la più piccola cardinalità maggiore di $\aleph_0$.
 Sappiamo che $\# \mathcal P(\NN)>\# \NN$ ma purtroppo non è possibile dimostrare 
 che $\# \aleph_1 = \# \mathcal P(\NN)$ (questa si chiama \emph{ipotesi del continuo}
+\index{ipotesi!del continuo}%
+\index{continuo!ipotesi del}%
 in quanto vedremo nel teorema~\ref{th:cantor_secondo} che $\# \mathcal P(\NN)=\#\RR$
 e l'insieme $\RR$ viene chiamato \emph{continuo} là dove $\NN$ 
 viene chiamato \emph{discreto}).
@@ -1357,9 +1366,6 @@ aggiunto agli assiomi della teoria degli insiemi:
 non esistono insiemi con cardinalità strettamente compresa tra 
 le cardinalità di $\NN$ e di $\mathcal P(\NN)$.
 }%
-\index{$\aleph_0$}%
-\index{aleph}%
-$\aleph_0$ dunque potremo scrivere  
 \[
     \# A = \aleph_0, \qquad
     \#A \le \aleph_0, \qquad
@@ -1380,32 +1386,6 @@ Viceversa $A$ è finito se e solo se esiste $n\in\NN$ tale che $\# A = n$.
 \end{theorem}
 %
 \begin{proof}
-\begin{comment}
-E' facile mostrare che se $\#\Enclose n \le \#Enclose m$ allora
-$\#\Enclose{m+1} \le \#\Enclose{n+1}$ (basta prendere la iniezione 
-$\Enclose n \to \Enclose m$ 
-ed estenderla al punto aggiuntivo $n\mapsto m$). 
-Ma è vero anche il viceversa: se $\#\Enclose{m+1} \le \#Enclose{n+1}$ 
-allora $\#\Enclose{m} \le \#\Enclose{n}$. 
-Infatti data una funzione iniettiva 
-$f\colon \Enclose{m+1}\to \Enclose{n+1}$ consideriamo il punto 
-$k=f^{-1}(n)$ e componiamo $f$ a destra con la bigezione 
-che scambia $k$ con $m$. In tal modo otteniamo una iniezione 
-che manda $m\mapsto n$ e che quindi è anche una iniezione 
-se ristretta a $\Enclose{m}\to\Enclose{n}$.
-
-Dunque abbiamo mostrato che $\#\Enclose n \le \#Enclose m$
-è equivalente a $\#Enclose{n+1} \le \#Enclose{m+1}$.
-Ma allora procedendo per induzione si può facilmente 
-dimostrare che $\#Enclose{n} \le \#Enclose{m}$
-è equivalente a $n \le m$. 
-
-Lo stesso procedimento si può ripetere con le bigezioni 
-(oppure si può applicare il teorema~\ref{th:cantor_bernstein} di Cantor-Bernstein)
-per ottenere che $\#Enclose{n}=\#Enclose{m}$ 
-è equivalente a $m=n$.
-\end{comment}
-
 Se $\#A \ge \aleph_0$ significa che esiste una funzione 
 iniettiva $f\colon \NN\to A$. 
 Dunque se definiamo $\sigma \colon A \to A$ come
@@ -1445,12 +1425,15 @@ Abbiamo già verificato che se $\#A \ge \aleph_0$
 allora $\#A$ è infinito, dunque se $\#A$ è infinito 
 non può essere $\#A \ge \aleph_0$.
 Ma da questo non siamo in grado di dedurre che $\#A < \aleph_0$.%
-\footnote{%
+\marginnote{%
 Per dimostrare che ogni cardinalità può essere confrontata 
 con ogni altra bisogna dimostrare che ogni insieme ammette un buon 
 ordinamento ovvero 
 che ogni insieme può essere messo in corrispondenza con un 
-\emph{ordinale} di Von Neumann cioè con un insieme totalmente 
+\emph{ordinale} 
+\index{ordinale}%
+\index{Von Newumann}%
+di Von Neumann cioè con un insieme totalmente 
 ordinato dalla relazione di appartenenza $\in$ e tale 
 che ogni elemento è anche un sottoinsieme.
 Gli ordinali di Von Neumann sono naturalmente uno contenuto 
@@ -1462,12 +1445,9 @@ con $\omega$ nel linguaggio degli ordinali).
 }%
 $\#A \ge \aleph_0$.
 
-
 Se $\#A = n$ significa che $\#A = \#\Enclose{n}$ e dimostrare 
 che $A$ è finito risulta quindi equivalente a dimostrare 
 che $\Enclose{n}$ è finito. 
-
-
 
 Supponiamo ora che $A$ sia un insieme per il quale per ogni $n\in \NN$ 
 si ha $\#A \neq n$. Dobbiamo dimostrare che $A$ è infinito.
@@ -1484,8 +1464,7 @@ Dunque per induzione scopriamo che $N=\NN$ e quindi
 per ogni $n\in \NN$ esiste una funzione $f_n\colon\Enclose{n}\to A$ 
 iniettiva.
 Il nostro obiettivo è trovare una funzione iniettiva $\NN\to A$ 
-in modo da poter dedurre che $\#A\ge \#\NN$.
-
+in modo da poter dedurre che $\#A\ge \#\NN$. \dots ???
 \end{proof}
 
 \section{insiemi prodotto}
@@ -1527,9 +1506,7 @@ di $A$:
 \[
    \vec a \in A^n \iff 
    \vec a = (a_0, a_1, \dots, a_{n-1}).  
-\]  
-
-%\end{comment}
+\]
 
 \section{la retta dei numeri reali}
 \label{sec:reali}
@@ -1577,10 +1554,11 @@ E' un esercizio molto interessante dedurre le proprietà di gruppo dell'addizion
 dalle proprietà delle traslazioni.
 
 \begin{definition}[gruppo]
-Un insieme $X$ su cui è definita una \emph{operazione}\footnote{%
-una operazione su $X$ è una funzione $f\colon X\times X \to X$ per la quale
-si usa la notazione infissa: $x*y = f(x,y)$.}
-$*$ si dice essere un \myemph{gruppo} se l'operazione
+Un insieme $X$ su cui è definita una \emph{operazione} $*$ 
+\marginnote{%
+una operazione $*$ su $X$ è una funzione $*\colon X\times X \to X$ per la quale
+si usa la notazione infissa: $x*y = *(x,y)$.}
+si dice essere un \myemph{gruppo} se l'operazione
 ha le seguenti proprietà:
 \begin{enumerate}
   \item associativa: $\forall x,y,z\in X\colon (x*y)*z = x*(y*z)$;
@@ -1658,11 +1636,14 @@ due inversi di $x$ si avrebbe $y = y * x * z = z$.
 \end{definition}
   
 Possiamo allora introdurre come assioma l'esistenza dei 
-numeri reali.\footnote{%
+numeri reali.
+\marginnote{%
 Gli assiomi della teoria degli insiemi che abbiamo introdotto finora 
 non possono garantire l'esistenza di insiemi infiniti in quanto un 
 universo fatto solo da insiemi finiti soddisfa tutti gli assiomi.
-E' quindi necessario un \myemph{assioma!di infinito} che garantisca 
+E' quindi necessario un \emph{assioma di infinito} 
+\index{assioma!di infinito}%
+che garantisca 
 l'esistenza di almeno un insieme infinito.
 Usualmente tale insieme è l'insieme $\NN$ dei numeri naturali da cui,
 con una costruzione non semplice, si può costruire l'insieme $\RR$ 
@@ -1698,7 +1679,7 @@ Se $x\le y$ sommando $-x$ da ambo i lati si ottiene
 $0 \le y-x$ e sommando ancora $-y$ si ottiene 
 $-y \le -x$. Lo stesso vale con le disuguaglianze strette
 e con le disuguaglianze inverse.
-  
+
 \section{i numeri naturali e interi}
 
 Vediamo adesso come identificare, all'interno dei numeri reali $\RR$,
@@ -1741,7 +1722,8 @@ le altre cifre decimali $2,3,4,5,6,7,8,9$ direttamente come segue:
 \end{gather*}
 
 E' facile dimostrare che l'insieme $\NN$ appena definito
-soddisfa gli assiomi di Peano\footnote{%
+soddisfa gli assiomi di Peano
+\marginnote{%
 Giuseppe Peano (1858--1932), matematico torinese, contribuì a porre 
 i fondamenti della logica matematica. 
 La notazione $\exists$ per il quantificatore universale si deve a lui.
@@ -1753,7 +1735,7 @@ E sua l'assiomatizzazione che caratterizza i numeri naturali:
   \item se $n\in \NN$ allora $n+1\neq 0$;
   \item se $A\subset \NN$ è induttivo allora $A=\NN$.
 \end{enumerate}
-}
+}%
 in particolare vale il seguente. 
 
 \begin{theorem}[principio di induzione]
@@ -1943,23 +1925,24 @@ Per rappresentare in modo efficiente tutti i numeri naturali utilizziamo la
 Il numero rappresentato da una sequenza finita di cifre decimali può essere 
 definito ricorsivamente: una sequenza di una sola cifra rappresenta il numero 
 corrispondente alla cifra stessa, una sequenza di $n+1$ cifre rappresenta il 
-numero rappresentato dalle prime $n$ cifre, moltiplicato per $9+1$ (dieci)
+numero rappresentato dalle prime $n$ cifre, moltiplicato per $(9+1)$ (dieci)
 e sommato alla ultima cifra. 
 Ad esempio la sequenza di cifre $4701$ (leggi: quattromilasettecentouno) significa
 \[ 
   4701 = ((4\cdot(9+1)+7)\cdot(9+1)+0)\cdot(9+1)+1.
 \]
-Osservando che $10=1\cdot (9+1)+0 = 9+1$ si scriverà
+Osservando che $10 = 9+1$ si scriverà
 \[
   4701 = ((4\cdot 10 + 7)\cdot 10 +0)\cdot 10 + 1.  
 \]
 
 Se $m,n\in \NN$ con $m < n$ si ha $m - n = -(n-m)$ che è l'opposto di un numero naturale.
 L'insieme dei naturali e dei loro opposti si chiama insieme dei 
-\myemph{numeri interi} e si denota con\footnote{
-Da \emph{zahlen} che significa ``numeri'' in tedesco.
-} $\ZZ$:
+\myemph{numeri interi} e si denota con $\ZZ$:
 \index{$\ZZ$}%
+\marginnote{%
+$\ZZ$ da \emph{zahlen} che significa ``numeri'' in tedesco.
+} %
 \[
   \ZZ = \NN - \NN = \NN \cup (-\NN).  
 \]
@@ -2213,12 +2196,13 @@ Al lato destro compare la somma di cui vogliamo calcolare il valore
 insieme ad altre due somme di cui sappiamo già il valore. 
 Basterà allora determinare il valore del lato sinistro dove 
 osserviamo che i termini delle due somme si cancellano 
-a vicenda,\footnote{%
+a vicenda,
+\marginnote{%
 si chiama \emph{somma telescopica}
 \index{somma!telescopica}%
 \index{telescopico}%
 in quanto i termini delle due sommatorie si chiudono uno nell'altro 
-come i tubi di un cannocchiale.}
+come i tubi di un cannocchiale.} %
 tranne l'ultimo della prima somma 
 e il primo della seconda: dunque si ottiene $n^3 - 0^3=n^3$.
 Moltiplichiamo per $2$ l'equazione~\eqref{eq:309838},
@@ -2474,13 +2458,14 @@ dei coefficienti $a_k$.
 Innanzitutto gli diamo un nome: questi coefficienti vengono chiamati 
 \myemph{coefficienti binomiali}
 \index{binomio!coefficienti}%
-e si denotano nel modo seguente:\footnote{%
+e si denotano nel modo seguente:%
+\marginnote{%
 I coefficienti binomiali nell'ambito del calcolo combinatorio 
 vengono anche chiamati \emph{combinazioni}
 e denotati con il simbolo $C_{n,k} = {n \choose k}$.
 La coincidenza tra le combinazioni e i coefficienti binomiali 
 è espressa nel teorema~\ref{th:combinatoria}.
-}
+}%
 \[
     a_k = {n \choose k}.
 \]
@@ -2673,8 +2658,8 @@ Vediamo ora quali sono le conseguenze della \emph{continuità}
 dell'ordinamento di $\RR$, proprietà che finora non abbiamo mai 
 utilizzato.
 
-\begin{definition}
-  \mymark{***}
+\begin{definition}%
+  \mymark{***}%
   Sia $A \subset \RR$.
   Se $A$ ha un maggiorante (cioè esiste $x\in \RR$ tale che $x\ge A$, definizione~\ref{def:minorante})
   diremo che $A$ è \emph{superiormente limitato},
@@ -2687,9 +2672,9 @@ utilizzato.
   \myemph{limitato}.
   
   Se $x$ è minimo dei maggioranti di $A$ diremo che $x$ è
-  \myemph[estremo superiore e inferiore]{estremo!superiore}
+  \myemph[estremo superiore]{estremo!superiore}
   di $A$ se invece $x$ è massimo dei minoranti diremo che $x$ è
-  \myemph[]{estremo!inferiore} di $A$:
+  \myemph[estremo inferiore]{estremo!inferiore} di $A$:
   \begin{align*}
   \sup A &= \min \ENCLOSE{x\in \RR \colon x\ge A}, \\
   \inf A &= \max \ENCLOSE{x\in \RR \colon x \le A}.
@@ -2715,9 +2700,9 @@ dunque nessun $x\in A$ può essere
 massimo o minimo. L'insieme $B=\ENCLOSE{x\in \RR \colon 0\le x \le 1}$
 ha invece massimo $\max B= 1$ e minimo $\min B=0$.
 
-\begin{theorem}[esistenza del $\sup$]
-  \label{th:sup}
-  \mymark{**}
+\begin{theorem}[esistenza del $\sup$]%
+  \label{th:sup}%
+  \mymark{**}%
   Se $A$ è un insieme non vuoto,
   superiormente limitato, allora esiste l'estremo superiore di $A$.
   Tale numero $x=\sup A$ è caratterizzato dalle seguenti proprietà
@@ -2851,7 +2836,8 @@ esistono quantità infinite (ma neanche infinitesime) in $\RR$.
   sono la migliore approssimazione intera di $x$ rispettivamente
   per difetto e per eccesso.
   L'intero più vicino ad $x$ (approssimazione per \myemph{arrotondamento})
-  è\footnote{%
+  è
+\marginnote{%
 Il numero $\frac 1 2$ verrà definito nella prossima sezione sui numeri 
 razionali, lo anticipiamo per comodità.}%
   \[
@@ -3084,11 +3070,12 @@ di $10$ si chiamano frazioni decimali:
 \]
 Tali frazioni si possono rappresentare
 scrivendo il numero
-intero $p$ e segnando un punto\footnote{%
+intero $p$ e segnando un punto%
+\marginnote{%
 in Italia si preferisce utilizzare la virgola, ma
 ci rassegnamo alla notazione anglosassone che ormai è
 ubiqua in tutta la strumentazione elettronica.
-}
+}%
 di separazione
 prima della $d$-esima cifra a partire da destra.
 Ad esempio scriveremo:
@@ -3118,14 +3105,15 @@ Ad esempio scriveremo
 \[
   \frac 2 3 \approx 0.6667 = \frac{6667}{10^4}
 \]
-per intendere\footnote{%
+per intendere%
+\marginnote{%
 Si osservi che in base alla definizione data sarebbe anche corretto 
 scrivere $\frac 2 3 \approx 0.6666$ che però sarebbe una approssimazione 
 peggiore. 
 Questa ambiguità è necessaria se vogliamo evitare i casi 
 limite in cui bisogna conoscere molte più cifre decimali di quelle richieste 
 per capire qual è la migliore approssimazione.
-}
+}%
 \begin{equation}\label{eq:approx_23}
 \abs{\frac 2 3 - \frac{6667}{10^4}}<\frac{1}{10^4}.
 \end{equation}
@@ -3353,142 +3341,142 @@ restrizione di $g$ dovranno coincidere. Significa allora che $g(T)=R$
 ed essendo $g$ iniettiva dobbiamo quindi concludere che $T=S$.
 \end{proof}
 
-\begin{comment} %% dimostrazione vecchia
-  Per semplicità supponiamo che sia $R=\RR$ e $u=1$ in modo da poter 
-  utilizzare tutti gli strumenti che abbiamo già introdotto su $\RR$ 
-  (e che avremmo potuto definire allo stesso modo su $R$ visto che 
-  ha le stesse proprietà).
-
-  Supponiamo inizialmente che sia $m>0$.
-  Per ogni $x\in \RR$ definiamo l'insieme $A_x\subset S$ come segue:
-  \[
-  A_x = \ENCLOSE{\frac{pm}{q}\colon \frac{p}{q}\le x, p\in \ZZ, q\in\NN\setminus\ENCLOSE{0}}.  
-  \]
-  Scegliendo $p=\lfloor x\rfloor$ e $q=1$ osserviamo che $\lfloor x\rfloor m \in A_x$
-  che dunque non è un insieme vuoto. 
-  Se invece $\frac p q \le x$ si ha certamente $\frac p q \le \lceil x\rceil$ 
-  e quindi $\lceil x\rceil m$ è un maggiorante di $A_x$.
-  Possiamo quindi definire 
-  \[
-    f(x) = \sup A_x.  
-  \]
-
-  Per prima cosa osserviamo che se $x=\frac a b\in \QQ$ si ha 
-  \[ 
-    f(x) = \frac{am}{b}
-  \]
-  in quanto si verifica immediatamente che $\frac{am}{b}$ 
-  è, in questo caso, il massimo di $A_x$. 
-  In particolare abbiamo verificato che $f(1) = m$.
-
-  In secondo luogo mostriamo che $f$ è strettamente crescente. 
-  Fissati $x<y$ in $\RR$ per la densità di $\QQ$ possiamo trovare 
-  $b\in \NN\setminus\ENCLOSE{0}$ e $a_1,a_2 \in \ZZ$ per cui si abbia 
-  \[
-    x \le \frac{a_1} b < \frac{a_2}b \le y.  
-  \]
-  Allora $\frac{a_2 m} b \in A_y$ e dunque $f(y)\ge \frac{a_2 m}{b}$.
-  Viceversa preso comunque $\frac p q \le x \le \frac{a_1}b$ 
-  si avrà $\frac{pm}q \le \frac{a_1m}b$ e dunque 
-  \[
-     f(x)\le \frac{a_1 m}b < \frac{a_2 m}b \le f(y).
-  \]
-
-  Mostriamo quindi che $f$ è additiva.
-  Dati comunque $x,y\in \RR$ e $q\in \NN\setminus\ENCLOSE{0}$ 
-  si ha
-  \[
-    \frac{\lfloor qx\rfloor}{q} \le x \le \frac{\lceil qx\rceil}{q}, \qquad
-    \frac{\lfloor qy\rfloor}{q} \le y \le \frac{\lceil qy\rceil}{q}
-  \]
-  da cui
-  \[
-    \frac{\lfloor qx\rfloor m}{q} \le f(x) \le \frac{\lceil qx\rceil m}{q}, \qquad
-    \frac{\lfloor qy\rfloor m}{q} \le f(y) \le \frac{\lceil qy\rceil m}{q}   
-  \]
-  e
-  \[
-    \frac{(\lfloor qx\rfloor + \lfloor qy\rfloor)m}{q}
-    \le f(x+y) 
-    \le \frac{(\lceil qx\rceil + \lceil qy\rceil)m}{q}.
-  \]
-  Mettendo insieme le disuguaglianze si trova
-  \begin{align*}
-  \frac{(\lfloor qx\rfloor + \lfloor qy\rfloor - \lceil qx\rceil - \lceil qy\rceil)m}q
-  & \le f(x) + f(y) - f(x+y)  \\
-  & \le \frac{(\lceil qx\rceil + \lceil qy\rceil - \lfloor qx\rfloor - \lfloor qy\rfloor)m}q
-  \end{align*}
-  da cui, essendo $\lceil qx \rceil - \lfloor qx \rfloor \le 2$ (e lo stesso per $y$)
-  si ottiene:
-  \[
-    \eps = \abs{f(x) + f(y) - f(x+y)} \le \frac{2m}{q}
-  \]
-  e questo è vero qualunque sia $q\in \NN\setminus\ENCLOSE{0}$.
-  Ora se fosse $\eps>0$ potremmo scegliere $q$ in modo che sia $\frac{2m}{q}<\eps$
-  (grazie alla proprietà archimedea) e ottenere l'assurdo $\eps < \eps$. 
-  Deve quindi essere $\eps = 0$ che è quanto volevamo dimostrare.
-
-  Dunque se $m>0$ abbiamo trovato una funzione $f\colon \RR \to S$
-  additiva, monotona e tale che $f(1)=m$.
-  Se $m=0$ basta scegliere $f(x) = 0$: questa funzione è ovviamente 
-  additiva, è monotona (costante) e $f(1)=0$.
-  Se $m<0$ basta prendere la funzione $f$ corrispondente a $\abs{m}$ e 
-  cambiarla di segno: la funzione rimane additiva, diventa decrescente 
-  e assume il valore $m = -\abs{m}$ in $1$.
-
-  Dobbiamo ora dimostrare che la funzione $f$ che abbiamo definito è 
-  unica. 
-  Supponiamo nuovamente che sia $m>0$ 
-  e che $g\colon \RR\to S$ sia un'altra funzione additiva,
-  monotona e con $g(1)=m$.
-  Allora certamente $g(0) = 0$ in quanto $g(0) = g(0+0) = g(0)+g(0)$.
-  Poi, se $n\in \NN$ possiamo dimostrare per induzione che 
-  $g(nx) = n g(x)$ in quanto $g(0x) = 0$ e $g((n+1)x) = g(nx) + g(x) = ng(x) + g(x)
-  = (n+1)g(x)$. 
-  Ma allora si ha anche $g\enclose{\frac x n} = \frac{g(x)}n$
-  in quanto $g\enclose{n \frac x n} =n g\enclose{\frac x n}$.
-  Allora se $x=\frac p q\in \QQ$ si ha $g(x) = p\frac{g(1)}{q} = \frac{pm}{q}$
-  e quindi $g(x)$ coincide con $f(x)$ per ogni $x \in \QQ$.
-
-  Se ora scegliamo $x\in \RR$ e $q \in \NN\setminus\ENCLOSE{0}$
-  si avrà 
-  \[
-  \frac{\lfloor qx\rfloor}{q} \le x \le \frac{\lceil qx\rceil}{q}  
-  \]
-  e per la monotonia di $g$
-  \[
-    \frac{\lfloor qx\rfloor m}{q} \le g(x) \le \frac{\lceil qx\rceil m}{q}.
-  \]
-  Anche $f(x)$ soddisfa la stessa proprietà, quindi si ha 
-  \[
-    \eps = \abs{f(x) - g(x)} \le \frac{2m}{q}.
-  \]
-  Di nuovo, se fosse $\eps>0$ potremmo scegliere $q$ abbastanza grande 
-  in modo che $\frac{2m}{q}<\eps$ e avremmo un assurdo. 
-  Dunque $\eps=0$ e $f$ coincide con $g$.
-
-  Se $m=0$ essendo $g(0)=0$ e anche $g(1)=0$ per additività 
-  si ottiene $g(n)=0$ per ogni $n\in \ZZ$. 
-  Ma per monotonia il valore di $g(x)$ deve essere compreso 
-  tra i valori su due interi e quindi deve essere anch'esso nullo.
-
-  Se $m<0$ ci riconduciamo al caso $m>0$ cambiando segno a $g$.
-
-  Infine dobbiamo mostrare che se $m\neq 0$ la funzione $f\colon R\to S$ 
-  con $f(u)=m$ è bigettiva. 
-  Sappiamo già che $f$ è iniettiva in quanto strettamente monotona 
-  se $m\neq 0$. 
-  Applicando quanto dimostrato finora con $R$ ed $S$ scambiati
-  sappiamo che esiste $g\colon S\to R$ anch'essa iniettiva.
-  Ora se consideriamo $T=f(R)\subset S$ osserviamo che $f\colon R\to T$ 
-  è bigettiva e preserva la struttura di gruppo e l'ordinamento.
-  Anche la sua inversa $f^{-1}\colon T \to R$ ha le stesse proprietà 
-  così come ce le ha la restrizione di $g$ a $T$.  
-  Ma per l'unicità che abbiamo appena dimostrato l'inversa di $f$ e la 
-  restrizione di $g$ dovranno coincidere. Significa allora che $g(T)=\RR$
-  ed essendo $g$ iniettiva dobbiamo quindi concludere che $T=S$.
-\end{comment}
-
+%% \begin{comment} %% dimostrazione vecchia
+%%   Per semplicità supponiamo che sia $R=\RR$ e $u=1$ in modo da poter 
+%%   utilizzare tutti gli strumenti che abbiamo già introdotto su $\RR$ 
+%%   (e che avremmo potuto definire allo stesso modo su $R$ visto che 
+%%   ha le stesse proprietà).
+%% 
+%%   Supponiamo inizialmente che sia $m>0$.
+%%   Per ogni $x\in \RR$ definiamo l'insieme $A_x\subset S$ come segue:
+%%   \[
+%%   A_x = \ENCLOSE{\frac{pm}{q}\colon \frac{p}{q}\le x, p\in \ZZ, q\in\NN\setminus\ENCLOSE{0}}.  
+%%   \]
+%%   Scegliendo $p=\lfloor x\rfloor$ e $q=1$ osserviamo che $\lfloor x\rfloor m \in A_x$
+%%   che dunque non è un insieme vuoto. 
+%%   Se invece $\frac p q \le x$ si ha certamente $\frac p q \le \lceil x\rceil$ 
+%%   e quindi $\lceil x\rceil m$ è un maggiorante di $A_x$.
+%%   Possiamo quindi definire 
+%%   \[
+%%     f(x) = \sup A_x.  
+%%   \]
+%% 
+%%   Per prima cosa osserviamo che se $x=\frac a b\in \QQ$ si ha 
+%%   \[ 
+%%     f(x) = \frac{am}{b}
+%%   \]
+%%   in quanto si verifica immediatamente che $\frac{am}{b}$ 
+%%   è, in questo caso, il massimo di $A_x$. 
+%%   In particolare abbiamo verificato che $f(1) = m$.
+%% 
+%%   In secondo luogo mostriamo che $f$ è strettamente crescente. 
+%%   Fissati $x<y$ in $\RR$ per la densità di $\QQ$ possiamo trovare 
+%%   $b\in \NN\setminus\ENCLOSE{0}$ e $a_1,a_2 \in \ZZ$ per cui si abbia 
+%%   \[
+%%     x \le \frac{a_1} b < \frac{a_2}b \le y.  
+%%   \]
+%%   Allora $\frac{a_2 m} b \in A_y$ e dunque $f(y)\ge \frac{a_2 m}{b}$.
+%%   Viceversa preso comunque $\frac p q \le x \le \frac{a_1}b$ 
+%%   si avrà $\frac{pm}q \le \frac{a_1m}b$ e dunque 
+%%   \[
+%%      f(x)\le \frac{a_1 m}b < \frac{a_2 m}b \le f(y).
+%%   \]
+%% 
+%%   Mostriamo quindi che $f$ è additiva.
+%%   Dati comunque $x,y\in \RR$ e $q\in \NN\setminus\ENCLOSE{0}$ 
+%%   si ha
+%%   \[
+%%     \frac{\lfloor qx\rfloor}{q} \le x \le \frac{\lceil qx\rceil}{q}, \qquad
+%%     \frac{\lfloor qy\rfloor}{q} \le y \le \frac{\lceil qy\rceil}{q}
+%%   \]
+%%   da cui
+%%   \[
+%%     \frac{\lfloor qx\rfloor m}{q} \le f(x) \le \frac{\lceil qx\rceil m}{q}, \qquad
+%%     \frac{\lfloor qy\rfloor m}{q} \le f(y) \le \frac{\lceil qy\rceil m}{q}   
+%%   \]
+%%   e
+%%   \[
+%%     \frac{(\lfloor qx\rfloor + \lfloor qy\rfloor)m}{q}
+%%     \le f(x+y) 
+%%     \le \frac{(\lceil qx\rceil + \lceil qy\rceil)m}{q}.
+%%   \]
+%%   Mettendo insieme le disuguaglianze si trova
+%%   \begin{align*}
+%%   \frac{(\lfloor qx\rfloor + \lfloor qy\rfloor - \lceil qx\rceil - \lceil qy\rceil)m}q
+%%   & \le f(x) + f(y) - f(x+y)  \\
+%%   & \le \frac{(\lceil qx\rceil + \lceil qy\rceil - \lfloor qx\rfloor - \lfloor qy\rfloor)m}q
+%%   \end{align*}
+%%   da cui, essendo $\lceil qx \rceil - \lfloor qx \rfloor \le 2$ (e lo stesso per $y$)
+%%   si ottiene:
+%%   \[
+%%     \eps = \abs{f(x) + f(y) - f(x+y)} \le \frac{2m}{q}
+%%   \]
+%%   e questo è vero qualunque sia $q\in \NN\setminus\ENCLOSE{0}$.
+%%   Ora se fosse $\eps>0$ potremmo scegliere $q$ in modo che sia $\frac{2m}{q}<\eps$
+%%   (grazie alla proprietà archimedea) e ottenere l'assurdo $\eps < \eps$. 
+%%   Deve quindi essere $\eps = 0$ che è quanto volevamo dimostrare.
+%% 
+%%   Dunque se $m>0$ abbiamo trovato una funzione $f\colon \RR \to S$
+%%   additiva, monotona e tale che $f(1)=m$.
+%%   Se $m=0$ basta scegliere $f(x) = 0$: questa funzione è ovviamente 
+%%   additiva, è monotona (costante) e $f(1)=0$.
+%%   Se $m<0$ basta prendere la funzione $f$ corrispondente a $\abs{m}$ e 
+%%   cambiarla di segno: la funzione rimane additiva, diventa decrescente 
+%%   e assume il valore $m = -\abs{m}$ in $1$.
+%% 
+%%   Dobbiamo ora dimostrare che la funzione $f$ che abbiamo definito è 
+%%   unica. 
+%%   Supponiamo nuovamente che sia $m>0$ 
+%%   e che $g\colon \RR\to S$ sia un'altra funzione additiva,
+%%   monotona e con $g(1)=m$.
+%%   Allora certamente $g(0) = 0$ in quanto $g(0) = g(0+0) = g(0)+g(0)$.
+%%   Poi, se $n\in \NN$ possiamo dimostrare per induzione che 
+%%   $g(nx) = n g(x)$ in quanto $g(0x) = 0$ e $g((n+1)x) = g(nx) + g(x) = ng(x) + g(x)
+%%   = (n+1)g(x)$. 
+%%   Ma allora si ha anche $g\enclose{\frac x n} = \frac{g(x)}n$
+%%   in quanto $g\enclose{n \frac x n} =n g\enclose{\frac x n}$.
+%%   Allora se $x=\frac p q\in \QQ$ si ha $g(x) = p\frac{g(1)}{q} = \frac{pm}{q}$
+%%   e quindi $g(x)$ coincide con $f(x)$ per ogni $x \in \QQ$.
+%% 
+%%   Se ora scegliamo $x\in \RR$ e $q \in \NN\setminus\ENCLOSE{0}$
+%%   si avrà 
+%%   \[
+%%   \frac{\lfloor qx\rfloor}{q} \le x \le \frac{\lceil qx\rceil}{q}  
+%%   \]
+%%   e per la monotonia di $g$
+%%   \[
+%%     \frac{\lfloor qx\rfloor m}{q} \le g(x) \le \frac{\lceil qx\rceil m}{q}.
+%%   \]
+%%   Anche $f(x)$ soddisfa la stessa proprietà, quindi si ha 
+%%   \[
+%%     \eps = \abs{f(x) - g(x)} \le \frac{2m}{q}.
+%%   \]
+%%   Di nuovo, se fosse $\eps>0$ potremmo scegliere $q$ abbastanza grande 
+%%   in modo che $\frac{2m}{q}<\eps$ e avremmo un assurdo. 
+%%   Dunque $\eps=0$ e $f$ coincide con $g$.
+%% 
+%%   Se $m=0$ essendo $g(0)=0$ e anche $g(1)=0$ per additività 
+%%   si ottiene $g(n)=0$ per ogni $n\in \ZZ$. 
+%%   Ma per monotonia il valore di $g(x)$ deve essere compreso 
+%%   tra i valori su due interi e quindi deve essere anch'esso nullo.
+%% 
+%%   Se $m<0$ ci riconduciamo al caso $m>0$ cambiando segno a $g$.
+%% 
+%%   Infine dobbiamo mostrare che se $m\neq 0$ la funzione $f\colon R\to S$ 
+%%   con $f(u)=m$ è bigettiva. 
+%%   Sappiamo già che $f$ è iniettiva in quanto strettamente monotona 
+%%   se $m\neq 0$. 
+%%   Applicando quanto dimostrato finora con $R$ ed $S$ scambiati
+%%   sappiamo che esiste $g\colon S\to R$ anch'essa iniettiva.
+%%   Ora se consideriamo $T=f(R)\subset S$ osserviamo che $f\colon R\to T$ 
+%%   è bigettiva e preserva la struttura di gruppo e l'ordinamento.
+%%   Anche la sua inversa $f^{-1}\colon T \to R$ ha le stesse proprietà 
+%%   così come ce le ha la restrizione di $g$ a $T$.  
+%%   Ma per l'unicità che abbiamo appena dimostrato l'inversa di $f$ e la 
+%%   restrizione di $g$ dovranno coincidere. Significa allora che $g(T)=\RR$
+%%   ed essendo $g$ iniettiva dobbiamo quindi concludere che $T=S$.
+%% \end{comment}
+ 
 Come conseguenza immediata otteniamo il seguente corollario il quale
 garantisce che gli assiomi con cui abbiamo definito $\RR$
 lo identificano univocamente a meno di isomorfismi.
@@ -3950,102 +3938,102 @@ E' anche piuttosto utile ricordare la formula per il cambiamento di base:
 Quest'ultima formula si dimostra moltiplicando ambo i membri per $\log_a b$ 
 e prendendo quindi l'esponenziale con base $b$ di ambo i membri.
 
-\begin{comment}
-Come applicazione dell'assioma di continuità possiamo mostrare l'esistenza
-della \myemph{radice!quadrata} in $\RR$.
-Più avanti, con qualche strumento in più, rivedremo più in generale
-e in maniera più semplice, la costruzione della radice $n$-esima.
-Denotiamo con $x^2$ (leggi: ``$x$ alla seconda'' o ``$x$ quadro'') il prodotto di $x$ con se stesso: $x^2 = x\cdot x$.
-
-\begin{theorem}[radice quadrata]
-\label{th:radice_quadrata}%
-\index{radice!quadrata}%
-\mymark{***}%
-Dato $y\ge 0$ esiste un unico $x\ge 0$ tale che $x^2=y$.
-Tale $x$ verrà denotato con $\sqrt y$, \emph{radice quadrata} di $y$.
-\mymargin{$\sqrt{\cdot}$}
-\end{theorem}
-\begin{proof}
-\mymark{*}
-Se $y=0$ allora è facile verificare che $x^2=y$ ha come unica soluzione $x=0$.
-Supponiamo allora $y>0$ e
-consideriamo i seguenti due insiemi
-\[
-  A = \ENCLOSE{x\ge 0 \colon x^2 \le y},\qquad
-  B = \ENCLOSE{x\ge 0 \colon x^2 \ge y}
-\]
-e verifichiamo che soddisfino le ipotesi dell'assioma di continuità.
-Innanzitutto $0\in A$ e quindi $A$ non è vuoto.
-Neanche $B$ è vuoto in quanto $y+1\in B$,
-infatti essendo $y+1\ge 1$ si ha
-$(y+1)^2 \ge y+1$. Verifichiamo inoltre che $A \le B$.
-Preso $a\in A$ e $b\in B$ si ha $a^2 \le y \le b^2$.
-Se fosse $a>b$ dovremmo avere $a^2>b^2$, dunque $a \le b$.
-
-Dunque possiamo applicare l'assioma di continuità
-che ci garantisce l'esistenza di $z\in \RR$ tale che $A \le z \le B$.
-Vogliamo ora verificare che $z^2 = y$.
-
-Ci servirà innanzitutto sapere che $z>0$. Se $y\ge 1$ si avrebbe $1\in A$
-e dunque $z\ge 1$ essendo $z\ge A$. Se $y<1$ allora $y^2 < y$ e dunque $y^2 \in A$
-da cui si ottiene $z\ge y^2 > 0$.
-
-Se fosse $z^2 < y$ vorremmo dimostrare che esiste $\eps>0$ tale che
-$(z+\eps)^2 \le y$.
-Questo succede se $(z+\eps)^2 = z^2 + 2 \eps z + \eps^2 \le y$
-e si può ottenere, ad esempio,
-imponendo che sia $2\eps z \le (y-z^2)/2$ e $\eps^2 \le (y-z^2)/2$.
-Cioè (ricordiamo che $z>0$) se $\eps \le (y-z^2)/(4z)$ e $\eps \le 1$
-(in modo che $\eps^2 \le \eps$)
-e $\eps \le (y-z^2)/2$. Dunque possiamo
-trovare $\eps>0$
-tale che
-\[
-\eps \le 1, \qquad
-\eps \le \frac{y-z^2}{4z}, \qquad
-\eps \le \frac{y-z^2}2
-\]
-(basta prendere il più piccolo dei tre numeri)
-si osserva allora
-che vale $(z+\eps)^2\le y$.
-Dunque $z+\eps \in A$ e dunque non può essere $z\ge A$.
-
-Se fosse $z^2 > y$ vorremmo dimostrare che esiste $\eps>0$ tale che
-$(z-\eps)^2 \ge y$.
-Questo succede se $(z-\eps)^2 = z^2 - 2\eps z + \eps^2 \ge y$.
-E' quindi sufficiente che sia $z^2 - 2 \eps z \ge y$ ovvero basta scegliere
-\[
-  \eps = \frac{z^2-y}{2z}.
-\]
-Ma allora se $(z-\eps)^2\ge y$ si ha $z-\eps \in B$ e dunque non può
-essere $z \le B$.
-
-Rimane dunque l'unica possibilità che sia $z^2 = y$, come volevamo dimostrare.
-
-Se ci fosse un altro $w\ge 0$ tale che $w^2 = y$ si avrebbe $w^2 - z^2=0$ ovvero
-$(w-z)(w+z)=0$ da cui (ricordando che $z>0$ e quindi $w+z\neq 0$)
-si ottiene $w-z=0$. Dunque $w=z$.
-\end{proof}
-
-Abbiamo quindi dimostrato che $\sqrt{2} \in \RR \setminus \QQ$
-(diremo che $\sqrt 2$ è
-\myemph{irrazionale}%
-\index{numero!irrazionale}%
-) e dunque $\RR \neq \QQ$.
-Questo significa che $\QQ$ è un esempio di campo ordinato che però
-non soddisfa l'assioma di continuità infatti se consideriamo i due insiemi:
-\[
- A = \ENCLOSE{x\in \QQ \colon x\ge 0, x^2 \le 2},\qquad
- B = \ENCLOSE{x\in \QQ \colon x\ge 0, x^2 \ge 2}
-\]
-si può verificare che $A$ e $B$ sono non vuoti e che $A \le B$,
-come abbiamo fatto nel teorema precedente.
-E' quindi chiaro che in $\RR$ l'unico elemento di separazione
-è $\sqrt 2$ e visto che $\sqrt 2\not \in \QQ$ (teorema~\ref{th:pitagora})
-deduciamo che in $\QQ$ questi due insiemi non hanno elemento di separazione.
-
-\section{estremo superiore}
-\end{comment}
+%% \begin{comment}
+%% Come applicazione dell'assioma di continuità possiamo mostrare l'esistenza
+%% della \myemph{radice!quadrata} in $\RR$.
+%% Più avanti, con qualche strumento in più, rivedremo più in generale
+%% e in maniera più semplice, la costruzione della radice $n$-esima.
+%% Denotiamo con $x^2$ (leggi: ``$x$ alla seconda'' o ``$x$ quadro'') il prodotto di $x$ con se stesso: $x^2 = x\cdot x$.
+%% 
+%% \begin{theorem}[radice quadrata]
+%% \label{th:radice_quadrata}%
+%% \index{radice!quadrata}%
+%% \mymark{***}%
+%% Dato $y\ge 0$ esiste un unico $x\ge 0$ tale che $x^2=y$.
+%% Tale $x$ verrà denotato con $\sqrt y$, \emph{radice quadrata} di $y$.
+%% \mymargin{$\sqrt{\cdot}$}
+%% \end{theorem}
+%% \begin{proof}
+%% \mymark{*}
+%% Se $y=0$ allora è facile verificare che $x^2=y$ ha come unica soluzione $x=0$.
+%% Supponiamo allora $y>0$ e
+%% consideriamo i seguenti due insiemi
+%% \[
+%%   A = \ENCLOSE{x\ge 0 \colon x^2 \le y},\qquad
+%%   B = \ENCLOSE{x\ge 0 \colon x^2 \ge y}
+%% \]
+%% e verifichiamo che soddisfino le ipotesi dell'assioma di continuità.
+%% Innanzitutto $0\in A$ e quindi $A$ non è vuoto.
+%% Neanche $B$ è vuoto in quanto $y+1\in B$,
+%% infatti essendo $y+1\ge 1$ si ha
+%% $(y+1)^2 \ge y+1$. Verifichiamo inoltre che $A \le B$.
+%% Preso $a\in A$ e $b\in B$ si ha $a^2 \le y \le b^2$.
+%% Se fosse $a>b$ dovremmo avere $a^2>b^2$, dunque $a \le b$.
+%% 
+%% Dunque possiamo applicare l'assioma di continuità
+%% che ci garantisce l'esistenza di $z\in \RR$ tale che $A \le z \le B$.
+%% Vogliamo ora verificare che $z^2 = y$.
+%% 
+%% Ci servirà innanzitutto sapere che $z>0$. Se $y\ge 1$ si avrebbe $1\in A$
+%% e dunque $z\ge 1$ essendo $z\ge A$. Se $y<1$ allora $y^2 < y$ e dunque $y^2 \in A$
+%% da cui si ottiene $z\ge y^2 > 0$.
+%% 
+%% Se fosse $z^2 < y$ vorremmo dimostrare che esiste $\eps>0$ tale che
+%% $(z+\eps)^2 \le y$.
+%% Questo succede se $(z+\eps)^2 = z^2 + 2 \eps z + \eps^2 \le y$
+%% e si può ottenere, ad esempio,
+%% imponendo che sia $2\eps z \le (y-z^2)/2$ e $\eps^2 \le (y-z^2)/2$.
+%% Cioè (ricordiamo che $z>0$) se $\eps \le (y-z^2)/(4z)$ e $\eps \le 1$
+%% (in modo che $\eps^2 \le \eps$)
+%% e $\eps \le (y-z^2)/2$. Dunque possiamo
+%% trovare $\eps>0$
+%% tale che
+%% \[
+%% \eps \le 1, \qquad
+%% \eps \le \frac{y-z^2}{4z}, \qquad
+%% \eps \le \frac{y-z^2}2
+%% \]
+%% (basta prendere il più piccolo dei tre numeri)
+%% si osserva allora
+%% che vale $(z+\eps)^2\le y$.
+%% Dunque $z+\eps \in A$ e dunque non può essere $z\ge A$.
+%% 
+%% Se fosse $z^2 > y$ vorremmo dimostrare che esiste $\eps>0$ tale che
+%% $(z-\eps)^2 \ge y$.
+%% Questo succede se $(z-\eps)^2 = z^2 - 2\eps z + \eps^2 \ge y$.
+%% E' quindi sufficiente che sia $z^2 - 2 \eps z \ge y$ ovvero basta scegliere
+%% \[
+%%   \eps = \frac{z^2-y}{2z}.
+%% \]
+%% Ma allora se $(z-\eps)^2\ge y$ si ha $z-\eps \in B$ e dunque non può
+%% essere $z \le B$.
+%% 
+%% Rimane dunque l'unica possibilità che sia $z^2 = y$, come volevamo dimostrare.
+%% 
+%% Se ci fosse un altro $w\ge 0$ tale che $w^2 = y$ si avrebbe $w^2 - z^2=0$ ovvero
+%% $(w-z)(w+z)=0$ da cui (ricordando che $z>0$ e quindi $w+z\neq 0$)
+%% si ottiene $w-z=0$. Dunque $w=z$.
+%% \end{proof}
+%% 
+%% Abbiamo quindi dimostrato che $\sqrt{2} \in \RR \setminus \QQ$
+%% (diremo che $\sqrt 2$ è
+%% \myemph{irrazionale}%
+%% \index{numero!irrazionale}%
+%% ) e dunque $\RR \neq \QQ$.
+%% Questo significa che $\QQ$ è un esempio di campo ordinato che però
+%% non soddisfa l'assioma di continuità infatti se consideriamo i due insiemi:
+%% \[
+%%  A = \ENCLOSE{x\in \QQ \colon x\ge 0, x^2 \le 2},\qquad
+%%  B = \ENCLOSE{x\in \QQ \colon x\ge 0, x^2 \ge 2}
+%% \]
+%% si può verificare che $A$ e $B$ sono non vuoti e che $A \le B$,
+%% come abbiamo fatto nel teorema precedente.
+%% E' quindi chiaro che in $\RR$ l'unico elemento di separazione
+%% è $\sqrt 2$ e visto che $\sqrt 2\not \in \QQ$ (teorema~\ref{th:pitagora})
+%% deduciamo che in $\QQ$ questi due insiemi non hanno elemento di separazione.
+%% 
+%% \section{estremo superiore}
+%% \end{comment}
 
 \section{cardinalità infinite}
 
@@ -4265,10 +4253,10 @@ introducendo le seguenti notazioni. Dati $a,b\in \bar \RR$ con $a\le b$
 tutti i possibili intervalli con estremi $a$ e $b$ sono i seguenti:
 \begin{equation}\label{eq:499494}
 \begin{aligned}
-[a,b] &= \ENCLOSE{x\in \bar \RR\colon a \le x \le b} \\
-[a,b) &= \ENCLOSE{x\in \bar \RR\colon a \le x < b} \\
-(a,b] &= \ENCLOSE{x\in \bar \RR\colon a < x \le b}\\
-(a,b) &= \ENCLOSE{x\in \bar \RR\colon a < x < b}.
+\closeinterval{a}{b} &= \ENCLOSE{x\in \bar \RR\colon a \le x \le b} \\
+\closeopeninterval{a}{b} &= \ENCLOSE{x\in \bar \RR\colon a \le x < b} \\
+\opencloseinterval{a}{b} &= \ENCLOSE{x\in \bar \RR\colon a < x \le b}\\
+\openinterval{a}{b} &= \ENCLOSE{x\in \bar \RR\colon a < x < b}.
 \end{aligned}
 \end{equation}
 Abbiamo utilizzato le parentesi quadre per indicare che gli estremi
@@ -4279,33 +4267,33 @@ delle parentesi tonde.
 Noi considereremo per lo più intervalli di $\RR$ (non di $\bar \RR$): in tal
 caso gli estremi infiniti non potranno mai essere inclusi nell'intervallo.
 
-\begin{comment}
-Finora abbiamo sempre supposto $a \le b$.
-Se invece $a>b$ potremmo definire per convenzione:
-\begin{equation}\label{eq:488364}
-  [a,b] = [b,a], \quad
-  [a,b) = (b,a], \quad
-  (a,b] = [b,a), \quad
-  (a,b) = (b,a).
-\end{equation}
-Si faccia però attenzione che in altri testi gli intervalli con gli estremi
-scambiati non vengono definiti oppure vengono considerati vuoti.
-
-La convenzione può essere utile perché in generale se $\vec a, \vec b$ sono
-elementi di uno spazio vettoriale reale $V$ allora ha senso
-definire:
-\begin{align*}
-    [\vec a,\vec b] &= \ENCLOSE{(1-t)\vec a + t \vec b\colon t\in [0,1]},\\
-    [\vec a,\vec b) &= \ENCLOSE{(1-t)\vec a + t \vec b\colon t\in [0,1)},\\
-    (\vec a,\vec b] &= \ENCLOSE{(1-t)\vec a + t \vec b\colon t\in (0,1]},\\
-    (\vec a,\vec b) &= \ENCLOSE{(1-t)\vec a + t \vec b\colon t\in (0,1)}.
-\end{align*}
-L'intervallo $[\vec a,\vec b]$ è quindi il segmento di estremi
-$\vec a$ e $\vec b$ e può essere definito anche se sullo spazio
-vettoriale non è dato un ordinamento.
-Ma questo rimane coerente con la definizione~\eqref{eq:499494}
-data sopra solamente se adottiamo la convenzione~\eqref{eq:488364}.
-\end{comment}
+%% \begin{comment}
+%% Finora abbiamo sempre supposto $a \le b$.
+%% Se invece $a>b$ potremmo definire per convenzione:
+%% \begin{equation}\label{eq:488364}
+%%   [a,b] = [b,a], \quad
+%%   [a,b) = (b,a], \quad
+%%   (a,b] = [b,a), \quad
+%%   (a,b) = (b,a).
+%% \end{equation}
+%% Si faccia però attenzione che in altri testi gli intervalli con gli estremi
+%% scambiati non vengono definiti oppure vengono considerati vuoti.
+%% 
+%% La convenzione può essere utile perché in generale se $\vec a, \vec b$ sono
+%% elementi di uno spazio vettoriale reale $V$ allora ha senso
+%% definire:
+%% \begin{align*}
+%%     [\vec a,\vec b] &= \ENCLOSE{(1-t)\vec a + t \vec b\colon t\in [0,1]},\\
+%%     [\vec a,\vec b) &= \ENCLOSE{(1-t)\vec a + t \vec b\colon t\in [0,1)},\\
+%%     (\vec a,\vec b] &= \ENCLOSE{(1-t)\vec a + t \vec b\colon t\in (0,1]},\\
+%%     (\vec a,\vec b) &= \ENCLOSE{(1-t)\vec a + t \vec b\colon t\in (0,1)}.
+%% \end{align*}
+%% L'intervallo $[\vec a,\vec b]$ è quindi il segmento di estremi
+%% $\vec a$ e $\vec b$ e può essere definito anche se sullo spazio
+%% vettoriale non è dato un ordinamento.
+%% Ma questo rimane coerente con la definizione~\eqref{eq:499494}
+%% data sopra solamente se adottiamo la convenzione~\eqref{eq:488364}.
+%% \end{comment}
 
 \section{andamento del grafico di una funzione}
 %
@@ -4506,7 +4494,7 @@ che $\inf f = 0$ e che $\min f$ non esiste.
 Le \myemph[funzione!lineare]{funzioni lineari}
 $f\colon \RR \to \RR$ sono le funzioni per le quali
 esistono $m,q\in\RR$ tali che%
-\footnote{%
+\marginnote{%
 Attenzione: nell'ambito dell'algebra lineare queste
 funzioni verrebbero chiamate \emph{lineari affini}, mentre
 le funzioni lineari dovrebbero sempre avere $q=0$.
@@ -4524,7 +4512,7 @@ In altri contesti (come ad esempio nell'ambito degli ordinamenti)
 il termine \emph{lineare} rappresenta un oggetto unidimensionale
 senza ramificazioni ed è quindi maggiormente aderente 
 al significato originale della parola.
-}
+} % marginnote
 \[
   f(x) = mx + q.
 \]
@@ -4686,8 +4674,8 @@ Infine se $b^2-4ac>0$ si ottiene
   x+\frac b{2a} = \pm \frac{\sqrt{b^2-4ac}}{2a}
 \]
 da cui la famosa formula risolutiva
+\mymark{***}
 \begin{equation}\label{eq:secondo_grado}
-  \mymark{***}
   x_{1,2} = \frac{-b \pm \sqrt{b^2-4ac}}{2a}.
 \end{equation}
 
@@ -4913,14 +4901,15 @@ risulta essere un campo.
 
 Osserviamo che su $\CC$ non si definisce una relazione d'ordine perché
 in effetti non è possibile definire un ordine ``compatibile'' con le operazioni
-appena definite.\footnote{%
+appena definite.%
+\marginnote{%
 Se $\CC$ fosse un campo ordinato per assurdo
 si dovrebbe avere,
 che $z^2\ge 0$ per ogni $z\in \CC$ (questo è vero in tutti i campi ordinati). 
 Ma
 allora $-1 =i^2 \ge 0$ cioè $1\le 0$ che è in contraddizione
 con la proprietà $0<1$ valida in ogni campo ordinato.
-}
+} % marginnote
 
 Su $\CC$ definiamo delle ulteriori operazioni.
 Il \myemph{coniugato}
@@ -5136,12 +5125,13 @@ Una quantità $z\in \bar \CC$ sarà detta \emph{finita} se $z\in \CC$.
   I punti $0$ e $\infty$ si scambiano.
 \end{example}
 
-Per le funzioni di variabile complessa e/o a valori complessi 
-si applica la stessa definizione~\ref{def:continua} di continuità 
-che abbiamo dato per le funzioni reali utilizzando il modulo 
-complesso al posto del valore assoluto.
-\index{continuità!campo complesso}%
-\index{funzione!continua!complessa}%
+%% % ancora non abbiamo definito il concetto di funzione continua
+%% Per le funzioni di variabile complessa e/o a valori complessi 
+%% si applica la stessa definizione~\ref{def:continua} di continuità 
+%% che abbiamo dato per le funzioni reali utilizzando il modulo 
+%% complesso al posto del valore assoluto.
+%% \index{continuità!campo complesso}%
+%% \index{funzione!continua!complessa}%
 
 \begin{exercise}[vertici di un triangolo equilatero]
 Si risolva l'equazione 
@@ -5193,4 +5183,3 @@ $z_2$ corrisponde a $\frac 2 3$ di angolo giro e $z_0=z_1^3 = 1$ rappresenta
 l'angolo giro (o l'angolo nullo).
 \end{proof}
 
-\end{comment}
