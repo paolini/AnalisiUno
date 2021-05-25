@@ -101,7 +101,7 @@
 	\bookmarksetup{startatroot}% Reset the bookmark depth
 	\pagestyle{plain.scrheadings}% Use a plain style for the header and the footer
 	\pagelayout{wide}% Use a wide page layout
-	\setchapterstyle{plain} % Choose the default chapter heading style
+	\setchapterstyle{kao} % Choose the default chapter heading style
 }
 
 %----------------------------------------------------------------------------------------
@@ -130,13 +130,14 @@
 % The Kao style
 \DeclareDocumentCommand{\chapterstylekao}{}{%
 	\renewcommand*{\chapterformat}{%
-		\mbox{\chapappifchapterprefix{\nobreakspace}\scalebox{2.85}{\thechapter\autodot}}%
+		\mbox{\chapappifchapterprefix{\nobreakspace}\scalebox{2.85}{\thechapter%\autodot
+		}}%
 	}%
 	\renewcommand\chapterlinesformat[3]{%
 		\vspace{3.5\vscale}%
 		\smash{\makebox[0pt][l]{%
 			\parbox[b]{\textwidth}{\flushright{##3}}%
-			\makebox[\marginparsep][c]{\rule[-2\vscale]{1pt}{27.4\vscale+\f@size mm}}%
+			\makebox[\marginparsep][c]{\rule[-2\vscale]{0pt}{1.4\vscale+\f@size mm}}%
 			\parbox[b]{\marginparwidth}{##2}%
 		}}%
 	}%
@@ -144,72 +145,6 @@
     \setlength{\mtocshift}{-3\vscale}%
 }
 
-% Lines
-\renewcommand{\hrulefill}[1][0.4pt]{%
-	\leavevmode\leaders\hrule height #1\hfill\kern\z@%
-}
-\DeclareDocumentCommand{\chapterstylelines}{}{%
-	\renewcommand*{\chapterformat}{%
-		\chapappifchapterprefix{\nobreakspace}\scalebox{3.5}{\thechapter\autodot}%
-	}%
-	\renewcommand\chapterlinesformat[3]{%
-	  %\vspace*{-1cm}%
-	  \leavevmode%
-	  \makebox[0pt][l]{%
-		\makebox[\textwidth][l]{\hrulefill[1pt]##2}%\hfill%\par%\bigskip
-		\makebox[\marginparsep][l]{}%
-		\makebox[\marginparwidth][l]{}%
-	  }\\
-	  %\vspace{.5cm}
-	  \makebox[0pt][l]{%
-		\makebox[\textwidth][l]{##3}%
-		\makebox[\marginparsep][l]{}%
-		\makebox[\marginparwidth][l]{}%
-	  }\\
-	  \makebox[0pt][l]{%
-		\makebox[\textwidth+\marginparsep+\marginparwidth][l]{\hrulefill[1.1pt]}%
-	  }%
-	}%
-	\RedeclareSectionCommand[beforeskip=0cm,afterskip=10\vscale]{chapter}
-	\setlength{\mtocshift}{-1\vscale}%
-}
-
-% Image (Used internally for \chapterimage; normal users should not need this command)
-\DeclareDocumentCommand{\chapterstyleimage}{o m}{%
-	\renewcommand*{\chapterformat}{%
-		\mbox{\chapappifchapterprefix{\nobreakspace}\thechapter%
-		\autodot\IfUsePrefixLine{}{\enskip}}%
-	}
-    \renewcommand{\chapterlinesformat}[3]{%
-        \begin{tikzpicture}[remember picture, overlay]
-            \node (image) at (current page.north west) [
-                anchor=north west,
-                inner sep=0pt,
-                outer sep=0pt,
-            ]{\includegraphics[width=\paperwidth,height=#1,keepaspectratio=false]{#2}};
-            \node at (image.south west) [
-                anchor=south west,
-                inner ysep=5\vscale,
-                inner xsep=\hoffset+\oddsidemargin+1in,%30\hscale,
-                outer sep=-0.5pt,
-                fill=gray!20!white,
-                fill opacity=0.8,
-                text width=\textwidth+\marginparsep+\marginparwidth,
-            ]{\@hangfrom{##2}{##3}};
-        \end{tikzpicture}
-	}
-}
-
-% Takes as input the image path and optionally the "beforeskip"
-\DeclareDocumentCommand{\setchapterimage}{O{92\vscale} m}{%
-    \chapterstyleimage[#1]{#2}%
-	% beforeskip=-(figure_height-top_margin)
-    \RedeclareSectionCommand[beforeskip=\dimexpr #1 - \voffset - 1in, afterskip=6\vscale]{chapter}%
-	\setlength{\mtocshift}{0cm}%
-}
-
-% By default start with plain style
-\chapterstyleplain
 
 %----------------------------------------------------------------------------------------
 %	FONTS AND STYLES
