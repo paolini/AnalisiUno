@@ -9,6 +9,9 @@ AnalisiUno.pdf AnalisiUno.myaux: AnalisiUno.tex chapters/*.tex figures/* code/* 
 strutture.pdf: strutture.gv
 	dot -Tpdf $< -o $@
 
+check_repeated_labels:
+	grep 'label{.*}' -o chapters/*.tex | cut -f 2 -d{ | cut -f1 -d} | sort | uniq -d
+
 clean:
 	latexmk -C AnalisiUno.tex
 
