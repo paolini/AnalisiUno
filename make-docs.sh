@@ -1,5 +1,7 @@
 out=README.md
 
+echo "current directory: ${PWD}"
+ls
 echo "writing file" ${out}
 
 # truncate
