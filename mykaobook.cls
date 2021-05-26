@@ -25,7 +25,7 @@
 %----------------------------------------------------------------------------------------
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{kaobook}[2021/03/23 v0.9.6 kaobook]
+\ProvidesClass{mykaobook}[2021/03/23 v0.9.6 kaobook]
 \newcommand{\@baseclass}{scrbook} % Base class name
 
 \RequirePackage{kvoptions} % Manage class key-value options

@@ -10,6 +10,7 @@
 % calligraphic letters
 \newcommand{\A}{\mathcal A}
 \newcommand{\B}{\mathcal B}
+\def\C{dummy C command} % necessario perche' non sempre \C risulta gia' definito
 \renewcommand{\C}{\mathcal C}
 \newcommand{\D}{\mathcal D}
 \newcommand{\E}{\mathcal E}
@@ -21,6 +22,7 @@
 \newcommand{\M}{\mathcal M}
 \renewcommand{\P}{\mathcal P}
 \renewcommand{\S}{\mathcal S}
+\def\U{dummy U command} % necessario perche' non sempre \U risulta gia' definito
 \renewcommand{\U}{\mathcal U} %% intorni
 
 % blackboard letters
@@ -175,8 +177,12 @@ name=Osservazione,sibling=theorem]{remark}
 % #1: url completo
 % #2: descrizione HTML
 \newcommand{\mydoclink}[2]{%
-\myaux{<!--MYDOCLINK--><li><a href="?#1">#2</a> (pagina \thepage, capitolo \thechapter)</li>}% 
+\myaux{<!--MYDOCLINK--><li><a href="#1">#2</a> (pagina \thepage, capitolo \thechapter)</li>}% 
 }
+
+% url completo da abbreviazione
+% #1 shorten url della pagina: l'url completo va messo in make-docs.sh
+\newcommand{\myshorturl}[1]{http://paolini.github.io/AnalisiUno?#1}
 
 % crea qr code
 % #1: url completo della pagina
@@ -187,30 +193,49 @@ name=Osservazione,sibling=theorem]{remark}
   \end{minipage}%   
 }
 
+%% negli URL i caratteri % vanno sostituiti con \%
+
 % #1: url della pagina
 % #2: testo da scrivere sotto il qrcode
 % #3: testo HTML da scrivere nel link della documentazione
 \newcommand{\myqrdoclink}[3]{%
 \mydoclink{#1}{#3}\myqr{#1}{#2}%
 }
-%% negli URL i caratteri % vanno sostituiti con \%
+
+% mette un QR code nel margine
+% #1: url della pagina
+% #2: testo da scrivere sotto il qr code
+% #3: testo HTML da scrivere nel link della documentazione
 \newcommand{\myqrcode}[3]{%
   \marginnote{\myqrdoclink{#1}{#2}{#3}}%
 }
-%
-% #1 shorten url della pagina: l'url completo va messo in make-docs.sh
-\newcommand{\myshorturl}[1]{http://paolini.github.io/AnalisiUno?#1}
-%
+
+% mette un QR code nel margine, con shorturl
+% #1: codice short dell'url
+% #2: testo da scrivere sotto il qr code
+% #3: testo HTML da scrivere nel link della documentazione
+\newcommand{\myshortqrcode}[3]{%
+  \marginnote{\mydoclink{?#1}{#3}\myqr{\myshorturl{#1}}{#2}}%
+}
+
 % #1 shorten url della pagina: l'url completo va messo in make-docs.sh
 % #2 testo HTML da scrivere nel link della documentazione
 \newcommand{\myurl}[2]{%
 \marginnote{\myqrdoclink{\myshorturl{#1}}{(interagisci)}{#2}}%
 }
+
 % come \myurl ma con un offset verticale #3
 \newcommand{\myurloff}[3]{%
 \marginnote{\myqrdoclink{\myshorturl{#1}}{(interagisci)}{#2}}[#3]%
 }
+
 % come \myurl ma non va nel margine
 \newcommand{\myurlhere}[2]{%
-\myqrdoclink{\myshorturl{#1}}{(interagisci)}{#2}%
+\mydoclink{?#1}{#2}\myqr{\myshorturl{#1}}{(interagisci)}%
+}
+
+% #1: short url della pagina
+% #2: testo HTML da scrivere nel link della documentazione
+\newcommand{\myqrshortdoclink}[2]{%
+\mydoclink{?#1}{#2}\myqr{\myshorturl{#1}}{(interagisci)}%
 }
