@@ -67,5 +67,5 @@ The  should automate the previous commands.
 
 # compilation with docker
 
-    docker run -it -w /app -v "/home/emanuele/AnalisiUno:/app" ghcr.io/xu-cheng/texlive-full latexmk --pdf AnalisiUno -file-line-error -halt-on-error -interaction=nonstopmode
+    docker run -it -w /app -v "/home/runner/work/AnalisiUno/AnalisiUno:/app" ghcr.io/xu-cheng/texlive-full latexmk --pdf AnalisiUno -file-line-error -halt-on-error -interaction=nonstopmode
 
