@@ -55,17 +55,17 @@ e certamente contiene errori e incoerenze. Ogni suggerimento o commento è
 benvenuto! 
 # compiling 
 
-files  and  are create from sources with the command:
+files `README.md` and `docs/index.html` are create from sources with the command:
 
     bash make-docs.sh
 
-the  file can be obtained with the command:
+the `pdf` file can be obtained with the command:
 
     latexmk --pdf AnalisiUno
 
-The  should automate the previous commands.
+The `Makefile` should automate the previous commands.
 
 # compilation with docker
 
-    docker run -it -w /app -v "/home/runner/work/AnalisiUno/AnalisiUno:/app" ghcr.io/xu-cheng/texlive-full latexmk --pdf AnalisiUno -file-line-error -halt-on-error -interaction=nonstopmode
+    docker run -it -w /app -v "${PWD}:/app" ghcr.io/xu-cheng/texlive-full latexmk --pdf AnalisiUno -file-line-error -halt-on-error -interaction=nonstopmode
 
