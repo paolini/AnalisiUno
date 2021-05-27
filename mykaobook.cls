@@ -53,6 +53,7 @@
 \LoadClass{\@baseclass} % Load the base class
 \RequirePackage{mykao} % Load the code common to all classes
 
+\renewcommand{\autodot}{} % rimuovi i punti dopo le numerazioni delle sezioni etc...
 %----------------------------------------------------------------------------------------
 %	FRONT-, MAIN-, BACK- MATTERS BEHAVIOUR
 %----------------------------------------------------------------------------------------
