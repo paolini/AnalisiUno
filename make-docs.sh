@@ -1,11 +1,31 @@
 out=README.md
 
-echo "writing file" ${out}
-
 # truncate
+echo "writing file" ${out}
 echo "" > ${out}
 
+# extracting documentation from latex source
 grep "%% README" chapters/AnalisiUno-00*.tex | cut -f1 -d"%" | sed "s/\\\\emph{\\([^}]*\\)}/\\*\\1\\*/g" >> ${out}
+
+# writing additional info for the repository
+cat << EOF >> ${out} 
+# compiling 
+
+files \`README.md\` and \`docs/index.html\` are create from sources with the command:
+
+    bash make-docs.sh
+
+the \`pdf\` file can be obtained with the command:
+
+    latexmk --pdf AnalisiUno
+
+The \`Makefile\` should automate the previous commands.
+
+# compilation with docker
+
+    docker run -it -w /app -v "\${PWD}:/app" ghcr.io/xu-cheng/texlive-full latexmk --pdf AnalisiUno -file-line-error -halt-on-error -interaction=nonstopmode
+
+EOF
 
 out=docs/index.html
 
