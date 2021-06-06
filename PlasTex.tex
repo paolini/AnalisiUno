@@ -1,4 +1,20 @@
+\documentclass{book}
+\usepackage[italian]{babel} % Load characters and hyphenation
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{comment}
+\usepackage{tikz}
+\usepackage{listings}
+\usepackage{hyperref}
+
+\makeindex
+
 \newif\ifwidemargin
+\widemarginfalse
+
+\renewenvironment{proof}{\textbf{Dimostrazione.}}{\hfill$\square$\par}
+\newcommand{\publishers}[1]{}
+\newcommand{\doclicenseThis}{}
+\newcommand{\printindex}{}
 
 \newcommand{\eps}{\varepsilon}
 \renewcommand{\phi}{\varphi}
@@ -78,56 +94,59 @@
 
 %% thmtools configuration
 
-\declaretheoremstyle[
-spaceabove=6pt, spacebelow=6pt,
-headfont=\normalfont\bfseries\itshape,
-notefont=\mdseries, notebraces={(}{)},
-bodyfont=\normalfont,
-postheadspace=1em,
-qed=,
-%shaded={rulecolor=pink!30,rulewidth=1pt,bgcolor=pink!10}
-]{exercise_style}
+% \declaretheoremstyle[
+% spaceabove=6pt, spacebelow=6pt,
+% headfont=\normalfont\bfseries\itshape,
+% notefont=\mdseries, notebraces={(}{)},
+% bodyfont=\normalfont,
+% postheadspace=1em,
+% qed=,
+% %shaded={rulecolor=pink!30,rulewidth=1pt,bgcolor=pink!10}
+% ]{exercise_style}
+% 
+% \declaretheoremstyle[
+% spaceabove=6pt, spacebelow=6pt,
+% postheadspace=1em,
+% qed=,
+% %shaded={rulecolor=blue!20,rulewidth=1pt,bgcolor=blue!5}
+% ]{theorem_style}
+% 
+% \declaretheoremstyle[
+% spaceabove=6pt, spacebelow=6pt,
+% postheadspace=1em,
+% qed=,
+% %shaded={rulecolor=yellow!50,rulewidth=1pt,bgcolor=yellow!5}
+% ]{axiom_style}
+% 
+% \numberwithin{equation}{chapter}
+% \declaretheorem[name=Teorema,numberwithin=chapter]{theorem}
+% \declaretheorem[name=Lemma,sibling=theorem]{lemma}
+% \declaretheorem[name=Proposizione,sibling=theorem]{proposition}
+% \declaretheorem[name=Corollario,sibling=theorem]{corollary}
+% \declaretheorem[name=Paradosso,sibling=theorem]{paradox}
+% \declaretheorem[%style=axiom_style,
+% name=Assioma,sibling=theorem]{axiom}
+% \declaretheorem[name=Definizione,sibling=theorem]{definition}
+% \declaretheorem[%style=exercise_style,
+% name=Esempio,sibling=theorem]{example}
+% \declaretheorem[%style=exercise_style,
+% name=Esercizio,sibling=theorem]{exercise}
+% \declaretheorem[%style=exercise_style,
+% name=Osservazione,sibling=theorem]{remark}
+% 
+% 
+\newtheorem{theorem}{Teorema}[chapter]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{exercise}[theorem]{Esercizio}
+\newtheorem{proposition}[theorem]{Proposizione}
+\newtheorem{corollary}[theorem]{Corollario}
+\newtheorem{example}[theorem]{Esempio}
+\newtheorem{definition}[theorem]{Definizione}
+\newtheorem{axiom}[theorem]{Assioma}
+\newtheorem{remark}[theorem]{Osservazione}
 
-\declaretheoremstyle[
-spaceabove=6pt, spacebelow=6pt,
-postheadspace=1em,
-qed=,
-%shaded={rulecolor=blue!20,rulewidth=1pt,bgcolor=blue!5}
-]{theorem_style}
-
-\declaretheoremstyle[
-spaceabove=6pt, spacebelow=6pt,
-postheadspace=1em,
-qed=,
-%shaded={rulecolor=yellow!50,rulewidth=1pt,bgcolor=yellow!5}
-]{axiom_style}
-
-\numberwithin{equation}{chapter}
-\declaretheorem[name=Teorema,numberwithin=chapter]{theorem}
-\declaretheorem[name=Lemma,sibling=theorem]{lemma}
-\declaretheorem[name=Proposizione,sibling=theorem]{proposition}
-\declaretheorem[name=Corollario,sibling=theorem]{corollary}
-\declaretheorem[name=Paradosso,sibling=theorem]{paradox}
-\declaretheorem[%style=axiom_style,
-name=Assioma,sibling=theorem]{axiom}
-\declaretheorem[name=Definizione,sibling=theorem]{definition}
-\declaretheorem[%style=exercise_style,
-name=Esempio,sibling=theorem]{example}
-\declaretheorem[%style=exercise_style,
-name=Esercizio,sibling=theorem]{exercise}
-\declaretheorem[%style=exercise_style,
-name=Osservazione,sibling=theorem]{remark}
-
-
-%\newtheorem{theorem}{Teorema}[chapter]
-%\newtheorem{lemma}[theorem]{Lemma}
-%\newtheorem{exercise}[theorem]{Esercizio}
-%\newtheorem{proposition}[theorem]{Proposizione}
-%\newtheorem{corollary}[theorem]{Corollario}
-%\newtheorem{example}[theorem]{Esempio}
-%\newtheorem{definition}[theorem]{Definizione}
-%\newtheorem{axiom}[theorem]{Assioma}
-
+%\renewcommand{\eqref}[1]{[\ref{#1}]}
+%\renewenvironment{remark}{\begin{example}}{\end{example}}
 %% average integral, see https://tex.stackexchange.com/questions/759/average-integral-symbol
 \def\Xint#1{\mathchoice
 {\XXint\displaystyle\textstyle{#1}}%
@@ -140,46 +159,22 @@ name=Osservazione,sibling=theorem]{remark}
 \def\ddashint{\Xint=}
 \def\dashint{\Xint-}
 
-\ExplSyntaxOn
-\newcommand\stripExclamation[1]{
-\def\tmp{#1}
-\regex_replace_all:nnN { "! } { 91848243 }\tmp
-\regex_replace_all:nnN { ! } { \  }\tmp
-\regex_replace_all:nnN { 91848243 } { ! }\tmp
-\tmp}
-\ExplSyntaxOff
+\newcommand\stripExclamation[1]{#1}
 
-% % danger symbol
-% \newcommand*{\TakeFourierOrnament}[1]{{%
-% \fontencoding{U}\fontfamily{futs}\selectfont\char#1}}
-% \newcommand*{\danger}{\TakeFourierOrnament{66}}
+\newcommand\marginnote[1]{}
 
-%% disable mymark. Non riesco a farlo funzionare correttamente ...
-% \newcommand{\mymark}[1]{\reversemarginpar\marginnote{#1}\normalmarginpar}
 \newcommand{\mymark}[1]{}
 
-\newcommand{\mynote}[1]{\marginnote{\tcbox[colback=white,boxrule=0.5pt,arc=1pt,boxsep=3pt,left=0pt,right=0pt,top=1pt,bottom=0pt]{{\footnotesize\stripExclamation{#1}}}}}
+\newcommand{\mynote}[1]{}
 \newcommand{\mymargin}[1]{\mynote{#1}\index{#1}}
-% utilizzo di myemph:
-% \myemph[margin note]{emph and index}
-\newcommand{\myemph}[2][dummy_not_defined]{%
-  \emph{\stripExclamation{#2}}%
-  \ifthenelse{\equal{#1}{dummy_not_defined}}%
-    {\ifthenelse{\isempty{#2}}{}{\mynote{#2}}%
-    \index{#2}}%
-    {\mynote{#1}%
-    \index{#2}}}%
+\newcommand{\myemph}[2][dummy_not_defined]{\emph{#2}}
 
-\newwrite\myauxfile
-\immediate\openout\myauxfile=AnalisiUno.myaux
-\newcommand{\myaux}[1]{\write\myauxfile{#1}}
+\newcommand{\myaux}[1]{}
 
 % aggiungi un link nella pagina HTML della documentazione
 % #1: url completo
 % #2: descrizione HTML
-\newcommand{\mydoclink}[2]{%
-\myaux{<!--MYDOCLINK--><li><a href="#1">#2</a> (pagina \thepage, capitolo \thechapter)</li>}% 
-}
+\newcommand{\mydoclink}[2]{}
 
 % url completo da abbreviazione
 % #1 shorten url della pagina: l'url completo va messo in make-docs.sh
@@ -189,7 +184,7 @@ name=Osservazione,sibling=theorem]{remark}
 % #1: url completo della pagina
 % #2: testo da scrivere sotto il qrcode
 \newcommand{\myqr}[2]{%
-  \begin{minipage}{1.5cm}\qrcode[height=1.3cm]{#1}\\%
+  \begin{minipage}{1.5cm}\url{#1}\\%
     \scriptsize{#2}%
   \end{minipage}%   
 }
@@ -240,3 +235,73 @@ name=Osservazione,sibling=theorem]{remark}
 \newcommand{\myqrshortdoclink}[2]{%
 \mydoclink{?#1}{#2}\myqr{\myshorturl{#1}}{(interagisci)}%
 }
+
+
+\graphicspath{{figures/}}
+
+%% per compilare un solo capitolo scommenta
+%% una delle righe seguenti:
+%\includeonly{chapters/AnalisiUno-00-introduzione}
+%\includeonly{chapters/AnalisiUno-01-reali}
+%\includeonly{chapters/AnalisiUno-02-successioni}
+%\includeonly{chapters/AnalisiUno-03-serie}
+%\includeonly{chapters/AnalisiUno-04-complessi}
+%\includeonly{chapters/AnalisiUno-05-derivate}
+%\includeonly{chapters/AnalisiUno-06-integrali}
+%\includeonly{chapters/AnalisiUno-07-spazi}
+%\includeonly{chapters/AnalisiUno-08-ricorrenza}
+%\includeonly{chapters/AnalisiUno-09-edo}
+%\includeonly{chapters/AnalisiUno-98-algebra}
+
+
+\begin{document}
+\title{Appunti di\\Analisi Matematica Uno}
+\author{Emanuele Paolini}
+\date{\today}
+\publishers{manu-fatto}
+
+\frontmatter % Denotes the start of the pre-document content, uses roman numerals
+
+\maketitle
+
+\thispagestyle{empty}
+\mbox{}
+\vfill
+\doclicenseThis
+
+\include{chapters/AnalisiUno-00-introduzione}
+
+\tableofcontents
+
+\mainmatter 
+
+% \input{chapters/AnalisiUno-01-reali}
+% \include{chapters/AnalisiUno-02-successioni}
+% \include{chapters/AnalisiUno-03-serie}
+\include{chapters/AnalisiUno-04-complessi}
+% \include{chapters/AnalisiUno-05-derivate}
+% \include{chapters/AnalisiUno-06-integrali}
+% \include{chapters/AnalisiUno-07-spazi}
+% \include{chapters/AnalisiUno-08-ricorrenza}
+% \include{chapters/AnalisiUno-09-edo}
+
+\appendix
+
+% \include{chapters/AnalisiUno-99-appendix}
+
+\backmatter
+
+\nocite{Giusti}
+\nocite{Courant}
+\nocite{Marcellini}
+\nocite{Rudin}
+\nocite{PaganiSalsa}
+\nocite{appunti_logica}
+
+
+\bibliography{biblio}{}
+\bibliographystyle{plain}
+
+\printindex
+
+\end{document}

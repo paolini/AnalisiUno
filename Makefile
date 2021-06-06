@@ -15,4 +15,8 @@ check_repeated_labels:
 clean:
 	latexmk -C AnalisiUno.tex
 
+html:
+	plastex --imager gspdfpng --split-level=1 PlasTex.tex
+#	plastex --renderer=MathJax --imager=gspdfpng PlasTex.tex
+
 build_site: all

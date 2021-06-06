@@ -43,6 +43,8 @@
 
 % Define kao-specific options
 \DeclareStringOption[1]{secnumdepth}
+\DeclareStringOption[1]{pagewidth}
+\DeclareStringOption[1]{pageheight}
 
 % Pass through any other options to the base class
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{\@baseclass}} 
