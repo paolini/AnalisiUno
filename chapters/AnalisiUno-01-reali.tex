@@ -81,6 +81,7 @@ di verità delle operazioni.
 
 \begin{table}
 \begin{tabular}{rcll}
+                         &$P \lor \neg P$&                                       &terzo escluso \\
                          $\neg \neg P$ & $\iff$ & $ P$                           & doppia negazione\\
                                     $P \land Q$ & $\iff$ & $ Q \land P$                   & simmetria\\
                                      $P \lor Q$ & $\iff$ & $ Q \lor P$                    & \\
@@ -89,9 +90,9 @@ di verità delle operazioni.
                             $(P\land Q) \lor R$ & $\iff$ & $ (P\lor R) \land (Q \lor R)$  & proprietà distributiva\\
                             $(P\lor Q) \land R$ & $\iff$ & $ (P\land R) \lor (Q \land R)$ & \\
                             $(P \Rightarrow Q)$ & $\iff$ & $ (Q \Leftarrow P)$            & antisimmetria\\
+                            $(P\Rightarrow Q)$ & $\iff$ & $ (\neg Q\Rightarrow\neg P)$   & implicazione contropositiva\\
                         $\neg (P\Rightarrow Q)$ & $\iff$ & $ P \land (\neg Q)$            & controesempio\\
-                             $(P\Rightarrow Q)$ & $\iff$ & $ \lnot(P \land (\neg Q))$     & dimostrazione per assurdo\\
-                             $(P\Rightarrow Q)$ & $\iff$ & $ (\neg Q\Rightarrow\neg P)$   & implicazione contropositiva
+                             $(P\Rightarrow Q)$ & $\iff$ & $ \lnot(P \land (\neg Q))$     & dimostrazione per assurdo
 \end{tabular}
 \caption{Alcune proprietà degli operatori logici.}
 \label{tab:operatori_logici}
@@ -153,15 +154,14 @@ $P \land \exists x \colon Q(x)$ & $\iff$ & $\exists x \colon P \land Q(x)$
 Alcune proprietà dei quantificatori logici sono riportate
 nella tabella~\ref{tab:proprieta_quantificatori}.
 
-Spesso il quantificatore universale viene sottointeso 
-ad esempio con $x+y=x+y$
-se non indicato diversamente 
+Spesso il quantificatore universale viene sottointeso.
+Ad esempio se si scrive $x+y=x+y$
 si intende che tutte le variabili libere sono quantificate 
 tramite quantificatore universale: 
-$\forall x\colon \forall y\colon x+y=y+x$. 
-Inoltre il segno di interpunzione $\colon$ può essere omesso
+$\forall x\colon \forall y\colon x+y=y+x$.
+Il segno di interpunzione $\colon$ può essere omesso
 $\forall x \forall y\ x+y=y+x$
-oppure una quantificazione può essere fatta contemporaneamente 
+e una quantificazione può essere fatta contemporaneamente 
 su più variabili $\forall x,y\colon x+y = y+x$.
 A volte, se non crea ambiguità, si potranno scrivere 
 i quantificatori anche a fine frase $x+y=y+x, \forall x\forall y$.
@@ -180,23 +180,30 @@ cosa siano gli oggetti e cosa siano gli insiemi perché questi sono concetti
 primitivi (come lo sono i \emph{punti} e le \emph{rette} per la geometria euclidea).
 La teoria degli insiemi ci fornisce, semplicemente, le regole formali che
 possono essere utilizzate per trattare i predicati della forma $x\in A$.
-Ad esempio un \emph{assioma} della teoria degli insiemi è il seguente:
+Ad esempio un \emph{assioma} della teoria degli insiemi è il seguente.
+\begin{axiom}[insieme vuoto]
 \[
   \exists A \colon \lnot \exists x\colon x \in A
 \]
-che significa: ``esiste un insieme $A$ che non contiene alcun elemento $x$''
+\end{axiom}
+L'assioma significa: ``esiste un insieme $A$ che non contiene alcun elemento $x$''
 ovvero stiamo dicendo che esiste l'\myemph{insieme vuoto} che normalmente viene
 denotato con il simbolo $\emptyset$.
 Altri opportuni assiomi della teoria degli insiemi garantiscono l'esistenza
 dell'unione $A\cup B$, intersezione $A\cap B$ e differenza $A\setminus B$
 di due insiemi qualunque $A$ e $B$. Tali operazioni
 tra insiemi possono essere ricondotte alla relazione di appartenenza
-e possono quindi essere definite come segue:
+e possono quindi essere definite come segue.
+\begin{axiom}[operazioni tra insiemi]
+Se $A$ e $B$ sono insiemi allora esistono gli insiemi  
+$A\cup B$, $A\cap B$ e $A\setminus B$ tali che:
 \begin{align*}
-    x \in A \cup B &\iff (x\in A) \lor (x\in B)\\
-    x \in A \cap B &\iff (x\in A) \land (x\in B)\\
+    x \in A \cup B &\iff (x\in A) \lor (x\in B),\\
+    x \in A \cap B &\iff (x\in A) \land (x\in B),\\
     x \in A \setminus B &\iff (x\in A) \land \lnot (x \in B).
 \end{align*}
+\end{axiom}
+
 La negazione dell'appartenenza $\lnot (x \in A)$ viene usualmente
 abbreviata con $x \not \in A$.
 
@@ -209,10 +216,15 @@ definite dalle seguenti proprietà:
   A \subset B &\iff \forall x\colon (x\in A \implies x\in B)\\
   A = B &\iff \forall x\colon (x\in A \iff x \in B).
 \end{align*}
+A parole diremo che $A$ è un sottoinsieme di $B$, 
+$A \subset B$, se ogni elemento di $A$ è anche elemento di $B$.
+Diremo che $A$ e $B$ sono uguali, $A=B$, 
+se $A$ e $B$ hanno gli stessi elementi.
 Ovviamente la relazione $A \subset B$ può essere invertita: scriveremo
 $A\supset B$ (che si può leggere: ``$A$ è un soprainsieme di $B$'')
 per indicare $B \subset A$. Scriveremo anche $A \neq B$ per indicare
 la relazione opposta dell'uguaglianza ovvero: $\lnot(A=B)$.
+Si noti che $A=B$ è equivalente a $(A\subset B) \land (B\subset A)$.
 
 Risulta molto utile la possibilità di costruire insiemi di insiemi.
 Per questo motivo la teoria degli insiemi usualmente non fa distinzione
@@ -232,19 +244,40 @@ universo, che vedremo non può essere definito.
 $\mathcal A \neq \emptyset$, l'intersezione $\bigcap \mathcal A$ di tutti gli elementi
 di $\mathcal A$.
 Questo estende il concetto di unione e intersezione anche a famiglie
-eventualmente infinite:
+eventualmente infinite.
+
+\begin{axiom}[unione e intersezione arbitraria]
+Se $\mathcal A$ è un insieme qualunque esiste l'insieme $\bigcup \mathcal A$
+e se $\mathcal A \neq \emptyset$ esiste l'insieme $\bigcap \mathcal A$
+con le seguenti proprietà:
 \begin{align*}
   x \in \bigcup \mathcal A & \iff \exists A \in \mathcal A \colon x\in A, \\
   x \in \bigcap \mathcal A & \iff \forall A \in \mathcal A \colon x\in A.
 \end{align*}
+\end{axiom}
+Una notazione alternativa è la seguente:
+\[
+ \bigcup \mathcal A = \bigcup_{A\in \mathcal A} A, \qquad 
+ \bigcap \mathcal A = \bigcap_{A\in \mathcal A} A.  
+\]
+Questa notazione mette in evidenza il fatto che l'insieme 
+$\bigcup \mathcal A$ è l'unione di tutti gli elementi $A$ dell'insieme 
+$\mathcal A$ mentre $\bigcap \mathcal A$ è l'intersezione 
+di tutti gli elementi di $\mathcal A$.
+L'insieme $\mathcal A$ viene spesso chiamata una \emph{famiglia}
+di insiemi perché i suoi elementi vengono trattati come insiemi 
+più che come oggetti.
 
 Un altro assioma della teoria degli insiemi garantisce che per ogni
-$x$ esiste un insieme il cui unico elemento è $x$. Tale insieme
-si chiama \emph{singoletto} e si denota con $\ENCLOSE{x}$. La proprietà
-che definisce il singoletto è la seguente:
-\[
-  y \in \ENCLOSE{x} \iff y=x.
-\]
+$x$ esiste un insieme il cui unico elemento è $x$. 
+\begin{axiom}[singoletto]
+  Se $x$ è un insieme esiste l'insieme $\ENCLOSE{x}$, 
+  chiamato \myemph{singoletto}
+  tale che:
+  \[
+    y \in \ENCLOSE{x} \iff y=x.
+  \]
+\end{axiom}
 Facendo l'unione di singoletti possiamo definire (per elencazione) insiemi che contengono
 un numero finito di oggetti:
 \begin{align*}
@@ -280,35 +313,82 @@ e dunque $\ENCLOSE{a,a}=\ENCLOSE{a}$ per la definizione di uguaglianza tra insie
 \end{proof}
 
 Se $P(x)$ è un predicato in una sola variabile $x$ vorremmo poter
-definire l'insieme, denotato con $\ENCLOSE{x\colon P(x)}$
-di tutti gli oggetti $x$ che rendono vero il predicato $P(x)$:
+definire l'insieme di tutti gli oggetti che rendono vero il predicato $P(x)$.
+Sorprendentemente se aggiungessimo questo assioma 
+(chiamato assioma di specificazione ingenua) nella teoria degli insiemi
+avremmo un paradosso%
+\index{teoria!ingenua degli insiemi}%
+\index{insiemi!teoria ingenua}%
+\index{Cantor, Georg}%
+\index{Frege}%
+\index{Russel}%
+\marginnote{
+La teoria degli insiemi
+è stata introdotta da Georg Cantor (1845--1918) senza una vera formalizzazione logica
+(oggi la chiameremmo \emph{teoria ingenua degli insiemi}).
+Gottlob Frege (1848--1925) fu il primo matematico che tentò di formalizzare 
+la teoria degli insiemi di Cantor. 
+Nel 1902 Bernard Russel, avendo letto il lavoro di Frege, 
+gli invio una lettera che enunciava il paradosso da lui scovato:
+``Mi trovo in completo accordo con lei in tutte le parti essenziali, in particolare
+quando lei rifiuta ogni elemento psicologico dando un grande valore
+all'ideografia %[Begriffsschrift]
+per il fondamento della matematica e della logica formale [\dots] c'è solo
+un punto dove ho incontrato una difficoltà [...]''.
+La risposta di Frege (22 giugno 1902) è deprimente:
+``La sua scoperta della contraddizione mi ha causato una grandissima sorpresa e,
+direi, costernazione, perché ha scosso le basi su cui intendevo costruire l'aritmetica.''
+}.
+
+\begin{theorem}[paradosso di Russel]
+Supponiamo che per ogni predicato $P(x)$ esista un insieme 
+$\ENCLOSE{x\colon P(x)}$ formato da tutti gli $x$ 
+che soddisfano il predicato $P(x)$:
 \[
   a \in \ENCLOSE{x\colon P(x)} \iff P(a).
 \]
-Sorprendentemente se inseriamo questo assioma nella teoria degli insiemi
-si giunge ad un paradosso (paradosso di Russell, si veda \cite{appunti_logica})
-e si ottiene quindi una teoria incoerente
-(cioè una teoria in cui tutte le proposizioni sono vere). Per evitare
-l'incoerenza è necessario limitare l'assioma (chiamato \emph{assioma di specificazione})
+\end{theorem}
+%
+\begin{proof}
+  Consideriamo il predicato $x \not \in x$
+  per il quale dovrebbe esistere l'insieme:
+  \[
+    R = \ENCLOSE{x\colon x\not \in x}.  
+  \]
+  Ma allora avremmo, per definizione:
+  \[
+    R \in R 
+    \iff R\not \in R
+  \]
+  che è in contraddizione con il principio del terzo escluso
+  (un predicato non può essere equivalente alla sua negazione).
+\end{proof}
+
+Per evitare l'incoerenza è necessario limitare l'\emph{assioma di specificazione}
 alla costruzione di sottoinsiemi di insiemi già costruiti.
-Se $B$ è un insieme e $P(x)$ è un predicato possiamo considerare
-l'insieme $\ENCLOSE{x\in B\colon P(x)}$ che è il sottoinsieme di
-$B$ formato da tutti gli elementi di $B$
-che soddisfano il predicato:
+
+\begin{axiom}[specificazione]
+  Se $P$ è un qualunque predicato con una variabile libera $x$
+  e se $B$ è un insieme, allora esiste l'insieme 
+  $\ENCLOSE {x\in B\colon P(x)}$ formato 
+  da tutti gli elementi di $B$ che soddisfano il predicato $P$:
 \[
   a \in \ENCLOSE{x\in B\colon P(x)} \iff (a \in B \land P(a)).
 \]
+\end{axiom}
 
 Per completare la teoria degli insiemi introduciamo anche il concetto di
-\myemph{insieme!delle parti}.
+\myemph{insieme!delle parti}
 \index{$\mathcal P(\cdot)$}% 
+cioè l'insieme di tutti i sottoinsiemi di un insieme dato.
+\begin{axiom}[insieme delle parti]
 \label{def:insieme_parti}%
-Un apposito assioma garantisce
-che dato un qualunque insieme $A$ esiste l'insieme $\P(A)$ delle parti di $A$
+Se $A$ è un insieme esiste l'insieme $\P(A)$ delle parti di $A$
 che è l'insieme di tutti i sottoinsiemi di $A$:
 \begin{equation}\label{eq:insieme_delle_parti}
   x \in \mathcal P(A) \iff x \subset A.
 \end{equation}
+\end{axiom}
 
 \section{relazioni}
 
