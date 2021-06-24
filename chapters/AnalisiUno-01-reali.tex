@@ -404,7 +404,13 @@ Un modo formale per definire la coppia tramite l'utilizzo di insiemi
    (a,b) = \ENCLOSE{a,\ENCLOSE{a,b}}.
 \]
 Non è difficile verificare che questa definizione soddisfa la 
-proprietà~\eqref{eq:coppia}
+proprietà~\eqref{eq:coppia}.
+Così possiamo definire l'insieme prodotto
+\begin{align*}
+  A\times B = \big\{&C\in \mathcal P(A\cup B)\colon \\ 
+  & \exists a\colon \exists b\colon a\in A, b\in B, \\
+  & C=\ENCLOSE{a,\ENCLOSE{a,b}}\big\}
+\end{align*}
 }%
 \begin{equation}\label{eq:coppia}
   (a, b) = (a', b') \iff (a=a') \land (b=b').
@@ -413,18 +419,11 @@ Stiamo cioè richiedendo che una coppia venga identificata dai due
 elementi che la compongono in cui, però, è importante anche l'ordine in
 cui vengono elencati (a differenza dell'insieme $\ENCLOSE{a,b}$, in cui
 l'ordine degli elementi è irrilevante).
+Nel seguito useremo anche la notazione $a \mapsto b$ per indicare 
+la coppia $(a,b)$ e la chiameremo \myemph{freccia} da $a$ in $b$.
 
 Il \emph{prodotto cartesiano} $A\times B$ di due insiemi $A$ e $B$
-è l'insieme di tutte le coppie%
-\marginnote{%
-Se definiamo $(a,b) = \ENCLOSE{a,\ENCLOSE{a,b}}$ (si veda nota precedente)
-possiamo formalmente definire 
-\begin{align*}
-A\times B = \big\{&C\in \mathcal P(A\cup B)\colon \\ 
-& \exists a\colon \exists b\colon a\in A, b\in B, \\
-& C=\ENCLOSE{a,\ENCLOSE{a,b}}\big\}
-\end{align*}
-}%
+è l'insieme di tutte le coppie
 il cui primo elemento sta in $A$ e
 il secondo elemento sta in $B$:
 \[
@@ -437,6 +436,93 @@ su una retta verticale (asse delle $y$) gli elementi di $A\times B$
 possono essere rappresentati come i punti del piano che proiettati sull'asse
 delle $x$ vanno in $A$ e proiettati sull'asse delle $y$ vanno in $B$.
   
+Una \myemph{relazione} $R$ tra gli elementi di un insieme $A$ e gli elementi
+di un insieme $B$ non è altro che un sottoinsieme di $A\times B$.
+Per una relazione $R\subset A\times B$ si userà la notazione infissa
+$aRb$ per indicare $(a,b)\in R$.
+Con la notazione delle freccie potremo scrivere $a \stackrel R \mapsto B$
+per indicare che la freccia $a\mapsto b$ è un elemento di $R$. 
+Ad esempio se prendo $A=B=\ENCLOSE{1,2,3}$ e considero la relazione 
+$R=\ENCLOSE{(1,2),(1,3),(2,3)}$
+il predicato $aRb$ rappresenta l'usuale relazione d'ordine $a<b$ sui
+tre numeri considerati.
+
+\begin{definition}[relazione di equivalenza]
+Se $R\subset A\times A$ è una relazione sull'insieme $A$, diremo che 
+$R$ è una \myemph{relazione di equivalenza} se valgono le seguenti proprietà
+(tipiche dell'uguaglianza)
+\begin{enumerate}
+  \item riflessiva: $x R x$;
+  \item simmetrica: se $x R y$ allora $y R x$;
+  \item transitiva: $x R y$ e $yRz$ allora $x R z$.
+\end{enumerate}
+Se $R$ è una relazione di equivalenza diremo che $x$ è equivalente a $y$ 
+(tramite $R$) se $xRy$.
+Dato $x \in A$ l'insieme di tutti gli elementi di $A$ che sono equivalenti 
+a $y$ tramite $R$ si chiama \myemph{classe di equivalenza} di $x$. 
+Si definisce in questo modo:
+\[
+  [x]_R = \ENCLOSE{y\in A \colon xRy}.  
+\]
+Se $R$ è una relazione di equivalenza su $A$ definiamo 
+l'\myemph{insieme quoziente}
+come l'insieme di tutte le classi di equivalenza:
+\[
+ A/R 
+ = \ENCLOSE{[x]_R\colon x\in A} 
+ = \ENCLOSE{B\in \mathcal P(A)\colon \exists x\in A\colon B=[x]}.  
+\]
+\end{definition}
+
+Se $R$ è una relazione $A$ l'insieme quoziente $A/R$ rappresenta l'insieme 
+degli oggetti di $A$ in cui vengono identificati tra loro gli oggetti equivalenti.
+Spesso diremo che $A/R$ rappresenta $A$ a meno della equivalenza $R$.
+
+Ad esempio se $A=\ENCLOSE{1,2,3,4,5}$ e prendiamo $D=\ENCLOSE{1,3,5}$ (i numeri dispari)
+e $P=\ENCLOSE{2,4}=A\setminus B$ 
+(i numeri pari) possiamo definire una relazione $R$ su $A$ mediante la proprietà:
+\[
+ x R  y \iff (x\in P \land y\in P) \lor (x\in D \land y\in D).
+\]
+La relazione $R$ rappresenta la proprietà degli elementi di $A$ 
+di avere la stessa ``parità''. 
+Si avrà $[1]_R = [3]_R=[5]_R= D$ e $[2]_R=[4]_R=P$.
+Dunque 
+\[
+   A/R = \ENCLOSE{P,D} = \ENCLOSE{\ENCLOSE{2,4},\ENCLOSE{1,3,5}}
+\]
+e, in effetti, questo insieme ha due elementi $P$ e $D$ che è quello 
+che si ottiene identificando i numeri di $A$ in base alla proprietà 
+di essere pari o dispari. 
+
+L'insieme quoziente $A/R$ è un \myemph{partizione} di $A$ in quanto 
+è formato da insiemi disgiunti la cui unione è tutto $A$. In effetti 
+dare una partizione di $A$ è equivalente da dare una relazione 
+di equivalenza.
+
+\section{funzioni}
+
+Sia $f$ una relazione di equivalenza tra due insiemi $A$ e $B$. 
+Useremo la notazione delle frecce quindi scriveremo $a\stackrel f\mapsto b$ 
+se $(a,b)\in f$. 
+Diremo che $f$ è una funzione da $A$ in $B$ e scriveremo 
+$f\colon A\to B$ se per ogni $a\in A$ esiste un unico $b\in B$ 
+tale che $a \stackrel f \mapsto b$.
+Potremmo dire che $f$ è definita su $A$ 
+(perché per ogni punto di $A$ c'è una freccia)
+ed è univoca (perché tale freccia è unica).
+
+Dato $a\in A$ esiste dunque un unico $b\in B$ tale che
+$a\stackrel f \mapsto b$: chiameremo $f(a)$ tale oggetto $b$.
+Si avrà dunque
+\[
+ b=f(a) \iff a\stackrel f \mapsto b.
+\]
+L'insieme di tutte le funzioni $f\colon A\to B$ viene usualmente denotato con $B^A$.
+\mynote{$B^A$}%
+\index{$A^B$}%
+\index{potenza!insiemi}%
+
 \begin{figure}
   \mbox{}
   \hfill
@@ -474,15 +560,16 @@ delle $x$ vanno in $A$ e proiettati sull'asse delle $y$ vanno in $B$.
 \fill (1.2,2) circle (2pt) node (a3) [label=left:$a_3$]{};
 \fill (1,1) circle (2pt) node (a4) [label=left:$a_4$]{};
 \fill (4,3.5) circle (2pt) node (b1) [label=right:$b_1$] {};
-\fill (3.7,2.5) circle (2pt) node (b2) [label=right:$b_2$] {};
+\fill (3.5,2.5) circle (2pt) node (b2) [label=right:$b_2$] {};
 \fill (4,1.5) circle (2pt) node (b3) [label=right:$b_3$] {};
+\fill (4.5,2.5) circle (2pt) node (b4) [label=right:$b_4$] {};
 \draw[->] (a1) edge (b1);
 \draw[->] (a2) edge (b3);
 \draw[line width=3pt,white] (a3) edge (b2);
 \draw[->] (a3) edge (b2);
 \draw[->] (a4) edge (b3);
 \draw[draw=gray](1,2.5) ellipse (1cm and 2cm);
-\draw[draw=gray](4,2.5) ellipse (1cm and 1.5cm);
+\draw[draw=gray](4.2,2.5) ellipse (1.2cm and 1.5cm);
 \node at (1,5.5) {$A$};
 \node at (4,5) {$B$};
 \node at (2.5,4.5) {$f$};
@@ -491,98 +578,17 @@ delle $x$ vanno in $A$ e proiettati sull'asse delle $y$ vanno in $B$.
 \mbox{}
 \caption[]{La funzione $f\colon A\to B$,
 $f=\{a_1\mapsto b_1,$ $a_2 \mapsto b_3,$ $a_3 \mapsto b_2,$ $a_4 \mapsto b_3\}$
+definita sull'insieme $A=\ENCLOSE{a_1, a_2, a_3, a_4}$
+a valori nell'insieme $B=\ENCLOSE{b_1, b_2, b_3, b_4}$
 rappresentata tramite grafico e
 tramite diagrammi di Venn.}
+\label{fig:funzione}
 \end{figure}
 
-Una \myemph{relazione} $R$ tra gli elementi di un insieme $A$ e gli elementi
-di un insieme $B$ non è altro che un sottoinsieme di $A\times B$.
-Per una relazione $R\subset A\times B$ si userà la notazione infissa
-$aRb$ per indicare $(a,b)\in R$.
-Ad esempio se prendo $A=B=\ENCLOSE{1,2,3}$ e considero la relazione $R=\ENCLOSE{(1,2),(1,3),(2,3)}$
-il predicato $aRb$ rappresenta l'usuale relazione d'ordine $a<b$ sui
-tre numeri considerati.
 
-\begin{definition}[relazione di equivalenza]
-Se $R\subset A\times A$ è una relazione sull'insieme $A$, diremo che 
-$R$ è una \myemph{relazione di equivalenza} se valgono le seguenti proprietà
-(tipiche dell'uguaglianza)
-\begin{enumerate}
-  \item riflessiva: $x R x$;
-  \item simmetrica: se $x R y$ allora $y R x$;
-  \item transitiva: $x R y$ e $yRz$ allora $x R z$.
-\end{enumerate}
-Se $R$ è una relazione di equivalenza diremo che $x$ è equivalente a $y$ 
-(tramite $R$) se $xRy$.
-Dato $x \in A$ l'insieme di tutti gli elementi di $A$ che sono equivalenti 
-a $y$ tramite $R$ si chiama \myemph{classe di equivalenza} di $x$. 
-Si definisce in questo modo:
-\[
-  [x]_R = \ENCLOSE{y\in A \colon xRy}.  
-\]
-Se $R$ è una relazione di equivalenza su $A$ definiamo l'\myemph{insieme quoziente}
-come l'insieme di tutte le classi di equivalenza:
-\[
- A/R 
- = \ENCLOSE{[x]_R\colon x\in A} 
- = \ENCLOSE{B\in \mathcal P(A)\colon \exists x\in A\, B=[x]}.  
-\]
-\end{definition}
-
-Se $R$ è una relazione $A$ l'insieme quoziente $A/R$ rappresenta l'insieme 
-degli oggetti di $A$ in cui vengono identificati tra loro gli oggetti equivalenti.
-Spesso diremo che $A/R$ rappresenta $A$ a meno della equivalenza $R$.
-
-Ad esempio se $A=\ENCLOSE{1,2,3,4,5}$ e prendiamo $D=\ENCLOSE{1,3,5}$ (i numeri dispari)
-e $P=\ENCLOSE{2,4}=A\setminus B$ 
-(i numeri pari) possiamo definire una relazione $R$ su $A$ mediante la proprietà:
-\[
- x R  y \iff (x\in P \land y\in P) \lor (x\in D \land y\in D).
-\]
-La relazione $R$ rappresenta la proprietà degli elementi di $A$ 
-di avere la stessa ``parità''. 
-Si avrà $[1]_R = [3]_R=[5]_R= D$ e $[2]_R=[4]_R=P$.
-Dunque 
-\[
-   A/R = \ENCLOSE{P,D}
-\]
-e, in effetti, questo insieme ha due elementi $P$ e $D$ che è quello 
-che si ottiene identificando i numeri di $A$ in base alla proprietà 
-di essere pari o dispari. 
-
-\section{funzioni}
-
-Per introdurre il concetto di \emph{funzione} è utile
-utilizzare una notazione alternativa per la coppia: invece di denotarla
-con $(a,b)$ useremo la notazione $a \mapsto b$ e penseremo intuitivamente
-alla coppia come ad una \emph{freccia} che collega l'oggetto $a$
-all'oggetto $b$. 
-Dunque il prodotto cartesiano
-$A\times B$ risulta essere l'insieme di tutte le frecce che partono dagli
-elementi di $A$ e arrivano agli elementi di $B$.
-
-
-Una funzione $f\colon A \to B$ è un insieme di frecce che mandano
-ogni punto di $A$ in modo univoco in un punto di $B$. Formalmente
-$f$ è quindi un sottoinsieme di $A\times B$
-(ed è quindi una relazione) con la proprietà che
-per ogni $a\in A$ c'è una ed una sola freccia uscente da $a$:
-esiste cioè un unico $b\in B$ tale che $(a,b)\in f$.
-Invece di scrivere $(a,b)\in f$ potremo scrivere in modo più espressivo
-$a\stackrel f \mapsto b$.
-Dato $a\in A$ esiste dunque un unico $b\in B$ tale che
-$a\stackrel f \mapsto b$: chiameremo $f(a)$ tale oggetto $b$.
-Si avrà dunque
-\[
- b=f(a) \iff a\stackrel f \mapsto b.
-\]
-L'insieme di tutte le funzioni $f\colon A\to B$ viene usualmente denotato con $B^A$.
-\mynote{$B^A$}%
-\index{$A^B$}%
-\index{potenza!insiemi}%
-
-L'insieme $A$ viene chiamato \myemph{dominio} della funzione $f$,
-l'insieme $B$ viene chiamato \myemph{codominio}.
+L'insieme di partenza $A$ viene chiamato \myemph{dominio} 
+della funzione $f\colon A\to B$,
+mentre l'insieme di arrivo $B$ viene chiamato \myemph{codominio}.
 La funzione $f$ rappresenta quindi un modo di assegnare in maniera univoca
 ad ogni elemento del dominio un elemento del codominio.
 Da un punto di vista informatico potremmo dire che $A$ è l'insieme
@@ -601,8 +607,10 @@ considerare l'insieme che rappresenta $f$ ma questo verrà chiamato
   G_f = \ENCLOSE{(x,y)\in A \times B\colon f(x)=y}.
 \]
 Nella nostra costruzione risulta effettivamente $G_f = f$.
-Anticipiamo fin da subito che lo studio dei grafici delle funzioni reali è
-uno degli argomenti principali di questo corso.
+Uno degli argomenti principali di questo corso è lo studio 
+del grafico delle funzioni reali, cioè le funzioni 
+con dominio e codominio nell'insieme dei numeri reali (che ancora 
+non abbiamo introdotto).
 
 Capita molto spesso che un fenomeno possa essere modellizzato matematicamente
 tramite una funzione: si sa che ad un certo \emph{input} $a$ corrisponde
@@ -643,18 +651,36 @@ si ottiene dunque una funzione $g\colon B\to A$ con le proprietà:
 \]
 Una funzione $g$ con queste proprietà viene chiamata \myemph{funzione!inversa}
 di $f$ e viene usualmente denotata con il simbolo $f^{-1}$.
+%
+Se esiste $f\colon A\to B$ bigettiva diremo che $A$ 
+e $B$ sono in \myemph{corrispondenza biunivoca}.
+In effetti $f$ è una corrispondenza \emph{univoca} da $A$ in $B$
+(manda in modo univoco ogni punto di $A$ in un punto di $B$)
+e $f^{-1}$ è una corrispondenza univoca da $B$ in $A$.
 
 Se $f\colon A \to B$ e $g\colon B \to C$ sono due funzioni in cui
 il codominio della prima coincide con il dominio della seconda, allora
 definiamo la \myemph{funzione!composta} $g\circ f\colon A \to C$
 che si ottiene applicando prima $f$ e poi $g$:
 \[
-  (g\circ f)(x) = g(f(x)).
+  (g\circ f)(x) = g(f(x))
+\]
+ovvero 
+\[
+  x \stackrel f \mapsto f(x) \stackrel g \mapsto (g\circ f)(x).  
 \]
 Se il codominio di $f$ non coincide col dominio
 di $g$ è possibile dare comunque senso alla funzione $g\circ f$
 che risulta però definita solamente nei punti del dominio di
 $f$ che vengono mandati, tramite $f$ nel dominio di $g$.
+
+Se $f\colon A\to A$ è una funzione il cui dominio coincide con il codominio
+possiamo comporre $f$ con se stessa e ottenere $f\circ f \colon A\to A$.
+Si potrà quindi iterare e definire $f\circ f \circ f$\dots
+Quando avremo definito i numeri naturali potremo porre $f^2 = f\circ f$,
+$f^3= f\circ f \circ f$ etc\dots
+Analogamente se $f$ è bigettiva si potrà definire $f^{-2} = f^{-1}\circ f^{-1}$.
+$f^{-3}=f^{-1}\circ f^{-1}\circ f^{-1}$, etc\dots
 
 Introduciamo ora delle notazioni che sarà comodo utilizzare nel seguito.
 Se $f\colon A \to B$ è una funzione e se $C\subset A$ definiamo
@@ -665,9 +691,14 @@ L'insieme $f(C)\subset B$ si chiama \myemph[insieme!immagine]{immagine}
 \index{immagine!insieme}%
 di $C$ (tramite $f$) ed è formato
 da tutti i punti che si ottengono applicando $f$ agli elementi di $C$.
-L'immagine $f(A)$ dell'intero dominio $A$ si chiama immagine di $f$.
+L'immagine $f(A)$ dell'intero dominio $A$ si chiama immagine di $f$
+e si denota a volte con il simbolo $\Im f$.
 Si noti che $f$ è surgettiva se e solo se $f(A)=B$ (cioè se l'immagine coincide
 col codominio).
+Ad esempio la funzione definita in Figura~\ref{fig:funzione}
+ha immagine $f(A) = \ENCLOSE{f(a_1),f(a_2),f(a_3),f(a_4)} 
+ = \ENCLOSE{b_1, b_2, b_3}$.
+
 Anche se $f\colon A \to B$ non fosse iniettiva,
 per ogni $C\subset B$ possiamo definire
 \[
@@ -686,6 +717,10 @@ l'insieme delle soluzioni dell'equazione $f(x)=b$. Come abbiamo
 già visto tale insieme contiene almeno un elemento se $f$ è suriettiva,
 contiene al più un elemento se $f$ è iniettiva e contiene esattamente
 un elemento $f^{-1}(\ENCLOSE{b}) = \ENCLOSE{f^{-1}(b)}$ se $f$ è bigettiva.
+Ad esempio se $f$ è la funzione definita in figura~\ref{fig:funzione}
+si ha $f^{-1}(\ENCLOSE{b_3,b_4}) = f^{-1}(\ENCLOSE{b_3}) = \ENCLOSE{a_2,a_3}$,
+$f^{-1}(\ENCLOSE{b_4}) = \emptyset$.
+
 
 La notazione $f(C)$ appena introdotta è formalmente ambigua in quanto
 potrebbe non essere chiaro se $C$ è un elemento oppure un sottoinsieme
@@ -695,7 +730,7 @@ In pratica il contesto dovrebbe rendere chiaro cosa si intende.
 Più in generale ci capiterà di estendere questo abuso di notazione non solo
 alle funzioni, ma anche alle relazioni e alle operazioni.
 Ad esempio se $A$ e $B$ sono insiemi di numeri ci capiterà di scrivere $A\le B$
-per indendere che ogni elemento di $A$ è minore o uguale ad ogni elemento di $B$
+per intendere che ogni elemento di $A$ è minore o uguale ad ogni elemento di $B$
 oppure $A+B$ per intendere l'insieme di tutti i numeri che si ottengono sommando
 un numero di $A$ ad un numero di $B$.
 
@@ -724,8 +759,8 @@ Intuitivamente se due insiemi hanno la stessa cardinalità
 significa che hanno lo stesso numero di elementi.
 Ma la precedente definizione riesce a catturare tale concetto senza dover 
 ricorrere al concetto di numero. 
-Questo ha il vantaggio che questa definizione si applica a qualunque insieme, anche 
-con un numero ``infinito'' di elementi.
+Questo ha il vantaggio di rendere questa definizione applicabile 
+a qualunque insieme, anche con \emph{infiniti} elementi.
 
 Si osservi che non abbiamo dato una definizione di $\#A$ e quindi non stiamo 
 definendo la cardinalità di un insieme ma stiamo soltanto definendo 
@@ -736,11 +771,79 @@ E' anche chiaro che se $\#A = \#B$ e $\#B = \#C$ allora $\#A = \#C$ in quanto
 componendo tra loro due funzioni bigettive si ottiene ancora una funzione 
 bigettiva.
 
-Il seguente teorema
-giustifica l'utilizzo del simbolo $\le$ nella definizione precedente.
+Si potrebbe definire $\#A \ge \#B$ se esiste $f\colon A\to B$ surgettiva
+oppure più semplicemente se $\#B \le \#A$ (cioè esiste $g\colon B\to A$ 
+iniettiva). 
+Nel teorema~\ref{th:95444} vedremo che le due possibili 
+definizioni sono in effetti equivalenti...
 
-\begin{theorem}[Cantor-Bernstein]
+Se $\# A \le \# B$ allora esiste $f\colon A\to B$ iniettiva e possiamo considerare l'insieme 
+immagine $C=f(A)$ e osservare che $f\colon A \to C$ risulta 
+essere bigettiva. 
+Dunque $\#A \le \#B$ è equivalente a richiedere 
+che esista $C\subset B$ tale che $\#A = \#C$.
+In tal caso, se $A$ non è vuoto, è anche possibile dimostrare 
+che esiste una funzione $g\colon B\to A$ surgettiva, in quanto 
+si può prendere l'inversa di $f\colon A \to C$ ed estenderla 
+ad un valore fissato qualunque $a_0\in A$ sui punti di $B\setminus C$.
+Significa che se $\#A\le \#B$ esiste una funzione surgettiva 
+$g \colon B\to A$. Tale funzione $g$ ha la proprietà che 
+$g(f(a))=a$ per ogni $a\in A$ e si chiama dunque 
+\myemph{inversa sinistra} di $f$.
+
+Viceversa se esiste $f\colon A\to B$ surgettiva 
+per ogni $b\in B$ l'insieme $f^{-1}(\ENCLOSE{b})$ non è mai 
+vuoto e quindi è chiaro che debba esistere 
+una funzione $g\colon B\to A$ tale che $g(b)$ è un qualunque elemento 
+di tale insieme e dunque $f(g(b)) = b$
+(qui si utilizza l'assioma~\ref{axiom:AC} discusso più sotto). 
+In tal caso $g$ è una funzione iniettiva che 
+si chiama \myemph{inversa destra} di $f$.
+Abbiamo quindi dimostrato che se esiste $f\colon A\to B$
+surgettiva allora $\#B \le \#A$.
+
+Abbiamo quindi dimostrato il seguente
+%
+\begin{theorem}\label{th:95444}
+Esiste $f\colon A\to B$ surgettiva 
+se e solo se esiste $g\colon B\to A$ iniettiva.
+\end{theorem}
+% 
+ma per quanto questo possa sembrare strano
+il ragionamento fatto in precedenza per costruire l'inversa destra
+necessita del seguente assioma che garantisce la possibilità di 
+fare infinite scelte contemporaneamente.
+
+\begin{axiom}[della scelta]%
+  \label{axiom:AC}%
+  \index{assioma!della scelta}%
+  \index{scelta!assioma della}%
+  \index{AC}%
+  Siq $F\colon A \to \mathcal P(B)$
+  una funzione tale che $f(a)\neq \emptyset$ 
+  per ogni $a\in A$. Allora esiste una funzione
+  $f\colon A \to B$ tale che $f(a)\in F(a)$
+  per ogni $a\in A$.
+\end{axiom}
+
+L'assioma della scelta (denotato spesso con \myemph{$AC$}, \emph{axiom of choice})
+è un assioma per certi versi controverso
+e alcuni matematici preferiscono non utilizzarlo nelle loro dimostrazioni.
+Il sistema formale che definisce la teoria degli insiemi senza 
+introdurre l'assioma della scelta 
+si chiama \myemph{$ZF$} (Zermelo-Fraenkel) mentre 
+se si aggiunge l'assioma della scelta (choice) la teoria si chiama 
+\myemph{$ZFC$}.
+
+Il seguente teorema dimostra la proprietà antisimmetrica 
+della relazione tra cardinalità. 
+E' probabilmente il primo vero teorema (con dimostrazione decisamente non banale) 
+che andiamo a dimostrare.
+
+\begin{theorem}[Cantor-Bernstein]%
   \label{th:cantor_bernstein}%
+  \index{teorema!di Cantor-Bernstein}%
+  \index{Cantor-Bernstein!teorema di}%
   Se $\#A \le \#B$ e $\#B \le \#A$ allora $\#A = \#B$.
 \end{theorem}
 %
@@ -831,54 +934,6 @@ $\phi\colon A\to B$ come $\phi(x) = g^{-1}(\tilde \phi(x))$.
 Essendo $\tilde \phi(A)=\tilde B$ ed essendo $g\colon B\to \tilde B$
 bigettiva, risulta che anche $\phi$ sia bigettiva.
 \end{proof}
-
-Se $\# A \le \# B$ esiste $f\colon A\to B$ iniettiva e possiamo considerare l'insieme 
-immagine $C=f(A)$ e osservare che $f\colon A \to C$ risulta 
-essere bigettiva. 
-Dunque $\#A \le \#B$ è equivalente a richiedere 
-che esista $C\subset B$ tale che $\#A = \#C$.
-In tal caso, se $A$ non è vuoto, è anche possibile dimostrare 
-che esiste una funzione $g\colon B\to A$ surgettiva, in quanto 
-si può prendere l'inversa di $f\colon A \to C$ ed estenderla 
-ad un valore fissato qualunque $a_0\in A$ sui punti di $B\setminus C$.
-Significa che se $\#A\le \#B$ esiste una funzione surgettiva 
-$g \colon B\to A$. Tale funzione $g$ ha la proprietà che 
-$g(f(a))=a$ per ogni $a\in A$ e si chiama dunque 
-\myemph{inversa sinistra} di $f$.
-
-Viceversa se esiste $f\colon A\to B$ surgettiva 
-per ogni $b\in B$ l'insieme $f^{-1}(\ENCLOSE{b})$ non è mai 
-vuoto e quindi è chiaro che debba esistere 
-una funzione $g\colon B\to A$ tale che $g(b)$ è un elemento 
-di tale insieme e dunque $f(g(b)) = b$. 
-In tal caso $g$ è una funzione iniettiva che 
-si chiama \myemph{inversa destra} di $f$.
-Abbiamo quindi dimostrato che se esiste $f\colon A\to B$
-surgettiva allora $\#B \le \#A$.
-
-Per quanto questo possa sembrare strano
-il procedimento che ci garantisce di poter 
-definire la funzione $g$ necessita di un apposito  
-assioma.
-
-\begin{axiom}[della scelta]%
-  \label{axiom:AC}%
-  \index{assioma!della scelta}%
-  \index{scelta!assioma della}%
-  Siq $F\colon A \to \mathcal P(B)$
-  una funzione tale che $f(a)\neq \emptyset$ 
-  per ogni $a\in A$. Allora esiste una funzione
-  $f\colon A \to B$ tale che $f(a)\in F(a)$
-  per ogni $a\in A$.
-\end{axiom}
-  
-L'assioma della scelta (denotato spesso con \myemph{$AC$}, \emph{axiom of choice})
-è un assioma per certi versi controverso
-e alcuni matematici preferiscono non utilizzarlo nelle loro dimostrazioni.
-La teoria degli insiemi senza l'assioma della scelta 
-si chiama \myemph{$ZF$} (Zermelo-Fraenkel) mentre 
-se si aggiunge l'assioma della scelta (choice) la teoria si chiama 
-\myemph{$ZFC$}.
 
 \section{i numeri naturali}
 
