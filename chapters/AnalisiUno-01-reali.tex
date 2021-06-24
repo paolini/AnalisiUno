@@ -944,12 +944,13 @@ La notazione $\exists$ per il quantificatore universale si deve a lui.
 }%    
 \begin{definition}[assiomi di Peano]
   Un insieme $\NN$ dotato di una 
-  funzione $\sigma\colon\NN\to\NN$ e di un elemento $0\in \NN$ che soddisfano
-  le seguenti proprietà si dice essere un insieme di 
+  funzione $\sigma\colon\NN\to\NN$ e di un elemento $0\in \NN$ 
+  si dice essere un insieme di 
   \myemph{numeri naturali} se valgono le seguenti proprietà:
   \begin{enumerate}
   \item $\sigma$ è iniettiva: se $\sigma(m) =\sigma(n)$ allora $m=n$;
-  \item per ogni $n\in \NN$ si ha $\sigma(n)\neq 0$;
+  \item per ogni $n\in \NN$ si ha $\sigma(n)\neq 0$
+  (dunque $\sigma$ non è suriettiva);
   \item induttività: 
   se $A\subset \NN$ è un sottoinsieme tale che 
   \begin{enumerate}
@@ -991,8 +992,8 @@ troviamo sempre numeri diversi (non si torna mai indietro) in quanto nessun nume
 può avere come successore $0$ o un numero già incontrato in precedenza (che 
 se non è zero è il successore di un altro numero).
 
-L'ultimo assioma serve a garantire che questo processo del contare esaurisce tutti 
-i numeri naturali, e che quindi non ci sono dei naturali \emph{irraggiungibili}
+L'ultimo assioma serve a garantire che questo processo del contare esaurisca tutti 
+i numeri naturali, e che quindi non ci siano dei naturali \emph{irraggiungibili}
 partendo da zero.
 
 Normalmente la proprietà induttiva dei numeri naturali viene utilizzata tramite 
@@ -1023,27 +1024,38 @@ Il fatto che $\sigma\colon \NN\to \NN$ sia iniettiva ma non suriettiva
 significa che $\NN$ può essere messo in corrispondenza biunivoca con $\sigma(\NN)$ 
 che è un sottoinsieme proprio di $\NN$.
 In particolare $\#\NN = \#\enclose{\NN \setminus\ENCLOSE{0}}$.
-Questa proprietà è per certi versi paradossale ed identifica gli 
+Questa proprietà è per certi versi paradossale
+(paradosso di Galileo)
+\index{paradosso!di Galileo}%
+\index{paradosso!degli insiemi infiniti}%
+ed caratterizza gli 
 insiemi infiniti, nel senso di Dedekind:
+\marginnote{
+Galileo Galilei (1564--1642) osservò che i quadrati 
+perfetti: $1,4,9,16,\dots$ sono da un lato un insieme 
+molto piccolo di numeri naturali (questi numeri si distanziano 
+sempre di più) ma d'altro canto sono tanti quanti i numeri naturali 
+perché la corrispondenza $n\mapsto n^2$ è biunivoca.
+}
 
 \begin{definition}[Dedekind infinito]
   \label{def:infinito}%
   Diremo che un insieme $X$ è \emph{finito}
-  \mymargin{insieme finito}%
   \index{insieme!finito}%
   \index{finito!insieme}%
   \index{Dedekind!finito}%
   (più precisamente: Dedekind-finito)
   se ogni funzione iniettiva $f\colon X\to X$ è bigettiva.
+  \mymargin{insieme finito}%
 
   Diremo che un insieme $X$ è \emph{infinito} 
-  \mymargin{insieme infinito}%
   (più precisamente Dedekind-infinito)
   \index{insieme!infinito}%
   \index{infinito!insieme}%
   \index{Dedekind!infinito}%
   se non è finito ovvero se
   se esiste $f\colon X\to X$ iniettiva ma non suriettiva.
+  \mymargin{insieme infinito}%
 \end{definition}
 
 In particolare un insieme infinito 
@@ -1213,6 +1225,25 @@ Basterà prendere come $f(n)$ la seconda componente di $G(n)$.
 \end{proof}
   
 
+\marginnote{
+Una operazione binaria $+$ si può identificare 
+con una funzione 
+$+\colon \NN\times \NN\to \NN$ in cui si usa 
+la notazione $n+m = +(n,m)$.
+Ma invece che definire una funzione sulle coppie di numeri naturali
+si può definire una funzione $f\colon \NN \to (\NN \to \NN)$ 
+ovvero una funzione $f$ che al numero $m\in \NN$ associa 
+a sua volta una funzione $f(m)\colon \NN \to \NN$ che incrementa di $m$ cioè
+$n \stackrel{f(m)} \mapsto n+m$, $f(m)(n) = m+n$.
+%
+Tale funzione $f$ può essere definita per induzione:
+\[
+  \begin{cases}
+  f(0) = \ENCLOSE{n\mapsto n\colon n\in \NN},\\
+  f(m+1) = \ENCLOSE{n\mapsto \sigma(f(m)(n))\colon n\in \NN}.
+  \end{cases}
+\]
+}
 Per induzione possiamo definire la somma tra numeri naturali:
 \begin{align*}
 \begin{cases}
@@ -1305,8 +1336,8 @@ dalla proprietà invariantiva della addizione.
 Possiamo dunque definire la \myemph{differenza}: $k=n-m$.
 
 
-Vogliamo dimostrare che la relazione $\le$ appena introdotta soddisfa 
-le seguenti proprietà.
+Vogliamo dimostrare che la relazione $\le$ appena introdotta 
+è una relazione d'ordine, in base alla seguente.
 
 \begin{definition}[relazione d'ordine]
   \label{def:ordine}%
@@ -1394,7 +1425,18 @@ Infatti se $x$ e $y$ fossero due minimi di $A$ si avrebbe $x\le y$ in
 quanto $x\le A$ e $y\in A$. Analogamente si avrebbe $y\le x$ e
 quindi $x=y$. Ragionamento analogo se $x$ e $y$ fossero due massimi.
 
-Se $A$ è un insieme finito il massimo e il minimo esistono sempre.
+Se $A$ è un insieme finito il massimo e il minimo 
+esistono sempre. 
+\marginnote{
+  Se $A$ non avesse minimo potrei definire per induzione 
+  una funzione $f\colon \NN\to A$ tale che $f(0)\in A$ 
+  è qualunque e $f(n+1) < f(n)$ (visto che $f(n)$ non è un minimo 
+  di $A$ esiste un numero più piccolo).
+  Allora potremmo definire $g\colon A \to A$ ponendo $g(a)=f(n+1)$ 
+  se $a=f(n)$ e $g(a)=a$ se $a\not \in f(\NN)$. Chiaramente 
+  $g$ è iniettiva e $f(0)\not \in g(A)$, dunque $A$ è 
+  Dedekind infinito (definizione~\ref{def:infinito}).
+}
 
 \begin{theorem}[principio del buon ordinamento]
   \label{th:buon_ordinamento}
@@ -1440,10 +1482,10 @@ così rimane solo da dimostrare che $f$ è una bigezione.
 
 Per dimostrare che $f$ è iniettiva consideriamo l'insieme 
 \[
-  A=\ENCLOSE{a\in \NN\colon \exists b\in \NN, b\neq a, f(a)=f(b)}.
+  A=\ENCLOSE{a\in \NN\colon \exists b\in \NN\colon b\neq a, f(a)=f(b)}.
 \]
 Se tale insieme è vuoto allora $f$ è effettivamente iniettiva.
-Supponiamo allora per assurdo che $A$ sia vuoto.
+Supponiamo allora per assurdo che $A$ non sia vuoto.
 In tal caso possiamo considerare il minimo $a=\min A$ 
 (grazie al teorema~\ref{th:buon_ordinamento}).
 Dovrà quindi esistere $b\in \NN$ tale che $b\neq a$ e $f(b)=f(a)$.
@@ -1476,7 +1518,7 @@ Se $n\in \NN$ denotiamo con
 \]
 l'insieme dei primi $n$ numeri naturali. 
 Questo è il prototipo di insieme con $n$ elementi.
-Allora formalmente andremo a identificare $\#\Enclose{n}$ con $n$ e 
+Allora informalmente andremo a identificare $\#\Enclose{n}$ con $n$ e 
 dunque scriveremo 
 \[
    \#A = n, \qquad \#A\ge n, \qquad \#A\le n
@@ -1523,7 +1565,8 @@ per significare rispettivamente
 \end{definition}
   
 \begin{lemma}\label{lm:nfinito}
-Per ogni $n\in \NN$ l'insieme $[n]=\ENCLOSE{0,1,2, \dots, n-1}$ è finito.
+Per ogni $n\in \NN$ l'insieme $[n]=\ENCLOSE{0,1,2, \dots, n-1}$ è 
+finito (nel senso di Dedekind, definizione~\ref{def:infinito}).
 \end{lemma}
 %
 \begin{proof}
@@ -1623,10 +1666,10 @@ in modo che $g_{n+1}$ sia una estensione di $g_n$.
 Basterà infatti porre:
 \[
   \begin{cases}
-  g_0 = f_0,
+  g_0 = f_0,\\
   g_{n+1}(k) = \begin{cases}
     g_n(k) &\text{se $k<n$}\\
-    \min f_{n+1}([n+1])\setminus g_n([n])
+    \min f_{n+1}([n+1])\setminus g_n([n]) & \text{altrimenti}
     \end{cases}
   \end{cases}
 \]
@@ -1652,9 +1695,9 @@ il cui secondo elemento è una coppia:
   A \times (A\times A) = \ENCLOSE{(a_0,(a_1,a_2))\colon a_0,a_1,a_2\in A}.
 \end{gather*}
 Questi insiemi sono molto simili tra loro e potrebbero essere identificati.
-Un'altro insieme molto simile è l'insieme $A^3$.  
-Se pensiamo al numero $3$ come all'insieme $3 = \ENCLOSE{0,1,2}$ l'insieme 
-$A^3$ rappresenta l'insieme di tutte le funzioni $\vec a\colon {0,1,2}\to A$.
+Un'altro insieme molto simile è l'insieme $A^{[3]}$.  
+Ricordando che $[3] = \ENCLOSE{0,1,2}$ l'insieme 
+$A^{[3]}$ rappresenta l'insieme di tutte le funzioni $\vec a\colon {0,1,2}\to A$.
 La funzione $\vec a$ è univocamente determinata dal suo valore nei 
 tre punti del dominio: $a_0 = \vec a(0)$, $a_1=\vec a(1)$, $a_2=\vec a(2)$
 in quanto $\vec a = \ENCLOSE{0\mapsto a_0, 1\mapsto a_1, 2\mapsto a_2}$.
@@ -1668,13 +1711,13 @@ o \emph{componenti} del \emph{vettore} $\vec a$.
 \index{coordinate!vettore}%
 \index{componenti!vettore}%
 \index{vettore}%
-In effetti l'insieme $A^2$ può essere identificato con $A\times A$, l'insieme 
-$A^3$ sarà l'insieme delle triple di elementi di $A$ e in generale se $n\in\NN$ 
-identifichiamo con $A^n$ l'insieme delle $n$-uple (leggi: ennuple) di elementi 
+In effetti l'insieme $A^{[2]}$ può essere identificato con $A\times A$, l'insieme 
+$A^{[3]}$ sarà l'insieme delle triple di elementi di $A$ e in generale se $n\in\NN$ 
+identifichiamo con $A^{[n]}$ l'insieme delle $n$-uple (leggi: ennuple) di elementi 
 \index{ennuple}%
 di $A$:
 \[
-   \vec a \in A^n \iff 
+   \vec a \in A^{[n]} \iff 
    \vec a = (a_0, a_1, \dots, a_{n-1}).  
 \]
 
