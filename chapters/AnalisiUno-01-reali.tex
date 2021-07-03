@@ -942,7 +942,14 @@ Giuseppe Peano (1858--1932), matematico torinese, contribuì a porre
 i fondamenti della logica matematica. 
 La notazione $\exists$ per il quantificatore universale si deve a lui.
 }%    
-\begin{definition}[assiomi di Peano]
+\begin{definition}[assiomi di Peano]%
+  \label{def:naturali}%
+  \index{numeri!naturali}%
+  \index{$\NN$}%
+  \index{Peano}%
+  \index{assiomi!di Peano}%
+  \index{insieme!induttivo}%
+  \index{induttivo}%
   Un insieme $\NN$ dotato di una 
   funzione $\sigma\colon\NN\to\NN$ e di un elemento $0\in \NN$ 
   si dice essere un insieme di 
@@ -951,7 +958,7 @@ La notazione $\exists$ per il quantificatore universale si deve a lui.
   \item $\sigma$ è iniettiva: se $\sigma(m) =\sigma(n)$ allora $m=n$;
   \item per ogni $n\in \NN$ si ha $\sigma(n)\neq 0$
   (dunque $\sigma$ non è suriettiva);
-  \item induttività: 
+  \item proprietà induttiva: 
   se $A\subset \NN$ è un sottoinsieme tale che 
   \begin{enumerate}
     \item[i)] $0\in A$;
@@ -962,14 +969,15 @@ La notazione $\exists$ per il quantificatore universale si deve a lui.
 \end{definition}
 \marginnote{La definizione originale di Peano prendeva $1$ come primo numero
 naturale ma nella matematica moderna risulta più comodo includere anche $0$ 
-tra i numeri naturali, così come si considera il vuoto come un insieme valido.} 
+tra i numeri naturali, così come si considera il vuoto tra gli insiemi.} 
 
 Dato $n\in \NN$ il numero $\sigma(n)$ si chiama il \myemph{successore} di $n$.
 Il numero $0\in \NN$ che per assioma non è il successore di nessun'altro 
 numero naturale si chiama \myemph{zero}. 
-Possiamo anche dare un nome ai primi 
-nove numeri naturali:
-\begin{gather*}
+Per comodità diamo un nome alle \myemph{cifre!decimali} 
+ovvero ai primi numeri naturali:
+\begin{equation}\label{eq:cifre}
+\begin{gathered}
  1 = \sigma(0),\quad  
  2 = \sigma(1),\quad
  3 = \sigma(2),\quad 
@@ -979,7 +987,8 @@ nove numeri naturali:
  7 = \sigma(6),\quad 
  8 = \sigma(7),\quad 
  9 = \sigma(8)
-\end{gather*}
+\end{gathered}
+\end{equation}
  cosicché intuiamo come la funzione $\sigma$ rappresenti 
  l'usuale operazione del contare:
  \[
@@ -1224,39 +1233,80 @@ tale che $F(0) = (0,\alpha)$ e $F(\sigma(n)) = G(F(n))$.
 Basterà prendere come $f(n)$ la seconda componente di $G(n)$.
 \end{proof}
   
+\subsection{iterazioni}
+\index{iterazioni}%
+\index{funzione!iterata}%
+\index{funzione!composta}%
+Data una qualunque funzione $f\colon X \to X$ di un insieme $X$ in sé, 
+possiamo fare la composizione di $f$ con se stessa, e iterare il procedimento: 
+\begin{align*}
+  f\circ f &\colon X\to X, 
+    \qquad (f\circ f)(x) = f(f(x)),\\ 
+  f\circ f \circ f&\colon X\to X,
+    \qquad(f\circ f \circ f) (x) = f(f(f(x))), \dots   
+\end{align*}
+Utilizzando i numeri naturali possiamo definire, per induzione, 
+la funzione $f^n\colon X\to X$ per ogni $n\in \NN$ 
+(iterata $n$-esima):
+\marginnote{%
+La notazione $f^n$ è ambigua in quanto può rappresentare 
+sia l'iterazione della funzione composta, sia l'iterazione 
+dell'operazione di prodotto: 
+$f^2(x) = f(f(x))$ oppure $f^2(x) = f(x) \cdot f(x)$. 
+Sarà il contesto a suggerire quale sia il significato
+inteso con questa notazione.
+}
+\[
+\begin{cases}
+  f^0(x) =  x, &\forall x\in X,\\
+  f^{n+1}(x) = f(f^n(x)), &\forall x\in X.
+\end{cases}  
+\]
+%
+\begin{example}
+Sia $X=\ENCLOSE{1,2,3}$ e $f\colon X\to X$, $f = \ENCLOSE{1\mapsto 2, 2 \mapsto 2, 3\mapsto 1}$.
+Allora le iterate di $f$ sono:
+\begin{align*}
+  f^0 &= \ENCLOSE{1\mapsto 1, 2\mapsto 2, 3\mapsto 3} = \text{identità}, \\
+  f^1 &= \ENCLOSE{1\mapsto 2, 2 \mapsto 2, 3\mapsto 1} = f,\\
+  f^2 &= \ENCLOSE{1\mapsto 2, 2\mapsto 2, 3\mapsto 2} = f\circ f
+\end{align*}
+e (lo si dimostri per induzione) per ogni $n\ge 2$ si ha $f^n = f^2$.
+\end{example}
+%
+\subsection{addizione sui numeri naturali}
+
+Iterando la funzione $\sigma\colon \NN \to \NN$ possiamo definire 
+l'operazione di \myemph{addizione}:
+\[
+  n + m = \sigma^m(n).  
+\]
+Ad esempio:
+\[
+  2 + 3 = sigma^3(2) = \sigma(\sigma(\sigma(2))) = \sigma(\sigma(\sigma(\sigma(\sigma(0))))) = 5.
+\]
 
 \marginnote{
 Una operazione binaria $+$ si può identificare 
 con una funzione 
 $+\colon \NN\times \NN\to \NN$ in cui si usa 
 la notazione $n+m = +(n,m)$.
-Ma invece che definire una funzione sulle coppie di numeri naturali
+Oppure, invece che definire una funzione sulle coppie di numeri naturali
 si può definire una funzione $f\colon \NN \to (\NN \to \NN)$ 
 ovvero una funzione $f$ che al numero $m\in \NN$ associa 
 a sua volta una funzione $f(m)\colon \NN \to \NN$ che incrementa di $m$ cioè
 $n \stackrel{f(m)} \mapsto n+m$, $f(m)(n) = m+n$.
-%
-Tale funzione $f$ può essere definita per induzione:
-\[
-  \begin{cases}
-  f(0) = \ENCLOSE{n\mapsto n\colon n\in \NN},\\
-  f(m+1) = \ENCLOSE{n\mapsto \sigma(f(m)(n))\colon n\in \NN}.
-  \end{cases}
-\]
+Nel nostro caso abbiamo posto $f(m) = \sigma^m$.
 }
-Per induzione possiamo definire la somma tra numeri naturali:
-\begin{align*}
-\begin{cases}
-    n + 0 = n, \\ 
-    n + \sigma(m) = \sigma(n+m).
-\end{cases}
-\end{align*}
-Osservando che $n+1 = n+\sigma(0) = \sigma(n+0) = \sigma(n)$
+Osservando che $n+1 = \sigma^1(n) = \sigma(n)$
 potremo d'ora in poi scrivere $n+1$ al posto di $\sigma(n)$ 
 ed abbandonare la funzione $\sigma$.
-Abbiamo quindi definito l'addizione in modo 
-che valga $n+0=n$ e $n+(m+1) = (n+m)+1$.
-Possiamo da questo dedurre le altre proprietà della somma.
+
+Osserviamo che per come è stata definita l'addizione 
+soddisfa le proprietà: $n+0 = n$ (in quanto $\sigma^0(n)=n$)
+e $n+(m+1) = (n+m)+1$ (in quanto $\sigma^{m+1}(n) = \sigma(\sigma^m(n))
+= \sigma(m+n)$).
+Possiamo da queste dedurre le altre proprietà della somma.
 
 \begin{theorem}
   L'addizione su $\NN$ soddisfa le seguenti
@@ -1325,6 +1375,26 @@ e quindi, per ipotesi induttiva, $m+1 = n+1$.
 Scritto in altri termini $\sigma(m)=\sigma(n)$ da cui,
 grazie al fatto che $\sigma$ è iniettiva, si deduce $m=n$.
 \end{proof}
+
+\begin{exercise}
+  Dimostrare, utilizzando il principio di induzione, la seguente 
+  proposizione:
+  \[
+  \forall n\in \NN\colon \enclose{\enclose{\exists m\in \NN \colon n = m + m} 
+  \lor \enclose{\exists m\colon n = m + m + 1}}.  
+  \]
+\end{exercise}
+
+I numeri naturali risultano essere l'insieme che \emph{naturalmente} può 
+essere utilizzato per l'operazione di iterazione. La somma sui numeri 
+naturali corrisponde alla composizione delle iterazioni. Se 
+$f\colon X\to X$ è una qualunque funzione si ha infatti (lo si dimostri per induzione):
+\[
+   f^(n+m) = f^n \circ f^m.
+\]
+
+
+\subsection{ordinamento dei numeri naturali}
 
 Possiamo ora definire una relazione $\le$ su $\NN$ ponendo 
 \[
@@ -1508,6 +1578,8 @@ Ma allora $f(\sigma(n))=\sigma'(f(n))=\sigma'(n')$
 e dunque anche $\sigma'(n')\in B$. 
 \end{proof}
 
+\subsection{cardinalità finite}
+
 Vogliamo ora dimostrare che i numeri naturali possono essere utilizzati 
 per contare gli elementi degli insiemi finiti.
 
@@ -1680,7 +1752,7 @@ come $g(n) = g_{n+1}(n)$ ottenendo $\#A \ge \#\NN$ e dunque $A$
 è Dedekind infinito.
 \end{proof}
 
-\section{insiemi prodotto}
+\subsection{sequenze finite o ennuple}
 
 Abbiamo già visto che se $A$ è un insieme possiamo definire l'insieme 
 delle coppie di elementi di $A$ con il prodotto tra insiemi: $A\times A$. 
@@ -1720,6 +1792,23 @@ di $A$:
    \vec a \in A^{[n]} \iff 
    \vec a = (a_0, a_1, \dots, a_{n-1}).  
 \]
+
+\marginnote{
+  Usualmente si scrive $A^n$ invece che $A^{[n]}$ e $2^A$ invece che $[2]^A$ 
+  anche perché la notazione $[n]$ per indicare i primi $n$ numeri naturali 
+  non è molto utilizzata.
+}
+
+L'insieme $[2]^A$ è invece l'insieme delle funzioni $A\to [2]$ che hanno 
+quindi valore $0$ o $1$. 
+Ci si può convincere facilmente che $[2]^A$ può essere messo in corrispondenza 
+biunivoca con $\mathcal P(A)$
+\[
+    \# ([2]^A) = \# \mathcal P(A).
+\]
+Infatti possiamo considerare la funzione $\phi\colon [2]^A \to \mathcal P(A)$
+che associa ad ogni funzione $f\colon A\to \ENCLOSE{0,1}$
+l'insieme $\ENCLOSE{x\in A \colon f(x)=1}$.
 
 \section{la retta dei numeri reali}
 \label{sec:reali}
@@ -1843,15 +1932,15 @@ stretti $<$ e $>$.
 \begin{definition}[numeri reali]
   \label{def:reali}%
   \index{reali}%
-  \index{\RR}%
+  \index{$\RR$}%
   \index{numeri!reali}%
   \index{retta!reale}%
   Diremo che un insieme $\RR$ è un insieme di \myemph{numeri reali} 
   se su $\RR$ sono definite una operazione di gruppo $+$ 
   con elemento neutro $0\in \RR$, una relazione d'ordine $\le$ 
-  che rende $\RR$ un gruppo totalmente ordinato, denso e continuo,
+  che rende $\RR$ un gruppo totalmente ordinato, denso, continuo
   e se abbiamo fissato un punto $1\in \RR$ con $1>0$.
-\end{axiom}
+\end{definition}
 
 L'inverso additivo di un elemento $x$ sarà chiamato 
 \myemph{opposto} e verrà denotato con $-x$, si avrà quindi $x + (-x) = 0$.
@@ -1870,21 +1959,21 @@ $0 \le y-x$ e sommando ancora $-y$ si ottiene
 $-y \le -x$. Lo stesso vale con le disuguaglianze strette
 e con le disuguaglianze inverse.
 
-Vogliamo ora convincerci che la retta geometrica deve avere, 
-intuitivamente, tutte le proprietà enunciate nella 
-definizione~\ref{def:reali}. 
-Queste proprietà erano in effetti già state identificate 
-da Euclide per fondare la geometria piana.
-\index{Euclide}%
-\marginnote{
-  Euclide è vissuto intorno al 300 AC.
-}
+% Vogliamo ora convincerci che la retta geometrica deve avere, 
+% intuitivamente, tutte le proprietà enunciate nella 
+% definizione~\ref{def:reali}. 
+% Queste proprietà erano in effetti già state identificate 
+% da Euclide per fondare la geometria piana.
+% \index{Euclide}%
+% \marginnote{
+%   Euclide è vissuto intorno al 300 AC.
+% }
 
-L'operazione di gruppo dei numeri reali può essere giustificata 
-utilizzando il concetto, più primitivo, di traslazione.
-Presi due punti su una retta ci deve essere un unico movimento 
+L'operazione di addizione sui numeri reali può essere giustificata 
+utilizzando il concetto geometrico di traslazione:
+presi due punti su una retta c'è un unico movimento 
 rigido della retta in sé che manda il primo punto nel secondo.
-Nel seguente esercizio possiamo vedere come solamente questa 
+Nel seguente esercizio possiamo vedere come questa 
 idea è sufficiente a definire l'addizione.
 %
 \begin{exercise}[traslazioni su $\RR$]
@@ -1900,9 +1989,9 @@ Allora fissato un punto $0\in \RR$ possiamo definire l'operazione $+$
 nel modo seguente:
 \[
     y + x = t_{0,x}(y) \qquad\text{dove $t_{0,x}$ è l'unica traslazione 
-    che manda $0$ in $x$}
+    che manda $0$ in $x$}.
 \]  
-e risulta che $\RR$ è un gruppo rispetto a tale operazione.
+Dimostrare che $\RR$ è un gruppo rispetto a tale operazione.
 \end{exercise}
 %
 \begin{proof}[Soluzione]
@@ -1929,7 +2018,7 @@ x + (y + z) &= t_{0,y+z}(x)=t_{0,t_{0,z}(y)}(x)  \\
 \end{equation}
 La traslazione $t_{0,t_{0,z}(y)}$ manda $0$ in $t_{0,z}(y)$
 e lo stesso fa la composizione $t_{0,z}\circ t_{0,y}$:
-dunque i due lati destri in~\label{eq:56095} coincidono.
+dunque i due lati destri in~\eqref{eq:56095} coincidono.
 
 L'elemento neutro è $0$ infatti $x + 0 = t_{0,0}(x) = x$.
 Viceversa $0 + x = t_{0,x}(0) = x$ per definizione.
@@ -1947,24 +2036,24 @@ e viceversa
 \]
 \end{proof}
 
-La proprietà di ordinamento è molto naturale: ogni punto della retta 
-geometrica divide la retta in due parti. 
-In particolare il punto $0\in \RR$ suddivide i punti rimanenti in due 
-insiemi: $P$ e $N$. Decidiamo (arbitrariamente) che uno dei due 
-insiemi, $P$ rappresenta i numeri positivi mentre $N$ sarà 
-l'insieme dei numeri negativi. 
-Allora potremo definire la relazione d'ordine stretto 
-ponendo $x\le y$ se la traslazione che manda $x$ in $y$ manda 
-$0$ in un numero non negativo. 
+% La proprietà di ordinamento è molto naturale: ogni punto della retta 
+% geometrica divide la retta in due parti. 
+% In particolare il punto $0\in \RR$ suddivide i punti rimanenti in due 
+% insiemi: $P$ e $N$. Decidiamo (arbitrariamente) che uno dei due 
+% insiemi, $P$ rappresenta i numeri positivi mentre $N$ sarà 
+% l'insieme dei numeri negativi. 
+% Allora potremo definire la relazione d'ordine stretto 
+% ponendo $x\le y$ se la traslazione che manda $x$ in $y$ manda 
+% $0$ in un numero non negativo. 
 
-\section{i numeri naturali e interi}
+\subsection{i naturali come sottoinsieme dei reali}
 
 Vediamo adesso come identificare, all'interno dei numeri reali $\RR$,
-l'insieme dei numeri naturali $\NN$.
+un insieme di numeri naturali $\NN \subset \RR$.
 
-\begin{definition}[numeri naturali]
-  \label{def:naturali}%
-  \mymargin{numeri!naturali}%
+\begin{definition}[insieme induttivo]%
+  \label{def:induttivo}%
+  \mymargin{$\NN\subset \RR$}%
   \index{naturali}%
   Un sottoinsieme $A\subset \RR$ si dice essere \emph{induttivo}
   se valgono le due proprietà:
@@ -1972,133 +2061,96 @@ l'insieme dei numeri naturali $\NN$.
     0 \in A, \\
     n\in A \implies n+1 \in A.
   \end{gather*}
-  La famiglia di tutti i sottoinsiemi induttivi di $\RR$ non è vuota
-  in quanto $\RR$ stesso è induttivo. Definiamo $\NN$ come l'intersezione
-  di tutti i sottoinsiemi induttivi di $\RR$:
-  \[
-     \NN 
-     = \bigcap_{A\text{ induttivo}} \!\!\!\!A 
-     = \bigcap\ENCLOSE{A\subset \mathcal P(\RR)\colon A \text{ induttivo}}.
-  \]
-  Ovviamente $\NN$ deve essere a sua volta induttivo (lo si verifichi) 
-  e quindi è il ``più piccolo'' sottoinsieme induttivo di $\RR$.
-  \mymargin{$\NN$}
 \end{definition}
 
-Oltre ai numeri $0$ e $1$ che abbiamo già definito, si definiscono 
-le altre cifre decimali $2,3,4,5,6,7,8,9$ direttamente come segue:
-\begin{gather*}
- 2 = 1+1,\quad
- 3 = 2+1,\quad 
- 4 = 3+1,\quad
- 5 = 4+1,\\ 
- 6 = 5+1,\quad
- 7 = 6+1,\quad
- 8 = 7+1,\quad
- 9 = 8+1.
-\end{gather*}
-
-E' facile dimostrare che l'insieme $\NN$ appena definito
-soddisfa gli assiomi di Peano
-\marginnote{%
-Giuseppe Peano (1858--1932), matematico torinese, contribuì a porre 
-i fondamenti della logica matematica. 
-La notazione $\exists$ per il quantificatore universale si deve a lui.
-E sua l'assiomatizzazione che caratterizza i numeri naturali:
+La famiglia di tutti i sottoinsiemi induttivi di $\RR$ non è vuota
+in quanto $\RR$ stesso è induttivo. 
+Possiamo quindi definire $\NN$ come l'intersezione
+di tutti i sottoinsiemi induttivi di $\RR$:
+\[
+    \NN 
+    = \bigcap_{A\text{ induttivo}} \!\!\!\!A 
+    = \bigcap\ENCLOSE{A\subset \mathcal P(\RR)\colon A \text{ induttivo}}.
+\]
+Ovviamente $\NN$ è a sua volta induttivo (lo si verifichi) 
+e quindi è il ``più piccolo'' sottoinsieme induttivo di $\RR$.
+Definendo $\sigma\colon \NN\to \NN$ come $\sigma(x) = x+1$ 
+\marginnote{ricordiamo che stiamo supponendo di avere già l'insieme 
+$\RR$ dei numeri reali e quindi l'addizione che stiamo considerando qui 
+è quella di $\RR$.
+L'addizione su $\NN$ risulta a posteriori coincidere con la restrizione 
+su $\NN$ dell'addizione su $\RR$.}
+si ottiene 
+immediatamente che $\NN$ soddisfa gli assiomi di Peano (definizione~\ref{def:naturali})
 \begin{enumerate}
-  \item $0\in \NN$;
-  \item se $n\in \NN$ allora $n+1\in \NN$;
-  \item se $n,m\in\NN$ e $n+1=m+1$ allora $n=m$;
-  \item se $n\in \NN$ allora $n+1\neq 0$;
-  \item se $A\subset \NN$ è induttivo allora $A=\NN$.
+    \item $\sigma$ è iniettiva perché $x+1 = y+1$ implica, sommando $-1$ ad ambo i lati,
+    $x=y$;
+    \item se $x\ge 0$ allora $x+1 \ge 1 > 0$; dunque, per induzione, 
+    possiamo affermare che per ogni $x\in \NN$ si ha $x\ge 0$ e $x+1>0$;
+    \item se $A \subset \NN$ è induttivo allora $A \supset \NN$ perché 
+    $\NN$ è, per definizione, il più piccolo sottoinsieme induttivo di $\RR$.
 \end{enumerate}
-}%
-in particolare vale il seguente. 
+% 
+% Utilizzando il principio di induzione si possono dimostare le seguenti 
+% ben note proprietà dei numeri naturali.
+% \begin{theorem}[proprietà dei numeri naturali]
+%   Se $n,m\in \NN$ si ha:
+%   \begin{enumerate}
+%     \item $n\ge 0$;
+%     \item $n+m\in \NN$;
+%     \item $n+m = m+n$;
+%     \item se $n\ge m$ allora $n-m\in \NN$;
+%     \item se $n>m$ allora $n\ge m+1$.
+%   \end{enumerate}
+% \end{theorem}
+% \begin{proof}
+% Per il primo punto: ovviamente $0\ge 0$. D'altra parte 
+% se $n\ge 0$ allora $n+1>n+0 \ge 0$. 
+% Dunque per induzione $n\ge 0$ per ogni $n\in \NN$.
+% 
+% Per il secondo punto consideriamo il predicato 
+% \[
+% P(n)\colon \forall m\in \NN\colon m+n\in \NN.  
+% \]
+% Chiaramente $P(0)$ è vero in quanto $m+0 = m\in \NN$ se $m\in \NN$.
+% Ma se $P(n)$ è verificata allora $m+n\in \NN$ e visto che $\NN$ 
+% è induttivo anche $m+(n+1) = (m+n)+1\in \NN$. 
+% Dunque vale $P(n+1)$ e dunque per ogni $n$ vale $P(n)$.
+% 
+% Per dimostrare la proprietà commutativa possiamo innanzitutto dimostrare 
+% per induzione che $n+1=1+n$ per ogni $n\in \NN$ (lo si faccia per esercizio).
+% Dopodiché si considera la proposizione 
+% \[
+%  P(n)\colon \forall m\in \NN\colon n+m = m+n.  
+% \]
+% $P(0)$ è vera per le proprietà dell'elemento neutro 
+% e se $P(n)$ è vera allora 
+% $n+1+m = 1+n+m = 1 + m + n = m + 1 + n = m + n +1$
+% e quindi anche $P(n+1)$ è vera. Il risultato segue per induzione.
+% 
+% Per il quarto punto si verifica innanzitutto che se $n\ge 1$ allora 
+% $n-1\in \NN$ 
+% (lo si dimostra per induzione osservando che $(n+1)-1=n\in\NN$).
+% Dopodiché si considera il predicato
+% \[
+% P(n): \forall m\in \NN \colon m\ge n \implies m-n\in \NN.  
+% \]
+% E' facile verificare che $P(0)$ è vero.
+% Supponiamo allora che $P(n)$ sia vero e consideriamo 
+% $P(n+1)\colon m\ge n+1 \implies m-(n+1)\in \NN$.
+% Se $m\ge n+1$ allora certamente $m-1\ge n$ e $m\neq 0$.
+% Abbiamo già dimostrato che $m-1\in\NN$
+% e quindi, applicando $P(n)$, possiamo dedurre che $m-1-n\in \NN$.
+% Ma $m-1-n = m-(n+1)$ e quindi abbiamo verificato $P(n+1)$.
+% 
+% L'ultima affermazione è equivalente a dire che se $m\in \NN$ 
+% non ci sono numeri naturali strettamente compresi tra $m$ e $m+1$.
+% Sottraendo $m$ ci si riconduce a osservare che non ci sono naturali 
+% tra $0$ e $1$.
+% Ma se $0<x<1$ allora $x-1<0$ non può essere un naturale ed essendo 
+% diverso da $0$ deduciamo che $x\not \in \NN$.
+% \end{proof}
 
-\begin{theorem}[principio di induzione]
-Se $P(n)$ è un predicato nella variabile $n\in \NN$ tale che:
-\begin{enumerate}
-\item $P(0)$ è vero;
-\item per ogni $n\in \NN$ se $P(n)$ è vero allora anche $P(n+1)$ è vero.
-\end{enumerate}
-Allora $P(n)$ è vero per ogni $n\in \NN$.
-\end{theorem}
-%
-\begin{proof}
-Si consideri l'insieme $A = \ENCLOSE{n \in \NN\colon P(n) \text{ è vera}}$.
-Le ipotesi del principio di induzione garantiscono che $A$ sia induttivo
-(definizione~\ref{def:naturali})
-e quindi che $\NN \subset A$. Dunque $P(n)$ è vera per ogni $n\in \NN$.
-\end{proof}
-
-Utilizzando il principio di induzione si possono dimostare le seguenti 
-ben note proprietà dei numeri naturali.
-\begin{theorem}[proprietà dei numeri naturali]
-  Se $n,m\in \NN$ si ha:
-  \begin{enumerate}
-    \item $n\ge 0$;
-    \item $n+m\in \NN$;
-    \item $n+m = m+n$;
-    \item se $n\ge m$ allora $n-m\in \NN$;
-    \item se $n>m$ allora $n\ge m+1$.
-  \end{enumerate}
-\end{theorem}
-\begin{proof}
-Per il primo punto: ovviamente $0\ge 0$. D'altra parte 
-se $n\ge 0$ allora $n+1>n+0 \ge 0$. 
-Dunque per induzione $n\ge 0$ per ogni $n\in \NN$.
-
-Per il secondo punto consideriamo il predicato 
-\[
-P(n)\colon \forall m\in \NN\colon m+n\in \NN.  
-\]
-Chiaramente $P(0)$ è vero in quanto $m+0 = m\in \NN$ se $m\in \NN$.
-Ma se $P(n)$ è verificata allora $m+n\in \NN$ e visto che $\NN$ 
-è induttivo anche $m+(n+1) = (m+n)+1\in \NN$. 
-Dunque vale $P(n+1)$ e dunque per ogni $n$ vale $P(n)$.
-
-Per dimostrare la proprietà commutativa possiamo innanzitutto dimostrare 
-per induzione che $n+1=1+n$ per ogni $n\in \NN$ (lo si faccia per esercizio).
-Dopodiché si considera la proposizione 
-\[
- P(n)\colon \forall m\in \NN\colon n+m = m+n.  
-\]
-$P(0)$ è vera per le proprietà dell'elemento neutro 
-e se $P(n)$ è vera allora 
-$n+1+m = 1+n+m = 1 + m + n = m + 1 + n = m + n +1$
-e quindi anche $P(n+1)$ è vera. Il risultato segue per induzione.
-
-Per il quarto punto si verifica innanzitutto che se $n\ge 1$ allora 
-$n-1\in \NN$ 
-(lo si dimostra per induzione osservando che $(n+1)-1=n\in\NN$).
-Dopodiché si considera il predicato
-\[
-P(n): \forall m\in \NN \colon m\ge n \implies m-n\in \NN.  
-\]
-E' facile verificare che $P(0)$ è vero.
-Supponiamo allora che $P(n)$ sia vero e consideriamo 
-$P(n+1)\colon m\ge n+1 \implies m-(n+1)\in \NN$.
-Se $m\ge n+1$ allora certamente $m-1\ge n$ e $m\neq 0$.
-Abbiamo già dimostrato che $m-1\in\NN$
-e quindi, applicando $P(n)$, possiamo dedurre che $m-1-n\in \NN$.
-Ma $m-1-n = m-(n+1)$ e quindi abbiamo verificato $P(n+1)$.
-
-L'ultima affermazione è equivalente a dire che se $m\in \NN$ 
-non ci sono numeri naturali strettamente compresi tra $m$ e $m+1$.
-Sottraendo $m$ ci si riconduce a osservare che non ci sono naturali 
-tra $0$ e $1$.
-Ma se $0<x<1$ allora $x-1<0$ non può essere un naturale ed essendo 
-diverso da $0$ deduciamo che $x\not \in \NN$.
-\end{proof}
-
-\begin{exercise}
-  Dimostrare, utilizzando il principio di induzione, la seguente 
-  proposizione:
-  \[
-  \forall n\in \NN\colon \enclose{\enclose{\exists m\in \NN \colon n = m + m} 
-  \lor \enclose{\exists m\colon n = m + m + 1}}.  
-  \]
-\end{exercise}
 
 %% gia fatta prima
 %
@@ -2173,6 +2225,8 @@ diverso da $0$ deduciamo che $x\not \in \NN$.
 % Ponendo $f(n)$ uguale alla seconda componente di $F(n)$ si ottiene il risultato richiesto.
 % \end{proof}
 
+\subsection{prodotto di numeri naturali}
+
 Se $n\in \NN$ e $x\in \RR$ 
 si può definire induttivamente il \myemph{prodotto} $n x$
 (a volte scriveremo $n\cdot x$ per motivi tipografici)
@@ -2199,14 +2253,16 @@ $0 \le x \le y$ e $n \le m$ si ha la proprietà di monotonia:
 (e se $x<y$ oppure $n<m$ la disuguaglianza è stretta).
 In particolare se $n x = 0$ se e solo se $n=0$ oppure $x=0$.
 
-Per rappresentare in modo efficiente tutti i numeri naturali utilizziamo la 
+Per rappresentare in modo efficiente qualunque numero naturale utilizziamo la 
 \myemph{notazione posizionale decimale}.
+Ricordiamo che le cifre decimali $0,2,\dots 9$ sono state definite in~\eqref{eq:cifre}.
 Il numero rappresentato da una sequenza finita di cifre decimali può essere 
 definito ricorsivamente: una sequenza di una sola cifra rappresenta il numero 
 corrispondente alla cifra stessa, una sequenza di $n+1$ cifre rappresenta il 
-numero rappresentato dalle prime $n$ cifre, moltiplicato per $(9+1)$ (dieci)
+numero rappresentato dalle prime $n$ cifre, moltiplicato per $9+1$ (cioè dieci),
 e sommato alla ultima cifra. 
-Ad esempio la sequenza di cifre $4701$ (leggi: quattromilasettecentouno) significa
+Ad esempio la sequenza di cifre $4701$ (leggi: quattromilasettecentouno)
+è definita così:
 \[ 
   4701 = ((4\cdot(9+1)+7)\cdot(9+1)+0)\cdot(9+1)+1.
 \]
@@ -2215,7 +2271,9 @@ Osservando che $10 = 9+1$ si scriverà
   4701 = ((4\cdot 10 + 7)\cdot 10 +0)\cdot 10 + 1.  
 \]
 
-Se $m,n\in \NN$ con $m < n$ si ha $m - n = -(n-m)$ che è l'opposto di un numero naturale.
+\subsection{numeri interi}
+
+Se $m,n\in \NN \subset \RR$ con $m < n$ si ha $m - n = -(n-m)$ che è l'opposto di un numero naturale.
 L'insieme dei naturali e dei loro opposti si chiama insieme dei 
 \myemph{numeri interi} e si denota con $\ZZ$:
 \index{$\ZZ$}%
