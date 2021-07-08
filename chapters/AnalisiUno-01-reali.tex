@@ -1283,7 +1283,7 @@ l'operazione di \myemph{addizione}:
 \]
 Ad esempio:
 \[
-  2 + 3 = sigma^3(2) = \sigma(\sigma(\sigma(2))) = \sigma(\sigma(\sigma(\sigma(\sigma(0))))) = 5.
+  2 + 3 = \sigma^3(2) = \sigma(\sigma(\sigma(2))) = \sigma(\sigma(\sigma(\sigma(\sigma(0))))) = 5.
 \]
 
 \marginnote{
@@ -1390,7 +1390,7 @@ essere utilizzato per l'operazione di iterazione. La somma sui numeri
 naturali corrisponde alla composizione delle iterazioni. Se 
 $f\colon X\to X$ è una qualunque funzione si ha infatti (lo si dimostri per induzione):
 \[
-   f^(n+m) = f^n \circ f^m.
+   f^{n+m} = f^n \circ f^m.
 \]
 
 
@@ -1586,7 +1586,9 @@ per contare gli elementi degli insiemi finiti.
 \begin{definition}[numero di elementi]
 Se $n\in \NN$ denotiamo con 
 \[
-  \Enclose{n} = \ENCLOSE{0,1,\dots, n-1}
+  \Enclose{n} 
+  = \ENCLOSE{0,1,\dots, n-1}
+  = \ENCLOSE{k\in \NN\colon k<n}
 \]
 l'insieme dei primi $n$ numeri naturali. 
 Questo è il prototipo di insieme con $n$ elementi.
@@ -1672,7 +1674,7 @@ Dunque se definiamo $\sigma \colon A \to A$ come
 \[
 \sigma(a) = \begin{cases}
   a & \text{se $a\not\in f(\NN)$}\\
-  f(n+1) & \text{se $a=f(n)$}
+  f(n+1) & \text{se $a=f(n)$ con $n\in\NN$}
 \end{cases}
 \]
 otteniamo una funzione iniettiva ma non suriettiva 
@@ -1769,7 +1771,7 @@ il cui secondo elemento è una coppia:
 Questi insiemi sono molto simili tra loro e potrebbero essere identificati.
 Un'altro insieme molto simile è l'insieme $A^{[3]}$.  
 Ricordando che $[3] = \ENCLOSE{0,1,2}$ l'insieme 
-$A^{[3]}$ rappresenta l'insieme di tutte le funzioni $\vec a\colon {0,1,2}\to A$.
+$A^{[3]}$ rappresenta l'insieme di tutte le funzioni $\vec a\colon \ENCLOSE{0,1,2}\to A$.
 La funzione $\vec a$ è univocamente determinata dal suo valore nei 
 tre punti del dominio: $a_0 = \vec a(0)$, $a_1=\vec a(1)$, $a_2=\vec a(2)$
 in quanto $\vec a = \ENCLOSE{0\mapsto a_0, 1\mapsto a_1, 2\mapsto a_2}$.
@@ -1810,6 +1812,147 @@ Infatti possiamo considerare la funzione $\phi\colon [2]^A \to \mathcal P(A)$
 che associa ad ogni funzione $f\colon A\to \ENCLOSE{0,1}$
 l'insieme $\ENCLOSE{x\in A \colon f(x)=1}$.
 
+\begin{comment}
+\section{i numeri interi}
+
+Dati due numeri naturali $a,b \in \NN$ esiste una una \emph{traslazione}
+che manda $a$ in $b$.
+Più precisamente se $b\ge a$ esisterà $n\in \NN$ tale che $b=a+n$.
+La traslazione $k\mapsto k+n$ è l'iterata $n$-esima della funzione 
+successore $\sigma$, infatti $\sigma^n(k) = k+n$.
+Denotiamo con il simbolo $+n$ la traslazione in avanti $\sigma^n$.
+Se invece $b\le a$ esisterà $n\in \NN$ tale che $a=b+n$. 
+In tal caso possiamo pensare alla traslazione inversa $k\mapsto k-n$ 
+definita per $k\ge n$ come la funzione inversa di 
+$\sigma^n\colon \NN\to \sigma^n(\NN)$.
+Denotiamo con il simbolo $-n$ la traslazione all'indietro $(\sigma^n)^{-1}$.
+Ovviamente se $n=0$ sia $+0$ che $-0$ rappresentano l'identità $k\mapsto k$
+che lascia fermi i punti di $\NN$.
+Possiamo allora definire 
+\[
+  \ZZ = \ENCLOSE{+n\colon n\in \NN} \cup \ENCLOSE{-n\colon n\in \NN}
+\]
+l'insieme di tutte le traslazioni su $\NN$.
+Ora è chiaro che se prendiamo due coppie $(a,b)$ e $(a',b')$ in 
+$\NN\times \NN$ la traslazione che manda $a$ in $b$ 
+è la stessa che che manda $a'$ in $b'$ se e solo se $a+b'=a'+b$.
+\marginnote{
+Si noti ad esempio che se $b=a+n$ e $b'=a'+m$ allora 
+$a+b' = a + a' + m$ mentre $a'+b = a+a'+n$ dunque 
+$a+b' = a'+b$ se e solo se $a+b'=a'+b$. 
+Analogamente se $a=b+n$ e $a'=b'+m$.
+Se invece $b=a+n$ e $a'=b'+m$ le due traslazioni 
+sono in verso opposto e l'uguaglianza $a+b'=a'+b$ 
+risulta equivalente a $m+n=0$ che significa $m=n=0$.
+}
+
+Dunque se definiamo la relazione di equivalenza $(a,b) \sim (a',b)$
+quando $a+b'=a'+b$
+scopriamo che risulta 
+\[
+  \ZZ = (\NN \times \NN)/\sim  
+\]
+in quanto la classe di equivalenza 
+\[
+  [(a,b)]_\sim = \ENCLOSE{(a',b')\in \NN\times \NN \colon a+b'=a'+b}
+\]
+corrisponde esattamente al grafico della traslazione che manda $a$ in $b$.
+Su $\NN\times \NN$ possiamo definire l'operazione di addizione
+componente per componente:
+\[
+ (a,b) + (c,d) = (a+c,b+d).  
+\]
+E' facile verificare che se $(a,b)\sim (a',b')$ e $(c,d)\sim(c',d')$
+allora $(a+c,b+d) \sim (a'+c',b'+d')$ e quindi l'operazione è definita 
+anche sul quoziente $\ZZ$:
+\[
+[(a,b)]_\sim + [(c,d)]_\sim = [(a+c,b+d)]_\sim.  
+\]
+\marginnote{
+Non è difficile constatare che l'addizione di due traslazioni corrisponde 
+sostanzialmente alla loro composizione, ad esempio se $m\ge n$ risulta 
+$k \stackrel{+m} \mapsto k+m 
+\stackrel{-n} \mapsto k+m-n= k+(m-n)$
+e dunque $(+m)+(-n) = +(m-n)$.
+}
+E' chiaro che l'operazione di addizione su $\ZZ$ gode della proprietà 
+associativa e della proprietà commutativa perché queste proprietà 
+si riconducono alle analoghe proprietà su $\NN$.
+L'elemento $+0$ di $\ZZ$ è elemento neutro: in quanto $(a,b) + (0,0) = (a,b)$.
+Non solo, dato $x\in \ZZ$ se $x=[(a,b)]_\sim$ 
+si nota che $(a,b) + (b,a) = (a+b,b+a) \sim (0,0)$ e quindi
+ogni elemento di $\ZZ$ ha opposto e $\ZZ$ risulta essere un gruppo 
+abeliano additivo, secondo la seguente definizione.
+
+\begin{definition}[gruppo]
+  Un insieme $X$ su cui è definita una \emph{operazione} $*$ 
+  \marginnote{%
+  una operazione $*$ su $X$ è una funzione $*\colon X\times X \to X$ 
+  che si indica utilizzando la notazione \emph{infissa}: $x*y = *(x,y)$.}
+  si dice essere un \myemph{gruppo} se l'operazione
+  ha le seguenti proprietà:
+  \begin{enumerate}
+    \item associativa: $\forall x,y,z\in X\colon (x*y)*z = x*(y*z)$;
+    \index{proprietà!associativa}%
+    \index{associatività}%
+    \item esistenza elemento neutro: 
+    \index{elemento!neutro}%
+    \index{neutro}%
+    $\exists e\in X\colon \forall x\in X \colon e*x=x*e = x$;
+    \item esistenza inverso: 
+    \index{elemento!inverso}%
+    \index{inverso}%
+    $\forall x\in X\colon \exists y\in X\colon x*y=y*x=e$.
+  \end{enumerate}
+  Inoltre il gruppo si dice essere \myemph[gruppo!abeliano]{abeliano} o \emph{commutativo}
+  se vale la proprietà:
+  \begin{enumerate}
+    \item[4.] commutativa: $\forall x,y\in X\colon x*y = y*x$.
+    \index{proprietà!commutativa}%
+    \index{commutatività}% 
+  \end{enumerate}
+  
+  Quando l'operazione viene denotata con il simbolo $+$ (addizione)
+  diremo che il gruppo è additivo, denoteremo con $0$ 
+  \index{zero}%
+  (zero) l'elemento neutro e l'inverso verrà chiamato \emph{opposto}.
+  \index{opposto}%
+  Se invece si usa il simbolo $\cdot$ (moltiplicazione)
+  diremo che il gruppo è moltiplicativo, l'elemento neutro potrà 
+  essere denotato con il simbolo $1$ (uno o unità) e 
+  \index{uno}\index{unità}%
+  l'inverso potrà essere chiamato \emph{reciproco}.
+  \index{reciproco}%
+  \end{definition}
+  
+  L'elemento neutro di un gruppo è unico. 
+  Se infatti $x$ e $y$ fossero due elementi neutri 
+  si avrebbe $x = x*y = y$. 
+  Anche l'inverso è unico: infatti se $y$ e $z$ fossero 
+  due inversi di $x$ si avrebbe $y = y * x * z = z$.
+  
+  \begin{definition}[gruppo ordinato]
+    Diremo che $X$ è un \myemph{gruppo ordinato} se $X$ è un gruppo
+    (con operazione $*$ ed elemento neutro $e$) 
+    se è anche un insieme ordinato (con relazione $\le$)
+    e se vale la proprietà:
+    \begin{enumerate}
+      \item[1.] monotonia: se $x\le y$ allora per ogni $z$ si ha:
+       \[
+       x*z \le y*z \qquad\text{e}\qquad z*x \le z*y.
+       \] 
+    \end{enumerate}
+  \end{definition}
+  
+  \marginnote{
+  Ricordiamo che gli insiemi ordinati erano stati introdotti 
+  con la definizione~\ref{def:ordine}. 
+  Una volta definito l'ordinamento largo $\le$, risultano 
+  definiti di conseguenza anche l'ordinamento inverso $\ge$ e gli ordinamenti 
+  stretti $<$ e $>$.
+  }
+  
+\end{comment}
 \section{la retta dei numeri reali}
 \label{sec:reali}
 
@@ -1839,73 +1982,6 @@ Osserveremo poi che la struttura moltiplicativa dei numeri reali positivi soddis
 gli stessi assiomi della struttura additiva dei reali e che quindi la costruzione fatta 
 per costruire la moltiplicazione si può ripetere identica per costruire l'elevamento a potenza.
 
-\begin{definition}[gruppo]
-Un insieme $X$ su cui è definita una \emph{operazione} $*$ 
-\marginnote{%
-una operazione $*$ su $X$ è una funzione $*\colon X\times X \to X$ 
-che si indica utilizzando la notazione \emph{infissa}: $x*y = *(x,y)$.}
-si dice essere un \myemph{gruppo} se l'operazione
-ha le seguenti proprietà:
-\begin{enumerate}
-  \item associativa: $\forall x,y,z\in X\colon (x*y)*z = x*(y*z)$;
-  \index{proprietà!associativa}%
-  \index{associatività}%
-  \item esistenza elemento neutro: 
-  \index{elemento!neutro}%
-  \index{neutro}%
-  $\exists e\in X\colon \forall x\in X \colon e*x=x*e = x$;
-  \item esistenza inverso: 
-  \index{elemento!inverso}%
-  \index{inverso}%
-  $\forall x\in X\colon \exists y\in X\colon x*y=y*x=e$.
-\end{enumerate}
-Inoltre il gruppo si dice essere \myemph[gruppo!abeliano]{abeliano} o \emph{commutativo}
-se vale la proprietà:
-\begin{enumerate}
-  \item[4.] commutativa: $\forall x,y\in X\colon x*y = y*x$.
-  \index{proprietà!commutativa}%
-  \index{commutatività}% 
-\end{enumerate}
-
-Quando l'operazione viene denotata con il simbolo $+$ (addizione)
-diremo che il gruppo è additivo, denoteremo con $0$ 
-\index{zero}%
-(zero) l'elemento neutro e l'inverso verrà chiamato \emph{opposto}.
-\index{opposto}%
-Se invece si usa il simbolo $\cdot$ (moltiplicazione)
-diremo che il gruppo è moltiplicativo, l'elemento neutro potrà 
-essere denotato con il simbolo $1$ (uno o unità) e 
-\index{uno}\index{unità}%
-l'inverso potrà essere chiamato \emph{reciproco}.
-\index{reciproco}%
-\end{definition}
-
-L'elemento neutro di un gruppo è unico. 
-Se infatti $x$ e $y$ fossero due elementi neutri 
-si avrebbe $x = x*y = y$. 
-Anche l'inverso è unico: infatti se $y$ e $z$ fossero 
-due inversi di $x$ si avrebbe $y = y * x * z = z$.
-
-\begin{definition}[gruppo ordinato]
-  Diremo che $X$ è un \myemph{gruppo ordinato} se $X$ è un gruppo
-  (con operazione $*$ ed elemento neutro $e$) 
-  se è anche un insieme ordinato (con relazione $\le$)
-  e se vale la proprietà:
-  \begin{enumerate}
-    \item[1.] monotonia: se $x\le y$ allora per ogni $z$ si ha:
-     \[
-     x*z \le y*z \qquad\text{e}\qquad z*x \le z*y.
-     \] 
-  \end{enumerate}
-\end{definition}
-
-\marginnote{
-Ricordiamo che gli insiemi ordinati erano stati introdotti 
-con la definizione~\ref{def:ordine}. 
-Una volta definito l'ordinamento largo $\le$, risultano 
-definiti di conseguenza anche l'ordinamento inverso $\ge$ e gli ordinamenti 
-stretti $<$ e $>$.
-}
 
 \begin{definition}[ordinamento denso]
   Un ordinamento $\le$ si dice essere

@@ -14,6 +14,7 @@ check_repeated_labels:
 
 clean:
 	latexmk -C AnalisiUno.tex
+	@rm *.mw
 
 # devi scaricare il renderer MathJax e installarlo:
 # sudo mv MathJax MathJaxS5 /usr/local/lib/python3.8/dist-packages/
