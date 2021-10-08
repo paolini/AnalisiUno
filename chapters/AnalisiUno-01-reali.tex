@@ -622,9 +622,11 @@ Gli elementi del dominio spesso vengono chiamati \emph{punti}
 mentre gli elementi del codominio, se sono numeri, vengono 
 chiamati \emph{valori}. 
 La funzione $f$ avrà quindi valore $f(a)$ nel punto $a$.
-L'insieme di tutte le funzioni $f\colon A\to B$ viene usualmente denotato con $B^A$.
+L'insieme di tutte le funzioni $f\colon A\to B$ viene usualmente denotato $B^A$
+oppure $A\to B$.
 \mynote{$B^A$}%
 \index{$A^B$}%
+\index{$A\to B$}%
 \index{potenza!insiemi}%
 
 \begin{figure}
@@ -1070,7 +1072,7 @@ che $\phi(x) = f(x) = y$.
 
 I numeri naturali $0,1,2,\dots$ sono i numeri che utilizziamo per contare o per 
 fare le iterazioni. C'è un primo numero naturale, che per noi sarà $0$ e poi
-per ogni numero naturale $n$ ce n'é uno successivo $\sigma(n)$. 
+per ogni numero naturale $n$ ce n'é uno successivo che chiameremo $\sigma(n)$. 
 Partendo da $0$ e passando al successivo si raggiungono tutti i numeri naturali.
 Queste proprietà si formalizzano come segue. 
 
@@ -1166,7 +1168,7 @@ al sistema stesso.}
     \item vale $P(0)$ e 
     \item $\forall n\in \NN\colon P(n)\implies P(n+1)$
   \end{enumerate} 
-  allora $P(n)$ è vero per ogni $n\in \NN$.
+  allora $P(n)$ è verificato per ogni $n\in \NN$.
 \end{theorem}
 %
 \begin{proof}
@@ -1194,7 +1196,7 @@ sempre di più tra loro) ma d'altro canto sono tanti quanti i numeri naturali
 perché la corrispondenza $n\mapsto n^2$ è biunivoca.
 }%
 %
-\begin{definition}[Dedekind infinito]
+\begin{definition}[infinito]
   \label{def:infinito}%
   Diremo che un insieme $X$ è \emph{finito}
   \index{insieme!finito}%
@@ -1400,7 +1402,7 @@ sui numeri naturali.
 
 %
 %
-\subsection{iterazioni}
+\subsection{iterazioni e addizione}
 %
 %
 \index{iterazioni}%
@@ -1425,12 +1427,13 @@ $f^2(x) = f(f(x))$ oppure $f^2(x) = f(x) \cdot f(x)$.
 Sarà il contesto a suggerire quale sia il significato
 inteso con questa notazione.
 }
-\[
-\begin{cases}
-  f^0(x) =  x, &\forall x\in X,\\
-  f^{n+1}(x) = f(f^n(x)), &\forall x\in X.
-\end{cases}  
-\]
+\begin{equation}
+  \label{def:iterata}%
+  \begin{cases}
+    f^0(x) =  x, &\forall x\in X,\\
+    f^{n+1}(x) = f(f^n(x)), &\forall x\in X.
+  \end{cases}  
+\end{equation}
 %
 \begin{example}
 Sia $X=\ENCLOSE{1,2,3}$ e $f\colon X\to X$, $f = \ENCLOSE{1\mapsto 2, 2 \mapsto 2, 3\mapsto 1}$.
@@ -1477,26 +1480,27 @@ si ha effettivamente
 \]
 
 \marginnote{
-Una operazione binaria $+$ si può identificare 
-con una funzione 
-$+\colon \NN\times \NN\to \NN$ in cui si usa 
-la notazione \emph{infissa} $n+m = +(n,m)$.
-Oppure, invece che definire una funzione sulle coppie di numeri naturali
-si può definire una funzione $+\colon \NN \to (\NN \to \NN)$ 
-ovvero una funzione $+$ che al numero $m\in \NN$ associa 
-a sua volta una funzione $+m\colon \NN \to \NN$ che incrementa di $m$ cioè
-$n \stackrel{+m} \mapsto n+m$, $(+m)(n) = n + m$.
-Nel nostro caso abbiamo posto $+m = \sigma^m$.
+Una operazione binaria $*$ si può anche identificare 
+con una funzione $*\colon \NN\times \NN\to \NN$. 
 }
 Osservando che $n+1 = \sigma^1(n) = \sigma(n)$
 potremo d'ora in poi scrivere $n+1$ al posto di $\sigma(n)$ 
 ed abbandonare la funzione $\sigma$.
 
-Osserviamo che, per come è stata definita, l'addizione 
-soddisfa le proprietà: $n+0 = n$ (in quanto $\sigma^0(n)=n$)
-e $n+(m+1) = (n+m)+1$ (in quanto $\sigma^{m+1}(n) = \sigma(\sigma^m(n))
-= \sigma(m+n)$).
-Possiamo da queste dedurre le altre proprietà della somma.
+Osserviamo che, per come è stata definita,
+grazie alle proprietà~\eqref{def:iterata} dell'iterazione, 
+si ha $n + 0 = \sigma^0(n) = n$
+e $n+\sigma(m) = \sigma^{\sigma(m)}(n) = \sigma(\sigma^m(n))$.
+Dunque l'addizione 
+soddisfa le seguenti proprietà, che caratterizzano l'addizione 
+tramite una definizione per induzione:
+\[
+  \begin{cases}
+    n+0 = n, \\
+    n + (m+1) = (n+m) + 1
+  \end{cases}
+\]
+Possiamo da queste dedurre le altre ben note proprietà della somma.
 
 \begin{theorem}
   L'addizione su $\NN$ soddisfa le seguenti
@@ -1566,6 +1570,16 @@ Scritto in altri termini $\sigma(m)=\sigma(n)$ da cui,
 grazie al fatto che $\sigma$ è iniettiva, si deduce $m=n$.
 \end{proof}
 
+\begin{exercise}
+  Dimostrare, utilizzando il principio di induzione e le proprietà 
+  dell'addizione, la seguente 
+  proposizione:
+  \[
+  \forall n\in \NN\colon \enclose{\enclose{\exists m\in \NN \colon n = m + m} 
+  \lor \enclose{\exists m\in \NN\colon n = m + m + 1}}.  
+  \]
+\end{exercise}
+
 I numeri naturali risultano essere l'insieme che \emph{naturalmente} può 
 essere utilizzato per indicare l'operazione di iterazione. 
 La somma sui numeri 
@@ -1592,21 +1606,7 @@ enunciato nel seguente.
   \] 
 \end{proof}
 
-\begin{exercise}
-  Dimostrare, utilizzando il principio di induzione, la seguente 
-  proposizione:
-  \[
-  \forall n\in \NN\colon \enclose{\enclose{\exists m\in \NN \colon n = m + m} 
-  \lor \enclose{\exists m\colon n = m + m + 1}}.  
-  \]
-\end{exercise}
-
-% Iterando la somma possiamo definire la moltiplicazione $\cdot \colon \NN\to (\NN\to \NN)$. 
-% Posto $\cdot m$ = 
-
-
-\subsection{ordinamento dei numeri naturali}
-
+\subsection{ordinamento, moltiplicazione ed elevamento a potenza}
 Possiamo ora definire una relazione $\le$ su $\NN$ ponendo 
 \[
   m \le n \iff \exists k\in \NN\colon n = m+k.  
@@ -1615,7 +1615,6 @@ Se $m\le n$ cioè se esiste $k\in \NN$ tale che $n=m+k$ tale numero
 $k$ è unico in quanto se fosse $m+j=n=m+k$ potremmo dedurre $k=j$
 dalla proprietà invariantiva della addizione. 
 Possiamo dunque definire la \myemph{differenza}: $k=n-m$.
-
 
 Vogliamo dimostrare che la relazione $\le$ appena introdotta 
 è una relazione d'ordine, in base alla seguente.
@@ -1639,7 +1638,7 @@ Vogliamo dimostrare che la relazione $\le$ appena introdotta
   \end{enumerate}
 \end{definition}
 
-Se $\le$ è una relazione d'ordine su $X$ si definisce la 
+In generale, se $\le$ è una relazione d'ordine su $X$ si definisce la 
 relazione inversa $\ge$ ponendo $x\ge y$ quando $y\le x$.
 La proprietà riflessiva identifica gli ordinamenti \emph{larghi}.
 Si definisce il corrispondente ordinamento stretto $<$
@@ -1677,6 +1676,121 @@ La relazione $\le$ è una relazione d'ordine totale su $\NN$.
   alla disuguaglianza inversa $x+1\ge y$.
   In ogni caso il passo induttivo è dimostrato.
 \end{proof}
+
+La moltiplicazione $\cdot$ su $\NN$ è intesa come somma ripetuta:
+$3\cdot n = n + n + n$. 
+La definizione formale di $n\cdot k$ viene data per induzione su $n$:
+\[
+ \begin{cases}
+    0\cdot k = 0, \\
+    (n+1) \cdot k = n\cdot k + k.
+ \end{cases}  
+\]
+Possiamo allora dimostrare le usuali proprietà della moltiplicazione.
+\begin{theorem}[proprietà della moltiplicazione]
+La moltiplicazione su $\NN$ soddisfa le seguenti proprietà:
+\begin{enumerate}
+  \item elemento neutro e assorbente: $n\cdot 1=n$, $n\cdot 0=0$,
+  \item proprietà distributiva: $n\cdot(k+j) = n\cdot k + n\cdot j$,
+  \item proprietà associativa: $n\cdot(m\cdot k) = (n\cdot m)\cdot k$,
+  \item proprietà commutativa: $n\cdot m = m\cdot n$.
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+Dimostriamo $n\cdot 1=n$ per induzione su $n$. 
+Per $n=0$ è la definizione. Il passo induttivo è pure molto semplice:
+\[
+  (n+1)\cdot 1 = n\cdot 1 + 1 = n + 1.  
+\]
+Per dimostrare che $n\cdot 0 = 0$ si procede analogamente:
+per $n=0$ è la definizione, il passo induttivo è il seguente:
+\[
+  (n+1)\cdot 0 = n\cdot 0 + 0 = 0 + 0 = 0.  
+\]
+
+Dimostriamo ora la proprietà distributiva $n\cdot(k+j)=n\cdot k + n\cdot j$ 
+per induzione su $n$. Per $n=0$ è banalmente verificata. Il passo induttivo
+è il seguente:
+\[
+(n+1)\cdot(k+j) 
+= n\cdot(k+j) + (k+j) 
+=  n\cdot k + n\cdot j + k + j
+= (n+1)\cdot k + (n+1)\cdot j.
+\]
+
+Per la proprietà associativa $n\cdot(m\cdot k) = (n\cdot m)\cdot k$
+procediamo per induzione su $k$. Per $k=0$ è banalmente verificato grazie 
+alla proprietà assorbente.
+Il passo induttivo si ottiene, utilizzando le proprietà precedenti:
+\begin{align*}
+  n\cdot(m\cdot(k+1)) 
+  &= n\cdot(m\cdot k + m\cdot 1)
+  = n\cdot(m\cdot k + m)
+  = n\cdot(m\cdot k) + n\cdot m\\
+  &= (n\cdot m)\cdot k + n\cdot m\cdot 1
+  = (n\cdot m)\cdot(k+1).
+\end{align*}
+
+Per la proprietà commutativa $n\cdot m = m\cdot n$ procediamo per induzione 
+su $n$. Per $n=0$ è banale. Il passo induttivo è:
+\[
+(n+1)\cdot m = n\cdot m + m = m\cdot n + m\cdot 1 = m\cdot(n+1).  
+\]
+\end{proof}
+
+L'elevamento a potenza si definisce come un prodotto ripetuto: $k^3 = k\cdot k\cdot k$.
+La definizione formale di $k^n$ si pone per induzione su $n$:
+\[
+\begin{cases}
+  k^0 = 1, \\
+  k^{n+1} = k^n\cdot k.
+\end{cases}  
+\]
+Si osservi che la definizione precedente è valida per ogni $n\in \NN$ e 
+per ogni $k\in \NN$.
+In particolare abbiamo consapevolmente definito $0^0=1$ perché 
+questa definizione (che in altri testi viene omessa) risulterà essere molto utile.
+
+\begin{theorem}[proprietà delle potenze]
+  L'elevamento a potenza definito su $\NN$ ha le seguenti proprietà:
+  \begin{enumerate}
+    \item $k^{n+m} = k^n \cdot k^m$,
+    \item $(k^n)^m = k^{n\cdot m}$,
+    \item $(k\cdot j)^n = k^n\cdot j^n$. 
+  \end{enumerate}
+\end{theorem}
+%
+\begin{proof}
+La prima proprietà $k^{n+m}=k^n\cdot k^m$ la dimostriamo per induzione su $m$.
+Per $m=0$ è banale. Il passaggio induttivo è pure molto semplice:
+\[
+  k^{n+m+1} = k^{n+m}\cdot k = k^n\cdot k^m\cdot k
+  = k^n\cdot k^{m+1}.
+\]
+
+Anche la seconda proprietà $(k^n)^m = k^{n\cdot m}$ la dimostriamo per induzione 
+su $m$. Il caso $m=0$ è banale. Il passo induttivo è il seguente:
+\[
+(k^n)^{m+1} = (k^n)^m \cdot k^n = k^{n\cdot m}\cdot k^n 
+= k^{n\cdot m + n} = k^{n\cdot(m+1)}.  
+\]
+
+L'ultima proprietà $(k\cdot j)^n = k^n\cdot j^n$ la dimostriamo per induzione 
+su $n$. Per $n=0$ è banale. Il passo induttivo è:
+\[
+(k\cdot j)^{n+1}=(k\cdot j)^n \cdot (k\cdot j)
+= k^n\cdot j^n \cdot k \cdot j = k^{n+1}\cdot j^{n+1}.  
+\]
+\end{proof}
+
+\begin{exercise}
+  Dimostrare per induzione che per ogni $n\in \NN$, $n\ge 4$ si ha 
+  \[  
+    2^n \ge n^2.
+  \]
+\end{exercise}
+
+\subsection{buon ordinamento e unicità dei numeri naturali}
 
 \begin{definition}[maggiorante, minorante, massimo, minimo]
   \label{def:minorante}%
@@ -2022,6 +2136,9 @@ di $A$:
   Usualmente si scrive $A^n$ invece che $A^{[n]}$ e $2^A$ invece che $[2]^A$ 
   anche perché la notazione $[n]$ per indicare i primi $n$ numeri naturali 
   non è molto utilizzata.
+  Si potrebbe anche definire l'insieme $\NN$ in modo tale che 
+  risulti $n=[n]$: basta definire $0=\emptyset$ e $\sigma(n) = n\cup \ENCLOSE{n}$
+  (si faccia la dimostrazione per induzione).
 }
 
 L'insieme $[2]^A$ è invece l'insieme delle funzioni $A\to [2]$ che hanno 
@@ -2038,7 +2155,7 @@ l'insieme $\ENCLOSE{x\in A \colon f(x)=1}$.
 \section{i numeri interi}
 
 In questo capitolo vogliamo definire i numeri interi rappresentandoli 
-come le operazioni di addizione e sottrazione su $\NN$. 
+come i movimenti di traslazione su $\NN$. 
 Più precisamente per ogni naturale $n\in\NN$ definiremo gli interi 
 $+n$ e $-n$ che non sono altro che le operazioni di addizione e sottrazione: 
 $(+n)(k) = k+n$, $(-n)(k) = k-n$ (quest'ultima definita solo per $k\ge n$).
@@ -2164,13 +2281,15 @@ un gruppo additivo, abeliano, ordinato.
   Quando l'operazione viene denotata con il simbolo $+$ (addizione)
   diremo che il gruppo è additivo, denoteremo con $0$ 
   \index{zero}%
-  (zero) l'elemento neutro e l'inverso verrà chiamato \emph{opposto}.
+  (zero) l'elemento neutro e l'inverso di $x$ verrà chiamato \emph{opposto}
+  e si denota con $-x$.
   \index{opposto}%
   Se invece si usa il simbolo $\cdot$ (moltiplicazione)
   diremo che il gruppo è moltiplicativo, l'elemento neutro potrà 
   essere denotato con il simbolo $1$ (uno o unità) e 
   \index{uno}\index{unità}%
-  l'inverso potrà essere chiamato \emph{reciproco}.
+  l'inverso di $x$ potrà essere chiamato \emph{reciproco}
+  e si denota usualmente con $x^{-1}$.
   \index{reciproco}%
   \end{definition}
   
@@ -2201,9 +2320,9 @@ un gruppo additivo, abeliano, ordinato.
   stretti $<$ e $>$.
   }
 
-  Osserviamo che la corrispondenza $n\mapsto +n$ mette in corrispondenza 
-  ogni numero $n\in \NN$ con la traslazione $+n\in \ZZ$.
-  Ovviamente $n+m = (+n)+(+m)$ e $n\le m \iff +n \le +m$
+  Osserviamo che la funzione $n\stackrel+\mapsto +n$ mette in corrispondenza 
+  ogni numero $n\in \NN$ con la traslazione non negativa $+n\in \ZZ$.
+  Ovviamente $+(n+m) = (+n)+(+m)$ e $n\le m \iff +n \le +m$
   dunque identificando $n$ con $+n$ possiamo considerare $\ZZ$ una
   estenzione di $\NN$ che mantiene inalterata l'addizione e la relazione d'ordine.
   Sarà quindi consuetudine supporre che sia $\NN\subset \ZZ$.
@@ -2212,7 +2331,46 @@ un gruppo additivo, abeliano, ordinato.
   Significa che l'operazione inversa dell'addizione, la sottrazione, non è definita
   per ogni coppia di numeri naturali. 
   Aggiungendo i numeri negativi abbiamo quindi esteso $\NN$ a $\ZZ$ in modo che 
-  ogni elemento abbia opposto e ottenendo guindi un gruppo additivo.
+  ogni elemento abbia opposto, ottenendo guindi un gruppo additivo.
+  La differenza $x-y$ di due numeri interi $x,y\in \ZZ$ è definita come la somma 
+  con l'opposto: $x-y = x + (-y)$ ed estende la differenza che avevamo già 
+  definito su $\NN$ quando $x\ge y$.
+
+  L'operazione di moltiplicazione che abbiamo definito su $\NN$ può essere 
+  estesa in modo naturale a tutto $\ZZ$. 
+  Se vogliamo mantenere la proprietà distributiva dovremo avere:
+  \[
+    0 = 0 \cdot n = (m+(-m))\cdot n = m\cdot n + (-m)\cdot n
+  \]
+  per cui poniamo per definizione, per ogni $n,m\in \NN$:
+  \[
+    (-m) \cdot n = -(m\cdot n), \qquad  m \cdot (-n) = -(m\cdot n).
+  \]
+
+  E' noioso ma facile dimostrare che valgono le usuali proprietà della
+  moltiplicazione su $\ZZ$.
+
+  \begin{theorem}[proprietà moltiplicazione]
+    La moltiplicazione su $\ZZ$ soddisfa le seguenti.
+    \begin{enumerate}
+      \item[1.] elemento neutro e assorbente: $n\cdot 1 = n$, $n\cdot 0 = 0$;
+      \item[2.] proprietà associativa: $(n\cdot m)\cdot k = n \cdot (m\cdot k)$;
+      \item[3.] proprietà commutativa: $n\cdot m = m\cdot n$;
+      \item[4.] proprietà distributiva: $k\cdot(m+n) = k\cdot m + k\cdot n$. 
+    \end{enumerate}
+  \end{theorem}
+
+
+\begin{comment}
+\section{frazioni e numeri razionali}
+
+Così come abbiamo esteso i numeri naturali affinché l'operazione di addizione abbia 
+una operazione inversa (la sottrazione) in modo simile possiamo estendere l'insieme 
+dei numeri interi in modo che anche la moltiplicazione abbia una operazione inversa 
+(la divisione).
+\end{comment}
+
+
 
 \section{la retta dei numeri reali}
 \label{sec:reali}
