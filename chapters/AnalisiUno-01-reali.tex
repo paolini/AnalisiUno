@@ -545,6 +545,7 @@ il predicato $aRb$ rappresenta l'usuale relazione d'ordine $a<b$ sui
 tre numeri considerati.
 
 \begin{definition}[relazione di equivalenza]
+\label{def:equivalenza}%
 Se $R\subset A\times A$ è una relazione sull'insieme $A$, diremo che 
 $R$ è una \myemph{relazione di equivalenza} se valgono le seguenti proprietà
 (tipiche dell'uguaglianza)
@@ -1792,9 +1793,10 @@ su $n$. Per $n=0$ è banale. Il passo induttivo è:
 
 \subsection{buon ordinamento e unicità dei numeri naturali}
 
-\begin{definition}[maggiorante, minorante, massimo, minimo]
+\begin{definition}[maggiorante, minorante, massimo, minimo, limitato]
   \label{def:minorante}%
   \label{def:minimo}%
+  \label{def:limitato}%
   Sia $\le$ una relazione d'ordine su un insieme $X$ e siano 
   $a\in X$ e $A\subset X$.
 
@@ -1803,6 +1805,8 @@ su $n$. Per $n=0$ è banale. Il passo induttivo è:
     a \le A
   \]
   se per ogni $x\in A$ risulta $a\le x$. 
+  Se esiste $a$ per cui $a\le A$ diremo che $A$ 
+  è inferiormente limitato.
   Se $a$ è un minorante e inoltre $a\in A$ diremo 
   che $a$ è il \myemph{minimo} di $A$ e scriveremo:
   \[
@@ -1810,9 +1814,14 @@ su $n$. Per $n=0$ è banale. Il passo induttivo è:
   \] 
 
   Analogamente diremo che $a$ è un \myemph{maggiorante}
-  di $A$ e scriveremo $a \ge A$ se $a\ge x$ per ogni $x\in A$ 
-  e diremo che $a$ è il \myemph{massimo} di $A$ 
+  di $A$ e scriveremo $a \ge A$ se $a\ge x$ per ogni $x\in A$,
+  diremo che $A$ è superiormente limitato 
+  se esiste $a$ per cui $a \ge A$ infine
+  diremo che $a$ è il \myemph{massimo} di $A$ 
   e scriveremo $a=\max A$ se $a\ge A$ e $a\in A$.
+
+  Se $A$ è superiormente limitato e inferiormente limitato
+  diremo che $A$ è limitato.
 \end{definition}
 
 Massimo e minimo di un insieme $A$, se esistono, sono unici.
@@ -2511,18 +2520,232 @@ di campo ordinato, in base alla seguente definizione.
   di $x$ con il reciproco di $y$. 
   Questa operazione si chiama \myemph{divisione}.
 
-  Se $K$ è anche totalmente ordinato da una relazione $\le$
+  Se $\KK$ è anche totalmente ordinato da una relazione $\le$
   e se valgono anche le seguenti proprietà:
   \[
   a \le b \implies a+c\le b+c, \qquad 
   a,b\ge 0 \implies a\cdot b \ge 0
   \]
-  diremo che $K$ è un \myemph{campo ordinato}.
+  diremo che $\KK$ è un \myemph{campo ordinato}.
 
-  Infine se l'ordinamento è continuo diremo che $K$ 
+  Infine se l'ordinamento è continuo diremo che $\KK$ 
   è un \myemph{campo ordinato continuo}.
   (!!! non è ancora stato definitio !!!)
 \end{definition}
+
+Sull'insieme numerico $\QQ$ le operazioni di addizione e moltiplicazione 
+sono dunque entrambe invertibili. 
+Questo è molto utile perché ci permette di risolvere tutte le equazioni lineari
+della forma :
+\[
+  mx + q = 0  
+\]
+quando $m\neq 0$. Infatti la funzione $f(x) = mx+q$ è una composizione 
+di una moltiplicazione $x\mapsto mx$ con una somma $y\mapsto y+q$ e la sua funzione
+inversa si trova quindi invertendo le due operazioni: 
+\[
+  mx = -q, \qquad x = \frac{-q}{m}.  
+\]
+
+Ci sono però altre equazioni che non hanno soluzione su 
+$\QQ$. 
+L'esempio più semplice (scoperto da Pitagora) è l'equazione $x^2=2$.
+%
+\begin{theorem}[irrazionalità di $\sqrt 2$]
+  \mymark{**}%
+  \label{th:pitagora}%
+  L'equazione $x^2=2$ non ha soluzioni in $\QQ$.
+  \end{theorem}
+  %
+  \begin{proof}
+  \mymark{*}%
+  Supponiamo $x\in \QQ$ sia una soluzione di $x^2=2$.
+  Allora si potrà scrivere $x=p/q$ con $p\in \ZZ$ e $q\in \NN$, $q\neq 0$.
+  Possiamo anche supporre che la frazione $p/q$ sia ridotta ai minimi
+  termini cioè che $p$ e $q$ non abbiano fattori in comune.
+  Moltiplicando l'equazione
+  $(p/q)^2=2$ per $q^2$ si ottiene $p^2 = 2 q^2$.
+  Risulta quindi che $p^2$ è pari.
+  Ma allora anche $p$ è pari (perché il quadrato di un dispari è dispari).
+  Ma se $p$ è pari allora $p^2$ è multiplo di quattro.
+  Ma allora anche $2q^2$ è multiplo di quattro e quindi $q^2$ è pari.
+  Dunque anche $q$ è pari. Ma avevamo supposto che $p$ e $q$ non avessero
+  fattori in comune quindi questo non può accadere.
+\end{proof}
+
+\section{costruzione dei numeri reali}
+
+Osserviamo che l'insieme 
+\[
+ A = \ENCLOSE{x\in \QQ \colon x^2 \le 2}  
+\]
+non ha massimo. 
+Infatti se $x\in A$ non può essere $x^2=2$ (per il teorema~\ref{th:pitagora})
+e quindi dovrà essere $x^2<2$. 
+Ma possiamo dimostrare che se $x^2<2$ esiste $\eps>0$ tale per cui $(x+\eps)^2<2$. 
+Infatti si ha $(x+\eps)^2 = x^2 + 2\eps x + \eps^2$
+ma se $x^2<2$ certamente dovrà essere $x<2$ (altrimenti $x^2\ge 4$)
+e quindi $x^2+2\eps x+\eps^2 < x^2+ 4\eps^2+\eps^2 = x^2+5\eps^2$.
+Se ora scegliamo $\eps<1$ sappiamo che $\eps^2<\eps$ 
+e quindi $x^2+5\eps^2 < x^2 + 5\eps$. 
+E affinché sia $x^2 + 5\eps < 2$ è sufficiente scegliere 
+$\eps < \frac{2-x^2}{5}$. 
+In tal modo abbiamo dimostrato che se $x\in A$ allora esiste 
+$\eps>0$ tale che $x+\eps \in A$. 
+Questo significa che l'insieme $A$ non ha massimo.
+
+L'idea è ora che una ipotetica soluzione positiva dell'equazione $x^2=2$ 
+dovrebbe potersi approssimare, per difetto, con gli elementi dell'insieme $A$.
+Allora vogliamo utilizzare l'insieme $A$ per rappresentare un tale ipotetico numero.
+
+Procediamo dunque col definire:
+\[
+\mathcal R = \ENCLOSE{A \in \mathcal P(\QQ)\colon A\neq \emptyset, \text{ $A$ superiormente 
+limitato}}.
+\]
+Dati $A,B\in mathcal R$ scriveremo che $A\sim B$ 
+se $A$ e $B$ hanno gli stessi maggioranti, ovvero
+se per ogni $q\in QQ$ si ha $q\ge A \iff q\ge B$.
+Chiaramente $\sim$ è una relazione di equivalenza (vedi definizione~\ref{def:equivalenza})
+e possiamo quindi definire il quozionte
+\[
+  \RR = \QQ / \sim 
+\]
+che chiameremo insieme dei \myemph{numeri reali}.
+L'idea di questa definizione è che i numeri reali 
+possono essere identificati dalle loro approssimazioni 
+per difetto tramite numeri razionali. 
+Diverse approssimazioni, però, possono rappresentare 
+lo stesso numero reale.
+
+\begin{exercise}
+  Si mostri che definiti gli insiemi 
+  \[
+  A = \ENCLOSE{1}, \qquad 
+  B = \ENCLOSE{x\in \QQ\colon x<1}, \qquad
+  C = \ENCLOSE{\frac{n}{n+1}\colon n\in \NN}  
+  \]
+  si ha $A \sim B \sim C$.
+\end{exercise}
+
+\begin{exercise}
+  Si mostri che definiti gli insiemi
+  \[
+  A = \ENCLOSE{x\in \QQ\colon x^2<2}, \qquad
+  B = \ENCLOSE{\frac{n}{10^k}\colon n\in \NN, k\in \NN, n^2 \le 2\cdot 100^k < (n+1)^2}  
+  \]
+  si ha $A\sim B$.
+
+  Si noti che alcuni elementi di $B$ sono:
+  \[
+    B = \ENCLOSE{1,\frac{14}{10},\frac{141}{100},\frac{1414}{1000},\frac{14142}{10000},\dots}
+  \]
+\end{exercise}
+
+Dati $A,B\in\mathcal R$ definiamo $A+B=\ENCLOSE{a+b\colon a\in A, b\in B}$.
+Chiaramente $A+B\in \mathcal R$ inoltre non è difficile dimostarare che 
+se $A\sim A'$ e $B\sim B'$ si ha $A+B\sim A'+B'$.
+Questo significa che è ben definita l'addizione su $\RR$ in modo che 
+per ogni $A,B \in \mathcal R$ si abbia:
+\[
+\Enclose{A}_\sim + \Enclose{B}_\sim = \Enclose{A+B}_\sim.
+\]
+Ovviamente l'addizione di $\RR$ è associativa e commutativa in quanto 
+queste proprietà valgono su $\QQ$ e di conseguenza su $\mathcal R$:
+$(A+B)+C = \{ a+b+c\colon a\in A, b\in B, c\in C\} = A + (B+C)$ e 
+$A+B = \{a+b\colon a\in A, b\in B\} = B+A$.
+Visto che $A+\ENCLOSE{0} = A$ notiamo anche che $\Enclose{\ENCLOSE{0}}_\sim$ 
+è elemento neutro dell'addizione.
+
+Dato $A\in \mathcal R$ definiamo $A'$ l'insieme dei maggioranti di $A$.
+Vogliamo dimostrare che 
+\begin{equation}\label{eq:48023775}
+\forall \eps>0\colon\exists a \in A\colon \exists b\in A'\colon
+b-a < \eps.
+\end{equation}
+Per fare ciò prendiamo qualunque $c\in A$ (visto che $A\neq \emptyset$)
+e qualunque $q\in A'$ (visto che $A$ è superiormente limitato, $A'$ non è vuoto).
+L'insieme $I=\ENCLOSE{n\in \NN \colon c+n\eps\in A'}$
+non è vuoto in quanto se $n>\frac{q-c}\eps$ si ha $c+n\eps>q$ ed essendo $q$ 
+un maggiorante di $A$ anche $c+n\eps$ lo è.
+Dunque per il buon ordinamento di $\NN$ (teorema~\ref{th:buon_ordinamento})
+l'insieme $I$ ha minimo, che chiamiamo $k$.
+Se $k=0$ significa che $c\in A'$ e posto $a=b=c$ si ottiene 
+che \eqref{eq:48023775} è banalmente verificata.
+Altrimenti prendiamo $b=c+k\eps$.
+Per la scelta di $k$ sappiamo che $b\in A'$ e $c+(k-1)\eps$ non è un maggiorante di 
+$A$. 
+Ma allora esiste $a\in A$ tale che $a>c+(k-1)\eps$ da cui 
+$b-a < \eps$ e \eqref{eq:48023775} è ancora verificata.
+
+Possiamo allora osservare che posto $B=-A' = \{-x\in \QQ \colon x$ maggiorante di $A\}$
+si ha $A+B\sim\ENCLOSE{0}$. 
+I maggioranti di $\ENCLOSE{0}$ sono i $q\in \QQ$ con $q\ge 0$, 
+dobbiamo dimostrare quindi che lo stesso vale per $A+B$.
+Ma se $a\in A$ e $b\in B$ risulta che $-b\ge a$ e dunque $a+b\le 0$ 
+dunque $0$ è un maggiorante di $A+B$ e qualunque $q\ge 0$ lo è a maggior ragione.
+Se invece $q<0$ per la proprietà \eqref{eq:48023775} esistono $a\in A$ 
+e $-b\in A'$ (cioè $b\in B$) tali che $(-b)-a<-q$ cioè $a+b>q$. Dunque 
+$q<0$ non è un maggiorante di $A+B$ e concludiamo che $A+B\sim\ENCLOSE{0}$.
+
+Questo dimostra che dato qualunque $x\in \RR$ se $x=\Enclose{A}_\sim$
+posto $y=\Enclose{-A'}$ si ha $x+y=\Enclose{0}_\sim$ e dunque 
+$y$ è l'opposto di $x$: lo denoteremo con $y=-x$.
+
+Abbiamo quindi dimostrato che $\RR$ è un gruppo rispetto all'operazione 
+di addizione. L'ordinamento di $\QQ$ può essere facilmente esteso a $\RR$
+definendo $\Enclose{A}_\sim \le \Enclose{B}_\sim$ se ogni maggiorante di $B$ 
+è anche maggiorante di $A$. Questa definizione non dipende dalla scelta 
+di $A$ e $B$ nella loro classe di equivalenza perché all'interno della classe di 
+equivalenza l'insieme dei maggioranti 
+non cambia.
+Chiaramente $x\le x$, se $x\le y$ e $y\le x$ si ha $x=y$ 
+e se $x\le y$, $y\le z$ si ha $x\le z$: dunque $\le$ è un ordinamento su $\RR$.
+E' inoltre un ordinamento totale perché dati $x=\Enclose{A}_\sim$ e 
+$y=\Enclose{B}$ se $x\neq y$ significa che l'insieme dei maggioranti 
+di $A$ è diverso dall'insieme dei maggioranti di $B$. 
+Se ad esempio esiste $q$ che è maggiorante di $A$ ma non maggiorante di $B$ 
+si scopre che $B\ge A$ in quanto ogni maggiorante di $B$ deve essere maggiore 
+di $q$ e quindi deve essere anche un maggiorante di $A$ da cui $x\le y$. 
+
+L'ordinamento è compatibile con l'addizione perché se $\Enclose{A}_\sim 
+\le \Enclose{B}_\sim$ e $A,B,C\in \mathcal R$ 
+allora se $q$ è maggiorante di $B+C$ per ogni $c\in C$ si ha che $q-c$ 
+è maggiorante di $B$ e dunque $q-c$ è anche maggiorante di $A$.
+Ma allora $q$ è maggiorante di $A+C$. Dunque se $x\le y$ e $x,y,z\in \RR$ 
+si ha $x+z\le y+z$ e $\RR$ è un gruppo ordinato.
+
+L'ordinamento di $\RR$ è denso. Infatti se $x<y$ posto $y-x=\Enclose{A}_\sim$ 
+sappiamo che ogni maggiorante di $A$ è maggiore o uguale a $0$.
+Ma se ogni numero positivo fosse maggiorante di $A$ avremmo $A\sim\ENCLOSE 0$
+che non è possibile in quanto $x\neq y$. Dunque esiste $q>0$ 
+che non è maggiorante di $A$. 
+Ma allora $y-x \ge \Enclose{q}_\sim > \Enclose{q/2}_\sim = \eps > 0$
+da cui $x<x+\eps<y$.
+
+Ad ogni $q\in \QQ$ si può associare l'elemento $\Enclose{\ENCLOSE q}_\sim$ 
+di $\RR$. Ovviamente se $q\neq s$ in $\QQ$ allora $\ENCLOSE{q}$ 
+ed $\ENCLOSE{s}$ non hanno gli stessi maggioranti e quindi si ottengono 
+elementi distinti di $\RR$. Identificando $q$ con $\Enclose{\ENCLOSE q}_\sim$ 
+possiamo quindi pensare che $\QQ \subset \RR$.
+
+Prendiamo però l'insieme $A=\{x\in \QQ\colon x^2<2\}$.
+Se fosse $A\sim \ENCLOSE q$ per qualche $q\in \QQ$ dovremmo 
+concludere che $q$ è un maggiorante di $A$ e che ogni $s<q$ 
+non è maggiorante di $A$. 
+Ma allora dovrebbe essere $q^2\le 2$ perché se fosse $q^2>2$
+potremmo trovare $s<q$ tale che anche $s^2>2$ 
+(basta notare che $q<2$ e prendere $s=q-\eps$ con $\eps>0$, $\eps<1$, 
+$\eps<\frac{q^2-2}{4}$ così $s^2=(q-\eps)^2 > q^2-2\eps q > q^2-4\eps
+> q^2-(q^2-2) = 2$).
+Dunque $\RR\neq \QQ$, l'elemento $x=[A]_\sim$ di $\RR$ sarà 
+proprio quello che chiameremo $\sqrt 2$ e vedremo che 
+risolverà l'equazione $x^2=2$. 
+
+
+
+
+
 
 
 \section{la retta dei numeri reali}
@@ -2541,7 +2764,7 @@ un punto $1$. Il segmento compreso tra i punti $0$ e $1$ sarà la nostra unità 
 misura.
 
 Intuitivamente l'addizione viene definita utilizzando i movimenti rigidi.
-Traslando il punto $1$ di una unità alla volta si ottengono tutti i numeri naturali.
+Traslando il punto $1$ di una unità alla volta si ottengono, per iterazione, tutti i numeri naturali.
 Traslando all'indietro si ottengono i numeri interi negativi. 
 Assumendo che tra due punti qualunque esistano sempre punti intermedi (divisibilità) e
 assumendo che suddividendo la retta in due parti esista sempre un punto di 
@@ -2553,7 +2776,6 @@ tra numeri reali.
 Osserveremo poi che la struttura moltiplicativa dei numeri reali positivi soddisfa 
 gli stessi assiomi della struttura additiva dei reali e che quindi la costruzione fatta 
 per costruire la moltiplicazione si può ripetere identica per costruire l'elevamento a potenza.
-
 
 \begin{definition}[ordinamento denso]
   Un ordinamento $\le$ si dice essere
@@ -3890,7 +4112,7 @@ non useremo queste notazioni.
   e dunque non ci può essere $a\in A$ con $a>y-\delta$. Ma se $y-\delta$ è un 
   maggiorante $y$ non può essere il minimo dei maggioranti: assurdo.
   
-  Significa quindi che $ny = \eps$, come volevamo dimostrare.
+  Significa quindi che $ny = x$, come volevamo dimostrare.
 
   Rimane da verificare che c'è un unico $y$ con tale proprietà. 
   Ma se avessimo due soluzioni: $ny_1 = \eps$ e $ny_2 = \eps$ facendo la differenza 
@@ -4814,32 +5036,10 @@ $\sqrt[n]{x\cdot y} = \sqrt[n]{x} \cdot \sqrt[n]{y}$
 e $\sqrt[n]{\sqrt[m]{x}} = \sqrt[nm]{x}$
 sono valide in tutti i casi in cui ambo i membri sono ben definiti. 
 
-Il seguente teorema ci dice che $\sqrt 2$ è irrazionale 
+Ricordiamo che in base al teorema~\ref{th:pitagora} sappiamo 
+che $\sqrt 2$ è irrazionale 
 (non è razionale, ovvero non è elemento di $\QQ$)
-in quanto risolve l'equazione $x^2=2$ 
-che non può avere soluzioni in $\QQ$.
-%
-\begin{theorem}[irrazionalità di $\sqrt 2$, Pitagora]
-\mymark{**}%
-\label{th:pitagora}%
-L'equazione $x^2=2$ non ha soluzioni $x\in\QQ$.
-\end{theorem}
-%
-\begin{proof}
-\mymark{*}%
-Supponiamo $x\in \QQ$ sia una soluzione di $x^2=2$.
-Allora si potrà scrivere $x=p/q$ con $p\in \ZZ$ e $q\in \NN$, $q\neq 0$.
-Possiamo anche supporre che la frazione $p/q$ sia ridotta ai minimi
-termini cioè che $p$ e $q$ non abbiano fattori in comune.
-Moltiplicando l'equazione
-$(p/q)^2=2$ per $q^2$ si ottiene $p^2 = 2 q^2$.
-Risulta quindi che $p^2$ è pari.
-Ma allora anche $p$ è pari (perché il quadrato di un dispari è dispari).
-Ma se $p$ è pari allora $p^2$ è multiplo di quattro.
-Ma allora anche $2q^2$ è multiplo di quattro e quindi $q^2$ è pari.
-Dunque anche $q$ è pari. Ma avevamo supposto che $p$ e $q$ non avessero
-fattori in comune quindi questo non può accadere.
-\end{proof}
+in quanto risolve l'equazione $x^2=2$.
 
 Possiamo quindi osservare che $\QQ$, come $\RR$, è un campo totalmente 
 ordinato.
