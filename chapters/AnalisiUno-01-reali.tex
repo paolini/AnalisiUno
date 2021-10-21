@@ -1791,6 +1791,30 @@ su $n$. Per $n=0$ è banale. Il passo induttivo è:
   \]
 \end{exercise}
 
+\subsection{rappresentazione posizionale dei numeri naturali}
+
+Per rappresentare in modo efficiente qualunque numero naturale utilizziamo la 
+\myemph{notazione posizionale decimale}.
+Ricordiamo che le cifre decimali $0,1,2,\dots, 9$ sono state definite in~\eqref{eq:cifre}
+a pag~\pageref{eq:cifre}.
+Il numero rappresentato da una sequenza finita di cifre decimali può essere 
+definito ricorsivamente: una sequenza di una sola cifra rappresenta il numero 
+corrispondente alla cifra stessa, una sequenza di $n+1$ cifre rappresenta il 
+numero rappresentato dalle prime $n$ cifre, moltiplicato per $9+1$ (cioè dieci),
+e sommato alla ultima cifra. 
+Ad esempio la sequenza di cifre $4701$ (leggi: quattromilasettecentouno)
+è definita così:
+\[ 
+  4701 = ((4\cdot(9+1)+7)\cdot(9+1)+0)\cdot(9+1)+1.
+\]
+Osservando che $10 = 9+1$ si scriverà
+\begin{align*}
+  4701 
+  & = ((4\cdot 10 + 7)\cdot 10 +0)\cdot 10 + 1 \\
+  & = \mathbf 4\cdot 10^3 + \mathbf 7\cdot 10^2 + \mathbf 0\cdot 10^1 + \mathbf 1 \cdot 10^0. 
+\end{align*}
+
+
 \subsection{buon ordinamento e unicità dei numeri naturali}
 
 \begin{definition}[maggiorante, minorante, massimo, minimo, limitato]
@@ -2527,10 +2551,6 @@ di campo ordinato, in base alla seguente definizione.
   a,b\ge 0 \implies a\cdot b \ge 0
   \]
   diremo che $\KK$ è un \myemph{campo ordinato}.
-
-  Infine se l'ordinamento è continuo diremo che $\KK$ 
-  è un \myemph{campo ordinato continuo}.
-  (!!! non è ancora stato definitio !!!)
 \end{definition}
 
 Sull'insieme numerico $\QQ$ le operazioni di addizione e moltiplicazione 
@@ -2603,13 +2623,15 @@ Procediamo dunque col definire:
 \mathcal R = \ENCLOSE{A \in \mathcal P(\QQ)\colon A\neq \emptyset, \text{ $A$ superiormente 
 limitato}}.
 \]
-Dati $A,B\in mathcal R$ scriveremo che $A\sim B$ 
+Dati $A,B\in \mathcal R$ scriveremo che $A\sim B$ 
 se $A$ e $B$ hanno gli stessi maggioranti, ovvero
-se per ogni $q\in QQ$ si ha $q\ge A \iff q\ge B$.
+se per ogni $q\in \QQ$ si ha $q\ge A \iff q\ge B$.
 Chiaramente $\sim$ è una relazione di equivalenza (vedi definizione~\ref{def:equivalenza})
-e possiamo quindi definire il quozionte
+e possiamo quindi definire il quoziente
 \[
-  \RR = \QQ / \sim 
+  \RR = \QQ / \sim = \ENCLOSE{\Enclose{A}_\sim\colon A\in \mathcal R},
+  \qquad 
+  \Enclose{A}_\sim = \ENCLOSE{B\in \mathcal R\colon B\sim A}
 \]
 che chiameremo insieme dei \myemph{numeri reali}.
 L'idea di questa definizione è che i numeri reali 
@@ -2619,26 +2641,25 @@ Diverse approssimazioni, però, possono rappresentare
 lo stesso numero reale.
 
 \begin{exercise}
-  Si mostri che definiti gli insiemi 
+  Si mostri che si ha $A \sim B \sim C$ se
   \[
   A = \ENCLOSE{1}, \qquad 
   B = \ENCLOSE{x\in \QQ\colon x<1}, \qquad
-  C = \ENCLOSE{\frac{n}{n+1}\colon n\in \NN}  
+  C = \ENCLOSE{\frac{n}{n+1}\colon n\in \NN}.
   \]
-  si ha $A \sim B \sim C$.
 \end{exercise}
 
 \begin{exercise}
-  Si mostri che definiti gli insiemi
+  Si mostri che si ha $A\sim B$ se
   \[
   A = \ENCLOSE{x\in \QQ\colon x^2<2}, \qquad
-  B = \ENCLOSE{\frac{n}{10^k}\colon n\in \NN, k\in \NN, n^2 \le 2\cdot 100^k < (n+1)^2}  
+  B = \ENCLOSE{\frac{n}{10^k}\colon n\in \NN, k\in \NN, n^2 \le 2\cdot 100^k < (n+1)^2}.  
   \]
-  si ha $A\sim B$.
-
-  Si noti che alcuni elementi di $B$ sono:
+  Verificare che 
   \[
-    B = \ENCLOSE{1,\frac{14}{10},\frac{141}{100},\frac{1414}{1000},\frac{14142}{10000},\dots}
+    B \supset \ENCLOSE{
+      1,\frac{14}{100},\frac{141}{10000},\frac{1414}{1000000},
+      \frac{14142}{100000000}}.
   \]
 \end{exercise}
 
@@ -2658,7 +2679,7 @@ Visto che $A+\ENCLOSE{0} = A$ notiamo anche che $\Enclose{\ENCLOSE{0}}_\sim$
 è elemento neutro dell'addizione.
 
 Dato $A\in \mathcal R$ definiamo $A'$ l'insieme dei maggioranti di $A$.
-Vogliamo dimostrare che 
+Vogliamo dimostrare che $A$ e $A'$ contengono punti arbitrariamente vicini:
 \begin{equation}\label{eq:48023775}
 \forall \eps>0\colon\exists a \in A\colon \exists b\in A'\colon
 b-a < \eps.
@@ -2679,7 +2700,7 @@ Ma allora esiste $a\in A$ tale che $a>c+(k-1)\eps$ da cui
 $b-a < \eps$ e \eqref{eq:48023775} è ancora verificata.
 
 Possiamo allora osservare che posto $B=-A' = \{-x\in \QQ \colon x$ maggiorante di $A\}$
-si ha $A+B\sim\ENCLOSE{0}$. 
+si ha $(A+B)\sim\ENCLOSE{0}$. 
 I maggioranti di $\ENCLOSE{0}$ sono i $q\in \QQ$ con $q\ge 0$, 
 dobbiamo dimostrare quindi che lo stesso vale per $A+B$.
 Ma se $a\in A$ e $b\in B$ risulta che $-b\ge a$ e dunque $a+b\le 0$ 
@@ -2689,8 +2710,9 @@ e $-b\in A'$ (cioè $b\in B$) tali che $(-b)-a<-q$ cioè $a+b>q$. Dunque
 $q<0$ non è un maggiorante di $A+B$ e concludiamo che $A+B\sim\ENCLOSE{0}$.
 
 Questo dimostra che dato qualunque $x\in \RR$ se $x=\Enclose{A}_\sim$
-posto $y=\Enclose{-A'}$ si ha $x+y=\Enclose{0}_\sim$ e dunque 
-$y$ è l'opposto di $x$: lo denoteremo con $y=-x$.
+posto $y=\Enclose{-A'}$ si ha $x+y=\Enclose{0}_\sim$.
+Dunque ogni $x\in \RR$ ha opposto $y$ che denoteremo 
+con $y=-x$.
 
 Abbiamo quindi dimostrato che $\RR$ è un gruppo rispetto all'operazione 
 di addizione. L'ordinamento di $\QQ$ può essere facilmente esteso a $\RR$
@@ -2704,8 +2726,9 @@ e se $x\le y$, $y\le z$ si ha $x\le z$: dunque $\le$ è un ordinamento su $\RR$.
 E' inoltre un ordinamento totale perché dati $x=\Enclose{A}_\sim$ e 
 $y=\Enclose{B}$ se $x\neq y$ significa che l'insieme dei maggioranti 
 di $A$ è diverso dall'insieme dei maggioranti di $B$. 
-Se ad esempio esiste $q$ che è maggiorante di $A$ ma non maggiorante di $B$ 
-si scopre che $B\ge A$ in quanto ogni maggiorante di $B$ deve essere maggiore 
+Supponiamo allora che esista $q$ che è maggiorante di $A$ 
+ma non maggiorante di $B$ (se succede il viceversa basta scambiare $A$ e $B$).
+In tal caso $B\ge A$ in quanto ogni maggiorante di $B$ deve essere maggiore 
 di $q$ e quindi deve essere anche un maggiorante di $A$ da cui $x\le y$. 
 
 L'ordinamento è compatibile con l'addizione perché se $\Enclose{A}_\sim 
@@ -2715,13 +2738,79 @@ allora se $q$ è maggiorante di $B+C$ per ogni $c\in C$ si ha che $q-c$
 Ma allora $q$ è maggiorante di $A+C$. Dunque se $x\le y$ e $x,y,z\in \RR$ 
 si ha $x+z\le y+z$ e $\RR$ è un gruppo ordinato.
 
+\begin{definition}[ordinamento denso]
+  Un ordinamento $\le$ si dice essere
+  \myemph[ordinamento!denso]{denso} o \emph{divisibile} 
+  se tra due punti distinti esiste sempre un punto intermedio:
+  \[
+   x < y \implies \exists c \colon x < c < y.
+  \]
+\end{definition}
+  
 L'ordinamento di $\RR$ è denso. Infatti se $x<y$ posto $y-x=\Enclose{A}_\sim$ 
 sappiamo che ogni maggiorante di $A$ è maggiore o uguale a $0$.
 Ma se ogni numero positivo fosse maggiorante di $A$ avremmo $A\sim\ENCLOSE 0$
 che non è possibile in quanto $x\neq y$. Dunque esiste $q>0$ 
 che non è maggiorante di $A$. 
-Ma allora $y-x \ge \Enclose{q}_\sim > \Enclose{q/2}_\sim = \eps > 0$
+Ma allora $y-x \ge \Enclose{\ENCLOSE q}_\sim > \Enclose{\ENCLOSE{\frac q 2}}_\sim = \eps > 0$
 da cui $x<x+\eps<y$.
+
+\begin{definition}[ordinamento continuo]
+  Un ordinamento $\le$ su un insieme $X$ si dice essere
+  \myemph[ordinamento!continuo]{continuo}
+  \index{continuità!ordinamento}%
+  \index{ordine!continuo}%
+  (o \emph{Dedekind-completo})
+  \index{Dedekind-completo}%
+  \index{completo!Dedekind}%
+  se dati comunque $A,B$ sottoinsiemi non vuoti di $X$
+    tali che per ogni $a\in A$ e per ogni $b\in B$ risulta $a\le b$
+    (concisamente scriveremo $A\le B$)
+    allora esiste $c\in X$ tale che per ogni $a\in A$ e ogni $b\in B$ 
+    si ha $a\le c \le b$ (concisamente $A\le c \le B$).
+\end{definition}
+  
+A parole la condizione $A\le B$ 
+si può esprimere dicendo che $A$ e $B$ sono separati, 
+mentre la condizione $A\le c \le B$ 
+si può esprimere dicendo che $c$ è un \emph{elemento di separazione}
+tra $A$ e $B$. 
+Allora la precedente definizione ci dice che un insieme ordinato
+è \emph{continuo} ogni coppia di sottoinsiemi separati 
+ammette un elemento di separazione.
+In molti testi questa condizione viene chiamata \emph{completezza}
+o, più precisamente, \emph{completezza di Dedekind}.
+\index{completezza!di Dedekind}%
+\index{Dedekind!completo}%
+
+\begin{theorem}  
+L'ordinamento di $\RR$ è continuo.
+\end{theorem}
+\begin{proof}
+Siano dati $\mathcal A$ e $\mathcal B$ sottoinsiemi non vuoti di $\RR$ 
+con $\mathcal A\le \mathcal B$. 
+Possiamo definire
+\[
+  C = \bigcup\ENCLOSE{A\in \mathcal R\colon \Enclose{A}_\sim \in \mathcal A} 
+    = \ENCLOSE{q\in \QQ\colon \exists A\in \mathcal R\colon 
+    (\Enclose{A}_\sim \in \mathcal A) \land (q\in A)}.
+\]
+Preso qualunque $a=\Enclose{A}_\sim \in \mathcal A$ risulta 
+ovviamente $A\subset C$. In particolare $C$ non è vuoto.
+Mentre se $b=\Enclose{B}_\sim \in \mathcal B$ 
+preso qualunque $q\in C$ si ha $q\in A$ per un qualche $A$ tale che 
+$\Enclose{A}_\sim = a\in \mathcal A$.
+Ma visto che $a\le b$, ogni maggiorante di $B$ è anche maggiorante di $A$.
+In particolare preso un qualunque $r$ maggiorante di $B$
+risulta che $r$ è un maggiorante di $C$.
+Allora $C\in \mathcal R$ e posto $c=\Enclose{C}_\sim$ 
+risulta che ogni maggiorante di $C$ è maggiorante di 
+ogni $A$ con $\Enclose{A}_\sim \in \mathcal A$ mentre 
+ogni maggiorante di un qualunque $B$ con $\Enclose{B}_\sim$ 
+è anche un maggiorante di $C$.
+Questo significa che $c\ge a$ per ogni $a\in A$ 
+e $b\ge c$ per ogni $b\in B$: la dimostrazione è conclusa.
+\end{proof}
 
 Ad ogni $q\in \QQ$ si può associare l'elemento $\Enclose{\ENCLOSE q}_\sim$ 
 di $\RR$. Ovviamente se $q\neq s$ in $\QQ$ allora $\ENCLOSE{q}$ 
@@ -2742,21 +2831,24 @@ Dunque $\RR\neq \QQ$, l'elemento $x=[A]_\sim$ di $\RR$ sarà
 proprio quello che chiameremo $\sqrt 2$ e vedremo che 
 risolverà l'equazione $x^2=2$. 
 
-
-
-
-
-
-
-\section{la retta dei numeri reali}
+\section{proprietà assiomatiche dei numeri reali}
 \label{sec:reali}
 
-L'insieme $\RR$ dei numeri reali è un modello della retta geometrica che,
-a sua volta, viene utilizzata per rappresentare tutte le quantità che si ottengono
-da misure fisiche.
-L'insieme $\RR$ ha le proprietà che ci aspettiamo debba avere un righello ideale.
-Presa una retta si inizia col segnare
-su di essa un punto di riferimento che chiamiamo $0$. Dopodiché osserviamo che
+Nel paragrafo precedente abbiamo dimostrato che esiste un insieme 
+$\RR$ su cui è definita una operazione di addizione
+e un ordinamento che rendono $\RR$ un gruppo totalmente ordinato,
+denso e continuo. Inoltre ovviamente $\RR$ ha più di un elemento.
+
+Come al solito d'ora in poi non guarderemo più come è stato definito $\RR$ 
+ma utilizzeremo solamente le proprietà appena esposte. 
+Potremmo anche pensare che $\RR$ debba esistere per assioma, 
+in tal caso la costruzione fatta nel capitolo precedente risulta inutile.
+
+In effetti si può ottenere $\RR$ a partire da una retta geometrica 
+con lo stesso procedimento con cui si costruisce un righello.
+Iniziamo col segnare
+sulla retta un punto di riferimento che chiamiamo $0$, 
+dopodiché osserviamo che
 il punto $0$ (come ogni altro punto) divide la retta in due parti. In modo arbitrario
 chiamiamo positivi i punti che si trovano da una parte e negativi i punti che
 si trovano dall'altra parte. Sulla semiretta dei numeri positivi scegliamo, arbitrariamente,
@@ -2770,434 +2862,15 @@ Assumendo che tra due punti qualunque esistano sempre punti intermedi (divisibil
 assumendo che suddividendo la retta in due parti esista sempre un punto di 
 suddivisione (continuità) mostreremo come si può suddividere 
 ogni segmento in $n$ parti uguali per ogni numero naturale $n$. 
-In tal modo potremo definire i numeri razionali e la moltiplicazione per un numero razionale.
+In tal modo potremo ritrovare i numeri razionali e la moltiplicazione per un numero razionale.
 Con una estensione continua riusciremo quindi a definire la moltiplicazione 
 tra numeri reali. 
 Osserveremo poi che la struttura moltiplicativa dei numeri reali positivi soddisfa 
 gli stessi assiomi della struttura additiva dei reali e che quindi la costruzione fatta 
 per costruire la moltiplicazione si può ripetere identica per costruire l'elevamento a potenza.
 
-\begin{definition}[ordinamento denso]
-  Un ordinamento $\le$ si dice essere
-  \myemph[ordinamento!denso]{denso} o \emph{divisibile} 
-  se esistono sempre punti intermedi:
-  se $x<y$ esiste $z$ tale che $x < z < y$.
-\end{definition}
-  
-\begin{definition}[ordinamento continuo]
-  Un ordinamento $\le$ su un insieme $X$ si dice essere
-  \myemph[ordinamento!continuo]{continuo}
-  \index{continuità!ordinamento}%
-  \index{ordine!continuo}%
-  (o \emph{Dedekind-completo})
-  \index{Dedekind-completo}%
-  \index{completo!Dedekind}%
-  se dati comunque $A,B$ sottoinsiemi non vuoti di $X$
-    tali che per ogni $a\in A$ e per ogni $b\in B$ risulta $a\le b$
-    (concisamente potremmo scrivere $A\le B$)
-    allora esiste $c\in X$ tale che per ogni $a\in A$ e ogni $b\in B$ 
-    si ha $a\le c \le b$ (concisamente $A\le c \le B$).
-\end{definition}
-  
-\begin{definition}[numeri reali]
-  \label{def:reali}%
-  \index{reali}%
-  \index{$\RR$}%
-  \index{numeri!reali}%
-  \index{retta!reale}%
-  Diremo che un insieme $\RR$ è un insieme di \myemph{numeri reali} 
-  se su $\RR$ sono definite una operazione di gruppo $+$ 
-  con elemento neutro $0\in \RR$, una relazione d'ordine $\le$ 
-  che rende $\RR$ un gruppo totalmente ordinato, denso, continuo
-  e se abbiamo fissato un punto $1\in \RR$ con $1>0$.
-\end{definition}
-
-L'inverso additivo di un elemento $x$ sarà chiamato 
-\myemph{opposto} e verrà denotato con $-x$, si avrà quindi $x + (-x) = 0$.
-Potremo quindi definire l'operazione di \myemph{sottrazione}:
-\[
-    x - y = x + (-y).
-\]
-Diremo che un numero $x\in \RR$ è \myemph{positivo} 
-\index{numero!positivo}%
-\index{numero!negativo}%
-\index{negativo}%
-se $x>0$ e \emph{negativo} se $x<0$.
-
-Se $x\le y$ sommando $-x$ da ambo i lati si ottiene 
-$0 \le y-x$ e sommando ancora $-y$ si ottiene 
-$-y \le -x$. Lo stesso vale con le disuguaglianze strette
-e con le disuguaglianze inverse.
-
-% Vogliamo ora convincerci che la retta geometrica deve avere, 
-% intuitivamente, tutte le proprietà enunciate nella 
-% definizione~\ref{def:reali}. 
-% Queste proprietà erano in effetti già state identificate 
-% da Euclide per fondare la geometria piana.
-% \index{Euclide}%
-% \marginnote{
-%   Euclide è vissuto intorno al 300 AC.
-% }
-
-L'operazione di addizione sui numeri reali può essere giustificata 
-utilizzando il concetto geometrico di traslazione:
-presi due punti su una retta c'è un unico movimento 
-rigido della retta in sé che manda il primo punto nel secondo.
-Nel seguente esercizio possiamo vedere come questa 
-idea è sufficiente a definire l'addizione.
-%
-\begin{exercise}[traslazioni su $\RR$]
-Supponiamo di avere un insieme $\RR$ su cui viene dato un insieme 
-di funzioni $T\subset \RR^\RR$ (le traslazioni) con le seguenti 
-proprietà:
-\begin{enumerate}
-  \item \emph{identità}: la funzione $t(x)=x$ è in $T$;
-  \item \emph{transitività}: dati $x,y\in \RR$ esiste una unica $t\in T$ tale che $t(x)=y$;
-  \item \emph{chiusura di gruppo}: se $t_1,t_2\in T$ allora $t_1\circ t_2 \in T$.
-\end{enumerate}
-Allora fissato un punto $0\in \RR$ possiamo definire l'operazione $+$ 
-nel modo seguente:
-\[
-    y + x = t_{0,x}(y) \qquad\text{dove $t_{0,x}$ è l'unica traslazione 
-    che manda $0$ in $x$}.
-\]  
-Dimostrare che $\RR$ è un gruppo rispetto a tale operazione.
-\end{exercise}
-%
-\begin{proof}[Svolgimento]
-Chiamiamo $t_{x,y}$ l'unica traslazione che manda $x$ in $y$.
-Osserviamo che la composizione $t_{y,z}\circ t_{x,y}$ è una traslazione 
-che manda $x$ in $z$ (passando da $y$) e quindi, per unicità, si ha 
-\[
-  t_{y,z}\circ t_{x,y} = t_{x,z}.
-\]
-In particolare per ogni $x\in \RR$ si ha che $t_{x,x}$ è l'identità
-(c'è una sola traslazione che manda $x$ in $x$) e dunque $t_{y,x}$ 
-è la funzione inversa di $t_{y,x}$. Risulta quindi che 
-l'operazione di composizione $\circ$ induce una struttura di gruppo 
-su $T$ che ci permetterà di mostrare che anche $\RR$ con l'addizione
-$+$ è un gruppo.
-
-Per verificare la proprietà associativa 
-osserviamo che
-\begin{equation}\label{eq:56095}
-  \begin{aligned}
-x + (y + z) &= t_{0,y+z}(x)=t_{0,t_{0,z}(y)}(x)  \\
-(x + y) + z &= t_{0,z}(t_{0,y}(x)) = t_{0,z}\circ t_{0,y}(x).
-  \end{aligned}
-\end{equation}
-La traslazione $t_{0,t_{0,z}(y)}$ manda $0$ in $t_{0,z}(y)$
-e lo stesso fa la composizione $t_{0,z}\circ t_{0,y}$:
-dunque i due lati destri in~\eqref{eq:56095} coincidono.
-
-L'elemento neutro è $0$ infatti $x + 0 = t_{0,0}(x) = x$.
-Viceversa $0 + x = t_{0,x}(0) = x$ per definizione.
-
-Definiamo l'opposto $-x$ come $-x=t_{x,0}(0)$.
-Osserviamo che $t_{0,-x}(0) = -x = t_{x,0}(0)$ quindi 
-$t_{0,-x} = t_{x,0}$. Dunque abbiamo 
-\[
- x + (-x) = t_{0,-x}(x) = t_{x,0}(x) = 0  
-\]
-e viceversa 
-\[
-  (-x) + x = t_{0,x}(-x) = t_{0,x}\circ t_{x,0}(0) 
-   = t_{0,0}(0) = 0.  
-\]
-\end{proof}
-
-% La proprietà di ordinamento è molto naturale: ogni punto della retta 
-% geometrica divide la retta in due parti. 
-% In particolare il punto $0\in \RR$ suddivide i punti rimanenti in due 
-% insiemi: $P$ e $N$. Decidiamo (arbitrariamente) che uno dei due 
-% insiemi, $P$ rappresenta i numeri positivi mentre $N$ sarà 
-% l'insieme dei numeri negativi. 
-% Allora potremo definire la relazione d'ordine stretto 
-% ponendo $x\le y$ se la traslazione che manda $x$ in $y$ manda 
-% $0$ in un numero non negativo. 
-
-\subsection{i naturali come sottoinsieme dei reali}
-
-Vediamo adesso come identificare, all'interno dei numeri reali $\RR$,
-un insieme di numeri naturali $\NN \subset \RR$.
-
-\begin{definition}[insieme induttivo]%
-  \label{def:induttivo}%
-  \mymargin{$\NN\subset \RR$}%
-  \index{naturali}%
-  Un sottoinsieme $A\subset \RR$ si dice essere \emph{induttivo}
-  se valgono le due proprietà:
-  \begin{gather*}
-    0 \in A, \\
-    \forall n\colon (n\in A \implies n+1 \in A).
-  \end{gather*}
-\end{definition}
-
-La famiglia di tutti i sottoinsiemi induttivi di $\RR$ non è vuota
-in quanto $\RR$ stesso è induttivo. 
-Possiamo quindi definire $\NN$ come l'intersezione
-di tutti i sottoinsiemi induttivi di $\RR$:
-\[
-    \NN 
-    = \bigcap_{A\text{ induttivo}} \!\!\!\!A 
-    = \bigcap\ENCLOSE{A\subset \mathcal P(\RR)\colon A \text{ induttivo}}.
-\]
-Ovviamente $\NN$ è a sua volta induttivo (lo si verifichi) 
-e quindi è il ``più piccolo'' sottoinsieme induttivo di $\RR$.
-Definendo $\sigma\colon \NN\to \NN$ come $\sigma(x) = x+1$ 
-\marginnote{Ricordiamo che stiamo supponendo di avere già l'insieme 
-$\RR$ dei numeri reali e quindi l'addizione che stiamo considerando qui 
-è quella di $\RR$.
-L'addizione su $\NN$ risulta a posteriori coincidere con la restrizione 
-su $\NN$ dell'addizione su $\RR$.}
-si ottiene 
-immediatamente che $\NN$ soddisfa gli assiomi di Peano (definizione~\ref{def:naturali})
-\begin{enumerate}
-    \item $\sigma$ è iniettiva perché $x+1 = y+1$ implica, sommando $-1$ ad ambo i lati,
-    $x=y$;
-    \item se $x\ge 0$ allora $x+1 \ge 1 \neq 0$; per induzione 
-    possiamo inoltre affermare che per ogni $x\in \NN$ si ha $x\ge 0$ e $x+1>0$;
-    \item se $A \subset \NN$ è induttivo allora $A \supset \NN$ perché 
-    $\NN$ è, per definizione, il più piccolo sottoinsieme induttivo di $\RR$.
-\end{enumerate}
-% 
-% Utilizzando il principio di induzione si possono dimostare le seguenti 
-% ben note proprietà dei numeri naturali.
-% \begin{theorem}[proprietà dei numeri naturali]
-%   Se $n,m\in \NN$ si ha:
-%   \begin{enumerate}
-%     \item $n\ge 0$;
-%     \item $n+m\in \NN$;
-%     \item $n+m = m+n$;
-%     \item se $n\ge m$ allora $n-m\in \NN$;
-%     \item se $n>m$ allora $n\ge m+1$.
-%   \end{enumerate}
-% \end{theorem}
-% \begin{proof}
-% Per il primo punto: ovviamente $0\ge 0$. D'altra parte 
-% se $n\ge 0$ allora $n+1>n+0 \ge 0$. 
-% Dunque per induzione $n\ge 0$ per ogni $n\in \NN$.
-% 
-% Per il secondo punto consideriamo il predicato 
-% \[
-% P(n)\colon \forall m\in \NN\colon m+n\in \NN.  
-% \]
-% Chiaramente $P(0)$ è vero in quanto $m+0 = m\in \NN$ se $m\in \NN$.
-% Ma se $P(n)$ è verificata allora $m+n\in \NN$ e visto che $\NN$ 
-% è induttivo anche $m+(n+1) = (m+n)+1\in \NN$. 
-% Dunque vale $P(n+1)$ e dunque per ogni $n$ vale $P(n)$.
-% 
-% Per dimostrare la proprietà commutativa possiamo innanzitutto dimostrare 
-% per induzione che $n+1=1+n$ per ogni $n\in \NN$ (lo si faccia per esercizio).
-% Dopodiché si considera la proposizione 
-% \[
-%  P(n)\colon \forall m\in \NN\colon n+m = m+n.  
-% \]
-% $P(0)$ è vera per le proprietà dell'elemento neutro 
-% e se $P(n)$ è vera allora 
-% $n+1+m = 1+n+m = 1 + m + n = m + 1 + n = m + n +1$
-% e quindi anche $P(n+1)$ è vera. Il risultato segue per induzione.
-% 
-% Per il quarto punto si verifica innanzitutto che se $n\ge 1$ allora 
-% $n-1\in \NN$ 
-% (lo si dimostra per induzione osservando che $(n+1)-1=n\in\NN$).
-% Dopodiché si considera il predicato
-% \[
-% P(n): \forall m\in \NN \colon m\ge n \implies m-n\in \NN.  
-% \]
-% E' facile verificare che $P(0)$ è vero.
-% Supponiamo allora che $P(n)$ sia vero e consideriamo 
-% $P(n+1)\colon m\ge n+1 \implies m-(n+1)\in \NN$.
-% Se $m\ge n+1$ allora certamente $m-1\ge n$ e $m\neq 0$.
-% Abbiamo già dimostrato che $m-1\in\NN$
-% e quindi, applicando $P(n)$, possiamo dedurre che $m-1-n\in \NN$.
-% Ma $m-1-n = m-(n+1)$ e quindi abbiamo verificato $P(n+1)$.
-% 
-% L'ultima affermazione è equivalente a dire che se $m\in \NN$ 
-% non ci sono numeri naturali strettamente compresi tra $m$ e $m+1$.
-% Sottraendo $m$ ci si riconduce a osservare che non ci sono naturali 
-% tra $0$ e $1$.
-% Ma se $0<x<1$ allora $x-1<0$ non può essere un naturale ed essendo 
-% diverso da $0$ deduciamo che $x\not \in \NN$.
-% \end{proof}
-
-
-%% gia fatta prima
-%
-% \begin{theorem}[definizione per induzione]
-% \label{th:induzione}%
-% Sia $X$ un insieme, sia $\alpha\in X$ e sia $g\colon X\to X$ una funzione.
-% Allora esiste una unica funzione $f\colon \NN \to X$ tale che
-% \begin{equation}\label{eq:4835628}
-%   \begin{cases}
-%     f(0) = \alpha, \\
-%     f(n+1) = g(f(n)).
-%   \end{cases}
-% \end{equation}
-% Si avrà dunque
-% \[
-%   f(0) = \alpha,\quad
-%   f(1) = g(\alpha),\quad
-%   f(2) = g(g(\alpha)),\quad
-%   f(3) = g(g(g(\alpha)))\dots
-% \]
-% Più in generale se abbiamo $\alpha\in X$ e una funzione $g\colon \NN \times X \to X$
-% esisterà una unica funzione $f\colon \NN \to X$ tale che
-% %
-% \begin{equation}
-%   \begin{cases}
-%     f(0) = \alpha, \\
-%     f(n+1) = g(n, f(n)).
-%   \end{cases}
-% \end{equation}
-% \end{theorem}
-% %
-% \begin{proof}
-% Sia $J_N=\ENCLOSE{n\in \NN \colon n\le N}$ l'insieme dei primi $N+1$ numeri naturali.
-% Per induzione possiamo dimostrare che per ogni $N\in \NN$ esiste una unica
-% $f_N\colon J_N\to X$ che soddisfa~\eqref{eq:4835628} per ogni $n<N-1$.
-% Infatti per $N=0$ basta definire $f_N(0) = \alpha$. 
-% Se $f_N$ è stata definita allora $f_{N+1}$ si può definire 
-% estendendo $f_N$:
-% \[
-% f_{N+1}(n) = 
-% \begin{cases}
-%   g(f_N(N)) & \text{se $n=N+1$}\\
-%   f_N(n) & \text{se $n\le N$}.  
-% \end{cases}
-% \]
-% In effetti questa è l'unica definizione possibile perché per $n\in J_N$ 
-% la funzione 
-% $f_N$ era l'unica possibile e il valore in $N+1$ è l'unico 
-% che soddisfa le condizioni in~\eqref{eq:4835628}.
-% A questo punto possiamo definire $f\colon \NN\to X$ 
-% tale che $f(n) = f_n(n)$
-% (procedimento diagonale).
-% Si osserva che $f$ ristretta ad ogni $J_N$ coincide con $f_N$
-% e quindi ha le proprietà richieste. Inoltre tale funzione è l'unica con le 
-% proprietà richieste in quanto su ogni $J_N$ è necessario che coincida con $f_N$
-% che a sua volta era unica.
-% 
-% Nel caso in cui abbiamo una funzione $g\colon \NN\times X \to X$
-% possiamo ricondurci al primo caso prendendo la funzione 
-% $G\colon \NN\times X \to \NN\times X$ definita da 
-% \[
-%   G(n,x) = (n+1,g(n,x)).
-% \]
-% Applicando il caso precedente possiamo trovare una funzione $F\colon \NN\to \NN\times X$
-% che soddisfa le proprietà:
-% \[
-%  \begin{cases}
-%   F(0) = (0,\alpha)\\
-%   F(n+1) = G(F(n)).  
-%  \end{cases}
-% \]
-% Ponendo $f(n)$ uguale alla seconda componente di $F(n)$ si ottiene il risultato richiesto.
-% \end{proof}
-
-\subsection{prodotto di numeri naturali}
-
-Dato $x\in \RR$ consideriamo la traslazione $t_x\colon y\mapsto y+x$. 
-Per ogni $n\in \NN$ possiamo allora definire il \myemph{prodotto}
-$nx$ come una somma iterata:
-\[
-  nx = t_x^n(0) = 0 + \overbrace{x + x + \dots +x}^{\text{$n$ addendi}}
-\]
-cosicché si avrà: $0x=0$, $1x = x$, $2x=x+x$, $3x=x+x+x$, \dots
-Visto che $t^{n+m}=t^n \circ t^m$ si ottiene immediatamente che 
-$(n+m)x = nx + mx$ e di conseguenza $n(-x) = -(n x)$. 
-Per induzione è facile verificare che $n(x+y) = nx + ny$.
-Considerando $\NN\subset \RR$ abbiamo definito anche la moltiplicazione 
-su $\NN$ e possiamo mostrare che vale la proprietà associativa:
-\[
-  n(mx) = (nm)x 
-\]
-in quanto in generale vale il seguente. 
-\begin{lemma}[iterata dell'iterata]
-  Sia $f\colon X\to X$ una qualunque funzione. Allora se $n,m\in\NN$ si ha
-  \[
-    (f^n)^m = f^{mn}.
-  \]
-\end{lemma}
-\begin{proof}
-  Lo si dimostra per induzione su $m$. 
-  Per $m=0$ ambo i lati mi danno la funzione identità e quindi sono uguali.
-  Supponendo che per un certo $m$ si abbia $(f^n)^m = f^{mn}$ si ha
-  (usando la definizione di iterata e il teorema~\ref{th:iterata_composta})
-  \[
-    (f^n)^{m+1} = f^n \circ (f^n)^m 
-    = f^n \circ f^{mn} = f^{n+mn} = f^{(m+1)n}.  
-  \]
-\end{proof}
-
-Per quanto riguarda l'ordinamento se 
-$0 \le x \le y$ e $n \le m$ si dimostra che:
-\[
-  n x \le m y
-\]
-(e se $x<y$ oppure $n<m$ la disuguaglianza è stretta).
-In particolare $n x = 0$ se e solo se $n=0$ oppure $x=0$.
-
-Per rappresentare in modo efficiente qualunque numero naturale utilizziamo la 
-\myemph{notazione posizionale decimale}.
-Ricordiamo che le cifre decimali $0,1,2,\dots, 9$ sono state definite in~\eqref{eq:cifre}.
-Il numero rappresentato da una sequenza finita di cifre decimali può essere 
-definito ricorsivamente: una sequenza di una sola cifra rappresenta il numero 
-corrispondente alla cifra stessa, una sequenza di $n+1$ cifre rappresenta il 
-numero rappresentato dalle prime $n$ cifre, moltiplicato per $9+1$ (cioè dieci),
-e sommato alla ultima cifra. 
-Ad esempio la sequenza di cifre $4701$ (leggi: quattromilasettecentouno)
-è definita così:
-\[ 
-  4701 = ((4\cdot(9+1)+7)\cdot(9+1)+0)\cdot(9+1)+1.
-\]
-Osservando che $10 = 9+1$ si scriverà
-\[
-  4701 = ((4\cdot 10 + 7)\cdot 10 +0)\cdot 10 + 1.  
-\]
-
 \subsection{numeri interi}
 
-Se $m,n\in \NN \subset \RR$ con $m < n$ si ha $m - n = -(n-m)$ che è l'opposto di un numero naturale.
-Dunque la costruzione di $\ZZ$ fatta nel capitolo~\ref{sec:interi}
-L'insieme dei naturali e dei loro opposti si chiama insieme dei 
-\myemph{numeri interi} e si denota con $\ZZ$:
-\index{$\ZZ$}%
-\marginnote{%
-$\ZZ$ da \emph{zahlen} che significa ``numeri'' in tedesco.
-} %
-\[
-  \ZZ = \NN - \NN = \NN \cup (-\NN).  
-\]
-Possiamo facilmente estendere la moltiplicazione dai naturali agli interi 
-con la seguente regola:
-\[
-  (-n)\cdot m = -(n\cdot m).
-\]
-Se $m,n$ sono numeri interi anche $m+n$, $m-n$ e $m\cdot n$ sono numeri interi.
-I numeri interi sono dunque un gruppo additivo e totalmente ordinato.
-Si potrebbe anche verificare che $\ZZ$ è continuo
-ma, a differenza di $\RR$, non soddisfa la proprietà di densità:
-se $n$ è intero, tra $n$ e $n+1$ non ci sono altri numeri interi.
-
-
-Iterando la moltiplicazione si ottiene 
-l'\myemph{elevamento a potenza};
-fissato $m\in \NN$ definiamo, per ogni $n\in \NN$ la potenza $m^n$ 
-ricorsivamente come segue:
-\[
-  \begin{cases}
-    m^0 = 1 \\
-    m^{n+1} = m \cdot m^n.
-  \end{cases}
-\]
-Si avrà quindi: $m^0=1$, $m^1=m$, $m^2=m\cdot m$, $m^3=m\cdot m\cdot m$, \dots
-
-Possiamo utilizzare le potenze di $10$ per rappresentare in maniera alternativa 
-le sequenze decimali:
-\[
-  4701 = 4\cdot 10^3 + 7\cdot 10^2+0\cdot 10 + 1.
-\]
 
 Definiamo il 
 \myemph{fattoriale} 
