@@ -3605,7 +3605,7 @@ risolverà l'equazione $x^2=2$.
 
 Nel paragrafo precedente abbiamo dimostrato che esiste un insieme 
 $\RR$ su cui è definita una operazione di addizione
-e un ordinamento che rendono $\RR$ un gruppo commutativo, totalmente ordinato,
+e un ordinamento che rendono $\RR$ un gruppo totalmente ordinato,
 denso e continuo. 
 
 Come al solito d'ora in poi non guarderemo più come è stato definito $\RR$ 
@@ -3819,7 +3819,7 @@ non useremo queste notazioni.
 \subsection{isomorfismi di gruppi ordinati}
 
 \begin{theorem}[divisibilità]
-Se $R$ è un gruppo commutativo, totalmente ordinato, denso e continuo
+Se $R$ è un gruppo totalmente ordinato, denso e continuo
 con operazione $+$ ed elemento neutro $0$
 allora per ogni $y\in R$, $y\neq 0$ e per ogni $n\in \NN$, $n\neq 0$ 
 esiste un unico $x\in R$ tale che $n\cdot x = y$.
@@ -3828,13 +3828,14 @@ esiste un unico $x\in R$ tale che $n\cdot x = y$.
 Vogliamo innanzitutto dimostrare che 
 \begin{equation}\label{eq:41095633}
   \text{per ogni $y>0$ esiste 
-  $s>0$ tale che $x+x\le y$}. 
+  $x>0$ tale che $x+x\le y$}. 
 \end{equation}
 Per la proprietà di densità sappiamo che esiste $z$ tale che 
 $0<z<y$. 
-Se $z+z\le y$ allora basta prendere $x=z$.
-Altrimenti se $z+z>y$ prendiamo $x=y-z$ cosicché si ha comunque
-$x+x = y+y-(z+z) \ge y+y-y = y$.
+Prendiamo $w=y-z$. Se $w\le z$ allora $w+w\le w+z=y$ e possiamo prendere $x=w$.
+Altrimenti $z+z < w+z = y$ e possiamo prendere $x=z$.
+%% Attenzione: la dimostrazione è delicata se il gruppo non è commutativo: bisogna 
+%% fare attenzione all'ordine degli addendi! 
 
 Ora dobbiamo dimostrare che per ogni $y\in R$ e per ogni $n\in \NN$, $n\neq 0$
 esiste $x\in R$ tale che $n\cdot x=y$.
@@ -3923,34 +3924,33 @@ solo possibile quando $z=x$. Scriveremo $x=\frac{x}{n}$.
   In effetti con le nostre definizioni una funzione crescente può essere costante
   e quindi non crescere affatto!
 
-\begin{theorem}[isofomorfismi di gruppi ordinati]
-\label{th:isomorfismo}%
-Siano $R$ ed $S$ due gruppi
-con elementi neutri $e_R$ ed $e_S$ e denotiamo con $*$ (asterisco) l'operazione di gruppo su $R$ 
-e con $\circ$ (circoletto) l'operazione di gruppo su $S$.
-Diremo che una funzione $\phi\colon R\to S$ è un \myemph{omomorfismo}
-se mantiene l'operazione di gruppo, ovvero se per ogni $x,y\in R$ 
-si ha $\phi(x*y) = \phi(x)\circ \phi(y)$.
+\begin{definition}[omomorfismo]  
+Siano $R$ ed $S$ due gruppi con operazione $*$ su $R$ e operazione $\circ$ su $S$.
+Diremo che una funzione $f\colon R\to S$ è un \myemph{omomorfismo} se per ogni $x,y \in R$
+\[
+  f(x*y) = f(x)\circ f(y).
+\]
+\end{definition}
 
-Supponiamo che $R$ e $S$ siano gruppi commutativi, totalmente ordinati, densi e continui.
-Allora fissato $u\in R$ con $u > e_R$ e fissato qualunque $m \in S$, 
-esiste un unico omomorfismo monotòno (definizione~\ref{def:monotonia})
-$\phi\colon R \to S$ tale che $\phi(u)=m$.
+\begin{lemma}
+Se $R$ è un gruppo totalmente ordinato, denso e completo e $\QQ$ è il gruppo dei numeri razionali con l'operazione 
+di addizione esiste un unico omomorfismo $f\colon \QQ \to R$.
 
-Inoltre tale funzione verifica anche le seguenti proprietà:
-\begin{enumerate}
-  \item $\phi(e_R) = e_S$;
-  \item se $m>e_S$ allora $\phi$ è strettamente crescente;
-  \item se $m<e_S$ allora $\phi$ è strettamente decrescente;
-  \item se $m\neq 0$ allora $\phi$ è bigettiva.
-\end{enumerate}
-\end{theorem}
+Se l'operazione su $R$ viene denotata con il simbolo di addizione $+$ 
+l'omomorfismo $f$ può essere naturalmente denotato con il simbolo di moltiplicazione:
+\[
+   f(q) = q\cdot u
+\]
+cosicché la proprietà di omomorfismo è semplicemente la proprietà distributiva $(q+s)\cdot u = q\cdot u + s\cdot u$.
 
+Denotiamo con $\QQ\cdot u$ l'immagine di $f$ ovvero
+\[
+  \QQ \cdot u = \ENCLOSE{q\cdot y \colon q\in \QQ}.
+\] 
+\end{lemma}
+%
 \begin{proof}
-Per rendere la notazione più semplice
-i punti $e_R$ ed $e_S$ li chiameremo entrambi $0$,
-e le operazioni $*$ e $\circ$ le chiameremo entrambe $+$.
-
+Usiamo il simbolo $+$ per denotare l'operazione del gruppo $R$.
 \emph{Passo 1: definizione sugli interi.}
 Per ogni $x\in R$ o $x\in S$ possiamo definire la moltiplicazione 
 $n\cdot x$ con $n\in \NN$ come somma ripetuta:
@@ -4061,6 +4061,36 @@ infatti dovrà essere:
 \]
 Non è difficile verificare che effettivamente questa definizione garantisce la 
 proprietà di omomorfismo.
+\end{proof}
+
+\begin{theorem}[isofomorfismi di gruppi ordinati]
+\label{th:isomorfismo}%
+Siano $R$ ed $S$ due gruppi
+con elementi neutri $e_R$ ed $e_S$ e denotiamo con $*$ (asterisco) l'operazione di gruppo su $R$ 
+e con $\circ$ (circoletto) l'operazione di gruppo su $S$.
+Diremo che una funzione $\phi\colon R\to S$ è un \myemph{omomorfismo}
+se mantiene l'operazione di gruppo, ovvero se per ogni $x,y\in R$ 
+si ha $\phi(x*y) = \phi(x)\circ \phi(y)$.
+
+Supponiamo che $R$ e $S$ siano gruppi totalmente ordinati, densi e continui.
+Allora fissato $u\in R$ con $u > e_R$ e fissato qualunque $m \in S$, 
+esiste un unico omomorfismo monotòno (definizione~\ref{def:monotonia})
+$\phi\colon R \to S$ tale che $\phi(u)=m$.
+
+Inoltre tale funzione verifica anche le seguenti proprietà:
+\begin{enumerate}
+  \item $\phi(e_R) = e_S$;
+  \item se $m>e_S$ allora $\phi$ è strettamente crescente;
+  \item se $m<e_S$ allora $\phi$ è strettamente decrescente;
+  \item se $m\neq 0$ allora $\phi$ è bigettiva.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Per rendere la notazione più semplice
+i punti $e_R$ ed $e_S$ li chiameremo entrambi $0$,
+e le operazioni $*$ e $\circ$ le chiameremo entrambe $+$.
+
 
 Rimane ora da definire $\phi(x)$ per $x\in R \setminus (\QQ\cdot u)$.
 E qui l'unicità sarà garantita dalla monotonia. 
@@ -4100,7 +4130,7 @@ Dunque se $m\neq 0$ risulta che $\phi$ è strettamente monotòna e quindi
 iniettiva.
 Vogliamo mostrare che è anche surgettiva. 
 Posto $T=\phi(R)$ osserviamo che $T\subset S$ dev'essere anch'esso 
-un gruppo commutativo, totalmente ordinato, denso e continuo come tutto $S$
+un gruppo totalmente ordinato, denso e continuo come tutto $S$
 e con la stessa operazione e lo stesso ordinamento di $S$.
 E $\phi^{-1}\colon T\to R$ è un isomorfismo crescente che manda $m$ in $u$.
 Ma invertendo i ruoli di $R$ ed $S$ sappiamo anche esistere un omomorfismo 
@@ -4116,33 +4146,36 @@ lo identificano univocamente a meno di isomorfismi.
 
 \begin{corollary}[unicità di $\RR$]%
   \label{th:unicitaR}%
-  Sia $S$ un gruppo commutativo, totalmente ordinato, denso e continuo (come $\RR$)
+  Sia $S$ un gruppo totalmente ordinato, denso e continuo (come $\RR$)
   e scegliamo $u\in S$, $u>0$ come unità.
   Allora $S$ è isomorfo ad $\RR$ nel senso che esiste una funzione (unica)
   $f\colon \RR\to S$ bigettiva, additiva, crescente con $f(1)=u$.
 \end{corollary}
 
-% Possiamo inoltre finalmente dimostrare che l'addizione è commutativa.
-% \begin{theorem}
-%   Se $x,y\in \RR$ si ha $x+y=y+x$.
-% \end{theorem}
-% %
-% \begin{proof}
-% Se consideriamo il gruppo additivo $\RR$ ma definiamo 
-% l'addizione con gli addendi scambiati, il teorema~\ref{th:isomorfismo}
-% ci garantisce l'esistenza di 
-% una funzione $f\colon \RR\to \RR$ crescente, con $f(1)=1$, tale che 
-% \begin{equation}\label{eq:49613244}
-%   f(x+y) = f(y)+f(x).
-% \end{equation}
-% Inoltre $f$ è l'unica funzione crescente tale che 
-% per ogni $x\in \QQ$ soddisfa $f(x)=x$. 
-% Visto che la funzione identica ha queste proprietà 
-% $f$ dovrà in effetti essere la funzione identica $f(x)=x$ 
-% per ogni $x\in \RR$ 
-% e l'equazione~\eqref{eq:49613244} si riduce a $x+y=y+x$.
-% \end{proof}
+Nella definizione assiomatica di $\RR$ non abbiamo mai assunto che l'addizione fosse 
+commutativa perché in effetti possiamo dimostrare che deve esserlo, come si vede nel seguente.
+\begin{theorem}
+Ogni gruppo totalmente ordinato, denso e continuo 
+è commutativo.
+\end{theorem}
 %
+\begin{proof}
+Se consideriamo il gruppo additivo $R$ ma definiamo 
+l'addizione con gli addendi scambiati, 
+fissato $u>0$ in $R$
+per il teorema~\ref{th:isomorfismo}
+deve esistere una funzione $f\colon R\to R$ crescente, con $f(1)=1$, tale che 
+\begin{equation}\label{eq:49613244}
+  f(x+y) = f(y)+f(x).
+\end{equation}
+Inoltre $f$ è l'unica funzione crescente tale che 
+per ogni $x\in \QQ\cdot u$ soddisfa $f(x)=x$. 
+Visto che la funzione identica ha queste proprietà 
+$f$ dovrà in effetti essere la funzione identica $f(x)=x$ 
+per ogni $x\in \RR$ 
+e l'equazione~\eqref{eq:49613244} si riduce a $x+y=y+x$.
+\end{proof}
+
 Possiamo inoltre definire su $\RR$ l'operazione di moltiplicazione.
 %
 \begin{theorem}[moltiplicazione]
