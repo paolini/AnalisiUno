@@ -123,7 +123,7 @@ cat <<EOF >> ${out}
   <li><a href="https://github.com/paolini/AnalisiUno">codice sorgente</a></li>
   <li><a href="https://github.com/paolini/AnalisiUno/releases/latest">ultimo rilascio
   (da qui puoi scaricare il file PDF)</a></li>
-  <li><a href="https://www.amazon.it/dp/1718794134/">ordina una copia cartacea</a></li>
+  <li><a href="https://www.amazon.it/dp/B09KNCWQTJ">ordina una copia cartacea</a></li>
 </ul>
 <h2>riferimenti presenti nel testo</h2>
 <ul>
