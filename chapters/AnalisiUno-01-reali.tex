@@ -852,6 +852,13 @@ per intendere che ogni elemento di $A$ è minore o uguale ad ogni elemento di $B
 oppure $A+B$ per intendere l'insieme di tutti i numeri che si ottengono sommando
 un numero di $A$ ad un numero di $B$.
 
+Se $f\colon A\to B$ è una funzione qualunque e $C\subset A$ allora 
+definiamo la \myemph{restrizione} di $f$ all'insieme $C$ 
+come la funzione $f\llcorner C\colon C\to B$ definita {su $C$ e che 
+coincide con $f$: per ogni $x\in C$ si ha 
+$f\llcorner C(x)=f(x)$.
+In alcuni testi tale funzione si denota con $f_{|C}$ invece che $f\llcorner C$.
+
 \begin{exercise}
 Si verifichi che la composizione di funzioni iniettive è iniettiva e la composizione 
 di funzione suriettive è suriettiva 
@@ -5422,6 +5429,453 @@ algoritmi di approssimazione.
 Questi strumenti presuppongono il concetto 
 di limite e continuità: è sostanzialmente questo che identifica 
 la materia chiamata analisi matematica.
+
+\section{lo spazio vettoriale $\RR^n$}
+\label{sec:Rn}
+
+Se $n\in \NN$ denotiamo con $\RR^n$ l'insieme delle $n$-uple di numeri reali
+$\vec x\in \RR^n$
+\[
+\vec x = (x_1, \dots, x_n).
+\]
+Gli elementi di $\RR^n$ vengono anche chiamati \emph{vettori}
+in contrapposizione agli elementi di $\RR$ che sono chiamati 
+\emph{scalari}.
+Su $\RR^n$ possiamo definire l'addizione, tra vettori e 
+la moltiplicazione per scalare:
+\[
+  \vec x + \vec y = (x_1+y_1, \dots, x_n + y_n), \qquad 
+  t\vec x = (t x_1, \dots, t x_n ).   
+\]
+Con queste operazioni $\RR^n$ risulta essere uno spazio
+vettoriale sul campo $\RR$, ovvero uno 
+spazio vettoriale reale, come specificato nella seguente.
+%
+\begin{definition} Un insieme $V$ si dice essere uno spazio 
+  vettoriale sul campo $\KK$ se su $V$ è definita una operazione 
+  di addizione $+$ che lo rende un gruppo commutativo con
+  elemento neutro $\vec 0\in V$ ed è
+  definita una operazione di moltiplicazione tra gli elementi di $\KK$ 
+  e gli elementi di $V$: $\KK \to (V\to V)$
+  che denotiamo con $tv$ per $t\in \KK$ e $v \in V$ che soddisfa 
+  le seguenti proprietà:
+  \begin{enumerate}
+    \item (associativa) $(t\cdots) v = t(sv)$
+    ($t\cdot s$ è il prodotto sul campo $\KK$);
+    \item (elemento neutro) $1v = v$ (dove $1$ è l'elemento neutro della moltiplicazione 
+    nel campo $\KK$);
+    \item (distributiva) $t(v+w) = tv + tw$
+    e $(t+s)v=tv+sv$
+    ($v+w$ e $tv+sv$ sono l'addizione su $V$ mentre $t+s$ è l'addizione sul 
+    campo $\KK$).
+  \end{enumerate}
+\end{definition}
+
+Dati $\vec x,\vec y \in \RR^n$ definiamo il \myemph{prodotto scalare} 
+canonico di $\RR^n$
+\index{prodotto scalare!di $\RR^n$}%
+\[
+  \langle\vec x, \vec y\rangle 
+  = \sum_{k=1}^{n} x_k\cdot y_k 
+  = x_1\cdot y_1 + \dots + x_n\cdot y_n. 
+\]
+Nel corso di geometria viene mostrato come 
+qualunque forma bilineare, simmetrica e definita positiva su uno spazio vettoriale 
+reale di dimensione finita, può essere rappresentata, 
+tramite coordinate in una base ortonormale, 
+con il prodotto scalare canonico di $\RR^n$. 
+Dunque si potrebbe pensare che il nostro spazio $\RR^n$ è la rappresentazione 
+in coordinate di un generico spazio euclideo (cioè dotato di prodotto scalare 
+definito positivo) di dimensione finita.
+
+\begin{definition}[prodotto scalare]
+  \label{def:prodotto_scalare}
+  Sia $V$ uno spazio vettoriale sul campo $\RR$.
+  Una funzione $b\colon V\times V \to \RR$ si dice
+  essere un \myemph{prodotto scalare definito positivo} su $V$ se
+  $b$ è una forma bilineare, simmetrica e definita
+  positiva, ovvero se
+  per ogni $u,v,w\in V$ e per ogni $\lambda, \mu \in \RR$
+  valgono le seguenti proprietà:
+  \begin{enumerate}
+  \item $b(v,v) \ge 0$ (positività);
+  \item $b(\lambda u + \mu v, w) = \lambda b(u,w) + \mu b(v,w)$
+  e $b(u,\lambda v+ \mu w) = \lambda b(u,v) + \mu b(u,w)$
+  (bilinearità);
+  \item $b(v,w) = b(w,v)$ (simmetria);
+  \item $b(v,v) = 0$ se e solo se $v=0$ (non degenerazione).
+  \end{enumerate}
+
+  Uno spazio vettoriale dotato di prodotto scalare definito positivo 
+  può essere chiamato \myemph{spazio vettoriale euclideo}.
+\end{definition}
+  
+Usualmente si utilizzano le notazioni $v\cdot w$, $(v,w)$, $\langle v,w\rangle$
+o $\langle v \vert w\rangle$ per denotare il prodotto scalare $b(v,w)$.
+  
+Dato $\vec x \in \RR^n$ definiamo il \myemph{modulo} o \emph{norma euclidea}
+del  vettore $\vec x$ la quantità:
+\index{norma!euclidea di $\RR^n$}%
+\begin{equation}\label{eq:norma_euclidea}
+ \abs{\vec x} 
+  = \sqrt{\langle \vec x,\vec x\rangle}
+  = \sqrt{x_0^2 + \dots + x_{n-1}^2}.
+\end{equation}
+
+Per $n=2$ e $n=3$ possiamo immaginare 
+che le coordinate di $\vec x\in \RR^n$ rappresentino le coordinate di un punto 
+nel piano o nello spazio euclideo su cui è stato fissato un sistema di riferimento 
+ortonormale. 
+In tal caso possiamo interpretare la norma di $\vec x$, grazie al teorema di Pitagora,
+come la \emph{lunghezza} del vettore $\vec x$ ovvero la distanza di $\vec x$ 
+dall'origine $\vec 0$.
+Così $\abs{\vec y - \vec x}$ non è altro che la distanza euclidea tra i punti 
+$\vec x$ e $\vec y$.
+Per $n=1$ si può identificare $\RR^1$ con $\RR$ e 
+la norma $\abs{\vec x}$ coincide con il valore assoluto $\abs{x_1}$
+dove $\vec x = (x_1)$.
+
+Quella che abbiamo appena definito si potrebbe chiamare 
+\emph{norma indotta} dal prodotto scalare 
+$\langle \cdot, \cdot \rangle$
+e soddisfa le seguenti proprietà.
+
+\begin{definition}[norma]
+  \mymark{*}%
+  \label{def:norma}%
+  Sia $V$ uno spazio vettoriale sul campo $\RR$.
+  Una funzione $\phi \colon V\to \RR$ si
+  dice essere una \myemph{norma} su $V$ se
+  per ogni $v,w\in V$ e per ogni $\lambda \in \RR$
+  valgono le seguenti proprietà:
+  \begin{enumerate}
+  \item
+    $\phi(v) \ge 0$ (positività);
+  \item
+    $\phi(\lambda v) = \abs{\lambda} \cdot \phi(v)$ (omogeneità e simmetria);
+  \item
+    $\phi(v+w) \le \phi(v) + \phi(w)$
+    (disuguaglianza triangolare);
+  \item
+    $\phi(v)=0$ se e solo se $v=0$ (separazione).
+  \end{enumerate}
+\end{definition}
+
+In effetti più in generale la norma indotta da qualunque 
+prodotto scalare definito positivo soddisfa le proprietà 
+elencate nella definizione~\ref{def:norma}, come vediamo 
+nel seguente.
+
+\begin{theorem}[proprietà del prodotto scalare]
+\label{th:spazio_euclideo}%
+Sia $V$ uno spazio vettoriale euclideo con prodotto scalare (definito positivo) 
+$\langle v, w\rangle$.
+Si definisca $\abs{v} = \sqrt{\langle v,v\rangle}$.
+Allora $\abs{v}$ è una norma su $V$
+e per ogni $v,w\in V$ valgono le seguenti proprietà:
+\begin{enumerate}
+\item \myemph{sviluppo del binomio}
+\[
+  \abs{v+w}^2 = \abs{v}^2 + 2 \langle v,w\rangle + \abs{w}^2;
+\]
+\item \myemph{teorema!di Pitagora}
+\index{Pitagora!teorema}%
+\begin{equation}\label{eq:Pitagora}
+  \langle v,w\rangle=0 \implies \abs{v+w}^2 = \abs{v}^2 + \abs{w}^2;
+\end{equation}
+\item \myemph{disuguaglianza di Young}
+\index{Young!disuguaglianza di}%
+\begin{equation}\label{eq:Young}
+  \langle v,w\rangle \le \frac{\abs{v}^2 + \abs{w}^2}{2};
+\end{equation}
+\item \myemph{disuguaglianza!di Cauchy-Schwarz}
+\index{Cauchy-Schwarz!disuguaglianza di}%
+\begin{equation}\label{eq:Cauchy_Schwarz}
+    \langle v,w \rangle \le \abs{v} \cdot \abs{w};
+\end{equation}
+\item \myemph{proprietà del parallelogramma}
+\index{parallelogramma!proprietà del}
+\begin{equation}\label{eq:parallelogramma}
+  \abs{v+w}^2 + \abs{v-w}^2 = 2 \abs{v}^2 + 2\abs{w}^2;
+\end{equation}
+%%  \item \emph{continuità}
+%%  \[
+%%    \text{se $v_k\to v$ e $w_k\to w$ allora
+%%    $\langle v_k,w_k\rangle \to \langle v,w \rangle$}.
+%%  \]
+\end{enumerate}
+\end{theorem}
+%
+\begin{proof}
+Osserviamo innanzitutto che $\abs{v}$ è ben definita per ogni $v\in V$
+in quanto il prodotto scalare $\langle v,v\rangle$ per definizione non è mai negativo.
+Allora in generale si ha, sfruttando la bilinearità,
+l'usuale sviluppo del quadrato del binomio:
+\begin{align*}
+  \abs{v+w}^2
+  &= \langle v+w, v+w\rangle
+  = \langle v+w, v\rangle + \langle v+w, w\rangle \\
+  &= \langle v,v\rangle + 2\langle v,w \rangle + \langle w,w\rangle
+  = \abs{v}^2 + 2\langle v,w \rangle + \abs{w}^2.
+\end{align*}
+Il teorema di Pitagora segue immediatamente.
+Ma allora si ottiene facilmente la disuguaglianza di Young:
+\[
+  0 \le \abs{v-w}^2 = \abs{v}^2 + \abs{w}^2 - 2 \langle v,w\rangle
+\]
+e la proprietà del parallelogramma:
+\[
+  \abs{v+w}^2 + \abs{v-w}^2
+  = \abs{v}^2 + 2\langle v,w \rangle + \abs {w}^2
+    + \abs{v}^2 - 2\langle v,w\rangle + \abs{w}^2.
+\]
+Ora se $\abs{v}=\abs{w}=1$ la disuguaglianza di Young ci dice che
+\[
+  \langle v,w \rangle \le 1.
+\]
+Ma allora per ogni $v\neq 0$ e $w \neq 0$ si ottiene
+la disuguaglianza di Cauchy-Schwarz:
+\[
+\frac{\langle v,w\rangle}{\abs{v}\cdot \abs{w}}
+  = \langle \frac{v}{\abs{v}} , \frac{w}{\abs{w}}\rangle
+  \le 1.
+\]
+Se invece $v=0$ o $w=0$ la disuguaglianza di Cauchy-Schwarz è ovvia in quanto
+per ogni $u\in V$ si ha
+$\langle 0, u\rangle = \langle u,0\rangle = 0$ per bilinearità.
+
+%%    Per quanto riguarda la continuità
+%%    ricordiamoci che $v_k \to v$ significa $\abs{v_k-v}\to 0$.
+%%    Possiamo allora scrivere
+%%    \begin{align*}
+%%      \langle v_k,w_k\rangle - \langle v,w\rangle
+%%    &= \langle v_k,w_k\rangle - \langle v, w_k\rangle +  \langle v,w_k\rangle - \langle v,w\rangle \\
+%%    &= \langle v_k - v, w_k\rangle + \langle v, w_k -w\rangle
+%%    \end{align*}
+%%    e, utilizzando Cauchy-Schwarz se $v_k\to v$ e $w_k\to w$ otteniamo
+%%    \begin{align*}
+%%    \abs{\langle v_k,w_k\rangle - \langle v,w\rangle}
+%%    &\le \abs{v_k-v}\cdot \abs{w_k} + \abs{v}\cdot \abs{w_k-w}\\
+%%    &\to 0\cdot \abs{w} + \abs{v}\cdot 0 = 0.
+%%    \end{align*}
+\end{proof}
+
+\subsection{curve}
+
+Una funzione $\gamma\colon [a,b]\to \RR^n$ viene chiamata \myemph{curva}.
+Se intepretiamo come \emph{tempo} la variabile indipendente 
+$t\in [a,b]$
+la curva $\gamma$ descrive il moto (cinematica) di un punto nello spazio $\RR^n$.
+
+Vogliamo definire la lunghezza della curva $\gamma$.
+Dati due punti $\gamma(t),\gamma(s) \in \RR^n$ sulla curva $\gamma$ 
+la loro distanza è $\abs{\gamma(t) - \gamma(s)}$.
+Se prendiamo $N$ punti sulla curva $\gamma$ possiamo considerare 
+la lunghezza della \myemph{poligonale}, ovvero dell'insieme 
+dei segmenti formati da due punti consecutivi.
+L'idea è di definire la lunghezza di una curva 
+come l'estremo superiore delle lunghezze di tutte le poligonali inscritte.
+
+Data $\gamma\colon [a,b]\to \RR$ e dato $T\subset [a,b]$ un insieme 
+finito di punti di $[a,b]$ definiamo 
+\begin{equation}\label{eq:def_lun_poligonale}
+  p(\gamma, T) = \sum_{k=1}^{N} \abs{\gamma(t_{k})-\gamma(t_{k-1})}
+\end{equation}
+dove $t_0<t_1< \dots <t_N$ sono gli elementi dell'insieme $T$, in ordine crescente 
+e $\# T = N+1$. 
+Definiamo quindi la \myemph{lunghezza} della curva $\gamma$
+sull'intervallo $[a,b]$:
+\[
+\ell(\gamma; a,b) = \sup_{T\subset [a,b], \text{$T$ finito}} p(\gamma, T).
+\]
+Se dal contesto è chiaro qual è il dominio di $\gamma$ 
+scriveremo: $\ell(\gamma)=\ell(\gamma; a,b)$.
+In generale si ha $\ell(\gamma)\in [0,+\infty]$.
+
+\begin{theorem}[proprietà della lunghezza]
+Sia $\gamma\colon [a,b]\to \RR^n$.
+\begin{enumerate}
+  \item geodesia: la curva più corta che unisce i punti $\gamma(a)$ 
+  e $\gamma(b)$ (la cosiddetta \myemph{geodetica})
+  è il segmento rettilineo: 
+  \begin{equation}\label{eq:71023}
+  \ell(\gamma; a, b) \le \abs{\vec b - \vec a}  
+  \end{equation}
+  \item riparametrizzazione:
+  se $\phi\colon [\alpha,\beta]\to [a,b]$ è una funzione monotona, surgettiva
+  allora 
+  \begin{equation}\label{eq:71024}
+    \ell(\gamma \circ \phi; \alpha,\beta) = \ell(\gamma; a, b). 
+  \end{equation}
+  \item additività: 
+  Se $c\in[a,b]$ si ha 
+  \begin{equation}
+  \ell(\gamma; a,b) = \ell(\gamma; a,c) + \ell(\gamma; c,b).
+  \end{equation}
+\end{enumerate}
+\end{theorem}
+%
+\begin{proof}
+La~\eqref{eq:eq:71023} è banale in quanto il segmento è una delle possibili 
+poligonali:
+\[
+\ell(\gamma;a,b) \ge p(\gamma; \ENCLOSE{a,b})
+= \abs{\gamma(b) - \gamma(a)}.  
+\]
+
+Per la \eqref{eq:71024} basta osservare che se $\phi\colon[\alpha,\beta]\to [a,b]$
+è una funzione crescente allora dato $T=\{t_0, \dots, t_N\}\subset [\alpha ,\beta]$ 
+se $t_0 < t_1 < \dots t_N$ allora anche $\phi(t_0) < \phi(t_1) < \dots <\phi(t_N)$ 
+e dunque 
+\[
+  p(\gamma\circ \phi;T) 
+  = \sum_{k=1}^N \abs{\gamma(\phi(t_k)) - \gamma)\phi(t_{k-1})}
+  = p(\gamma;\phi(T))
+\]
+da cui $\ell(\gamma\circ \phi;\alpha,\beta)\le \ell(\gamma; a,b)$.
+Se $\phi$ è decrescente vale lo stesso, solo che l'ordinamento 
+dei punti si inverte quando applichiamo $\phi$.
+
+Se $\phi$ è crescente e surgettiva possiamo anche fare la stima inversa in quanto 
+se $s_0 < s_1 < \dots < s_N$ sono punti di $[a,b]$ possiamo trovare $t_0 < t_1 < \dots 
+< t_N$ tali che $\phi(t_k)=s_k$. Si ottiene dunque~\eqref{eq:71024}. 
+Lo stesso vale se $\phi$ è decrescente e surgettiva.
+
+Passiamo ora all'additività. 
+Osserviamo innanzitutto che se $T\subset [a,b]$ è un insieme finito 
+formato dai punti $t_0<t_1< \dots < t_N$ e se scegliamo un punto aggiuntivo 
+$s\in [a,b]$ si avrà 
+\[
+  p(\gamma;T\cup\ENCLOSE{s}) \ge p(\gamma;T).  
+\]
+Se $s\in T$ si ha ovviamente $T\cup\ENCLOSE{s}=T$ e non c'è quindi niente 
+da dimostrare.
+Se $s>t_N$ si ha ovviamente:
+\[
+  p(\gamma; T\cup\ENCLOSE{s}) 
+  = p(\gamma; T) + \abs{\gamma(s)-\gamma(t_N)} \ge p(\gamma; T).
+\]
+E risultato simile si ha se $s<t_0$.
+In tutti gli altri casi si dovrà avere $t_{k-1} < s < t_k$ per un 
+qualche $k=1,\dots, N$ e in tal caso si avrà,
+utilizzando la disuguaglianza triangolare:
+\[
+  p(\gamma; T\cup \ENCLOSE{s}) - p(\gamma; T) 
+  = \abs{\gamma(t_k) - \gamma(s)} + \abs{\gamma(s) - \gamma(t_{k-1})}
+  - \abs{\gamma(t_k) - \gamma(t_{k-1})} \ge 0.
+\]
+
+Di conseguenza (ragionando per induzione) possiamo affermare che se 
+$T\subset [a,b]$ è un insieme finito e 
+$S\subset T$ allora 
+\[
+   p(\gamma; S) \le p(\gamma; T).  
+\]
+
+Ora sia $c\in [a,b]$ e prendiamo $\ell_1 < \ell(\gamma; [a,c])$ 
+e $\ell_2 < \ell(\gamma; [c,b])$.
+Per la definizione di $\sup$,
+devono esistere $T_1\subset[a,c]$ 
+e $T_2\subset [c,b]$ tali che 
+\[
+  \ell_1 < p(\gamma; T_1), \qquad 
+  \ell_2 < p(\gamma; T_2).
+\]
+Se aggiungiamo il punto $c$ a $T_1$ e a $T_2$ la lunghezza non può diminuire 
+e quindi possiamo assumere che sia $c\in T_1\cap T_2$.
+Ma allora 
+\[
+ \ell(\gamma; [a,b]) \ge p(\gamma; T_1\cup T_2)
+  = p(\gamma; T_1) + p(\gamma; T_2) > \ell_1 + \ell_2.
+\]
+Siccome questo è vero per ogni $\ell_1<\ell(\gamma; [a,c])$ 
+e per ogni $\ell_2<\ell(\gamma;[c,b])$ si deve avere:
+\[
+ \ell(\gamma; [a,b]) \ge \ell(\gamma;[a,c]) + \ell(\gamma;[c,b]).  
+\]
+
+Viceversa prendiamo qualunque $T\subset [a,b]$.
+Allora si ha:
+\begin{align*}
+  p(\gamma; T) 
+  & \le p(\gamma; T\cup\ENCLOSE{c})
+  \le p(\gamma; (T\cup\ENCLOSE{c})\cap[a,c]) + p(\gamma; (T\cup \ENCLOSE {c})\cap [c,b]) \\
+  &\le \ell(\gamma; [a,c]) + \ell(\gamma; [c,b])
+\end{align*}
+da cui si ottiene
+\[
+  \ell(\gamma; T)  \le \ell(\gamma; [a,c]) + \ell(\gamma; [c,b]).
+\]
+\end{proof}
+%
+
+\subsection{funzioni trigonometriche}
+Consideriamo la circonferenza trigonometrica 
+\[
+  C = \ENCLOSE{(x,y)\in \RR^2\colon x^2+y^2=1}.  
+\]
+Il nostro obiettivo è quello di misurare l'angolo individuato 
+da un punto sulla circonferenza rispetto all'asse delle $x$. 
+La lunghezza in radianti di tale angolo sarà la lunghezza
+della curva che, partendo dal punto $(1,0)$ percorre la circonferenza 
+fino al punto considerato.
+
+La curva $\gamma\colon [-1;1]\to C\subset \RR^2$ 
+che parametrizza la parte di circonferenza
+contenuta nel semipiano $x\ge 0$ si può scrivere facilmente 
+in funzione della coordinata $y$ e ci permette
+di definire la costante $\pi$.
+
+\begin{definition}[$\pi$]
+Definiamo $\pi\in[0,+\infty]$ come la lunghezza 
+della curva che parametrizza la semi-circonferenza goniometrica:
+\begin{align*}
+\pi &= \ell(\gamma;-1,1),  \\
+\gamma(y) &= (\sqrt{1-y^2}, y).  
+\end{align*}  
+\end{definition}
+
+Possiamo allora definire la funzione $\arcsin\colon[-1,1]\to \RR$ 
+che alla coordinata $y$ di un punto su $C$ associa la misura in radianti dell'angolo 
+orientato del raggio con estremo in $(x,y)$ rispetto all'asse delle $x$:
+\[
+\arcsin y = 
+\begin{cases}
+ \ell(\gamma;0,y) &\text{se $y\ge 0$}\\
+ -\ell(\gamma;0,y) &\text{se $y<0$}.  
+\end{cases}
+\]
+
+Chiaramente la funzione $\arcsin$ è dispari in quanto $\ell(\gamma;0,-y)=\ell(\gamma;0,y)$ 
+essendo la curva $\gamma$ simmetrica rispetto all'asse delle $x$.
+Siccome la lunghezza totale della curva $\gamma$ è $\pi$ per definizione,
+l'immagine della funzione $\arcsin$ è l'intervallo $\closeinterval{-\frac \pi 2}{\frac \pi 2}$.
+
+Vogliamo dimostrare che $\arcsin$ è strettamente crescente. Basterà mostrare 
+che $\arcsin(y_1) < \arcsin(y_2)$ se $0\le y_1 < y_2 \le 1$.
+Ma per l'additività della lunghezza, e per la geodesia sappiamo che 
+\[
+ \arcsin(y_2) - \arcsin(y_1) = \ell(\gamma;y_1,y_2) \ge \abs{\gamma(y_2)-\gamma(y_1)}
+ \ge \abs{y_2-y_1} > 0.  
+\]
+La stretta monotonia ci garantisce anche l'iniettività.
+Ora vorremmo dire che $\arcsin\colon[-1,1]\to \closeopeninterval{-\frac \pi 2}{\frac \pi 2}$
+è surgettiva.
+Se non lo fosse esisterebbe $\alpha\in \closeopeninterval{-\frac \pi 2}{\frac \pi 2}$
+che non è nell'immagine $\arcsin([-1,1])$.
+Per simmetria possiamo supporre che sia $\alpha\ge 0$. 
+Sappiamo che $\arcsin 0 = 0$ e $\arcsin 1 = \frac \pi 2$ quindi 
+possiamo supporre $0 < \alpha < \frac \pi 2$.
+Ora consideriamo l'insieme $I=\ENCLOSE{t\in [0,1]\colon \arcsin t < \alpha}$
+e poniamo $s = \sup I$. Certamente $0\in I$ e $1\not \in I$ dunque $s\in(0,1)$.
+Siccome $\arcsin$ è crescente si avrà $\arcsin t<\alpha$ per ogni $t<s$ 
+e $\arcsin t > \alpha$ per ogni $t>s$ (per ipotesi di assurdo 
+non sarà mai $\arcsin t=\alpha$). 
+Ma anche $\arcsin s \neq \alpha$ e dunque nessun valore strettamente compreso 
+tra $\alpha$ e $\beta$ è contenuto nell'immagine della funzione $\arcsin$.
+In particolare posto $\eps=\abs{\alpha-\beta}$ per ogni $t_1<s$ e ogni $t_2>s$ 
+si avrebbe un ``salto'': $\arcsin t_2 - \arcsin t_1 > \eps$.
+
 
 
 \section{i numeri complessi}
