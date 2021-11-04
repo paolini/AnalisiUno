@@ -11,7 +11,7 @@ grep "%% README" chapters/AnalisiUno-00*.tex | cut -f1 -d"%" | sed "s/\\\\emph{\
 cat << EOF >> ${out} 
 # compiling 
 
-files \`README.md\` and \`docs/index.html\` are create from sources with the command:
+files \`README.md\` and \`docs/index.html\` are created from sources with the command:
 
     bash make-docs.sh
 
