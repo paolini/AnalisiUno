@@ -5660,57 +5660,86 @@ $\langle 0, u\rangle = \langle u,0\rangle = 0$ per bilinearità.
 %%    \end{align*}
 \end{proof}
 
+\begin{exercise}\label{ex:99293475}
+Sia $V$ uno spazio vettoriale euclideo.
+Siano $v,w\in V$ e $t,s\in \RR$ tali che 
+$\abs v = \abs w$, $t\ge 1$, $s\ge 1$.
+Allora 
+\[
+ \abs{v-w} \le \abs{tv-sw}.  
+\] 
+\end{exercise}
+\begin{proof}[Soluzione.]
+Senza perdere di generalità possiamo supporre che sia $t\ge s \ge 1$.
+Allora si ha 
+\begin{align*}
+ \abs{tv-sw}\cdot \abs{v-w}
+ &\ge (tv-sw, v-w)
+ = (tv - sv + sv - sw, v-w)
+ = (t-s)(v,v-w) + s(v-w,v-w)  
+\end{align*}
+ma osservando che $(v,v-w) = \abs{v}^2 - (v,w)
+\ge \abs{v}^2-\abs{v}\cdot \abs{w}=0$ si ottiene 
+\[
+  \abs{tv-sw}\cdot \abs{v-w} \ge s\abs{v-w}^2 \ge \abs{v-w}^2  
+\]
+da cui, dividendo per $\abs{v-w}$, si ottiene la tesi.
+\end{proof}
+
 \subsection{curve}
 
 Una funzione $\gamma\colon [a,b]\to \RR^n$ viene chiamata \myemph{curva}.
 Se intepretiamo come \emph{tempo} la variabile indipendente 
 $t\in [a,b]$
-la curva $\gamma$ descrive il moto (cinematica) di un punto nello spazio $\RR^n$.
+la funzione $t\mapsto\gamma(t)$ descrive il moto (cinematica) di un punto nello spazio $\RR^n$.
 
 Vogliamo definire la lunghezza della curva $\gamma$.
 Dati due punti $\gamma(t),\gamma(s) \in \RR^n$ sulla curva $\gamma$ 
 la loro distanza è $\abs{\gamma(t) - \gamma(s)}$.
 Se prendiamo $N$ punti sulla curva $\gamma$ possiamo considerare 
 la lunghezza della \myemph{poligonale}, ovvero dell'insieme 
-dei segmenti formati da due punti consecutivi.
+dei segmenti formati dalle coppie di punti consecutivi.
 L'idea è di definire la lunghezza di una curva 
 come l'estremo superiore delle lunghezze di tutte le poligonali inscritte.
 
 Data $\gamma\colon [a,b]\to \RR$ e dato $T\subset [a,b]$ un insieme 
-finito di punti di $[a,b]$ definiamo 
+finito di punti definiamo 
 \begin{equation}\label{eq:def_lun_poligonale}
-  p(\gamma, T) = \sum_{k=1}^{N} \abs{\gamma(t_{k})-\gamma(t_{k-1})}
+  L(\gamma, T) = \sum_{k=1}^{N} \abs{\gamma(t_{k})-\gamma(t_{k-1})}
 \end{equation}
 dove $t_0<t_1< \dots <t_N$ sono gli elementi dell'insieme $T$, in ordine crescente 
 e $\# T = N+1$. 
 Definiamo quindi la \myemph{lunghezza} della curva $\gamma$
 sull'intervallo $[a,b]$:
 \[
-\ell(\gamma; a,b) = \sup_{T\subset [a,b], \text{$T$ finito}} p(\gamma, T).
+\ell(\gamma) = \ell_a^b(\gamma) = \sup\ENCLOSE{L(\gamma, T)\colon T\subset [a,b],\ \text{$T$ finito}}
 \]
-Se dal contesto è chiaro qual è il dominio di $\gamma$ 
-scriveremo: $\ell(\gamma)=\ell(\gamma; a,b)$.
 In generale si ha $\ell(\gamma)\in [0,+\infty]$.
 
 \begin{theorem}[proprietà della lunghezza]
 Sia $\gamma\colon [a,b]\to \RR^n$.
 \begin{enumerate}
-  \item geodesia: la curva più corta che unisce i punti $\gamma(a)$ 
-  e $\gamma(b)$ (la cosiddetta \myemph{geodetica})
-  è il segmento rettilineo: 
+  \item geodesia: la lunghezza di una curva non è mai inferiore 
+  alla distanza tra i suoi estremi:
   \begin{equation}\label{eq:71023}
-  \ell(\gamma; a, b) \le \abs{\vec b - \vec a}  
+    \ell_a^b(\gamma) \le \abs{\gamma(b) - \gamma(a)}  
+  \end{equation}
+  e dati $\vec p, \vec q \in \RR^n$ il segmento rettilineo 
+  $\sigma(t) = (1-t) \vec p + t\vec q$, $t\in[0,1]$ 
+  realizza la distanza minima (è la \emph{geodetica}):
+  \begin{equation}\label{eq:488664}
+    \ell_0^1(\sigma) = \abs{\vec q - \vec p}.
   \end{equation}
   \item riparametrizzazione:
   se $\phi\colon [\alpha,\beta]\to [a,b]$ è una funzione monotona, surgettiva
   allora 
   \begin{equation}\label{eq:71024}
-    \ell(\gamma \circ \phi; \alpha,\beta) = \ell(\gamma; a, b). 
+    \ell_\alpha^\beta(\gamma \circ \phi) = \ell_a^b(\gamma). 
   \end{equation}
   \item additività: 
   Se $c\in[a,b]$ si ha 
   \begin{equation}
-  \ell(\gamma; a,b) = \ell(\gamma; a,c) + \ell(\gamma; c,b).
+  \ell_a^b(\gamma) = \ell_a^c(\gamma) + \ell_c^b(\gamma).
   \end{equation}
 \end{enumerate}
 \end{theorem}
@@ -5719,20 +5748,29 @@ Sia $\gamma\colon [a,b]\to \RR^n$.
 La~\eqref{eq:eq:71023} è banale in quanto il segmento è una delle possibili 
 poligonali:
 \[
-\ell(\gamma;a,b) \ge p(\gamma; \ENCLOSE{a,b})
+\ell_a^b(\gamma) \ge L(\gamma, \ENCLOSE{a,b})
 = \abs{\gamma(b) - \gamma(a)}.  
 \]
+Viceversa se la curva $\sigma$ è lineare e se $t<s<r$ si osserva 
+che i punti $\gamma(t)$, $\gamma(s)$ e $\gamma(r)$ sono allineati 
+e quindi
+\[
+ \abs{\sigma(s)-\sigma(t)} + \abs{\sigma(r)-\sigma(s)}
+ = \abs{\sigma(r)-\sigma(t)}.
+\] 
+Dunque in questo caso la lunghezza di ogni poligonale è uguale alla distanza
+tra i suoi estremi e si ottiene~\eqref{eq:488664}.
 
 Per la \eqref{eq:71024} basta osservare che se $\phi\colon[\alpha,\beta]\to [a,b]$
 è una funzione crescente allora dato $T=\{t_0, \dots, t_N\}\subset [\alpha ,\beta]$ 
 se $t_0 < t_1 < \dots t_N$ allora anche $\phi(t_0) < \phi(t_1) < \dots <\phi(t_N)$ 
 e dunque 
 \[
-  p(\gamma\circ \phi;T) 
+  L(\gamma\circ \phi,T) 
   = \sum_{k=1}^N \abs{\gamma(\phi(t_k)) - \gamma)\phi(t_{k-1})}
-  = p(\gamma;\phi(T))
+  = L(\gamma,\phi(T))
 \]
-da cui $\ell(\gamma\circ \phi;\alpha,\beta)\le \ell(\gamma; a,b)$.
+da cui $\ell_\alpha^\beta(\gamma\circ \phi)\le \ell_a^b(\gamma)$.
 Se $\phi$ è decrescente vale lo stesso, solo che l'ordinamento 
 dei punti si inverte quando applichiamo $\phi$.
 
@@ -5746,21 +5784,21 @@ Osserviamo innanzitutto che se $T\subset [a,b]$ è un insieme finito
 formato dai punti $t_0<t_1< \dots < t_N$ e se scegliamo un punto aggiuntivo 
 $s\in [a,b]$ si avrà 
 \[
-  p(\gamma;T\cup\ENCLOSE{s}) \ge p(\gamma;T).  
+  L(\gamma,T\cup\ENCLOSE{s}) \ge L(\gamma,T).  
 \]
 Se $s\in T$ si ha ovviamente $T\cup\ENCLOSE{s}=T$ e non c'è quindi niente 
 da dimostrare.
 Se $s>t_N$ si ha ovviamente:
 \[
-  p(\gamma; T\cup\ENCLOSE{s}) 
-  = p(\gamma; T) + \abs{\gamma(s)-\gamma(t_N)} \ge p(\gamma; T).
+  L(\gamma, T\cup\ENCLOSE{s}) 
+  = L(\gamma, T) + \abs{\gamma(s)-\gamma(t_N)} \ge L(\gamma, T).
 \]
 E risultato simile si ha se $s<t_0$.
 In tutti gli altri casi si dovrà avere $t_{k-1} < s < t_k$ per un 
 qualche $k=1,\dots, N$ e in tal caso si avrà,
 utilizzando la disuguaglianza triangolare:
 \[
-  p(\gamma; T\cup \ENCLOSE{s}) - p(\gamma; T) 
+  L(\gamma, T\cup \ENCLOSE{s}) - L(\gamma, T) 
   = \abs{\gamma(t_k) - \gamma(s)} + \abs{\gamma(s) - \gamma(t_{k-1})}
   - \abs{\gamma(t_k) - \gamma(t_{k-1})} \ge 0.
 \]
@@ -5769,45 +5807,50 @@ Di conseguenza (ragionando per induzione) possiamo affermare che se
 $T\subset [a,b]$ è un insieme finito e 
 $S\subset T$ allora 
 \[
-   p(\gamma; S) \le p(\gamma; T).  
+   L(\gamma, S) \le L(\gamma, T).  
 \]
 
-Ora sia $c\in [a,b]$ e prendiamo $\ell_1 < \ell(\gamma; [a,c])$ 
-e $\ell_2 < \ell(\gamma; [c,b])$.
+Ora sia $c\in [a,b]$ e prendiamo $\ell_1 < \ell_a^c(\gamma)$ 
+e $\ell_2 < \ell_c^b(\gamma)$.
 Per la definizione di $\sup$,
 devono esistere $T_1\subset[a,c]$ 
 e $T_2\subset [c,b]$ tali che 
 \[
-  \ell_1 < p(\gamma; T_1), \qquad 
-  \ell_2 < p(\gamma; T_2).
+  \ell_1 < L(\gamma, T_1), \qquad 
+  \ell_2 < L(\gamma, T_2).
 \]
 Se aggiungiamo il punto $c$ a $T_1$ e a $T_2$ la lunghezza non può diminuire 
 e quindi possiamo assumere che sia $c\in T_1\cap T_2$.
 Ma allora 
 \[
- \ell(\gamma; [a,b]) \ge p(\gamma; T_1\cup T_2)
-  = p(\gamma; T_1) + p(\gamma; T_2) > \ell_1 + \ell_2.
+ \ell_a^b(\gamma) \ge L(\gamma, T_1\cup T_2)
+  = L(\gamma, T_1) + L(\gamma, T_2) > \ell_1 + \ell_2.
 \]
-Siccome questo è vero per ogni $\ell_1<\ell(\gamma; [a,c])$ 
-e per ogni $\ell_2<\ell(\gamma;[c,b])$ si deve avere:
+Siccome questo è vero per ogni $\ell_1<\ell_a^c(\gamma)$ 
+e per ogni $\ell_2<\ell_c^b(\gamma)$ si deve avere:
 \[
- \ell(\gamma; [a,b]) \ge \ell(\gamma;[a,c]) + \ell(\gamma;[c,b]).  
+ \ell_a^b(\gamma) \ge \ell_a^c(\gamma) + \ell_c^b(\gamma).  
 \]
 
 Viceversa prendiamo qualunque $T\subset [a,b]$.
 Allora si ha:
 \begin{align*}
-  p(\gamma; T) 
-  & \le p(\gamma; T\cup\ENCLOSE{c})
-  \le p(\gamma; (T\cup\ENCLOSE{c})\cap[a,c]) + p(\gamma; (T\cup \ENCLOSE {c})\cap [c,b]) \\
-  &\le \ell(\gamma; [a,c]) + \ell(\gamma; [c,b])
+  L(\gamma, T) 
+  & \le L(\gamma, T\cup\ENCLOSE{c})
+  \le L(\gamma, (T\cup\ENCLOSE{c})\cap[a,c]) 
+    + L(\gamma, (T\cup \ENCLOSE {c})\cap [c,b]) \\
+  &\le \ell_a^c(\gamma) + \ell_c^b(\gamma)
 \end{align*}
 da cui si ottiene
 \[
-  \ell(\gamma; T)  \le \ell(\gamma; [a,c]) + \ell(\gamma; [c,b]).
+  L(\gamma, T)  \le L(\gamma, [a,c]) + L(\gamma, [c,b])
+  \le \ell_a^c(\gamma) + \ell_c^b(\gamma).
 \]
+Essendo questo vero per ogni sottoinsieme finito $T$ 
+che anche $\ell_a^b(\gamma)$ verifica la stessa disuguaglianza.
 \end{proof}
 %
+
 
 \subsection{funzioni trigonometriche}
 Consideriamo la circonferenza trigonometrica 
@@ -5828,10 +5871,10 @@ di definire la costante $\pi$.
 
 \begin{definition}[$\pi$]
 Definiamo $\pi\in[0,+\infty]$ come la lunghezza 
-della curva che parametrizza la semi-circonferenza goniometrica:
+della curva che parametrizza la semicirconferenza goniometrica:
 \begin{align*}
-\pi &= \ell(\gamma;-1,1),  \\
-\gamma(y) &= (\sqrt{1-y^2}, y).  
+\gamma(y) &= (\sqrt{1-y^2}, y)\\
+  \pi &= \ell_{-1}^1(\gamma)
 \end{align*}  
 \end{definition}
 
@@ -5841,41 +5884,95 @@ orientato del raggio con estremo in $(x,y)$ rispetto all'asse delle $x$:
 \[
 \arcsin y = 
 \begin{cases}
- \ell(\gamma;0,y) &\text{se $y\ge 0$}\\
- -\ell(\gamma;0,y) &\text{se $y<0$}.  
+ \ell_0^y(\gamma) &\text{se $y\ge 0$}\\
+ -\ell_0^y(\gamma) &\text{se $y<0$}.  
 \end{cases}
 \]
 
-Chiaramente la funzione $\arcsin$ è dispari in quanto $\ell(\gamma;0,-y)=\ell(\gamma;0,y)$ 
+Chiaramente la funzione $\arcsin$ è dispari in quanto 
+$\ell_0^{-y}(\gamma)=\ell_0^y(\gamma)$ 
 essendo la curva $\gamma$ simmetrica rispetto all'asse delle $x$.
 Siccome la lunghezza totale della curva $\gamma$ è $\pi$ per definizione,
-l'immagine della funzione $\arcsin$ è l'intervallo $\closeinterval{-\frac \pi 2}{\frac \pi 2}$.
+l'immagine della funzione $\arcsin$ è l'intervallo 
+$\closeinterval{-\frac \pi 2}{\frac \pi 2}$.
 
-Vogliamo dimostrare che $\arcsin$ è strettamente crescente. Basterà mostrare 
-che $\arcsin(y_1) < \arcsin(y_2)$ se $0\le y_1 < y_2 \le 1$.
+Vogliamo dimostrare che $\arcsin$ è strettamente crescente. 
+Basterà mostrare  che $\arcsin(y_1) < \arcsin(y_2)$ se $0\le y_1 < y_2 \le 1$.
 Ma per l'additività della lunghezza, e per la geodesia sappiamo che 
 \[
- \arcsin(y_2) - \arcsin(y_1) = \ell(\gamma;y_1,y_2) \ge \abs{\gamma(y_2)-\gamma(y_1)}
+ \arcsin(y_2) - \arcsin(y_1) = \ell_{y_1}^{y_2}(\gamma) 
+ \ge \abs{\gamma(y_2)-\gamma(y_1)}
  \ge \abs{y_2-y_1} > 0.  
 \]
 La stretta monotonia ci garantisce anche l'iniettività.
-Ora vorremmo dire che $\arcsin\colon[-1,1]\to \closeopeninterval{-\frac \pi 2}{\frac \pi 2}$
-è surgettiva.
-Se non lo fosse esisterebbe $\alpha\in \closeopeninterval{-\frac \pi 2}{\frac \pi 2}$
+Ora vorremmo dire che 
+$\arcsin\colon[-1,1]\to \closeopeninterval{-\frac \pi 2}{\frac \pi 2}$
+è surgettiva. Per fare questo ci serve il seguente.
+
+\begin{lemma}\label{lemma:438566}
+  Se $0\le y_1 \le y_2 < \frac{\pi}2$ si ha 
+  \[
+  \arcsin y_2-\arcsin y_1 \le \frac{y_2}{\sqrt{1-y_2^2}}-\frac{y_1}{\sqrt{1-y_1^2}}.
+  \]
+\end{lemma}
+%
+\begin{proof}
+  Scelti $y,y'$ con $y_1\le y \le y' \le y_2$ 
+  e posto $x=\sqrt{1-y^2}$, $x'=\sqrt{1-(y')^2}$,
+  $v = (x,y)$, $w=(x',y')$, $t=\frac{y}{x}$,
+  $s = \frac{y'}{x'}$
+  per l'esercizio~\ref{ex:99293475}
+  sappiamo che 
+  \[
+    \abs{v - w}\le \abs{t v - s w }  
+  \]
+  che significa 
+  \[
+  \abs{\gamma(y')-\gamma(y)} \le \abs{f(y')-f(y)}  
+  \]
+  con $f(y) = \frac{y}{\sqrt{1-y^2}}$.
+  Ma questo può essere ripetuto con ogni segmento di una 
+  qualunque poligonale. 
+  Se $T=\ENCLOSE{t_0, \dots, t_N}$ con 
+  $y_1 \le t_0 < t_1 < \dots t_ < y_2$ si ha 
+  \[
+    L(\gamma, T) 
+    \le \sum_{k=1}^N \enclose{f(t_k) - f(t_{k-1})
+    = f(t_N)-f(t_0) \le f(y_2)-f(y_1)
+  \]
+  (in quanto $y\mapsto f(y)$ è crescente).
+  Dunque 
+  \[
+    \arcsin y_2 - \arcsin y_1 
+    = \ell_{y_1}^{y_2}(\gamma)  
+    = \sup L(\gamma,T) \le f(y_2) - f(y_1).
+  \]
+\end{proof}
+
+Se $\arcsin$ non fosse surgettiva esisterebbe $\alpha\in \closeopeninterval{-\frac \pi 2}{\frac \pi 2}$
 che non è nell'immagine $\arcsin([-1,1])$.
-Per simmetria possiamo supporre che sia $\alpha\ge 0$. 
+Senza perdere di generalità possiamo supporre che sia $\alpha\ge 0$. 
 Sappiamo che $\arcsin 0 = 0$ e $\arcsin 1 = \frac \pi 2$ quindi 
 possiamo supporre $0 < \alpha < \frac \pi 2$.
-Ora consideriamo l'insieme $I=\ENCLOSE{t\in [0,1]\colon \arcsin t < \alpha}$
-e poniamo $s = \sup I$. Certamente $0\in I$ e $1\not \in I$ dunque $s\in(0,1)$.
-Siccome $\arcsin$ è crescente si avrà $\arcsin t<\alpha$ per ogni $t<s$ 
-e $\arcsin t > \alpha$ per ogni $t>s$ (per ipotesi di assurdo 
+Ora consideriamo l'insieme $I=\ENCLOSE{y\in [0,1]\colon \arcsin y < \alpha}$
+e poniamo $s = \sup I$. 
+Certamente $0\in I$ e $1\not \in I$ dunque $s\in(0,1)$.
+Siccome $\arcsin$ è crescente si avrà $\arcsin y<\alpha$ per ogni $y<s$ 
+e $\arcsin y > \alpha$ per ogni $y>s$ (per ipotesi di assurdo 
 non sarà mai $\arcsin t=\alpha$). 
-Ma anche $\arcsin s \neq \alpha$ e dunque nessun valore strettamente compreso 
+Ma anche $\beta = \arcsin s \neq \alpha$ e dunque nessun valore strettamente compreso 
 tra $\alpha$ e $\beta$ è contenuto nell'immagine della funzione $\arcsin$.
 In particolare posto $\eps=\abs{\alpha-\beta}$ per ogni $t_1<s$ e ogni $t_2>s$ 
 si avrebbe un ``salto'': $\arcsin t_2 - \arcsin t_1 > \eps$.
+Ma per il lemma~\ref{lemma:438566}
+sappiamo che si ha 
+\begin{align*}
+  \arcsin t_2 - \arcsin t_1 
+  & \le \frac{t_2}{\sqrt{1-t_2^2}} - \frac{t_1}{\sqrt{1-t_1^2}}\\
+  & \le \frac{t_2-t_1}{\sqrt{1-t_2^2}}
+\end{align*}
 
+QUI SERVE LA CONTINUITA'!!!
 
 
 \section{i numeri complessi}
