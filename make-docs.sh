@@ -11,7 +11,7 @@ grep "%% README" chapters/AnalisiUno-00*.tex | cut -f1 -d"%" | sed "s/\\\\emph{\
 cat << EOF >> ${out} 
 # compiling 
 
-files \`README.md\` and \`docs/index.html\` are create from sources with the command:
+files \`README.md\` and \`docs/index.html\` are created from sources with the command:
 
     bash make-docs.sh
 
@@ -124,7 +124,7 @@ cat <<EOF >> ${out}
   <li><a href="https://github.com/paolini/AnalisiUno">codice sorgente</a></li>
   <li><a href="https://github.com/paolini/AnalisiUno/releases/latest">ultimo rilascio
   (da qui puoi scaricare il file PDF)</a></li>
-  <li><a href="https://www.amazon.it/dp/1718794134/">ordina una copia cartacea</a></li>
+  <li><a href="https://www.amazon.it/dp/B09KNCWQTJ">ordina una copia cartacea</a></li>
 </ul>
 <h2>riferimenti presenti nel testo</h2>
 <ul>
