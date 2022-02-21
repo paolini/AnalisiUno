@@ -304,8 +304,8 @@ richiedendo che entrambe le serie al lato destro
 dell'uguaglianza esistano e non abbiano somme infinite di segno opposto.
 
 \begin{theorem}[coda di una serie convergente]
-\label{th:coda}
-\mymark{*}
+\label{th:coda}%
+\mymark{*}%
 Sia $\sum a_n$ una serie convergente. Allora
 \[
   \lim_{n\to +\infty} \sum_{k=n+1}^{+\infty} a_k = 0.
@@ -1036,6 +1036,73 @@ E per continuità del modulo, posto $S= \lim S_n$ si ha
 \]
 \end{proof}
 
+\begin{theorem}[scambio delle serie]
+  \label{th:scambio_somma}
+Sia $a_{k,j}\in \RR$ o $a_{k,j}\in \CC$ una successione a due indici $k\in \NN$, $j\in \NN$ 
+(ovvero $a_{k,j}=\vec a(k,j)$ con $\vec a \colon \NN\times\NN\to \RR$).
+Se 
+\[
+  \sum_{k=0}^{+\infty}\sum_{j=0}^{+\infty}\abs{a_{k,j}}<+\infty  
+\]
+allora
+\begin{equation}\label{eq:scambio_somma}
+  \sum_{k=0}^{+\infty} \sum_{j=0}^{+\infty} a_{k,j}
+  = \sum_{j=0}^{+\infty} \sum_{k=0}^{+\infty} a_{k,j}.
+\end{equation}
+\end{theorem}
+%
+\begin{proof}
+Si intende, ovviamente, che per ogni $k$ 
+la serie $\sum_j \abs{a_{k,j}}$ è convergente
+dunque $\sum_j a_{k,j}$ è assolutamente convergente
+e, per il teorema~\ref{th:convergenza_assoluta}, 
+anche $\sum_k \abs{\sum_j a_{k,j}} 
+\le \sum_k \sum_j \abs{a_{k,j}}$
+è assolutamente convergente.
+Ovviamente 
+$\sum_k \abs{a_{k,j}} \le \sum_k \sum_j \abs{a_{k,j}}$
+e dunque per ogni $j$ anche la serie 
+$\sum_k a_{k,j}$ è assolutamente convergente.
+Posto
+\[
+S = \sum_{k=0}^{+\infty}\sum_{j=0}^{+\infty} a_{k,j},
+\qquad
+S_n = \sum_{j=0}^{n-1}\sum_{k=0}^{+\infty} a_{k,j}  
+\]
+vogliamo dimostrare che $S_n \to S$
+per $n\to +\infty$. 
+Applichiamo la definizione di limite:
+sia $\eps>0$ fissato.
+Per il teorema~\ref{th:coda} della coda 
+esiste $K$ tale che 
+\[
+  \sum_{k=K}^{+\infty} \sum_{j=0}^{+\infty} \abs{a_{k,j}}<\frac \eps 2
+\]
+e per ogni $k<K$ esiste $J_k$ tale che 
+\[
+  \sum_{j=J_k}^{+\infty} \abs{a_{k,j}} < \frac{\eps}{2K}.  
+\]
+Posto $J=\max\ENCLOSE{J_0,J_1, \dots, J_{K-1}}$
+la stima precedente vale anche con $J$ al posto di $J_k$.
+Dunque se $n>J$ si ha 
+\begin{align*}
+  \abs{S-S_n}
+  &= \abs{\sum_{k=0}^{+\infty}\sum_{j=0}^{+\infty}a_{k,j} 
+  - \sum_{j=0}^{n-1}\sum_{k=0}^{+\infty}a_{k,j}}
+  = 
+  \abs{\sum_{k=0}^{+\infty}\sum_{j=0}^{+\infty}a_{k,j} 
+  - \sum_{k=0}^{+\infty}\sum_{j=0}^{n-1}a_{k,j}}\\
+  &=
+  \abs{\sum_{k=0}^{+\infty}\sum_{j=n}^{+\infty}a_{k,j} }
+  = \abs{\sum_{k=0}^{K-1}\sum_{j=n}^{+\infty} a_{k,j}
+   + \sum_{k=K}^{+\infty}\sum_{j=n}^{+\infty} a_{k,j}}\\
+  &\le \sum_{k=0}^{K-1}\frac{\eps}{2K}
+   + \sum_{k=K}^{+\infty}\sum_{j=J_k}^{+\infty}\abs{a_{k,j}}
+  \le \frac \eps 2 + \frac \eps 2 = \eps
+\end{align*}
+come volevamo dimostrare.
+\end{proof}
+
 \begin{theorem}[convergenza incondizionata]%
 \label{th:convergenza_incondizionata}%
 \mymark{*}%
@@ -1047,201 +1114,161 @@ si ha
   \sum_{n=0}^{+\infty} a_n = \sum_{n=0}^{+\infty} a_{\sigma(n)}.
 \]
 \end{theorem}
+\begin{proof}
+Definiamo la successione $b_{k,j}$ a due indici:
+\[
+  b_{k,j} = \begin{cases}
+    a_k & \text{se $k=\sigma(j)$},\\
+    0 & \text{altrimenti}.
+  \end{cases}  
+\] 
+Chiaramente $\sum_j \abs{b_{k,j}} = a_k$
+e dunque $\sum_k \sum_j \abs{b_{k,j}} = \sum_k \abs{a_k} < +\infty$.
+Dunque, per il teorema~\ref{th:scambio_somma}
+\[
+ \sum_{k=0}^{+\infty} a_k 
+ = \sum_{k=0}^{+\infty} \sum_{j=0}^{+\infty}b_{k,j}
+ = \sum_{j=0}^{+\infty} \sum_{k=0}^{+\infty}b_{k,j}
+ = \sum_{j=0}^{+\infty} a_{\sigma(j)}.  
+\]
+\end{proof}
+%
+%% \begin{proof}
+%% Basta mostrare che
+%% \begin{equation}
+%% \label{eq:487464}
+%% \lim_{n\to +\infty} \Enclose{\sum_{k=0}^n a_k
+%%  - \sum_{j=0}^n a_{\sigma(j)}} = 0.
+%% \end{equation}
+%% Visto che la serie $\sum a_k$ è assolutamente convergente
+%% per il teorema~\ref{th:coda} sappiamo
+%% che per ogni $\eps>0$ esiste $N_\eps\in \NN$ tale che
+%% \[
+%%   \sum_{k=N_\eps}^{+\infty} \abs{a_k} < \eps.
+%% \]
+%% Inoltre visto che $\sigma\colon \NN \to \NN$ è suriettiva
+%% deve esistere $M_\eps \in \NN$ per cui risulti
+%% \[
+%%  \ENCLOSE{\sigma(0), \sigma(1), \dots, \sigma(M_\eps-1)}
+%%  \supset \ENCLOSE{0,1,\dots, N_\eps - 1}
+%% \]
+%% ovvero per ogni $k<N_\eps$ esiste $j<M_\eps$ tale
+%% che $\sigma(j)=k$.
+%% Necessariamente deve essere $M_\eps\ge N_\eps$.
+%% Per ogni $n>M_\eps$ consideriamo
+%% la differenza tra le somme parziali:
+%% \[
+%% \sum_{k=0}^n a_k - \sum_{j=0}^n a_{\sigma(j)}
+%% \]
+%% e osserviamo che se $j\le n$ e $k=\sigma(j)\le n$ allora
+%% i termini $a_k$ e $a_{\sigma(j)}$ si elidono.
+%% I termini che non si elidono sono gli $a_k$ della prima somma
+%% in cui $\sigma^{-1}(k)>n$ e gli $a_{\sigma(j)}$
+%% della seconda somma in cui $\sigma(j)>n$.
+%% In ogni caso tali termini hanno indice maggiore
+%% o uguale a $N_\eps$ e quindi la loro somma
+%% può essere stimata con la somma dei loro moduli
+%% che a sua volta può essere stimata con la somma
+%% dei moduli di tutti i termini con indice
+%% non inferiore a $N_\eps$:
+%% \begin{align*}
+%%   \abs{\sum_{k=0}^n a_k - \sum_{j=0}^n a_{\sigma(j)}}
+%%   \le 2 \sum_{k=N_\eps}^{+\infty} \abs{a_k} \le 2\eps.
+%% \end{align*}
+%% Questo garantisce la validità dell'equazione~\eqref{eq:487464} in base
+%% alla definizione di limite.
+%% \end{proof}
+
+\begin{corollary}\label{cor:12734}
+  Sia $A$ un insieme numerabile e siano 
+  $\alpha\colon \NN\to A$ e $\beta\colon \NN\to A$ 
+  due funzioni bigettive.
+  Sia $f\colon A\to \RR$ o 
+  $f\colon A \to \CC$ una funzione tale che 
+  \begin{equation}\label{eq:12734}
+    \sum_{k=0}^{+\infty} \abs{f(\alpha(k))} < +\infty.  
+  \end{equation}
+  Oppure sia $f\colon A\to [0,+\infty)$ una funzione 
+  qualunque. 
+  Allora si ha
+  \begin{equation}\label{eq:12735}
+    \sum_{k=0}^{+\infty} f(\alpha(k)) =
+    \sum_{j=0}^{+\infty} f(\beta(j)). 
+  \end{equation}
+\end{corollary}
 %
 \begin{proof}
-Basta mostrare che
-\begin{equation}
-\label{eq:487464}
-\lim_{n\to +\infty} \Enclose{\sum_{k=0}^n a_k
- - \sum_{j=0}^n a_{\sigma(j)}} = 0.
-\end{equation}
-Visto che la serie $\sum a_k$ è assolutamente convergente
-per il teorema~\ref{th:coda} sappiamo
-che per ogni $\eps>0$ esiste $N_\eps\in \NN$ tale che
-\[
-  \sum_{k=N_\eps}^{+\infty} \abs{a_k} < \eps.
-\]
-Inoltre visto che $\sigma\colon \NN \to \NN$ è suriettiva
-deve esistere $M_\eps \in \NN$ per cui risulti
-\[
- \ENCLOSE{\sigma(0), \sigma(1), \dots, \sigma(M_\eps-1)}
- \supset \ENCLOSE{0,1,\dots, N_\eps - 1}
-\]
-ovvero per ogni $k<N_\eps$ esiste $j<M_\eps$ tale
-che $\sigma(j)=k$.
-Necessariamente deve essere $M_\eps\ge N_\eps$.
-Per ogni $n>M_\eps$ consideriamo
-la differenza tra le somme parziali:
-\[
-\sum_{k=0}^n a_k - \sum_{j=0}^n a_{\sigma(j)}
-\]
-e osserviamo che se $j\le n$ e $k=\sigma(j)\le n$ allora
-i termini $a_k$ e $a_{\sigma(j)}$ si elidono.
-I termini che non si elidono sono gli $a_k$ della prima somma
-in cui $\sigma^{-1}(k)>n$ e gli $a_{\sigma(j)}$
-della seconda somma in cui $\sigma(j)>n$.
-In ogni caso tali termini hanno indice maggiore
-o uguale a $N_\eps$ e quindi la loro somma
-può essere stimata con la somma dei loro moduli
-che a sua volta può essere stimata con la somma
-dei moduli di tutti i termini con indice
-non inferiore a $N_\eps$:
-\begin{align*}
-  \abs{\sum_{k=0}^n a_k - \sum_{j=0}^n a_{\sigma(j)}}
-  \le 2 \sum_{k=N_\eps}^{+\infty} \abs{a_k} \le 2\eps.
-\end{align*}
-Questo garantisce la validità dell'equazione~\eqref{eq:487464} in base
-alla definizione di limite.
+Posto $a_k=f(\alpha (k))$ e $\sigma = $ si ha 
+$a_{\sigma(j)} = f(\beta (j))$.
+Dunque se vale~\eqref{eq:12734} si può 
+applicare il teorema~\ref{th:convergenza_incondizionata}
+per ottenere~\eqref{eq:12735}.
+
+Se invece $f(x)\ge 0$ si ha ovviamente $\abs{f(x)}=f(x)$
+dunque se almeno una delle due somme in~\eqref{eq:12735}
+è finita allora si applica il teorema~\ref{th:convergenza_incondizionata}
+alla serie $\sum a_k$ e si ottiene dunque l'uguaglianza 
+in~\eqref{eq:12735}.
+Se invece entrambe le serie sono divergenti
+(essendo serie a termini positivi non ci sono altre possibilità!)
+l'uguaglianza~\eqref{eq:12735} è comunque valida
+essendo $+\infty = +\infty$.
 \end{proof}
 
-%% \begin{comment}
-%% \begin{theorem}%
-%% \label{th:somma_Cauchy}%
-%% Sia $c_{k,j}$ una successione (reale o complessa)
-%% a due indici $k,j\in \NN$.
-%% Se
-%% \[
-%%   \sum_{m=0}^{+\infty} \sum_{k=0}^m \abs{c_{k,m-k}}
-%% \]
-%% è assolutamente convergente
-%% allora per ogni $k$ la serie $\sum_j c_{k,j}$ è
-%% assolutamente convergente e risulta
-%% \[
-%%   \sum_{k=0}^{+\infty} \sum_{j=0}^{+\infty} c_{k,j}
-%%   = \sum_{m=0}^{+\infty} \sum_{k=0}^m c_{k,m-k}.
-%% \]
-%% \end{theorem}
-%% 
-%% Per dimostrare il teorema utilizzeremo questo
-%% lemma leggermente più generale.
-%% 
-%% \begin{lemma}
-%% Sia $\sigma\colon \NN\times\NN\to \NN$ una bigezione.
-%% Se $\displaystyle\sum_n a_n$ è una serie
-%% assolutamente convergente  (reale o complessa) allora si ha:
-%% \begin{equation}\label{eq:582095}
-%%   \sum_{k=0}^{+\infty} a_n
-%%   = \sum_{k=0}^{+\infty} \sum_{j=0}^{+\infty} a_{\sigma(k,j)}.
-%% \end{equation}
-%% \end{lemma}
-%% %
-%% %
-%% \begin{proof}
-%% Per ogni $k$ la serie
-%% \[
-%%   \sum_{j=0}^{+\infty} \abs{a_{\sigma(k,j)}}
-%% \]
-%% è convergente in quanto per ogni $L\in \NN$,
-%% visto che $j \mapsto \sigma(k,j)$ è iniettiva,
-%% esiste $H\in \NN$ per cui si ha
-%% \[
-%%   \sum_{j=0}^L \abs{a_{\sigma(k,j)}}
-%%   \le \sum_{n=0}^{H} \abs{a_n}
-%%   \le \sum_{n=0}^{+\infty} \abs{a_n} < +\infty.
-%% \]
-%% 
-%% Dunque per ogni $k\in\NN$ sappiamo che la somma
-%% \[
-%%   b_k = \sum_{j=0}^{+\infty} a_{\sigma(k,j)}
-%% \]
-%% è assolutamente.
-%% Fissato $\eps>0$ per il teorema~\ref{th:coda} (della coda)
-%% deve esistere $N\in\NN$ tale che
-%% \[
-%%   \sum_{n=N+1}^{+\infty} \abs{a_n} < \eps.
-%% \]
-%% Per lo stesso motivo
-%% per ogni $k\in \NN$ deve esistere $J_k\in \NN$ tale che
-%% \[
-%%   \sum_{j=0}^{J_k+1} \abs{a_{\sigma(k,j)}} < \frac{\eps}{2^k}.
-%% \]
-%% Eventualmente aumentando $J_k$ possiamo anche supporre
-%% che per ogni $j>J_k$ si abbia $\sigma(k,j)>N$
-%% (l'insieme $\ENCLOSE{j\in \NN \colon \sigma(k,j)\le N}$ è finito
-%% in quanto $\sigma$ è iniettiva).
-%% 
-%% Scegliamo ora $M\in \NN$ tale che
-%% per ogni $k>M$ e ogni $j\in \NN$ si abbia $\sigma(k,j)>N$
-%% (l'insieme $\ENCLOSE{(k,j)\in \NN\times\NN \colon \sigma(k,j)\le N}$
-%% è finito).
-%% Per ottenere l'uguaglianza~\eqref{eq:582095} è sufficiente
-%% mostrare che per ogni $m>M$ si ha
-%% \begin{equation}\label{eq:93655}
-%%   \abs{\sum_{k=0}^m b_k - \sum_{n=0}^{+\infty} a_n}
-%%   < 5 \eps.
-%% \end{equation}
-%% 
-%% Ma per ogni $m>M$ si ha
-%% \begin{equation}\label{eq:58382}
-%% \begin{aligned}
-%% \sum_{k=0}^m b_k - \sum_{n=0}^{+\infty} a_n
-%% &=\sum_{k=0}^m \enclose{\sum_{j=0}^{J_k} a_{\sigma(k,j)} +
-%% \sum_{j=J_k+1}^{+\infty} a_{\sigma(k,j)}} - \sum_{n=0}^N a_n - \sum_{n=N+1}^{+\infty} a_n \\
-%% &= \enclose{\sum_{k=0}^M \sum_{j=0}^{J_k} a_{\sigma(k,j)} - \sum_{n=0}^N a_n}
-%% - \sum_{n=N+1}^{+\infty} a_n \\
-%% \qquad &
-%% + \sum_{k=M+1}^{m} \sum_{j=0}^{J_k} a_{\sigma(k,j)}
-%% + \sum_{k=0}^{m} \sum_{j=J_k+1}^{+\infty} a_{\sigma(k,j)}.
-%% \end{aligned}
-%% \end{equation}
-%% Stimiamo separatamente gli addendi sul lato destro.
-%% Per il primo si ha:
-%% \[
-%%  \abs{\sum_{k=0}^M \sum_{j=0}^{J_k} a_{\sigma(k,j)} - \sum_{n=0}^N a_n}
-%%  \le \sum_{n=N+1}^{+\infty} \abs{a_n} < \eps.
-%% \]
-%% in quanto tutti gli addendi della seconda somma si semplificano
-%% (per come abbiamo scelto $M$ e $J_k$)
-%% e rimangono solamente gli addendi $a_{\sigma(k,j)}$
-%% della prima somma (finita) che
-%% hanno indice $\sigma(k,j)>N$.
-%% 
-%% Per il secondo addendo si ha (teorema~\ref{th:convergenza_assoluta})
-%% \[
-%%  \abs{\sum_{n=N+1}^{+\infty} a_n}
-%%  \le \sum_{n=N+1}^{+\infty} \abs{a_n} < \eps.
-%% \]
-%% 
-%% Il terzo addendo è una somma (finita) di termini
-%% $a_{\sigma(k,j)}$ con $k> M$ e dunque $\sigma(k,j)>N$.
-%% Dunque anche in questo caso si ha
-%% \[
-%% \abs{\sum_{k=M+1}^{m} \sum_{j=0}^{J_k} a_{\sigma(k,j)}}
-%% \le\sum_{n=N+1}^{+\infty} \abs{a_n}<\eps.
-%% \]
-%% 
-%% Per il quarto addendo, grazie a come è stato definito $J_k$:
-%% \[
-%%  \abs{\sum_{j=J_k+1}^{+\infty} a_{\sigma(k,j)}}
-%%  \le \sum_{j=J_k+1}^{+\infty} \abs{a_{\sigma(k,j)}}
-%%  < \frac{\eps}{2^k}
-%% \]
-%% e dunque
-%% \[
-%% \abs{\sum_{k=0}^{M}\sum_{j=J_k+1}^{+\infty} a_{\sigma(k,j)}}
-%% \le \sum_{k=0}^{M} \frac{\eps}{2^k}
-%% \le \eps \sum_{k=0}^{+\infty}\frac{1}{2^k} = 2\eps.
-%% \]
-%% 
-%% Abbiamo quindi dimostrato~\eqref{eq:93655}.
-%% \end{proof}
-%% 
-%% \begin{proof}[Dimostrazione del teorema~\ref{th:somma_Cauchy}]
-%% Sia $\sigma\colon \NN\times \NN\to \NN$ la bigezione utilizzata
-%% nel primo metodo diagonale di Cantor (teorema~\ref{th:Cantor_primo})
-%% e poniamo $a_n = c_{\sigma^{-1}(n)}$ cosicché
-%% $a_{\sigma(k,j)} = c_{k,j}$.
-%% Allora le somme parziali
-%% \[
-%%   \sum_{n=0}^N \sum_{k=0}^n c_{k,n-k}
-%% \]
-%% sono una sottosuccessione delle somme parziali della serie
-%% $\sum a_n$.
-%% In particolare se vale l'ipotesi del teorema la serie
-%% $\sum a_n$ è assolutamente convergente e si può applicare
-%% il lemma precedente da cui si ottiene il risultato desiderato.
-%% \end{proof}
-%% \end{comment}
+\begin{definition}[somme arbitrarie]
+Sia $f\colon A\to [0,+\infty]$ una funzione definita su un insieme 
+$A$ numerabile (cioè $\#A \le \#\NN$).
+Allora definiamo
+  \[
+    \sum_{x\in A}f(x)
+    = \sum_{k=0}^{+\infty} f(\sigma(k)) 
+  \]
+dove $\sigma\colon \NN\to A$ è una qualunque funzione bigettiva
+(il risultato non dipende da $\sigma$ grazie al corollario~\ref{cor:12734}).
+
+Se $f\colon A\to \CC$ o $f\colon A\to \RR$ (sempre con $A$ numerabile)
+diremo che $f$ è sommabile se $\sum_{x\in A}\abs{f(x)}<+\infty$. 
+In tal caso possiamo definire $\sum_{x\in A} f(x)$ come prima
+visto che anche in questo caso la somma non dipende
+dall'ordine degli addendi.
+
+Se $A=\ENCLOSE{a_0, \dots, a_{n-1}}$ è un insieme finito si può definire 
+\[
+  \sum_{x\in A} f(x) = \sum_{k=0}^{n-1} f(a_k)
+\]
+ed è chiaro che la somma non dipende dall'ordine degli addendi.
+\end{definition}
+
+\begin{theorem}[famiglie sommabili]
+Sia $A$ un qualunque insieme numerabile ($\#A<\#\NN$)
+e per ogni $k\in \NN$ siano $A_k\subset A$ sottoinsiemi tali 
+che 
+\[
+ A \bigcup_{k\in \NN} A_k, \qquad 
+ k\neq j \implies A_k \cap A_j = \emptyset.
+\]
+Diremo in tal caso che $A_k$ è una partizione di $A$ 
+perché ogni elemento di $\NN$ sta in uno e uno solo 
+degli insiemi $A_k$.
+Se $f\colon A\to \RR$ o $f\colon A\to CC$ è una funzione 
+sommabile oppure $f\colon A \to [0,+\infty)$ 
+è una funzione qualunque, allora si ha 
+\[
+  \sum_{x\in A} f(x) = \sum_{k=0}^{+\infty} \sum_{x\in A_k}.  
+\]
+\end{theorem}
+%
+\begin{proof}
+Per ogni $k$ l'insieme $A_k$ è numerabile. 
+Se è infinito siano $a_{k,j}$ i suoi elementi con $j\in \NN$,  
+se è finito chiamiamo $a_{k,j}$ i suoi elementi 
+ponendo $a_{k,j}=0$ se $j$ non è inferiore al numero di elementi.
+Allora 
+\[
+ \sum_{x\in A_k} f(x)\sum_{j=0}^{+\infty} a_{k,j}.
+\]
+??????????????????????
+\end{proof}
 
 %%%%%%%%%%%
 %%%%%%%%%%%
