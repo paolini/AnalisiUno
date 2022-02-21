@@ -1037,9 +1037,8 @@ E per continuità del modulo, posto $S= \lim S_n$ si ha
 \end{proof}
 
 \begin{theorem}[scambio delle serie]
-  \label{th:scambio_somma}
-Sia $a_{k,j}\in \RR$ o $a_{k,j}\in \CC$ una successione a due indici $k\in \NN$, $j\in \NN$ 
-(ovvero $a_{k,j}=\vec a(k,j)$ con $\vec a \colon \NN\times\NN\to \RR$).
+\label{th:scambio_somma}
+Sia $a_{k,j}\in \RR$ o $a_{k,j}\in \CC$ una successione a due indici $k\in \NN$, $j\in \NN$.
 Se 
 \[
   \sum_{k=0}^{+\infty}\sum_{j=0}^{+\infty}\abs{a_{k,j}}<+\infty  
@@ -1054,11 +1053,11 @@ allora
 \begin{proof}
 Si intende, ovviamente, che per ogni $k$ 
 la serie $\sum_j \abs{a_{k,j}}$ è convergente
-dunque $\sum_j a_{k,j}$ è assolutamente convergente
-e, per il teorema~\ref{th:convergenza_assoluta}, 
-anche $\sum_k \abs{\sum_j a_{k,j}} 
-\le \sum_k \sum_j \abs{a_{k,j}}$
-è assolutamente convergente.
+dunque $\sum_j a_{k,j}$ è assolutamente convergente.
+% e, per il teorema~\ref{th:convergenza_assoluta}, 
+% anche $\sum_k \abs{\sum_j a_{k,j}} 
+% \le \sum_k \sum_j \abs{a_{k,j}}$
+% è assolutamente convergente.
 Ovviamente 
 $\sum_k \abs{a_{k,j}} \le \sum_k \sum_j \abs{a_{k,j}}$
 e dunque per ogni $j$ anche la serie 
@@ -1069,7 +1068,7 @@ S = \sum_{k=0}^{+\infty}\sum_{j=0}^{+\infty} a_{k,j},
 \qquad
 S_n = \sum_{j=0}^{n-1}\sum_{k=0}^{+\infty} a_{k,j}  
 \]
-vogliamo dimostrare che $S_n \to S$
+dobbiamo dimostrare che $S_n \to S$
 per $n\to +\infty$. 
 Applichiamo la definizione di limite:
 sia $\eps>0$ fissato.
@@ -1082,9 +1081,8 @@ e per ogni $k<K$ esiste $J_k$ tale che
 \[
   \sum_{j=J_k}^{+\infty} \abs{a_{k,j}} < \frac{\eps}{2K}.  
 \]
-Posto $J=\max\ENCLOSE{J_0,J_1, \dots, J_{K-1}}$
-la stima precedente vale anche con $J$ al posto di $J_k$.
-Dunque se $n>J$ si ha 
+Dunque posto $J=\max\ENCLOSE{J_0,J_1, \dots, J_{K-1}}$
+se $n>J$ si ha:
 \begin{align*}
   \abs{S-S_n}
   &= \abs{\sum_{k=0}^{+\infty}\sum_{j=0}^{+\infty}a_{k,j} 
@@ -1096,8 +1094,10 @@ Dunque se $n>J$ si ha
   \abs{\sum_{k=0}^{+\infty}\sum_{j=n}^{+\infty}a_{k,j} }
   = \abs{\sum_{k=0}^{K-1}\sum_{j=n}^{+\infty} a_{k,j}
    + \sum_{k=K}^{+\infty}\sum_{j=n}^{+\infty} a_{k,j}}\\
-  &\le \sum_{k=0}^{K-1}\frac{\eps}{2K}
-   + \sum_{k=K}^{+\infty}\sum_{j=J_k}^{+\infty}\abs{a_{k,j}}
+   &\le \sum_{k=0}^{K-1}\sum_{j=n}^{+\infty} \abs{a_{k,j}}
+    + \sum_{k=K}^{+\infty}\sum_{j=0}^{+\infty} \abs{a_{k,j}}
+   \le \sum_{k=0}^{K-1}\sum_{j=J_k}^{+\infty} \abs{a_{k,j}}
+   + \frac \eps 2
   \le \frac \eps 2 + \frac \eps 2 = \eps
 \end{align*}
 come volevamo dimostrare.
@@ -1133,54 +1133,60 @@ Dunque, per il teorema~\ref{th:scambio_somma}
 \]
 \end{proof}
 
+\begin{theorem}[somme alla Cauchy]
+  \label{th:somma_Cauchy}%
+Sia $a_{k,j}\in \RR$ o $a_{k,j}\in \CC$ una successione a due indici $k\in \NN$, $j\in\NN$.
+Se 
+\[
+  \sum_{k=0}^{+\infty} \sum_{j=0}^{+\infty} \abs{a_{k,j}} < +\infty
+\]  
+allora 
+\begin{equation}\label{eq:somma_Cauchy}
+  \sum_{k=0}^{+\infty} \sum_{j=0}^{+\infty} a_{k,j}
+   = \sum_{n=0}^{+\infty} \sum_{k=0}^{n} a_{k,n-k}.
+\end{equation}
+\end{theorem}
 %
-%% \begin{proof}
-%% Basta mostrare che
-%% \begin{equation}
-%% \label{eq:487464}
-%% \lim_{n\to +\infty} \Enclose{\sum_{k=0}^n a_k
-%%  - \sum_{j=0}^n a_{\sigma(j)}} = 0.
-%% \end{equation}
-%% Visto che la serie $\sum a_k$ è assolutamente convergente
-%% per il teorema~\ref{th:coda} sappiamo
-%% che per ogni $\eps>0$ esiste $N_\eps\in \NN$ tale che
-%% \[
-%%   \sum_{k=N_\eps}^{+\infty} \abs{a_k} < \eps.
-%% \]
-%% Inoltre visto che $\sigma\colon \NN \to \NN$ è suriettiva
-%% deve esistere $M_\eps \in \NN$ per cui risulti
-%% \[
-%%  \ENCLOSE{\sigma(0), \sigma(1), \dots, \sigma(M_\eps-1)}
-%%  \supset \ENCLOSE{0,1,\dots, N_\eps - 1}
-%% \]
-%% ovvero per ogni $k<N_\eps$ esiste $j<M_\eps$ tale
-%% che $\sigma(j)=k$.
-%% Necessariamente deve essere $M_\eps\ge N_\eps$.
-%% Per ogni $n>M_\eps$ consideriamo
-%% la differenza tra le somme parziali:
-%% \[
-%% \sum_{k=0}^n a_k - \sum_{j=0}^n a_{\sigma(j)}
-%% \]
-%% e osserviamo che se $j\le n$ e $k=\sigma(j)\le n$ allora
-%% i termini $a_k$ e $a_{\sigma(j)}$ si elidono.
-%% I termini che non si elidono sono gli $a_k$ della prima somma
-%% in cui $\sigma^{-1}(k)>n$ e gli $a_{\sigma(j)}$
-%% della seconda somma in cui $\sigma(j)>n$.
-%% In ogni caso tali termini hanno indice maggiore
-%% o uguale a $N_\eps$ e quindi la loro somma
-%% può essere stimata con la somma dei loro moduli
-%% che a sua volta può essere stimata con la somma
-%% dei moduli di tutti i termini con indice
-%% non inferiore a $N_\eps$:
-%% \begin{align*}
-%%   \abs{\sum_{k=0}^n a_k - \sum_{j=0}^n a_{\sigma(j)}}
-%%   \le 2 \sum_{k=N_\eps}^{+\infty} \abs{a_k} \le 2\eps.
-%% \end{align*}
-%% Questo garantisce la validità dell'equazione~\eqref{eq:487464} in base
-%% alla definizione di limite.
-%% \end{proof}
+\begin{proof}
+Poniamo 
+\[
+  b_{k,n} = \begin{cases}
+    a_{k,n-k} & \text{se $k\le n$}\\
+    0 & \text{se $k>n$}.
+  \end{cases}  
+\]
+Osserviamo allora che 
+\[
+  \sum_{k=0}^{+\infty} \sum_{n=0}^{+\infty} b_{n,k}
+  = \sum_{k=0}^{+\infty} \sum_{n=k}^{+\infty} a_{k,n-k} 
+  = \sum_{k=0}^{+\infty} \sum_{j=0}^{+\infty} a_{k,j}
+\]
+e analogamente
+\[
+  \sum_{k=0}^{+\infty} \sum_{n=0}^{+\infty} \abs{b_{n,k}}
+  = \sum_{k=0}^{+\infty} \sum_{j=0}^{+\infty} \abs{a_{k,j}}
+  < +\infty.
+\]
+Mentre 
+\[
+  \sum_{k=0}^{+\infty}\sum_{n=0}^{+\infty} b_{k,n} 
+  = \sum_{k=0}^{+\infty}\sum_{n=k}^{+\infty}
+\]
+dunque si può applicare il teorema~\ref{th:scambio_somma} alla 
+successione $b_{n,j}$ per ottenere 
+\[
+  \sum_{k=0}^{+\infty}\sum_{n=0}^{+\infty} b_{k,n} 
+  =\sum_{n=0}^{+\infty} \sum_{k=0}^{+\infty} b_{n,k}
+  = \sum_{n=0}^{+\infty} \sum_{k=0}^{n} a_{k,n-k}
+\]
+da cui~\eqref{eq:somma_Cauchy}.
+\end{proof}
 
-\begin{corollary}\label{cor:12734}
+%%%%%%%%%%
+\section{somme su insiemi arbitrari}
+%%%%%%%%%%
+
+\begin{lemma}\label{lemma:12734}
   Sia $A$ un insieme numerabile e siano 
   $\alpha\colon \NN\to A$ e $\beta\colon \NN\to A$ 
   due funzioni bigettive.
@@ -1196,7 +1202,7 @@ Dunque, per il teorema~\ref{th:scambio_somma}
     \sum_{k=0}^{+\infty} f(\alpha(k)) =
     \sum_{j=0}^{+\infty} f(\beta(j)). 
   \end{equation}
-\end{corollary}
+\end{lemma}
 %
 \begin{proof}
 Posto $a_k=f(\alpha (k))$ e $\sigma = $ si ha 
@@ -1225,7 +1231,7 @@ Allora definiamo
     = \sum_{k=0}^{+\infty} f(\sigma(k)) 
   \]
 dove $\sigma\colon \NN\to A$ è una qualunque funzione bigettiva
-(il risultato non dipende da $\sigma$ grazie al corollario~\ref{cor:12734}).
+(il risultato non dipende da $\sigma$ grazie al lemma~\ref{cor:12734}).
 
 Se $f\colon A\to \CC$ o $f\colon A\to \RR$ (sempre con $A$ numerabile)
 diremo che $f$ è sommabile se $\sum_{x\in A}\abs{f(x)}<+\infty$. 
@@ -1239,37 +1245,6 @@ Se $A=\ENCLOSE{a_0, \dots, a_{n-1}}$ è un insieme finito si può definire
 \]
 ed è chiaro che la somma non dipende dall'ordine degli addendi.
 \end{definition}
-
-\begin{theorem}[famiglie sommabili]
-Sia $A$ un qualunque insieme numerabile ($\#A<\#\NN$)
-e per ogni $k\in \NN$ siano $A_k\subset A$ sottoinsiemi tali 
-che 
-\[
- A \bigcup_{k\in \NN} A_k, \qquad 
- k\neq j \implies A_k \cap A_j = \emptyset.
-\]
-Diremo in tal caso che $A_k$ è una partizione di $A$ 
-perché ogni elemento di $\NN$ sta in uno e uno solo 
-degli insiemi $A_k$.
-Se $f\colon A\to \RR$ o $f\colon A\to CC$ è una funzione 
-sommabile oppure $f\colon A \to [0,+\infty)$ 
-è una funzione qualunque, allora si ha 
-\[
-  \sum_{x\in A} f(x) = \sum_{k=0}^{+\infty} \sum_{x\in A_k}.  
-\]
-\end{theorem}
-%
-\begin{proof}
-Per ogni $k$ l'insieme $A_k$ è numerabile. 
-Se è infinito siano $a_{k,j}$ i suoi elementi con $j\in \NN$,  
-se è finito chiamiamo $a_{k,j}$ i suoi elementi 
-ponendo $a_{k,j}=0$ se $j$ non è inferiore al numero di elementi.
-Allora 
-\[
- \sum_{x\in A_k} f(x)\sum_{j=0}^{+\infty} a_{k,j}.
-\]
-??????????????????????
-\end{proof}
 
 %%%%%%%%%%%
 %%%%%%%%%%%
@@ -1441,76 +1416,6 @@ Chiaramente le somme tenderanno a $+\infty$.
 
 Il caso $x=-\infty$ si tratta in maniera analoga.
 \end{proof}
-
-\section{somme multiple}
-
-%% %
-%% \begin{proof}
-%% Dimostriamo solo~\eqref{eq:somma_Cauchy},
-%% \eqref{eq:scambio_somma} si dimostra in maniera simile.
-%% 
-%% Poniamo 
-%% \[
-%%   b_k = \sum_{j=0}^{+\infty} a_{k,j},\qquad
-%%   c_n = \sum_{k=0}^{n} a_{k,n-k}.
-%% \]
-%% Se immaginiamo i termini $a_{k,j}$ come i termini di una matrice 
-%% infinita dove $k$ è l'indice di riga e $j$ è l'indice di colonna,
-%% osserviamo che $b_k$ rappresenta la somma dei termini sulla riga 
-%% $k$-esima e la successione $c_n$ rappresenta la somma (finita)
-%% dei termini sulla diagonale $k+j=n$. 
-%% L'idea è che sommare i termini lungo le righe oppure lungo le diagonali 
-%% ci deve dare lo stesso risultato. 
-%% L'ipotesi è infatti una sorta di assoluta convergenza della serie di tutti 
-%% i termini $a_{k,j}$.
-%% 
-%% La tesi del teorema è
-%% \[
-%% \sum_{k=0}^{+\infty} b_k = \lim_{N\to +\infty} \sum_{n=0}^N c_n  
-%% \]
-%% cioè per ogni $\eps>0$ dobbiamo trovare $\alpha\in \NN$ tale che per 
-%% ogni $N > \alpha$ si abbia
-%% \[
-%%   \abs{\sum_{n=0}^N c_n - \sum_{k=0}^{+\infty} b_k} < 4\eps.  
-%% \]
-%% Fissato $\eps>0$ applicando la proprietà della coda 
-%% (teorema~\ref{th:coda}) alla serie convergente data per ipotesi,
-%% si ottiene che esiste $K$ tale che:
-%% \[
-%%   \sum_{k=K+1}^{+\infty} \sum_{j=0}^{+\infty} \abs{a_{k,j}} < \frac{\eps} 2.
-%% \]
-%% Sempre grazie alla proprietà della coda applicata ai singoli termini 
-%% della serie convergente per ipotesi possiamo affermare che per ogni 
-%% $k\in \ENCLOSE{0,1,\dots, K}$ esiste un indice $J_k$ tale che 
-%% \[
-%%   \sum_{j=J_k+1}^{+\infty} \abs{a_{k,j}} \le \frac{\eps}{2^{k+2}}.
-%% \]
-%% Poniamo $J=\max\ENCLOSE{J_0,J_1, \dots, J_K}$ e $\alpha = J + K$.
-%% Se $N\ge \alpha$ si ha allora 
-%% \begin{align*}
-%%   \abs{\sum_{n=0}^N c_n - \sum_{k=0}^{+\infty} b_k}
-%%   &\le \abs{\sum_{n=0}^N c_n - \sum_{k=0}^{K} b_k} + \eps \\
-%% \end{align*}
-%% Osserviamo ora che i termini che vengono sommati nella serie 
-%% $\sum_{n=0}^N c_n$ sono tutti i termini $a_{k,j}$ tali che $k+j\le N$,
-%% mentre i termini che vengono sommati in $\sum_{k=0}^K b_k$ 
-%% sono tutti i termini $a_{k,j}$ con $k\le K$. 
-%% Quindi i termini in comune alle due somme si cancellano e rimangono solamente 
-%% i termini della prima somma che non compaiono nella seconda e i termini 
-%% della seconda somma che non compaiono nella prima. 
-%% Non ci interessa il segno di questi termini quindi possiamo stimare la somma 
-%% di tutti questi termini residui facendone la somma dei valori assoluti:
-%% \begin{align*}
-%%   \abs{\sum_{n=0}^N c_n - \sum_{k=0}^{K} b_k}
-%%   & \le \sum_{k=K+1}^N \sum_{j=0}^{N-k} \abs{a_{k,j}}
-%%    + \sum_{k=0}^{K}\sum_{j=N-K}^{+\infty} \abs{a_{k,j}}\\ 
-%%   & \le \sum_{k=K+1}^{+\infty}\sum_{j=0}^{+\infty} \abs{a_{k,j}}
-%%    + \sum_{k=0}^K \sum_{j=J_k+1}^{+\infty} \abs{a_{k,j}} \\ 
-%%   & \le \frac\eps 2 + \sum_{k=0}^{+\infty} \frac{\eps}{2^{k+2}}
-%%    = \eps.
-%% \end{align*}
-%% \end{proof}
-
 
 \section{somma per parti}
 \begin{theorem}[somma per parti]
