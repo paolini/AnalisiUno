@@ -465,8 +465,12 @@ di determinare l'area di tali figure in modo piuttosto semplice.
 
 \section{integrale di Riemann}
 
-\begin{definition}[integrale di Riemann]
-\mymark{***}
+\begin{definition}[integrale di Riemann]%
+\label{def:integrale}%
+\mymark{***}%
+\index{integrale!definizione}%
+\index{definizione!di integrale}%
+\index{Riemann!integrale di}%
 Siano $a,b\in \RR$, $a \le b$.
 Un insieme $P\subset [a,b]$ si dice essere una \myemph{suddivisione di Riemann}
 \index{Riemann!suddivisione di}
@@ -666,8 +670,24 @@ l'integrale coincide con i limiti di $S^*(f,P_n)$ e di
 $S_*(f,P_n)$.
 \end{proof}
 
-\begin{example}[calcolo dell'integrale tramite le suddivisioni]
-\label{ex:integrale_quadrato}
+%% *** DA COMPLETARE:
+%% \begin{example}[calcolo dell'integrale mediante suddivisioni]%
+%%   \label{ex:integrale_x}%
+%% Mostriamo che per ogni $b>0$ la funzione $f(x)=x$ è
+%% Riemann integrabile sull'intervallo $[0,b]$ e si ha 
+%% \[
+%% \int_0^b x\, dx = \frac{b^2}{2}.  
+%% \]
+%% \end{example}
+%% \begin{proof}
+%%   Consideriamo le suddivisioni \emph{equispaziate} dell'intervallo $[0,b]$, cioè dividiamo $[0,b]$ in $N$ intervalli ognuno di ampiezza $b/N$:
+%%   \[
+%%   P_N = \ENCLOSE{\frac{kb}{N}\colon k \in 0, 1, \dots, N}.
+%%   \]  
+%% \end{proof}
+
+\begin{example}[calcolo dell'integrale mediante suddivisioni]%
+\label{ex:integrale_quadrato}%
 Mostriamo che per ogni $b>0$ la funzione $f(x)=x^2$ è Riemann-integrabile sull'intervallo $[0,b]$ e si ha
 \[
  \int_0^b x^2\, dx = \frac{b^3}{3}.
@@ -765,8 +785,92 @@ razionali e infiniti punti irrazionali. Dunque $\sup f(I)=1$ e $\inf f(I)=0$ e d
 da cui $I^*(f) = b-a \neq 0 = I_*(f)$.
 \end{proof}
 
-\begin{theorem}[monotonia dell'integrale]
+%%%%%
+\section{proprietà degli integrali}
+%%%%%
+\index{integrali!proprietà}%
+\index{proprietà!degli integrali}%
+
+\begin{theorem}[additività dell'integrale]
+\mymark{*}%
+\mymargin{additività dell'integrale}%
+\index{integrale!additività}%
+\label{th:additivita_integrale}%
+Sia $f\colon [a,b]\to \RR$ una funzione limitata e sia $c\in [a,b]$.
+Allora $f$ è Riemann-integrabile su $[a,b]$ se e solo se
+$f$ è Riemann-integrabile su $[a,c]$ e su $[c,b]$.
+E in tal caso risulta
+\begin{equation}\label{eq:36645}
+  \int_a^b f = \int_a^c f + \int_c^b f.
+\end{equation}
+
+In base alla convenzione
+\[
+    \int_b^a f = -\int_a^b f
+\]
+la formula \eqref{eq:36645} è valida non solo se $a\le c\le b$ ma anche
+se $a,b,c$ sono in qualunque ordine, purché la funzione $f$ sia integrabile
+sull'intervallo che contiene tutti e tre i punti $a,b,c$.
+\end{theorem}
+%
+\begin{proof}
 \mymark{*}
+Supponiamo che $f$ sia integrabile su $[a,c]$ e su $[c,b]$.
+Allora, in base ai criteri di integrabilità, per ogni $\eps>0$ esisteranno una
+suddivisione $P$ di $[a,c]$ e una suddivisione $Q$ di $[c,b]$ tali che
+\[
+  S^*(f,P) - S_*(f,P) < \frac \eps 2,
+  \qquad
+  S^*(f,Q) - S_*(f,Q) < \frac \eps 2.
+\]
+L'insieme $R=P\cup Q$ risulta essere una suddivisione di $[a,b]$ su cui si avrà
+\begin{equation}\label{eq:56632}
+S^*(f,R) = S^*(f,P) + S^*(f,Q), \qquad
+S_*(f,R) = S_*(f,P) + S_*(f,Q)
+\end{equation}
+e dunque
+\[
+S^*(f,R) - S_*(f,R) \le \frac \eps 2 + \frac \eps 2 = \eps.
+\]
+Applicando nuovamente il criterio di integrabilità in senso invertito otteniamo
+dunque l'integrabilità di $f$ su $[a,b]$ e le equazioni
+\eqref{eq:56632} garantiscono l'additività dell'integrale rispetto al dominio.
+
+Viceversa se $f$ è integrabile su $[a,b]$ il criterio di integrabilità
+ci garantisce che per ogni $\eps>0$ esiste una suddivisione $R$ di $[a,b]$ tale che
+\[
+S^*(f,R) - S_*(f,R) < \eps.
+\]
+Se ora consideriamo $R' = R \cup \ENCLOSE{c}$ sappiamo che $S^*(f,R') \le S^*(f,R)$
+e $S_*(f,R') \ge S_*(f,R)$ dunque anche $R'$ soddisfa la proprietà
+\[
+S^*(f,R') - S_*(f,R') < \eps.
+\]
+Ma ora è chiaro che posto $P=R'\cap[a,c]$ e $Q=R'\cap[c,b]$ risulta che $P$
+e $Q$ siano suddivisioni di $[a,c]$ e $[c,b]$ rispettivamente e che
+\begin{align*}
+  S^*(f,R') &= S^*(f,P) + S^*(f,Q), \\
+  S_*(f,R') &= S_*(f,P) + S_*(f,Q).
+\end{align*}
+Dunque si ha
+\begin{align*}
+(S^*(f,P) - S_*(f,P)) + (S^*(f,Q) - S_*(f,Q))
+&= S^*(f,R') - S_*(f,R')
+< \eps.
+\end{align*}
+Visto che entrambi gli addendi $S^*-S_*$ sono non negativi
+risulta che valgono separatamente le disuguaglianze
+\[
+S^*(f,P) - S_*(f,P) < \eps, \qquad
+S^*(f,Q) - S_*(f,Q) < \eps.
+\]
+Dunque $f$ è integrabile sia su $[a,c]$ che su $[c,b]$.
+E nuovamente possiamo osservare che l'integrale è additivo sul dominio.
+\end{proof}  
+
+\begin{theorem}[monotonia dell'integrale]%
+\label{th:monotonia_integrale}%
+\mymark{*}%
 Sia $a\le b$ e siano
 $f,g\colon [a,b]\to \RR$ due funzioni Riemann-integrabili.
 Se per ogni $x\in [a,b]$ si ha $f(x) \le g(x)$ allora
@@ -837,15 +941,11 @@ Osserviamo che su qualunque insieme $A$ si ha
 \[
   \sup_A (f+g) \le \sup_A f + \sup_A g.
 \]
-Infatti per le proprietà dell'estremo superiore per ogni $\eps>0$ esiste $x\in A$ tale che
-\[
-  \sup_A (f+g) \le f(x) + g(x) + \eps.
-\]
-Ma chiaramente $f(x) \le \sup_A f$ e $g(x)\le \sup_A g$ dunque si ottiene
-\[
-  \sup_A (f+g) \le \sup_A f + \sup_A g + \eps.
-\]
-Passando al limite per $\eps \to 0^+$ si ottiene la disuguaglianza voluta.
+Infatti per ogni $x\in A$ si ha $\sup_A f\ge f(x)$ 
+e $\sup_A g \ge g(x)$ dunque $\sup_A f + \sup_A g$
+è maggiore di $f(x)+g(x)$ per ogni $x\in A$ 
+ed è quindi non inferiore a $\sup_A (f+g)$ che 
+è il minimo dei maggioranti.
 Questo significa che
 \[
   S^*(f+g) \le S^*(f) + S^*(g).
@@ -895,31 +995,57 @@ anche $g$ è Riemann-integrabile su $[a,b]$, allora anche $f\vee g$ e $f\wedge g
 sono integrabili sullo stesso intervallo.
 Inoltre si ha 
 \begin{equation}\label{eq:489732}
-  \int_a^b \abs{f} \ge \abs{\int_a^b f}.  
+  \abs{\int_a^b f} 
+  \le 
+  \int_a^b \abs{f}. 
 \end{equation}
 \end{theorem}
 %
 \begin{proof}
 Dimostriamo innanzitutto che se $f$ è integrabile anche $\abs{f}$ lo è.
 Basta osservare che in generale se $x,y\in [a,b]$ si ha
-\[
+\begin{equation}\label{eq:4026777}
   \abs{f(x)}-\abs{f(y)} \le \abs{f(x) - f(y)}
-\]
-da cui per ogni $A\subset [a,b]$
-\[
+\end{equation}
+il che significa che la \emph{oscillazione}
+di $\abs{f}$  su un insieme $A\subset [a,b]$
+(ovvero la differenza tra $\sup$ 
+e $\inf$)
+è inferiore all'oscillazione di $f$ sullo 
+stesso insieme\marginnote{
+  Formalmente si dimostra~\eqref{eq:4026778} prendendo 
+  il $\displaystyle\sup_{x\in A} \sup_{y\in A}$ di ambo i lati
+  in~\eqref{eq:4026777}.
+}:
+\begin{equation}\label{eq:4026778}
   \sup_{x\in A} \abs{f(x)} - \inf_{y\in A} \abs{f(y)} \le
   \sup_{x\in A} f(x) - \inf_{y\in A}f(y)
-\]
+\end{equation}
 e quindi per ogni suddivisione $P$ si avrà
 \[
-  S^*(\abs{f},P) - S_*(\abs{f}, P) \le S^*(f,P) - S_*(f,P).
+  S^*(\abs{f},P) - S_*(\abs{f}, P) \le S^*(f,P) - S_*(f,P)
 \]
-Ma se $f$ è integrabile allora il lato destro può essere reso
-arbitrariamente piccolo (teorema~\ref{th:criteri_integrabilita})
-e di conseguenza anche il lato sinistro.
+e in conclusione 
+\[
+  I^*(\abs f)-I_*(\abs f) \le I^*(f)-I_*(f) = 0.  
+\]
 Dunque la funzione $\abs{f}$ è integrabile (se $f$ lo è).
 
-Ma allora basta osservare che
+Ma allora basta osservare che%
+\marginnote{Per ogni $a,b\in \RR$ 
+è facile convincersi che valgono 
+le seguenti identità
+\[
+  \begin{cases}
+  a = a^+ - a^-\\
+  \abs{a} = a^+ + a^-\\
+  \end{cases}
+\]\[
+  \begin{cases}
+    a + b = (a\vee b) + (a\wedge b)\\
+    \abs{a - b} = (a\vee b) - (a\wedge b) 
+  \end{cases}
+\]}
 \begin{gather*}
   f^+ = \frac{\abs{f} + f}{2}, \qquad
   f^- = \frac{\abs{f} - f}{2}, \\
@@ -931,89 +1057,24 @@ sono integrabili,
  grazie
 alla linearità dell'integrale (teorema~\ref{th:integrale_lineare}).
 
-Per dimostrare~\eqref{eq:489732} basta osservare che 
-\[
-\abs{\int_a^b f} = \abs{\int_a^b f^+ - \int_a^n f^-}
-\le \int_a^b f^+ - \int_a^b f^- = \int_a^b \abs{f}.   
-\]
+Per dimostrare~\eqref{eq:489732} basta osservare che
+$f^+\ge 0$ e $f^-\ge 0$ dunque per il 
+teorema~\ref{th:monotonia_integrale} $\int_a^b f^+\ge 0$ 
+e $\int_a^b f^-\ge 0$, cosicché:
+\begin{align*}
+\abs{\int_a^b f} 
+&= \abs{\int_a^b f^+ - \int_a^b f^-}\\
+&\le \abs{\int_a^b f^+} + \abs{\int_a^b f^-}
+= \int_a^b f^+ + \int_a^b f^-
+= \int_a^b \abs{f}.   
+\end{align*}
 \end{proof}
 
-\begin{theorem}[additività dell'integrale]
-\mymark{*}%
-\mymargin{additività dell'integrale}%
-\index{integrale!additività}%
-\label{th:additivita_integrale}%
-Sia $f\colon [a,b]\to \RR$ una funzione limitata e sia $c\in [a,b]$.
-Allora $f$ è Riemann-integrabile su $[a,b]$ se e solo se
-$f$ è Riemann-integrabile su $[a,c]$ e su $[c,b]$.
-E in tal caso risulta
-\begin{equation}\label{eq:36645}
- \int_a^b f = \int_a^c f + \int_c^b f.
-\end{equation}
-
-In base alla convenzione
-\[
-   \int_b^a f = -\int_a^b f
-\]
-la formula \eqref{eq:36645} è valida non solo se $a\le c\le b$ ma anche
-se $a,b,c$ sono in qualunque ordine, purché la funzione $f$ sia integrabile
-sull'intervallo che contiene tutti e tre i punti $a,b,c$.
-\end{theorem}
-%
-\begin{proof}
-\mymark{*}
-Supponiamo che $f$ sia integrabile su $[a,c]$ e su $[c,b]$.
-Allora, in base ai criteri di integrabilità, per ogni $\eps>0$ esisteranno una
-suddivisione $P$ di $[a,c]$ e una suddivisione $Q$ di $[c,b]$ tali che
-\[
-  S^*(f,P) - S_*(f,P) < \frac \eps 2,
-  \qquad
-  S^*(f,Q) - S_*(f,Q) < \frac \eps 2.
-\]
-L'insieme $R=P\cup Q$ risulta essere una suddivisione di $[a,b]$ su cui si avrà
-\begin{equation}\label{eq:56632}
-S^*(f,R) = S^*(f,P) + S^*(f,Q), \qquad
-S_*(f,R) = S_*(f,P) + S_*(f,Q)
-\end{equation}
-e dunque
-\[
-S^*(f,R) - S_*(f,R) \le \frac \eps 2 + \frac \eps 2 = \eps.
-\]
-Applicando nuovamente il criterio di integrabilità in senso invertito otteniamo
-dunque l'integrabilità di $f$ su $[a,b]$ e le equazioni
-\eqref{eq:56632} garantiscono l'additività dell'integrale rispetto al dominio.
-
-Viceversa se $f$ è integrabile su $[a,b]$ il criterio di integrabilità
-ci garantisce che per ogni $\eps>0$ esiste una suddivisione $R$ di $[a,b]$ tale che
-\[
-S^*(f,R) - S_*(f,R) < \eps.
-\]
-Se ora consideriamo $R' = R \cup \ENCLOSE{c}$ sappiamo che $S^*(f,R') \le S^*(f,R)$
-e $S_*(f,R') \ge S_*(f,R)$ dunque anche $R'$ soddisfa la proprietà
-\[
-S^*(f,R') - S_*(f,R') < \eps.
-\]
-Ma ora è chiaro che posto $P=R'\cap[a,c]$ e $Q=R'\cap[c,b]$ risulta che $P$
-e $Q$ siano suddivisioni di $[a,c]$ e $[c,b]$ rispettivamente e che
-\begin{align*}
-  S^*(f,R') &= S^*(f,P) + S^*(f,Q), \\
-  S_*(f,R') &= S_*(f,P) + S_*(f,Q).
-\end{align*}
-Dunque si ha
-\begin{align*}
-(S^*(f,P) - S_*(f,P)) + (S^*(f,Q) - S_*(f,Q))
-&= S^*(f,R') - S_*(f,R') \\
-&< \eps.
-\end{align*}
-Visto che entrambi gli addendi $S^*-S_*$ sono non negativi
-risulta che valgono separatamente le disuguaglianze
-\[
-S^*(f,P) - S_*(f,P) < \eps, \qquad
-S^*(f,Q) - S_*(f,Q) < \eps.
-\]
-Dunque $f$ è integrabile sia su $[a,c]$ che su $[c,b]$.
-E nuovamente possiamo osservare che l'integrale è additivo sul dominio.
-\end{proof}
+%%%%
+\section{interpretazione geometrica dell'integrale}
+\index{integrale!interpretazione geometrica}%
+\index{interpretazione!geometrica dell'integrale}%
+%%%%
 
 Il seguente risultato mette in corrispondenza l'integrale di Riemann 
 con la misura di Peano-Jordan ed è un modo formale per dare all'integrale 
@@ -1041,7 +1102,7 @@ dove $m$ è la misura di Peano-Jordan.
 \emph{Passo 1:} supponiamo che sia $f(x)\ge 0$ per ogni $x\in [a,b]$.
 Se $P=\ENCLOSE{x_0,x_1, \dots, x_N}$ è una suddivione di $[a,b]$ 
 è chiaro che posto $I_k = [x_k,x_{k+1}]$ l'unione dei rettangoli 
-$R_k = I_k \times [0,\inf_{I_k} f]$ ci dà
+$R_k = I_k \times [0,\inf f(I_k)]$ ci dà
 un polirettangolo contenuto in $E^+$.
 E $S_*(f,P)$ rappresenta proprio la misura di tale polirettangolo.
 Dunque $m_*(E^+)\ge S_*(f,P)$ per ogni suddivisione $P$ 
@@ -1051,10 +1112,10 @@ Ragionando in maniera analoga con i rettangoli la cui altezza
 la misura di un polirettangolo contenente $E^+$ e dunque 
 $m^*(E^+)\le I^*(f,P)$.
 
-D'altra parte preso un qualunque polirettangolo che contenuto in $E^+$
+D'altra parte preso un qualunque polirettangolo contenuto in $E^+$
 possiamo considerare la suddivisione $P$ formata da $a$, $b$ e da tutte le coordinate $x$ 
-dei lati dei rettangoli che compongono il polirettangolo. 
-E' chiaro il polirettangolo sarà allora contenuto nell'unione
+dei lati verticali dei rettangoli che compongono il polirettangolo. 
+E' chiaro che il polirettangolo sarà allora contenuto nell'unione
 dei rettangoli determinati da $P$ con altezza l'estremo inferiore di $f$.
 Dunque $m_*(E^+)\le I_*(f)$.
 Analogamente se prendiamo un polirettangolo che contiene $E^+$ possiamo 
@@ -1091,6 +1152,30 @@ allora $f^+$ ed $f^-$ sono Riemann-integrabili (per il passo precedente)
 e anche $f=f^+-f^-$ è Riemann-integrabile (Teorema~\ref{th:integrale_lineare})
 e di nuovo deve valere~\eqref{47694}.
 \end{proof}
+
+\begin{example}[area del trapezio]
+Sia $f(x) = mx + q$ una funzione lineare definita 
+su un intervallo $[a,b]$ e supponiamo che $f(a)\ge 0$ 
+e $f(b)\ge 0$.
+L'insieme $E^+=\ENCLOSE{(x,y)\colon x\in [a,b], 0\le y \le f(x)}$
+è dunque un trapezio di basi (verticali) $f(a)$ e $f(b)$
+e altezza (orizzontale) $b-a$. La sua area sarà dunque 
+\begin{align*}
+  \int_a^b f 
+  &= \int_a^b (mx+q)\, dx 
+  = m\int_a^b x\, dx + \int_a^b q\, dx
+  = \frac{m}{2}(b^2-a^2) + (b-a) q\\ 
+  &= \frac 1 2 (b-a)(mb+ma+2q)
+  = \frac 1 2 (b-a)(f(a) + f(b))
+\end{align*}
+che è effettivamente la formula elementare per 
+calcolare l'area di un trapezio.
+\end{example}
+
+%%%%%
+\section{classi di funzioni integrabili}
+\index{integrale!classi di funzioni integrabili}%
+%%%%%
 
 \begin{theorem}[integrabilità delle funzioni continue]
 \mymark{***}
@@ -1664,6 +1749,17 @@ e quindi
 come dovevamo dimostrare.
 \end{proof}
 
+\begin{example}
+  Calcolare $\int (x-1)^2\, dx$.
+\end{example}
+\begin{proof}[Svolgimento.]
+  Si ha 
+  \[
+  \int (x-1)^2\, dx = \int \enclose{x^2 - 2x +1}\, dx 
+  = \frac{x^3}{3} - x^2 + x.
+  \]
+\end{proof}
+
 \begin{theorem}[cambio di variabile negli integrali]
 Valgono le seguenti proprietà:
 \begin{enumerate}
@@ -1672,10 +1768,10 @@ se $g\colon A \to \RR$ è derivabile e $f\colon g(A) \to \RR$
 allora
 \mymargin{sostituzione!diretta}%
 \index{integrale!sostituzione diretta}%
-\[
+\begin{equation}\label{eq:sostituzione_1}
   \int f(g(x)) g'(x)\, dx \supset
   \Enclose{\int f(y) \, dy}_{y=g(x)}
-\]
+\end{equation}
 dove si intende
 \[
  \Enclose{F(y)}_{y=g(x)} = F(g(x));
@@ -1685,13 +1781,13 @@ dove si intende
 se $g\in C^1([a,b])$ e $f\in C^0(g([a,b]))$ allora
 \mymargin{cambio!di variabile}%
 \index{integrale!cambio di variabile}%
-\[
+\begin{equation}\label{eq:sostituzione_2}
  \int_{g(a)}^{g(b)} f(x)\, dx = \int_a^b f(g(t))\, g'(t)\, dt;
-\]
+\end{equation}
 
 \item
-se $g\in C^1([a,b])$ è iniettiva, $f\in C^0(g([a,b]))$
-allora $g^{-1}$ è definita su $g([a,b])$
+se $I$ è un intervallo, $g\in C^1(I)$ è iniettiva e $f\in C^0(g(I))$
+allora $g^{-1}$ è definita sull'intervallo $g(I)$
 e si ha
 \mymargin{sostituzione!inversa}%
 \index{integrale!sostituzione inversa}%
@@ -1702,57 +1798,50 @@ e si ha
 \end{theorem}
 %
 \begin{proof}
-Per la prima parte 
+Per~\eqref{eq:sostituzione_1}
 basta osservare che se $F(y)$ è una qualunque primitiva di $f(y)$ 
 allora $F(g(x))$ è una primitiva di $f(g(x))\cdot g'(x)$
 (basta applicare la formula di derivazione della funzione composta).
 Dunque ogni elemento dell'insieme di destra in~\eqref{eq:239455}
 è elemento dell'insieme di sinistra.
 
-Per la seconda parte sappiamo che $f$, essendo continua, ammette almeno una
+Per dimostrare~\eqref{eq:sostituzione_2} sappiamo che $f$, essendo continua, ammette almeno una
 primitiva $F(x)$. Per il punto precedente sappiamo che $F(g(t))$ è una
 primitiva di $f(g(t))g'(t)$ (basta farne la derivata per verificarlo).
 Dunque, utilizzando la formula fondamentale del calcolo, si ottiene:
 \[
-\int_{g(a)}^{g(b)} f(x) \, dx
+\int_{g(a)}^{g(b)}\!\! f(x) \, dx
 = \Enclose{F(x)}_{g(a)}^{g(b)}
 = F(g(b)) - F(g(a))
-\]
-e
-\[
-\int_a^b f(g(t))g'(t)\, dt
 = \Enclose{F(g(t))}_a^b
-= F(g(b)) - F(g(a)).
+=\int_a^b\! f(g(t))g'(t)\, dt.
 \]
-Le due espressioni sono uguali, come volevamo dimostrare.
 
-Per la terza parte
+Per dimostrare~\eqref{eq:239455}
 sia $F$ una qualunque funzione elemento dell'insieme sul lato destro della
-relazione che vogliamo dimostrare.
+relazione.
 Si avrà $F(x) = H(g^{-1}(x))$ con $H(t)$ primitiva
-di $f(g(t))g'(t)$. Ma allora, per la formula fondamentale del calcolo integrale,
-si ha
-\[
-  H(t)-H(a) = \int_a^t f(g(s)) g'(s)\, ds
-\]
-da cui
-\[
-  F(x) - F(g(a))
-  = H(g^{-1}(x)) - H(a)
-  = \int_a^{g^{-1}(x)} f(g(t)) g'(t)\, dt
-\]
-utilizzando il punto precedente sappiamo però che vale
-\[
-F(x) - F(g(a)) =
-\int_a^{g^{-1}(x)} f(g(t)) g'(t)\, dt
-= \int_{g(a)}^x f(s)\, ds.
-\]
-Dunque derivando ambo i membri, grazie ancora al teorema
-fondamentale otteniamo:
-\[
-  F'(x) = f(x)
-\]
-cioè $F\in \int f$, come dovevamo dimostrare.
+di $f(g(t))g'(t)$. 
+Ma allora, per la formula fondamentale del calcolo integrale,
+fissato $t_0 \in I$ si ha, per~\eqref{eq:sostituzione_2},
+\marginnote{Se $g^{-1}$ fosse derivabile 
+la dimostrazione sarebbe immediata, ma in generale 
+può capitare che la derivata di $g$ si annulli in 
+qualche punto e quindi $g^{-1}$ potrebbe non 
+essere derivabile.}%
+\begin{align*}
+  F(x) - F(g(t_0))
+  &= H(g^{-1}(x)) - H(t_0)
+  = \int_{t_0}^{g^{-1}(x)} f(g(t)) g'(t)\, dt
+  = \int_{g(t_0)}^x f(s)\, ds
+\end{align*}
+da cui, per il teorema~\ref{th:torricelli-barrow}, 
+possiamo fare la derivata di 
+ambo i membri per ottenere
+$F'(x) = f(x)$. 
+Dunque la funzione $F$ è elemento dell'insieme a 
+sinistra della relazione~\eqref{eq:239455},
+come volevamo dimostrare.
 \end{proof}
 
 Le formule del teorema precedente si scrivono usualmente nella forma
@@ -1769,21 +1858,20 @@ Non daremo qui una definizione formale di cosa sia un differenziale
 ma senz'altro utilizzeremo questa comoda notazione, pensandola
 semplicemente come una facilitazione tipografica.
 
-\begin{exercise}
-Vogliamo calcolare
-\[
-  \int \cos^2(x)\, dx.
-\]
-
+\begin{example}
+Calcolare
+$\int \cos^2 x \, dx$.
+\end{example}
+\begin{proof}[Svolgimento.]
 Ricordando che $\cos(2t) = \cos^2 t - \sin^2 t = 2\cos^2 t - 1$ si
-ha $\cos^2 t = (1+\cos(2t))/2$ (formula di bisezione).
+ha $\cos^2 t = \frac{1+\cos(2t)}2$ (formula di bisezione).
 Dunque
 \[
-\int \cos^2(t)\, dt
+\int \cos^2 t\, dt
 = \int\frac{1+\cos(2t)}{2}\, dt
 = \int \frac 1 2 \, dt + \int \frac{\cos(2t)}{2}\, dt.
 \]
-Chiaramente $\int \frac 1 2 \, dt  = t/2$.
+Chiaramente $\int \frac 1 2 \, dt  = \frac t 2$.
 Nel secondo integrale
 possiamo fare un cambio di variabile, ponendo
 $2t=s$ da cui $2dt = ds$:
@@ -1793,20 +1881,20 @@ $2t=s$ da cui $2dt = ds$:
 = \frac 1 4 \Enclose{\int \cos s \, ds}_{s=2t}
 = \frac 1 4 \Enclose{\sin s}_{s=2t}\\
 &= \frac 1 4 \sin(2t)
-= \frac{1}{2}\sin t \cos t.
+= \frac{1}{2}\sin t \cdot \cos t.
 \end{align*}
 In definitiva otteniamo
 \[
-  \int \cos^2(x)\, dx = \frac{t+\sin t \cos t}{2}.
+  \int \cos^2 x \, dx = \frac{t+\sin t \cdot \cos t}{2}.
 \]
-\end{exercise}
+\end{proof}
 
 
 \begin{example}
-Vogliamo calcolare
-\[
- \int \sqrt{1-x^2}\, dx.
-\]
+Calcolare
+$\int \sqrt{1-x^2}\, dx$.
+\end{example}
+\begin{proof}
 La funzione integranda è definita per $x\in [-1,1]$.
 Ci viene in mente di operare la sostituzione $x=\sin t$
 con $t\in [-\pi/2, \pi/2]$.
@@ -1835,7 +1923,7 @@ Dunque otteniamo:
  &= \frac{t + (\sin t) \sqrt{1-\sin^2 t}}{2} \\
  &\stackrel{(t=\arcsin x)}= \frac{\arcsin x + x \sqrt{1-x^2}}{2}.
 \end{align*}
-\end{example}
+\end{proof}
 
 Si osservi che il grafico $y=\sqrt{1-x^2}$ dell'esempio precedente
 è una semicirconferenza e dunque l'integrale 
