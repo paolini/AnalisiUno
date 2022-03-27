@@ -1182,70 +1182,6 @@ successione $b_{n,j}$ per ottenere
 da cui~\eqref{eq:somma_Cauchy}.
 \end{proof}
 
-%%%%%%%%%%
-\section{somme su insiemi arbitrari}
-%%%%%%%%%%
-
-\begin{lemma}\label{lemma:12734}
-  Sia $A$ un insieme numerabile e siano 
-  $\alpha\colon \NN\to A$ e $\beta\colon \NN\to A$ 
-  due funzioni bigettive.
-  Sia $f\colon A\to \RR$ o 
-  $f\colon A \to \CC$ una funzione tale che 
-  \begin{equation}\label{eq:12734}
-    \sum_{k=0}^{+\infty} \abs{f(\alpha(k))} < +\infty.  
-  \end{equation}
-  Oppure sia $f\colon A\to [0,+\infty)$ una funzione 
-  qualunque. 
-  Allora si ha
-  \begin{equation}\label{eq:12735}
-    \sum_{k=0}^{+\infty} f(\alpha(k)) =
-    \sum_{j=0}^{+\infty} f(\beta(j)). 
-  \end{equation}
-\end{lemma}
-%
-\begin{proof}
-Posto $a_k=f(\alpha (k))$ e $\sigma = $ si ha 
-$a_{\sigma(j)} = f(\beta (j))$.
-Dunque se vale~\eqref{eq:12734} si può 
-applicare il teorema~\ref{th:convergenza_incondizionata}
-per ottenere~\eqref{eq:12735}.
-
-Se invece $f(x)\ge 0$ si ha ovviamente $\abs{f(x)}=f(x)$
-dunque se almeno una delle due somme in~\eqref{eq:12735}
-è finita allora si applica il teorema~\ref{th:convergenza_incondizionata}
-alla serie $\sum a_k$ e si ottiene dunque l'uguaglianza 
-in~\eqref{eq:12735}.
-Se invece entrambe le serie sono divergenti
-(essendo serie a termini positivi non ci sono altre possibilità!)
-l'uguaglianza~\eqref{eq:12735} è comunque valida
-essendo $+\infty = +\infty$.
-\end{proof}
-
-\begin{definition}[somme arbitrarie]
-Sia $f\colon A\to [0,+\infty]$ una funzione definita su un insieme 
-$A$ numerabile (cioè $\#A \le \#\NN$).
-Allora definiamo
-  \[
-    \sum_{x\in A}f(x)
-    = \sum_{k=0}^{+\infty} f(\sigma(k)) 
-  \]
-dove $\sigma\colon \NN\to A$ è una qualunque funzione bigettiva
-(il risultato non dipende da $\sigma$ grazie al lemma~\ref{cor:12734}).
-
-Se $f\colon A\to \CC$ o $f\colon A\to \RR$ (sempre con $A$ numerabile)
-diremo che $f$ è sommabile se $\sum_{x\in A}\abs{f(x)}<+\infty$. 
-In tal caso possiamo definire $\sum_{x\in A} f(x)$ come prima
-visto che anche in questo caso la somma non dipende
-dall'ordine degli addendi.
-
-Se $A=\ENCLOSE{a_0, \dots, a_{n-1}}$ è un insieme finito si può definire 
-\[
-  \sum_{x\in A} f(x) = \sum_{k=0}^{n-1} f(a_k)
-\]
-ed è chiaro che la somma non dipende dall'ordine degli addendi.
-\end{definition}
-
 %%%%%%%%%%%
 %%%%%%%%%%%
 \section{serie a segno variabile}
@@ -1294,7 +1230,7 @@ Si veda l'equazione~\ref{eq:serie_ln2}.
 
 Questa dimostrazione può essere resa più in generale nel seguente.
 
-\begin{theorem}[serie a segni alterni: criterio di Leibniz]
+\begin{theorem}[criterio di Leibniz per le serie a segno alterno]
 \label{th:Leibniz}%
 \mymark{***}%
 \mynote{criterio di Leibniz}%
@@ -1313,7 +1249,7 @@ sono le somme parziali,
 si osserva che la somma della serie $S= \lim S_n$ è sempre compresa
 tra due termini consecutivi della successione $S_n$:
 \[
-  S \in [\min\{S_n, S_{n+1}\}, \max\{S_n, S_{n+1}\}].
+  S_{2n} \le S \le S_{n+1}.
 \]
 \end{theorem}
 %
@@ -1354,8 +1290,10 @@ $S_{2n-1} \le S \le S_{2n}$ e $S_{2n+1} \le S \le S_{2n}$
 dunque è verificata anche la seconda parte dell'enunciato.
 \end{proof}
 
-Abbiamo dunque un esempio, la serie $\sum (-1)^k / k$ di una serie convergente ma non assolutamente convergente.
-Il seguente teorema ci dice che per le serie di questo tipo non è mai garantito che riordinando i termini la somma si conservi.
+Abbiamo dunque un esempio, la serie $\sum (-1)^k / k$, di una serie convergente ma non assolutamente convergente.
+Il seguente teorema ci dice che per le serie di questo tipo 
+la somma della serie dipende dall'ordine in cui sono stati presi i termini:
+anzi, si può ottenere come somma qualunque valore si voglia.
 
 \begin{theorem}[convergenza condizionata]%
 \label{th:convergenza_condizionata}%
@@ -1534,196 +1472,311 @@ converge perché il termine generico $z^k/k$ non è infinitesimo.
 Per $z=1$ si ottiene la serie armonica, che pure non converge.
 \end{proof}
 
-\begin{comment}
-\section{somme su insiemi qualunque}
+%% \begin{comment}
+%% \section{somme su insiemi qualunque}
+%% 
+%% La teoria che abbiamo visto finora ci permette di definire
+%% la somma di una sequenza di numeri $\vec a \colon \NN\to \RR$
+%% (o $\vec a \colon \NN \to \CC$).
+%% In questo capitolo daremo una definizione di somma che può
+%% essere applicata a una funzione definita su un insieme di indici qualunque, non necessariamente l'insieme $\NN$ dei
+%% numeri naturali.
+%% 
+%% Scopriremo che la definizione che stiamo introducendo se
+%% applicata al caso $A=\NN$ corrisponde esattamente alla convergenza assoluta.
+%% 
+%% \begin{definition}[funzioni sommabili]
+%% Sia $A$ un insieme qualunque.
+%% Sia $A_n$ una successione di sottoinsiemi finiti di $A$.
+%% Diremo che $A_n$ tende ad $A$ e scriveremo
+%% \[
+%%   A_n \to A
+%% \]
+%% se per ogni insieme finito $B\subset A$ esiste $N\in \NN$
+%% tale che per ogni $n\ge N$ si ha $A_n\supset B$.
+%% 
+%% Sia ora $f$ una funzione reale (o complessa) definita
+%% su $A$: $f\colon A \to \RR$ (oppure $f\colon A \to \CC$).
+%% 
+%% Se $A = \ENCLOSE{a_1, a_2, \dots, a_m}$ è finito si può definire
+%% \[
+%%   \sum_{a \in A} f(a) = f(a_1) + f(a_2) + \dots + f(a_m).
+%% \]
+%% (la definizione può essere formalizzata mediante una
+%% induzione sulla cardinalità dell'insieme finito $A$).
+%% 
+%% Se invece $A$ è infinito scriveremo
+%% \[
+%%   \sum_{a\in A} f(a) = S
+%% \]
+%% con $S\in \bar \RR$ (oppure $S\in \bar \CC$)
+%% se per ogni successione di sottoinsiemi finiti $A_n \to A$
+%% si ha
+%% \begin{equation}\label{eq:589421}
+%%   \lim_{n\to +\infty}\sum_{a\in A_n}f(a) = S.
+%% \end{equation}
+%% 
+%% In tal caso diremo che esiste la somma di $f$ su $A$.
+%% Se tale somma $S$ è finita diremo che $f$ è sommabile su $A$.
+%% \end{definition}
+%% 
+%% \begin{theorem}[invarianza per permutazioni]
+%%   Sia $f$ una funzione definita su un insieme $A$
+%%   a valori reali o complessi. Sia $\sigma\colon A \to A$
+%%   una qualunque funzione bigettiva.
+%%   Allora la funzione $f$ ha somma su $A$ se e solo se
+%%   la funzione $f\circ \sigma$ ha somma su $A$ e in tal
+%%   caso le somme coincidono:
+%%   \[
+%%     \sum_{x\in A} f(x) = \sum_{x\in A} f(\sigma(x)).
+%%   \]
+%% \end{theorem}
+%% %
+%% \begin{proof}
+%%   Basta osservare che se $A_n$ è una qualunque successione
+%%   di sottoinsiemi finiti di $A$ tale che $A_n\to A$
+%%   allora anche $B_n=\sigma(A_n)$ è una successione
+%%   di sottoinsiemi finiti di $A$ tale che $B_n\to A$.
+%%   E viceversa.
+%%   Dunque le definizione di somma per $f$ e per $\sigma\circ f$ sono equivalenti.
+%% \end{proof}
+%% 
+%% \begin{theorem}[collegamento tra serie e somme arbitrarie]
+%% Sia $a_k$ con $k\in \NN$, una successione numerica (reale o complessa).
+%% 
+%% Se $S$ è un numero finito (reale o complesso)
+%% sono equivalenti:
+%% \begin{enumerate}
+%%   \item la funzione $f(k)=a_k$ è sommabile su $\NN$ e
+%% \begin{equation}\label{eq:488484}
+%%   \sum_{k\in \NN} a_k = S;
+%% \end{equation}
+%% \item la serie $\sum_k a_k$ è assolutamente
+%% convergente e
+%% \begin{equation}\label{eq:497494}
+%%   \sum_{k=0}^{+\infty} a_k = S.
+%% \end{equation}
+%% \end{enumerate}
+%% 
+%% Se $a_k\ge 0$ (dunque reale) allora anche
+%% \[
+%%   \sum_{k\in \NN} a_k = +\infty
+%% \qquad
+%% \text{e}
+%% \qquad
+%% \sum_{k=0}^{+\infty} a_k = +\infty
+%% \]
+%% sono equivalenti.
+%% \end{theorem}
+%% %
+%% \begin{proof}
+%%   Se vale \eqref{eq:488484} allora per ogni successione
+%%   di insiemi finiti $A_n \to \NN$ si deve avere
+%%   \[
+%%     S_n = \sum_{k\in A_n} a_k  \to S.
+%%   \]
+%%   In particolare se scegliamo $A_k=\ENCLOSE{0,1,2, \dots, n}$
+%%   risulta che $S_n$ non è altro che la successione delle somme parziali della serie $\sum a_k$ 
+%%   e dunque deve valere \eqref{eq:497494}.
+%%   Ma più in generale se prendiamo qualunque permutazione $\sigma$
+%%   si dovrà avere $\sum_k a_{\sigma(k)} = S$
+%%   e quindi la serie deve convergere assolutamente altrimenti 
+%%   si violerebbe il teorema~\ref{th:convergenza_condizionata} 
+%%   di convergenza condizionata.
+%% 
+%%   Viceversa supponiamo che $\sum a_n$ sia una serie assolutamente convergente e poniamo
+%%   \[
+%%     S = \sum_{k=0}^{\infty} a_k.
+%%   \]
+%%   Dovremo dimostrare che per ogni successione
+%%   $A_n\to A$ di sottoinsiemi finiti vale~\eqref{eq:589421}.
+%%   Cioè dovremo dimostrare che per ogni $\eps>0$
+%%   esiste $N\in \NN$ tale che per ogni $n>N$ si ha
+%%   \begin{equation}\label{eq:4389567}
+%%     \abs{\sum_{k\in A_n} a_k - S} < \eps.
+%%   \end{equation}
+%%   Dato $\eps>0$ per il teorema~\ref{th:coda} esiste $M\in \NN$
+%%   tale che
+%%   \[
+%%     \sum_{k=M+1}^{+\infty} \abs{a_k} < \eps.
+%%   \]
+%%   Ma visto che $A_n \to A$ deve esistere $N\in \NN$
+%%   tale che per ogni $n\ge N$ si ha $A_n \supset \ENCLOSE{0,1,2,\dots ,M}$
+%%   e allora per ogni $n\ge N$
+%%   \[
+%%     \sum_{k \in A_n} a_k - S = \sum_{k=0}^M a_k + \sum_{k\in A_n, k>M} a_k - \sum_{k=0}^{+\infty} a_k
+%%     = \sum_{k\in A_n, k>M} a_k - \sum_{k=M+1}^{+\infty} a_k
+%%   \]
+%%   ma è chiaro che
+%%   \[
+%%     \abs{\sum_{k\in A_n, k>M} a_k - \sum_{k=M+1}^{+\infty} a_k}
+%%     \le \sum_{k=M+1}^{+\infty} \abs{a_k} < \eps
+%%   \]
+%%   da cui si ottiene, come voluto, \eqref{eq:4389567}.
+%% \end{proof}
+%% 
+%% \end{comment}
+%% \begin{comment}
+%% \begin{theorem}[somme più che numerabili]
+%%   Sia $f$ una funzione definita su un insieme $A$
+%%   a valori reali o complessi. Se $f$ è sommabile
+%%   su $A$ allora l'insieme
+%%   \[
+%%     \ENCLOSE{x\in A\colon f(x)\neq 0}
+%%   \]
+%%   è al più numerabile.
+%% \end{theorem}
+%% %
+%% \begin{proof}
+%% Supponiamo dapprima che $f$ abbia valori reali.
+%% Se l'insieme $\ENCLOSE{f\neq 0}$ fosse più che numerabile almeno uno dei due insiemi $\ENCLOSE{f>0}$ o $\ENCLOSE{f<0}$
+%% sarebbe più che numerabile.
+%% Senza perdita di generalità possiamo supporre che sia
+%% il primo cioè che $A_+ = \ENCLOSE{x \in A\colon f(x)>0}$
+%% sia più che numerabile. Considero allora per ogni $n\in \NN$
+%% gli insiemi $A_n = \ENCLOSE{x\in A\colon \frac 1 {f(x)} \in (n,n+1]}$. Almeno uno di questi insiemi
+%% deve essere infinito perché se gli $A_n$ fossero
+%% tutti finiti allora l'insieme $A=\bigcup_n A_n$ sarebbe
+%% numerabile. Dunque esiste $N\in \NN$ tale che $A_N$ è infinito.
+%% Posto $\eps = \frac{1}{N+1}>0$
+%% esistono dunque $x_0,x_1, \dots, x_k, \dots$ infiniti punti di $A$ tali che $f(x_k) \ge \eps$.
+%% 
+%% ***DUBBIO*** Se $A$ è più che numerabile
+%% esiste $A_n$ finito tale che $A_n\to A$?
+%% \end{proof}
+%% \end{comment}
+%% \begin{comment}
+%% 
+%% \begin{theorem}[somme iterate]
+%% Sia $f$ una funzione definita su un insieme $A$ a
+%% valori reali o complessi. Supponiamo che sia
+%% \[
+%%   A = \bigcup_{k\in K} A_k
+%% \]
+%% dove $K$ è un arbitrario insieme di indici e
+%% $A_k$ sono sottoinsiemi di $A$ a due a due disgiunti.
+%% Allora
+%% \[
+%%   \sum_{x\in A} f(x) = \sum_{k\in K} \sum_{x\in A_k} f(x)
+%% \]
+%% se almeno uno dei due lati dell'uguaglianza esiste.
+%% \end{theorem}
+%% \end{comment}
 
-La teoria che abbiamo visto finora ci permette di definire
-la somma di una sequenza di numeri $\vec a \colon \NN\to \RR$
-(o $\vec a \colon \NN \to \CC$).
-In questo capitolo daremo una definizione di somma che può
-essere applicata a una funzione definita su un insieme di indici qualunque, non necessariamente l'insieme $\NN$ dei
-numeri naturali.
+%%%%%%%%%%
+\section{somme su insiemi arbitrari}
+\index{serie!su insiemi arbitrari}%
+\index{somme!su insiemi arbitrari}%
+%%%%%%%%%%
 
-Scopriremo che la definizione che stiamo introducendo se
-applicata al caso $A=\NN$ corrisponde esattamente alla convergenza assoluta.
+\begin{lemma}\label{lemma:12734}
+  Sia $A$ un insieme numerabile e siano 
+  $\alpha\colon \NN\to A$ e $\beta\colon \NN\to A$ 
+  due funzioni bigettive.
+  Sia $f\colon A\to \RR$ o 
+  $f\colon A \to \CC$ una funzione tale che 
+  \begin{equation}\label{eq:12734}
+    \sum_{k=0}^{+\infty} \abs{f(\alpha(k))} < +\infty.  
+  \end{equation}
+  Oppure sia $f\colon A\to [0,+\infty)$ una funzione 
+  qualunque. 
+  Allora si ha
+  \begin{equation}\label{eq:12735}
+    \sum_{k=0}^{+\infty} f(\alpha(k)) =
+    \sum_{j=0}^{+\infty} f(\beta(j)). 
+  \end{equation}
+\end{lemma}
+%
+\begin{proof}
+Posto $a_k=f(\alpha (k))$ e $\sigma = \alpha^{-1}\circ \beta$ si ha 
+$a_{\sigma(j)} = f(\beta (j))$.
+Dunque se vale~\eqref{eq:12734} si può 
+applicare il teorema~\ref{th:convergenza_incondizionata}
+per ottenere~\eqref{eq:12735}.
 
-\begin{definition}[funzioni sommabili]
-Sia $A$ un insieme qualunque.
-Sia $A_n$ una successione di sottoinsiemi finiti di $A$.
-Diremo che $A_n$ tende ad $A$ e scriveremo
+Se invece $f(x)\ge 0$ si ha ovviamente $\abs{f(x)}=f(x)$
+dunque se almeno una delle due somme in~\eqref{eq:12735}
+è finita allora si applica il teorema~\ref{th:convergenza_incondizionata}
+alla serie $\sum a_k$ e si ottiene dunque l'uguaglianza 
+in~\eqref{eq:12735}.
+Se invece entrambe le serie sono divergenti
+(essendo serie a termini positivi non ci sono altre possibilità!)
+l'uguaglianza~\eqref{eq:12735} è comunque valida
+essendo $+\infty = +\infty$.
+\end{proof}
+
+\begin{definition}[somme arbitrarie]
+Sia $f\colon A\to [0,+\infty]$ una funzione definita su un insieme 
+$A$ numerabile (cioè $\#A \le \#\NN$).
+Allora definiamo
+  \[
+    \sum_{x\in A}f(x)
+    = \sum_{k=0}^{+\infty} f(\sigma(k)) 
+  \]
+dove $\sigma\colon \NN\to A$ è una qualunque funzione bigettiva
+(il risultato non dipende da $\sigma$ grazie al lemma~\ref{cor:12734}).
+
+Se $f\colon A\to \CC$ o $f\colon A\to \RR$ (sempre con $A$ numerabile)
+diremo che $f$ è sommabile se $\sum_{x\in A}\abs{f(x)}<+\infty$. 
+In tal caso possiamo definire $\sum_{x\in A} f(x)$ come prima
+visto che anche in questo caso la somma non dipende
+dall'ordine degli addendi.
+
+Se $A=\ENCLOSE{a_0, \dots, a_{n-1}}$ è un insieme finito si può definire 
 \[
-  A_n \to A
+  \sum_{x\in A} f(x) = \sum_{k=0}^{n-1} f(a_k)
 \]
-se per ogni insieme finito $B\subset A$ esiste $N\in \NN$
-tale che per ogni $n\ge N$ si ha $A_n\supset B$.
-
-Sia ora $f$ una funzione reale (o complessa) definita
-su $A$: $f\colon A \to \RR$ (oppure $f\colon A \to \CC$).
-
-Se $A = \ENCLOSE{a_1, a_2, \dots, a_m}$ è finito si può definire
-\[
-  \sum_{a \in A} f(a) = f(a_1) + f(a_2) + \dots + f(a_m).
-\]
-(la definizione può essere formalizzata mediante una
-induzione sulla cardinalità dell'insieme finito $A$).
-
-Se invece $A$ è infinito scriveremo
-\[
-  \sum_{a\in A} f(a) = S
-\]
-con $S\in \bar \RR$ (oppure $S\in \bar \CC$)
-se per ogni successione di sottoinsiemi finiti $A_n \to A$
-si ha
-\begin{equation}\label{eq:589421}
-  \lim_{n\to +\infty}\sum_{a\in A_n}f(a) = S.
-\end{equation}
-
-In tal caso diremo che esiste la somma di $f$ su $A$.
-Se tale somma $S$ è finita diremo che $f$ è sommabile su $A$.
+ed è chiaro che la somma non dipende dall'ordine degli addendi.
 \end{definition}
 
-\begin{theorem}[invarianza per permutazioni]
-  Sia $f$ una funzione definita su un insieme $A$
-  a valori reali o complessi. Sia $\sigma\colon A \to A$
-  una qualunque funzione bigettiva.
-  Allora la funzione $f$ ha somma su $A$ se e solo se
-  la funzione $f\circ \sigma$ ha somma su $A$ e in tal
-  caso le somme coincidono:
+\begin{theorem}[famiglie sommabili]
+  Sia $A = \displaystyle\bigcup_{n\in \NN} A_n$ una unione di insiemi 
+  disgiunti: $A_n\cap A_m=\emptyset$ se $n\neq m$.
+  Supponiamo che $A$ sia numerabile (o finito).
+  Sia $f\colon A \to \RR$ non negativa oppure $f\colon A \to \CC$ 
+  una funzione sommabile (cioè $\displaystyle\sum_{x\in A}\abs{f(x)}< +\infty$).
+  Allora 
   \[
-    \sum_{x\in A} f(x) = \sum_{x\in A} f(\sigma(x)).
+    \sum_{x\in A}f(x) = \sum_{n\in \NN} \sum_{x\in A_n} f(x).  
   \]
 \end{theorem}
 %
 \begin{proof}
-  Basta osservare che se $A_n$ è una qualunque successione
-  di sottoinsiemi finiti di $A$ tale che $A_n\to A$
-  allora anche $B_n=\sigma(A_n)$ è una successione
-  di sottoinsiemi finiti di $A$ tale che $B_n\to A$.
-  E viceversa.
-  Dunque le definizione di somma per $f$ e per $\sigma\circ f$ sono equivalenti.
-\end{proof}
-
-\begin{theorem}[collegamento tra serie e somme arbitrarie]
-Sia $a_k$ con $k\in \NN$, una successione numerica (reale o complessa).
-
-Se $S$ è un numero finito (reale o complesso)
-sono equivalenti:
-\begin{enumerate}
-  \item la funzione $f(k)=a_k$ è sommabile su $\NN$ e
-\begin{equation}\label{eq:488484}
-  \sum_{k\in \NN} a_k = S;
-\end{equation}
-\item la serie $\sum_k a_k$ è assolutamente
-convergente e
-\begin{equation}\label{eq:497494}
-  \sum_{k=0}^{+\infty} a_k = S.
-\end{equation}
-\end{enumerate}
-
-Se $a_k\ge 0$ (dunque reale) allora anche
+Sia $x_k$ una numerazione degli elementi di $A$ e definiamo 
+la successione a due indici:
 \[
-  \sum_{k\in \NN} a_k = +\infty
-\qquad
-\text{e}
-\qquad
-\sum_{k=0}^{+\infty} a_k = +\infty
+  a_{n,k} = \begin{cases}
+    f(x_k) & \text{se $x_k\in A_n$}\\
+    0 & \text{altrimenti.}
+  \end{cases}  
 \]
-sono equivalenti.
-\end{theorem}
-%
-\begin{proof}
-  Se vale \eqref{eq:488484} allora per ogni successione
-  di insiemi finiti $A_n \to \NN$ si deve avere
-  \[
-    S_n = \sum_{k\in A_n} a_k  \to S.
-  \]
-  In particolare se scegliamo $A_k=\ENCLOSE{0,1,2, \dots, n}$
-  risulta che $S_n$ non è altro che la successione delle somme parziali della serie $\sum a_k$ 
-  e dunque deve valere \eqref{eq:497494}.
-  Ma più in generale se prendiamo qualunque permutazione $\sigma$
-  si dovrà avere $\sum_k a_{\sigma(k)} = S$
-  e quindi la serie deve convergere assolutamente altrimenti 
-  si violerebbe il teorema~\ref{th:convergenza_condizionata} 
-  di convergenza condizionata.
-
-  Viceversa supponiamo che $\sum a_n$ sia una serie assolutamente convergente e poniamo
-  \[
-    S = \sum_{k=0}^{\infty} a_k.
-  \]
-  Dovremo dimostrare che per ogni successione
-  $A_n\to A$ di sottoinsiemi finiti vale~\eqref{eq:589421}.
-  Cioè dovremo dimostrare che per ogni $\eps>0$
-  esiste $N\in \NN$ tale che per ogni $n>N$ si ha
-  \begin{equation}\label{eq:4389567}
-    \abs{\sum_{k\in A_n} a_k - S} < \eps.
-  \end{equation}
-  Dato $\eps>0$ per il teorema~\ref{th:coda} esiste $M\in \NN$
-  tale che
-  \[
-    \sum_{k=M+1}^{+\infty} \abs{a_k} < \eps.
-  \]
-  Ma visto che $A_n \to A$ deve esistere $N\in \NN$
-  tale che per ogni $n\ge N$ si ha $A_n \supset \ENCLOSE{0,1,2,\dots ,M}$
-  e allora per ogni $n\ge N$
-  \[
-    \sum_{k \in A_n} a_k - S = \sum_{k=0}^M a_k + \sum_{k\in A_n, k>M} a_k - \sum_{k=0}^{+\infty} a_k
-    = \sum_{k\in A_n, k>M} a_k - \sum_{k=M+1}^{+\infty} a_k
-  \]
-  ma è chiaro che
-  \[
-    \abs{\sum_{k\in A_n, k>M} a_k - \sum_{k=M+1}^{+\infty} a_k}
-    \le \sum_{k=M+1}^{+\infty} \abs{a_k} < \eps
-  \]
-  da cui si ottiene, come voluto, \eqref{eq:4389567}.
-\end{proof}
-
-\end{comment}
-\begin{comment}
-\begin{theorem}[somme più che numerabili]
-  Sia $f$ una funzione definita su un insieme $A$
-  a valori reali o complessi. Se $f$ è sommabile
-  su $A$ allora l'insieme
-  \[
-    \ENCLOSE{x\in A\colon f(x)\neq 0}
-  \]
-  è al più numerabile.
-\end{theorem}
-%
-\begin{proof}
-Supponiamo dapprima che $f$ abbia valori reali.
-Se l'insieme $\ENCLOSE{f\neq 0}$ fosse più che numerabile almeno uno dei due insiemi $\ENCLOSE{f>0}$ o $\ENCLOSE{f<0}$
-sarebbe più che numerabile.
-Senza perdita di generalità possiamo supporre che sia
-il primo cioè che $A_+ = \ENCLOSE{x \in A\colon f(x)>0}$
-sia più che numerabile. Considero allora per ogni $n\in \NN$
-gli insiemi $A_n = \ENCLOSE{x\in A\colon \frac 1 {f(x)} \in (n,n+1]}$. Almeno uno di questi insiemi
-deve essere infinito perché se gli $A_n$ fossero
-tutti finiti allora l'insieme $A=\bigcup_n A_n$ sarebbe
-numerabile. Dunque esiste $N\in \NN$ tale che $A_N$ è infinito.
-Posto $\eps = \frac{1}{N+1}>0$
-esistono dunque $x_0,x_1, \dots, x_k, \dots$ infiniti punti di $A$ tali che $f(x_k) \ge \eps$.
-
-***DUBBIO*** Se $A$ è più che numerabile
-esiste $A_n$ finito tale che $A_n\to A$?
-\end{proof}
-\end{comment}
-\begin{comment}
-
-\begin{theorem}[somme iterate]
-Sia $f$ una funzione definita su un insieme $A$ a
-valori reali o complessi. Supponiamo che sia
+Per ogni $k\in \NN$ la seguente somma 
+ha un solo addendo non nullo:
 \[
-  A = \bigcup_{k\in K} A_k
+ \sum_{n=0}^{+\infty}  a_{n,k} = f(x_k)
 \]
-dove $K$ è un arbitrario insieme di indici e
-$A_k$ sono sottoinsiemi di $A$ a due a due disgiunti.
-Allora
+mentre per ogni $n\in \NN$ si ha 
 \[
-  \sum_{x\in A} f(x) = \sum_{k\in K} \sum_{x\in A_k} f(x)
+ \sum_{k=0}^{+\infty} a_{n,k} = \sum_{x\in A_n} f(x)  
 \]
-se almeno uno dei due lati dell'uguaglianza esiste.
-\end{theorem}
-\end{comment}
+in quanto i termini non nulli della successione 
+$a_{n,k}$ sono uguali al valore di $f$ su una enumerazione 
+degli elementi di $A_n$.
+
+Allora si ha
+\[
+ \sum_{k=0}^{+\infty}\sum_{n=0}^{+\infty} \abs{a_{n,k}}
+ = \sum_{k=0}^{+\infty} {f(x_k)} = \sum_{x\in A} \abs{f(x_k)}.
+\]
+Se quest'ultima somma è finita oppure se i termini sono tutti non negativi
+possiamo allora scambiare le due somme grazie al teorema~\ref{th:scambio_somma}:
+\[
+  \sum_{x\in A} f(x) 
+  = \sum_{k=0}^{+\infty} \sum_{n=0}^{+\infty} a_{n,k}
+  = \sum_{n=0}^{+\infty} \sum_{k=0}^{+\infty} a_{n,k}
+  = \sum_{n\in \NN} \sum_{x\in A_n}f(x).  
+\]
+\end{proof}
 
 %%%
 \section{prodotti infiniti}

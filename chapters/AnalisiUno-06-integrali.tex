@@ -2118,12 +2118,152 @@ banale di algebra lineare a cui dedicheremo il resto di questo capitolo
 perché, tutto sommato, pensiamo che sia sempre utile avere la consapevolezza degli strumenti che si utilizzano.
 
 Prima ancora di enunciare il teorema e di farne la dimostrazione,
-vogliamo presentare il metodo tramite un esempio. Probabilmente questo è il modo più semplice per capire come bisogna operare.
+vogliamo presentare il metodo tramite degli esempi. 
+Probabilmente questo è il modo più semplice per capire come bisogna operare.
+
+\begin{example}[denominatore di grado $1$]
+  Calcolare 
+  \[
+  \int \frac{x^3+1}{x-1}\, dx.  
+  \]
+\end{example}
+\begin{proof}[Svolgimento.]
+Siamo di fronte all'integrale di una funzione razionale con denominatore di grado 1 e numeratore di grado 3.
+In generale quando il grado del numeratore non è inferiore a quello del denominatore bisogna innanzitutto 
+svolgere la divisione tra polinomi (si veda~\ref{th:divisione_polinomi}). Si trova: 
+\[
+\frac{x^3+1}{x-1} = x^2 + x + 1 + \frac{2}{x-1}.
+\]
+Calcolare l'integrale del polinomio quoziente è sempre banale:
+\[
+\int \enclose{x^2+x+1}  \, dx \ni \frac{x^3}{3} + \frac{x^2}{2} + x.
+\]
+Visto che il resto nella divisione tra polinomi ha grado inferiore al denominatore, ci si riconduce 
+sempre all'integrale di una funzione razionale in cui il numeratore ha grado inferiore del denominatore.
+Se il denominatore ha grado $1$, come in questo esempio, il numeratore dovrà sempre avere grado $0$ e quindi
+è costante. 
+Dunque a meno di costanti moltiplicative ci si riconduce sempre all'integrale di una funzione del tipo $\frac{1}{x+c}$
+la cui primitiva è un logaritmo:
+\[
+ \int \frac{2}{x-1}\, dx \ni 2 \ln \abs{x-1} = \ln (x-1)^2
+\]
+In conclusione una delle primitive cercate è 
+\[
+  \int \frac{x^3+1}{x-1}\, dx \ni \frac{x^3}{3} + \frac{x^2}{2} + x + \ln (x-1)^2.
+\]
+\end{proof}
+
+\begin{example}[denominatore di grado 2 con radici reali distinte]
+Calcolare 
+\[
+  \int \frac{x+1}{x^2-x}\, dx.
+\]
+\end{example}
+\begin{proof}[Svolgimento.]
+Il polinomio a denominatore si fattorizza $x^2 -x = x (x-1)$. 
+Allora l'idea è quella di pensare che il denominatore di secondo 
+grado si sia ottenuto come denominatore comune in una somma di 
+funzioni razionali con denominatori di primo grado:
+\[
+  \frac{x+1}{x(x-1)} \stackrel?= \frac{A}{x} + \frac{B}{x-1}  
+\]
+con $A,B\in \RR$ costanti da determinare. 
+Questa si chiama \emph{decomposizione in fratti semplici}.
+Le costanti possono essere determinate andando a ritroso:
+\[
+  \frac{A}{x} + \frac{B}{x-1}    
+  = \frac{A(x-1) + Bx}{x(x-1)} \stackrel!= \frac{x+1}{x(x-1)}.
+\]
+Affinchè valga l'uguaglianza si deve avere 
+\[
+  A(x-1) + Bx = (A+B)x - A \stackrel!= x+1  
+\]
+e quindi $A+B = 1$ e $-A=1$ da cui $A=-1$ e $B=2$.
+Dunque 
+\[
+  \frac{x+1}{x(x-1)} = \frac{-1}{x} + \frac{2}{x-1}  
+\]
+e la primitiva è una somma di logaritmi:
+\[
+  \int \frac{x+1}{x^2-x}\, dx
+  \ni -\ln\abs{x} + 2 \ln \abs{x-1} 
+  = \ln \frac{(x-1)^2}{\abs{x}}.
+\]
+\end{proof}
+
+\begin{example}[denominatore di secondo grado con una radice doppia]
+Calcolare 
+\[
+  \int \frac{x-1}{x^2+2x+1}\, dx
+\]
+\end{example}
+\begin{proof}[Svolgimento.]
+Il polinomio a denominatore è un quadrato perfetto $x^2+2x+1=(x+1)^2$.
+In questo caso la decomposizione in fratti semplici non può avere 
+i due denominatori uguali ma bisogna elevare un denominatore al 
+quadrato:
+\[
+\frac{x-1}{(x+1)^2} \stackrel?= \frac{A}{x+1} + \frac{B}{(x+1)^2}.  
+\]
+Perché valga l'uguaglianza si deve avere
+\[
+\frac{A}{x+1} + \frac{B}{(x+1)^2} = \frac{A(x+1) + B}{(x+1)^2}  
+\stackrel!=\frac{x-1}{(x+1)^2}. 
+\]
+Da cui si trova $Ax+A+B=x-1$ ovvero $A=1$ e $B=-2$. 
+Dunque 
+\[
+  \int \frac{x-1}{(x+1)^2}\, dx
+  = \int \frac{1}{x+1}\, dx - 2 \int \frac{1}{(x+1)^2}
+  \ni \ln \abs{x+1} + \frac{2}{x+1}. 
+\]
+\end{proof}
+
+\begin{example}[denominatore di secondo grado indecomponibile]
+Calcolare 
+\[
+ \int \frac{x+1}{x^2+2x+3}\, dx
+\]
+\end{example}
+\begin{proof}[Svolgimento.]
+In questo caso il denominatore non ha radici reali (il discriminante è negativo) e quindi non può 
+essere fattorizzato.
+Bisogna allora svolgere un procedimento in due passi: 
+\begin{enumerate}
+  \item si elimina il termine con la $x$ al numeratore sottraendo 
+  una opportuna derivata del denominatore (così da ottenere la derivata 
+  del logaritmo del denominatore);
+  \item si completa il quadrato a denominatore.
+\end{enumerate} 
+Per il primo passo si osserva che $(x^2+2x+3)' = 2x+2$ e dividendo il numeratore 
+per $2x+2$ si ottiene $x+1 = \frac 1 2 (2x+2) + 2$ da cui:
+\[
+\int \frac{x+1}{x^2+2x+3} \, dx
+= \frac 1 2 \int \frac{(2x + 2)}{x^2+2x+3}\, dx + \int \frac{1}{x^2+2x+3}\, dx. 
+\]
+Ma il primo integrale è immediato 
+\[
+\int \frac{2x+2}{x^2+2x+3}\, dx \ni \ln (x^2+2x+3).
+\]
+Per il secondo integrale l'idea è di fare il completamento 
+del quadrato per eliminare il monomio di grado uno e quindi 
+ricondursi con un cambio di variabile a $\int \frac{1}{1+y^2}\, dy$:
+\[
+  \int \frac{1}{x^2+2x+3}\, dx 
+  = \int \frac{1}{\enclose{x+1}^2 + 2}\, dx 
+  = \frac 1 2 \int \frac{1}{\enclose{\frac{x+1}{\sqrt 2}}^2+1}\, dx 
+  = \frac{1}{2} \arctg \frac{x+1}{\sqrt 2}
+\]
+da cui 
+\[
+\int \frac{1}{x^2+x+1}\, dx = \frac 4 3 \int \frac{1}{...}
+\]
+\end{proof}
 
 \begin{example}
   Calcolare
   \[
-   \int \frac{x^{10}-3x^5+1}{x^8-x^7+2x^6-2x^5+x^4-x^3}\, dx
+   \int \frac{x^{10}+x^8-x^6+1}{x^8-x^7+2x^6-2x^5+x^4-x^3}\, dx
   \]
 \end{example}
 \begin{proof}[Svolgimento.]
@@ -2134,7 +2274,7 @@ la divisione tra polinomi
 (teorema~\ref{th:divisione_polinomi}):
 :
 \[
-  \frac{x^{10}-3x^5+1}{x^8-x^7+2x^6-2x^5+x^4-x^3}
+  \frac{x^{10}+x^8-x^6+1}{x^8-x^7+2x^6-2x^5+x^4-x^3}
   = x^2 + x + \frac{x^4+1}{x^8-x^7+2x^6-2x^5+x^4-x^3}.
 \]
 L'integrale di $x^2+x$ è immediato e quindi ci possiamo concentrare
