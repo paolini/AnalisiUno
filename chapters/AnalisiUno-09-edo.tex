@@ -1362,171 +1362,286 @@ che sia derivabile e che soddisfi:
 \end{cases}
 \end{equation}
 
-\begin{definition}[Cauchy-Lipschitz]
-\label{def:cauchy_lipschitz}
+\begin{theorem}[Cauchy-Lipschitz: esistenza e unicità locale]%
+  \label{th:cauchy_lipschitz}%
+Siano $a\le x_0 \le b$, $R>0$, $\vec y_0 \in \RR^n$. 
+Posto $B=\ENCLOSE{\vec y\in \RR^n \colon \abs{\vec y - \vec y_0}\le R}\subset \RR^n$ 
+sia $\vec f\colon [a,b]\to B$ una funzione con le proprietà:
+\begin{enumerate}
+  \item $\vec f$ è continua,
+  \item esiste $L>0$ tale che per ogni $x\in [a,b]$, ed ogni $\vec y_1,\vec y_2 \in B$ 
+  si ha 
+  \begin{equation}\label{eq:hp_lipschitz}
+  \abs{\vec f(x, \vec y_2) - f(x,\vec y_1)} \le L \abs{\vec y_2- \vec y_1}.  
+  \end{equation}
+\end{enumerate}
+
+Allora esiste $\delta>0$ tale che scelto comunque un intervallo $I$ con 
+$x_0\in I \subset [a,b]\cap [x_0-\delta, x_0+\delta]$ 
+esiste una unica funzione derivabile $\vec u\colon I \to B$ tale che 
+\begin{equation}\label{eq:pb_cauchy}
+\begin{cases}
+  \vec u'(x) = \vec f(x,\vec u(x)), \qquad \forall x\in I\\
+  \vec u(x_0) = \vec y_0.
+\end{cases}  
+\end{equation}
+\end{theorem}
+%
+\begin{proof}
+  \emph{Passo 1.}
+  Per prima cosa vogliamo dimostrare che una funzione $\vec u\colon I\to B\subset \RR^n$
+  è derivabile e risolve \eqref{eq:pb_cauchy} 
+  se e solo se 
+  $\vec u$ è continua e risolve 
+  \begin{equation}\label{eq:pb_cauchy_integrale}
+  \vec u(x) = \vec y_0 + \int_{x_0}^x \vec f(t,\vec u(t))\, dt.
+  \end{equation}
+
+  Infatti se $\vec u$ è derivabile e 
+  $\vec u'(x) = \vec f(x, \vec u(x))$ per ogni $x\in[a,b]$ allora 
+  siccome $\vec f$ è continua la funzione $\vec f(t,\vec u(t))$ è continua 
+  e quidi $\vec u'$ è di classe $C^1$. Posso allora integrare ambo i membri 
+  è ottenere:
+  \[
+   \int_{x_0}^x \vec u'(t)\, dt = \int_{x_0}^x \vec f(t,\vec u(t))\, dt.  
+  \]
+  Per il teorema fondamentale del calcolo il lato sinistro è uguale 
+  a $\vec u(x) - \vec u(x_0) = \vec u(x) - \vec y_0$ e quindi si ottiene 
+  la validità di~\eqref{eq:pb_cauchy_integrale}.
+
+  Viceversa se $\vec u$ è continua e soddisfa~\eqref{eq:pb_cauchy_integrale}
+  allora, sempre per il teorema fondamentale del calcolo possiamo affermare
+  che l'integrale nel lato destro nell'uguaglianza~\eqref{eq:pb_cauchy_integrale}
+  è una funzione derivabile con derivata $\vec f(x,\vec u(x))$ e dunque anche 
+  il lato sinistro è derivabile e vale $\vec u'(x) = \vec f(x,\vec u(x))$ per 
+  ogni $x\in I$. 
+  Abbiamo già osservato che se $\vec u$ è continua questa funzione (che è la derivata 
+  di $\vec u$) è anch'essa continua e quindi $\vec u$ è di classe $C^1$.
+  Per $x=x_0$ l'integrale si annulla e quindi si ottiene 
+  anche $\vec u(x_0) = \vec y_0$ concludendo che in effetti $\vec u$ risolve 
+  il problema di Cauchy~\eqref{eq:pb_cauchy}.
+
+  \emph{Passo 2.}
+  Visto che $[a,b]\times B$ è un insieme chiuso e limitato in $\RR \times \RR^n$ 
+  il teorema di Weierstrass garantisce che esiste $M>0$ tale che 
+  $f(x,y)\le M$ per ogni $x\in [a,b]$ e ogni $y\in B$.
+  Scegliamo $\delta >0$ tale che $\delta \le \frac{R}{M}$ e $\delta < \frac {1}{L}$
+  e consideriamo un qualunque intervallo $I$ con $x_0\in I \subset [a,b]\cap [x_0-\delta,x_0+\delta]$.
+  Consideriamo ora l'insieme $X=C(I,B)$ di tutte le funzioni continue $\vec u\colon I\to B\subset \RR^n$
+  e mettiamo su $X$ la distanza uniforme $d_\infty$.
+  E' facile osservare che $X$ è un sottospazio chiuso di $\B(I,\RR)$ (le funzioni limitate definite su $I$)
+  e visto che quest'ultimo è uno spazio completo (teorema~\ref{th:limitate_completo}) anche $X$ 
+  è completo (teorema~\ref{th:chiuso_completo}).
+
+  Definiamo su $X$ l'operatore $T\colon X \to C(I,\RR^n)$ come segue:
+  \[
+    T(\vec u)(x) = \vec y_0 + \int_{x_0}^x \vec f(t,\vec u(t))\, dt.
+  \]
+  Osserviamo che l'equazione~\eqref{eq:pb_cauchy_integrale} può essere riscritto
+  come equazione di punto fisso: $T(\vec u) = \vec u$. 
+  Il nostro intento è quindi quello di utilizzare il teorema di Banach-Caccioppoli (delle contrazioni)
+
+  \emph{Passo 3.}
+  Dimostriamo ora che $T(X)\subset X$ cosicché possiamo pensare a $T$ come ad un operatore 
+  $T\colon X\to X$ che manda $X$ in sé.
+  Posto $\vec v = T(\vec u)$ si ha:
+  \begin{align*}
+    \abs{v(x)-\vec y_0} 
+    &= \abs{\int_{x_0}^x \vec f(t, \vec u(t))\, dt} \\
+    &\le \abs{\int_{x_0}^x \abs{\vec f(t,\vec u(t))}}\, dt
+    \le \abs{\int_{x_0}^x M\, dt } 
+    = \abs{x-x_0}\cdot M = \delta \cdot M.
+  \end{align*}
+Visto che abbiamo scelto $\delta < \frac{R}{M}$ si ottiene che $v(x) \in B$ per ogni $x\in [a,b]$ 
+e quindi effettivamente $T(u)\in B$.
+
+\emph{Passo 4.}
+Dimostriamo infine che $T$ è una contrazione. 
+Se $\vec u,\vec v\in X$ si ha, usando l'ipotesi~\eqref{eq:hp_lipschitz} con $x=t$, $\vec y_1=\vec u(x)$
+$\vec y_2 = \vec v(x)$,
+\begin{align*}
+\abs{T(\vec u)(x)-T(\vec v)(x)} 
+  &= \abs{\int_{x_0}^x \vec f(t,\vec u(t))\, dt - \int_{x_0}^x \vec f(t,\vec v(t))\, dt} \\
+  &\le \abs{\int_{x_0}^x \abs{\vec f(t,\vec u(t))- \vec f(t,\vec v(t))}\, dt }\\
+  &\le \abs{\int_{x_0}^x L \abs{\vec u(t), \vec v(t)}} 
+  \le \abs{\int_{x_0}^x L d_\infty(\vec u, \vec v)}\, dt  \\
+  &=\abs{x-x_0}\cdot L \cdot d_\infty(\vec u,\vec v)
+  \le \delta \cdot L \cdot d_\infty(\vec u\vec v).
+\end{align*}
+Avendo scelto $\delta < \frac{1}{L}$ si ha $\delta L<1$ e quindi effettivamente l'operatore $T$ 
+è una contrazione.
+Sono dunque verificare le ipotesi del teorema~\ref{th:banach-caccioppoli} delle contrazioni
+che garantiscono l'esistenza e unicità del punto fisso $\vec u$.
+
+Ma abbiamo già osservato che $T(\vec u) = \vec u$ è equivalente al problema di Cauchy~\eqref{eq:pb_cauchy}
+e quindi la dimostrazione è terminata.
+\end{proof}
+
+\begin{definition}[Cauchy-Lipschitz]%
+\label{def:cauchy_lipschitz}%
 Diremo che una funzione $\vec f\colon \Omega\subset \RR\times \RR^n \to \RR^m$
 soddisfa la \myemph{proprietà di Cauchy-Lipschitz} se $f$ è continua e se
-per ogni $(x_0,\vec y_0)\in \Omega$ esiste un intorno $U$ di $(x_0,\vec y_0)$
-ed esiste $L\ge 0$
-tale che se $(x,\vec y_1)\in U$ e $(x,\vec y_2)\in U$ si ha
-\[
-  \abs{\vec f(x,\vec y_1)- \vec f(x,\vec y_2)} \le L \abs{\vec y_1- \vec y_2}
-\]
-A parole potremmo dire: $\vec f(x,\vec y)$ è localmente lipschitziana rispetto
-a $\vec y$ uniformemente
+per ogni $(x_0,\vec y_0)\in \Omega$ esiste $\rho>0$ ed esiste $L>0$
+tali che la condizione~\eqref{eq:hp_lipschitz} è verificata 
+per ogni $x\in [x_0-\rho, x_0+\rho]$ e per ogni $\vec y$ tale 
+che $\abs{\vec y-\vec y_0}\le \rho$.
+
+A parole potremmo dire: $\vec f(x,\vec y)$ è continua e 
+localmente lipschitziana rispetto a $\vec y$ uniformemente
 rispetto a $x$.
 \end{definition}
 
-\begin{theorem}[Cauchy-Lipschitz, esistenza e unicità locale]
-\label{th:cauchy_lipschitz}%
-\mymargin{\begin{minipage}{3.5cm}esistenza e unicità locale\\per i sistemi del primo ordine\end{minipage}}%
-\mymark{***}%
-Sia $\Omega$ un aperto di $\RR\times \RR^n$ e sia $\vec f\colon \Omega \to \RR^n$,
-una funzione con la proprietà di Cauchy-Lipschitz
-(definizione~\ref{def:cauchy_lipschitz}).
-
-Allora dato $(x_0,\vec y_0)\in \Omega$
-esiste $\delta>0$
-tale che preso qualunque intervallo $I\subset [x_0-\delta,x_0+\delta]$
-con $x_0\in I$
-esiste una unica funzione $\vec u\colon I \to \RR^n$
-tale che $(x,\vec u(x))\in \Omega$ per ogni $x\in I$
-che soddisfa il problema di Cauchy~\eqref{eq:problema_cauchy}.
-\end{theorem}
-%
-%
-\begin{proof}
-\mymark{***}
-L'idea della dimostrazione è che integrando ambo i lati dell'equazione
-$\vec u' = f(x,\vec u)$ e tenendo conto della condizione iniziale, si
-ottiene una equazione del tipo $\vec u = T(\vec u)$ dove $T$ è un operatore
-sullo spazio delle funzioni continue.
-Scegliendo $\delta$ abbastanza piccolo si riuscirà a mostrare che le funzioni
-definite su un intervallo di raggio $\delta$ intorno a $x_0$ risultano
-essere uno spazio invariante per $T$ e, eventualmente rimpicciolendo ulteriormente
-$\delta$ si riuscità poi a dimostrare che $T$ è una contrazione e quindi
-l'esistenza e unicità della soluzione si ottiene
-dal teorema~\ref{th:banach-caccioppoli} del punto fisso di Banach-Caccioppoli.
-
-Il primo passo è quello di trasformare il problema differenziale in un problema
-integrale.
-Se $\vec u$ è una funzione derivabile soluzione di \eqref{eq:problema_cauchy}
-allora è chiaro che $\vec u'(x) = \vec f(x,\vec u(x))$ è continua in quanto
-composizione di funzioni continue e dunque $\vec u$ è di classe $C^1$.
-Possiamo dunque integrare tra $x_0$ e $x$ i due lati dell'equazione
-differenziale, e usare la formula fondamentale del calcolo integrale
-(teorema~\ref{th:torricelli-barrow})
-per ottenere:
-\[
-  \vec u(x) - \vec u(x_0) = \int_{x_0}^x \vec f(s,\vec u(s))\, ds.
-\]
-Dunque se $\vec u$ risolve il problema di Cauchy allora $\vec u$ soddisfa anche
-la seguente equazione integrale:
-\begin{equation}\label{eq:cauchy_integrale}
-  \vec u(x) = \vec y_0 + \int_{x_0}^x \vec f(s,\vec u(s))\, ds.
-\end{equation}
-Viceversa se $\vec u$ è continua e soddisfa \eqref{eq:cauchy_integrale}
-allora si ha ovviamente
-$\vec u(x_0) = \vec y_0$ e,
-passando alle derivate (sempre grazie al teorema di Torricelli-Barrow~\ref{th:torricelli-barrow}),
-si scopre che $\vec u$ è
-derivabile e soddisfa l'equazione differenziale $\vec u'(x) = \vec f(x,\vec u(x))$.
-Dunque trovare una soluzione $C^1$ del problema di Cauchy \eqref{eq:problema_cauchy}
-è equivalente a trovare una soluzione $C^0$ del problema integrale~\eqref{eq:cauchy_integrale}.
-Ci dedicheremo dunque a questo secondo problema.
-
-Fissato $(x_0, \vec y_0)\in \Omega$ denotiamo con
-\[
-  C_{\alpha,\beta} =
-  \ENCLOSE{(x,\vec y)\in \RR\times\RR^n\colon \abs{x-x_0}\le \alpha, \abs{\vec y -\vec y_0}\le \beta}
-\]
-il cilindro centrato in $(x_0, \vec y_0)$ con asse parallelo all'asse delle $x$,
-di altezza $2\alpha$ e raggio $\beta$.
-Consideriamo un intorno $U$ di $(x_0,\vec y_0)$ in cui, grazie alle ipotesi,
-la funzione $\vec f$ sia $L$-lipschitziana uniformemente rispetto ad $x$.
-L'intorno $U$ conterrà certamente un cilindro $C_{\alpha,\beta}$ per un qualche $\alpha>0$ e $\beta>0$
-sufficientemente piccoli.
-Il cilindro $C_{\alpha,\beta}$ è chiuso e limitato in $\Omega$ e dunque la funzione $\vec f$,
-essendo continua, è limitata su $C_{\alpha,\beta}$ per il teorema di Weierstrass.
-Sia $M>0$ tale che $\abs{\vec f(x,\vec y)}\le M$ per ogni
-$(x,\vec y) \in C_{\alpha,\beta}$ e definiamo
-\begin{equation}\label{eq:395109}
- \delta = \min\ENCLOSE{\alpha, \frac{\beta}{M}, \frac{1}{2L}}.
-\end{equation}
-Il perché $\delta$ venga definito in questo modo si capirà nel prosieguo della dimostrazione.
-Consideriamo un qualunque intervallo $I\subset [x_0-\delta,x_0+\delta]$ e
-definitamo lo spazio di funzioni
-\[
-X=\{\vec u\in C^0(I,\RR^n)\colon \Abs{\vec u-\vec y_0}_\infty
-\le \beta \}.
-\]
-Sappiamo che $C^0(I,\RR^n)$ è uno spazio metrico completo e $X$ è chiuso quindi
-anch'esso è completo. Possiamo allora considerare l'operatore
-$T\colon X \to C^0(I, \RR^n)$ definito da:
-\[
-  T(\vec u)(x) = \vec y_0 + \int_{x_0}^x \vec f(s, \vec u(s))\, ds.
-\]
-Vogliamo innanzitutto verificare che $X$ è invariante,
-cioè che $T(X)\subset X$.
-Se $\vec u \in X$ e se $x\in I$ si ha
-$(x,\vec u(x)) \in C_{\delta,\beta} \subset C_{\alpha,\beta}$
-e dunque (usando anche~\eqref{eq:395109} e il teorema~\ref{teo:tipo_jensen})
-\[
-  \abs{\vec T(u)(x)-\vec y_0}
-  = \abs{\int_{x_0}^x \vec f(s,\vec u(s))\, ds}
-  \le \int_{x_0}^x M\, ds = \abs{x-x_0} M \le \delta M
-  \le \beta.
-\]
-Dunque $\Abs{T(\vec u)-\vec y_0}\le \beta$ e $T(\vec u)\in X$.
-Abbiamo dunque che $T\colon X \to X$. Verifichiamo ora che $T$ è una contrazione.
-Si ha:
-\begin{align*}
-  \abs{T(\vec u_1)(x)-T(\vec u_2)(x)}
-   &\le \abs{\int_{x_0}^x\abs{\vec f(s,\vec u_1(s))-\vec f(s,\vec u_2(s))}\, ds}\\
-   &\le \abs{\int_{x_0}^x L\abs{\vec u_1(s)-\vec u_2(s)}\, ds}\\
-   &\le L \abs{x-x_0}\Abs{\vec u_1 - \vec u_2}_\infty
-   \le L \delta \Abs{\vec u_1 - \vec u_2}_\infty
-\end{align*}
-ovvero, facendo l'estremo superiore al variare di $x\in I$:
-\[
- \Abs{T(\vec u_1)-T(\vec u_2)}_\infty
- \le L \delta \Abs{\vec u_1 - \vec u_2}_\infty
- \le \frac{1}{2}\Abs{\vec u_1- \vec u_2}.
-\]
-Dunque $T\colon X \to X$ è una contrazione su uno spazio metrico completo.
-Per il teorema di punto fisso di Banach-Caccioppoli
-\ref{th:banach-caccioppoli}
-sappiamo quindi che esiste una unica funzione
-$\vec u \in X$ ovvero $\vec u \colon I \to \RR^n$ che soddisfa
-$T(\vec u)=\vec u$ ovvero~\eqref{eq:cauchy_integrale}
-ovvero~\eqref{eq:problema_cauchy}.
-\end{proof}
-
+% \begin{theorem}[Cauchy-Lipschitz, esistenza e unicità locale]
+% \label{th:cauchy_lipschitz}%
+% \mymargin{\begin{minipage}{3.5cm}esistenza e unicità locale\\per i sistemi del primo ordine\end{minipage}}%
+% \mymark{***}%
+% Sia $\Omega$ un aperto di $\RR\times \RR^n$ e sia $\vec f\colon \Omega \to \RR^n$,
+% una funzione con la proprietà di Cauchy-Lipschitz
+% (definizione~\ref{def:cauchy_lipschitz}).
+% 
+% Allora dato $(x_0,\vec y_0)\in \Omega$
+% esiste $\delta>0$
+% tale che preso qualunque intervallo $I\subset [x_0-\delta,x_0+\delta]$
+% con $x_0\in I$
+% esiste una unica funzione $\vec u\colon I \to \RR^n$
+% tale che $(x,\vec u(x))\in \Omega$ per ogni $x\in I$
+% che soddisfa il problema di Cauchy~\eqref{eq:problema_cauchy}.
+% \end{theorem}
+% %
+% %
+% \begin{proof}
+% \mymark{***}
+% L'idea della dimostrazione è che integrando ambo i lati dell'equazione
+% $\vec u' = f(x,\vec u)$ e tenendo conto della condizione iniziale, si
+% ottiene una equazione del tipo $\vec u = T(\vec u)$ dove $T$ è un operatore
+% sullo spazio delle funzioni continue.
+% Scegliendo $\delta$ abbastanza piccolo si riuscirà a mostrare che le funzioni
+% definite su un intervallo di raggio $\delta$ intorno a $x_0$ risultano
+% essere uno spazio invariante per $T$ e, eventualmente rimpicciolendo ulteriormente
+% $\delta$ si riuscità poi a dimostrare che $T$ è una contrazione e quindi
+% l'esistenza e unicità della soluzione si ottiene
+% dal teorema~\ref{th:banach-caccioppoli} del punto fisso di Banach-Caccioppoli.
+% 
+% Il primo passo è quello di trasformare il problema differenziale in un problema
+% integrale.
+% Se $\vec u$ è una funzione derivabile soluzione di \eqref{eq:problema_cauchy}
+% allora è chiaro che $\vec u'(x) = \vec f(x,\vec u(x))$ è continua in quanto
+% composizione di funzioni continue e dunque $\vec u$ è di classe $C^1$.
+% Possiamo dunque integrare tra $x_0$ e $x$ i due lati dell'equazione
+% differenziale, e usare la formula fondamentale del calcolo integrale
+% (teorema~\ref{th:torricelli-barrow})
+% per ottenere:
+% \[
+%   \vec u(x) - \vec u(x_0) = \int_{x_0}^x \vec f(s,\vec u(s))\, ds.
+% \]
+% Dunque se $\vec u$ risolve il problema di Cauchy allora $\vec u$ soddisfa anche
+% la seguente equazione integrale:
+% \begin{equation}\label{eq:cauchy_integrale}
+%   \vec u(x) = \vec y_0 + \int_{x_0}^x \vec f(s,\vec u(s))\, ds.
+% \end{equation}
+% Viceversa se $\vec u$ è continua e soddisfa \eqref{eq:cauchy_integrale}
+% allora si ha ovviamente
+% $\vec u(x_0) = \vec y_0$ e,
+% passando alle derivate (sempre grazie al teorema di Torricelli-Barrow~\ref{th:torricelli-barrow}),
+% si scopre che $\vec u$ è
+% derivabile e soddisfa l'equazione differenziale $\vec u'(x) = \vec f(x,\vec u(x))$.
+% Dunque trovare una soluzione $C^1$ del problema di Cauchy \eqref{eq:problema_cauchy}
+% è equivalente a trovare una soluzione $C^0$ del problema integrale~\eqref{eq:cauchy_integrale}.
+% Ci dedicheremo dunque a questo secondo problema.
+% 
+% Fissato $(x_0, \vec y_0)\in \Omega$ denotiamo con
+% \[
+%   C_{\alpha,\beta} =
+%   \ENCLOSE{(x,\vec y)\in \RR\times\RR^n\colon \abs{x-x_0}\le \alpha, \abs{\vec y -\vec y_0}\le \beta}
+% \]
+% il cilindro centrato in $(x_0, \vec y_0)$ con asse parallelo all'asse delle $x$,
+% di altezza $2\alpha$ e raggio $\beta$.
+% Consideriamo un intorno $U$ di $(x_0,\vec y_0)$ in cui, grazie alle ipotesi,
+% la funzione $\vec f$ sia $L$-lipschitziana uniformemente rispetto ad $x$.
+% L'intorno $U$ conterrà certamente un cilindro $C_{\alpha,\beta}$ per un qualche $\alpha>0$ e $\beta>0$
+% sufficientemente piccoli.
+% Il cilindro $C_{\alpha,\beta}$ è chiuso e limitato in $\Omega$ e dunque la funzione $\vec f$,
+% essendo continua, è limitata su $C_{\alpha,\beta}$ per il teorema di Weierstrass.
+% Sia $M>0$ tale che $\abs{\vec f(x,\vec y)}\le M$ per ogni
+% $(x,\vec y) \in C_{\alpha,\beta}$ e definiamo
+% \begin{equation}\label{eq:395109}
+%  \delta = \min\ENCLOSE{\alpha, \frac{\beta}{M}, \frac{1}{2L}}.
+% \end{equation}
+% Il perché $\delta$ venga definito in questo modo si capirà nel prosieguo della dimostrazione.
+% Consideriamo un qualunque intervallo $I\subset [x_0-\delta,x_0+\delta]$ e
+% definitamo lo spazio di funzioni
+% \[
+% X=\{\vec u\in C^0(I,\RR^n)\colon \Abs{\vec u-\vec y_0}_\infty
+% \le \beta \}.
+% \]
+% Sappiamo che $C^0(I,\RR^n)$ è uno spazio metrico completo e $X$ è chiuso quindi
+% anch'esso è completo. Possiamo allora considerare l'operatore
+% $T\colon X \to C^0(I, \RR^n)$ definito da:
+% \[
+%   T(\vec u)(x) = \vec y_0 + \int_{x_0}^x \vec f(s, \vec u(s))\, ds.
+% \]
+% Vogliamo innanzitutto verificare che $X$ è invariante,
+% cioè che $T(X)\subset X$.
+% Se $\vec u \in X$ e se $x\in I$ si ha
+% $(x,\vec u(x)) \in C_{\delta,\beta} \subset C_{\alpha,\beta}$
+% e dunque (usando anche~\eqref{eq:395109} e il teorema~\ref{teo:tipo_jensen})
+% \[
+%   \abs{\vec T(u)(x)-\vec y_0}
+%   = \abs{\int_{x_0}^x \vec f(s,\vec u(s))\, ds}
+%   \le \int_{x_0}^x M\, ds = \abs{x-x_0} M \le \delta M
+%   \le \beta.
+% \]
+% Dunque $\Abs{T(\vec u)-\vec y_0}\le \beta$ e $T(\vec u)\in X$.
+% Abbiamo dunque che $T\colon X \to X$. Verifichiamo ora che $T$ è una contrazione.
+% Si ha:
+% \begin{align*}
+%   \abs{T(\vec u_1)(x)-T(\vec u_2)(x)}
+%    &\le \abs{\int_{x_0}^x\abs{\vec f(s,\vec u_1(s))-\vec f(s,\vec u_2(s))}\, ds}\\
+%    &\le \abs{\int_{x_0}^x L\abs{\vec u_1(s)-\vec u_2(s)}\, ds}\\
+%    &\le L \abs{x-x_0}\Abs{\vec u_1 - \vec u_2}_\infty
+%    \le L \delta \Abs{\vec u_1 - \vec u_2}_\infty
+% \end{align*}
+% ovvero, facendo l'estremo superiore al variare di $x\in I$:
+% \[
+%  \Abs{T(\vec u_1)-T(\vec u_2)}_\infty
+%  \le L \delta \Abs{\vec u_1 - \vec u_2}_\infty
+%  \le \frac{1}{2}\Abs{\vec u_1- \vec u_2}.
+% \]
+% Dunque $T\colon X \to X$ è una contrazione su uno spazio metrico completo.
+% Per il teorema di punto fisso di Banach-Caccioppoli
+% \ref{th:banach-caccioppoli}
+% sappiamo quindi che esiste una unica funzione
+% $\vec u \in X$ ovvero $\vec u \colon I \to \RR^n$ che soddisfa
+% $T(\vec u)=\vec u$ ovvero~\eqref{eq:cauchy_integrale}
+% ovvero~\eqref{eq:problema_cauchy}.
+% \end{proof}
+ 
 La condizione di Cauchy-Lipschitz può sembrare piuttosto complicata
 da verificare. Una condizione molto più semplice  è che la funzione $\vec f$
 sia di classe $C^1$. La seguente proposizione ci dice che tale
 condizione è sufficiente per applicare il teorema di Cauchy-Lipschitz.
 
-\begin{proposition}
-\mymark{***}
+\begin{proposition}%
+\mymark{***}%
 Sia $\Omega \subset \RR\times \RR^n$ un insieme aperto.
-Se $\vec f\in C^1(\Omega,\RR^m)$ allora $f$ soddisfa la condizione
-di Cauchy-Lipschitz \ref{def:cauchy_lipschitz}.
+Se $\vec f\in C^1(\Omega,\RR^m)$ 
+allora $f$ soddisfa la condizione
+di Cauchy-Lipschitz (definizione~\ref{def:cauchy_lipschitz})
+in ogni cilindro chiuso e limitato contenuto in $\Omega$.
 \end{proposition}
 %
 \begin{proof}
-\mymark{***}
-Se prendiamo un qualunque cubo\footnote{%
-Un cubo di lato $2L$ centrato nel punto $\vec p = (p_1,\dots,p_n)$
-in $\RR^n$ di $\RR^n$ è l'insieme dato dal prodotto cartesiano
-$K=[p_1-L,p_1+K]\times \dots \times [p_n-L,p_n+L]$}
-chiuso $K \subset \Omega \subset \RR\times \RR^n$
-centrato in $(x_0,\vec y_0)$, posto $\vec f = (f_1, \dots, f_m)$
+\mymark{***}%
+Se prendiamo un qualunque cilindro $[a,b]\times K$ con 
+$K=\ENCLOSE{\vec y\in \RR^n\colon \abs{\vec y-\vec y_0}\le R}$, 
+$\vec y_0\in \Omega$, $K\subset \Omega$
 sappiamo che ogni derivata parziale
 $\partial f_k / \partial y_j$ è continua ed è quindi limitata
-(per il teorema di Weierstrass) su $K$. Sia $L_{k,j}$ il massimo di $\abs{\partial f_k / \partial y_j}$ su $K$ e sia
+(per il teorema di Weierstrass) su $[a,b]\times K$. 
+Sia $L_{k,j}$ il massimo di $\abs{\partial f_k / \partial y_j}$ su $K$ e sia
 $L$ il massimo degli $L_{k,j}$ per $k=1,\dots m$ e $j=1\dots,n$.
-Allora presi $\vec y, \vec z \in \RR^n$ con $(x,\vec y),(x,\vec z)\in K$ si può scomporre l'incremento vettoriale $\vec z - \vec y$ lungo le $n$ direzioni coordinate e applicare il teorema di Lagrange lungo ogni direzione.
+Allora presi $\vec y, \vec z \in \RR^n$ con $\vec y, vec z)\in K$ si può scomporre l'incremento vettoriale 
+$\vec z - \vec y$ lungo le $n$ direzioni coordinate e applicare il teorema di Lagrange lungo ogni direzione.
 Per ogni $k = 1,\dots, m$ si ha quindi:
 \begin{align*}
 \MoveEqLeft
@@ -1543,7 +1658,6 @@ da cui
   &\le \sqrt{\sum_{k=1}^m n^2 L^2 \abs{z-y}^2} \\
   &\le n\sqrt{m} L \abs{z-y}.
 \end{align*}
-Abbiamo quindi mostrato che per ogni $(x_0,\vec y_0)\in \Omega$ esiste un intorno del punto $(x_0,\vec y_0)$ in cui la funzione $\vec f$ soddisfa la condizione di Cauchy-Lipschitz.
 \end{proof}
 
 \begin{comment}
@@ -1603,7 +1717,9 @@ che $\vec u$ è una \myemph{soluzione massimale}.
 \begin{proposition}[caratterizzazione delle soluzioni massimali]
 \label{prop:edo_massimale}
 Supponiamo che $\vec f\colon \Omega\subset \RR\times\RR^n\to\RR^n$
-soddisfi la condizione di Cauchy-Lipschitz \ref{def:cauchy_lipschitz}.
+sia una funzione continua che soddisfa la condizione
+di Cauchy-Lipschitz (definizione~\ref{def:cauchy_lipschitz})
+in ogni cilindro chiuso e limitato contenuto in $\Omega$.
 Allora una soluzione $\vec u$ dell'equazione
 \begin{equation}\label{eq:edo_normale_ordine_uno}
   \vec u'(x) = \vec f(x, \vec u(x))
@@ -1611,31 +1727,40 @@ Allora una soluzione $\vec u$ dell'equazione
 è definita su un intervallo massimale $I$ se e solo se
 $I$ è aperto e per ogni $K$ compatto $K\subset \Omega$
 e per ogni $x_0 \in I$ esistono $x_1,x_2\in I$, $x_1 < x_0 < x_2$ tali che $\vec u(x_1)\not \in K$ e $\vec u(x_2) \not \in K$.
-Significa cioè che il grafico di $\vec u$ cioè la curva $(x,\vec u(x))$ esce da qualunque compatto  $K\subset \Omega$ sia facendo crescere $x$ verso destra che facendo calare $x$ verso sinistra.
+Significa cioè che il grafico di $\vec u$ cioè la curva $(x,\vec u(x))$ esce da qualunque compatto  
+$K\subset \Omega$ sia facendo crescere $x$ verso destra che facendo calare $x$ verso sinistra.
 Intuitivamente il grafico della soluzione massimale tende ad arrivare ai limiti di $\Omega$.
 \end{proposition}
 %
 \begin{proof}
 \emph{Prima implicazione}.
-Supponiamo che $\vec u\colon I \to \RR^n$ sia una soluzione di~\eqref{eq:edo_normale_ordine_uno} definita su un intervallo massimale $I$. Dovrà essere $(x,\vec u(x))\in \Omega$ per ogni $x\in I$.
+Supponiamo che $\vec u\colon I \to \RR^n$ sia una soluzione di~\eqref{eq:edo_normale_ordine_uno} 
+definita su un intervallo massimale $I$. Dovrà essere $(x,\vec u(x))\in \Omega$ per ogni $x\in I$.
 
 Mostriamo innanzitutto
-che $I$ è un intervallo aperto a destra: se non lo fosse si avrebbe che $x_0=\sup I \in I$. Allora $(x_0,\vec u(x_0))\in \Omega$ e per il teorema di esistenza e unicità locale
-potremmo trovare un intorno $J$ di $x_0$ e una funzione
+che $I$ è un intervallo aperto a destra: se non lo fosse si avrebbe che $x_0=\sup I \in I$. 
+Allora $(x_0,\vec u(x_0))\in \Omega$ e per il teorema di esistenza e unicità locale
+potremmo trovare un piccolo intervallino $J=[x_0,x_0+\delta]$ una funzione
 $\vec v\colon J\to \RR^n$ che risolve~\eqref{eq:edo_normale_ordine_uno}
 con $\vec v(x_0)=\vec u(x_0)$.
-Per l'unicità delle soluzioni $\vec u$ e $\vec v$ devono coincidere su $I\cap J$ e dunque facendo l'unione dei due grafici ottengo una estensione di $\vec u$ a tutto l'intervallo
-$I\cup J$ che è strettamente più grande di $I$. Dunque $\vec u$ non poteva essere una soluzione massimale.
+Facendo l'unione dei due grafici ottengo una estensione di $\vec u$ a tutto l'intervallo
+$I\cup J$ che è strettamente più grande di $I$. 
+Dunque $\vec u$ non poteva essere una soluzione massimale.
 
-Mostriamo ora che la curva $(x,\vec u(x))$ esce da ogni compatto $K\subset \Omega$ sia da destra che da sinistra. Supponiamo per assurdo che esista un compatto $K$ tale che $(x,\vec u(x))\in K$ per ogni $x\in I$.
-Il grafico $(x,\vec u(x))$ è limitato per $x\in I$ dunque certamente $I$ deve essere limitato. Inoltre abbiamo visto che $I$ è aperto e quindi $I=(a,b)$ con $a,b\in \RR$, $a<b$.
+Mostriamo ora che la curva $(x,\vec u(x))$ esce da ogni compatto $K\subset \Omega$ sia da destra che da sinistra. 
+Supponiamo per assurdo che esista un compatto $K$ tale che $(x,\vec u(x))\in K$ per ogni $x\in I$.
+Il grafico $(x,\vec u(x))$ è limitato per $x\in I$ dunque certamente $I$ deve essere limitato. 
+Inoltre abbiamo visto che $I$ è aperto e quindi $I=(a,b)$ con $a,b\in \RR$, $a<b$.
 
 Allora per ogni $x\in I=(a,b)$ si ha
 \[
   \abs{\vec u'(x)} = \abs{\vec f(x, \vec u(x))}
    \le \sup_K \abs{\vec f}.
 \]
-Visto che $\vec f$ è continua (in quanto soddisfa le ipotesi del teorema di esistenza e unicità) la funzione $\abs{\vec f}$ ha massimo su $K$ per il teorema di Weierstrass e quindi esiste $M\ge 0$ tale che $\abs{\vec u'(x)} \le M$ per ogni $x\in (a,b)$. Significa che ogni componente di $\vec u$ è $M$-lipschitziana, in particolare
+Visto che $\vec f$ è continua 
+la funzione $\abs{\vec f}$ ha massimo su $K$ per il teorema di Weierstrass e quindi esiste 
+$M\ge 0$ tale che $\abs{\vec u'(x)} \le M$ per ogni $x\in (a,b)$. 
+Significa che ogni componente di $\vec u$ è $M$-lipschitziana, in particolare
 ogni componente è uniformemente continua (teorema~\ref{th:lipschitz_uniformemente_continua}).
 Dunque la funzione $\vec u$ può essere estesa con continuità
 (teorema~\ref{th:estensione_uniformemente_continua})
@@ -1659,20 +1784,32 @@ Sappiamo però che se il limite della derivata di una funzione continua esiste e
 (proposizione~\ref{prop:4384774}).
 Dunque $\vec v$ è derivabile in $b$ e anche in quel punto soddisfa l'equazione differenziale. Lo stesso vale nel punto $a$. Dunque siamo riusciti a trovare una estensione $\vec v$ di $\vec u$ contraddicendo l'ipotesi che $\vec u$ fosse una soluzione massimale.
 
-\emph{Seconda implicazione}. Supponiamo ora $\vec u\colon I\to \RR^n$ sia una soluzione dell'equazione differenziale~\eqref{eq:edo_normale_ordine_uno} definita su un intervallo $I$ e tale che la curva $(x,\vec u(x))$ esca da ogni compatto $K$ al variare di $x\in I$. Vogliamo dimostrare che $\vec u$ è soluzione massimale. Innanzitutto $I$ non può essere compatto, altrimenti anche $K=\ENCLOSE{(x,\vec u(x))\colon x \in I}$ sarebbe un compatto di $\Omega$ e ovviamente la curva non esce da $K$.
-Sia $a=\inf I$ e $b=\sup I$. Siccome $I$ non è chiuso esso non contiene uno dei due estremi: supponiamo sia $b$. Allora se $\vec u$ fosse estendibile a destra esisterebbe una estensione continua $\vec v\colon (a,b]\to \RR^n$ che coincide con $\vec u$ su $(a,b)$ e che è continua nel punto $x=b$ e che soddisfa l'equazione differenziale quindi, in particolare, $(b,\vec v(b))\in \Omega$.
+\emph{Seconda implicazione}. Supponiamo ora $\vec u\colon I\to \RR^n$ sia una soluzione dell'equazione 
+differenziale~\eqref{eq:edo_normale_ordine_uno} definita su un intervallo $I$ e tale che la curva 
+$(x,\vec u(x))$ esca da ogni compatto $K$ al variare di $x\in I$. 
+Vogliamo dimostrare che $\vec u$ è soluzione massimale. 
+Innanzitutto $I$ non può essere compatto, altrimenti anche $K=\ENCLOSE{(x,\vec u(x))\colon x \in I}$ 
+sarebbe un compatto di $\Omega$ e ovviamente la curva non esce da $K$.
+Sia $a=\inf I$ e $b=\sup I$. 
+Siccome $I$ non è chiuso esso non contiene uno dei due estremi: supponiamo sia $b$. 
+Allora se $\vec u$ fosse estendibile a destra esisterebbe una estensione continua 
+$\vec v\colon (a,b]\to \RR^n$ che coincide con $\vec u$ su $(a,b)$ e che è continua 
+nel punto $x=b$ e che soddisfa l'equazione differenziale quindi, in particolare, $(b,\vec v(b))\in \Omega$.
 Ma allora scelto $x_0 \in (a,b)$
-prendiamo $K=\ENCLOSE{(x,\vec v(x))\colon x\in [x_0,b]}$. Visto che $\vec v\colon[x_0,b]\to \RR^n$ è continua è facile verificare che $K$ è chiuso è limitato, $K\subset \Omega$. Ma ovviamente $(x,\vec v(x))\in K$ per ogni $x\ge x_0$, contro le ipotesi.
+prendiamo $K=\ENCLOSE{(x,\vec v(x))\colon x\in [x_0,b]}$. 
+Visto che $\vec v\colon[x_0,b]\to \RR^n$ è continua è facile verificare che $K$ è chiuso è limitato, 
+$K\subset \Omega$. Ma ovviamente $(x,\vec v(x))\in K$ per ogni $x\ge x_0$, contro le ipotesi.
 \end{proof}
 
 \begin{proposition}[separazione delle soluzioni]
 \label{prop:separazione_soluzioni}%
-Se $\vec f\colon \Omega\subset \RR \times \RR^n\to \RR^n$ soddisfa
-la condizione di Cauchy-Lipschitz
-e se $\vec u\colon I \to \RR^n$ e $\vec v\colon J\to\RR^n$ sono due soluzioni
+Se $\vec f\colon \Omega\subset \RR \times \RR^n\to \RR^n$
+verifica la condizione di Cauchy-Lipschitz (definizione~\ref{def:cauchy_lipschitz}),
+se $\vec u\colon I \to \RR^n$ e $\vec v\colon J\to\RR^n$ sono due soluzioni
 dell'equazione differenziale
 $\vec u'(x) = \vec f(x,\vec u(x))$
-definite su due intervalli $I,J \subset \RR$  e se esiste $x_0\in I\cap J$ tale che $\vec u(x_0) = \vec v(x_0)$ allora $\vec u(x) = \vec v(x)$ per ogni $x\in I\cap J$.
+definite su due intervalli $I,J \subset \RR$  
+e se esiste $x_0\in I\cap J$ tale che $\vec u(x_0) = \vec v(x_0)$ allora $\vec u(x) = \vec v(x)$ per ogni $x\in I\cap J$.
 Detto in altri termini: nelle ipotesi del teorema di esistenza e unicità i grafici di due soluzioni diverse definite in un intervallo non possono toccarsi.
 \end{proposition}
 %
@@ -2448,7 +2585,7 @@ grazie alla formula di addizione:
 
 \subsection{equazioni lineari non omogenee}
 
-Il teorema~\ref\label{th:edo_lineare_ordine_n}%
+Il teorema~\ref{th:edo_lineare_ordine_n}%
 ci dice che le soluzioni di una 
  equazione lineare non omogenea (non importa se a coefficienti costanti o meno)
 \[
