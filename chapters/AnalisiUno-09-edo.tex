@@ -1204,6 +1204,63 @@ Ci sarà utile estendere la definizione delle classi di regolarità $C^k$ alle
 funzioni vettoriali (cioè con codominio $\RR^n$) e di più variabili
 (cioè con dominio $\RR^m$).
 
+\subsection{continuità e compattezza}
+
+Lo spazio $\RR^n$ è uno spazio metrico con la distanza euclidea 
+(definizione~\ref{def:124124})
+$d(\vec x, \vec y) = \abs{\vec x- \vec y}$ con 
+\[
+ \abs{\vec x} = \sqrt{x_1^2 + \dots + x_n^2}.  
+\] 
+
+Dunque una successione $\vec x_k\in \RR^n$ converge 
+ad un punto $\vec p\in \RR^n$ se vale 
+(definizione~\ref{def:convergenza_metrica}) 
+$\abs{\vec x_k - \vec p}\to 0$.
+Se $(x_k)_j$ sono le componenti del punto $\vec x_k\in \RR^n$ e 
+$p_j$ sono le componenti di $\vec p\in \RR^n$ la convergenza 
+$\vec x_k \to \vec p$ è equivalente alla convergenza di 
+tutte le componenti: $(x_k)_j \to p_j$ per ogni $j=1,\dots,n$
+per $k\to +\infty$.
+
+Una funzione $\vec f\colon A \subset \RR^n\to \RR^m$ 
+è \emph{continua} 
+(definizione~\ref{def:continua_metrico})
+se per ogni successione $\vec x_n \to \vec p$ con 
+$\vec x_n\in A$ e $\vec p\in A$ risulta 
+\[
+  \vec f(\vec x_n) \to \vec f(\vec p).
+\]
+
+Un insieme $K\subset \RR^n$ è \myemph{chiuso}
+se presa una qualunque successione convergente in $\RR^n$:
+$\vec x_k \to \vec x$ se ogni $\vec x_k\in K$ allora anche 
+$\vec x \in K$ (cioè $K$ è chiuso per passaggio al limite,
+teorema~\ref{th:chiuso_sequenziale}).
+La palla di raggio $r>0$ centrata nel punto $\vec p\in \RR^n$ 
+è l'insieme (definizione~\ref{def:palla}):
+\[
+  B_r(\vec p) = \ENCLOSE{\vec x \in \RR^n\colon \abs{\vec x - \vec p}< r}.  
+\]
+Un insieme $\Omega\subset \RR^n$ è \emph{aperto}
+se per ogni $\vec p\in \Omega$ esiste $r>0$ tale che $B_\rho(\vec p) \subset \Omega$
+(definizione~\ref{def:466342}).
+Un insieme $B\subset \RR^n$ si dice essere \emph{limitato}
+(definizione~\ref{def:spazio_limitato})
+se esiste $r>0$ e $\vec p\in\RR^n$ tali che $B\subset B_r(\vec p)$ 
+(ma non è restrittivo supporre $\vec p=0$).
+Un insieme $K\subset \RR^n$ si dice essere \emph{compatto} 
+(definizione \ref{def:sequenzialmente_compatto}) se da ogni successione 
+$\vec x_k$ di punti di $K$ è possibile estrarre una sottosuccessione $x_{k_j} \to \vec x$ 
+convergente ad un punto $\vec x \in K$.
+In $\RR^n$ un insieme è compatto se e solo se è chiuso e limitato
+(teorema~\ref{th:compattezza_Rn}).
+Una funzione continua $f\colon K\subset \RR^n\to\RR$ definita
+su un compatto $K$ è limitata per il teorema di Weierstrass (teorema~\ref{th:weiestrass_metrico}).
+
+
+\subsection{derivate parziali}
+
 Se $\Omega\subset \RR^m$ è un insieme aperto e $f\colon \Omega \to \RR$
 è una funzione, vogliamo definire le \emph{derivate parziali} di $f$.
 Se $\vec x \in \Omega$ si ha $\vec x = (x_1,\dots, x_m)$ e quindi
@@ -1290,6 +1347,7 @@ di classe $C^k$ è una funzione continua le cui derivate parziali esistono e
 sono di classe $C^{k-1}$, dunque è una funzione di classe $C^k$.
 \end{proof}
 
+\subsection{integrali di funzioni vettoriali}
 
 \begin{definition}
 Sia $\vec f\colon [a,b]\to \RR^m$, $\vec f(x) = (f_1(x), \dots, f_m(x))$.
@@ -1308,7 +1366,8 @@ Come al solito si pone inoltre $\int_b^a \vec f = - \int_a^b \vec f$.
 \end{definition}
 
 \begin{theorem}\label{teo:tipo_jensen}
-\mymark{*}
+\label{th:stima_modulo_integrale}%
+\mymark{*}%
 Sia $\vec f\colon [a,b]\to \RR^m$ integrabile. Allora si ha
 \[
   \abs{\int_a^b \vec f(x)\, dx} \le \int_a^b \abs{\vec f(x)}\, dx.
@@ -1365,53 +1424,50 @@ che sia derivabile e che soddisfi:
 \begin{theorem}[Cauchy-Lipschitz: esistenza e unicità locale]%
   \label{th:cauchy_lipschitz}%
 Siano $a\le x_0 \le b$, $R>0$, $\vec y_0 \in \RR^n$. 
-Posto $B=\ENCLOSE{\vec y\in \RR^n \colon \abs{\vec y - \vec y_0}\le R}\subset \RR^n$ 
-sia $\vec f\colon [a,b]\to B$ una funzione con le proprietà:
+Posto $K=\ENCLOSE{\vec y\in \RR^n \colon \abs{\vec y - \vec y_0}\le R}\subset \RR^n$ 
+sia $\vec f\colon [a,b]\times K\to \RR^n$ una funzione con le proprietà:
 \begin{enumerate}
   \item $\vec f$ è continua,
-  \item esiste $L>0$ tale che per ogni $x\in [a,b]$, ed ogni $\vec y_1,\vec y_2 \in B$ 
+  \item esiste $L>0$ tale che per ogni $x\in [a,b]$, ed ogni $\vec y_1,\vec y_2 \in K$ 
   si ha 
   \begin{equation}\label{eq:hp_lipschitz}
-  \abs{\vec f(x, \vec y_2) - f(x,\vec y_1)} \le L \abs{\vec y_2- \vec y_1}.  
+  \abs{\vec f(x, \vec y_2) - \vec f(x,\vec y_1)} \le L \abs{\vec y_2- \vec y_1}.  
   \end{equation}
 \end{enumerate}
 
 Allora esiste $\delta>0$ tale che scelto comunque un intervallo $I$ con 
 $x_0\in I \subset [a,b]\cap [x_0-\delta, x_0+\delta]$ 
-esiste una unica funzione derivabile $\vec u\colon I \to B$ tale che 
-\begin{equation}\label{eq:pb_cauchy}
-\begin{cases}
-  \vec u'(x) = \vec f(x,\vec u(x)), \qquad \forall x\in I\\
-  \vec u(x_0) = \vec y_0.
-\end{cases}  
-\end{equation}
+esiste una unica funzione derivabile $\vec u\colon I \to K$ 
+che risolve il problema di Cauchy~\eqref{eq:problema_cauchy}.
 \end{theorem}
 %
 \begin{proof}
   \emph{Passo 1.}
-  Per prima cosa vogliamo dimostrare che una funzione $\vec u\colon I\to B\subset \RR^n$
-  è derivabile e risolve \eqref{eq:pb_cauchy} 
+  Per prima cosa vogliamo dimostrare che una funzione $\vec u\colon I\to K\subset \RR^n$
+  è derivabile e risolve il problema di Cauchy~\eqref{eq:problema_cauchy} 
   se e solo se 
-  $\vec u$ è continua e risolve 
-  \begin{equation}\label{eq:pb_cauchy_integrale}
+  $\vec u$ è continua e risolve l'equazione integrale
+  \begin{equation}\label{eq:problema_cauchy_integrale}
   \vec u(x) = \vec y_0 + \int_{x_0}^x \vec f(t,\vec u(t))\, dt.
   \end{equation}
 
-  Infatti se $\vec u$ è derivabile e 
+  Se $\vec u$ è derivabile e 
   $\vec u'(x) = \vec f(x, \vec u(x))$ per ogni $x\in[a,b]$ allora 
   siccome $\vec f$ è continua la funzione $\vec f(t,\vec u(t))$ è continua 
-  e quidi $\vec u'$ è di classe $C^1$. Posso allora integrare ambo i membri 
-  è ottenere:
+  (teorema~\ref{th:continuita_funzione_composta_metrico})
+  e quidi $\vec u'$ è di classe $C^1$. 
+  Posso allora integrare ambo i membri 
+  e ottenere:
   \[
    \int_{x_0}^x \vec u'(t)\, dt = \int_{x_0}^x \vec f(t,\vec u(t))\, dt.  
   \]
   Per il teorema fondamentale del calcolo il lato sinistro è uguale 
   a $\vec u(x) - \vec u(x_0) = \vec u(x) - \vec y_0$ e quindi si ottiene 
-  la validità di~\eqref{eq:pb_cauchy_integrale}.
+  la validità di~\eqref{eq:problema_cauchy_integrale}.
 
-  Viceversa se $\vec u$ è continua e soddisfa~\eqref{eq:pb_cauchy_integrale}
+  Viceversa se $\vec u$ è continua e soddisfa~\eqref{eq:problema_cauchy_integrale}
   allora, sempre per il teorema fondamentale del calcolo possiamo affermare
-  che l'integrale nel lato destro nell'uguaglianza~\eqref{eq:pb_cauchy_integrale}
+  che l'integrale nel lato destro nell'uguaglianza~\eqref{eq:problema_cauchy_integrale}
   è una funzione derivabile con derivata $\vec f(x,\vec u(x))$ e dunque anche 
   il lato sinistro è derivabile e vale $\vec u'(x) = \vec f(x,\vec u(x))$ per 
   ogni $x\in I$. 
@@ -1419,15 +1475,15 @@ esiste una unica funzione derivabile $\vec u\colon I \to B$ tale che
   di $\vec u$) è anch'essa continua e quindi $\vec u$ è di classe $C^1$.
   Per $x=x_0$ l'integrale si annulla e quindi si ottiene 
   anche $\vec u(x_0) = \vec y_0$ concludendo che in effetti $\vec u$ risolve 
-  il problema di Cauchy~\eqref{eq:pb_cauchy}.
+  il problema di Cauchy~\eqref{eq:problema_cauchy}.
 
   \emph{Passo 2.}
-  Visto che $[a,b]\times B$ è un insieme chiuso e limitato in $\RR \times \RR^n$ 
+  Visto che $[a,b]\times K$ è un insieme chiuso e limitato in $\RR \times \RR^n$ 
   il teorema di Weierstrass garantisce che esiste $M>0$ tale che 
-  $f(x,y)\le M$ per ogni $x\in [a,b]$ e ogni $y\in B$.
+  $\abs{\vec f(x,y)}\le M$ per ogni $x\in [a,b]$ e ogni $y\in K$.
   Scegliamo $\delta >0$ tale che $\delta \le \frac{R}{M}$ e $\delta < \frac {1}{L}$
   e consideriamo un qualunque intervallo $I$ con $x_0\in I \subset [a,b]\cap [x_0-\delta,x_0+\delta]$.
-  Consideriamo ora l'insieme $X=C(I,B)$ di tutte le funzioni continue $\vec u\colon I\to B\subset \RR^n$
+  Consideriamo ora l'insieme $X=C(I,K)\subset C(I,\RR^n)$ di tutte le funzioni continue $\vec u\colon I\to K$
   e mettiamo su $X$ la distanza uniforme $d_\infty$.
   E' facile osservare che $X$ è un sottospazio chiuso di $\B(I,\RR)$ (le funzioni limitate definite su $I$)
   e visto che quest'ultimo è uno spazio completo (teorema~\ref{th:limitate_completo}) anche $X$ 
@@ -1437,23 +1493,24 @@ esiste una unica funzione derivabile $\vec u\colon I \to B$ tale che
   \[
     T(\vec u)(x) = \vec y_0 + \int_{x_0}^x \vec f(t,\vec u(t))\, dt.
   \]
-  Osserviamo che l'equazione~\eqref{eq:pb_cauchy_integrale} può essere riscritto
+  Osserviamo che l'equazione~\eqref{eq:problema_cauchy_integrale} può essere riscritta
   come equazione di punto fisso: $T(\vec u) = \vec u$. 
-  Il nostro intento è quindi quello di utilizzare il teorema di Banach-Caccioppoli (delle contrazioni)
+  Il nostro intento è quindi quello di utilizzare il teorema~\ref{th:banach-caccioppoli} delle contrazioni.
 
   \emph{Passo 3.}
-  Dimostriamo ora che $T(X)\subset X$ cosicché possiamo pensare a $T$ come ad un operatore 
+  Dimostriamo innanzitutto che $T(X)\subset X$ cosicché possiamo pensare a $T$ come ad un operatore 
   $T\colon X\to X$ che manda $X$ in sé.
-  Posto $\vec v = T(\vec u)$ si ha:
+  Posto $\vec v = T(\vec u)$ si ha
+  (teorema~\ref{th:stima_modulo_integrale}):
   \begin{align*}
     \abs{v(x)-\vec y_0} 
-    &= \abs{\int_{x_0}^x \vec f(t, \vec u(t))\, dt} \\
-    &\le \abs{\int_{x_0}^x \abs{\vec f(t,\vec u(t))}}\, dt
-    \le \abs{\int_{x_0}^x M\, dt } 
+    &= \abs{\int_{x_0}^x \vec f(t, \vec u(t))\, dt} 
+    \le \abs{\int_{x_0}^x \abs{\vec f(t,\vec u(t))}}\, dt\\
+    &\le \abs{\int_{x_0}^x M\, dt } 
     = \abs{x-x_0}\cdot M = \delta \cdot M.
   \end{align*}
-Visto che abbiamo scelto $\delta < \frac{R}{M}$ si ottiene che $v(x) \in B$ per ogni $x\in [a,b]$ 
-e quindi effettivamente $T(u)\in B$.
+Visto che abbiamo scelto $\delta \le \frac{R}{M}$ si ottiene che $v(x) \in K$ per ogni $x\in [a,b]$ 
+e quindi effettivamente $T(u)\in K$.
 
 \emph{Passo 4.}
 Dimostriamo infine che $T$ è una contrazione. 
@@ -1463,17 +1520,17 @@ $\vec y_2 = \vec v(x)$,
 \abs{T(\vec u)(x)-T(\vec v)(x)} 
   &= \abs{\int_{x_0}^x \vec f(t,\vec u(t))\, dt - \int_{x_0}^x \vec f(t,\vec v(t))\, dt} \\
   &\le \abs{\int_{x_0}^x \abs{\vec f(t,\vec u(t))- \vec f(t,\vec v(t))}\, dt }\\
-  &\le \abs{\int_{x_0}^x L \abs{\vec u(t), \vec v(t)}} 
-  \le \abs{\int_{x_0}^x L d_\infty(\vec u, \vec v)}\, dt  \\
+  &\le \abs{\int_{x_0}^x L\cdot  \abs{\vec u(t), \vec v(t)}\, dt} 
+  \le \abs{\int_{x_0}^x L \cdot d_\infty(\vec u, \vec v)\, dt}  \\
   &=\abs{x-x_0}\cdot L \cdot d_\infty(\vec u,\vec v)
-  \le \delta \cdot L \cdot d_\infty(\vec u\vec v).
+  \le \delta \cdot L \cdot d_\infty(\vec u,\vec v).
 \end{align*}
 Avendo scelto $\delta < \frac{1}{L}$ si ha $\delta L<1$ e quindi effettivamente l'operatore $T$ 
 è una contrazione.
 Sono dunque verificare le ipotesi del teorema~\ref{th:banach-caccioppoli} delle contrazioni
 che garantiscono l'esistenza e unicità del punto fisso $\vec u$.
 
-Ma abbiamo già osservato che $T(\vec u) = \vec u$ è equivalente al problema di Cauchy~\eqref{eq:pb_cauchy}
+Ma abbiamo già osservato che $T(\vec u) = \vec u$ è equivalente al problema di Cauchy~\eqref{eq:problema_cauchy}
 e quindi la dimostrazione è terminata.
 \end{proof}
 
@@ -1481,12 +1538,12 @@ e quindi la dimostrazione è terminata.
 \label{def:cauchy_lipschitz}%
 Diremo che una funzione $\vec f\colon \Omega\subset \RR\times \RR^n \to \RR^m$
 soddisfa la \myemph{proprietà di Cauchy-Lipschitz} se $f$ è continua e se
-per ogni $(x_0,\vec y_0)\in \Omega$ esiste $\rho>0$ ed esiste $L>0$
+per ogni $(x_0,\vec y_0)\in \Omega$ esiste $r>0$ ed esiste $L>0$
 tali che la condizione~\eqref{eq:hp_lipschitz} è verificata 
-per ogni $x\in [x_0-\rho, x_0+\rho]$ e per ogni $\vec y$ tale 
-che $\abs{\vec y-\vec y_0}\le \rho$.
+per ogni $x\in [x_0-r, x_0+r]$ e per ogni $\vec y$ tale 
+che $\abs{\vec y-\vec y_0}\le r$.
 
-A parole potremmo dire: $\vec f(x,\vec y)$ è continua e 
+A parole potremmo dire: $\vec f(x,\vec y)$ è continua ed è 
 localmente lipschitziana rispetto a $\vec y$ uniformemente
 rispetto a $x$.
 \end{definition}
@@ -1633,14 +1690,16 @@ in ogni cilindro chiuso e limitato contenuto in $\Omega$.
 \begin{proof}
 \mymark{***}%
 Se prendiamo un qualunque cilindro $[a,b]\times K$ con 
-$K=\ENCLOSE{\vec y\in \RR^n\colon \abs{\vec y-\vec y_0}\le R}$, 
+\[
+  K=\ENCLOSE{\vec y\in \RR^n\colon \abs{\vec y-\vec y_0}\le R}, 
+\]
 $\vec y_0\in \Omega$, $K\subset \Omega$
 sappiamo che ogni derivata parziale
 $\partial f_k / \partial y_j$ è continua ed è quindi limitata
 (per il teorema di Weierstrass) su $[a,b]\times K$. 
 Sia $L_{k,j}$ il massimo di $\abs{\partial f_k / \partial y_j}$ su $K$ e sia
 $L$ il massimo degli $L_{k,j}$ per $k=1,\dots m$ e $j=1\dots,n$.
-Allora presi $\vec y, \vec z \in \RR^n$ con $\vec y, vec z)\in K$ si può scomporre l'incremento vettoriale 
+Allora presi $\vec y, \vec z\in K$ si può scomporre l'incremento vettoriale 
 $\vec z - \vec y$ lungo le $n$ direzioni coordinate e applicare il teorema di Lagrange lungo ogni direzione.
 Per ogni $k = 1,\dots, m$ si ha quindi:
 \begin{align*}
@@ -1648,8 +1707,8 @@ Per ogni $k = 1,\dots, m$ si ha quindi:
 \abs{f_k(x,\vec z)-f_k(x,\vec y)}\\
 &\le \sum_{j=1}^n \abs{f_k(x,z_1, \dots, z_j, y_{j+1}, \dots, y_n) - f_k(x,z_1, \dots, z_{j-1}, y_j, \dots, y_n)}\\
 &\le \sum_{j=1}^n L_j \abs{z_j-y_j}
-\le \sum_{j=1}^n L_j \abs{z-y}
-\le n L \abs{z-y}
+\le \sum_{j=1}^n L_j \abs{\vec z-\vec y}
+\le n L \abs{\vec z-\vec y}
 \end{align*}
 da cui
 \begin{align*}
@@ -1689,14 +1748,13 @@ definita in un
 piccolo intervallo $[x_0-\delta_0, x_0+\delta_0]$ intorno al punto iniziale $x_0$.
 Se scegliamo $x_1 = x_0+\delta_0$ possiamo applicare nuovamente lo stesso
 teorema per trovare una soluzione definita nell'intervallo
-$[x_1-\delta_1, x_1+\delta_1]$
+$[x_1, x_1+\delta_1]$
 che coincida con la precedente soluzione nel punto $x_1$.
-Le due soluzioni coincidono sull'intersezione dei due intervalli (grazie
-all'unicità della soluzione su ogni sotto-intervallo) e quindi possono
+Le due soluzioni possono
 essere incollate per ottenere una soluzione definita sull'unione dei due intervalli.
 Questo procedimento può essere ripetuto infinite volte ma gli intervalli
 potrebbero diventare sempre più piccoli, quindi non c'è garanzia di ottenere una
-soluzione definita su intervalli arbitrariamente grandi.
+soluzione definita su intervalli sempre più grandi.
 Nel seguito cercheremo di capire quanto grande può essere l'intervallo
 \emph{massimale} su cui si riesce ad estendere la soluzione.
 
@@ -1718,8 +1776,7 @@ che $\vec u$ è una \myemph{soluzione massimale}.
 \label{prop:edo_massimale}
 Supponiamo che $\vec f\colon \Omega\subset \RR\times\RR^n\to\RR^n$
 sia una funzione continua che soddisfa la condizione
-di Cauchy-Lipschitz (definizione~\ref{def:cauchy_lipschitz})
-in ogni cilindro chiuso e limitato contenuto in $\Omega$.
+di Cauchy-Lipschitz (definizione~\ref{def:cauchy_lipschitz}).
 Allora una soluzione $\vec u$ dell'equazione
 \begin{equation}\label{eq:edo_normale_ordine_uno}
   \vec u'(x) = \vec f(x, \vec u(x))
