@@ -471,7 +471,8 @@ Osserviamo che se $a(x)$ e $b(x)$ sono funzioni continue definite su uno stesso
 intervallo $I$, anche la soluzione è definita su tutto $I$.
 Si dirà quindi che la soluzione esiste \emph{globalmente}.
 
-\begin{exercise}[autovettori dell'operatore derivata]
+\begin{exercise}[autovettori dell'operatore derivata]%
+  \label{ex:58230978}
 Fissato $\lambda \in \RR$ trovare tutte le soluzioni dell'equazione
 \[
   u'(x) = \lambda u(x).
@@ -920,8 +921,11 @@ della curva inizale e che poi si staccano lungo le semirette tangenti.
 \[
   u' = u^2 + b(x) u + c(x).
 \]
-si ponga $u'(x) = -v'(x)/v(x)$ per ricondursi ad
-una equazione lineare del secondo ordine in $v$;
+si ponga $u(x) = -v'(x)/v(x)$ per ricondursi ad
+una equazione lineare del secondo ordine in $v$:
+\[
+ v'' -  b(x) v' + c v = 0.
+\]
 \end{enumerate}
 
 \begin{example}[equazione di Newton]
@@ -1204,6 +1208,63 @@ Ci sarà utile estendere la definizione delle classi di regolarità $C^k$ alle
 funzioni vettoriali (cioè con codominio $\RR^n$) e di più variabili
 (cioè con dominio $\RR^m$).
 
+\subsection{continuità e compattezza}
+
+Lo spazio $\RR^n$ è uno spazio metrico con la distanza euclidea 
+(definizione~\ref{def:124124})
+$d(\vec x, \vec y) = \abs{\vec x- \vec y}$ con 
+\[
+ \abs{\vec x} = \sqrt{x_1^2 + \dots + x_n^2}.  
+\] 
+
+Dunque una successione $\vec x_k\in \RR^n$ converge 
+ad un punto $\vec p\in \RR^n$ se vale 
+(definizione~\ref{def:convergenza_metrica}) 
+$\abs{\vec x_k - \vec p}\to 0$.
+Se $(x_k)_j$ sono le componenti del punto $\vec x_k\in \RR^n$ e 
+$p_j$ sono le componenti di $\vec p\in \RR^n$ la convergenza 
+$\vec x_k \to \vec p$ è equivalente alla convergenza di 
+tutte le componenti: $(x_k)_j \to p_j$ per ogni $j=1,\dots,n$
+per $k\to +\infty$.
+
+Una funzione $\vec f\colon A \subset \RR^n\to \RR^m$ 
+è \emph{continua} 
+(definizione~\ref{def:continua_metrico})
+se per ogni successione $\vec x_n \to \vec p$ con 
+$\vec x_n\in A$ e $\vec p\in A$ risulta 
+\[
+  \vec f(\vec x_n) \to \vec f(\vec p).
+\]
+
+Un insieme $K\subset \RR^n$ è \myemph{chiuso}
+se presa una qualunque successione convergente in $\RR^n$:
+$\vec x_k \to \vec x$ se ogni $\vec x_k\in K$ allora anche 
+$\vec x \in K$ (cioè $K$ è chiuso per passaggio al limite,
+teorema~\ref{th:chiuso_sequenziale}).
+La palla di raggio $r>0$ centrata nel punto $\vec p\in \RR^n$ 
+è l'insieme (definizione~\ref{def:palla}):
+\[
+  B_r(\vec p) = \ENCLOSE{\vec x \in \RR^n\colon \abs{\vec x - \vec p}< r}.  
+\]
+Un insieme $\Omega\subset \RR^n$ è \emph{aperto}
+se per ogni $\vec p\in \Omega$ esiste $r>0$ tale che $B_\rho(\vec p) \subset \Omega$
+(definizione~\ref{def:466342}).
+Un insieme $B\subset \RR^n$ si dice essere \emph{limitato}
+(definizione~\ref{def:spazio_limitato})
+se esiste $r>0$ e $\vec p\in\RR^n$ tali che $B\subset B_r(\vec p)$ 
+(ma non è restrittivo supporre $\vec p=0$).
+Un insieme $K\subset \RR^n$ si dice essere \emph{compatto} 
+(definizione \ref{def:sequenzialmente_compatto}) se da ogni successione 
+$\vec x_k$ di punti di $K$ è possibile estrarre una sottosuccessione $x_{k_j} \to \vec x$ 
+convergente ad un punto $\vec x \in K$.
+In $\RR^n$ un insieme è compatto se e solo se è chiuso e limitato
+(teorema~\ref{th:compattezza_Rn}).
+Una funzione continua $f\colon K\subset \RR^n\to\RR$ definita
+su un compatto $K$ è limitata per il teorema di Weierstrass (teorema~\ref{th:weiestrass_metrico}).
+
+
+\subsection{derivate parziali}
+
 Se $\Omega\subset \RR^m$ è un insieme aperto e $f\colon \Omega \to \RR$
 è una funzione, vogliamo definire le \emph{derivate parziali} di $f$.
 Se $\vec x \in \Omega$ si ha $\vec x = (x_1,\dots, x_m)$ e quindi
@@ -1290,6 +1351,7 @@ di classe $C^k$ è una funzione continua le cui derivate parziali esistono e
 sono di classe $C^{k-1}$, dunque è una funzione di classe $C^k$.
 \end{proof}
 
+\subsection{integrali di funzioni vettoriali}
 
 \begin{definition}
 Sia $\vec f\colon [a,b]\to \RR^m$, $\vec f(x) = (f_1(x), \dots, f_m(x))$.
@@ -1308,7 +1370,8 @@ Come al solito si pone inoltre $\int_b^a \vec f = - \int_a^b \vec f$.
 \end{definition}
 
 \begin{theorem}\label{teo:tipo_jensen}
-\mymark{*}
+\label{th:stima_modulo_integrale}%
+\mymark{*}%
 Sia $\vec f\colon [a,b]\to \RR^m$ integrabile. Allora si ha
 \[
   \abs{\int_a^b \vec f(x)\, dx} \le \int_a^b \abs{\vec f(x)}\, dx.
@@ -1362,179 +1425,171 @@ che sia derivabile e che soddisfi:
 \end{cases}
 \end{equation}
 
-\begin{definition}[Cauchy-Lipschitz]
-\label{def:cauchy_lipschitz}
-Diremo che una funzione $\vec f\colon \Omega\subset \RR\times \RR^n \to \RR^m$
-soddisfa la \myemph{proprietà di Cauchy-Lipschitz} se $f$ è continua e se
-per ogni $(x_0,\vec y_0)\in \Omega$ esiste un intorno $U$ di $(x_0,\vec y_0)$
-ed esiste $L\ge 0$
-tale che se $(x,\vec y_1)\in U$ e $(x,\vec y_2)\in U$ si ha
-\[
-  \abs{\vec f(x,\vec y_1)- \vec f(x,\vec y_2)} \le L \abs{\vec y_1- \vec y_2}
-\]
-A parole potremmo dire: $\vec f(x,\vec y)$ è localmente lipschitziana rispetto
-a $\vec y$ uniformemente
-rispetto a $x$.
-\end{definition}
+\subsection{esistenza e unicità locale}
 
-\begin{theorem}[Cauchy-Lipschitz, esistenza e unicità locale]
-\label{th:cauchy_lipschitz}%
-\mymargin{\begin{minipage}{3.5cm}esistenza e unicità locale\\per i sistemi del primo ordine\end{minipage}}%
-\mymark{***}%
-Sia $\Omega$ un aperto di $\RR\times \RR^n$ e sia $\vec f\colon \Omega \to \RR^n$,
-una funzione con la proprietà di Cauchy-Lipschitz
-(definizione~\ref{def:cauchy_lipschitz}).
+\begin{theorem}[Cauchy-Lipschitz: esistenza e unicità locale]%
+  \label{th:cauchy_lipschitz}%
+Siano $a\le x_0 \le b$, $R>0$, $\vec y_0 \in \RR^n$. 
+Posto $K=\ENCLOSE{\vec y\in \RR^n \colon \abs{\vec y - \vec y_0}\le R}\subset \RR^n$ 
+sia $\vec f\colon [a,b]\times K\to \RR^n$ una funzione con le proprietà:
+\begin{enumerate}
+  \item $\vec f$ è continua,
+  \item esiste $L>0$ tale che per ogni $x\in [a,b]$, ed ogni $\vec y_1,\vec y_2 \in K$ 
+  si ha 
+  \begin{equation}\label{eq:hp_lipschitz}
+  \abs{\vec f(x, \vec y_2) - \vec f(x,\vec y_1)} \le L \abs{\vec y_2- \vec y_1}.  
+  \end{equation}
+\end{enumerate}
 
-Allora dato $(x_0,\vec y_0)\in \Omega$
-esiste $\delta>0$
-tale che preso qualunque intervallo $I\subset [x_0-\delta,x_0+\delta]$
-con $x_0\in I$
-esiste una unica funzione $\vec u\colon I \to \RR^n$
-tale che $(x,\vec u(x))\in \Omega$ per ogni $x\in I$
-che soddisfa il problema di Cauchy~\eqref{eq:problema_cauchy}.
+Allora esiste $\delta>0$ tale che scelto comunque un intervallo $I$ con 
+$x_0\in I \subset [a,b]\cap [x_0-\delta, x_0+\delta]$ 
+esiste una unica funzione derivabile $\vec u\colon I \to K$ 
+che risolve il problema di Cauchy~\eqref{eq:problema_cauchy}.
 \end{theorem}
 %
-%
 \begin{proof}
-\mymark{***}
-L'idea della dimostrazione è che integrando ambo i lati dell'equazione
-$\vec u' = f(x,\vec u)$ e tenendo conto della condizione iniziale, si
-ottiene una equazione del tipo $\vec u = T(\vec u)$ dove $T$ è un operatore
-sullo spazio delle funzioni continue.
-Scegliendo $\delta$ abbastanza piccolo si riuscirà a mostrare che le funzioni
-definite su un intervallo di raggio $\delta$ intorno a $x_0$ risultano
-essere uno spazio invariante per $T$ e, eventualmente rimpicciolendo ulteriormente
-$\delta$ si riuscità poi a dimostrare che $T$ è una contrazione e quindi
-l'esistenza e unicità della soluzione si ottiene
-dal teorema~\ref{th:banach-caccioppoli} del punto fisso di Banach-Caccioppoli.
+  \emph{Passo 1.}
+  Per prima cosa vogliamo dimostrare che una funzione $\vec u\colon I\to K\subset \RR^n$
+  è derivabile e risolve il problema di Cauchy~\eqref{eq:problema_cauchy} 
+  se e solo se 
+  $\vec u$ è continua e risolve l'equazione integrale
+  \begin{equation}\label{eq:problema_cauchy_integrale}
+  \vec u(x) = \vec y_0 + \int_{x_0}^x \vec f(t,\vec u(t))\, dt.
+  \end{equation}
 
-Il primo passo è quello di trasformare il problema differenziale in un problema
-integrale.
-Se $\vec u$ è una funzione derivabile soluzione di \eqref{eq:problema_cauchy}
-allora è chiaro che $\vec u'(x) = \vec f(x,\vec u(x))$ è continua in quanto
-composizione di funzioni continue e dunque $\vec u$ è di classe $C^1$.
-Possiamo dunque integrare tra $x_0$ e $x$ i due lati dell'equazione
-differenziale, e usare la formula fondamentale del calcolo integrale
-(teorema~\ref{th:torricelli-barrow})
-per ottenere:
-\[
-  \vec u(x) - \vec u(x_0) = \int_{x_0}^x \vec f(s,\vec u(s))\, ds.
-\]
-Dunque se $\vec u$ risolve il problema di Cauchy allora $\vec u$ soddisfa anche
-la seguente equazione integrale:
-\begin{equation}\label{eq:cauchy_integrale}
-  \vec u(x) = \vec y_0 + \int_{x_0}^x \vec f(s,\vec u(s))\, ds.
-\end{equation}
-Viceversa se $\vec u$ è continua e soddisfa \eqref{eq:cauchy_integrale}
-allora si ha ovviamente
-$\vec u(x_0) = \vec y_0$ e,
-passando alle derivate (sempre grazie al teorema di Torricelli-Barrow~\ref{th:torricelli-barrow}),
-si scopre che $\vec u$ è
-derivabile e soddisfa l'equazione differenziale $\vec u'(x) = \vec f(x,\vec u(x))$.
-Dunque trovare una soluzione $C^1$ del problema di Cauchy \eqref{eq:problema_cauchy}
-è equivalente a trovare una soluzione $C^0$ del problema integrale~\eqref{eq:cauchy_integrale}.
-Ci dedicheremo dunque a questo secondo problema.
+  Se $\vec u$ è derivabile e 
+  $\vec u'(x) = \vec f(x, \vec u(x))$ per ogni $x\in[a,b]$ allora 
+  siccome $\vec f$ è continua la funzione $\vec f(t,\vec u(t))$ è continua 
+  (teorema~\ref{th:continuita_funzione_composta_metrico})
+  e quidi $\vec u'$ è di classe $C^1$. 
+  Posso allora integrare ambo i membri 
+  e ottenere:
+  \[
+   \int_{x_0}^x \vec u'(t)\, dt = \int_{x_0}^x \vec f(t,\vec u(t))\, dt.  
+  \]
+  Per il teorema fondamentale del calcolo il lato sinistro è uguale 
+  a $\vec u(x) - \vec u(x_0) = \vec u(x) - \vec y_0$ e quindi si ottiene 
+  la validità di~\eqref{eq:problema_cauchy_integrale}.
 
-Fissato $(x_0, \vec y_0)\in \Omega$ denotiamo con
-\[
-  C_{\alpha,\beta} =
-  \ENCLOSE{(x,\vec y)\in \RR\times\RR^n\colon \abs{x-x_0}\le \alpha, \abs{\vec y -\vec y_0}\le \beta}
-\]
-il cilindro centrato in $(x_0, \vec y_0)$ con asse parallelo all'asse delle $x$,
-di altezza $2\alpha$ e raggio $\beta$.
-Consideriamo un intorno $U$ di $(x_0,\vec y_0)$ in cui, grazie alle ipotesi,
-la funzione $\vec f$ sia $L$-lipschitziana uniformemente rispetto ad $x$.
-L'intorno $U$ conterrà certamente un cilindro $C_{\alpha,\beta}$ per un qualche $\alpha>0$ e $\beta>0$
-sufficientemente piccoli.
-Il cilindro $C_{\alpha,\beta}$ è chiuso e limitato in $\Omega$ e dunque la funzione $\vec f$,
-essendo continua, è limitata su $C_{\alpha,\beta}$ per il teorema di Weierstrass.
-Sia $M>0$ tale che $\abs{\vec f(x,\vec y)}\le M$ per ogni
-$(x,\vec y) \in C_{\alpha,\beta}$ e definiamo
-\begin{equation}\label{eq:395109}
- \delta = \min\ENCLOSE{\alpha, \frac{\beta}{M}, \frac{1}{2L}}.
-\end{equation}
-Il perché $\delta$ venga definito in questo modo si capirà nel prosieguo della dimostrazione.
-Consideriamo un qualunque intervallo $I\subset [x_0-\delta,x_0+\delta]$ e
-definitamo lo spazio di funzioni
-\[
-X=\{\vec u\in C^0(I,\RR^n)\colon \Abs{\vec u-\vec y_0}_\infty
-\le \beta \}.
-\]
-Sappiamo che $C^0(I,\RR^n)$ è uno spazio metrico completo e $X$ è chiuso quindi
-anch'esso è completo. Possiamo allora considerare l'operatore
-$T\colon X \to C^0(I, \RR^n)$ definito da:
-\[
-  T(\vec u)(x) = \vec y_0 + \int_{x_0}^x \vec f(s, \vec u(s))\, ds.
-\]
-Vogliamo innanzitutto verificare che $X$ è invariante,
-cioè che $T(X)\subset X$.
-Se $\vec u \in X$ e se $x\in I$ si ha
-$(x,\vec u(x)) \in C_{\delta,\beta} \subset C_{\alpha,\beta}$
-e dunque (usando anche~\eqref{eq:395109} e il teorema~\ref{teo:tipo_jensen})
-\[
-  \abs{\vec T(u)(x)-\vec y_0}
-  = \abs{\int_{x_0}^x \vec f(s,\vec u(s))\, ds}
-  \le \int_{x_0}^x M\, ds = \abs{x-x_0} M \le \delta M
-  \le \beta.
-\]
-Dunque $\Abs{T(\vec u)-\vec y_0}\le \beta$ e $T(\vec u)\in X$.
-Abbiamo dunque che $T\colon X \to X$. Verifichiamo ora che $T$ è una contrazione.
-Si ha:
+  Viceversa se $\vec u$ è continua e soddisfa~\eqref{eq:problema_cauchy_integrale}
+  allora, sempre per il teorema fondamentale del calcolo possiamo affermare
+  che l'integrale nel lato destro nell'uguaglianza~\eqref{eq:problema_cauchy_integrale}
+  è una funzione derivabile con derivata $\vec f(x,\vec u(x))$ e dunque anche 
+  il lato sinistro è derivabile e vale $\vec u'(x) = \vec f(x,\vec u(x))$ per 
+  ogni $x\in I$. 
+  Abbiamo già osservato che se $\vec u$ è continua questa funzione (che è la derivata 
+  di $\vec u$) è anch'essa continua e quindi $\vec u$ è di classe $C^1$.
+  Per $x=x_0$ l'integrale si annulla e quindi si ottiene 
+  anche $\vec u(x_0) = \vec y_0$ concludendo che in effetti $\vec u$ risolve 
+  il problema di Cauchy~\eqref{eq:problema_cauchy}.
+
+  \emph{Passo 2.}
+  Visto che $[a,b]\times K$ è un insieme chiuso e limitato in $\RR \times \RR^n$ 
+  il teorema di Weierstrass garantisce che esiste $M>0$ tale che 
+  $\abs{\vec f(x,y)}\le M$ per ogni $x\in [a,b]$ e ogni $y\in K$.
+  Scegliamo $\delta >0$ tale che $\delta \le \frac{R}{M}$ e $\delta < \frac {1}{L}$
+  e consideriamo un qualunque intervallo $I$ con $x_0\in I \subset [a,b]\cap [x_0-\delta,x_0+\delta]$.
+  Consideriamo ora l'insieme $X=C(I,K)\subset C(I,\RR^n)$ di tutte le funzioni continue $\vec u\colon I\to K$
+  e mettiamo su $X$ la distanza uniforme $d_\infty$.
+  E' facile osservare che $X$ è un sottospazio chiuso di $\B(I,\RR)$ (le funzioni limitate definite su $I$)
+  e visto che quest'ultimo è uno spazio completo (teorema~\ref{th:limitate_completo}) anche $X$ 
+  è completo (teorema~\ref{th:chiuso_completo}).
+
+  Definiamo su $X$ l'operatore $T\colon X \to C(I,\RR^n)$ come segue:
+  \[
+    T(\vec u)(x) = \vec y_0 + \int_{x_0}^x \vec f(t,\vec u(t))\, dt.
+  \]
+  Osserviamo che l'equazione~\eqref{eq:problema_cauchy_integrale} può essere riscritta
+  come equazione di punto fisso: $T(\vec u) = \vec u$. 
+  Il nostro intento è quindi quello di utilizzare il teorema~\ref{th:banach-caccioppoli} delle contrazioni.
+
+  \emph{Passo 3.}
+  Dimostriamo innanzitutto che $T(X)\subset X$ cosicché possiamo pensare a $T$ come ad un operatore 
+  $T\colon X\to X$ che manda $X$ in sé.
+  Posto $\vec v = T(\vec u)$ si ha
+  (teorema~\ref{th:stima_modulo_integrale}):
+  \begin{align*}
+    \abs{v(x)-\vec y_0} 
+    &= \abs{\int_{x_0}^x \vec f(t, \vec u(t))\, dt} 
+    \le \abs{\int_{x_0}^x \abs{\vec f(t,\vec u(t))}}\, dt\\
+    &\le \abs{\int_{x_0}^x M\, dt } 
+    = \abs{x-x_0}\cdot M = \delta \cdot M.
+  \end{align*}
+Visto che abbiamo scelto $\delta \le \frac{R}{M}$ si ottiene che $v(x) \in K$ per ogni $x\in [a,b]$ 
+e quindi effettivamente $T(u)\in K$.
+
+\emph{Passo 4.}
+Dimostriamo infine che $T$ è una contrazione. 
+Se $\vec u,\vec v\in X$ si ha, usando l'ipotesi~\eqref{eq:hp_lipschitz} con $x=t$, $\vec y_1=\vec u(x)$
+$\vec y_2 = \vec v(x)$,
 \begin{align*}
-  \abs{T(\vec u_1)(x)-T(\vec u_2)(x)}
-   &\le \abs{\int_{x_0}^x\abs{\vec f(s,\vec u_1(s))-\vec f(s,\vec u_2(s))}\, ds}\\
-   &\le \abs{\int_{x_0}^x L\abs{\vec u_1(s)-\vec u_2(s)}\, ds}\\
-   &\le L \abs{x-x_0}\Abs{\vec u_1 - \vec u_2}_\infty
-   \le L \delta \Abs{\vec u_1 - \vec u_2}_\infty
+\abs{T(\vec u)(x)-T(\vec v)(x)} 
+  &= \abs{\int_{x_0}^x \vec f(t,\vec u(t))\, dt - \int_{x_0}^x \vec f(t,\vec v(t))\, dt} \\
+  &\le \abs{\int_{x_0}^x \abs{\vec f(t,\vec u(t))- \vec f(t,\vec v(t))}\, dt }\\
+  &\le \abs{\int_{x_0}^x L\cdot  \abs{\vec u(t), \vec v(t)}\, dt} 
+  \le \abs{\int_{x_0}^x L \cdot d_\infty(\vec u, \vec v)\, dt}  \\
+  &=\abs{x-x_0}\cdot L \cdot d_\infty(\vec u,\vec v)
+  \le \delta \cdot L \cdot d_\infty(\vec u,\vec v).
 \end{align*}
-ovvero, facendo l'estremo superiore al variare di $x\in I$:
-\[
- \Abs{T(\vec u_1)-T(\vec u_2)}_\infty
- \le L \delta \Abs{\vec u_1 - \vec u_2}_\infty
- \le \frac{1}{2}\Abs{\vec u_1- \vec u_2}.
-\]
-Dunque $T\colon X \to X$ è una contrazione su uno spazio metrico completo.
-Per il teorema di punto fisso di Banach-Caccioppoli
-\ref{th:banach-caccioppoli}
-sappiamo quindi che esiste una unica funzione
-$\vec u \in X$ ovvero $\vec u \colon I \to \RR^n$ che soddisfa
-$T(\vec u)=\vec u$ ovvero~\eqref{eq:cauchy_integrale}
-ovvero~\eqref{eq:problema_cauchy}.
+Avendo scelto $\delta < \frac{1}{L}$ si ha $\delta L<1$ e quindi effettivamente l'operatore $T$ 
+è una contrazione.
+Sono dunque verificare le ipotesi del teorema~\ref{th:banach-caccioppoli} delle contrazioni
+che garantiscono l'esistenza e unicità del punto fisso $\vec u$.
+
+Ma abbiamo già osservato che $T(\vec u) = \vec u$ è equivalente al problema di Cauchy~\eqref{eq:problema_cauchy}
+e quindi la dimostrazione è terminata.
 \end{proof}
 
+\begin{definition}[Cauchy-Lipschitz]%
+\label{def:cauchy_lipschitz}%
+Diremo che una funzione $\vec f\colon \Omega\subset \RR\times \RR^n \to \RR^m$
+soddisfa la \myemph{proprietà di Cauchy-Lipschitz} se $f$ è continua e se
+per ogni $(x_0,\vec y_0)\in \Omega$ esiste $r>0$ ed esiste $L>0$
+tali che la condizione~\eqref{eq:hp_lipschitz} è verificata 
+per ogni $x\in [x_0-r, x_0+r]$ e per ogni $\vec y$ tale 
+che $\abs{\vec y-\vec y_0}\le r$.
+
+A parole potremmo dire: $\vec f(x,\vec y)$ è continua ed è 
+localmente lipschitziana rispetto a $\vec y$ uniformemente
+rispetto a $x$.
+\end{definition}
+ 
 La condizione di Cauchy-Lipschitz può sembrare piuttosto complicata
 da verificare. Una condizione molto più semplice  è che la funzione $\vec f$
 sia di classe $C^1$. La seguente proposizione ci dice che tale
 condizione è sufficiente per applicare il teorema di Cauchy-Lipschitz.
 
-\begin{proposition}
-\mymark{***}
+\begin{proposition}%
+\mymark{***}%
 Sia $\Omega \subset \RR\times \RR^n$ un insieme aperto.
-Se $\vec f\in C^1(\Omega,\RR^m)$ allora $f$ soddisfa la condizione
-di Cauchy-Lipschitz \ref{def:cauchy_lipschitz}.
+Se $\vec f\in C^1(\Omega,\RR^m)$ 
+allora $f$ soddisfa la condizione
+di Cauchy-Lipschitz (definizione~\ref{def:cauchy_lipschitz})
+in ogni cilindro chiuso e limitato contenuto in $\Omega$.
 \end{proposition}
 %
 \begin{proof}
-\mymark{***}
-Se prendiamo un qualunque cubo\footnote{%
-Un cubo di lato $2L$ centrato nel punto $\vec p = (p_1,\dots,p_n)$
-in $\RR^n$ di $\RR^n$ è l'insieme dato dal prodotto cartesiano
-$K=[p_1-L,p_1+K]\times \dots \times [p_n-L,p_n+L]$}
-chiuso $K \subset \Omega \subset \RR\times \RR^n$
-centrato in $(x_0,\vec y_0)$, posto $\vec f = (f_1, \dots, f_m)$
+\mymark{***}%
+Se prendiamo un qualunque cilindro $[a,b]\times K$ con 
+\[
+  K=\ENCLOSE{\vec y\in \RR^n\colon \abs{\vec y-\vec y_0}\le R}, 
+\]
+$\vec y_0\in \Omega$, $K\subset \Omega$
 sappiamo che ogni derivata parziale
 $\partial f_k / \partial y_j$ è continua ed è quindi limitata
-(per il teorema di Weierstrass) su $K$. Sia $L_{k,j}$ il massimo di $\abs{\partial f_k / \partial y_j}$ su $K$ e sia
+(per il teorema di Weierstrass) su $[a,b]\times K$. 
+Sia $L_{k,j}$ il massimo di $\abs{\partial f_k / \partial y_j}$ su $K$ e sia
 $L$ il massimo degli $L_{k,j}$ per $k=1,\dots m$ e $j=1\dots,n$.
-Allora presi $\vec y, \vec z \in \RR^n$ con $(x,\vec y),(x,\vec z)\in K$ si può scomporre l'incremento vettoriale $\vec z - \vec y$ lungo le $n$ direzioni coordinate e applicare il teorema di Lagrange lungo ogni direzione.
+Allora presi $\vec y, \vec z\in K$ si può scomporre l'incremento vettoriale 
+$\vec z - \vec y$ lungo le $n$ direzioni coordinate e applicare il teorema di Lagrange lungo ogni direzione.
 Per ogni $k = 1,\dots, m$ si ha quindi:
 \begin{align*}
 \MoveEqLeft
 \abs{f_k(x,\vec z)-f_k(x,\vec y)}\\
 &\le \sum_{j=1}^n \abs{f_k(x,z_1, \dots, z_j, y_{j+1}, \dots, y_n) - f_k(x,z_1, \dots, z_{j-1}, y_j, \dots, y_n)}\\
 &\le \sum_{j=1}^n L_j \abs{z_j-y_j}
-\le \sum_{j=1}^n L_j \abs{z-y}
-\le n L \abs{z-y}
+\le \sum_{j=1}^n L_j \abs{\vec z-\vec y}
+\le n L \abs{\vec z-\vec y}
 \end{align*}
 da cui
 \begin{align*}
@@ -1543,7 +1598,6 @@ da cui
   &\le \sqrt{\sum_{k=1}^m n^2 L^2 \abs{z-y}^2} \\
   &\le n\sqrt{m} L \abs{z-y}.
 \end{align*}
-Abbiamo quindi mostrato che per ogni $(x_0,\vec y_0)\in \Omega$ esiste un intorno del punto $(x_0,\vec y_0)$ in cui la funzione $\vec f$ soddisfa la condizione di Cauchy-Lipschitz.
 \end{proof}
 
 \begin{comment}
@@ -1575,14 +1629,13 @@ definita in un
 piccolo intervallo $[x_0-\delta_0, x_0+\delta_0]$ intorno al punto iniziale $x_0$.
 Se scegliamo $x_1 = x_0+\delta_0$ possiamo applicare nuovamente lo stesso
 teorema per trovare una soluzione definita nell'intervallo
-$[x_1-\delta_1, x_1+\delta_1]$
+$[x_1, x_1+\delta_1]$
 che coincida con la precedente soluzione nel punto $x_1$.
-Le due soluzioni coincidono sull'intersezione dei due intervalli (grazie
-all'unicità della soluzione su ogni sotto-intervallo) e quindi possono
+Le due soluzioni possono
 essere incollate per ottenere una soluzione definita sull'unione dei due intervalli.
 Questo procedimento può essere ripetuto infinite volte ma gli intervalli
 potrebbero diventare sempre più piccoli, quindi non c'è garanzia di ottenere una
-soluzione definita su intervalli arbitrariamente grandi.
+soluzione definita su intervalli sempre più grandi.
 Nel seguito cercheremo di capire quanto grande può essere l'intervallo
 \emph{massimale} su cui si riesce ad estendere la soluzione.
 
@@ -1603,7 +1656,8 @@ che $\vec u$ è una \myemph{soluzione massimale}.
 \begin{proposition}[caratterizzazione delle soluzioni massimali]
 \label{prop:edo_massimale}
 Supponiamo che $\vec f\colon \Omega\subset \RR\times\RR^n\to\RR^n$
-soddisfi la condizione di Cauchy-Lipschitz \ref{def:cauchy_lipschitz}.
+sia una funzione continua che soddisfa la condizione
+di Cauchy-Lipschitz (definizione~\ref{def:cauchy_lipschitz}).
 Allora una soluzione $\vec u$ dell'equazione
 \begin{equation}\label{eq:edo_normale_ordine_uno}
   \vec u'(x) = \vec f(x, \vec u(x))
@@ -1611,31 +1665,40 @@ Allora una soluzione $\vec u$ dell'equazione
 è definita su un intervallo massimale $I$ se e solo se
 $I$ è aperto e per ogni $K$ compatto $K\subset \Omega$
 e per ogni $x_0 \in I$ esistono $x_1,x_2\in I$, $x_1 < x_0 < x_2$ tali che $\vec u(x_1)\not \in K$ e $\vec u(x_2) \not \in K$.
-Significa cioè che il grafico di $\vec u$ cioè la curva $(x,\vec u(x))$ esce da qualunque compatto  $K\subset \Omega$ sia facendo crescere $x$ verso destra che facendo calare $x$ verso sinistra.
+Significa cioè che il grafico di $\vec u$ cioè la curva $(x,\vec u(x))$ esce da qualunque compatto  
+$K\subset \Omega$ sia facendo crescere $x$ verso destra che facendo calare $x$ verso sinistra.
 Intuitivamente il grafico della soluzione massimale tende ad arrivare ai limiti di $\Omega$.
 \end{proposition}
 %
 \begin{proof}
 \emph{Prima implicazione}.
-Supponiamo che $\vec u\colon I \to \RR^n$ sia una soluzione di~\eqref{eq:edo_normale_ordine_uno} definita su un intervallo massimale $I$. Dovrà essere $(x,\vec u(x))\in \Omega$ per ogni $x\in I$.
+Supponiamo che $\vec u\colon I \to \RR^n$ sia una soluzione di~\eqref{eq:edo_normale_ordine_uno} 
+definita su un intervallo massimale $I$. Dovrà essere $(x,\vec u(x))\in \Omega$ per ogni $x\in I$.
 
 Mostriamo innanzitutto
-che $I$ è un intervallo aperto a destra: se non lo fosse si avrebbe che $x_0=\sup I \in I$. Allora $(x_0,\vec u(x_0))\in \Omega$ e per il teorema di esistenza e unicità locale
-potremmo trovare un intorno $J$ di $x_0$ e una funzione
+che $I$ è un intervallo aperto a destra: se non lo fosse si avrebbe che $x_0=\sup I \in I$. 
+Allora $(x_0,\vec u(x_0))\in \Omega$ e per il teorema di esistenza e unicità locale
+potremmo trovare un piccolo intervallino $J=[x_0,x_0+\delta]$ una funzione
 $\vec v\colon J\to \RR^n$ che risolve~\eqref{eq:edo_normale_ordine_uno}
 con $\vec v(x_0)=\vec u(x_0)$.
-Per l'unicità delle soluzioni $\vec u$ e $\vec v$ devono coincidere su $I\cap J$ e dunque facendo l'unione dei due grafici ottengo una estensione di $\vec u$ a tutto l'intervallo
-$I\cup J$ che è strettamente più grande di $I$. Dunque $\vec u$ non poteva essere una soluzione massimale.
+Facendo l'unione dei due grafici ottengo una estensione di $\vec u$ a tutto l'intervallo
+$I\cup J$ che è strettamente più grande di $I$. 
+Dunque $\vec u$ non poteva essere una soluzione massimale.
 
-Mostriamo ora che la curva $(x,\vec u(x))$ esce da ogni compatto $K\subset \Omega$ sia da destra che da sinistra. Supponiamo per assurdo che esista un compatto $K$ tale che $(x,\vec u(x))\in K$ per ogni $x\in I$.
-Il grafico $(x,\vec u(x))$ è limitato per $x\in I$ dunque certamente $I$ deve essere limitato. Inoltre abbiamo visto che $I$ è aperto e quindi $I=(a,b)$ con $a,b\in \RR$, $a<b$.
+Mostriamo ora che la curva $(x,\vec u(x))$ esce da ogni compatto $K\subset \Omega$ sia da destra che da sinistra. 
+Supponiamo per assurdo che esista un compatto $K$ tale che $(x,\vec u(x))\in K$ per ogni $x\in I$.
+Il grafico $(x,\vec u(x))$ è limitato per $x\in I$ dunque certamente $I$ deve essere limitato. 
+Inoltre abbiamo visto che $I$ è aperto e quindi $I=(a,b)$ con $a,b\in \RR$, $a<b$.
 
 Allora per ogni $x\in I=(a,b)$ si ha
 \[
   \abs{\vec u'(x)} = \abs{\vec f(x, \vec u(x))}
    \le \sup_K \abs{\vec f}.
 \]
-Visto che $\vec f$ è continua (in quanto soddisfa le ipotesi del teorema di esistenza e unicità) la funzione $\abs{\vec f}$ ha massimo su $K$ per il teorema di Weierstrass e quindi esiste $M\ge 0$ tale che $\abs{\vec u'(x)} \le M$ per ogni $x\in (a,b)$. Significa che ogni componente di $\vec u$ è $M$-lipschitziana, in particolare
+Visto che $\vec f$ è continua 
+la funzione $\abs{\vec f}$ ha massimo su $K$ per il teorema di Weierstrass e quindi esiste 
+$M\ge 0$ tale che $\abs{\vec u'(x)} \le M$ per ogni $x\in (a,b)$. 
+Significa che ogni componente di $\vec u$ è $M$-lipschitziana, in particolare
 ogni componente è uniformemente continua (teorema~\ref{th:lipschitz_uniformemente_continua}).
 Dunque la funzione $\vec u$ può essere estesa con continuità
 (teorema~\ref{th:estensione_uniformemente_continua})
@@ -1659,20 +1722,32 @@ Sappiamo però che se il limite della derivata di una funzione continua esiste e
 (proposizione~\ref{prop:4384774}).
 Dunque $\vec v$ è derivabile in $b$ e anche in quel punto soddisfa l'equazione differenziale. Lo stesso vale nel punto $a$. Dunque siamo riusciti a trovare una estensione $\vec v$ di $\vec u$ contraddicendo l'ipotesi che $\vec u$ fosse una soluzione massimale.
 
-\emph{Seconda implicazione}. Supponiamo ora $\vec u\colon I\to \RR^n$ sia una soluzione dell'equazione differenziale~\eqref{eq:edo_normale_ordine_uno} definita su un intervallo $I$ e tale che la curva $(x,\vec u(x))$ esca da ogni compatto $K$ al variare di $x\in I$. Vogliamo dimostrare che $\vec u$ è soluzione massimale. Innanzitutto $I$ non può essere compatto, altrimenti anche $K=\ENCLOSE{(x,\vec u(x))\colon x \in I}$ sarebbe un compatto di $\Omega$ e ovviamente la curva non esce da $K$.
-Sia $a=\inf I$ e $b=\sup I$. Siccome $I$ non è chiuso esso non contiene uno dei due estremi: supponiamo sia $b$. Allora se $\vec u$ fosse estendibile a destra esisterebbe una estensione continua $\vec v\colon (a,b]\to \RR^n$ che coincide con $\vec u$ su $(a,b)$ e che è continua nel punto $x=b$ e che soddisfa l'equazione differenziale quindi, in particolare, $(b,\vec v(b))\in \Omega$.
+\emph{Seconda implicazione}. Supponiamo ora $\vec u\colon I\to \RR^n$ sia una soluzione dell'equazione 
+differenziale~\eqref{eq:edo_normale_ordine_uno} definita su un intervallo $I$ e tale che la curva 
+$(x,\vec u(x))$ esca da ogni compatto $K$ al variare di $x\in I$. 
+Vogliamo dimostrare che $\vec u$ è soluzione massimale. 
+Innanzitutto $I$ non può essere compatto, altrimenti anche $K=\ENCLOSE{(x,\vec u(x))\colon x \in I}$ 
+sarebbe un compatto di $\Omega$ e ovviamente la curva non esce da $K$.
+Sia $a=\inf I$ e $b=\sup I$. 
+Siccome $I$ non è chiuso esso non contiene uno dei due estremi: supponiamo sia $b$. 
+Allora se $\vec u$ fosse estendibile a destra esisterebbe una estensione continua 
+$\vec v\colon (a,b]\to \RR^n$ che coincide con $\vec u$ su $(a,b)$ e che è continua 
+nel punto $x=b$ e che soddisfa l'equazione differenziale quindi, in particolare, $(b,\vec v(b))\in \Omega$.
 Ma allora scelto $x_0 \in (a,b)$
-prendiamo $K=\ENCLOSE{(x,\vec v(x))\colon x\in [x_0,b]}$. Visto che $\vec v\colon[x_0,b]\to \RR^n$ è continua è facile verificare che $K$ è chiuso è limitato, $K\subset \Omega$. Ma ovviamente $(x,\vec v(x))\in K$ per ogni $x\ge x_0$, contro le ipotesi.
+prendiamo $K=\ENCLOSE{(x,\vec v(x))\colon x\in [x_0,b]}$. 
+Visto che $\vec v\colon[x_0,b]\to \RR^n$ è continua è facile verificare che $K$ è chiuso è limitato, 
+$K\subset \Omega$. Ma ovviamente $(x,\vec v(x))\in K$ per ogni $x\ge x_0$, contro le ipotesi.
 \end{proof}
 
 \begin{proposition}[separazione delle soluzioni]
 \label{prop:separazione_soluzioni}%
-Se $\vec f\colon \Omega\subset \RR \times \RR^n\to \RR^n$ soddisfa
-la condizione di Cauchy-Lipschitz
-e se $\vec u\colon I \to \RR^n$ e $\vec v\colon J\to\RR^n$ sono due soluzioni
+Se $\vec f\colon \Omega\subset \RR \times \RR^n\to \RR^n$
+verifica la condizione di Cauchy-Lipschitz (definizione~\ref{def:cauchy_lipschitz}),
+se $\vec u\colon I \to \RR^n$ e $\vec v\colon J\to\RR^n$ sono due soluzioni
 dell'equazione differenziale
 $\vec u'(x) = \vec f(x,\vec u(x))$
-definite su due intervalli $I,J \subset \RR$  e se esiste $x_0\in I\cap J$ tale che $\vec u(x_0) = \vec v(x_0)$ allora $\vec u(x) = \vec v(x)$ per ogni $x\in I\cap J$.
+definite su due intervalli $I,J \subset \RR$  
+e se esiste $x_0\in I\cap J$ tale che $\vec u(x_0) = \vec v(x_0)$ allora $\vec u(x) = \vec v(x)$ per ogni $x\in I\cap J$.
 Detto in altri termini: nelle ipotesi del teorema di esistenza e unicità i grafici di due soluzioni diverse definite in un intervallo non possono toccarsi.
 \end{proposition}
 %
@@ -1712,10 +1787,13 @@ Verifichiamo ora che $\vec v$ soddisfa l'equazione differenziale. Preso un punto
 \vec u'(x) = \vec w'(x) = f(x,\vec w(x)) = f(x,\vec u(x)).
 \]
 Dunque anche $\vec u$ è soluzione di~\eqref{eq:edo_normale_ordine_uno}.
-In pratica abbiamo verificato che $\vec v\in \mathcal F$ ed è quindi una estensione di $\vec u$. Vogliamo ora dimostrare che è una estensione massimale. Supponiamo per assurdo che esista $\vec w$ estensione di $\vec v$ definita su un intervallo $J_{\vec w}\supset J$, $J_{\vec w}\neq J$.
-Posso supporre che $J_{\vec w}$ sia aperto, perché in caso contrario potrei estendere la soluzione $\vec w$ in un intorno aperto dei punti di frontiera dell'intervallo, mediante il teorema di esistenza locale, ottenendo una estensione definita su un intervallo più grande ed aperto.
-Dunque $\vec w\in \mathcal F$ ma allora, per definizione di $J$, dovrà essere $J\supset J_{\vec w}$: assurdo.
+In pratica abbiamo verificato che $\vec v\in \mathcal F$ ed è quindi una estensione di $\vec u$. 
+Questa è una estensione massimale perché se ci fosse una estensione definita su un intervallo 
+più grande ce ne sarebbe anche una definita su un intervallo più grande aperto, ma questo è impossibile perché
+tutte queste sono già incluse in $\mathcal F$.
 \end{proof}
+
+\subsection{esistenza globale}
 
 \begin{theorem}[esistenza globale]
 \label{th:edo_esistenza_globale}
@@ -2781,228 +2859,6 @@ omogenea:
 \]
 \end{proof}
 
-%% \begin{comment}
-%% 
-%% \section{studio qualitativo delle soluzioni}
-%% 
-%% Dimostrare che il seguente problema di Cauchy
-%% \[
-%% 	\begin{cases}
-%% 		u'(x) = (u^2(x)-1)\cdot  x\sin x \\
-%% 		u(0) = 0
-%% 	\end{cases}
-%% \]
-%% ammette una soluzione unica $u(x)$ definita globalmente su tutto $\RR$.
-%% 
-%% In questo caso si ha $f(x,y)=(y^2-1)x\sin x$, che \`e una funzione
-%% $\CC^1$ su tutto $\Omega=\RR^2$. Vale dunque il teorema di esistenza ed
-%% unicit\`a delle soluzioni. Notiamo inoltre che $u_0(x)=-1$ e $u_1(x)=1$ sono
-%% soluzioni dell'equazione differenziale (\ref{eqdiff}). 
-%% Consideriamo ora il compatto
-%% $K_M=[-M,M] \times [-1,1]$. Per Teorema~\ref{esce} la soluzione
-%% massimale $u(x)$ del problema di Cauchu preso in considerazione deve
-%% uscire da ogni compatto $K_M$. La soluzione $u(x)$ per\`o, per il Teorema~\ref{nontocca} non pu\`o toccare
-%% le due altre soluzioni $u_0(x)$ e $u_1(x)$. Dunque necessariamente
-%% deve toccare $\partial K$ nei due segmenti verticali $x=M$ e
-%% $x=-M$. Questo implica che $M,-M\in I$. Siccome questo \`e vero per
-%% ogni $M>0$ otteniamo che $I=\RR$.
-%% 
-%% Dopo aver determinato le zone di $\Omega$ su cui vale il teorema di
-%% esistenza e unicit\`a, \`e utile studiare il segno di $f$. Infatti 
-%% le soluzioni $u(x)$ dell'equazione differenziale (\ref{eqdiff})
-%% saranno strettamente crescenti dove $f>0$, strettamente decrescenti
-%% dove $f<0$ e avranno un punto critico dove $f=0$.
-%% 
-%% Di particolare rilevanza \`e l'insieme $\{f=0\}$ che quando
-%% $f\in\CC^1$ risulta essere, (nei punti in cui $\nabla f \neq 0$)
-%% il grafico di una funzione differenziabile.
-%% 
-%% Un primo caso notevole \`e il caso in cui $f$ si annulla su una 
-%% retta orizzontale $u=c$. In questo caso la funzione costante $u=c$ \`e una
-%% soluzione dell'equazione differenziale (\ref{eqdiff}). 
-%% In particolare
-%% (nell'ipotesi $f\in\CC^1$) tale costante non pu\`o essere
-%% attraversata dalle altre soluzioni dell'equazione differenziale.
-%% 
-%% \`E importante capire se le soluzioni dell'equazione differenziali
-%% attraversano o no la curva $\{f=0\}$. Infatti questo ci permette di
-%% determinare il segno della derivata $u'(x)$ e quindi di ottenere
-%% importanti informazioni sull'andamento della soluzione $u(x)$
-%% (monotonia, massimi e minimi relativi...).
-%% 
-%% Pi\`u in generale \`e interessante capire quando una soluzione di una
-%% equazione differenziale pu\`o attraversare una determinata curva.
-%% 
-%% \begin{theorem}\label{nonpassa}
-%% Sia $u(x)$ una soluzione dell'equazione differenziale $(\ref{eqdiff})$
-%% definita su un intervallo $I$ e sia $u_0(x)$ una funzione qualunque
-%% definita su $I$, di classe $\CC^1$ e tale che il suo grafico sia
-%% interamente contenuto nel dominio $\Omega$ di definizione di $f$.
-%% Supponiamo che in un punto fissato $x_0$ interno ad $I$ si abbia
-%% $u(x_0)<u_0(x_0)$ e supponiamo inoltre che per ogni $x\in I$ si abbia
-%% $u_0'(x)>f(x,u_0(x))$. Allora per ogni $x>x_0$ si ha $u(x)<u_0(x)$.
-%% \end{theorem}
-%% 
-%% \begin{proof}
-%% Supponiamo per assurdo che l'insieme $J=\{x\in I: x\ge x_0\
-%% \mathrm{e}\ u(x)=u_0(x)\}$ non sia vuoto. Tale insieme \`e chiuso ed
-%% inferiormente limitato, quindi se non \`e vuoto, ammette minimo. Sia
-%% $\bar x$ il minimo di $J$. Sicuramente $\bar x>x_0$ in quanto $u(\bar
-%% x)=u_0(\bar x)$. Inoltre per ogni $x\in \left[x_0,\bar x\right[$ si ha
-%% $u(x)-u_0(x)<0$ e quindi $u'(\bar x) \ge u_0'(\bar x)$ (in quanto 
-%% il rapporto incrementale sinistro di $u-u_0$ \`e sempre positivo).
-%% 
-%% Questo \`e assurdo in quanto per ipotesi si ha invece $u'(\bar x) =
-%% f(\bar x, u(\bar x)) = f(\bar x ,u_0(\bar x)) < u_0'(\bar x)$.
-%% \end{proof}
-%% 
-%% Se ad esempio $u_0(x)$ \`e una funzione 
-%% il cui grafico \`e contenuto in $\{f=0\}$
-%% (cio\`e $f(x,u_0(x))=0$) allora una soluzione $u(x)$ dell'equazione
-%% differenziale pu\`o attraversare la curva $u_0(x)$ dall'alto verso il
-%% basso nei punti in cui $u'_0(x)>0$ e dal basso verso l'alto nei punti
-%% in cui $u'_0(x)<0$.
-%% 
-%% 
-%% 
-%% % \begin{theorem}[orizzontali]
-%% % Sia $u(x)$ una soluzione dell'equazione differenziale (\ref{eqdiff})
-%% % definita su un intervallo $I=\left[x_0,\infty\right[$. Supponiamo
-%% % inoltre che $u'(x)\ge 0$ per ogni $x\in I$.
-%% % \end{theorem}
-%% 
-%% 
-%% \medskip\noindent
-%% \emph{Esempi.}
-%% 
-%% \begin{enumerate}
-%% \item
-%% Mostrare che il seguente problema di Cauchy
-%% \[
-%% \begin{cases}
-%%   u'=1-x u^3\\
-%%   u(0)=0
-%% \end{cases}
-%% \]
-%% ammette una soluzione $u(x)$ definita su tutto $\RR$.
-%% 
-%% 
-%% Posto $f(x,y)=xy^3$ abbiamo che $f$ si annulla sul grafico della
-%% funzione $u_0(x)=1/\sqrt[3] x$. Per $x>0$ la soluzione \`e crescente
-%% quando si trova al di sotto della funzione $u_0$ ed \`e decrescente
-%% quando si trova al di sopra. Inoltre essendo $u_0'<0$ le soluzioni possono
-%% attraversare la funzione $u_0(x)$ solo passando da sotto a
-%% sopra. 
-%% 
-%% Sia $u(x)$ la soluzione del problema di Cauchy in questione, definita su
-%% un intervallo massimale $I$. Il dato
-%% iniziale \`e $(0,0)\in \{f>0\}$. Dunque la soluzione risulta essere
-%% strettamente crescente in un intorno di $0$. 
-%% 
-%% Vogliamo dimostrare innanzitutto che necessariamente la soluzione 
-%% incontra entrambi i rami del grafico di $u_0(x)$. Sia infatti
-%% $\epsilon>0$ sufficientemente piccolo da appartenere all'intervallo
-%% $I$ di
-%% esistenza della soluzione e sia $\delta=u(\epsilon)$. 
-%% Consideriamo il compatto $K=\{(x,y):
-%% \epsilon/2 \le x \le 1/\delta^2,\ 0\le u\le 1/sqrt{x}\}$. Il punto
-%% $(\epsilon,u(\epsilon))$ \`e interno al compatto $K$, e il
-%% Teorema~\ref{esce} ci garantisce che la soluzione esce dal compatto
-%% per un qualche $x>\epsilon$. La soluzione per\`o non pu\`o toccare la
-%% retta $y=0$ in quanto all'interno del compatto rimane sempre positiva
-%% e crescente. Non pu\`o neanche toccare il segmento verticale
-%% $x=1/\delta^2$, $y\in[0,\delta]$ in quanto $u(\epsilon)=\delta$ e per
-%% $x>0$ la soluzione \`e strettamente crescente. Dunque necessariamente
-%% la soluzione deve incontrare il grafico della funzione
-%% $u_0(x)=1/\sqrt{x}$ in un punto $\bar x>0$.
-%% 
-%% Nel punto $x=\bar x$ la soluzione $u(x)$ attraversa la curva
-%% $u_0(x)$. Infatti in tale punto $u'(\bar x)=0$ mentre $u_0'(\bar
-%% x)<0$. Dunque in un intorno destro di $\bar x$ la soluzione si trova
-%% al di sopra della curva $u_0(x)$ e quindi risulta essere decrescente
-%% (in $\bar x$ la soluzione presenta un massimo relativo).
-%% 
-%% Il Teorema~\ref{nonpassa} ci garantisce inoltre che la soluzione non
-%% pu\`o pi\`u riattraversare il grafico della funzione $u_0$ in quanto
-%% $u'_0<0$. Dunque la soluzione \`e decrescente e limitata. Applicando,
-%% al solito, il Teorema~\ref{esce} si pu\`o quindi mostrare che la
-%% soluzione massimale \`e definita per ogni $x>0$.
-%% 
-%% Un ragionamento analogo si fa per $x<0$ ottenendo l'esistenza globale,
-%% su tutto $\RR$ della soluzione.
-%% 
-%% 
-%% \item
-%% Dimostriamo che il problema di Cauchy
-%% \[
-%% \begin{cases}
-%% 	u' = -x\cdot (u^3 - \sin x) \\
-%% 	u(0) = 0
-%% \end{cases}
-%% \]
-%% ammette una soluzione $u(x)$ definita su tutto $\R$. 
-%% 
-%% Sia $u(x)$ la soluzione del problema di Cauchy e sia $I$ l'intervallo
-%% massimale di definizione. 
-%% 
-%% Mostriamo innanzitutto che $\vert u(x) \vert < 2$ per ogni $x\in
-%% I$. Infatti per $x>0$ sulla curva $u_1(x)=2$ si ha $f(x,2) = -x
-%% (8-\sin x) < -x < 0 = u_1'(x)$. Dunque per il Teorema~\ref{nonpassa} la
-%% soluzione per $x>0$ non pu\`o mai attraversare la retta
-%% $y=2$. Discorso analogo si fa per la retta $u=-2$ e anche per $x<0$
-%% mostrando che il grafico della  soluzione non pu\`o mai toccare le
-%% rette $y=2$ e $y=-2$ n\'e per $x>0$ n\'e per $x<0$ 
-%% e che quindi $u$ risulta limitata (in realt\`a si
-%% pu\`o essere pi\`u precisi e mostrare che $\vert u\vert \le 1$).
-%% 
-%% A questo punto si applica, come al solito, il Teorema~\ref{esce} ai
-%% compatti $K_M=[-M,M]\times[-2,2]$ mostrando che la soluzione deve
-%% avere esistenza globale.
-%% \end{enumerate}
-%% 
-%% \begin{theorem}
-%% Sia $I\subset \R$ un intervallo su cui sono definite due funzioni derivabili
-%% $f(x)$ e $g(x)$. 
-%% Siano $x_0<x_1$ due punti di $I$. Se $f(x_1)<g(x_1)$ e $f(x_2)>g(x_2)$
-%% allora esiste un punto $\bar x \in (x_1,x_2)$ tale che $f(\bar
-%% x)=g(\bar x)$ e $f'(\bar x)\ge g'(\bar x)$.
-%% \end{theorem}
-%% 
-%% \begin{theorem}
-%% Consideriamo due funzioni $u(x)$ e $z(x)$ soluzioni dei rispettivi
-%% problemi di Cauchy
-%% \[
-%% \begin{cases}
-%%   u'(x)  = f(x,u(x))\\
-%%   u(x_0) = y_0
-%% \end{cases}
-%% \qquad
-%% \begin{cases}
-%%   z'(x) = g(x,z(x))\\
-%%   z(x_0) = y_0
-%% \end{cases}
-%% \] 
-%% su un intervallo $I$ che contiene il punto $x_0$. 
-%% Sia $\Omega\subset \R^2$ un sottoinsieme degli insiemi di definizione
-%% di $f$ e $g$ tale che i grafici delle soluzioni $u(x)$ e $z(x)$ siano
-%% contenuti in $\Omega$ al variare di $x\in I$. 
-%% Supponiamo che per ogni $(x,y)\in\Omega$ si abbia $f(x,y)<g(x,y)$.
-%% Allora per ogni $x\in I$, $x> x_0$ si ha $u(x)< z(x)$ mentre per ogni
-%% $x\in I$, $x<x_0$ si ha $u(x)>z(x)$.
-%% \end{theorem}
-%% 
-%% \begin{theorem}
-%% Sia $f\colon (x_0,+\infty)\to \R$ una funzione di classe $\mathcal C^1$ tale
-%% che il limite
-%% \[
-%%   \lim_{x\to +\infty} f'(x) = \ell 
-%% \]
-%% esiste, finito o infinito. Se $\ell\neq 0$ allora $f$ non pu\`o avere
-%% un asintoto orizzontale per $x\to +\infty$.
-%% \end{theorem}
-%% 
-%% \end{comment}
-
 \section{sistemi lineari}
 
 Un sistema lineare omogeneo a coefficienti costanti del primo ordine si
@@ -3566,7 +3422,289 @@ calcolata esplicitamente.
 \end{proof}
 \end{theorem}
 
+\section{modelli biologici di crescita}
+\index{modello!biologico}%
+
+\subsection{modello di Malthus}
+\index{modello!di Malthus}%
+\index{Malthus!modello di}%
+\index{esponenziale!modello di Malthus}%
+
+Il più semplice modello di crescita di una popolazione è quello 
+in cui si suppone che la popolazione abbia nutrimento e spazio sufficiente 
+per una crescita indeterminata.
+In questo modello la funzione $u(x)$ rappresenta la quantità di individui 
+al tempo $x$ e si suppone che la velocità di crescita della popolazione $u'(x)$ 
+sia proporzionale al numero di individui:
+\[
+  u'(x) = A u(x).  
+\]
+La soluzione di questa semplice equazione lineare (esercizio~\eqref{ex:58230978})
+è $u(x) = u_0\cdot  e^{A x}$ dove $u_0=u(0)$ è la popolazione al tempo 
+iniziale $x=0$.
+Significa che se $A>1$ la popolazione cresce indefinitamente tendendo 
+a $+\infty$ per $x\to +\infty$ con velocità esponenziale.
+Se $A<1$ invece la popolazione tende a zero (cioè si estingue)
+sempre con velocità esponenziale.
+
+\subsection{equazione logistica}
+\index{equazione!logistica}%
+\index{logistica!equazione differenziale}%
+\index{crescita!logistica}%
+
+Per rendere il modello di Malthus più realistico bisogna tenere conto 
+del fatto che gli individui condividono uno spazio comune e che 
+la presenza di molti individui nello stesso spazio diminuisce le risorse 
+e quindi contribuisce in negativo alla crescita della popolazione. 
+Supponiamo quindi che l'effetto negativo su una unità di popolazione 
+sia proporzionale alla popolazione totale: $-Bu$ mentre l'aumento 
+Malthusiano è sempre dato dal coefficiente $A$ per unità di popolazione. 
+Si avrà quindi 
+\[
+  u'(x)  = (A-Bu(x))\cdot u(x)
+\]
+Questa è una equazione a variabili separabili. 
+Le funzioni $u(x) = 0$ e $u(x) = \frac{A}{B}$ sono soluzioni 
+stazionarie (ovvero costanti). 
+La prima rappresenta una popolazione vuota, che quindi non potrà 
+mai crescere. 
+La soluzione $u=\frac{A}{B}$ rappresenta una popolazione 
+in perfetto equilibrio.
+Per semplificare le notazioni possiamo fare il cambio di variabile 
+$v(x) = \frac{B}{A}\cdot u(x/A)$ che ci porta alla equazione 
+equivalente $v'=(1-v)\cdot v$. 
+Possiamo quindi supporre che sia $A=1$ e $B=1$ e ritornare 
+alla variabile $u$:
+\begin{equation}\label{eq:ode_logistica}
+  u' = (1-u) u.  
+\end{equation}
+
+%%% TODO: inserire QR-CODE
+\begin{figure}
+  \includegraphics[width=\textwidth]{ode_logistica.pdf}
+  \label{fig:ode_logistica}
+  \caption{
+Le soluzioni dell'equazione logistica~\eqref{eq:ode_logistica}.
+}
+\end{figure}
+
+Avendo identificato le soluzioni stazionarie $u=0$ e $u=1$ possiamo separare le variabili
+e integrare:
+\[
+ \int \frac{u'}{(1-u)u}\, dx = x - x_0.
+\]
+L'integrale si decompone con il metodo dei fratti semplici:
+\[
+  \int \frac{u'}{(1-u)u}\, dx
+  = \int \frac{1}{(1-u)u}\, du 
+  = \int \Enclose{\frac{1}{u} + \frac{1}{1-u}}\, du 
+  = \ln \abs{u} - \ln\abs{1-u}
+  = \ln \abs{\frac{u}{1-u}}.
+\]
+Dunque da 
+\[
+\abs{\frac{u}{1-u}} = e^{x-x_0}  
+\]
+si ottiene, con qualche passaggio algebrico,
+\[
+    u(x) = 1 - \frac{1}{1\pm e^{x-x_0}}.
+\]
+Il grafico di queste funzioni è rappresentato in figura~\ref{fig:ode_logistica}.
+Nel capitolo~\ref{sec:studio_qualitativo_edo}
+vedremo come risulta molto semplice ottenere l'andamento qualitativo dei grafici 
+delle soluzioni di questa equazione senza doverne determinare esplicitamente 
+le soluzioni.
+
+\subsection{il modello di Volterra-Lotka}
+\index{modello!di Volterra-Lotka}%
+\index{Volterra!modello preda-predatore}%
+\index{Lotka!modella preda-predatore}%
+\index{preda/predatore}%
+
+Il modello preda/predatore di Volterra-Lotka è il primo esempio 
+di modello matematico applicato alla biologia.
+\index{Volterra Vito}%
+Il matematico italiano Vito Volterra si era interessato al problema 
+di capire, tramite un modello matematico, il fenomeno apparentemente 
+paradossale per cui il calo delle attività di pesca 
+durante la prima guerra mondiale ha causato alla ripresa della pesca 
+una diminuzione della 
+quantità di pesce commestibile e un contemporaneo relativo aumento delle 
+specie predatorie come gli squali.
+
+Nel modello preda/predatore ideato da Volterra denotiamo con $u(x)$ 
+la numerosità della popolazione di prede e con $v(x)$ la numerosità 
+dei predatori al variare del tempo $x$.
+Il modello è quindi rappresentato da un sistema di equazioni
+non lineari del primo ordine:
+\begin{equation}\label{eq:preda_predatore}
+  \begin{cases}
+    u' = A u - B u v \\
+    v' = C u v - D v
+  \end{cases}
+\end{equation}
+con $A,B,C,D$ costanti reali positive.
+Il fattore di crescita delle prede è dettata da una legge di Malthus
+$A u$ che rappresenta l'autosufficienza delle prede (si suppone 
+abbiano sufficiente nutrimento per crescere indefinitamente).
+L'addendo $-B u v$ rappresenta l'uccisione delle prede 
+da parte dei predatori: è un termine proporzionale sia alla popolazione 
+$u$ delle prede che alla popolazione $v$ dei predatori (come se ogni preda 
+avesse un probabilità proporzionale a $v$ di incontrare un predatore).
+Il termine $C u v$ rappresenta la corrispondente 
+crescita dei predatori grazie al nutrimento dato dalle prede.
+Viceversa i predatori non possono sostentarsi autonomamente e quindi 
+il termine $-D v$ rappresenta l'estinguersi naturale dei predatori 
+in assenza di nutrimento.
+
+Alcune soluzioni del sistema~\eqref{eq:preda_predatore} possono essere 
+trovate esplicitamente. 
+Ad esempio se $v=0$ ci riconduciamo all'equazione di Malthus per $u$ 
+e troviamo $u(x) = k e^{Ax}$: la preda cresce esponenzialmente in 
+assenza di predatori.
+Analogamente se $u=0$ si trova $v(x) = k e^{-Dx}$: i predatori 
+si estinguono con velocità esponenziale in assenza di prede.
+
+
+Possiamo inoltre trovare soluzioni stazionarie (cioè costanti) ponendo 
+$u'=0$ e $v'=0$. Riscriviamo il sistema nella forma:
+\begin{equation}\label{eq:preda_predatore_2}
+  \begin{cases}
+    u' = u \cdot (A - B v) \\
+    v' = v \cdot (C u - D).
+  \end{cases}
+\end{equation}
+e osserviamo quindi che per annullare contemporaneamente $u'$ e $v'$ 
+si deve avere o $u=0$ e $v=0$ (soluzione in cui non ci sono né prede né predatori)
+oppure si può avere $u=\frac D C$ e $v=\frac A B$ che è un punto di equilibrio
+non banale tra le due specie.
+
+Possiamo ottenere informazioni piuttosto precise andando a identificare un integrale 
+del sistema ovvero una funzione $H(u,v)$ che rimane costante sulle soluzioni: 
+$\frac {d}{dx} H(u(x),v(x)) = 0$. 
+Facendo il rapporto tra le due equazioni del sistema~\eqref{eq:preda_predatore_2}
+si ottiene 
+\[
+  \frac{v'}{u'} 
+  = \frac{v \cdot (C u - D)}{u \cdot (A - B v)}
+\]
+separando le variabili
+\[
+  \frac{A - B v}{v} v' = \frac{C u - D}{u} u'
+\]
+integrando in $dx$
+\[
+  \int \frac{A - B v}{v} v'\, dx  = \int \frac{C u - D}{u} u'  \, dx
+\]
+facendo i cambi di variabile $u=u(x)$, $v=v(x)$, $du = u'\, dx$, $dv=v'\, dx$
+ed eseguendo le divisioni:
+\[     
+  \int \Enclose{\frac A v - B}\, dv = \int \Enclose{C  - \frac D u}\, du
+\]
+da cui, per una qualche costante $k$:
+\[
+  A \ln v - B v = C u - D\ln u + k.
+\]
+Significa che la funzione 
+\[
+  H(u,v) = B v + C u - A \ln v - D \ln u
+\]
+è costante lungo le curve $(u(x),v(x))$.
+Questo significa che le traiettorie del sistema 
+con $u>0$ e $v>0$ sono limitate, perché se 
+$u$ oppure $v$ andassero all'infinito 
+i termini $Bv-A\ln v$ o $Cu - D \ln u$ andrebbero 
+anch'essi all'infinito e la funzione $H$ non 
+potrebbe essere costante.
+
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=\textwidth]{ode_volterra.pdf}
+  \end{center}
+  \label{fig:ode_volterra}
+  \caption
+  Le orbite del sistema preda/predatore~\eqref{eq:preda_predatore} 
+  con la scelta dei parametri $A=B=C=D=1$.
+\end{figure}
+
+Consideriamo ora una soluzione $u(x),v(x)$ che al tempo $x_0$ 
+si trova sul segmento $u=\frac DC$ e $v\in \openinterval{0}{\frac A B}$
+(si faccia riferimento alla figura~\ref{fig:ode_volterra} dove abbiamo 
+posto $\frac AB=1$ e $\frac DC=1$).
+Siccome $v<\frac A B$ si ha $u'>0$ e quindi la curva si sposta verso destra.
+Non appena $u>\frac DC$ si ha anche $v'>0$ e quindi la curva si sposta 
+anche verso l'alto. Siccome $u$ non può tendere all'infinito 
+prima o poi la soluzione deve raggiungere la retta $v=\frac AB$ 
+dove la derivata di $u$ si annulla e la curva si sposta quindi 
+in direzione verticale. Diventa quindi $v>\frac AB$ dove $u'<0$.
+La coordinata $u$ dunque cala e siccome $v$ non può tendere all'infinito 
+$u$ dovrà raggiungere il valore $\frac DC$ dove si ha $v'=0$.
+Quindi si prosegue con $u<\frac DC$ dove $v'<0$.
+Dunque ora sia $u$ che $v$ calano.
+Devono però rimanere positivi sia perché la funzione $H$ tende all'infinito 
+anche quando $u\to 0$ o $v\to 0$ sia perché gli assi $u=0$ e $v=0$ 
+sono orbite delle soluzioni esplicite che abbiamo trovato inizialmente 
+e per l'unicità delle soluzioni non è possibile che orbite diverse 
+si incontrino in un punto.
+Dunque ad un certo punto si avrà di nuovo $v= \frac AB$ e $u\in \openinterval{0}{\frac DC}$
+e poi si avrà $v<\frac AB$ con $u'>0$ e $v'<0$.
+La nostra curva dovrà quindi di nuovo raggiungere in un istante $x_1>x_0$ 
+il segmento da cui 
+eravamo partiti: $u=\frac DC$ e $v\in \openinterval{0}{\frac AB}$.
+In tutto questo percorso $H$ è rimasta costante dunque si avrà 
+$H(u(x_1),v(x_1))=H(u(x_2),v(x_2))$. 
+Ma $u(x_1)=u(x_2) = \frac DC$ e posto $f(v) = H(D/C,v)$ si osserva che 
+\begin{align*}
+   f(v) = B v + D - A \ln v - D \ln \frac DC.
+\end{align*}
+studiando il segno della derivata $f'(v)=B-\frac{A}{v}$ si osserva che per $v<\frac AB$ 
+la derivata è strettamente negativa dunque la funzione $f$ è strettamente 
+decrescente nell'intervallo $v\in(0,D/C)$ dunque iniettiva.
+Essendo $f(v(x_1)) = f(v(x_2))$ deduciamo quindi che $v(x_1)=v(x_2)$.
+Significa che la curva si richiude e le soluzioni sono dunque 
+periodiche di periodo $T=x_2-x_1$. 
+
+Preso un qualunque punto del quadrante $u>0$, $v>0$ (escluso il punto
+critico) la soluzione che parte
+da quel punto seguirà un percorso che, in base alle considerazioni che abbiamo già 
+fatto, è costretto prima o poi ad attraversare il segmento che abbiamo 
+preso in considerazione e quindi è, in effetti, una di quelle che 
+abbiamo già studiato.
+
+Questo studio qualitativo descrive l'andamento delle soluzioni 
+del sistema~\ref{eq:preda_predatore}: si cerchi di interpretare 
+il significato biologico di quanto abbiamo dedotto. Metodi numerici 
+(come quelli utilizzati per ottenere la figura~\ref{fig:ode_volterra})
+ci permettono di ottenere informazioni quantitative con la precisione 
+desiderata.
+
+Possiamo ora anche rispondere alla domanda iniziale rivolta a Vito Volterra 
+e cioè spiegare cosa succede in presenza dell'attività umana di pesca.
+Il sistema studiato finora è quello che descrive l'andamento in assenza 
+dell'attività di pesca (cioè quanto veniva osservato dai naturalisti alla fine della 
+prima guerra mondiale). 
+In presenza di pesca intensiva dobbiamo supporre che la quantità di pesce 
+pescato è proporzionale, per ogni specie, alla numerosità della specie stessa.
+Dunque dobbiamo sottrarre un termine $Eu$ dalla prima equazione e un termine 
+corrispondente $Ev$ dalla seconda:
+\begin{equation}
+  \begin{cases}
+    u' = A u - B u v - Eu = (A-E) u - B uv\\
+    v' = C u v - D v - Ev = C uv - (D+E) v.
+  \end{cases}
+\end{equation}
+Si osserva quindi che il sistema rimane dello stesso tipo solo che 
+il coefficiente $A$ è diminuito diventando $A-E$ mentre il coefficiente 
+$D$ è aumentato diventando $D+E$.
+Dunque il punto di equilibrio $u=\frac DC$, $v=\frac AB$ si è spostato 
+verso destra e verso il basso in quanto $D$ è aumentato e $A$ è diminuito.
+Questo significa che in media l'attività di pesca favorisce un aumento 
+delle prede e una diminuzione dei predatori. 
+Viceversa la diminuzione dell'attività di pesca fa diminuire la quantità
+di prede e aumentare quella dei predatori.
+
 \section{studio qualitativo delle soluzioni}
+\label{sec:studio_qualitativo_edo}
 
 Non sempre è possibile determinare esplicitamente le soluzioni
 di una equazione differenziale.
@@ -3613,7 +3751,7 @@ definita su tutto $\RR$ (dunque la soluzione è globale).
 %
 \begin{proof}[Svolgimento.]
 In questo caso si ha $f(x,y)=(y^2-1)x\sin x$, che \`e una funzione
-di classe $\mathcal C^1$ su tutto $\Omega=\RR^2$.
+di classe $C^1$ su tutto $\Omega=\RR^2$.
 Vale dunque il teorema di esistenza ed
 unicità delle soluzioni.
 Notiamo inoltre (per verifica diretta)
@@ -3654,7 +3792,7 @@ retta orizzontale $y=c$.
 In questo caso la funzione costante $u(x)=c$ è una
 soluzione dell'equazione differenziale (\ref{eqdiff}).
 Inoltre
-(nell'ipotesi $f\in\CC^1$) tale costante non può essere
+(nell'ipotesi $f\in C^1$) tale costante non può essere
 attraversata dalle altre soluzioni dell'equazione differenziale.
 
 \`E importante capire se le soluzioni dell'equazione differenziale
@@ -3669,7 +3807,7 @@ equazione differenziale può attraversare una determinata curva.
 \begin{theorem}\label{nonpassa}
 Sia $u(x)$ una soluzione dell'equazione differenziale $(\ref{eqdiff})$
 definita su un intervallo $I$ e sia $u_0(x)$ una funzione qualunque
-definita su $I$, di classe $\CC^1$ e tale che il suo grafico sia
+definita su $I$, di classe $C^1$ e tale che il suo grafico sia
 interamente contenuto nel dominio $\Omega$ di definizione di $f$.
 Supponiamo che in un punto fissato $x_0$ interno ad $I$ si abbia
 $u(x_0)<u_0(x_0)$ e supponiamo inoltre che per ogni $x>x_0$ si abbia
