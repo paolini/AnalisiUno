@@ -304,8 +304,8 @@ richiedendo che entrambe le serie al lato destro
 dell'uguaglianza esistano e non abbiano somme infinite di segno opposto.
 
 \begin{theorem}[coda di una serie convergente]
-\label{th:coda}
-\mymark{*}
+\label{th:coda}%
+\mymark{*}%
 Sia $\sum a_n$ una serie convergente. Allora
 \[
   \lim_{n\to +\infty} \sum_{k=n+1}^{+\infty} a_k = 0.
@@ -913,7 +913,7 @@ $r(\vec a) = r(\vec b) = 0.124$.
 
 \begin{theorem}[Cantor]
   \label{th:cantor_secondo}
-Fissata una base $d>2$ l'insieme 
+Fissata una base $d>2$ l'insieme di Cantor
 \[
   C = \{r(\vec a)\colon \vec a \in \ENCLOSE{0,2}^\NN\}
 \]
@@ -937,7 +937,7 @@ ogni $\vec a \in \ENCLOSE{0,2}^\NN$ può essere messo in corrispondenza
 biunivoca con l'insieme $\vec a^{-1}(\ENCLOSE{0})$ degli indici $k\in \NN$
 per cui $a_k=0$.
 
-Dal teorema~\ref{th:Cantor} deduciamo che $\# C \#\mathcal P(\NN) > \#\NN$ 
+Dal teorema~\ref{th:Cantor} deduciamo che $\# C = \#\mathcal P(\NN) > \#\NN$ 
 e visto che $C\subset \RR$ a maggior ragione $\# \RR \ge \# C >\#\NN$.
 
 D'altra parte possiamo mostrare che $\#\RR \le \# \mathcal P(\NN)$
@@ -1036,6 +1036,73 @@ E per continuità del modulo, posto $S= \lim S_n$ si ha
 \]
 \end{proof}
 
+\begin{theorem}[scambio delle serie]
+\label{th:scambio_somma}
+Sia $a_{k,j}\in \RR$ o $a_{k,j}\in \CC$ una successione a due indici $k\in \NN$, $j\in \NN$.
+Se 
+\[
+  \sum_{k=0}^{+\infty}\sum_{j=0}^{+\infty}\abs{a_{k,j}}<+\infty  
+\]
+allora
+\begin{equation}\label{eq:scambio_somma}
+  \sum_{k=0}^{+\infty} \sum_{j=0}^{+\infty} a_{k,j}
+  = \sum_{j=0}^{+\infty} \sum_{k=0}^{+\infty} a_{k,j}.
+\end{equation}
+\end{theorem}
+%
+\begin{proof}
+Si intende, ovviamente, che per ogni $k$ 
+la serie $\sum_j \abs{a_{k,j}}$ è convergente
+dunque $\sum_j a_{k,j}$ è assolutamente convergente.
+% e, per il teorema~\ref{th:convergenza_assoluta}, 
+% anche $\sum_k \abs{\sum_j a_{k,j}} 
+% \le \sum_k \sum_j \abs{a_{k,j}}$
+% è assolutamente convergente.
+Ovviamente 
+$\sum_k \abs{a_{k,j}} \le \sum_k \sum_j \abs{a_{k,j}}$
+e dunque per ogni $j$ anche la serie 
+$\sum_k a_{k,j}$ è assolutamente convergente.
+Posto
+\[
+S = \sum_{k=0}^{+\infty}\sum_{j=0}^{+\infty} a_{k,j},
+\qquad
+S_n = \sum_{j=0}^{n-1}\sum_{k=0}^{+\infty} a_{k,j}  
+\]
+dobbiamo dimostrare che $S_n \to S$
+per $n\to +\infty$. 
+Applichiamo la definizione di limite:
+sia $\eps>0$ fissato.
+Per il teorema~\ref{th:coda} della coda 
+esiste $K$ tale che 
+\[
+  \sum_{k=K}^{+\infty} \sum_{j=0}^{+\infty} \abs{a_{k,j}}<\frac \eps 2
+\]
+e per ogni $k<K$ esiste $J_k$ tale che 
+\[
+  \sum_{j=J_k}^{+\infty} \abs{a_{k,j}} < \frac{\eps}{2K}.  
+\]
+Dunque posto $J=\max\ENCLOSE{J_0,J_1, \dots, J_{K-1}}$
+se $n>J$ si ha:
+\begin{align*}
+  \abs{S-S_n}
+  &= \abs{\sum_{k=0}^{+\infty}\sum_{j=0}^{+\infty}a_{k,j} 
+  - \sum_{j=0}^{n-1}\sum_{k=0}^{+\infty}a_{k,j}}
+  = 
+  \abs{\sum_{k=0}^{+\infty}\sum_{j=0}^{+\infty}a_{k,j} 
+  - \sum_{k=0}^{+\infty}\sum_{j=0}^{n-1}a_{k,j}}\\
+  &=
+  \abs{\sum_{k=0}^{+\infty}\sum_{j=n}^{+\infty}a_{k,j} }
+  = \abs{\sum_{k=0}^{K-1}\sum_{j=n}^{+\infty} a_{k,j}
+   + \sum_{k=K}^{+\infty}\sum_{j=n}^{+\infty} a_{k,j}}\\
+   &\le \sum_{k=0}^{K-1}\sum_{j=n}^{+\infty} \abs{a_{k,j}}
+    + \sum_{k=K}^{+\infty}\sum_{j=0}^{+\infty} \abs{a_{k,j}}
+   \le \sum_{k=0}^{K-1}\sum_{j=J_k}^{+\infty} \abs{a_{k,j}}
+   + \frac \eps 2
+  \le \frac \eps 2 + \frac \eps 2 = \eps
+\end{align*}
+come volevamo dimostrare.
+\end{proof}
+
 \begin{theorem}[convergenza incondizionata]%
 \label{th:convergenza_incondizionata}%
 \mymark{*}%
@@ -1047,201 +1114,73 @@ si ha
   \sum_{n=0}^{+\infty} a_n = \sum_{n=0}^{+\infty} a_{\sigma(n)}.
 \]
 \end{theorem}
-%
 \begin{proof}
-Basta mostrare che
-\begin{equation}
-\label{eq:487464}
-\lim_{n\to +\infty} \Enclose{\sum_{k=0}^n a_k
- - \sum_{j=0}^n a_{\sigma(j)}} = 0.
-\end{equation}
-Visto che la serie $\sum a_k$ è assolutamente convergente
-per il teorema~\ref{th:coda} sappiamo
-che per ogni $\eps>0$ esiste $N_\eps\in \NN$ tale che
+Definiamo la successione $b_{k,j}$ a due indici:
 \[
-  \sum_{k=N_\eps}^{+\infty} \abs{a_k} < \eps.
-\]
-Inoltre visto che $\sigma\colon \NN \to \NN$ è suriettiva
-deve esistere $M_\eps \in \NN$ per cui risulti
+  b_{k,j} = \begin{cases}
+    a_k & \text{se $k=\sigma(j)$},\\
+    0 & \text{altrimenti}.
+  \end{cases}  
+\] 
+Chiaramente $\sum_j \abs{b_{k,j}} = a_k$
+e dunque $\sum_k \sum_j \abs{b_{k,j}} = \sum_k \abs{a_k} < +\infty$.
+Dunque, per il teorema~\ref{th:scambio_somma}
 \[
- \ENCLOSE{\sigma(0), \sigma(1), \dots, \sigma(M_\eps-1)}
- \supset \ENCLOSE{0,1,\dots, N_\eps - 1}
+ \sum_{k=0}^{+\infty} a_k 
+ = \sum_{k=0}^{+\infty} \sum_{j=0}^{+\infty}b_{k,j}
+ = \sum_{j=0}^{+\infty} \sum_{k=0}^{+\infty}b_{k,j}
+ = \sum_{j=0}^{+\infty} a_{\sigma(j)}.  
 \]
-ovvero per ogni $k<N_\eps$ esiste $j<M_\eps$ tale
-che $\sigma(j)=k$.
-Necessariamente deve essere $M_\eps\ge N_\eps$.
-Per ogni $n>M_\eps$ consideriamo
-la differenza tra le somme parziali:
-\[
-\sum_{k=0}^n a_k - \sum_{j=0}^n a_{\sigma(j)}
-\]
-e osserviamo che se $j\le n$ e $k=\sigma(j)\le n$ allora
-i termini $a_k$ e $a_{\sigma(j)}$ si elidono.
-I termini che non si elidono sono gli $a_k$ della prima somma
-in cui $\sigma^{-1}(k)>n$ e gli $a_{\sigma(j)}$
-della seconda somma in cui $\sigma(j)>n$.
-In ogni caso tali termini hanno indice maggiore
-o uguale a $N_\eps$ e quindi la loro somma
-può essere stimata con la somma dei loro moduli
-che a sua volta può essere stimata con la somma
-dei moduli di tutti i termini con indice
-non inferiore a $N_\eps$:
-\begin{align*}
-  \abs{\sum_{k=0}^n a_k - \sum_{j=0}^n a_{\sigma(j)}}
-  \le 2 \sum_{k=N_\eps}^{+\infty} \abs{a_k} \le 2\eps.
-\end{align*}
-Questo garantisce la validità dell'equazione~\eqref{eq:487464} in base
-alla definizione di limite.
 \end{proof}
 
-%% \begin{comment}
-%% \begin{theorem}%
-%% \label{th:somma_Cauchy}%
-%% Sia $c_{k,j}$ una successione (reale o complessa)
-%% a due indici $k,j\in \NN$.
-%% Se
-%% \[
-%%   \sum_{m=0}^{+\infty} \sum_{k=0}^m \abs{c_{k,m-k}}
-%% \]
-%% è assolutamente convergente
-%% allora per ogni $k$ la serie $\sum_j c_{k,j}$ è
-%% assolutamente convergente e risulta
-%% \[
-%%   \sum_{k=0}^{+\infty} \sum_{j=0}^{+\infty} c_{k,j}
-%%   = \sum_{m=0}^{+\infty} \sum_{k=0}^m c_{k,m-k}.
-%% \]
-%% \end{theorem}
-%% 
-%% Per dimostrare il teorema utilizzeremo questo
-%% lemma leggermente più generale.
-%% 
-%% \begin{lemma}
-%% Sia $\sigma\colon \NN\times\NN\to \NN$ una bigezione.
-%% Se $\displaystyle\sum_n a_n$ è una serie
-%% assolutamente convergente  (reale o complessa) allora si ha:
-%% \begin{equation}\label{eq:582095}
-%%   \sum_{k=0}^{+\infty} a_n
-%%   = \sum_{k=0}^{+\infty} \sum_{j=0}^{+\infty} a_{\sigma(k,j)}.
-%% \end{equation}
-%% \end{lemma}
-%% %
-%% %
-%% \begin{proof}
-%% Per ogni $k$ la serie
-%% \[
-%%   \sum_{j=0}^{+\infty} \abs{a_{\sigma(k,j)}}
-%% \]
-%% è convergente in quanto per ogni $L\in \NN$,
-%% visto che $j \mapsto \sigma(k,j)$ è iniettiva,
-%% esiste $H\in \NN$ per cui si ha
-%% \[
-%%   \sum_{j=0}^L \abs{a_{\sigma(k,j)}}
-%%   \le \sum_{n=0}^{H} \abs{a_n}
-%%   \le \sum_{n=0}^{+\infty} \abs{a_n} < +\infty.
-%% \]
-%% 
-%% Dunque per ogni $k\in\NN$ sappiamo che la somma
-%% \[
-%%   b_k = \sum_{j=0}^{+\infty} a_{\sigma(k,j)}
-%% \]
-%% è assolutamente.
-%% Fissato $\eps>0$ per il teorema~\ref{th:coda} (della coda)
-%% deve esistere $N\in\NN$ tale che
-%% \[
-%%   \sum_{n=N+1}^{+\infty} \abs{a_n} < \eps.
-%% \]
-%% Per lo stesso motivo
-%% per ogni $k\in \NN$ deve esistere $J_k\in \NN$ tale che
-%% \[
-%%   \sum_{j=0}^{J_k+1} \abs{a_{\sigma(k,j)}} < \frac{\eps}{2^k}.
-%% \]
-%% Eventualmente aumentando $J_k$ possiamo anche supporre
-%% che per ogni $j>J_k$ si abbia $\sigma(k,j)>N$
-%% (l'insieme $\ENCLOSE{j\in \NN \colon \sigma(k,j)\le N}$ è finito
-%% in quanto $\sigma$ è iniettiva).
-%% 
-%% Scegliamo ora $M\in \NN$ tale che
-%% per ogni $k>M$ e ogni $j\in \NN$ si abbia $\sigma(k,j)>N$
-%% (l'insieme $\ENCLOSE{(k,j)\in \NN\times\NN \colon \sigma(k,j)\le N}$
-%% è finito).
-%% Per ottenere l'uguaglianza~\eqref{eq:582095} è sufficiente
-%% mostrare che per ogni $m>M$ si ha
-%% \begin{equation}\label{eq:93655}
-%%   \abs{\sum_{k=0}^m b_k - \sum_{n=0}^{+\infty} a_n}
-%%   < 5 \eps.
-%% \end{equation}
-%% 
-%% Ma per ogni $m>M$ si ha
-%% \begin{equation}\label{eq:58382}
-%% \begin{aligned}
-%% \sum_{k=0}^m b_k - \sum_{n=0}^{+\infty} a_n
-%% &=\sum_{k=0}^m \enclose{\sum_{j=0}^{J_k} a_{\sigma(k,j)} +
-%% \sum_{j=J_k+1}^{+\infty} a_{\sigma(k,j)}} - \sum_{n=0}^N a_n - \sum_{n=N+1}^{+\infty} a_n \\
-%% &= \enclose{\sum_{k=0}^M \sum_{j=0}^{J_k} a_{\sigma(k,j)} - \sum_{n=0}^N a_n}
-%% - \sum_{n=N+1}^{+\infty} a_n \\
-%% \qquad &
-%% + \sum_{k=M+1}^{m} \sum_{j=0}^{J_k} a_{\sigma(k,j)}
-%% + \sum_{k=0}^{m} \sum_{j=J_k+1}^{+\infty} a_{\sigma(k,j)}.
-%% \end{aligned}
-%% \end{equation}
-%% Stimiamo separatamente gli addendi sul lato destro.
-%% Per il primo si ha:
-%% \[
-%%  \abs{\sum_{k=0}^M \sum_{j=0}^{J_k} a_{\sigma(k,j)} - \sum_{n=0}^N a_n}
-%%  \le \sum_{n=N+1}^{+\infty} \abs{a_n} < \eps.
-%% \]
-%% in quanto tutti gli addendi della seconda somma si semplificano
-%% (per come abbiamo scelto $M$ e $J_k$)
-%% e rimangono solamente gli addendi $a_{\sigma(k,j)}$
-%% della prima somma (finita) che
-%% hanno indice $\sigma(k,j)>N$.
-%% 
-%% Per il secondo addendo si ha (teorema~\ref{th:convergenza_assoluta})
-%% \[
-%%  \abs{\sum_{n=N+1}^{+\infty} a_n}
-%%  \le \sum_{n=N+1}^{+\infty} \abs{a_n} < \eps.
-%% \]
-%% 
-%% Il terzo addendo è una somma (finita) di termini
-%% $a_{\sigma(k,j)}$ con $k> M$ e dunque $\sigma(k,j)>N$.
-%% Dunque anche in questo caso si ha
-%% \[
-%% \abs{\sum_{k=M+1}^{m} \sum_{j=0}^{J_k} a_{\sigma(k,j)}}
-%% \le\sum_{n=N+1}^{+\infty} \abs{a_n}<\eps.
-%% \]
-%% 
-%% Per il quarto addendo, grazie a come è stato definito $J_k$:
-%% \[
-%%  \abs{\sum_{j=J_k+1}^{+\infty} a_{\sigma(k,j)}}
-%%  \le \sum_{j=J_k+1}^{+\infty} \abs{a_{\sigma(k,j)}}
-%%  < \frac{\eps}{2^k}
-%% \]
-%% e dunque
-%% \[
-%% \abs{\sum_{k=0}^{M}\sum_{j=J_k+1}^{+\infty} a_{\sigma(k,j)}}
-%% \le \sum_{k=0}^{M} \frac{\eps}{2^k}
-%% \le \eps \sum_{k=0}^{+\infty}\frac{1}{2^k} = 2\eps.
-%% \]
-%% 
-%% Abbiamo quindi dimostrato~\eqref{eq:93655}.
-%% \end{proof}
-%% 
-%% \begin{proof}[Dimostrazione del teorema~\ref{th:somma_Cauchy}]
-%% Sia $\sigma\colon \NN\times \NN\to \NN$ la bigezione utilizzata
-%% nel primo metodo diagonale di Cantor (teorema~\ref{th:Cantor_primo})
-%% e poniamo $a_n = c_{\sigma^{-1}(n)}$ cosicché
-%% $a_{\sigma(k,j)} = c_{k,j}$.
-%% Allora le somme parziali
-%% \[
-%%   \sum_{n=0}^N \sum_{k=0}^n c_{k,n-k}
-%% \]
-%% sono una sottosuccessione delle somme parziali della serie
-%% $\sum a_n$.
-%% In particolare se vale l'ipotesi del teorema la serie
-%% $\sum a_n$ è assolutamente convergente e si può applicare
-%% il lemma precedente da cui si ottiene il risultato desiderato.
-%% \end{proof}
-%% \end{comment}
+\begin{theorem}[somme alla Cauchy]
+  \label{th:somma_Cauchy}%
+Sia $a_{k,j}\in \RR$ o $a_{k,j}\in \CC$ una successione a due indici $k\in \NN$, $j\in\NN$.
+Se 
+\[
+  \sum_{k=0}^{+\infty} \sum_{j=0}^{+\infty} \abs{a_{k,j}} < +\infty
+\]  
+allora 
+\begin{equation}\label{eq:somma_Cauchy}
+  \sum_{k=0}^{+\infty} \sum_{j=0}^{+\infty} a_{k,j}
+   = \sum_{n=0}^{+\infty} \sum_{k=0}^{n} a_{k,n-k}.
+\end{equation}
+\end{theorem}
+%
+\begin{proof}
+Poniamo 
+\[
+  b_{k,n} = \begin{cases}
+    a_{k,n-k} & \text{se $k\le n$}\\
+    0 & \text{se $k>n$}.
+  \end{cases}  
+\]
+Osserviamo allora che 
+\[
+  \sum_{k=0}^{+\infty} \sum_{n=0}^{+\infty} b_{n,k}
+  = \sum_{k=0}^{+\infty} \sum_{n=k}^{+\infty} a_{k,n-k} 
+  = \sum_{k=0}^{+\infty} \sum_{j=0}^{+\infty} a_{k,j}
+\]
+e analogamente
+\[
+  \sum_{k=0}^{+\infty} \sum_{n=0}^{+\infty} \abs{b_{n,k}}
+  = \sum_{k=0}^{+\infty} \sum_{j=0}^{+\infty} \abs{a_{k,j}}
+  < +\infty.
+\]
+Mentre 
+\[
+  \sum_{k=0}^{+\infty}\sum_{n=0}^{+\infty} b_{k,n} 
+  = \sum_{k=0}^{+\infty}\sum_{n=k}^{+\infty}
+\]
+dunque si può applicare il teorema~\ref{th:scambio_somma} alla 
+successione $b_{n,j}$ per ottenere 
+\[
+  \sum_{k=0}^{+\infty}\sum_{n=0}^{+\infty} b_{k,n} 
+  =\sum_{n=0}^{+\infty} \sum_{k=0}^{+\infty} b_{n,k}
+  = \sum_{n=0}^{+\infty} \sum_{k=0}^{n} a_{k,n-k}
+\]
+da cui~\eqref{eq:somma_Cauchy}.
+\end{proof}
 
 %%%%%%%%%%%
 %%%%%%%%%%%
@@ -1284,14 +1223,14 @@ Ma
 Dunque $S=R$ e l'intera successione ha limite $S$. 
 D'altra parte $S \le S_0$ in quanto $S_{2n}$ è decrescente e $S\ge S_1$ in quanto $S_{2n+1}$ è crescente. 
 Concludiamo che $S$ è finito e dunque la serie è convergente.%
-\marginnote{%
+\footnote{%
 Per determinare il valore della somma di questa serie ci serviranno degli strumenti più avanzati.
 Si veda l'equazione~\ref{eq:serie_ln2}.
 }
 
 Questa dimostrazione può essere resa più in generale nel seguente.
 
-\begin{theorem}[serie a segni alterni: criterio di Leibniz]
+\begin{theorem}[criterio di Leibniz per le serie a segno alterno]
 \label{th:Leibniz}%
 \mymark{***}%
 \mynote{criterio di Leibniz}%
@@ -1310,7 +1249,7 @@ sono le somme parziali,
 si osserva che la somma della serie $S= \lim S_n$ è sempre compresa
 tra due termini consecutivi della successione $S_n$:
 \[
-  S \in [\min\{S_n, S_{n+1}\}, \max\{S_n, S_{n+1}\}].
+  S_{2n} \le S \le S_{n+1}.
 \]
 \end{theorem}
 %
@@ -1351,8 +1290,10 @@ $S_{2n-1} \le S \le S_{2n}$ e $S_{2n+1} \le S \le S_{2n}$
 dunque è verificata anche la seconda parte dell'enunciato.
 \end{proof}
 
-Abbiamo dunque un esempio, la serie $\sum (-1)^k / k$ di una serie convergente ma non assolutamente convergente.
-Il seguente teorema ci dice che per le serie di questo tipo non è mai garantito che riordinando i termini la somma si conservi.
+Abbiamo dunque un esempio, la serie $\sum (-1)^k / k$, di una serie convergente ma non assolutamente convergente.
+Il seguente teorema ci dice che per le serie di questo tipo 
+la somma della serie dipende dall'ordine in cui sono stati presi i termini:
+anzi, si può ottenere come somma qualunque valore si voglia.
 
 \begin{theorem}[convergenza condizionata]%
 \label{th:convergenza_condizionata}%
@@ -1369,7 +1310,7 @@ $\sigma \colon \NN \to \NN$ biettivo tale che
 \begin{proof}
 Dividiamo i termini della successione $a_k$ in termini maggiori o uguali a zero
 e in termini negativi. Sia $a^+_k$ la sottosuccessione dei termini non negativi
-e $-a^-_k$ la sottosuccessione degli opposti
+e $-a^-_k$ la sottosuccessione
 dei termini negativi (quindi $a^+_k\ge 0$ e $a^-_k > 0$). Si avrà
 \begin{align*}
   \sum_{k=0}^n a_k &= \sum_{k=0}^{n^+} a^+_k - \sum_{k=0}^{n^-} a^-_k \\
@@ -1413,114 +1354,6 @@ Chiaramente le somme tenderanno a $+\infty$.
 
 Il caso $x=-\infty$ si tratta in maniera analoga.
 \end{proof}
-
-\section{somme multiple}
-
-\begin{theorem}[somme alla Cauchy]
-  \label{th:somma_Cauchy}%
-Sia $a_{k,j}\in \CC$ una successione a due indici $k\in \NN$, $j\in\NN$.
-Se 
-\[
-  \sum_{k=0}^{+\infty} \sum_{j=0}^{+\infty} \abs{a_{k,j}} < +\infty
-\]  
-allora 
-\[
-  \sum_{k=0}^{+\infty} \sum_{j=0}^{+\infty} a_{k,j}
-   = \sum_{n=0}^{+\infty} \sum_{k=0}^{n} a_{k,n-k}.
-\]
-\end{theorem}
-%
-\begin{proof}
-Poniamo 
-\[
-  b_k = \sum_{j=0}^{+\infty} a_{k,j},\qquad
-  c_n = \sum_{k=0}^{n} a_{k,n-k}.
-\]
-Se immaginiamo i termini $a_{k,j}$ come i termini di una matrice 
-infinita dove $k$ è l'indice di riga e $j$ è l'indice di colonna,
-osserviamo che $b_k$ rappresenta la somma dei termini sulla riga 
-$k$-esima e la successione $c_n$ rappresenta la somma (finita)
-dei termini sulla diagonale $k+j=n$. 
-L'idea è che sommare i termini lungo le righe oppure lungo le diagonali 
-ci deve dare lo stesso risultato. 
-L'ipotesi è infatti una sorta di assoluta convergenza della serie di tutti 
-i termini $a_{k,j}$.
-
-La tesi del teorema è
-\[
-\sum_{k=0}^{+\infty} b_k = \lim_{N\to +\infty} \sum_{n=0}^N c_n  
-\]
-cioè per ogni $\eps>0$ dobbiamo trovare $\alpha\in \NN$ tale che per 
-ogni $N > \alpha$ si abbia
-\[
-  \abs{\sum_{n=0}^N c_n - \sum_{k=0}^{+\infty} b_k} < 4\eps.  
-\]
-Fissato $\eps>0$ applicando la proprietà della coda 
-(teorema~\ref{th:coda}) alla serie convergente data per ipotesi,
-si ottiene che esiste $K$ tale che:
-\[
-  \sum_{k=K+1}^{+\infty} \sum_{j=0}^{+\infty} \abs{a_{k,j}} < \frac{\eps} 2.
-\]
-Sempre grazie alla proprietà della coda applicata ai singoli termini 
-della serie convergente per ipotesi possiamo affermare che per ogni 
-$k\in \ENCLOSE{0,1,\dots, K}$ esiste un indice $J_k$ tale che 
-\[
-  \sum_{j=J_k+1}^{+\infty} \abs{a_{k,j}} \le \frac{\eps}{2^{k+2}}.
-\]
-Poniamo $J=\max\ENCLOSE{J_0,J_1, \dots, J_K}$ e $\alpha = J + K$.
-Se $N\ge \alpha$ si ha allora 
-\begin{align*}
-  \abs{\sum_{n=0}^N c_n - \sum_{k=0}^{+\infty} b_k}
-  &\le \abs{\sum_{n=0}^N c_n - \sum_{k=0}^{K} b_k} + \eps \\
-\end{align*}
-Osserviamo ora che i termini che vengono sommati nella serie 
-$\sum_{n=0}^N c_n$ sono tutti i termini $a_{k,j}$ tali che $k+j\le N$,
-mentre i termini che vengono sommati in $\sum_{k=0}^K b_k$ 
-sono tutti i termini $a_{k,j}$ con $k\le K$. 
-Quindi i termini in comune alle due somme si cancellano e rimangono solamente 
-i termini della prima somma che non compaiono nella seconda e i termini 
-della seconda somma che non compaiono nella prima. 
-Non ci interessa il segno di questi termini quindi possiamo stimare la somma 
-di tutti questi termini residui facendone la somma dei valori assoluti:
-\begin{align*}
-  \abs{\sum_{n=0}^N c_n - \sum_{k=0}^{K} b_k}
-  & \le \sum_{k=K+1}^N \sum_{j=0}^{N-k} \abs{a_{k,j}}
-   + \sum_{k=0}^{K}\sum_{j=N-K}^{+\infty} \abs{a_{k,j}}\\ 
-  & \le \sum_{k=K+1}^{+\infty}\sum_{j=0}^{+\infty} \abs{a_{k,j}}
-   + \sum_{k=0}^K \sum_{j=J_k+1}^{+\infty} \abs{a_{k,j}} \\ 
-  & \le \frac\eps 2 + \sum_{k=0}^{+\infty} \frac{\eps}{2^{k+2}}
-   = \eps.
-\end{align*}
-\end{proof}
-
-\begin{comment}
-\begin{corollary}[scambio delle somme]
-Sia $a_{k,j}\in \CC$ una successione a due indici $k\in \NN$, $j\in\NN$.
-Se 
-\[
-  \sum_{k=0}^{+\infty} \sum_{j=0}^{+\infty} \abs{a_{k,j}} < +\infty
-\]  
-allora 
-\[
-  \sum_{k=0}^{+\infty} \sum_{j=0}^{+\infty} a_{k,j}
-  \sum_{j=0}^{+\infty} \sum_{k=0}^{+\infty} a_{k,j}
-\]
-\end{corollary}
-%
-\begin{proof}
-L'ipotesi 
-\[
-  \sum_{k=0}^{+\infty} \sum_{j=0}^{+\infty} \abs{a_{k,j}} = S < 
-\]  
-
-
-data garantisce che vale anche 
-\[
-  \sum_{j=0}^{+\infty} \sum_{k=0}^{+\infty} \abs{a_{k,j}} < +\infty
-  \]
-  in quanto 
-\end{proof}
-\end{comment}
 
 \section{somma per parti}
 \begin{theorem}[somma per parti]
@@ -1639,196 +1472,311 @@ converge perché il termine generico $z^k/k$ non è infinitesimo.
 Per $z=1$ si ottiene la serie armonica, che pure non converge.
 \end{proof}
 
-\begin{comment}
-\section{somme su insiemi qualunque}
+%% \begin{comment}
+%% \section{somme su insiemi qualunque}
+%% 
+%% La teoria che abbiamo visto finora ci permette di definire
+%% la somma di una sequenza di numeri $\vec a \colon \NN\to \RR$
+%% (o $\vec a \colon \NN \to \CC$).
+%% In questo capitolo daremo una definizione di somma che può
+%% essere applicata a una funzione definita su un insieme di indici qualunque, non necessariamente l'insieme $\NN$ dei
+%% numeri naturali.
+%% 
+%% Scopriremo che la definizione che stiamo introducendo se
+%% applicata al caso $A=\NN$ corrisponde esattamente alla convergenza assoluta.
+%% 
+%% \begin{definition}[funzioni sommabili]
+%% Sia $A$ un insieme qualunque.
+%% Sia $A_n$ una successione di sottoinsiemi finiti di $A$.
+%% Diremo che $A_n$ tende ad $A$ e scriveremo
+%% \[
+%%   A_n \to A
+%% \]
+%% se per ogni insieme finito $B\subset A$ esiste $N\in \NN$
+%% tale che per ogni $n\ge N$ si ha $A_n\supset B$.
+%% 
+%% Sia ora $f$ una funzione reale (o complessa) definita
+%% su $A$: $f\colon A \to \RR$ (oppure $f\colon A \to \CC$).
+%% 
+%% Se $A = \ENCLOSE{a_1, a_2, \dots, a_m}$ è finito si può definire
+%% \[
+%%   \sum_{a \in A} f(a) = f(a_1) + f(a_2) + \dots + f(a_m).
+%% \]
+%% (la definizione può essere formalizzata mediante una
+%% induzione sulla cardinalità dell'insieme finito $A$).
+%% 
+%% Se invece $A$ è infinito scriveremo
+%% \[
+%%   \sum_{a\in A} f(a) = S
+%% \]
+%% con $S\in \bar \RR$ (oppure $S\in \bar \CC$)
+%% se per ogni successione di sottoinsiemi finiti $A_n \to A$
+%% si ha
+%% \begin{equation}\label{eq:589421}
+%%   \lim_{n\to +\infty}\sum_{a\in A_n}f(a) = S.
+%% \end{equation}
+%% 
+%% In tal caso diremo che esiste la somma di $f$ su $A$.
+%% Se tale somma $S$ è finita diremo che $f$ è sommabile su $A$.
+%% \end{definition}
+%% 
+%% \begin{theorem}[invarianza per permutazioni]
+%%   Sia $f$ una funzione definita su un insieme $A$
+%%   a valori reali o complessi. Sia $\sigma\colon A \to A$
+%%   una qualunque funzione bigettiva.
+%%   Allora la funzione $f$ ha somma su $A$ se e solo se
+%%   la funzione $f\circ \sigma$ ha somma su $A$ e in tal
+%%   caso le somme coincidono:
+%%   \[
+%%     \sum_{x\in A} f(x) = \sum_{x\in A} f(\sigma(x)).
+%%   \]
+%% \end{theorem}
+%% %
+%% \begin{proof}
+%%   Basta osservare che se $A_n$ è una qualunque successione
+%%   di sottoinsiemi finiti di $A$ tale che $A_n\to A$
+%%   allora anche $B_n=\sigma(A_n)$ è una successione
+%%   di sottoinsiemi finiti di $A$ tale che $B_n\to A$.
+%%   E viceversa.
+%%   Dunque le definizione di somma per $f$ e per $\sigma\circ f$ sono equivalenti.
+%% \end{proof}
+%% 
+%% \begin{theorem}[collegamento tra serie e somme arbitrarie]
+%% Sia $a_k$ con $k\in \NN$, una successione numerica (reale o complessa).
+%% 
+%% Se $S$ è un numero finito (reale o complesso)
+%% sono equivalenti:
+%% \begin{enumerate}
+%%   \item la funzione $f(k)=a_k$ è sommabile su $\NN$ e
+%% \begin{equation}\label{eq:488484}
+%%   \sum_{k\in \NN} a_k = S;
+%% \end{equation}
+%% \item la serie $\sum_k a_k$ è assolutamente
+%% convergente e
+%% \begin{equation}\label{eq:497494}
+%%   \sum_{k=0}^{+\infty} a_k = S.
+%% \end{equation}
+%% \end{enumerate}
+%% 
+%% Se $a_k\ge 0$ (dunque reale) allora anche
+%% \[
+%%   \sum_{k\in \NN} a_k = +\infty
+%% \qquad
+%% \text{e}
+%% \qquad
+%% \sum_{k=0}^{+\infty} a_k = +\infty
+%% \]
+%% sono equivalenti.
+%% \end{theorem}
+%% %
+%% \begin{proof}
+%%   Se vale \eqref{eq:488484} allora per ogni successione
+%%   di insiemi finiti $A_n \to \NN$ si deve avere
+%%   \[
+%%     S_n = \sum_{k\in A_n} a_k  \to S.
+%%   \]
+%%   In particolare se scegliamo $A_k=\ENCLOSE{0,1,2, \dots, n}$
+%%   risulta che $S_n$ non è altro che la successione delle somme parziali della serie $\sum a_k$ 
+%%   e dunque deve valere \eqref{eq:497494}.
+%%   Ma più in generale se prendiamo qualunque permutazione $\sigma$
+%%   si dovrà avere $\sum_k a_{\sigma(k)} = S$
+%%   e quindi la serie deve convergere assolutamente altrimenti 
+%%   si violerebbe il teorema~\ref{th:convergenza_condizionata} 
+%%   di convergenza condizionata.
+%% 
+%%   Viceversa supponiamo che $\sum a_n$ sia una serie assolutamente convergente e poniamo
+%%   \[
+%%     S = \sum_{k=0}^{\infty} a_k.
+%%   \]
+%%   Dovremo dimostrare che per ogni successione
+%%   $A_n\to A$ di sottoinsiemi finiti vale~\eqref{eq:589421}.
+%%   Cioè dovremo dimostrare che per ogni $\eps>0$
+%%   esiste $N\in \NN$ tale che per ogni $n>N$ si ha
+%%   \begin{equation}\label{eq:4389567}
+%%     \abs{\sum_{k\in A_n} a_k - S} < \eps.
+%%   \end{equation}
+%%   Dato $\eps>0$ per il teorema~\ref{th:coda} esiste $M\in \NN$
+%%   tale che
+%%   \[
+%%     \sum_{k=M+1}^{+\infty} \abs{a_k} < \eps.
+%%   \]
+%%   Ma visto che $A_n \to A$ deve esistere $N\in \NN$
+%%   tale che per ogni $n\ge N$ si ha $A_n \supset \ENCLOSE{0,1,2,\dots ,M}$
+%%   e allora per ogni $n\ge N$
+%%   \[
+%%     \sum_{k \in A_n} a_k - S = \sum_{k=0}^M a_k + \sum_{k\in A_n, k>M} a_k - \sum_{k=0}^{+\infty} a_k
+%%     = \sum_{k\in A_n, k>M} a_k - \sum_{k=M+1}^{+\infty} a_k
+%%   \]
+%%   ma è chiaro che
+%%   \[
+%%     \abs{\sum_{k\in A_n, k>M} a_k - \sum_{k=M+1}^{+\infty} a_k}
+%%     \le \sum_{k=M+1}^{+\infty} \abs{a_k} < \eps
+%%   \]
+%%   da cui si ottiene, come voluto, \eqref{eq:4389567}.
+%% \end{proof}
+%% 
+%% \end{comment}
+%% \begin{comment}
+%% \begin{theorem}[somme più che numerabili]
+%%   Sia $f$ una funzione definita su un insieme $A$
+%%   a valori reali o complessi. Se $f$ è sommabile
+%%   su $A$ allora l'insieme
+%%   \[
+%%     \ENCLOSE{x\in A\colon f(x)\neq 0}
+%%   \]
+%%   è al più numerabile.
+%% \end{theorem}
+%% %
+%% \begin{proof}
+%% Supponiamo dapprima che $f$ abbia valori reali.
+%% Se l'insieme $\ENCLOSE{f\neq 0}$ fosse più che numerabile almeno uno dei due insiemi $\ENCLOSE{f>0}$ o $\ENCLOSE{f<0}$
+%% sarebbe più che numerabile.
+%% Senza perdita di generalità possiamo supporre che sia
+%% il primo cioè che $A_+ = \ENCLOSE{x \in A\colon f(x)>0}$
+%% sia più che numerabile. Considero allora per ogni $n\in \NN$
+%% gli insiemi $A_n = \ENCLOSE{x\in A\colon \frac 1 {f(x)} \in (n,n+1]}$. Almeno uno di questi insiemi
+%% deve essere infinito perché se gli $A_n$ fossero
+%% tutti finiti allora l'insieme $A=\bigcup_n A_n$ sarebbe
+%% numerabile. Dunque esiste $N\in \NN$ tale che $A_N$ è infinito.
+%% Posto $\eps = \frac{1}{N+1}>0$
+%% esistono dunque $x_0,x_1, \dots, x_k, \dots$ infiniti punti di $A$ tali che $f(x_k) \ge \eps$.
+%% 
+%% ***DUBBIO*** Se $A$ è più che numerabile
+%% esiste $A_n$ finito tale che $A_n\to A$?
+%% \end{proof}
+%% \end{comment}
+%% \begin{comment}
+%% 
+%% \begin{theorem}[somme iterate]
+%% Sia $f$ una funzione definita su un insieme $A$ a
+%% valori reali o complessi. Supponiamo che sia
+%% \[
+%%   A = \bigcup_{k\in K} A_k
+%% \]
+%% dove $K$ è un arbitrario insieme di indici e
+%% $A_k$ sono sottoinsiemi di $A$ a due a due disgiunti.
+%% Allora
+%% \[
+%%   \sum_{x\in A} f(x) = \sum_{k\in K} \sum_{x\in A_k} f(x)
+%% \]
+%% se almeno uno dei due lati dell'uguaglianza esiste.
+%% \end{theorem}
+%% \end{comment}
 
-La teoria che abbiamo visto finora ci permette di definire
-la somma di una sequenza di numeri $\vec a \colon \NN\to \RR$
-(o $\vec a \colon \NN \to \CC$).
-In questo capitolo daremo una definizione di somma che può
-essere applicata a una funzione definita su un insieme di indici qualunque, non necessariamente l'insieme $\NN$ dei
-numeri naturali.
+%%%%%%%%%%
+\section{somme su insiemi arbitrari}
+\index{serie!su insiemi arbitrari}%
+\index{somme!su insiemi arbitrari}%
+%%%%%%%%%%
 
-Scopriremo che la definizione che stiamo introducendo se
-applicata al caso $A=\NN$ corrisponde esattamente alla convergenza assoluta.
+\begin{lemma}\label{lemma:12734}
+  Sia $A$ un insieme numerabile e siano 
+  $\alpha\colon \NN\to A$ e $\beta\colon \NN\to A$ 
+  due funzioni bigettive.
+  Sia $f\colon A\to \RR$ o 
+  $f\colon A \to \CC$ una funzione tale che 
+  \begin{equation}\label{eq:12734}
+    \sum_{k=0}^{+\infty} \abs{f(\alpha(k))} < +\infty.  
+  \end{equation}
+  Oppure sia $f\colon A\to [0,+\infty)$ una funzione 
+  qualunque. 
+  Allora si ha
+  \begin{equation}\label{eq:12735}
+    \sum_{k=0}^{+\infty} f(\alpha(k)) =
+    \sum_{j=0}^{+\infty} f(\beta(j)). 
+  \end{equation}
+\end{lemma}
+%
+\begin{proof}
+Posto $a_k=f(\alpha (k))$ e $\sigma = \alpha^{-1}\circ \beta$ si ha 
+$a_{\sigma(j)} = f(\beta (j))$.
+Dunque se vale~\eqref{eq:12734} si può 
+applicare il teorema~\ref{th:convergenza_incondizionata}
+per ottenere~\eqref{eq:12735}.
 
-\begin{definition}[funzioni sommabili]
-Sia $A$ un insieme qualunque.
-Sia $A_n$ una successione di sottoinsiemi finiti di $A$.
-Diremo che $A_n$ tende ad $A$ e scriveremo
+Se invece $f(x)\ge 0$ si ha ovviamente $\abs{f(x)}=f(x)$
+dunque se almeno una delle due somme in~\eqref{eq:12735}
+è finita allora si applica il teorema~\ref{th:convergenza_incondizionata}
+alla serie $\sum a_k$ e si ottiene dunque l'uguaglianza 
+in~\eqref{eq:12735}.
+Se invece entrambe le serie sono divergenti
+(essendo serie a termini positivi non ci sono altre possibilità!)
+l'uguaglianza~\eqref{eq:12735} è comunque valida
+essendo $+\infty = +\infty$.
+\end{proof}
+
+\begin{definition}[somme arbitrarie]
+Sia $f\colon A\to [0,+\infty]$ una funzione definita su un insieme 
+$A$ numerabile (cioè $\#A \le \#\NN$).
+Allora definiamo
+  \[
+    \sum_{x\in A}f(x)
+    = \sum_{k=0}^{+\infty} f(\sigma(k)) 
+  \]
+dove $\sigma\colon \NN\to A$ è una qualunque funzione bigettiva
+(il risultato non dipende da $\sigma$ grazie al lemma~\ref{cor:12734}).
+
+Se $f\colon A\to \CC$ o $f\colon A\to \RR$ (sempre con $A$ numerabile)
+diremo che $f$ è sommabile se $\sum_{x\in A}\abs{f(x)}<+\infty$. 
+In tal caso possiamo definire $\sum_{x\in A} f(x)$ come prima
+visto che anche in questo caso la somma non dipende
+dall'ordine degli addendi.
+
+Se $A=\ENCLOSE{a_0, \dots, a_{n-1}}$ è un insieme finito si può definire 
 \[
-  A_n \to A
+  \sum_{x\in A} f(x) = \sum_{k=0}^{n-1} f(a_k)
 \]
-se per ogni insieme finito $B\subset A$ esiste $N\in \NN$
-tale che per ogni $n\ge N$ si ha $A_n\supset B$.
-
-Sia ora $f$ una funzione reale (o complessa) definita
-su $A$: $f\colon A \to \RR$ (oppure $f\colon A \to \CC$).
-
-Se $A = \ENCLOSE{a_1, a_2, \dots, a_m}$ è finito si può definire
-\[
-  \sum_{a \in A} f(a) = f(a_1) + f(a_2) + \dots + f(a_m).
-\]
-(la definizione può essere formalizzata mediante una
-induzione sulla cardinalità dell'insieme finito $A$).
-
-Se invece $A$ è infinito scriveremo
-\[
-  \sum_{a\in A} f(a) = S
-\]
-con $S\in \bar \RR$ (oppure $S\in \bar \CC$)
-se per ogni successione di sottoinsiemi finiti $A_n \to A$
-si ha
-\begin{equation}\label{eq:589421}
-  \lim_{n\to +\infty}\sum_{a\in A_n}f(a) = S.
-\end{equation}
-
-In tal caso diremo che esiste la somma di $f$ su $A$.
-Se tale somma $S$ è finita diremo che $f$ è sommabile su $A$.
+ed è chiaro che la somma non dipende dall'ordine degli addendi.
 \end{definition}
 
-\begin{theorem}[invarianza per permutazioni]
-  Sia $f$ una funzione definita su un insieme $A$
-  a valori reali o complessi. Sia $\sigma\colon A \to A$
-  una qualunque funzione bigettiva.
-  Allora la funzione $f$ ha somma su $A$ se e solo se
-  la funzione $f\circ \sigma$ ha somma su $A$ e in tal
-  caso le somme coincidono:
+\begin{theorem}[famiglie sommabili]
+  Sia $A = \displaystyle\bigcup_{n\in \NN} A_n$ una unione di insiemi 
+  disgiunti: $A_n\cap A_m=\emptyset$ se $n\neq m$.
+  Supponiamo che $A$ sia numerabile (o finito).
+  Sia $f\colon A \to \RR$ non negativa oppure $f\colon A \to \CC$ 
+  una funzione sommabile (cioè $\displaystyle\sum_{x\in A}\abs{f(x)}< +\infty$).
+  Allora 
   \[
-    \sum_{x\in A} f(x) = \sum_{x\in A} f(\sigma(x)).
+    \sum_{x\in A}f(x) = \sum_{n\in \NN} \sum_{x\in A_n} f(x).  
   \]
 \end{theorem}
 %
 \begin{proof}
-  Basta osservare che se $A_n$ è una qualunque successione
-  di sottoinsiemi finiti di $A$ tale che $A_n\to A$
-  allora anche $B_n=\sigma(A_n)$ è una successione
-  di sottoinsiemi finiti di $A$ tale che $B_n\to A$.
-  E viceversa.
-  Dunque le definizione di somma per $f$ e per $\sigma\circ f$ sono equivalenti.
-\end{proof}
-
-\begin{theorem}[collegamento tra serie e somme arbitrarie]
-Sia $a_k$ con $k\in \NN$, una successione numerica (reale o complessa).
-
-Se $S$ è un numero finito (reale o complesso)
-sono equivalenti:
-\begin{enumerate}
-  \item la funzione $f(k)=a_k$ è sommabile su $\NN$ e
-\begin{equation}\label{eq:488484}
-  \sum_{k\in \NN} a_k = S;
-\end{equation}
-\item la serie $\sum_k a_k$ è assolutamente
-convergente e
-\begin{equation}\label{eq:497494}
-  \sum_{k=0}^{+\infty} a_k = S.
-\end{equation}
-\end{enumerate}
-
-Se $a_k\ge 0$ (dunque reale) allora anche
+Sia $x_k$ una numerazione degli elementi di $A$ e definiamo 
+la successione a due indici:
 \[
-  \sum_{k\in \NN} a_k = +\infty
-\qquad
-\text{e}
-\qquad
-\sum_{k=0}^{+\infty} a_k = +\infty
+  a_{n,k} = \begin{cases}
+    f(x_k) & \text{se $x_k\in A_n$}\\
+    0 & \text{altrimenti.}
+  \end{cases}  
 \]
-sono equivalenti.
-\end{theorem}
-%
-\begin{proof}
-  Se vale \eqref{eq:488484} allora per ogni successione
-  di insiemi finiti $A_n \to \NN$ si deve avere
-  \[
-    S_n = \sum_{k\in A_n} a_k  \to S.
-  \]
-  In particolare se scegliamo $A_k=\ENCLOSE{0,1,2, \dots, n}$
-  risulta che $S_n$ non è altro che la successione delle somme parziali della serie $\sum a_k$ 
-  e dunque deve valere \eqref{eq:497494}.
-  Ma più in generale se prendiamo qualunque permutazione $\sigma$
-  si dovrà avere $\sum_k a_{\sigma(k)} = S$
-  e quindi la serie deve convergere assolutamente altrimenti 
-  si violerebbe il teorema~\ref{th:convergenza_condizionata} 
-  di convergenza condizionata.
-
-  Viceversa supponiamo che $\sum a_n$ sia una serie assolutamente convergente e poniamo
-  \[
-    S = \sum_{k=0}^{\infty} a_k.
-  \]
-  Dovremo dimostrare che per ogni successione
-  $A_n\to A$ di sottoinsiemi finiti vale~\eqref{eq:589421}.
-  Cioè dovremo dimostrare che per ogni $\eps>0$
-  esiste $N\in \NN$ tale che per ogni $n>N$ si ha
-  \begin{equation}\label{eq:4389567}
-    \abs{\sum_{k\in A_n} a_k - S} < \eps.
-  \end{equation}
-  Dato $\eps>0$ per il teorema~\ref{th:coda} esiste $M\in \NN$
-  tale che
-  \[
-    \sum_{k=M+1}^{+\infty} \abs{a_k} < \eps.
-  \]
-  Ma visto che $A_n \to A$ deve esistere $N\in \NN$
-  tale che per ogni $n\ge N$ si ha $A_n \supset \ENCLOSE{0,1,2,\dots ,M}$
-  e allora per ogni $n\ge N$
-  \[
-    \sum_{k \in A_n} a_k - S = \sum_{k=0}^M a_k + \sum_{k\in A_n, k>M} a_k - \sum_{k=0}^{+\infty} a_k
-    = \sum_{k\in A_n, k>M} a_k - \sum_{k=M+1}^{+\infty} a_k
-  \]
-  ma è chiaro che
-  \[
-    \abs{\sum_{k\in A_n, k>M} a_k - \sum_{k=M+1}^{+\infty} a_k}
-    \le \sum_{k=M+1}^{+\infty} \abs{a_k} < \eps
-  \]
-  da cui si ottiene, come voluto, \eqref{eq:4389567}.
-\end{proof}
-
-\end{comment}
-\begin{comment}
-\begin{theorem}[somme più che numerabili]
-  Sia $f$ una funzione definita su un insieme $A$
-  a valori reali o complessi. Se $f$ è sommabile
-  su $A$ allora l'insieme
-  \[
-    \ENCLOSE{x\in A\colon f(x)\neq 0}
-  \]
-  è al più numerabile.
-\end{theorem}
-%
-\begin{proof}
-Supponiamo dapprima che $f$ abbia valori reali.
-Se l'insieme $\ENCLOSE{f\neq 0}$ fosse più che numerabile almeno uno dei due insiemi $\ENCLOSE{f>0}$ o $\ENCLOSE{f<0}$
-sarebbe più che numerabile.
-Senza perdita di generalità possiamo supporre che sia
-il primo cioè che $A_+ = \ENCLOSE{x \in A\colon f(x)>0}$
-sia più che numerabile. Considero allora per ogni $n\in \NN$
-gli insiemi $A_n = \ENCLOSE{x\in A\colon \frac 1 {f(x)} \in (n,n+1]}$. Almeno uno di questi insiemi
-deve essere infinito perché se gli $A_n$ fossero
-tutti finiti allora l'insieme $A=\bigcup_n A_n$ sarebbe
-numerabile. Dunque esiste $N\in \NN$ tale che $A_N$ è infinito.
-Posto $\eps = \frac{1}{N+1}>0$
-esistono dunque $x_0,x_1, \dots, x_k, \dots$ infiniti punti di $A$ tali che $f(x_k) \ge \eps$.
-
-***DUBBIO*** Se $A$ è più che numerabile
-esiste $A_n$ finito tale che $A_n\to A$?
-\end{proof}
-\end{comment}
-\begin{comment}
-
-\begin{theorem}[somme iterate]
-Sia $f$ una funzione definita su un insieme $A$ a
-valori reali o complessi. Supponiamo che sia
+Per ogni $k\in \NN$ la seguente somma 
+ha un solo addendo non nullo:
 \[
-  A = \bigcup_{k\in K} A_k
+ \sum_{n=0}^{+\infty}  a_{n,k} = f(x_k)
 \]
-dove $K$ è un arbitrario insieme di indici e
-$A_k$ sono sottoinsiemi di $A$ a due a due disgiunti.
-Allora
+mentre per ogni $n\in \NN$ si ha 
 \[
-  \sum_{x\in A} f(x) = \sum_{k\in K} \sum_{x\in A_k} f(x)
+ \sum_{k=0}^{+\infty} a_{n,k} = \sum_{x\in A_n} f(x)  
 \]
-se almeno uno dei due lati dell'uguaglianza esiste.
-\end{theorem}
-\end{comment}
+in quanto i termini non nulli della successione 
+$a_{n,k}$ sono uguali al valore di $f$ su una enumerazione 
+degli elementi di $A_n$.
+
+Allora si ha
+\[
+ \sum_{k=0}^{+\infty}\sum_{n=0}^{+\infty} \abs{a_{n,k}}
+ = \sum_{k=0}^{+\infty} {f(x_k)} = \sum_{x\in A} \abs{f(x_k)}.
+\]
+Se quest'ultima somma è finita oppure se i termini sono tutti non negativi
+possiamo allora scambiare le due somme grazie al teorema~\ref{th:scambio_somma}:
+\[
+  \sum_{x\in A} f(x) 
+  = \sum_{k=0}^{+\infty} \sum_{n=0}^{+\infty} a_{n,k}
+  = \sum_{n=0}^{+\infty} \sum_{k=0}^{+\infty} a_{n,k}
+  = \sum_{n\in \NN} \sum_{x\in A_n}f(x).  
+\]
+\end{proof}
 
 %%%
 \section{prodotti infiniti}
@@ -2002,7 +1950,7 @@ allora la serie
 converge assolutamente per ogni $w\in \CC$ tale che $\abs{w}< \abs{z}$.
 Viceversa, se la serie non converge in un punto $z\in \CC$
 allora
-non  converge in nessun $w$ tale che $\abs{w} > \abs{w}$ (anzi la successione
+non  converge in nessun $w$ tale che $\abs{w} > \abs{z}$ (anzi la successione
 $a_n w^n$ non è nemmeno limitata e tantomento infinitesima).
 \end{theorem}
 %
@@ -2032,7 +1980,7 @@ Dunque la serie $\sum a_k w^k$ converge assolutamente.
 Viceversa supponiamo che $\sum a_k z^k$ non converga
 e prendiamo $w$ con $\abs{w} > \abs{z}$.
 Allora $\sum a_k w^k$ non può convergere,
-ansi $a_k w^k$ non può neanche essere limitata perché
+anzi $a_k w^k$ non può neanche essere limitata perché
 se lo fosse allora, scambiando i ruoli di $z$ e $w$,
 per il punto precedente la serie $\sum a_k z^k$ dovrebbe convergere.
 \end{proof}
@@ -2355,9 +2303,9 @@ per ogni $z\in \CC$ si ha $\exp(z) \neq 0$ e
  \exp(-z) = \frac{1}{\exp(z)};
 \]
 
-\item la funzione $\exp\colon \CC \to \CC$ è continua.
+\item la funzione $\exp\colon \CC \to \CC$ è continua;
 
-\item Se $z_n\to 0$ allora
+\item se $z_n\to 0$ allora
 \begin{equation}\label{eq:limite_exp_complesso}
    \lim_{n\to +\infty}\frac{\exp(z_n)-1}{z_n} = 1.
 \end{equation}
@@ -2581,15 +2529,6 @@ cioè
 \[
 \lim_{n\to +\infty} \enclose{1+\frac z n}^n = \sum_{k=0}^{+\infty} \frac{z^k}{k!}.
 \]
-
-Se $x\in \RR$ abbiamo già visto che
-\[
-  \lim_{n\to +\infty}\enclose{1+\frac x n}^n = e^x
-\]
-e quindi il teorema precedente ci assicura che
-\[
-  \exp(x) = e^x.
-\]
 \end{proof}
 
 \begin{table}
@@ -2775,8 +2714,8 @@ Per ogni $x\in \RR$ si potrà definire
 cosicché valga la
 \myemph{formula!di Eulero}
 \index{Eulero!formula di}%
+\mymark{***}%
 \[
-  \mymark{***}%
   e^{ix} = \cos x + i \sin x.
 \]
 \end{definition}
@@ -2979,17 +2918,17 @@ Le funzioni $e^{ix}$, $\sin x$ e $\cos x$ sono
 periodiche di periodo $\tau = 2\pi$:
 \mynote{$\tau$}%
 \[
-  e^{ix+2\pi} = e^{ix}, \qquad
+  e^{i(x+2\pi)} = e^{ix}, \qquad
   \cos(x + 2\pi) = \cos x, \qquad
   \sin(x + 2\pi) = \sin x.
 \]
 La funzione $\sin x$ è strettamente crescente nell'intervallo
-$\closeinterval{-\frac \pi 2}{\frac \pi 2}$ e strettamente 
+$\closeinterval{-\frac \pi 2}{\frac \pi 2}$
 mentre la funzione $\cos x$ è strettamente decrescente 
 nell'intervallo $\closeinterval{0}{\pi}$.
 Si ha infine:
 \begin{align*}
-\sin(\pi + x) =_ -\sin x, \qquad 
+\sin(\pi + x) = -\sin x, \qquad 
 \cos(\pi + x) = -\cos x.
 \end{align*}
 

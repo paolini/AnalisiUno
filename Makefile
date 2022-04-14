@@ -4,7 +4,7 @@ README.md: make-docs.sh AnalisiUno.myaux
 	bash $<
 
 AnalisiUno.pdf AnalisiUno.myaux: AnalisiUno.tex chapters/*.tex figures/* code/* figures/figurePJAinside.tex figures/figurePJBinside.tex figures/figurePJAoutside.tex figures/figurePJBoutside.tex
-	latexmk --pdf $<
+	latexmk -pdf -file-line-error -halt-on-error -interaction=nonstopmode $<
 
 strutture.pdf: strutture.gv
 	dot -Tpdf $< -o $@
