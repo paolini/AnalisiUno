@@ -3685,12 +3685,12 @@ La seconda parte richiederà invece degli strumenti più avanzati.
 Una funzione $\vec u\colon [a,b]\to \RR^n$ può rappresentare 
 il moto di un punto nello spazio $\RR^n$. 
 Al tempo $t$ il punto si trova nella posizone $\vec u(t)$
-e al variare di $x\in [a,b]$ il punto descrive una traiettoria in $\RR^n$.
-L'immagine di $\vec u$ è l'insieme $\vec u([a,b]) =\Enclose{\vec u(t)\colon t\in[a,b]}$
+e al variare di $t\in [a,b]$ il punto descrive una traiettoria in $\RR^n$.
+L'immagine di $\vec u$ è l'insieme $\vec u([a,b]) =\ENCLOSE{\vec u(t)\colon t\in[a,b]}$
 e viene chiamato \emph{curva}.
 Impropriamente chiameremo \emph{curva} anche la funzione $\vec u$.
  
-\begin{example}[circonferenza]
+\begin{example}[quadrato]
 La funzione $\vec u \colon [0,4]\to \RR^2$ definita da 
 \[
 \vec u(x) = \begin{cases} 
@@ -3708,7 +3708,291 @@ del quadrato di vertici $(0,0)$, $(1,0)$, $(1,1)$, $(0,1)$:
 \]
 \end{example}
 
-***************
+Dati due punti $\vec p, \vec q \in \RR^n$,
+$\vec p = (p_1,\dots, p_n)$, $\vec q=(q_1,\dots,q_n)$  
+definiamo la loro distanza tramite il teorema di Pitagora:
+\[
+ \abs{\vec p - \vec q} = \sqrt{(p_1-q_1)^2 + \dots + (p_n-q_n)^2}.  
+\]
+
+\begin{definition}[lunghezza di una curva]
+Sia $\vec u\colon[a,b]\to \RR^n$ una curva.
+Se $T$ è un sottoinsieme finito di $[a,b]$ con $N$ elementi 
+$T=\ENCLOSE{t_1, \dots, t_N}\subset [a,b]$ e $t_1< t_2 < \dots < t_N$
+possiamo considerare la lunghezza della poligonale che congiunge 
+i punti $\vec u(t_1), \vec u(t_2), \dots, \vec u(t_N)$:
+\[
+\ell(\vec u, T) = \sum_{k=1}^{N-1} \abs{\vec u(t_{k+1})-\vec u(t_k)}.  
+\]
+
+Definiamo quindi la lunghezza di $\vec u$:
+\[
+\ell(\vec u) = \sup\ENCLOSE{\ell(\vec u,T)\colon T\subset [a,b], \text{$T$ finito}}.  
+\]
+
+Chiaramente $\ell(\vec u) \in [0,+\infty]$.
+Se $\ell(\vec u)<+\infty$ diremo che $\vec u$ descrive una curva 
+\emph{rettificabile}.
+\end{definition}
+
+
+
+\begin{theorem}[additività della lunghezza]
+  Siano $a\le b \le c$ e sia $\vec u\colon [a,c]\to \RR^n$ una curva.
+  Allora%
+  \marginnote{
+  Ricordiamo che $f\llcorner A$ è la restrizione della funzione $f$ 
+  all'insieme $A$.
+  }%
+  \begin{equation}\label{eq:ell_additivo}
+  \ell(\vec u ) = \ell(\vec u\llcorner[a,b]) + \ell(\vec u\llcorner[b,c])  
+  \end{equation}
+\end{theorem}
+\begin{proof}
+Osserviamo che se $T\subset[a,c]$ è finito allora 
+posto $T'=(T\cap[a,b])\cup\ENCLOSE{c}$ e $T''=(T\cap[b,c])\cup \ENCLOSE{c}$
+si ha
+\[
+\ell(\vec u, T) \le \ell(\vec u, T\cup\ENCLOSE{c})
+=\ell(\vec u,T') + \ell(\vec u,T'')  
+\le \ell(\vec u\llcorner [a,b]) + \ell(\vec u\llcorner [b,c])
+\]
+e quindi passando all'estremo superiore per $T\subset [a,c]$ 
+si ottiene la disuguaglianza
+$\ell(\vec u)\le \ell(\vec u\llcorner [a,b]) + \ell(\vec u\llcorner[b,c])$.
+
+Viceversa se $T'\subset [a,b]$ e $T''\subset [b,c]$ sono finiti 
+allora 
+\[
+ \ell(\vec u, T') + \ell(\vec u, T'')
+ \le \ell(\vec u, T'\cup T'') \le \ell(\vec u).
+\]
+Dunque facendo l'estremo superiore per $T'\subset [a,b]$ 
+e poi per $T''\subset [b,c]$ si ottiene la disuguaglianza
+inversa
+\[
+  \ell(\vec u\llcorner[a,b]) + \ell(\vec u\llcorner[b,c])
+  \le \ell(\vec u).
+\]
+\end{proof}
+
+\begin{theorem}[riparametrizzazione]
+Sia $\phi\colon [a,b] \to [c,d]$ una funzione bigettiva e monotòna.
+Sia $\vec u \colon [c,d]\to \RR^n$ una curva.
+Allora 
+\[
+ \ell(\vec u \circ \phi) = \ell(\vec u)  
+\]
+\end{theorem}
+\begin{proof}
+Si osservi che se $T\subset [a,b]$ è un insieme 
+finito di punti $T=\ENCLOSE{t_1, \dots, t_N}$ con 
+$t_1 < t_2 < \dots < t_N$ allora 
+l'insieme $\phi(T)$ ha lo stesso numero di punti (in quanto 
+$\phi$ è bigettiva). 
+Se $\phi$ è crescente si ha 
+$\phi(t_1) < \phi(t_2) < \dots < \phi(t_N)$  
+mentre se $\phi$ è decrescente si ha 
+$\phi(t_1) > \phi(t_2) > \dots > \phi(t_N)$. 
+Ma in entrambi i casi risulta 
+\[
+  \ell(\vec u, \phi(T)) 
+  = \sum_{k=1}^{N-1} \abs{\vec u(\phi(t_k)) - \vec u(\phi(t_{k+1}))} 
+  = \ell(\vec u \circ \phi, T).
+\]
+Dunque 
+\[
+\ell(\vec u) 
+= \sup\ENCLOSE{\ell(\vec u, S)\colon S\subset [c,d] \text{ finito}} 
+= \sup\ENCLOSE{\ell(\vec u,\phi(T))\colon T\subset [a,b] \text{ finito} }
+= \ell(\vec u\circ \phi).
+\]
+\end{proof}
+
+\begin{definition}[funzione lipschitziana]
+Sia $L\ge 0$ e $A\subset \RR^m$.
+Diremo che una funzione $\vec f\colon A \to \RR^n$ 
+è $L$-lipschitziana se per ogni $\vec x, \vec y\in A$ si ha 
+\[
+  \abs{\vec f(\vec x)-\vec f(\vec y)} \le L \cdot \abs{\vec x-\vec y}.  
+\]
+\end{definition}
+
+\begin{lemma}[lunghezza curva lipschitziana]
+  Se $\vec u \colon [a,b]\to \RR^n$ è una curva 
+  $L$-lipschitziana allora 
+  \[
+   \ell(\gamma) \le L \cdot \abs{b-a}.  
+  \]
+\end{lemma}
+\begin{proof} Basta osservare che:
+  \begin{align*}
+  \ell(\gamma, T) 
+  &= \sum_{k=1}^N \abs{\vec u(t_{k+1})-\vec u(t_{k})}
+  \le \sum_{k=1}^N L \abs{t_{k+1}-t_k} \\
+  &= L \sum_{k=1}^N (t_{k+1} - t_k)
+  = L (t_N-t_1) 
+  \le L (b-a).
+  \end{align*}
+\end{proof}
+
+\begin{lemma}[lunghezza di curve isometriche e omotetiche]
+  Se $L\ge 0$, $K\ge 0$ e $\phi\colon \RR^n \to \RR^m$ è una funzione 
+  $L$-lipschitizana
+  e $\vec u\colon [a,b]\to \RR^n$
+  allora 
+  \begin{equation}\label{eq:ell_lipschitz}
+    \ell(\phi\circ \vec u) \le L \cdot \ell(\vec u).  
+  \end{equation}
+  
+  In particolare se $\phi\colon\RR^n\to\RR^n$ è una omotetia di rapporto $s> 0$, 
+  cioè se per ogni $\vec x, \vec y \in \RR^n$ si ha 
+  \[
+     \abs{\phi(\vec y) - \phi(\vec x)} = s \cdot \abs{\vec y - \vec x}
+  \]
+  allora 
+  \begin{equation}\label{eq:ell_omotetica}
+    \ell(\phi\circ \vec u) = s\cdot \ell(\vec u)  
+  \end{equation}
+  e se $\phi$ è una isometria (cioè se è una omotetia di rapporto $s=1$) si ha 
+  \begin{equation}\label{eq:ell_isometrica}
+    \ell(\phi\circ \vec u) = \ell(\vec u)  
+  \end{equation}
+\end{lemma}
+\begin{proof}
+Se $\phi$ è $L$-lipschitziana basta applicare la disuguaglianza
+\[
+  \abs{\phi(\vec u(t_{k+1})) - \phi(\vec u(t_k))}
+  \le L\cdot \abs{\vec u(t_{k+1}) - \vec u(t_k)}  
+\]
+nelle definizioni di $\ell(\vec u)$ e $\ell(\phi\circ \vec u)$
+per ottenere~\eqref{eq:ell_lipschitz}.
+Ora se $\phi$ è una omotetia di rapporto $s>0$
+allora $\phi$ è $s$-lipschitziana mentre 
+$\phi^{-1}$ è $1/s$-lipschitziana. 
+Dunque 
+\[
+   \ell(\phi\circ \vec u) \le s\cdot \ell(\vec u)
+\]
+ma anche  
+\[
+  \ell(\vec u) = \ell(\phi^{-1}\circ \phi \circ \vec u)
+  \le \frac 1 s \ell(\phi\circ \vec u)
+\]
+da cui si ottiene l'uguaglianza~\eqref{eq:ell_omotetica}.
+\end{proof}
+
+\subsection{definizione geometrica di $\pi$}
+
+La circonferenza di raggio $R>0$ centrata in un punto $\vec p_0 = (x_0,y_0)\in \RR^2$ 
+è l'insieme 
+\[
+ \ENCLOSE{(x,y) \in \RR^2\colon (x-x_0)^2 + (y-y_0)^2 = R^2}.  
+\]
+In particolare chiameremo \emph{circonferenza trigonometrica} la circonferenza 
+di raggio $1$ centrata nell'origine del piano $\RR^2$:
+\[
+ C = \ENCLOSE{(x,y)\in \RR^2 \colon x^2 + y^2 = 1}.  
+\]
+Dato un punto $(x,y)$ della circonferenza trigonometrica vorremmo definire 
+la misura dell'angolo $\alpha$ delimitato dalle due semirette uscenti dall'origine 
+e passanti dal punto $(1,0)$ (lungo l'asse delle $x$) e il punto $(x,y)$.
+Possiamo definire tale angolo come la lunghezza della curva che descrive il corrispondente 
+arco di circonferenza.
+
+Dunque consideriamo la curva $\vec u\colon [-1,1]\to \RR^2$ definita da
+\[
+  \vec u(t) = (t,\sqrt{1-t^2}).
+\]
+Chiaramente i punti di questa curva si trovano sulla circonferenza trigonometrica $C$, 
+più precisamente tale curva descrive la semicirconferenza superiore $C\cap\ENCLOSE{y\ge 0}$.
+Dato un punto $\vec u(x) = (x,\sqrt{1-x^2})$ su tale semicirconferenza possiamo definire la 
+misura dell'angolo $\alpha$ come 
+\[
+  \alpha = \ell(\vec u\llcorner [x,1])
+\]
+e in particolare possiamo definire la misura dell'angolo piatto:
+\[
+  \pi = \ell(\vec u).
+\]
+
+Dobbiamo però assicurarci che tali misure siano finite.
+\begin{theorem}
+La curva $\vec u\colon [-1,1]\to \RR^2$, $\vec u(t) = (t,\sqrt{1-t^2})$
+è rettificabile, più precisamente si ha:
+\[
+  \pi  = \ell(\vec u) \le 4.  
+\]
+\end{theorem}
+\begin{proof}
+
+\emph{Passo 1:}
+dimostriamo che $\ell(\vec u ) = 4 \ell(\vec u\llcorner[0,1/\sqrt 2])$. 
+Per prima cosa sfruttiamo la simmetria rispetto alla isometria 
+$\phi(x,y) = (-x,y)$:
+\[
+  \phi(\vec u(t)) = (-t,\sqrt{1-t^2})
+  = \vec u(-t).
+\]
+Posto $\psi(t)=-t$ si ha infatti:
+\[
+\ell(\vec u \llcorner[-1,0]) 
+= \ell(\phi\circ \vec u \llcorner [-1,0])
+= \ell(\phi\circ \vec u \circ \psi \llcorner[0,1])
+= \ell(\vec u\llcorner[0,1])
+\]
+da cui $\ell(\vec u) = 2 \ell(\vec u \llcorner[0,1])$.
+Ora osserviamo che la curva $\vec u\llcorner[0,1]$ 
+è simmetrica rispetto alla bisettrice $x=y$.
+Se ora poniamo $\phi(x,y) = (y,x)$ si ha infatti 
+\[
+\phi(\vec u(t)) = (\sqrt{1-t^2},t)   
+\]
+e se poniamo $\psi(t) = \sqrt{1-t^2}$ si nota che 
+$\psi(\psi(t)) = t$ e dunque 
+si ha $\phi(\vec u(t)) = (\psi(t),t)
+=\vec\circ \psi(t)$. 
+Dunque 
+\[
+\ell(\vec u\llcorner[1/\sqrt 2,1])
+= \ell(\phi\circ \vec u \llcorner[1/\sqrt 2, 1])
+= \ell(\vec u\circ \psi \llcorner[1/\sqrt 2, 1])  
+= \ell(\vec u\llcorner [0,1/\sqrt 2])
+\]
+da cui 
+\[
+\pi = \ell(\vec u) = 4 \ell(\vec u \llcorner[0,1/\sqrt 2]).  
+\]
+
+\emph{Passo 2:} 
+dimostriamo che $\vec u\llcorner[0,1/\sqrt 2]$ è $\sqrt 2$-lipschitziana.
+Se $0 \le s\le t\le 1/\sqrt 2$ si ha 
+\[
+  \sqrt{1-s^2} - \sqrt{1-t^2}
+  = \frac{(1-s^2) - (1-t^2)}{\sqrt{1-s^2} + \sqrt{1-t^2}}
+  = \frac{t^2-s^2}{\sqrt{1-s^2} + \sqrt{1-t^2}}
+  \le \dots 
+\]
+osservando che se $t\le 1/\sqrt 2$ si ha $1-t^2 \ge 1/2$
+e quindi $\sqrt{1-s^2} \ge \sqrt{1-t^2} \ge 1/\sqrt 2$,
+si ha 
+\[
+  \dots 
+  \le \frac{(t-s)(t+s)}{1/\sqrt 2 + 1/\sqrt 2}
+  \le (t-s).
+\]
+Dunque 
+\[
+  \abs{\vec u(t)-\vec u(s)}
+  =\sqrt{(t-s)^2 + (\sqrt{1-s^2}-\sqrt{1-t^2})^2}
+  \le \sqrt{(t-s)^2 + (t-s)^2} \le \sqrt 2 (t-s).  
+\]
+Questo ci permette di concludere che 
+\[
+\pi = 4 \ell(\vec u\llcorner [0,1/\sqrt 2])
+\le 4 \sqrt 2 \cdot \frac{1}{\sqrt 2} = 4.  
+\]
+\end{proof}
 
 \section{note storiche}
 
