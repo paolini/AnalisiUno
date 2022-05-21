@@ -1500,9 +1500,8 @@ successione $\vec a$ e non un singolo termine della stessa.%
 Per noi il caso più interessante sarà quello delle \emph{successioni reali}
 $a_n\in \RR$ cioè il caso $X=\RR$. Considereremo però anche il caso di
 \emph{successioni complesse} $a_n\in \CC$ (dunque $X=\CC$) perché questo
-potrà essere utile in alcune situazioni.
-
-\footnote{In alcuni testi le successioni vengono indicate
+potrà essere utile in alcune situazioni.%
+\marginnote{In alcuni testi le successioni vengono indicate
 con la notazione $\ENCLOSE{a_n}$ che però è fuorviante in quanto
 una successione in $X$ non è semplicemente un sottoinsieme di $X$:
 l'ordine in cui vengono presi gli elementi è rilevante.}
@@ -3689,6 +3688,12 @@ e al variare di $t\in [a,b]$ il punto descrive una traiettoria in $\RR^n$.
 L'immagine di $\vec u$ è l'insieme $\vec u([a,b]) =\ENCLOSE{\vec u(t)\colon t\in[a,b]}$
 e viene chiamato \emph{curva}.
 Impropriamente chiameremo \emph{curva} anche la funzione $\vec u$.
+\marginnote{%
+Invece che \emph{curva} sarebbe più appropriato 
+il termine \emph{linea}. 
+Visto che trattiamo una generica linea, anche non \emph{retta}, 
+la chiamiamo \emph{linea curva} o più brevemente \emph{curva}.
+}
  
 \begin{example}[quadrato]
 La funzione $\vec u \colon [0,4]\to \RR^2$ definita da 
@@ -3703,7 +3708,7 @@ La funzione $\vec u \colon [0,4]\to \RR^2$ definita da
 descrive il moto di un punto lungo i quattro lati 
 del quadrato di vertici $(0,0)$, $(1,0)$, $(1,1)$, $(0,1)$:
 \[
- \vec u([0,4]) = \Enclose{(x,y)\in[0,1]\times[0,1]\colon 
+ \vec u([0,4]) = \ENCLOSE{(x,y)\in[0,1]\times[0,1]\colon 
  x\in\Enclose{0,1} \lor y \in \Enclose{0,1}}.  
 \]
 \end{example}
@@ -3715,7 +3720,7 @@ definiamo la loro distanza tramite il teorema di Pitagora:
  \abs{\vec p - \vec q} = \sqrt{(p_1-q_1)^2 + \dots + (p_n-q_n)^2}.  
 \]
 
-\begin{definition}[lunghezza di una curva]
+\begin{definition}[lunghezza di una linea]
 Sia $\vec u\colon[a,b]\to \RR^n$ una curva.
 Se $T$ è un sottoinsieme finito di $[a,b]$ con $N$ elementi 
 $T=\ENCLOSE{t_1, \dots, t_N}\subset [a,b]$ e $t_1< t_2 < \dots < t_N$
@@ -3735,7 +3740,47 @@ Se $\ell(\vec u)<+\infty$ diremo che $\vec u$ descrive una curva
 \emph{rettificabile}.
 \end{definition}
 
+\begin{theorem}[proprietà geodetica]
+Dati $\vec p, \vec q\in \RR^n$ la curva retta che congiunge 
+$p$ a $q$ può essere descritta dalla funzione 
+$\vec u(t) = (1-t) \vec p + t \vec q$, $\vec u\colon[0,1]\to \RR^n$.
 
+Per tale curva (in realtà: retta) si ha 
+\[
+ \ell(\vec u) = \abs{\vec q- \vec p}.
+\]
+Inoltre tale curva è la più breve curva che congiunge $\vec p$ a $\vec q$ 
+in quanto se $\vec v\colon[a,b]\to \RR^n$ è una qualunque curva con 
+$\vec v(a)=\vec p$ e $\vec v(b)=\vec q$ si ha 
+\[
+\ell(\vec v) \le \abs{\vec q-\vec p}.  
+\]
+\end{theorem}
+%
+\begin{proof}
+Per la curva \emph{retta} $\vec u$ si osserva che vale:
+\[
+  \abs{\vec u(t)-\vec u(s)} 
+  = \abs{(1-t - 1+s)\vec p + (t-s)\vec q}
+  = \abs{t-s}\cdot \abs{\vec q - \vec p}
+\]
+e quindi se $0\le t_1\le t_2\le \dots \le t_N \le 1$ si ha
+\[
+  \ell(\vec u, \ENCLOSE{t_1,\dots,t_N}) = 
+  \sum_{k=1}^{N-1} \abs{\vec u(t_{k+1}) - \vec u(t_k)}
+  = \sum_{k=1}^{N-1} (t_{k+1}-t_k)\cdot \abs{\vec q-\vec p}
+  = (t_N-t_1)\cdot \abs{\vec q-\vec p}
+  \le \abs{\vec q-\vec p}
+\]
+da cui passando all'estremo superiore si ottiene 
+$\ell(\vec u)\le \abs{\vec q -\vec p}$. 
+
+Viceversa se $\vec v$ è una qualunque curva che congiunge 
+i punti $\vec p$ e $\vec q$ si ha ovviamente 
+\[
+  \ell(\vec v) \ge \ell(\vec v,\ENCLOSE{0,1}) = \abs{\vec q - \vec p}.
+\]
+\end{proof}
 
 \begin{theorem}[additività della lunghezza]
   Siano $a\le b \le c$ e sia $\vec u\colon [a,c]\to \RR^n$ una curva.
@@ -3774,6 +3819,17 @@ inversa
   \ell(\vec u\llcorner[a,b]) + \ell(\vec u\llcorner[b,c])
   \le \ell(\vec u).
 \]
+\end{proof}
+
+\begin{corollary}[monotonia]
+Sia $\vec u\colon[a,b]\to \RR^n$ e sia $c\in [a,b]$. Allora 
+\[
+\ell(\vec u \llcorner [a,c]) \le \ell(\vec u).  
+\]
+\end{corollary}
+\begin{proof}
+Segue dall'additività, visto che la lunghezza di una curva 
+esiste sempre (in $[0,+\infty]$) e non può mai essere negativa.
 \end{proof}
 
 \begin{theorem}[riparametrizzazione]
@@ -3911,18 +3967,23 @@ misura dell'angolo $\alpha$ come
 \[
   \alpha = \ell(\vec u\llcorner [x,1])
 \]
-e in particolare possiamo definire la misura dell'angolo piatto:
-\[
-  \pi = \ell(\vec u).
-\]
+e in particolare possiamo definire la misura dell'angolo piatto: 
+$\pi = \ell(\vec u)$.
+\mymargin{$\pi$}%
+\index{$\pi$!definizione geometrica}%
 
 Dobbiamo però assicurarci che tali misure siano finite.
-\begin{theorem}
+
+\begin{theorem}[rettificabilità della circonferenza trigonometrica]
+\label{th:ell_u}%
 La curva $\vec u\colon [-1,1]\to \RR^2$, $\vec u(t) = (t,\sqrt{1-t^2})$
-è rettificabile, più precisamente si ha:
+è rettificabile. Più precisamente si ha:
 \[
   \pi  = \ell(\vec u) \le 4.  
 \]
+
+Inoltre la funzione $x\mapsto \ell(\vec u\llcorner [x,1])$ 
+è strettamente decrescente e continua.
 \end{theorem}
 \begin{proof}
 
@@ -3951,7 +4012,7 @@ Se ora poniamo $\phi(x,y) = (y,x)$ si ha infatti
 e se poniamo $\psi(t) = \sqrt{1-t^2}$ si nota che 
 $\psi(\psi(t)) = t$ e dunque 
 si ha $\phi(\vec u(t)) = (\psi(t),t)
-=\vec\circ \psi(t)$. 
+=\vec u\circ \psi(t)$. 
 Dunque 
 \[
 \ell(\vec u\llcorner[1/\sqrt 2,1])
@@ -3961,7 +4022,7 @@ Dunque
 \]
 da cui 
 \[
-\pi = \ell(\vec u) = 4 \ell(\vec u \llcorner[0,1/\sqrt 2]).  
+\pi = \ell(\vec u) = 4 \cdot \ell(\vec u \llcorner[0,1/\sqrt 2]).  
 \]
 
 \emph{Passo 2:} 
@@ -3974,8 +4035,8 @@ Se $0 \le s\le t\le 1/\sqrt 2$ si ha
   \le \dots 
 \]
 osservando che se $t\le 1/\sqrt 2$ si ha $1-t^2 \ge 1/2$
-e quindi $\sqrt{1-s^2} \ge \sqrt{1-t^2} \ge 1/\sqrt 2$,
-si ha 
+e $\sqrt{1-s^2} \ge \sqrt{1-t^2} \ge 1/\sqrt 2$
+otteniamo 
 \[
   \dots 
   \le \frac{(t-s)(t+s)}{1/\sqrt 2 + 1/\sqrt 2}
@@ -3984,15 +4045,129 @@ si ha
 Dunque 
 \[
   \abs{\vec u(t)-\vec u(s)}
-  =\sqrt{(t-s)^2 + (\sqrt{1-s^2}-\sqrt{1-t^2})^2}
+  =\sqrt{(t-s)^2 + \enclose{\sqrt{1-s^2}-\sqrt{1-t^2}}^2}
   \le \sqrt{(t-s)^2 + (t-s)^2} \le \sqrt 2 (t-s).  
 \]
 Questo ci permette di concludere che 
 \[
-\pi = 4 \ell(\vec u\llcorner [0,1/\sqrt 2])
-\le 4 \sqrt 2 \cdot \frac{1}{\sqrt 2} = 4.  
+\pi = 4 \cdot \ell(\vec u\llcorner [0,1/\sqrt 2])
+\le 4 \cdot \sqrt 2 \cdot \frac{1}{\sqrt 2} = 4.  
 \]
+
+\emph{Passo 3: monotonia.}
+  La funzione $f(x)=\ell(\vec u\llcorner[x,1])$ 
+  è strettamente decrescente perché se $s<t$ allora 
+  \[
+   \arccos s - \arccos t 
+   = \ell(\vec u\llcorner [s,1]) - \ell(\vec u\llcorner [t,1])  
+   = \ell(\vec u\llcorner [s,t]) 
+   \ge \abs{\vec u(t)-\vec u(s)} 
+   \ge \abs{t-s} > 0.
+  \]
+
+  \emph{Passo 4: continuità.}
+  Chiamiamo $f(x)= \ell(\vec u \llcorner[x,1])$.
+  Nel passo 2 abbiamo mostrato che la funzione $\vec u \llcorner [0,1/\sqrt 2]$ 
+  è $\sqrt 2$-lipschitziana dunque se $0\le s \le t \le 1/\sqrt 2$, si ha 
+  \[
+  f(s)-f(t) = \ell(\vec u\llcorner [s,1]) - \ell(\vec u\llcorner[t,1])
+  = \ell(\vec u \llcorner[s,t]) 
+  \le \sqrt 2\cdot (t-s).
+  \]
+  Dunque pur di prendere $t$ ed $s$ sufficientemente vicini, 
+  la differenza $\abs{f(s)-f(t)}$ può essere resa arbitrariamente piccola,
+  almeno quando $t,s \in [0,1/\sqrt 2]$.
+  Ma nel passo 1 abbiamo già osservato che se $1/\sqrt 2 \le s \le t \le 1$ 
+  si ha 
+  \[
+  f(s)-f(t) 
+  = \ell(\vec u \llcorner [s,t])
+  = \ell(\vec u \llcorner [\sqrt{1-t^2},\sqrt{1-s^2}])  
+  \]
+  e duque se $f$ è continua in $[0,1/\sqrt 2]$ è continua 
+  anche in $[1/\sqrt 2, 1]$. 
+  Di conseguenza $f$ è continua anche su tutto $[0,1]$.
+  Ovviamente sull'intervallo $[-1,0]$ vale lo stesso per simmetria
+  e la funzione risulta essere continua su tutto $[-1,1]$.
 \end{proof}
+
+\begin{exercise}
+Dimostrare che $\pi\ge 2$.
+\end{exercise}
+
+\subsection{definizione geometrica delle funzioni trigonometriche}
+Se $\alpha\in [0,\pi]$
+vogliamo definire le funzioni $\cos \alpha$ e $\sin \alpha$ come le coordinate $x$ 
+e $y$ del punto $\vec u(t)=(t,\sqrt{1-t^2})$ che individua un angolo di lunghezza 
+$\alpha$ rispetto all'asse positivo delle $x$.
+La misura dell'angolo individuato dal punto di coordinate $\vec u(x)$ non è altro che
+lunghezza della curva $\vec u(t)$ con $t\in[x,1]$. 
+Lo chiamiamo
+\[
+  \arccos x = \ell(\vec u\llcorner [x,1])
+\] 
+in quanto si tratta della misura dell'arco di circonferenza trigonometrica che parte 
+dal punto $(1,0)$ ed ha estremo nel punto $\vec u(x)$ e dunque rappresenta 
+l'angolo il cui coseno sarà $x$.
+
+Nel teorema~\ref{th:ell_u} abbiamo dimostrato che 
+$\arccos\colon [-1,1]\to \RR$ è una funzione 
+continua, strettamente decrescente.
+Per il teorema~\ref{th:monotona_continua}
+possiamo dedurre che $I = \arccos([-1,1])$ è un intervallo.
+Ma $\arccos(-1) = \pi$ e $\arccos(1)=0$ sono, 
+per la monotonia di $\arccos$,
+il massimo e il minimo di $I$, dunque $I=[0,\pi]$.
+Dunque $\arccos\colon [-1,1]\to [0,\pi]$ è bigettiva.
+Sempre per il teorema~\ref{th:monotona_continua}
+la funzione inversa $\arccos^{-1}\colon [0,\pi]\to[-1,1]$
+è una funzione strettamente decrescente e continua, 
+con $\arccos^{-1}(0) = 1$ e $\arccos^{-1}(\pi)=-1$.
+
+Se ora consideriamo la curva $\vec v = \vec u \circ \arccos^{-1}$
+dove $\vec u(x)=(x,\sqrt{1-x^2})$ ci possiamo rendere conto 
+che 
+\[
+ \ell(\vec v\llcorner [0,t])  
+ = \ell(\vec u\llcorner[\arccos^{-1} t,\arccos 0])
+ = \arccos ()\arccos^{-1} (t)) = t.
+\]
+Dunque la curva $\vec v\colon[0,\pi]\to\RR^2$ descrive la stessa
+semicirconferenza descritta da $\vec u$ ma in senso antiorario 
+e in modo tale che l'arco trigonometrico dal punto $(1,0)=\vec v(0)$ 
+al punto $\vec v(t)$ ha proprio lunghezza $t$.
+Le coordinate $x$ e $y$ del punto $\vec v(t)$ vengono chiamate 
+coseno e seno dell'arco di lunghezza $t$%
+\marginnote{%
+La lunghezza dell'arco di raggio $1$ individuato 
+da un angolo geometrico si chiama 
+misura \emph{in radianti} dell'angolo.
+Un radiante è quindi la misura di un angolo 
+che individua un arco la cui lunghezza è pari al raggio.
+}:
+\[
+  \vec v(t) = (\cos t, \sin t), \qquad\text{per $t\in[0.\pi]$}.  
+\]
+Per $t>\pi$ vogliamo estendere la curva $\vec v$ proseguendo 
+lungo la semicirconferenza inferiore, ponendo quindi 
+\[
+  \vec v(t) = (\cos (2\pi - t), -\sin (2\pi - t)), \qquad \text{per $t\in[\pi,2\pi]$}.  
+\]
+A questo punto abbiamo $\vec v(2 \pi) = (1,0) = \vec v(0)$, la curva si è chiusa 
+e possiamo quindi continuare periodicamente ponendo $\vec v(t+2 k \pi) = \vec v(t)$ 
+per ogni $k\in \ZZ$ e $t\in[0,2\pi]$.
+Questo definisce la curva per ogni $t\in \RR$ e di conseguenza 
+definisce le funzioni $\cos t$ e $\sin t$ per ogni $t\in \RR$.
+\marginnote{
+  Formalmente potremmo definire  
+  \[
+  \cos x = \arccos^{-1}(2\pi\phi(x/2\pi))  
+  \]
+  dove $\phi(t) =  \frac 1 2 - \abs{t - \lfloor t\rfloor-\frac 1 2}$
+  osservando che $\phi(t)$ ha un grafico a \emph{denti di sega}
+  con periodo $1$ e in modo simile potremmo 
+  definire la funzione $\sin x$.
+}
 
 \section{note storiche}
 
