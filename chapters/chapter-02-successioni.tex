@@ -3679,20 +3679,20 @@ La prima parte di quel capitolo è infatti accessibile con le nozioni
 che sono state sviluppate finora.
 La seconda parte richiederà invece degli strumenti più avanzati.
     
-\section{lunghezza di un curva}
+\section{lunghezza di una linea}
 
 Una funzione $\vec u\colon [a,b]\to \RR^n$ può rappresentare 
 il moto di un punto nello spazio $\RR^n$. 
 Al tempo $t$ il punto si trova nella posizone $\vec u(t)$
 e al variare di $t\in [a,b]$ il punto descrive una traiettoria in $\RR^n$.
 L'immagine di $\vec u$ è l'insieme $\vec u([a,b]) =\ENCLOSE{\vec u(t)\colon t\in[a,b]}$
-e viene chiamato \emph{curva}.
-Impropriamente chiameremo \emph{curva} anche la funzione $\vec u$.
+e viene chiamato \emph{linea} (o \emph{curva}).
+Impropriamente chiameremo \emph{linea} anche la funzione $\vec u$.
 \mynote{%
-Invece che \emph{curva} sarebbe più appropriato 
-il termine \emph{linea}. 
-Visto che trattiamo una generica linea, anche non \emph{retta}, 
-la chiamiamo \emph{linea curva} o più brevemente \emph{curva}.
+In letteratura è più utilizzato il termine \emph{curva} 
+invece che \emph{linea}. 
+Una linea può essere \emph{retta} o \emph{curva} quindi ci 
+sembra inappropriato chiamarla \emph{curva}.
 }
  
 \begin{example}[quadrato]
@@ -3709,7 +3709,7 @@ descrive il moto di un punto lungo i quattro lati
 del quadrato di vertici $(0,0)$, $(1,0)$, $(1,1)$, $(0,1)$:
 \[
  \vec u([0,4]) = \ENCLOSE{(x,y)\in[0,1]\times[0,1]\colon 
- x\in\Enclose{0,1} \lor y \in \Enclose{0,1}}.  
+ x\in\ENCLOSE{0,1} \lor y \in \ENCLOSE{0,1}}.  
 \]
 \end{example}
 
@@ -3721,10 +3721,10 @@ definiamo la loro distanza tramite il teorema di Pitagora:
 \]
 
 \begin{definition}[lunghezza di una linea]
-Sia $\vec u\colon[a,b]\to \RR^n$ una curva.
+Sia $\vec u\colon[a,b]\to \RR^n$ una linea.
 Se $T$ è un sottoinsieme finito di $[a,b]$ con $N$ elementi 
 $T=\ENCLOSE{t_1, \dots, t_N}\subset [a,b]$ e $t_1< t_2 < \dots < t_N$
-possiamo considerare la lunghezza della poligonale che congiunge 
+possiamo considerare la lunghezza della spezzata che congiunge 
 i punti $\vec u(t_1), \vec u(t_2), \dots, \vec u(t_N)$:
 \[
 \ell(\vec u, T) = \sum_{k=1}^{N-1} \abs{\vec u(t_{k+1})-\vec u(t_k)}.  
@@ -3736,21 +3736,26 @@ Definiamo quindi la lunghezza di $\vec u$:
 \]
 
 Chiaramente $\ell(\vec u) \in [0,+\infty]$.
-Se $\ell(\vec u)<+\infty$ diremo che $\vec u$ descrive una curva 
-\emph{rettificabile}.
+Se $\ell(\vec u)<+\infty$ diremo che $\vec u$ descrive una linea 
+\emph{rettificabile}%
+\mynote{%
+Immaginando che la linea sia un filo, possiamo immaginare di tendere 
+il filo in modo da \emph{rettificarlo} e a quel punto la lunghezza 
+della linea rettificata sarà uguale alla lunghezza della linea curva originaria.
+}.
 \end{definition}
 
 \begin{theorem}[proprietà geodetica]
-Dati $\vec p, \vec q\in \RR^n$ la curva retta che congiunge 
+Dati $\vec p, \vec q\in \RR^n$ la linea retta che congiunge 
 $p$ a $q$ può essere descritta dalla funzione 
 $\vec u(t) = (1-t) \vec p + t \vec q$, $\vec u\colon[0,1]\to \RR^n$.
 
-Per tale curva (in realtà: retta) si ha 
+Per tale linea si ha 
 \[
  \ell(\vec u) = \abs{\vec q- \vec p}.
 \]
-Inoltre tale curva è la più breve curva che congiunge $\vec p$ a $\vec q$ 
-in quanto se $\vec v\colon[a,b]\to \RR^n$ è una qualunque curva con 
+Inoltre la linea retta è la più breve linea che congiunge $\vec p$ a $\vec q$ 
+in quanto se $\vec v\colon[a,b]\to \RR^n$ è una qualunque linea con 
 $\vec v(a)=\vec p$ e $\vec v(b)=\vec q$ si ha 
 \[
 \ell(\vec v) \le \abs{\vec q-\vec p}.  
@@ -3758,7 +3763,7 @@ $\vec v(a)=\vec p$ e $\vec v(b)=\vec q$ si ha
 \end{theorem}
 %
 \begin{proof}
-Per la curva \emph{retta} $\vec u$ si osserva che vale:
+Per la linea retta $\vec u$ si osserva che vale:
 \[
   \abs{\vec u(t)-\vec u(s)} 
   = \abs{(1-t - 1+s)\vec p + (t-s)\vec q}
@@ -3775,7 +3780,7 @@ e quindi se $0\le t_1\le t_2\le \dots \le t_N \le 1$ si ha
 da cui passando all'estremo superiore si ottiene 
 $\ell(\vec u)\le \abs{\vec q -\vec p}$. 
 
-Viceversa se $\vec v$ è una qualunque curva che congiunge 
+Viceversa se $\vec v$ è una qualunque linea che congiunge 
 i punti $\vec p$ e $\vec q$ si ha ovviamente 
 \[
   \ell(\vec v) \ge \ell(\vec v,\ENCLOSE{0,1}) = \abs{\vec q - \vec p}.
@@ -3783,7 +3788,7 @@ i punti $\vec p$ e $\vec q$ si ha ovviamente
 \end{proof}
 
 \begin{theorem}[additività della lunghezza]
-  Siano $a\le b \le c$ e sia $\vec u\colon [a,c]\to \RR^n$ una curva.
+  Siano $a\le b \le c$ e sia $\vec u\colon [a,c]\to \RR^n$ una linea.
   Allora%
   \mynote{
   Ricordiamo che $f\llcorner A$ è la restrizione della funzione $f$ 
@@ -3828,13 +3833,13 @@ Sia $\vec u\colon[a,b]\to \RR^n$ e sia $c\in [a,b]$. Allora
 \]
 \end{corollary}
 \begin{proof}
-Segue dall'additività, visto che la lunghezza di una curva 
+Segue dall'additività, visto che la lunghezza di una linea
 esiste sempre (in $[0,+\infty]$) e non può mai essere negativa.
 \end{proof}
 
 \begin{theorem}[riparametrizzazione]
 Sia $\phi\colon [a,b] \to [c,d]$ una funzione bigettiva e monotòna.
-Sia $\vec u \colon [c,d]\to \RR^n$ una curva.
+Sia $\vec u \colon [c,d]\to \RR^n$ una linea.
 Allora 
 \[
  \ell(\vec u \circ \phi) = \ell(\vec u)  
@@ -3874,7 +3879,7 @@ Diremo che una funzione $\vec f\colon A \to \RR^n$
 \]
 \end{definition}
 
-\begin{lemma}[lunghezza curva lipschitziana]
+\begin{lemma}[lunghezza linea lipschitziana]
   Se $\vec u \colon [a,b]\to \RR^n$ è una curva 
   $L$-lipschitziana allora 
   \[
@@ -3892,7 +3897,7 @@ Diremo che una funzione $\vec f\colon A \to \RR^n$
   \end{align*}
 \end{proof}
 
-\begin{lemma}[lunghezza di curve isometriche e omotetiche]
+\begin{lemma}[lunghezza di linee isometriche e omotetiche]
   Se $L\ge 0$, $K\ge 0$ e $\phi\colon \RR^n \to \RR^m$ è una funzione 
   $L$-lipschitizana
   e $\vec u\colon [a,b]\to \RR^n$
@@ -3956,12 +3961,12 @@ e passanti dal punto $(1,0)$ (lungo l'asse delle $x$) e il punto $(x,y)$.
 Possiamo definire tale angolo come la lunghezza della curva che descrive il corrispondente 
 arco di circonferenza.
 
-Dunque consideriamo la curva $\vec u\colon [-1,1]\to \RR^2$ definita da
+Dunque consideriamo la linea $\vec u\colon [-1,1]\to \RR^2$ definita da
 \[
   \vec u(t) = (t,\sqrt{1-t^2}).
 \]
-Chiaramente i punti di questa curva si trovano sulla circonferenza trigonometrica $C$, 
-più precisamente tale curva descrive la semicirconferenza superiore $C\cap\ENCLOSE{y\ge 0}$.
+Chiaramente i punti di questa linea si trovano sulla circonferenza trigonometrica $C$, 
+più precisamente tale linea descrive la semicirconferenza superiore $C\cap\ENCLOSE{y\ge 0}$.
 Dato un punto $\vec u(x) = (x,\sqrt{1-x^2})$ su tale semicirconferenza possiamo definire la 
 misura dell'angolo $\alpha$ come 
 \[
@@ -3976,7 +3981,7 @@ Dobbiamo però assicurarci che tali misure siano finite.
 
 \begin{theorem}[rettificabilità della circonferenza trigonometrica]
 \label{th:ell_u}%
-La curva $\vec u\colon [-1,1]\to \RR^2$, $\vec u(t) = (t,\sqrt{1-t^2})$
+La linea $\vec u\colon [-1,1]\to \RR^2$, $\vec u(t) = (t,\sqrt{1-t^2})$
 è rettificabile. Più precisamente si ha:
 \[
   \pi  = \ell(\vec u) \le 4.  
@@ -4003,7 +4008,7 @@ Posto $\psi(t)=-t$ si ha infatti:
 = \ell(\vec u\llcorner[0,1])
 \]
 da cui $\ell(\vec u) = 2 \ell(\vec u \llcorner[0,1])$.
-Ora osserviamo che la curva $\vec u\llcorner[0,1]$ 
+Ora osserviamo che la linea $\vec u\llcorner[0,1]$ 
 è simmetrica rispetto alla bisettrice $x=y$.
 Se ora poniamo $\phi(x,y) = (y,x)$ si ha infatti 
 \[
@@ -4101,7 +4106,7 @@ vogliamo definire le funzioni $\cos \alpha$ e $\sin \alpha$ come le coordinate $
 e $y$ del punto $\vec u(t)=(t,\sqrt{1-t^2})$ che individua un angolo di lunghezza 
 $\alpha$ rispetto all'asse positivo delle $x$.
 La misura dell'angolo individuato dal punto di coordinate $\vec u(x)$ non è altro che
-lunghezza della curva $\vec u(t)$ con $t\in[x,1]$. 
+lunghezza della linea $\vec u(t)$ con $t\in[x,1]$. 
 Lo chiamiamo
 \[
   \arccos x = \ell(\vec u\llcorner [x,1])
@@ -4124,7 +4129,7 @@ la funzione inversa $\arccos^{-1}\colon [0,\pi]\to[-1,1]$
 è una funzione strettamente decrescente e continua, 
 con $\arccos^{-1}(0) = 1$ e $\arccos^{-1}(\pi)=-1$.
 
-Se ora consideriamo la curva $\vec v = \vec u \circ \arccos^{-1}$
+Se ora consideriamo la linea $\vec v = \vec u \circ \arccos^{-1}$
 dove $\vec u(x)=(x,\sqrt{1-x^2})$ ci possiamo rendere conto 
 che 
 \[
@@ -4132,7 +4137,7 @@ che
  = \ell(\vec u\llcorner[\arccos^{-1} t,\arccos 0])
  = \arccos ()\arccos^{-1} (t)) = t.
 \]
-Dunque la curva $\vec v\colon[0,\pi]\to\RR^2$ descrive la stessa
+Dunque la linea $\vec v\colon[0,\pi]\to\RR^2$ descrive la stessa
 semicirconferenza descritta da $\vec u$ ma in senso antiorario 
 e in modo tale che l'arco trigonometrico dal punto $(1,0)=\vec v(0)$ 
 al punto $\vec v(t)$ ha proprio lunghezza $t$.
@@ -4148,15 +4153,15 @@ che individua un arco la cui lunghezza è pari al raggio.
 \[
   \vec v(t) = (\cos t, \sin t), \qquad\text{per $t\in[0.\pi]$}.  
 \]
-Per $t>\pi$ vogliamo estendere la curva $\vec v$ proseguendo 
+Per $t>\pi$ vogliamo estendere la linea $\vec v$ proseguendo 
 lungo la semicirconferenza inferiore, ponendo quindi 
 \[
   \vec v(t) = (\cos (2\pi - t), -\sin (2\pi - t)), \qquad \text{per $t\in[\pi,2\pi]$}.  
 \]
-A questo punto abbiamo $\vec v(2 \pi) = (1,0) = \vec v(0)$, la curva si è chiusa 
+A questo punto abbiamo $\vec v(2 \pi) = (1,0) = \vec v(0)$, la linea si è chiusa 
 e possiamo quindi continuare periodicamente ponendo $\vec v(t+2 k \pi) = \vec v(t)$ 
 per ogni $k\in \ZZ$ e $t\in[0,2\pi]$.
-Questo definisce la curva per ogni $t\in \RR$ e di conseguenza 
+Questo definisce la linea per ogni $t\in \RR$ e di conseguenza 
 definisce le funzioni $\cos t$ e $\sin t$ per ogni $t\in \RR$.
 \mynote{
   Formalmente potremmo definire  
@@ -4196,7 +4201,7 @@ Il nome $e$ è stato introdotto da Eulero (Leonhard Euler 1707-1783)
 \label{note:isoperimetrico}%
 \index{problema!isoperimetrico}%
 Probabilmente già dal IX secolo a.C.\ era noto ai greci che 
-la circonferenza, tra tutte le curve piane di lunghezza prefissata, 
+la circonferenza, tra tutte le linee piane di lunghezza prefissata, 
 è quella che racchiude la maggiore area (proprietà isoperimetrica).
 Nell'Eneide Virgilio racconta che Didone si trovò ad affrontare 
 un problema simile nella fondazione di Cartagine.
