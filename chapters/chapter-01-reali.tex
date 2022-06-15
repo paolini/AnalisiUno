@@ -69,7 +69,7 @@ Tipicamente i sistemi formali sono \emph{deduttivi}.
 Nei sistemi \emph{deduttivi} si identificano alcune formule che vengono 
 chiamate
  \emph{assiomi} e che vengono immediatamente riconosciuti come teoremi.
-Ad esempio vedremo che il primo assioma della teoria degli insiemi (lo vedremo) è 
+Ad esempio vedremo che il primo assioma della teoria degli insiemi è 
 \[
   \exists X\colon \not \exists y\colon y\in X
 \]
@@ -135,7 +135,7 @@ chiamata \emph{congiunzione logica}%
 \mymargin{congiunzione}%
 \index{congiunzione logica}.
 Tale proposizione
-si può leggere \texttt{$P$ e $Q$} ed è una proposizione
+si può leggere ``$P$ e $Q$'' ed è una proposizione
 che risulta essere vera solamente nel caso in cui sia
 $P$ che $Q$ siano vere
 (si veda la tabella~\ref{tab:verita_operatori_logici}
@@ -203,7 +203,8 @@ $\texttt{F}$ significa \emph{falso}, $\texttt{V}$ significa \emph{vero}.}
 
 \begin{table}
 \begin{tabular}{rcll}
-                         &$P \lor \neg P$&                                       &terzo escluso \\
+                          &$\neg (P \land \neg P)$&                              & non contraddizione \\
+                         &$P \lor \neg P$&                                       & terzo escluso \\
                          $\neg \neg P$ & $\iff$ & $ P$                           & doppia negazione\\
                                     $P \land Q$ & $\iff$ & $ Q \land P$                   & simmetria\\
                                      $P \lor Q$ & $\iff$ & $ Q \lor P$                    & \\
@@ -214,7 +215,7 @@ $\texttt{F}$ significa \emph{falso}, $\texttt{V}$ significa \emph{vero}.}
                             $(P \Rightarrow Q)$ & $\iff$ & $ (Q \Leftarrow P)$            & antisimmetria\\
                             $(P\Rightarrow Q)$ & $\iff$ & $ (\neg Q\Rightarrow\neg P)$   & implicazione contropositiva\\
                         $\neg (P\Rightarrow Q)$ & $\iff$ & $ P \land (\neg Q)$            & controesempio\\
-                             $(P\Rightarrow Q)$ & $\iff$ & $ \lnot(P \land (\neg Q))$     & dimostrazione per assurdo
+                             $P\Rightarrow Q$ & $\iff$ & $ \lnot(P \land (\neg Q))$     & dimostrazione per assurdo
 \end{tabular}
 \caption{Alcune proprietà degli operatori logici. Queste proposizioni sono tutte vere qualunque siano i valori di verità delle proposizioni $P$ e $Q$. In particolare le equivalenze logiche ci dicono che le proposizioni ai due lati dell'equivalenza assumono sempre lo stesso valore di verità e quindi sono interscambiabili.}
 \label{tab:operatori_logici}
@@ -225,7 +226,7 @@ $\texttt{F}$ significa \emph{falso}, $\texttt{V}$ significa \emph{vero}.}
 Un \emph{predicato}%
 \mymargin{predicato}%
 \index{predicato} è una proposizione che contiene
-una o più variabili, il cui valore di verità, quindi,
+una o più variabili il cui valore di verità, quindi,
 può dipendere dal valore assegnato alle variabili.
 Un esempio di predicato è $x+2=5$ che risulta essere vero se $x=3$
 e falso altrimenti.
@@ -271,6 +272,10 @@ invece è falsa:
 \forall x\colon \exists y\colon x+2=y \\
 \exists y\colon \forall x\colon x+2=y.
 \end{gather*}
+Intuitivamente la prima affermazione ci dice che per ogni numero $x$ 
+esiste un numero $y$ che differisce di $2$ da $x$.
+La seconda ci dice che c'è un numero $y$ che differisce di $2$ 
+da qualunque numero $x$.
 
 \begin{table}
 \begin{center}
@@ -349,22 +354,39 @@ abbreviata con $x \not \in A$.
 
 Sempre utilizzando la semplice relazione di appartenenza possiamo definire
 le relazioni di inclusione e uguaglianza tra insiemi:
-$A \subset B$ si legge ``$A$ è un sottoinsieme di $B$''
-e $A=B$ si legge ``$A$ è uguale a $B$''. Queste relazioni sono
-definite dalle seguenti proprietà:
+$A \subset B$ si legge ``$A$ è un sottoinsieme di $B$'',
+$A \supset B$ si legge ``$A$ è un sovrainsieme di $B$''
+e $A=B$ si legge ``$A$ è uguale a $B$''. 
+Queste relazioni sono definite dalle seguenti proprietà:
 \begin{align*}
   A \subset B &\iff \forall x\colon (x\in A \implies x\in B)\\
+  A \supset B &\iff \forall x\colon (x\in A \implied x\in B)\\
   A = B &\iff \forall x\colon (x\in A \iff x \in B).
 \end{align*}
 A parole diremo che $A$ è un sottoinsieme di $B$, 
 $A \subset B$, se ogni elemento di $A$ è anche elemento di $B$.
 Diremo che $A$ e $B$ sono uguali, $A=B$, 
 se $A$ e $B$ hanno gli stessi elementi.
-Ovviamente la relazione $A \subset B$ può essere invertita: scriveremo
-$A\supset B$ (che si può leggere: ``$A$ è un soprainsieme di $B$'')
-per indicare $B \subset A$. Scriveremo anche $A \neq B$ per indicare
+Ovviamente la relazione $\supset$ non è altro 
+che la relazione inversa di $\subset$ cioè risulta 
+$A\supset B$ se e solo se $B\subset A$.
+Scriveremo anche $A \neq B$ per indicare
 la relazione opposta dell'uguaglianza ovvero: $\lnot(A=B)$.
 Si noti che $A=B$ è equivalente a $(A\subset B) \land (B\subset A)$.
+
+La relazione $A \subset B$ significa che ogni elemento di $A$ 
+è anche elemento di $B$ e quindi non ci sono elementi di $A$ che non stiano 
+in $B$ cioè $A$ non è più grande di $B$. 
+Come statagemma mnemonico si osservi che il simbolo 
+$\subset$ è orientato in modo che l'insieme più piccolo 
+stia dal lato più stretto della relazione così come 
+nella disuguaglianza $3 \le 5$ il numero più piccolo 
+sta dal lato più stretto del simbolo $\le$.
+Per dimostrare che la relazione $A \subset B$ è vera 
+bisognerà prendere un qualunque elemento di $A$ e dimostrare 
+che tale elemento è anche elemento di $B$.
+Per dimostrare che value l'uguaglianza $A=B$ tipicamente si procede 
+dimostrando separatamente le due inclusioni $A\subset B$ e $B\subset A$.
 
 Risulta molto utile la possibilità di costruire insiemi di insiemi.
 Per questo motivo la teoria degli insiemi usualmente non fa distinzione
@@ -438,6 +460,7 @@ che
 \begin{exercise}
   Verificare \eqref{eq:4775523} utilizzando le definizioni formali date in precedenza.
 \end{exercise}
+\begin{comment}
 \begin{proof}[Svolgimento.]
 Utilizzando le definizioni di unione, di singoletto e di disgiunzione logica
 si ha l'equivalenza dei seguenti
@@ -452,9 +475,11 @@ predicati:
 \end{gather*}
 e dunque $\ENCLOSE{a,a}=\ENCLOSE{a}$ per la definizione di uguaglianza tra insiemi.
 \end{proof}
+\end{comment}
 
 Se $P(x)$ è un predicato in una sola variabile $x$ vorremmo poter
-definire l'insieme di tutti gli oggetti che rendono vero il predicato $P(x)$.
+definire l'insieme di tutti gli oggetti $x$ 
+che rendono vero il predicato $P$.
 Sorprendentemente se aggiungessimo questo assioma 
 (chiamato assioma di specificazione ingenua) nella teoria degli insiemi
 avremmo un paradosso%
@@ -488,8 +513,8 @@ Allora si ottiene un assurdo.
     R \in R 
     \iff R\not \in R
   \]
-  che è in contraddizione con il principio del terzo escluso
-  (un predicato non può essere equivalente alla sua negazione).
+  in contrasto con il principio di non contraddizione
+  (un predicato e la sua negazione non possono essere entrambi veri).
 \end{proof}
 
 Per evitare l'incoerenza è necessario limitare l'\emph{assioma di specificazione}
@@ -504,6 +529,23 @@ alla costruzione di sottoinsiemi di insiemi già costruiti.
   a \in \ENCLOSE{x\in B\colon P(x)} \iff (a \in B \land P(a)).
 \]
 \end{axiom}
+
+Se ora proviamo a ripetere il ragionamento di Russell dato un insieme $A$ 
+possiamo costruire l'insieme $R=\ENCLOSE{x\in A\colon x\not \in x}$
+e scopriremmo che non può essere $R\in R$ 
+(altrimenti dovrebbe essere $R\not \in R$ assurdo).
+Ma potrebbe benissimo essere $R\not \in R$ se inoltre $R\not \in A$.
+Dunque si deduce che dato qualunque insieme $A$ c'è un insieme 
+che non è elemento di $A$: dobbiamo quindi rassegnarci al fatto che non
+esiste un insieme \emph{universo} contenente qualunque altro insieme,
+ma almeno non otteniamo una contraddizione%
+\mynote{%
+D'altra parte non possiamo comunque escludere che una contraddizione 
+esista. 
+Infatti Goedel ha dimostrato che non è possibile dimostrare che 
+non ci siano contraddizioni nel sistema assiomatico da noi considerato.
+}.
+
 
 Per completare la teoria degli insiemi introduciamo anche il concetto di
 \emph{insieme delle parti}%
@@ -574,10 +616,12 @@ delle $x$ vanno in $A$ e proiettati sull'asse delle $y$ vanno in $B$
 Una \emph{relazione}%
 \mymargin{relazione}%
 \index{relazione} $R$ tra gli elementi di un insieme $A$ e gli elementi
-di un insieme $B$ non è altro che un sottoinsieme di $A\times B$.
+di un insieme $B$ non è altro che un sottoinsieme di $A\times B$
+ovvero $R\in \mathcal P(A\times B)$.
 Per una relazione $R\subset A\times B$ si userà la notazione infissa
 $aRb$ per indicare $(a,b)\in R$.
-Con la notazione delle freccie potremo scrivere $a \stackrel R \mapsto b$
+Oppure con la notazione delle freccie potremo 
+scrivere $a \stackrel R \mapsto b$
 per indicare che la freccia $a\mapsto b$ è un elemento di $R$. 
 Ad esempio se prendo $A=B=\ENCLOSE{1,2,3}$ e considero la relazione 
 $R=\ENCLOSE{(1,2),(1,3),(2,3)}$
@@ -586,7 +630,7 @@ tre numeri considerati.
 
 \begin{definition}[relazione di equivalenza]
 \label{def:equivalenza}%
-Se $R\subset A\times A$ è una relazione sull'insieme $A$, diremo che 
+Sia $R\subset A\times A$ una relazione sull'insieme $A$. Diremo che 
 $R$ è una \emph{relazione di equivalenza}%
 \mymargin{relazione di equivalenza}%
 \index{relazione!di equivalenza} se valgono le seguenti proprietà
@@ -598,7 +642,7 @@ per ogni $x,y,z\in A$:
   \item transitiva: se $x R y$ e $yRz$ allora $x R z$.
 \end{enumerate}
 Se $R$ è una relazione di equivalenza diremo che $x$ è equivalente a $y$ 
-(tramite $R$) se $xRy$.
+(tramite $R$) quando $xRy$.
 Dato $x \in A$ l'insieme di tutti gli elementi di $A$ che sono equivalenti 
 a $y$ si chiama \emph{classe di equivalenza}%
 \mymargin{classe di equivalenza}%
@@ -610,7 +654,8 @@ Si definisce in questo modo:
 Se $R$ è una relazione di equivalenza su $A$ definiamo 
 l'\emph{insieme quoziente}%
 \mymargin{insieme quoziente}%
-\index{insieme!quoziente}
+\index{insieme!quoziente}%
+$A/R$
 come l'insieme di tutte le classi di equivalenza:
 \[
  A/R 
