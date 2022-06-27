@@ -5,7 +5,7 @@ echo "writing file" ${out}
 echo "" > ${out}
 
 # extracting documentation from latex source
-grep "%% README" chapters/AnalisiUno-00*.tex | cut -f1 -d"%" | sed "s/\\\\emph{\\([^}]*\\)}/\\*\\1\\*/g" >> ${out}
+grep "%% README" chapters/*-00*.tex | cut -f1 -d"%" | sed "s/\\\\emph{\\([^}]*\\)}/\\*\\1\\*/g" >> ${out}
 
 # writing additional info for the repository
 cat << EOF >> ${out} 
@@ -54,6 +54,23 @@ MathJax.Hub.Config({
   src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
 <title>Emanuele Paolini: Analisi Matematica Uno</title>
+
+<!-- Matomo -->
+<script>
+  var _paq = window._paq = window._paq || [];
+  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//matomo.matb.it/";
+    _paq.push(['setTrackerUrl', u+'matomo.php']);
+    _paq.push(['setSiteId', '3']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<!-- End Matomo Code -->
+
 </head>
 <body>
 <h1>Appunti di Analisi Matematica Uno</h1>
@@ -112,7 +129,7 @@ MathJax.Hub.Config({
 <p>
 EOF
 
-grep "%% README" chapters/AnalisiUno-00*.tex \
+grep "%% README" chapters/*-00-*.tex \
   | cut -f1 -d"%" \
   | sed "s/^ *$/<\/p><p>/g" \
   | sed "s/\\\\emph{\\([^}]*\\)}/<i>\\1<\\/i>/g" \
