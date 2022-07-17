@@ -4434,7 +4434,7 @@ In effetti con le nostre definizioni una funzione crescente può essere costante
 e quindi non crescere affatto!
 
 \begin{theorem}[isofomorfismi di gruppi ordinati]
-\label{th:isomorfismo}%
+C
 Siano $R$ ed $S$ due gruppi
 con elementi neutri $e_R$ ed $e_S$ e denotiamo con $*$ (asterisco) l'operazione di gruppo su $R$ 
 e con $\circ$ (circoletto) l'operazione di gruppo su $S$.
@@ -6143,16 +6143,31 @@ giustapponendo uno di seguito all'altro gli angoli individuati
 dal punto $z$ e dal punto $w$ abbia misura pari alla somma delle misure 
 degli angoli individuati da $z$ e da $w$.
 Per fare questo gli angoli devono essere definiti con segno e \emph{molteplicità}.
+
 L'idea intuitiva è quella di pensare alla retta reale $\RR$ come un filo 
-elastico che viene arrotolato su $U$ in senso antiorario in modo che il punto $0\in \RR$ 
-si sovrapponga al punto $1\in \CC$, il punto $1\in \RR$ vada invece a sovrapporsi 
-al punto $-1\in \CC$ (l'angolo piatto, di 180 gradi) e tutti gli altri punti vadano 
-a posizionarsi su $U$ in modo che la tensione dell'elastico sia costante, 
-ovvero in modo che l'angolo individuato tra due punti della retta abbia misura 
-proporzionale alla lunghezza del segmento tra i due punti.
+elastico che viene arrotolato su $U$ in modo che il punto $0\in \RR$ 
+si sovrapponga al punto $1\in \CC$ e poi, avvolgendo il filo in senso antiorario 
+si vada a completare un giro sovrapponendo il punto $1\in \RR$ di nuovo sul punto 
+$1\in \CC$. 
+Usando il teorema degli isomorfismi di gruppi ordinati si riuscira a definire 
+questa corrispondenza in modo che l'addizione su $\RR$ corrisponda alla moltiplicazione 
+su $U\subset \CC$. 
+Visto che la moltiplicazione per un numero unitario su $\CC$ rappresenta 
+una rotazione pari all'angolo identificato dal numero complesso, 
+quello che si ottiene è una corrispondenza tra $\RR$ e $U$ in cui 
+segmenti congruenti in $\RR$ corrispondono ad angoli congruenti in $U$.
+La proprietà di isomorfismo si può interpretare pensando che l'elastico 
+viene avvolto con una tensione costante. 
+
+L'insieme $U$ eredita la struttura di gruppo moltiplicativo di $\CC$: se $z,w\in U$ 
+allora $z\cdot w \in \U$ in quanto $\abs{z\cdot w} = \abs{z}\cdot \abs{w} = 1$
+essendo $\abs{z}=\abs{w}=1$. Purtroppo però non è possibile mettere su $U$ 
+un ordinamento compatibile con l'operazione di gruppo: intuitivamente 
+quando mi muovo su $U$ in senso antiorario mi ritrovo a ripercorrere più volte 
+la stessa circonferenza.
 
 Per distinguere i diversi avvolgimenti costruiamo infinite copie identiche di $U$,
-le tagliamo tutte nel punto $-1\in \CC$ (l'angolo di 180 gradi) e li attacchiamo 
+le tagliamo tutte nel punto $1\in \CC$ e li attacchiamo 
 uno di seguito all'altro come per ottenere una molla.
 Formalmente definiamo 
 $$
@@ -6160,47 +6175,168 @@ $$
 $$
 e ordiniamo i punti $(k,z)$ di $G$ prima secondo $k$ 
 (che rappresenta il numero di avvolgimento) e poi ordinando i punti di $U$ 
-partendo da $-1\in \CC$ passando da $-i$, da $1$, da $i$ fino a tornare a $-1$
+partendo da $1\in \CC$ passando da $i$, da $-1$, da $-i$ fino a tornare a $1$
 senza però toccarlo:
 \[
-  (k_1, x_1+iy_1) < (k_2, x_2+iy_2) 
+  (k_1, x_1+iy_1) \stackrel G< (k_2, x_2+iy_2) 
   \iff 
   \begin{cases}
     \text{$k_1 < k_2$, oppure} \\
-    \text{$k_1 = k_2$ e}
+    \text{$k_1=k_2$, $y_1<0$, $y_2<0$ e $x_1<x_2$, oppure} \\
+    \text{$k_1 = k_2$ e $y_1\ge 0$ e }
     \begin{cases}
-        \text{$y_2>0$ e $y_1\le 0$, oppure} \\
-        \text{$y_2>0$, $y_1>0$ e $x_2<x_1$, oppure} \\
-        \text{$y_2\le 0$, $y_1\le 0$ e $x_2>x_1$.}
-    \end{cases}
+      y_2<0 \text{ oppure}\\
+      x_1 > x_2
+    \end{cases} \\
   \end{cases}
 \]
+(se i due punti sono su due \emph{spire} diverse viene prima quello 
+sulla prima spira, se sono sulla stesso spira ed entrambi nella parte 
+inferiore basta guarda la coordinata $x$, 
+se invece sono nella stessa spira ma uno sopra e uno sotto l'asse delle $x$, 
+quello sopra deve essre il primo dei due e l'altro deve stare sotto 
+oppure avere una coordinata $x$ inferiore).
 Definiamo quindi una operazione di addizione su $G$ preservando 
 l'idea di sommare gli angoli geometrici con orientazione e 
-molteplicità:
-\[
-(k_1,z_1) + (k_2,z_2) 
+molteplicità. 
+Posto $z_1=x_1+iy_1$ e $z_2=x_2+iy_2$
+definiamo
+\begin{equation}\label{eq:somma_su_G}
+(k_1,z_1) \stackrel G+ (k_2,z_2) 
 = 
 \begin{cases} 
-  (k_1+k_2+1, z_1\cdot z_2) & 
-  \text{se $y_1>0$, $y_2>0$ e $\Im (z_1\cdot z_2)\le 0$}\\
-  (k_1+k_2-1, z_1\cdot z_2) & 
-  \text{se $y_1<0$, $y_2<0$ e $\Im (z_1\cdot z_2)>0$}\\
-  (k_1+k_2, z_1\cdot z_2) & 
-  \text{altrimenti} \\
+  \scriptstyle(k_1+k_2+1, z_1\cdot z_2) & 
+  \begin{cases}
+    \text{se $y_1<0$ e $y_2<0$ oppure }\\
+    \text{se $y_1<0$ e $y_2\ge 0$ e $\Im (z_1\cdot z_2)\ge 0$ oppure }\\
+    \text{se $y_2<0$ e $y_1\ge 0$ e $\Im (z_1\cdot z_2)\ge 0$}
+  \end{cases} \\
+  \scriptstyle(k_1+k_2, z_1\cdot z_2) & \text{altrimenti}
 \end{cases}
-\]
-avendo posto $z_1=x_1+iy_1$ e $z_2=x_2+iy_2$.
+\end{equation}
+(la somma dei due \emph{angoli} va nell'avvolgimento 
+successivo se entrambi i punti stanno sotto l'asse delle $x$ oppure 
+uno sta sopra e uno sotto e il loro prodotto non rimane sotto).
 
-\begin{theorem}[avvolgimento sulla circonferenza]
+\begin{theorem}[ordinamento su $\ZZ\times U$]%
+  \label{th:gruppo_su_U}%
 L'insieme $G=\ZZ \times U$ con l'ordinamento 
 e l'addizione sopra definiti, risulta essere un gruppo 
 totalmente ordinato, divisibile e continuo.
 \end{theorem}
 
 \begin{proof}
-  Lavori in corso.
+  Da fare...
 \end{proof}
+
+\begin{theorem}[omomorfismo su $U$]%
+  \label{th:omomorfismo_U}%
+Esiste una unica funzione 
+\[
+ \phi\colon \RR \to \CC  
+\]
+con le seguenti proprietà:
+\begin{enumerate}
+  \item $\phi(x+y) = \phi(x)\cdot \phi(y)$ per ogni $x,y\in\RR$;
+  \item $\phi(1) = 1$;
+  \item la funzione $f\colon\closeinterval{0}{\frac 1 4}\to \CC$
+  è crescente.
+\end{enumerate}
+
+Inoltre 
+$\phi$ è $1$-periodica ovvero per ogni $x\in \RR$:
+  \[
+      \phi(x+1) = \phi(x)
+  \]
+ed è strettamente crescente sull'intervallo $\closeinterval{-\frac 1 4}{\frac 1 4}$.
+\end{theorem}
+%
+\begin{proof}
+  Consideriamo il gruppo $G$ definito nel teorema~\ref{th:gruppo_su_U}.
+  In base al teorema~\ref{th:isomorfismo} esiste una unica funzione strettamente crescente 
+  $f\colon \RR \to G$ tale che $f(x+y) = f(x)+_G f(y)$ e 
+  $f(1/4)=(0,i)\in G$
+  (quest'ultima condizione significa che l'angolo retto, rappresentato dal 
+  numero complesso $i$, vogliamo ottenerlo ad un quarto di giro). 
+  L'elemento neutro va necessariamente nell'elemento neutro quindi
+  si avrà $f(0)=(0,1)$
+  Tale funzione avrà due componenti: $f(x) = (\psi(x),\phi(x))$
+  con $\psi\colon \RR\to\ZZ$ e $\phi\colon \RR\to U\subset \CC$ 
+  (quest'ultima è la funzione che ci interessa).
+  Guardando la seconda componente dell'uguaglianza $f(x+y) = f(x)+_G f(y)$ 
+  ricordando la definizione~\eqref{eq:somma_su_G}
+  si deduce che $\phi(x+y) = \phi(x)\cdot \phi(y)$. 
+  Mentre se guardiamo la seconda componente di $f(0)=(0,1)$ 
+  e di $f(1/4) = (0,i)$ deduciamo che $\phi(0) = 1$ e $\phi(1/4) = i$.
+  Per additività otteniamo 
+  $\phi(1/2)=\phi(1/4+1/4)= \phi(1/4)^2 = i^2=-1$ 
+  e analogamente $\phi(1) = \phi(1/2)^2 = (-1)^2 = 1$.
+  Sempre per additività sappiamo che $\phi(-x) = 1/\phi(x)$ 
+  e dunque $\phi(-1/4)=-i$, $\phi(-1/2)=-1$, $\phi(-1)=1$.
+  
+  Guardiamo alla monotonia. 
+  Se $x,y\in \closeinterval{0}{1/4}$ 
+  si ha che $\phi(x)$ e $\phi(y)$ sono non inferiori (in $G$)
+  a $\phi(0)=(0,1)$ e non superiori a $\phi(1/4)=(0,i)$.
+  Se $x<y$ si ha $f(x) \stackrel G< f(y)$ e 
+  guardando l'ordinamento di $G$ in questo intervallo, deduciamo
+  che $\Re f(y) < \Re f(x)$. 
+  Ma visto che $\Im f(x) = \sqrt{1-\Re^2 f(x)}$ (e lo stesso per $y$)
+  si deduce che $\Im f(x) < \Im f(y)$ e dunque $\Im f$ è
+  strettamente crescente su $\closeinterval{0}{1/4}$.
+  Per simmetria la monotonia rimane valida su 
+  tutto $\closeinterval{-1/4}{1/4}$, come volevamo dimostrare.
+  
+  Per l'unicità osserviamo che se $\tilde\phi\colon\RR\to U$ è una funzione 
+  con le proprietà richieste allora si può definire 
+  $\tilde f\colon \RR \to G$ ponendo $\tilde f(x) = (\lfloor x\rfloor, \tilde \phi(x))$.
+  Si può verificare che $\tilde f$ è additiva, $\tilde f(1)=(1, 1)$ 
+  e $\tilde f$ è crescente su $[-1/4,1/4]$. 
+  Dunque, per il teorema~\ref{th:isomorfismo}, $\tilde f = f$ 
+  per unicità dell'isomorfismo.
+
+  Per dimostrare che $\phi$ è $1$-periodica 
+  basta osservare che essendo $\phi(1)=1$, 
+  per additività si ha $\phi(x+1) = \phi(x)\cdot \phi(1) = \phi(x)$.
+\end{proof}
+
+Avendo definito la funzione $\phi\colon \RR\to U$ grazie 
+al teorema~\ref{th:omomorfismo_U} possiamo definire le 
+funzioni trigonometriche. 
+Scelta una unità di misura $\tau > 0$ per l'angolo giro\mynote{%
+si potrebbe ora porre $\tau=360$ ma quando avremo 
+definito $\pi$ vedremo che sarà più naturale scegliere 
+$\tau = 2\pi$}
+possiamo definire le funzioni $\cos, \sin \colon \RR \to \RR$ come 
+\[
+ \cos x = \Re \phi(x/\tau), \qquad
+ \sin x = \Im \phi(x/\tau).
+\]
+Visto che $\abs{phi(x/\tau)}^2=1$ si ha $1 = \abs{\cos x + i \sin x}$ da cui 
+si ottiene la \emph{formula fondamentale della trigonometria:}
+\[
+\cos^2 x + \sin^2 y = 1.  
+\]  
+Dall'additività di $\phi$ si ha
+\begin{align*}
+  \cos(x+y) + i\sin(x+y)
+  &= \phi\frac{x+y}{\tau} 
+  = \phi(x/\tau) \cdot \phi(y/\tau)\\
+  &= (\cos x + i\sin x) \cdot (\cos y + i \sin y)\\
+  &= \cos x\cos y - \sin x \sin y + i (\sin x\cos y + \cos x \sin y)
+\end{align*}
+e quindi si ottengono le \emph{formule di addizione} 
+per le funzioni trigonometriche:
+\[
+\cos(x+y) = \cos x\cos y - \sin x \sin y, \qquad 
+\sin(x+y) = \sin x \cos y + \cos x\sin y.  
+\]
+Infine essendo $\phi$ una funzione di periodo $1$ le funzioni $\sin x$ 
+e $\cos x$ risultano avere periodo $\tau$.
+Per quanto riguarda la monotonia, sappiamo che 
+la funzione $\sin x = \Im f(x/\tau)$ è 
+strettamente crescente se $x\in\closeinterval{-\frac \tau 4}{\frac \tau 4}$.
+
 
 \section{note storiche}
 
