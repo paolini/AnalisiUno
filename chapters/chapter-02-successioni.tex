@@ -1884,7 +1884,8 @@ La costante a cui possiamo dare significato è invece l'aumento relativo
 istantaneo della popolazione. Possiamo infatti supporre che
 se lasciamo la popolazione crescere per un tempo $\Delta t$ molto piccolo,
 si otterrà un aumento di popolazione proporzionale al tempo $\Delta t$
-(stiamo qui anticipando il concetto di derivata) e alla popolazione:
+e alla popolazione:%
+\mynote{stiamo qui anticipando il concetto di derivata}
 \begin{equation}\label{eq:488464}
   q(\Delta t,c) = c + r c \Delta t = (1+r \Delta t) c.
 \end{equation}
@@ -2167,11 +2168,13 @@ $e$ viene chiamato \emph{logaritmo naturale}%
 \index{logaritmo!naturale} e viene indicato con $\ln = \log_e$.
 \end{definition}
 
+\mynote{%
 In alcuni testi si utilizza l'operatore $\log$, indicato senza una base esplicita,
 ma la definizione non è completamente condivisa.
 In certi testi (per lo più in ambito matematico)
 si definisce $\log  = \ln = \log_e$,
 in altri testi si considera $\log = \log_{10}$.
+}
 
 \begin{corollary}[limiti notevoli]\label{cor:limite_notevole_e}
 \mymark{*}%
@@ -2587,6 +2590,285 @@ Calcolare i seguenti limiti
 \begin{exercise}
   Dimostrare che $\sqrt[n]{n}\to 1$ per $n\to +\infty$.
 \end{exercise}
+
+
+
+%%%%%%%%%%%
+%%%%%%%%%%%
+\section{funzioni trigonometriche, $\pi$}
+%%%%%%%%%%%
+%%%%%%%%%%%
+
+Nel capitolo~\ref{sec:avvolgimento} abbiamo definito le 
+funzioni $\sin$ e $\cos\colon \RR\to \RR$ con periodo $\tau>0$ (arbitrario)
+in modo tale che la funzione $\phi\colon \RR\to\RR^2$, $\phi(t)=(\cos t, \sin t)$ 
+percorra, avvolgendosi in senso antiorario, la circonferenza 
+unitaria $\ENCLOSE{(x,y)\in \RR^2\colon x^2+y^2=1}$.
+Tale funzione descrive in effetti un moto circolare uniforme 
+in quanto percorre archi congruenti in tempi uguali.
+
+Vogliamo ora mostrare che è possibile scegliere la costante $\tau$
+\mynote{ricordiamo che $\tau$ è il periodo delle funzioni $\phi$,
+$\cos$ e $\sin$}
+in modo tale che la curva $\phi$ percorra la circonferenza 
+con \emph{velocità} unitaria.
+Se seguo il punto $f(t)$ a partire dall'istante $t=0$ per un breve tempo $\Delta t\neq 0$
+osservo che il punto si sposta tra $f(0) = (1,0)$ e 
+$f(\delta t) = (\cos \delta t, \sin \delta t)$.
+Intuitivamente quando $t=0$ il punto $f(t)$ si muove verticalmente, 
+verso l'alto. 
+Lo spazio percorso $\Delta s$ sarà quindi approssimativamente 
+uguale alla variazione della coordinata $y$: 
+$\Delta y = \sin \Delta t$.
+\mynote{ricordiamo che $\sin 0 = 0$}
+Dunque la velocità sarà pari alla componente verticale della velocità 
+e sarà, intuitivamente, il limite di $\frac{\delta y}{\delta t}$ ovvero 
+\mynote{vedremo tra poco che questo limite è la  
+\emph{derivata} della funzione $f$ nel punto $t=0$}
+\[
+\lim_{\Delta t\to 0} \frac{\sin(\delta t)}{t}.  
+\]
+
+Dal punto di vista formale non è del tutto ovvio che questo limite esista.
+Nel seguito lo dimostriamo, con un metodo molto simile a quello utilizzato 
+per definire la costante $e$ di Nepero.
+In effetti si può intuire che così come l'esponenziale reale $x\mapsto a^x$ 
+è un isomorfismo tra il gruppo additivo di $\RR$ e il gruppo moltiplicativo 
+di $\RR^+$, così la funzione $\phi(t) = (\cos(t), \sin(t))$ 
+risulta essere un isomorfismo 
+tra il gruppo additivo $\RR$ e il gruppo delle rotazioni del piano che può essere 
+rappresentato dall'insieme $U$ dei numeri complessi unitari.
+Abbiamo già visto che affinche la curva $a^x$ abbia velocità $1$ per $x=0$ 
+si deve porre $a=e$, la base dei logaritmi naturali.
+Allo stesso modo vedremo ora che affinché la velocità della curva $\phi(t)$ 
+sia anch'essa unitaria bisognerà scegliere $\tau = 2\pi$.
+Mettendo assieme i due isomorfismi $e^t$ e $\phi(t)$ si potrà definire,
+come vedremo tra poco, un isomorfismo tra $\CC$ come gruppo additivo e 
+$\CC$ come gruppo moltiplicativo: l'esponenziale complesso $z\mapsto e^z$. 
+La velocità di $\phi(t)$ rappresenta in effetti la derivata di tale funzione 
+complessa nel punto $1$ nella direzione dell'asse immaginario 
+così come la derivata della funzione esponenziale reale è la derivata 
+nella direzione reale. 
+Si intuisce così come le costanti fondamentali $e$ e $\pi$ siano determinanti 
+nel fare sì che tale funzione complessa sia derivabile in senso complesso 
+ed abbia derivata $1$.
+
+\begin{theorem}[limite notevole $\sin$]
+Per ogni $x\in \RR$, $x\neq 0$, la successione
+\[
+    \frac{\sin \frac xn} {\frac xn}
+\]
+converge ad un limite positivo (e finito).
+\end{theorem}
+%
+\begin{proof}
+Faremo uso della funzione $\tan x= \frac{\sin x}{\cos x}$.
+Useremo le formule di addizione:
+\[
+ \sin(x+y) = \sin x\cos y + \cos x \sin y,
+ \cos(x+y) = \cos x \cos y - \sin x \sin y  
+\]
+da cui, facendo il rapporto e moltiplicando numeratore 
+e denominatore per $\cos x \cos y$ si ottiene:
+\[
+  \tan(x+y) = \frac{\tan x + \tan y}{1-\tan x \tan y}.
+\]
+Useremo anche il fatto che sull'intervallo 
+$\closeinterval{0}{\frac \tau 4}$
+\mynote{ricordiamo che $\tau$ è il periodo (scelto arbitrariamente)
+delle funzioni $\sin$ e $\cos$} 
+la funzione $\sin$ è crescente, la funzione $\cos $
+è decrescente ed entrambe hanno valori compresi 
+tra $0$ e $1$.
+
+\emph{Passo 1:}
+Vogliamo dimostrare che se $n$ è un intero positivo 
+e $x>0$ è tale che $0\le nx <\frac \tau 4$ allora si ha
+\begin{equation}\label{eq:4813509}
+  \sin n x \le n\sin x\le \tan nx.
+\end{equation}
+Lo possiamo dimostrare per induzione con $x\in\closeopeninterval{0}{\frac \tau 4}$
+fissato.
+Se $n=1$ è ovvio.
+Supponiamo allora che \eqref{eq:4813509} 
+sia valida per un certo $n$ e che  
+sia $(n+1)x<\frac \tau 4$. 
+Allora da un lato si ha
+\begin{align*}
+  \sin (n+1)x 
+  &= \sin nx \cdot \cos nx + \cos nx\sin x
+  \le \sin nx + \sin y
+\end{align*}
+e usando l'ipotesi induttiva $\sin nx\le n\sin x$ 
+si ottiene 
+\[
+ \sin(n+1)x \le n\sin x+\sin x = (n+1)\sin x  
+\]
+che è la prima disuguaglianza che dovevamo dimostrare.
+Per l'altra disuguaglianza osserviamo che si ha 
+\begin{align*}
+  \tan(n+1)x 
+  &= \frac{\tan nx + \tan x}{1-\tan nx \tan x}
+  \ge \tan nx + \tan x
+  \ge \tan nx + \sin x
+\end{align*}
+e applicando l'ipotesi induttiva 
+$\tan nx\ge n\sin x$ si ottiene 
+\[
+ \tan(n+1)x 
+ \ge n\sin x +\sin x 
+ =   (n+1)\sin x
+\]
+come volevamo dimostrare.
+
+\emph{Passo 2:}
+dimostriamo che fissato $x\in \openinterval{0}{\frac \tau 4}$ 
+la successione 
+\[
+  a_n = \frac{\sin \frac x n}{\frac x n} = \frac{n\sin \frac x n}{x}
+\]
+è crescente e dunque
+(teorema~\ref{th:limite_monotona})
+ammette limite $a_n \to \ell$ per $n\to +\infty$.
+Posto $y=\frac{x}{n(n+1)}$ basta mostrare che 
+\[
+  (n+1) \sin ny \ge n \sin (n+1)y.  
+\]
+Ma usando~\eqref{eq:4813509} si ha 
+\begin{align*}
+  n \sin(n+1)y
+  &=n(\sin ny\cos y + \cos ny \sin y) \\
+  &\le n\sin ny + n\sin y\cos ny\\
+  &\le n\sin ny + \tan ny\cos ny\\
+  &= (n+1)\sin ny
+\end{align*}
+che è quanto volevamo dimostrare.
+
+\emph{Passo 3.}
+Vogliamo mostrare che il limite $\ell=\lim a_n$ è positivo e 
+finito.
+Basta osservare che se $x\in\openinterval{0}{\frac tau 4}$
+si ha
+\[
+0 < \frac{\sin x}{x} 
+\le \frac{\sin \frac x n}{\frac x n} 
+\le \frac{\tan x}{x} < +\infty
+\]
+in quanto si applica~\eqref{eq:4813509} 
+con $\frac x n$ al posto di $x$. 
+
+\emph{Conclusione.}
+Se $0<x<\frac \tau 4$ abbiamo dimostrato il teorema.
+Se $x\ge \frac \tau 4$ la successione $a_n$ sarà decrescente 
+se $n$ è abbastanza grande da rendere $\frac x n< \frac \tau 4$.
+Se $x<0$ il risultato si ottiene per simmetria usando: $\sin(-x)=-\sin x$.
+\end{proof}
+
+Grazie al teorema precedente possiamo dare la seguente.
+\begin{definition}[$\pi$ costante fondamentale della trigonometria]%
+  \label{def:pi}%
+D'ora in poi fissiamo $\tau$ 
+(il periodo delle funzioni trigonometriche)
+\[
+ \tau = \lim_{n\to +\infty} \frac{\sin \frac 1 n}{\frac 1 n}
+\]
+e poniamo 
+\[
+  \pi = \frac \tau 2
+\]
+cosicché le funzioni trigonometriche avranno 
+periodo $\tau = 2\pi$.
+\end{definition}
+
+La scelta di $\tau$ fatta nella definizione precedente 
+ci dà intuitivamente una definizione di $\sin$ e $\cos$ tale 
+che il punto $(\cos t,\sin t)$ si muove con velocità unitaria lungo 
+la circonferenza unitaria. 
+Dunque il punto percorre un arco di lunghezza $t$ nel tempo $t$.
+In particolare in un periodo $\tau=2\pi$ il punto percorre l'intera 
+circonferenza e dunque, intuitivamente, risulta che $2\pi$ è la lunghezza 
+della circonferenza unitaria (ovvero $2\pi r$ è la lunghezza della circonferenza 
+di raggio $r$).
+Al tempo $t=1$ il punto $(\cos t,\sin t)$ individua un angolo che 
+viene chiamato \emph{radiante} in quanto corrisponde ad un arco di lunghezza 
+pari al raggio (unitario). 
+Dunque il \emph{radiante} è l'unità di misura naturale per misurare gli angoli 
+e le funzioni $\sin$ e $\cos$ d'ora in poi saranno fissate con tale unità di misura.
+
+\begin{theorem}[limite notevole $\sin$]
+Per ogni $x\in\RR$, $x\neq 0$ si ha 
+\mynote{ricordiamo che in questo teorema si suppone che le funzioni 
+trigonometriche usino i radianti come unità di misura. 
+In caso contrario si otterrebbe un limite diverso.}
+\[
+\lim_{x\to 0}\frac{\sin x}{x} = 1.
+\]
+\end{theorem}
+%
+\begin{proof}
+Grazie al teorema precedente e alla definizione di $\tau$ e $\pi$ 
+sappiamo che $\frac{\sin \frac 1 n}{\frac 1 n}\to 1$ per $n\to +\infty$.
+Ma per ogni $x>0$ esiste $n\in \NN$ tale che 
+$\frac 1 {n+1} \le x \le \frac 1 n$ 
+e se $nx<\frac \tau 4$ usando la monotonia della funzione $\sin$ 
+si ottiene:
+\begin{align*}
+  \frac{\sin \frac 1{n+1}}{\frac 1 {n+1}} 
+  \cdot \frac{n}{n+1}
+  =\frac{\sin \frac 1{n+1}}{\frac 1 {n}} 
+  \le \frac{\sin x}{x}
+  \le \frac{\sin \frac 1 n}{\frac 1 {n+1}}
+  = \frac{\sin \frac 1 n}{\frac 1 n} \cdot \frac{n+1}{n}.
+\end{align*}
+Per $x\to 0^+$ si ha ovviamente $n\to+\infty$ e quindi 
+il primo e l'ultimo termine di questa catena di disuguaglianze 
+tendono entrambi a $1$.
+Per confronto anche il limite di $\frac{\sin x}{x}$ tende 
+a $1$ per $x\to 0^+$.
+Per simmetria lo stesso accade per $x\to 0^-$.
+\end{proof}
+
+\subsection{l'esponenziale complesso}
+
+L'esponenziale reale e le funzioni trigonometriche possono essere pensate 
+come strumenti intermedi per definire un isomorfismo naturale 
+da $\CC$ come gruppo additivo in $\CC$ come gruppo moltiplicativo.
+
+Possiamo infatti definire la funzione $\exp \colon \CC \to \CC$ mediante 
+la \emph{formula di Eulero}
+\[
+ \exp(x+iy) = e^x = (\cos y + i \sin y).
+\]
+Per analogia con l'esponenziale reale useremo anche la notazione 
+\mynote{%
+Si noti che non abbiamo definito la funzione potenza $z^w$
+tra numeri complessi e anzi tale funzione non può essere definita in 
+maniera univoca. 
+}
+\[
+ e^z = \exp(z).  
+\]
+Questa funzione ha le seguenti proprietà:
+\begin{enumerate}
+  \item $\exp(z+w) = \exp z \cdot \exp w$;
+  \item $\exp\bar z = \overline{\exp z}$;
+  \item $\abs{\exp z} = e^{\Re z}$;
+  \item $\exp x = e^x$ se $x\in \RR$.
+\end{enumerate}
+Visto che $\exp$ estende la funzione esponenziale reale $e^x$
+sarà anche naturale usare la stessa notazione ponendo:
+\[
+  e^z = \exp z = e^x\cdot (\cos y + i\sin y), \qquad z=x+iy.  
+\]
+
+Si noti che la funzione esponenziale compless è $2\pi i$ periodica, infatti 
+se $z=x+iy$ si ha 
+\[
+\exp(z+2\pi i) 
+= \exp(x+i(y+2\pi))  
+= e^x\phi\
+\]
+
 
 %%%%%%%%%%%
 %%%%%%%%%%%
