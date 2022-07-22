@@ -246,9 +246,9 @@ e per ogni $v,w\in V$ valgono le seguenti proprietà:
 \item \emph{sviluppo del binomio}%
 \mymargin{sviluppo del binomio}%
 \index{sviluppo!del binomio}
-\[
+\begin{equation}\label{eq:binomio_vettoriale}%
   \abs{v+w}^2 = \abs{v}^2 + 2 \langle v,w\rangle + \abs{w}^2;
-\]
+\end{equation}
 \item \emph{teorema di Pitagora}%
 \mymargin{teorema di Pitagora}%
 \index{teorema!di Pitagora}
@@ -2506,7 +2506,13 @@ valida in $\RR$ si ha
 e dunque se $f,g \in \H(a,b)$ anche $f+g\in \H(a,b)$.
 Dunque $\H(a,b)$ è uno spazio vettoriale.
 
-Per $f,g\in \H(a,b)$ possiamo ora definire il prodotto scalare:
+Si noti che se $f$ e $g$ sono localmente Riemann-integrabili 
+allora anche $f+g$ lo è 
+e grazie al teorema~\ref{th:composta integrabile} anche 
+$f^2$, $g^2$ e $(f+g)^2$ lo sono.
+Ma allora, anche $f\cdot g = \frac{(f+g)^2-f^2-g^2}{2}$ 
+è Riemann-integrabile.
+Per $f,g\in \H(a,b)$ possiamo allora definire il prodotto scalare:
 \begin{equation}\label{eq:854392}
   \langle f, g\rangle = \int_a^b f(x) \cdot g(x)\, dx.
 \end{equation}
@@ -2669,6 +2675,25 @@ ovvero se $w_N\to 0$.
 
 Il nostro obiettivo è ora quello di produrre una base hilbertiana di $H(0,2\pi)$.
 Una base di $H(a,b)$ si potrà ottenere di conseguenza traslando e riscalando opportunamente le funzioni della base di $H(0,2\pi)$.
+Il teorema precedente ci dice che se $H(a,b)$ ammette una base 
+hilbertiana $e_k$ allora 
+ogni funzione $u\in H(a,b)$ può essere semplicemente rappresentata 
+da una successione numerica $x_k = (u, e_k)$ in modo che 
+\[
+    \Abs{u}_2 = \sqrt{\sum_k x_k}.
+\]
+\mynote{%
+Se $u$ rappresenta l'intensità del segnale acustico emesso da uno 
+strumento musicale che suona una certa nota, 
+possiamo immaginare che $u$ sia una funzione periodica di frequenza $\nu$ 
+pari alla frequenza della nota emessa. 
+Le funzioni $e_k$ della base hilbertiana sono funzioni sinusoidali
+ognuno con frequenza $\nu k$.
+I coefficienti $x_k$ nella decomposizione $u = \sum x_k u_k$ 
+rappresentano le intensità di ognuna di queste frequenze fondamentali 
+e determinano il \emph{timbro} dello strumento musicale.
+}
+
 Consideriamo le seguenti funzioni trigonometriche%
 \mynote{%
 Dal punto di vista algebrico sarebbe molto più semplice considerare le
@@ -2903,6 +2928,13 @@ Si veda la figura~\ref{fig:fourier}.
   $.
   Il codice per calcolare i coefficienti e generare il grafico
   si trova a pagina~\pageref{code:Fourier}.
+  Si può notare come nel punto di salto $x=\pi$ 
+  lo sviluppo di Fourier ha una oscillazione maggiore del salto 
+  originario (fenomeno di Gibbs).
+  L'incremento dell'oscillazione è circa del 9\% ed è indipendente 
+  dal numero di termini utilizzati nello sviluppo di Fourier.
+  Significa che la serie di Fourier pur convergendo in norma $\Abs{\cdot}_2$
+  non converge uniformemente.
   }
   \label{fig:fourier}
   \end{figure}
@@ -2976,15 +3008,31 @@ Ma allora
 Abbiamo quindi mostrato che una funzione limitata e integrabile può essere
 approssimata con funzioni continue.
 
-Se la funzione è integrabile in senso improprio su $(a,b)$ ma non è limitata, per
+Se la funzione è assolutamente 
+integrabile in senso improprio su $(a,b)$ ma non è limitata, per
 definizione di integrale improprio per ogni $\eps>0$ possiamo trovare un intervallo
 $[\alpha,\beta]\subset (a,b)$
-per $f$ risulta limitata su $[\alpha,\beta$] e
-l'integrale di $f$ su $(a,b)$ differisce dall'integrale di $f$ su $[\alpha,\beta]$
-per meno di $\eps$. Ci possiamo quindi ricondurre al passo precedente
-per trovare una funzione $g$ che approssima bene $f$ sull'intervallo $[\alpha,\beta]$.
-Estendendo $g$ in modo costante su $(a,b)\setminus[\alpha,\beta]$ si troverà
-una funzione che approssima bene $f$ su tutto $(a,b)$.
+su cui $f$ risulta limitata su $[\alpha,\beta$] e
+l'integrale di $\abs{f}$ su $(a,\alpha]$ e su $[\beta,b)$
+è minore di $\eps$.
+Per il teorema~\ref{th:media_integrale}
+nell'intervallino $[a,\alpha]$ ci deve essere un punto $c$ per cui 
+$\abs{f(x)} \cdot (\alpha-a) \le \int_a^\alpha f(t)\, dt$.
+Rimpiazzando $\alpha$ con $x$ si ottiene che $(a-\alpha)f(\alpha) < \eps$.
+Facendo lo stesso in $\beta$ si ottiene un intervallo $[\alpha,\beta]\subset (a,b)$ 
+su cui, per il passo precedente, 
+possiamo trovare una funzione lineare a tratti $g\colon[\alpha,\beta]\to \RR$ 
+tale che $\int_\alpha^\beta \abs{f-g} < \eps$.
+Ma allora estendendo $g$ col valore costante $g(\alpha)=f(\alpha)$ 
+su tutto l'intervallo $(a,\alpha]$ e con il valore costante $g(\beta)=f(\beta)$ 
+su tutto l'intervallo $[\beta,b)$ si trova che:
+\begin{align*}
+\int_a^b \abs{f-g} 
+&\le \int_a^\alpha \abs{f} + \int_a^\alpha \abs{g} 
++ \int_\alpha^\beta \abs{f-g} + \int_\beta^b \abs{f} 
++ \int_\beta^b \abs{g} \\
+&\le 5 \eps.
+\end{align*}
 \end{proof}
 
 Grazie ai due teoremi precedenti sappiamo che ogni $f\in \H(a,b)$ può essere
