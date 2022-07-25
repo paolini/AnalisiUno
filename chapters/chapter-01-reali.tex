@@ -1321,9 +1321,9 @@ I numeri naturali $0,1,2,\dots$ sono i numeri che utilizziamo per contare o per
 fare le iterazioni. C'è un primo numero naturale, che per noi sarà $0$ e poi
 per ogni numero naturale $n$ ce n'è uno successivo che chiameremo $\sigma(n)$. 
 Partendo da $0$ e passando al successivo si raggiungono tutti i numeri naturali.
-Queste proprietà si formalizzano come segue. 
 
-\begin{definition}[assiomi di Peano]%
+\begin{theorem}[assiomi di Peano]
+  \label{th:assiomi_peano}%
   \mynote{Giuseppe Peano (1858--1932) vedi note storiche a pag.~\pageref{nota:Peano}} 
     \label{def:naturali}%
   \index{numeri!naturali}%
@@ -1332,63 +1332,53 @@ Queste proprietà si formalizzano come segue.
   \index{assiomi!di Peano}%
   \index{insieme!induttivo}%
   \index{induttivo}%
-  Un insieme $\NN$ dotato di una 
-  funzione $\sigma\colon\NN\to\NN$ e di un elemento $0\in \NN$ 
-  si dice essere un insieme di 
-  \emph{numeri naturali}%
-\mymargin{numeri naturali}%
-\index{numeri!naturali} se valgono le seguenti proprietà:
-  \mynote{La proprietà 1 ci dice che $\sigma$ è iniettiva,
-  la 2 che $\sigma$ non è surgettiva. 
-  La 3 potrebbe essere chiamata \emph{proprietà induttiva} 
-  in quanto vedremo che garantisce la validità del principio di induzione.}
-  \begin{enumerate}
-  \item se $\sigma(m) =\sigma(n)$ allora $m=n$;
-  \item per ogni $n\in \NN$ si ha $\sigma(n)\neq 0$;
-  \item se $A\subset \NN$ è un sottoinsieme tale che 
-  \begin{enumerate}
-    \item[i)] $0\in A$;
-    \item[ii)] $n\in A \implies \sigma(n)\in A$
+Esistono un insieme $\NN$, $0\in \NN$ e $\sigma\colon \NN\to\NN$ tali che
+\begin{enumerate}
+  \item $\sigma$ è iniettiva;
+  \item $\sigma(\NN) = \NN \setminus\ENCLOSE{0}$;
+  \item se $A\subset \NN$ e 
+  \begin{enumerate} 
+    \item $0\in A$ 
+    \item $n\in A \implies \sigma(n)\in A$
   \end{enumerate}
   allora $A=\NN$.
 \end{enumerate}
-\end{definition}
-
-Il simbolo $\NN$ è riservato agli insiemi che soddisfano la precedente definizione.
-Vedremo nel teorema~\ref{th:unicitaN} che tali insiemi 
-sono tra loro indistinguibili e quindi potremo dire 
-``$\NN$ è \emph{l}'insieme dei numeri naturali''
-piuttosto che ``$\NN$ è \emph{un} insieme di numeri naturali''.
-Ad esempio se $\NN$ è un insieme di numeri naturali 
-anche $\NN_* = \NN\setminus\{0\}$
-lo è scegliendo però $1\in \NN_*$ al posto di $0\in \NN$.
+\end{theorem}
+%
+\begin{proof}
+  Lo si dimostra grazie all'assioma~\ref{axiom:infinito} di infinito.
+  Si veda il teorema~\ref{th:esistenza_naturali}.
+\end{proof}
 
 Dato $n\in \NN$ il numero $\sigma(n)$ si chiama il \emph{successore}%
 \mymargin{successore}%
-\index{successore} di $n$.
+\index{successore} di $n$. 
 Il numero $0\in \NN$ che per assioma non è il successore di nessun'altro 
 numero naturale si chiama \emph{zero}%
 \mymargin{zero}%
 \index{zero}. 
-Per comodità diamo un nome alle \emph{cifre decimali}%
+Il successore di $0$ viene chiamato \emph{uno} e si definisce 
+come $1=\sigma(0)$. 
+Allora scriveremo $n+1$ al posto di $\sigma(n)$ per denotare 
+il successore del numero $n$.
+Per comodità diamo un nome amche alle altre \emph{cifre decimali}%
 \mymargin{cifre decimali}%
 \index{cifre!decimali} 
 ovvero ai primi numeri naturali:
 \begin{equation}\label{eq:cifre}
 \begin{gathered}
- 1 = \sigma(0),\quad  
- 2 = \sigma(1),\quad
- 3 = \sigma(2),\quad 
- 4 = \sigma(3),\quad
- 5 = \sigma(4),\\ 
- 6 = \sigma(5),\quad 
- 7 = \sigma(6),\quad 
- 8 = \sigma(7),\quad 
- 9 = \sigma(8)
+% 1 \defeq \sigma(0),\quad  
+ 2 \defeq \sigma(1),\quad
+ 3 \defeq \sigma(2),\quad 
+ 4 \defeq \sigma(3),\quad
+ 5 \defeq \sigma(4),\\ 
+ 6 \defeq \sigma(5),\quad 
+ 7 \defeq \sigma(6),\quad 
+ 8 \defeq \sigma(7),\quad 
+ 9 \defeq \sigma(8).
 \end{gathered}
 \end{equation}
- cosicché intuiamo come la funzione $\sigma$ rappresenti 
- l'usuale operazione del contare:
+Dunque $\sigma$ è l'usuale operazione del contare:
  \[
  0 \stackrel\sigma\mapsto 1 \stackrel\sigma\mapsto 2 \stackrel\sigma\mapsto 
  3 \stackrel\sigma\mapsto 4 \stackrel\sigma\mapsto 5 \stackrel\sigma\mapsto 
@@ -1400,10 +1390,6 @@ Il primi due assiomi servono a garantire che in questo processo del \emph{contar
 troviamo sempre numeri diversi (non si torna mai indietro) in quanto nessun numero 
 può avere come successore $0$ o un numero già incontrato in precedenza (che 
 se non è zero è il successore di un altro numero).
-
-L'ultimo assioma serve a garantire che questo processo del contare esaurisca tutti 
-i numeri naturali, e che quindi non ci siano dei naturali \emph{irraggiungibili}
-partendo da zero.
 
 Il fatto che $\sigma\colon \NN\to \NN$ sia iniettiva ma non suriettiva 
 significa che $\NN$ può essere messo in corrispondenza biunivoca con 
@@ -1419,13 +1405,21 @@ e caratterizza gli
 insiemi infiniti, nel senso di Dedekind.%
 \mynote{Galileo Galilei (1564--1642) vedi note storiche a pag.~\pageref{nota:Galileo}}%
 
-Normalmente la proprietà induttiva dei numeri naturali viene utilizzata tramite 
-il seguente \emph{meta}-teorema.
+L'ultimo assioma ci dice che se un sottoinsieme dei numeri naturali contiene lo 
+zero e contiene il successore di ogni suo elemento, allora contiene tutti i 
+numeri naturali.
+Serve a garantire che il processo del contare esaurisca tutti 
+i numeri naturali, e che quindi non ci siano dei naturali \emph{irraggiungibili}
+partendo da zero.
+Questa proprietà viene usualmente utilizzata mediante il seguente.
+
 \mynote{%
 Il principio di induzione non è un teorema della teoria degli insiemi 
 in quanto si riferisce il concetto di \emph{predicato} che è esterno 
 al sistema stesso.}
 
+\index{principio!di induzione}%
+\index{induzione matematica}%
 \begin{theorem}[principio di induzione]
   Sia $P(n)$ un predicato.
   Se 
@@ -1438,12 +1432,132 @@ al sistema stesso.}
 %
 \begin{proof}
   Consideriamo l'insieme $A=\{n\in \NN\colon P(n)\}$.
-  Grazie alle ipotesi del teorema possiamo applicare la proprietà 
-  induttiva dei numeri naturali per dedurre che $A=\NN$.
+  Grazie alle ipotesi del teorema possiamo applicare la terza
+  proprietà dei numeri naturali per dedurre che $A=\NN$.
   Dunque $P(n)$ è soddisfatta per ogni $n\in\NN$.
 \end{proof}
 
+Tramite il principio di induzione è anche possibile 
+definire funzioni (o operazioni) per induzione.
+Se ad esempio vogliamo definire una funzione $f\colon \NN\to X$
+basterà dichiarare il valore di $f(0)$ e definire $f(n+1)$ 
+a partire da $f(n)$.
+Il principio di induzione (o meglio il teorema~\ref{th:induzione})
+garantisce che $f$ sia univocamente definita su tutto $\NN$.
+
+Ad esempio tramite il principio di induzione si 
+può definire l'iterazione di una funzione.
+\index{iterazioni}%
+\index{funzione!iterata}%
+\index{funzione!composta}%
+Data una qualunque funzione $f\colon X \to X$ di un insieme $X$ in sé, 
+possiamo fare la composizione di $f$ con se stessa, e iterare il procedimento: 
+\begin{align*}
+  f\circ f &\colon X\to X, 
+    \qquad (f\circ f)(x) = f(f(x)),\\ 
+  f\circ f \circ f&\colon X\to X,
+    \qquad(f\circ f \circ f) (x) = f(f(f(x))), \dots   
+\end{align*}
+Utilizzando i numeri naturali possiamo definire, per induzione, 
+la funzione $f^n\colon X\to X$ per ogni $n\in \NN$ 
+(iterata $n$-esima):
+\mynote{%
+La notazione $f^n$ è ambigua in quanto può rappresentare 
+sia l'iterazione della funzione composta, sia l'iterazione 
+dell'operazione di prodotto (ovvero la potenza $n$-esima): 
+$f^2(x) = f(f(x))$ oppure $f^2(x) = f(x) \cdot f(x)$. 
+Sarà il contesto a suggerire quale sia il significato
+inteso con questa notazione.
+}
+\begin{equation}
+  \label{def:iterata}%
+  \begin{cases}
+    f^0(x) = x \\
+    f^{\sigma(n)}(x) = f(f^n(x))
+  \end{cases}  
+\end{equation}
+%
+\begin{example}
+Sia $X=\ENCLOSE{1,2,3}$ e $f\colon X\to X$, 
+$f = \ENCLOSE{1\mapsto 2, 2 \mapsto 2, 3\mapsto 1}$.
+Allora le iterate di $f$ sono:
+\begin{align*}
+  f^0 &= \ENCLOSE{1\mapsto 1, 2\mapsto 2, 3\mapsto 3} = \id_X, \\
+  f^1 &= \ENCLOSE{1\mapsto 2, 2 \mapsto 2, 3\mapsto 1} = f,\\
+  f^2 &= \ENCLOSE{1\mapsto 2, 2\mapsto 2, 3\mapsto 2} = f\circ f
+\end{align*}
+e (lo si dimostri per induzione) per ogni $n\ge 2$ si ha $f^n = f^2$.
+\end{example}
+
+Sempre grazie alle definizioni per induzione possiamo definire 
+su $\NN$ le operazioni di addizione, moltiplicazione ed elevamento a potenza:
+\begin{gather*}
+  \begin{cases}
+    n + 0 = n,\\
+    n + (m+1) = (n+m)+1;
+  \end{cases}
+  \qquad
+  \begin{cases}
+    n \cdot 1 = n,\\
+    n \cdot (m+1) = n\cdot m + n;
+  \end{cases}
+  \qquad
+  \begin{cases}
+    n^0 = 1,\\
+    n^{m+1} = n\cdot n^m.
+  \end{cases}
+\end{gather*}
+Si può quindi definire una relazione di ordinamento su $\NN$ 
+come segue:
+\[
+   n\le m \iff \exists k\in \NN \colon n+k = m.
+\]
+\begin{theorem}[operazioni su $\NN$]
+Le operazioni di addizione e moltiplicazione 
+soddisfano le seguenti:
+  \begin{enumerate}
+    \item elemento neutro:
+      $n + 0 = 0 + n = n$,
+      $n\cdot 1 = 1\cdot n = n$;
+    \item proprietà associativa: 
+      $(n+m)+k = n+(m+k)$, $(n\cdot m)\cdot k = n \cdot (m\cdot k)$
+    \item proprietà commutativa: 
+      $n+m = m+n$, $n\cdot m = m\cdot n$;
+    \item proprietà distributiva:
+     $k\cdot (n+m) = k\cdot n + k\cdot m$;
+    \item proprietà invariantiva:
+     se $m+k = n+k$ allora $m=n$;
+    \item monotonia:
+     se $m\le n$ allora $m+k\le n+k$ e $n\cdot k \le m\cdot k$ 
+  \end{enumerate}
+l'elevamento a potenza soddisfa le seguenti:
+\begin{enumerate}
+  \item $n^0 = 1$ (anche $0^0=1$);
+  \item $n^1 = n$;
+  \item $n^{m+k} = n^m \cdot n^k$;
+  \item $(n^m)^k = n^{m\cdot k}$;
+  \item $(n\cdot m)^k = n^k \cdot m^k$;
+  \item se $n\le m$ allora $k^n\le n^m$ e $n^k \le m^k$. 
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+  Si vedano i teoremi~\ref{th:proprieta_addizione}
+\end{proof}
+
+*************************************
+* PROOFS ****************************
+*************************************
+
+Vedremo nel teorema~\ref{th:unicitaN} che tali insiemi 
+sono tra loro indistinguibili e quindi potremo dire 
+``$\NN$ è \emph{l}'insieme dei numeri naturali''
+piuttosto che ``$\NN$ è \emph{un} insieme di numeri naturali''.
+Ad esempio se $\NN$ è un insieme di numeri naturali 
+anche $\NN_* = \NN\setminus\{0\}$
+lo è scegliendo però $1\in \NN_*$ al posto di $0\in \NN$.
+
 \begin{theorem}[esistenza dei numeri naturali]
+  \label{th:esistenza_naturali}%
 Se $X$ è un qualunque insieme infinito (definizione\ref{def:infinito})
 esiste $\NN\subset X$, $0\in \NN$ e $\sigma\colon \NN\to\NN$ 
 che soddisfano gli assiomi di Peano~\ref{def:naturali}.
@@ -1617,91 +1731,50 @@ tale che $F(0) = (0,\alpha)$ e $F(\sigma(n)) = G(F(n))$.
 Basterà prendere come $f(n)$ la seconda componente di $G(n)$.
 \end{proof}
   
-Useremo le definizioni per induzione per definire le iterazioni e le operazioni elementari 
-sui numeri naturali.
-
-%
-%
-\subsection{iterazione e addizione}
-%
-%
+In particolare il teorema precedente ci permette di definire l'iterata $n$-esima $f^n$ 
+di una qualunque funzione $f\colon X\to X$.
+Se $\id_X\colon X\to X$ rappresenta la funzione identità su $X$:
+$\id_X(x)=x$,
+possiamo definire:
 \index{iterazioni}%
 \index{funzione!iterata}%
 \index{funzione!composta}%
-Data una qualunque funzione $f\colon X \to X$ di un insieme $X$ in sé, 
-possiamo fare la composizione di $f$ con se stessa, e iterare il procedimento: 
-\begin{align*}
-  f\circ f &\colon X\to X, 
-    \qquad (f\circ f)(x) = f(f(x)),\\ 
-  f\circ f \circ f&\colon X\to X,
-    \qquad(f\circ f \circ f) (x) = f(f(f(x))), \dots   
-\end{align*}
-Utilizzando i numeri naturali possiamo definire, per induzione, 
-la funzione $f^n\colon X\to X$ per ogni $n\in \NN$ 
-(iterata $n$-esima):
-\mynote{%
-La notazione $f^n$ è ambigua in quanto può rappresentare 
-sia l'iterazione della funzione composta, sia l'iterazione 
-dell'operazione di prodotto (ovvero la potenza $n$-esima): 
-$f^2(x) = f(f(x))$ oppure $f^2(x) = f(x) \cdot f(x)$. 
-Sarà il contesto a suggerire quale sia il significato
-inteso con questa notazione.
-}
-\begin{equation}
-  \label{def:iterata}%
-  \begin{cases}
-    f^0 =  \id_X\\
-    f^{\sigma(n)} = f\circ f^n.
-  \end{cases}  
-\end{equation}
-%
-\begin{example}
-Sia $X=\ENCLOSE{1,2,3}$ e $f\colon X\to X$, $f = \ENCLOSE{1\mapsto 2, 2 \mapsto 2, 3\mapsto 1}$.
-Allora le iterate di $f$ sono:
-\begin{align*}
-  f^0 &= \ENCLOSE{1\mapsto 1, 2\mapsto 2, 3\mapsto 3} = \id_X, \\
-  f^1 &= \ENCLOSE{1\mapsto 2, 2 \mapsto 2, 3\mapsto 1} = f,\\
-  f^2 &= \ENCLOSE{1\mapsto 2, 2\mapsto 2, 3\mapsto 2} = f\circ f
-\end{align*}
-e (lo si dimostri per induzione) per ogni $n\ge 2$ si ha $f^n = f^2$.
-\end{example}
-
-%
-%
-%\subsection{addizione sui numeri naturali}
-%
-
-Avendo a disposizione la funzione $\sigma\colon \NN\to\NN$ 
-che manda un numero naturale nel successivo, vorremmo definire 
-l'addizione su $\NN$ come iterazione della funzione $\sigma$.
-Intuitivamente:
 \[
-  n \stackrel\sigma\mapsto n+1 \stackrel\sigma\mapsto n+2 
-  \stackrel\sigma\mapsto \dots \stackrel\sigma\mapsto n+k. 
+  \begin{cases}
+    f^0 = id_X,\\
+    f^{\sigma(n)} = f\circ f^n.
+  \end{cases}
 \]
-Possiamo quindi definire la \emph{addizione}%
-\mymargin{addizione}%
-\index{addizione}:
+
+Le iterate della funzione $\sigma$ ci permettono di definire l'addizione. 
+Poniamo:
 \[
   n+k = \sigma^k(n).  
-\]
-In generale possiamo definire un operatore binario come una funzione 
-che al secondo operando associa a sua volta una funzione che al 
-primo operando restituisce il risultato:
-\[
-  n + k = +(k)(n).
-\]
-Per l'addizione si ha quindi $+(k) = \sigma^k$:
-la funzione che aggiunge $k$ ad un numero è l'iterata 
-$k$-esima della funzione successore.
+\] 
 
-Ad esempio:
-\[
-  2 + 3 
-  = \sigma^3(2) 
-  = \sigma(\sigma(\sigma(2))) 
-  = \sigma(\sigma(\sigma(\sigma(\sigma(0))))) = 5.
-\]
+% In generale possiamo definire un operatore binario come una funzione 
+% che al secondo operando associa a sua volta una funzione che al 
+% primo operando restituisce il risultato:
+% \[
+%   n + k = +(k)(n).
+% \]
+% Per l'addizione si ha quindi $+(k) = \sigma^k$:
+% la funzione che aggiunge $k$ ad un numero è l'iterata 
+% $k$-esima della funzione successore.
+
+Ad esempio possiamo dimostrare il seguente
+\begin{theorem}$2+2=4$
+  \begin{proof}
+\begin{align*}
+  2 + 2 
+  &= \sigma(\sigma(0)) + \sigma(\sigma(0))
+  = \sigma^{\sigma(\sigma(0))} (\sigma(\sigma(0)))
+  = (\sigma \circ \sigma^{\sigma(0)})(\sigma(\sigma(0)))\\
+  &= (\sigma \circ \sigma \circ \id_\NN)(\sigma(\sigma(0))) 
+  = \sigma(\sigma(\id_\NN(\sigma(\sigma(0)))))\\
+  &= \sigma(\sigma(\sigma(\sigma(0)))) = 4.
+\end{align*}
+\end{proof}
 
 Osserviamo che si ha $\sigma(n) = n+1$ e per induzione 
 è facile dimostrare le seguenti proprietà:
@@ -1748,7 +1821,7 @@ Il passaggio induttivo è il seguente:
 \end{proof}
 
 Possiamo allora dedurre le seguenti familiari proprietà dell'addizione.
-\begin{theorem}
+\begin{theorem}\label{th:proprieta_addizione}
   L'addizione su $\NN$ soddisfa le seguenti 
   proprietà:
   \begin{enumerate}
