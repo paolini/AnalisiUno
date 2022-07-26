@@ -1582,20 +1582,199 @@ Osserveremo poi che la struttura moltiplicativa dei numeri reali positivi soddis
 gli stessi assiomi della struttura additiva dei reali e che quindi la costruzione fatta 
 per costruire la moltiplicazione si potrà ripetere identica per costruire l'elevamento a potenza.
 
-\begin{theorem}[proprietà Archimedea]
-Se $R$ è un gruppo totalmente ordinato, denso e continuo 
-allora per ogni $y\in R$, $y>0$ e per ogni $n\in \NN$ 
-\end{theorem}
-
 \begin{theorem}[divisibilità]
-  \label{th:divisibile}%
+\label{th:divisibile}%
 Se $R$ è un gruppo totalmente ordinato, denso e continuo
 con operazione $+$ ed elemento neutro $0$
 allora per ogni $y\in R$, $y\neq 0$ e per ogni $n\in \NN$, $n\neq 0$ 
 esiste un unico $x\in R$ tale che $n\cdot x = y$.
 \end{theorem}
+\begin{proof}[Dimostrazione del teorema~\ref{th:divisibile}]
+  Vogliamo innanzitutto dimostrare che 
+  \begin{equation}\label{eq:41095633}
+    \forall y>0 \colon \exists x>0 \colon x+x \le y.
+  \end{equation}
+  Per la proprietà di densità sappiamo che esiste $z$ tale che 
+  $0<z<y$. 
+  Prendiamo $w=y-z$. Se $w\le z$ allora $w+w\le w+z=y$ e possiamo prendere $x=w$.
+  Altrimenti $z+z < w+z = y$ e possiamo prendere $x=z$.
+  %% Attenzione: la dimostrazione è delicata se il gruppo non è commutativo: bisogna 
+  %% fare attenzione all'ordine degli addendi! 
+  
+  Ora dobbiamo dimostrare che per ogni $y\in R$ e per ogni $n\in \NN$, $n\neq 0$
+  esiste $x\in R$ tale che $n\cdot x=y$.
+  Per fissare le idee supponiamo che sia $y>0$: il caso $y=0$ è banale 
+  e se $y<0$ basterà applicare il risultato all'opposto $-y$.
+  
+  Fissati $n\in \NN$, $n\neq 0$ e $y>0$ 
+  consideriamo allora gli insiemi:
+  \begin{align*}
+    A &= \ENCLOSE{a\in R\colon a\ge 0, n\cdot a\le y},\\
+    B &= \ENCLOSE{b\in R\colon n\cdot b\ge y}.
+  \end{align*}
+  Chiaramente si ha $a\le b$ per ogni $a\in A$ e $b\in B$ 
+  perché se $n\cdot a \le n\cdot b$ 
+  si può dedurre $a\le b$ (altrimenti si violerebbe
+  la proprietà $0\le a\le b \implies n\cdot a\le n\cdot b$ dimostrabile 
+  per induzione su $n\in \NN$).
+  Chiaramente $B\neq \emptyset$ in quanto $y\in B$ visto che $n\cdot y\ge y$ se 
+  $n\in \NN$, $n\neq 0$.
+  Meno ovvio dimostrare che $A\neq \emptyset$ per fare questo
+  dobbiamo considerare l'insieme 
+  $M=\ENCLOSE{m\in\NN\colon \exists x>0\colon m\cdot x\le y}$.
+  Ovviamente $1\in M$ e la proprietà~\eqref{eq:41095633}
+  ci dice che anche $2\in M$. 
+  Per dimostrare che $M=\NN$ basta allora dimostrare che 
+  se $n\in M$, $n\ge 2$ allora anche $n+1\in M$. 
+  Ma $n\in M$ significa che esiste $x>0$ tale che 
+  $n\cdot x\le y$. 
+  Per la proprietà~\eqref{eq:41095633} esiste anche $z>0$ 
+  tale che $z+z\le x$ e dunque 
+  \[
+    (n+1)z \le (n+n)z = n(z+z)\le n\cdot x \le y.
+  \]
+  Visto che $M = \NN$ possiamo affermare che $A\neq \emptyset$.
+  
+  Dunque $A\le B$ sono separati e non vuoti e per l'ipotesi di continuità di $R$ 
+  possiamo dedurre che esiste $y$ elemento di separazione: $A\le x \le B$.
+  Vogliamo dimostrare che $n\cdot x=y$.
+  
+  Se fosse $n\cdot x<y$ vogliamo dimostrare che esiste $\eps>0$ 
+  tale che $n\cdot(x+\eps)<y$ e questo sarebbe assurdo perché
+  allora $x+\eps\in A$ e $x$ non sarebbe un maggiorante di $A$.
+  Affinché sia $n\cdot(x+\eps)<y$ basterà avere $n\cdot \eps < y-n\cdot x$.
+  Un tale $\eps>0_G$ esiste per quanto visto prima riguardo all'insieme 
+  $M$, mettendo $y-n\cdot x$ al posto di $y$.
+  
+  Viceversa se fosse $n\cdot x>y$ vogliamo dimostrare che esiste $\eps>0$
+  tale che $n\cdot(x-\eps)>y$ e questo sarebbe assurdo perché
+  allora $x-\eps\in B$ e $x$ non sarebbe un minorante di $B$.
+  Anche in questo caso $\eps$ si trova facilmente imponendo 
+  la disequazione $n\cdot \eps < n\cdot x-y$.
+\end{proof}
+  
+Ovviamente c'è un unico $x$ tale che $n\cdot x=y$ perché 
+se $n\cdot z = n\cdot x$ si ha $n\cdot (z-x) = 0$ che è 
+solo possibile quando $z=x$. Scriveremo $x=\frac{y}{n}$.
 
+*** proprietà archimedea ***
 
+\begin{theorem}[isofomorfismi di gruppi ordinati]%
+  \label{th:isomorfismo}%
+  Siano $R$ ed $S$ due gruppi
+  con elementi neutri $e_R$ ed $e_S$ e denotiamo con $\stackrel R*$
+  l'operazione di gruppo su $R$ 
+  e con $\stackrel S*$ l'operazione di gruppo su $S$.
+  
+  Supponiamo che $R$ e $S$ siano gruppi totalmente ordinati, densi e continui.
+  Allora fissato $u\in R$ con $u > e_R$ e fissato qualunque $m \in S$,
+  $m > e_S$ esiste una unica funzione $\phi\colon R\to S$
+  tale che:
+  \begin{enumerate}
+    \item $\phi(u)=m$;
+    \item $\forall x,y\in R \colon \phi(x \stackrel R* y) = \phi(x) \stackrel S* \phi(y)$ (omomorfismo);
+    \item $\forall x,y\in R \colon x\le y \implies \phi(x) \le \phi(y)$ (crescente).
+  \end{enumerate}    
+  Inoltre risulta che $\phi(e_R)=e_S$ e $\phi\colon R\to S$ 
+  è bigettiva.
+\end{theorem}
+    
+\begin{proof}
+Per rendere la notazione più semplice
+i punti $e_R$ ed $e_S$ li chiameremo entrambi $0$,
+e le operazioni $*$ e $\circ$ le chiameremo entrambe $+$.
+
+Osserviamo innanzitutto che
+$\phi(0) = \phi(0+0) = \phi(0)+\phi(0)$
+e quindi deve essere $\phi(0)=0$.
+Di conseguenza $0=\phi(x-x) = \phi(x)+\phi(-x)$
+da cui $\phi(-x) = -\phi(x)$.
+Dunque basterà definire $\phi(x)$ per $x>0$.
+
+\emph{Passo 1: definizione sugli interi.}
+Per induzione si osserva che deve essere 
+$\phi(nx) = n\phi(x)$. 
+Avendo imposto $\phi(u)=m$ deduciamo che deve essere 
+$\phi(nu) = n\phi(m)$.
+
+\emph{Passo 2: definizione sulle frazioni.}
+Per il teorema~\ref{th:divisibile} per ogni $n\in \NN$, $n\neq 0$ 
+ed ogni $x\in R$ esiste $y=\frac{x}{n}$ tale che $ny=x$.
+Allora $\phi(x) = \phi(ny)=n\phi(y)$ da cui 
+si scopre che deve essere $\phi(\frac x n) = \frac{\phi(x)}{n}$
+Dunque per ogni $k\in \NN$ ed ogni $n\in \NN\setminus\ENCLOSE{0}$
+si deve avere 
+\begin{equation}\label{eq:610954}
+  \phi\enclose{k\frac u n} = k \frac m n.
+\end{equation}
+Effettivamente \eqref{eq:610954} definisce univocamente 
+$\phi$ sui numeri della forma $k\frac u n$ perché 
+se $k\frac u n = k'\frac u {n'}$ allora $k n' u = k' n u$
+e $kn' = k'n$ dunque risulta anche $k\frac m n = k'\frac u {n'}$.
+
+\emph{passo 3: estensione per monotonia.}
+Rimane ora da definire $\phi(x)$ per ogni altro $x>0$.
+E qui l'unicità della definizione sarà garantita dalla monotonia:
+se $a\le x\le b$ dovrà essere $\phi(a) \le \phi(x)\le \phi(b)$.
+Ma il valore di $\phi$ è già univocamente determinato sugli $a$ e $b$ 
+che si scrivono in forma di frazione: $k\frac u n$.
+Dunque dovremo necessariamente avere che $\phi(x)$ è elemento di separazione 
+dei due insiemi:
+\[
+A = \ENCLOSE{k \frac m n \colon k\in \NN, n\in \NN\setminus\ENCLOSE{0}, k\frac u n \le x },\qquad
+B = \ENCLOSE{k' \frac m n' \colon k\in \NN, n\in \NN\setminus\ENCLOSE{0}, k'\frac u {n'} \ge x}.
+\]
+Effettivamente questi insiemi sono separati 
+perché se $k\frac u n \le k'\frac u {n'}$ allora $kn'\le k'n$ 
+e di conseguenza $k\frac m n \le k' \frac m {n'}$.
+Allora per l'ipotesi di continuità di $S$ 
+possiamo trovare almeno un elemento di separazione. 
+
+E tale elemento è unico in quanto se ci fossero due elementi di separazione 
+$y_1<y_2$ per la proprietà archimedea ********* 
+dovrebbe esistere $n\in \NN$ tale che $\frac m n < y_2-y_1$
+e allora, prendendo i multipli di $\frac m n$ si troverebbe un $k\in\NN$ 
+tale che $y_1 < k \frac m n < y_2$. 
+Ma allora ci chiediamo se $k\frac u n$ è maggiore o minore di $x$ e 
+in entrambi i casi otteniamo un assurdo: se fosse minore o uguale a $x$ 
+allora $k\frac m n$ dovrebbe essere elemento di $A$ ma non può esserlo 
+perché $k\frac m n>y_1\ge A$, analogamente se $k\frac u n \ge x$ 
+si avrebbe un elemento di $B$ che è strettamente più piccolo di $y_2\le B$.
+
+Allora $\phi(x)$ è univocamente determinata dall'essere elemento di 
+separazione degli insiemi $A$ e $B$.
+Ponendo poi $\phi(-x) = -\phi(x)$ abbiamo univocamente definito $\phi$ 
+su tutto $R$. 
+Dobbiamo ora verificare che effettivamente $\phi$ 
+verifica le proprietà richieste.
+
+*********************
+
+Abbiamo costruito $\phi$ in modo che sia crescente, 
+ma se $m>0$ possiamo verificare che in realtà è anche strettamente crescente. 
+Supponiamo per assurdo che esistano $x<y$ con $\phi(x)=\phi(y)$.
+Allora posto $\eps=y-x>0$ si avrebbe $\phi(\eps) = \phi(y)-\phi(x) = 0$. 
+Per il teorema~\ref{th:archimede}
+sappiamo esistere $n\in \NN$ tale che $n\cdot \eps > u$
+e quindi $\phi(n\cdot \eps) \ge \phi(u) = m$.
+Ma questo è assurdo perché $\phi(n\cdot \eps) = n\cdot \phi(\eps)=0$.
+
+Analogamente se $m<0$ si verifica che $\phi$ è strettamente decrescente.
+Dunque se $m\neq 0$ risulta che $\phi$ è strettamente monotòna e quindi 
+iniettiva.
+Vogliamo mostrare che è anche surgettiva. 
+Posto $T=\phi(R)$ osserviamo che $T\subset S$ dev'essere anch'esso 
+un gruppo totalmente ordinato, denso e continuo come tutto $S$
+e con la stessa operazione e lo stesso ordinamento di $S$.
+E $\phi^{-1}\colon T\to R$ è un isomorfismo crescente che manda $m$ in $u$.
+Ma invertendo i ruoli di $R$ ed $S$ sappiamo anche esistere un omomorfismo 
+iniettivo $\psi\colon S\to R$ che manda $m$ in $u$ e la sua 
+restrizione a $T$, per unicità, deve coincidere con $\phi^{-1}$.
+Questo significa che $T=S$, perché altrimenti non sarebbe possibile 
+estendere la bigezione $\phi^{-1}\colon T \to R$ a tutto $S$.
+\end{proof}
+    
+    
 \section{i numeri reali}
 
 L'insieme dei numeri reali $\RR$ non è altro che un gruppo totalmente ordinato,
@@ -4378,74 +4557,6 @@ Dimostrare che vale~\eqref{eq:approx_23}.
 
 \subsection{isomorfismi di gruppi ordinati}
 
-\begin{proof}[Dimostrazione del teorema~\ref{th:divisibile}]
-Vogliamo innanzitutto dimostrare che 
-\begin{equation}\label{eq:41095633}
-  \forall y>0 \colon \exists x>0 \colon x+x \le y.
-\end{equation}
-Per la proprietà di densità sappiamo che esiste $z$ tale che 
-$0<z<y$. 
-Prendiamo $w=y-z$. Se $w\le z$ allora $w+w\le w+z=y$ e possiamo prendere $x=w$.
-Altrimenti $z+z < w+z = y$ e possiamo prendere $x=z$.
-%% Attenzione: la dimostrazione è delicata se il gruppo non è commutativo: bisogna 
-%% fare attenzione all'ordine degli addendi! 
-
-Ora dobbiamo dimostrare che per ogni $y\in R$ e per ogni $n\in \NN$, $n\neq 0$
-esiste $x\in R$ tale che $n\cdot x=y$.
-Per fissare le idee supponiamo che sia $y>0$: il caso $y=0$ è banale 
-e se $y<0$ basterà applicare il risultato all'opposto $-y$.
-
-Fissati $n\in \NN$, $n\neq 0$ e $y>0$ 
-consideriamo allora gli insiemi:
-\begin{align*}
-  A &= \ENCLOSE{a\in R\colon a\ge 0, n\cdot a\le y},\\
-  B &= \ENCLOSE{b\in R\colon n\cdot b\ge y}.
-\end{align*}
-Chiaramente si ha $a\le b$ per ogni $a\in A$ e $b\in B$ 
-perché se $n\cdot a \le n\cdot b$ 
-si può dedurre $a\le b$ (altrimenti si violerebbe
-la proprietà $0\le a\le b \implies n\cdot a\le n\cdot b$ dimostrabile 
-per induzione su $n\in \NN$).
-Chiaramente $B\neq \emptyset$ in quanto $y\in A$ visto che $n\cdot y\ge y$ se 
-$n\in \NN$, $n\neq 0$.
-Meno ovvio dimostrare che $A\neq \emptyset$ per fare questo
-dobbiamo considerare l'insieme 
-$M=\ENCLOSE{m\in\NN\colon \exists x>0\colon m\cdot x\le y}$.
-Ovviamente $1\in M$ e la proprietà~\eqref{eq:41095633}
-ci dice che anche $2\in M$. 
-Per dimostrare che $M=\NN$ basta allora dimostrare che 
-se $n\in M$, $n\ge 2$ allora anche $n+1\in M$. 
-Ma $n\in M$ significa che esiste $x>0$ tale che 
-$n\cdot x\le y$. 
-Per la proprietà~\eqref{eq:41095633} esiste anche $z>0$ 
-tale che $z+z\le x$ e dunque 
-\[
-  (n+1)z \le (n+n)z = n(z+z)\le n\cdot x \le y.
-\]
-Visto che $M = \NN$ possiamo affermare che $A\neq \emptyset$.
-
-Dunque $A\le B$ sono separati e non vuoti e per l'ipotesi di continuità di $R$ 
-possiamo dedurre che esiste $y$ elemento di separazione: $A\le x \le B$.
-Vogliamo dimostrare che $n\cdot x=y$.
-
-Se fosse $n\cdot x<y$ vogliamo dimostrare che esiste $\eps>0$ 
-tale che $n\cdot(x+\eps)<y$ e questo sarebbe assurdo perché
-allora $x+\eps\in A$ e $x$ non sarebbe un maggiorante di $A$.
-Affinché sia $n\cdot(x+\eps)<y$ basterà avere $n\cdot \eps < y-n\cdot x$.
-Un tale $\eps>0_G$ esiste per quanto visto prima riguardo all'insieme 
-$M$, mettendo $y-n\cdot x$ al posto di $y$.
-
-Viceversa se fosse $n\cdot x>y$ vogliamo dimostrare che esiste $\eps>0$
-tale che $n\cdot(x-\eps)>y$ e questo sarebbe assurdo perché
-allora $x-\eps\in B$ e $x$ non sarebbe un minorante di $B$.
-Anche in questo caso $\eps$ si trova facilmente imponendo 
-la disequazione $n\cdot \eps < n\cdot x-y$.
-\end{proof}
-
-Ovviamente c'è un unico $x$ tale che $n\cdot x=y$ perché 
-se $n\cdot z = n\cdot x$ si ha $n\cdot (z-x) = 0$ che è 
-solo possibile quando $z=x$. Scriveremo $x=\frac{y}{n}$.
-
 \begin{definition}[omomorfismo]%  
 \label{def:omomorfismo}%
 Siano $R$ ed $S$ due gruppi con operazione $*$ su $R$ e operazione $\circ$ su $S$.
@@ -4468,7 +4579,8 @@ E' quello che facciamo nel seguente.
 Sia $R$ un gruppo totalmente ordinato, denso, continuo e 
 sia $\QQ$ il gruppo dei numeri razionali con l'operazione 
 di addizione.
-Allora fissato $u\in R$ esiste un unico omomorfismo $\phi\colon \QQ \to R$ tale che $\phi(1)=u$.
+Allora fissato $u\in R$ esiste un unico omomorfismo $\phi\colon \QQ \to R$ 
+tale che $\phi(1)=u$.
 
 Se l'operazione su $R$ viene denotata con il simbolo di addizione $+$ 
 l'omomorfismo $\phi$ può essere naturalmente denotato con il simbolo di moltiplicazione:
@@ -4488,58 +4600,6 @@ Denotiamo con $\QQ\cdot u$ l'immagine di $f$ ovvero
 Usiamo il simbolo $+$ per denotare l'operazione del gruppo $R$ e chiamiamo $0$ 
 l'elemento neutro di $R$.
 
-\emph{Passo 1: definizione sugli interi.}
-Chiaramente deve essere $\phi(0)=0$ in quanto $\phi(0) = \phi(0+0) = \phi(0)+\phi(0)$.
-Inoltre $\phi(n+1) = \phi(n)+\phi(1) = \phi(n) + u$ e quindi per induzione
-se $n\in \NN$ deve essere $\phi(n) = n\cdot u$ (addizione ripetuta).
-
-Ma se $n\in \ZZ$ si ha $0=\phi(n+(-n)) = \phi(n)+\phi(-n)$ da cui 
-$\phi(-n) = -\phi(n) = - n\cdot u$.
-Dunque $\phi$ è univocamente definita su tutto $\ZZ$.
-
-Ma ora ricordiamo che il teorema~\ref{th:divisibile} definisce $\frac{x}{n}$ 
-per ogni $x\in R$ e ogni $n\in \NN$, $n\neq 0$. 
-Osserviamo che la proprietà di omomorfismo ci dice che per ogni $q\in \QQ$ 
-ed ogni $n\in \ZZ$ deve valere 
-\[
-  \phi(n\cdot q) = n \cdot \phi(q)  
-\]
-(lo si dimostra per induzione quando $n\in \NN$ e poi sugli altri $n\in \ZZ$ 
-si utilizza la proprietà $\phi(-q) = -\phi(q)$ ottenibile anch'essa dalla proprietà 
-di omomorfismo in quanto $q+(-q)=0$ e $\phi(0)=0$)
-Allora la condizione $\phi(1)=u$ e la proprietà di omomorfismo ci dicono che 
-dovrà essere $\phi(n) = n\cdot u$ per ogni $n\in \ZZ$.
-Infatti $\phi(0) = 0$ in quanto $\phi(0+0)=\phi(0)+\phi(0)$
-e si può sottrarre da ambo i membri l'opposto di $\phi(0)$.
-Inoltre se $n\in \NN$ si ha $\phi(n+1)=\phi(n)+\phi(1)=\phi(n)+u$
-dunque utilizzando l'induzione possiamo dimostrare 
-che risulta 
-\[
-   \phi(n) = n\cdot u, \qquad \forall n\in \NN.
-\]
-Visto che $\phi(x-x)=0$ se vogliamo che valga la proprietà di omomorfismo
-dovrà essere $phi(-x) = -\phi(x)$.
-Dunque dovremo porre $phi(-n) = -n\cdot u$.
-
-\emph{Passo 2: estensione ai razionali.} 
-Nel teorema~\ref{th:divisibile}
-abbiamo definito $\frac x n$ per ogni $x\in R$ e ogni $n\in \NN$, $n\neq 0$,
-in modo tale che risulti $n\cdot \frac{x}{n}=x$.
-
-In effetti se $\phi$ è un omomorfismo dovrà valere $\phi(x) = n \phi\enclose{\frac x n}$
-(dimostrazione per induzione) da cui $\phi$ risulta univocamente definita 
-su ogni razionale 
-
-Dunque se $\frac{p}{q}\in\QQ$ è una frazione con $p\in \ZZ$ e $q\in \NN$, $q\neq 0$ 
-possiamo definire $\frac{p}{q}\cdot x = p\cdot x/q$.
-Scopriamo allora che $\phi$ può essere definita in modo unico su $\QQ\cdot u$ 
-se deve soddisfare la proprietà di omomorfismo, 
-infatti dovrà essere:
-\[
-  \phi\enclose{\frac{p}{q}\cdot x} = \frac{p}{q}\cdot \phi(x).
-\]
-Non è difficile verificare che effettivamente questa definizione garantisce la 
-proprietà di omomorfismo.
 \end{proof}
 
 \begin{definition}[funzioni monotòne]
@@ -4587,79 +4647,6 @@ per indicare il concetto che noi abbiamo definito con \emph{crescente}.
 In effetti con le nostre definizioni una funzione crescente può essere costante
 e quindi non crescere affatto!
 
-\begin{theorem}[isofomorfismi di gruppi ordinati]%
-\label{th:isomorfismo}%
-Siano $R$ ed $S$ due gruppi
-con elementi neutri $e_R$ ed $e_S$ e denotiamo con $*$ (asterisco) l'operazione di gruppo su $R$ 
-e con $\circ$ (circoletto) l'operazione di gruppo su $S$.
-
-Supponiamo che $R$ e $S$ siano gruppi totalmente ordinati, densi e continui.
-Allora fissato $u\in R$ con $u > e_R$ e fissato qualunque $m \in S$, 
-esiste un unico omomorfismo (definizione~\ref{def:omomorfismo}) monotòno (definizione~\ref{def:monotonia})
-$\phi\colon R \to S$ tale che $\phi(u)=m$.
-
-Inoltre tale funzione verifica anche le seguenti proprietà:
-\begin{enumerate}
-  \item $\phi(e_R) = e_S$;
-  \item se $m>e_S$ allora $\phi$ è strettamente crescente;
-  \item se $m<e_S$ allora $\phi$ è strettamente decrescente;
-  \item se $m\neq 0$ allora $\phi$ è bigettiva.
-\end{enumerate}
-\end{theorem}
-
-\begin{proof}
-Per rendere la notazione più semplice
-i punti $e_R$ ed $e_S$ li chiameremo entrambi $0$,
-e le operazioni $*$ e $\circ$ le chiameremo entrambe $+$.
-
-
-Rimane ora da definire $\phi(x)$ per $x\in R \setminus (\QQ\cdot u)$.
-E qui l'unicità sarà garantita dalla monotonia. 
-Supponiamo per fissare le idee che sia $m\ge 0$
-(il caso $m<0$ si può fare in modo analogo o si può ricondurre al precedente).
-Se $m\ge 0$ se vogliamo avere $\phi$ monotòna dovremo imporre che 
-$\phi$ sia crescente in quanto $0<u$ e $\phi(0) = 0 \le m = \phi(u)$. 
-Se $\phi$ deve essere crescente per ogni $x\in R$
-dovremo necessariamente avere che $\phi(x)$ è elemento di separazione 
-dei due insiemi:
-\[
-A = \ENCLOSE{a\cdot m\colon a\in \QQ,\ a\cdot u \le x },\qquad
-B = \ENCLOSE{b\cdot m\colon b\in \QQ,\ b\cdot u \ge x}.
-\]
-Effettivamente questi insiemi sono separati e grazie alla continuità di $S$ 
-possiamo quindi trovare almeno un elemento di separazione. 
-E tale elemento è unico in quanto se ci fossero due elementi di separazione 
-$y_1<y_2$ per la densità dei razionali potremmo trovare $q \in \QQ$
-tale che $y_1 < q_1\cdot m < y_2$ e allora $q\cdot m$ non può essere elemento 
-né di $A$ né di $B$ da cui si deduce la contraddizione 
-$q\cdot u >x$ e $q\cdot u < x$.
-
-Dunque esiste ed è unica la funzione $\phi\colon R \to S$ 
-omomorfismo crescente tale che $\phi(u)=m$.
-
-Abbiamo costruito $\phi$ in modo che sia crescente, 
-ma se $m>0$ possiamo verificare che in realtà è anche strettamente crescente. 
-Supponiamo per assurdo che esistano $x<y$ con $\phi(x)=\phi(y)$.
-Allora posto $\eps=y-x>0$ si avrebbe $\phi(\eps) = \phi(y)-\phi(x) = 0$. 
-Per il teorema~\ref{th:archimede}
-sappiamo esistere $n\in \NN$ tale che $n\cdot \eps > u$
-e quindi $\phi(n\cdot \eps) \ge \phi(u) = m$.
-Ma questo è assurdo perché $\phi(n\cdot \eps) = n\cdot \phi(\eps)=0$.
-
-Analogamente se $m<0$ si verifica che $\phi$ è strettamente decrescente.
-Dunque se $m\neq 0$ risulta che $\phi$ è strettamente monotòna e quindi 
-iniettiva.
-Vogliamo mostrare che è anche surgettiva. 
-Posto $T=\phi(R)$ osserviamo che $T\subset S$ dev'essere anch'esso 
-un gruppo totalmente ordinato, denso e continuo come tutto $S$
-e con la stessa operazione e lo stesso ordinamento di $S$.
-E $\phi^{-1}\colon T\to R$ è un isomorfismo crescente che manda $m$ in $u$.
-Ma invertendo i ruoli di $R$ ed $S$ sappiamo anche esistere un omomorfismo 
-iniettivo $\psi\colon S\to R$ che manda $m$ in $u$ e la sua 
-restrizione a $T$, per unicità, deve coincidere con $\phi^{-1}$.
-Questo significa che $T=S$, perché altrimenti non sarebbe possibile 
-estendere la bigezione $\phi^{-1}\colon T \to R$ a tutto $S$.
-\end{proof}
 
 Come conseguenza immediata del teorema precedente otteniamo il seguente corollario il quale
 garantisce che gli assiomi con cui abbiamo definito $\RR$
