@@ -1861,8 +1861,6 @@ o, più precisamente, \emph{completezza di Dedekind}.
   \end{definition}
 
 
-\subsection{gruppi totalmente ordinati, densi e continui}
-
 Su un gruppo additivo si può definire la moltiplicazione per un numero 
 naturale $n\in\NN$, come addizione ripetuta:
 \[
@@ -1876,126 +1874,235 @@ Se il gruppo è moltiplicativo l'analoga definizione permette di definire
 la potenza $n$-esima: $x^0 = 1$, $x^{n+1}=x^n\cdot x$.
 
 Per induzione si possono dimostrare facilmente le seguenti proprietà:
-**********
 \begin{enumerate}
-  \item $n\cdot x + m\cdot x = (n+m)\cdot x$;
+  \item $(n+m)\cdot x = n\cdot x + m\cdot x$; 
+  \item $(n\cdot m)\cdot x = n\cdot (m\cdot x)$;
+  %\item $n\cdot(x+y) = n\cdot x + n\cdot y$; % serve commutatività?
+  \item $-(n\cdot x) = n\cdot(-x)$;
+  \item se $n\cdot x = 0$ allora o $n=0$ o $x=0$;
+  \item se $0\le x \le y$ allora $n\cdot x \le n\cdot y$;
+  \item se $0\le x < y$ e $n > 0$ allora $n\cdot x < n\cdot y$;
+  \item se $x\ge 0$ e $n\ge m$ allora $nx\ge mx$.
 \end{enumerate}
 
 Se $n\cdot x = y$ e $n\neq 0$ scriveremo $x=\frac y n$. 
 Affinché questa definizione sia univoca bisogna però verificare che 
-se $n\cdot x =y$ allora $x$ è l'unico elemento con tale proprietà.
-Ovviamente $n=0$ va escluso perché $0\cdot x = 0$ per ogni $x$.
-Per $n\ge 1$ la dimostrazione può essere fatta facilmente per induzione:
-se $(n+1)\cdot x = (n+1)\cdot x'$ allora 
+se $n\cdot x = n\cdot x'$ allora $x=x'$.
+Infatti si ha 
+\[
+  0 = n\cdot x - n\cdot x' = n\cdot (x-x')
+\]
+e se $n\neq 0$ si conclude $x-x'=0$ ovvero $x=x'$.
 
-Il seguente teorema ci permette di definire la divisione per $n$.
-Si faccia presente che se interpretiamo questo risultato su un gruppo moltiplicativo,
-invece che additivo,
+Il seguente teorema ci permette di dimostrare che la divisione per $n\neq 0$ 
+si può sempre fare.
+Si faccia presente che se interpretiamo questo teorema su un 
+gruppo moltiplicativo, invece che additivo, il risultato
+non è del tutto banale perché 
 stiamo dimostrando l'esistenza della radice $n$-esima.
 
 \begin{theorem}[divisibilità]
 \label{th:divisibile}%
-Se $R$ è un gruppo totalmente ordinato, denso e continuo
-con operazione $+$ ed elemento neutro $0$
-allora per ogni $y\in R$, $y\neq 0$ e per ogni $n\in \NN$, $n\neq 0$ 
-esiste un unico $x\in R$ tale che $n\cdot x = y$.
+Se $R$ è un gruppo additivo totalmente ordinato, denso e continuo
+allora per ogni $y\in R$, e per ogni $n\in \NN$, $n\neq 0$ 
+esiste $x\in R$ tale che $n\cdot x = y$.
 \end{theorem}
+%
+Per dimostrare il teorema ci servirà il seguente.
+%
+\begin{lemma}[esistenza di numeri piccoli]
+  \label{lm:numeri_piccoli}%
+Sia $R$ un gruppo additivo totalmente ordinato e denso.
+Per ogni $y\in R$, $y>0$ ed ogni $n\in \NN$ esiste $x\in R$, 
+$x>0$ tale che $nx\le y$.
+\end{lemma}
+%
+\begin{proof}
+Vogliamo innanzitutto dimostrare che 
+\begin{equation}\label{eq:41095633}
+  \forall y>0 \colon \exists x>0 \colon x+x \le y.
+\end{equation}
+Per la proprietà di densità sappiamo che esiste $z$ tale che 
+$0<z<y$. 
+Prendiamo $w=y-z$. Se $w\le z$ allora $w+w\le w+z=y$ e possiamo prendere $x=w$.
+Altrimenti $z+z < w+z = y$ e possiamo prendere $x=z$.
+%% Attenzione: la dimostrazione è delicata se il gruppo non è commutativo: bisogna 
+%% fare attenzione all'ordine degli addendi! 
+
+Consideriamo ora l'insieme $M$ dei numeri naturali che 
+soddisfano il teorema:
+\[
+  M \defeq \ENCLOSE{m\in \NN\colon \exists x>0\colon mx\le y}.
+\]
+Basterà dimostrare che $M=\NN$, lo possiamo fare per induzione.
+Ovviamente $0\in M$ e $1\in M$ perché basta scegliere $x=y$.
+Supponendo ora che $m\in M$, $m\ge 1$, basterà dimostrare che anche $m+1\in M$.
+Se $m\in \NN$ esiste $z>0$ tale che $m\cdot z\le y$.
+Per la proprietà~\eqref{eq:41095633} esiste $x>0$ tale che $2\cdot x\le z$.
+Allora 
+\[
+  (m+1)\cdot x 
+  \le (m+m)\cdot x 
+  = m\cdot(2\cdot x)
+  \le m\cdot z \le y
+\]
+e dunque $m+1\in M$ come volevamo dimostrare.
+\end{proof}
+%
 \begin{proof}[Dimostrazione del teorema~\ref{th:divisibile}]
-  Vogliamo innanzitutto dimostrare che 
-  \begin{equation}\label{eq:41095633}
-    \forall y>0 \colon \exists x>0 \colon x+x \le y.
-  \end{equation}
-  Per la proprietà di densità sappiamo che esiste $z$ tale che 
-  $0<z<y$. 
-  Prendiamo $w=y-z$. Se $w\le z$ allora $w+w\le w+z=y$ e possiamo prendere $x=w$.
-  Altrimenti $z+z < w+z = y$ e possiamo prendere $x=z$.
-  %% Attenzione: la dimostrazione è delicata se il gruppo non è commutativo: bisogna 
-  %% fare attenzione all'ordine degli addendi! 
-  
-  Ora dobbiamo dimostrare che per ogni $y\in R$ e per ogni $n\in \NN$, $n\neq 0$
+  Dobbiamo dimostrare che per ogni $y\in R$ e per ogni $n\in \NN$, $n\neq 0$
   esiste $x\in R$ tale che $n\cdot x=y$.
   Per fissare le idee supponiamo che sia $y>0$: il caso $y=0$ è banale 
   e se $y<0$ basterà applicare il risultato all'opposto $-y$.
   
-  Fissati $n\in \NN$, $n\neq 0$ e $y>0$ 
+  Fissati $n\in \NN$, $n\neq 0$ e $y\in R$, $y>0$ 
   consideriamo allora gli insiemi:
   \begin{align*}
-    A &= \ENCLOSE{a\in R\colon a\ge 0, n\cdot a\le y},\\
+    A &= \ENCLOSE{a\in R\colon n\cdot a\le y},\\
     B &= \ENCLOSE{b\in R\colon n\cdot b\ge y}.
   \end{align*}
-  Chiaramente si ha $a\le b$ per ogni $a\in A$ e $b\in B$ 
-  perché se $n\cdot a \le n\cdot b$ 
-  si può dedurre $a\le b$ (altrimenti si violerebbe
-  la proprietà $0\le a\le b \implies n\cdot a\le n\cdot b$ dimostrabile 
-  per induzione su $n\in \NN$).
-  Chiaramente $B\neq \emptyset$ in quanto $y\in B$ visto che $n\cdot y\ge y$ se 
-  $n\in \NN$, $n\neq 0$.
-  Meno ovvio dimostrare che $A\neq \emptyset$ per fare questo
-  dobbiamo considerare l'insieme 
-  $M=\ENCLOSE{m\in\NN\colon \exists x>0\colon m\cdot x\le y}$.
-  Ovviamente $1\in M$ e la proprietà~\eqref{eq:41095633}
-  ci dice che anche $2\in M$. 
-  Per dimostrare che $M=\NN$ basta allora dimostrare che 
-  se $n\in M$, $n\ge 2$ allora anche $n+1\in M$. 
-  Ma $n\in M$ significa che esiste $x>0$ tale che 
-  $n\cdot x\le y$. 
-  Per la proprietà~\eqref{eq:41095633} esiste anche $z>0$ 
-  tale che $z+z\le x$ e dunque 
-  \[
-    (n+1)z \le (n+n)z = n(z+z)\le n\cdot x \le y.
-  \]
-  Visto che $M = \NN$ possiamo affermare che $A\neq \emptyset$.
+  Chiaramente $0\in A$ e $y\in B$ quindi $A$ e $B$ non sono vuoti.
+  Inoltre si ha $a\le b$ per ogni $a\in A$ e $b\in B$ 
+  perché se fosse $b < a$ si avrebbe $nb < na$ 
+  (necessariamente $b>0$) che 
+  è assurdo essendo $na \le y \le nb$.
   
   Dunque $A\le B$ sono separati e non vuoti e per l'ipotesi di continuità di $R$ 
-  possiamo dedurre che esiste $y$ elemento di separazione: $A\le x \le B$.
-  Vogliamo dimostrare che $n\cdot x=y$.
-  
-  Se fosse $n\cdot x<y$ vogliamo dimostrare che esiste $\eps>0$ 
-  tale che $n\cdot(x+\eps)<y$ e questo sarebbe assurdo perché
-  allora $x+\eps\in A$ e $x$ non sarebbe un maggiorante di $A$.
-  Affinché sia $n\cdot(x+\eps)<y$ basterà avere $n\cdot \eps < y-n\cdot x$.
-  Un tale $\eps>0_G$ esiste per quanto visto prima riguardo all'insieme 
-  $M$, mettendo $y-n\cdot x$ al posto di $y$.
-  
-  Viceversa se fosse $n\cdot x>y$ vogliamo dimostrare che esiste $\eps>0$
-  tale che $n\cdot(x-\eps)>y$ e questo sarebbe assurdo perché
-  allora $x-\eps\in B$ e $x$ non sarebbe un minorante di $B$.
-  Anche in questo caso $\eps$ si trova facilmente imponendo 
-  la disequazione $n\cdot \eps < n\cdot x-y$.
-\end{proof}
-  
-Ovviamente c'è un unico $x$ tale che $n\cdot x=y$ perché 
-se $n\cdot z = n\cdot x$ si ha $n\cdot (z-x) = 0$ che è 
-solo possibile quando $z=x$. Scriveremo $x=\frac{y}{n}$.
+  possiamo dedurre che esiste $x$ elemento di separazione: $A\le x \le B$.
+  Il nostro obiettivo è dimostrare che $n\cdot x=y$.
 
-*** proprietà archimedea ***
+  Se fosse $n\cdot x > y$ per il lemma~\ref{lm:numeri_piccoli} dovrebbe 
+  esistere $\eps>0$ tale che $n\cdot \eps < n\cdot x - y$.
+  Per $k$ abbastanza grande si avrà $(k+1)\eps > x$ e quindi prendendo 
+  il minimo $k\in \NN$ con tale proprietà si avrà
+  \mynote{Il teorema~\ref{th:buon_ordinamento} garantisce 
+  che ogni insieme non vuoto di numeri naturali ha minimo} 
+  $k\cdot \eps < x \le (k+1)\cdot \eps$.
+  Ma allora 
+  \mynote{Non abbiamo supposto che l'addizione sia commutativa,
+  ma sfruttiamo il fatto che i multipli di uno stesso numero 
+  $\eps$ commutano tra loro.}
+  \[
+    n\cdot \eps + n\cdot k\cdot \eps
+    = n(k+1)\cdot \eps 
+    \ge n\cdot x 
+    > n\cdot \eps + y 
+  \]
+  cioè $n\cdot k\cdot \eps > y$ da cui
+  $k\cdot \eps \in B$. 
+  Ma $k\cdot\eps < x \le B$ e quindi abbiamo un assurdo.
+
+  D'altra parte se fosse $n\cdot x < y$ per il lemma~\ref{lm:numeri_piccoli}
+  dovrebbe esistere $\eps>0$ tale che $n\cdot \eps < y-n\cdot x$.
+  Allora, analogamente a prima, esiste $k\in\NN$ tale che 
+  $k\cdot \eps \le x < (k+1)\cdot \eps$ e quindi
+  \[
+    n\cdot (k+1) \cdot \eps 
+    = n\cdot \eps + n \cdot k \cdot \eps 
+    < y - n\cdot x + n\cdot x 
+    =y.  
+  \]
+  Dunque $(k+1)\cdot \eps \in A$ e questo è assurdo perché 
+  $(k+1)\cdot \eps > x \ge A$.
+
+  Possiamo quindi concludere che $n\cdot x = y$, come volevamo dimostrare.
+\end{proof}
+
+Il seguente risultato ci dice, informalmente, che non 
+esistono quantità infinite (ma neanche infinitesime) in $\RR$.
+%
+\begin{theorem}[proprietà archimedea]
+  \label{th:archimede}%
+  \mymark{**}%
+  \mymargin{proprietà archimedea}%
+  \index{proprietà!archimedea}%
+  \mynote{Questo teorema ci dice, che il gruppo $R$ 
+  non contiene né elementi \emph{infiniti} (cioè più grandi di qualunque 
+  multiplo di un numero positivo $x$) 
+  né elementi \emph{infinitesimi} (cioè più piccoli 
+  di qualunque frazione $\frac{x}{n}$ con $x>0$ e $n\in \NN$).
+  Dunque le quantità infinitesime
+  utilizzate da Newton e Leibniz per definire derivate e 
+  integrali, non sono giustificabili all'interno 
+  di un gruppo totalmente ordinato denso e continuo.
+  E' però possibile definire un gruppo totalmente ordinato 
+  denso ma non continuo in cui esistono quantità infinite e infinitesime:
+  è quello che viene fatto nella \emph{analisi non-standard}.
+  \index{analisi non standard}%
+  }
+    Sia $R$ un gruppo totalmente ordinato, denso e continuo.
+  Allora per ogni $x,y\in R$, $x>0$, $y>0$ 
+  esiste $n\in \NN$ tale che $n\cdot x > y$.
+\end{theorem}
+%
+\begin{proof}
+\mymark{*}%
+Fissato $x>0$ consideriamo gli insiemi:
+\[
+A = \NN\cdot x = \ENCLOSE{n\cdot x\colon n\in \NN},
+B = \ENCLOSE{b\in R\colon \forall n\in\NN\colon n \cdot x \le b }.
+\]
+Per definizione $A\le B$ e $A$ è diverso dal vuoto.
+Se per assurdo il teorema fosse falso, si avrebbe $y\in B$ 
+e quindi anche $B$ sarebbe non vuoto.
+Dunque per la continuità dell'ordinamento dovrebbe esistere 
+un elemento di separazione $s\in R$ tale che $A\le s\le B$.
+Visto che $s-x<s$ e $s\le B$,
+sappiamo che $s-x \not \in B$.
+Dunque esiste $n\in \NN$ tale che $n\cdot x > s-x$
+ma allora $(n+1)\cdot x > s-x+x=s$. 
+Ma questo è assurdo perché $(n+1)\cdot x\in A$ e $s\ge A$.
+%
+%%% dimostrazione col SUP
+%  Fissati $x,y\in R$, $x,y>0$ consideriamo l'insieme 
+%  \[
+%     A = \NN \cdot y = \ENCLOSE{n\cdot y\colon n\in \NN}.
+%  \]
+%  Basta dimostrare che $A$ non è superiormente limitato perché 
+%  in tal caso dato $x\in \RR$ esisterebbe $n\in \NN$ per cui $n\cdot y> x$.
+%
+%  Chiaramente $A$ non è vuoto in quanto $0\in A$ dunque se $A$ 
+%  per assurdo fosse superiormente limitato esisterebbe 
+%  $m=\sup A$, $m\in R$. 
+%  Siccome $m$ è il minimo dei maggioranti di $A$
+%  e $m-y$ è più piccolo di $m$, allora $m-y$ non è un maggiorante. 
+%  Dunque deve esistere $n\in \NN$ tale che $ny>m-y$.
+%  Ma allora $(n+1)y = ny + y > m$ ed essendo $n+1\in \NN$ troviamo che $m$
+%  non poteva essere un maggiorante di $A$: assurdo.
+\end{proof}
+
 
 \begin{theorem}[isofomorfismi di gruppi ordinati]%
-  \label{th:isomorfismo}%
-  Siano $R$ ed $S$ due gruppi
-  con elementi neutri $e_R$ ed $e_S$ e denotiamo con $\stackrel R*$
-  l'operazione di gruppo su $R$ 
-  e con $\stackrel S*$ l'operazione di gruppo su $S$.
-  
+  \label{th:isomorfismo}%  
   Supponiamo che $R$ e $S$ siano gruppi totalmente ordinati, densi e continui.
-  Allora fissato $u\in R$ con $u > e_R$ e fissato qualunque $v \in S$,
-  $m > e_S$ esiste una unica funzione $\phi\colon R\to S$
+  Denotiamo con $\stackrel R*$ l'operazione di gruppo su $R$ 
+  e con $\stackrel S*$ quella su $S$, con $e_R$ ed $e_S$ denotiamo i corrispondenti 
+  elementi neutri e con $\stackrel R\le$ e $\stackrel S\le$ 
+  denotiamo le relazioni d'ordine.
+
+  Fissato $u\in R$ con $u > e_R$ e fissato qualunque $v \in S$,
+  $v > e_S$ esiste una unica funzione $\phi\colon R\to S$
   tale che:
   \begin{enumerate}
-    \item $\phi(u)=v$;
-    \item $\forall x,y\in R \colon \phi(x \stackrel R* y) = \phi(x) \stackrel S* \phi(y)$ (omomorfismo);
-    \item $\forall x,y\in R \colon x\le y \implies \phi(x) \le \phi(y)$ (crescente).
+    \item $\phi(u)=v$ e per ogni $x,y\in R$ si ha
+    \item proprietà di omomorfismo: 
+    $\phi(x \stackrel R* y) = \phi(x) \stackrel S* \phi(y)$,
+    \item monotonia: 
+    $x\stackrel R\le y \implies \phi(x) \stackrel S\le \phi(y)$.
   \end{enumerate}    
   Inoltre risulta che $\phi(e_R)=e_S$ e $\phi\colon R\to S$ 
   è bigettiva.
 \end{theorem}
     
 \begin{proof}
-Per rendere la notazione più semplice
-i punti $e_R$ ed $e_S$ li chiameremo entrambi $0$,
-e le operazioni $*$ e $\circ$ le chiameremo entrambe $+$.
+Per rendere la notazione più semplice denotiamo con $0$, $+$ e $\le$ 
+rispettivamente gli elementi neutri, le operazioni di gruppo 
+e le relazioni d'ordine di entrambi i gruppi. 
+Sarà il contesto a rendere chiaro se stiamo operando sul gruppo $R$ 
+o sul gruppo $S$.
 
-Osserviamo innanzitutto che
+Osserviamo innanzitutto che se vale la proprietà di omomorfismo
+si deve avere
 $\phi(0) = \phi(0+0) = \phi(0)+\phi(0)$
 e quindi deve essere $\phi(0)=0$.
 Di conseguenza $0=\phi(x-x) = \phi(x)+\phi(-x)$
@@ -2003,120 +2110,135 @@ da cui $\phi(-x) = -\phi(x)$.
 Dunque basterà definire $\phi(x)$ per $x>0$.
 
 \emph{Passo 1: definizione sugli interi.}
-Per induzione si osserva che deve essere 
-$\phi(nx) = n\phi(x)$. 
-Avendo imposto $\phi(u)=v$ deduciamo che deve essere 
-$\phi(nu) = n\phi(v)$.
+Per induzione si osserva che per garantire la proprietà 
+di omomorfismo per ogni $n\in \NN$ e per ogni $x\in R$ 
+dovrà essere $\phi(n\cdot x) = n\cdot \phi(x)$. 
+Il passo induttivo è il seguente:
+\[
+  \phi((n+1)\cdot x) 
+  = \phi(n\cdot x + x)
+  = \phi(n\cdot x) + \phi(x)
+  = n\cdot \phi(x) + \phi(x)
+  = (n+1)\cdot \phi(x).
+\]
+In particolare avendo imposto $\phi(u)=v$ deduciamo che deve essere 
+necessariamente $\phi(n\cdot u) = n\cdot \phi(v)$.
 
 \emph{Passo 2: definizione sulle frazioni.}
-Per il teorema~\ref{th:divisibile} per ogni $n\in \NN$, $n\neq 0$ 
-ed ogni $x\in R$ esiste $y=\frac{x}{n}$ tale che $ny=x$.
-Allora $\phi(x) = \phi(ny)=n\phi(y)$ da cui 
-si scopre che deve essere $\phi(\frac x n) = \frac{\phi(x)}{n}$
+Per il teorema~\ref{th:divisibile} (divisibilità), per ogni $n\in \NN$, $n\neq 0$ 
+ed ogni $x\in R$ esiste $y=\frac{x}{n}$ tale che $n\cdot y=x$.
+Allora $\phi(x) = \phi(ny)=n\cdot \phi(y)$ da cui 
+si scopre che deve essere $\phi(\frac x n) = \frac{\phi(x)}{n}$.
 Dunque per ogni $k\in \NN$ ed ogni $n\in \NN\setminus\ENCLOSE{0}$
 si deve avere 
 \begin{equation}\label{eq:610954}
-  \phi\enclose{k\frac u n} = k \frac v n.
+  \phi\enclose{k\cdot \frac u n} = k \cdot \frac v n.
 \end{equation}
 Effettivamente \eqref{eq:610954} definisce univocamente 
-$\phi$ sui numeri della forma $k\frac u n$ perché 
-se $k\frac u n = k'\frac u {n'}$ allora $k n' u = k' n u$
-e $kn' = k'n$ dunque risulta anche $k\frac v n = k'\frac v {n'}$.
+$\phi$ sui numeri della forma $k\cdot \frac u n$ perché 
+se $k\cdot \frac u n = k'\cdot \frac u {n'}$ allora 
+$k \cdot n'\cdot  u = k' \cdot n\cdot u$
+e $k\cdot n' = k'\cdot n$ dunque risulta anche 
+$k\cdot \frac v n = k'\cdot \frac v {n'}$.
 
-\emph{passo 3: estensione per monotonia.}
+\emph{Passo 3: estensione per monotonia.}
 Rimane ora da definire $\phi(x)$ per ogni $x\in R$.
 L'univocità della definizione sarà garantita dalla monotonia:
 se $a\le x\le b$ dovrà essere $\phi(a) \le \phi(x)\le \phi(b)$.
 Ma il valore di $\phi$ è già univocamente determinato sugli $a$ e $b$ 
-che si scrivono in forma di frazione: $k\frac u n$.
-Dunque dovremo necessariamente avere che $\phi(x)$ è elemento di separazione 
+che si scrivono in forma di frazione: $k\cdot \frac u n$.
+Dunque, fissato $x\in R$, $x>0$, 
+dovremo necessariamente avere che $\phi(x)$ è elemento di separazione 
 dei due insiemi:
 \[
-A = \ENCLOSE{k \frac v n \colon k\in \NN, n\in \NN\setminus\ENCLOSE{0}, k\frac u n \le x },\qquad
-B = \ENCLOSE{k' \frac v n' \colon k\in \NN, n\in \NN\setminus\ENCLOSE{0}, k'\frac u {n'} \ge x}.
+A = \ENCLOSE{k \cdot \frac v n \colon k,n\in \NN, n\neq 0, k\cdot \frac u n \le x },\qquad
+B = \ENCLOSE{k \cdot \frac v n \colon k,n\in \NN, n\neq 0, k\cdot \frac u n \ge x}.
 \]
 Effettivamente questi insiemi sono separati 
-perché se $k\frac u n \le k'\frac u {n'}$ allora $kn'\le k'n$ 
-e di conseguenza $k\frac v n \le k' \frac v {n'}$.
-Allora per l'ipotesi di continuità di $S$ 
-possiamo trovare almeno un elemento di separazione. 
+perché se $k\cdot \frac u n \le k'\cdot \frac u {n'}$ allora $kn'\le k'n$ 
+e di conseguenza $k\cdot \frac v n \le k' \cdot \frac v {n'}$.
+Dunque per l'ipotesi di continuità di $S$ 
+possiamo trovare almeno un elemento di separazione $s\in R$ 
+tale che $A\le s \le B$.
 
-E tale elemento è unico in quanto se ci fossero due elementi di separazione 
-$y_1<y_2$ per la proprietà archimedea (teorema~\ref{th:archimede}).
-dovrebbe esistere $n\in \NN$ tale che $\frac m n < y_2-y_1$
-e allora, prendendo i multipli di $\frac m n$ si troverebbe un $k\in\NN$ 
-tale che $y_1 < k \frac m n < y_2$. 
-Ma allora ci chiediamo se $k\frac u n$ è maggiore o minore di $x$ e 
+E tale elemento è unico in quanto se ci fossero due elementi di separazione, 
+$y_1<y_2$, per la proprietà archimedea (teorema~\ref{th:archimede}).
+dovrebbe esistere $n\in \NN$ tale che $\frac v n < y_2-y_1$
+e allora, prendendo i multipli di $\frac v n$ si troverebbe un $k\in\NN$ 
+tale che $y_1 < k\cdot \frac v n < y_2$. 
+Ma allora ci chiediamo se $k\cdot \frac u n$ è maggiore o minore di $x$ e 
 in entrambi i casi otteniamo un assurdo: se fosse minore o uguale a $x$ 
-allora $k\frac m n$ dovrebbe essere elemento di $A$ ma non può esserlo 
-perché $k\frac m n>y_1\ge A$, analogamente se $k\frac u n \ge x$ 
+allora $k\cdot \frac v n$ dovrebbe essere elemento di $A$ ma non può esserlo 
+perché $k\cdot \frac v n>y_1\ge A$, 
+analogamente se fosse $k\frac u n \ge x$ 
 si avrebbe un elemento di $B$ che è strettamente più piccolo di $y_2\le B$.
 
 Dunque $\phi(x)$ è univocamente determinata dall'essere elemento di 
 separazione degli insiemi $A$ e $B$.
-Osserviamo che se $x=k\frac u n$ (con $k,n\in \NN$, $n\neq 0$)
-allora $k\frac v n \in A\cap B$ e quindi abbiamo effettivamente 
-definito $\phi\enclose{k\frac u n} = k\frac v n$ estendendo la definizione 
-già data nei passi precedenti.
 Ponendo poi $\phi(-x) = -\phi(x)$ abbiamo univocamente definito $\phi$ 
 su tutto $R$. 
+Osserviamo che se $x=k\cdot \frac u n$ (con $k,n\in \NN$, $n\neq 0$)
+allora $k\cdot \frac v n \in A\cap B$ e quindi abbiamo effettivamente 
+definito $\phi\enclose{k\cdot \frac u n} = k\cdot \frac v n$ estendendo la definizione 
+già data nei passi precedenti.
 Dobbiamo ora verificare che effettivamente $\phi$ 
 verifica le proprietà richieste.
 
 Per prima cosa dimostriamo che $\phi$ risulta essere strettamente crescente. 
 Prendiamo $x,y\in R$ con $0<x<y$.
 Per la proprietà archimedea (teorema~\ref{th:archimede})
-esiste $n\in \NN$ tale che $n(y-x) < \frac u 2$ e quindi esisterà un $k\in \NN$ 
-tale che $x \le k \frac u n < (k+1) \frac u n \le y$.
+esiste $n\in \NN$ tale che $n\cdot(y-x) < \frac u 2$ e quindi esisterà un $k\in \NN$ 
+tale che $x \le k \cdot \frac u n < (k+1)\cdot \frac u n \le y$.
 Per definizione sappiamo che $\phi(x)$ è minore o uguale ad ogni 
-elemento dell'insieme $B$ e quindi $\phi(x) \le k \frac v n$.
-Analogamente $\phi(y) \ge (k+1)\frac v n$. 
-Ma $(k+1) \frac v n > k \frac v n$ in quanto $\frac v n>0$ e quindi possiamo 
+elemento dell'insieme $B$ e quindi $\phi(x) \le k\cdot \frac v n$.
+Analogamente $\phi(y) \ge (k+1)\cdot \frac v n$. 
+Ma $(k+1)\cdot \frac v n > k\cdot \frac v n$ in quanto $\frac v n>0$ e quindi possiamo 
 concludere che $\phi(x) < \phi(y)$.
 Passando agli opposti la verifica si estende facilmente al caso in cui $x<y<0$.
-Il caso $x\le 0 \le y$ è infine banale.
+Il caso $x= 0$ o $y=0$ è infine banale.
 
 Dimostriamo ora che $\phi(x+y)=\phi(x)+\phi(y)$.
 Al solito lo facciamo nel caso $x>0$ e $y>0$, 
 gli altri casi verranno di conseguenza.
 Per ogni $n\in \NN$ possiamo trovare $k,j\in \NN$ tali che 
 \[
-  k\frac u n \le x \le (k+1) \frac u n, \qquad 
-  j\frac u n \le y \le (j+1) \frac u n
+  k\cdot \frac u n \le x \le (k+1)\cdot \frac u n, \qquad 
+  j\cdot \frac u n \le y \le (j+1)\cdot \frac u n
 \]
 e per come è stata definita $\phi$ dovrà essere 
 \[
-  k \frac v n \le \phi(x) \le (k+1)\frac v n, \qquad  
-  j \frac v n \le \phi(y) \le (j+1)\frac v n.
+  k\cdot \frac v n \le \phi(x) \le (k+1)\cdot\frac v n, \qquad  
+  j\cdot \frac v n \le \phi(y) \le (j+1)\cdot\frac v n.
 \]
 Allora sommando le disuguaglianze troviamo 
 \[
-  (k+j) \frac u n \le x + y \le (k+j+2) \frac u n  
+  (k+j) \cdot \frac u n \le x + y \le (k+j+2) \cdot \frac u n  
 \]
 e per come è stata definita $\phi(x+y)$ dovrà essere 
 \[
-  (k+j) \frac v n \le \phi(x+y) \le (k+j+2)\frac v n.
+  (k+j)\cdot \frac v n \le \phi(x+y) \le (k+j+2)\cdot \frac v n.
 \]
 Per differenza si ottiene:
 \[
- -2\frac v n \le \phi(x+y) - \phi(x) - \phi(y) \le 2 \frac v n
+ -2\cdot \frac v n \le \phi(x+y) - \phi(x) - \phi(y) \le 2\cdot \frac v n
 \]
 e questo è vero per ogni $n\in \NN$.
-Ma la proprietà archimedea ci dice che nessun numero positivo 
-può essere minore di $2\frac v n$ per ogni $n$ e equivalentemente ù
-nessun numero negativo può essere maggiore $-2\frac v n$ per ogni $n$.
+Ma la proprietà archimedea (teorema~\ref{th:archimede}) 
+ci dice che nessun numero positivo 
+può essere minore di $2\frac v n$ per ogni $n\in \NN$ ed, equivalentemente,
+nessun numero negativo può essere maggiore $-2\frac v n$ per ogni $n\in \NN$.
 Se ne deduce che $\phi(x+y)-\phi(x)-\phi(y)=0$ ovvero 
 vale la proprietà di omomorfismo $\phi(x+y)=\phi(x) + \phi(y)$.
 
 L'ultima proprietà che ci resta da dimostrare è che $\phi\colon R\to S$ 
-sia bigettiva.
+sia iniettiva e suriettiva.
 Se $x\neq y$ si avrà $x<y$ o $y<x$.
 Nel primo caso abbiamo già mostrato che $\phi(x)<\phi(y)$ 
 e nel secondo caso $\phi(y)<\phi(x)$.
 In ogni caso $\phi(x) \neq \phi(y)$ e quindi 
 $\phi$ è iniettiva.
 
-Dimostriamo infine che $\phi$ è bigettiva. 
+Dimostriamo infine che $\phi$ è suriettiva. 
 Posto $T=\phi(R)$ osserviamo che per le proprietà di $\phi$ 
 anche $T\subset S$ dev'essere 
 un gruppo totalmente ordinato, denso e continuo come tutto $S$
@@ -4415,45 +4537,6 @@ allora per ogni $x\in R$ si può definire
 il prodotto $n\cdot x$ con $n\in \NN$ come somma ripetuta:
 Si pone $0\cdot x=0$ e per induzione $(n+1)\cdot x= n\cdot x + x$.
  
-Il seguente risultato ci dice, informalmente, che non 
-esistono quantità infinite (ma neanche infinitesime) in $\RR$.
-%
-\begin{theorem}[proprietà archimedea dei numeri reali]
-\label{th:archimede}%
-\mymark{**}%
-\mymargin{proprietà archimedea}%
-\index{proprietà!archimedea}%
-  Sia $R$ un gruppo totalmente ordinato e completo
-  (ad esempio $R=\RR$ sarà per noi il caso rilevante)
-  con operazione $+$ ed elemento neutro $0$.
-  Dati $x,y\in R$ con $x,y>0$ esiste $n\in \NN$ 
-  tale che $n \cdot y > x$.
-
-  A parole: per quanto piccolo possa essere $y>0$, 
-  sommandolo a se stesso molte volte si arriva, 
-  dopo un numero finito di passi, a superare 
-  qualunque numero $x$ anche molto grande.
-\end{theorem}
-%
-\begin{proof}
-\mymark{*}
-  Fissati $x,y\in R$, $x,y>0$ consideriamo l'insieme 
-  \[
-     A = \NN \cdot y = \ENCLOSE{n\cdot y\colon n\in \NN}.
-  \]
-  Basta dimostrare che $A$ non è superiormente limitato perché 
-  in tal caso dato $x\in \RR$ esisterebbe $n\in \NN$ per cui $n\cdot y> x$.
-
-  Chiaramente $A$ non è vuoto in quanto $0\in A$ dunque se $A$ 
-  per assurdo fosse superiormente limitato esisterebbe 
-  $m=\sup A$, $m\in R$. 
-  Siccome $m$ è il minimo dei maggioranti di $A$
-  e $m-y$ è più piccolo di $m$, allora $m-y$ non è un maggiorante. 
-  Dunque deve esistere $n\in \NN$ tale che $ny>m-y$.
-  Ma allora $(n+1)y = ny + y > m$ ed essendo $n+1\in \NN$ troviamo che $m$
-  non poteva essere un maggiorante di $A$: assurdo.
-\end{proof}
-
 \begin{theorem}[parte intera]
 \mymark{*}%
   Dato $x\in \RR$ esiste un unico $m\in \ZZ$ tale che $m-1 < x \le m$.
