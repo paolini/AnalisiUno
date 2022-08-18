@@ -1458,8 +1458,9 @@ Questo metodo per definire una funzione si chiama
 il valore della funzione sul termine $n$-esimo rifacendosi
 al valore assegnato sui termini precedenti.
 In particolare è possibile definire
-su $\NN$ le operazioni di addizione, moltiplicazione ed elevamento a potenza
-specificando il valore dell'operazione sul numero $0$ e 
+su $\NN$ le operazioni di addizione, 
+moltiplicazione ed elevamento a potenza
+tramite le seguenti definizioni ricorsive:
 \begin{gather*}
   \begin{cases}
     n + 0 = n,\\
@@ -1467,7 +1468,7 @@ specificando il valore dell'operazione sul numero $0$ e
   \end{cases}
   \qquad
   \begin{cases}
-    n \cdot 1 = n,\\
+    n \cdot 0 = 0,\\
     n \cdot (m+1) = n\cdot m + n;
   \end{cases}
   \qquad
@@ -1477,7 +1478,7 @@ specificando il valore dell'operazione sul numero $0$ e
   \end{cases}
 \end{gather*}
 
-Se ad esempio volessimo sapere quanto vale $2+3$ si può utilizzare 
+Se ad esempio volessimo sapere quanto vale $2+3$ possiamo utilizzare 
 la proprietà $n+(m+1) = (n+m)+1$ ponendo $n=2$ e $m=2$.
 Si ottiene quindi $2+3 = 2+(2+1) = (2+2)+1$.
 Per sapere quanto fa $2+2$ usiamo nuovamente la stessa proprietà 
@@ -1523,7 +1524,7 @@ l'ordinamento soddisfa infine queste proprietà:
   \item $n\le n$ (proprietà riflessiva);
   \item se $n\le m$ e $m\le k$ allora $n\le k$ (proprietà transitiva);
   \item se $n\le m$ e $m\le n$ allora $n=m$ (proprietà antisimmetrica);
-  \item o $n\le m$ oppure $m\le n$ (ordinamento totale);
+  \item o $n\le m$ oppure $m\le n$ (dicotomia);
   \item monotonia:
    se $m\le n$ allora 
    $m+k\le n+k$, $n\cdot k \le m\cdot k$,
@@ -1553,6 +1554,10 @@ l'elemento neutro della moltiplicazione.
   Dimostrare per induzione che per ogni $n\in \NN$, $n\ge 4$ si ha 
   \[  
     2^n \ge n^2.
+  \]
+  Ovvero, dimostrare che per ogni $n\in \NN$ si ha 
+  \[
+    2^{n+4} \ge (n+4)^2.  
   \]
 \end{exercise}
 
@@ -1681,6 +1686,157 @@ in tal modo risulta che $n!$ sia il prodotto dei primi $n$ numeri naturali posit
   (separatamente per i pari e per i dispari)
   e si dimostrino, per induzione, le formule nell'osservazione precedente.
 \end{exercise}
+
+\subsection{sommatoria e produttoria}
+\index{sommatoria}%
+\index{produttoria}%
+
+Se $A$ è un insieme su cui è definita un'operazione di addizione 
+(o di moltiplicazione) e se $\vec a \in A^n$ 
+è una $n$-upla di elementi di $A$, 
+possiamo definire la somma (o il prodotto)
+\begin{equation}
+  \label{eq:6122112}
+  \begin{aligned}
+  \sum_{k=0}^{n-1} a_k &= a_0 + a_1 + \dots + a_{n-1} \\
+  \prod_{k=0}^{n-1} a_k &= a_0 \cdot a_1 \cdots a_{n-1}.
+  \end{aligned}
+\end{equation}
+delle componenti del vettore $\vec a = (a_0, \dots, a_{n-1})$.
+La definizione formale deve essere data per induzione:
+\[
+  \begin{cases}
+    \displaystyle\sum_{k=0}^{-1} a_k = 0, \\
+    \displaystyle\sum_{k=0}^{n} a_k = \enclose{\sum_{k=0}^{n-1} a_k} + a_n;
+  \end{cases}  \qquad
+  \begin{cases}
+    \displaystyle\prod_{k=0}^{-1} a_k = 1, \\
+    \displaystyle\prod_{k=0}^{n} a_k = \enclose{\prod_{k=0}^{n-1} a_k} \cdot a_n.
+  \end{cases}
+\]
+La variabile $k$ che si trova nelle formule~\eqref{eq:6122112} è \emph{muta}: 
+al suo posto si può utilizzare qualunque altra variabile che non
+compaia altrove.
+
+E' naturalmente possibile anche fare una somma a partire da un indice 
+diverso da $0$. Se $m,n\in \ZZ$, $m\le n+1$, porremo:
+\[
+  \sum_{k=m}^n a_k = \sum_{j=0}^{n-m} a_{m+j}.
+\]
+Dal punto di vista mnemonico abbiamo fatto 
+un \emph{cambio di variabile} $j=k-m$:
+per $k=m$ si trova $j=0$ e per $k=n$ si trova $j=n-m$.
+
+\begin{exercise}
+  Se l'operazione di addizione è associativa e commutativa
+  si può dimostrare per induzione che 
+  la somma è \emph{lineare}:
+  \[
+  \sum_{k=m}^n  \Enclose{a_k + b_k} 
+  = \sum_{k=m}^n a_k + \sum_{k=m}^n b_k, 
+  \qquad
+  \sum_{k=m}^n c\cdot a_k 
+  =c\cdot \sum_{k=m}^n a_k
+  \]
+  e \emph{additiva}:
+  \[
+    \sum_{k=m+1}^n a_k = \sum_{k=m+1}^j a_k + \sum_{k=j+1}^n a_k.  
+  \]
+\end{exercise}
+
+\begin{exercise}
+  Dimostrare che 
+  \[
+    \sum_{k=1}^n k = \frac{n\cdot (n+1)}{2}, \qquad
+    \sum_{k=1}^n k^2 = \frac{n\cdot (n+1)\cdot (2n+1)}{6}
+  \]
+\end{exercise}
+\begin{proof}[Svolgimento]
+Il risultato della prima somma può essere interpretato nel modo seguente:
+la media di una progressione aritmetica $\frac{1+2+ \dots + n}{n}$ 
+è uguale alla media tra il primo 
+e l'ultimo termine della progressione: $\frac{1+n}{2}$.
+
+Una volta identificata la formula la possiamo dimostrare per induzione.
+Per $n=0$ la somma è pari a $0$ per definizione.
+Se la formula è vera per un certo $n$, si ha 
+\[
+  \sum_{k=1}^{n+1} k = \enclose{\sum_{k=1}^n k} + (n+1)
+   = \frac{n\cdot(n+1)}{2} + (n+1) 
+   = \frac{(n+2)(n+1)}{2}
+\]
+che è quanto volevamo dimostrare.
+
+La formula per la somma dei quadrati si può dimostrare facilmente per 
+induzione (lo si faccia per esercizio) se già conosciamo la formula da 
+dimostrare.
+
+Un metodo per trovare la formula è quello di osservare che la differenza 
+di due termini cubici consecutivi risulta essere quadratico:
+\[
+k^3 - (k-1)^3 = 3 k^2 - 3k + 1.  
+\]
+Sommando ambo i lati della precedente equazione si ottiene:
+\begin{equation}\label{eq:309838}
+\sum_{k=1}^n k^3 - \sum_{k=1}^n (k-1)^3 = 3\sum_{k=1}^n k^2-3\sum_{k=1}^n k+\sum_{k=1}^n 1.
+\end{equation}
+Al lato destro compare la somma di cui vogliamo calcolare il valore 
+insieme ad altre due somme di cui sappiamo già il valore. 
+Basterà allora determinare il valore del lato sinistro dove 
+osserviamo che i termini delle due somme si cancellano 
+a vicenda,
+\mynote{%
+si chiama \emph{somma telescopica}
+\index{somma!telescopica}%
+\index{telescopico}%
+in quanto i termini delle due sommatorie si chiudono uno nell'altro 
+come i tubi di un cannocchiale.} %
+tranne l'ultimo della prima somma 
+e il primo della seconda: dunque si ottiene $n^3 - 0^3=n^3$.
+Moltiplichiamo per $2$ l'equazione~\eqref{eq:309838},
+mettiamo in evidenza la somma dei quadrati e 
+utilizzando la formula $2\sum_{k=1}^n k = n(n+1)$
+per ottenere:
+\begin{align*}
+  6 \sum_{k=1}^n k^2 
+  &=  2n^3 + 3 n(n+1) - 2n
+  = n \cdot \Enclose{2(n^2-1) + 3(n+1)}\\
+  &= n \cdot (n+1)(2n+1)
+\end{align*}
+che è quanto volevamo dimostrare.
+
+Con lo stesso metodo si può trovare una formula per il calcolo 
+di $\sum_{k=1}^n k^3$ e così via\dots
+\end{proof}
+
+Se $\sigma\colon \Enclose{n} \to \Enclose{n}$
+è bigettiva (una tale funzione si chiama \emph{permutazione}%
+\mymargin{permutazione}%
+\index{permutazione})
+e se l'addizione è associativa e commutativa
+allora si può fare il cambio di variabile $k=g(j)$:
+\[
+    \sum_{k=0}^{n-1} a_k = \sum_{j=0}^{n-1} a_{\sigma(j)}.
+\]
+Questa uguaglianza può essere dimostrata facilmente nel caso 
+in cui $\sigma$ scambi due soli indici lasciando fissi tutti gli altri 
+(trasposizione) e poi può essere estesa a tutte le permutazioni
+osservando che ogni permutazione si scrivere come composizione 
+di trasposizioni.
+
+Questa proprietà è sostanzialmente la proprietà commutativa della somma 
+estesa ad un numero qualunque di addendi.
+Grazie a questa proprietà possiamo definire la somma di una funzione 
+definita su qualunque insieme finito. 
+Se $f\colon X \to A$ 
+(su $A$ è definita una operazione $+$ associativa e commutativa)
+e $\sigma\colon \Enclose{n} \to X$ è una bigezione (dunque $\#X = n$)
+allora si può definire 
+\[
+  \sum_{x\in X} f(x) = \sum_{j=0}^{n-1} f(\sigma(j))  
+\]
+in quanto la somma sul lato destro non dipende dalla bigezione $\sigma$ che 
+abbiamo scelto.
 
 \section{gruppi ordinati}
 
@@ -2860,8 +3016,8 @@ Ma l'inclusione $x\mapsto x$ è anch'esso un omomorfismo positivo
 di $\QQ \to \RR$ e dunque dovrebbe coincidere con $f$.
 Ma il teorema ci dice anche che tale $f$ è bigettiva dunque 
 si avrebbe $\RR = f(\QQ) = \QQ$.
-E' molto rilevante osservare che questo non accade e cioè 
-$\QQ\neq \RR$ e $\QQ$ non è continuo. 
+E' rilevante osservare che questo non accade e cioè 
+$\QQ\neq \RR$ perché $\QQ$ non è continuo. 
 Il primo ad accorgersene fu, per quanto ne sappiamo,
 Pitagora che dimostrò che $\sqrt 2 = 2^{\frac 1 2}$
 non è un numero razionale, dunque $\sqrt 2 \in \RR \setminus \QQ$.
@@ -2892,6 +3048,20 @@ dimostrando che l'equazione $x^2=2$ non ha soluzioni in $\QQ$.
   Dunque anche $q$ è pari. Ma avevamo supposto che $p$ e $q$ non avessero
   fattori in comune quindi questo non può accadere.
 \end{proof}
+
+Abbiamo quindi dimostrato che $\QQ$ non può essere continuo (altrimenti 
+sarebbe isomorfo a $\RR$ dove l'equazione $x^2=2$ ha soluzione). 
+Possiamo anche esplicitare un esempio di sottoinsiemi di $\QQ$ che sono 
+\emph{separati} (nel senso della definizione~\ref{def:ordinamento_continuo})
+ma non hanno elemento di separazione in $\QQ$:
+\[
+A= \ENCLOSE{x\in\QQ\colon x^2< 2},
+\qquad
+B = \ENCLOSE{x\in \QQ\colon x<0, x^2>2}.  
+\]
+Chiaramente $A\le B$ ma in $\RR$ questi due insiemi 
+hanno come unico elemento di separazione $\sqrt 2$ che non è elemento di
+$\QQ$.
 
 \subsection{estremo superiore, estremo inferiore}
 
@@ -2963,10 +3133,10 @@ quindi $x=y$. Ragionamento analogo se $x$ e $y$ fossero due massimi.
 }
 
 \begin{definition}%
-  Sia $R$ un insieme ordinato.
   \mymark{***}%
-  Sia $A \subset R$.
-  Se $A$ ha un maggiorante (cioè esiste $x\in R$ tale che $x\ge A$, definizione~\ref{def:minorante})
+  Sia $A \subset \RR$.
+  Se $A$ ha un maggiorante (cioè esiste $x\in \RR$ tale che 
+  $x\ge A$, definizione~\ref{def:minorante})
   diremo che $A$ è \emph{superiormente limitato},
   se $A$ ammette un minorante diremo che $A$ è \emph{inferiormente limitato},
   \index{superiormente!limitato}%
@@ -2987,8 +3157,8 @@ quindi $x=y$. Ragionamento analogo se $x$ e $y$ fossero due massimi.
 \mymargin{estremo inferiore}%
 \index{estremo!inferiore} di $A$:
   \begin{align*}
-  \sup A &= \min \ENCLOSE{x\in R \colon x\ge A}, \\
-  \inf A &= \max \ENCLOSE{x\in R \colon x \le A}.
+  \sup A &= \min \ENCLOSE{x\in \RR \colon x\ge A}, \\
+  \inf A &= \max \ENCLOSE{x\in \RR \colon x \le A}.
   \end{align*}
   \index{$\sup$}%
   \index{$\inf$}%
@@ -2997,8 +3167,7 @@ quindi $x=y$. Ragionamento analogo se $x$ e $y$ fossero due massimi.
 \end{definition}
 
 Osserviamo che se l'insieme $A$ è finito e non vuoto,
-il massimo e il minimo esistono
-sempre.
+il massimo e il minimo esistono sempre.
 Se, ad esempio, non esistesse il massimo di $A$ significa che scelto
 $x_k\in A$ esisterebbe sempre $x_{k+1}\in A$ con $x_{k+1} > x_k$ e quindi l'insieme
 $A$ dovrebbe contenere infiniti punti $x_0,x_1, \dots, x_k,\dots $
@@ -3014,11 +3183,9 @@ ha invece massimo $\max B= 1$ e minimo $\min B=0$.
 \begin{theorem}[esistenza del $\sup$]%
   \label{th:sup}%
   \mymark{**}%
-  Sia $R$ un insieme dotato di un ordine totale e continuo
-  (in particolare pensiamo a $R=\RR$).
-  Se $A\subset R$ è un insieme non vuoto
+  Se $A\subset \RR$ è un insieme non vuoto
   e superiormente limitato, allora esiste l'estremo superiore di $A$.
-  Se $A\subset R$ è un insieme non vuoto e inferiormente limitato 
+  Se $A\subset \RR$ è un insieme non vuoto e inferiormente limitato 
   allora esiste l'estremo inferiore di $A$.
   \end{theorem}
   %
@@ -3026,7 +3193,7 @@ ha invece massimo $\max B= 1$ e minimo $\min B=0$.
   \mymark{*}
   Consideriamo l'insieme dei maggioranti
   \[
-  B = \ENCLOSE{ b\in R \colon b \ge A}.
+  B = \ENCLOSE{ b\in \RR \colon b \ge A}.
   \]
   Per ipotesi $B$ è non vuoto e per come è definito risulta $A\le B$.
   Dunque dall'assioma di continuità (definizione~\ref{def:ordinamento_continuo}) 
@@ -3044,18 +3211,254 @@ L'esistenza del $\sup$ (o dell'$\inf$)
 Infatti se $A\le B$ certamente $\sup A$, se esiste, è elemento 
 di separazione tra $A$ e $B$.
 
+\subsection{parte intera}
 
-*************************************
-* PROOFS ****************************
-*************************************
+Se $R$ è un gruppo con operazione $+$ ed elemento neutro $0$, 
+allora per ogni $x\in R$ si può definire 
+il prodotto $n\cdot x$ con $n\in \NN$ come somma ripetuta:
+Si pone $0\cdot x=0$ e per induzione $(n+1)\cdot x= n\cdot x + x$.
+ 
+\begin{theorem}[parte intera]
+\mymark{*}%
+  Dato $x\in \RR$ esiste un unico $m\in \ZZ$ tale che $m-1 < x \le m$.
+\end{theorem}
+%
+\begin{proof}
+  Supponiamo per un attimo che sia $x > 0$
+  e consideriamo l'insieme $A=\ENCLOSE{n \in \NN \colon n\ge x}$.
+  Tale insieme non è vuoto per la proprietà archimedea 
+  e dunque ammette minimo per il principio del buon ordinamento.
+  Se $m=\min A$ risulta quindi $m\in \NN$ e $m-1< x \le m$.
 
-Vedremo nel teorema~\ref{th:unicitaN} che tali insiemi 
-sono tra loro indistinguibili e quindi potremo dire 
-``$\NN$ è \emph{l}'insieme dei numeri naturali''
-piuttosto che ``$\NN$ è \emph{un} insieme di numeri naturali''.
-Ad esempio se $\NN$ è un insieme di numeri naturali 
-anche $\NN_* = \NN\setminus\{0\}$
-lo è scegliendo però $1\in \NN_*$ al posto di $0\in \NN$.
+  Se $x\le 0$ per la proprietà archimedea esiste $k\in \NN$ tale che 
+  $k>-x$. Allora applichiamo il risultato precedente a $x+k$ e consideriamo 
+  $m-k$ al posto di $m$.
+\end{proof}
+
+\begin{definition}[parte intera]
+  \mymark{**}%
+  \mymargin{parte intera}%
+\index{parte!intera}%
+  Dato $x\in \RR$ denotiamo con $\lfloor x\rfloor$ l'unico intero
+  che soddisfa
+  \mymargin{$\lfloor\cdot\rfloor$} %% *** non viene bene nell'indice!
+  \[
+    x - 1 < \lfloor x \rfloor \le x
+  \]
+  e denotiamo con $\lceil x \rceil = - \lfloor -x \rfloor$ l'unico intero che soddisfa (verificare!)
+  \mymargin{$\lceil\cdot\rceil$} %% *** non viene bene nell'indice!
+  \[
+    x \le \lceil x \rceil < x + 1.
+  \]
+  Si ha dunque
+  \[
+    \lfloor x \rfloor \le x \le \lceil x \rceil
+  \]
+  con entrambe le uguaglianze che si realizzano quando $x\in \ZZ$.
+  I due interi $\lfloor x \rfloor$ e $\lceil x \rceil$
+  sono la migliore approssimazione intera di $x$ rispettivamente
+  per difetto e per eccesso.
+  L'intero più vicino ad $x$ (approssimazione per \emph{arrotondamento}%
+\mymargin{arrotondamento}%
+\index{arrotondamento})
+  è
+  \[
+    \left\lfloor x + \frac 1 2 \right\rfloor
+  \quad \text{ossia} \quad
+    \left\lceil x-\frac 1 2 \right\rceil
+  \]
+  (le due espressioni differiscono solamente quando $x$ si trova nel punto medio tra 
+  due interi consecutivi, nel qual caso la prima approssima per eccesso e la seconda 
+  per difetto).
+\end{definition}
+
+In alcuni testi si usa la notazione $[x]$ per denotare la parte intera $\lfloor x \rfloor$ e si definisce
+anche la \emph{parte frazionaria}
+\[
+  \ENCLOSE{x} = x - [x].
+\]
+Per evitare ambiguità con il normale utilizzo delle parentesi
+non useremo queste notazioni.
+
+\subsection{numeri decimali}
+%
+Le frazioni il cui denominatore è una potenza
+di $10$ si chiamano frazioni decimali:
+\[
+  x = \frac{p}{10^d}, \qquad p\in \ZZ, d\in \NN.
+\]
+Tali frazioni si possono rappresentare
+scrivendo il numero
+intero $p$ e segnando un punto
+\mynote{%
+in Italia si preferisce utilizzare la virgola, ma
+ci rassegnamo alla notazione anglosassone che ormai è
+ubiqua in tutta la strumentazione elettronica.
+}%
+di separazione
+prima della $d$-esima cifra a partire da destra.
+Ad esempio scriveremo:
+\[
+  1.4142 = \frac{14142}{10^4}.
+\]
+In generale una frazione $\frac{p}{q}\in \QQ$
+può essere scritta in forma decimale solamente
+se, quando ridotta ai minimi termini,
+risulta che $q$ non ha fattori primi diversi
+da $2$ e $5$ (in quanto le potenze di dieci
+hanno solo questi fattori).
+In ogni caso le frazioni decimali sono dense in $\RR$
+in quanto dato $x\in \RR$ per ogni $\eps>0$ esiste
+$d\in \NN$ tale che $10^{-d}\le\eps$ e quindi
+posto $p=\lfloor 10^d\cdot x + \frac 1 2\rfloor$
+si avrà
+\[
+    \abs{\frac{p}{10^d} - x} \le \frac{1}{2\cdot 10^d} < \eps.
+\]
+In tal caso scriveremo
+\mymargin{$\approx$}%
+\index{$\approx$}
+\[
+  x \approx \frac{p}{10^d}.
+\]
+Ad esempio scriveremo
+\[
+  \frac 2 3 \approx 0.6667 = \frac{6667}{10^4}
+\]
+per intendere%
+\mynote{%
+Si osservi che in base alla definizione data sarebbe anche corretto 
+scrivere $\frac 2 3 \approx 0.6666$ che però sarebbe una approssimazione 
+peggiore. 
+Questa ambiguità è necessaria se vogliamo evitare i casi 
+limite in cui bisogna conoscere molte più cifre decimali di quelle richieste 
+per capire qual è la migliore approssimazione.
+}%
+\begin{equation}\label{eq:approx_23}
+\abs{\frac 2 3 - \frac{6667}{10^4}}<\frac{1}{10^4}.
+\end{equation}
+Nel calcolo scientifico ogni uguaglianza numerica è intesa nel 
+senso precedente, se non specificato diversamente. 
+
+Le frazioni non decimali si possono scrivere con uno sviluppo
+decimale \emph{periodico}. 
+Non useremo mai questa notazione
+che ricordiamo solamente con un esempio.
+Il numero
+\[
+  x = 12.34\overline{567}
+    = 12.34567\overline{567}
+\]
+è la frazione che risolve l'equazione
+\[
+  \frac{100x - 1234}{1000}
+  = 100x-1234.567
+  \qquad
+\enclose
+{\frac{0.\overline{567}}{1000}
+= 0.000\overline{567} }
+\]
+ovvero
+\[
+  1234567 - 1234 = 99900 \cdot x,
+  \qquad x = \frac{1234567-1234}{99900}.
+\]
+
+\begin{exercise}
+Dimostrare che vale~\eqref{eq:approx_23}.
+\end{exercise}  
+
+\subsection{valore assoluto}
+
+\begin{definition}[valore assoluto]
+\mymark{***}
+Se $\KK$ è un campo totalmente ordinato (ad esempio $\KK=\QQ$ o, come vedremo, $\KK=\RR$)
+definiamo il \emph{valore assoluto}%
+\mymargin{valore assoluto}%
+\index{valore!assoluto} $\abs{x}$ di un numero $x\in \KK$ nel seguente modo:
+\[
+\abs{x} =
+\begin{cases}
+  x & \text{se $x\ge 0$}, \\
+  -x & \text{se $x<0 $}.
+\end{cases}
+\]
+\end{definition}
+  
+\begin{proposition}[proprietà del valore assoluto]
+\mymark{**}
+Si ha
+\begin{enumerate}
+\item $\abs{x}\ge 0$ (positività)
+\item $\big\lvert\abs{x}\big\rvert = \abs{x}$ (idempotenza)
+\item $\abs{-x} = \abs{x}$ (simmetria)
+\item $\abs{x\cdot y} = \abs{x}\cdot \abs{y}$ (omogenità)
+\item $\abs{x+y} \le \abs{x} + \abs{y}$ (convessità)
+\item $\abs{x-y} \le \abs{x-z} + \abs{z-y}$ (disuguaglianza triangolare)
+\item $\big\lvert\abs{x}-\abs{y}\big\rvert \le \abs{x-y}$ (disuguaglianza triangolare inversa)
+\end{enumerate}
+Useremo inoltre spesso la seguente equivalenza (valida
+anche con $<$ al posto di $\le$). Se $r\ge 0$ allora
+\[
+  \abs{x-y} \le r
+  \iff
+  y - r \le x \le y + r.
+\]
+\end{proposition}
+%
+\begin{proof}
+\mymark{*}
+Positività, idempotenza, simmetria e omogenità sono immediate conseguenze della definizione.
+
+Dimostriamo ora l'ultima osservazione.
+Se $x\ge y$ allora $x-y\ge 0$ e quindi $\abs{x-y} \le r$ è
+equivalente a $x-y\le r$ cioè $x\le y+r$.
+Se $x<y$ allora $x-y<0$ e quindi $\abs{x-y} \le r$ è
+equivalente a $y-x \le r$ cioè $x\ge y-r$.
+Viceversa se $y-r \le x \le y+r$ allora vale sia $x-y \le r$ che $y-x \le r$ e 
+dunque $\abs{x-y}\le r$.
+
+Osserviamo allora che per la precedente osservazione applicata
+a $\abs{x-0} \le \abs{x}$ si ottiene
+\[
+  -\abs{x} \le x \le \abs{x}
+\]
+e sommando la stessa disuguaglianza con $y$ al posto di $x$ si
+ottiene
+\[
+  -(\abs{x} + \abs{y}) \le x + y \le \abs{x} + \abs{y}
+\]
+che è equivalente alla proprietà di convessità:
+\[
+  \abs{x+y} \le \big\lvert\abs{x} + \abs{y}\big\rvert = \abs{x} + \abs{y}.
+\]
+
+Ponendo $y=z-x$ nella disuguaglianza precedente, si ottiene
+\[
+  \abs{z} \le \abs{x} + \abs{z-x}
+\]
+da cui
+\[
+  \abs{z} - \abs{x} \le \abs{z-x}.
+\]
+Scambiando $z$ con $x$ si ottiene la disuguaglianza opposta
+e mettendole assieme si ottiene
+la disuguaglianza triangolare inversa:
+\[
+\big\lvert \abs{z}-\abs{x} \big\rvert  \le \abs{z-x}.
+\]
+
+La disuguaglianza triangolare segue dalla convessità:
+\[
+  \abs{x-y} = \abs{x-z + z-y} \le \abs{x-z} + \abs{z-y}.
+\]
+\end{proof}
+
+Osserviamo che dal punto di vista geometrico
+$\abs{x-y}$ rappresenta la \emph{distanza} tra i punti
+$x$ e $y$.
+
+\section{costruzione dei numeri naturali}
 
 \begin{theorem}[esistenza dei numeri naturali]
   \label{th:esistenza_naturali}%
@@ -3116,12 +3519,6 @@ $\sigma$).
 %%       che è proprio il passo induttivo.
 %%   \end{proof}    
 %% \end{comment}
-  
-Ora che abbiamo l'insieme infinito $\NN$ si pone la questione di come sarà possibile definire
-delle funzioni su tale insieme. 
-Non essendo possibile elencare tutti i valori della funzione possiamo optare 
-per utilizzare la proprietà induttiva: per definire $f\colon \NN \to X$ 
-basterà dire quanto vale $f(0)$ e dare una regola per definire $f(n+1)$ a partire da $f(n)$.
 
 \begin{theorem}[definizione per induzione]
   \label{th:induzione}%
@@ -4183,157 +4580,6 @@ gli interi non pari si dicono \emph{dispari}%
 \mymargin{dispari}%
 \index{dispari}. 
 
-\subsection{sommatoria e produttoria}
-\index{sommatoria}%
-\index{produttoria}%
-
-Se $A$ è un insieme su cui è definita un'operazione di addizione 
-(o di moltiplicazione) e se $\vec a \in A^n$ 
-è una $n$-upla di elementi di $A$, 
-possiamo definire la somma (o il prodotto)
-\begin{equation}
-  \label{eq:6122112}
-  \begin{aligned}
-  \sum_{k=0}^{n-1} a_k &= a_0 + a_1 + \dots + a_{n-1} \\
-  \prod_{k=0}^{n-1} a_k &= a_0 \cdot a_1 \cdots a_{n-1}.
-  \end{aligned}
-\end{equation}
-delle componenti del vettore $\vec a = (a_0, \dots, a_{n-1})$.
-La definizione formale deve essere data per induzione:
-\[
-  \begin{cases}
-    \displaystyle\sum_{k=0}^{-1} a_k = 0, \\
-    \displaystyle\sum_{k=0}^{n} a_k = \enclose{\sum_{k=0}^{n-1} a_k} + a_n;
-  \end{cases}  \qquad
-  \begin{cases}
-    \displaystyle\prod_{k=0}^{-1} a_k = 1, \\
-    \displaystyle\prod_{k=0}^{n} a_k = \enclose{\prod_{k=0}^{n-1} a_k} \cdot a_n.
-  \end{cases}
-\]
-La variabile $k$ che si trova nelle formule~\eqref{eq:6122112} è \emph{muta}: 
-al suo posto si può utilizzare qualunque altra variabile che non
-compaia altrove.
-
-E' naturalmente possibile anche fare una somma a partire da un indice 
-diverso da $0$. Se $m,n\in \ZZ$, $m\le n+1$, porremo:
-\[
-  \sum_{k=m}^n a_k = \sum_{j=0}^{n-m} a_{m+j}.
-\]
-Dal punto di vista mnemonico abbiamo fatto 
-un \emph{cambio di variabile} $j=k-m$:
-per $k=m$ si trova $j=0$ e per $k=n$ si trova $j=n-m$.
-
-\begin{exercise}
-  Se l'operazione di addizione è associativa e commutativa
-  si può dimostrare per induzione che 
-  la somma è \emph{lineare}:
-  \[
-  \sum_{k=m}^n  \Enclose{a_k + b_k} 
-  = \sum_{k=m}^n a_k + \sum_{k=m}^n b_k, 
-  \qquad
-  \sum_{k=m}^n c\cdot a_k 
-  =c\cdot \sum_{k=m}^n a_k
-  \]
-  e \emph{additiva}:
-  \[
-    \sum_{k=m+1}^n a_k = \sum_{k=m+1}^j a_k + \sum_{k=j+1}^n a_k.  
-  \]
-\end{exercise}
-
-\begin{exercise}
-  Dimostrare che 
-  \[
-    \sum_{k=1}^n k = \frac{n\cdot (n+1)}{2}, \qquad
-    \sum_{k=1}^n k^2 = \frac{n\cdot (n+1)\cdot (2n+1)}{6}
-  \]
-\end{exercise}
-\begin{proof}[Svolgimento]
-Il risultato della prima somma può essere interpretato nel modo seguente:
-la media di una progressione aritmetica $\frac{1+2+ \dots + n}{n}$ 
-è uguale alla media tra il primo 
-e l'ultimo termine della progressione: $\frac{1+n}{2}$.
-
-Una volta identificata la formula la possiamo dimostrare per induzione.
-Per $n=0$ la somma è pari a $0$ per definizione.
-Se la formula è vera per un certo $n$, si ha 
-\[
-  \sum_{k=1}^{n+1} k = \enclose{\sum_{k=1}^n k} + (n+1)
-   = \frac{n\cdot(n+1)}{2} + (n+1) 
-   = \frac{(n+2)(n+1)}{2}
-\]
-che è quanto volevamo dimostrare.
-
-La formula per la somma dei quadrati si può dimostrare facilmente per 
-induzione (lo si faccia per esercizio) se già conosciamo la formula da 
-dimostrare.
-
-Un metodo per trovare la formula è quello di osservare che la differenza 
-di due termini cubici consecutivi risulta essere quadratico:
-\[
-k^3 - (k-1)^3 = 3 k^2 - 3k + 1.  
-\]
-Sommando ambo i lati della precedente equazione si ottiene:
-\begin{equation}\label{eq:309838}
-\sum_{k=1}^n k^3 - \sum_{k=1}^n (k-1)^3 = 3\sum_{k=1}^n k^2-3\sum_{k=1}^n k+\sum_{k=1}^n 1.
-\end{equation}
-Al lato destro compare la somma di cui vogliamo calcolare il valore 
-insieme ad altre due somme di cui sappiamo già il valore. 
-Basterà allora determinare il valore del lato sinistro dove 
-osserviamo che i termini delle due somme si cancellano 
-a vicenda,
-\mynote{%
-si chiama \emph{somma telescopica}
-\index{somma!telescopica}%
-\index{telescopico}%
-in quanto i termini delle due sommatorie si chiudono uno nell'altro 
-come i tubi di un cannocchiale.} %
-tranne l'ultimo della prima somma 
-e il primo della seconda: dunque si ottiene $n^3 - 0^3=n^3$.
-Moltiplichiamo per $2$ l'equazione~\eqref{eq:309838},
-mettiamo in evidenza la somma dei quadrati e 
-utilizzando la formula $2\sum_{k=1}^n k = n(n+1)$
-per ottenere:
-\begin{align*}
-  6 \sum_{k=1}^n k^2 
-  &=  2n^3 + 3 n(n+1) - 2n
-  = n \cdot \Enclose{2(n^2-1) + 3(n+1)}\\
-  &= n \cdot (n+1)(2n+1)
-\end{align*}
-che è quanto volevamo dimostrare.
-
-Con lo stesso metodo si può trovare una formula per il calcolo 
-di $\sum_{k=1}^n k^3$ e così via\dots
-\end{proof}
-
-Se $\sigma\colon \Enclose{n} \to \Enclose{n}$
-è bigettiva (una tale funzione si chiama \emph{permutazione}%
-\mymargin{permutazione}%
-\index{permutazione})
-e se l'addizione è associativa e commutativa
-allora si può fare il cambio di variabile $k=g(j)$:
-\[
-    \sum_{k=0}^{n-1} a_k = \sum_{j=0}^{n-1} a_{\sigma(j)}.
-\]
-Questa uguaglianza può essere dimostrata facilmente nel caso 
-in cui $\sigma$ scambi due soli indici lasciando fissi tutti gli altri 
-(trasposizione) e poi può essere estesa a tutte le permutazioni
-osservando che ogni permutazione si scrivere come composizione 
-di trasposizioni.
-
-Questa proprietà è sostanzialmente la proprietà commutativa della somma 
-estesa ad un numero qualunque di addendi.
-Grazie a questa proprietà possiamo definire la somma di una funzione 
-definita su qualunque insieme finito. 
-Se $f\colon X \to A$ 
-(su $A$ è definita una operazione $+$ associativa e commutativa)
-e $\sigma\colon \Enclose{n} \to X$ è una bigezione (dunque $\#X = n$)
-allora si può definire 
-\[
-  \sum_{x\in X} f(x) = \sum_{j=0}^{n-1} f(\sigma(j))  
-\]
-in quanto la somma sul lato destro non dipende dalla bigezione $\sigma$ che 
-abbiamo scelto.
-
 \section{polinomi}
 \label{ch:polinomi}
 
@@ -4791,96 +5037,6 @@ $\QQ$ risulta essere un campo ordinato.
 *** TO BE COMPLETED ***
 
 
-\subsection{valore assoluto}
-
-\begin{definition}[valore assoluto]
-\mymark{***}
-Se $\KK$ è un campo totalmente ordinato (ad esempio $\KK=\QQ$ o, come vedremo, $\KK=\RR$)
-definiamo il \emph{valore assoluto}%
-\mymargin{valore assoluto}%
-\index{valore!assoluto} $\abs{x}$ di un numero $x\in \KK$ nel seguente modo:
-\[
-\abs{x} =
-\begin{cases}
-  x & \text{se $x\ge 0$}, \\
-  -x & \text{se $x<0 $}.
-\end{cases}
-\]
-\end{definition}
-  
-\begin{proposition}[proprietà del valore assoluto]
-\mymark{**}
-Si ha
-\begin{enumerate}
-\item $\abs{x}\ge 0$ (positività)
-\item $\big\lvert\abs{x}\big\rvert = \abs{x}$ (idempotenza)
-\item $\abs{-x} = \abs{x}$ (simmetria)
-\item $\abs{x\cdot y} = \abs{x}\cdot \abs{y}$ (omogenità)
-\item $\abs{x+y} \le \abs{x} + \abs{y}$ (convessità)
-\item $\abs{x-y} \le \abs{x-z} + \abs{z-y}$ (disuguaglianza triangolare)
-\item $\big\lvert\abs{x}-\abs{y}\big\rvert \le \abs{x-y}$ (disuguaglianza triangolare inversa)
-\end{enumerate}
-Useremo inoltre spesso la seguente equivalenza (valida
-anche con $<$ al posto di $\le$). Se $r\ge 0$ allora
-\[
-  \abs{x-y} \le r
-  \iff
-  y - r \le x \le y + r.
-\]
-\end{proposition}
-%
-\begin{proof}
-\mymark{*}
-Positività, idempotenza, simmetria e omogenità sono immediate conseguenze della definizione.
-
-Dimostriamo ora l'ultima osservazione.
-Se $x\ge y$ allora $x-y\ge 0$ e quindi $\abs{x-y} \le r$ è
-equivalente a $x-y\le r$ cioè $x\le y+r$.
-Se $x<y$ allora $x-y<0$ e quindi $\abs{x-y} \le r$ è
-equivalente a $y-x \le r$ cioè $x\ge y-r$.
-Viceversa se $y-r \le x \le y+r$ allora vale sia $x-y \le r$ che $y-x \le r$ e 
-dunque $\abs{x-y}\le r$.
-
-Osserviamo allora che per la precedente osservazione applicata
-a $\abs{x-0} \le \abs{x}$ si ottiene
-\[
-  -\abs{x} \le x \le \abs{x}
-\]
-e sommando la stessa disuguaglianza con $y$ al posto di $x$ si
-ottiene
-\[
-  -(\abs{x} + \abs{y}) \le x + y \le \abs{x} + \abs{y}
-\]
-che è equivalente alla proprietà di convessità:
-\[
-  \abs{x+y} \le \big\lvert\abs{x} + \abs{y}\big\rvert = \abs{x} + \abs{y}.
-\]
-
-Ponendo $y=z-x$ nella disuguaglianza precedente, si ottiene
-\[
-  \abs{z} \le \abs{x} + \abs{z-x}
-\]
-da cui
-\[
-  \abs{z} - \abs{x} \le \abs{z-x}.
-\]
-Scambiando $z$ con $x$ si ottiene la disuguaglianza opposta
-e mettendole assieme si ottiene
-la disuguaglianza triangolare inversa:
-\[
-\big\lvert \abs{z}-\abs{x} \big\rvert  \le \abs{z-x}.
-\]
-
-La disuguaglianza triangolare segue dalla convessità:
-\[
-  \abs{x-y} = \abs{x-z + z-y} \le \abs{x-z} + \abs{z-y}.
-\]
-\end{proof}
-
-Osserviamo che dal punto di vista geometrico
-$\abs{x-y}$ rappresenta la \emph{distanza} tra i punti
-$x$ e $y$.
-
 \section{costruzione dei numeri reali}
 \label{sec:costruzione_reali}
 
@@ -5088,177 +5244,6 @@ $\eps<\frac{q^2-2}{4}$ così $s^2=(q-\eps)^2 > q^2-2\eps q > q^2-4\eps
 Dunque $\RR\neq \QQ$, l'elemento $x=[A]_\sim$ di $\RR$ sarà 
 proprio quello che chiameremo $\sqrt 2$ e vedremo che 
 risolverà l'equazione $x^2=2$. 
-
-\section{proprietà assiomatiche dei numeri reali}
-\label{sec:reali}
-
-Nel paragrafo precedente abbiamo dimostrato che esiste un insieme 
-$\RR$ su cui è definita una operazione di addizione
-e un ordinamento che rendono $\RR$ un gruppo totalmente ordinato,
-denso e continuo (definizioni~\ref{def:ordine}, \ref{def:ordinamento_denso},
-\ref{def:ordinamento_continuo}). 
-
-Come al solito d'ora in poi non guarderemo più come è stato definito $\RR$ 
-ma utilizzeremo solamente le proprietà appena esposte. 
-Potremmo anche pensare che $\RR$ debba esistere per assioma, 
-evitando quindi di dover esibire la costruzione fatta nel capitolo precedente.
-
-\subsection{parte intera}
-
-Se $R$ è un gruppo con operazione $+$ ed elemento neutro $0$, 
-allora per ogni $x\in R$ si può definire 
-il prodotto $n\cdot x$ con $n\in \NN$ come somma ripetuta:
-Si pone $0\cdot x=0$ e per induzione $(n+1)\cdot x= n\cdot x + x$.
- 
-\begin{theorem}[parte intera]
-\mymark{*}%
-  Dato $x\in \RR$ esiste un unico $m\in \ZZ$ tale che $m-1 < x \le m$.
-\end{theorem}
-%
-\begin{proof}
-  Supponiamo per un attimo che sia $x > 0$
-  e consideriamo l'insieme $A=\ENCLOSE{n \in \NN \colon n\ge x}$.
-  Tale insieme non è vuoto per la proprietà archimedea 
-  e dunque ammette minimo per il principio del buon ordinamento.
-  Se $m=\min A$ risulta quindi $m\in \NN$ e $m-1< x \le m$.
-
-  Se $x\le 0$ per la proprietà archimedea esiste $k\in \NN$ tale che 
-  $k>-x$. Allora applichiamo il risultato precedente a $x+k$ e consideriamo 
-  $m-k$ al posto di $m$.
-\end{proof}
-
-\begin{definition}[parte intera]
-  \mymark{**}%
-  \mymargin{parte intera}%
-\index{parte!intera}%
-  Dato $x\in \RR$ denotiamo con $\lfloor x\rfloor$ l'unico intero
-  che soddisfa
-  \mymargin{$\lfloor\cdot\rfloor$} %% *** non viene bene nell'indice!
-  \[
-    x - 1 < \lfloor x \rfloor \le x
-  \]
-  e denotiamo con $\lceil x \rceil = - \lfloor -x \rfloor$ l'unico intero che soddisfa (verificare!)
-  \mymargin{$\lceil\cdot\rceil$} %% *** non viene bene nell'indice!
-  \[
-    x \le \lceil x \rceil < x + 1.
-  \]
-  Si ha dunque
-  \[
-    \lfloor x \rfloor \le x \le \lceil x \rceil
-  \]
-  con entrambe le uguaglianze che si realizzano quando $x\in \ZZ$.
-  I due interi $\lfloor x \rfloor$ e $\lceil x \rceil$
-  sono la migliore approssimazione intera di $x$ rispettivamente
-  per difetto e per eccesso.
-  L'intero più vicino ad $x$ (approssimazione per \emph{arrotondamento}%
-\mymargin{arrotondamento}%
-\index{arrotondamento})
-  è
-  \[
-    \left\lfloor x + \frac 1 2 \right\rfloor
-  \quad \text{ossia} \quad
-    \left\lceil x-\frac 1 2 \right\rceil
-  \]
-  (le due espressioni differiscono solamente quando $x$ si trova nel punto medio tra 
-  due interi consecutivi, nel qual caso la prima approssima per eccesso e la seconda 
-  per difetto).
-\end{definition}
-
-In alcuni testi si usa la notazione $[x]$ per denotare la parte intera $\lfloor x \rfloor$ e si definisce
-anche la \emph{parte frazionaria}
-\[
-  \ENCLOSE{x} = x - [x].
-\]
-Per evitare ambiguità con il normale utilizzo delle parentesi
-non useremo queste notazioni.
-
-\subsection{numeri decimali}
-%
-Le frazioni il cui denominatore è una potenza
-di $10$ si chiamano frazioni decimali:
-\[
-  x = \frac{p}{10^d}, \qquad p\in \ZZ, d\in \NN.
-\]
-Tali frazioni si possono rappresentare
-scrivendo il numero
-intero $p$ e segnando un punto
-\mynote{%
-in Italia si preferisce utilizzare la virgola, ma
-ci rassegnamo alla notazione anglosassone che ormai è
-ubiqua in tutta la strumentazione elettronica.
-}%
-di separazione
-prima della $d$-esima cifra a partire da destra.
-Ad esempio scriveremo:
-\[
-  1.4142 = \frac{14142}{10^4}.
-\]
-In generale una frazione $\frac{p}{q}\in \QQ$
-può essere scritta in forma decimale solamente
-se, quando ridotta ai minimi termini,
-risulta che $q$ non ha fattori primi diversi
-da $2$ e $5$ (in quanto le potenze di dieci
-hanno solo questi fattori).
-In ogni caso le frazioni decimali sono dense in $\RR$
-in quanto dato $x\in \RR$ per ogni $\eps>0$ esiste
-$d\in \NN$ tale che $10^{-d}\le\eps$ e quindi
-posto $p=\lfloor 10^d\cdot x + \frac 1 2\rfloor$
-si avrà
-\[
-    \abs{\frac{p}{10^d} - x} \le \frac{1}{2\cdot 10^d} < \eps.
-\]
-In tal caso scriveremo
-\mymargin{$\approx$}%
-\index{$\approx$}
-\[
-  x \approx \frac{p}{10^d}.
-\]
-Ad esempio scriveremo
-\[
-  \frac 2 3 \approx 0.6667 = \frac{6667}{10^4}
-\]
-per intendere%
-\mynote{%
-Si osservi che in base alla definizione data sarebbe anche corretto 
-scrivere $\frac 2 3 \approx 0.6666$ che però sarebbe una approssimazione 
-peggiore. 
-Questa ambiguità è necessaria se vogliamo evitare i casi 
-limite in cui bisogna conoscere molte più cifre decimali di quelle richieste 
-per capire qual è la migliore approssimazione.
-}%
-\begin{equation}\label{eq:approx_23}
-\abs{\frac 2 3 - \frac{6667}{10^4}}<\frac{1}{10^4}.
-\end{equation}
-Nel calcolo scientifico ogni uguaglianza numerica è intesa nel 
-senso precedente, se non specificato diversamente. 
-
-Le frazioni non decimali si possono scrivere con uno sviluppo
-decimale \emph{periodico}. 
-Non useremo mai questa notazione
-che ricordiamo solamente con un esempio.
-Il numero
-\[
-  x = 12.34\overline{567}
-    = 12.34567\overline{567}
-\]
-è la frazione che risolve l'equazione
-\[
-  \frac{100x - 1234}{1000}
-  = 100x-1234.567
-  \qquad
-\enclose
-{\frac{0.\overline{567}}{1000}
-= 0.000\overline{567} }
-\]
-ovvero
-\[
-  1234567 - 1234 = 99900 \cdot x,
-  \qquad x = \frac{1234567-1234}{99900}.
-\]
-
-\begin{exercise}
-Dimostrare che vale~\eqref{eq:approx_23}.
-\end{exercise}  
 
 \subsection{isomorfismi di gruppi ordinati}
 
