@@ -1450,7 +1450,7 @@ Tramite il principio di induzione è anche possibile
 definire funzioni (o operazioni) per induzione.
 Se ad esempio vogliamo definire una funzione $f\colon \NN\to X$
 basterà dichiarare il valore di $f(0)$ e definire $f(n+1)$ 
-a partire da $f(n)$.
+(cioè $f(\sigma(n)))$) a partire da $f(n)$.
 Il principio di induzione (o meglio il teorema~\ref{th:induzione})
 garantisce che $f$ sia univocamente definita su tutto $\NN$.
 Questo metodo per definire una funzione si chiama 
@@ -1464,7 +1464,7 @@ tramite le seguenti definizioni ricorsive:
 \begin{gather*}
   \begin{cases}
     n + 0 = n,\\
-    n + (m+1) = (n+m)+1;
+    n + \sigma(m) = \sigma(n+m);
   \end{cases}
   \qquad
   \begin{cases}
@@ -1492,6 +1492,17 @@ quello che ottengo è un numero \emph{più grande}:
 \[
    n\le m \iff \exists k\in \NN \colon n+k = m.
 \]
+
+Si può facilmente osservare che se esiste $k\in \NN$ tale che $n+k=m$
+allora $k$ è unico. 
+Dunque se $m\ge n$ si può definire la differenza $k=m-n$
+come quell'unico $k$ tale che $n+k=m$.
+
+In maniera analoga se esiste $k\in \NN$ tale che $m=k\cdot n$
+diremo che $m$ è un \emph{multiplo} di $n$ 
+ovvero che $n$ \emph{divide} $m$ (si può scrivere $n\vert m$).
+Anche in questo caso $k$ se esiste è unico e si 
+chiama \emph{quoziente} di $m$ diviso $n$: $k=\frac m n$.
 
 \begin{theorem}[operazioni su $\NN$]
 Le operazioni di addizione e moltiplicazione 
@@ -1688,6 +1699,314 @@ in tal modo risulta che $n!$ è il prodotto dei primi $n$ numeri naturali positi
   e si dimostrino, per induzione, le formule nell'osservazione precedente.
 \end{exercise}
 
+
+\subsection{sequenze finite o ennuple}
+\index{ennuple}%
+\index{sequenza!finita}%
+
+Abbiamo già visto che se $A$ è un insieme possiamo definire l'insieme 
+delle coppie di elementi di $A$ con il prodotto cartesiano tra insiemi: 
+$A\times A$. 
+Cosa rappresenta un prodotto ripetuto?
+Gli insiemi $(A\times A)\times A$ e $A\times(A\times A)$ non sono 
+uguali, in quanto il primo è un insieme di coppie il cui primo elemento 
+è a sua volta una coppia, il secondo insieme invece è un insieme di coppie 
+il cui secondo elemento è una coppia:
+\begin{gather*}
+  (A\times A)\times A = \ENCLOSE{((a_0,a_1),a_2)\colon a_0,a_1,a_2\in A},
+  \\
+  A \times (A\times A) = \ENCLOSE{(a_0,(a_1,a_2))\colon a_0,a_1,a_2\in A}.
+\end{gather*}
+Questi insiemi sono molto simili tra loro e potrebbero essere identificati.
+Un'altro insieme molto simile è l'insieme $A^{[3]}$.  
+Ricordando che $[3] = \ENCLOSE{0,1,2}$ l'insieme 
+$A^{[3]}$ rappresenta l'insieme di tutte le funzioni $\vec a\colon \ENCLOSE{0,1,2}\to A$.
+La funzione $\vec a$ è univocamente determinata dal suo valore nei 
+tre punti del dominio: $a_0 = \vec a(0)$, $a_1=\vec a(1)$, $a_2=\vec a(2)$
+in quanto $\vec a = \ENCLOSE{0\mapsto a_0, 1\mapsto a_1, 2\mapsto a_2}$.
+Possiamo quindi identificare $\vec a$ con la tripla (o vettore) di valori:
+\[
+  \vec a = (a_0, a_1, a_2), \qquad a_0,a_1,a_2 \in A.  
+\]
+I valori $a_0$, $a_1$ e $a_2$ vengono anche chiamate \emph{coordinate}
+o \emph{componenti} del \emph{vettore} $\vec a$.
+\mymargin{coordinate, componenti, vettore}%
+\index{coordinate, componenti, vettore}%
+\index{coordinate!vettore}%
+\index{componenti!vettore}%
+\index{vettore}%
+In effetti l'insieme $A^{[2]}$ può essere identificato con $A\times A$, l'insieme 
+$A^{[3]}$ sarà l'insieme delle triple di elementi di $A$ e in generale se $n\in\NN$ 
+identifichiamo con $A^{[n]}$ l'insieme delle $n$-uple (leggi: ennuple) di elementi 
+\index{ennuple}%
+di $A$%
+\mynote{
+  Usualmente si scrive $A^n$ invece che $A^{[n]}$ e $2^A$ invece che $[2]^A$ 
+  anche perché la notazione $[n]$ per indicare i primi $n$ numeri naturali 
+  non è molto utilizzata.
+  Si potrebbe anche definire l'insieme $\NN$ in modo tale che 
+  risulti $n=[n]$: basta definire $0=\emptyset$ e $\sigma(n) = n\cup \ENCLOSE{n}$
+  (si faccia la dimostrazione per induzione).
+}:
+\[
+   \vec a \in A^{[n]} \iff 
+   \vec a = (a_0, a_1, \dots, a_{n-1}).  
+\]
+
+Storicamente ci siamo abituati a contare partendo da $1$ invece che da $0$.
+Per questo motivo è usuale numerare gli elementi di una $n$-upla con gli indici 
+che vanno da $1$ a $n$ invece che da $0$ a $n-1$.
+Dunque se $\vec a \in A^{[3]}$ sarà usuale scrivere 
+$\vec a = (a_1, a_2, a_3)$ invece che $\vec a = (a_0, a_1, a_2)$.
+
+\subsection{somme e prodotti iterati}
+\index{sommatoria}%
+\index{produttoria}%
+
+Introduciamo ora su $\NN$ il concetto di somma (e prodotto) iterato.
+Quello che ora facciamo su $\NN$ vale allo stesso modo sugli insiemi 
+numerici che andremo a definire più avanti, in particolare lo useremo 
+molto sull'insieme $\RR$ dei numeri reali. 
+Quello che ci basta è semplicemente avere una operazione associativa 
+con elemento neutro. 
+
+\begin{definition}[monoide]%
+\label{def:monoide}%
+Sia $A$ un insieme su cui è definita una operazione $*$.
+Se l'operazione è associativa: $x*(y*z) = (x*y)*z$ 
+ed ha elemento neutro $e\in A$ tale che $e*x = x*e = x$
+diremo che $A$ è un \emph{monoide}.
+Se inoltre l'operazione è commutativa, $x*y=y*x$ 
+diremo che $A$ è un \emph{monoide commutativo} (o abeliano).
+
+Quando per l'operazione $*$ viene utilizzato il simbolo di addizione $+$
+diremo che il monoide è additivo. In tal caso l'elemento neutro 
+si chiama \emph{zero} e si indica con $0$.
+Se utilizziamo invece il simbolo di moltiplicazione $x\cdot y$
+diremo che il monoide è moltiplicativo. In tal caso l'elemento 
+neutro si chiama \emph{unità} e si indica con $1$.
+\end{definition}
+
+L'insieme $\NN$ è un monoide commutativo sia con l'operazione di addizione $+$ 
+(monoide additivo) che con l'operazione di moltiplicazione 
+$\cdot$ (monoide moltiplicativo).
+
+In generale se $A$ è un monoide additivo 
+(o moltiplicativo) possiamo fare somme (o prodotti) di un numero 
+arbitrario (ma finito) di addendi (o fattori) di $A$.
+Più precisamente se $\vec a \in A^n$ 
+è una $n$-upla di elementi di $A$, 
+vogliamo definirne la somma e il prodotto:
+\mynote{In questo ambito è usuale numerare gli elementi della 
+$n$-upla a partire dall'indice $1$ invece che dall'indice $0$.}
+\begin{equation}\label{eq:6122112}
+\sum_{k=1}^n a_k = a_1 + a_2 + \dots + a_n,
+\qquad 
+\prod_{k=1}^k a_k = a_1 \cdot a_2 \dots a_n.
+\end{equation}
+Formalmente bisogna dare una definizione per induzione. 
+Basterà dire che la somma (o il prodotto)
+di zero addendi (o fattori) vale l'elemento neutro 
+dell'operazione cioè $0$ per la somma (e $1$ per il prodotto).
+La somma di $n+1$ addendi (o $n+1$ fattori) è la somma dei primi $n$ 
+a cui aggiungiamo l'ultimo addendo (o moltiplichiamo per l'ultimo fattore).
+Formalmente:
+\[
+  \begin{cases}
+    \displaystyle\sum_{k=1}^{0} a_k = 0, \\
+    \displaystyle\sum_{k=1}^{n+1} a_k = \enclose{\sum_{k=1}^{n} a_k} + a_{n+1};
+  \end{cases}  \qquad
+  \begin{cases}
+    \displaystyle\prod_{k=1}^{0} a_k = 1, \\
+    \displaystyle\prod_{k=1}^{n+1} a_k = \enclose{\prod_{k=1}^{n} a_k} \cdot a_{n+1}.
+  \end{cases}
+\]
+La variabile $k$ che si trova nelle formule~\eqref{eq:6122112} è \emph{muta}: 
+al suo posto si può utilizzare qualunque altra variabile che non
+compaia altrove.
+
+E' naturalmente possibile anche fare una somma a partire da un indice 
+diverso da $0$:
+\[
+  \sum_{k=m+1}^{m+n} a_k = \sum_{j=1}^{n} a_{m+j}.
+\]
+Dal punto di vista mnemonico abbiamo fatto 
+un \emph{cambio di variabile} $k=m+j$:
+per $j=1$ si trova $k=m+1$ e per $j=n$ si trova $k=m+n$.
+
+Si osservi che risulta:
+\[
+  x^n = \prod_{k=1}^n x, \qquad 
+  n! = \prod_{k=1}^n k.  
+\]
+in quanto le definizioni ricorsive di potenze e fattoriale
+coincidono con le definizioni ricorsive del prodotto sul lato destro.
+
+
+\begin{exercise}
+Dimostrare che 
+  \[
+  \sum_{k=1}^n  \enclose{a_k + b_k} 
+  = \sum_{k=1}^n a_k + \sum_{k=1}^n b_k.
+  \]
+\end{exercise}
+
+\begin{exercise}
+  Sia $f\colon A\to A$ una funzione \emph{additiva}
+  cioè $f(0) = 0$ e $f(x+y)=f(x)+f(y)$.
+  Dimostrare allora che 
+  \[
+    \sum_{k=1}^n  f(a_k) = f\enclose{\sum_{k=1}^n a_k}
+  \]
+  (cioè $\sum_{k=1}^n$ è un operatore additivo su $A^n$).
+\end{exercise}
+
+\begin{exercise}
+  Dimostrare che 
+  \[
+  \sum_{k=1}^{m+n} a_k = \sum_{k=1}^m a_k + \sum_{j=1}^n a_{k+m}
+  \]
+  ovvero 
+  \[
+  \sum_{k=1}^{m+n} a_k = \sum_{k=1}^m a_k + \sum_{k=m+1}^{m+n} a_k.  
+  \]
+
+\end{exercise}
+
+\begin{exercise}
+  Dimostrare che 
+  \[
+    \sum_{k=1}^n k = \frac{n\cdot (n+1)}{2}, \qquad
+    \sum_{k=1}^n k^2 = \frac{n\cdot (n+1)\cdot (2n+1)}{6}
+  \]
+\end{exercise}
+\begin{proof}[Svolgimento]
+Il risultato della prima somma può essere interpretato nel modo seguente:
+la media di una progressione aritmetica $\frac{1+2+ \dots + n}{n}$ 
+è uguale alla media tra il primo 
+e l'ultimo termine della progressione: $\frac{1+n}{2}$.
+
+Una volta identificata la formula la possiamo dimostrare per induzione.
+Per $n=0$ la somma è pari a $0$ per definizione.
+Se la formula è vera per un certo $n$, si ha 
+\[
+  \sum_{k=1}^{n+1} k = \enclose{\sum_{k=1}^n k} + (n+1)
+   = \frac{n\cdot(n+1)}{2} + (n+1) 
+   = \frac{(n+2)(n+1)}{2}
+\]
+che è quanto volevamo dimostrare.
+
+La formula per la somma dei quadrati si può dimostrare facilmente per 
+induzione (lo si faccia per esercizio) se già conosciamo la formula da 
+dimostrare.
+
+Un metodo per trovare la formula è quello di osservare che la differenza 
+di due termini cubici consecutivi risulta essere quadratico:
+\[
+(k+1)^3 - k^3 = 3 k^2 + 3k + 1.  
+\]
+Sommando ambo i lati della precedente equazione si ottiene:
+\begin{equation}\label{eq:309838}
+\sum_{k=1}^n (k+1)^3 - \sum_{k=1}^n k^3 
+= 3\sum_{k=1}^n k^2+3\sum_{k=1}^n k+\sum_{k=1}^n 1.
+\end{equation}
+Al lato destro compare la somma di cui vogliamo calcolare il valore 
+(moltiplicata per $3$)
+insieme ad altre due somme di cui sappiamo già il valore. 
+Basterà allora determinare il valore del lato sinistro dove 
+osserviamo che i termini delle due somme si cancellano 
+a vicenda,
+\mynote{%
+si chiama \emph{somma telescopica}
+\index{somma!telescopica}%
+\index{telescopico}%
+in quanto i termini delle due sommatorie si chiudono uno nell'altro 
+come i tubi di un cannocchiale.} %
+tranne l'ultimo della prima somma 
+e il primo della seconda: 
+\[
+  \sum_{k=1}^n(k+1)^3 - \sum_{k=1}^n k^3 = (n+1)^3 - 1^3.
+\]
+Moltiplichiamo per $2$ l'equazione~\eqref{eq:309838},
+mettiamo in evidenza la somma dei quadrati e 
+utilizzando la formula $2\sum_{k=1}^n k = n(n+1)$
+per ottenere:
+\begin{align*}
+  6 \sum_{k=1}^n k^2 
+  &=  2(n+1)^3 - 3 n(n+1) - 2n - 2
+  = (n+1) \cdot \Enclose{2(n+1)^2 - 3n} - 2(n+1)\\
+  &= (n+1)\cdot \Enclose{2n^2+4n+2 -3n - 2}
+   = (n+1)\cdot \Enclose{2n^2+n} 
+   = n \cdot (n+1)(2n+1)
+\end{align*}
+che è quanto volevamo dimostrare.
+\end{proof}
+
+\begin{exercise}
+  Si trovi una formula per esprimere
+  \[
+  \sum_{k=1}^n k^3.
+  \]
+\end{exercise}
+
+\begin{exercise}
+Si noti che se prendiamo una progressione geometrica 
+(potenze successive con la stessa base) 
+ad esempio:
+\[
+  x = 3^3 + 3^4 + 3^5 + 3^6
+\]
+ogni addendo è uguale al precedente moltiplicato per $3$.
+Dunque se moltiplichiamo per $3$ l'intera somma
+\[
+  3x = 3^4 + 3^5 + 3^6 + 3^7
+\]
+si ottiene la somma iniziale con un termine in più alla fine 
+e un termine in meno all'inizio. 
+\mymargin{Anche questa è una somma \emph{telescopica}}
+Dunque
+\[
+ 3x - x = 3^7 - 3^3  
+\]
+e possiamo ricavare $x$.
+
+Si formalizzi il ragionamento precedente per dimostrare che 
+fissato $a>1$ si ha per ogni naturale $n$:
+  \[
+    \sum_{k=1}^n a^k = \frac{a^{k+1}-a}{a-1}.  
+  \] 
+\end{exercise}
+
+\subsection{somme su insiemi finiti}
+
+Se $\sigma\colon \Enclose{n} \to \Enclose{n}$
+è bigettiva (una tale funzione si chiama \emph{permutazione}%
+\mymargin{permutazione}%
+\index{permutazione})
+e se l'addizione è associativa e commutativa
+allora si può fare il cambio di variabile $k=g(j)$:
+\[
+    \sum_{k=0}^{n-1} a_k = \sum_{j=0}^{n-1} a_{\sigma(j)}.
+\]
+Questa uguaglianza può essere dimostrata facilmente nel caso 
+in cui $\sigma$ scambi due soli indici lasciando fissi tutti gli altri 
+(trasposizione) e poi può essere estesa a tutte le permutazioni
+osservando che ogni permutazione si scrivere come composizione 
+di trasposizioni.
+
+Questa proprietà è sostanzialmente la proprietà commutativa della somma 
+estesa ad un numero qualunque di addendi.
+Grazie a questa proprietà possiamo definire la somma di una funzione 
+definita su qualunque insieme finito. 
+Se $f\colon X \to A$ 
+(su $A$ è definita una operazione $+$ associativa e commutativa)
+e $\sigma\colon \Enclose{n} \to X$ è una bigezione (dunque $\#X = n$)
+allora si può definire 
+\[
+  \sum_{x\in X} f(x) = \sum_{j=0}^{n-1} f(\sigma(j))  
+\]
+in quanto la somma sul lato destro non dipende dalla bigezione $\sigma$ che 
+abbiamo scelto.
 
 \section{i numeri reali}
 
@@ -4298,221 +4617,6 @@ algoritmi di approssimazione.
 Questi strumenti presuppongono il concetto 
 di limite e continuità: è sostanzialmente questo che identifica 
 la materia chiamata analisi matematica.
-
-\subsection{sequenze finite o ennuple}
-\index{ennuple}%
-\index{sequenza!finita}%
-
-Abbiamo già visto che se $A$ è un insieme possiamo definire l'insieme 
-delle coppie di elementi di $A$ con il prodotto cartesiano tra insiemi: 
-$A\times A$. 
-Cosa rappresenta un prodotto ripetuto?
-Gli insiemi $(A\times A)\times A$ e $A\times(A\times A)$ non sono 
-uguali, in quanto il primo è un insieme di coppie il cui primo elemento 
-è a sua volta una coppia, il secondo insieme invece è un insieme di coppie 
-il cui secondo elemento è una coppia:
-\begin{gather*}
-  (A\times A)\times A = \ENCLOSE{((a_0,a_1),a_2)\colon a_0,a_1,a_2\in A},
-  \\
-  A \times (A\times A) = \ENCLOSE{(a_0,(a_1,a_2))\colon a_0,a_1,a_2\in A}.
-\end{gather*}
-Questi insiemi sono molto simili tra loro e potrebbero essere identificati.
-Un'altro insieme molto simile è l'insieme $A^{[3]}$.  
-Ricordando che $[3] = \ENCLOSE{0,1,2}$ l'insieme 
-$A^{[3]}$ rappresenta l'insieme di tutte le funzioni $\vec a\colon \ENCLOSE{0,1,2}\to A$.
-La funzione $\vec a$ è univocamente determinata dal suo valore nei 
-tre punti del dominio: $a_0 = \vec a(0)$, $a_1=\vec a(1)$, $a_2=\vec a(2)$
-in quanto $\vec a = \ENCLOSE{0\mapsto a_0, 1\mapsto a_1, 2\mapsto a_2}$.
-Possiamo quindi identificare $\vec a$ con la tripla (o vettore) di valori:
-\[
-  \vec a = (a_0, a_1, a_2), \qquad a_0,a_1,a_2 \in A.  
-\]
-I valori $a_0$, $a_1$ e $a_2$ vengono anche chiamate \emph{coordinate}
-o \emph{componenti} del \emph{vettore} $\vec a$.
-\mymargin{coordinate, componenti, vettore}%
-\index{coordinate, componenti, vettore}%
-\index{coordinate!vettore}%
-\index{componenti!vettore}%
-\index{vettore}%
-In effetti l'insieme $A^{[2]}$ può essere identificato con $A\times A$, l'insieme 
-$A^{[3]}$ sarà l'insieme delle triple di elementi di $A$ e in generale se $n\in\NN$ 
-identifichiamo con $A^{[n]}$ l'insieme delle $n$-uple (leggi: ennuple) di elementi 
-\index{ennuple}%
-di $A$%
-\mynote{
-  Usualmente si scrive $A^n$ invece che $A^{[n]}$ e $2^A$ invece che $[2]^A$ 
-  anche perché la notazione $[n]$ per indicare i primi $n$ numeri naturali 
-  non è molto utilizzata.
-  Si potrebbe anche definire l'insieme $\NN$ in modo tale che 
-  risulti $n=[n]$: basta definire $0=\emptyset$ e $\sigma(n) = n\cup \ENCLOSE{n}$
-  (si faccia la dimostrazione per induzione).
-}:
-\[
-   \vec a \in A^{[n]} \iff 
-   \vec a = (a_0, a_1, \dots, a_{n-1}).  
-\]
-
-L'insieme $[2]^A$ è invece l'insieme delle funzioni $A\to [2]$ che hanno 
-quindi valore $0$ o $1$. 
-Ci si può convincere facilmente che $[2]^A$ può essere messo in corrispondenza 
-biunivoca con $\mathcal P(A)$:
-\[
-    \# ([2]^A) = \# \mathcal P(A).
-\]
-Infatti possiamo considerare la funzione $\phi\colon [2]^A \to \mathcal P(A)$
-che associa ad ogni funzione $f\colon A\to \ENCLOSE{0,1}$
-l'insieme $\ENCLOSE{x\in A \colon f(x)=1}$.
-
-\subsection{sommatoria e produttoria}
-\index{sommatoria}%
-\index{produttoria}%
-
-Se $A$ è un insieme su cui è definita un'operazione di addizione 
-(o di moltiplicazione) e se $\vec a \in A^n$ 
-è una $n$-upla di elementi di $A$, 
-possiamo definire la somma (o il prodotto)
-\begin{equation}
-  \label{eq:6122112}
-  \begin{aligned}
-  \sum_{k=0}^{n-1} a_k &= a_0 + a_1 + \dots + a_{n-1} \\
-  \prod_{k=0}^{n-1} a_k &= a_0 \cdot a_1 \cdots a_{n-1}.
-  \end{aligned}
-\end{equation}
-delle componenti del vettore $\vec a = (a_0, \dots, a_{n-1})$.
-La definizione formale deve essere data per induzione:
-\[
-  \begin{cases}
-    \displaystyle\sum_{k=0}^{-1} a_k = 0, \\
-    \displaystyle\sum_{k=0}^{n} a_k = \enclose{\sum_{k=0}^{n-1} a_k} + a_n;
-  \end{cases}  \qquad
-  \begin{cases}
-    \displaystyle\prod_{k=0}^{-1} a_k = 1, \\
-    \displaystyle\prod_{k=0}^{n} a_k = \enclose{\prod_{k=0}^{n-1} a_k} \cdot a_n.
-  \end{cases}
-\]
-La variabile $k$ che si trova nelle formule~\eqref{eq:6122112} è \emph{muta}: 
-al suo posto si può utilizzare qualunque altra variabile che non
-compaia altrove.
-
-E' naturalmente possibile anche fare una somma a partire da un indice 
-diverso da $0$. Se $m,n\in \ZZ$, $m\le n+1$, porremo:
-\[
-  \sum_{k=m}^n a_k = \sum_{j=0}^{n-m} a_{m+j}.
-\]
-Dal punto di vista mnemonico abbiamo fatto 
-un \emph{cambio di variabile} $j=k-m$:
-per $k=m$ si trova $j=0$ e per $k=n$ si trova $j=n-m$.
-
-\begin{exercise}
-  Se l'operazione di addizione è associativa e commutativa
-  si può dimostrare per induzione che 
-  la somma è \emph{lineare}:
-  \[
-  \sum_{k=m}^n  \Enclose{a_k + b_k} 
-  = \sum_{k=m}^n a_k + \sum_{k=m}^n b_k, 
-  \qquad
-  \sum_{k=m}^n c\cdot a_k 
-  =c\cdot \sum_{k=m}^n a_k
-  \]
-  e \emph{additiva}:
-  \[
-    \sum_{k=m+1}^n a_k = \sum_{k=m+1}^j a_k + \sum_{k=j+1}^n a_k.  
-  \]
-\end{exercise}
-
-\begin{exercise}
-  Dimostrare che 
-  \[
-    \sum_{k=1}^n k = \frac{n\cdot (n+1)}{2}, \qquad
-    \sum_{k=1}^n k^2 = \frac{n\cdot (n+1)\cdot (2n+1)}{6}
-  \]
-\end{exercise}
-\begin{proof}[Svolgimento]
-Il risultato della prima somma può essere interpretato nel modo seguente:
-la media di una progressione aritmetica $\frac{1+2+ \dots + n}{n}$ 
-è uguale alla media tra il primo 
-e l'ultimo termine della progressione: $\frac{1+n}{2}$.
-
-Una volta identificata la formula la possiamo dimostrare per induzione.
-Per $n=0$ la somma è pari a $0$ per definizione.
-Se la formula è vera per un certo $n$, si ha 
-\[
-  \sum_{k=1}^{n+1} k = \enclose{\sum_{k=1}^n k} + (n+1)
-   = \frac{n\cdot(n+1)}{2} + (n+1) 
-   = \frac{(n+2)(n+1)}{2}
-\]
-che è quanto volevamo dimostrare.
-
-La formula per la somma dei quadrati si può dimostrare facilmente per 
-induzione (lo si faccia per esercizio) se già conosciamo la formula da 
-dimostrare.
-
-Un metodo per trovare la formula è quello di osservare che la differenza 
-di due termini cubici consecutivi risulta essere quadratico:
-\[
-k^3 - (k-1)^3 = 3 k^2 - 3k + 1.  
-\]
-Sommando ambo i lati della precedente equazione si ottiene:
-\begin{equation}\label{eq:309838}
-\sum_{k=1}^n k^3 - \sum_{k=1}^n (k-1)^3 = 3\sum_{k=1}^n k^2-3\sum_{k=1}^n k+\sum_{k=1}^n 1.
-\end{equation}
-Al lato destro compare la somma di cui vogliamo calcolare il valore 
-insieme ad altre due somme di cui sappiamo già il valore. 
-Basterà allora determinare il valore del lato sinistro dove 
-osserviamo che i termini delle due somme si cancellano 
-a vicenda,
-\mynote{%
-si chiama \emph{somma telescopica}
-\index{somma!telescopica}%
-\index{telescopico}%
-in quanto i termini delle due sommatorie si chiudono uno nell'altro 
-come i tubi di un cannocchiale.} %
-tranne l'ultimo della prima somma 
-e il primo della seconda: dunque si ottiene $n^3 - 0^3=n^3$.
-Moltiplichiamo per $2$ l'equazione~\eqref{eq:309838},
-mettiamo in evidenza la somma dei quadrati e 
-utilizzando la formula $2\sum_{k=1}^n k = n(n+1)$
-per ottenere:
-\begin{align*}
-  6 \sum_{k=1}^n k^2 
-  &=  2n^3 + 3 n(n+1) - 2n
-  = n \cdot \Enclose{2(n^2-1) + 3(n+1)}\\
-  &= n \cdot (n+1)(2n+1)
-\end{align*}
-che è quanto volevamo dimostrare.
-
-Con lo stesso metodo si può trovare una formula per il calcolo 
-di $\sum_{k=1}^n k^3$ e così via\dots
-\end{proof}
-
-Se $\sigma\colon \Enclose{n} \to \Enclose{n}$
-è bigettiva (una tale funzione si chiama \emph{permutazione}%
-\mymargin{permutazione}%
-\index{permutazione})
-e se l'addizione è associativa e commutativa
-allora si può fare il cambio di variabile $k=g(j)$:
-\[
-    \sum_{k=0}^{n-1} a_k = \sum_{j=0}^{n-1} a_{\sigma(j)}.
-\]
-Questa uguaglianza può essere dimostrata facilmente nel caso 
-in cui $\sigma$ scambi due soli indici lasciando fissi tutti gli altri 
-(trasposizione) e poi può essere estesa a tutte le permutazioni
-osservando che ogni permutazione si scrivere come composizione 
-di trasposizioni.
-
-Questa proprietà è sostanzialmente la proprietà commutativa della somma 
-estesa ad un numero qualunque di addendi.
-Grazie a questa proprietà possiamo definire la somma di una funzione 
-definita su qualunque insieme finito. 
-Se $f\colon X \to A$ 
-(su $A$ è definita una operazione $+$ associativa e commutativa)
-e $\sigma\colon \Enclose{n} \to X$ è una bigezione (dunque $\#X = n$)
-allora si può definire 
-\[
-  \sum_{x\in X} f(x) = \sum_{j=0}^{n-1} f(\sigma(j))  
-\]
-in quanto la somma sul lato destro non dipende dalla bigezione $\sigma$ che 
-abbiamo scelto.
 
 
 \section{polinomi}
