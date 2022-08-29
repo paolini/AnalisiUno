@@ -1960,14 +1960,15 @@ ad esempio:
   x = 3^3 + 3^4 + 3^5 + 3^6
 \]
 ogni addendo è uguale al precedente moltiplicato per $3$.
-Dunque se moltiplichiamo per $3$ l'intera somma
+Dunque se moltiplichiamo per la base l'intera somma
 \[
   3x = 3^4 + 3^5 + 3^6 + 3^7
 \]
 si ottiene la somma iniziale con un termine in più alla fine 
 e un termine in meno all'inizio. 
 \mymargin{Anche questa è una somma \emph{telescopica}}
-Dunque
+Facendo la differenza tutti i termini si cancellano tranne 
+il primo e l'ultimo
 \[
  3x - x = 3^7 - 3^3  
 \]
@@ -1986,7 +1987,6 @@ Se $\sigma\colon \Enclose{n} \to \Enclose{n}$
 è bigettiva (una tale funzione si chiama \emph{permutazione}%
 \mymargin{permutazione}%
 \index{permutazione})
-e se l'addizione è associativa e commutativa
 allora si può fare il cambio di variabile $k=g(j)$:
 \[
     \sum_{k=0}^{n-1} a_k = \sum_{j=0}^{n-1} a_{\sigma(j)}.
@@ -2117,6 +2117,14 @@ o, più precisamente, \emph{completezza di Dedekind}.
 \mymargin{ordinamento denso}%
 \index{denso} o \emph{divisibile} 
   se tra due punti distinti esiste sempre un punto intermedio:
+  \index{denso!sottoinsieme}%
+  \index{denso!ordinamento}%
+  \index{sottoinsieme!denso}%
+  \index{ordinamento!denso}%
+  \mymargin{Più in generale se $R$ è un insieme totalmente 
+  ordinato e $A\subset R$ si dice che $A$ è denso in $R$ 
+  se dati $x,y\in R$ con $x<y$ esiste $c\in A$ tale che 
+  $x<c<y$.}
   \[
    x < y \implies \exists c \colon x < c < y.
   \]
@@ -2921,7 +2929,7 @@ Diremo infine che $R$ è un \emph{campo ordinato continuo} se è un campo ordina
 e l'ordinamento è continuo.
 \end{definition}
 
-Ovviamente in un campo sono define, oltre all'addizione e la moltiplicazione anche 
+Ovviamente in un campo sono definite, oltre all'addizione e la moltiplicazione anche 
 la sottrazione e la divisione. 
 Infatti la proprietà di essere un gruppo additivo garantisce che 
 per ogni $x\in R$ esista l'opposto $-x$ tale che $x+(-x)=0$.
@@ -3005,6 +3013,96 @@ il prodotto col reciproco: $z/x = \frac{z}{x} = z\cdot (1/x)$.
 %Dunque per il teorema di isomorfismo ogni campo ordinato e continuo è
 %isomorfo ad $\RR$.
 %
+
+\subsection{valore assoluto}
+
+\begin{definition}[valore assoluto]
+\mymark{***}
+Definiamo il \emph{valore assoluto}%
+\mymargin{valore assoluto}%
+\index{valore!assoluto} $\abs{x}$ di un numero $x\in \RR$ nel seguente modo:
+\[
+\abs{x} =
+\begin{cases}
+  x & \text{se $x\ge 0$}, \\
+  -x & \text{se $x<0 $}.
+\end{cases}
+\]
+\end{definition}
+  
+\begin{proposition}[proprietà del valore assoluto]
+\mymark{**}
+Si ha
+\begin{enumerate}
+\item $\abs{x}\ge 0$ (positività)
+\item $\big\lvert\abs{x}\big\rvert = \abs{x}$ (idempotenza)
+\item $\abs{-x} = \abs{x}$ (simmetria)
+\item $\abs{x\cdot y} = \abs{x}\cdot \abs{y}$ (omogenità)
+\item $\abs{x+y} \le \abs{x} + \abs{y}$ (convessità)
+\item $\abs{x-y} \le \abs{x-z} + \abs{z-y}$ (disuguaglianza triangolare)
+\item $\big\lvert\abs{x}-\abs{y}\big\rvert \le \abs{x-y}$ (disuguaglianza triangolare inversa)
+\end{enumerate}
+Useremo inoltre spesso la seguente equivalenza (valida
+anche con $<$ al posto di $\le$). Se $r\ge 0$ allora
+\[
+  \abs{x-y} \le r
+  \iff
+  y - r \le x \le y + r.
+\]
+\end{proposition}
+%
+\begin{proof}
+\mymark{*}
+Positività, idempotenza, simmetria e omogenità sono immediate conseguenze della definizione.
+
+Dimostriamo ora l'ultima osservazione.
+Se $x\ge y$ allora $x-y\ge 0$ e quindi $\abs{x-y} \le r$ è
+equivalente a $x-y\le r$ cioè $x\le y+r$.
+Se $x<y$ allora $x-y<0$ e quindi $\abs{x-y} \le r$ è
+equivalente a $y-x \le r$ cioè $x\ge y-r$.
+Viceversa se $y-r \le x \le y+r$ allora vale sia $x-y \le r$ che $y-x \le r$ e 
+dunque $\abs{x-y}\le r$.
+
+Osserviamo allora che per la precedente osservazione applicata
+a $\abs{x-0} \le \abs{x}$ si ottiene
+\[
+  -\abs{x} \le x \le \abs{x}
+\]
+e sommando la stessa disuguaglianza con $y$ al posto di $x$ si
+ottiene
+\[
+  -(\abs{x} + \abs{y}) \le x + y \le \abs{x} + \abs{y}
+\]
+che è equivalente alla proprietà di convessità:
+\[
+  \abs{x+y} \le \big\lvert\abs{x} + \abs{y}\big\rvert = \abs{x} + \abs{y}.
+\]
+
+Ponendo $y=z-x$ nella disuguaglianza precedente, si ottiene
+\[
+  \abs{z} \le \abs{x} + \abs{z-x}
+\]
+da cui
+\[
+  \abs{z} - \abs{x} \le \abs{z-x}.
+\]
+Scambiando $z$ con $x$ si ottiene la disuguaglianza opposta
+e mettendole assieme si ottiene
+la disuguaglianza triangolare inversa:
+\[
+\big\lvert \abs{z}-\abs{x} \big\rvert  \le \abs{z-x}.
+\]
+
+La disuguaglianza triangolare segue dalla convessità:
+\[
+  \abs{x-y} = \abs{x-z + z-y} \le \abs{x-z} + \abs{z-y}.
+\]
+\end{proof}
+
+Osserviamo che dal punto di vista geometrico
+$\abs{x-y}$ rappresenta la \emph{distanza} tra i punti
+$x$ e $y$.
+
 \subsection{potenza e radice $n$-esima}
 \label{sec:potenza}%
 \label{sec:radice}%
@@ -3046,7 +3144,7 @@ Tale operazione ha inoltre le seguenti proprietà:
 La dimostrazione si ottiene facilmente per induzione.
 \end{proof}
 
-Si osservi anche abbiamo definito $0^0=1$ dove lo $0$ 
+Si osservi anche che abbiamo definito $0^0=1$ dove lo $0$ 
 alla base è un numero reale e lo $0$ all'esponente 
 è un numero naturale.
 
@@ -3056,9 +3154,72 @@ lo stesso teorema, applicato al gruppo moltiplicativo $\RR_+$,
 ci garantisce l'esistenza della radice $n$-esima: $\sqrt[n]{x}$.
 
 \begin{theorem}[radice $n$-esima]
-***********
-\end{theorem}
+Sia $n\in \NN$, $n\ge 1$ fissato.
+Dato $y\in \RR$, $y \ge 0$, esiste un unico $x\in \RR$, $x\ge 0$ tale che $x^n = y$.
+Tale numero $x$ si chiama \emph{radice} $n$-esima di $y$ e si 
+denota con questo simbolo:
+\[
+  x = \sqrt[n]{y}.
+\]
 
+Se $n$ è pari e $y>0$ l'equazione $x^n=y$ ha due soluzioni, oltre alla soluzione positiva 
+$\sqrt[n]{y}$ c'è anche una soluzione negativa $-\sqrt[n]{y}$.
+Se $y=0$ l'equazione $x^n=0$ ha come unica soluzione $x=sqrt[n]{0}=0$.
+E se $y<0$ (sempre nel caso $n$ pari) l'equazione $x^n = y$ non ha soluzioni.
+
+Se $n$ è dispari l'equazione $x^n=y$ ha una unica soluzione per ogni $y\in \RR$.
+Se $y<0$ la soluzione è negativa ed è $x=-\sqrt[n]{\abs y}$.
+Per comodità, se $n$ è dispari, definiamo la radice $n$-esima anche sui numeri negativi 
+ponendo appunto 
+\[
+  \sqrt[n]{-y} \defeq  -\sqrt[n]{y}\qquad\text{(se $n$ è dispari).}
+\]
+\end{theorem}
+\begin{proof}
+Il teorema~\ref{th:divisibile} (divisibilità) può essere applicato al gruppo moltiplicativo 
+$\RR_+$ e ci dice che se $n\neq 0$ dato $y\in \RR_+$ esiste un unico $x\in \RR_+$ tale 
+che $x^n = y$. Se $y=0$ chiaramente solo $x=0$ è soluzione di $x^n= y$ per la regola 
+di annullamento del prodotto. 
+
+Le altre proprietà si deducono per simmetria osservando che $(-x)^n = (-1)^n\cdot x^n$
+e $(-1)^n$ vale $1$ se $n$ è pari e $-1$ se $n$ è dispari per la regola del segno 
+del prodotto.
+\end{proof}
+
+Per $n=2$ si omette l'indicazione dell'esponente scrivendo $\sqrt y$ al posto di $\sqrt[2] y$.
+La $\sqrt y$ si chiama \emph{radice quadrata} di $y$.
+Per $n=3$ la radice $\sqrt[3]{y}$ si chiama \emph{radice cubica} di $y$.
+
+\begin{figure}
+  \begin{center}
+    \begin{tikzpicture}[x=1.0cm,y=1.0cm]
+      \clip(-3,-2) rectangle (4,3);
+    	\draw[->] (-3,0) -- (4,0);
+      \draw[->] (0,-2) -- (0,3);
+      \draw[dotted] (1,0) -- (1,1) -- (0,1);
+      \draw[domain=0.2:4,samples=50,variable=\x,dashed,color=gray] plot
+        ({\x}, {1/(\x))});
+      \draw[domain=-3:-0.5,samples=50,variable=\x,dashed,color=gray] plot
+        ({\x}, {1/(\x))});
+      \draw[domain=-2.0:2.0,smooth,variable=\x,thick,color=gray] plot
+        ({\x}, {\x*\x*\x)});
+      \draw[domain=-3.1:4.0,samples=200,variable=\x,color=gray] plot
+        ({\x}, {pow(abs(\x),1/3)*\x / abs(\x)});
+      \draw[domain=-3.0:3.0,smooth,variable=\x,thick] plot
+        ({\x}, {\x*\x});
+      \draw[domain=0.0:4.0,samples=200,variable=\x] plot
+      ({\x}, {pow(\x,1/2)});
+      \node at (-2.0,1.8) {$y=x^2$};
+      \node at (3,2) {$y=\sqrt{x}$};
+      \node[color=gray] at (-1.7,-1.8) {$y=x^{3}$};
+      \node[color=gray] at (-2.0,-1) {$y=\sqrt[3]{x}$};
+      \fill (1,0) node[below]{$1$} circle[radius=1.5pt];
+      \fill (0,1) node[left]{$1$} circle[radius=1.5pt];
+    \end{tikzpicture}
+  \end{center}
+  \caption{Grafici tipici di potenze e radici.}
+  \label{fig:potenza_intera_radice}
+\end{figure}
 
 \subsection{l'insieme dei numeri naturali $\NN \subset \RR$}
 %
@@ -3116,7 +3277,10 @@ per definizione di intersezione, è contenuto in ogni
 sottoinsieme induttivo di $\RR$ (e quindi in ogni 
 sottoinsieme induttivo di se stesso).
 
+
 \subsection{l'insieme dei numeri interi $\ZZ \subset \RR$}
+%
+%
 \index{interi!$\ZZ$ dentro $\RR$}%
 \index{numeri!interi $\ZZ$ dentro $\RR$}%
 \index{$\ZZ$}%
@@ -3160,7 +3324,73 @@ Si potrebbe anche dimostrare che $\ZZ$ è continuo (esercizio!),
 fornendo dunque un esempio di gruppo totalmente ordinato, 
 denso ma non continuo.
 
+\subsubsection{parte intera}
+
+\begin{theorem}[parte intera]
+\mymark{*}%
+  Dato $x\in \RR$ esiste un unico $m\in \ZZ$ tale che $m-1 < x \le m$.
+\end{theorem}
+%
+\begin{proof}
+  Supponiamo per un attimo che sia $x > 0$
+  e consideriamo l'insieme $A=\ENCLOSE{n \in \NN \colon n\ge x}$.
+  Tale insieme non è vuoto per la proprietà archimedea 
+  e dunque ammette minimo per il principio del buon ordinamento.
+  Se $m=\min A$ risulta quindi $m\in \NN$ e $m-1< x \le m$.
+
+  Se $x\le 0$ per la proprietà archimedea esiste $k\in \NN$ tale che 
+  $k>-x$. Allora applichiamo il risultato precedente a $x+k$ e consideriamo 
+  $m-k$ al posto di $m$.
+\end{proof}
+
+\begin{definition}[parte intera]
+  \mymark{**}%
+  \mymargin{parte intera}%
+\index{parte!intera}%
+  Dato $x\in \RR$ denotiamo con $\lfloor x\rfloor$ l'unico intero
+  che soddisfa
+  \mymargin{$\lfloor\cdot\rfloor$} %% *** non viene bene nell'indice!
+  \[
+    x - 1 < \lfloor x \rfloor \le x
+  \]
+  e denotiamo con $\lceil x \rceil = - \lfloor -x \rfloor$ l'unico intero che soddisfa (verificare!)
+  \mymargin{$\lceil\cdot\rceil$} %% *** non viene bene nell'indice!
+  \[
+    x \le \lceil x \rceil < x + 1.
+  \]
+  Si ha dunque
+  \[
+    \lfloor x \rfloor \le x \le \lceil x \rceil
+  \]
+  con entrambe le uguaglianze che si realizzano quando $x\in \ZZ$.
+  I due interi $\lfloor x \rfloor$ e $\lceil x \rceil$
+  sono la migliore approssimazione intera di $x$ rispettivamente
+  per difetto e per eccesso.
+  L'intero più vicino ad $x$ (approssimazione per \emph{arrotondamento}%
+\mymargin{arrotondamento}%
+\index{arrotondamento})
+  è
+  \[
+    \left\lfloor x + \frac 1 2 \right\rfloor
+  \quad \text{ossia} \quad
+    \left\lceil x-\frac 1 2 \right\rceil
+  \]
+  (le due espressioni differiscono solamente quando $x$ si trova nel punto medio tra 
+  due interi consecutivi, nel qual caso la prima approssima per eccesso e la seconda 
+  per difetto).
+\end{definition}
+
+In alcuni testi si usa la notazione $[x]$ per denotare la parte intera $\lfloor x \rfloor$ e si definisce
+anche la \emph{parte frazionaria}
+\[
+  \ENCLOSE{x} = x - [x].
+\]
+Per evitare ambiguità con il normale utilizzo delle parentesi
+non useremo queste notazioni.
+
 \subsection{l'insieme dei numeri razionali $\QQ\subset \RR$}
+%
+%
 \index{razionali!$\QQ$ dentro $\RR$}%
 \index{numeri!razionali $\QQ$ dentro $\RR$}%
 \index{$\QQ$}%
@@ -3194,6 +3424,8 @@ compatibile con le operazioni di addizione e moltiplicazione.
 Risulta quindi che $\QQ$ è un esempio di campo ordinato, come $\RR$.
 Ovviamente $\QQ$ è denso come ogni campo ordinato.
 
+\subsubsection{numeri irrazionali}
+
 Se l'ordinamento di $\QQ$ fosse continuo il teorema 
 di isomorfismo ci direbbe 
 che c'è un unico omomorfismo positivo $f\colon \QQ \to \RR$ 
@@ -3205,11 +3437,14 @@ si avrebbe $\RR = f(\QQ) = \QQ$.
 E' rilevante osservare che questo non accade e cioè 
 $\QQ\neq \RR$ perché $\QQ$ non è continuo. 
 Il primo ad accorgersene fu, per quanto ne sappiamo,
-Pitagora che dimostrò che $\sqrt 2 = 2^{\frac 1 2}$
+Pitagora che dimostrò che $\sqrt 2$
 non è un numero razionale, dunque $\sqrt 2 \in \RR \setminus \QQ$.
-Ovviamente $(\sqrt 2)^2 = (2^\frac 1 2)^2 = 2^1 = 2$ 
-e dunque $\sqrt 2$ è una soluzione dell'equazione $x^2=2$.
-Possiamo dunque enunciare l'irrazionalità di $\sqrt 2$ 
+
+Visto che i numeri di $\QQ$ si chiamano \emph{razionali} (da \emph{ratio}, rapporto)
+gli elementi di $\RR\setminus \QQ$ si chiamano \emph{irrazionali} e $\sqrt 2$ 
+è il primo esempio di tale casistica.
+
+Possiamo enunciare l'irrazionalità di $\sqrt 2$ 
 senza tirare in ballo i numeri reali, 
 dimostrando che l'equazione $x^2=2$ non ha soluzioni in $\QQ$.
 
@@ -3237,7 +3472,8 @@ dimostrando che l'equazione $x^2=2$ non ha soluzioni in $\QQ$.
 
 Abbiamo quindi dimostrato che $\QQ$ non può essere continuo (altrimenti 
 sarebbe isomorfo a $\RR$ dove l'equazione $x^2=2$ ha soluzione). 
-Possiamo anche esplicitare un esempio di sottoinsiemi di $\QQ$ che sono 
+Utilizzando l'irrazionalità di $\sqrt 2$ 
+possiamo ora esibire un esempio di sottoinsiemi di $\QQ$ che sono 
 \emph{separati} (nel senso della definizione~\ref{def:ordinamento_continuo})
 ma non hanno elemento di separazione in $\QQ$:
 \[
@@ -3248,6 +3484,180 @@ B = \ENCLOSE{x\in \QQ\colon x<0, x^2>2}.
 Chiaramente $A\le B$ ma in $\RR$ questi due insiemi 
 hanno come unico elemento di separazione $\sqrt 2$ che non è elemento di
 $\QQ$.
+
+Abbiamo appena verificato che esistono numeri irrazionali. 
+Può però essere sorprendente scoprire che non solo i numeri irrazionali 
+sono infiniti (chiaramente se $x$ è irrazionale anche $n\cdot x$ è irrazionale 
+se $n$ è intero o razionale) ma addirittura la cardinalità 
+dei numeri irrazionali è maggiore di quella dei numeri razionali 
+$\# (\RR\setminus \QQ) > \# \QQ$ (teorema~\ref{th:cantor_secondo}).
+
+Ogni numero razionale ha una rappresentazione finita. 
+Se $x=\frac p q$ possiamo scrivere $p$ e $q$ nella loro rappresentazione 
+decimale utilizzando una sequenza finita di cifre.
+Possiamo anche dare \emph{un nome} a molti numeri irrazionali. 
+Ad esempio $\sqrt 2$, $e$, $\pi$, $\sin 1$, $\ln 2$ identificheranno 
+alcuni numeri irrazionali. 
+Ma non è possibile dare una rappresentazione \emph{finita} di ogni numero reale.
+Per questo motivo è rilevante il fatto che i numeri razionali siano \emph{densi}
+nei numeri reali perché questo significa che ogni numero reale può essere 
+approssimato, con un errore piccolo a piacere, tramite un numero razionale.
+
+\begin{theorem}[densità di $\QQ$ in $\RR$]
+\label{th:densita_frazioni}%
+\index{densità!frazioni}%
+\index{approssimazioni!decimali}%
+Dati $a,b\in \RR$ se $a<b$ esiste $q\in \QQ$ tale che $a< q < b$.
+
+Equivalentemente dato $x\in \RR$ e dato $\eps>0$ esiste $q\in \QQ$ 
+tale che $\abs{x-q} < \eps$.
+
+Inoltre la frazione $q= \frac{p}{n}$ può essere scelta 
+in modo tale che il denominatore sia una potenza di $10$: $n=10^k$.
+\end{theorem}
+\begin{proof}
+La prima parte è conseguenza della seconda perché se scegliamo 
+$x= \frac{a+b}{2}$ ed $\eps = \frac{b-a} 2$ se $\abs{x-q}< \eps$ 
+allora 
+\[
+   a = \frac{a+b}{2} - \eps < q < \frac{a+b}{2} + \eps = b.
+\]
+
+Per dimostrare la seconda parte dati $x$ e $\eps$ basterà scegliere 
+$n\in \NN$ tale che $\frac 1 n < \eps$ (l'esistenza di $n$ è garantita 
+dal teorema~\ref{th:archimede}, proprietà archimedea) e predere $q = \frac{\lfloor nx\rfloor}{n}$
+cosicché, per le proprietà della parte intera, si ha:
+\[
+  nx-1 \lfloor nx\rfloor \le nx 
+  \qquad\text{e quindi}\qquad
+  x - \frac 1 n \lfloor q \le x
+\]
+da cui $0 \le x-q < \frac 1 n < \eps$ come volevamo dimostrare.
+
+Per avere una frazione con denominatore potenza di $10$ basta osservare 
+che se aumentiamo $n$ la precisione della approssimazione aumenta. 
+Dunque basta osservare che per ogni $n\in \NN$ esiste $d\in \NN$
+tale che $10^d \ge n$ (basta scegliere $d=n$ e dimostrare per induzione 
+che $10^n\ge n$).
+\end{proof}
+
+\subsubsection{frazioni decimali}
+%
+Le frazioni il cui denominatore è una potenza
+di $10$ si chiamano frazioni decimali:
+\[
+  x = \frac{p}{10^d}, \qquad p\in \ZZ, d\in \NN.
+\]
+Tali frazioni si possono rappresentare
+scrivendo il numero
+intero $p$ e segnando un punto
+\mynote{%
+in Italia si preferisce utilizzare la virgola, ma
+ci rassegnamo alla notazione anglosassone che ormai è
+ubiqua in tutta la strumentazione elettronica.
+}%
+di separazione
+prima della $d$-esima cifra a partire da destra.
+Ad esempio scriveremo:
+\[
+  1.4142 = \frac{14142}{10^4}.
+\]
+In generale una frazione $\frac{p}{q}\in \QQ$
+può essere scritta in forma decimale solamente
+se, quando ridotta ai minimi termini,
+risulta che $q$ non ha fattori primi diversi
+da $2$ e $5$ (in quanto le potenze di dieci
+hanno solo questi fattori).
+
+Anche se non tutte le frazioni hanno una rappresentazione 
+decimale finita, in ogni caso le frazioni decimali 
+sono dense in $\RR$ (come dimostrato nel teorema~\ref{th:densita_frazioni})
+e quindi ogni numero reale può essere approssimato, con errore piccolo a piacere,
+mediante una frazione decimale.
+
+In tal caso scriveremo
+\mymargin{$\approx$}%
+\index{$\approx$}%
+\[
+  x \approx \frac{p}{10^d}
+\]
+se
+\[
+    \frac{p-1}{10^d} < x < \frac{p+1}{10^d}.
+\]
+
+Ad esempio possiamo scrivere
+\[
+  \sqrt 2 \approx 1.41 = \frac{141}{10^2}
+\]
+per intendere%
+\mynote{%
+Si osservi che in base alla definizione data sarebbe anche corretto 
+scrivere $\sqrt 2 \approx 1.42$ che però è una approssimazione 
+peggiore. 
+Questa ambiguità è necessaria se vogliamo evitare i casi 
+limite in cui bisogna conoscere molte più cifre decimali di quelle richieste 
+per capire qual è la migliore approssimazione.
+}%
+\begin{equation}\label{eq:approx_sqrt2}
+\frac{140}{100} < \sqrt 2 < \frac{142}{100}.
+\end{equation}
+Nel calcolo numerico scientifico ogni uguaglianza numerica è intesa nel 
+senso precedente, se non specificato diversamente. 
+
+\begin{exercise}
+Si provi a dimostrare \ref{eq:approx_sqrt2} senza 
+utilizzare la calcolatrice.
+\end{exercise}
+
+Osserviamo infine che anche i calcolatori utilizzano una rappresentazione frazionaria, 
+nel caso specifico \emph{binaria}, dei numeri.
+I numeri frazionari su cui opera un calcolatore sono tutti della forma $\frac{p}{2^d}$.
+Visto che $2$ divide $10$ le frazioni binarie sono anche sempre frazioni decimali, 
+in particolare anche questi numeri sono densi in $\RR$.
+(se non teniamo conto del fatto che l'esponente $d$ è limitato, tipicamente )
+\mymargin{In un moderno calcolatore a 64 bit la rappresentazione binaria (float64) 
+utilizza frazioni binarie con esponente $d\le 1024$. 
+Questo permette di rappresentare numeri con una precisione non superiore alle 
+$308$ cifre decimali. 
+La rappresentazione è a virgola mobile e quindi questa precisione si può raggiungere 
+solamente con numeri vicini allo zero, per numeri vicini a $1$ 
+si ha invece $d\le 53$ che corrisponde ad una precisione di quasi $16$ cifre decimali.}
+
+\subsubsection{frazioni non decimali}
+
+Le frazioni non decimali si possono scrivere con uno sviluppo
+decimale \emph{periodico}. 
+Non useremo mai questa notazione
+che ricordiamo solamente con un esempio.
+Il numero
+\[
+  x = 12.34\overline{567}
+    = 12.34567\overline{567}
+\]
+è la frazione che risolve l'equazione
+\[
+  \frac{100x - 1234}{1000}
+  = 100x-1234.567
+  \qquad
+\enclose
+{\frac{0.\overline{567}}{1000}
+= 0.000\overline{567} }
+\]
+ovvero
+\[
+  1234567 - 1234 = 99900 \cdot x,
+  \qquad x = \frac{1234567-1234}{99900}.
+\]
+
+\begin{exercise}
+Si verifichi che $0.\overline 9 = 1$.
+\end{exercise}
+    
+Per passare dalla rappresentazione frazionaria alla rappresentazione 
+decimale periodica basta svolgere la divisione in colonna.
+Se l'algoritmo termina la frazione era decimale, altrimenti l'algoritmo 
+diventa periodico e le cifre decimali si ripetono indefinitamente.
 
 \subsection{estremo superiore, estremo inferiore}
 
@@ -3396,253 +3806,6 @@ L'esistenza del $\sup$ (o dell'$\inf$)
 è in effetti una condizione equivalente all'assioma di continuità.
 Infatti se $A\le B$ certamente $\sup A$, se esiste, è elemento 
 di separazione tra $A$ e $B$.
-
-\subsection{parte intera}
-
-Se $R$ è un gruppo con operazione $+$ ed elemento neutro $0$, 
-allora per ogni $x\in R$ si può definire 
-il prodotto $n\cdot x$ con $n\in \NN$ come somma ripetuta:
-Si pone $0\cdot x=0$ e per induzione $(n+1)\cdot x= n\cdot x + x$.
- 
-\begin{theorem}[parte intera]
-\mymark{*}%
-  Dato $x\in \RR$ esiste un unico $m\in \ZZ$ tale che $m-1 < x \le m$.
-\end{theorem}
-%
-\begin{proof}
-  Supponiamo per un attimo che sia $x > 0$
-  e consideriamo l'insieme $A=\ENCLOSE{n \in \NN \colon n\ge x}$.
-  Tale insieme non è vuoto per la proprietà archimedea 
-  e dunque ammette minimo per il principio del buon ordinamento.
-  Se $m=\min A$ risulta quindi $m\in \NN$ e $m-1< x \le m$.
-
-  Se $x\le 0$ per la proprietà archimedea esiste $k\in \NN$ tale che 
-  $k>-x$. Allora applichiamo il risultato precedente a $x+k$ e consideriamo 
-  $m-k$ al posto di $m$.
-\end{proof}
-
-\begin{definition}[parte intera]
-  \mymark{**}%
-  \mymargin{parte intera}%
-\index{parte!intera}%
-  Dato $x\in \RR$ denotiamo con $\lfloor x\rfloor$ l'unico intero
-  che soddisfa
-  \mymargin{$\lfloor\cdot\rfloor$} %% *** non viene bene nell'indice!
-  \[
-    x - 1 < \lfloor x \rfloor \le x
-  \]
-  e denotiamo con $\lceil x \rceil = - \lfloor -x \rfloor$ l'unico intero che soddisfa (verificare!)
-  \mymargin{$\lceil\cdot\rceil$} %% *** non viene bene nell'indice!
-  \[
-    x \le \lceil x \rceil < x + 1.
-  \]
-  Si ha dunque
-  \[
-    \lfloor x \rfloor \le x \le \lceil x \rceil
-  \]
-  con entrambe le uguaglianze che si realizzano quando $x\in \ZZ$.
-  I due interi $\lfloor x \rfloor$ e $\lceil x \rceil$
-  sono la migliore approssimazione intera di $x$ rispettivamente
-  per difetto e per eccesso.
-  L'intero più vicino ad $x$ (approssimazione per \emph{arrotondamento}%
-\mymargin{arrotondamento}%
-\index{arrotondamento})
-  è
-  \[
-    \left\lfloor x + \frac 1 2 \right\rfloor
-  \quad \text{ossia} \quad
-    \left\lceil x-\frac 1 2 \right\rceil
-  \]
-  (le due espressioni differiscono solamente quando $x$ si trova nel punto medio tra 
-  due interi consecutivi, nel qual caso la prima approssima per eccesso e la seconda 
-  per difetto).
-\end{definition}
-
-In alcuni testi si usa la notazione $[x]$ per denotare la parte intera $\lfloor x \rfloor$ e si definisce
-anche la \emph{parte frazionaria}
-\[
-  \ENCLOSE{x} = x - [x].
-\]
-Per evitare ambiguità con il normale utilizzo delle parentesi
-non useremo queste notazioni.
-
-\subsection{numeri decimali}
-%
-Le frazioni il cui denominatore è una potenza
-di $10$ si chiamano frazioni decimali:
-\[
-  x = \frac{p}{10^d}, \qquad p\in \ZZ, d\in \NN.
-\]
-Tali frazioni si possono rappresentare
-scrivendo il numero
-intero $p$ e segnando un punto
-\mynote{%
-in Italia si preferisce utilizzare la virgola, ma
-ci rassegnamo alla notazione anglosassone che ormai è
-ubiqua in tutta la strumentazione elettronica.
-}%
-di separazione
-prima della $d$-esima cifra a partire da destra.
-Ad esempio scriveremo:
-\[
-  1.4142 = \frac{14142}{10^4}.
-\]
-In generale una frazione $\frac{p}{q}\in \QQ$
-può essere scritta in forma decimale solamente
-se, quando ridotta ai minimi termini,
-risulta che $q$ non ha fattori primi diversi
-da $2$ e $5$ (in quanto le potenze di dieci
-hanno solo questi fattori).
-In ogni caso le frazioni decimali sono dense in $\RR$
-in quanto dato $x\in \RR$ per ogni $\eps>0$ esiste
-$d\in \NN$ tale che $10^{-d}\le\eps$ e quindi
-posto $p=\lfloor 10^d\cdot x + \frac 1 2\rfloor$
-si avrà
-\[
-    \abs{\frac{p}{10^d} - x} \le \frac{1}{2\cdot 10^d} < \eps.
-\]
-In tal caso scriveremo
-\mymargin{$\approx$}%
-\index{$\approx$}
-\[
-  x \approx \frac{p}{10^d}.
-\]
-Ad esempio scriveremo
-\[
-  \frac 2 3 \approx 0.6667 = \frac{6667}{10^4}
-\]
-per intendere%
-\mynote{%
-Si osservi che in base alla definizione data sarebbe anche corretto 
-scrivere $\frac 2 3 \approx 0.6666$ che però sarebbe una approssimazione 
-peggiore. 
-Questa ambiguità è necessaria se vogliamo evitare i casi 
-limite in cui bisogna conoscere molte più cifre decimali di quelle richieste 
-per capire qual è la migliore approssimazione.
-}%
-\begin{equation}\label{eq:approx_23}
-\abs{\frac 2 3 - \frac{6667}{10^4}}<\frac{1}{10^4}.
-\end{equation}
-Nel calcolo scientifico ogni uguaglianza numerica è intesa nel 
-senso precedente, se non specificato diversamente. 
-
-Le frazioni non decimali si possono scrivere con uno sviluppo
-decimale \emph{periodico}. 
-Non useremo mai questa notazione
-che ricordiamo solamente con un esempio.
-Il numero
-\[
-  x = 12.34\overline{567}
-    = 12.34567\overline{567}
-\]
-è la frazione che risolve l'equazione
-\[
-  \frac{100x - 1234}{1000}
-  = 100x-1234.567
-  \qquad
-\enclose
-{\frac{0.\overline{567}}{1000}
-= 0.000\overline{567} }
-\]
-ovvero
-\[
-  1234567 - 1234 = 99900 \cdot x,
-  \qquad x = \frac{1234567-1234}{99900}.
-\]
-
-\begin{exercise}
-Dimostrare che vale~\eqref{eq:approx_23}.
-\end{exercise}  
-
-\subsection{valore assoluto}
-
-\begin{definition}[valore assoluto]
-\mymark{***}
-Se $\KK$ è un campo totalmente ordinato (ad esempio $\KK=\QQ$ o, come vedremo, $\KK=\RR$)
-definiamo il \emph{valore assoluto}%
-\mymargin{valore assoluto}%
-\index{valore!assoluto} $\abs{x}$ di un numero $x\in \KK$ nel seguente modo:
-\[
-\abs{x} =
-\begin{cases}
-  x & \text{se $x\ge 0$}, \\
-  -x & \text{se $x<0 $}.
-\end{cases}
-\]
-\end{definition}
-  
-\begin{proposition}[proprietà del valore assoluto]
-\mymark{**}
-Si ha
-\begin{enumerate}
-\item $\abs{x}\ge 0$ (positività)
-\item $\big\lvert\abs{x}\big\rvert = \abs{x}$ (idempotenza)
-\item $\abs{-x} = \abs{x}$ (simmetria)
-\item $\abs{x\cdot y} = \abs{x}\cdot \abs{y}$ (omogenità)
-\item $\abs{x+y} \le \abs{x} + \abs{y}$ (convessità)
-\item $\abs{x-y} \le \abs{x-z} + \abs{z-y}$ (disuguaglianza triangolare)
-\item $\big\lvert\abs{x}-\abs{y}\big\rvert \le \abs{x-y}$ (disuguaglianza triangolare inversa)
-\end{enumerate}
-Useremo inoltre spesso la seguente equivalenza (valida
-anche con $<$ al posto di $\le$). Se $r\ge 0$ allora
-\[
-  \abs{x-y} \le r
-  \iff
-  y - r \le x \le y + r.
-\]
-\end{proposition}
-%
-\begin{proof}
-\mymark{*}
-Positività, idempotenza, simmetria e omogenità sono immediate conseguenze della definizione.
-
-Dimostriamo ora l'ultima osservazione.
-Se $x\ge y$ allora $x-y\ge 0$ e quindi $\abs{x-y} \le r$ è
-equivalente a $x-y\le r$ cioè $x\le y+r$.
-Se $x<y$ allora $x-y<0$ e quindi $\abs{x-y} \le r$ è
-equivalente a $y-x \le r$ cioè $x\ge y-r$.
-Viceversa se $y-r \le x \le y+r$ allora vale sia $x-y \le r$ che $y-x \le r$ e 
-dunque $\abs{x-y}\le r$.
-
-Osserviamo allora che per la precedente osservazione applicata
-a $\abs{x-0} \le \abs{x}$ si ottiene
-\[
-  -\abs{x} \le x \le \abs{x}
-\]
-e sommando la stessa disuguaglianza con $y$ al posto di $x$ si
-ottiene
-\[
-  -(\abs{x} + \abs{y}) \le x + y \le \abs{x} + \abs{y}
-\]
-che è equivalente alla proprietà di convessità:
-\[
-  \abs{x+y} \le \big\lvert\abs{x} + \abs{y}\big\rvert = \abs{x} + \abs{y}.
-\]
-
-Ponendo $y=z-x$ nella disuguaglianza precedente, si ottiene
-\[
-  \abs{z} \le \abs{x} + \abs{z-x}
-\]
-da cui
-\[
-  \abs{z} - \abs{x} \le \abs{z-x}.
-\]
-Scambiando $z$ con $x$ si ottiene la disuguaglianza opposta
-e mettendole assieme si ottiene
-la disuguaglianza triangolare inversa:
-\[
-\big\lvert \abs{z}-\abs{x} \big\rvert  \le \abs{z-x}.
-\]
-
-La disuguaglianza triangolare segue dalla convessità:
-\[
-  \abs{x-y} = \abs{x-z + z-y} \le \abs{x-z} + \abs{z-y}.
-\]
-\end{proof}
-
-Osserviamo che dal punto di vista geometrico
-$\abs{x-y}$ rappresenta la \emph{distanza} tra i punti
-$x$ e $y$.
 
 \section{punti all'infinito}
 \label{sec:reali_estesi}
@@ -3800,7 +3963,7 @@ Questo rimane coerente con la definizione~\eqref{eq:499494}
 data sopra solamente se adottiamo la convenzione~\eqref{eq:488364}.
 
 Noi considereremo per lo più intervalli di $\RR$ (non di $\bar \RR$): in tal
-caso gli estremi infiniti non potranno mai essere inclusi nell'intervallo.
+caso gli estremi infiniti saranno sempre esclusi dall'intervallo.
 
 \section{andamento del grafico di una funzione}
 %
