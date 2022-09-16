@@ -968,6 +968,7 @@ In particolare $f\colon A \to f(A)$ è certamente surgettiva.
 Per rendere iniettiva una funzione dobbiamo invece restringere il dominio.
 
 \begin{definition}[restrizione]
+  \label{def:restrizione}%
   Se $f\colon A\to B$ è una funzione e $C\subset A$, possiamo 
   \emph{restringere} il dominio di $f$ all'insieme $C$.
   \mynote{La notazione $f\llcorner C$ non è del tutto standard,
@@ -1336,11 +1337,17 @@ Partendo da $0$ e passando al successivo si raggiungono tutti i numeri naturali.
 Esistono un insieme $\NN$, 
 un elemento $0\in \NN$ 
 e una funzione $\sigma\colon \NN\to\NN$ tali che
+\mynote{Il primo assioma di Peano dice che numeri diversi hanno 
+numeri successivi diversi. Il secondo assioma ci dice che il primo 
+numero naturale, per noi lo $0$, 
+non è il successore di nessun'altro mentre ogni altro numero 
+ne ha uno precedente. Il terzo assioma, il principio di induzione, 
+ci dice che ogni numero naturale può essere raggiunto dallo $0$ 
+facendo un numero finito di passaggi al successore.
+}
 \begin{enumerate}
-  \item $\sigma$ è iniettiva (due numeri diversi non possono avere lo stesso 
-  successore);
-  \item $\sigma(\NN) = \NN \setminus\ENCLOSE{0}$ 
-  (il numero $0$ è l'unico numero che non è successore di nessun'altro numero);
+  \item $\sigma$ è iniettiva;
+  \item $\sigma(\NN) = \NN \setminus\ENCLOSE{0}$;
   \item se $A\subset \NN$ e 
   \begin{enumerate} 
     \item[(i)] $0\in A$ 
@@ -1416,7 +1423,7 @@ insiemi infiniti, nel senso di Dedekind.%
 
 \subsection{principio di induzione}
 
-L'ultimo assioma dei numeri naturali 
+L'ultimo degli assiomi di Peano 
 ci dice che se un sottoinsieme dei numeri naturali contiene lo 
 zero e contiene il successore di ogni suo elemento, allora contiene tutti i 
 numeri naturali.
@@ -1548,7 +1555,8 @@ l'ordinamento soddisfa infine queste proprietà:
 \begin{proof}
   Si vedano i teoremi~\ref{th:proprieta_addizione},
   \ref{th:proprieta_moltiplicazione},
-  \ref{th:proprieta_potenza} e~\ref{th:proprieta_ordine_N}.
+  \ref{th:proprieta_potenza}, \ref{th:proprieta_ordine_N}
+  e~\ref{th:monotonia_naturali}.
 \end{proof}
 
 Si osservi che abbiamo definito $n^0=1$ per ogni $n\in \NN$,
@@ -1557,7 +1565,7 @@ Dunque abbiamo consapevolmente definito $0^0=1$:
 questa definizione (controversa) risulterà essere utile.
 Si noti invece che $0^n=0$ solo se $n\neq 0$.
 Infatti qualunque numero moltiplicato per $0$ dà zero, 
-quindi una moltiplicazione ripetuta da zero 
+quindi una moltiplicazione ripetuta dà zero 
 se c'è almeno un fattore nullo. 
 Ma nel prodotto $0^0$ ci sono $0$ fattori $0$ quindi non c'è in effetti nessuna 
 moltiplicazione per $0$. 
@@ -2121,7 +2129,7 @@ o, più precisamente, \emph{completezza di Dedekind}.
   \index{denso!ordinamento}%
   \index{sottoinsieme!denso}%
   \index{ordinamento!denso}%
-  \mymargin{Più in generale se $R$ è un insieme totalmente 
+  \mynote{Più in generale se $R$ è un insieme totalmente 
   ordinato e $A\subset R$ si dice che $A$ è denso in $R$ 
   se dati $x,y\in R$ con $x<y$ esiste $c\in A$ tale che 
   $x<c<y$.}
@@ -2129,7 +2137,6 @@ o, più precisamente, \emph{completezza di Dedekind}.
    x < y \implies \exists c \colon x < c < y.
   \]
 \end{definition}
-
 
 \begin{definition}[gruppo]
   \label{def:gruppo}%
@@ -5574,7 +5581,7 @@ Dunque si ha
 \[
     z + 1 + \bar z = 0.
 \]
-Osserviamo ora che se $z=x+iy$ con $x,y\in \RR$ allora $z+\bar z = 2x$
+Ma se $z=x+iy$ con $x,y\in \RR$ allora $z+\bar z = 2x$
 e quindi 
 \[
     2x + 1 = 0 
@@ -5597,7 +5604,12 @@ $z_2$ corrisponde a $\frac 2 3$ di angolo giro e $z_0=z_1^3 = 1$ rappresenta
 l'angolo giro (o l'angolo nullo).
 \end{proof}
 
-\section{funzioni trigonometriche 1}
+\begin{exercise}[pentagono regolare]
+Si determini la massima distanza tra due soluzioni 
+dell'equazione $z^5=1$. 
+\end{exercise}
+
+\section{funzioni trigonometriche}
 \label{sec:avvolgimento}
 
 Consideriamo la circonferenza unitaria 
@@ -5605,7 +5617,6 @@ Consideriamo la circonferenza unitaria
   U = \ENCLOSE{z\in \CC\colon \abs{z} = 1}.
 \]
 Ogni punto $z\in U$ individua un angolo geometrico con l'asse reale.
-Il nostro obiettivo è di assegnare ad ogni angolo una misura.
 Il punto $z=1$ individuerà un angolo di misura nulla e 
 ruotando $z$ in senso antiorario vogliamo ottenere angoli crescenti
 in modo additivo, ovvero vogliamo fare in modo che l'angolo che si ottiene 
@@ -5615,117 +5626,356 @@ degli angoli individuati da $z$ e da $w$.
 Per fare questo gli angoli devono essere definiti con segno e \emph{molteplicità}.
 
 L'idea intuitiva è quella di pensare alla retta reale $\RR$ come un filo 
-elastico che viene arrotolato su $U$ in modo che il punto $0\in \RR$ 
+elastico che viene arrotolato sulla circonferenza $U\subset \CC$ in modo che il punto $0\in \RR$ 
 si sovrapponga al punto $1\in \CC$ e poi, avvolgendo il filo in senso antiorario 
+con tensione costante, 
 si vada a completare un giro sovrapponendo il punto $1\in \RR$ di nuovo sul punto 
 $1\in \CC$. 
-Usando il teorema degli isomorfismi di gruppi ordinati si riuscira a definire 
+In questo modo abbiamo assegnato la misura $1$ all'angolo giro.
+Usando il teorema degli isomorfismi di gruppi ordinati si riuscirà a definire 
 questa corrispondenza in modo che l'addizione su $\RR$ corrisponda alla moltiplicazione 
 su $U\subset \CC$. 
 Visto che la moltiplicazione per un numero unitario su $\CC$ rappresenta 
 una rotazione pari all'angolo identificato dal numero complesso, 
 quello che si ottiene è una corrispondenza tra $\RR$ e $U$ in cui 
 segmenti congruenti in $\RR$ corrispondono ad angoli congruenti in $U$.
-La proprietà di isomorfismo si può interpretare pensando che l'elastico 
-viene avvolto con una tensione costante. 
+La proprietà di isomorfismo corrisponde al mantenere costante la tensione 
+dell'elastico in modo che archi congruenti abbiano misure uguali.
 
-L'insieme $U$ eredita la struttura di gruppo moltiplicativo di $\CC$: se $z,w\in U$ 
-allora $z\cdot w \in \U$ in quanto $\abs{z\cdot w} = \abs{z}\cdot \abs{w} = 1$
-essendo $\abs{z}=\abs{w}=1$. Purtroppo però non è possibile mettere su $U$ 
+L'insieme $U$ eredita la struttura di gruppo moltiplicativo di $\CC$: 
+se $z,w\in U$ 
+allora $z\cdot w \in U$ in quanto $\abs{z\cdot w} = \abs{z}\cdot \abs{w} = 1$
+essendo $\abs{z}=\abs{w}=1$. 
+Purtroppo però non è possibile mettere su $U$ 
 un ordinamento compatibile con l'operazione di gruppo: intuitivamente 
 quando mi muovo su $U$ in senso antiorario mi ritrovo a ripercorrere più volte 
 la stessa circonferenza.
 
-Per distinguere i diversi avvolgimenti costruiamo infinite copie identiche di $U$,
+Per distinguere i diversi avvolgimenti 
+(ovvero: per rappresentare un angolo orientato) 
+costruiamo infinite copie identiche di $U$,
 le tagliamo tutte nel punto $1\in \CC$ e li attacchiamo 
-uno di seguito all'altro come per ottenere una molla.
-Formalmente definiamo 
-$$
-  G = \ZZ \times U
-$$
-e ordiniamo i punti $(k,z)$ di $G$ prima secondo $k$ 
-(che rappresenta il numero di avvolgimento) e poi ordinando i punti di $U$ 
-partendo da $1\in \CC$ passando da $i$, da $-1$, da $-i$ fino a tornare a $1$
-senza però toccarlo:
+uno di seguito all'altro come per ottenere una ``elica cilindrica'' 
+(ovvero una molla).
+Consideriamo dunque l'insieme
 \[
-  (k_1, x_1+iy_1) \stackrel G< (k_2, x_2+iy_2) 
-  \iff 
-  \begin{cases}
-    \text{$k_1 < k_2$, oppure} \\
-    \text{$k_1=k_2$, $y_1<0$, $y_2<0$ e $x_1<x_2$, oppure} \\
-    \text{$k_1 = k_2$ e $y_1\ge 0$ e }
-    \begin{cases}
-      y_2<0 \text{ oppure}\\
-      x_1 > x_2
-    \end{cases} \\
-  \end{cases}
+  G = \ZZ \times U.
 \]
-(se i due punti sono su due \emph{spire} diverse viene prima quello 
-sulla prima spira, se sono sulla stesso spira ed entrambi nella parte 
-inferiore basta guarda la coordinata $x$, 
-se invece sono nella stessa spira ma uno sopra e uno sotto l'asse delle $x$, 
-quello sopra deve essre il primo dei due e l'altro deve stare sotto 
-oppure avere una coordinata $x$ inferiore).
-Definiamo quindi una operazione di addizione su $G$ preservando 
-l'idea di sommare gli angoli geometrici con orientazione e 
-molteplicità. 
-Posto $z_1=x_1+iy_1$ e $z_2=x_2+iy_2$
-definiamo
+Ogni punto dell'elica circolare può essere identificato 
+da una coppia $(k,u)\in G$ dove 
+$k$ rappresenta il numero di giri interi che abbiamo fatto 
+intorno alla circonferenza in senso antiorario 
+e $u$ rappresenta la posizione finale sulla circonferenza.
+Ad esempio la rotazione di 90 gradi in senso antiorario 
+è rappresentata dalla coppia $(0,i)$, quella di 90 gradi 
+in senso orario dalla coppia $(-1,-i)$, la rotazione 
+di 360 gradi in senso orario dalla coppia $(1,1)$.
+
+Definiamo la somma di due angoli orientati definendo 
+una operazione $\stackrel G+$ su $G$.
+Per tenere traccia del numero di avvolgimenti sarà 
+necessario dividere $U$ in due semicirconferenze
+$U = A \cup B$ (Alto/Basso) dove 
+\mynote{Si noti che $A\cap B=\emptyset$, $A\cup B=U$, 
+$1\in A$ e $-1\in B$.}
+\[
+A = \ENCLOSE{x+iy\in U\colon y\ge 0, x>-1}, 
+\qquad
+B = \ENCLOSE{x+iy\in U\colon y\le 0, x<1}.
+\]
+Dunque definiamo
+\mynote{
+Quando sommiamo due angoli orientati $(k_1,u_1)$ e $(k_2,u_2)$ 
+dobbiamo sommare tra loro i giri completi $k_1+k_2$ e moltiplicare tra loro 
+i numeri complessi rappresentanti gli angoli $u_1\cdot u_2$. 
+Poi però dobbiamo aggiungere un giro in più se il prodotto $u_1\cdot u_2$ 
+``sfora'' l'angolo giro. 
+Questo succede certamente se entrambi gli angoli si trovano in $B$ 
+(sono entrambi maggiori di 180 gradi) oppure se almeno uno dei due 
+si trova in $B$ e la somma geometrica si trova in $A$ (se uno dei due 
+è maggiore di 180 gradi e l'altro minore, la somma potrà essere 
+tra i 180 e i 540 gradi).
+}%
 \begin{equation}\label{eq:somma_su_G}
-(k_1,z_1) \stackrel G+ (k_2,z_2) 
+(k_1,u_1) \stackrel G+ (k_2,u_2) 
 = 
 \begin{cases} 
-  \scriptstyle(k_1+k_2+1, z_1\cdot z_2) & 
+  (k_1+k_2, u_1\cdot u_2)  
+  \text{ se $u_1\in A$ e $u_2\in A$} \\
+  (k_1+k_2+1, u_1\cdot u_2) 
+  \text{ se $u_1\in B$ e $u_2\in B$} \\
+  \text{altrimenti: }
   \begin{cases}
-    \text{se $y_1<0$ e $y_2<0$ oppure }\\
-    \text{se $y_1<0$ e $y_2\ge 0$ e $\Im (z_1\cdot z_2)\ge 0$ oppure }\\
-    \text{se $y_2<0$ e $y_1\ge 0$ e $\Im (z_1\cdot z_2)\ge 0$}
-  \end{cases} \\
-  \scriptstyle(k_1+k_2, z_1\cdot z_2) & \text{altrimenti}
+    (k_1+k_2, u_1\cdot u_2) & \text{se $u_1\cdot u_2\in B$}\\
+    (k_1+k_2+1, u_1\cdot u_2) & \text{se $u_1\cdot u_2\in A$}\\    
+  \end{cases}
 \end{cases}
 \end{equation}
-(la somma dei due \emph{angoli} va nell'avvolgimento 
-successivo se entrambi i punti stanno sotto l'asse delle $x$ oppure 
-uno sta sopra e uno sotto e il loro prodotto non rimane sotto).
+\mynote{
+Ad esempio $(0,i) \stackrel G+ (0,-i) = (1,1)$ (in gradi sarebbe 
+$90+270 = 360$),
+$(1,-i) \stackrel G+ (-1,-1) = (1,i)$ (in gradi $630-180=450$).}
+
+Chiaramente questa addizione è commutativa (la definizione è simmetrica 
+in $g_1$ e $g_2$). 
+In base alla nostra interpretazione della 
+somma che abbiamo definito risulta ovvio che 
+l'associatività
+$(g_1 \stackrel G+ g_2)\stackrel G+ g_3  
+= g_1 \stackrel G+ (g_2\stackrel G+ g_3)$
+deve valere.
+Per una dimostrazione formale si noti innanzitutto che
+la seconda componente di una somma tripla non dipende 
+dall'ordine degli addendi in quanto è uguale a
+$u_1\cdot u_2 \cdot u_3$. 
+La prima componente invece può essere $k_1+k_2+k_3$ 
+oppure $k_1+k_2+k_3+1$ o ancora $k_1+k_2+k_3+2$
+in quanto sia la prima che la seconda
+somma possono completare un angolo giro.
+Bisognerebbe fare tutti i casi possibili, a seconda 
+che 
+$u_1, u_2, u_3, (u_1\cdot u_2), (u_2\cdot u_3), 
+(u_1\cdot u_2 \cdot u_3)$ 
+stiano nella parte superiore $A$ o nella parte inferiore $B$.
+In totale sarebbero $2^6=64$ casi di cui alcuni sono impossibili
+(ad esempio se $u_1,u_2,u_3\in A$, 
+$u_1\cdot u_2\in B$ e $u_1\cdot u_2\cdot u_3 \in $)
+e molti si riconducono uno all'altro per simmetria.
+
+\begin{comment}
+\begin{table}
+  \tiny
+\begin{tabular}{ccc|c}
+$u_1$& $u_2$&$u_{12}$& $k$ \\\hline
+A & A & A & 0 \\
+A & A & B & 0 \\
+A & B & A & 1 \\
+A & B & B & 0 \\
+B & A & A & 1 \\
+B & A & B & 0 \\
+B & B & A & 1 \\
+B & B & B & 1 \\
+\end{tabular}
+\begin{tabular}{ccc|ccc|c}
+$u_1$ & $u_2$ & $u_3$ & $u_{12}$ & $u_{23}$ &$u_{123}$ & $k$\\\hline
+A & A & A & A & A & A & 0\\
+A & A & A & A & A & B & 0\\
+A & A & A & A & B & A & -\\
+A & A & A & A & B & B & 0\\
+A & A & A & B & A & A & -\\
+A & A & A & B & A & B & 0\\
+A & A & A & B & B & A & 1\\
+A & A & A & B & B & B & 0\\
+A & A & B & A & A & A & 1\\
+A & A & B & A & A & B & -\\
+A & A & B & A & B & A & 1\\
+A & A & B & A & B & B & 0\\
+A & A & B & B & A & A & 1\\
+A & A & B & B & A & B & 1\\
+A & A & B & B & B & A & 1\\
+A & A & B & B & B & B & -\\
+A & B & A & A & A & A & 1\\
+A & B & A & A & A & B & 1\\
+A & B & A & A & B & A & 1\\
+A & B & A & A & B & B & -\\
+A & B & A & B & A & A & 1\\
+A & B & A & B & A & B & -\\
+A & B & A & B & B & A & 1\\
+A & B & A & B & B & B & 0\\
+A & B & B & A & A & A & -\\
+A & B & B & A & A & B & 1\\
+A & B & B & A & B & A & 2\\
+A & B & B & A & B & B & 1\\
+A & B & B & B & A & A & 1\\
+A & B & B & B & A & B & 1\\
+A & B & B & B & B & A & -\\
+A & B & B & B & B & B & 1\\
+\end{tabular}
+\begin{tabular}{ccc|ccc|c}
+$u_1$ & $u_2$ & $u_3$ & $u_{12}$ & $u_{23}$ &$u_{123}$ & $k$\\\hline
+B & A & A & A & A & A & 1\\
+B & A & A & A & A & B & -\\
+B & A & A & A & B & A & 1\\
+B & A & A & A & B & B & 1\\
+B & A & A & B & A & A & 1\\
+B & A & A & B & A & B & 0\\
+B & A & A & B & B & A & 1\\
+B & A & A & B & B & B & -\\
+B & A & B & A & A & A & 2\\
+B & A & B & A & A & B & 1\\
+B & A & B & A & B & A & -\\
+B & A & B & A & B & B & 1\\
+B & A & B & B & A & A & -\\
+B & A & B & B & A & B & 1\\
+B & A & B & B & B & A & 1\\
+B & A & B & B & B & B & 1\\
+B & B & A & A & A & A & -\\
+B & B & A & A & A & B & 1\\
+B & B & A & A & B & A & 1\\
+B & B & A & A & B & B & 1\\
+B & B & A & B & A & A & 2\\
+B & B & A & B & A & B & 1\\
+B & B & A & B & B & A & -\\
+B & B & A & B & B & B & 1\\
+B & B & B & A & A & A & 2\\
+B & B & B & A & A & B & 1\\
+B & B & B & A & B & A & 2\\
+B & B & B & A & B & B & -\\
+B & B & B & B & A & A & 2\\
+B & B & B & B & A & B & -\\
+B & B & B & B & B & A & 2\\
+B & B & B & B & B & B & 2\\
+\end{tabular}
+\end{table}
+\end{comment}
+
+Chiaramente $(0,1)$ è elemento neutro: 
+$(k,u) \stackrel G+ (0,1) = (k,u)$
+e ogni angolo orientato $(k,u)\in G$ ha come 
+opposto l'angolo
+\[
+  -(k,u) = \begin{cases}
+    (-k-1, \bar u) &\text{se $u\neq 1$,}\\
+    (-k, \bar u) &\text{se $u=1$}.
+  \end{cases} 
+\]
+Infatti $u\cdot \bar u = \abs{u}^2 = 1$ e le parti 
+immaginarie di $u$ e $\bar u$ hanno segno opposto (a parte i casi 
+$u=-1$ e $u=1$ da considerare a parte) dunque 
+si verifica che la somma tra $(k,u)$ e $-(k,u)$ fa sempre $(0,1)$.
+
+Per definire l'ordinamento su un gruppo additivo $G$ 
+è sufficiente dire quando $g\ge 0$, perché poi 
+si potrà definire $g\ge h$ se $g-h\ge 0$.
+Poniamo quindi semplicemente
+\[
+  (k,u) \stackrel G \ge (0,1) \iff k\ge 0.
+\]
+Per verificare che l'ordinamento è compatibile con 
+l'operazione di gruppo è sufficiente verificare 
+che se $g_1\ge (0,1)$ e $g_2\ge (0,1)$ implica 
+$g_1 + g_2\ge 0$ e
+questo risulta ovvio dalla definizione.
 
 \begin{theorem}[ordinamento su $\ZZ\times U$]%
   \label{th:gruppo_su_U}%
 L'insieme $G=\ZZ \times U$ con l'ordinamento 
 e l'addizione sopra definiti, risulta essere un gruppo 
-totalmente ordinato, divisibile e continuo.
+totalmente ordinato, denso e continuo.
 \end{theorem}
-
+%
+Per la dimostrazione ci sarà utile il seguente.
+%
+\begin{lemma} Se $G$ è un gruppo additivo totalmente ordinato 
+(con operazione $+$ e elemento neutro $0$) 
+se esiste $g>0$ tale per cui l'intervallo 
+$[0,g] = \ENCLOSE{h\in G\colon 0 \le h \le g}$ 
+è denso e continuo, allora l'intero gruppo $G$ è denso
+e continuo.  
+\end{lemma}
+%
 \begin{proof}
-  Da fare...
+Per la densità consideriamo $a,b\in G$ con $a<b$. 
+Prendiamo il minimo $n\in \ZZ$ tale che $(n+1)\cdot g > a$.
+\mynote{$n\cdot g$ è la somma ripetuta: $g+\dots +g$.}%
+\mynote{Ogni sottoinsieme non vuoto e inferiormente limitato 
+di $\ZZ$ ha minimo perché ci si può ricondurre 
+al buon ordinamento di $\NN$.}%
+Allora posto $a'=a-n\cdot g$ e $b'=b-n\cdot g$
+si avrà $0\le a' < g$ e $b'>a'$.
+Se $b'\le g$ per la densità dell'intervallo $[0,g]$ 
+esiste $x$ tale che $a'<x<b'$. 
+Se $b'>g$ basta prendere $x=g$ per avere $a'<x<b$.
+In ogni caso si ha $a < n\cdot g + x < b$ 
+come volevamo dimostrare.
+
+Per la continuità si procede in maniera simile.
+Siano $A,B$ sottoinsiemi non vuoti di $G$ tali che 
+$A\le B$.
+Allora consideriamo il minimo degli $n\in \ZZ$ 
+tale che $(n+1)\cdot g\ge A$.
+Se al posto di $A$ e $B$ consideriamo $A'=A-n\cdot g$ 
+e $B'=B-n\cdot g$ otteniamo 
+che $A'\le g$ e $0\le B'$
+dunque se $A'$ e $B'$ hanno un elemento di separazione 
+questo deve stare nell'intervallo $[0,g]$.
+Ma allora basta considerare le intersezioni $A''=A'\cap [0,g]$ 
+e $B''=B'\cap [0,g]$. 
+Per come abbiamo definito $n$ risulta che $A''$ non può essere 
+vuoto (altrimenti prenderemmo un $n$ più piccolo).
+Se anche $B''\neq \emptyset$ 
+essendo $[0,g]$ continuo 
+esiste un elemento di separazione $A'' \le x \le B''$.
+Allora sommando nuovamente $n\cdot g$ si trova 
+facilmente che $n\cdot g+ x$ è elemento di separazione 
+tra $A$ e $B$. 
+Se $B''=\emptyset$ basterà prendere $x=g$ per concludere 
+comunque che $n\cdot g + x=(n+1)\cdot g$ 
+è elemento di separazione tra $A$ e $B$.
+\end{proof}
+%
+\begin{proof}[Dimostrazione teorema~\ref{th:gruppo_su_U}]
+Abbiamo già osservato che l'operazione $\stackrel G+$ 
+è commutativa, associativa, ha elemento neutro $(0,1)$ 
+ed ha opposto. 
+Dunque $G$ è un gruppo additivo.
+L'ordinamento $\stackrel G\le$ che abbiamo definito su 
+$G$ è un ordinamento totale compatibile con l'operazione 
+di addizione: dunque $G$ è un gruppo totalmente ordinato.
+
+Per verificare che l'ordinamento è denso e continuo 
+possiamo innanzitutto osservare che sugli angoli 
+del primo quadrante 
+$I=\ENCLOSE{g\in G\colon (0,1)\stackrel G< g \stackrel G< (0,i)}$
+l'ordinamento $\stackrel G <$
+coincide con l'ordinamento della coordinata $y$ (parte 
+immaginaria) della componente $u$. 
+Più precisamente se $(0,1)\le g_a\le (0,i)$ e $(0,1)\le g_2\le (0,i)$
+con $g_1 = (k_1,x_1+iy_1)$ e $g_2=(k_2,x_2+iy_2)$ 
+allora $g_1\stackrel G\le g_2$ se e solo se $y_1\le y_2$.
+Infatti se $y_1\le y_2$ si ha $x_1 \ge x_2$ in quanto 
+$x_1 = \sqrt{1-y_1^2}$ e $x_2= \sqrt{1-y_2^2}$.
+Ma allora posto
+\[
+  v = (x_2+iy_2)\cdot(x_1-iy_1) = x_1x_2+y_1y_2 
+  +i(x_1 y_2-x_2y_1)
+\]
+si nota che $\Re v\ge0$ e $\Im v\ge 0$ in quanto 
+$x_1y_2 \ge x_2y_1$. Quindi effettivamente $g_2\ge g_1$.
+Se invece fosse $y_1 \ge y_2$ si avrebbero le disuguaglianze 
+opposte e si otterrebbe $g_1\ge g_2$.
+
+Dunque l'intervallo tra i punti $(0,1)$ e $(0,i)$ 
+è denso e continuo e per il lemma precedente l'intero 
+gruppo $G$ ha le stesse proprietà.
 \end{proof}
 
 \begin{theorem}[omomorfismo su $U$]%
   \label{th:omomorfismo_U}%
-Esiste una unica funzione 
+Esiste una %unica 
+funzione 
 \[
- \phi\colon \RR \to \CC  
+ \phi\colon \RR \to U=\ENCLOSE{z\in \CC\colon \abs z = 1} 
 \]
+\mynote{Quando avremo definito l'esponenziale complesso 
+scopriremo che $\phi(x) = e^{2\pi x}$.}%
 con le seguenti proprietà:
 \begin{enumerate}
-  \item $\phi(x+y) = \phi(x)\cdot \phi(y)$ per ogni $x,y\in\RR$;
-  \item $\phi(1) = 1$;
-  \item la funzione $f\colon\closeinterval{0}{\frac 1 4}\to \CC$
-  è crescente.
+  \item $\phi(x+y) = \phi(x)\cdot \phi(y)$ per ogni $x,y\in\RR$ (proprietà di omomorfismo);
+  \item $\phi(0) = \phi(1) = 1$;
+  \item $\Im \phi\llcorner \closeinterval{0}{1/4}$ è strettamente crescente;
+  \item $\Re \phi\llcorner \closeinterval{0}{1/4}$ è strettamente decrescente;
+  \item $\phi(x+1)=\phi(x)$ per ogni $x\in \RR$ 
+  ($\phi$ è periodica di periodo $1$).
 \end{enumerate}
-
-Inoltre 
-$\phi$ è $1$-periodica ovvero per ogni $x\in \RR$:
-  \[
-      \phi(x+1) = \phi(x)
-  \]
-ed è strettamente crescente sull'intervallo $\closeinterval{-\frac 1 4}{\frac 1 4}$.
 \end{theorem}
 %
 \begin{proof}
-  Consideriamo il gruppo $G$ definito nel teorema~\ref{th:gruppo_su_U}.
-  In base al teorema~\ref{th:isomorfismo} esiste una unica funzione strettamente crescente 
-  $f\colon \RR \to G$ tale che $f(x+y) = f(x)+_G f(y)$ e 
-  $f(1/4)=(0,i)\in G$
+  Consideriamo il gruppo ordinato $G$ definito nel 
+  teorema~\ref{th:gruppo_su_U}.
+  In base al teorema~\ref{th:isomorfismo} esiste una unica funzione 
+  strettamente crescente $f\colon \RR \to G$ tale che 
+  $f(x+y) = f(x)\stackrel G+ f(y)$ e $f(1/4)=(0,i)\in G$
   (quest'ultima condizione significa che l'angolo retto, rappresentato dal 
   numero complesso $i$, vogliamo ottenerlo ad un quarto di giro). 
   L'elemento neutro va necessariamente nell'elemento neutro quindi
@@ -5741,82 +5991,118 @@ ed è strettamente crescente sull'intervallo $\closeinterval{-\frac 1 4}{\frac 1
   Per additività otteniamo 
   $\phi(1/2)=\phi(1/4+1/4)= \phi(1/4)^2 = i^2=-1$ 
   e analogamente $\phi(1) = \phi(1/2)^2 = (-1)^2 = 1$.
-  Sempre per additività sappiamo che $\phi(-x) = 1/\phi(x)$ 
+  Sempre per additività sappiamo che $\phi(-x) = 1/\phi(x)=\overline{\phi(x)}$ 
   e dunque $\phi(-1/4)=-i$, $\phi(-1/2)=-1$, $\phi(-1)=1$.
   
   Guardiamo alla monotonia. 
   Se $x,y\in \closeinterval{0}{1/4}$ 
-  si ha che $\phi(x)$ e $\phi(y)$ sono non inferiori (in $G$)
-  a $\phi(0)=(0,1)$ e non superiori a $\phi(1/4)=(0,i)$.
-  Se $x<y$ si ha $f(x) \stackrel G< f(y)$ e 
-  guardando l'ordinamento di $G$ in questo intervallo, deduciamo
-  che $\Re f(y) < \Re f(x)$. 
-  Ma visto che $\Im f(x) = \sqrt{1-\Re^2 f(x)}$ (e lo stesso per $y$)
-  si deduce che $\Im f(x) < \Im f(y)$ e dunque $\Im f$ è
-  strettamente crescente su $\closeinterval{0}{1/4}$.
-  Per simmetria la monotonia rimane valida su 
-  tutto $\closeinterval{-1/4}{1/4}$, come volevamo dimostrare.
-  
-  Per l'unicità osserviamo che se $\tilde\phi\colon\RR\to U$ è una funzione 
-  con le proprietà richieste allora si può definire 
-  $\tilde f\colon \RR \to G$ ponendo $\tilde f(x) = (\lfloor x\rfloor, \tilde \phi(x))$.
-  Si può verificare che $\tilde f$ è additiva, $\tilde f(1)=(1, 1)$ 
-  e $\tilde f$ è crescente su $[-1/4,1/4]$. 
-  Dunque, per il teorema~\ref{th:isomorfismo}, $\tilde f = f$ 
-  per unicità dell'isomorfismo.
+  si ha che $f(x)$ e $f(y)$ sono non inferiori (in $G$)
+  a $f(0)=(0,1)$ e non superiori a $f(1/4)=(0,i)$.
+  Ma abbiamo già osservato 
+  (nella dimostrazione del teorema~\ref{th:gruppo_su_U})
+  che l'ordinamento di $G$ coincide su tale intervallo 
+  con l'ordinamento della parte immaginaria che su tale 
+  intervallo varia in $[0,1]$.  
+  Dunque essendo $f$ strettamente crescente, 
+  risulta che sull'intervallo $[0,1/4]$ anche $\Im\phi$ è strettamente
+  crescente. 
+  Inoltre sullo stesso intervallo si ha 
+  $\Re \phi(x) = \sqrt{1-\Im^2 \phi(x)}$ 
+  in quanto $\abs{\phi(x)} = 1$ e $\Re \phi(x)\ge 0$,
+  dunque $\Re \phi$ è strettamente decrescente 
+  nell'intervallo $\closeinterval{0}{\tau/4}$.
+
+%  Per l'unicità osserviamo che se $\tilde\phi\colon\RR\to U$ è una funzione 
+%  con le proprietà richieste allora si può definire 
+%  $\tilde f\colon \RR \to G$ ponendo $\tilde f(x) = (\lfloor x\rfloor, \tilde \phi(x))$.
+%  Si può verificare che $\tilde f$ è additiva, $\tilde f(1)=(1, 1)$ 
+%  e $\tilde f$ è crescente. 
+%  Dunque, per il teorema~\ref{th:isomorfismo}, $\tilde f = f$ 
+%  per unicità dell'isomorfismo e di conseguenza $\tilde \phi = \phi$.
 
   Per dimostrare che $\phi$ è $1$-periodica 
   basta osservare che essendo $\phi(1)=1$, 
   per additività si ha $\phi(x+1) = \phi(x)\cdot \phi(1) = \phi(x)$.
 \end{proof}
 
-Avendo definito la funzione $\phi\colon \RR\to U$ grazie 
-al teorema~\ref{th:omomorfismo_U} possiamo definire le 
-funzioni trigonometriche. 
-Scelta una unità di misura $\tau > 0$ per l'angolo giro\mynote{%
-si potrebbe ora porre $\tau=360$ ma quando avremo 
-definito $\pi$ vedremo che sarà più naturale scegliere 
-$\tau = 2\pi$}
-possiamo definire le funzioni $\cos, \sin \colon \RR \to \RR$ come 
+\begin{theorem}[esistenza funzioni trigonometriche]\label{def:sin_cos}
+Per ogni $\tau>0$ esistono due funzioni $\sin,\cos\colon \RR\to \RR$ 
+tali che per ogni $x,y\in \RR$ valgono le seguenti proprietà:
+\mynote{Quando avremo definito $\pi$ definiremo 
+le usuali funzioni trigonometriche scegliendo $\tau=2\pi$. 
+Ma altre scelte di $\tau$ non sono inusuali. 
+Ad esempio con $\tau=360$ otteniamo le funzioni trigonometriche 
+con gli angoli misurati in gradi. 
+Sulle calcolatrici scientifiche 
+c'è usualmente l'opzione \texttt{RAD} (radiante) che pone $\tau=2\pi$ e l'opzione 
+\texttt{DEG} (\emph{degree} ovvero grado) che pone $\tau=360$.
+Si può anche trovare l'opzione \texttt{GRAD} (\emph{gradian} o grado centesimale)
+che corrisponde alla scelta $\tau=400$ utilizzata a volte in topografia.}%
+\begin{enumerate}
+  \item $\sin$ e $\cos$ sono $\tau$-periodiche;
+  \item $\sin^2 x + \cos^2 x =1$;
+  \item $\sin(x+y) = \sin x \cdot \cos y + \cos x\cdot \sin y$;
+  \item $\cos(x+y) = \cos x \cdot \cos y - \sin x\cdot \sin y$;
+  \item $\sin(-x) = -\sin(x)$ ($\sin$ è dispari), $\cos(-x) = \cos(x)$ ($\cos$ è pari);
+  \item $\sin$ è strettamente crescente 
+    sull'intervallo $\closeinterval{-\frac \tau 4}{\frac \tau 4}$;
+  \item $\cos x$ è strettamente decrescente 
+    sull'intervallo $\closeinterval{0}{\frac \tau 2}$.
+\end{enumerate}
+\end{theorem}
+%
+\begin{proof}
+Consideriamo la funzione $\phi\colon \RR \to U\subset \CC$ 
+definita nel teorema precedente (\ref{th:omomorfismo_U}) 
+e definiamo $\cos x = \Re \phi(x/\tau)$, $\sin x = \Im \phi(x/\tau)$
+cosicché $\phi(x) = \cos(\tau x) + i \sin (\tau x)$.
+Chiaramente $\cos$ e $\sin$ hanno periodo $\tau$ in quanto 
+$\phi$ ha periodo $1$.
+
+Visto che $\phi(x)\in U$ si ha $\abs{\phi(x)}^2=1$.
+Ma allora vale il punto 2:
 \[
- \cos x = \Re \phi(x/\tau), \qquad
- \sin x = \Im \phi(x/\tau).
+ 1 = \abs{\phi(x)}^2 
+ = \abs{\cos x + i\sin x}^2 
+ = \cos^2 x + \sin^2 x.
 \]
-Visto che $\abs{phi(x/\tau)}^2=1$ si ha $1 = \abs{\cos x + i \sin x}$ da cui 
-si ottiene la \emph{formula fondamentale della trigonometria:}
-\[
-\cos^2 x + \sin^2 y = 1.  
-\]  
-Dall'additività di $\phi$ si ha
+
+La proprietà di omomorfismo 
+$\phi(x+y)=\phi(x)\cdot \phi(y)$ diventa 
 \begin{align*}
-  \cos(x+y) + i\sin(x+y)
-  &= \phi\frac{x+y}{\tau} 
-  = \phi(x/\tau) \cdot \phi(y/\tau)\\
-  &= (\cos x + i\sin x) \cdot (\cos y + i \sin y)\\
-  &= \cos x\cos y - \sin x \sin y + i (\sin x\cos y + \cos x \sin y)
+  \cos(x+y) + i \sin(x+y)
+  &=(\cos x + i \sin x)\cdot(\cos y + i \sin y) \\
+  &= 
+  \Enclose{\cos x\cdot \cos y - \sin x \sin y}
+  + i\Enclose{\sin x\cdot \cos y + \cos x\cdot \sin y}
 \end{align*}
-e quindi si ottengono le \emph{formule di addizione} 
-per le funzioni trigonometriche:
+da cui, eguagliando parte reale e parte immaginaria, 
+si ottengono le formule di addizione dei punti 3 e 4.
+
+Visto che $\abs{\phi(x)}=1$ sappiamo che 
+$1/\phi(x) = \overline{\phi(x)}$. 
+Ma, per le proprietà di omomorfismo, $1/\phi(x)=\phi(-x)$ e quindi 
 \[
-\cos(x+y) = \cos x\cos y - \sin x \sin y, \qquad 
-\sin(x+y) = \sin x \cos y + \cos x\sin y.  
+\cos (-x) + i \sin(-x) 
+= \phi(-x) 
+= \overline{\phi(x)}
+= \cos(x) - i \sin(x)
 \]
-Visto che (ricordiamo che $\abs{\phi(x)}=1$)
-\[
-  \phi(-x) = 1/\phi(x) = \overline{\phi(x)}
-\]
-si ha $\cos(-x)+i\sin(-x) = \cos x-i\sin x$ 
-da cui risulta che $\sin$ è una funzione \emph{dispari}
-mentre $\cos$ è una funzione pari:
-\[
-\sin(-x) = -\sin x,\qquad 
-\cos(-x) = \cos x.  
-\]
-Infine essendo $\phi$ una funzione di periodo $1$ le funzioni $\sin x$ 
-e $\cos x$ risultano avere periodo $\tau$.
-Per quanto riguarda la monotonia, sappiamo che 
-la funzione $\sin x = \Im f(x/\tau)$ è 
-strettamente crescente se $x\in\closeinterval{-\frac \tau 4}{\frac \tau 4}$.
+da cui, uguagliando parte reale e parte immaginaria, 
+si ottiene il punto 5.
+
+Visto che $\Im \phi$ è strettamente crescente sull'intervallo $\closeinterval{0}{1/4}$
+deduciamo che $\sin$ è strettamente crescente in $\closeinterval{0}{\tau/4}$.
+Ma $\sin(-x) = -\sin x$ e dunque $\sin x$ è strettamente 
+crescente anche sull'intervallo $\closeinterval{-\tau 4}{0}$.
+Sull'intervallo $[0,\tau/4]$ sappiamo che $\cos(x) = \Re \phi(x/\tau)$ 
+è strettamente decrescente. 
+Sapendo che $\cos \frac tau 2 = \Re \phi(1/2) = -1$ e 
+$\sin\frac \tau 2 = \Im \phi(1/2)=0$ dalle formule di addizione 
+del coseno si deduce che $\cos\enclose{\frac \tau 4 + x} = -\sin x$
+e quindi anche sull'intervallo $\closeinterval[\tau/4,\tau/2]$ 
+la funzione $\cos x$ è strettamente decrescente.
+\end{proof}
 
 \section{costruzione degli insiemi numerici}
 
@@ -5824,29 +6110,28 @@ strettamente crescente se $x\in\closeinterval{-\frac \tau 4}{\frac \tau 4}$.
 
 \begin{theorem}[esistenza dei numeri naturali]
   \label{th:esistenza_naturali}%
-Se $X$ è un qualunque insieme infinito (definizione\ref{def:infinito})
+Se $X$ è un qualunque insieme infinito (definizione~\ref{def:infinito})
 esiste $\NN\subset X$, $0\in \NN$ e $\sigma\colon \NN\to\NN$ 
-che soddisfano gli assiomi di Peano~\ref{def:naturali}.
-
-Dunque dall'assioma~\ref{axiom:infinito} possiamo dedurre l'esistenza 
-di un insieme $\NN$ di numeri naturali.
+che soddisfano gli assiomi di Peano (teorema~\ref{def:naturali}).
 \end{theorem}
 %
 \begin{proof}
 Se $X$ è infinito esiste $f\colon X\to X$ iniettiva ma non suriettiva. 
 Scegliamo arbitrariamente $0\in X\setminus f(X)$. 
-Preso un sottoinsieme $I\subset X$ diremo che $I$ è \emph{induttivo}%
+Preso un sottoinsieme $I\subset X$ diremo che $I$ è \emph{induttivo}
 \mymargin{induttivo}%
 \index{induttivo}%
-se $0\in I$ e se $n\in I\implies f(n)\in I$. 
+se $0\in I$ e $n\in I\implies f(n)\in I$. 
 Possiamo quindi definire:
 \[
   \NN = \bigcap \ENCLOSE{I\subset X\colon \text{$I$ induttivo}}.
 \]
 Si verifica facilmente che $\NN$ è anch'esso un sottoinsieme induttivo di $X$.
+\mynote{Nella definizione~\ref{def:restrizione} viene introdotto il simbolo
+$\llcorner$ per la restrizione di funzione.}
 Dunque per ogni $n\in \NN$ si ha $f(n)\in \NN$ e quindi possiamo 
 definire $\sigma\colon \NN\to \NN$ come la restrizione di $f$ 
-ad $\NN$: $\sigma(n)=f(n)$.
+ad $\NN$: $\sigma=f\llcorner \NN$.
 
 Osserviamo quindi che $\sigma$ soddisfa gli assiomi di Peano.
 Il primo assioma è conseguenza dell'iniettività di $f$.
@@ -6713,120 +6998,101 @@ la cui dimostrazione lasciamo per esercizio.
   \end{gather*}
 \end{exercise}
 
-\subsection{i numeri interi}
+\subsection{costruzione dell'insieme dei numeri interi}
 
-L'addizione su $\ZZ$ non sarà altro che la composizione 
-di due traslazioni.
-Nel seguito useremo le ultime lettere dell'alfabeto 
-$x,y,z$ per denotare gli elementi di $\ZZ$ mentre 
-useremo le prime lettere $a,b,c,d$ per denotare 
-gli elementi di $\NN$.
+L'insieme $\NN$ dei numeri naturali con l'operazione di addizione 
+non è un gruppo in quanto gli elementi non hanno opposto in $\NN$.
+Per ovviare a questo dobbiamo definire un insieme più grande che 
+contenga la differenza $n-m$ di ogni coppia $(m,n)$ di numeri naturali.
+\mynote{Osserviamo che la coppia $(m,n)$ può anche essere denotata 
+con $m\mapsto n$ e l'insieme delle coppie $m\mapsto n$ con
+differenza costante $n-m$, non è altro che il grafico della 
+traslazione $\NN\to \NN$ che manda $m$ in $n$. 
+Stiamo quindi dicendo che i numeri interi sono le traslazioni 
+(in avanti o indietro) dei numeri naturali.}
+Ovviamente coppie diverse possono avere la stessa differenza quindi 
+dobbiamo definire una relazione di equivalenza che identifichi le coppie 
+che rappresentano lo stesso numero. 
 
-Se $a\stackrel x \mapsto b$ e $a'\stackrel y \mapsto b'$
-allora $x=y$ se e solo se $a+b'=a'+b$.
+Possiamo dunque definire 
+\[
+  \ZZ \defeq (\NN \times \NN)/\sim
+  \qquad\text{dove}\qquad
+  (m,n)\sim (m',n')\iff n+m' = n'+m.
+\]
+Un numero intero $k\in \ZZ$ sarà quindi una classe di equivalenza:
+$k = \Enclose{(m,n)}$ (intuitivamente il numero intero $\Enclose{(m,n)}$ 
+con $n,m\in \NN$ 
+rappresenta il numero $n-m\in \ZZ$).
+L'addizione su $\ZZ$ si definisce facilmente:
+\[
+ \Enclose{(m,n)}+\Enclose{(M,N)} = \Enclose{(m+M,n+N)}.
+\]
+\mynote{Se i numeri interi vengono interpretati come \emph{traslazioni}
+dei numeri naturali la somma di due numeri interi non è altro che 
+la composizione delle due traslazioni.}
+Si verifica facilmente che la definizione precedente è \emph{ben posta}
+ovvero non dipende dalla scelta di $(n,m)$ e $(N,M)$ all'interno 
+della loro classe di equivalenza: se $n+m' = n'+m$ e $N+M'=N'+M$ 
+allora $(n+N)+(m'+M')=(n'+N')+(m+M)$.
+
+L'addizione che abbiamo definito su $\ZZ$ è commutativa e associativa, 
+il numero $\Enclose{(0,0)}$
+è elemento neutro e ogni elemento ha opposto, infatti 
+$\Enclose{(m,n)} + \Enclose{(n,m)} = \Enclose{(m+n,n+m)}=\Enclose{(0,0)}$
+cioè $-\Enclose{(m,n)}=\Enclose{(n,m)}$.
+Dunque $\ZZ$ è un gruppo additivo.
+
+Possiamo facilmente definire un ordinamento su $\ZZ$:
+$\Enclose{(m,n)} \ge \Enclose{(M,N)}$ se 
+$n+M\ge N+m$.
+E' molto facile verificare che l'ordinamento è compatibile 
+con l'addizione e quindi $\ZZ$ risulta essere un gruppo abeliano ordinato.
+
+Osserviamo che possiamo identificare un numero naturale $n\in \NN$ 
+con la classe di equivalenza $\phi(n) = \Enclose{(0,n)}\in \ZZ$.
+La corrispondenza $\phi\colon \NN\to\ZZ$ rispetta sia l'addizione,
+$\phi(n+m) = \phi(n)+\phi(m)$ che l'ordinamento $n\ge m \iff \phi(n)\ge \phi(m)$.
+Dunque l'insieme $\phi(\NN)\subset \ZZ$ è una copia isomorfa dei 
+numeri naturali. 
 \mynote{
-  Si noti ad esempio che se $b=a+n$ e $b'=a'+m$ allora 
-  $a+b' = a + a' + m$ mentre $a'+b = a+a'+n$ dunque 
-  $m=n$ se e solo se $a+b'=a'+b$. 
-  Similmente se $a=b+n$ e $a'=b'+m$.
-  Se invece $b=a+n$ e $a'=b'+m$ le due traslazioni 
-  sono in verso opposto e l'uguaglianza $a+b'=a'+b$ 
-  risulta equivalente a $m+n=0$ che significa $m=n=0$.
-}
-Inoltre se $x$ è l'unica traslazione che manda $a\stackrel x \mapsto b$ 
-allora per ogni $c\in \NN$ si ha $a+c\stackrel x \mapsto b+c$
-(proprietà invariantiva).
+Se $n,m\in \NN$, $n\ge m$ risulta 
+$\Enclose{(m,n)} = \Enclose{(n,0)}-\Enclose{(m,0)} = \phi(n)-\phi(m)$.
+}%
+Sarà quindi comodo rinominare $\NN$ identificandolo con $\phi(\NN)$ così 
+ottenendo che $\NN\subset \ZZ$ cosicché il numero 
+Preso qualunque $n\in \ZZ$ si avrà che $n\in \NN$ se $n\ge 0$ altrimenti 
+si avrà $-n\in \NN$. 
+Dunque $\ZZ = \NN \cup (-\NN)$ e $0\in \NN\subset \ZZ$ 
+è l'unico numero intero che è l'opposto di se stesso.
 
-Dati $x,y\in \ZZ$ vogliamo definire $x+y\in \ZZ$.
-Se $a\stackrel x\mapsto b$
-e $c\stackrel y\mapsto d$ 
-(con $a,b,c,d\in \NN$)
-allora applicando prima $x$ poi $y$ 
-si avrà $a+c\stackrel x\mapsto b+c$ 
-e $b+c\stackrel y\mapsto b+d$. 
-Definiamo quindi $x+y\in \ZZ$ come l'unica traslazione 
-$a+c \stackrel{x+y} \mapsto b+d$.
-Questa è una buona definizione perché se $a'\stackrel x \mapsto b'$ 
-e $c'\stackrel y \mapsto d'$ allora 
-si ha $a+b'=a'+b$, $c+d'=c'+d$ 
-da cui 
-$b'+d' + a+c = a'+c' + b+d$ 
-che significa che $a'+c'\mapsto b'+d'$ 
-è la stessa traslazione di $a+c\mapsto b+d$.
-Osserviamo che $x+y=y+x$ in quanto $a+c=c+a$ e $b+d=d+b$
-(su $\NN$ sappiamo già che l'addizione è commutativa).
+L'operazione di moltiplicazione che abbiamo definito su $\NN$ può essere 
+estesa in modo naturale a tutto $\ZZ$. 
+Se vogliamo mantenere la proprietà distributiva dovremo avere, 
+per $n,m\in\NN$
+\[
+  0 = 0 \cdot n = (m+(-m))\cdot n = m\cdot n + (-m)\cdot n
+\]
+per cui poniamo, per definizione, per ogni $n,m\in \NN$:
+\[
+  (-m) \cdot n = -(m\cdot n), \qquad  m \cdot (-n) = -(m\cdot n).
+\]
+In questo modo la moltiplicazione $x\cdot y$ 
+è ben definita per ogni $x,y\in \ZZ$ e soddisfa la proprietà distributiva.
 
-La traslazione $+0\in \ZZ$ manda $0\stackrel{+0}\mapsto 0$ 
-e quindi $x+(+0)=x$ per ogni $x\in \ZZ$.
-Inoltre se $a\stackrel x\mapsto b$ e $b\stackrel y \mapsto a$ 
-allora $a \stackrel{x+y} \mapsto a$ e quindi $x+y = +0$.
+Con le definizioni date è noioso ma facile dimostrare 
+che valgono le usuali proprietà della
+moltiplicazione su $\ZZ$.
 
-Possiamo anche definire un ordinamento su $\ZZ$ ponendo $x\le y$ 
-se la traslazione $y$ manda i punti \emph{più avanti} di quanto 
-non faccia $x$. 
-Se $a\stackrel x\mapsto b$ e $c\stackrel y\mapsto d$ 
-il punto $a+c$ viene mandato in $b+c$ da $x$ e in $a+d$ da $y$:
-poniamo dunque $x\le y$ quando $b+c\le a+d$.
-Se $x,y,z\in \ZZ$ vogliamo mostrare 
-che $x\le y \implies x+z\le y+z$.
-Posto $a\stackrel x\mapsto b$, $c\stackrel y\mapsto d$, 
-$e\stackrel z\mapsto f$ 
-allora $a+c+e \stackrel{x+z} \mapsto b + c+f$ 
-mentre $a+c+e \stackrel{y+z} \mapsto a+d+f$ dunque 
-se $x\le y$ si ha $b+c \le a+d$ da cui $b+c+f \le a+d+f$
-e quindi $x+z \le y+z$ come volevamo dimostrare.
-
-Se $x>0$ diremo che $x$ è \emph{positivo}%
-\mymargin{positivo}%
-\index{positivo}
-se invece $x<0$ diremo che $x$ è \emph{negativo}%
-\mymargin{negativo}%
-\index{negativo}.
-
-In base a quanto abbiamo osservato l'insieme $\ZZ$ con l'operazione 
-di addizione $x+y$ e la relazione $x\le y$ che abbiamo appena definito 
-risulta essere, in base alle seguenti definizioni, 
-un gruppo additivo, abeliano, ordinato.
-
-  Osserviamo che la funzione $n\stackrel+\mapsto +n$ mette in corrispondenza 
-  ogni numero $n\in \NN$ con la traslazione non negativa $+n\in \ZZ$.
-  Ovviamente $+(n+m) = (+n)+(+m)$ e $n\le m \iff +n \le +m$
-  dunque identificando $n$ con $+n$ possiamo considerare $\ZZ$ una
-  estensione di $\NN$ che mantiene inalterata l'addizione e la relazione d'ordine.
-  Sarà quindi consuetudine supporre che sia $\NN\subset \ZZ$.
-
-  L'insieme $\NN$ non è un gruppo additivo in quanto non esiste l'elemento opposto.
-  Significa che l'operazione inversa dell'addizione, la sottrazione, non è definita
-  per ogni coppia di numeri naturali. 
-  Aggiungendo i numeri negativi abbiamo quindi esteso $\NN$ a $\ZZ$ in modo che 
-  ogni elemento abbia opposto, ottenendo guindi un gruppo additivo.
-  La differenza $x-y$ di due numeri interi $x,y\in \ZZ$ è definita come la somma 
-  con l'opposto: $x-y = x + (-y)$ ed estende la differenza che avevamo già 
-  definito su $\NN$ quando $x\ge y$.
-
-  L'operazione di moltiplicazione che abbiamo definito su $\NN$ può essere 
-  estesa in modo naturale a tutto $\ZZ$. 
-  Se vogliamo mantenere la proprietà distributiva dovremo avere:
-  \[
-    0 = 0 \cdot n = (m+(-m))\cdot n = m\cdot n + (-m)\cdot n
-  \]
-  per cui poniamo per definizione, per ogni $n,m\in \NN$:
-  \[
-    (-m) \cdot n = -(m\cdot n), \qquad  m \cdot (-n) = -(m\cdot n).
-  \]
-
-  E' noioso ma facile dimostrare che valgono le usuali proprietà della
-  moltiplicazione su $\ZZ$.
-
-  \begin{theorem}[proprietà moltiplicazione]
-    La moltiplicazione su $\ZZ$ soddisfa le seguenti proprietà.
-    \begin{enumerate}
-      \item[1.] elemento neutro e assorbente: $n\cdot 1 = n$, $n\cdot 0 = 0$,
-      \item[2.] proprietà associativa: $(n\cdot m)\cdot k = n \cdot (m\cdot k)$,
-      \item[3.] proprietà commutativa: $n\cdot m = m\cdot n$,
-      \item[4.] proprietà distributiva: $k\cdot(m+n) = k\cdot m + k\cdot n$. 
-    \end{enumerate}
-  \end{theorem}
+\begin{theorem}[proprietà moltiplicazione]
+  La moltiplicazione su $\ZZ$ soddisfa le seguenti proprietà.
+  \begin{enumerate}
+    \item[1.] elemento neutro e assorbente: $n\cdot 1 = n$, $n\cdot 0 = 0$,
+    \item[2.] proprietà associativa: $(n\cdot m)\cdot k = n \cdot (m\cdot k)$,
+    \item[3.] proprietà commutativa: $n\cdot m = m\cdot n$,
+    \item[4.] proprietà distributiva: $k\cdot(m+n) = k\cdot m + k\cdot n$. 
+  \end{enumerate}
+\end{theorem}
 
 In effetti scopriamo che $\ZZ$ è un \emph{anello}%
 \mymargin{anello}%
@@ -6834,7 +7100,14 @@ In effetti scopriamo che $\ZZ$ è un \emph{anello}%
 %
 \begin{definition}[anello]
   \label{def:anello}%
-  Sia $A$ un insieme su cui sono definite due operazioni: $+$ (addizione) e $\cdot$ (moltiplicazione).  
+  \mynote{Nella definizione~\ref{def:campo} abbiamo introdotto la 
+  struttura di \emph{campo}. 
+  E' utile osservare che ogni campo è in particolare un anello,
+  quello che manca all'anello per essere un campo è l'esistenza 
+  dell'inverso moltiplicativo (la moltiplicazione mi dà una 
+  struttura di monoide ma non necessariamente di gruppo).}
+  Sia $A$ un insieme su cui sono definite due operazioni: 
+  addizione e moltiplicazione.  
   Diremo che $A$ è un \emph{anello} se $A$ è un gruppo abeliano rispetto alla 
   addizione, 
   se la moltiplicazione è associativa $(x\cdot y)\cdot z = x\cdot (y\cdot z)$ 
@@ -6886,146 +7159,87 @@ gli interi non pari si dicono \emph{dispari}%
 Così come abbiamo esteso i numeri naturali affinché l'operazione di addizione abbia 
 una operazione inversa (la sottrazione) in modo simile possiamo estendere l'insieme 
 dei numeri interi in modo che anche la moltiplicazione abbia una operazione inversa 
-(la divisione).
+(la divisione). 
+La frazione $\frac p q$ può essere definita come coppia 
+di numeri interi $p\in \ZZ$ e $q\in \NN\setminus \ENCLOSE 0$. 
+E l'insieme dei numeri razionali si ottiene identificando 
+frazioni equivalenti, ovvero: 
+\[
+  \QQ = ((\NN \setminus\ENCLOSE 0)\times \ZZ)/\sim  
+\]
+dove la relazione di equivalenza $\sim$ è definita ponendo 
+$(q,p) \sim (q',p')$ quando $p\cdot q' = p'\cdot q$.
+La coppia $(q,p)$ rappresenta la frazione $\frac p q$ e, 
+per maggiore chiarezza, nel seguito scriveremo $\frac p q$ 
+al posto di $(q,p)$.
 
-Per fare questo consideriamo i ``riscalamenti'' su $\ZZ$. Dati $p,q\in \ZZ$ se 
-$q\neq 0$ possiamo considerare la funzione $s$ definita sui multipli di $q$ 
-tale che $s(k\cdot q) = k\cdot p$ per ogni $k\in \ZZ$.
-Si tratta del riscalamento che manda $q$ in $p$ e lo possiamo identificare 
-con la frazione $\frac{p}{q}$ (formalmente una frazione non è altro che una 
-coppia di interi $(q,p)$ con $q\neq 0$).
-Osserviamo però che frazioni diverse possono rappresentare lo stesso riscalamento 
-nell'intersezione dei loro domini. 
-Infatti i due riscalamenti rappresentati dalle frazioni $\frac{p}{q}$ e $\frac{p'}{q'}$
-sono definiti entrambi sul numero $q\cdot q'$ e si ha
-$\frac{p}{q}(q\cdot q') = p\cdot q'$ e  $\frac{p'}{q'}(q\cdot q')=p'\cdot q$ per cui se $p\cdot q'=p'\cdot q$
-i due riscalamenti coincidono in un punto. Ma se coincidono in un punto coincidono 
-in tutti i punti in cui sono entrambi definiti. 
-Diremo in tal caso che le due frazioni sono equivalenti e scriveremo 
+\mynote{La coppia $(q,p)$ può essere anche denotata con $q\mapsto p$ 
+e rappresenta la dilatazione che manda il numero $q$ nel numero $p$.
+Frazioni equivalenti rappresentano la stessa dilatazione:
+ad esempio se dilato di un fattore $\frac 3 2$ il numero $2$ andrà nel 
+numero $3$ ma il numero $8$ andrà nel numero $12$.
+In questo senso la frazione $\frac 3 2$ viene posta equivalente
+alla frazione $\frac{12} 8$.
+La moltiplicazione tra frazioni corrisponde alla composizione 
+dei riscalamenti: se compongo la dilatazione $2\mapsto 3$ 
+con la dilatazione $3\mapsto 5$ ottengo la dilatazione 
+$2\mapsto 5$. Infatti $\frac{3}{2}\cdot \frac{5}{3} = \frac{5}{2}$.
+}%
+La moltiplicazione e la addizione tra numeri razionali viene definita
+sulle classi di equivalenza:
 \[
-  \frac{p}{q} \sim \frac{p'}{q'} \iff p\cdot q'=p'\cdot q.  
+ \Enclose{\frac p q}_\sim \cdot \Enclose{\frac{p'}{q'}}_\sim 
+ = \Enclose{\frac{p\cdot p'}{q\cdot q'}}_\sim 
+ \qquad 
+ \Enclose{\frac{p}{q}}_\sim + \Enclose{\frac{p'}{q'}}_\sim 
+ = \Enclose{\frac{p\cdot q' + p'\cdot q}{q\cdot q'}}_\sim.
 \]
-
-I \emph{numeri razionali} non sono altro che le frazioni identificate 
-a meno di equivalenza:
+Possiamo inoltre definire un ordinamento ponendo
 \[
-  \QQ = ((\ZZ\setminus\ENCLOSE{0})\times \ZZ)/\sim.
+ \Enclose{\frac p q}_\sim \le \Enclose{\frac{p'}{q'}}
+ \quad\iff  \quad p \cdot q' \le p' \cdot q.
 \]
-
-La moltiplicazione tra numeri razionali può essere definita tramite la composizione 
-dei riscalamenti:
-\[
-  \frac{p}{q}\enclose{\frac{p'}{q'} (q\cdot q')} = \frac{p}{q}(p'\cdot q) = p\cdot p'
-\]
-da cui 
-\[
- \frac{p}{q} \cdot \frac{p'}{q'} = \frac{p\cdot p'}{q\cdot q'}.  
-\]
-Si verifica facilmente che questa definizione \emph{passa al quoziente} 
+Si verifica facilmente che queste definizioni \emph{passano al quoziente} 
 nel senso che il prodotto di frazioni equivalenti è equivalente al prodotto 
 delle frazioni. 
-Dunque la moltiplicazione è ben definita su $\QQ$.
+Dunque la moltiplicazione e l'addizioni 
+e la relazione d'ordine sono ben definite su $\QQ$.
 
 Le frazioni del tipo $\frac{q}{q}$ sono tutte equivalenti tra loro e rappresentano 
-l'elemento neutro della moltiplicazione.
-Le frazioni del tipo $\frac{p}{1}$ rappresentano la moltiplicazione per $p\in\ZZ$ 
-e quindi identificano i numeri interi $\ZZ$ all'interno di $\QQ$.
-Per poter estendere l'addizione da $\ZZ$ a $\QQ$ in modo da preservare 
-la proprietà distributiva sarà quindi necessario che 
-si abbia 
-\[
-  \enclose{\frac{p}{q}+\frac{p'}{q'}} (q\cdot q') = \frac{p}{q}(q\cdot q') + \frac{p'}{q'}(q\cdot q')
-  = p\cdot q' + p'\cdot q
-\]
-da cui
-\[
-  \frac{p}{q} + \frac{p'}{q'} = \frac{p\cdot q'+p'\cdot q}{q\cdot q'}.  
-\]
-E' facile verificare che anche questa definizione \emph{passa al quoziente}
-ovvero che la somma di frazioni equivalenti è equivalente alla somma delle 
-frazioni dunque anche l'addizione in questo modo è ben definita su $\QQ$.
+l'elemento neutro della moltiplicazione in $\QQ$.
+Le frazioni del tipo $\frac{p}{1}$ rappresentano 
+i numeri interi $\ZZ$ all'interno di $\QQ$.
 
-Abbiamo quindi esteso l'addizione e la moltiplicazione da $\ZZ$ a $\QQ$
-e ora, su $\QQ$.
-Rispetto all'addizione $\QQ$ risulta essere un gruppo commutativo (come lo era $\ZZ$)
-in quanto ogni frazione $\frac{p}{q}$ ha come opposto $\frac{-p}{q}$ 
-e l'addizione rimane associativa e commutativa.
-
-Inoltre in $\QQ$ ogni elemento diverso da $0$
-\mynote{$0\in \ZZ$ si identifica in $\QQ$ con la classe di equivalenza 
-delle frazioni del tipo $\frac{0}{q}$ e $1$ è rappresentato 
-dalle frazioni del tipo $\frac{q}{q}$.}
-ha anche un inverso moltiplicativo, infatti se $p\neq 0$ e $q\neq 0$ si ha:
-\[
- \frac{p}{q}\cdot \frac{q}{p} = \frac{p\cdot q}{q\cdot p} \sim \frac{1}{1}.  
-\]
-Dunque $\QQ\setminus\ENCLOSE{0}$ risulta essere a sua volta un gruppo 
-moltiplicativo.
-
-In maniera naturale diremo che una frazione $\frac{p}{q}$ è non-negativa 
-se, visto come riscalamento, manda gli interi non-negativi in interi non-negativi. 
-Questo succede se $p$ e $q$ non hanno segno opposto, ovvero se $p\cdot q\ge 0$.
-Possiamo quindi definire un ordinamento su $\QQ$ 
-ponendo $x\le y$ se $y-x$ è non-negativo e cioè, visto sulle frazioni,
-\[
- \frac{p}{q} \le \frac{p'}{q'} \iff \frac{p'\cdot q-p\cdot q'}{q\cdot q'}\ge 0 
- \iff (p'\cdot q-p\cdot q')\cdot q\cdot q' \ge 0. 
-\]
-Questo ordinamento estende quello di $\ZZ$ e rende sia il gruppo additivo $\QQ$
-che il gruppo moltiplicativo $\QQ^+ = \ENCLOSE{q\in \QQ\colon q>0}$
-un gruppo totalmente ordinato. 
-
-In conclusione, visto che vale la proprietà distributiva,  
-$\QQ$ risulta essere un campo ordinato. 
-*** TO BE COMPLETED ***
-
+Con le operazioni appena definite si può verificare che $\QQ$ 
+risulta essere un campo totalmente ordinato e denso.
+Inoltre identificando il numero razionale $\Enclose{\frac p 1}_\sim$
+con il numero intero $p\in \ZZ$ si può pensare, ridefinendo opportunamente 
+$\ZZ$, che sia $\ZZ \subset \QQ$.
 
 \section{costruzione dei numeri reali}
 \label{sec:costruzione_reali}
 
-Osserviamo che l'insieme 
-\[
- A = \ENCLOSE{x\in \QQ \colon x^2 \le 2}  
-\]
-non ha massimo. 
-Infatti se $x\in A$ non può essere $x^2=2$ (per il teorema~\ref{th:pitagora})
-e quindi dovrà essere $x^2<2$. 
-Ma possiamo dimostrare che se $x^2<2$ esiste $\eps>0$ tale per cui $(x+\eps)^2<2$. 
-Infatti si ha $(x+\eps)^2 = x^2 + 2\eps x + \eps^2$
-ma se $x^2<2$ certamente dovrà essere $x<2$ (altrimenti $x^2\ge 4$)
-e quindi $x^2+2\eps x+\eps^2 < x^2+ 4\eps^2+\eps^2 = x^2+5\eps^2$.
-Se ora scegliamo $\eps<1$ sappiamo che $\eps^2<\eps$ 
-e quindi $x^2+5\eps^2 < x^2 + 5\eps$. 
-E affinché sia $x^2 + 5\eps < 2$ è sufficiente scegliere 
-$\eps < \frac{2-x^2}{5}$. 
-In tal modo abbiamo dimostrato che se $x\in A$ allora esiste 
-$\eps>0$ tale che $x+\eps \in A$. 
-Questo significa che l'insieme $A$ non ha massimo.
+La proprietà che manca al campo $\QQ$ dei numeri razionali 
+è la \emph{continuità}. 
+Non è sufficiente aggiungere una nuova operazione, ma bisogna 
+fare in modo che ogni coppia di insiemi separati 
+abbia elemento di separazione 
+(si veda la definizione~\ref{def:ordinamento_continuo})
+ovvero bisogna che ogni insieme non vuoto e superiormente 
+limitato abbia estremo superiore.
 
-L'idea è ora che una ipotetica soluzione positiva dell'equazione $x^2=2$ 
-dovrebbe potersi approssimare, per difetto, con gli elementi dell'insieme $A$.
-Allora vogliamo utilizzare l'insieme $A$ per rappresentare un tale ipotetico numero.
-
-Procediamo dunque col definire (si ricordi la definizione~\ref{def:limitato}):
+Possiamo allora definire l'insieme dei \emph{numeri reali}
+così:
+\index{reali!insieme dei}%
+\index{numero!reale}%
+\index{insieme!numeri reali}%
 \[
-\mathcal R = \ENCLOSE{A \in \mathcal P(\QQ)\colon A\neq \emptyset, \text{ $A$ superiormente 
-limitato}}.
+\RR = \ENCLOSE{A \in \mathcal P(\QQ)\colon A\neq \emptyset, \text{ $A$ superiormente 
+limitato}}\sim
 \]
-Dati $A,B\in \mathcal R$ scriveremo $A\sim B$ 
+dove poniamo $A\sim B$ 
 se $A$ e $B$ hanno gli stessi maggioranti, ovvero
 se per ogni $q\in \QQ$ si ha $q\ge A \iff q\ge B$.
-Chiaramente $\sim$ è una relazione di equivalenza (vedi definizione~\ref{def:equivalenza})
-l'insieme degli insiemi equivalenti ad $A$ si chiama 
-classe di equivalenza e viene denotata con $\Enclose{A}_\sim$.
-Possiamo quindi definire il quoziente
-\[
-  \RR = \mathcal R / \sim = \ENCLOSE{\Enclose{A}_\sim\colon A\in \mathcal R},
-  \qquad 
-  \Enclose{A}_\sim = \ENCLOSE{B\in \mathcal R\colon B\sim A}
-\]
-che chiameremo insieme dei \emph{numeri reali}%
-\mymargin{numeri reali}%
-\index{numeri!reali}.
 L'idea di questa definizione è che i numeri reali 
 possono essere identificati dalle loro approssimazioni 
 per difetto tramite numeri razionali. 
@@ -7033,7 +7247,8 @@ Diverse approssimazioni, però, possono rappresentare
 lo stesso numero reale.
 
 \begin{exercise}
-  Si mostri che si ha $A \sim B \sim C$ se
+  Si mostri che si ha $A \sim B \sim C$
+  per i seguenti insiemi:
   \[
   A = \ENCLOSE{1}, \qquad 
   B = \ENCLOSE{x\in \QQ\colon x<1}, \qquad
@@ -7055,16 +7270,18 @@ lo stesso numero reale.
   \]
 \end{exercise}
 
-Dati $A,B\in\mathcal R$ definiamo $A+B=\ENCLOSE{a+b\colon a\in A, b\in B}$.
-Chiaramente $A+B\in \mathcal R$ inoltre non è difficile dimostarare che 
-se $A\sim A'$ e $B\sim B'$ si ha $A+B\sim A'+B'$.
-Questo significa che è ben definita l'addizione su $\RR$ in modo che 
-per ogni $A,B \in \mathcal R$ si abbia:
+Dati $A,B$ sottoinsiemi non vuoti e superiormente limitati di $\QQ$, 
+definiamo 
 \[
-\Enclose{A}_\sim + \Enclose{B}_\sim = \Enclose{A+B}_\sim.
+  \Enclose{A}_\sim+\Enclose{B}_\sim
+  = \Enclose{A+B}_\sim
+  \qquad\text{dove $A+B = \ENCLOSE{a+b\colon a \in A, b \in B}$.}
 \]
+Chiaramente $A+B$ è non vuoto e superiormente limitato
+inoltre non è difficile dimostarare che 
+se $A\sim A'$ e $B\sim B'$ si ha $A+B\sim A'+B'$.
 Ovviamente l'addizione su $\RR$ è associativa e commutativa in quanto 
-queste proprietà valgono su $\QQ$ e di conseguenza su $\mathcal R$:
+queste proprietà valgono su $\QQ$ e di conseguenza sui suoi sottoinsiemi:
 $(A+B)+C = \{ a+b+c\colon a\in A, b\in B, c\in C\} = A + (B+C)$ e 
 $A+B = \{a+b\colon a\in A, b\in B\} = B+A$.
 Visto che $A+\ENCLOSE{0} = A$ notiamo anche che $\Enclose{\ENCLOSE{0}}_\sim$ 
@@ -7076,8 +7293,10 @@ Vogliamo dimostrare che $A$ e $A'$ contengono punti arbitrariamente vicini:
 \forall \eps\in\QQ\colon (\eps >0 \implies \exists a \in A\colon \exists b\in A'\colon
 b-a < \eps).
 \end{equation}
-Per fare ciò prendiamo qualunque $c\in A$ (visto che $A\neq \emptyset$)
-e qualunque $q\in A'$ (visto che $A$ è superiormente limitato, $A'\neq \emptyset$).
+Per fare ciò prendiamo qualunque $c\in A$ 
+e prendiamo qualunque $q\in A'$ 
+($A\neq \emptyset$ e visto che $A$ è superiormente limitato, 
+$A'\neq \emptyset$).
 L'insieme $I=\ENCLOSE{n\in \NN \colon c+n\eps\in A'}$
 non è vuoto in quanto se $n>\frac{q-c}\eps$ si ha $c+n\eps>q$ ed essendo $q$ 
 un maggiorante di $A$ anche $c+n\eps$ lo è.
@@ -7147,11 +7366,11 @@ L'ordinamento di $\RR$ è continuo
 Siano dati $\mathcal A$ e $\mathcal B$ sottoinsiemi non vuoti di $\RR$ 
 con $\mathcal A\le \mathcal B$. 
 Possiamo definire
-\[
-  C = \bigcup\ENCLOSE{A\in \mathcal R\colon \Enclose{A}_\sim \in \mathcal A} 
-    = \ENCLOSE{q\in \QQ\colon \exists A\in \mathcal R\colon 
+\begin{align*}
+  C & = \bigcup\ENCLOSE{A\in \mathcal P(\QQ)\colon \Enclose{A}_\sim \in \mathcal A} \\
+    &= \ENCLOSE{q\in \QQ\colon \exists A\colon 
     (\Enclose{A}_\sim \in \mathcal A) \land (q\in A)}.
-\]
+\end{align*}
 Preso qualunque $a=\Enclose{A}_\sim \in \mathcal A$ risulta 
 ovviamente $A\subset C$. In particolare $C$ non è vuoto.
 Mentre se $b=\Enclose{B}_\sim \in \mathcal B$ 
@@ -7160,7 +7379,8 @@ $\Enclose{A}_\sim = a\in \mathcal A$.
 Ma visto che $a\le b$, ogni maggiorante di $B$ è anche maggiorante di $A$.
 In particolare preso un qualunque $r$ maggiorante di $B$
 risulta che $r$ è un maggiorante di $C$.
-Allora $C\in \mathcal R$ e posto $c=\Enclose{C}_\sim$ 
+Allora $C$ è non vuoto e superiormente limitato 
+e posto $c=\Enclose{C}_\sim$ 
 risulta che ogni maggiorante di $C$ è maggiorante di 
 ogni $A$ con $\Enclose{A}_\sim \in \mathcal A$ mentre 
 ogni maggiorante di un qualunque $B$ con $\Enclose{B}_\sim\in \mathcal B$ 
@@ -7173,7 +7393,7 @@ Ad ogni $q\in \QQ$ si può associare l'elemento $\Enclose{\ENCLOSE q}_\sim$
 di $\RR$. Ovviamente se $q\neq s$ in $\QQ$ allora $\ENCLOSE{q}$ 
 ed $\ENCLOSE{s}$ non hanno gli stessi maggioranti e quindi si ottengono 
 elementi distinti di $\RR$. Identificando $q$ con $\Enclose{\ENCLOSE q}_\sim$ 
-possiamo quindi pensare che $\QQ \subset \RR$.
+possiamo quindi pensare che sia $\QQ \subset \RR$.
 
 Prendiamo però l'insieme $A=\{x\in \QQ\colon x^2<2\}$.
 Se fosse $A\sim \ENCLOSE q$ per qualche $q\in \QQ$ dovremmo 
@@ -7185,147 +7405,8 @@ potremmo trovare $s<q$ tale che anche $s^2>2$
 $\eps<\frac{q^2-2}{4}$ così $s^2=(q-\eps)^2 > q^2-2\eps q > q^2-4\eps
 > q^2-(q^2-2) = 2$).
 Dunque $\RR\neq \QQ$, l'elemento $x=[A]_\sim$ di $\RR$ sarà 
-proprio quello che chiameremo $\sqrt 2$ e vedremo che 
-risolverà l'equazione $x^2=2$. 
-
-\subsection{isomorfismi di gruppi ordinati}
-
-\begin{definition}[omomorfismo]%  
-\label{def:omomorfismo}%
-Siano $R$ ed $S$ due gruppi con operazione $*$ su $R$ e operazione $\circ$ su $S$.
-Diremo che una funzione $\phi\colon R\to S$ è un \emph{omomorfismo}%
-\mymargin{omomorfismo}%
-\index{omomorfismo} se per ogni $x,y \in R$
-\[
-  \phi(x*y) = \phi(x)\circ \phi(y).
-\]
-\end{definition}
-
-Sull'insieme $\RR$ è possibile definire la moltiplicazione per 
-un numero $n$ naturale come somma ripetuta ed è possibile definire anche la divisione in $n$
-parti uguali (teorema~\ref{th:divisibile}) e di conseguenza la moltiplicazione per ogni numero razionale.
-Allora se fissiamo $u\in \RR$ che rappresenti l'unità, è possibile immergere $\QQ$ dentro $\RR$
-associando $q\in \QQ$ al numero $q\cdot u\in \RR$.
-E' quello che facciamo nel seguente.
-
-\begin{lemma}
-Sia $R$ un gruppo totalmente ordinato, denso, continuo e 
-sia $\QQ$ il gruppo dei numeri razionali con l'operazione 
-di addizione.
-Allora fissato $u\in R$ esiste un unico omomorfismo $\phi\colon \QQ \to R$ 
-tale che $\phi(1)=u$.
-
-Se l'operazione su $R$ viene denotata con il simbolo di addizione $+$ 
-l'omomorfismo $\phi$ può essere naturalmente denotato con il simbolo di moltiplicazione:
-\[
-   \phi(q) = q\cdot u
-\]
-cosicché la proprietà di omomorfismo è semplicemente la proprietà distributiva 
-$(q+s)\cdot u = q\cdot u + s\cdot u$.
-
-Denotiamo con $\QQ\cdot u$ l'immagine di $f$ ovvero
-\[
-  \QQ \cdot u = \ENCLOSE{q\cdot y \colon q\in \QQ}.
-\] 
-\end{lemma}
-%
-\begin{proof}
-Usiamo il simbolo $+$ per denotare l'operazione del gruppo $R$ e chiamiamo $0$ 
-l'elemento neutro di $R$.
-
-\end{proof}
-
-\begin{definition}[funzioni monotòne]
-  \label{def:monotonia}%
-  \mymark{***}%
-  \mymargin{funzioni monotòne}%
-  \index{funzione!monotòna}%
-  \index{monotonia}%
-  Una funzione $f\colon A \to B$ con $A,B$ insiemi ordinati, si
-  dice essere
-  \begin{enumerate}
-  \item \emph{crescente}%
-\mymargin{crescente}%
-\index{crescente} se $x \le y \implies f(x) \le f(y)$;
-  \item \emph{decrescente}%
-\mymargin{decrescente}%
-\index{decrescente} se $x \le y \implies f(x) \ge f(y)$;
-  \item \emph{monotòna}%
-\mymargin{monotòna}%
-\index{monotòna} se crescente o decrescente;
-  \item \emph{costante}%
-\mymargin{costante}%
-\index{costante} se crescente e decrescente;
-  \item \emph{strettamente crescente}%
-\mymargin{strettamente crescente}%
-\index{strettamente!crescente} se $x<y \implies f(x) < f(y)$;
-  \item \emph{strettamente decrescente}%
-\mymargin{strettamente decrescente}%
-\index{strettamente!decrescente} se $x<y \implies f(x) > f(y)$;
-  \item \emph{strettamente monotòna}%
-\mymargin{strettamente monotòna}%
-\index{strettamente!monotòna} se strettamente crescente o strettamente decrescente.
-  \end{enumerate}
-\end{definition}
-
-Si osservi che se $f\colon A \to \RR$ è costante allora esiste $c$ tale che
-$f(x)=c$ per ogni $x\in A$. 
-Si osservi anche che ogni funzione strettamente monotona è anche iniettiva. Si osservi infine (fare un esempio!) che esistono funzioni che non rientrano in nessuna delle categorie sopra elencate (cioè che non sono né crescenti né decrescenti).
-
-Si faccia attenzione alla terminologia.
-In alcuni testi (in particolare nei testi anglosassoni) si utilizza il termine
-\emph{crescente} con il significato di \emph{strettamente crescente} 
-e si usa la dizione \emph{non decrescente} o \emph{debolmente crescente} 
-per indicare il concetto che noi abbiamo definito con \emph{crescente}. 
-In effetti con le nostre definizioni una funzione crescente può essere costante
-e quindi non crescere affatto!
-
-
-Come conseguenza immediata del teorema precedente otteniamo il seguente corollario il quale
-garantisce che gli assiomi con cui abbiamo definito $\RR$
-lo identificano univocamente a meno di isomorfismi.
-
-\begin{corollary}[unicità di $\RR$]%
-  \label{th:unicitaR}%
-  Sia $S$ un gruppo totalmente ordinato, denso e continuo (come $\RR$)
-  e scegliamo $u\in S$, $u>0$ come unità.
-  Allora $S$ è isomorfo ad $\RR$ nel senso che esiste una funzione (unica)
-  $f\colon \RR\to S$ bigettiva, additiva, crescente con $f(1)=u$.
-\end{corollary}
-
-Nella definizione assiomatica di $\RR$ non abbiamo mai assunto che l'addizione fosse 
-commutativa perché in effetti possiamo dimostrare che deve esserlo, come si vede nel seguente.
-\begin{theorem}
-Ogni gruppo totalmente ordinato, denso e continuo 
-è commutativo.
-\end{theorem}
-%
-\begin{proof}
-Se consideriamo il gruppo additivo $R$ ma definiamo 
-l'addizione con gli addendi scambiati, 
-fissato $u>0$ in $R$
-per il teorema~\ref{th:isomorfismo}
-deve esistere una funzione $f\colon R\to R$ crescente, con $f(1)=1$, tale che 
-\begin{equation}\label{eq:49613244}
-  f(x+y) = f(y)+f(x).
-\end{equation}
-Inoltre $f$ è l'unica funzione crescente tale che 
-per ogni $x\in \QQ\cdot u$ soddisfa $f(x)=x$. 
-Visto che la funzione identica ha queste proprietà 
-$f$ dovrà in effetti essere la funzione identica $f(x)=x$ 
-per ogni $x\in \RR$ 
-e l'equazione~\eqref{eq:49613244} si riduce a $x+y=y+x$.
-\end{proof}
-
-OMISSIS
-
-L'operazione di moltiplicazione che abbiamo appena definito su $\RR$ 
-rende $\RR$ un campo ordinato continuo in base alla definizione~\ref{def:campo}.
-
-Si può osservare che in un campo ordinato l'ordinamento 
-è necessariamente denso in quanto dati $a,b$ elementi 
-del campo possiamo definire $\frac{a+b}{2}$ che è certamente 
-strettamente compreso tra $a$ e $b$.
+proprio quello che abbiamo chiamato $\sqrt 2$ e che risolve 
+l'equazione $x^2=2$. 
 
 \section{cardinalità infinite}
 
@@ -7345,9 +7426,9 @@ hanno la stessa cardinalità di $\NN$ in quanto le funzioni $n\mapsto 2n$
 e la funzione $n\mapsto n^2$ sono iniettive.
 
 Non è difficile trovare una funzione iniettiva da $\ZZ$ in $\NN$
-(lo lasciamo per esercizio): questo dimostra che anche $\#\ZZ = \# \NN$
+(lo lasciamo per esercizio): questo dimostra che anche $\#\ZZ = \# \NN$.
 
-Cantor dimostra addirittura che $\#\QQ = \NN$: per farlo utilizza il seguente.
+Cantor dimostra addirittura che $\#\QQ = \#\NN$: per farlo utilizza il seguente.
 
 \begin{theorem}[primo metodo diagonale di Cantor]
 \label{th:Cantor_primo}%
@@ -7368,11 +7449,11 @@ L'insieme $\NN \times \NN$ ha la stessa cardinalità di $\NN$. Di conseguenza
 
 \begin{figure}
   \begin{tabular}{c|ccccccc}
-   $m$ & $\ddots$\\
-   $\vdots$ & $\ddots$ & $\ddots$\\
-   3 & 9 & $\nwarrow$ & $\ddots$ \\
-   2 & 5 & 8 & 12 & $\ddots$ \\
-   1 & 2 & 4 & 7 & 11 & $\ddots$ \\
+   $m$ & $\ddots$ & $\ddots$ & $\ddots$ & $\ddots$ & $\ddots$ & $\ddots$\\
+   $\vdots$ & $\ddots$ & $\ddots$ & $\ddots$ & $\ddots$ & $\ddots$ & $\ddots$\\
+   3 & 9 & $\nwarrow$ & $\ddots$  & $\ddots$ & $\ddots$ & $\ddots$\\
+   2 & 5 & 8 & 12 & $\ddots$  & $\ddots$ & $\ddots$\\
+   1 & 2 & 4 & 7 & 11 & $\ddots$  & $\ddots$\\
    0 & 0 & 1 & 3 & 6 & 10 & $\ddots$ \\ \hline
      & 0 & 1 & 2 & 3 & 4 & $\dots$ & $n$
   \end{tabular}
@@ -7388,11 +7469,12 @@ L'insieme $\NN \times \NN$ ha la stessa cardinalità di $\NN$. Di conseguenza
 A questo punto si potrebbe pensare che
 tutti gli insiemi infiniti siano numerabili.
 Invece preso un qualunque insieme (anche infinito)
-esiste un insieme con cardinalità strettamente maggiore
+esiste sempre un insieme con cardinalità maggiore,
 come dimostrato nel seguente teorema che è un piccolo gioiello della logica.
 In effetti il metodo utilizzato è assimilabile al paradosso del mentitore 
 ed è la stessa idea usata nel paradosso di Russell (teorema~\ref{th:Russell}).
-L'insieme delle parti $\mathcal P(A)$ è definito a pag.~\pageref{def:insieme_parti}.
+\mynote{L'insieme $\mathcal P(A)$ è l'insieme delle parti, 
+definito a pag.~\pageref{def:insieme_parti}}%
 %
 \begin{theorem}[Cantor]%
 \label{th:Cantor}%
