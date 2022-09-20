@@ -1491,6 +1491,37 @@ converge perché il termine generico $z^k/k$ non è infinitesimo.
 Per $z=1$ si ottiene la serie armonica, che pure non converge.
 \end{proof}
 
+\begin{exercise}
+  La serie
+  \[
+    \sum_{k=1}^{+\infty} \frac{\sin k}{k}
+  \]
+  è convergente.
+  \end{exercise}
+  \begin{proof}
+  Applichiamo il teorema~\ref{th:dirichlet}.
+  Posto $a_k = \sin k$ e $B_k=1/k$
+  si ha
+  \[
+    A_n = \sum_{k=0}^{n-1} \sin k = \Im \sum_{k=0}^{n-1} e^{ik}.
+  \]
+  Osserviamo allora che $e^{ik}=(e^i)^k$ e dunque $A_n$ è la parte immaginaria
+  della somma di una serie geometrica. 
+  Si può quindi calcolare esplicitamente
+  \[
+    A_n = \Im \frac{1-(e^i)^n}{1-e^i}
+  \]
+  da cui
+  \[
+    \abs{A_n} \le \abs{\frac{1-e^{in}}{1-e^i}} \le \frac{1+\abs{e^{in}}}{\abs{1-e^i}}
+    = \frac{2}{\abs{1-e^i}}
+  \]
+  e dunque $A_n$ è limitata.
+  
+  D'altro canto posto $B_k = 1/k$ è chiaro che $B_k$ è
+  decrescente e infinitesima.
+  \end{proof}
+  
 %% \begin{comment}
 %% \section{somme su insiemi qualunque}
 %% 
@@ -2289,49 +2320,61 @@ che significa che $t\mapsto f(t\cdot z_0)$ è continua nel punto $t=1$.
 
 \section{la serie esponenziale}
 
-Definiamo la funzione $\exp \colon \CC \to \CC$
+In questo capitolo proponiamo una definizione 
+della funzione esponenziale $\exp\colon \CC \to \CC$ 
+alternativa a quella data nel capitolo~\ref{sec:esponenziale_complesso}.
+Questa definizione non richiede la definizione preliminare 
+dell'esponenziale reale (e neanche delle potenze con esponente reale)
+né delle funzioni trigonometriche che potrebbero 
+essere quindi definite di conseguenza 
+(così come le costanti $e$ e $\pi$).
+
+Possiamo definire la funzione $f \colon \CC \to \CC$
 \mymargin{$\exp z$}%
 \index{$\exp z$}
-tramite la serie di potenze
+come somma della serie di potenze
 \begin{equation}\label{eq:def_exp}
-\exp(z) = \sum_{k=0}^{+\infty} \frac{z^k}{k!}.
+f(z) = \sum_{k=0}^{+\infty} \frac{z^k}{k!}.
 \end{equation}
 La funzione è definita su tutto $\CC$ in quanto (grazie al criterio del rapporto)
-è facile verificare che il raggio di convergenza di questa serie è $R=+\infty$
-e dunque l'insieme di convergenza è tutto $\CC$.
+è facile verificare che il raggio di convergenza di questa serie è $R=+\infty$.
 
-I teoremi seguenti ci permetteranno di affermare che la funzione $\exp(z)$,
+I teoremi seguenti ci permetteranno di affermare che la funzione $f(z)$,
 definita
-per ogni $z\in \CC$ è una
-estensione della funzione $e^x$ già definita per $x\in \RR$.
+per ogni $z\in \CC$ tramite \ref{eq:def_exp} coincide con
+la funzione esponenziale $\exp z$ definita nel 
+capitolo~\ref{sec:esponenziale_complesso}.
+Anzi potremmo di buon grado prendere~\ref{eq:def_exp} come definizione 
+dell'esponenziale complesso.
 
 \begin{theorem}[proprietà dell'esponenziale complesso]
 \label{th:exp_complesso}%
+Sia $f$ la funzione definita da ~\eqref{eq:def_exp}.
 Si ha:
 \begin{enumerate}
 \item
-$\displaystyle \exp(0) = 1$;
+$\displaystyle f(0) = 1$;
 
 \item
-$\displaystyle \exp(\bar z) = \overline{\exp(z)}$;
+$\displaystyle f(\bar z) = \overline{f(z)}$;
 
 \item
 per ogni $z,w \in \CC$
 \[
-  \exp(z+w) = \exp(z) \cdot \exp(w);
+  f(z+w) = f(z) \cdot f(w);
 \]
 
 \item
-per ogni $z\in \CC$ si ha $\exp(z) \neq 0$ e
+per ogni $z\in \CC$ si ha $f(z) \neq 0$ e
 \[
- \exp(-z) = \frac{1}{\exp(z)};
+ f(-z) = \frac{1}{f(z)};
 \]
 
-\item la funzione $\exp\colon \CC \to \CC$ è continua;
+\item la funzione $f\colon \CC \to \CC$ è continua;
 
 \item se $z_n\to 0$ allora
 \begin{equation}\label{eq:limite_exp_complesso}
-   \lim_{n\to +\infty}\frac{\exp(z_n)-1}{z_n} = 1.
+   \lim_{n\to +\infty}\frac{f(z_n)-1}{z_n} = 1.
 \end{equation}
 \end{enumerate}
 \end{theorem}
@@ -2340,10 +2383,10 @@ per ogni $z\in \CC$ si ha $\exp(z) \neq 0$ e
 \mymark{*}
 \begin{enumerate}
 \item
-La proprietà $\exp(0)=1$ si ottiene per verifica diretta (ricordiamo che $0^0=1$
+La proprietà $f(0)=1$ si ottiene per verifica diretta (ricordiamo che $0^0=1$
 e $0!=1$).
 
-\item La proprietà $\exp(\bar z) = \overline{\exp z}$ si ottiene
+\item La proprietà $f(\bar z) = \overline{f(z)}$ si ottiene
 passando al limite la seguente uguaglianza tra le somme parziali
 che sfrutta le proprietà del coniugio di somma e prodotto:
 \[
@@ -2358,14 +2401,14 @@ m_{k,j}  = \frac{z^k}{k!} \cdot \frac{w^j}{j!}.
 \]
 Allora da un lato
 \begin{align*}
- \exp(z+w)
+ f(z+w)
  &= \sum_{n=0}^{+\infty} \frac{(z+w)^n}{n!}\\
  &= \sum_{n=0}^{+\infty} \frac{1}{n!}\sum_{k=0}^n \frac{n!}{k!(n-k)!} z^k\cdot w^{n-k}\\
  &= \sum_{n=0}^{+\infty} \sum_{k=0}^n m_{k, n-k}
 \end{align*}
 e dall'altro
 \begin{align*}
- \exp(z) \cdot \exp(w)
+ f(z) \cdot f(w)
  &= \sum_{k=0}^{+\infty}\frac{z^k}{k!} \sum_{j=0}^{+\infty}\frac{w^j}{j!}
  = \sum_{k=0}^{+\infty}\sum_{j=0}^{+\infty}\frac{z^k}{k!} \frac{w^j}{j!} \\
  &= \sum_{k=0}^{+\infty}\sum_{j=0}^{+\infty} m_{k,j}.
@@ -2376,9 +2419,9 @@ Il risultato segue dunque dal teorema~\ref{th:somma_Cauchy}.
 \item
 Visto che
 \[
-  1 = \exp( 0) = \exp(z-z) = \exp(z) \cdot \exp(-z)
+  1 = f(0) = f(z-z) = f(z) \cdot f(-z)
 \]
-ricaviamo che $\exp(z)\neq 0$ e $\exp(-z) =  1 / \exp(z)$.
+ricaviamo che $f(z)\neq 0$ e $f(-z) =  1 / f(z)$.
 
 \item
 La continuità discende dal risultato generale sulla continuità della
@@ -2388,7 +2431,7 @@ somma di una serie di potenze: teorema~\ref{th:continuita_somma_serie}.
 Direttamente dalla definizione~\eqref{eq:def_exp}
 si ottiene
 \[
- \exp(z) - 1 = \sum_{k=1}^{+\infty} \frac{z^k}{k!}
+ f(z) - 1 = \sum_{k=1}^{+\infty} \frac{z^k}{k!}
  = z \cdot \sum_{k=0}^{+\infty} \frac{z^k}{(k+1)!}.
 \]
 Osserviamo ora che la serie $\sum \frac{z^k}{(k+1)!}$ ha raggio di
@@ -2403,24 +2446,25 @@ quindi se $z_n \to 0$ si ha
 \end{enumerate}
 \end{proof}
 
-\begin{theorem}[collegamento tra le due definizioni di esponenziale]%
+\begin{theorem}[collegamento tra due definizioni di esponenziale]%
 \label{th:exp=ex}%
 \index{funzione!esponenziale}%
 \mymark{***}%
 Per ogni $x\in \RR$ si ha
 \[
-  \exp(x) = e^x.
+  \sum_{k=0}^{+\infty} \frac{x^k}{k!} = e^x.
 \]
 \end{theorem}
 %
 \begin{proof}\mymark{**}
 Vogliamo applicare il teorema~\ref{th:isomorfismo}.
-Posto $f(x)=\exp(x)$, $f\colon \RR\to\RR$ sappiamo,
+Posto $f(x)=\sum_{k=0}^{+\infty} \frac{x^k}{k!}$, 
+$f\colon \RR\to\RR$ sappiamo,
 per il teorema precedente, che $f(x+y)=f(x)\cdot f(y)$.
 Dobbiamo verificare che $f$ è crescente.
 Innanzitutto notiamo che se $x> 0$ la serie che definisce
-$\exp(x)$ è a termini positivi e il primo termine è $1$.
-Dunque per ogni $x> 0$ si ha $\exp(x)>1$.
+$f(x)$ è a termini positivi e il primo termine è $1$.
+Dunque per ogni $x> 0$ si ha $f(x)>1$.
 In particolare posto $a=f(1)$ si ha $a>1$.
 Inoltre se $y>x$ si ha $f(y-x)>1$ e dunque
 \[
@@ -2452,21 +2496,21 @@ per il limite notevole (corollario~\ref{cor:limite_notevole_e})
 Deduciamo quindi che $\ln a= 1$ ovvero che $a=e$.
 \end{proof}
 
-Aver distinto le due definizioni di $e^x$ (tramite funzione potenza) e di $\exp(x)$ (tramite somma della serie esponenziale) è puramente strumentale.
-C'è una unica funzione esponenziale che può essere definita in
-un modo o nell'altro. Non ci si fissi quindi con l'identificare
-le due diverse notazioni $e^x$ ed $\exp(x)$ con le due diverse definizioni.
-Ogni testo avrà una sua definizione di funzione esponenziale che può
-essere per certi versi arbitraria salvo poi ritrovare le proprietà
-caratterizzanti di tale funzione.
-
-Come già detto d'ora in poi scriveremo, per ogni $z\in \CC$
-\[
-  e^z = \exp z
-\]
-considerando quindi $\exp z$ l'estensione a tutto il piano complesso
-della funzione esponenziale già definita
-sulla retta reale.
+% Aver distinto le due definizioni di $e^x$ (tramite funzione potenza) e di $\exp(x)$ (tramite somma della serie esponenziale) è puramente strumentale.
+% C'è una unica funzione esponenziale che può essere definita in
+% un modo o nell'altro. Non ci si fissi quindi con l'identificare
+% le due diverse notazioni $e^x$ ed $\exp(x)$ con le due diverse definizioni.
+% Ogni testo avrà una sua definizione di funzione esponenziale che può
+% essere per certi versi arbitraria salvo poi ritrovare le proprietà
+% caratterizzanti di tale funzione.
+% 
+% D'ora in poi scriveremo, per ogni $z\in \CC$
+% \[
+%   e^z = \exp z
+% \]
+% considerando quindi $\exp z$ l'estensione a tutto il piano complesso
+% della funzione esponenziale già definita
+% sulla retta reale.
 
 In analogia con il corollario~\ref{cor:limite_notevole_ex}
 si ha il seguente risultato che fornisce anche un 
@@ -2675,56 +2719,10 @@ $n>q$.
 \end{proof}
 
 
-\section{le funzioni trigonometriche}
-Se $t\in \RR$ il numero complesso $e^{it}$ è unitario (ha modulo uno)
-in quanto, per le proprietà dell'esponenziale complesso, si ha
-\[
-\abs{e^{it}}^2 
-  = e^{it}\cdot \overline{e^{it}}  
-  = e^{it}\cdot e^{-it} = e^{it-it} = e^0 = 1.
-\]
-Ci ricordiamo che il prodotto di due numeri unitari $e^{it}$,
-$e^{is}$
-è un numero unitario che geometricamente identifica un angolo 
-che è la somma degli angoli identificati dai due fattori.
-Visto che si ha $e^{it}\cdot e^{is} = e^{i(t+s)}$ significa 
-che l'angolo identificato dal numero complesso $e^{i(t+s)}$
-è la somma degli angoli geometrici identificati da $e^{it}$ e da $e^{is}$.
-Essendo inoltre $e^{it}$ una funzione continua dobbiamo 
-dedurre che dal punto di vista geometrico il parametro $t$ 
-misura l'ampiezza dell'angolo identificato da $e^{it}$ 
-sulla circonferenza unitaria. 
-Più precisamente possiamo osservare che se $\Delta t\to 0$ 
-grazie al limite notevole dell'esponenziale complesso otteniamo 
-\[
-\lim_{\Delta t\to 0 }\frac{e^{i(t+\Delta t)} - e^{it}}{\Delta t}
-= i e^{it} \lim_{t\to 0}\frac{e^{i\Delta t} - 1}{i \Delta t}
-= i e^{it}.
-\]
-Significa che se interpretiamo $t\mapsto e^{it}$ come la legge oraria 
-di un punto che si muove sulla circonferenza unitaria, 
-la velocità del punto, al tempo $t$, è rappresentata dal 
-vettore (numero complesso) $v = ie^{it}$ che non è altro che il ruotato 
-di $e^{it}$ di un angolo retto in senso antiorario.
-Dunque il punto $e^{it}$ si muove di moto circolare uniforme 
-in senso antiorario sulla circonferenza unitaria 
-con velocità di modulo unitario.
-Scopriamo quindi che il punto $e^{it}$ ha percorso dal tempo $t=0$ 
-un arco di lunghezza pari a $t$.
+\subsection{definizione alternativa delle funzioni trigonometriche}
 
-La definizione seguente dunque può essere interpretata geometricamente 
-dicendo che le funzioni $\cos t$ e $\sin t$ sono le coordinate 
-$x$ e $y$ del punto sulla circonferenza unitaria $x^2+y^2=1$ 
-che identifica un arco di lunghezza $t$ misurato in senso antiorario 
-a partire dal punto di coordinate $(1,0)$. 
-La lunghezza di un arco unitario sulla circonferenza unitaria 
-si chiama \emph{radiante}%
-\mymargin{radiante}%
-\index{radiante} e diremo quindi che $t$
-è la misura in radianti dell'angolo identificato dal punto $e^{it}$
-di coordinate $(\cos t, \sin t)$ sul piano complesso.
-
-\index{funzioni!trigonometriche}
+In questa sezione proponiamo una definizione alternativa 
+delle funzioni trigonometriche a partire dall'esponenziale complesso.
 
 \begin{definition}[funzioni trigonometriche]%
 \label{def:sincos}%
@@ -2738,7 +2736,7 @@ Per ogni $x\in \RR$ si potrà definire
   \cos x = \Re \enclose{e^{ix}}, \qquad
   \sin x = \Im \enclose{e^{ix}}
 \]
-cosicché valga la
+cosicché valga per definizione la
 \emph{formula di Eulero}%
 \mymargin{formula di Eulero}%
 \index{formula!di Eulero}%
@@ -2752,8 +2750,16 @@ cosicché valga la
 \begin{theorem}[proprietà delle funzioni seno e coseno]
 \index{proprietà!delle funzioni seno e coseno}%
 \mymark{***}%
-Le funzioni $\sin$ e $\cos$
-soddisfano le seguenti proprietà.
+Le funzioni $\sin$ e $\cos$ appena definite
+soddisfano le stesse proprietà 
+delle corrispondenti funzioni definite 
+nel capitolo~\ref{sec:funzioni_trigonometriche}:
+\mynote{Queste proprietà caratterizzano univocamente le funzioni 
+$\sin$ e $\cos$ e quindi effettivamente coincidono con quelle 
+che avevamo già definito. 
+La dimostrazione più semplice richiede però l'utilizzo delle 
+derivate.
+}
 \begin{enumerate}
 \item
 $\displaystyle
@@ -2806,40 +2812,6 @@ vale il seguente limite notevole
 \end{enumerate}
 \end{theorem}
 %
-\newsavebox{\qrfigtrigo}\sbox{\qrfigtrigo}{\myurlhere{figtrigo}{funzioni trigonometriche}}%
-\begin{figure}
-  \centering%
-  \begin{tikzpicture}[scale=0.75]
-  \draw[->] (-6,0) -- (6,0) node[right] {$x$};
-  \draw[->] (0,-3) -- (0,3) node[above] {$y$};
-  \foreach \x/\xtext in
-    {{pi/2}/{\frac \pi 2}, {pi}/{\pi}, {3*pi/2}/{\frac{3}{2}\pi},
-    {-pi/2}/{-\frac \pi 2}, {-pi}/{-\pi}, {-3*pi/2}/{-\frac{3}{2}\pi}} {
-    \draw[shift={(\x,0)},lightgray] (0,-3) -- (0,3);
-    \draw[shift={(\x,0)}] (0pt,2pt) -- (0pt,-2pt) node[below] {$\xtext$};
-  }
-  \foreach \y in {1, -1} {
-    \draw[shift={(0,\y)},lightgray] (-6,0) -- (6,0);
-  }
-  \draw (0,1) node [above right] {1};
-  \draw (0,-1) node [right] {-1};
-  \draw[domain=-rad(atan(3)):rad(atan(3)),smooth,variable=\x,brown,thick] plot ({\x},{tan(deg(\x))});
-  \draw[domain=pi-rad(atan(3)):pi+rad(atan(3)),smooth,variable=\x,brown,thick] plot ({\x},{tan(deg(\x))});
-  \draw[domain=-pi-rad(atan(3)):-pi+rad(atan(3)),smooth,variable=\x,brown,thick] plot ({\x},{tan(deg(\x))});
-  \draw[domain=-6:-2*pi+rad(atan(3)),smooth,variable=\x,brown,thick] plot ({\x},{tan(deg(\x))});
-  \draw[domain=2*pi-rad(atan(3)):6,smooth,variable=\x,brown,thick] plot ({\x},{tan(deg(\x))});
-  \draw[domain=-6:6,smooth,variable=\x,blue,thick] plot ({\x},{cos(deg(\x))});
-  \draw[domain=-6:6,smooth,variable=\x,red,thick] plot ({\x},{sin(deg(\x))});
-  \draw (3.7,-1) node[blue,below] {$y=\cos x$};
-  \draw (2,0.9)  node[red,above] {$y=\sin x$};
-  \draw (1.3,2.5) node[brown,right] {$y=\tg x$};
-  \end{tikzpicture}
-  \caption{%
-  I grafici delle funzioni $\sin$, $\cos$ e $\tg$.
-  \ifwidemargin\\\\\fi%
-  \usebox{\qrfigtrigo}}
-\end{figure}
-
 %
 \begin{proof}
 \mymark{*}
@@ -3135,296 +3107,9 @@ sono periodiche di periodo $2\pi$.
 %%%%
 %%%%
 
-\section{funzioni trigonometriche inverse}
-La funzione $\sin\colon[-\pi/2,\pi/2]\to [-1,1]$ risulta essere strettamente crescente. Inoltre essendo una funzione continua e visto che $\sin(-\pi/2)=-1$
-e $\sin(\pi/2) = 1$ per il  teorema dei valori intermedi
-la funzione assume tutti i valori in $[-1,1]$.
-Dunque restringendo il dominio all'intervallo $[-\pi/2, \pi/2]$
-e il codominio all'intervallo $[-1,1]$ la funzione risulta invertibile.
-La funzione inversa
-\[
-  \arcsin\colon[-1,1]\to [-\pi/2, \pi/2]
-\]
-si chiama \emph{arco seno}. Per definizione di funzione inversa si ha
-\[
-  \arcsin(\sin x) = x, \qquad \forall x \in [-\pi/2, \pi/2]
-\]
-e
-\[
-  \sin(\arcsin x) = x, \qquad \forall x \in [-1, 1].
-\]
-
-La funzione $\cos \colon[0,\pi] \to [-1,1]$ risulta essere strettamente
-decrescente e, analogamente a quanto visto per la funzione $\sin$
-possiamo verificare che ristretta a tali intervalli è una funzione invertibile.
-La funzione inversa
-\[
-  \arccos\colon[-1,1] \to [0,\pi]
-\]
-si chiama \emph{arco coseno}. Per definizione si ha
-\[
-  \arccos(\cos x) = x, \qquad \forall x \in [0,\pi]
-\]
-e
-\[
-    \cos(\arccos x) = x, \qquad \forall x \in [-1,1].
-\]
-
-La funzione
-\index{tangente!funzione trigonometrica}
-\mymargin{$\tg x$}%
-\index{$\tg x$}
-\[
-\tg x = \frac{\sin x}{\cos x}
-\]
-è definita quando $\cos x\neq 0$ ovvero:
-\[
-  \tg \colon \RR \setminus\ENCLOSE{\frac \pi 2+ k\pi\colon k\in \ZZ} \to \RR.
-\]
-Se restringiamo la funzione all'intervallo $\enclose{-\pi/2, \pi/2}$ possiamo
-facilmente osservare che la funzione $\tg\colon(-\pi/2,\pi/2)\to \RR$ è strettamente crescente. Inoltre se $a_n \to \pi/2$, $a_n<\pi/2$ si ha $\cos(a_n)\to 0$ (per continuità del coseno) e $\sin(a_n)\to 1$ dunque $\tg a_n\to +\infty$. Analogamente per $a_n \to -\pi/2$ si trova $\tg a_n \to -\infty$. Dunque per il teorema dei valori intermedi possiamo affermare che la funzione $\tg\colon(-\pi/2,\pi/2)\to \RR$ è suriettiva. E' quindi invertibile
-e la funzione inversa
-\[
-  \arctg \colon \RR \to (-\pi/2,\pi/2)
-\]
-si chiama \emph{arco tangente}. Per definizione si ha
-\[
-  \arctg \tg x = x, \qquad \forall x \in (-\pi/2, \pi/2)
-\]
-e
-\[
-  \tg\arctg x = x, \qquad \forall x \in \RR.
-\]
-
-Grazie al teorema~\ref{th:monotona_continua}%
-visto che quest funzioni sono monotone e bigettive
-possiamo affermare che
-le funzioni $\arcsin$, $\arccos$ e $\arctg$ sono funzioni continue.
-
-\begin{exercise}
-Dimostrare che per ogni $x>0$ si ha
-\[
-  \arctg \frac 1 x = \frac \pi 2 - \arctg x.
-\]
-\end{exercise}
-
-\begin{exercise}
-La serie
-\[
-  \sum_{k=1}^{+\infty} \frac{\sin k}{k}
-\]
-è convergente.
-\end{exercise}
-\begin{proof}
-Applichiamo il teorema~\ref{th:dirichlet}.
-Posto $a_k = \sin k$ e $B_k=1/k$
-si ha
-\[
-  A_n = \sum_{k=0}^{n-1} \sin k = \Im \sum_{k=0}^{n-1} e^{ik}.
-\]
-Osserviamo allora che $e^{ik}=(e^i)^k$ e dunque $A_n$ è la parte immaginaria
-della somma di una serie geometrica. 
-Si può quindi calcolare esplicitamente
-\[
-  A_n = \Im \frac{1-(e^i)^n}{1-e^i}
-\]
-da cui
-\[
-  \abs{A_n} \le \abs{\frac{1-e^{in}}{1-e^i}} \le \frac{1+\abs{e^{in}}}{\abs{1-e^i}}
-  = \frac{2}{\abs{1-e^i}}
-\]
-e dunque $A_n$ è limitata.
-
-D'altro canto posto $B_k = 1/k$ è chiaro che $B_k$ è
-decrescente e infinitesima.
-\end{proof}
-
-\begin{exercise}
-Determinare il carattere delle seguenti serie
-\[
-  \sum_n \enclose{\frac 1 n - \sin \frac 1 n},\qquad
-  \sum_n \sin\enclose{\pi n + \frac 1 n}
-\]
-\end{exercise}
-
-\section{funzioni iperboliche}
-
-\begin{definition}[funzioni iperboliche]
-Le funzioni
-\emph{coseno iperbolico} e \emph{seno iperbolico}
-sono definite, per ogni $x\in \RR$,
-come segue:
-\mymargin{$\sinh$, $\cosh$}%
-\index{$\sinh$, $\cosh$}%
-\index{funzioni!iperboliche}%
-\index{seno!iperbolico}%
-\index{coseno!iperbolico}%
-\index{$\sinh$}%
-\index{$\cosh$}%
-\begin{equation}
-\label{eq:sinh_cosh}
-  \cosh x = \frac{e^x + e^{-x}}{2},
-  \qquad
-  \sinh x = \frac{e^x - e^{-x}}{2}.
-\end{equation}
-\end{definition}
-
-\begin{theorem}[proprietà delle funzioni iperboliche]
-Valgono le seguenti proprietà.
-\begin{enumerate}
-\item
-la funzione $\sinh$ è dispari, $\cosh$ è pari:
-\[
-\sinh(-x) = -\sinh(x),
-\qquad
-\cosh(-x) = \cosh(x);
-\]
-
-\item
-i punti del piano con coordinate $(\cosh x, \sinh x)$
-per $x\in \RR$
-sono disposti su un ramo di iperbole in quanto vale:
-\[
-  \cosh^2 x - \sinh^2 x = 1;
-\]
-
-\item formule di addizione:
-\begin{align*}
-  \cosh(\alpha+\beta) &= \cosh \alpha \cosh \beta + \sinh \alpha \sinh \beta,\\
-  \sinh(\alpha+\beta) &= \sinh \alpha \cosh \beta + \cosh \alpha \sinh \beta;
-\end{align*}
-
-\item si ha
-\begin{align*}
-  \cosh x
-  &= \sum_{k=0}^{+\infty} \frac{x^{2k}}{(2k)!}
-  = 1 + \frac{x^2}{2} + \frac{x^4}{4!} + \frac{x^6}{6!} + \dots \\
-  \sinh x
-  &= \sum_{k=0}^{+\infty} \frac{x^{2k+1}}{(2k+1)!}
-  = x + \frac{x^3}{6} + \frac{x^5}{5!} + \frac{x^7}{7!} + \dots
-\end{align*}
-
-\item
-la funzione $\sinh$ è strettamente crescente su tutto $\RR$,
-la funzione $\cosh$
-è strettamente crescente sull'intervallo
-$[0,+\infty)$ e strettamente decrescente
-nell'intervallo $(-\infty,0]$;
-
-\item per $x\to +\infty$ si ha $\sinh x \to +\infty$, $\cosh x \to +\infty$, 
-per $x\to -\infty$ si ha $\sinh x \to -\infty$, $\cosh x \to +\infty$.
-
-\end{enumerate}
-\end{theorem}
-
-\newsavebox{\qrfigiperb}\sbox{\qrfigiperb}{\myurlhere{figiperb}{funzioni iperboliche}}%
-\begin{figure}
-  \centering%
-  \begin{tikzpicture}[scale=0.75]
-  \draw[->] (-6,0) -- (6,0) node[right] {$x$};
-  \draw[->] (0,-3) -- (0,3) node[above] {$y$};
-  \foreach \y in {1, -1} {
-    \draw[shift={(0,\y)},lightgray] (-6,0) -- (6,0);
-  }
-  \draw (0,1) node [above right] {$1$};
-  \draw (0,-1) node [below right] {$-1$};
-  \draw[domain=-6:6,smooth,variable=\x,brown,thick] plot ({\x},{tanh(\x)});
-  \draw[domain=-1.75:1.75,smooth,variable=\x,blue,thick] plot ({\x},{cosh(\x)});
-  \draw[domain=-1.75:1.75,smooth,variable=\x,red,thick] plot ({\x},{sinh(\x)});
-  \draw (-2.5,2) node[blue,below] {$y=\cosh x$};
-  \draw (2.7,1.5)  node[red,above] {$y=\sinh x$};
-  \draw (5,1) node[brown,above] {$y=\tgh x$};
-  \end{tikzpicture}
-  \caption{%
-    I grafici delle funzioni $\sinh$, $\cosh$ e $\tgh$.
-    \ifwidemargin\\\\\fi%
-    \usebox{\qrfigiperb}%
-  }
-\end{figure}
-
-\begin{proof}
-I primi tre punti si dimostrano facilmente per verifica diretta,
-utilizzando la definizione~\eqref{eq:sinh_cosh}.
-
-Gli sviluppi in serie si ottengono anch'essi sostituendo
-gli sviluppi dell'esponenziale nella definizione.
-Nel $\cosh$ i termini di grado dispari si cancellano, nel $\sinh$ si cancellano
-i termini di grado pari.
-
-Per quanto riguarda la monotonia si osserva che se $x\ge 0$ ogni
-addendo delle due serie esposte nel punto 4 è strettamente crescente
-(in quanto i coefficienti sono tutti positivi) e dunque le somme delle serie,
-cioè la funzione $\cosh$ e la funzione $\sinh$ sono strettamente crescenti
-sull'intervallo $[0,+\infty)$. La funzione $\sinh$, essendo dispari,
-risulta inoltre crescente anche sull'intervallo $(-\infty,0]$ e quindi
-è crescente su tutto $\RR$.
-
-Per l'ultima proprietà basterà usare la definizione~\eqref{eq:sinh_cosh}
-e ricordare che (teorema~\ref{th:ordine_infinito})
-se $x\to +\infty$ allora
-$e^x\to +\infty$ ed $e^{-x}=\frac{1}{e^{x}} \to 0$.
-\end{proof}
-
-Osserviamo che $\cosh 0 = 1$ e, per le proprietà di monotonia viste nel teorema
-precedente si ha $\cosh x \ge \cosh 0 = 1 > 0$. Dunque $\cosh x$ non si annulla
-mai e si può definire per ogni $x\in \RR$ la \emph{tangente iperbolica}
-\index{tangente!iperbolica}%
-\mymargin{$\tgh$}%
-\index{$\tgh$}%
-\[
-    \tgh x = \frac{\sinh x}{\cosh x}.
-\]
-
-La funzione $\sinh\colon \RR\to\RR$ è iniettiva in quanto strettamente crescente ed
-è surgettiva in quanto è continua e quindi assume tutti i valori compresi tra
-$\lim_{x\to+\infty} \sinh(x) = +\infty$ e $\lim_{x\to -\infty} \sinh(x) = -\infty$. 
-Dunque $\sinh\colon \RR \to \RR$
-è invertibile e la funzione inversa si chiama \emph{settore di seno iperbolico}
-e si denota con
-\mymargin{$\settsinh$}%
-\index{$\settsinh$}
-\index{settore!di seno iperbolico}
-\[
-    \settsinh \colon \RR \to \RR.
-\]
-Analogamente la funzione ristretta $\cosh\colon [0,+\infty)\to [1,+\infty)$ è
-iniettiva in quanto strettamente crescente ed è surgettiva in quanto
-è continua e assume su $[0,+\infty)$ tutti i valori compresi tra $\cosh(0)=1$ e
-$\lim_{x\to +\infty} \cosh x = +\infty$.
-Dunque la funzione $\cosh x$ ristretta a $[0,+\infty)\to [1,+\infty)$
-è invertibile e la funzione inversa si chiama \emph{settore di coseno iperbolico}
-\mymargin{$\settcosh$}%
-\index{$\settcosh$}
-\index{settore!di coseno iperbolico}
-\[
-    \settcosh \colon [1,+\infty)\to [0,+\infty).
-\]
-
-La funzione $\tgh x$ è strettamente crescente su tutto $\RR$ e assume tutti i valori strettamente compresi tra $-1$ e $1$.
-La funzione inversa si chiama $\setttgh$.
-
-\begin{exercise}
-Fissato $y\in \RR$ si risolva l'equazione
-\[
-    \frac{e^x - e^{-x}}{2} = y
-\]
-riconducendola ad una equazione di secondo grado nella variabile $t=e^x$.
-Si dimostri quindi che vale
-\[
-    \settsinh x = \ln\enclose{x + \sqrt{x^2 + 1}}.
-\]
-In modo analogo si dimostri che vale
-\[
-    \settcosh x = \ln\enclose{x + \sqrt{x^2 - 1}}
-\]
-e
-\[
-    \setttgh x = \ln \sqrt{\frac{1+x}{1-x}}.
-\]
-\end{exercise}
-
 
 \section{esercizi}
+
 \begin{exercise}
 Determinare il carattere delle seguenti serie
 \[
@@ -3436,4 +3121,13 @@ Determinare il carattere delle seguenti serie
 \sum_n \frac{n-10}{n^2+10}
 \]
 \end{exercise}
+  
+\begin{exercise}
+  Determinare il carattere delle seguenti serie
+  \[
+    \sum_n \enclose{\frac 1 n - \sin \frac 1 n},\qquad
+    \sum_n \sin\enclose{\pi n + \frac 1 n}
+  \]
+\end{exercise}
+  
   

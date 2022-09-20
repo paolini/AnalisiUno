@@ -2859,6 +2859,289 @@ a $1$ per $x\to 0^+$.
 Per simmetria lo stesso accade per $x\to 0^-$.
 \end{proof}
 
+\newsavebox{\qrfigtrigo}\sbox{\qrfigtrigo}{\myurlhere{figtrigo}{funzioni trigonometriche}}%
+\begin{figure}
+  \centering%
+  \begin{tikzpicture}[scale=0.75]
+  \draw[->] (-6,0) -- (6,0) node[right] {$x$};
+  \draw[->] (0,-3) -- (0,3) node[above] {$y$};
+  \foreach \x/\xtext in
+    {{pi/2}/{\frac \pi 2}, {pi}/{\pi}, {3*pi/2}/{\frac{3}{2}\pi},
+    {-pi/2}/{-\frac \pi 2}, {-pi}/{-\pi}, {-3*pi/2}/{-\frac{3}{2}\pi}} {
+    \draw[shift={(\x,0)},lightgray] (0,-3) -- (0,3);
+    \draw[shift={(\x,0)}] (0pt,2pt) -- (0pt,-2pt) node[below] {$\xtext$};
+  }
+  \foreach \y in {1, -1} {
+    \draw[shift={(0,\y)},lightgray] (-6,0) -- (6,0);
+  }
+  \draw (0,1) node [above right] {1};
+  \draw (0,-1) node [right] {-1};
+  \draw[domain=-rad(atan(3)):rad(atan(3)),smooth,variable=\x,brown,thick] plot ({\x},{tan(deg(\x))});
+  \draw[domain=pi-rad(atan(3)):pi+rad(atan(3)),smooth,variable=\x,brown,thick] plot ({\x},{tan(deg(\x))});
+  \draw[domain=-pi-rad(atan(3)):-pi+rad(atan(3)),smooth,variable=\x,brown,thick] plot ({\x},{tan(deg(\x))});
+  \draw[domain=-6:-2*pi+rad(atan(3)),smooth,variable=\x,brown,thick] plot ({\x},{tan(deg(\x))});
+  \draw[domain=2*pi-rad(atan(3)):6,smooth,variable=\x,brown,thick] plot ({\x},{tan(deg(\x))});
+  \draw[domain=-6:6,smooth,variable=\x,blue,thick] plot ({\x},{cos(deg(\x))});
+  \draw[domain=-6:6,smooth,variable=\x,red,thick] plot ({\x},{sin(deg(\x))});
+  \draw (3.7,-1) node[blue,below] {$y=\cos x$};
+  \draw (2,0.9)  node[red,above] {$y=\sin x$};
+  \draw (1.3,2.5) node[brown,right] {$y=\tg x$};
+  \end{tikzpicture}
+  \caption{%
+  I grafici delle funzioni $\sin$, $\cos$ e $\tg$.
+  \ifwidemargin\\\\\fi%
+  \usebox{\qrfigtrigo}}
+\end{figure}
+
+\section{funzioni trigonometriche inverse}
+La funzione $\sin\colon[-\pi/2,\pi/2]\to [-1,1]$ risulta essere strettamente crescente. Inoltre essendo una funzione continua e visto che $\sin(-\pi/2)=-1$
+e $\sin(\pi/2) = 1$ per il  teorema dei valori intermedi
+la funzione assume tutti i valori in $[-1,1]$.
+Dunque restringendo il dominio all'intervallo $[-\pi/2, \pi/2]$
+e il codominio all'intervallo $[-1,1]$ la funzione risulta invertibile.
+La funzione inversa
+\[
+  \arcsin\colon[-1,1]\to [-\pi/2, \pi/2]
+\]
+si chiama \emph{arco seno}. Per definizione di funzione inversa si ha
+\[
+  \arcsin(\sin x) = x, \qquad \forall x \in [-\pi/2, \pi/2]
+\]
+e
+\[
+  \sin(\arcsin x) = x, \qquad \forall x \in [-1, 1].
+\]
+
+La funzione $\cos \colon[0,\pi] \to [-1,1]$ risulta essere strettamente
+decrescente e, analogamente a quanto visto per la funzione $\sin$
+possiamo verificare che ristretta a tali intervalli è una funzione invertibile.
+La funzione inversa
+\[
+  \arccos\colon[-1,1] \to [0,\pi]
+\]
+si chiama \emph{arco coseno}. Per definizione si ha
+\[
+  \arccos(\cos x) = x, \qquad \forall x \in [0,\pi]
+\]
+e
+\[
+    \cos(\arccos x) = x, \qquad \forall x \in [-1,1].
+\]
+
+La funzione
+\index{tangente!funzione trigonometrica}
+\mymargin{$\tg x$}%
+\index{$\tg x$}
+\[
+\tg x = \frac{\sin x}{\cos x}
+\]
+è definita quando $\cos x\neq 0$ ovvero:
+\[
+  \tg \colon \RR \setminus\ENCLOSE{\frac \pi 2+ k\pi\colon k\in \ZZ} \to \RR.
+\]
+Se restringiamo la funzione all'intervallo $\enclose{-\pi/2, \pi/2}$ possiamo
+facilmente osservare che la funzione $\tg\colon(-\pi/2,\pi/2)\to \RR$ è strettamente crescente. Inoltre se $a_n \to \pi/2$, $a_n<\pi/2$ si ha $\cos(a_n)\to 0$ (per continuità del coseno) e $\sin(a_n)\to 1$ dunque $\tg a_n\to +\infty$. Analogamente per $a_n \to -\pi/2$ si trova $\tg a_n \to -\infty$. Dunque per il teorema dei valori intermedi possiamo affermare che la funzione $\tg\colon(-\pi/2,\pi/2)\to \RR$ è suriettiva. E' quindi invertibile
+e la funzione inversa
+\[
+  \arctg \colon \RR \to (-\pi/2,\pi/2)
+\]
+si chiama \emph{arco tangente}. Per definizione si ha
+\[
+  \arctg \tg x = x, \qquad \forall x \in (-\pi/2, \pi/2)
+\]
+e
+\[
+  \tg\arctg x = x, \qquad \forall x \in \RR.
+\]
+
+Grazie al teorema~\ref{th:monotona_continua}%
+visto che quest funzioni sono monotone e bigettive
+possiamo affermare che
+le funzioni $\arcsin$, $\arccos$ e $\arctg$ sono funzioni continue.
+
+\begin{exercise}
+Dimostrare che per ogni $x>0$ si ha
+\[
+  \arctg \frac 1 x = \frac \pi 2 - \arctg x.
+\]
+\end{exercise}
+
+\section{funzioni iperboliche}
+
+\begin{definition}[funzioni iperboliche]
+Le funzioni
+\emph{coseno iperbolico} e \emph{seno iperbolico}
+sono definite, per ogni $x\in \RR$,
+come segue:
+\mymargin{$\sinh$, $\cosh$}%
+\index{$\sinh$, $\cosh$}%
+\index{funzioni!iperboliche}%
+\index{seno!iperbolico}%
+\index{coseno!iperbolico}%
+\index{$\sinh$}%
+\index{$\cosh$}%
+\begin{equation}
+\label{eq:sinh_cosh}
+  \cosh x = \frac{e^x + e^{-x}}{2},
+  \qquad
+  \sinh x = \frac{e^x - e^{-x}}{2}.
+\end{equation}
+\end{definition}
+
+\begin{theorem}[proprietà delle funzioni iperboliche]
+Valgono le seguenti proprietà.
+\begin{enumerate}
+\item
+la funzione $\sinh$ è dispari, $\cosh$ è pari:
+\[
+\sinh(-x) = -\sinh(x),
+\qquad
+\cosh(-x) = \cosh(x);
+\]
+
+\item
+i punti del piano con coordinate $(\cosh x, \sinh x)$
+per $x\in \RR$
+sono disposti su un ramo di iperbole in quanto vale:
+\[
+  \cosh^2 x - \sinh^2 x = 1;
+\]
+
+\item formule di addizione:
+\begin{align*}
+  \cosh(\alpha+\beta) &= \cosh \alpha \cosh \beta + \sinh \alpha \sinh \beta,\\
+  \sinh(\alpha+\beta) &= \sinh \alpha \cosh \beta + \cosh \alpha \sinh \beta;
+\end{align*}
+
+\item si ha
+\begin{align*}
+  \cosh x
+  &= \sum_{k=0}^{+\infty} \frac{x^{2k}}{(2k)!}
+  = 1 + \frac{x^2}{2} + \frac{x^4}{4!} + \frac{x^6}{6!} + \dots \\
+  \sinh x
+  &= \sum_{k=0}^{+\infty} \frac{x^{2k+1}}{(2k+1)!}
+  = x + \frac{x^3}{6} + \frac{x^5}{5!} + \frac{x^7}{7!} + \dots
+\end{align*}
+
+\item
+la funzione $\sinh$ è strettamente crescente su tutto $\RR$,
+la funzione $\cosh$
+è strettamente crescente sull'intervallo
+$[0,+\infty)$ e strettamente decrescente
+nell'intervallo $(-\infty,0]$;
+
+\item per $x\to +\infty$ si ha $\sinh x \to +\infty$, $\cosh x \to +\infty$, 
+per $x\to -\infty$ si ha $\sinh x \to -\infty$, $\cosh x \to +\infty$.
+
+\end{enumerate}
+\end{theorem}
+
+\newsavebox{\qrfigiperb}\sbox{\qrfigiperb}{\myurlhere{figiperb}{funzioni iperboliche}}%
+\begin{figure}
+  \centering%
+  \begin{tikzpicture}[scale=0.75]
+  \draw[->] (-6,0) -- (6,0) node[right] {$x$};
+  \draw[->] (0,-3) -- (0,3) node[above] {$y$};
+  \foreach \y in {1, -1} {
+    \draw[shift={(0,\y)},lightgray] (-6,0) -- (6,0);
+  }
+  \draw (0,1) node [above right] {$1$};
+  \draw (0,-1) node [below right] {$-1$};
+  \draw[domain=-6:6,smooth,variable=\x,brown,thick] plot ({\x},{tanh(\x)});
+  \draw[domain=-1.75:1.75,smooth,variable=\x,blue,thick] plot ({\x},{cosh(\x)});
+  \draw[domain=-1.75:1.75,smooth,variable=\x,red,thick] plot ({\x},{sinh(\x)});
+  \draw (-2.5,2) node[blue,below] {$y=\cosh x$};
+  \draw (2.7,1.5)  node[red,above] {$y=\sinh x$};
+  \draw (5,1) node[brown,above] {$y=\tgh x$};
+  \end{tikzpicture}
+  \caption{%
+    I grafici delle funzioni $\sinh$, $\cosh$ e $\tgh$.
+    \ifwidemargin\\\\\fi%
+    \usebox{\qrfigiperb}%
+  }
+\end{figure}
+
+\begin{proof}
+I primi tre punti si dimostrano facilmente per verifica diretta,
+utilizzando la definizione~\eqref{eq:sinh_cosh}.
+
+Gli sviluppi in serie si ottengono anch'essi sostituendo
+gli sviluppi dell'esponenziale nella definizione.
+Nel $\cosh$ i termini di grado dispari si cancellano, nel $\sinh$ si cancellano
+i termini di grado pari.
+
+Per quanto riguarda la monotonia si osserva che se $x\ge 0$ ogni
+addendo delle due serie esposte nel punto 4 è strettamente crescente
+(in quanto i coefficienti sono tutti positivi) e dunque le somme delle serie,
+cioè la funzione $\cosh$ e la funzione $\sinh$ sono strettamente crescenti
+sull'intervallo $[0,+\infty)$. La funzione $\sinh$, essendo dispari,
+risulta inoltre crescente anche sull'intervallo $(-\infty,0]$ e quindi
+è crescente su tutto $\RR$.
+
+Per l'ultima proprietà basterà usare la definizione~\eqref{eq:sinh_cosh}
+e ricordare che (teorema~\ref{th:ordine_infinito})
+se $x\to +\infty$ allora
+$e^x\to +\infty$ ed $e^{-x}=\frac{1}{e^{x}} \to 0$.
+\end{proof}
+
+Osserviamo che $\cosh 0 = 1$ e, per le proprietà di monotonia viste nel teorema
+precedente si ha $\cosh x \ge \cosh 0 = 1 > 0$. Dunque $\cosh x$ non si annulla
+mai e si può definire per ogni $x\in \RR$ la \emph{tangente iperbolica}
+\index{tangente!iperbolica}%
+\mymargin{$\tgh$}%
+\index{$\tgh$}%
+\[
+    \tgh x = \frac{\sinh x}{\cosh x}.
+\]
+
+La funzione $\sinh\colon \RR\to\RR$ è iniettiva in quanto strettamente crescente ed
+è surgettiva in quanto è continua e quindi assume tutti i valori compresi tra
+$\lim_{x\to+\infty} \sinh(x) = +\infty$ e $\lim_{x\to -\infty} \sinh(x) = -\infty$. 
+Dunque $\sinh\colon \RR \to \RR$
+è invertibile e la funzione inversa si chiama \emph{settore di seno iperbolico}
+e si denota con
+\mymargin{$\settsinh$}%
+\index{$\settsinh$}
+\index{settore!di seno iperbolico}
+\[
+    \settsinh \colon \RR \to \RR.
+\]
+Analogamente la funzione ristretta $\cosh\colon [0,+\infty)\to [1,+\infty)$ è
+iniettiva in quanto strettamente crescente ed è surgettiva in quanto
+è continua e assume su $[0,+\infty)$ tutti i valori compresi tra $\cosh(0)=1$ e
+$\lim_{x\to +\infty} \cosh x = +\infty$.
+Dunque la funzione $\cosh x$ ristretta a $[0,+\infty)\to [1,+\infty)$
+è invertibile e la funzione inversa si chiama \emph{settore di coseno iperbolico}
+\mymargin{$\settcosh$}%
+\index{$\settcosh$}
+\index{settore!di coseno iperbolico}
+\[
+    \settcosh \colon [1,+\infty)\to [0,+\infty).
+\]
+
+La funzione $\tgh x$ è strettamente crescente su tutto $\RR$ e assume tutti i valori strettamente compresi tra $-1$ e $1$.
+La funzione inversa si chiama $\setttgh$.
+
+\begin{exercise}
+Fissato $y\in \RR$ si risolva l'equazione
+\[
+    \frac{e^x - e^{-x}}{2} = y
+\]
+riconducendola ad una equazione di secondo grado nella variabile $t=e^x$.
+Si dimostri quindi che vale
+\[
+    \settsinh x = \ln\enclose{x + \sqrt{x^2 + 1}}.
+\]
+In modo analogo si dimostri che vale
+\[
+    \settcosh x = \ln\enclose{x + \sqrt{x^2 - 1}}
+\]
+e
+\[
+    \setttgh x = \ln \sqrt{\frac{1+x}{1-x}}.
+\]
+\end{exercise}
+
 %%%%%%%%%%%
 %%%%%%%%%%%
 \section{successioni estratte}
@@ -3934,6 +4217,7 @@ Visto che $f$ ha massimo $M$ e minimo $m$ si ha $f(x)\in [m,M]$ per ogni $x\in[a
 Ovviamente $m>-\infty$ e $M<+\infty$ in quanto $m$ e $M$ sono valori della funzione $f$.
 \end{proof}
 
+\begin{comment}
 \section{lunghezza di una linea}
 
 Una funzione $\vec u\colon [a,b]\to \RR^n$ può rappresentare 
@@ -4434,9 +4718,10 @@ definisce le funzioni $\cos t$ e $\sin t$ per ogni $t\in \RR$.
   con periodo $1$ e in modo simile potremmo 
   definire la funzione $\sin x$.
 }
-
+\end{comment}
 
 \section{l'esponenziale complesso}
+\label{sec:esponenziale_complesso}%
 
 L'esponenziale reale e le funzioni trigonometriche possono essere pensate 
 come strumenti intermedi per definire un isomorfismo naturale 
@@ -4445,20 +4730,7 @@ da $\CC$ come gruppo additivo in $\CC$ come gruppo moltiplicativo.
 Possiamo infatti definire la funzione $\exp \colon \CC \to \CC$ mediante 
 la \emph{formula di Eulero}
 \[
- \exp(x+iy) = e^x = (\cos y + i \sin y).
-\]
-Per analogia con l'esponenziale reale useremo anche la notazione 
-\mynote{%
-La notazione $e^z$ non ci deve far pensare che abbiamo definito 
-una operazione di elevamento a potenza tra numeri complessi. 
-In effetti non è possibile definire in maniera sensata e univoca 
-la potenza $z^w$ se la base $z$ non è un numero reale positivo.
-Questo è legato al fatto che la funzione esponenziale $e^z$
-non è univocamente invertibile e quindi non si può definire il 
-logaritmo $\ln z$ se non come funzione \emph{multivoca}.
-}
-\[
- e^z = \exp(z).  
+ \exp(x+iy) = e^x \cdot (\cos y + i \sin y).
 \]
 Questa funzione ha le seguenti proprietà:
 \begin{enumerate}
@@ -4469,129 +4741,116 @@ Questa funzione ha le seguenti proprietà:
 \end{enumerate}
 Visto che $\exp$ estende la funzione esponenziale reale $e^x$
 sarà anche naturale usare la stessa notazione ponendo:
+\mynote{%
+La notazione $e^z$ non ci deve far pensare che abbiamo definito 
+una operazione di elevamento a potenza tra numeri complessi. 
+In effetti non è possibile definire in maniera sensata e univoca 
+la potenza $z^w$ se la base $z$ non è un numero reale positivo.
+Questo è legato al fatto che la funzione esponenziale $e^z$
+non è univocamente invertibile e quindi non si può definire il 
+logaritmo $\ln z$ se non come funzione \emph{multivoca}.
+}%
 \[
-  e^z = \exp z = e^x\cdot (\cos y + i\sin y), \qquad z=x+iy.  
+  e^z = \exp z = e^x\cdot (\cos y + i\sin y), \qquad \text{se $z=x+iy$}.  
 \]
 
-Si noti che la funzione esponenziale compless è $2\pi i$ periodica, infatti 
+Si noti che la funzione esponenziale complessa è $2\pi i$ periodica, infatti 
 se $z=x+iy$ si ha 
 \[
 \exp(z+2\pi i) 
-= \exp(x+i(y+2\pi))  
-= e^x\phi\
+= e^x\cdot (\cos(y+2\pi) + i\sin(y+2\pi)) 
+= e^x\cdot (\cos y + i \sin y) 
+= \exp(z).
 \]
 
-Nel capitolo precedente abbiamo introdotto l'esponenziale complesso ed
-abbiamo osservato che la funzione $f\colon \RR \to \CC$ definita da
-$f(t) = e^{it}$ ha valori sulla circonferenza unitaria in quanto
-$\abs{e^{it}}=1$. Tramite la definizione~\ref{def:sincos}
-abbiamo introdotto le funzioni seno e coseno in
-modo che risulti $f(t) = \cos t + i \sin t$.
-Sappiamo che $f(0) = e^0 = 1$ e, per come abbiamo definito $\pi$,
-sappiamo che $f(\pi/2) = i$.
+% Nel capitolo precedente abbiamo introdotto l'esponenziale complesso ed
+% abbiamo osservato che la funzione $f\colon \RR \to \CC$ definita da
+% $f(t) = e^{it}$ ha valori sulla circonferenza unitaria in quanto
+% $\abs{e^{it}}=1$. Tramite la definizione~\ref{def:sincos}
+% abbiamo introdotto le funzioni seno e coseno in
+% modo che risulti $f(t) = \cos t + i \sin t$.
+% Sappiamo che $f(0) = e^0 = 1$ e, per come abbiamo definito $\pi$,
+% sappiamo che $f(\pi/2) = i$.
 
 \subsection{rappresentazione polare dei numeri complessi}
 
-I numeri complessi di modulo uno vengono chiamati \emph{unitari}.
-\mymargin{complessi unitari}%
-\index{complessi!unitari}%
-\index{unitario}%
-Geometricamente i numeri complessi unitari sono i punti della circonferenza
-unitaria centrata nell'origine del piano complesso.
-Se $z=x+iy$ è unitario si ha $x^2+y^2=1$.
-I prodotti e i
-reciproci dei numeri complessi unitari sono anch'essi unitari,
-risulta quindi che tali numeri formano un \emph{sottogruppo moltiplicativo}%
-\mynote{%
-Un \emph{gruppo} è un insieme su cui è definita una operazione
-(spesso denotata con il simbolo della moltiplicazione) che sia associativa,
-che abbia elemento neutro e tale che ogni elemento abbia un inverso.
-}
-del gruppo dei numeri complessi.
+Per come li abbiamo definiti i numeri complessi $z\in \CC$ si possono 
+rappresentare nella forma:
+\[
+  z = x + i y.
+\]
+Questa rappresentazione dei numeri complessi viene chiamata \emph{cartesiana}
+perché fa corrispondere ogni numero $z$ alle sue coordinate $(x,y)$ nel
+piano complesso (piano di Gauss). 
 
-Ogni numero complesso $z$ potrà essere scritto nella forma
+Grazie alla definizione di esponenziale complesso possiamo anche 
+dare una rappresentazione \emph{polare} dei numeri complessi.
+Se $z=x+iy$ è un qualunque numero complesso possiamo definire 
+$\rho = \abs{z} = \sqrt{x^2+y^2}$ il suo \emph{modulo} 
+ovvero la distanza geometrica tra il punto $z$ del piano complesso 
+e l'origine $0\in \CC$.
+Se $z\neq 0$ possiamo definire la misura dell'angolo individuato 
+da $z$ con l'asse delle $x$ come quell'unico 
+$\theta \in \closeopeninterval{0}{2\pi}$ tale che
 \[
-  z = \rho \cdot u
+  \begin{cases}
+    x = \rho \cos \theta,
+    y = \rho \sin \theta.
+  \end{cases}
 \]
-con $\rho\in \RR$, $\rho>0$ e $u\in\CC$ unitario.
-Basta infatti
-definire $\rho = \abs{z}$ e $u = z / \abs{z}$ (se $z\neq 0$, altrimenti
-si potrà scegliere arbitrariamente $u=1$).
+Si ha quindi 
+\[
+  z = \rho \cdot (\cos \theta + i \sin \theta). 
+\]
+I due numeri $\rho>0$ e $\theta\in\closeopeninterval{0}{2\pi}$ 
+si chiamano \emph{coordinate polari} del numero complesso $z$ 
+e identificano univocamente $z$. 
+Per la periodicità delle funzioni $\sin$ e $\cos$ risulta chiaro 
+che l'angolo $\theta$ può essere sostitutito con $\theta +2k\pi$ 
+per qualunque $k\in \ZZ$ lasciando invariato il punto $z$.
+Se $z=0$ allora $\rho=\abs{z}=0$ e la coordinata $\theta$ è irrilevante.
 
-\begin{theorem}[argomento]
-\index{fase}%
-Sia $z\in \CC$ un numero complesso non nullo. Allora esiste un
-unico $\theta\in [0,2\pi)$ tale che
+La rappresentazione \emph{esponenziale} di un numero complesso 
+è sostanzialmente identica alla rappresentazione polare 
+ma utilizza l'esponenziale complesso invece che 
+le funzioni trigonometriche. 
+Essendo $e^{i\theta} = \cos \theta + i\sin \theta$
+se $z=\rho\cdot (\cos \theta + i \sin \theta)$ potremo scrivere:
 \[
-z = \abs{z} e^{i\theta}.
+  z = \rho \cdot e^{i\theta}.  
 \]
-Denoteremo tale valore di $\theta$ come l'\emph{argomento}%
-\mymargin{argomento}%
-\index{argomento} 
-(o \emph{fase}) di $z$
-e scriveremo
-\[
-  \theta = \arg z.
-\]
-Se $z=0$ porremo per convenzione $\arg z=0$.
-\end{theorem}
-%
-\begin{proof}
-Sia $z\in \CC$, $z\neq 0$ e poniamo $u = z/\abs{z}$.
-Posto $u=x+iy$ con $x,y\in \RR$ si ha $\abs{u}^2 = x^2+y^2=1$.
 
-Se $y\ge 0$ se vogliamo che $y=\sin \theta$ con $\theta\in [0,2\pi)$
-dovrà necessariamente essere $\theta \in [0,\pi]$
-(altrimenti si avrebbe $\sin \theta<0$).
-E se vogliamo che sia $x=\cos \theta$ basterà (e si dovrà) scegliere
-$\theta = \arccos x$.
-Visto che $\sin^2 \theta + \cos^2\theta = 1 = x^2 + y^2$
-sapendo che $\cos \theta = x$
-si avrà
-$\sin^2 \theta = y^2$ cioè $\abs{\sin \theta}=\abs y$.
-Ma visto che $y\ge 0$ e $\sin \theta\ge 0$
-avremo, come voluto, $\sin \theta = y$.
-Se $y<0$ poniamo $\theta = 2\pi - \arccos x$
-cosicché si avrà $\theta \in (\pi, 2\pi)$
-e, come prima (verificare!),
-$x=\cos \theta$, $y=\sin \theta$.
+Se $z=\rho e^{i\theta}$
+il numero $\theta$ viene usualmente chiamato \emph{argomento}
+del numero complesso $z$ e si denota a volte 
+in questo modo:
+\[
+  \theta = \arg z.  
+\]
+La definizione di argomento è intrinsecamente ambigua 
+in quanto $\theta$ non è univocamente determinato
+(al posto di $\theta$ possiamo scegliere $\theta+2k\pi)$ 
+con qualunque $k\in \ZZ$).
+Per avere una definizione univoca si può imporre 
+la condizione $\theta\in\closeopeninterval{0}{2\pi}$.
+\mynote{Ma la condizione 
+$\theta\in\closeinterval{-\pi}{\pi}$ 
+andrebbe ugualmente bene.}
+Se $z=0$ possiamo definire, arbitrariamente, 
+$\arg z = 0$. 
 
-In ogni caso per ogni $z\neq 0$ abbiamo quindi trovato l'unico
-$\theta\in [0,2\pi)$ tale che
-\[
-  u
-  = x + i y
-  = \cos \theta + i\sin \theta
-  = e^{i\theta}.
-\]
-da cui
-\[
-  z = \abs{z}\cdot e^{i\theta}.
-\]
-\end{proof}
-
-Per ogni $z\in \CC$ posto
-\[
-  \rho = \abs{z}, \qquad \theta = \arg z
-\]
-si avrà quindi la \emph{rappresentazione esponenziale} o \emph{polare}
-\[
-  z = \rho e^{i\theta} = \rho \cdot \enclose{\cos \theta
-  + i \sin \theta}.
-\]
-Se $z=x+iy$ è la \emph{rappresentazione cartesiana}, si avranno
-le seguenti formule di conversione:
-\[
+Le formule di conversione da coordinate polari $\theta,\rho$ 
+a coordinate cartesiane $x,y$ è molto semplice:
 \begin{cases}
-  x = \rho \cos \theta\\
-  y = \rho \sin \theta
+ x = \rho \cos \theta,\\
+ y = \rho \sin \theta.
 \end{cases}
-\qquad
+Le formule inverse sono invece più antipatiche 
+da scrivere, si ha infatti:
 \begin{cases}
  \rho = \sqrt{x^2+y^2}\\
  \theta = \arg z
 \end{cases}
-\]
 con
 \[
   \arg z =
