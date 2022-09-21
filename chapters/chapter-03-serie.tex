@@ -2320,34 +2320,20 @@ che significa che $t\mapsto f(t\cdot z_0)$ è continua nel punto $t=1$.
 
 \section{la serie esponenziale}
 
-In questo capitolo proponiamo una definizione 
-della funzione esponenziale $\exp\colon \CC \to \CC$ 
-alternativa a quella data nel capitolo~\ref{sec:esponenziale_complesso}.
-Questa definizione non richiede la definizione preliminare 
-dell'esponenziale reale (e neanche delle potenze con esponente reale)
-né delle funzioni trigonometriche che potrebbero 
-essere quindi definite di conseguenza 
-(così come le costanti $e$ e $\pi$).
-
-Possiamo definire la funzione $f \colon \CC \to \CC$
-\mymargin{$\exp z$}%
-\index{$\exp z$}
-come somma della serie di potenze
+Consideriamo la funzione $f \colon \CC \to \CC$
+definita da 
 \begin{equation}\label{eq:def_exp}
 f(z) = \sum_{k=0}^{+\infty} \frac{z^k}{k!}.
 \end{equation}
 La funzione è definita su tutto $\CC$ in quanto (grazie al criterio del rapporto)
 è facile verificare che il raggio di convergenza di questa serie è $R=+\infty$.
 
-I teoremi seguenti ci permetteranno di affermare che la funzione $f(z)$,
-definita
-per ogni $z\in \CC$ tramite \ref{eq:def_exp} coincide con
-la funzione esponenziale $\exp z$ definita nel 
-capitolo~\ref{sec:esponenziale_complesso}.
-Anzi potremmo di buon grado prendere~\ref{eq:def_exp} come definizione 
-dell'esponenziale complesso.
+Il nostro obiettivo sarà quello di dimostrare che $f(z)=e^z$ per ogni $z\in \CC$.
+In effetti si potrebbe prendere~\ref{eq:def_exp} come definizione 
+dell'esponenziale complesso e definire la funzione esponenziale 
+reale e le funzioni trigonometriche di conseguenza.
 
-\begin{theorem}[proprietà dell'esponenziale complesso]
+\begin{theorem}[proprietà della serie esponenziale]
 \label{th:exp_complesso}%
 Sia $f$ la funzione definita da ~\eqref{eq:def_exp}.
 Si ha:
@@ -2446,7 +2432,7 @@ quindi se $z_n \to 0$ si ha
 \end{enumerate}
 \end{proof}
 
-\begin{theorem}[collegamento tra due definizioni di esponenziale]%
+\begin{theorem}[coincidenza tra funzione esponenziale e serie esponenziale]%
 \label{th:exp=ex}%
 \index{funzione!esponenziale}%
 \mymark{***}%
@@ -2496,6 +2482,15 @@ per il limite notevole (corollario~\ref{cor:limite_notevole_e})
 Deduciamo quindi che $\ln a= 1$ ovvero che $a=e$.
 \end{proof}
 
+Con una certa fatica sarebbe anche possibile dimostrare che 
+effettivamente $f(z)=e^z$ (nel teorema precedente l'abbiamo dimostrato 
+solamente per $x\in \RR$). 
+Si tratterebbe di verificare che la funzione 
+$\phi(x) = f\enclose{i\frac{x}{2\pi}}$
+ha le proprietà enunciate nel teorema~\ref{th:omomorfismo_U}.
+Sarà però più semplice utilizzare le derivate, quindi rimandiamo questa 
+verifica al prossimo capitolo.
+
 % Aver distinto le due definizioni di $e^x$ (tramite funzione potenza) e di $\exp(x)$ (tramite somma della serie esponenziale) è puramente strumentale.
 % C'è una unica funzione esponenziale che può essere definita in
 % un modo o nell'altro. Non ci si fissi quindi con l'identificare
@@ -2512,17 +2507,22 @@ Deduciamo quindi che $\ln a= 1$ ovvero che $a=e$.
 % della funzione esponenziale già definita
 % sulla retta reale.
 
-In analogia con il corollario~\ref{cor:limite_notevole_ex}
-si ha il seguente risultato che fornisce anche un 
-modo alternativo per dimostrare il teorema~\ref{th:exp=ex}.
+Per $x\in \RR$ abbiamo dimostrato che 
+\[
+  e^x = \lim_{n\to +\infty} \enclose{1+\frac x n}^n.  
+\]
+Il seguente teorema ci dice che la serie esponenziale $f(z)$ 
+soddisfa la stessa proprietà per ogni $z \in \CC$.
+Dunque in effetti ci fornisce una dimostrazione 
+alternativa dell'identità $f(x) = e^x$ e un indizio ulteriore 
+della coincidenza tra $f(z)$ ed $e^z$.
 
 \begin{theorem}[limite notevole esponenziale complesso]%
 \label{th:limite_notevole_esponenziale_complesso}%
 \mymark{*}%
 Per ogni $z\in \CC$ risulta
 \[
-  \lim_{n \to +\infty} \enclose{1+\frac z n}^n  
-  = \sum_{k=0}^{+\infty} \frac{z^k}{k!}.
+  f(z) = \lim_{n \to +\infty} \enclose{1+\frac z n}^n  
 \]
 \end{theorem}
 %
@@ -2638,14 +2638,14 @@ Si veda il codice a pagina~\pageref{code:compute_e}.}
   \label{th:approx_e}%
   \index{$\exp$!approssimazione}%
   \index{approssimazione!di $\exp$}%
-  Se $\abs{z}\le 1$ si ha 
+  Se $\abs{x}\le 1$ si ha 
   \begin{equation}\label{eq:stima_exp}
-    \abs{\exp(z) - \sum_{k=0}^n \frac{z^k}{k!}}
-    \le \frac{\abs{z}^{n+1}}{n\cdot n!}.
+    \abs{e^x - \sum_{k=0}^n \frac{x^k}{k!}}
+    \le \frac{\abs{x}^{n+1}}{n\cdot n!}.
   \end{equation}
-  In particolare ponendo $z=1$ si trova
+  In particolare ponendo $x=1$ si trova
   \begin{equation}\label{eq:stima_e}
-     0 < e - \sum_{k=0}^n \frac{1}{k!} \le \frac{1}{n \cdot n!}.
+     0 < e - \sum_{k=0}^n \frac{1}{k!} \le \frac{1}{n \cdot n!}
   \end{equation}
   e per $n=5$ si ottiene
   \begin{equation}
@@ -2657,16 +2657,16 @@ Si veda il codice a pagina~\pageref{code:compute_e}.}
   La coda della serie esponenziale può essere stimata 
   tramite la somma di una serie geometrica:
   \begin{align*}
-    \abs{\exp z - \sum_{k=0}^n \frac {z^k} {k!}}
-    & \le \sum_{k=n+1}^{+\infty} \frac{\abs{z}^k}{k!} 
-     = \sum_{k=0}^{+\infty}\frac{\abs{z}^{n+k+1}}{(n+k+1)!} \\
-    & \le \sum_{k=0}^{+\infty}\frac{\abs{z}^{n+1+k}}{(n+1)^{k+1}\cdot n!}
-     = \frac{\abs{z}^{n+1}}{(n+1)\cdot n!}\sum_{k=0}^{+\infty} \enclose{\frac{\abs{z}}{(n+1)}}^k \\
-    & = \frac{\abs{z}^{n+1}}{(n+1)\cdot n!} \cdot \frac{1}{1-\frac{\abs{z}}{(n+1)}} 
-     = \frac{\abs{z}^{n+1}}{(n+1-\abs{z})\cdot n!}.
+    \abs{f(x) - \sum_{k=0}^n \frac {x^k} {k!}}
+    & \le \sum_{k=n+1}^{+\infty} \frac{\abs{x}^k}{k!} 
+     = \sum_{k=0}^{+\infty}\frac{\abs{x}^{n+k+1}}{(n+k+1)!} \\
+    & \le \sum_{k=0}^{+\infty}\frac{\abs{x}^{n+1+k}}{(n+1)^{k+1}\cdot n!}
+     = \frac{\abs{x}^{n+1}}{(n+1)\cdot n!}\sum_{k=0}^{+\infty} \enclose{\frac{\abs{x}}{(n+1)}}^k \\
+    & = \frac{\abs{x}^{n+1}}{(n+1)\cdot n!} \cdot \frac{1}{1-\frac{\abs{x}}{(n+1)}} 
+     = \frac{\abs{x}^{n+1}}{(n+1-\abs{x})\cdot n!}.
   \end{align*}
-  Se $\abs{z}\le 1$ si ottiene quindi la stima~\eqref{eq:stima_exp}.
-  Se $z=1$ la serie esponenziale è a termini positivi e dunque 
+  Se $\abs{x}\le 1$ si ottiene quindi la stima~\eqref{eq:stima_exp}.
+  Se $x=1$ la serie esponenziale è a termini positivi e dunque 
   approssima $e$ per difetto: si ottiene dunque~\eqref{eq:stima_e}.
   Per $n=5$ si ha
   \[
@@ -2718,7 +2718,7 @@ se fosse $e=\frac p q$ si avrebbe $n! e \in \ZZ$ per ogni
 $n>q$.
 \end{proof}
 
-
+\begin{comment}
 \subsection{definizione alternativa delle funzioni trigonometriche}
 
 In questa sezione proponiamo una definizione alternativa 
@@ -2750,6 +2750,10 @@ cosicché valga per definizione la
 \begin{theorem}[proprietà delle funzioni seno e coseno]
 \index{proprietà!delle funzioni seno e coseno}%
 \mymark{***}%
+Se definiamo 
+\[
+\cos x = \Re e^{ix},
+\]
 Le funzioni $\sin$ e $\cos$ appena definite
 soddisfano le stesse proprietà 
 delle corrispondenti funzioni definite 
@@ -3095,13 +3099,7 @@ Infine essendo $e^{2i\pi} = 1$ si osserva che la funzione
 $e^{2ix}$ e di conseguenza le funzioni $\sin x$ e $\cos x$
 sono periodiche di periodo $2\pi$.
 \end{proof}
-
-\begin{exercise}
-  Utilizzando il teorema~\ref{th:approx_e} dimostrare che
-  \[
-  \lim_{n\to +\infty} n \sin(2\pi e\, n!) = 2\pi.
-  \]
-\end{exercise}
+\end{comment}
 
 %%%%
 %%%%
@@ -3109,6 +3107,13 @@ sono periodiche di periodo $2\pi$.
 
 
 \section{esercizi}
+
+\begin{exercise}
+  Utilizzando il teorema~\ref{th:approx_e} dimostrare che
+  \[
+  \lim_{n\to +\infty} n \sin(2\pi e\, n!) = 2\pi.
+  \]
+\end{exercise}
 
 \begin{exercise}
 Determinare il carattere delle seguenti serie
