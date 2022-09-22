@@ -639,10 +639,64 @@ Se supponiamo inoltre che $H$ sia invertibile si avrà:
 \]
 
 \begin{example}
+Risolviamo l'equazione 
+\begin{equation}\label{eq:separabile}
+  u' = x^2 e^u.
+\end{equation}
+\end{example}
+%
+\begin{proof}[Svolgimento.]
+Visto che $e^u \neq 0$ possiamo dividere ambo i membri dell'equazione 
+per $e^u$:
+\[
+  \frac{u'(x)}{e^{u(x)}} = x^2  
+\]
+prendendo le primitive di ambo i membri otteniamo
+\[
+ \int\frac{u'(x)}{e^{u(x)}}\, dx  = \int x^2\, dx 
+\]
+e facendo il cambio di variabili: $u=u(x)$, $du = u'(x) dx$ 
+otteniamo:
+\[
+  \Enclose{\int e^{-u}\, \, du}_{u=u(x)} = \frac{x^3}{3} + c
+\]
+da cui 
+\[
+  -e^{u(x)} = \frac{x^3}{3} + c
+\]
+ovvero $u(x) = \ln\enclose{-c -  \frac{x^3}{3}}$.
+Posto $b=-c$
+si ottiene 
+\[
+  u(x) = \ln \enclose{b-\frac{x^3}{3}}.
+\]
+Dunque per ogni $b\in \RR$ si ottiene una soluzione 
+$u\colon \openinterval{-\infty}{\sqrt[3]{3b}}\to \RR$.
+\end{proof}
+\newsavebox{\qrseparabile}\sbox{\qrseparabile}{%
+\myqrshortdoclink{separabile}{i grafici delle soluzioni dell'equazione differenziale (\getrefnumber{eq:separabile})}}
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth]{fig_edo_separabile.pdf}
+\label{fig:separabile}
+\caption{i grafici delle soluzioni dell'equazione differenziale~\eqref{eq:separabile}.
+Si noti che ogni soluzione ha un asintoto verticale, dunque le singole 
+soluzioni non sono definite su tutto $\RR$.
+Ma scelto un qualunque punto del piano c'è una soluzione che passa per 
+quel punto e inoltre due diverse soluzioni non si incontrano mai.
+Queste proprietà sono garantite dal teorema~\ref{th:banach-caccioppoli}.
+\ifwidemargin\\\\\fi%
+\usebox{\qrseparabile}}
+\end{figure}
+
+\begin{example}
 Risolviamo l'equazione
 \begin{equation}\label{eq:43856}
   u' = x u^2 + x.
 \end{equation}
+\end{example}
+%
+\begin{proof}[Svolgimento.]
 E' una equazione del primo ordine in forma normale.
 Raccogliendo $x$ al lato destro si ottiene una equazione a variabili separabili.
 Dividendo ambo i membri per $u^2+1$ (che è sempre diverso da zero) si ottiene l'equazione equivalente
@@ -701,7 +755,7 @@ definita su tutto il suo dominio osservando che in tal caso si può
 supporre che sia $c\in \left(-\frac \pi 2, \frac \pi 2\right]$.
 Invece di ottenere un singolo intervallo per ogni $c$ si ottengono così
 tutti gli infiniti intervalli.
-\end{example}
+\end{proof}
 
 \begin{remark}
 L'esempio precedente mette in evidenza il fatto che le soluzioni massimali possono essere definite
@@ -996,6 +1050,8 @@ In questo modo abbiamo determinato la funzione inversa della soluzione $u(x)$.
 \index{pendolo!periodo del}%
 \index{oscillazioni!piccole del pendolo}%
 \index{piccole oscillazioni}%
+\end{example}
+\begin{proof}[Svolgimento.]
 Sia $u(x)$
 l'angolo di scostamento dalla verticale
 al tempo $x$ di un pendolo semplice di lunghezza $\ell$.
@@ -1105,8 +1161,10 @@ Utilizzando ora la serie binomiale (teorema~\ref{th:serie_binomiale})
 possiamo scrivere
 \begin{align*}
 \sqrt{\frac g \ell} \cdot\frac{T}{4}
-&= \int_0^{\frac \pi 2} \sum_{k=0}^{+\infty}{-\frac 1 2 \choose k} \enclose{-\sin^2 t\sin^2 \frac{u_0}2}^{k}\, dt.\\
-&= \int_0^{\frac \pi 2} \sum_{k=0}^{+\infty}\frac{(2k-1)!!}{(2k)!!} \enclose{\sin^2 t\sin^2 \frac{u_0}2}^{k}\, dt.
+&= \int_0^{\frac \pi 2} \sum_{k=0}^{+\infty}{-\frac 1 2 \choose k} \enclose{-\sin^2 t\sin^2 \frac{u_0}2}^{k}\, dt
+\end{align*}
+\begin{align*}
+&= \int_0^{\frac \pi 2} \sum_{k=0}^{+\infty}\frac{(2k-1)!!}{(2k)!!} \enclose{\sin^2 t\sin^2 \frac{u_0}2}^{k}\, dt
 \end{align*}
 in quanto si ha
 \begin{align*}
@@ -1125,24 +1183,21 @@ dunque la serie di potenze converge se
 $ \sin^2 t \le \frac{1}{\sin^2 \frac{u_0}{2}}$
 che significa semplicemente
 $ \sin \frac u 2 < 1$.
-Stiamo quindi facendo un integrale esteso all'intero raggio
+Stiamo quindi facendo un integrale strettamente all'interno 
+del raggio
 di convergenza della serie. Sappiamo che la serie
-converge totalmente e quindi uniformemente sugli intervalli
-chiusi strettamente contenuti nel raggio di convergenza.
-Visto che la serie è a termini positivi le somme parziali
-convergono alla somma della serie e sono tutte inferiori
-a tale somma.
-Abbiamo già visto, inoltre, che la somma della serie
-è integrabile con integrale finito.
-Dunque possiamo applicare
-il teorema di convergenza dominata (teorema~\ref{th:convergenza_dominata} con $f=g$)
-per scambiare la serie con l'integrale:
+converge totalmente e quindi uniformemente su
+tale intervallo.
+Dunque, applicando il teorema~\ref{th:scambio_limite_integrale} alle somme parziali 
+della serie, 
+possiamo scambiare la serie con l'integrale:
 \[
 \sqrt{\frac g \ell} \cdot\frac{T}{4}
 = \sum_{k=0}^{+\infty}\frac{(2k-1)!!}{(2k)!!} \enclose{\sin \frac{u_0}2}^{2k}
 \int_0^{\frac \pi 2}  \enclose{\sin t}^{2k}\, dt
 \]
-l'integrale è ora sostanzialmente lo stesso $I_n$ che abbiamo calcolato nel teorema~\ref{th:wallis}:
+l'integrale è ora sostanzialmente lo stesso $I_n$ che abbiamo 
+calcolato nel teorema~\ref{th:wallis}:
 \[
   \int_0^{\frac \pi 2} \enclose{\sin t}^{2k}\, dt
   = \frac 1 2 \int_0^{\pi} \enclose{\sin t}^{2k}\, dt
@@ -1169,9 +1224,8 @@ serie per $k=0,1,2,3,4$ in quanto la somma dei termini per $k\ge 5$ mi darà
  &\quad + \enclose{\frac{1\cdot 3 \cdot 5}{2\cdot 4 \cdot 6}}^2
  \enclose{\sin^2 \frac {u_0} 2}^3 + \enclose{\frac{1\cdot 3\cdot 5 \cdot 7}{2\cdot 4\cdot 6\cdot 8}}^2
  \enclose{\sin^2 \frac {u_0} 2}^4 + o(u_0^8) \\
-% \end{align*}
-% \begin{align*}
- %
+%\end{align*}
+%\begin{align*}
  &=
 1 + \frac 1 4 \enclose{\frac{u_0^2}{4} - \frac{u_0^4}{2^4\cdot 3} + \frac{u_0^6}{2^5\cdot 3^2\cdot 5}
 - \frac{u_0^8}{2^8\cdot 3^2\cdot 5\cdot 7}} \\
@@ -1180,7 +1234,6 @@ serie per $k=0,1,2,3,4$ in quanto la somma dei termini per $k\ge 5$ mi darà
 &\quad + \frac{5^2}{2^8}\enclose{\frac{u_0^2}{4} - \frac{u_0^4}{2^4\cdot 3}}^3
 + \frac{5^2\cdot 7^2}{2^{14}}
 \frac {u_0^8} {2^8} + o(u_0^8)\\
-%
 %\end{align*}
 %\begin{align*}
 &=
@@ -1198,8 +1251,7 @@ u_0^8 + o(u_0^8)\\
  + \frac{22931}{2^{22}\cdot 3^2\cdot 5\cdot 7} u_0^8
  + o(u_0^8).\\
 \end{align*}
-
-\end{example}
+\end{proof}
 
 %%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%
@@ -1436,6 +1488,9 @@ che sia derivabile e che soddisfi:
 
 \begin{theorem}[Cauchy-Lipschitz: esistenza e unicità locale]%
   \label{th:cauchy_lipschitz}%
+  \index{Cauchy!teorema di Cauchy-Lipschitz}%
+  \index{teorema!di Cauchy-Lipschitz}%
+  \index{teorema!di esistenza e unicità locale}%  
 Siano $a\le x_0 \le b$, $R>0$, $\vec y_0 \in \RR^n$. 
 Posto $K=\ENCLOSE{\vec y\in \RR^n \colon \abs{\vec y - \vec y_0}\le R}\subset \RR^n$ 
 sia $\vec f\colon [a,b]\times K\to \RR^n$ una funzione con le proprietà:
@@ -1449,6 +1504,12 @@ sia $\vec f\colon [a,b]\times K\to \RR^n$ una funzione con le proprietà:
 \end{enumerate}
 
 Allora esiste $\delta>0$ tale che scelto comunque un intervallo $I$ con 
+\mynote{Per quanto riguarda l'esistenza si potrebbe scegliere 
+direttamente $I=[x_0-\delta,x_0+\delta]$ perché avere esistenza su un 
+intervallo più grande ci dà più informazione.
+Ma un intervallo più piccolo ci dà invece più informazione sull'unicità:
+non è possibile che due soluzioni coincidano neanche se restringiamo 
+arbitrariamente l'intervallo in cui sono definite.} %
 $x_0\in I \subset [a,b]\cap [x_0-\delta, x_0+\delta]$ 
 esiste una unica funzione derivabile $\vec u\colon I \to K$ 
 che risolve il problema di Cauchy~\eqref{eq:problema_cauchy}.
@@ -1574,10 +1635,18 @@ Se $\vec f\in C^1(\Omega,\RR^m)$
 allora $f$ soddisfa la condizione
 di Cauchy-Lipschitz (definizione~\ref{def:cauchy_lipschitz})
 in ogni cilindro chiuso e limitato contenuto in $\Omega$.
+
+In particolare, grazie al teorema~\ref{th:cauchy_lipschitz} 
+per ogni $(x_0,\vec y_0)\in \Omega$ esiste un intervallo aperto 
+$I$ contenente il punto $x_0$
+ed esiste una unica soluzione $u$ 
+del problema di Cauchy~\eqref{eq:problema_cauchy} definita 
+su tale intervallo $I$.
 \end{proposition}
 %
 \begin{proof}
 \mymark{***}%
+Se prendiamo $a<x_0$ 
 Se prendiamo un qualunque cilindro $[a,b]\times K$ con 
 \[
   K=\ENCLOSE{\vec y\in \RR^n\colon \abs{\vec y-\vec y_0}\le R}, 
@@ -2528,7 +2597,9 @@ eventualmente sfasata di un angolo $\theta$:
   =
   \rho \cos(\beta x - \theta)
 \]
-dove $\rho = \abs{a+ib} = \sqrt{a^2+b^2}$ e $\theta=\arg(a+ib)$. Infatti
+dove $\rho = \abs{a+ib} = \sqrt{a^2+b^2}$ e 
+$\theta=\arg(a+ib)$. 
+Infatti
 posto $a=\rho\cos \theta$, $b=\rho \sin \theta$ si ha,
 grazie alla formula di addizione:
 \[

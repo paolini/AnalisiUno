@@ -995,8 +995,89 @@ Per concludere che l'insieme delle funzioni integrali sia uno spazio vettoriale
 la funzione $0$ risulta integrabile.
 \end{proof}
 
-\begin{theorem}[proprietà di reticolo]
-\label{th:reticolo}%
+\begin{theorem}[integrabilità della funzione composta]
+  \label{th:composta_integrabile}%
+  \index{integrabilità!della funzione composta}%
+  \index{composizione!integrabilità}%
+  Sia $\phi\colon [\alpha,\beta]\to \RR$ una funzione 
+  continua e sia $f\colon [a,b]\to [\alpha,\beta]$ una 
+  funzione Riemann-integrabile.
+  Allora la funzione composta 
+  $\phi\circ f\colon[a,b]\to \RR$ è 
+  limitata e Riemann integrabile.
+\end{theorem}
+%
+\begin{proof}
+Per comodità denotiamo con $\osc A = \sup A - \inf A$ 
+l'\emph{oscillazione} dell'insieme $A$. 
+Per i criteri di integrabilità
+fissato $\eps>0$ basta trovare una suddivisione $P$
+per cui si abbia $S^*(\phi\circ f,P) - S_*(\phi\circ f,P)\le \eps(b-a)$.
+Per il teorema~\ref{th:heine_cantor} di Heine-Cantor 
+la funzione $\phi$ è uniformemente continua su $[\alpha,\beta]$ 
+e quindi esiste $\delta>0$ tale che se $\abs{y_1-y_2}< \delta$
+allora $\abs{\phi(y_1)-\phi(y_2)}< \eps$. 
+Per il teorema~\ref{th:weierstrass} di Weierstrass, invece, 
+esiste $M$ tale che $\abs{\phi(y)}\le M$ per ogni $y\in [\alpha,\beta]$.
+In particolare questo garantisc che la funzione composta $\phi \circ f$ 
+sia limitata: $\phi(f(x))\le M$ per ogni $x\in [a,b]$.
+Scelto $\sigma = \frac{\eps \delta}{4M} (b-a)$ 
+(vedremo alla fine perché si sceglie così)
+per l'integrabilità di $f$ sappiamo che 
+esiste una suddivisione $P$ fatta 
+dai punti $x_0=a < x_1 < \dots < x_n=b$ tale che 
+\[
+  S^*(f,P) - S_*(f,P) 
+  = \sum_{k=1}^n (x_k - x_{k-1})
+  \cdot \osc f([x_{k-1},x_k])
+  \le \sigma.
+\]
+
+Vogliamo dimostrare che la seguente quantità è piccola:
+\[
+ S^*(\phi\circ f,P) - S_*(\phi\circ f,P)
+ = \sum_{k=1}^n (x_k - x_{k-1}) \cdot \osc \phi(f([x_{k-1},x_k])).
+\]
+Se $\osc f([x_{k-1},x_k]) \le \frac{\delta }2$ 
+per ogni $t,s\in[x_{k-1},x_k]$ si ha 
+$\abs{f(t)-f(s)}\le \frac{\delta}{2}$
+e quindi, per l'uniforme continuità di $\phi$,
+$\abs{\phi(f(t))-\phi(f(s))}<\eps$.
+Dunque 
+\[
+  \osc f([x_{k-1},x_k]) \le \frac{\delta}{2} 
+  \implies  
+  \osc \phi(f([x_{k-1},x_k]))\le \eps.
+\] 
+D'altra parte gli intervalli in cui 
+$\osc f([x_{k-1},x_k]) > \frac{\delta}{2}$ 
+dovranno essere pochi perché altrimenti la funzione non sarebbe 
+integrabile.
+Se chiamiamo $K$ l'insieme degli indici $k$ per cui si 
+ha $M_k-m_k\ge \frac \delta 2$, dovrà infatti essere 
+\[
+  \frac{\delta}{2}\sum_{k\in K} (x_k-x_{k-1})
+  \le \sum_{k\in K} (x_k-x_{k-1})\cdot \osc f([x_{k-1},x_k])
+  \le S^*(f,P) - S_*(f,P) \le \sigma.
+\]
+Visto che la funzione $\phi$ assume valori tra $-M$ e $M$, 
+si ha  
+\[
+   \sum_{k\in K} (x_k-x_{k-1})
+   \osc \phi(f([x_{k-1},x_k]))
+   \le 2M \sum_{k\in K} (x_k-x_{k-1})
+   \le \frac{4M\sigma}{\delta} = \eps (b-a).
+\]
+
+In conclusione: 
+\begin{align*}
+  S^*(\sigma\circ f,P)-S_*(\sigma\circ f,P)
+  \le \eps (b-a) + \sum_{k\not \in k} (x_k-x_{k-1}) \eps
+  = 2\eps (b-a)
+\end{align*}
+che per i criteri di integrabilità ci dà la tesi.
+\end{proof}
+
 Se $f$ e $g$ sono funzioni a valori reali definiamo le
 funzioni $f\wedge g$ (minimo), $f \vee g$ (massimo),
 $f^+$ (parte positiva) e $f^-$ (parte negativa) come segue:
@@ -1016,139 +1097,119 @@ $f^+$ (parte positiva) e $f^-$ (parte negativa) come segue:
 \end{gather*}
 Risulta $f= f^+ - f^-$, $\abs{f}=f^+ + f^-$.
 
-Se $f$ è una funzione Riemann-integrabile sull'intervallo $[a,b]$ allora
-anche $\abs{f}$, $f^+$ e $f^-$ sono integrabili e, se
-anche $g$ è Riemann-integrabile su $[a,b]$, allora anche $f\vee g$ e $f\wedge g$
-sono integrabili sullo stesso intervallo.
-Inoltre si ha 
-\mynote{Si noti che se $b<a$ allora $\int_a^b\abs{f}\le 0$.}
-\begin{equation}\label{eq:489732}
+\begin{theorem}[proprietà di reticolo]%
+  \label{th:reticolo}%  
+  Se $f$ è una funzione Riemann-integrabile sull'intervallo $[a,b]$ allora
+  anche $\abs{f}$, $f^+$ e $f^-$ sono integrabili e, se
+  anche $g$ è Riemann-integrabile su $[a,b]$, allora anche $f\vee g$ e $f\wedge g$
+  sono integrabili sullo stesso intervallo.
+  Inoltre si ha 
+  \mynote{Si noti che se $b<a$ allora $\int_a^b\abs{f}\le 0$.}
+  \begin{equation}\label{eq:489732}
+    \abs{\int_a^b f} 
+    \le 
+    \abs{\int_a^b \abs{f}}. 
+  \end{equation}
+  \end{theorem}
+  \begin{proof}
+  Basta osservare che le funzioni 
+  $y\mapsto \abs{y}$, $y\mapsto y^+$ e $y\mapsto y^-$ 
+  sono funzioni continue, e applicare il teorema~\ref{th:composta_integrabile}
+  di integrabilità della funzione composta.
+  \end{proof}
+  %
+  \begin{comment}
+  \begin{proof}
+  Dimostriamo innanzitutto che se $f$ è integrabile anche $f^+$ lo è.
+  Si tratta di osservare che 
+  \begin{equation}\label{eq:77736456}
+    \sup_{x\in A} f^+(x) - \inf_{x\in A} f^+(x) \le
+    \sup_{x\in A} f(x) - \inf_{x\in A} f(x)
+  \end{equation}
+  perché se questo è vero allora su qualunque suddivisione $P$
+  si ottiene:
+  \[
+    0 \le S^*(f^+,P) - S_*(f^+,P) \le S^*(f,P) - S_*(f,P)
+  \]
+  e di conseguenza
+  \[
+    0 \le I^*(f^+) - I_*(f^+) \le I^*(f) - I_*(f).  
+  \]
+  Ma essendo $f$ integrabile si ha $I^*(f)=I_*(f)$ 
+  e quindi $I^*(f^+)=I_*(f^+)$ e anche $f^+$ 
+  risulta essere integrabile.
+  
+  Per dimostrare~\eqref{eq:77736456} basta considerare tre casi possibili.
+  Se $\sup f(A)\le 0$ significa che $f^+(x)=0$ per ogni $x\in A$ 
+  e quindi banalmente $\sup f^+(A)-\inf f^+(A) = 0$.
+  Analogamente se $\inf f(A)\ge 0$ si ha $f^+(x)=f(x)$ per ogni $x\in A$ 
+  e quindi banalmente $\sup f^+(A)-\inf f^+(A) = \sup f(A)-\inf f(A)$.
+  Infine se $\sup f(A)>0$ e $\inf f(A)<0$ allora 
+  esistono punti in cui $f$ è positiva e punti in cui $f$ è negativa.
+  Dunque $\sup f^+(A) = \sup f(A)$ (perché i punti in cui $f$ è negativa 
+  sono irrilevanti per il $\sup$ essendoci punti in cui $f$ è più 
+  grande e su questi punti $f^+=f$)
+  mentre $\inf f^+(A) = \min f^+(A) = 0$ perché ci sono punti in cui 
+  $f$ è negativa e su tali punti $f^+$ è nulla, ma non ci sono punti 
+  in cui $f^+$ è negativa.
+  
+  In maniera analoga si dimostra che se $f$ è integrabile 
+  anche $f^-$ è integrabile.
+  \mynote{
+    Oppure si può osservare che $f^- = -(-f)^+$ e sfruttare il 
+    fatto che se $f$ è integrabile già sappiamo che $-f$ 
+    è integrabile.
+  }
+  
+  Ma allora basta osservare che%
+  \mynote{Per ogni $a,b\in \RR$ 
+  è facile convincersi che valgono 
+  le seguenti identità
+  \[
+    \begin{cases}
+    a = a^+ - a^-\\
+    \abs{a} = a^+ + a^-\\
+    \end{cases}
+  \]\[
+    \begin{cases}
+      a + b = (a\vee b) + (a\wedge b)\\
+      \abs{a - b} = (a\vee b) - (a\wedge b) 
+    \end{cases}
+  \]}
+  \begin{gather*}
+    \abs{f} = f^+ + f^-
+  %  f^+ = \frac{\abs{f} + f}{2}, \qquad
+  %  f^- = \frac{\abs{f} - f}{2}, \\
+    f\wedge g = \frac{f + g - \abs{f-g}}{2}, \qquad
+    f\vee g = \frac{f+g + \abs{f-g}}{2}
+  \end{gather*}
+  per dedurre che se $f$ è integrabile anche $f^+$ e $f^-$ sono integrabili 
+  e dunque anche $\abs{f}=f^+ + f^-$ e integrabile
+  (linearità dell'integrale, teorema~\ref{th:integrale_lineare}).
+  E se $f$ e $g$ sono integrabili anche $f-g$ è integrabile 
+  e allora anche $\abs{f-g}$ lo è per quanto detto sopra.
+  Dunque per le formule mostrate sopra anche 
+  $f\wedge g$ e $f\vee g$ sono integrabili in quanto combinazioni
+  lineari di $f+g$ e $\abs{f-g}$.
+  
+  Per dimostrare~\eqref{eq:489732} basta osservare che
+  $f^+\ge 0$ e $f^-\ge 0$ dunque per il 
+  teorema~\ref{th:monotonia_integrale} 
+  se $a\le b$ si ha $\int_a^b f^+\ge 0$ 
+  e $\int_a^b f^-\ge 0$, cosicché:
+  \begin{align*}
   \abs{\int_a^b f} 
-  \le 
-  \abs{\int_a^b \abs{f}}. 
-\end{equation}
-\end{theorem}
-%
-\begin{proof}
-Dimostriamo innanzitutto che se $f$ è integrabile anche $f^+$ lo è.
-Si tratta di osservare che 
-\begin{equation}\label{eq:77736456}
-  \sup_{x\in A} f^+(x) - \inf_{x\in A} f^+(x) \le
-  \sup_{x\in A} f(x) - \inf_{x\in A} f(x)
-\end{equation}
-perché se questo è vero allora su qualunque suddivisione $P$
-si ottiene:
-\[
-  0 \le S^*(f^+,P) - S_*(f^+,P) \le S^*(f,P) - S_*(f,P)
-\]
-e di conseguenza
-\[
-  0 \le I^*(f^+) - I_*(f^+) \le I^*(f) - I_*(f).  
-\]
-Ma essendo $f$ integrabile si ha $I^*(f)=I_*(f)$ 
-e quindi $I^*(f^+)=I_*(f^+)$ e anche $f^+$ 
-risulta essere integrabile.
-
-Per dimostrare~\eqref{eq:77736456} basta considerare tre casi possibili.
-Se $\sup f(A)\le 0$ significa che $f^+(x)=0$ per ogni $x\in A$ 
-e quindi banalmente $\sup f^+(A)-\inf f^+(A) = 0$.
-Analogamente se $\inf f(A)\ge 0$ si ha $f^+(x)=f(x)$ per ogni $x\in A$ 
-e quindi banalmente $\sup f^+(A)-\inf f^+(A) = \sup f(A)-\inf f(A)$.
-Infine se $\sup f(A)>0$ e $\inf f(A)<0$ allora 
-esistono punti in cui $f$ è positiva e punti in cui $f$ è negativa.
-Dunque $\sup f^+(A) = \sup f(A)$ (perché i punti in cui $f$ è negativa 
-sono irrilevanti per il $\sup$ essendoci punti in cui $f$ è più 
-grande e su questi punti $f^+=f$)
-mentre $\inf f^+(A) = \min f^+(A) = 0$ perché ci sono punti in cui 
-$f$ è negativa e su tali punti $f^+$ è nulla, ma non ci sono punti 
-in cui $f^+$ è negativa.
-
-
-% Dimostriamo innanzitutto che se $f$ è integrabile anche $\abs{f}$ lo è.
-% Basta osservare che in generale se $x,y\in [a,b]$ si ha
-% \begin{equation}\label{eq:4026777}
-%   \abs{f(x)}-\abs{f(y)} \le \abs{f(x) - f(y)}
-% \end{equation}
-% il che significa che la \emph{oscillazione}
-% di $\abs{f}$  su un insieme $A\subset [a,b]$
-% (ovvero la differenza tra $\sup$ 
-% e $\inf$)
-% è inferiore all'oscillazione di $f$ sullo 
-% stesso insieme\mynote{
-%   Formalmente si dimostra~\eqref{eq:4026778} prendendo 
-%   il $\displaystyle\sup_{x\in A} \sup_{y\in A}$ di ambo i lati
-%   in~\eqref{eq:4026777}.
-% }:
-% \begin{equation}\label{eq:4026778}
-%   \sup_{x\in A} \abs{f(x)} - \inf_{y\in A} \abs{f(y)} \le
-%   \sup_{x\in A} f(x) - \inf_{y\in A}f(y)
-% \end{equation}
-% e quindi per ogni suddivisione $P$ si avrà
-% \[
-%   S^*(\abs{f},P) - S_*(\abs{f}, P) \le S^*(f,P) - S_*(f,P)
-% \]
-% e in conclusione 
-% \[
-%   I^*(\abs f)-I_*(\abs f) \le I^*(f)-I_*(f) = 0.  
-% \]
-% Dunque la funzione $\abs{f}$ è integrabile (se $f$ lo è).
-
-In maniera analoga si dimostra che se $f$ è integrabile 
-anche $f^-$ è integrabile.
-\mynote{
-  Oppure si può osservare che $f^- = -(-f)^+$ e sfruttare il 
-  fatto che se $f$ è integrabile già sappiamo che $-f$ 
-  è integrabile.
-}
-
-Ma allora basta osservare che%
-\mynote{Per ogni $a,b\in \RR$ 
-è facile convincersi che valgono 
-le seguenti identità
-\[
-  \begin{cases}
-  a = a^+ - a^-\\
-  \abs{a} = a^+ + a^-\\
-  \end{cases}
-\]\[
-  \begin{cases}
-    a + b = (a\vee b) + (a\wedge b)\\
-    \abs{a - b} = (a\vee b) - (a\wedge b) 
-  \end{cases}
-\]}
-\begin{gather*}
-  \abs{f} = f^+ + f^-
-%  f^+ = \frac{\abs{f} + f}{2}, \qquad
-%  f^- = \frac{\abs{f} - f}{2}, \\
-  f\wedge g = \frac{f + g - \abs{f-g}}{2}, \qquad
-  f\vee g = \frac{f+g + \abs{f-g}}{2}
-\end{gather*}
-per dedurre che se $f$ è integrabile anche $f^+$ e $f^-$ sono integrabili 
-e dunque anche $\abs{f}=f^+ + f^-$ e integrabile
-(linearità dell'integrale, teorema~\ref{th:integrale_lineare}).
-E se $f$ e $g$ sono integrabili anche $f-g$ è integrabile 
-e allora anche $\abs{f-g}$ lo è per quanto detto sopra.
-Dunque per le formule mostrate sopra anche 
-$f\wedge g$ e $f\vee g$ sono integrabili in quanto combinazioni
-lineari di $f+g$ e $\abs{f-g}$.
-
-Per dimostrare~\eqref{eq:489732} basta osservare che
-$f^+\ge 0$ e $f^-\ge 0$ dunque per il 
-teorema~\ref{th:monotonia_integrale} 
-se $a\le b$ si ha $\int_a^b f^+\ge 0$ 
-e $\int_a^b f^-\ge 0$, cosicché:
-\begin{align*}
-\abs{\int_a^b f} 
-&= \abs{\int_a^b f^+ - \int_a^b f^-}\\
-&\le \abs{\int_a^b f^+} + \abs{\int_a^b f^-}
-= \int_a^b f^+ + \int_a^b f^-
-= \int_a^b \abs{f}.   
-\end{align*}
-Se $b\le a$ ci si riconduce al caso precedente scambiando 
-gli estremi di integrazione.
-\end{proof}
-
-%%%%
+  &= \abs{\int_a^b f^+ - \int_a^b f^-}\\
+  &\le \abs{\int_a^b f^+} + \abs{\int_a^b f^-}
+  = \int_a^b f^+ + \int_a^b f^-
+  = \int_a^b \abs{f}.   
+  \end{align*}
+  Se $b\le a$ ci si riconduce al caso precedente scambiando 
+  gli estremi di integrazione.
+  \end{proof}
+\end{comment}
+  
+  %%%%
 \section{interpretazione geometrica dell'integrale}
 \index{integrale!interpretazione geometrica}%
 \index{interpretazione!geometrica dell'integrale}%
@@ -1427,11 +1488,18 @@ e di conseguenza (sempre grazie al teorema~\ref{th:additivita_integrale})
   \label{th:media_integrale}%
   \mymark{***}%
   Siano $a,b\in \RR$, $a<b$ e sia
-  $f\colon [a,b] \to \RR$ una funzione continua.
-  Allora esiste un punto $y \in [a,b]$
+  $f\colon \closeinterval{a}{b} \to \RR$ una funzione Riemann-integrabile.
+  Allora
+  \begin{equation}\label{eq:media_inf_sup}
+    \inf_{\closeinterval{a}{b}} f 
+    \le \frac{\int_a^b f(x)\, dx}{b-a} 
+    \le \sup_{\closeinterval{a}{b}} f.
+  \end{equation}
+  Inoltre se $f$ è continua 
+  esiste un punto $c \in \closeinterval{a}{b}$
   tale che
   \[
-  \frac{\int_a^b f}{b-a} = f(y).
+  \frac{\int_a^b f}{b-a} = f(c).
   \]
   \end{theorem}
   %
@@ -1447,23 +1515,25 @@ e di conseguenza (sempre grazie al teorema~\ref{th:additivita_integrale})
   %
   \begin{proof}
   \mymark{***}
-  Per il teorema di Weierstrass la funzione $f$ ha massimo $M$ e minimo $m$
-  sull'intervallo $[a,b]$ cosicché
-  per ogni $x\in [a,b]$ si avrà:
+  Per ogni $x\in [a,b]$ si ha 
   \[
-    m \le f(x) \le M.
+    \inf_{\closeinterval{a}{b}} f \le f(x) \le \sup_{\closeinterval{a}{b}}f.
   \]
-  Risulta quindi, per la monotonia dell'integrale:
+  Integrando si ottiene
   \[
-    (b-a) m = \int_a^b m \le \int_a^b f \le \int_a^b M = (b-a) M
+    \inf_{\closeinterval{a}{b}} f \cdot (b-a)
+    \le \int_a^b f(x)\, dx 
+    \le \sup_{\closeinterval{a}{b}}f\cdot (b-a)
   \]
-  ovvero
-  \[
-    m \le \frac{\int_a^b f}{b-a} \le M.
-  \]
-  Dunque la media integrale è un valore intermedio tra il minimo e il massimo
-  della funzione e quindi, per il teorema dei valori intermedi,
-  dovrà esistere un punto $y\in [a,b]$ dove la funzione assume tale valore.
+  e dividendo per $b-a$ arriviamo a~\eqref{eq:media_inf_sup}.
+
+  Se la funzione $f$ è continua su $[a,b]$ per il teorema di Weierstrass 
+  $\inf$ e $\sup$ sono valori assunti dalla funzione 
+  e la media integrale $\dashint_a^b f$ è un valore intermedio tra il 
+  minimo e il massimo.
+  Ma per il teorema~\ref{th:valori_intermedi} dei valori intermedi 
+  possiamo infine affermare che esiste un punto $c\in [a,b]$
+  dove la funzione assume tale valore. 
   \end{proof}
   
 Il seguente risultato è una versione continua della disuguaglianza di convessità 
