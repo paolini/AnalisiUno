@@ -108,6 +108,11 @@ Notazioni alternative per denotare la derivata di una funzione:
 \[
   f' = Df = \frac{d}{dx} f = \frac{df}{dx}.
 \]
+
+La definizione di derivata si estende formalmente identica 
+alle funzioni di variabile complessa e/o a valori complessi.
+La derivata di una funzione a valori complessi è
+a sua volta a valori complessi.
 \end{definition}
 
 Il rapporto
@@ -227,9 +232,12 @@ Chiamato $y_0 = f(x_0)$ la formula può essere anche scritta nella forma:
 Se invece $f'(x_0)=0$ la funzione $f^{-1}$ non è derivabile in $f(x_0)$.
 \end{theorem}
 %
-Osserviamo che se $f$ è definita in un intervallo e se è invertibile e
-continua in tutto l'intervallo allora certamente l'inversa è continua
-(Esercizio~\ref{ex:inversa_monotona}).
+Osserviamo che 
+se $I$ è un intervallo,
+e se $f\colon I\to \RR$,
+è iniettiva e continua allora $J=f(I)$ è un intervallo
+e la funzione inversa $f^{-1}\colon J\to I$
+è continua (Esercizio~\ref{ex:inversa_monotona}).
 %
 \begin{proof}
 \mymark{**}
@@ -354,7 +362,7 @@ se $x\neq 0$.
 Se $x=0$ i limiti destro e sinistro del rapporto incrementale di $\abs{x}$ 
 tendono rispettivamente a $1$ e $-1$ e quindi la derivata non esiste.
 
-Dimostriamo che $Dx^n = n D x^{n-1}$ per $n\in \NN$, $n>0$, 
+Dimostriamo che $Dx^n = n x^{n-1}$ per $n\in \NN$, $n>0$, 
 per induzione su $n$. Per $n=1$ abbiamo $x^n=x^1$ è lineare 
 e quindi dalla formula precedente $Dx^1 = 1 = 1 \cdot x^0$. 
 Supponendo di sapere che $D x^n = n x^{n-1}$ si ha, applicando 
@@ -400,18 +408,27 @@ D x^\alpha
 = \alpha x^{\alpha -1}.
 \]
 
-Per quanto riguarda le funzioni trigonometriche $\sin$ e $\cos$ ci ricordiamo dei limiti notevoli:
+Per quanto riguarda le funzioni trigonometriche 
+$\sin$ e $\cos$ ci ricordiamo del limite notevole
 \[
-  \lim_{h\to 0}\frac{\sin h}{h} = 1,\qquad
-  \lim_{h\to 0}\frac{1-\cos h}{h}
-  =\lim_{h\to 0}h \cdot \frac{1-\cos h}{h^2} = 0 \cdot \frac{1}{2} = 0.
+  \lim_{h\to 0}\frac{\sin h}{h} = 1
+\]
+da cui si ricava, per $h\to 0$ 
+(supponendo quindi $\abs{h}< \frac \pi 2$)
+\[
+\frac{1-\cos h}{h}
+= \frac{1-\sqrt{1-\sin^2h}}{h}
+= \frac{1+(1-\sin^2 h)}{h\cdot (1+\sqrt{1-\sin^2 h})}
+= \frac{\sin h}{h}\cdot \frac{\sin h}{1+\sqrt{1-\sin^2 h}}
+\to 1\cdot \frac{0}{1} = 0.
 \]
 Applicando le formule di addizione si ha
 \begin{align*}
   D \sin x
   &= \lim_{h\to 0}\frac{\sin(x+h)-\sin(x)}{h} \\
   &= \lim_{h\to 0}\frac{\sin(x)\cos(h) + \cos(x)\sin(h) - \sin(x)}{h} \\
-  &= \lim_{h\to 0}\sin(x) \frac{\cos h-1}{h} + \cos(x) \frac{\sin h}{h} = \cos(x).
+  &= \lim_{h\to 0}\Enclose{\sin(x) \frac{\cos h-1}{h} + \cos(x) \frac{\sin h}{h}} 
+  = \cos(x).
 \end{align*}
 e similmente
 \begin{align*}
@@ -503,13 +520,25 @@ otteniamo
   \cdot \Enclose{\frac 1 2 \cdot \frac{-2x}{1-x^2} + \frac{1}{x\ln x} - \frac{1}{x}-2\frac{-\sin x}{\cos x}}.
 \]
 
+Si noti che le regole di derivazione appena dimostrate 
+sono valide anche per le funzioni complesse $z^n$ e $e^z$:
+in particolare si ha $D z^n = nz^{n-1}$ per ogni $n\in \ZZ$,
+$n\neq 0$ e si ha $D e^z = e^z$ in quanto il limite 
+notevole dell'esponenziale è valido anche in campo complesso.
+Altre funzioni quali $\sqrt{x}$ 
+oppure $\ln x$, non sono univocamente estendibili su $\CC$
+e richiedono quindi una teoria a parte. 
+Una volta definite, però, si potrebbe verificare 
+che anche queste funzioni soddisfano le stesse regole di derivazione 
+delle loro restrizioni reali.
+
 \section{derivate parziali}
 
 Capita a volte di avere funzioni che dipendono da più variabili o da parametri.
 Ad esempio la funzione $f(x,y) = x^2y+y^2$ è una funzione definita 
 sulle coppie di numeri reali: $f\colon \RR^2\to \RR$.
 Se considero una delle due variabili, ad esempio la prima variabile $x$, 
-come un parametro fissato, posso identificare la funzione $f$ come 
+come un parametro fissato, posso identificare la funzione $f$ con 
 una funzione $g\colon \RR \to (\RR^\RR)$ 
 che ad ogni valore del parametro $x$ restituisce una funzione 
 della variabile $y$:
@@ -533,7 +562,7 @@ si provi a sostituire la variabile $x$ con una lettera diversa come $c$ o $\pi$ 
 di una quantità costante.}:
 $h'(y) = x^2 + 2y$.
 Se ora consideriamo anche $x$ variabile otteniamo una nuova funzione di due 
-variabili $(x,y)\mapsto g(x)'(y) = h'(y)$ che può essere scritta 
+variabili $(x,y)\mapsto (g(x))'(y) = h'(y)$ che può essere scritta 
 con le seguenti notazioni% 
 \mynote{%
 Si osservi che per le funzioni di più variabili c'è una ambiguità di fondo nelle notazioni.
@@ -1105,7 +1134,7 @@ il rapporto incrementale:
   \]
 Fissato $x=a$ la funzione $y\mapsto R(a,y)$ è continua e tende a $f'(a)$
 quando $y$ tende ad $a$.
-Dunque, per il teorema~\ref{th:zeri} dei valori intermedi,
+Dunque, per il teorema~\ref{th:valori_intermedi} dei valori intermedi,
 tale funzione assume tutti i valori compresi tra $f'(a)$ e 
 $R(a,b)$. Analogamente fissato $y=b$ la funzione $x\mapsto R(x,b)$ 
 è continua e tende a $f'(b)$ quando $x$ tende a $b$.
@@ -1518,7 +1547,7 @@ e $f$ è continua in $x_0$.
   \]
   Inoltre se $\inf I < x_1 < x_2 < \sup I$ si ha 
   \[
-    f'_+(x_1) \le f'_(x_2).
+    f'_+(x_1) \le f'_-(x_2).
   \]
   Se ne deduce che $f$ è continua in tutti i punti interni di $I$ 
   e che l'insieme dei punti in cui $f$ non è derivabile 
@@ -3019,8 +3048,6 @@ Significa che per ogni $k\in \NN$
 della funzione $f$ nel punto $x_0$.
 
 
-
-
 \section{funzioni analitiche e serie di Taylor}
 \index{funzione!analitica}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3043,8 +3070,10 @@ dove $R$ è il raggio della serie di potenze~\eqref{eq:4748219}.
 Diremo che la serie nell'equazione~\eqref{eq:33783} è una
 serie di potenze centrata in $z_0$ e chiameremo $R$ il suo raggio di convergenza.
 
-Risulta allora naturale chiedersi se una serie di potenze centrata in un punto $z_0$
-può essere traslata in un punto $z_1\neq z_0$ almeno quando $z_1 \in B_R(z_0)$.
+Risulta allora naturale chiedersi se 
+una serie di potenze centrata in un punto $z_0$
+può essere scritta come serie di potenze centrata 
+nel punto $z_1$ almeno quando $\abs{z_1-z_0}<R$.
 La risposta, affermativa, è data dal seguente.
 
 \begin{theorem}[traslazione di una serie di potenze]
@@ -3107,17 +3136,18 @@ ed ha somma $f(z)$, come volevamo dimostrare.
 La teoria delle funzioni analitiche potrebbe essere svolta, senza cambiare
 sostanzialmente nulla, per le funzioni di variabile complessa.
 Si dovrebbe però introdurre il concetto di derivata in senso complesso
-un argomento che richiederebbe molto spazio e che esula dagli scopi di questo corso.
-Ci limitiamo quindi alle funzioni reali, che sono il nostro argomento di studio.
+e quindi per semplicità ci limitiamo alle funzioni reali, 
+che sono il nostro argomento di studio.
 
 \begin{definition}[funzione analitica]
 \mymargin{funzione analitica}%
 \index{funzione!analitica}
-Sia $A\subset \RR$ un insieme aperto e sia
-$f\colon A\subset \RR \to \RR$ una funzione. Diremo che
-$f$ è \emph{analitica} se per ogni $x_0\in A$ esiste una successione
-di numeri reali $a_k$ ed esiste $R>0$ tali che per ogni $x\in (x_0-R,x_0+R)\subset A$
-si ha:
+Sia $A\subset \RR$ e sia $f\colon A\subset \RR \to \RR$ una funzione. 
+Diremo che
+$f$ è \emph{analitica} se per ogni $x_0\in A$ esiste $R>0$ 
+tale $(x_0-R,x_0+R)\subset A$ ed esiste una successione
+di numeri reali $a_k$ tale che per ogni 
+$x\in (x_0-R,x_0+R)$ si ha:
 \[
   f(x) = \sum_{k=0}^{+\infty} a_k (x-x_0)^k.
 \]
@@ -3126,7 +3156,8 @@ si ha:
 Il teorema~\ref{th:488456367} ci dice in particolare che la somma di una serie
 di potenze è una funzione analitica, almeno all'interno del raggio di convergenza.
 Ad esempio la funzione $f(x)=e^x$ è una funzione 
-analitica in quanto, grazie al teorema~\ref{th:serie_esponenziale} 
+analitica definita su tutto $\RR$ in quanto, 
+grazie al teorema~\ref{th:serie_esponenziale} 
 $f(x)$ risulta essere la somma di una serie di potenze
 con raggio di convergenza $R=+\infty$ centrata in $x=0$.
 
@@ -3156,19 +3187,19 @@ Vogliamo mostrare che $f(x)$ è derivabile.
 Informalmente vorremmo svolgere i seguenti passaggi:
 \begin{align*}
 \frac{f(x+h) - f(x)}{h}
-&= \sum_{k=1}^{+\infty} a_k \frac{(x+h)^k-x^k}{h}
-= \sum_{k=1}^{+\infty} a_k \frac{\sum_{j=1}^k {k\choose j} h^j x^{k-j}}{h} \\
-&= \sum_{k=1}^{+\infty} a_k \sum_{j=1}^k {k\choose j} h^{j-1} x^{k-j} \\
-&= \sum_{k=1}^{+\infty} a_k \sum_{j=0}^{k-1} {k\choose j+1} h^j x^{k-j-1} \\
-&= \sum_{j=0}^{+\infty} \enclose{\sum_{k=j+1}^{+\infty} a_k {k\choose j+1} x^{k-j-1}} h^j.
+&= \sum_{k=1}^{+\infty} a_k \cdot \frac{(x+h)^k-x^k}{h}
+= \sum_{k=1}^{+\infty} a_k \cdot \frac{\sum_{j=1}^k {k\choose j} \dot h^j \cdot x^{k-j}}{h} \\
+&= \sum_{k=1}^{+\infty} a_k \cdot \sum_{j=1}^k {k\choose j} \cdot h^{j-1} \cdot x^{k-j} \\
+&= \sum_{k=1}^{+\infty} a_k \cdot \sum_{j=0}^{k-1} {k\choose j+1} \cdot h^j \cdot x^{k-j-1} \\
+&= \sum_{j=0}^{+\infty} \enclose{\sum_{k=j+1}^{+\infty} a_k \cdot {k\choose j+1} \cdot x^{k-j-1}} h^j.
 \end{align*}
 Se poniamo
 \[
-  c_{k,j} = a_k {k\choose j+1} x^{k-j-1}
+  c_{k,j} = a_k\cdot {k\choose j+1}\cdot x^{k-j-1}
 \]
 i passaggi risultano giustificati se la serie $\sum_{k,j} c_{k,j}$
 è assolutamente convergente. Ma, mettendo opportunamente
-i valori assoluti nei passaggi già fatti, si ha
+i valori assoluti nei passaggi già fatti, si ottiene
 \[
   \sum_{j=0}^{+\infty} \sum_{k=j+1}^{+\infty} \abs{c_{k,j}}
   =  \sum_{k=1}^{+\infty} \abs{a_k} \frac{\abs{x+h}^k-\abs{x}^k}{\abs{h}}
@@ -3183,8 +3214,8 @@ e per $h\to 0$
 tende al termine noto della serie (quello con $j=0$), dunque si ha
 \[
   \lim_{h\to 0} \frac{f(x+h)-f(x)}{h}
-  = \sum_{k=1}^{+\infty} a_k {k \choose 1} x^{k-1}
-  = \sum_{k=1}^{+\infty} k a_k x^{k-1}.
+  = \sum_{k=1}^{+\infty} a_k \cdot {k \choose 1} \cdot x^{k-1}
+  = \sum_{k=1}^{+\infty} k a_k \cdot x^{k-1}.
 \]
 Abbiamo trovato che la derivata della serie di potenze è uguale
 alla serie di potenze delle derivate.
@@ -3194,7 +3225,7 @@ della serie originaria (teorema~\ref{th:raggio_serie_derivate})
 il procedimento può essere iterato trovando che ogni derivata è derivabile
 e per ogni $x\in (-R,R)$ si avrà dunque:
 \[
-  f^{(n)}(x) = \sum_{k=n}^{+\infty}k (k-1) \cdots (k-n+1) a_k x^{k-n}.
+  f^{(n)}(x) = \sum_{k=n}^{+\infty}k (k-1) \cdots (k-n+1) \cdot a_k \cdot x^{k-n}.
 \]
 In particolare
 \[
@@ -3247,7 +3278,7 @@ che è assurdo in quanto $f(x)>0$ per ogni $x\neq 0$.
 \index{serie!binomiale}\index{binomiale!serie}
 Per ogni $\alpha\in \RR$ per ogni $x\in (-1,1)$ si ha
 \[
-  (1+x)^{\alpha}  = \sum_{k=0}^{+\infty} {\alpha \choose k} x^k.
+  (1+x)^{\alpha}  = \sum_{k=0}^{+\infty} {\alpha \choose k} \cdot x^k.
 \]
 \end{theorem}
 %
@@ -3271,7 +3302,7 @@ in serie di potenze nell'intorno di ogni punto dell'intervallo $(-1,1)$
 e dunque è una funzione analitica su tale intervallo. Inoltre la sua
 derivata ha come sviluppo la serie delle derivate:
 \[
-  f'(x) = \sum_{k=1}^{+\infty} k {\alpha \choose k} x^{k-1}.
+  f'(x) = \sum_{k=1}^{+\infty} k {\alpha \choose k} \cdot x^{k-1}.
 \]
 
 Per dimostrare che $f(x) = (1+x)^\alpha$ basta mostrare che il rapporto:
@@ -3359,6 +3390,8 @@ se scegliamo $\rho$ in modo che sia $\rho < 1/L$.
 e^x &= \sum_{k=0}^{+\infty} \frac{x^k}{k!}\\
 \sin x &= \sum_{k=0}^{+\infty} (-1)^k\frac{x^{2k+1}}{(2k+1)!}\\
 \cos x &= \sum_{k=0}^{+\infty} (-1)^k\frac{x^{2k}}{(2k)!}\\
+\sinh x &= \sum_{k=0}^{+\infty} \frac{x^{2k+1}}{(2k+1)!}\\
+\cosh x &= \sum_{k=0}^{+\infty} \frac{x^{2k}}{(2k)!} \\
 (1+x)^\alpha &= \sum_{k=0}^{+\infty} {\alpha \choose k} x^k, \qquad \text{se $\abs{x}<1$} \\
 \ln (1+x) &= \sum_{k=1}^{+\infty} (-1)^{k-1} \frac{x^k}{k}, \qquad \text{se $x\in(-1,1]$} \\
 \arctg x &= \sum_{k=0}^{+\infty} (-1)^k \frac{x^{2k+1}}{2k+1}, \qquad \text{se $x\in [-1,1]$} \\
@@ -3451,6 +3484,9 @@ Si veda il teorema~\ref{th:serie_taylor}.}
   a pagina \pageref{tb:taylor} in quanto troncando la serie di Taylor otteniamo 
   un polinomio che soddisfa la formula di Taylor~\eqref{eq:Taylor} 
   e quindi è proprio il polinomio di Taylor.
+
+  La serie di Taylor delle funzioni $\sinh$ e $\cosh$ si ottiene immediatamente 
+  sommando o sottraendo le serie di Taylor di $e^x$ e di $e^{-x}$.
 \end{proof}
 
 Il teorema precedente ci permette di scrivere delle identità notevoli. 

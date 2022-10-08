@@ -374,10 +374,20 @@ Scriveremo anche $A \neq B$ per indicare
 la relazione opposta dell'uguaglianza ovvero: $\lnot(A=B)$.
 Si noti che $A=B$ è equivalente a $(A\subset B) \land (B\subset A)$.
 
+In molti sistemi formali l'uguaglianza è un predicato primitivo con la 
+proprietà che oggetti uguali possono essere sostituiti uno all'altro 
+in ogni proposizione. Per recuperare tale proprietà 
+dobbiamo imporre il seguente.
+
+\begin{axiom}[estensionalità]
+Se $x=y$ allora il predicato $x\in A$ è equivalente 
+al predicato $y\in A$.
+\end{axiom}
+
 La relazione $A \subset B$ significa che ogni elemento di $A$ 
 è anche elemento di $B$ e quindi non ci sono elementi di $A$ che non stiano 
 in $B$ cioè $A$ non è più grande di $B$. 
-Come statagemma mnemonico si osservi che il simbolo 
+Come stratagemma mnemonico si osservi che il simbolo 
 $\subset$ è orientato in modo che l'insieme più piccolo 
 stia dal lato più stretto della relazione così come 
 nella disuguaglianza $3 \le 5$ il numero più piccolo 
@@ -385,7 +395,7 @@ sta dal lato più stretto del simbolo $\le$.
 Per dimostrare che la relazione $A \subset B$ è vera 
 bisognerà prendere un qualunque elemento di $A$ e dimostrare 
 che tale elemento è anche elemento di $B$.
-Per dimostrare che value l'uguaglianza $A=B$ tipicamente si procede 
+Per dimostrare che vale l'uguaglianza $A=B$ tipicamente si procede 
 dimostrando separatamente le due inclusioni $A\subset B$ e $B\subset A$.
 
 Risulta molto utile la possibilità di costruire insiemi di insiemi.
@@ -559,7 +569,7 @@ che è l'insieme di tutti i sottoinsiemi di $A$:
 \end{equation}
 \end{axiom}
 
-\subsection{gli ordinali di Von Neumann}
+\subsection{gli ordinali finiti di Von Neumann}
 
 Con i soli assiomi che abbiamo introdotto fin'ora possiamo 
 costruire un numero arbitrariamente grande di insiemi finiti
@@ -573,7 +583,7 @@ $2= \ENCLOSE{0,1}$ è un insieme con due elementi (i due precedenti),
 $3 = \ENCLOSE{0,1,2}$ è un insieme con tre elementi (i tre precedenti),
 etc.
 Procedendo a piacere è possibile definire un numero arbitrariamente 
-grande di insiemi infiniti, uno diverso dall'altro.
+grande di insiemi finiti, uno diverso dall'altro.
 
 Questi particolari insiemi esistono certamente e potremo quindi utilizzarli 
 per fare esempi non banali di insiemi finiti.
@@ -605,7 +615,7 @@ Non è difficile verificare che questa definizione soddisfa la
 proprietà~\eqref{eq:coppia}.
 Così possiamo definire l'insieme prodotto
 \begin{align*}
-  A\times B = \big\{&C\in \mathcal P(A\cup B)\colon \\ 
+  A\times B = \big\{&C\in \mathcal P(\mathcal P(A\cup B))\colon \\ 
   & \exists a\colon \exists b\colon a\in A, b\in B, \\
   & C=\ENCLOSE{\ENCLOSE{a},\ENCLOSE{a,b}}\big\}
 \end{align*}
@@ -667,8 +677,8 @@ per ogni $x,y,z\in A$:
 \end{enumerate}
 Se $R$ è una relazione di equivalenza diremo che $x$ è equivalente a $y$ 
 (tramite $R$) quando $xRy$.
-Dato $x \in A$ l'insieme di tutti gli elementi di $A$ che sono equivalenti 
-a $y$ si chiama \emph{classe di equivalenza}%
+Dato $x \in A$ l'insieme di tutti gli elementi $y\in A$ che sono equivalenti 
+a $x$ si chiama \emph{classe di equivalenza}%
 \mymargin{classe di equivalenza}%
 \index{classe!di equivalenza} di $x$. 
 Si definisce in questo modo:
@@ -952,7 +962,7 @@ già visto tale insieme contiene almeno un elemento se $f$ è suriettiva,
 contiene al più un elemento se $f$ è iniettiva e contiene esattamente
 un elemento $f^{-1}(\ENCLOSE{b}) = \ENCLOSE{f^{-1}(b)}$ se $f$ è bigettiva.
 Ad esempio se $f$ è la funzione definita in figura~\ref{fig:funzione}
-si ha $f^{-1}(\ENCLOSE{b_3,b_4}) = f^{-1}(\ENCLOSE{b_3}) = \ENCLOSE{a_2,a_3}$,
+si ha $f^{-1}(\ENCLOSE{b_3,b_4}) = f^{-1}(\ENCLOSE{b_3}) = \ENCLOSE{a_2,a_4}$,
 $f^{-1}(\ENCLOSE{b_4}) = \emptyset$.
 
 
@@ -1075,7 +1085,7 @@ anche $g\circ f\colon A\to C$ è invertibile e si ha
 Per ogni $c\in C$ esiste un unico $b\in B$ tale che $g(b)=c$ 
 ed un unico $a\in A$ tale che $f(a)=b$. 
 Tale $a$ è l'unico punto per cui $g(f(a))=c$ e questo dimostra che 
-$g\circ f$ è bigettiva. Inoltre $x=f^{-1}(b)$ e $b=g^{-1}(c)$ 
+$g\circ f$ è bigettiva. Inoltre $a=f^{-1}(b)$ e $b=g^{-1}(c)$ 
 dunque $(g\circ f)^{-1}(c) = a = f^{-1}(g^{-1}(c))$ da cui si ottiene 
 \eqref{eq:inversa_composta}.
 \end{proof}
@@ -1127,18 +1137,20 @@ Infine se $\#A = \#B$ allora $\#A \le \#B$ (in quanto le funzioni bigettive
 sono iniettive) ed è chiaro che se $\#A \le \#B$ e $\#B \le \#C$ allora 
 $\#A\le \#C$ (in quanto composizione di funzioni iniettive è iniettiva)
 
-Si potrebbe anche definire $\#A \ge \#B$ quando esiste $f\colon A \to B$
+Se $B\neq \emptyset$ 
+si potrebbe anche definire $\#A \ge \#B$ quando esiste $f\colon A \to B$
 surgettiva. Vorremmo verificare se questo coincide con $\#B \le \#A$, 
 cioè vogliamo avere il seguente.
 %
 \begin{theorem}\label{th:95444}
+  Sia $B\neq \emptyset$.
   Esiste $f\colon A\to B$ surgettiva 
   se e solo se esiste $g\colon B\to A$ iniettiva.
 \end{theorem}
 % 
 \begin{proof}
 Da un lato se esiste $g\colon B\to A$ iniettiva, allora $g$ è una bigezione 
-tra $B$ e $f(B)$. La funzione inversa $f\colon f(B) \to B$ 
+tra $B$ e $g(B)$. La funzione inversa $f\colon g(B) \to B$ 
 \mynote{Questa funzione $f$ si chiama 
 \emph{inversa sinistra}
 \index{inversa!sinistra}%
@@ -1350,7 +1362,7 @@ Se denotiamo con $P(\alpha)$ il predicato
 $\emptyset\in \alpha \land \forall n\colon n\in \alpha \implies n\cup\ENCLOSE{n}\in \alpha$
 allora l'assioma che garantisce l'esistenza di $\omega$ si può 
 scrivere nella forma:
-  $\exists \omega\colon I(\omega) \land \forall \alpha\colon I(\alpha)\implies \omega\subset \alpha$
+  $\exists \omega\colon P(\omega) \land \forall \alpha\colon P(\alpha)\implies \omega\subset \alpha$
 }
 
 \section{i numeri naturali}
@@ -1745,7 +1757,7 @@ in tal modo risulta che $n!$ è il prodotto dei primi $n$ numeri naturali positi
   \]
   mentre
   \[
-    (2n+1)!! = \frac{(2n+1)!}{2n!!} = \frac{(2n+1)}{2^n\cdot n!}.
+    (2n+1)!! = \frac{(2n+1)!}{2n!!} = \frac{(2n+1)!}{2^n\cdot n!}.
   \]
   Queste formule permettono di esprimere il semi-fattoriale utilizzando
   il fattoriale intero e le potenze.
@@ -1927,6 +1939,7 @@ Dimostrare che
 \end{exercise}
 
 \begin{exercise}
+  \label{ex:somma_lineare}%
   Dimostrare che 
   \[
     \sum_{k=1}^n k = \frac{n\cdot (n+1)}{2}, \qquad
@@ -2127,6 +2140,26 @@ La proprietà riflessiva identifica gli ordinamenti \emph{larghi}.
 Si definisce il corrispondente ordinamento stretto $<$
 ponendo $x < y$ quando $x\le y \land x\neq y$
 e la relazione inversa $>$ ponendo $x>y$ quando $y<x$.
+
+\begin{definition}[funzioni monotòne]
+  \label{def:monotonia}%
+  Siano $R$ e $S$ insiemi ordinati 
+  e sia $f\colon R\to S$.
+  Diremo che $f$ è:
+  \begin{enumerate}
+    \item \emph{crescente} quando mantiene l'ordinamento: 
+    per ogni $x,y\in R$ se $x\le y$ allora $f(x) \le f(y)$
+    \item \emph{decrescente} quando inverte l'ordinamento: 
+    per ogni $x,y\in R$ se $x\le y$ allora $f(y) \le f(x)$
+    \item \emph{strettamente crescente} quando mantiene l'ordinamento stretto: 
+    per ogni $x,y\in R$ se $x < y$ allora $f(x) < f(y)$
+    \item \emph{strettamente decrescente} quando inverte l'ordinamento stretto: 
+    per ogni $x,y\in R$ se $x < y$ allora $f(y) > f(x)$
+    \item \emph{monotòna} se è crescente o decrescente
+    \item \emph{strettamente monotòna} se è strettamente crescente 
+    o strettamente decrescente
+  \end{enumerate}
+\end{definition}
 
 \begin{definition}[ordinamento continuo]
   \label{def:ordinamento_continuo}%
@@ -2495,24 +2528,6 @@ Ma questo è assurdo perché $(n+1)\cdot x\in A$ e $s\ge A$.
 % e si dirà che $f$ è un \emph{omomorfismo}.
 % \end{definition}
 % 
-% \begin{definition}[funzioni monotòne]
-% Siano $R$ e $S$ insiemi ordinati 
-% e sia $f\colon R\to S$.
-% \begin{enumerate}
-%   \item \emph{crescente} quando mantiene l'ordinamento: 
-%   per ogni $x,y\in R$ se $x\le y$ allora $f(x) \le f(y)$
-%   \item \emph{decrescente} quando inverte l'ordinamento: 
-%   per ogni $x,y\in R$ se $x\le y$ allora $f(y) \le f(x)$
-%   \item \emph{strettamente crescente} quando mantiene l'ordinamento stretto: 
-%   per ogni $x,y\in R$ se $x < y$ allora $f(x) < f(y)$
-%   \item \emph{strettamente decrescente} quando inverte l'ordinamento stretto: 
-%   per ogni $x,y\in R$ se $x < y$ allora $f(y) > f(x)$
-%   \item \emph{monotòna} se è crescente o decrescente
-%   \item \emph{strettamente monotòna} se è strettamente crescente 
-%   o strettamente decrescente
-% \end{enumerate}
-% \end{definition}
-
 Il seguente teorema dovrebbe risultare intuitivamente chiaro 
 se lo interpretiamo geometricamente. 
 Se $R$ ed $S$ sono gruppi ordinati, densi e continui li possiamo 
@@ -2950,6 +2965,7 @@ Le proprietà di queste operazioni ci dicono che $\RR$
 è un campo ordinato in base alla seguente
 
 \begin{definition}[campo]
+  \label{def:campo}%
 Sia $R$ un insieme su cui sono definite due operazioni: l'addizione $+$ e la moltiplicazione $\cdot$.
 Diremo che $R$ è un \emph{campo}
 se valgono le seguenti proprietà:
@@ -6227,7 +6243,7 @@ funzione
  \phi\colon \RR \to U=\ENCLOSE{z\in \CC\colon \abs z = 1} 
 \]
 \mynote{Quando avremo definito l'esponenziale complesso 
-scopriremo che $\phi(x) = e^{2\pi x}$.}%
+scopriremo che $\phi(x) = e^{2i\pi x}$.}%
 con le seguenti proprietà:
 \begin{enumerate}
   \item $\phi(x+y) = \phi(x)\cdot \phi(y)$ per ogni $x,y\in\RR$ (proprietà di omomorfismo);
@@ -7157,12 +7173,12 @@ Ma questo è assurdo perché per ipotesi induttiva $[n]$ è finito.
 
 \begin{theorem}[caratterizzazione insiemi finiti]
 Un insieme $A$ è infinito (nel senso di Dedekind, definizione~\ref{def:infinito})
-se e solo se $\# A \ge \aleph_0$.
+se e solo se $\aleph_0 \le \# A$.
 Viceversa $A$ è finito se e solo se esiste $n\in\NN$ tale che $\# A = n$.
 \end{theorem}
 %
 \begin{proof}
-Se $\#A \ge \aleph_0$ significa che esiste una funzione 
+Se $\aleph_0 \le \#A$ significa che esiste una funzione 
 iniettiva $f\colon \NN\to A$. 
 Dunque se definiamo $\sigma \colon A \to A$ come
 \[
@@ -7173,7 +7189,7 @@ Dunque se definiamo $\sigma \colon A \to A$ come
 \]
 otteniamo una funzione iniettiva ma non suriettiva 
 (in quanto $\sigma(A) = A\setminus\ENCLOSE{f(0)}$).
-Dunque se $\#A\ge \aleph_0$ deduciamo che $A$ è infinito
+Dunque se $\aleph_0\le \#A$ deduciamo che $A$ è infinito
 
 Viceversa se $A$ è infinito significa che esiste $\sigma\colon A \to A$ 
 iniettiva ma non suriettiva. 
@@ -7199,7 +7215,7 @@ Dunque se $A$ è infinito si ha $\#\NN\le \#A$
 Dobbiamo ora caratterizzare gli insiemi finiti.
 Abbiamo già verificato che se $\#A \ge \aleph_0$ 
 allora $\#A$ è infinito, dunque se $\#A$ è finito 
-non può essere $\#A \ge \aleph_0$.
+non può essere $\aleph_0 \le \#A$.
 Ma da questo non possiamo immediatamente 
 dedurre che%
 \mynote{%
@@ -7216,7 +7232,8 @@ grazie al lemma~\ref{lm:nfinito} sappiamo che $[n]$ è finito
 e dunque anche $A$ è finito.
 
 Supponiamo ora che $A$ sia un insieme per il quale per ogni $n\in \NN$ 
-si ha $\#A > n$. Dobbiamo dimostrare che $A$ è infinito.
+si ha $\#A > n$. 
+Dobbiamo dimostrare che $A$ è infinito.
 Per ogni $n\in \NN$ scegliamo%
 \mynote{Qui stiamo usando l'assioma della scelta}
 una funzione iniettiva $f_n\colon\Enclose{n}\to A$.
@@ -7228,14 +7245,15 @@ Basterà infatti porre:
   g_0 = f_0,\\
   g_{n+1}(k) = \begin{cases}
     g_n(k) &\text{se $k<n$}\\
-    \min f_{n+1}([n+1])\setminus g_n([n]) & \text{altrimenti}
+    f_{n+1}\enclose{\min \ENCLOSE{h\in \Enclose{n}\colon f_{n+1}(h)\not \in g_n(\Enclose{n})}}
+    & \text{altrimenti}
     \end{cases}
   \end{cases}
 \]
 l'insieme $f_{n+1}([n+1])\setminus g_n([n])$ essendo non vuoto 
 in quanto $\# g_n([n]) = n < n+1 = \# f_{n+1}([n+1])$.
 Ma allora possiamo definire la funzione iniettiva $g\colon \NN \to A$
-come $g(n) = g_{n+1}(n)$ ottenendo $\#A \ge \#\NN$ e dunque $A$ 
+come $g(n) = g_{n+1}(n)$ ottenendo $\#\NN \le \#A$ e dunque $A$ 
 è Dedekind infinito.
 \end{proof}
 

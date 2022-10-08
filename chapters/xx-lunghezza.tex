@@ -1,0 +1,501 @@
+    \section{lunghezza di una linea}
+    
+    Una funzione $\vec u\colon [a,b]\to \RR^n$ può rappresentare 
+    il moto di un punto nello spazio $\RR^n$. 
+    Al tempo $t$ il punto si trova nella posizone $\vec u(t)$
+    e al variare di $t\in [a,b]$ il punto descrive una traiettoria in $\RR^n$.
+    L'immagine di $\vec u$ è l'insieme $\vec u([a,b]) =\ENCLOSE{\vec u(t)\colon t\in[a,b]}$
+    e viene chiamato \emph{linea} (o \emph{curva}).
+    Impropriamente chiameremo \emph{linea} anche la funzione $\vec u$.
+    \mynote{%
+    In letteratura è più utilizzato il termine \emph{curva} 
+    invece che \emph{linea}. 
+    Una linea può essere \emph{retta} o \emph{curva} quindi ci 
+    sembra inappropriato chiamarla \emph{curva}.
+    }
+     
+    \begin{example}[quadrato]
+    La funzione $\vec u \colon [0,4]\to \RR^2$ definita da 
+    \[
+    \vec u(x) = \begin{cases} 
+         (x,0) & \text{se $x\in [0,1]$} \\
+         (1,x-1) & \text{se $x\in (1,2]$} \\
+         (3-x,1) & \text{se $x\in (2,3]$} \\
+         (0,x-3) & \text{se $x\in (3,4]$}
+    \end{cases}
+    \]
+    descrive il moto di un punto lungo i quattro lati 
+    del quadrato di vertici $(0,0)$, $(1,0)$, $(1,1)$, $(0,1)$:
+    \[
+     \vec u([0,4]) = \ENCLOSE{(x,y)\in[0,1]\times[0,1]\colon 
+     x\in\ENCLOSE{0,1} \lor y \in \ENCLOSE{0,1}}.  
+    \]
+    \end{example}
+    
+    Dati due punti $\vec p, \vec q \in \RR^n$,
+    $\vec p = (p_1,\dots, p_n)$, $\vec q=(q_1,\dots,q_n)$  
+    definiamo la loro distanza tramite il teorema di Pitagora:
+    \[
+     \abs{\vec p - \vec q} = \sqrt{(p_1-q_1)^2 + \dots + (p_n-q_n)^2}.  
+    \]
+    
+    \begin{definition}[lunghezza di una linea]
+    Sia $\vec u\colon[a,b]\to \RR^n$ una linea.
+    Se $T$ è un sottoinsieme finito di $[a,b]$ con $N$ elementi 
+    $T=\ENCLOSE{t_1, \dots, t_N}\subset [a,b]$ e $t_1< t_2 < \dots < t_N$
+    possiamo considerare la lunghezza della spezzata che congiunge 
+    i punti $\vec u(t_1), \vec u(t_2), \dots, \vec u(t_N)$:
+    \[
+    \ell(\vec u, T) = \sum_{k=1}^{N-1} \abs{\vec u(t_{k+1})-\vec u(t_k)}.  
+    \]
+    
+    Definiamo quindi la lunghezza di $\vec u$:
+    \[
+    \ell(\vec u) = \sup\ENCLOSE{\ell(\vec u,T)\colon T\subset [a,b], \text{$T$ finito}}.  
+    \]
+    
+    Chiaramente $\ell(\vec u) \in [0,+\infty]$.
+    Se $\ell(\vec u)<+\infty$ diremo che $\vec u$ descrive una linea 
+    \emph{rettificabile}%
+    \mynote{%
+    Immaginando che la linea sia un filo, possiamo immaginare di tendere 
+    il filo in modo da \emph{rettificarlo} e a quel punto la lunghezza 
+    della linea rettificata sarà uguale alla lunghezza della 
+    linea curva originaria.
+    }.
+    \end{definition}
+    
+    \begin{theorem}[proprietà geodetica]
+    Dati $\vec p, \vec q\in \RR^n$ la linea retta che congiunge 
+    $p$ a $q$ può essere descritta dalla funzione 
+    $\vec u(t) = (1-t) \vec p + t \vec q$, $\vec u\colon[0,1]\to \RR^n$.
+    
+    Per tale linea si ha 
+    \[
+     \ell(\vec u) = \abs{\vec q- \vec p}.
+    \]
+    Inoltre la linea retta è la più breve linea che congiunge $\vec p$ a $\vec q$ 
+    in quanto se $\vec v\colon[a,b]\to \RR^n$ è una qualunque linea con 
+    $\vec v(a)=\vec p$ e $\vec v(b)=\vec q$ si ha 
+    \[
+    \ell(\vec v) \le \abs{\vec q-\vec p}.  
+    \]
+    \end{theorem}
+    %
+    \begin{proof}
+    Per la linea retta $\vec u$ si osserva che vale:
+    \[
+      \abs{\vec u(t)-\vec u(s)} 
+      = \abs{(1-t - 1+s)\vec p + (t-s)\vec q}
+      = \abs{t-s}\cdot \abs{\vec q - \vec p}
+    \]
+    e quindi se $0\le t_1\le t_2\le \dots \le t_N \le 1$ si ha
+    \[
+      \ell(\vec u, \ENCLOSE{t_1,\dots,t_N}) = 
+      \sum_{k=1}^{N-1} \abs{\vec u(t_{k+1}) - \vec u(t_k)}
+      = \sum_{k=1}^{N-1} (t_{k+1}-t_k)\cdot \abs{\vec q-\vec p}
+      = (t_N-t_1)\cdot \abs{\vec q-\vec p}
+      \le \abs{\vec q-\vec p}
+    \]
+    da cui passando all'estremo superiore si ottiene 
+    $\ell(\vec u)\le \abs{\vec q -\vec p}$. 
+    
+    Viceversa se $\vec v$ è una qualunque linea che congiunge 
+    i punti $\vec p$ e $\vec q$ si ha ovviamente 
+    \[
+      \ell(\vec v) \ge \ell(\vec v,\ENCLOSE{0,1}) = \abs{\vec q - \vec p}.
+    \]
+    \end{proof}
+    
+    \begin{theorem}[additività della lunghezza]
+      Siano $a\le b \le c$ e sia $\vec u\colon [a,c]\to \RR^n$ una linea.
+      Allora%
+      \mynote{
+      Ricordiamo che $f\llcorner A$ è la restrizione della funzione $f$ 
+      all'insieme $A$.
+      }%
+      \begin{equation}\label{eq:ell_additivo}
+      \ell(\vec u ) = \ell(\vec u\llcorner[a,b]) + \ell(\vec u\llcorner[b,c])  
+      \end{equation}
+    \end{theorem}
+    \begin{proof}
+    Osserviamo che se $T\subset[a,c]$ è finito allora 
+    posto $T'=(T\cap[a,b])\cup\ENCLOSE{c}$ e $T''=(T\cap[b,c])\cup \ENCLOSE{c}$
+    si ha
+    \[
+    \ell(\vec u, T) \le \ell(\vec u, T\cup\ENCLOSE{c})
+    =\ell(\vec u,T') + \ell(\vec u,T'')  
+    \le \ell(\vec u\llcorner [a,b]) + \ell(\vec u\llcorner [b,c])
+    \]
+    e quindi passando all'estremo superiore per $T\subset [a,c]$ 
+    si ottiene la disuguaglianza
+    $\ell(\vec u)\le \ell(\vec u\llcorner [a,b]) + \ell(\vec u\llcorner[b,c])$.
+    
+    Viceversa se $T'\subset [a,b]$ e $T''\subset [b,c]$ sono finiti 
+    allora 
+    \[
+     \ell(\vec u, T') + \ell(\vec u, T'')
+     \le \ell(\vec u, T'\cup T'') \le \ell(\vec u).
+    \]
+    Dunque facendo l'estremo superiore per $T'\subset [a,b]$ 
+    e poi per $T''\subset [b,c]$ si ottiene la disuguaglianza
+    inversa
+    \[
+      \ell(\vec u\llcorner[a,b]) + \ell(\vec u\llcorner[b,c])
+      \le \ell(\vec u).
+    \]
+    \end{proof}
+    
+    \begin{corollary}[monotonia]
+    Sia $\vec u\colon[a,b]\to \RR^n$ e sia $c\in [a,b]$. Allora 
+    \[
+    \ell(\vec u \llcorner [a,c]) \le \ell(\vec u).  
+    \]
+    \end{corollary}
+    \begin{proof}
+    Segue dall'additività, visto che la lunghezza di una linea
+    esiste sempre (in $[0,+\infty]$) e non può mai essere negativa.
+    \end{proof}
+    
+    \begin{theorem}[riparametrizzazione]
+    Sia $\phi\colon [a,b] \to [c,d]$ una funzione bigettiva e monotòna.
+    Sia $\vec u \colon [c,d]\to \RR^n$ una linea.
+    Allora 
+    \[
+     \ell(\vec u \circ \phi) = \ell(\vec u)  
+    \]
+    \end{theorem}
+    \begin{proof}
+    Si osservi che se $T\subset [a,b]$ è un insieme 
+    finito di punti $T=\ENCLOSE{t_1, \dots, t_N}$ con 
+    $t_1 < t_2 < \dots < t_N$ allora 
+    l'insieme $\phi(T)$ ha lo stesso numero di punti (in quanto 
+    $\phi$ è bigettiva). 
+    Se $\phi$ è crescente si ha 
+    $\phi(t_1) < \phi(t_2) < \dots < \phi(t_N)$  
+    mentre se $\phi$ è decrescente si ha 
+    $\phi(t_1) > \phi(t_2) > \dots > \phi(t_N)$. 
+    Ma in entrambi i casi risulta 
+    \[
+      \ell(\vec u, \phi(T)) 
+      = \sum_{k=1}^{N-1} \abs{\vec u(\phi(t_k)) - \vec u(\phi(t_{k+1}))} 
+      = \ell(\vec u \circ \phi, T).
+    \]
+    Dunque 
+    \[
+    \ell(\vec u) 
+    = \sup\ENCLOSE{\ell(\vec u, S)\colon S\subset [c,d] \text{ finito}} 
+    = \sup\ENCLOSE{\ell(\vec u,\phi(T))\colon T\subset [a,b] \text{ finito} }
+    = \ell(\vec u\circ \phi).
+    \]
+    \end{proof}
+    
+    \begin{definition}[funzione lipschitziana]
+    Sia $L\ge 0$ e $A\subset \RR^m$.
+    Diremo che una funzione $\vec f\colon A \to \RR^n$ 
+    è $L$-lipschitziana se per ogni $\vec x, \vec y\in A$ si ha 
+    \[
+      \abs{\vec f(\vec x)-\vec f(\vec y)} \le L \cdot \abs{\vec x-\vec y}.  
+    \]
+    \end{definition}
+    
+    \begin{lemma}[lunghezza linea lipschitziana]
+      Se $\vec u \colon [a,b]\to \RR^n$ è una linea 
+      $L$-lipschitziana allora 
+      \[
+       \ell(\gamma) \le L \cdot \abs{b-a}.  
+      \]
+    \end{lemma}
+    \begin{proof} Basta osservare che:
+      \begin{align*}
+      \ell(\gamma, T) 
+      &= \sum_{k=1}^N \abs{\vec u(t_{k+1})-\vec u(t_{k})}
+      \le \sum_{k=1}^N L \abs{t_{k+1}-t_k} \\
+      &= L \sum_{k=1}^N (t_{k+1} - t_k)
+      = L (t_N-t_1) 
+      \le L (b-a).
+      \end{align*}
+    \end{proof}
+    
+    \begin{lemma}[lunghezza di linee isometriche e omotetiche]
+      Se $L\ge 0$ e $\phi\colon \RR^n \to \RR^m$ è una funzione 
+      $L$-lipschitizana
+      e $\vec u\colon [a,b]\to \RR^n$
+      allora 
+      \begin{equation}\label{eq:ell_lipschitz}
+        \ell(\phi\circ \vec u) \le L \cdot \ell(\vec u).  
+      \end{equation}
+      
+      In particolare se $\phi\colon\RR^n\to\RR^n$ è una omotetia di rapporto $s> 0$, 
+      cioè se per ogni $\vec x, \vec y \in \RR^n$ si ha 
+      \[
+         \abs{\phi(\vec y) - \phi(\vec x)} = s \cdot \abs{\vec y - \vec x}
+      \]
+      allora 
+      \begin{equation}\label{eq:ell_omotetica}
+        \ell(\phi\circ \vec u) = s\cdot \ell(\vec u)  
+      \end{equation}
+      e se $\phi$ è una isometria (cioè se è una omotetia di rapporto $s=1$) si ha 
+      \begin{equation}\label{eq:ell_isometrica}
+        \ell(\phi\circ \vec u) = \ell(\vec u)  
+      \end{equation}
+    \end{lemma}
+    \begin{proof}
+    Se $\phi$ è $L$-lipschitziana basta applicare la disuguaglianza
+    \[
+      \abs{\phi(\vec u(t_{k+1})) - \phi(\vec u(t_k))}
+      \le L\cdot \abs{\vec u(t_{k+1}) - \vec u(t_k)}  
+    \]
+    nelle definizioni di $\ell(\vec u)$ e $\ell(\phi\circ \vec u)$
+    per ottenere~\eqref{eq:ell_lipschitz}.
+    Ora se $\phi$ è una omotetia di rapporto $s>0$
+    allora $\phi$ è $s$-lipschitziana mentre 
+    $\phi^{-1}$ è $1/s$-lipschitziana. 
+    Dunque 
+    \[
+       \ell(\phi\circ \vec u) \le s\cdot \ell(\vec u)
+    \]
+    ma anche  
+    \[
+      \ell(\vec u) = \ell(\phi^{-1}\circ \phi \circ \vec u)
+      \le \frac 1 s \ell(\phi\circ \vec u)
+    \]
+    da cui si ottiene l'uguaglianza~\eqref{eq:ell_omotetica}.
+    \end{proof}
+    
+    \subsection{definizione geometrica di $\pi$}
+    
+    La definizione della lunghezza di una linea 
+    ci permette di dare una definizione alternativa delle 
+    funzioni trigonometriche e del numero $\pi$ come lunghezza 
+    della semicirconferenza di raggio unitario.
+    
+    La circonferenza di raggio $R>0$ centrata in un punto $\vec p_0 = (x_0,y_0)\in \RR^2$ 
+    è l'insieme 
+    \[
+     \ENCLOSE{(x,y) \in \RR^2\colon (x-x_0)^2 + (y-y_0)^2 = R^2}.  
+    \]
+    In particolare chiameremo \emph{circonferenza trigonometrica} la circonferenza 
+    di raggio $1$ centrata nell'origine del piano $\RR^2$:
+    \[
+     C = \ENCLOSE{(x,y)\in \RR^2 \colon x^2 + y^2 = 1}.  
+    \]
+    Dato un punto $(x,y)$ della circonferenza trigonometrica vorremmo definire 
+    la misura dell'angolo $\alpha$ delimitato dalle due semirette uscenti dall'origine 
+    e passanti dal punto $(1,0)$ (lungo l'asse delle $x$) e il punto $(x,y)$.
+    Possiamo definire tale angolo come la lunghezza della linea che descrive il corrispondente 
+    arco di circonferenza.
+    
+    Dunque consideriamo la linea $\vec u\colon [-1,1]\to \RR^2$ definita da
+    \[
+      \vec u(t) = (t,\sqrt{1-t^2}).
+    \]
+    Chiaramente i punti di questa linea si trovano sulla circonferenza trigonometrica $C$, 
+    più precisamente tale linea descrive la semicirconferenza superiore $C\cap\ENCLOSE{y\ge 0}$.
+    Dato un punto $\vec u(x) = (x,\sqrt{1-x^2})$ su tale semicirconferenza possiamo definire la 
+    misura dell'angolo $\alpha$ come 
+    \[
+      \alpha = \ell(\vec u\llcorner [x,1])
+    \]
+    e in particolare possiamo definire la misura dell'angolo piatto: 
+    $\pi = \ell(\vec u)$.
+    \mymargin{$\pi$}%
+    \index{$\pi$!definizione geometrica}%
+    
+    Dobbiamo però assicurarci che tali misure siano finite.
+    
+    \begin{theorem}[rettificabilità della circonferenza trigonometrica]
+    \label{th:ell_u}%
+    La linea $\vec u\colon [-1,1]\to \RR^2$, $\vec u(t) = (t,\sqrt{1-t^2})$
+    è rettificabile. Più precisamente si ha:
+    \[
+      \pi  = \ell(\vec u) \le 4.  
+    \]
+    
+    Inoltre la funzione $x\mapsto \ell(\vec u\llcorner [x,1])$ 
+    è strettamente decrescente e continua.
+    \end{theorem}
+    \begin{proof}
+    
+    \emph{Passo 1:}
+    dimostriamo che $\ell(\vec u ) = 4 \ell(\vec u\llcorner[0,1/\sqrt 2])$. 
+    Per prima cosa sfruttiamo la simmetria rispetto alla isometria 
+    $\phi(x,y) = (-x,y)$:
+    \[
+      \phi(\vec u(t)) = (-t,\sqrt{1-t^2})
+      = \vec u(-t).
+    \]
+    Posto $\psi(t)=-t$ si ha infatti:
+    \[
+    \ell(\vec u \llcorner[-1,0]) 
+    = \ell(\phi\circ \vec u \llcorner [-1,0])
+    = \ell(\phi\circ \vec u \circ \psi \llcorner[0,1])
+    = \ell(\vec u\llcorner[0,1])
+    \]
+    da cui $\ell(\vec u) = 2 \ell(\vec u \llcorner[0,1])$.
+    Ora osserviamo che la linea $\vec u\llcorner[0,1]$ 
+    è simmetrica rispetto alla bisettrice $x=y$.
+    Se ora poniamo $\phi(x,y) = (y,x)$ si ha infatti 
+    \[
+    \phi(\vec u(t)) = (\sqrt{1-t^2},t)   
+    \]
+    e se poniamo $\psi(t) = \sqrt{1-t^2}$ si nota che 
+    $\psi(\psi(t)) = t$ e dunque 
+    si ha $\phi(\vec u(t)) = (\psi(t),t)
+    =\vec u\circ \psi(t)$. 
+    Dunque 
+    \[
+    \ell(\vec u\llcorner[1/\sqrt 2,1])
+    = \ell(\phi\circ \vec u \llcorner[1/\sqrt 2, 1])
+    = \ell(\vec u\circ \psi \llcorner[1/\sqrt 2, 1])  
+    = \ell(\vec u\llcorner [0,1/\sqrt 2])
+    \]
+    da cui 
+    \[
+    \pi = \ell(\vec u) = 4 \cdot \ell(\vec u \llcorner[0,1/\sqrt 2]).  
+    \]
+    
+    \emph{Passo 2:} 
+    dimostriamo che $\vec u\llcorner[0,1/\sqrt 2]$ è $\sqrt 2$-lipschitziana.
+    Se $0 \le s\le t\le 1/\sqrt 2$ si ha 
+    \[
+      \sqrt{1-s^2} - \sqrt{1-t^2}
+      = \frac{(1-s^2) - (1-t^2)}{\sqrt{1-s^2} + \sqrt{1-t^2}}
+      = \frac{t^2-s^2}{\sqrt{1-s^2} + \sqrt{1-t^2}}
+      \le \dots 
+    \]
+    osservando che se $t\le 1/\sqrt 2$ si ha $1-t^2 \ge 1/2$
+    e $\sqrt{1-s^2} \ge \sqrt{1-t^2} \ge 1/\sqrt 2$
+    otteniamo 
+    \[
+      \dots 
+      \le \frac{(t-s)(t+s)}{1/\sqrt 2 + 1/\sqrt 2}
+      \le (t-s).
+    \]
+    Dunque 
+    \[
+      \abs{\vec u(t)-\vec u(s)}
+      =\sqrt{(t-s)^2 + \enclose{\sqrt{1-s^2}-\sqrt{1-t^2}}^2}
+      \le \sqrt{(t-s)^2 + (t-s)^2} \le \sqrt 2 (t-s).  
+    \]
+    Questo ci permette di concludere che 
+    \[
+    \pi = 4 \cdot \ell(\vec u\llcorner [0,1/\sqrt 2])
+    \le 4 \cdot \sqrt 2 \cdot \frac{1}{\sqrt 2} = 4.  
+    \]
+    
+    \emph{Passo 3: monotonia.}
+      La funzione $f(x)=\ell(\vec u\llcorner[x,1])$ 
+      è strettamente decrescente perché se $s<t$ allora 
+      \[
+       \arccos s - \arccos t 
+       = \ell(\vec u\llcorner [s,1]) - \ell(\vec u\llcorner [t,1])  
+       = \ell(\vec u\llcorner [s,t]) 
+       \ge \abs{\vec u(t)-\vec u(s)} 
+       \ge \abs{t-s} > 0.
+      \]
+    
+      \emph{Passo 4: continuità.}
+      Chiamiamo $f(x)= \ell(\vec u \llcorner[x,1])$.
+      Nel passo 2 abbiamo mostrato che la funzione $\vec u \llcorner [0,1/\sqrt 2]$ 
+      è $\sqrt 2$-lipschitziana dunque se $0\le s \le t \le 1/\sqrt 2$, si ha 
+      \[
+      f(s)-f(t) = \ell(\vec u\llcorner [s,1]) - \ell(\vec u\llcorner[t,1])
+      = \ell(\vec u \llcorner[s,t]) 
+      \le \sqrt 2\cdot (t-s).
+      \]
+      Dunque pur di prendere $t$ ed $s$ sufficientemente vicini, 
+      la differenza $\abs{f(s)-f(t)}$ può essere resa arbitrariamente piccola,
+      almeno quando $t,s \in [0,1/\sqrt 2]$.
+      Ma nel passo 1 abbiamo già osservato che se $1/\sqrt 2 \le s \le t \le 1$ 
+      si ha 
+      \[
+      f(s)-f(t) 
+      = \ell(\vec u \llcorner [s,t])
+      = \ell(\vec u \llcorner [\sqrt{1-t^2},\sqrt{1-s^2}])  
+      \]
+      e duque se $f$ è continua in $[0,1/\sqrt 2]$ è continua 
+      anche in $[1/\sqrt 2, 1]$. 
+      Di conseguenza $f$ è continua anche su tutto $[0,1]$.
+      Ovviamente sull'intervallo $[-1,0]$ vale lo stesso per simmetria
+      e la funzione risulta essere continua su tutto $[-1,1]$.
+    \end{proof}
+    
+    \begin{exercise}
+    Dimostrare che $\pi\ge 2$.
+    \end{exercise}
+    
+    \subsection{definizione geometrica delle funzioni trigonometriche}
+    Se $\alpha\in [0,\pi]$
+    vogliamo definire le funzioni $\cos \alpha$ e $\sin \alpha$ come le coordinate $x$ 
+    e $y$ del punto $\vec u(t)=(t,\sqrt{1-t^2})$ che individua un angolo di lunghezza 
+    $\alpha$ rispetto all'asse positivo delle $x$.
+    La misura dell'angolo individuato dal punto di coordinate $\vec u(x)$ non è altro che
+    lunghezza della linea $\vec u(t)$ con $t\in[x,1]$. 
+    Lo chiamiamo
+    \[
+      \arccos x = \ell(\vec u\llcorner [x,1])
+    \] 
+    in quanto si tratta della misura dell'arco di circonferenza trigonometrica che parte 
+    dal punto $(1,0)$ ed ha estremo nel punto $\vec u(x)$ e dunque rappresenta 
+    l'angolo il cui coseno sarà $x$.
+    
+    Nel teorema~\ref{th:ell_u} abbiamo dimostrato che 
+    $\arccos\colon [-1,1]\to \RR$ è una funzione 
+    continua, strettamente decrescente.
+    Per il teorema~\ref{th:monotona_continua}
+    possiamo dedurre che $I = \arccos([-1,1])$ è un intervallo.
+    Ma $\arccos(-1) = \pi$ e $\arccos(1)=0$ sono, 
+    per la monotonia di $\arccos$,
+    il massimo e il minimo di $I$, dunque $I=[0,\pi]$.
+    Dunque $\arccos\colon [-1,1]\to [0,\pi]$ è bigettiva.
+    Sempre per il teorema~\ref{th:monotona_continua}
+    la funzione inversa $\arccos^{-1}\colon [0,\pi]\to[-1,1]$
+    è una funzione strettamente decrescente e continua, 
+    con $\arccos^{-1}(0) = 1$ e $\arccos^{-1}(\pi)=-1$.
+    
+    Se ora consideriamo la linea $\vec v = \vec u \circ \arccos^{-1}$
+    dove $\vec u(x)=(x,\sqrt{1-x^2})$ ci possiamo rendere conto 
+    che 
+    \[
+     \ell(\vec v\llcorner [0,t])  
+     = \ell(\vec u\llcorner[\arccos^{-1} t,\arccos 0])
+     = \arccos ()\arccos^{-1} (t)) = t.
+    \]
+    Dunque la linea $\vec v\colon[0,\pi]\to\RR^2$ descrive la stessa
+    semicirconferenza descritta da $\vec u$ ma in senso antiorario 
+    e in modo tale che l'arco trigonometrico dal punto $(1,0)=\vec v(0)$ 
+    al punto $\vec v(t)$ ha proprio lunghezza $t$.
+    Le coordinate $x$ e $y$ del punto $\vec v(t)$ vengono chiamate 
+    coseno e seno dell'arco di lunghezza $t$%
+    \mynote{%
+    La lunghezza dell'arco di raggio $1$ individuato 
+    da un angolo geometrico si chiama 
+    misura \emph{in radianti} dell'angolo.
+    Un radiante è quindi la misura di un angolo 
+    che individua un arco la cui lunghezza è pari al raggio.
+    }:
+    \[
+      \vec v(t) = (\cos t, \sin t), \qquad\text{per $t\in[0.\pi]$}.  
+    \]
+    Per $t>\pi$ vogliamo estendere la linea $\vec v$ proseguendo 
+    lungo la semicirconferenza inferiore, ponendo quindi 
+    \[
+      \vec v(t) = (\cos (2\pi - t), -\sin (2\pi - t)), \qquad \text{per $t\in[\pi,2\pi]$}.  
+    \]
+    A questo punto abbiamo $\vec v(2 \pi) = (1,0) = \vec v(0)$, la linea si è chiusa 
+    e possiamo quindi continuare periodicamente ponendo $\vec v(t+2 k \pi) = \vec v(t)$ 
+    per ogni $k\in \ZZ$ e $t\in[0,2\pi]$.
+    Questo definisce la linea per ogni $t\in \RR$ e di conseguenza 
+    definisce le funzioni $\cos t$ e $\sin t$ per ogni $t\in \RR$.
+    \mynote{
+      Formalmente potremmo definire  
+      \[
+      \cos x = \arccos^{-1}(2\pi\phi(x/2\pi))  
+      \]
+      dove $\phi(t) =  \frac 1 2 - \abs{t - \lfloor t\rfloor-\frac 1 2}$
+      osservando che $\phi(t)$ ha un grafico a \emph{denti di sega}
+      con periodo $1$ e in modo simile potremmo 
+      definire la funzione $\sin x$.
+    }
+    
