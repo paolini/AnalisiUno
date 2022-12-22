@@ -19,7 +19,7 @@ c = cx[np.newaxis,:] + 1j * cy[:,np.newaxis]
 # z e' una matrice di numeri complessi, inizialmente nulli, su cui
 # faremo l'iterazione con ognuno dei dati iniziali
 # presi dalla matrice c
-z = np.zeros((yres, xres), dtype=np.complex)
+z = np.zeros((yres, xres), dtype=complex)
 for n in range(iterations):
   print("{}% completed".format(n*100//iterations))
   z = z*z + c
@@ -28,13 +28,14 @@ for n in range(iterations):
 # non sono usciti dal disco di raggio 2.
 mandelbrot = np.logical_not(np.abs(z) < 2.0)
 
-# utilizziamo la libreria imageio che ci permette di
-# trasformare facilmente una matrice in una immagine
-from imageio import imwrite
 filename = 'mandelbrot.png'
 print("saving image to", filename)
 
-# converti la matrice booleana in interi a 8 bit
-image = mandelbrot * np.uint8(255)
-# salva l'uimmagine su file
-imwrite(filename, image)
+from PIL import Image as im
+# creating image object of
+# above array
+img = im.fromarray(mandelbrot)
+  
+# saving the final output 
+# as a PNG file
+img.save(filename)
