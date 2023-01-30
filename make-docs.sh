@@ -9,6 +9,10 @@ grep "%% README" chapters/*-00*.tex | cut -f1 -d"%" | sed "s/\\\\emph{\\([^}]*\\
 
 # writing additional info for the repository
 cat << EOF >> ${out} 
+# release
+
+Releases (PDF format) are available at the github repository: <https://github.com/paolini/AnalisiUno>
+
 # compiling 
 
 files \`README.md\` and \`docs/index.html\` are created from sources with the command:
