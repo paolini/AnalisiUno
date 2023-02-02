@@ -70,6 +70,10 @@ LaTeX.
 Il materiale è costantemente in evoluzione 
 e certamente contiene errori e incoerenze. Ogni suggerimento o commento è 
 benvenuto! 
+# release
+
+Releases (PDF format) are available at the github repository: <https://github.com/paolini/AnalisiUno>
+
 # compiling 
 
 files `README.md` and `docs/index.html` are created from sources with the command:
