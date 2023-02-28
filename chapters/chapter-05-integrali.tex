@@ -657,7 +657,8 @@ da cui, per il lemma precedente, ponendo $P=Q\cup R$
 se $f$ è Riemann integrabile
 si ottiene
 \begin{align*}
-S^*(f,P)-S_*(f,P) &\le S^*(f,Q) - S_*(f,R) \\
+S^*(f,P)-S_*(f,P) 
+&\le S^*(f,Q) - S_*(f,R) \\
 &\le I^*(f) + \frac\eps 2 - \enclose{I_*(f) - \frac \eps 2} = \eps.
 \end{align*}
 
@@ -695,22 +696,6 @@ dunque se $S^*(f,P_n) - S_*(f,P_n) \to 0$ necessariamente
 l'integrale coincide con i limiti di $S^*(f,P_n)$ e di
 $S_*(f,P_n)$.
 \end{proof}
-
-%% *** DA COMPLETARE:
-%% \begin{example}[calcolo dell'integrale mediante suddivisioni]%
-%%   \label{ex:integrale_x}%
-%% Mostriamo che per ogni $b>0$ la funzione $f(x)=x$ è
-%% Riemann integrabile sull'intervallo $[0,b]$ e si ha 
-%% \[
-%% \int_0^b x\, dx = \frac{b^2}{2}.  
-%% \]
-%% \end{example}
-%% \begin{proof}
-%%   Consideriamo le suddivisioni \emph{equispaziate} dell'intervallo $[0,b]$, cioè dividiamo $[0,b]$ in $N$ intervalli ognuno di ampiezza $b/N$:
-%%   \[
-%%   P_N = \ENCLOSE{\frac{kb}{N}\colon k \in 0, 1, \dots, N}.
-%%   \]  
-%% \end{proof}
 
 \begin{example}[calcolo dell'integrale mediante suddivisioni]%
 \label{ex:integrale_quadrato}%
@@ -995,6 +980,22 @@ Per concludere che l'insieme delle funzioni integrali sia uno spazio vettoriale
 la funzione $0$ risulta integrabile.
 \end{proof}
 
+\begin{definition}\label{def:osc}
+Sia $A\subset \RR$. Definiamo 
+l'\emph{oscillazione} di $A$ come:
+\[
+  \osc A \defeq \sup A - \inf A.
+\]
+Nel caso $A=f(D)$ sia l'immagine di una funzione 
+definiamo l'\emph{oscillazione} di $f$ sull'insieme 
+$D$ come l'oscillazione della sua immagine, ovvero:
+\[
+   \osc_{x\in D} f(x) 
+   \defeq \osc f(D) 
+   = \sup_{x\in D} f(x) - \inf_{x\in D} f(x).  
+\]
+\end{definition}
+
 \begin{theorem}[integrabilità della funzione composta]
   \label{th:composta_integrabile}%
   \index{integrabilità!della funzione composta}%
@@ -1008,8 +1009,6 @@ la funzione $0$ risulta integrabile.
 \end{theorem}
 %
 \begin{proof}
-Per comodità denotiamo con $\osc A = \sup A - \inf A$ 
-l'\emph{oscillazione} dell'insieme $A$. 
 Per i criteri di integrabilità
 fissato $\eps>0$ basta trovare una suddivisione $P$
 per cui si abbia $S^*(\phi\circ f,P) - S_*(\phi\circ f,P)\le \eps(b-a)$.
@@ -1019,13 +1018,15 @@ e quindi esiste $\delta>0$ tale che se $\abs{y_1-y_2}< \delta$
 allora $\abs{\phi(y_1)-\phi(y_2)}< \eps$. 
 Per il teorema~\ref{th:weierstrass} di Weierstrass, invece, 
 esiste $M$ tale che $\abs{\phi(y)}\le M$ per ogni $y\in [\alpha,\beta]$.
-In particolare questo garantisc che la funzione composta $\phi \circ f$ 
+In particolare questo garantisce che la funzione composta $\phi \circ f$ 
 sia limitata: $\phi(f(x))\le M$ per ogni $x\in [a,b]$.
 Scelto $\sigma = \frac{\eps \delta}{4M} (b-a)$ 
 (vedremo alla fine perché si sceglie così)
 per l'integrabilità di $f$ sappiamo che 
 esiste una suddivisione $P$ fatta 
 dai punti $x_0=a < x_1 < \dots < x_n=b$ tale che 
+\mynote{L'operatore $\osc$ è stato introdotto 
+nella definizione~\ref{def:osc}}
 \[
   S^*(f,P) - S_*(f,P) 
   = \sum_{k=1}^n (x_k - x_{k-1})
@@ -1118,41 +1119,29 @@ Risulta $f= f^+ - f^-$, $\abs{f}=f^+ + f^-$.
   di integrabilità della funzione composta.
   \end{proof}
   %
-  \begin{comment}
-  \begin{proof}
+  \begin{proof}[Dimostrazione alternativa.]
+  Possiamo fare una dimostrazione che non richiede 
+  il teorema~\ref{th:composta_integrabile}
+  ma, sostanzialmente, ne ricalca la dimostrazione nel 
+  caso particolare, molto più semplice, che ci interessa.
+
   Dimostriamo innanzitutto che se $f$ è integrabile anche $f^+$ lo è.
-  Si tratta di osservare che 
-  \begin{equation}\label{eq:77736456}
-    \sup_{x\in A} f^+(x) - \inf_{x\in A} f^+(x) \le
-    \sup_{x\in A} f(x) - \inf_{x\in A} f(x)
-  \end{equation}
-  perché se questo è vero allora su qualunque suddivisione $P$
+  Visto che $\abs{f^+(x)-f^+(y)}\le \abs{f(x)-f(y)}$ 
+  è facile convincersi che su ogni insieme $A$ risulta: 
+  \mynote{L'operatore $\osc$ è stato introdotto 
+  nella definizone~\ref{def:osc}}%
+  $\osc_A f^+ \le \osc_A f$.
+  Dunqe su qualunque suddivisione $P$
   si ottiene:
   \[
-    0 \le S^*(f^+,P) - S_*(f^+,P) \le S^*(f,P) - S_*(f,P)
+    0 \le S^*(f^+,P) - S_*(f^+,P) \le S^*(f,P) - S_*(f,P).
   \]
-  e di conseguenza
-  \[
-    0 \le I^*(f^+) - I_*(f^+) \le I^*(f) - I_*(f).  
-  \]
-  Ma essendo $f$ integrabile si ha $I^*(f)=I_*(f)$ 
-  e quindi $I^*(f^+)=I_*(f^+)$ e anche $f^+$ 
-  risulta essere integrabile.
-  
-  Per dimostrare~\eqref{eq:77736456} basta considerare tre casi possibili.
-  Se $\sup f(A)\le 0$ significa che $f^+(x)=0$ per ogni $x\in A$ 
-  e quindi banalmente $\sup f^+(A)-\inf f^+(A) = 0$.
-  Analogamente se $\inf f(A)\ge 0$ si ha $f^+(x)=f(x)$ per ogni $x\in A$ 
-  e quindi banalmente $\sup f^+(A)-\inf f^+(A) = \sup f(A)-\inf f(A)$.
-  Infine se $\sup f(A)>0$ e $\inf f(A)<0$ allora 
-  esistono punti in cui $f$ è positiva e punti in cui $f$ è negativa.
-  Dunque $\sup f^+(A) = \sup f(A)$ (perché i punti in cui $f$ è negativa 
-  sono irrilevanti per il $\sup$ essendoci punti in cui $f$ è più 
-  grande e su questi punti $f^+=f$)
-  mentre $\inf f^+(A) = \min f^+(A) = 0$ perché ci sono punti in cui 
-  $f$ è negativa e su tali punti $f^+$ è nulla, ma non ci sono punti 
-  in cui $f^+$ è negativa.
-  
+  Per il primo criterio di integrabilità del 
+  teorema~\ref{th:criteri_integrabilita} essendo $f$ integrabile 
+  sappiamo che per ogni $\eps>0$ esiste $P$ tale che il lato 
+  destro dell'equazione precedente è inferiore ad $\eps$.
+  Ma allora anche il lato sinistro lo è e dunque, 
+  per lo stesso criterio, anche $f^+$ è integrabile.    
   In maniera analoga si dimostra che se $f$ è integrabile 
   anche $f^-$ è integrabile.
   \mynote{
@@ -1161,7 +1150,8 @@ Risulta $f= f^+ - f^-$, $\abs{f}=f^+ + f^-$.
     è integrabile.
   }
   
-  Ma allora basta osservare che%
+  Per quanto riguarda $\abs f$, $f\vee g$ e $f\wedge g$  
+  basta osservare che%
   \mynote{Per ogni $a,b\in \RR$ 
   è facile convincersi che valgono 
   le seguenti identità
@@ -1183,14 +1173,10 @@ Risulta $f= f^+ - f^-$, $\abs{f}=f^+ + f^-$.
     f\wedge g = \frac{f + g - \abs{f-g}}{2}, \qquad
     f\vee g = \frac{f+g + \abs{f-g}}{2}
   \end{gather*}
-  per dedurre che se $f$ è integrabile anche $f^+$ e $f^-$ sono integrabili 
-  e dunque anche $\abs{f}=f^+ + f^-$ e integrabile
-  (linearità dell'integrale, teorema~\ref{th:integrale_lineare}).
-  E se $f$ e $g$ sono integrabili anche $f-g$ è integrabile 
-  e allora anche $\abs{f-g}$ lo è per quanto detto sopra.
-  Dunque per le formule mostrate sopra anche 
-  $f\wedge g$ e $f\vee g$ sono integrabili in quanto combinazioni
-  lineari di $f+g$ e $\abs{f-g}$.
+  e visto che combinazioni lineari di funzioni integrabili 
+  sono funzioni integrabili (teorema~\ref{th:integrale_lineare})
+  si ottiene l'integrabilità delle funzioni a lato sinistro
+  delle uguaglianze.
   
   Per dimostrare~\eqref{eq:489732} basta osservare che
   $f^+\ge 0$ e $f^-\ge 0$ dunque per il 
@@ -1207,7 +1193,6 @@ Risulta $f= f^+ - f^-$, $\abs{f}=f^+ + f^-$.
   Se $b\le a$ ci si riconduce al caso precedente scambiando 
   gli estremi di integrazione.
   \end{proof}
-\end{comment}
   
   %%%%
 \section{interpretazione geometrica dell'integrale}
