@@ -1194,7 +1194,222 @@ Risulta $f= f^+ - f^-$, $\abs{f}=f^+ + f^-$.
   gli estremi di integrazione.
   \end{proof}
   
-  %%%%
+  \begin{theorem}[integrabilità delle funzioni continue]
+    \mymark{***}
+    \label{th:integrabilita_continue}
+    \mymargin{integrabilità delle funzioni continue}
+    \index{integrabilità!funzioni continue}
+    Sia $f\colon [a,b]\to \RR$ una funzione continua.
+    Allora $f$ è limitata e Riemann-integrabile.
+    \end{theorem}
+    %
+    \begin{proof}
+    \mymark{***}
+    Per il teorema di Weierstrass sappiamo che $f$ è limitata.
+    Per il teorema di Heine-Cantor sappiamo che $f$ è uniformemente continua,
+    dunque per ogni $\eps>0$ esiste un $\delta>0$ tale che
+    \[
+     \abs{x-y} < \delta \implies \abs{f(x)-f(y)} < \eps.
+    \]
+    Possiamo allora considerare una suddivisione $P_\delta$ con la proprietà che
+    gli intervalli individuati dalla suddivisione abbiano tutti ampiezza minore di
+    $\delta$ (ad esempio potremmo prendere la suddivisione formata da
+    $(b-a)/\delta+2$ punti equispaziati in $[a,b]$). Su ogni intervallo $I$ di tale
+    suddivisione si avrà che se $x,y\in I$ allora $\abs{f(x)-f(y)} < \eps$ da cui
+    si deduce $\sup_I f - \inf_I f \le \eps$.
+    In particolare, sommando su tutti gli intervalli, si avrà
+    \begin{align*}
+      S^*(f,P_\delta) - S_*(f,P_\delta)
+      &= \sum_{k=1}^N (x_k-x_{k-1})\enclose{\sup_{[x_{k-1},x_k]} f - \inf_{[x_{k-1},x_k]} f} \\
+      &\le \eps \sum_{k=1}^N (x_k - x_{k-1})
+       = \eps (b-a).
+    \end{align*}
+    Visto che questa quantità può essere resa arbitrariamente piccola per
+    $\eps \to 0$, in base ai criteri di integrabilità possiamo concludere che la
+    funzione $f$ è integrabile.
+    \end{proof}
+    
+    \begin{theorem}[integrabilità delle funzioni monotone]
+    \label{th:integrabilita_monotone}%
+    \mymargin{integrabilità delle funzioni monotone}%
+    \index{integrabilità!funzioni monotone}%
+    Sia $f\colon [a,b]\to \RR$ una funzione monotona. Allora $f$ è limitata e
+    Riemann-integrabile.
+    \end{theorem}
+    %
+    \begin{proof}
+    Supponiamo, per fissare le idee, che $f$ sia crescente.
+    
+    Chiaramente $f$ è limitata in quanto $f(a) \le f(x) \le f(b)$ per ogni
+    $x\in [a,b]$.
+    
+    Per avere l'integrabilità e sufficiente mostrare
+    che esiste una successione di suddivisioni $P_n$
+    tale che $S^*(f,P_n) - S_*(f,P_n) \to 0$.
+    Consideriamo la suddivisione equispaziata
+    $P_n=\ENCLOSE{x_k \colon k=0,1, \dots, n}$ con $x_k=a+k(b-a)/N$.
+    In tal caso su ogni intervallino $[x_{k-1},x_k]$ si ha
+    \[
+      \sup f([x_{k-1}, x_k]) = f(x_k),
+      \qquad
+      \inf f([x_{k-1}, x_k]) = f(x_{k-1}).
+    \]
+    Dunque la differenza tra le somme superiori
+    e le somme inferiori è telescopica
+    e si ha, per $n\to +\infty$
+    \begin{align*}
+    S^*(f,P) - S_*(f,P)
+    &= \sum_{k=1}^n \frac{b-a}{n} f(x_k)
+      - \sum_{k=1}^n \frac{b-a}{n} f(x_{k-1}) \\
+    &= \frac{b-a}{n}(f(b)-f(a)) \to 0.
+    \end{align*}
+    E' quanto volevamo dimostrare.
+    \end{proof}
+    
+    \begin{example}[funzione di Heaviside]
+    \label{ex:heaviside}
+    \mymargin{funzione di Heaviside}
+    \index{funzione!di Heaviside}
+    Sia $a<0<b$.
+    La funzione $H\colon [a,b] \to \RR$ definita da
+    \[
+    H(x) =
+    \begin{cases}
+    1 & \text{se $x\ge 0$}\\
+    0 & \text{se $x< 0$}
+    \end{cases}
+    \]
+    è crescente quindi integrabile.
+    \end{example}
+    
+    \begin{theorem}[continuità dell'integrale]
+    \label{th:integrale_continuo}
+    Sia $f\colon [a,b]\to \RR$ una funzione limitata e tale
+    che per ogni $c\in (a,b]$ risulta che $f$ sia Riemann-integrabile
+    su $[c,b]$. Allora $f$ è Riemann-integrabile su $[a,c]$ e risulta
+    \[
+      \int_a^b f = \lim_{c\to a^+} \int_c^b f.
+    \]
+    
+    Analogamente se $f$ è integrabile su ogni intervallo $[a,c]$
+    con $c\in [a,b)$ allora $f$ è integrabile su $[a,b]$ e vale
+    \[
+      \int_a^b f = \lim_{c\to b^-} \int_a^c f.
+    \]
+    \end{theorem}
+    %
+    \begin{proof}
+    Dimostriamo solamente la prima parte, visto che la seconda si tratta in
+    maniera del tutto analoga. Supponiamo quindi che $f$ sia integrabile su ogni
+    intervallo $[c,b]$ con $c\in (a,b]$. Sappiamo inoltre che $f$ è limitata su
+    tutto $[a,b]$ e quindi esiste $M>0$ tale che $\abs{f(x)}\le M$ per ogni
+    $x\in [a,b]$. Fissato $\eps>0$ qualunque,
+    scegliamo $c = a + \eps/(4M)$ e, sapendo che $f$ è integrabile su $[c,b]$,
+    consideriamo una suddivisione $Q_\eps$ di $[c,b]$ tale che
+    \[
+      S^*(f, Q_\eps) - S_*(f, Q_\eps) < \frac \eps 2.
+    \]
+    Ma allora posto $P_\eps = \ENCLOSE{a} \cup Q_\eps$ otteniamo:
+    \begin{align*}
+      S^*(f,P_\eps) &= S^*(f,Q_\eps) + (c-a)\sup_{[a,c]} f
+        \le S^*(f,Q_\eps) + M \cdot (c-a)\\
+      S_*(f,P_\eps) &= S_*(f,Q_\eps) + (c-a)\inf_{[a,c]} f
+        \ge S_*(f,Q_\eps) - M \cdot (c-a)
+    \end{align*}
+    da cui
+    \begin{align*}
+     S^*(f,P_\eps)-S_*(f,P_\eps)
+     &\le S^*(f,Q_\eps) - S_*(f,Q\eps) + 2 M \cdot (c-a)\\
+     &< \frac{\eps}{2} + 2 M \frac{\eps}{4M}
+     = \eps.
+    \end{align*}
+    Dunque, la funzione $f$ è integrabile. Ma si ha
+    \begin{align*}
+    \int_a^b f \le S^*(f,P_\eps) \le S^*(f,Q_\eps) + \frac{\eps}{2}
+    \le S_*(f,Q_\eps) + \frac 3 2 \eps
+    \le \int_{a+\frac {\eps}{4M}}^b f + \frac {3}{2} \eps \\
+    \int_a^b f \ge S_*(f,P_\eps) \ge S_*(f,P_\eps) - \frac{\eps}{2}
+    \ge S^*(f,P_\eps) - \frac 3 2 \eps
+    \ge \int_{a+\frac {\eps}{4M}}^b f - \frac {3}{2} \eps
+    \end{align*}
+    da cui, passando al limite per $\eps \to 0^+$, si ottiene
+    \[
+      \lim_{c\to a^+} \int_c^b f \le \int_a^b f \le \lim_{c\to a^+} \int_c^b f
+    \]
+    e quindi l'uguaglianza.
+    \end{proof}
+    
+    \begin{example}
+    La funzione
+    \[
+      f(x) = \begin{cases}
+      \sin\frac 1 x & \text{se $x\neq 0$,}\\
+      0 & \text{se $x=0$}
+      \end{cases}
+    \]
+    è integrabile su ogni intervallo chiuso e limitato $[a,b]$.
+    \end{example}
+    \begin{proof}
+    Su ogni intervallo $[\eps,b]$ con $\eps>0$ e $b>\eps$ la funzione
+    è integrabile in quanto su tali intervalli è continua (la funzione è continua su
+    tutto $\RR\setminus\ENCLOSE{0}$). Inoltre la funzione è limitata, quindi per il teorema
+    precedente possiamo concludere che è integrabile su $[0,b]$ per ogni $b>0$.
+    
+    In maniera analoga (per simmetria) la funzione è integrabile su $[a,0]$
+    per ogni $a<0$.
+    Dunque, per additività, la funzione è integrabile su ogni $[a,b]$ con $a<0$ e $b>0$
+    e di conseguenza (sempre grazie al teorema~\ref{th:additivita_integrale})
+    è integrabile su ogni intervallo $[a,b]$.
+    \end{proof}
+    
+    Il seguente risultato è una versione continua della disuguaglianza di convessità 
+    per le combinazioni baricentriche.
+    %
+    \begin{theorem}[disuguaglianza di Jensen]
+      \label{th:jensen}%
+      \index{disuguaglianza!di Jensen}%
+      \index{Jensen!disuguaglianza di}%
+      \index{teorema!Jensen}%
+    Sia $f\colon[a,b]\to I\subset \RR$ una funzione continua a valori 
+    in un intervallo $I$ e sia $\phi\colon I \to \RR$ una funzione convessa e continua.
+    Sia inoltre $g\colon [a,b]\to \RR$ una funzione continua tale che 
+    \[
+        \int_a^b g(x)\, dx = 1
+    \]
+    Allora si ha 
+      \[
+      \phi\enclose{\int_a^b f(x) g(x) \, dx} \le \int_a^b \phi(f(x)) g(x)\, dx.
+      \]
+    Nel caso particolare in cui si scelga $g$ la funzione costante $g(x)=1/(b-a)$ si ottiene 
+    la formulazione più espressiva:
+    \[
+      \phi\enclose{\dashint_a^b f(x)\, dx} \le \dashint_a^b \phi(f(x))\, dx.
+    \]
+    \end{theorem}
+    %
+    \begin{proof}
+    Le ipotesi di continuità di $f$, $g$ e $\phi$ sono sovrabbondanti, ma ci servono 
+    per avere una garanzia immediata che entrambe le funzioni integrande
+    siano effettivamente Riemann-integrabili.
+    Posto 
+    \[
+      y_0 = \int_a^b f(x) g(x)\, dx 
+    \]
+    scegliamo una funzione affine $L(y) = my + q$ tale che $L(y_0)=\phi(y_0)$ 
+    e $L(y)\le \phi(y)$ per ogni $y\in I$ (grazie al teorema~\ref{th:supporto_convessa}).
+    Per la linearità dell'integrale si ha: 
+    \[
+      L(y_0)
+      = \int_a^b mf(x)g(x)\, dx + q \int_a^b g(x)\, dx
+      = \int_a^b L(f(x)) g(x)\, dx.
+    \]
+    Allora per la monotonia dell'integrale risulta
+    \[
+      \phi(y_0) = L(y_0) = \int_a^b L(f(x)) g(x)\, dx \le \int_a^b \phi(f(x)) g(x)\, dx.
+    \]
+    \end{proof}
+    
+%%%%
 \section{interpretazione geometrica dell'integrale}
 \index{integrale!interpretazione geometrica}%
 \index{interpretazione!geometrica dell'integrale}%
@@ -1296,178 +1511,7 @@ che è effettivamente la formula elementare per
 calcolare l'area di un trapezio.
 \end{example}
 
-%%%%%
-\section{classi di funzioni integrabili}
-\index{integrale!classi di funzioni integrabili}%
-%%%%%
-
-\begin{theorem}[integrabilità delle funzioni continue]
-\mymark{***}
-\label{th:integrabilita_continue}
-\mymargin{integrabilità delle funzioni continue}
-\index{integrabilità!funzioni continue}
-Sia $f\colon [a,b]\to \RR$ una funzione continua.
-Allora $f$ è limitata e Riemann-integrabile.
-\end{theorem}
-%
-\begin{proof}
-\mymark{***}
-Per il teorema di Weierstrass sappiamo che $f$ è limitata.
-Per il teorema di Heine-Cantor sappiamo che $f$ è uniformemente continua,
-dunque per ogni $\eps>0$ esiste un $\delta>0$ tale che
-\[
- \abs{x-y} < \delta \implies \abs{f(x)-f(y)} < \eps.
-\]
-Possiamo allora considerare una suddivisione $P_\delta$ con la proprietà che
-gli intervalli individuati dalla suddivisione abbiano tutti ampiezza minore di
-$\delta$ (ad esempio potremmo prendere la suddivisione formata da
-$(b-a)/\delta+2$ punti equispaziati in $[a,b]$). Su ogni intervallo $I$ di tale
-suddivisione si avrà che se $x,y\in I$ allora $\abs{f(x)-f(y)} < \eps$ da cui
-si deduce $\sup_I f - \inf_I f \le \eps$.
-In particolare, sommando su tutti gli intervalli, si avrà
-\begin{align*}
-  S^*(f,P_\delta) - S_*(f,P_\delta)
-  &= \sum_{k=1}^N (x_k-x_{k-1})\enclose{\sup_{[x_{k-1},x_k]} f - \inf_{[x_{k-1},x_k]} f} \\
-  &\le \eps \sum_{k=1}^N (x_k - x_{k-1})
-   = \eps (b-a).
-\end{align*}
-Visto che questa quantità può essere resa arbitrariamente piccola per
-$\eps \to 0$, in base ai criteri di integrabilità possiamo concludere che la
-funzione $f$ è integrabile.
-\end{proof}
-
-\begin{theorem}[integrabilità delle funzioni monotone]
-\label{th:integrabilita_monotone}%
-\mymargin{integrabilità delle funzioni monotone}%
-\index{integrabilità!funzioni monotone}%
-Sia $f\colon [a,b]\to \RR$ una funzione monotona. Allora $f$ è limitata e
-Riemann-integrabile.
-\end{theorem}
-%
-\begin{proof}
-Supponiamo, per fissare le idee, che $f$ sia crescente.
-
-Chiaramente $f$ è limitata in quanto $f(a) \le f(x) \le f(b)$ per ogni
-$x\in [a,b]$.
-
-Per avere l'integrabilità e sufficiente mostrare
-che esiste una successione di suddivisioni $P_n$
-tale che $S^*(f,P_n) - S_*(f,P_n) \to 0$.
-Consideriamo la suddivisione equispaziata
-$P_n=\ENCLOSE{x_k \colon k=0,1, \dots, n}$ con $x_k=a+k(b-a)/N$.
-In tal caso su ogni intervallino $[x_{k-1},x_k]$ si ha
-\[
-  \sup f([x_{k-1}, x_k]) = f(x_k),
-  \qquad
-  \inf f([x_{k-1}, x_k]) = f(x_{k-1}).
-\]
-Dunque la differenza tra le somme superiori
-e le somme inferiori è telescopica
-e si ha, per $n\to +\infty$
-\begin{align*}
-S^*(f,P) - S_*(f,P)
-&= \sum_{k=1}^n \frac{b-a}{n} f(x_k)
-  - \sum_{k=1}^n \frac{b-a}{n} f(x_{k-1}) \\
-&= \frac{b-a}{n}(f(b)-f(a)) \to 0.
-\end{align*}
-E' quanto volevamo dimostrare.
-\end{proof}
-
-\begin{example}[funzione di Heaviside]
-\label{ex:heaviside}
-\mymargin{funzione di Heaviside}
-\index{funzione!di Heaviside}
-Sia $a<0<b$.
-La funzione $H\colon [a,b] \to \RR$ definita da
-\[
-H(x) =
-\begin{cases}
-1 & \text{se $x\ge 0$}\\
-0 & \text{se $x< 0$}
-\end{cases}
-\]
-è crescente quindi integrabile.
-\end{example}
-
-\begin{theorem}[continuità dell'integrale]
-\label{th:integrale_continuo}
-Sia $f\colon [a,b]\to \RR$ una funzione limitata e tale
-che per ogni $c\in (a,b]$ risulta che $f$ sia Riemann-integrabile
-su $[c,b]$. Allora $f$ è Riemann-integrabile su $[a,c]$ e risulta
-\[
-  \int_a^b f = \lim_{c\to a^+} \int_c^b f.
-\]
-
-Analogamente se $f$ è integrabile su ogni intervallo $[a,c]$
-con $c\in [a,b)$ allora $f$ è integrabile su $[a,b]$ e vale
-\[
-  \int_a^b f = \lim_{c\to b^-} \int_a^c f.
-\]
-\end{theorem}
-%
-\begin{proof}
-Dimostriamo solamente la prima parte, visto che la seconda si tratta in
-maniera del tutto analoga. Supponiamo quindi che $f$ sia integrabile su ogni
-intervallo $[c,b]$ con $c\in (a,b]$. Sappiamo inoltre che $f$ è limitata su
-tutto $[a,b]$ e quindi esiste $M>0$ tale che $\abs{f(x)}\le M$ per ogni
-$x\in [a,b]$. Fissato $\eps>0$ qualunque,
-scegliamo $c = a + \eps/(4M)$ e, sapendo che $f$ è integrabile su $[c,b]$,
-consideriamo una suddivisione $Q_\eps$ di $[c,b]$ tale che
-\[
-  S^*(f, Q_\eps) - S_*(f, Q_\eps) < \frac \eps 2.
-\]
-Ma allora posto $P_\eps = \ENCLOSE{a} \cup Q_\eps$ otteniamo:
-\begin{align*}
-  S^*(f,P_\eps) &= S^*(f,Q_\eps) + (c-a)\sup_{[a,c]} f
-    \le S^*(f,Q_\eps) + M \cdot (c-a)\\
-  S_*(f,P_\eps) &= S_*(f,Q_\eps) + (c-a)\inf_{[a,c]} f
-    \ge S_*(f,Q_\eps) - M \cdot (c-a)
-\end{align*}
-da cui
-\begin{align*}
- S^*(f,P_\eps)-S_*(f,P_\eps)
- &\le S^*(f,Q_\eps) - S_*(f,Q\eps) + 2 M \cdot (c-a)\\
- &< \frac{\eps}{2} + 2 M \frac{\eps}{4M}
- = \eps.
-\end{align*}
-Dunque, la funzione $f$ è integrabile. Ma si ha
-\begin{align*}
-\int_a^b f \le S^*(f,P_\eps) \le S^*(f,Q_\eps) + \frac{\eps}{2}
-\le S_*(f,Q_\eps) + \frac 3 2 \eps
-\le \int_{a+\frac {\eps}{4M}}^b f + \frac {3}{2} \eps \\
-\int_a^b f \ge S_*(f,P_\eps) \ge S_*(f,P_\eps) - \frac{\eps}{2}
-\ge S^*(f,P_\eps) - \frac 3 2 \eps
-\ge \int_{a+\frac {\eps}{4M}}^b f - \frac {3}{2} \eps
-\end{align*}
-da cui, passando al limite per $\eps \to 0^+$, si ottiene
-\[
-  \lim_{c\to a^+} \int_c^b f \le \int_a^b f \le \lim_{c\to a^+} \int_c^b f
-\]
-e quindi l'uguaglianza.
-\end{proof}
-
-\begin{example}
-La funzione
-\[
-  f(x) = \begin{cases}
-  \sin\frac 1 x & \text{se $x\neq 0$,}\\
-  0 & \text{se $x=0$}
-  \end{cases}
-\]
-è integrabile su ogni intervallo chiuso e limitato $[a,b]$.
-\end{example}
-\begin{proof}
-Su ogni intervallo $[\eps,b]$ con $\eps>0$ e $b>\eps$ la funzione
-è integrabile in quanto su tali intervalli è continua (la funzione è continua su
-tutto $\RR\setminus\ENCLOSE{0}$). Inoltre la funzione è limitata, quindi per il teorema
-precedente possiamo concludere che è integrabile su $[0,b]$ per ogni $b>0$.
-
-In maniera analoga (per simmetria) la funzione è integrabile su $[a,0]$
-per ogni $a<0$.
-Dunque, per additività, la funzione è integrabile su ogni $[a,b]$ con $a<0$ e $b>0$
-e di conseguenza (sempre grazie al teorema~\ref{th:additivita_integrale})
-è integrabile su ogni intervallo $[a,b]$.
-\end{proof}
+\section{teorema fondamentale del calcolo}
 
 \begin{theorem}[del valor medio]%
   \label{th:media_integrale}%
@@ -1518,58 +1562,9 @@ e di conseguenza (sempre grazie al teorema~\ref{th:additivita_integrale})
   minimo e il massimo.
   Ma per il teorema~\ref{th:valori_intermedi} dei valori intermedi 
   possiamo infine affermare che esiste un punto $c\in [a,b]$
-  dove la funzione assume tale valore. 
-  \end{proof}
-  
-Il seguente risultato è una versione continua della disuguaglianza di convessità 
-per le combinazioni baricentriche.
-%
-\begin{theorem}[disuguaglianza di Jensen]
-  \label{th:jensen}%
-  \index{disuguaglianza!di Jensen}%
-  \index{Jensen!disuguaglianza di}%
-  \index{teorema!Jensen}%
-Sia $f\colon[a,b]\to I\subset \RR$ una funzione continua a valori 
-in un intervallo $I$ e sia $\phi\colon I \to \RR$ una funzione convessa e continua.
-Sia inoltre $g\colon [a,b]\to \RR$ una funzione continua tale che 
-\[
-    \int_a^b g(x)\, dx = 1
-\]
-Allora si ha 
-  \[
-  \phi\enclose{\int_a^b f(x) g(x) \, dx} \le \int_a^b \phi(f(x)) g(x)\, dx.
-  \]
-Nel caso particolare in cui si scelga $g$ la funzione costante $g(x)=1/(b-a)$ si ottiene 
-la formulazione più espressiva:
-\[
-  \phi\enclose{\dashint_a^b f(x)\, dx} \le \dashint_a^b \phi(f(x))\, dx.
-\]
-\end{theorem}
-%
-\begin{proof}
-Le ipotesi di continuità di $f$, $g$ e $\phi$ sono sovrabbondanti, ma ci servono 
-per avere una garanzia immediata che entrambe le funzioni integrande
-siano effettivamente Riemann-integrabili.
-Posto 
-\[
-  y_0 = \int_a^b f(x) g(x)\, dx 
-\]
-scegliamo una funzione affine $L(y) = my + q$ tale che $L(y_0)=\phi(y_0)$ 
-e $L(y)\le \phi(y)$ per ogni $y\in I$ (grazie al teorema~\ref{th:supporto_convessa}).
-Per la linearità dell'integrale si ha: 
-\[
-  L(y_0)
-  = \int_a^b mf(x)g(x)\, dx + q \int_a^b g(x)\, dx
-  = \int_a^b L(f(x)) g(x)\, dx.
-\]
-Allora per la monotonia dell'integrale risulta
-\[
-  \phi(y_0) = L(y_0) = \int_a^b L(f(x)) g(x)\, dx \le \int_a^b \phi(f(x)) g(x)\, dx.
-\]
+  dove la funzione assume tale valore.
 \end{proof}
-
-\section{teorema fondamentale del calcolo}
-
+  
 \mymargin{teor. fondamentale}
 \begin{theorem}[Torricelli-Barrow: teorema fondamentale del calcolo integrale]
 \mymark{***}%
