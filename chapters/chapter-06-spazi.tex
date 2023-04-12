@@ -1091,24 +1091,26 @@ Ogni successione di Cauchy è limitata
 %
 \begin{proof}
 Sia $x_k \in \RR$ una successione di Cauchy.
-Fissato $\eps =1$ sappiamo che esiste $N\in \NN$
+Fissato $\eps>0$ sappiamo che esiste $N\in \NN$
 per cui per ogni $k,j>N$ si ha
-$d(x_k,x_j) < 1$. In particolare per ogni $k>N$ si ha
+$d(x_k,x_j) < \eps$. 
+In particolare per ogni $k>N$ si ha
 \[
-  d(x_k, x_{N+1}) < 1.
+  d(x_k, x_{N+1}) < \eps.
 \]
-Dunque posto
+Dunque scelto
 \[
-  R = \max\ENCLOSE{d(x_0,x_1), d(x_0,x_2), \dots, d(x_0,x_N), d(x_0, x_{N+1}) + 1}
+  R > \max\ENCLOSE{d(x_0,x_1), d(x_0,x_2), \dots, d(x_0,x_N), d(x_0, x_{N+1}) + \eps}
 \]
-si osserva che per ogni $k\in \NN$ si ha $d(x_0, x_k)\le R < R+1$ in quanto 
+si osserva che per ogni $k\in \NN$ si ha $d(x_0, x_k)< R$ in quanto 
 se $k \le N$ abbiamo scelto appositamente $R$ in modo che sia più grande di $d(x_0,x_k)$ e se $k > N$ allora
 \[
   d(x_0,x_k) \le d(x_0,x_{N+1}) + d(x_{N+1},x_k)
-    \le d(x_0,x_{N+1}) + 1 \le R.
+    \le d(x_0,x_{N+1}) + \eps < R.
 \]
 
-Significa quindi che per ogni $x\in \NN$ si ha $x_k \in B_{R+1}(x_0)$ che è la definizione di limitatezza in uno
+Significa quindi che per ogni $k\in \NN$ si ha $x_k \in B_{R}(x_0)$ 
+che è la definizione di limitatezza in uno
 spazio metrico.
 \end{proof}
 
@@ -1820,14 +1822,14 @@ improprio ci serve una ipotesi in più, come vediamo nel seguente.
 
 \begin{example}
 La successione $f_k(x) = \sin(x^k)$ converge puntualmente a $f(x)=0$ sull'intervallo
-$\closeopeninterval{0}{\frac \pi2}$ e la convergenza è uniforme su ogni intervallo $[0,\beta]$
-con $\beta < \frac \pi 2$ (verificare!).
-Inoltre $\abs{f_k(x)} = \sin(x^k) \le 1$ per ogni $x\in \Enclose{0,\frac \pi 2}$
-e $\int_0^{\frac \pi 2} 1\, dx = \frac \pi 2 < +\infty$.
+$\closeopeninterval{0}{1}$ e la convergenza è uniforme su ogni intervallo $[0,\beta]$
+con $\beta < 1$ (verificare!).
+Inoltre $\abs{f_k(x)} = \sin(x^k) \le \sin(1)$ per ogni $x\in \Enclose{0,1}$
+e $\int_0^1 \sin(1)\, dx = \sin(1)< +\infty$.
 Dunque possiamo applicare il teorema di convergenza dominata e,
 scambiando il limite con l'integrale possiamo dedurre che
 \[
-  \int_0^{\frac \pi 2} \sin (x^k)\, dx \to 0, \qquad \text{per $k\to +\infty$.}
+  \int_0^1 \sin (x^k)\, dx \to 0, \qquad \text{per $k\to +\infty$.}
 \]
 \end{example}
 
@@ -1874,7 +1876,9 @@ nella variabile $x$, cioè:
 Si noti che l'indice $k\to +\infty$, $k\in \NN$ 
 nel teorema~\ref{th:convergenza_dominata_uniforme} 
 può essere tranquillamente sostituito con 
-un parametro continuo $y\to x$, $x\in \RR$.
+un parametro continuo $y\to x$, $x\in \RR$
+grazie al teorema~\ref{th:ponte} (collegamento tra limite 
+di funzione e limite di successione).
 Vogliamo dunque ricondurci al teorema~\ref{th:convergenza_dominata_uniforme} 
 e per fare questo andremo quindi a dimostrare che fissato $[\alpha,\beta]\subset (a,b)$ 
 e fissato $x\in I$ si ha convergenza uniforme 
@@ -1910,8 +1914,8 @@ per scambiare la derivata con l'integrale come enunciato nel seguente.
   \label{th:derivata_integrale}%
   \mymargin{scambio della derivata con l'integrale}%
 \index{scambio della derivata con l'integrale}%
-Sia $f\colon I\times(a,b)\to \RR$ una funzione, $I\subset \RR$ 
-un intervallo e $a,b\in \bar\RR$ con $-\infty \le a < b \le +\infty$.
+Sia $f\colon I\times(a,b)\to \RR$ una funzione continua, 
+$I\subset \RR$ un intervallo e $a,b\in \bar\RR$ con $-\infty \le a < b \le +\infty$.
 Supponiamo che per ogni $t\in (a,b)$ la funzione sia derivabile rispetto a $x$
 per ogni $x\in I$
 e che la derivata $\frac{\partial f}{\partial x}$ sia continua su tutto il rettangolo 
@@ -2041,46 +2045,142 @@ Mostriamo che
   \] 
 \end{exercise}
 \begin{proof}
-Consideriamo la funzione 
+Per ogni $x \ge 0$ consideriamo la funzione 
 \[
-  F(x) = \int_0^{+\infty} \frac{\sin t}{t}e^{-tx}\, dt.
+  F(x) = \int_0^{+\infty} \frac{\sin t}{t}e^{-tx}\, dt
 \]
-Possiamo derivare la funzione utilizzando il teorema~\ref{th:derivata_integrale}
+cosicché l'integrale richiesto non è altro che $F(0)$.
+Per ogni $x>0$
+possiamo derivare la funzione utilizzando il teorema~\ref{th:derivata_integrale}
 in quanto la derivata della funzione integranda 
 \[
   \frac{\partial}{\partial x}\enclose{\frac{\sin t}{t}e^{-tx}} 
   = -\sin t \cdot e^{-tx}
 \]
-è dominata dalla funzione $e^{-t}$
-che ha integrale convergente.
+è dominata dalla funzione $g(t) = e^{- \eps t}$ se $x>\eps$ e 
+$g$ ha integrale convergente.
 Dunque si ha 
 \[
   F'(x) = - \int_0^{+\infty} \sin t \cdot e^{-tx}\, dt. 
 \]
 Questo integrale si può calcolare integrando due volte per parti 
 (si veda esercizio~\ref{ex:821685}) e si trova 
-$F'(x) = -\frac{1}{1+x^2}$ da cui 
+$F'(x) = -\frac{1}{1+x^2}$ da cui
 \[
-  \int_0^{+\infty} F'(x)\, dx = -\Enclose{\arctg x}_0^{+\infty} = - \frac \pi 2.
+  F(x) = -\arctg + c
 \]
-D'altra parte per la formula fondamentale del calcolo 
-sappiamo che il precedente integrale 
-non è altro che $\Enclose{F(x)}_0^{+\infty}$ ed è facile 
-verificare che $F(0)$ è proprio l'integrale richiesto 
-(ma bisogna anche verificare che $F$ è continua in $x=0$).
+per qualche $c \in \RR$.
 
-Basterà quindi calcolare $\lim_{x\to+\infty} F(x)$.
-Ma anche in questo caso è possibile passare al limite 
-dentro al segno di integrale in quanto la funzione 
-integranda è dominata da una funzione con integrale convergente:
+Per determinare $c$ 
+vogliamo ora verificare che $F(x) \to 0$ per $x\to +\infty$.
+Per fare ciò, grazie al teorema~\ref{th:ponte} (collegamento tra limite 
+di funzione e limite di successione), è sufficiente 
+mostrare che $F(x_n) \to 0$ se $x_n$ è una qualunque successione 
+con $x_n\ge 1$ e $x_n \to +\infty$.
+Posto $f_n(t) = f(x_n,t)$ si osserva che se se $t\ge \eps>0$ si ha 
 \[
-\abs{\frac{\sin t}{t}e^{-tx}} \le 
-\begin{cases}
-  1 & \text{se $t\le 1$}\\
-  \frac{e^{-t}}{t} & \text{se $t>1$}. 
-\end{cases}
+  \abs{f_n(t)} \le e^{-tx_n} \le e^{-\eps x_n} \to 0  
 \]
-Allora $F(x) \to 0$ per $x\to +\infty$ e si ottiene il risultato voluto.
+e dunque $f_n$ converge uniformemente a $0$ su ogni intervallo 
+$[\eps,+\infty)$ con $\eps>0$. Inoltre avendo supposto $x_n\ge 1$ si ha  
+\[
+ \abs{f_n(t)} \le e^{-tx_n} \le e^{-t}
+ \qquad \text{e} \qquad 
+ \int_0^{+\infty} e^{-t}\, dt < +\infty
+\]
+dunque sono verificate le ipotesi del teorema~\ref{th:convergenza_dominata_uniforme}
+e possiamo concludere che 
+\[
+  \lim_{n\to+\infty} F(x_n) = \lim_{n\to+\infty} \int_0^{+\infty} f_n(t) 
+  = \int_0^{+\infty} \lim_{n\to+\infty} f_n(t) = 0
+\]
+come volevamo dimostrare.
+
+Dunque $c=\frac{\pi} 2$ e si ha, per ogni $x>0$,
+\[
+  F(x) = \frac{\pi} 2 - \arctg x.
+\]
+
+L'integrale richiesto è $F(0)$ e la formula appena trovata ci 
+dice che $F(x)\to \frac \pi 2$ per $x\to 0$. 
+Rimane quindi solamente da dimostrare che $F(x)\to F(0)$ per 
+$x\to 0$ ovvero 
+\[
+  \lim_{x\to 0} \int_0^{+\infty} f(x,t) \, dt
+  = \int_0^{+\infty} f(0,t) \, dt.
+\]
+Sfortunatamente non è possibile utilizzare direttamente i teoremi 
+di passaggio al limite sotto il segno di integrale in quanto 
+l'integrale sul lato destro, cioè l'integrale cercato, non 
+è assolutamente convergente e quindi non sarà possibile trovare 
+una funzione \emph{dominante} come richiesto nelle ipotesi del teorema.
+
+L'idea è dunque quella di ricondurre l'integrale non assolutamente convergente 
+ad un integrale assolutamente convergente mediante integrazione per parti, 
+come abbiamo fatto nell'esempio~\ref{ex:48864}.
+
+In effetti si ha 
+\begin{align*}
+ 0 
+ & \le F(x) - F(0) 
+ = \int_0^{+\infty} \frac{\sin t}{t}\, dt  - \int_0^{+\infty} \frac{\sin t}{t}e^{-xt}\, dt \\
+ & = \int_0^{+\infty} \frac{\sin t}{t}\enclose{1-e^{-xt}}\, dt.
+\end{align*}
+Ora spezziamo l'integrale sui due intervalli $\closeinterval{0}{\pi}$ 
+e $\closeopeninterval{\pi}{+\infty}$.
+Sul primo intervallo non ci saranno problemi: la funzione integranda 
+infatti tende uniformemente a zero e l'integrale tende a zero 
+per il teorema~\ref{th:scambio_limite_integrale}.
+
+Sul secondo intervallo invece dobbiamo operare l'integrazione per parti:
+\begin{align*}
+  \int_\pi^{+\infty} \frac{\sin t}{t}\, dt 
+  &= \Enclose{\frac{-\cos t}{t}}_{\pi}^{+\infty}
+    - \int_{\pi}^{+\infty} \frac{\cos t}{t^2}\, dt \\
+  &= -\frac{1}{\pi} - \int_{\pi}^{+\infty} \frac {\cos t}{t^2}\, dt.\\
+\end{align*}
+Si ha poi (tralasciamo i dettagli di calcolo, 
+si tratta di integrare due volte per parti come 
+abbiamo fatto nell'esempio~\ref{ex:48864}):
+\[
+\int \sin t\cdot e^{-tx}\, dt 
+= -h(x,t)
+\]
+con 
+\[
+h(x,t)= \frac{\cos t+x\sin t}{1+x^2}e^{-xt}.  
+\]
+Dunque 
+\begin{align*}
+  \int_\pi^{+\infty} \frac{\sin t}{t} e^{-xt}\, dt 
+  &= \Enclose{-\frac{\cos t+ x \sin t}{1+x^2}e^{-tx}\cdot \frac{1}{t}}_{\pi}^{+\infty} 
+  - \int_\pi^{+\infty}\frac{h(x,t)}{t^2}\, dt.\\  
+  &= -\frac 1 \pi\cdot \frac{1}{1+x^2}e^{-\pi x} - \int_\pi^{+\infty}\frac{h(x,t)}{t^2}\, dt.
+\end{align*}
+e
+\begin{align*}
+\int_\pi^{+\infty} \frac{\sin t}{t}\, dt 
+-\int_\pi^{+\infty} \frac{\sin t}{t} e^{-xt}\, dt
+&= -\frac 1 \pi \enclose{1-\frac{e^{-\pi x}}{1+x^2}}
+-\int_\pi^{+\infty} \frac{\cos(t) - h(x,t)}{t^2}\, dt 
+\end{align*}
+E' ora facile verificare che se $t\in(0,+\infty)$
+e $x\in[0,1]$ si ha 
+\[
+\abs{\cos t - h(x,t)} \le \abs{\cos t} + \frac{\abs{\cos t}+x\abs{\sin t}}{1+x^2}
+\le 1+ \frac{1+x}{1+x^2} \le 1 + \frac 2 1 = 3
+\]
+dunque $\abs{\cos t - h(x,t)}/t^2 \le 1/t^2$ ed avendo $1/t^2$ 
+integrale convergente su $[\pi,+\infty)$, grazie 
+al teorema~\ref{th:convergenza_dominata} si conclude 
+che 
+\[
+\lim_{x\to 0} \int_\pi^{+\infty} \frac{\cos t - h(x,t)}{t^2}\, dt 
+= \int_{\pi}^{+\infty} \frac{\cos t - h(0,t)}{t^2}\, dt 
+= 0.  
+\]
+Ma allora abbiamo dimostrato che $F(x)\to F(0)$ per $x\to 0$ 
+e abbiamo concluso la dimostrazione.
 \end{proof}
 
 \begin{exercise}[integrale della gaussiana]
@@ -2610,7 +2710,7 @@ Introduciamo quindi la seguente.
 
 \begin{definition}[base hilbertiana]
 \index{Hilbert!base di}
-Sia $V$ uno spazio euclideo. Siano $e_k\in H(a,b)$ con $k\in \NN$. Diremo che
+Sia $V$ uno spazio euclideo. Siano $e_k\in V$ con $k\in \NN$. Diremo che
 $e_k$ è un \emph{sistema ortonormale}%
 \mymargin{sistema ortonormale}\index{sistema ortonormale} se $\langle e_k, e_j\rangle = 0$ quando
 $k\neq j$ e $\langle e_k, e_k\rangle = 1$ per ogni $k\in \NN$.
@@ -2954,8 +3054,8 @@ Per ottenere questo risultato dobbiamo assumere la validità del seguente
 teorema, che sarebbe ora troppo lungo dimostrare.
 
 \begin{theorem}[densità dei polinomi trigonometrici]
-Per ogni funzione continua $f\in C^0([a,b])$
-esiste una successione $g_k\in \H(a,b)$ di polinomi trigonometrici
+Per ogni funzione continua $f\in C^0([0,2\pi])$
+esiste una successione $g_k\in \H(0,2\pi)$ di polinomi trigonometrici
 (cioè combinazioni lineari finite del sistema $\ENCLOSE{e_k}$)
 tale che $g_k$ converge uniformemente a $f$.
 
@@ -3147,10 +3247,10 @@ Abbiamo quindi verificato che per $n\ge m$ si ha:
 \]
 E' dunque chiaro che comunque sia scelto $\eps>0$ possiamo scegliere $N$
 tale che $1/2^N \le \eps^2$ da cui si ottiene che se $n,m\ge N$
-allora $\Abs{ f_n-f_m}_2 \le \eps$. Cioè: $f_n$ è una successione di Cauchy.
+allora $\Abs{f_n-f_m}_2 \le \eps$. Cioè: $f_n$ è una successione di Cauchy.
 
 Supponiamo ora, per assurdo, che esista $f\in H(0,1)$
-tale che $\Abs{ f_n-f}_2 \to 0$.
+tale che $\Abs{f_n-f}_2 \to 0$.
 Innanzitutto visto che ogni $f_k\le 1$ possiamo supporre che sia anche $f\le 1$
 perché altrimenti potremmo prendere $g(x) = \min\ENCLOSE{f(x),1}$ e avremmo
 chiaramente $\Abs{f_n - g}_2 \le \Abs{f_n -f}_2 \to 0$. In pratica stiamo dicendo
@@ -3172,17 +3272,22 @@ $\sup f(I_n) = \lambda < 1$
 l'integrale di $f(x)-1$ sarebbe positivo
 sull'intervallo $I_n$.
 
-Vogliamo ora dimostrare che su ogni intervallo $[a,b]\subset[0,1]$ si ha
-$\sup f([a,b])=1$. Prendiamo $N$ abbastanza grande in modo che $r_N < (b-a)/3$.
-Allora l'intervallo $[a+r_n, b-r_n]$ ha ampiezza $2 r_n$ e contiene infiniti
-numeri razionali. Esistono quindi infiniti indici $n$ per cui $q_n$ sta in tale
-intervallo. Tra questi infiniti certamente ce n'è uno con indice $n\ge N$
-(perché i $q_n$ con $n< N$ sono in numero finito). Ma se $q_n \in [a+r_n,b-r_n]$
+Vogliamo ora dimostrare che su ogni intervallo $[a,b]\subset[0,1]$, se $b>a$
+si ha $\sup f([a,b])=1$. 
+Prendiamo $N$ abbastanza grande in modo che $r_N < (b-a)/3$.
+Allora l'intervallo $[a+r_N, b-r_N]$ ha ampiezza maggiore di $r_N$ e contiene infiniti
+numeri razionali. 
+Esistono quindi infiniti indici $n$ per cui $q_n$ sta in tale
+intervallo. 
+Tra questi infiniti certamente ce n'è uno con indice $n\ge N$
+(perché i $q_n$ con $n<N$ sono in numero finito). 
+Ma se $q_n \in [a+r_N,b-r_N]$
 allora $I_n\subset[a,b]$ e quindi $\sup f([a,b])\ge \sup f(I_n) = 1$.
 
 Questo significa che per ogni suddivisione di Riemann dell'intervallo $[0,1]$
 risulta che il $\sup$ di $f$ sugli intervallini della suddivisione è $1$ e quindi
-l'integrale superiore di $f$ è anch'esso $1$. Dunque, essendo $f$ integrabile,
+l'integrale superiore di $f$ è anch'esso $1$. 
+Dunque, essendo $f$ integrabile,
 \[
   \int_a^b f(x) = 1.
 \]
