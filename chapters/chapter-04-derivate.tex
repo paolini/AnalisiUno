@@ -1150,8 +1150,8 @@ Osservando che $f(0)=2/e$ si trova quindi
   \label{th:darboux}%
   Sia $f\colon I \to \RR$ una funzione derivabile su un intervallo $I\subset \RR$.
   Allora la derivata soddisfa la proprietà dei valori intermedi:
-  se $a,b\in I$, $a\neq b$ allora per ogni $m\in [f'(a),f'(b)]$ 
-  \mynote{Si intende che $[f'(a),f'(b)] = [f'(b),f'(a)]$ 
+  se $a,b\in I$, $a\neq b$ allora per ogni $m\in \openinterval{f'(a)}{f'(b)}$ 
+  \mynote{Si intende che $\openinterval{f'(a)}{f'(b)} = \openinterval{f'(b)}{f'(a)}$ 
   se $f'(b)<f'(a)$.}%
   (cioè $m$ è un valore intermedio tra 
   $f'(a)$ e $f'(b)$)
@@ -1625,7 +1625,7 @@ e $f$ è continua in $x_0$.
   %
   \begin{proof}
     Basta scegliere qualunque $m\in [f'_-(x_0),f'_+(x_0)]$ e considerare la funzione 
-    lineare affine $L(x) = m(x-x_0)$. Se $x>x_0$ allora si ha $R(x_0,x)\ge m$ 
+    lineare affine $L(x) = m(x-x_0) + f(x_0)$. Se $x>x_0$ allora si ha $R(x_0,x)\ge m$ 
     e dunque $f(x) - f(x_0) \ge m (x-x_0) = L(x)$. Viceversa se $x<x_0$ 
     si ha $R(x_0,x)\le m$ da cui, di nuovo, $f(x)-f(x_0) \ge m(x-x_0) = L(x)$.
   \end{proof}
@@ -2009,7 +2009,7 @@ Allora, per il teorema di collegamento tra limiti di funzione e limiti di succes
   \lim_{k\to +\infty} \frac{f(a_k)}{g(a_k)} = \ell.
 \]
 Se la successione $f(a_k) / g(a_k)$ è limitata allora applicando il teorema di Bolzano Weierstrass sappiamo esistere una sottosuccessione
-di $a_k$ convergente ad un valore $m\neq \ell$ (se tutte le sottosuccessioni convergessero ad $\ell$ l'intera successione convergerebbe ad $\ell$).
+convergente ad un valore $m\neq \ell$ (se tutte le sottosuccessioni convergessero ad $\ell$ l'intera successione convergerebbe ad $\ell$).
 Se invece $f(a_k) / g(a_k)$ non è limitata possiamo estrarre una sottosuccessione che converge a $+\infty$ oppure a $-\infty$. In ogni caso esiste una successione, che chiameremo ancora $a_k$, ed esiste $m\in \bar \RR$ tale che
 \[
   \lim_{k \to +\infty} \frac{f(a_k)}{g(a_k)} = m \neq \ell.
@@ -2494,10 +2494,10 @@ $f'$ con polinomio di Taylor $P'$
 e mettendo $t$ al posto di $x$ per ottenere 
 l'esistenza di $y\in (x_0,t)\subset(x_0,x)$ tale che 
 \[
-  \frac{f'(y)-P'(y)}{(n+1)(x-x_0)^n}
-  = \frac{(f')^{(n-1)}(y)}{n!}.
+  \frac{f'(t)-P'(t)}{(n+1)(t-x_0)^n}
+  = \frac{(f')^{(n)}(y)}{(n+1)\cdot n!}.
 \]
-Osservando che $(f')^{(n-1)} = f^{(n)}$ e che $(n+1)\cdot n!=(n+1)!$ 
+Osservando che $(f')^{(n)} = f^{(n+1)}$ e che $(n+1)\cdot n!=(n+1)!$ 
 si ottiene la tesi.
 \end{proof}
 
@@ -3195,7 +3195,7 @@ Informalmente vorremmo svolgere i seguenti passaggi:
 \begin{align*}
 \frac{f(x+h) - f(x)}{h}
 &= \sum_{k=1}^{+\infty} a_k \cdot \frac{(x+h)^k-x^k}{h}
-= \sum_{k=1}^{+\infty} a_k \cdot \frac{\sum_{j=1}^k {k\choose j} \dot h^j \cdot x^{k-j}}{h} \\
+= \sum_{k=1}^{+\infty} a_k \cdot \frac{\sum_{j=1}^k {k\choose j} \cdot h^j \cdot x^{k-j}}{h} \\
 &= \sum_{k=1}^{+\infty} a_k \cdot \sum_{j=1}^k {k\choose j} \cdot h^{j-1} \cdot x^{k-j} \\
 &= \sum_{k=1}^{+\infty} a_k \cdot \sum_{j=0}^{k-1} {k\choose j+1} \cdot h^j \cdot x^{k-j-1} \\
 &= \sum_{j=0}^{+\infty} \enclose{\sum_{k=j+1}^{+\infty} a_k \cdot {k\choose j+1} \cdot x^{k-j-1}} h^j.
@@ -3209,10 +3209,10 @@ i passaggi risultano giustificati se la serie $\sum_{k,j} c_{k,j}$
 i valori assoluti nei passaggi già fatti, si ottiene
 \[
   \sum_{j=0}^{+\infty} \sum_{k=j+1}^{+\infty} \abs{c_{k,j}}
-  =  \sum_{k=1}^{+\infty} \abs{a_k} \frac{\abs{x+h}^k-\abs{x}^k}{\abs{h}}
+  =  \sum_{k=1}^{+\infty} \abs{a_k} \frac{\enclose{\abs x + \abs h}^k-\abs{x}^k}{\abs{h}}
 \]
 e dunque possiamo affermare che c'è convergenza assoluta
-se $\abs{x}<R$ e $\abs{x+h}<R$ cioè se $\abs{h}< R-\abs{x}$. In tal caso
+se $\abs{x}<R$ e $\abs{x}+\abs{h}<R$ cioè se $\abs{h}< R-\abs{x}$. In tal caso
 i passaggi fatti prima sono giustificati e quindi il risultato
 è una serie di potenze convergente per $\abs{h}<R-\abs{x}$. In particolare
 fissato $x$
@@ -3370,7 +3370,7 @@ Grazie alla formula di Taylor con resto di Lagrange (teorema~\ref{th:taylor_lagr
 noi sappiamo che
 \[
   f(x) = \sum_{k=0}^{n} \frac{f^{(k)}(x_0)}{k!}(x-x_0)^k
-   + \frac{f^{(n+1)(y)}}{(n+1)!}(x-x_0)^{n+1}.
+   + \frac{f^{(n+1)}(y)}{(n+1)!}(x-x_0)^{n+1}.
 \]
 Dunque sarà sufficiente mostrare che fissato $x$ per $n\to +\infty$ il resto
 tende a zero.

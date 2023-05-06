@@ -1447,7 +1447,7 @@ e sfruttando la disuguaglianza di Cauchy-Schwarz
 \begin{align*}
   \abs{\vec v}^2
   &= \vec v \cdot \vec v
-   = \sum_{k=1}^n v_k \int_a^b f_k(x)\, dx
+   = \sum_{k=1}^m v_k \int_a^b f_k(x)\, dx
    = \int_a^b \sum_{k=1}^m v_k f_k(x)\, dx \\
   &= \int_a^b \enclose{\vec v, \vec f(x)}\, dx
   \le \int_a^b \abs{\vec v}\cdot \abs{\vec f(x)}\, dx
@@ -1470,13 +1470,17 @@ quanto il lato destro non può essere negativo.
 %%%%%
 %%%%%
 
-Il problema di Cauchy
-per i sistemi del primo ordine
+Il problema di Cauchy per i sistemi del primo ordine
 consiste nel
-trovare una soluzione di un sistema di $n$ equazioni differenziali ordinarie del primo ordine in $n$ incognite
-con un dato iniziale fissato. Cioè dato $x_0\in \RR$,
-e $\vec y_0 \in \RR^n$ si cerca un intervallo $I\subset \RR$ con $x_0\in I$ e una funzione $\vec u \colon I\to \RR^n$
-che sia derivabile e che soddisfi:
+trovare una soluzione di un sistema di 
+$n$ equazioni differenziali ordinarie del primo ordine in $n$ incognite
+$u_1, \dots, u_n$
+con un dato iniziale fissato. 
+Cioè dato $x_0\in \RR$,
+e $\vec y_0 \in \RR^n$ si cerca un intervallo $I\subset \RR$ con $x_0\in I$ 
+e una funzione $\vec u \colon I\to \RR^n$,
+$\vec u = (u_1, \dots, u_n)$, tale
+che $\vec u$ sia derivabile e soddisfi:
 \begin{equation}\label{eq:problema_cauchy}
 \begin{cases}
  \vec u'(x) = \vec f(x, \vec u(x)), \qquad \forall x\in I\\
@@ -1503,14 +1507,9 @@ sia $\vec f\colon [a,b]\times K\to \RR^n$ una funzione con le proprietà:
   \end{equation}
 \end{enumerate}
 
-Allora esiste $\delta>0$ tale che scelto comunque un intervallo $I$ con 
-\mynote{Per quanto riguarda l'esistenza si potrebbe scegliere 
-direttamente $I=[x_0-\delta,x_0+\delta]$ perché avere esistenza su un 
-intervallo più grande ci dà più informazione.
-Ma un intervallo più piccolo ci dà invece più informazione sull'unicità:
-non è possibile che due soluzioni coincidano neanche se restringiamo 
-arbitrariamente l'intervallo in cui sono definite.} %
-$x_0\in I \subset [a,b]\cap [x_0-\delta, x_0+\delta]$ 
+Allora esiste $\delta>0$ tale che posto 
+scelto comunque un intervallo $I$ con 
+$x_0 \in I \subset [a,b]\cap [x_0-\delta, x_0+\delta]$ 
 esiste una unica funzione derivabile $\vec u\colon I \to K$ 
 che risolve il problema di Cauchy~\eqref{eq:problema_cauchy}.
 \end{theorem}
@@ -1529,7 +1528,7 @@ che risolve il problema di Cauchy~\eqref{eq:problema_cauchy}.
   $\vec u'(x) = \vec f(x, \vec u(x))$ per ogni $x\in[a,b]$ allora 
   siccome $\vec f$ è continua la funzione $\vec f(t,\vec u(t))$ è continua 
   (teorema~\ref{th:continuita_funzione_composta_metrico})
-  e quidi $\vec u'$ è di classe $C^1$. 
+  e quindi $\vec u$ è di classe $C^1$. 
   Posso allora integrare ambo i membri 
   e ottenere:
   \[
@@ -1556,10 +1555,10 @@ che risolve il problema di Cauchy~\eqref{eq:problema_cauchy}.
   il teorema di Weierstrass garantisce che esiste $M>0$ tale che 
   $\abs{\vec f(x,y)}\le M$ per ogni $x\in [a,b]$ e ogni $y\in K$.
   Scegliamo $\delta >0$ tale che $\delta \le \frac{R}{M}$ e $\delta < \frac {1}{L}$
-  e consideriamo un qualunque intervallo $I$ con $x_0\in I \subset [a,b]\cap [x_0-\delta,x_0+\delta]$.
+  e prendiamo l'intervallo $I = [a,b]\cap [x_0-\delta,x_0+\delta]$.
   Consideriamo ora l'insieme $X=C(I,K)\subset C(I,\RR^n)$ di tutte le funzioni continue $\vec u\colon I\to K$
   e mettiamo su $X$ la distanza uniforme $d_\infty$.
-  E' facile osservare che $X$ è un sottospazio chiuso di $\B(I,\RR)$ (le funzioni limitate definite su $I$)
+  E' facile osservare che $X$ è un sottospazio chiuso di $\B(I,\RR^n)$ (le funzioni limitate definite su $I$)
   e visto che quest'ultimo è uno spazio completo (teorema~\ref{th:limitate_completo}) anche $X$ 
   è completo (teorema~\ref{th:chiuso_completo}).
 
@@ -1581,7 +1580,7 @@ che risolve il problema di Cauchy~\eqref{eq:problema_cauchy}.
     &= \abs{\int_{x_0}^x \vec f(t, \vec u(t))\, dt} 
     \le \abs{\int_{x_0}^x \abs{\vec f(t,\vec u(t))}\, dt}\\
     &\le \abs{\int_{x_0}^x M\, dt } 
-    = \abs{x-x_0}\cdot M = \delta \cdot M.
+    = \abs{x-x_0}\cdot M \le \delta \cdot M.
   \end{align*}
 Visto che abbiamo scelto $\delta \le \frac{R}{M}$ si ottiene che $v(x) \in K$ per ogni $x\in [a,b]$ 
 e quindi effettivamente $T(u)\in K$.
@@ -1615,12 +1614,7 @@ soddisfa la \emph{proprietà di Cauchy-Lipschitz}%
 \mymargin{proprietà di Cauchy-Lipschitz}\index{proprietà di Cauchy-Lipschitz} se $f$ è continua e se
 per ogni $(x_0,\vec y_0)\in \Omega$ esiste $r>0$ ed esiste $L>0$
 tali che la condizione~\eqref{eq:hp_lipschitz} è verificata 
-per ogni $x\in [x_0-r, x_0+r]$ e per ogni $\vec y$ tale 
-che $\abs{\vec y-\vec y_0}\le r$.
-
-A parole potremmo dire: $\vec f(x,\vec y)$ è continua ed è 
-localmente lipschitziana rispetto a $\vec y$ uniformemente
-rispetto a $x$.
+quando $x\in [x_0-r, x_0+r]$ e $\abs{\vec y-\vec y_0}\le r$.
 \end{definition}
  
 La condizione di Cauchy-Lipschitz può sembrare piuttosto complicata
@@ -1633,8 +1627,7 @@ condizione è sufficiente per applicare il teorema di Cauchy-Lipschitz.
 Sia $\Omega \subset \RR\times \RR^n$ un insieme aperto.
 Se $\vec f\in C^1(\Omega,\RR^m)$ 
 allora $f$ soddisfa la condizione
-di Cauchy-Lipschitz (definizione~\ref{def:cauchy_lipschitz})
-in ogni cilindro chiuso e limitato contenuto in $\Omega$.
+di Cauchy-Lipschitz (definizione~\ref{def:cauchy_lipschitz}).
 
 In particolare, grazie al teorema~\ref{th:cauchy_lipschitz} 
 per ogni $(x_0,\vec y_0)\in \Omega$ esiste un intervallo aperto 
@@ -1646,7 +1639,6 @@ su tale intervallo $I$.
 %
 \begin{proof}
 \mymark{***}%
-Se prendiamo $a<x_0$ 
 Se prendiamo un qualunque cilindro $[a,b]\times K$ con 
 \[
   K=\ENCLOSE{\vec y\in \RR^n\colon \abs{\vec y-\vec y_0}\le R}, 
@@ -1671,35 +1663,11 @@ Per ogni $k = 1,\dots, m$ si ha quindi:
 da cui
 \begin{align*}
   \abs{\vec f(x,\vec z) - \vec f(x,\vec y)}
-  &= \sqrt{\sum_{k=1}^m \abs{f_k(x,\vec z) - f_k(x,\vec y)}^2} \\
-  &\le \sqrt{\sum_{k=1}^m n^2 L^2 \abs{z-y}^2} \\
-  &\le n\sqrt{m} L \abs{z-y}.
+  &= \sqrt{\sum_{k=1}^m \abs{f_k(x,\vec z) - f_k(x,\vec y)}^2} 
+  \le \sqrt{\sum_{k=1}^m n^2 L^2 \abs{\vec z-\vec y}^2} \\
+  &\le n\sqrt{m} L \abs{\vec z-\vec y} = L' \abs{\vec z-\vec y}.
 \end{align*}
 \end{proof}
-
-\begin{comment}
-
-\begin{theorem}[maggiore regolarità delle soluzioni]
-Sia $\vec u(x)$ una soluzione del sistema di
-equazioni differenziali:
-\[
-  \vec u'(x) = \vec f(x, \vec u(x)).
-\]
-Se $\vec f\colon \Omega\subset \RR\times\RR^n \to\RR^n$ è una funzione di classe $C^k$, con $k\in \NN$ allora la soluzione $\vec u(x)$ è di classe $C^{k+1}$.
-In particolare se $\vec f \in C^\infty$ anche $u\in C^\infty$.
-\end{theorem}
-%
-\begin{proof}
-Se $\vec u$ soddisfa l'equazione differenziale significa quanto meno che $\vec u$ è derivabile. Dunque è continua e derivabile e la derivata è
-\[
-  \vec u'(x) = \vec f(x,\vec u(x)).
-\]
-Ma il lato destro è composizione di funzioni continue (in quanto al minimo $\vec f \in C^0$ e $u\in C^0$) dunque la derivata di $u$ è di classe $C^0$. Significa che come minimo $\vec u$ è di classe $C^1$. Se ora $k\ge 1$ possiamo ripetere il procedimento e osservare che $\vec u'(x)$ è uguale ad una composizione di funzioni $C^1$, dunque è di classe $C^1$. Ma allora $\vec u$ è di classe $C^2$.
-Il procedimento può essere dunque iterato fino ad arrivare a dedurre che $\vec u$ è di classe $C^k$. A quel punto la funzione $f(x,\vec u(x))$ è di classe $C^k$ e quindi $\vec u'$ è di classe $C^k$ e $\vec u$ è di classe $C^{k+1}$. Non si può iterare ulteriormente perché ora componendo una funzione $C^k$ con una funzione $C^{k+1}$ quello che ottengo è di nuovo $C^k$.
-
-Dire che $f\in C^\infty$ significa che $f\in C^k$ per ogni $k$. Dunque $\vec u$ risulta essere di classe $C^{k+1}$ per ogni $k$: dunque diremo che $\vec u$ è di classe $C^\infty$.
-\end{proof}
-\end{comment}
 
 Il teorema di Cauchy-Lipschitz garantisce l'esistenza di una soluzione
 definita in un
@@ -1734,16 +1702,18 @@ che $\vec u$ è una \emph{soluzione massimale}%
 
 \begin{proposition}[caratterizzazione delle soluzioni massimali]
 \label{prop:edo_massimale}
-Supponiamo che $\vec f\colon \Omega\subset \RR\times\RR^n\to\RR^n$
+Sia $\Omega \subset \RR\times \RR^n$ un insieme aperto
+e supponiamo che $\vec f\colon \Omega\subset \RR\times\RR^n\to\RR^n$
 sia una funzione continua che soddisfa la condizione
 di Cauchy-Lipschitz (definizione~\ref{def:cauchy_lipschitz}).
 Allora una soluzione $\vec u$ dell'equazione
 \begin{equation}\label{eq:edo_normale_ordine_uno}
   \vec u'(x) = \vec f(x, \vec u(x))
 \end{equation}
-è definita su un intervallo massimale $I$ se e solo se
+definita su un intervallo $I$ è massimale se e solo se
 $I$ è aperto e per ogni $K$ compatto $K\subset \Omega$
-e per ogni $x_0 \in I$ esistono $x_1,x_2\in I$, $x_1 < x_0 < x_2$ tali che $\vec u(x_1)\not \in K$ e $\vec u(x_2) \not \in K$.
+e per ogni $x_0 \in I$ esistono $x_1,x_2\in I$, $x_1 < x_0 < x_2$ tali che 
+$(x_1, \vec u(x_1))\not \in K$ e $(x_2,\vec u(x_2)) \not \in K$.
 Significa cioè che il grafico di $\vec u$ cioè la curva $(x,\vec u(x))$ esce da qualunque compatto  
 $K\subset \Omega$ sia facendo crescere $x$ verso destra che facendo calare $x$ verso sinistra.
 Intuitivamente il grafico della soluzione massimale tende ad arrivare ai limiti di $\Omega$.
@@ -1845,31 +1815,54 @@ Ponendo allora il punto $(x_1,\vec u(x_1))$ come dato iniziale del problema di C
 \label{th:edo_esistenza_massimali}
 Sia $\vec u\colon I\to \RR^n$ una soluzione dell'equazione differenziale~\eqref{eq:edo_normale_ordine_uno}
 definita su un intervallo non vuoto $I\subset \RR$
-e supponiamo che tale equazioni soddisfi il teorema di esistenza e unicità locale (questo succede ad esempio se $f\in C^1$).
+e supponiamo che tale equazioni soddisfi il teorema di esistenza e unicità locale 
+(questo succede ad esempio se $f\in C^1$).
 Se $\vec u$ non è essa stessa una soluzione massimale, esiste
 sempre una estensione massimale $\vec v\colon J\to \RR^n$, $J\supset I$.
 \end{theorem}
 %
 \begin{proof}
-Supponiamo che $\vec u$ non sia massimale, dunque $\vec u$ ammette estensioni. In particolare ammette estensioni definite su intervalli aperti, in quanto se una soluzione è definita su un intervallo che non è aperto posso sempre estenderla in un intorno aperto dei punti di frontiera dell'intervallo mediante il teorema di esistenza locale ottenendo quindi una estensione definita su un intervallo aperto.
+Supponiamo che $\vec u$ non sia massimale, dunque $\vec u$ ammette estensioni. 
+%In particolare ammette estensioni definite su intervalli aperti, in quanto se una soluzione è definita su un intervallo che non è aperto posso sempre estenderla in un intorno aperto dei punti di frontiera dell'intervallo mediante il teorema di esistenza locale ottenendo quindi una estensione definita su un intervallo aperto.
 
-Sia $\mathcal F$ l'insieme di tutte le estensioni di $\vec u$ definite su intervalli aperti. Più precisamente ogni $\vec w\in \mathcal F$ è una funzione $\vec w\colon J_{\vec w}\to \RR^n$ definita su un intervallo aperto $J_{\vec w}\supset I$ che soddisfa l'equazione differenziale~\eqref{eq:edo_normale_ordine_uno} e che coincide con $\vec u$ su $I$. Definiamo $\vec v\colon J\to\RR^n$ come segue:
+Sia $\mathcal F$ l'insieme di tutte le estensioni di $\vec u$.
+%definite su intervalli aperti. 
+Più precisamente ogni $\vec w\in \mathcal F$ è una funzione 
+$\vec w\colon J_{\vec w}\to \RR^n$ 
+definita su un intervallo aperto $J_{\vec w}\supset I$ 
+che soddisfa l'equazione differenziale~\eqref{eq:edo_normale_ordine_uno} 
+e che coincide con $\vec u$ su $I$. 
+Definiamo $\vec v\colon J\to\RR^n$ come segue:
 \begin{align*}
 J &= \bigcup_{\vec w \in \mathcal F} J_{\vec w}\\
 \vec v(x) &= \vec w(x) \qquad\text{se $x\in J_{\vec w}$}.
 \end{align*}
-Si osservi che dato $x\in I$ se $\vec w_1, \vec w_2\in\mathcal F$ sono due estensioni entrambe definite su un punto $x$, allora esse coincidono in $x$ per la Proposizione~\ref{prop:separazione_soluzioni}, dunque $\vec v(x)$ è univocamente definita.
+Si osservi che dato $x\in I$ se $\vec w_1, \vec w_2\in\mathcal F$ 
+sono due estensioni entrambe definite su un punto $x$, 
+allora esse coincidono in $x$ per la 
+Proposizione~\ref{prop:separazione_soluzioni}, 
+dunque $\vec v(x)$ è univocamente definita.
 
-Essendo ogni $J_{\vec w}$ aperto è chiaro che $J$ è aperto. E' anche facile convincersi che $J$ deve essere un intervallo, in quanto tutti i $J_{\vec w}$ hanno in comune i punti di $I$.
-Verifichiamo ora che $\vec v$ soddisfa l'equazione differenziale. Preso un punto $x\in J$ deve esistere $\vec w$ tale che $x\in J_{\vec w}$. Sappiamo che $\vec w'(x) = f(x,\vec w(x))$ e visto che $\vec u$ coincide con $\vec w$ su $J_{\vec w}$ possiamo dedurre che anche le derivate, in $x$, coincidono:
+%Essendo ogni $J_{\vec w}$ aperto è chiaro che $J$ è aperto. 
+Chiaramente $J$ deve essere un intervallo, 
+in quanto tutti i $J_{\vec w}$ hanno in comune i punti di $I$.
+Verifichiamo ora che $\vec v$ soddisfa l'equazione differenziale. 
+Preso un punto $x\in J$ deve esistere $\vec w$ tale che $x\in J_{\vec w}$. 
+Inoltre se $x$ non è un estremo di $J$ posso scegliere $\vec w$ in modo 
+che $x$ non sia un estremo di $J_{\vec w}$.
+Sappiamo che $\vec w'(x) = f(x,\vec w(x))$ e visto che $\vec u$ coincide 
+con $\vec w$ su $J_{\vec w}$ possiamo dedurre che 
+$\vec u$ è derivabile e che le derivate coincidono:
 \[
 \vec u'(x) = \vec w'(x) = f(x,\vec w(x)) = f(x,\vec u(x)).
 \]
 Dunque anche $\vec u$ è soluzione di~\eqref{eq:edo_normale_ordine_uno}.
 In pratica abbiamo verificato che $\vec v\in \mathcal F$ ed è quindi una estensione di $\vec u$. 
 Questa è una estensione massimale perché se ci fosse una estensione definita su un intervallo 
-più grande ce ne sarebbe anche una definita su un intervallo più grande aperto, ma questo è impossibile perché
-tutte queste sono già incluse in $\mathcal F$.
+più grande 
+%ce ne sarebbe anche una definita su un intervallo più grande aperto, 
+%ma questo è impossibile perché
+sarebbe anch'essa inclusa in $\mathcal F$.
 \end{proof}
 
 \subsection{esistenza globale}
@@ -1936,10 +1929,10 @@ e quindi per il lemma precedente deve essere limitata: esiste cioè
 $M>0$ per cui $\abs{\vec u(x)}\le M$ per ogni $x\in[x_0,b)$.
 Se consideriamo il compatto
 \[
-K=[a,b] \times \overline{B_M(\vec 0)}
- = \ENCLOSE{(x,y)\in \RR \times \RR^n\colon x\in [a,b], \abs{y}\le M}
+K=[x_0,b] \times \overline{B_M(\vec 0)}
+ = \ENCLOSE{(x,\vec y)\in \RR \times \RR^n\colon x\in [a_0,b], \abs{\vec y}\le M}
 \]
-abbiamo quindi verificato che $(x,\vec u(x))\in K$ per ogni $x\in [a,b)$.
+abbiamo quindi verificato che $(x,\vec u(x))\in K$ per ogni $x\in [a_0,b)$.
 Se fosse $b\in I$ si avrebbe $K\subset \Omega$ e quindi questo sarebbe
 in contraddizione con la proposizione~\ref{prop:edo_massimale} che
 ci dice che ogni soluzione massimale esce da qualunque compatto contenuto
@@ -2411,10 +2404,10 @@ E' ovvio che se i coefficienti $c_1,\dots,c_n$ sono reali e le funzioni $u_1, \d
 facendone una combinazione lineare si ottiene una funzione reale.
 
 Per dimostrare il viceversa è invece necessario sapere che le funzioni sono anche indipendenti. Infatti 
-se $h(x)$ è reale possiamo scrivere $\overline{\bar h(x)} - h(x) = 0$ cioè, visto che il coniugio
+se $h(x)$ è reale possiamo scrivere $\bar h(x) - h(x) = 0$ cioè, visto che il coniugio
 attraversa la somma e il prodotto e visto che $\overline u_k(x) = u_k(x)$, si ha 
 \[
- (\bar c_1 - c1) u_1(x) + \dots + (\bar c_n-c_n) u_n(x)=0.
+ (\bar c_1 - c_1) u_1(x) + \dots + (\bar c_n-c_n) u_n(x)=0.
 \]
 Ma la combinazione lineare nulla si può ottenere solo con tutti i coefficienti nulli 
 (è la definizione di indipendenza lineare) dunque $\bar c_k = c_k$ per ogni $k$ ovvero 
@@ -2666,7 +2659,7 @@ dove $\lambda_1, \dots, \lambda_n\in \CC$ sono le radici distinte di $P(z)$ e $m
 \]
 
 Chiamiamo $V^n_m$ lo spazio vettoriale dei polinomi della forma $x^m p(x)$ con $\deg p<n$. 
-Una base di $V^n_m$ sono i monomi $x^m, x^{m+1}, \dots, x^{m+n}$ e dunque $V^n_m$ è uno 
+Una base di $V^n_m$ sono i monomi $x^m, x^{m+1}, \dots, x^{m+n-1}$ e dunque $V^n_m$ è uno 
 spazio vettoriale di dimensione $n$.
 
 La dimostrazione del teorema si basa sull'ossevazione di come agisce l'operatore $(D-\lambda_k)^{m_k}$ 
@@ -3949,37 +3942,37 @@ ammette una soluzione $u(x)$ definita su tutto $\RR$.
 \end{example}
 %
 \begin{proof}[Svolgimento.]
-Posto $f(x,y)=xy^3$ abbiamo che $f$ si annulla sul grafico della
+Posto $f(x,y)=1 - xy^3$ abbiamo che $f$ si annulla sul grafico della
 funzione $u_0(x)=1/\sqrt[3] x$. Per $x>0$ la soluzione è crescente
 quando si trova al di sotto della funzione $u_0$ ed è decrescente
 quando si trova al di sopra. Inoltre essendo $u_0'<0$ le soluzioni possono
 attraversare la funzione $u_0(x)$ solo passando da sotto a
 sopra.
 
-Sia $u(x)$ la soluzione del problema di Cachy in questione, definita su
+Sia $u(x)$ la soluzione del problema di Cauchy in questione, definita su
 un intervallo massimale $I$. Il dato
 iniziale è $(0,0)\in \{f>0\}$. Dunque la soluzione risulta essere
 strettamente crescente in un intorno di $0$.
 
 Vogliamo dimostrare innanzitutto che necessariamente la soluzione
 incontra entrambi i rami del grafico di $u_0(x)$. Sia infatti
-$\epsilon>0$ sufficientemente piccolo da appartenere all'intervallo
+$\eps>0$ sufficientemente piccolo da appartenere all'intervallo
 $I$ di
-esistenza della soluzione e sia $\delta=u(\epsilon)$.
+esistenza della soluzione e sia $\delta=u(\eps)$.
 Consideriamo il compatto $K=\{(x,y):
-\epsilon/2 \le x \le 1/\delta^2,\ 0\le y\le 1/sqrt{x}\}$. Il punto
-$(\epsilon,u(\epsilon))$ è interno al compatto $K$ ma la soluzione deve
+\eps/2 \le x \le 1/\delta^2,\ 0\le y\le 1/\sqrt[3]{x}\}$. Il punto
+$(\eps,u(\eps))$ è interno al compatto $K$ ma la soluzione deve
 uscire dal compatto
-per un qualche $x>\epsilon$.
+per un qualche $x>\eps$.
 La soluzione però non può toccare la
 retta $y=0$ in quanto all'interno del compatto rimane sempre positiva
 e crescente.
 Non può neanche toccare il segmento verticale
-$x=1/\delta^2$, $y\in[0,\delta]$ in quanto $u(\epsilon)=\delta$ e per
+$x=1/\delta^2$, $y\in[0,\delta]$ in quanto $u(\eps)=\delta$ e per
 $x>0$ la soluzione è strettamente crescente.
 Dunque necessariamente
 la soluzione deve incontrare il grafico della funzione
-$u_0(x)=1/\sqrt{x}$ in un punto $\bar x>0$.
+$u_0(x)=1/\sqrt[3]{x}$ in un punto $\bar x>0$.
 
 Nel punto $x=\bar x$ la soluzione $u(x)$ attraversa la curva
 $u_0(x)$. Infatti in tale punto $u'(\bar x)=0$ mentre $u_0'(\bar
@@ -4036,7 +4029,7 @@ avere esistenza globale.
 \begin{theorem}
 Sia $I\subset \RR$ un intervallo su cui sono definite due funzioni derivabili
 $f(x)$ e $g(x)$.
-Siano $x_0<x_1$ due punti di $I$. Se $f(x_1)<g(x_1)$ e $f(x_2)>g(x_2)$
+Siano $x_1<x_2$ due punti di $I$. Se $f(x_1)<g(x_1)$ e $f(x_2)>g(x_2)$
 allora esiste un punto $\bar x \in (x_1,x_2)$ tale che $f(\bar
 x)=g(\bar x)$ e $f'(\bar x)\ge g'(\bar x)$.
 \end{theorem}
