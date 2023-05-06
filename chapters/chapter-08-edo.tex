@@ -1528,7 +1528,7 @@ che risolve il problema di Cauchy~\eqref{eq:problema_cauchy}.
   $\vec u'(x) = \vec f(x, \vec u(x))$ per ogni $x\in[a,b]$ allora 
   siccome $\vec f$ è continua la funzione $\vec f(t,\vec u(t))$ è continua 
   (teorema~\ref{th:continuita_funzione_composta_metrico})
-  e quidi $\vec u'$ è di classe $C^1$. 
+  e quindi $\vec u$ è di classe $C^1$. 
   Posso allora integrare ambo i membri 
   e ottenere:
   \[
@@ -1558,7 +1558,7 @@ che risolve il problema di Cauchy~\eqref{eq:problema_cauchy}.
   e prendiamo l'intervallo $I = [a,b]\cap [x_0-\delta,x_0+\delta]$.
   Consideriamo ora l'insieme $X=C(I,K)\subset C(I,\RR^n)$ di tutte le funzioni continue $\vec u\colon I\to K$
   e mettiamo su $X$ la distanza uniforme $d_\infty$.
-  E' facile osservare che $X$ è un sottospazio chiuso di $\B(I,\RR)$ (le funzioni limitate definite su $I$)
+  E' facile osservare che $X$ è un sottospazio chiuso di $\B(I,\RR^n)$ (le funzioni limitate definite su $I$)
   e visto che quest'ultimo è uno spazio completo (teorema~\ref{th:limitate_completo}) anche $X$ 
   è completo (teorema~\ref{th:chiuso_completo}).
 
@@ -1639,7 +1639,6 @@ su tale intervallo $I$.
 %
 \begin{proof}
 \mymark{***}%
-Se prendiamo $a<x_0$ 
 Se prendiamo un qualunque cilindro $[a,b]\times K$ con 
 \[
   K=\ENCLOSE{\vec y\in \RR^n\colon \abs{\vec y-\vec y_0}\le R}, 
@@ -1713,7 +1712,8 @@ Allora una soluzione $\vec u$ dell'equazione
 \end{equation}
 definita su un intervallo $I$ è massimale se e solo se
 $I$ è aperto e per ogni $K$ compatto $K\subset \Omega$
-e per ogni $x_0 \in I$ esistono $x_1,x_2\in I$, $x_1 < x_0 < x_2$ tali che $\vec u(x_1)\not \in K$ e $\vec u(x_2) \not \in K$.
+e per ogni $x_0 \in I$ esistono $x_1,x_2\in I$, $x_1 < x_0 < x_2$ tali che 
+$(x_1, \vec u(x_1))\not \in K$ e $(x_2,\vec u(x_2)) \not \in K$.
 Significa cioè che il grafico di $\vec u$ cioè la curva $(x,\vec u(x))$ esce da qualunque compatto  
 $K\subset \Omega$ sia facendo crescere $x$ verso destra che facendo calare $x$ verso sinistra.
 Intuitivamente il grafico della soluzione massimale tende ad arrivare ai limiti di $\Omega$.
@@ -1929,10 +1929,10 @@ e quindi per il lemma precedente deve essere limitata: esiste cioè
 $M>0$ per cui $\abs{\vec u(x)}\le M$ per ogni $x\in[x_0,b)$.
 Se consideriamo il compatto
 \[
-K=[a,b] \times \overline{B_M(\vec 0)}
- = \ENCLOSE{(x,y)\in \RR \times \RR^n\colon x\in [a,b], \abs{y}\le M}
+K=[x_0,b] \times \overline{B_M(\vec 0)}
+ = \ENCLOSE{(x,\vec y)\in \RR \times \RR^n\colon x\in [a_0,b], \abs{\vec y}\le M}
 \]
-abbiamo quindi verificato che $(x,\vec u(x))\in K$ per ogni $x\in [a,b)$.
+abbiamo quindi verificato che $(x,\vec u(x))\in K$ per ogni $x\in [a_0,b)$.
 Se fosse $b\in I$ si avrebbe $K\subset \Omega$ e quindi questo sarebbe
 in contraddizione con la proposizione~\ref{prop:edo_massimale} che
 ci dice che ogni soluzione massimale esce da qualunque compatto contenuto
@@ -2404,10 +2404,10 @@ E' ovvio che se i coefficienti $c_1,\dots,c_n$ sono reali e le funzioni $u_1, \d
 facendone una combinazione lineare si ottiene una funzione reale.
 
 Per dimostrare il viceversa è invece necessario sapere che le funzioni sono anche indipendenti. Infatti 
-se $h(x)$ è reale possiamo scrivere $\overline{\bar h(x)} - h(x) = 0$ cioè, visto che il coniugio
+se $h(x)$ è reale possiamo scrivere $\bar h(x) - h(x) = 0$ cioè, visto che il coniugio
 attraversa la somma e il prodotto e visto che $\overline u_k(x) = u_k(x)$, si ha 
 \[
- (\bar c_1 - c1) u_1(x) + \dots + (\bar c_n-c_n) u_n(x)=0.
+ (\bar c_1 - c_1) u_1(x) + \dots + (\bar c_n-c_n) u_n(x)=0.
 \]
 Ma la combinazione lineare nulla si può ottenere solo con tutti i coefficienti nulli 
 (è la definizione di indipendenza lineare) dunque $\bar c_k = c_k$ per ogni $k$ ovvero 
@@ -2659,7 +2659,7 @@ dove $\lambda_1, \dots, \lambda_n\in \CC$ sono le radici distinte di $P(z)$ e $m
 \]
 
 Chiamiamo $V^n_m$ lo spazio vettoriale dei polinomi della forma $x^m p(x)$ con $\deg p<n$. 
-Una base di $V^n_m$ sono i monomi $x^m, x^{m+1}, \dots, x^{m+n}$ e dunque $V^n_m$ è uno 
+Una base di $V^n_m$ sono i monomi $x^m, x^{m+1}, \dots, x^{m+n-1}$ e dunque $V^n_m$ è uno 
 spazio vettoriale di dimensione $n$.
 
 La dimostrazione del teorema si basa sull'ossevazione di come agisce l'operatore $(D-\lambda_k)^{m_k}$ 
@@ -3942,37 +3942,37 @@ ammette una soluzione $u(x)$ definita su tutto $\RR$.
 \end{example}
 %
 \begin{proof}[Svolgimento.]
-Posto $f(x,y)=xy^3$ abbiamo che $f$ si annulla sul grafico della
+Posto $f(x,y)=1 - xy^3$ abbiamo che $f$ si annulla sul grafico della
 funzione $u_0(x)=1/\sqrt[3] x$. Per $x>0$ la soluzione è crescente
 quando si trova al di sotto della funzione $u_0$ ed è decrescente
 quando si trova al di sopra. Inoltre essendo $u_0'<0$ le soluzioni possono
 attraversare la funzione $u_0(x)$ solo passando da sotto a
 sopra.
 
-Sia $u(x)$ la soluzione del problema di Cachy in questione, definita su
+Sia $u(x)$ la soluzione del problema di Cauchy in questione, definita su
 un intervallo massimale $I$. Il dato
 iniziale è $(0,0)\in \{f>0\}$. Dunque la soluzione risulta essere
 strettamente crescente in un intorno di $0$.
 
 Vogliamo dimostrare innanzitutto che necessariamente la soluzione
 incontra entrambi i rami del grafico di $u_0(x)$. Sia infatti
-$\epsilon>0$ sufficientemente piccolo da appartenere all'intervallo
+$\eps>0$ sufficientemente piccolo da appartenere all'intervallo
 $I$ di
-esistenza della soluzione e sia $\delta=u(\epsilon)$.
+esistenza della soluzione e sia $\delta=u(\eps)$.
 Consideriamo il compatto $K=\{(x,y):
-\epsilon/2 \le x \le 1/\delta^2,\ 0\le y\le 1/sqrt{x}\}$. Il punto
-$(\epsilon,u(\epsilon))$ è interno al compatto $K$ ma la soluzione deve
+\eps/2 \le x \le 1/\delta^2,\ 0\le y\le 1/\sqrt[3]{x}\}$. Il punto
+$(\eps,u(\eps))$ è interno al compatto $K$ ma la soluzione deve
 uscire dal compatto
-per un qualche $x>\epsilon$.
+per un qualche $x>\eps$.
 La soluzione però non può toccare la
 retta $y=0$ in quanto all'interno del compatto rimane sempre positiva
 e crescente.
 Non può neanche toccare il segmento verticale
-$x=1/\delta^2$, $y\in[0,\delta]$ in quanto $u(\epsilon)=\delta$ e per
+$x=1/\delta^2$, $y\in[0,\delta]$ in quanto $u(\eps)=\delta$ e per
 $x>0$ la soluzione è strettamente crescente.
 Dunque necessariamente
 la soluzione deve incontrare il grafico della funzione
-$u_0(x)=1/\sqrt{x}$ in un punto $\bar x>0$.
+$u_0(x)=1/\sqrt[3]{x}$ in un punto $\bar x>0$.
 
 Nel punto $x=\bar x$ la soluzione $u(x)$ attraversa la curva
 $u_0(x)$. Infatti in tale punto $u'(\bar x)=0$ mentre $u_0'(\bar
@@ -4029,7 +4029,7 @@ avere esistenza globale.
 \begin{theorem}
 Sia $I\subset \RR$ un intervallo su cui sono definite due funzioni derivabili
 $f(x)$ e $g(x)$.
-Siano $x_0<x_1$ due punti di $I$. Se $f(x_1)<g(x_1)$ e $f(x_2)>g(x_2)$
+Siano $x_1<x_2$ due punti di $I$. Se $f(x_1)<g(x_1)$ e $f(x_2)>g(x_2)$
 allora esiste un punto $\bar x \in (x_1,x_2)$ tale che $f(\bar
 x)=g(\bar x)$ e $f'(\bar x)\ge g'(\bar x)$.
 \end{theorem}
