@@ -3039,6 +3039,8 @@ Si veda la figura~\ref{fig:fourier}.
   Si può notare come nel punto di salto $x=\pi$ 
   lo sviluppo di Fourier ha una oscillazione maggiore del salto 
   originario (fenomeno di Gibbs).
+  \index{Gibbs!fenomeno di}
+  \index{fenomeno di Gibbs}
   L'incremento dell'oscillazione è circa del 9\% ed è indipendente 
   dal numero di termini utilizzati nello sviluppo di Fourier.
   Significa che la serie di Fourier pur convergendo in norma $\Abs{\cdot}_2$
@@ -3055,12 +3057,19 @@ teorema, che sarebbe ora troppo lungo dimostrare.
 
 \begin{theorem}[densità dei polinomi trigonometrici]
 Per ogni funzione continua $f\in C^0([0,2\pi])$
-esiste una successione $g_k\in \H(0,2\pi)$ di polinomi trigonometrici
+con $f(0)=f(2\pi)$ esiste una successione $g_k\in \H(0,2\pi)$ 
+di polinomi trigonometrici
 (cioè combinazioni lineari finite del sistema $\ENCLOSE{e_k}$)
 tale che $g_k$ converge uniformemente a $f$.
 
-Detto in altri termini: l'insieme dei polinomi trigonometrici
-è denso nello spazio $C^0([a,b])$ rispetto alla norma uniforme.
+In particolare l'insieme dei polinomi trigonometrici
+è denso, con la norma uniforme,
+nel sottospazio vettoriale
+\[
+  C^0_0([a,b]) 
+  = \ENCLOSE{u\in C^0([a,b])\colon u(a)=u(b)=0}
+  \subset C^0([a,b]).
+\]
 \end{theorem}
 
 Osserviamo che la convergenza uniforme è più forte della convergenza
@@ -3078,69 +3087,77 @@ di estendere questa proprietà a tutte le funzioni di $\H(a,b)$.
 \begin{theorem}[densità delle funzioni continue]
 Data una qualunque $f\in H(a, b)$ per ogni $\eps>0$
 esiste una funzione continua $g\colon [a,b]\to \RR$
-tale che $\Abs{f-g}_2<\eps$.
+con $g(a)=g(b)=0$ tale che $\Abs{f-g}_2<\eps$.
 
-Detto in altri termini: $C^0([a,b])$ è un sottospazio denso in $H(a,b)$
-cioè un insieme la cui chiusura (nella topologia di $H(a,b)$) è tutto $H(a,b)$.
+Detto in altri termini: $C^0_0([a,b])=\ENCLOSE{u\in C^0\colon u(a)=u(b)=0}$ è un 
+sottospazio denso in $H(a,b)$
+cioè un insieme la cui chiusura (nella topologia di $H(a,b)$) 
+è tutto $H(a,b)$.
 \end{theorem}
 %
 \begin{proof}
-Se $f\in H(a,b)$ si ha,
-per la disuguaglianza di Cauchy-Schwarz:
-\[
-  \int_a^b \abs{f(x)}\, dx
-  \le \Abs{1}_2 \cdot \Abs{f}_2 = \sqrt{b-a}\cdot \Abs{f}_2 < +\infty.
-\]
-Dunque la funzione $f$ è assolutamente integrabile su $(a,b)$.
-Se $f$ è limitata su $(a,b)$ possiamo pensare che $f$ sia definita su $[a,b]$
-e l'integrale è un usuale integrale di Riemann (non improprio).
+\emph{Passo 1. Supponiamo che $f$ sia limitata su $(a,b)$.}
+In tal caso possiamo pensare che $f$ sia definita su $[a,b]$
+e l'integrale sia un integrale di Riemann ``proprio''.
+Sia $M=\sup \abs{f}([a,b])$.
 Per le condizioni di integrabilità sappiamo che per ogni $\eps>0$ è possibile
 trovare una suddivisione $a=x_0 < x_1 < \dots < x_n =b$ su cui l'integrale
-di $f$ differisce dagli integrali superiore e inferiore per meno di $\eps$.
+di $f$ differisce dagli integrali superiore e inferiore per meno di $\frac{\eps}{2M}$.
 Possiamo prendere come funzione $g$ una interpolazione lineare
 cioè una funzione tale che si abbia $g(x_k) = f(x_k)$ sui punti della suddivisione
 e che risulti lineare su ogni intervallino $[x_k,x_{k+1}]$. La funzione
 $g$ così definita è compresa, su ogni intervallino, tra l'$\inf$ e il $\sup$
 di $f$ e dunque si avrà:
 \[
- \int_a^b \abs{f(x)-g(x)}\, dx < \eps.
+ \int_a^b \abs{f(x)-g(x)}\, dx < \frac{\eps}{M}.
 \]
-Visto però che $f$ è limitata sappiamo esistere $M>0$ per cui $\Abs{f}_\infty\le M$
-e di conseguenza $\Abs{g}_\infty\le M$ e quindi $\Abs{f-g}_2\le 2M$.
+Visto però che $\Abs{f}_\infty\le M$
+si ha anche $\Abs{g}_\infty\le M$ e quindi $\Abs{f-g}_2\le 2M$.
 Ma allora
 \[
-  \Abs{f-g}_2^2 = \int_a^b \abs{f(x)-g(x)}^2\, dx
+  \Abs{f-g}_2^2 = \int_a^b \abs{f-g}^2
   \le \int_a^b \Abs{f-g}_\infty \cdot \abs{f(x)-g(x)}\, dx
-  \le 2M \eps.
+  \le 2M \frac{\eps}{2M} = \eps.
 \]
-Abbiamo quindi mostrato che una funzione limitata e integrabile può essere
-approssimata con funzioni continue.
 
+\emph{Passo 2. Caso generale.}
 Se la funzione è assolutamente 
 integrabile in senso improprio su $(a,b)$ ma non è limitata, per
 definizione di integrale improprio per ogni $\eps>0$ possiamo trovare un intervallo
 $[\alpha,\beta]\subset (a,b)$
-su cui $f$ risulta limitata su $[\alpha,\beta$] e
-l'integrale di $\abs{f}$ su $(a,\alpha]$ e su $[\beta,b)$
-è minore di $\eps$.
-Per il teorema~\ref{th:media_integrale}
-nell'intervallino $[a,\alpha]$ ci deve essere un punto $c$ per cui 
-$\abs{f(x)} \cdot (\alpha-a) \le \int_a^\alpha f(t)\, dt$.
-Rimpiazzando $\alpha$ con $x$ si ottiene che $(a-\alpha)f(\alpha) < \eps$.
-Facendo lo stesso in $\beta$ si ottiene un intervallo $[\alpha,\beta]\subset (a,b)$ 
-su cui, per il passo precedente, 
-possiamo trovare una funzione lineare a tratti $g\colon[\alpha,\beta]\to \RR$ 
-tale che $\int_\alpha^\beta \abs{f-g} < \eps$.
-Ma allora estendendo $g$ col valore costante $g(\alpha)=f(\alpha)$ 
-su tutto l'intervallo $(a,\alpha]$ e con il valore costante $g(\beta)=f(\beta)$ 
-su tutto l'intervallo $[\beta,b)$ si trova che:
-\begin{align*}
-\int_a^b \abs{f-g} 
-&\le \int_a^\alpha \abs{f} + \int_a^\alpha \abs{g} 
-+ \int_\alpha^\beta \abs{f-g} + \int_\beta^b \abs{f} 
-+ \int_\beta^b \abs{g} \\
-&\le 5 \eps.
-\end{align*}
+su cui $f^2$ (e quindi $f$) risulta limitata e
+l'integrale di $f^2$ su $(a,\alpha]$ e su $[\beta,b)$
+è minore di $\eps$. 
+Sia $M=\sup \abs{f}([\alpha,\beta])$.
+Applicando il passo precedente sull'intervallo $[\alpha,\beta]$ 
+otteniamo una funzione continua $g$ definita su $[\alpha,\beta]$ 
+tale che $\abs{g(x)}\le M$
+e $\int\abs{f-g}^2\le \eps$.
+L'idea è ora di prendere un punto $\alpha'\in(a,\alpha)$ 
+e un punto $\beta'\in(\beta,b)$ ed estendere la funzione 
+$g$ su tutto $[a,b]$ ponendo $g=0$ sugli intervalli 
+$[a,\alpha']$ e $[\beta',b]$ e facendo una interpolazione 
+lineare sugli intervalli $[\alpha',\alpha]$ e $[\beta,\beta']$.
+
+Usando la disuguaglianza 
+$(f-g)^2 \le (f-g)^2+(f+g)^2 = 2f^2+2g^2$
+(si potrebbe altrimenti usare Cauchy-Schwarz due volte)
+e scegliendo $\alpha'$ molto vicino ad 
+$\alpha$ in modo che si abbia $\alpha-\alpha'<\eps/M^2$,
+otteniamo
+\[
+  \int_a^\alpha \abs{f-g}^2 
+  = \int_a^{\alpha'} f^2 + \int_{\alpha'}^\alpha \abs{f-g}^2
+  \le \eps + 2\eps + 2M^2\cdot(\alpha-\alpha')
+  \le 5\eps.
+\]
+Disuguaglianza analoga si avrà sull'intervallo $[\beta,b]$.
+Dunque otteniamo in conclusione 
+\[
+\int_a^b \abs{f-g}^2
+\le 5\eps + \eps + 5\eps  = 11 \eps
+\]
+e il teorema è dimostrato con $11\eps$ al posto di $\eps$.
 \end{proof}
 
 Grazie ai due teoremi precedenti sappiamo che ogni $f\in \H(a,b)$ può essere
