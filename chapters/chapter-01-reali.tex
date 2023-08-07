@@ -84,14 +84,14 @@ di partenza sono teoremi anche la formula ottenuta lo è.
 I \emph{sillogismi} di Aristotele possono essere utilizzati come esempi di regole 
 di inferenza. 
 Supponiamo che le formule 
-\texttt{Socrate è un uomo} 
-e \texttt{l'uomo è un animale}
+\texttt{"Socrate è un uomo"} 
+e \texttt{"l'uomo è un animale"}
 siano entrambe teoremi. Allora possiamo pensare di definire una regola di inferenza 
-che mi dice che se \texttt{X è un Y} è un teorema 
-e \texttt{Y è uno Z}
-è un teorema allora anche \texttt{X è uno Z} è un teorema. 
+che mi dice che se \texttt{"X è un Y"} è un teorema 
+e \texttt{"Y è uno Z"}
+è un teorema allora anche \texttt{"X è uno Z"} è un teorema. 
 Con questa regola di inferenza è quindi possibile dedurre che 
-\texttt{Socrate è un animale}
+\texttt{"Socrate è un animale"}
 è un teorema.
 E' chiaro che se le regole formali possono essere definite meccanicamente 
 tramite un algoritmo allora anche i teoremi possono essere determinati meccanicamente 
@@ -693,7 +693,7 @@ come l'insieme di tutte le classi di equivalenza:
 \[
  A/R 
  = \ENCLOSE{[x]_R\colon x\in A} 
- = \ENCLOSE{B\in \mathcal P(A)\colon \exists x\in A\colon B=[x]}.  
+ = \ENCLOSE{B\in \mathcal P(A)\colon \exists x\in A\colon B=[x]_R}.  
 \]
 \end{definition}
 
@@ -975,7 +975,7 @@ alle funzioni, ma anche alle relazioni e alle operazioni.
 Ad esempio se $A$ e $B$ sono insiemi di numeri ci capiterà di scrivere $A\le B$
 per intendere che ogni elemento di $A$ è minore o uguale ad ogni elemento di $B$
 oppure $A+B$ per intendere l'insieme di tutti i numeri che si ottengono sommando
-un numero di $A$ ad un numero di $B$.
+ogni numero elemento di $A$ ad ogni numero elemento di $B$.
 
 \begin{exercise}
   Sia $f\colon A \to B$ una funzione qualunque. 
@@ -992,11 +992,26 @@ un numero di $A$ ad un numero di $B$.
 \end{exercise}
 
 Si osservi che se $f\colon A \to B$ è una funzione e 
-se $C\supset f(A)$ allora possiamo scrivere $f\colon A \to C$ in quanto 
-i valori di $f$ sono elementi di $C$. Dunque il \emph{codominio} di una 
+se $C\supset f(A)$ allora risulta anche $f\colon A \to C$ in quanto 
+i valori di $f$ sono elementi di $C$. 
+Dunque il \emph{codominio} di una 
 funzione può essere esteso o ristretto con l'accortezza di mantenere 
 tutti i valori dell'immagine. 
 In particolare $f\colon A \to f(A)$ è certamente surgettiva.
+
+Ad esempio vedremo che la funzione $\sin$ 
+sarà definita con dominio l'insieme $\RR$ dei numeri reali 
+ma può avere come codominio sia $\RR$ stesso
+che solamente l'intervallo $[-1,1]$ dei numeri compresi 
+tra $-1$ e $1$. 
+Non ha quindi senso chiedersi se $\sin$ è suriettiva finché 
+non dichiaro qual è il codominio considerato:
+$\sin\colon \RR\to[-1,1]$ è suriettiva mentre 
+$\sin\colon \RR\to\RR$ non lo è. 
+Altri testi considerano il codominio parte della definizione 
+della funzione e quindi considerano diverse due funzioni 
+che hanno lo stesso grafico ma codominio diverso. 
+E' una sottigliezza di poca rilevanza.
 
 Per rendere iniettiva una funzione dobbiamo invece restringere il dominio.
 
@@ -1128,19 +1143,24 @@ Si osservi che non abbiamo dato una definizione di $\#A$ e quindi non stiamo
 definendo cos'è la cardinalità di un insieme ma stiamo soltanto definendo 
 una relazione tra insiemi che 
 denotiamo, impropriamente, utilizzando una uguaglianza: $\#A = \#B$.
+
 E' ovvio che $\#A = \#A$ in quanto l'identità $\id_A$ è bigettiva.
 E' anche chiaro che se $\#A = \#B$ e $\#B = \#C$ allora $\#A = \#C$ in quanto 
 componendo tra loro due funzioni bigettive si ottiene ancora una funzione 
 bigettiva. 
 Infine se $\#A = \#B$ allora $\#A \le \#B$ (in quanto le funzioni bigettive 
 sono iniettive) ed è chiaro che se $\#A \le \#B$ e $\#B \le \#C$ allora 
-$\#A\le \#C$ (in quanto composizione di funzioni iniettive è iniettiva)
+$\#A\le \#C$ (in quanto composizione di funzioni iniettive è iniettiva).
 
+Possiamo definire il simbolo inverso $\#A \ge \#B$ 
+come $\#B\le \#A$.
 Se $B\neq \emptyset$ 
-si potrebbe anche definire $\#A \ge \#B$ quando esiste $f\colon A \to B$
-surgettiva. Vorremmo verificare se questo coincide con $\#B \le \#A$, 
-cioè vogliamo avere il seguente.
+il seguente teorema ci dice che $\#A \ge \#B$ 
+è equivalente a dire che 
+esiste $f\colon A \to B$
+surgettiva. 
 %
+
 \begin{theorem}\label{th:95444}
   Sia $B\neq \emptyset$.
   Esiste $f\colon A\to B$ surgettiva 
@@ -1202,7 +1222,7 @@ se si aggiunge l'assioma della scelta (choice) la teoria si chiama
 \mymargin{$ZFC$}%
 \index{ZFC}.
 
-Grazie all'assioma della scelta è possibile dimostrare 
+Grazie all'assioma della scelta è anche possibile dimostrare 
 che dati due insiemi $A$ e $B$ le loro cardinalità
 si possono confrontare: $\#A\le \#B$ oppure 
 $\#B\le \#A$. 
@@ -1374,6 +1394,13 @@ I numeri naturali $0,1,2,\dots$ sono i numeri che utilizziamo per contare o per
 fare le iterazioni. C'è un primo numero naturale, che per noi sarà $0$ e poi
 per ogni numero naturale $n$ ce n'è uno successivo che chiameremo $\sigma(n)$. 
 Partendo da $0$ e passando al successivo si raggiungono tutti i numeri naturali.
+
+In questa parte del capitolo introduciamo concetti basilari 
+che sono stati introdotti a partire dalla scuola elementare 
+e quindi dovrebbero essere familiari a chiunque. 
+Le definizioni e le dimostrazioni delle prorietà di questi insiemi numerici 
+risultano quindi molto noiose da riprodurre e preferiamo 
+quindi trattarle a parte nel capitolo~\ref{sec:costruzione_reali}.
 
 \begin{theorem}[assiomi di Peano]
   \label{th:assiomi_peano}%
@@ -1548,15 +1575,22 @@ tramite le seguenti definizioni ricorsive:
   \end{cases}
 \end{gather*}
 
-Se ad esempio volessimo sapere quanto vale $2+3$ possiamo utilizzare 
-la proprietà $n+(m+1) = (n+m)+1$ ponendo $n=2$ e $m=2$.
-Si ottiene quindi $2+3 = 2+(2+1) = (2+2)+1$.
+\begin{example}
+  Dimostrare che $2+3=5$.
+\end{example}  
+%
+\begin{proof}[Svolgimento]
+Possiamo utilizzare 
+la proprietà $n+\sigma(m) = \sigma(n+m)$ ponendo $n=2$ e $m=2$.
+Si ottiene quindi $2+3 = 2+\sigma(2) = \sigma(2+2)$.
 Per sapere quanto fa $2+2$ usiamo nuovamente la stessa proprietà 
 ma stavolta con $m=1$. 
-Si ottiene infatti $2+2=2+(1+1)=(2+1)+1$.
-Per definizione $2+1=3$, $3+1=4$ e $4+1=5$ dunque si ottiene $2+3=5$.
+Si ottiene infatti $2+2=2+\sigma(1)=\sigma(2+1)$.
+Infine $2+1=2+\sigma(0)=\sigma(2+0) = \sigma(2) = 3$, 
+$2+2=\sigma(3)=4$ e quindi $2+3 = \sigma(4)=5$.
+\end{proof}
 
-Definiamo infine una relazione di ordinamento su $\NN$ 
+Definiamo infine una relazione d'ordine su $\NN$ 
 con l'idea che quando sommo tra loro due numeri naturali 
 quello che ottengo è un numero \emph{più grande}:
 \index{relazione!d'ordine su $\NN$}%
@@ -1827,7 +1861,7 @@ che vanno da $1$ a $n$ invece che da $0$ a $n-1$.
 Dunque se $\vec a \in A^{3}$ sarà usuale scrivere 
 $\vec a = (a_1, a_2, a_3)$ invece che $\vec a = (a_0, a_1, a_2)$.
 
-\subsection{somme e prodotti iterati}
+\subsection{somme e prodotti finiti}
 \index{sommatoria}%
 \index{produttoria}%
 
@@ -1835,7 +1869,8 @@ Introduciamo ora su $\NN$ il concetto di somma (e prodotto) iterato.
 Quello che ora facciamo su $\NN$ vale allo stesso modo sugli insiemi 
 numerici che andremo a definire più avanti, in particolare lo useremo 
 molto sull'insieme $\RR$ dei numeri reali. 
-Quello che ci basta è semplicemente avere una operazione associativa 
+In generale potremmo considerare un insieme $A$ su 
+cui è defina una operazione associativa 
 con elemento neutro. 
 
 \begin{definition}[monoide]%
@@ -1910,50 +1945,47 @@ Si osservi che risulta:
 in quanto le definizioni ricorsive di potenze e fattoriale
 coincidono con le definizioni ricorsive del prodotto sul lato destro.
 
-
-\begin{exercise}
-Dimostrare che 
+\begin{theorem}
+In un monoide commutativo, si ha:
   \[
   \sum_{k=1}^n  \enclose{a_k + b_k} 
   = \sum_{k=1}^n a_k + \sum_{k=1}^n b_k.
   \]
-\end{exercise}
 
-\begin{exercise}
-  Sia $f\colon A\to A$ una funzione \emph{additiva}
-  cioè $f(0) = 0$ e $f(x+y)=f(x)+f(y)$.
-  Dimostrare allora che 
+Sia $f\colon A\to A$ una funzione \emph{additiva}
+cioè $f(0) = 0$ e $f(x+y)=f(x)+f(y)$.
+Allora 
   \[
-    \sum_{k=1}^n  f(a_k) = f\enclose{\sum_{k=1}^n a_k}
+    \sum_{k=1}^n  f(a_k) = f\enclose{\sum_{k=1}^n a_k}.
   \]
-  (cioè $\sum_{k=1}^n$ è un operatore additivo su $A^n$).
-\end{exercise}
 
-\begin{exercise}
-  Dimostrare che 
+Infine risulta 
   \[
   \sum_{k=1}^{m+n} a_k = \sum_{k=1}^m a_k + \sum_{k=1}^n a_{k+m}
   \]
-  ovvero 
+ovvero 
   \[
   \sum_{k=1}^{m+n} a_k = \sum_{k=1}^m a_k + \sum_{k=m+1}^{m+n} a_k.  
   \]
-
-\end{exercise}
+\end{theorem}
+\begin{proof}
+  Le dimostrazioni possono essere svolte 
+  per induzione.
+\end{proof}
 
 \begin{exercise}
   \label{ex:somma_lineare}%
   Dimostrare che 
   \[
     \sum_{k=1}^n k = \frac{n\cdot (n+1)}{2}, \qquad
-    \sum_{k=1}^n k^2 = \frac{n\cdot (n+1)\cdot (2n+1)}{6}
+    \sum_{k=1}^n k^2 = \frac{n\cdot (n+1)\cdot (2n+1)}{6}.
   \]
 \end{exercise}
-\begin{proof}[Svolgimento]
-Il risultato della prima somma può essere interpretato nel modo seguente:
+Il risultato della prima somma può essere ricordato nel modo seguente:
 la media di una progressione aritmetica $\frac{1+2+ \dots + n}{n}$ 
 è uguale alla media tra il primo 
 e l'ultimo termine della progressione: $\frac{1+n}{2}$.
+\begin{proof}[Svolgimento]
 
 Una volta identificata la formula la possiamo dimostrare per induzione.
 Per $n=0$ la somma è pari a $0$ per definizione.
@@ -2041,7 +2073,7 @@ il primo e l'ultimo
 e possiamo ricavare $x$.
 
 Si formalizzi il ragionamento precedente per dimostrare che 
-fissato $a>1$ si ha per ogni naturale $n$:
+fissato $a\neq 1$ si ha per ogni naturale $n$:
   \[
     \sum_{k=1}^n a^k = \frac{a^{k+1}-a}{a-1}.  
   \] 
@@ -2059,7 +2091,7 @@ allora si può fare il cambio di variabile $k=g(j)$:
 Questa uguaglianza può essere dimostrata facilmente nel caso 
 in cui $\sigma$ scambi due soli indici lasciando fissi tutti gli altri 
 (trasposizione) e poi può essere estesa a tutte le permutazioni
-osservando che ogni permutazione si scrivere come composizione 
+osservando che ogni permutazione si può scrivere come composizione 
 di trasposizioni.
 
 Questa proprietà è sostanzialmente la proprietà commutativa della somma 
@@ -2205,7 +2237,7 @@ o, più precisamente, \emph{completezza di Dedekind}.
   \index{ordinamento!denso}%
   \mynote{Più in generale se $R$ è un insieme totalmente 
   ordinato e $A\subset R$ si dice che $A$ è denso in $R$ 
-  se dati $x,y\in R$ con $x<y$ esiste $c\in A$ tale che 
+  se dati comunque $x,y\in R$ con $x<y$ esiste $c\in A$ tale che 
   $x<c<y$.}
   \[
    x < y \implies \exists c \colon x < c < y.
@@ -2284,7 +2316,7 @@ o, più precisamente, \emph{completezza di Dedekind}.
   \end{definition}
 
 Su un gruppo additivo si può definire la moltiplicazione $n\cdot x$ per un numero 
-naturale $n\in\NN$ come moltiplicazione ripetuta:
+naturale $n\in\NN$ come addizione ripetuta:
 ad esempio $3\cdot x = x + x + x$.
 Questo è garantito dal seguente.
 %
@@ -3255,12 +3287,8 @@ Dunque risulta che $\RR_+$ è un gruppo moltiplicativo.
 Non solo, l'ordinamento di $\RR$ è ovviamente un ordinamento anche su $\RR_+$
 e mantiene le proprietà di essere un ordinamento totale 
 denso e continuo visto che queste proprietà sono indipendenti dalla struttura di gruppo.
-Per concludere basterà verificare che l'ordinamento è compatibile con la moltiplicazione
-cioè che se $x\ge 1$ e $y\ge 1$ allora $x\cdot y\ge 1$. 
-Questa è una banale conseguenza della monotonia, che abbiamo già dimostrato:
-\[
- x\cdot y \ge x\cdot 1 \ge 1\cdot 1 = 1.  
-\]
+La compatibilità dell'ordinamento con la moltiplicazione 
+è data dalla proprietà di monotonia della moltiplicazione.
 \end{proof}
 
 \begin{theorem}[radice $n$-esima]
@@ -3609,7 +3637,8 @@ $\# (\RR\setminus \QQ) > \# \QQ$ (teorema~\ref{th:cantor_secondo}).
 Ogni numero razionale ha una rappresentazione finita. 
 Se $x=\frac p q$ possiamo scrivere $p$ e $q$ nella loro rappresentazione 
 decimale utilizzando una sequenza finita di cifre.
-Possiamo anche dare \emph{un nome} a molti numeri irrazionali. 
+Possiamo dare \emph{un nome} anche a molti
+numeri irrazionali. 
 Ad esempio $\sqrt 2$, $e$, $\pi$, $\sin 1$, $\ln 2$ identificheranno 
 alcuni numeri irrazionali. 
 Ma non è possibile dare una rappresentazione \emph{finita} di ogni numero reale.
@@ -3630,8 +3659,11 @@ Inoltre la frazione $q= \frac{p}{n}$ può essere scelta
 in modo tale che il denominatore sia una potenza di $10$: $n=10^k$.
 \end{theorem}
 \begin{proof}
-La prima parte è conseguenza della seconda perché se scegliamo 
-$x= \frac{a+b}{2}$ ed $\eps = \frac{b-a} 2$ se $\abs{x-q}< \eps$ 
+La prima parte è conseguenza della seconda perché 
+dati $a<b$
+se scegliamo 
+$x= \frac{a+b}{2}$ ed $\eps = \frac{b-a} 2$ se 
+esiste $q$ tale che $\abs{x-q}< \eps$ 
 allora 
 \[
    a = \frac{a+b}{2} - \eps < q < \frac{a+b}{2} + \eps = b.
@@ -3642,9 +3674,9 @@ $n\in \NN$ tale che $\frac 1 n < \eps$ (l'esistenza di $n$ è garantita
 dal teorema~\ref{th:archimede}, proprietà archimedea) e predere $q = \frac{\lfloor nx\rfloor}{n}$
 cosicché, per le proprietà della parte intera, si ha:
 \[
-  nx-1 \lfloor nx\rfloor \le nx 
+  nx-1\le \lfloor nx\rfloor \le nx 
   \qquad\text{e quindi}\qquad
-  x - \frac 1 n \lfloor q \le x
+  x - \frac 1 n \le q \le x
 \]
 da cui $0 \le x-q < \frac 1 n < \eps$ come volevamo dimostrare.
 
@@ -3755,7 +3787,7 @@ Il numero
   x = 12.34\overline{567}
     = 12.34567\overline{567}
 \]
-è la frazione che risolve l'equazione
+è la frazione $x$ che risolve l'equazione
 \[
   \frac{100x - 1234}{1000}
   = 100x-1234.567
@@ -4440,8 +4472,9 @@ ascisse è il grafico di una funzione quadratica.
   Si dimostri che per ogni $a\neq 0$ esiste $s\neq 0$ 
   per cui il riscalamento $X=sx$, $Y=sy$ porta il grafico della 
   parabola $y=ax^2$ nel grafico della parabola $Y=X^2$.
-  Significa che a meno di isometrie e riscalamenti c'è una 
-  unica parabola.
+  Significa che 
+  c'è una unica parabola 
+  a meno di isometrie e riscalamenti.
 \end{exercise}
 
 Ricordando le proprietà di monotonia della funzione $X\mapsto X^2$
@@ -4729,8 +4762,8 @@ soddisfatte da entrambe le definizioni, separatamente,
 ma se mescoliamo le due definizioni le proprietà 
 possono cadere. Ad esempio:
 \[
-  \enclose{(-2)^2}\frac {1 2} 
-  \neq \enclose{-2}^{2\cdot 1 2}.
+  \enclose{(-2)^6}^{\frac 1 2} 
+  \neq \enclose{-2}^{6\cdot \frac 1 2}.
 \]
 
 Anche il fatto che abbiamo definito $0^0=1$ andrebbe 
@@ -5494,6 +5527,17 @@ Si osservi che risulta, per ogni $n\in \NN$:
   che sono dati dalla differenza $a_k-b_k$, devono essere nulli.
   \end{proof}
   
+\begin{example}
+L'insieme $\ZZ_2={0,1}$ può essere reso un campo 
+se si definisce la somma e il prodotto come sui 
+numeri naturali prendendo però sempre il resto 
+modulo $2$: $0+0=1+1=0$, $0+1=1+0=1$, $0\cdot 0
+=1\cdot 0 = 0\cdot 1 = 0$, $1\cdot 1=1$.
+Si può verificare che effettivamente $\ZZ_2$ 
+è un campo.
+Il polinomio $P = x^2+x$ risulta annullarsi sia 
+per $x=0$ che per $x=1$, ma non è il polinomio nullo.
+\end{example}
 
 \section{i numeri complessi}
 %
@@ -6408,6 +6452,7 @@ tutti i valori dell'intervallo $[-1,0]$.
 
 
 \section{costruzione degli insiemi numerici}
+\label{sec:costruzione}
 
 \subsection{costruzione dell'insieme dei numeri naturali}
 
