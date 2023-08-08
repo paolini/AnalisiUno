@@ -2543,6 +2543,7 @@ e dunque $m+1\in M$ come volevamo dimostrare.
 %
 
 \subsection{teorema di isomorfismo}
+\label{sec:isomorfismo}
 
 % \begin{definition}[omomorfismo]
 % Siano $R$ ed $S$ due gruppi 
@@ -5933,6 +5934,10 @@ Si determini la massima distanza tra due soluzioni
 dell'equazione $z^5=1$. 
 \end{exercise}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \section{funzioni trigonometriche}
 \label{sec:funzioni_trigonometriche}%
 \label{sec:avvolgimento}%
@@ -5942,428 +5947,228 @@ Consideriamo la circonferenza unitaria
   U = \ENCLOSE{z\in \CC\colon \abs{z} = 1}.
 \]
 Ogni punto $z\in U$ individua un angolo geometrico con l'asse reale.
+Il nostro obiettivo è ora quello di definire la misura di un angolo.
 Il punto $z=1$ individuerà un angolo di misura nulla e 
-ruotando $z$ in senso antiorario vogliamo ottenere angoli crescenti
-in modo additivo, ovvero vogliamo fare in modo che l'angolo che si ottiene 
+ruotando $z$ in senso antiorario vogliamo ottenere angoli 
+di misura crescente in modo che l'angolo che si ottiene 
 giustapponendo uno di seguito all'altro gli angoli individuati 
 dal punto $z$ e dal punto $w$ abbia misura pari alla somma delle misure 
 degli angoli individuati da $z$ e da $w$.
-Per fare questo gli angoli devono essere definiti con segno e \emph{molteplicità}.
 
-L'idea intuitiva è quella di pensare alla retta reale $\RR$ come un filo 
-elastico che viene arrotolato sulla circonferenza $U\subset \CC$ in modo che il punto $0\in \RR$ 
-si sovrapponga al punto $1\in \CC$ e poi, avvolgendo il filo in senso antiorario 
-con tensione costante, 
-si vada a completare un giro sovrapponendo il punto $1\in \RR$ di nuovo sul punto 
-$1\in \CC$. 
-In questo modo abbiamo assegnato la misura $1$ all'angolo giro.
-Usando il teorema degli isomorfismi di gruppi ordinati si riuscirà a definire 
-questa corrispondenza in modo che l'addizione su $\RR$ corrisponda alla moltiplicazione 
-su $U\subset \CC$. 
-Visto che la moltiplicazione per un numero unitario su $\CC$ rappresenta 
-una rotazione pari all'angolo identificato dal numero complesso, 
-quello che si ottiene è una corrispondenza tra $\RR$ e $U$ in cui 
-segmenti congruenti in $\RR$ corrispondono ad angoli congruenti in $U$.
-La proprietà di isomorfismo corrisponde al mantenere costante la tensione 
-dell'elastico in modo che archi congruenti abbiano misure uguali.
+Scegliamo arbitrariamente di dare una misura $\tau>0$ all'angolo giro.
+L'idea intuitiva è quella di \emph{arrotolare} la retta $\RR$ come un filo 
+attorno alla circonferenza $U\subset \CC$ 
+mandando il punto $0\in \RR$ sul punto $1\in \CC$,
+e poi il punto $\frac \tau 4$ su $i$, il punto $\tau$ su $-1$,
+il punto $3\frac \tau 4$ su $-i$ e il punto $\tau$ di nuovo su $1$.
+Punti intermedi andranno su punti intermedi di $U$ in modo da avere 
+l'additività degli angoli: la misura della somma di due angoli dovrà 
+essere la somma delle misure.
 
 L'insieme $U$ eredita la struttura di gruppo moltiplicativo di $\CC$: 
 se $z,w\in U$ 
 allora $z\cdot w \in U$ in quanto $\abs{z\cdot w} = \abs{z}\cdot \abs{w} = 1$
 essendo $\abs{z}=\abs{w}=1$. 
+Vorremmo quindi utilizzare il teorema~\ref{th:isomorfismo} di isomorfismo 
+come abbiamo fatto per definire la funzione esponenziale.
 Purtroppo però non è possibile mettere su $U$ 
 un ordinamento compatibile con l'operazione di gruppo: intuitivamente 
 quando mi muovo su $U$ in senso antiorario mi ritrovo a ripercorrere più volte 
 la stessa circonferenza.
 
-Per distinguere i diversi avvolgimenti 
-(ovvero: per rappresentare un angolo orientato) 
-costruiamo infinite copie identiche di $U$,
-le tagliamo tutte nel punto $1\in \CC$ e li attacchiamo 
-uno di seguito all'altro come per ottenere una ``elica cilindrica'' 
-(ovvero una molla).
-Consideriamo dunque l'insieme
+Possiamo dare un ordinamento solo in una parte della circonferenza. 
+Dunque l'idea è quella di ripercorrere il teorema di isomorfismo (capitolo~\ref{sec:isomorfismo}) 
+nell'ambito più generale dei gruppi localmente ordinati.
+
+Localizziamo la definizione~\ref{def:gruppo_ordinato} di gruppo ordinato.
+%
+\begin{definition}[gruppo localmente ordinato]
+Diremo che $G$ è un gruppo localmente ordinato 
+se $G$ ha una struttura di gruppo con elemento neutro $0$ e operazione $+$ 
+e se su $G$ è definito un ordinamento totale $\le$ tale che 
+esiste $u\in G$, $u>0$ per cui per ogni $x,y,z \in [0,u]$
+(ovvero $0\le x\le u$, $0\le y\le u$, $0\le z \le u$)
+risulta 
 \[
-  G = \ZZ \times U.
+    x \le y \iff x+z \le y+z.
 \]
-Ogni punto dell'elica circolare può essere identificato 
-da una coppia $(k,u)\in G$ dove 
-$k$ rappresenta il numero di giri interi che abbiamo fatto 
-intorno alla circonferenza in senso antiorario 
-e $u$ rappresenta la posizione finale sulla circonferenza.
-Ad esempio la rotazione di 90 gradi in senso antiorario 
-è rappresentata dalla coppia $(0,i)$, quella di 90 gradi 
-in senso orario dalla coppia $(-1,-i)$, la rotazione 
-di 360 gradi in senso orario dalla coppia $(1,1)$.
+\end{definition}
 
-Definiamo la somma di due angoli orientati definendo 
-una operazione $\stackrel G+$ su $G$.
-Per tenere traccia del numero di avvolgimenti sarà 
-necessario dividere $U$ in due semicirconferenze
-$U = A \cup B$ (Alto/Basso) dove 
-\mynote{Si noti che $A\cap B=\emptyset$, $A\cup B=U$, 
-$1\in A$ e $-1\in B$.}
-\[
-A = \ENCLOSE{x+iy\in U\colon y\ge 0, x>-1}, 
-\qquad
-B = \ENCLOSE{x+iy\in U\colon y\le 0, x<1}.
-\]
-Dunque definiamo
-\mynote{
-Quando sommiamo due angoli orientati $(k_1,u_1)$ e $(k_2,u_2)$ 
-dobbiamo sommare tra loro i giri completi $k_1+k_2$ e moltiplicare tra loro 
-i numeri complessi rappresentanti gli angoli $u_1\cdot u_2$. 
-Poi però dobbiamo aggiungere un giro in più se il prodotto $u_1\cdot u_2$ 
-``sfora'' l'angolo giro. 
-Questo succede certamente se entrambi gli angoli si trovano in $B$ 
-(sono entrambi maggiori di 180 gradi) oppure se almeno uno dei due 
-si trova in $B$ e la somma geometrica si trova in $A$ (se uno dei due 
-è maggiore di 180 gradi e l'altro minore, la somma potrà essere 
-tra i 180 e i 540 gradi).
-}%
-\begin{equation}\label{eq:somma_su_G}
-(k_1,u_1) \stackrel G+ (k_2,u_2) 
-= 
-\begin{cases} 
-  (k_1+k_2, u_1\cdot u_2)  
-  \text{ se $u_1\in A$ e $u_2\in A$} \\
-  (k_1+k_2+1, u_1\cdot u_2) 
-  \text{ se $u_1\in B$ e $u_2\in B$} \\
-  \text{altrimenti: }
-  \begin{cases}
-    (k_1+k_2, u_1\cdot u_2) & \text{se $u_1\cdot u_2\in B$}\\
-    (k_1+k_2+1, u_1\cdot u_2) & \text{se $u_1\cdot u_2\in A$}\\    
-  \end{cases}
-\end{cases}
-\end{equation}
-\mynote{
-Ad esempio $(0,i) \stackrel G+ (0,-i) = (1,1)$ (in gradi sarebbe 
-$90+270 = 360$),
-$(1,-i) \stackrel G+ (-1,-1) = (1,i)$ (in gradi $630-180=450$).}
-
-Chiaramente questa addizione è commutativa (la definizione è simmetrica 
-in $g_1$ e $g_2$). 
-In base alla nostra interpretazione della 
-somma che abbiamo definito risulta ovvio che 
-l'associatività
-$(g_1 \stackrel G+ g_2)\stackrel G+ g_3  
-= g_1 \stackrel G+ (g_2\stackrel G+ g_3)$
-deve valere.
-Per una dimostrazione formale si noti innanzitutto che
-la seconda componente di una somma tripla non dipende 
-dall'ordine degli addendi in quanto è uguale a
-$u_1\cdot u_2 \cdot u_3$. 
-La prima componente invece può essere $k_1+k_2+k_3$ 
-oppure $k_1+k_2+k_3+1$ o ancora $k_1+k_2+k_3+2$
-in quanto sia la prima che la seconda
-somma possono completare un angolo giro.
-Bisognerebbe fare tutti i casi possibili, a seconda 
-che 
-$u_1, u_2, u_3, (u_1\cdot u_2), (u_2\cdot u_3), 
-(u_1\cdot u_2 \cdot u_3)$ 
-stiano nella parte superiore $A$ o nella parte inferiore $B$.
-In totale sarebbero $2^6=64$ casi di cui alcuni sono impossibili
-(ad esempio se $u_1,u_2,u_3\in A$, 
-$u_1\cdot u_2\in B$ e $u_1\cdot u_2\cdot u_3 \in $)
-e molti si riconducono uno all'altro per simmetria.
-
-\begin{comment}
-\begin{table}
-  \tiny
-\begin{tabular}{ccc|c}
-$u_1$& $u_2$&$u_{12}$& $k$ \\\hline
-A & A & A & 0 \\
-A & A & B & 0 \\
-A & B & A & 1 \\
-A & B & B & 0 \\
-B & A & A & 1 \\
-B & A & B & 0 \\
-B & B & A & 1 \\
-B & B & B & 1 \\
-\end{tabular}
-\begin{tabular}{ccc|ccc|c}
-$u_1$ & $u_2$ & $u_3$ & $u_{12}$ & $u_{23}$ &$u_{123}$ & $k$\\\hline
-A & A & A & A & A & A & 0\\
-A & A & A & A & A & B & 0\\
-A & A & A & A & B & A & -\\
-A & A & A & A & B & B & 0\\
-A & A & A & B & A & A & -\\
-A & A & A & B & A & B & 0\\
-A & A & A & B & B & A & 1\\
-A & A & A & B & B & B & 0\\
-A & A & B & A & A & A & 1\\
-A & A & B & A & A & B & -\\
-A & A & B & A & B & A & 1\\
-A & A & B & A & B & B & 0\\
-A & A & B & B & A & A & 1\\
-A & A & B & B & A & B & 1\\
-A & A & B & B & B & A & 1\\
-A & A & B & B & B & B & -\\
-A & B & A & A & A & A & 1\\
-A & B & A & A & A & B & 1\\
-A & B & A & A & B & A & 1\\
-A & B & A & A & B & B & -\\
-A & B & A & B & A & A & 1\\
-A & B & A & B & A & B & -\\
-A & B & A & B & B & A & 1\\
-A & B & A & B & B & B & 0\\
-A & B & B & A & A & A & -\\
-A & B & B & A & A & B & 1\\
-A & B & B & A & B & A & 2\\
-A & B & B & A & B & B & 1\\
-A & B & B & B & A & A & 1\\
-A & B & B & B & A & B & 1\\
-A & B & B & B & B & A & -\\
-A & B & B & B & B & B & 1\\
-\end{tabular}
-\begin{tabular}{ccc|ccc|c}
-$u_1$ & $u_2$ & $u_3$ & $u_{12}$ & $u_{23}$ &$u_{123}$ & $k$\\\hline
-B & A & A & A & A & A & 1\\
-B & A & A & A & A & B & -\\
-B & A & A & A & B & A & 1\\
-B & A & A & A & B & B & 1\\
-B & A & A & B & A & A & 1\\
-B & A & A & B & A & B & 0\\
-B & A & A & B & B & A & 1\\
-B & A & A & B & B & B & -\\
-B & A & B & A & A & A & 2\\
-B & A & B & A & A & B & 1\\
-B & A & B & A & B & A & -\\
-B & A & B & A & B & B & 1\\
-B & A & B & B & A & A & -\\
-B & A & B & B & A & B & 1\\
-B & A & B & B & B & A & 1\\
-B & A & B & B & B & B & 1\\
-B & B & A & A & A & A & -\\
-B & B & A & A & A & B & 1\\
-B & B & A & A & B & A & 1\\
-B & B & A & A & B & B & 1\\
-B & B & A & B & A & A & 2\\
-B & B & A & B & A & B & 1\\
-B & B & A & B & B & A & -\\
-B & B & A & B & B & B & 1\\
-B & B & B & A & A & A & 2\\
-B & B & B & A & A & B & 1\\
-B & B & B & A & B & A & 2\\
-B & B & B & A & B & B & -\\
-B & B & B & B & A & A & 2\\
-B & B & B & B & A & B & -\\
-B & B & B & B & B & A & 2\\
-B & B & B & B & B & B & 2\\
-\end{tabular}
-\end{table}
-\end{comment}
-
-Chiaramente $(0,1)$ è elemento neutro: 
-$(k,u) \stackrel G+ (0,1) = (k,u)$
-e ogni angolo orientato $(k,u)\in G$ ha come 
-opposto l'angolo
-\[
-  -(k,u) = \begin{cases}
-    (-k-1, \bar u) &\text{se $u\neq 1$,}\\
-    (-k, \bar u) &\text{se $u=1$}.
-  \end{cases} 
-\]
-Infatti $u\cdot \bar u = \abs{u}^2 = 1$ e le parti 
-immaginarie di $u$ e $\bar u$ hanno segno opposto (a parte i casi 
-$u=-1$ e $u=1$ da considerare a parte) dunque 
-si verifica che la somma tra $(k,u)$ e $-(k,u)$ fa sempre $(0,1)$.
-
-Per definire l'ordinamento su un gruppo additivo $G$ 
-è sufficiente dire quando $g\ge 0$, perché poi 
-si potrà definire $g\ge h$ se $g-h\ge 0$.
-Poniamo quindi semplicemente
-\[
-  (k,u) \stackrel G \ge (0,1) \iff k\ge 0.
-\]
-Per verificare che l'ordinamento è compatibile con 
-l'operazione di gruppo è sufficiente verificare 
-che se $g_1\ge (0,1)$ e $g_2\ge (0,1)$ implica 
-$g_1 + g_2\ge 0$ e
-questo risulta ovvio dalla definizione.
-
-\begin{theorem}[ordinamento su $\ZZ\times U$]%
-  \label{th:gruppo_su_U}%
-L'insieme $G=\ZZ \times U$ con l'ordinamento 
-e l'addizione sopra definiti, risulta essere un gruppo 
-totalmente ordinato, denso e continuo.
+Generalizziamo il teorema~\ref{th:divisibile}.
+\begin{theorem}[divisibilità locale]
+Se $G$ è un gruppo localmente ordinato (supponiamo additivo)
+e l'ordinamento è denso e continuo sull'intervallo $[0,u]$, 
+allora per ogni $y\in(0,u]$ 
+e per ogni $n\in \NN$ esiste $x\in(0,u]$ tale che 
+$nx = y$.
 \end{theorem}
 %
-Per la dimostrazione ci sarà utile il seguente.
+\begin{proof}
+La dimostrazione segue quella già data nel capitolo~\ref{sec:isomorfismo}.
+Per prima cosa si dimostra che dato $y\in(0,u]$ 
+per densità esiste $x\in (0,u]$ tale che $x+x\le y$.
+Poi, iterando, si dimostra che dato qualunque $n\in \NN$ 
+esiste $x\in (0,u]$ tale che $kx\le y$ per ogni $k=1,\dots, n$.
+Si osservi che qui non basta dire che $nx\le y$ perché 
+la successione $k\mapsto kx$ è crescente solamente se rimaniamo 
+all'interno di $[0,u]$.
+Ora si può completare la dimostrazione utilizzando l'ipotesi di 
+continuità dell'ordinamento. Fissato $y$ e $n$ si considerano gli insiemi 
+\[
+  A_y = \ENCLOSE{x\in(0,u]\colon \forall k\in \NN\colon k\le n\implies kn \in [0,x) },
+  \qquad 
+  B_y = (0,u] \setminus A_y.
+\]
+Per le proprietà dimostrate più sopra sappiamo che $A_y \neq \emptyset$.
+Banalmente $u+u\not in[0,u]$ perché se fosse $u+u\in[0,u]$ allora 
+da $u>0$ deduciamo $u+u>u$, assurdo. 
+Dunque $u\in B_y$ se $n>1$ (il caso $n=1$ è banale e può essere fatto 
+a parte) e quindi anche $B_y\neq \emptyset$.
+Si prosegue poi come con la dimostrazione usuale.
+\end{proof}
+
+E infine estendiamo il teorema~\ref{th:isomorfismo}.
 %
-\begin{lemma} Se $G$ è un gruppo additivo totalmente ordinato 
-(con operazione $+$ e elemento neutro $0$) 
-se esiste $g>0$ tale per cui l'intervallo 
-$[0,g] = \ENCLOSE{h\in G\colon 0 \le h \le g}$ 
-è denso e continuo, allora l'intero gruppo $G$ è denso
-e continuo.  
-\end{lemma}
+\begin{theorem}[isomorfismo locale]
+Siano $R$ e $S$ gruppi additivi localmente ordinati, con rispettivi 
+intervalli $[0,u]\subset R$, $u>0$, e $[0,v]\subset S$, 
+$v>0$ in cui l'ordinamento 
+è compatibile con l'operazione di gruppo.
+Supponiamo che gli ordinamenti su $[0,u]$ e su $[0,v]$ siano densi e completi.
+Allora esiste una unica funzione $\phi\colon [0,u]\to[0,v]$ tale che 
+\begin{enumerate}
+  \item $\phi(u)=v$;
+  \item $\phi(x+y) = \phi(x)+\phi(y)$ per ogni $x,y\in [0,u]$ con $x+y\in [0,u]$;
+  \item $\phi$ è strettamente crescente.
+\end{enumerate}
+Inoltre $\phi$ risulta essere bigettiva.
+\end{theorem}
 %
 \begin{proof}
-Per la densità consideriamo $a,b\in G$ con $a<b$. 
-Prendiamo il minimo $n\in \ZZ$ tale che $(n+1)\cdot g > a$.
-\mynote{$n\cdot g$ è la somma ripetuta: $g+\dots +g$.}%
-\mynote{Ogni sottoinsieme non vuoto e inferiormente limitato 
-di $\ZZ$ ha minimo perché ci si può ricondurre 
-al buon ordinamento di $\NN$.}%
-Allora posto $a'=a-n\cdot g$ e $b'=b-n\cdot g$
-si avrà $0\le a' < g$ e $b'>a'$.
-Se $b'\le g$ per la densità dell'intervallo $[0,g]$ 
-esiste $x$ tale che $a'<x<b'$. 
-Se $b'>g$ basta prendere $x=g$ per avere $a'<x<b$.
-In ogni caso si ha $a < n\cdot g + x < b$ 
-come volevamo dimostrare.
-
-Per la continuità si procede in maniera simile.
-Siano $A,B$ sottoinsiemi non vuoti di $G$ tali che 
-$A\le B$.
-Allora consideriamo il minimo degli $n\in \ZZ$ 
-tale che $(n+1)\cdot g\ge A$.
-Se al posto di $A$ e $B$ consideriamo $A'=A-n\cdot g$ 
-e $B'=B-n\cdot g$ otteniamo 
-che $A'\le g$ e $0\le B'$
-dunque se $A'$ e $B'$ hanno un elemento di separazione 
-questo deve stare nell'intervallo $[0,g]$.
-Ma allora basta considerare le intersezioni $A''=A'\cap [0,g]$ 
-e $B''=B'\cap [0,g]$. 
-Per come abbiamo definito $n$ risulta che $A''$ non può essere 
-vuoto (altrimenti prenderemmo un $n$ più piccolo).
-Se anche $B''\neq \emptyset$ 
-essendo $[0,g]$ continuo 
-esiste un elemento di separazione $A'' \le x \le B''$.
-Allora sommando nuovamente $n\cdot g$ si trova 
-facilmente che $n\cdot g+ x$ è elemento di separazione 
-tra $A$ e $B$. 
-Se $B''=\emptyset$ basterà prendere $x=g$ per concludere 
-comunque che $n\cdot g + x=(n+1)\cdot g$ 
-è elemento di separazione tra $A$ e $B$.
+Si segue la dimostrazione del teorema~\ref{th:isomorfismo}.
+Per ogni $q\in \NN$ sono ben definiti $\frac u q$ e $\frac v q$ 
+e per ogni $p\in \NN$, $p\le q$ si deve 
+avere
+\[
+    \phi\enclose{p\frac u q} = p \frac{\phi(u)} q = p \frac{v}{q}.
+\]
+A questo punto la funzione può essere estesa a tutto $[0,u]$ 
+sfruttando la continuità dell'ordinamento in $[0,v]$ e mantenendo 
+la proprietà di omomorfismo.
+La funzione risultante è surgettiva se l'ordinamento 
+di $[0,u]$ è anch'esso continuo.
 \end{proof}
+
+Possiamo applicare il teorema precedente al gruppo 
+$U$ dei numeri complessi unitari, facendo attenzione che questo gruppo 
+è moltiplicativo e dunque gli enunciati vanno tradotti opportunamente 
+rimpiazzando la notazione additiva con quella moltiplicativa.
+Su $U$ possiamo mettere l'ordinamento che taglia la circonferenza 
+unitaria nel punto $-1$.
+Se consideriamo la funzione 
+\[
+  f(z) = \begin{cases}
+    \Im z &\text{se $\Re z\ge 0$} \\
+    2-\Im z&\text{se $\Re z<0$ e $\Im z>0$} \\
+    -2-\Im z&\text{se $\Re z<0$ e $\Im z \le 0$} 
+  \end{cases}  
+\]
+si ha che $f\colon U\to (-2,2]$ è bigettiva e si può dunque 
+definire $z\le w$ su $U$ se $f(z)\le f(w)$ in $(-2,2]$.
+Tale ordinamento su $U$ ha dunque le stesse proprietà 
+dell'ordinamento usuale su $(-2,2]$, in particolare 
+è un ordinamento totale, denso e continuo.
+L'intervallo $[1,i]\subset U$ 
+è il quarto di cerchio di $U$ contenuto nel primo quadrante.
+Vogliamo verificare che tali $z,w\in [1,i]$ risulta 
+$z<w$ se e solo se $\frac{w}{z} > 1$ in $U$, questo è quanto 
+basta per dire che $U$ è localmente ordinato.
+Dati $z,w \in[1,i]$ si ha $z=x+iy$ con $x,y\ge 0$ 
+e $w=a+ib$ con $a,b\ge 0$. 
+Per definizione $z<w$ se $f(z)<f(w)$ ovvero se $y<b$.
+Si ha 
+\[
+  \frac w z = w \bar z = ax + by + i(bx - ay).  
+\]
+Chiaramente $\Re \frac w z\ge 0$ dunque $\frac w z > 1$ in 
+$U$ se e solo se $\Im \frac w z = bx - ay > 0$.
+Se $y<b$ risulta $x>a$ (in quanto $x=\sqrt{1-y^2}$ e $a=\sqrt{1-b^2}$
+sono funzioni decrescenti) e dunque $bx - ay > ya - a y =0$.
+Abbiamo quindi mostrato che se $z<w$ allora $\frac w z > 1$.
+Simmetricamente si dimostra che se $z>w$ allora $\frac w z < 1$ 
+e dunque le due condizioni sono equivalenti.
+
+Possiamo finalmente ottenere l'isomorfismo tra $\RR$ e $U$.
+\begin{theorem}[isomorfismo unitario]
+Fissato $\tau > 0$ esiste una unica funzione 
+$\phi\colon \RR \to U = \ENCLOSE{z\in \CC\colon \abs{z}=1}$ 
+tale che 
 %
-\begin{proof}[Dimostrazione teorema~\ref{th:gruppo_su_U}]
-Abbiamo già osservato che l'operazione $\stackrel G+$ 
-è commutativa, associativa, ha elemento neutro $(0,1)$ 
-ed ha opposto. 
-Dunque $G$ è un gruppo additivo.
-L'ordinamento $\stackrel G\le$ che abbiamo definito su 
-$G$ è un ordinamento totale compatibile con l'operazione 
-di addizione: dunque $G$ è un gruppo totalmente ordinato.
-
-Per verificare che l'ordinamento è denso e continuo 
-possiamo innanzitutto osservare che sugli angoli 
-del primo quadrante 
-$I=\ENCLOSE{g\in G\colon (0,1)\stackrel G< g \stackrel G< (0,i)}$
-l'ordinamento $\stackrel G <$
-coincide con l'ordinamento della coordinata $y$ (parte 
-immaginaria) della componente $u$. 
-Più precisamente se $(0,1)\le g_a\le (0,i)$ e $(0,1)\le g_2\le (0,i)$
-con $g_1 = (k_1,x_1+iy_1)$ e $g_2=(k_2,x_2+iy_2)$ 
-allora $g_1\stackrel G\le g_2$ se e solo se $y_1\le y_2$.
-Infatti se $y_1\le y_2$ si ha $x_1 \ge x_2$ in quanto 
-$x_1 = \sqrt{1-y_1^2}$ e $x_2= \sqrt{1-y_2^2}$.
-Ma allora posto
-\[
-  v = (x_2+iy_2)\cdot(x_1-iy_1) = x_1x_2+y_1y_2 
-  +i(x_1 y_2-x_2y_1)
-\]
-si nota che $\Re v\ge0$ e $\Im v\ge 0$ in quanto 
-$x_1y_2 \ge x_2y_1$. Quindi effettivamente $g_2\ge g_1$.
-Se invece fosse $y_1 \ge y_2$ si avrebbero le disuguaglianze 
-opposte e si otterrebbe $g_1\ge g_2$.
-
-Dunque l'intervallo tra i punti $(0,1)$ e $(0,i)$ 
-è denso e continuo e per il lemma precedente l'intero 
-gruppo $G$ ha le stesse proprietà.
-\end{proof}
-
-\begin{theorem}[omomorfismo su $U$]%
-  \label{th:omomorfismo_U}%
-Esiste una unica 
-funzione 
-\[
- \phi\colon \RR \to U=\ENCLOSE{z\in \CC\colon \abs z = 1} 
-\]
-\mynote{Quando avremo definito l'esponenziale complesso 
-scopriremo che $\phi(x) = e^{2i\pi x}$.}%
-con le seguenti proprietà:
+\mynote{Quando avremo introdotto l'esponenziale complesso 
+scopriremo che $\phi(x) = e^{ix}$ se si sceglie $\tau=2\pi$.}
+%
 \begin{enumerate}
-  \item $\phi(x+y) = \phi(x)\cdot \phi(y)$ per ogni $x,y\in\RR$ (proprietà di omomorfismo);
-  \item $\phi(0) = \phi(1) = 1$;
-  \item $\Im \phi\colon \closeinterval{0}{1/4}\to[0,1]$ 
-  è strettamente crescente e bigettiva;
-  \item $\Re \phi\colon \closeinterval{0}{1/4}\to[0,1]$ 
-  è strettamente decrescente e bigettiva;
-  \item $\phi(x+1)=\phi(x)$ per ogni $x\in \RR$ 
-  ($\phi$ è periodica di periodo $1$).
+  \item $\phi$ è $\tau$-periodica;
+  \item $\phi(x+y)=\phi(x)\cdot \phi(y)$ per ogni $x,y\in \RR$;
+  \item $\Im \phi$ è strettamente crescente sull'intervallo $[-\tau,\tau]$.
 \end{enumerate}
 \end{theorem}
 %
 \begin{proof}
-  Dimostriamo per prima cosa l'esistenza.
-  Consideriamo il gruppo ordinato $G$ definito nel 
-  teorema~\ref{th:gruppo_su_U}.
-  In base al teorema~\ref{th:isomorfismo} esiste una unica funzione 
-  strettamente crescente $f\colon \RR \to G$ tale che 
-  $f(x+y) = f(x)\stackrel G+ f(y)$ e $f(1/4)=(0,i)\in G$
-  (quest'ultima condizione significa che l'angolo retto, rappresentato dal 
-  numero complesso $i$, vogliamo ottenerlo ad un quarto di giro). 
-  L'elemento neutro va necessariamente nell'elemento neutro quindi
-  si avrà $f(0)=(0,1)$
-  Tale funzione avrà due componenti: $f(x) = (\psi(x),\phi(x))$
-  con $\psi\colon \RR\to\ZZ$ e $\phi\colon \RR\to U\subset \CC$ 
-  (quest'ultima è la funzione che ci interessa).
-  Guardando la seconda componente dell'uguaglianza $f(x+y) = f(x)+_G f(y)$ 
-  ricordando la definizione~\eqref{eq:somma_su_G}
-  si deduce che $\phi(x+y) = \phi(x)\cdot \phi(y)$. 
-  Mentre se guardiamo la seconda componente di $f(0)=(0,1)$ 
-  e di $f(1/4) = (0,i)$ deduciamo che $\phi(0) = 1$ e $\phi(1/4) = i$.
-  Per additività otteniamo 
-  $\phi(1/2)=\phi(1/4+1/4)= \phi(1/4)^2 = i^2=-1$ 
-  e analogamente $\phi(1) = \phi(1/2)^2 = (-1)^2 = 1$.
-  Sempre per additività sappiamo che $\phi(-x) = 1/\phi(x)=\overline{\phi(x)}$ 
-  e dunque $\phi(-1/4)=-i$, $\phi(-1/2)=-1$, $\phi(-1)=1$.
+  Poniamo $u=\frac{\tau}4$.
+  Per il teorema precedente applicato 
+  al gruppo additivo $R=\RR$ e al gruppo moltiplicativo $S=U$
+  con l'ordinamento introdotto qui sopra deve esistere
+  $\psi\colon[0,u]\to U$ tale che $\psi(u)=i$
+  e $\psi(x+y)=\psi(x)\cdot \psi(y)$ (proprietà di omomorfismo) 
+  quando $x,y,x+y \in [0,u]$.
+  Possiamo definire $\phi$ su tutto $\RR$ estendendo $\psi$:
+  \[
+    \phi(x) =
+      i^k\cdot \psi(x-ku) \quad \text{se $x\in [k u,(k+1)u)$}.
+  \]
+  Questa funzione è $\tau$-periodica infatti
+  se $x\in [0,u)$ risulta
+  $\phi(ku+x) = i^{k} \psi(x)$
+  e dunque 
+  \[
+    \phi(ku+x+\tau) = i^{4+k} \psi(x) = i^k \psi(x) = \phi(ku+x).
+  \]
 
-  
-  Se restringiamo la funzione $f$ all'intervallo $\closeinterval{0}{1/4}$
-  otteniamo una funzione bigettiva tra tale intervallo 
-  e l'intervallo in $G$ dei punti compresi tra $f(0)=(0,1)$ e $f(1/4)=(0,i)$.
-  Ma abbiamo già osservato 
-  (nella dimostrazione del teorema~\ref{th:gruppo_su_U})
-  che l'ordinamento di $G$ coincide su tale intervallo 
-  con l'ordinamento della parte immaginaria che su tale 
-  intervallo varia in $[0,1]$.  
-  Dunque essendo $f$ strettamente crescente, 
-  risulta che sull'intervallo $[0,1/4]$ anche $\Im\phi$ è strettamente
-  crescente e di conseguenza $\Im \phi \colon \closeinterval{0}{1/4}\to [0,1]$ 
-  è iniettiva. 
-  Ma tale funzione è anche suriettiva in quanto preso 
-  qualunque $y\in [0,1]$ posto $x=\sqrt{1-y^2}$ si 
-  trova che il punto $(0,x+iy)\in G$ è un punto 
-  di $G$ compreso tra $(0,1)$ e $(0,i)$.
-  Essendo $f$ bigettiva si trova dunque $t\in[0,1/4]$ 
-  tale che $f(t) = (0,x+iy)$ da cui $\phi(t)=x+iy$ e 
-  $\Im \phi(t) = y$.
-  Sempre sull'intervallo $\closeinterval{0}{1/4}$ si ha 
-  $\Re \phi(x) = \sqrt{1-\Im^2 \phi(x)}$ 
-  in quanto $\abs{\phi(x)} = 1$ e $\Re \phi(x)\ge 0$,
-  dunque $\Re \phi$ è strettamente decrescente e quindi 
-  iniettiva.
-  Anche $\Re \phi\colon \closeinterval{0}{1/4}\to [0,1]$
-  è suriettiva in quanto scelto $x\in[0,1]$ e posto 
-  $y=\sqrt{1-x^2}$ si trova $t$ come sopra in modo che 
-  $f(t)=(0,x+iy)$ da cui $\Re \phi(t) = x$.
+  Chiaramente se $x\in[0,u]$ 
+  si ha $\phi(x) = \psi(x)$ 
+  e 
+  \[
+    \phi(-x) = i^{-1}\psi(u-x) = i^{-1}\frac{i}{\psi(x)} = \overline{\psi(x)}
+  \]
+  in quanto $i=\psi(u)=\psi(u-x+x) = \psi(u-x)\cdot \psi(x)$.
+  Dunque $\Im \phi(x)$ risulta essere strettamente crescente su tutto 
+  l'intervallo $[-u,u]$, come richiesto.
 
-  Per dimostrare che $\phi$ è $1$-periodica 
-  basta osservare che essendo $\phi(1)=1$, 
-  per additività si ha $\phi(x+1) = \phi(x)\cdot \phi(1) = \phi(x)$.
-
-  Per l'unicità osserviamo che se $\tilde\phi\colon\RR\to U$ è una funzione 
-  con le proprietà richieste allora si può definire 
-  $\tilde f\colon \RR \to G$ ponendo $\tilde f(x) = (\lfloor x\rfloor, \tilde \phi(x))$.
-  Si può verificare che $\tilde f$ è additiva, $\tilde f(1)=(1, 1)$ 
-  e $\tilde f$ è crescente. 
-  Dunque, per il teorema~\ref{th:isomorfismo}, $\tilde f = f$ 
-  per unicità dell'isomorfismo e di conseguenza $\tilde \phi = \phi$.
-\end{proof}
+  Rimane da dimostrare la proprietà di omomorfismo $\phi(x+y)=\phi(x)\cdot \phi(y)$. 
+  Dati $x,y\in \RR$ possiamo scrivere 
+  \[
+     x= n \frac u 2 + x', \qquad y=m \frac u 2 + y'
+  \]
+  con $x',y'\in[0,u/2]$ cosicché sappiamo che $x'+y'\in [0,u]$ 
+  e dunque $\psi(x'+y') = \psi(x')\cdot \psi(y')$.
+  Posto $\theta = \psi(u/2)$, si ha $\theta^2=i$ e dunque,
+  per come abbiamo definito $\phi$, risulta 
+  \[
+    \phi\enclose{n \frac u 2 + x'} = \theta^n \psi(x'),
+    \qquad 
+    \phi\enclose{m \frac u 2 + y'} = \theta^m \psi(y').
+  \]
+  Dunque 
+  \begin{align*}
+    \phi(x+y) 
+    &= \phi\enclose{(n+m)\frac u 2+x'+y'} 
+    = \theta^{n+m}\psi(x'+y')\\
+    &= \theta^n \psi(x') \theta^m \psi(y')
+    = \phi(x)\cdot \phi(y)
+  \end{align*}
+  come volevamo dimostrare.
+  \end{proof}
 
 \begin{theorem}[esistenza funzioni trigonometriche]%
 \label{def:sin_cos}%
