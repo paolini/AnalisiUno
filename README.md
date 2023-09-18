@@ -60,7 +60,7 @@ le funzioni esponenziali e le funzioni trigonometriche.
 Le figure non sono frequenti ma a margine di molte di esse  
 è presente un *QR-code* (un quadrato formato da una nuvola di pixel) 
 che permette di accedere alla figura  
-*online* e modificarne i parametri.  
+*online* e modicarne i parametri.  
 Di seguito in questa pagina trovate l'elenco 
 con i collegamenti alle figure interattive. 
  
