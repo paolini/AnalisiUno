@@ -3,7 +3,7 @@ all: AnalisiUnoFonts.pdf AnalisiUno.pdf README.md
 README.md: make-docs.sh AnalisiUno.myaux
 	bash $<
 
-AnalisiUnoFonts.pdf:
+AnalisiUnoFonts.pdf: AnalisiUno.pdf
 	gs -o AnalisiUnoFonts.pdf -sDEVICE=pdfwrite -dEmbedAllFonts=true AnalisiUno.pdf
 
 AnalisiUno.pdf AnalisiUno.myaux: AnalisiUno.tex chapters/*.tex figures/* code/* figures/figurePJAinside.tex figures/figurePJBinside.tex figures/figurePJAoutside.tex figures/figurePJBoutside.tex
