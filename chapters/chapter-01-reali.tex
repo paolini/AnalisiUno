@@ -306,6 +306,18 @@ su più variabili $\forall x,y\colon x+y = y+x$.
 A volte, se non crea ambiguità, si potranno scrivere 
 i quantificatori anche a fine frase $x+y=y+x, \forall x\forall y$.
 
+Nel calcolo dei predicati si introduce usualmente anche il simbolo di uguaglianza \texttt{=}.
+Come viene definita l'uguaglianza dipende da come sono definiti gli oggetti trattati 
+dal nostro sistema formale, cosa che noi faremo per la teoria degli insiemi nel prossimo paragrafo.
+Ma comunque venga definita l'uguaglianza si richiede che valga il seguente assioma
+\begin{axiom}[uguaglianza]
+\[
+  \forall x\colon x=x.  
+\]
+\end{axiom}
+e si richiede la presenza di una regola di inferenza che permette di dedurre 
+da ogni predicato del tipo $(x=y) \land P(x)$ il predicato $P(y)$.
+
 \section{teoria degli insiemi}
 
 Nei paragrafi precedenti abbiamo visto che i predicati possono essere
@@ -373,15 +385,15 @@ Scriveremo anche $A \neq B$ per indicare
 la relazione opposta dell'uguaglianza ovvero: $\lnot(A=B)$.
 Si noti che $A=B$ è equivalente a $(A\subset B) \land (B\subset A)$.
 
-In molti sistemi formali l'uguaglianza è un predicato primitivo con la 
-proprietà che oggetti uguali possono essere sostituiti uno all'altro 
-in ogni proposizione. Per recuperare tale proprietà 
-dobbiamo imporre il seguente.
-
-\begin{axiom}[estensionalità]
-Se $x=y$ allora il predicato $x\in A$ è equivalente 
-al predicato $y\in A$.
-\end{axiom}
+% In molti sistemi formali l'uguaglianza è un predicato primitivo con la 
+% proprietà che oggetti uguali possono essere sostituiti uno all'altro 
+% in ogni proposizione. Per recuperare tale proprietà 
+% dobbiamo imporre il seguente.
+% 
+% \begin{axiom}[estensionalità]
+% Se $x=y$ allora il predicato $x\in A$ è equivalente 
+% al predicato $y\in A$.
+% \end{axiom}
 
 La relazione $A \subset B$ significa che ogni elemento di $A$ 
 è anche elemento di $B$ e quindi non ci sono elementi di $A$ che non stiano 
@@ -500,27 +512,22 @@ vedi note storiche a pag.~\pageref{nota:Cantor}}.
 
 \begin{theorem}[paradosso di Russell]
 \label{th:Russell}%
-Supponiamo che per ogni predicato $P(x)$ esista un insieme 
-$\ENCLOSE{x\colon P(x)}$ formato da tutti gli $x$ 
-che soddisfano il predicato $P(x)$:
+Non esiste un insieme $R$ tale che per ogni $x$ si abbia
 \[
-  a \in \ENCLOSE{x\colon P(x)} \iff P(a).
+   x\in R \iff x\not \in x
 \]
-Allora si ottiene un assurdo.
+(un tale insieme si potrebbe definire così
+tramite un assioma di specificazione \emph{ingenua}: $R=\ENCLOSE{x\colon x\not \in x}$).
 \end{theorem}
 %
 \begin{proof}
-  Consideriamo il predicato $x \not \in x$
-  per il quale dovrebbe esistere l'insieme:
-  \[
-    R = \ENCLOSE{x\colon x\not \in x}.  
-  \]
-  Ma allora avremmo, per definizione:
+  Se esistesse avremmo:
   \[
     R \in R 
     \iff R\not \in R
   \]
-  in contrasto con il principio di non contraddizione
+  e questo è in contrasto
+  con il principio di non contraddizione
   (un predicato e la sua negazione non possono essere entrambi veri).
 \end{proof}
 
@@ -5997,10 +6004,12 @@ risulta
 Generalizziamo il teorema~\ref{th:divisibile}.
 \begin{theorem}[divisibilità locale]
 Se $G$ è un gruppo localmente ordinato (supponiamo additivo)
-e l'ordinamento è denso e continuo sull'intervallo $[0,u]$, 
+e l'ordinamento è denso e continuo sull'intervallo $[0,u]$
+con $u>0$, 
 allora per ogni $y\in(0,u]$ 
-e per ogni $n\in \NN$ esiste $x\in(0,u]$ tale che 
-$nx = y$.
+e per ogni $n\in \NN\setminus\ENCLOSE{0}$ 
+esiste $x_n\in(0,u]$ tale che 
+$n x_n = y$ e per ogni $n$ si ha $x_{n+1}< x_n$.
 \end{theorem}
 %
 \begin{proof}
