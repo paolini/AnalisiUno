@@ -3808,7 +3808,10 @@ In questo capitolo dobbiamo lavorare con le funzioni
 $\sin$, $\cos$ e $\tg=\frac{\sin }{\cos}$ introdotte 
 nel capitolo~\ref{sec:avvolgimento}. 
 Queste funzioni sono state definite con un periodo $\tau>0$
-arbitrario.
+arbitrario. 
+Quando sarà necessario mettere in evidenza 
+la dipendenza da $\tau$ scriveremo $\sin_\tau$ 
+e $\cos_\tau$.
 
 \begin{theorem}[limite notevole $\sin$]
 Per ogni $x\in \RR$, $x\neq 0$, la successione
@@ -3846,8 +3849,8 @@ e $x>0$ è tale che $0\le nx <\frac \tau 4$ allora si ha
 \begin{equation}\label{eq:4813509}
   \sin n x \le n\sin x\le \tg nx.
 \end{equation}
-Lo possiamo dimostrare per induzione con $x\in\closeopeninterval{0}{\frac \tau 4}$
-fissato.
+Possiamo dimostrare per induzione l'implicazione 
+$nx\le \frac \tau 4 \implies$~\eqref{eq:4813509}.
 Se $n=1$ è ovvio.
 Supponiamo allora che \eqref{eq:4813509} 
 sia valida per un certo $n$ e che  
@@ -3919,32 +3922,85 @@ con $\frac x n$ al posto di $x$.
 \emph{Conclusione.}
 Se $0<x<\frac \tau 4$ abbiamo dimostrato il teorema.
 Se $x\ge \frac \tau 4$ la successione $a_n$ sarà decrescente 
-se $n$ è abbastanza grande da rendere $\frac x n< \frac \tau 4$.
+se $n$ è abbastanza grande da rendere $\frac x n < \frac \tau 4$.
 Se $x<0$ il risultato si ottiene per simmetria usando: $\sin(-x)=-\sin x$.
 \end{proof}
 
 Se applichiamo il teorema precedente 
 con $\tau=1$ e $x=1$ otteniamo che la successione 
-$a_n = n\cdot \Im \phi\enclose{\frac 1 n}$ converge 
-ad un numero positivo. Possiamo quindi dare la seguente.
+$a_n = n\cdot \sin\enclose{\frac 1 n}$ converge 
+ad una costante universale.
+In particolare se $\tau=1$ l'angolo $\frac 1 n$ 
+è l'angolo formato dal lato di un $n$-agono 
+regolare inscritto nella circonferenza unitaria.
+Dunque $a_n$ non è altro che il perimetro di tale 
+$n$-agono regolare e il limite a cui tende deve essere,
+geometricamente, la lunghezza della circonferenza unitaria.
+
+Questo dà significato geometrico alla seguente definizione.
 
 \begin{definition}[$\pi$ costante fondamentale della trigonometria]%
   \label{def:pi}%
 Definiamo
 \[
  \pi 
-  = \frac 1 2 \lim_{n\to +\infty} n\cdot \Im \phi \enclose{\frac 1 n}.
+  \defeq \frac 1 2 \lim_{n\to +\infty} n\cdot \sin_1 \enclose{\frac 1 n}.
 \]
-
-Con questa scelta le funzioni trigonometriche $\sin$ e $\cos$ 
-avranno, d'ora in poi, periodo $\tau = 2\pi$.
+dove $\sin_1$ è la funzione $\sin$ costruita nel 
+teorema~\ref{def:sin_cos} con periodo $\tau=1$.
 \end{definition}
 
-La scelta di $\tau$ fatta nella definizione precedente 
-è quella che garantisce che il punto di coordinate 
+\begin{theorem}[limite notevole $\sin$]
+  \label{th:limite_notevole_sin}%
+Sia $\sin_\tau$ la funzione seno definita 
+dal teorema~\ref{def:sin_cos} con periodo $\tau>0$.
+Per ogni $x\in\RR$, $x\neq 0$ si ha 
+\[
+\lim_{x\to 0}\frac{\sin_{\tau} x}{x}
+= \frac{2\pi}{\tau}.
+\]
+\end{theorem}
+%
+\begin{proof}
+Risulta ovviamente $\sin_\tau(\tau x) = \sin_1 x$ in quanto 
+la funzione $\sin_\tau(\tau x)$ ha periodo $1$ e soddisfa tutte le proprietà 
+enunciate nel teorema~\ref{def:sin_cos}.
+Ora per ogni $x>0$ esiste $n\in \NN$ tale che 
+$\frac \tau {n+1} \le x \le \frac \tau n$ 
+e se $nx<\frac \tau 4$ usando la monotonia della funzione $\sin_\tau$ 
+si ottiene:
+\begin{align*}
+  n \sin_1 \frac 1 {n+1}
+  = n \sin_\tau \frac \tau {(n+1)}
+  \le \frac \tau x \cdot \sin_\tau x 
+  \le (n+1)\cdot \sin_1 \frac 1 n
+\end{align*}
+Ovviamente se $x\to 0^+$ si ha $n=n(x)\to +\infty$.
+Per come abbiamo definito $\pi$ 
+sappiamo che $n \sin_1 \frac 1 n\to 2\pi$ per $n\to +\infty$
+e visto che $n\sim n+1$ entrambi i lati della precedente equazione 
+tendono allo stesso limite $2\pi$ e dunque, per confronto, 
+\[
+  \lim_{x\to 0^+} \tau \cdot \frac{\sin_\tau x}{x} = 2\pi.  
+\]
+Per simmetria lo stesso limite vale quanto $x\to 0^-$
+e si ottiene dunque il risultato voluto.
+\end{proof}
+
+D'ora in avanti sceglieremo $\tau=2\pi$ come periodo 
+delle funzioni trigonometriche.
+E d'ora in avanti si intenderà $\sin = \sin_{2\pi}$, 
+$\cos = \cos_{2\pi}$. Si avrà quindi il limite notevole 
+\[
+   \lim_{x\to 0} \frac{\sin x}{x} = 1.  
+\]
+
+Quando introdurremo le derivate potremo anche osservare che 
+questa scelta del periodo $\tau=2\pi$ 
+fa sì che il punto di coordinate
 $(\cos t,\sin t)$ si muova con velocità unitaria lungo 
 la circonferenza unitaria. 
-Dunque il punto percorre un arco di lunghezza $t$ nel tempo $t$.
+Dunque tale punto percorre un arco di lunghezza $t$ nel tempo $t$.
 In particolare in un periodo $\tau=2\pi$ il punto percorre l'intera 
 circonferenza e dunque risulta che $2\pi$ è la lunghezza 
 della circonferenza unitaria (ovvero $2\pi r$ è la lunghezza della circonferenza 
@@ -3954,41 +4010,6 @@ viene chiamato \emph{radiante} in quanto corrisponde ad un arco di lunghezza
 pari al raggio (unitario). 
 Dunque il \emph{radiante} è l'unità di misura naturale per misurare gli angoli 
 e le funzioni $\sin$ e $\cos$ d'ora in poi saranno fissate con tale unità di misura.
-
-\begin{theorem}[limite notevole $\sin$]
-  \label{th:limite_notevole_sin}%
-Per ogni $x\in\RR$, $x\neq 0$ si ha 
-\mynote{ricordiamo che in questo teorema si suppone che le funzioni 
-trigonometriche usino i radianti come unità di misura. 
-In generale se la misura dell'angolo giro è $\tau$ 
-tale limite vale $\frac{2\pi}{\tau}$.}
-\[
-\lim_{x\to 0}\frac{\sin x}{x} = 1.
-\]
-\end{theorem}
-%
-\begin{proof}
-Grazie al teorema precedente e alla definizione di $\tau$ e $\pi$ 
-sappiamo che $\frac{\sin \frac 1 n}{\frac 1 n}\to 1$ per $n\to +\infty$.
-Ma per ogni $x>0$ esiste $n\in \NN$ tale che 
-$\frac 1 {n+1} \le x \le \frac 1 n$ 
-e se $nx<\frac \tau 4$ usando la monotonia della funzione $\sin$ 
-si ottiene:
-\begin{align*}
-  \frac{\sin \frac 1{n+1}}{\frac 1 {n+1}} 
-  \cdot \frac{n}{n+1}
-  =\frac{\sin \frac 1{n+1}}{\frac 1 {n}} 
-  \le \frac{\sin x}{x}
-  \le \frac{\sin \frac 1 n}{\frac 1 {n+1}}
-  = \frac{\sin \frac 1 n}{\frac 1 n} \cdot \frac{n+1}{n}.
-\end{align*}
-Per $x\to 0^+$ si ha ovviamente $n\to+\infty$ e quindi 
-il primo e l'ultimo termine di questa catena di disuguaglianze 
-tendono entrambi a $1$.
-Per confronto anche il limite di $\frac{\sin x}{x}$ tende 
-a $1$ per $x\to 0^+$.
-Per simmetria lo stesso accade per $x\to 0^-$.
-\end{proof}
 
 \newsavebox{\qrfigtrigo}\sbox{\qrfigtrigo}{\myurlhere{figtrigo}{funzioni trigonometriche}}%
 \begin{figure}
