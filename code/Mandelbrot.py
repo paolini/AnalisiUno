@@ -9,9 +9,11 @@ xres, yres = 6400, 4800
 iterations = 40
 
 # cx e' una suddivisione dell'intervallo [-2,1] in xres punti
-cx = 3.0*np.arange(xres)/xres - 2.0
+cx = np.linspace(-2,1,xres)
+
 # cy e' una suddivisione dell'intervallo [-1,1] in yres punti
-cy = (2.0*np.arange(yres)/yres - 1.0) * 3.0 * yres / 2.0 / xres
+cy = np.linspace(-1,1,yres)
+
 # c e' una matrice yres x xres contenente i numeri complessi
 # con parte reale cx e parte immaginaria cy.
 c = cx[np.newaxis,:] + 1j * cy[:,np.newaxis]
