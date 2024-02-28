@@ -625,10 +625,10 @@ Di conseguenza $I_*(f) \le I^*(f)$.
 
 
 \begin{theorem}[criteri di integrabilità]
-\label{th:criteri_integrabilita}
-\mymark{*}
-\mymargin{criteri di integrabilità}
-\index{criterio!di integrabilità}
+\label{th:criteri_integrabilita}%
+\mymark{*}%
+\mymargin{criteri di integrabilità}%
+\index{criterio!di integrabilità}%
 Sia $f\colon[a,b]\to \RR$ una funzione limitata.
 \begin{enumerate}
 \item
@@ -1019,6 +1019,94 @@ $D$ come l'oscillazione della sua immagine, ovvero:
 \]
 \end{definition}
 
+\begin{theorem}[integrabilità delle funzioni continue]
+  \mymark{***}
+  \label{th:integrabilita_continue}
+  \mymargin{integrabilità delle funzioni continue}
+  \index{integrabilità!funzioni continue}
+  Sia $f\colon [a,b]\to \RR$ una funzione continua.
+  Allora $f$ è limitata e Riemann-integrabile.
+  \end{theorem}
+  %
+  \begin{proof}
+  \mymark{***}
+  Per il teorema di Weierstrass sappiamo che $f$ è limitata.
+  Per il teorema di Heine-Cantor sappiamo che $f$ è uniformemente continua,
+  dunque per ogni $\eps>0$ esiste un $\delta>0$ tale che
+  \[
+   \abs{x-y} < \delta \implies \abs{f(x)-f(y)} < \eps.
+  \]
+  Possiamo allora considerare una suddivisione $P_\delta$ con la proprietà che
+  gli intervalli individuati dalla suddivisione abbiano tutti ampiezza minore di
+  $\delta$ (ad esempio potremmo prendere la suddivisione formata da
+  $(b-a)/\delta+2$ punti equispaziati in $[a,b]$). Su ogni intervallo $I$ di tale
+  suddivisione si avrà che se $x,y\in I$ allora $\abs{f(x)-f(y)} < \eps$ da cui
+  si deduce $\sup_I f - \inf_I f \le \eps$.
+  In particolare, sommando su tutti gli intervalli, si avrà
+  \begin{align*}
+    S^*(f,P_\delta) - S_*(f,P_\delta)
+    &= \sum_{k=1}^N (x_k-x_{k-1})\enclose{\sup_{[x_{k-1},x_k]} f - \inf_{[x_{k-1},x_k]} f} \\
+    &\le \eps \sum_{k=1}^N (x_k - x_{k-1})
+     = \eps (b-a).
+  \end{align*}
+  Visto che questa quantità può essere resa arbitrariamente piccola per
+  $\eps \to 0$, in base ai criteri di integrabilità possiamo concludere che la
+  funzione $f$ è integrabile.
+  \end{proof}
+  
+  \begin{theorem}[integrabilità delle funzioni monotone]
+  \label{th:integrabilita_monotone}%
+  \mymargin{integrabilità delle funzioni monotone}%
+  \index{integrabilità!funzioni monotone}%
+  Sia $f\colon [a,b]\to \RR$ una funzione monotona. Allora $f$ è limitata e
+  Riemann-integrabile.
+  \end{theorem}
+  %
+  \begin{proof}
+  Supponiamo, per fissare le idee, che $f$ sia crescente.
+  
+  Chiaramente $f$ è limitata in quanto $f(a) \le f(x) \le f(b)$ per ogni
+  $x\in [a,b]$.
+  
+  Per avere l'integrabilità e sufficiente mostrare
+  che esiste una successione di suddivisioni $P_n$
+  tale che $S^*(f,P_n) - S_*(f,P_n) \to 0$.
+  Consideriamo la suddivisione equispaziata
+  $P_n=\ENCLOSE{x_k \colon k=0,1, \dots, n}$ con $x_k=a+k(b-a)/N$.
+  In tal caso su ogni intervallino $[x_{k-1},x_k]$ si ha
+  \[
+    \sup f([x_{k-1}, x_k]) = f(x_k),
+    \qquad
+    \inf f([x_{k-1}, x_k]) = f(x_{k-1}).
+  \]
+  Dunque la differenza tra le somme superiori
+  e le somme inferiori è telescopica
+  e si ha, per $n\to +\infty$
+  \begin{align*}
+  S^*(f,P) - S_*(f,P)
+  &= \sum_{k=1}^n \frac{b-a}{n} f(x_k)
+    - \sum_{k=1}^n \frac{b-a}{n} f(x_{k-1}) \\
+  &= \frac{b-a}{n}(f(b)-f(a)) \to 0.
+  \end{align*}
+  E' quanto volevamo dimostrare.
+  \end{proof}
+  
+  \begin{example}[funzione di Heaviside]
+  \label{ex:heaviside}
+  \mymargin{funzione di Heaviside}
+  \index{funzione!di Heaviside}
+  Sia $a<0<b$.
+  La funzione $H\colon [a,b] \to \RR$ definita da
+  \[
+  H(x) =
+  \begin{cases}
+  1 & \text{se $x\ge 0$}\\
+  0 & \text{se $x< 0$}
+  \end{cases}
+  \]
+  è crescente quindi integrabile.
+  \end{example}
+  
 \begin{theorem}[integrabilità della funzione composta]
   \label{th:composta_integrabile}%
   \index{integrabilità!della funzione composta}%
@@ -1032,7 +1120,7 @@ $D$ come l'oscillazione della sua immagine, ovvero:
 \end{theorem}
 %
 \begin{proof}
-Per i criteri di integrabilità
+Per i criteri di integrabilità, teorema~\ref{th:criteri_integrabilita},
 fissato $\eps>0$ basta trovare una suddivisione $P$
 per cui si abbia $S^*(\phi\circ f,P) - S_*(\phi\circ f,P)\le \eps(b-a)$.
 Per il teorema~\ref{th:heine_cantor} di Heine-Cantor 
@@ -1049,7 +1137,7 @@ per l'integrabilità di $f$ sappiamo che
 esiste una suddivisione $P$ fatta 
 dai punti $x_0=a < x_1 < \dots < x_n=b$ tale che 
 \mynote{L'operatore $\osc$ è stato introdotto 
-nella definizione~\ref{def:osc}}
+nella definizione~\ref{def:osc}}%
 \[
   S^*(f,P) - S_*(f,P) 
   = \sum_{k=1}^n (x_k - x_{k-1})
@@ -1062,8 +1150,8 @@ Vogliamo dimostrare che la seguente quantità è piccola:
  S^*(\phi\circ f,P) - S_*(\phi\circ f,P)
  = \sum_{k=1}^n (x_k - x_{k-1}) \cdot \osc \phi(f([x_{k-1},x_k])).
 \]
-Se $\osc f([x_{k-1},x_k]) \le \frac{\delta }2$ 
-per ogni $t,s\in[x_{k-1},x_k]$ si ha 
+Se $\osc f([x_{k-1},x_k]) \le \frac{\delta }2$, 
+allora per ogni $t,s\in[x_{k-1},x_k]$ si ha 
 $\abs{f(t)-f(s)}\le \frac{\delta}{2}$
 e quindi, per l'uniforme continuità di $\phi$,
 $\abs{\phi(f(t))-\phi(f(s))}<\eps$.
@@ -1217,94 +1305,6 @@ Risulta $f= f^+ - f^-$, $\abs{f}=f^+ + f^-$.
   gli estremi di integrazione.
   \end{proof}
   
-  \begin{theorem}[integrabilità delle funzioni continue]
-    \mymark{***}
-    \label{th:integrabilita_continue}
-    \mymargin{integrabilità delle funzioni continue}
-    \index{integrabilità!funzioni continue}
-    Sia $f\colon [a,b]\to \RR$ una funzione continua.
-    Allora $f$ è limitata e Riemann-integrabile.
-    \end{theorem}
-    %
-    \begin{proof}
-    \mymark{***}
-    Per il teorema di Weierstrass sappiamo che $f$ è limitata.
-    Per il teorema di Heine-Cantor sappiamo che $f$ è uniformemente continua,
-    dunque per ogni $\eps>0$ esiste un $\delta>0$ tale che
-    \[
-     \abs{x-y} < \delta \implies \abs{f(x)-f(y)} < \eps.
-    \]
-    Possiamo allora considerare una suddivisione $P_\delta$ con la proprietà che
-    gli intervalli individuati dalla suddivisione abbiano tutti ampiezza minore di
-    $\delta$ (ad esempio potremmo prendere la suddivisione formata da
-    $(b-a)/\delta+2$ punti equispaziati in $[a,b]$). Su ogni intervallo $I$ di tale
-    suddivisione si avrà che se $x,y\in I$ allora $\abs{f(x)-f(y)} < \eps$ da cui
-    si deduce $\sup_I f - \inf_I f \le \eps$.
-    In particolare, sommando su tutti gli intervalli, si avrà
-    \begin{align*}
-      S^*(f,P_\delta) - S_*(f,P_\delta)
-      &= \sum_{k=1}^N (x_k-x_{k-1})\enclose{\sup_{[x_{k-1},x_k]} f - \inf_{[x_{k-1},x_k]} f} \\
-      &\le \eps \sum_{k=1}^N (x_k - x_{k-1})
-       = \eps (b-a).
-    \end{align*}
-    Visto che questa quantità può essere resa arbitrariamente piccola per
-    $\eps \to 0$, in base ai criteri di integrabilità possiamo concludere che la
-    funzione $f$ è integrabile.
-    \end{proof}
-    
-    \begin{theorem}[integrabilità delle funzioni monotone]
-    \label{th:integrabilita_monotone}%
-    \mymargin{integrabilità delle funzioni monotone}%
-    \index{integrabilità!funzioni monotone}%
-    Sia $f\colon [a,b]\to \RR$ una funzione monotona. Allora $f$ è limitata e
-    Riemann-integrabile.
-    \end{theorem}
-    %
-    \begin{proof}
-    Supponiamo, per fissare le idee, che $f$ sia crescente.
-    
-    Chiaramente $f$ è limitata in quanto $f(a) \le f(x) \le f(b)$ per ogni
-    $x\in [a,b]$.
-    
-    Per avere l'integrabilità e sufficiente mostrare
-    che esiste una successione di suddivisioni $P_n$
-    tale che $S^*(f,P_n) - S_*(f,P_n) \to 0$.
-    Consideriamo la suddivisione equispaziata
-    $P_n=\ENCLOSE{x_k \colon k=0,1, \dots, n}$ con $x_k=a+k(b-a)/N$.
-    In tal caso su ogni intervallino $[x_{k-1},x_k]$ si ha
-    \[
-      \sup f([x_{k-1}, x_k]) = f(x_k),
-      \qquad
-      \inf f([x_{k-1}, x_k]) = f(x_{k-1}).
-    \]
-    Dunque la differenza tra le somme superiori
-    e le somme inferiori è telescopica
-    e si ha, per $n\to +\infty$
-    \begin{align*}
-    S^*(f,P) - S_*(f,P)
-    &= \sum_{k=1}^n \frac{b-a}{n} f(x_k)
-      - \sum_{k=1}^n \frac{b-a}{n} f(x_{k-1}) \\
-    &= \frac{b-a}{n}(f(b)-f(a)) \to 0.
-    \end{align*}
-    E' quanto volevamo dimostrare.
-    \end{proof}
-    
-    \begin{example}[funzione di Heaviside]
-    \label{ex:heaviside}
-    \mymargin{funzione di Heaviside}
-    \index{funzione!di Heaviside}
-    Sia $a<0<b$.
-    La funzione $H\colon [a,b] \to \RR$ definita da
-    \[
-    H(x) =
-    \begin{cases}
-    1 & \text{se $x\ge 0$}\\
-    0 & \text{se $x< 0$}
-    \end{cases}
-    \]
-    è crescente quindi integrabile.
-    \end{example}
-    
     \begin{theorem}[continuità dell'integrale]
     \label{th:integrale_continuo}
     Sia $f\colon [a,b]\to \RR$ una funzione limitata e tale

@@ -153,6 +153,15 @@ Dimostrare che se $x_n\to x$ e $y_n\to y$
 allora $d(x_n,y_n) \to d(x,y)$.
 \end{exercise}
 
+Se vogliamo definire una distanza su uno spazio vettoriale $V$
+sarà naturale richiedere che la distanza sia compatibile con la struttura
+di spazio vettoriale, e dunque che sia invariante per traslazioni 
+e omogenea rispetto alle dilatazioni.
+Con questa richiesta la distanza $d(x,y)$ tra due punti dovrà essere 
+uguale alla distanza di $x-y$ dall'origine.
+La distanza dall'origine viene chiamata \emph{norma} ed è alla base 
+della seguente definizione.
+
 \begin{definition}[spazio normato]
 \mymark{*}
 \label{def:norma}
@@ -254,7 +263,7 @@ e per ogni $v,w\in V$ valgono le seguenti proprietà:
 \index{teorema!di Pitagora}
 \index{Pitagora!teorema}%
 \begin{equation}\label{eq:Pitagora}
-  \langle v,w\rangle=0 \implies \abs{v+w}^2 = \abs{v}^2 + \abs{w}^2;
+  \langle v,w\rangle=0 \implies \abs{v-w}^2 = \abs{v}^2 + \abs{w}^2;
 \end{equation}
 \item \emph{disuguaglianza di Young}%
 \mymargin{disuguaglianza di Young}%
@@ -484,7 +493,7 @@ la proprietà del parallelogramma~\eqref{eq:parallelogramma}.
 \begin{definition}[distanza indotta]
 Se $d\colon X\times X \to \RR$ è una distanza su $X$
 e $A \subset X$
-allora restringendo $d$ a $A \times A$ si ottiene ancora (ovviamente) una distanza.
+allora restringendo $d$ ad $A \times A$ si ottiene ancora (ovviamente) una distanza.
 Tale restrizione si chiama \emph{distanza indotta}
 \mymargin{distanza indotta}%
 \index{distanza!indotta}%
@@ -1609,10 +1618,10 @@ Nell'esempio~\ref{ex:gamma_eulero} abbiamo definito una
 funzione $\Gamma(x)$ tramite l'integrale in $dt$ di una funzione 
 che dipende dal parametro $x$:
 \[
-  \Gamma(x) = \int_a^b f(x,t)\, dt, \qquad 
-  f(x,t) = e^{-t}t^{x-1}.
+  \Gamma(x) = \int_0^{+\infty} 
+  e^{-t}t^{x-1}\, dt.
 \] 
-Se la funzione $f(x,t)$ è continua e derivabile
+Se la funzione integranda $f(x,t)=e^{-t}t^{x-1}$ è continua e derivabile
 è naturale chiedersi se anche la funzione integrale $\Gamma$ 
 risulta essere continua e derivabile. 
 E se è derivabile è naturale chiedersi come si può calcolare
@@ -1624,18 +1633,17 @@ Infatti osserviamo che
 si ha 
 \begin{align*}
   \lim_{x\to x_0} \Gamma(x) 
-  &= \lim_{x\to x_0} \int_a^b f(x,t)\, dt 
-  \stackrel{?}= \int_a^b \lim_{x\to x_0} f(x,t)\, dt\\
-  &= \int_a^b f(x_0,t)\, dt
+  &= \lim_{x\to x_0} \int_0^{+\infty} e^{-t}t^{x-1} \, dt 
+  \stackrel{?}= \int_0^{+\infty} \lim_{x\to x_0} e^{-t}t^{x-1}\, dt\\
+  &= \int_0^{+\infty} e^{-t}t^{x_0-1}\, dt
   = \Gamma(x_0)
 \end{align*}
 e 
 \begin{align*}
   \Gamma'(x) 
-  &= \lim_{h\to 0}\frac{\Gamma(x+h) - \Gamma(x)}{h} 
-  = \lim_{h\to 0} \int_a^b \frac{f(x+h,t)-f(x,t)}{h}\, dt \\
-  &\stackrel{?}= \int_a^b \lim_{h\to 0}\frac{f(x+h,t)-f(x,t)}{h}\, dt \\
-  &= \int_a^b \frac{\partial f}{\partial x}(x,t)\, dt.
+  &= \frac{d}{dx} \int_0^{+\infty}e^{-t}t^{x-1}\, dx
+  \stackrel{?}= \int_0^{+\infty} \frac{d}{dx}e^{-t}t^{x-1}\, dt \\
+  &= \int_0^{+\infty} e^{-t}t^{x-1}\ln t\, dt.
 \end{align*}
 In entrambi i casi l'unico passaggio non formalmente giustificato è quello marcato
 con il punto interrogativo. 
@@ -1778,7 +1786,15 @@ La \emph{massa} racchiusa dalla campana sta quindi scomparendo ad infinito
 mentre le funzioni tendono a zero.
 
 Per poter effettuare il passaggio al limite all'interno di un integrale 
-improprio ci serve una ipotesi in più, come vediamo nel seguente.
+improprio ci serve una ipotesi in più, la successione di funzioni 
+deve essere \emph{dominata} da una unica funzione integrale, 
+come vediamo nel seguente teorema. 
+Inoltre si può rilassare l'ipotesi di convergenza uniforme 
+richiedendo che valga solo negli intervalli  
+limitati strettamente contenuti nell'intervallo di integrazione $(a,b)$. 
+In questo modo il teorema si applica anche nel caso in cui l'intervallo $(a,b)$
+è illimitato o la funzione integranda tende all'infinito agli estremi 
+dell'intervallo.
 
 \begin{theorem}[convergenza dominata localmente uniforme]%
   \label{th:convergenza_dominata_uniforme}%
@@ -2058,6 +2074,81 @@ si tratta di moltiplicare la funzione integranda per una funzione
 che dipende da un parametro in modo che derivando rispetto al parametro 
 la funzione integranda si semplifichi.
 
+\begin{exercise}[integrale della gaussiana]
+  \label{ex:integrale_gaussiana}%
+  \index{funzione!gaussiana}%
+  \index{integrale!gaussiana}%
+  \index{Gauss!funzione di}%
+Dimostriamo che 
+\[
+  \int_{-\infty}^{+\infty} e^{-s^2}\, ds = \sqrt \pi.
+\]
+\end{exercise}
+%
+\begin{proof}[Svolgimento.]
+Come visto nell'esempio~\ref{ex:integrale_gaussiana_finito}
+sappiamo che l'integrale
+\[
+  I = \int_{0}^{+\infty} e^{-s^2}\, ds
+\]
+è finito. 
+L'integrale cercato è $2I$ (per simmetria).
+Consideriamo la seguente funzione
+\[ 
+  F(x) = \int_0^{+\infty} \frac{e^{-x^2(1+t^2)}}{1+t^2}\, dt.
+\]
+Possiamo facilmente calcolare 
+\[
+  F(0) = \int_0^{+\infty} \frac{1}{1+t^2}\, dt = \Enclose{\arctg t}_0^{+\infty} = \frac \pi 2.
+\]
+Mentre se $x>1$ si ha 
+\[
+  0\le \frac{e^{-x^2(1+t^2)}}{1+t^2}
+  = e^{-x^2}\cdot \frac{e^{-x^2t^2}}{1+t^2}
+  \le e^{-x^2}\cdot e^{-t^2}
+\]
+e quindi per $x\to +\infty$:
+\[
+  0\le F(x) \le e^{-x^2} \int_0^x e^{-t^2}\, dt \le e^{-x^2}\cdot I \to 0.
+\]
+Calcoliamo ora la derivata di $F$ applicando il teorema~\ref{th:derivata_integrale}.
+La funzione integranda ha derivata 
+\[
+ \frac{\partial}{\partial x}\enclose {\frac{e^{-x^2(1+t^2)}}{1+t^2}}
+ = -2x e^{-x^2(1+t^2)}.
+\]
+Se restringiamo la variabile $x$ ad un intervallo $\closeinterval{x_1}{x_2}$
+abbiamo 
+\[
+ \abs{-2x e^{-x^2(1+t^2)}}
+ \le 2 x_2 e^{-x_1^2(1+t^2)} \ll \frac{1}{t^2}
+\]
+e la funzione dominante $\frac{1}{t^2}$ ha integrale finito sull'intervallo 
+$\openinterval{0}{+\infty}$. 
+Possiamo quindi scambiare la derivata con l'integrale per ottenere 
+\[
+ F'(x) = - 2 x\int_0^{+\infty} e^{-x^2(1+t^2)}\, dt
+       = - 2 x e^{-x^2}\int_0^{+\infty} e^{-x^2t^2}\, dt. 
+\]
+Con il cambio di variabile $s=xt$, $ds=x dt$ si ottiene
+\[
+ F'(x) = -2 e^{-x^2}\int_0^{+\infty} e^{-s^2}\, ds = - 2 e^{-x^2}\cdot I.
+\]
+Ma allora da un lato abbiamo 
+\[
+  \int_0^{+\infty} F'(x)\, dx 
+  = \Enclose{F(x)}_0^{+\infty}  = 0 - \frac{\pi}{2}.
+\]
+Dall'altro 
+\[
+ \int_0^{+\infty} F'(x)\, dx 
+ = - 2 I \cdot \int_0^{+\infty} e^{-x^2}\, dx
+ = - 2 I^2. 
+\]
+Concludiamo quindi che $2I^2 = \frac \pi 2$ da cui 
+$2I=\sqrt \pi$, come volevamo dimostrare.
+\end{proof}
+
 \begin{exercise}[integrale notevole]
   \label{ex:integrale_sin_integrale}%
 Mostriamo che 
@@ -2202,81 +2293,6 @@ che
 \]
 Ma allora abbiamo dimostrato che $F(x)\to F(0)$ per $x\to 0$ 
 e abbiamo concluso la dimostrazione.
-\end{proof}
-
-\begin{exercise}[integrale della gaussiana]
-  \label{ex:integrale_gaussiana}%
-  \index{funzione!gaussiana}%
-  \index{integrale!gaussiana}%
-  \index{Gauss!funzione di}%
-Dimostriamo che 
-\[
-  \int_{-\infty}^{+\infty} e^{-s^2}\, ds = \sqrt \pi.
-\]
-\end{exercise}
-%
-\begin{proof}[Svolgimento.]
-Come visto nell'esempio~\ref{ex:integrale_gaussiana_finito}
-sappiamo che l'integrale
-\[
-  I = \int_{0}^{+\infty} e^{-s^2}\, ds
-\]
-è finito. 
-L'integrale cercato è $2I$ (per simmetria).
-Consideriamo la seguente funzione
-\[ 
-  F(x) = \int_0^{+\infty} \frac{e^{-x^2(1+t^2)}}{1+t^2}\, dt.
-\]
-Possiamo facilmente calcolare 
-\[
-  F(0) = \int_0^{+\infty} \frac{1}{1+t^2}\, dt = \Enclose{\arctg t}_0^{+\infty} = \frac \pi 2.
-\]
-Mentre se $x>1$ si ha 
-\[
-  0\le \frac{e^{-x^2(1+t^2)}}{1+t^2}
-  = e^{-x^2}\cdot \frac{e^{-x^2t^2}}{1+t^2}
-  \le e^{-x^2}\cdot e^{-t^2}
-\]
-e quindi per $x\to +\infty$:
-\[
-  0\le F(x) \le e^{-x^2} \int_0^x e^{-t^2}\, dt \le e^{-x^2}\cdot I \to 0.
-\]
-Calcoliamo ora la derivata di $F$ applicando il teorema~\ref{th:derivata_integrale}.
-La funzione integranda ha derivata 
-\[
- \frac{\partial}{\partial x}\enclose {\frac{e^{-x^2(1+t^2)}}{1+t^2}}
- = -2x e^{-x^2(1+t^2)}.
-\]
-Se restringiamo la variabile $x$ ad un intervallo $\closeinterval{x_1}{x_2}$
-abbiamo 
-\[
- \abs{-2x e^{-x^2(1+t^2)}}
- \le 2 x_2 e^{-x_1^2(1+t^2)} \ll \frac{1}{t^2}
-\]
-e la funzione dominante $\frac{1}{t^2}$ ha integrale finito sull'intervallo 
-$\openinterval{0}{+\infty}$. 
-Possiamo quindi scambiare la derivata con l'integrale per ottenere 
-\[
- F'(x) = - 2 x\int_0^{+\infty} e^{-x^2(1+t^2)}\, dt
-       = - 2 x e^{-x^2}\int_0^{+\infty} e^{-x^2t^2}\, dt. 
-\]
-Con il cambio di variabile $s=xt$, $ds=x dt$ si ottiene
-\[
- F'(x) = -2 e^{-x^2}\int_0^{+\infty} e^{-s^2}\, ds = - 2 e^{-x^2}\cdot I.
-\]
-Ma allora da un lato abbiamo 
-\[
-  \int_0^{+\infty} F'(x)\, dx 
-  = \Enclose{F(x)}_0^{+\infty}  = 0 - \frac{\pi}{2}.
-\]
-Dall'altro 
-\[
- \int_0^{+\infty} F'(x)\, dx 
- = - 2 I \cdot \int_0^{+\infty} e^{-x^2}\, dx
- = - 2 I^2. 
-\]
-Concludiamo quindi che $2I^2 = \frac \pi 2$ da cui 
-$2I=\sqrt \pi$, come volevamo dimostrare.
 \end{proof}
 
 \section{scambio della derivata con il limite}
@@ -2557,7 +2573,7 @@ sappiamo che la funzione $f(x)$ è continua nel punto $x=-1$ e dunque possiamo c
   \sum_{k=1}^{+\infty} \frac{x^k}{k} = -\ln(1-x)
   \qquad \forall x \in [-1,1).
 \]
-In particolare abbiamo trovato la somma della serie armonica a serie alterni:
+In particolare abbiamo trovato la somma della serie armonica a segni alterni:
 \[
   \sum_{k=1}^{+\infty} \frac{(-1)^{k+1}}{k} = - f(x) = \ln 2.
 \]
