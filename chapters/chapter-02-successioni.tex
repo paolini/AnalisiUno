@@ -1867,12 +1867,17 @@ se diverge a $-\infty$ è superiormente limitata.
 
 \subsection{successioni monotòne}
 
-Le successioni sono funzioni $\NN \to \RR$ e dunque si applicano 
-le definizioni~\ref{def:monotonia} per
-classificare le successioni in base alla monotonia.
-Per le successioni, tuttavia, si possono dare delle definizioni
-equivalenti utilizzando il principio di induzione,
-come viene esplicitato nel seguente teorema.
+Le definizioni~\ref{def:monotonia} si applicano alle successioni. 
+Abbiamo quindi già definito cosa significa che una successione è 
+crescente, decrescente, strettamente crescente, strettamente decrescente,
+monotona, costante. Ad esempio, una successione $a_n$ si dice essere 
+crescente se $n\ge m$ implica $a_n \ge a_m$.
+
+La verifica della monotonia di una successione può essere però dimostrata 
+più facilmente rispetto al caso generale delle funzioni in quanto 
+possiamo utilizzare il principio di induzione, come mostrato 
+nel seguente teorema.
+
 
 \begin{theorem}[successioni monotòne]
 \mymark{***}
@@ -1902,17 +1907,42 @@ Gli altri casi si svolgono in maniera analoga.
   in quanto per ogni $n$ si ha $(n+1)! = (n+1)\cdot n! \ge n!$.
 \end{example}
 
-Il teorema~\ref{th:limite_monotona} ci assicura che una 
-successione monotona ha sempre limite. 
-Infatti il limite per $n\to +\infty$ è un limite sinistro.
-In particolare se $a_n$ è crescente si ha 
-\[
-  \lim_n a_n = \sup_n a_n
-\]
-mentre se $a_n$ è decrescente si ha 
-\[
-  \lim_n a_n = \inf_n a_n.
-\]
+La monotònia di una successione è di estrema rilevanza in quanto,
+come enunciato nel teorema seguente, le successioni monotòne sono regolari, 
+cioè hanno sempre limite (finito o infinito). 
+Questo teorema verrà utilizzato molte volte, in particolare quando vogliamo 
+dimostrare che una successione ha limite ma non conosciamo esplicitamente il valore 
+del limite. 
+Il primo esempio notevole si ha nel Teorema~\ref{th:5767684} dove definiremo 
+la costante di Nepero $e$ come il limite di una particolare successione crescente.
+
+\begin{theorem}[regolarità delle successioni monotòne]
+Le successioni monotòne sono regolari.
+Più precisamente se $a_n$ è crescente allora $\lim a_n = \sup a_n$ 
+mentre se $a_n$ è decrescente $\lim a_n = \inf a_n$.
+\end{theorem}
+\begin{proof}
+In realtà questo teorema è un caso particolare del 
+Teorema~\ref{th:limite_monotona} se ricordiamo che una successione 
+$a_n$ non è altro che una funzione $f(n)=a_n$ definita sui numeri naturali.
+E il limite a $+\infty$ è un limite sinistro.
+Vista però l'importanza di questo risultato possiamo ripetere la dimostrazione 
+in questo caso specifico.
+
+Per fissare le idee supponiamo che la successione $a_n$ sia crescente e dimostriamo 
+che $\lim a_n = \ell$ con $\ell=\sup a_n$.
+Per la definizione di limite dobbiamo verificare che scelto un qualunque intorno $U$ 
+di $\ell$ si ha definitivamente $a_n\in U$.
+Dimostriamo anzi una condizione più forte e cioè che $a_n$ sta definitivamente 
+in un intorno sinistro di $\ell$ cioè che per ogni $q<\ell$ esiste $N$ tale che 
+per ogni $n\ge N$ si ha $a_n\in (q,\ell]$ (si noti che $\ell$ può essere finito o $+\infty$ 
+e quanto abbiamo scritto vale in entrambi i casi).
+Che valga $a_n\le \ell$ è ovvio in quanto $\ell=\sup a_n$ è, per definizione, un maggiorante 
+di $a_n$. Inoltre $\ell$ è il minimo dei maggioranti e quindi preso 
+$q<\ell$ sappiamo che $q$ non è un maggiorante ovvero deve esistere $N$ tale che 
+$a_N > q$. Ma, essendo $a_n$ crescente, sappiamo che per ogni $n\ge N$ si ha 
+$a_n \ge a_N >q$ e questo conclude la dimostrazione.
+\end{proof}
 
 %%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%
@@ -4668,7 +4698,7 @@ Allora esiste $w\in \CC$ tale che $f(w) = 0$.
       f(z) = b_0 + b_k(z-w)^k + \sum_{j=k+1}^N b_j (z-w)^j.
   \]
 Ora scriviamo $z-w$, $b_0$ e $b_k$ in forma esponenziale:
-$z - w = \rho e^{i\theta}$, $b_0 = r_0 e^{i \alpha_0}$,
+$z - w = \rho e^{i\theta}$, $b_0 = r e^{i \alpha_0}$,
 $b_k = r_k e^{i\alpha_k}$ 
 e applichiamo la disuguaglianza triangolare
   \begin{align*}
@@ -4681,7 +4711,7 @@ e applichiamo la disuguaglianza triangolare
 Per raggiungere un assurdo vogliamo dimostrare che esiste $z$ (cioè esistono $\rho$ e $\theta$)
 per cui il valore della funzione risulti in modulo minore di $r = \abs{b_0} = \abs{f(w)}$.
 Innanzitutto se $\rho$ è sufficientemente piccolo possiamo rendere arbitrariamente piccole 
-le potenze $\rho^j$ con $\rho>k$: basta scegliere $\rho\le 1$ 
+le potenze $\rho^j$ con $j>k$: basta scegliere $\rho\le 1$ 
 e $\rho \le r_k/(2\sum \abs{b_j})$
 cosicché si avrà 
 \[
@@ -4700,7 +4730,7 @@ abbiano fase opposta e la somma sia distruttiva:
 \]
 In definitiva abbiamo
 \[
-\abs{f(z)} = \abs{f(w+\rho e^{i\theta}} 
+\abs{f(z)} = \abs{f(w+\rho e^{i\theta})} 
 \le r - r_k\rho^k + r_k\frac{\rho^k}{2} 
 < r = \abs{f(w)}
 \]
