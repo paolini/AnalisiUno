@@ -181,8 +181,18 @@ tutti i valori di verità che si possono ottenere combinando
 tra loro due proposizioni. Nella tabella~\ref{tab:operatori_logici}
 sono riportate alcune proprietà di tali operatori: queste
 proprietà possono essere comprese interpretando il loro significato
-ma possono anche essere dedotte meccanicamente tramite la tabella
-di verità delle operazioni.
+ma possono anche essere dedotte meccanicamente. 
+Per verificare meccanicamente la validità di una di queste 
+espressioni logiche è sufficiente fare una tabella in cui si 
+inseriscono tutti i possibili valori di verità di $P$, $Q$ ed $R$
+(in totale saranno $8$ casi) e per ognuno di questi si dovrà
+calcolare il valore di verità di ogni operazione svolta e verificare 
+che ogni espressione completa assume il valore $V$ (vero).
+Diremo che queste sono \emph{tautologie}
+\index{tautologia}%
+\mymargin{tautologia}%
+ovvero espressioni logiche la cui validità non dipende
+dal valore di verità dei suoi termini.
 
 \begin{table}
 \begin{center}
@@ -220,7 +230,31 @@ $\texttt{F}$ significa \emph{falso}, $\texttt{V}$ significa \emph{vero}.}
 \label{tab:operatori_logici}
 \end{table}
 
-Le regole di inferenza che riguardano il calcolo delle proposizioni
+Per definire formalmente la logica del calcolo proposizionale
+dobbiamo avere un sistema sottostante che ci dice chi sono 
+le proposizioni di base, ovvero i termini che possiamo sostituire al posto 
+di $P$, $Q$, $R$. 
+Queste saranno proposizioni (ovvero formule ben formate).
+Una volta definite le proposizioni di base,
+ogni formula della forma
+$(P)\land(Q)$, $(P)\lor(Q)$, $(P)\implies(Q)$, 
+$(P)\impliedby (Q)$, $(P)\Leftrightarrow(Q)$ e
+$\lnot(P)$
+è anch'essa una proposizione (ovvero è ben formata) 
+se $P$ e $Q$ lo sono. 
+Il sistema formale utilizza i simboli: 
+$\land$ $\lor$ $\implies$ $\impliedby$ $\Leftrightarrow$
+$\lnot$ $($ $)$ oltre a tutti i simboli che servono per 
+comporre le proposizioni di base.
+
+Il caso più semplice possibile è quello in cui abbiamo 
+solamente due proposizioni di base $F$ e $V$ e due assiomi: 
+$V$ e $\lnot (F)$. 
+In questo sistema possiamo prendere $V$ e $\lnot (F)$ 
+come assiomi.
+L'interpretazione del sistema è che $V$ è vero mentre $F$ è falso.
+
+Le regole di inferenza del calcolo delle proposizioni
 possono essere date in modi diversi. 
 \index{regole di inferenza}%
 \mymargin{regole di inferenza}%
@@ -233,35 +267,41 @@ che permette l'eliminazione l'operatore.
 
 Le regole più semplici sono quelle che riguardano la congiunzione 
 logica. Se $P$ e $Q$ sono teoremi possiamo dedurre che anche 
-$P\land Q$ è un teorema (introduzione della congiunzione).
+$(P)\land (Q)$ è un teorema (introduzione della congiunzione).
 \index{congiunzione logica}%
 \index{introduzione!congiunzione}%
 \mymargin{introduzione congiunzione}%
-Viceversa se $P\land Q$ è un teorema possiamo dedurre 
+Viceversa se $(P)\land (Q)$ è un teorema possiamo dedurre 
 che sia $P$ che $Q$ sono teoremi (eliminazione della congiunzione).
 \index{eliminazione!congiunzione}%
 \mymargin{eliminazione congiunzione}%
 Ad esempio se abbiamo il teorema $1+1=2$ e il teorema $2+1=3$ 
-allora possiamo dedurre che $1+1=2 \land 2+1=3$ è un teorema.
-Viceversa se $1+1=2\land 2+1=3$ è un teorema allora possiamo 
+allora possiamo dedurre che $(1+1=2) \land (2+1=3)$ è un teorema.
+Viceversa se $(1+1=2)\land (2+1=3)$ è un teorema allora possiamo 
 dedurre che $2+1=3$ è un teorema.
 
 Anche l'introduzione della disgiunzione logica è una regola 
 \index{disgiunzione logica}%
-molto semplice: se $P$ è un teorema allora anche $P\lor Q$ 
-e $Q\lor P$ sono teoremi, qualunque sia la proposizione $Q$.
+molto semplice: se $P$ è un teorema allora anche $(P)\lor (Q)$ 
+e $(Q)\lor (P)$ sono teoremi, qualunque sia la proposizione $Q$.
 \index{introduzione disgiunzione}%
 \mymargin{introduzione disgiunzione}%
 Ad esempio se $1+1=2$ è un teorema possiamo dedurre 
-che anche $1+1=2 \lor 1+1\neq 2$ è un teorema.
+che anche $(1+1=2) \lor (1+1\neq 2)$ è un teorema.
 La regola di eliminazione della disgiunzione è leggermente 
 \mymargin{eliminazione disgiunzione}%
-più complicata. Se  $P\lor Q$ è un teorema e se entrambi 
-$P\implies R$ e $Q\implies R$ sono teoremi, possiamo 
+più complicata. Se  $(P)\lor (Q)$ è un teorema e se entrambi 
+$(P)\implies (R)$ e $(Q)\implies (R)$ sono teoremi, possiamo 
 dedurre che $R$ è un teorema.
-Ad esempio se abbiamo i teoremi: $x>1 \implies x^2>1$, 
-$x<-1 \implies x^2>1$,  
-$x>1 \lor x<-1$ allora dedurre che $x^2>1$ 
+Ad esempio se abbiamo i teoremi: 
+\[
+\begin{gathered}
+  (x>1) \implies (x^2>1)\\ 
+  (x<-1) \implies (x^2>1)\\  
+  (x>1) \lor (x<-1)
+\end{gathered}
+\]
+allora possiamo dedurre che $x^2>1$ 
 è un teorema.
 
 Per quanto riguarda l'implicazione logica, la regola di eliminazione 
@@ -271,9 +311,9 @@ si chiama \emph{modus ponens} ed è forse la più importante
 \mymargin{modus ponens}%
 delle regole di inferenza.
 La regola ci dice che se abbiamo il teorema 
-$P$ e il teorema $P\implies Q$ possiamo affernare che anche 
+$P$ e il teorema $(P)\implies (Q)$ possiamo affernare che anche 
 $Q$ è un teorema.
-Ad esempio se abbiamo dimostrato $1+1=2 \implies 2+1=3$ 
+Ad esempio se abbiamo dimostrato $(1+1=2) \implies (2+1=3)$ 
 e abbiamo dimostrato $1+1=2$ allora possiamo dedurre $2+1=3$.
 Questa regola formale dà significato all'implicazione logica.
 
@@ -289,12 +329,12 @@ originario ma con delle proprietà in più che permettono tipicamente di
 ottenere teoremi che non era possibile ottenere nel sistema formale 
 originale.
 Per l'introduzione dell'implicazione logica la regola 
-è la seguente. Per poter affermare che $P\implies Q$ 
+è la seguente. Per poter affermare che $(P)\implies (Q)$ 
 è un teorema introduciamo un nuovo contesto in cui 
 tutti i teoremi già dimostrati sono assiomi e inoltre 
 anche $P$ è un assioma aggiuntivo. 
 Se in questo contesto riusciamo ad ottenere $Q$ come
-teorema allora possiamo dire che $P\implies Q$ è un teorema 
+teorema allora possiamo dire che $(P)\implies (Q)$ è un teorema 
 nel sistema formale originale.
 Si noti che $Q$ potrebbe non essere un teorema nel contesto 
 orginale, lo è solo nel contesto ipotetico in cui abbiamo 
@@ -315,11 +355,6 @@ abbiamo supposto che $P$ sia un assioma.
 Possiamo quindi, fuori dal contesto, dedurre $P\implies Q$ 
 come volevasi dimostrare.
 
-Cogliamo l'occasione per osservare che $P$ e $Q$ 
-non sono simboli del sistema formale ma sono simboli 
-segnaposto che utilizziamo nel metalinguaggio naturale
-che stiamo utilizzando per spiegare i sistemi formali.
-
 Ad esempio al posto di $P$ possiamo mettere $1\neq 1$ 
 e al $Q$ possiamo mettere $1=1$. 
 Vorremo allora dimostrare che $1\neq 1 \implies 1=1$ 
@@ -335,12 +370,7 @@ Supponiamo che tutte le formule della forma
 $x\neq y$ e $x=y$ siano proposizioni 
 (formule ben formate) se al posto di $x$ e $y$ 
 mettiamo qualunque costante. 
-Ovviamente sono formule ben formate tutte le proposizioni 
-che si ottengono mediante l'utilizzo degli operatori 
-logici e delle parentesi. Inoltre supponiamo siano 
-valide le regole di inferenza della deduzione naturale
-che abbiamo esposto poco sopra.
-Supponiamo che $x\neq y$ sia un sinonimo di $\lnot x=y$
+Supponiamo che $x\neq y$ sia un sinonimo di $\lnot x=y$,
 Supponiamo infine che $x=x$ sia un assioma se al posto 
 di $x$ mettiamo qualunque costante.
 
@@ -387,25 +417,30 @@ utilizzando.
 
 Ritorniamo alle regole di inferenza del calcolo proposizionale.
 
-Veniamo alla negazione logica. 
+Veniamo infine alla negazione logica. 
+\index{negazione logica}%
+\mymargin{rimozione negazione}%
 Per la rimozione la regola è quella della doppia negazione: 
-se $\lnot \lnot P$ è un teorema allora anche $P$ è un teorema.
-Ad esempio se $\lnot \lnot 1=1$ è un teorema allora anche $1=1$ 
+se $\lnot (\lnot (P))$ è un teorema allora anche $P$ è un teorema.
+Ad esempio se $\lnot (\lnot (1=1))$ è un teorema allora anche $1=1$ 
 è un teorema.
+\mymargin{introduzione negazione}%
 La regola di introduzione della negazione logica è la 
 dimostrazione per assurdo.
+\index{dimostrazione!per assurdo}%
+\index{assurdo!dimostrazione per}%
 Se introduciamo un contesto formale in cui assumiamo (per assurdo)
 che $P$ sia un teorema e, nel contesto, riusciamo ad ottenere 
-una contraddizione (ad esempio $\lnot P$) allora possiamo 
-affermare che (fuori dal contesto) $\lnot P$ è un teorema.
+una contraddizione (ad esempio $\lnot (P)$) allora possiamo 
+affermare che (fuori dal contesto) $\lnot (P)$ è un teorema.
 
 Ad esempio se $1=1$ è un teorema possiamo dimostrare 
-che anche $\lnot \lnot 1=1$ è un teorema.
-Infatti supponiamo per assurdo $\lnot \lnot \lnot 1=1$.
+che anche $\lnot \lnot (1=1)$ è un teorema.
+Infatti supponiamo per assurdo $\lnot \lnot \lnot (1=1)$.
 Allora, tramite eliminazione della doppia negazione possiamo 
-dedurre $\lnot 1=1$. Ma questo è in contraddizione 
-con $\lnot \lnot 1=1$. Dunque abbiamo dimostrato che 
-$\lnot \lnot 1=1$.
+dedurre $\lnot (1=1)$. Ma questo è in contraddizione 
+con $\lnot \lnot (1=1)$. Dunque abbiamo dimostrato che 
+$\lnot \lnot (1=1)$.
 
 Le regole formali che abbiamo introdotto sono sufficienti 
 per dimostrare la validità delle tabelle di verità degli 
@@ -426,6 +461,17 @@ una o più variabili il cui valore di verità, quindi,
 può dipendere dal valore assegnato alle variabili.
 Un esempio di predicato è $x+2=5$ che risulta essere vero se $x=3$
 e falso altrimenti.
+
+Le variabili $x,y,\dots$ non sono altro che simboli 
+del sistema formale. 
+Usualmente vengono utilizzate le ultime lettere dell'alfabeto.
+Siccome le lettere dell'alfabeto sono in numero finito
+e visto che vogliamo invece avere la possibilità di introdurre 
+sempre nuove variabili, decidiamo che 
+una variabile può essere composta da una sequenza di più simboli. 
+Si può ad esempio usare l'apice: $x$, $x'$, $x''$ oppure 
+usare una sequenza di lettere: $\textrm{area}$, $\sin$
+per avere una quantità illimitata di nomi diversi a disposizione.
 
 Se un predicato dipende da una o più variabili queste
 si chiamano \emph{variabili libere}%
@@ -474,21 +520,19 @@ La seconda ci dice che c'è un numero $y$ che differisce di $2$
 da qualunque numero $x$.
 
 \begin{table}
-\begin{center}
-\begin{tabular}{lcl}
-$\lnot \forall x \colon P(x)$ & $\iff$ & $\exists x \colon \lnot P(x)$\\
-$\lnot \exists x \colon P(x)$ & $\iff$ & $\forall x \colon \lnot P(x)$\\
-$\forall x \colon P(x)$ & $\Longrightarrow$ & $P(c)$\\
-$\exists x \colon P(x)$ & $\Longleftarrow$ & $P(c)$\\
-$P \land \forall x \colon Q(x)$ & $\iff$ & $\forall x\colon P\land Q(x)$\\
-$P \land \exists x \colon Q(x)$ & $\iff$ & $\exists x \colon P \land Q(x)$
-\end{tabular}
-\end{center}
-\caption{Alcune proprietà dei quantificatori logici ($c$ è una qualunque costante)}
-\label{tab:proprieta_quantificatori}
+  \begin{center}
+    \begin{tabular}{lcl}
+    $\lnot \forall x \colon P(x)$ & $\iff$ & $\exists x \colon \lnot P(x)$\\
+    $\lnot \exists x \colon P(x)$ & $\iff$ & $\forall x \colon \lnot P(x)$\\
+    \end{tabular}
+  \end{center}
+  \caption{Le formule di De Morgan per i quantificatori logici.}
+  \label{tab:proprieta_quantificatori}
 \end{table}
 
-Alcune proprietà dei quantificatori logici sono riportate
+Risulta utile saper trasformare un quantificatore logico
+nell'altro per mezzo delle negazioni con le formule 
+di De Morgan riportate
 nella tabella~\ref{tab:proprieta_quantificatori}.
 
 Spesso il quantificatore universale viene sottointeso.
@@ -497,23 +541,87 @@ si intende che tutte le variabili libere sono quantificate
 tramite quantificatore universale: 
 $\forall x\colon \forall y\colon x+y=y+x$.
 Il segno di interpunzione $\colon$ può essere omesso
-$\forall x \forall y\ x+y=y+x$
 e una quantificazione può essere fatta contemporaneamente 
-su più variabili $\forall x,y\colon x+y = y+x$.
+su più variabili. 
+Potremo quindi scrivere: $\forall x\forall y\colon x+y=y+x$ 
+o anche $\forall x,y\colon x+y = y+x$.
 A volte, se non crea ambiguità, si potranno scrivere 
-i quantificatori anche a fine frase $x+y=y+x, \forall x\forall y$.
+i quantificatori anche a fine frase 
+\[
+  x+y=y+x \quad \forall x\forall y.
+\]
 
-Nel calcolo dei predicati si introduce usualmente anche il simbolo di uguaglianza \texttt{=}.
+Una proposizione non può contenere variabili libere, 
+altrimenti il suo valore di verità potrebbe dipendere da quelle 
+variabili e non sarebbe quindi ben definito.
+\mymargin{costanti}%
+\index{costanti}%
+Si può però intendere che alcune variabili sono \emph{costanti},
+cioè rappresentano un oggetto ben preciso.
+Ad esempio nella proposizione $\forall x: \pi > -x^2$ si intende 
+che $\pi$ è una costante, ovvero un ben preciso numero.
+Anche le cifre $0$, $1$, $2$ sono usualmente sempre intese come
+costanti.
+
+Insieme al calcolo dei predicati si introduce usualmente anche il simbolo di uguaglianza \texttt{=}.
 Come viene definita l'uguaglianza dipende da come sono definiti gli oggetti trattati 
 dal nostro sistema formale, cosa che noi faremo per la teoria degli insiemi nel prossimo paragrafo.
-Ma comunque venga definita l'uguaglianza si richiede che valga il seguente assioma
+Ma comunque venga definita l'uguaglianza si richiede che valga il seguente.
 \begin{axiom}[uguaglianza]
 \[
   \forall x\colon x=x.  
 \]
 \end{axiom}
-e si richiede la presenza di una regola di inferenza che permette di dedurre 
-da ogni predicato del tipo $(x=y) \land P(x)$ il predicato $P(y)$.
+Inoltre si richiede che oggetti uguali possano essere 
+sostituiti uno all'altro in un teorema:
+se $x=y$ e $P(x)$ sono teoremi allora anche $P(y)$ lo è.
+
+Anche per il calcolo dei predicati dobbiamo specificare le regole 
+di inferenza per l'introduzione e l'eliminazione dei quantificatori.
+
+\mymargin{eliminazione $\forall$}%
+\index{quantificatore!universale}%
+L'eliminazione del quantificatore universale è molto semplice. 
+Se abbiamo un teorema della forma $\forall x\colon P(x)$
+e se nel contesto dimostrativo è stata introdotta una costante 
+$c$, allora possiamo dedurre $P(c)$.
+\mymargin{introduzione $\forall$}%
+Viceversa, per introdurre il quantificatore universale 
+dobbiamo aprire un contesto dimostrativo in cui supponiamo 
+che $x$ sia una costante di cui non abbiamo alcuna informazione 
+(cioè $x$ non è usata come costante al di fuori del contesto).
+Se nel contesto riusciamo a dimostrarare una proposizione $P(x)$ possiamo 
+allora dedurre, fuori contesto, il teorema $\forall x\colon P(x)$.
+
+In pratica si dirà: fissato $x$ qualunque, abbiamo dimostrato $P(x)$
+quindi possiamo affermare che $\forall x\colon P(x)$.
+
+\index{quantificatore!esistenziale}%
+\mymargin{eliminazione $\exists$}%
+Per quanto riguarda il quantificatore esistenziale la regola 
+di eliminazione ci dice che se abbiamo un teorema della forma 
+$\exists x\colon P(x)$ possiamo introdurre un contesto dimostrativo 
+in cui è definita una costante $c$ che ha la proprietà $P(c)$.
+\mymargin{introduzione $\exists$}%
+Viceversa, se abbiamo un teorema della forma $P(c)$ 
+possiamo dedurre $\exists x\colon P(x)$.
+
+Come esempio enunciamo e dimostriamo formalmente un semplice 
+teorema.
+
+\begin{theorem}[esempio di dimostrazione formale]
+  \[ \forall x \exists y\colon x=y \]
+\end{theorem}
+\begin{proof}
+  \begin{align}
+    &\forall x\colon x = x & & \text{[assioma]} \label{ff1}\\
+    &\{ & &\text{[fissiamo $x$ qualunque]}\\
+    &\quad x=x  & & \text{[eliminazione $\forall$ da \eqref{ff1}]}\\ 
+    &\quad \exists y\colon x=y & &\text{[introduzione $\exists$]}\\
+    &\} & &\\
+    &\forall x\exists y\colon x=y & &\text{[introduzione $\forall$]} 
+  \end{align}
+\end{proof}
 
 \section{teoria degli insiemi}
 
@@ -994,9 +1102,7 @@ oppure $A\to B$.
   	\fill (2.4,1.4) circle (2pt) node[above] {$\scriptstyle (a_3,b_2)$};
   	\fill (3.2,2.1) circle (2pt) node[above] {$\scriptstyle (a_4,b_3)$};
   \end{tikzpicture}
-%
 \hfill
-%
 \begin{tikzpicture}[x=1cm,y=0.8cm]
 \fill (1,4) circle (2pt) node (a1) [label=left:$a_1$]{};
 \fill (0.8,3) circle (2pt) node (a2) [label=left:$a_2$]{};
@@ -1027,7 +1133,6 @@ rappresentata tramite grafico e
 tramite diagrammi di Venn.}
 \label{fig:funzione}
 \end{figure}
-
 
 L'insieme di partenza $A$ viene chiamato \emph{dominio}%
 \mymargin{dominio}%
