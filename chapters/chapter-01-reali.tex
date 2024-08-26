@@ -220,6 +220,184 @@ $\texttt{F}$ significa \emph{falso}, $\texttt{V}$ significa \emph{vero}.}
 \label{tab:operatori_logici}
 \end{table}
 
+Le regole di inferenza che riguardano il calcolo delle proposizioni
+possono essere date in modi diversi. 
+Proviamo a spiegare (senza troppi formalismi) il sistema 
+che viene chiamato \emph{deduzione naturale}. 
+Questo sistema presenta per ognuno degli operatori logici
+(negazione, congiunzione, disgiunzione, implicazione) 
+due regole formali: una che permette di introduzione l'operatore e una 
+che permette di eliminazione l'operatore.
+
+Le regole più semplici sono quelle che riguardano la congiunzione 
+logica. Se $P$ e $Q$ sono teoremi possiamo dedurre che anche 
+$P\land Q$ è un teorema (introduzione della congiunzione).
+Viceversa se $P\land Q$ è un teorema possiamo dedurre 
+che sia $P$ che $Q$ sono teoremi (eliminazione della congiunzione).
+Ad esempio se abbiamo i teoremi $1+1=2$ e $2+1=3$ 
+allora possiamo dedurre che $1+1=2 \land 2+1=3$ è un teorema.
+Viceversa se $1+1=2\land 2+1=3$ è un teorema allora possiamo 
+dedurre che $2+1=3$ è un teorema.
+
+Anche l'introduzione della disgiunzione logica è una regola 
+molto semplice: se $P$ è un teorema allora anche $P\lor Q$ 
+e $Q\lor P$ sono teoremi, qualunque sia la proposizione $Q$.
+Ad esempio se $1+1=2$ è un teorema possiamo dedurre 
+che anche $1+1=2 \lor \not 1+1=2$ è un teorema.
+La regola di eliminazione della disgiunzione è leggermente 
+più complicata. Se sappiamo che $P\lor Q$ e se entrambi 
+$P\implies R$ e $Q\implies R$ sono teoremi, possiamo 
+dedurre che $R$ è un teorema.
+Ad esempio se $x>1 \implies x^2>1$ 
+e $x<-1 \implies x^2>1$ sono teoremi e se anche 
+$x>1 \lor x<-1$ è un teorema possiamo allora dedurre che $x^2>1$ 
+è un teorema.
+
+Per quanto riguarda l'implicazione logica, la regola di eliminazione 
+si chiama \emph{modus ponens} ed è forse la più importante 
+\index{modus ponens}%
+\mymargin{modus ponens}%
+delle regole di inferenza.
+La regola ci dice che se abbiamo i teoremi 
+$P$ e $P\implies Q$ possiamo dedurre che anche $Q$ è un 
+teorema.
+Ad esempio se abbiamo dimostrato $1+1=2 \implies 2+1=3$ 
+e abbiamo dimostrato $1+1=2$ allora possiamo dedurre $2+1=3$.
+Questa regola formale dà significato all'implicazione logica.
+
+La regola di \emph{introduzione della implicazione} è più complicata 
+da formalizzare e richiede l'introduzione di un nuovo concetto:
+il \emph{contesto} dimostrativo.
+\index{contesto dimostrativo}%
+\mymargin{contesto dimostrativo}.
+Un \emph{contesto} è in pratica un nuovo sistema formale che 
+eredita tutti gli assiomi e le regole formali del sistema formale 
+originario ma con delle proprietà in più che permettono tipicamente di 
+ottenere teoremi che non era possibile ottenere nel sistema formale 
+originale.
+Per l'introduzione dell'implicazione logica la regola 
+è la seguente. Per poter affermare che $P\implies Q$ 
+è un teorema introduciamo un nuovo contesto in cui 
+tutti i teoremi già dimostrati sono assiomi e inoltre 
+anche $P$ è un assioma aggiuntivo. 
+Se in questo contesto riusciamo ad ottenere $Q$ come
+teorema allora possiamo dire che $P\implies Q$ è un teorema 
+nel sistema formale originale.
+Si noti che $Q$ potrebbe non essere un teorema nel contesto 
+orginale, lo è solo nel contesto ipotetico in cui abbiamo 
+supposto (per ipotesi, appunto) che $P$ fosse un teorema.
+
+Ad esempio possiamo dimostrare che 
+$1=2 \implies (2=3 \implies 1=3)$.
+Si inizia con l'introdurre un contesto ipotetico in cui $1=2$.
+In questo contesto introduciamo un nuovo \emph{sotto}-contesto 
+in cui anche $2=3$. Nel sotto-contesto abbiamo come teoremi
+(ipotetici) sia $1=2$ che $2=3$. 
+Un assioma dell'uguaglianza (che non abbiamo ancora menzionato)
+permetterà di dire che se $x=y$ allora in un qualunque teorema 
+si possono rimpiazzare le occorrenze di $x$ con $y$ e viceversa.
+Dunque se (ipoteticamente) $1=2$ e $2=3$ possiamo rimpiazzare 
+$2$ con $1$ nell'uguaglianza $2=3$ per ottenere $1=3$.
+Si noti che $1=3$ è falso. 
+Ma sarebbe effettivamente un teorema nell'ipotesi (assurda)
+che $1=2$ e $2=3$.
+Dunque possiamo dedurre $2=3 \implies 1=3$ nel contesto 
+in cui abbiamo ipotizzato $1=2$. 
+E possiamo dedurre $1=2 \implies (2=3 \implies 1=3)$ nel
+contesto generale. Quest'ultimo è un vero e proprio teorema,
+valido senza ipotesi aggiuntive.
+
+Infine abbiamo le regole di introduzione ed eliminazione 
+della negazione logica. 
+Per la rimozione la regola è quella della doppia negazione: 
+se $\lnot \lnot P$ è un teorema allora anche $P$ è un teorema.
+Ad esempio se $\lnot \lnot 1=1$ è un teorema allora anche $1=1$ 
+è un teorema.
+La regola di introduzione della negazione logica è la 
+dimostrazione per assurdo.
+Se introduciamo un contesto formale in cui assumiamo (per assurdo)
+che $P$ sia un teorema e, nel contesto, riusciamo ad ottenere 
+una contraddizione (ad esempio $\lnot P$) allora possiamo 
+affermare che (fuori dal contesto) $\lnot P$ è un teorema.
+
+Ad esempio se $1=1$ è un teorema possiamo dimostrare 
+che anche $\lnot \lnot 1=1$ è un teorema.
+Infatti supponiamo per assurdo $\lnot \lnot \lnot 1=1$.
+Allora, tramite eliminazione della doppia negazione possiamo 
+dedurre $\lnot 1=1$. Ma questo è in contraddizione 
+con $\lnot \lnot 1=1$. Dunque abbiamo dimostrato che 
+$\lnot \lnot 1=1$.
+
+Le regole formali che abbiamo introdotto sono sufficienti 
+per dimostrare la validità delle tabelle di verità degli 
+operatori logici.
+
+Proviamo per esempio a dimostrare la regola più controversa
+e cioè che $F\implies V$ (dove $F$ sta per falso e 
+$V$ sta per vero). 
+Quello che dobbiamo fare è verificare che se $\lnot P$ 
+è un teorema (cioè $P$ è falso) e se se $Q$ è un teorema 
+(cioè $Q$ è vero) allora $P\implies Q$ è un teorema.
+Dovremmo usare la regola di introduzione dell'implicazione logica.
+Dunque supponiamo per ipotesi che $P$ sia un teorema. 
+Visto che $Q$ era un teorema nel contesto originale 
+$Q$ rimane un teorema nel contesto ipotetico in cui 
+abbiamo supposto che $P$ sia un assioma.
+Possiamo quindi, fuori dal contesto, dedurre $P\implies Q$ 
+come volevasi dimostrare.
+
+Si noti che $P$ e $Q$ non sono simboli del sistema formale 
+ma rappresentano proposizioni qualunque. 
+Si tratta di simboli segnaposto. 
+Ad esempio ponendo $P$ è $1\neq 1$ e $Q$ è $1=1$ 
+vorremo dire che $1\neq 1 \implies 1=1$ è un teorema.
+Proviamo a fare una dimostrazione formale.
+
+Supponiamo di avere un sistema formale 
+contenente i simboli $1$, $2$, $=$, $\neq$ oltre che
+tutti i simboli della logica proposizionale 
+(ovvero $\land$, $\lor$, $\lnot$, $\implies$, $($ e $)$).
+Chiamiamo \emph{costanti} i simboli $1$ e $2$.
+Supponiamo che tutte le formule della forma 
+$x\neq y$ e $x=y$ siano proposizioni 
+(formule ben formate) se al posto di $x$ e $y$ 
+mettiamo qualunque costante. 
+Ovviamente sono formule ben formate tutte le proposizioni 
+che si ottengono mediante l'utilizzo degli operatori 
+logici e delle parentesi. Inoltre supponiamo siano 
+valide le regole di inferenza della deduzione naturale
+che abbiamo esposto poco sopra.
+Supponiamo che $x\neq y$ sia un sinonimo di $\lnot x=y$
+Supponiamo infine che $x=x$ sia un assioma se al posto 
+di $x$ mettiamo qualunque costante.
+
+Fuori dal sistema formale, nell'esibire una dimostrazione,
+faremo un elenco dei nostri teoremi, numerando ogni riga 
+per poterci fare riferimento. 
+Usiamo le parentesi graffe $\{$ e $\}$ per racchiudere 
+i contesti dimostrativi. 
+Tra parentesi quadre indichiamo le regole formali che stiamo 
+utilizzando. 
+\begin{theorem}[esempio di dimostrazione formale]
+  $2 \neq 2 \implies 1=1$.
+\end{theorem}
+%  
+\begin{proof}
+  \begin{align}
+    &\{ & &\text{[inizio contesto ipotetico]} \\ 
+    &\quad 2\neq 2 & & \text{[ipotesi]}  \\
+    &\quad 1=1 & & \text{[assioma]} \\
+    &\} & & \text{[fine del contesto ipotetico]} \\
+    &2\neq 2 \implies 1=1 & & \text{[introduzione implicazione]}
+  \end{align}
+\end{proof}
+
+\begin{exercise}
+Si provino ad utilizzare le regole formali di inferenza del 
+calcolo proposizionale per dimostrare la validità delle 
+tavole di verità.
+\end{exercise}
+
 \subsection{predicati, quantificatori}
 
 Un \emph{predicato}%
@@ -580,7 +758,8 @@ che è l'insieme di tutti i sottoinsiemi di $A$:
 Con i soli assiomi che abbiamo introdotto fin'ora possiamo 
 costruire un numero arbitrariamente grande di insiemi finiti
 tramite una costruzione dovuta a Von Neumann. 
-Definiamo $0=\emptyset$, $1= 0 \cup \ENCLOSE{0}$, $2=1\cup \ENCLOSE{1}$,
+Possiamo definire 
+$0=\emptyset$, $1= 0 \cup \ENCLOSE{0}$, $2=1\cup \ENCLOSE{1}$,
 $3 = 2\cup \ENCLOSE{2}$, $4=3\cup\ENCLOSE{3}$ e $5=4\cup \ENCLOSE{4}$.
 Esplicitando queste definizioni si osserva che:
 $0 = \ENCLOSE{}$ è un insieme con zero elementi, 
@@ -592,7 +771,7 @@ Procedendo a piacere è possibile definire un numero arbitrariamente
 grande di insiemi finiti, uno diverso dall'altro.
 
 Questi particolari insiemi esistono certamente e potremo quindi utilizzarli 
-per fare esempi non banali di insiemi finiti.
+nel seguito per fare esempi di insiemi finiti.
 E' anche possibile (ma non necessario) utilizzare questi insiemi 
 per definire i numeri naturali (si veda l'assioma di infinito, più avanti).
 
@@ -1398,7 +1577,7 @@ dobbiamo familiarizzare con gli insiemi numerici.
 \section{i numeri naturali}
 
 I numeri naturali $0,1,2,\dots$ sono i numeri che utilizziamo per contare o per 
-fare le iterazioni. C'è un primo numero naturale, che per noi sarà $0$ e poi
+fare le iterazioni. C'è un primo numero naturale, che per noi sarà $0$, e poi
 per ogni numero naturale $n$ ce n'è uno successivo che chiameremo $\sigma(n)$. 
 Partendo da $0$ e passando al successivo si raggiungono tutti i numeri naturali.
 
@@ -1453,7 +1632,7 @@ facendo un numero finito di passaggi al successore.
 
 Si può dimostrare inoltre (si veda il teorema~\ref{th:unicitaN}) che le proprietà 
 enunciate nel teorema precedente caratterizzano univocamente l'insieme 
-$\NN$ dei numeri naturali.
+$\NN$ dei numeri naturali. 
 
 Dato $n\in \NN$ il numero $\sigma(n)$ si chiama il \emph{successore}%
 \mymargin{successore}%
@@ -2082,7 +2261,7 @@ e possiamo ricavare $x$.
 Si formalizzi il ragionamento precedente per dimostrare che 
 fissato $a\neq 1$ si ha per ogni naturale $n$:
   \[
-    \sum_{k=1}^n a^k = \frac{a^{k+1}-a}{a-1}.  
+    \sum_{k=0}^n a^k = \frac{a^{n+1}-1}{a-1}.
   \] 
 \end{exercise}
 
@@ -4884,17 +5063,17 @@ equivalenti all'unione delle soluzioni di due sistemi:
 \[
   \sqrt[4]{11} < x+1 \le \sqrt[4]{1003}
   \qquad\text{o}\qquad 
-  -\sqrt[4]{1003} \le x+1 < \sqrt[4]{11}.
+  -\sqrt[4]{1003} \le x+1 < -\sqrt[4]{11}.
 \]
 Sottraendo $1$ otteniamo infine 
 \[
   \sqrt[4]{11} -1 < x \le \sqrt[4]{1003} - 1
   \qquad\text{o}\qquad 
-  -\sqrt[4]{1003} -1 \le x < \sqrt[4]{11} -1.
+  -\sqrt[4]{1003} -1 \le x < -\sqrt[4]{11} -1.
 \]
 In definitiva l'insieme delle soluzioni è 
 \[
-\left[-\sqrt[4]{1003} - 1, \sqrt[4]{11}-1\right)
+\left[-\sqrt[4]{1003} - 1, -\sqrt[4]{11}-1\right)
 \cup \left(\sqrt[4]{11}-1 , \sqrt[4]{1003} -1\right].  
 \]
 \end{proof}
@@ -5990,7 +6169,7 @@ nell'ambito più generale dei gruppi localmente ordinati.
 Localizziamo la definizione~\ref{def:gruppo_ordinato} di gruppo ordinato.
 %
 \begin{definition}[gruppo localmente ordinato]
-Diremo che $G$ è un gruppo localmente ordinato 
+Diremo che $G$ è un gruppo additivo localmente ordinato 
 se $G$ ha una struttura di gruppo con elemento neutro $0$ e operazione $+$ 
 e se su $G$ è definito un ordinamento totale $\le$ tale che 
 esiste $u\in G$, $u>0$ per cui per ogni $x,y,z \in [0,u]$
@@ -6003,10 +6182,10 @@ risulta
 
 Generalizziamo il teorema~\ref{th:divisibile}.
 \begin{theorem}[divisibilità locale]
-Se $G$ è un gruppo localmente ordinato (supponiamo additivo)
-e l'ordinamento è denso e continuo sull'intervallo $[0,u]$
-con $u>0$, 
-allora per ogni $y\in(0,u]$ 
+Sia $G$ un gruppo additivo localmente ordinato
+$u>0$ dato come nella definizione
+e supponiamo che l'ordinamento su $[0,u]$ sia denso e continuo.
+Allora per ogni $y\in(0,u]$ 
 e per ogni $n\in \NN\setminus\ENCLOSE{0}$ 
 esiste $x_n\in(0,u]$ tale che 
 $n x_n = y$ e per ogni $n$ si ha $x_{n+1}< x_n$.
