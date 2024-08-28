@@ -898,13 +898,24 @@ Con i soli assiomi che abbiamo introdotto fin'ora possiamo
 costruire un numero arbitrariamente grande di insiemi finiti
 tramite una costruzione dovuta a Von Neumann. 
 Possiamo definire 
-$0=\emptyset$, $1= 0 \cup \ENCLOSE{0}$, $2=1\cup \ENCLOSE{1}$,
-$3 = 2\cup \ENCLOSE{2}$, $4=3\cup\ENCLOSE{3}$ e $5=4\cup \ENCLOSE{4}$.
+\begin{align*}
+0&=\emptyset, &
+1&=0\cup\ENCLOSE{0}, &
+2&=1\cup\ENCLOSE{1}, &
+3&=2\cup\ENCLOSE{2}, &
+4&=3\cup\ENCLOSE{3},\\
+5&=4\cup\ENCLOSE{4}, &
+6&=5\cup\ENCLOSE{5}, &
+7&=6\cup\ENCLOSE{6}, &
+8&=7\cup\ENCLOSE{7}, &
+9&=8\cup\ENCLOSE{8}.
+\end{align*}
 Esplicitando queste definizioni si osserva che:
-$0 = \ENCLOSE{}$ è un insieme con zero elementi, 
-$1= \ENCLOSE{0}$ è un insieme con un elemento (lo zero),
-$2= \ENCLOSE{0,1}$ è un insieme con due elementi (i due precedenti), 
-$3 = \ENCLOSE{0,1,2}$ è un insieme con tre elementi (i tre precedenti),
+$0=\ENCLOSE{}$ è un insieme con zero elementi, 
+$1=\ENCLOSE{0}=\ENCLOSE{\ENCLOSE{}}$ è un insieme con un elemento (lo zero),
+$2=\ENCLOSE{0,1}=\ENCLOSE{\ENCLOSE{},\ENCLOSE{\ENCLOSE{}}}$ è un insieme con due elementi (i due precedenti), 
+$3=\ENCLOSE{0,1,2}=\ENCLOSE{\ENCLOSE{},\ENCLOSE{\ENCLOSE{}},\ENCLOSE{\ENCLOSE{},\ENCLOSE{\ENCLOSE{}}}}$ 
+è un insieme con tre elementi (i tre precedenti),
 etc.
 Procedendo a piacere è possibile definire un numero arbitrariamente 
 grande di insiemi finiti, uno diverso dall'altro.
@@ -915,9 +926,9 @@ E' anche possibile (ma non necessario) utilizzare questi insiemi
 per definire i numeri naturali (si veda l'assioma di infinito, più avanti).
 
 \begin{exercise}
-Verificare che $0\in 1 \in 2 \in 3 \in 4 \in 5$, 
-che $0\subset 1 \subset 2 \subset 3 \subset 4 \subset 5$ 
-e che $0\neq 1$, $0\neq 2$, $1\neq 2$, etc.
+Verificare che $4\in 5$, 
+che $4\subset 5$ 
+e che $4\neq 5$.
 \end{exercise}
 
 \subsection{relazioni}
@@ -986,6 +997,8 @@ $R=\ENCLOSE{(1,2),(1,3),(2,3)}$
 il predicato $aRb$ rappresenta l'usuale relazione d'ordine $a<b$ sui
 tre numeri considerati.
 
+\subsubsection{relazioni di equivalenza}
+
 \begin{definition}[relazione di equivalenza]
 \label{def:equivalenza}%
 Sia $R\subset A\times A$ una relazione sull'insieme $A$. Diremo che 
@@ -1051,6 +1064,134 @@ L'insieme quoziente $A/R$ è un \emph{partizione}%
 è formato da insiemi disgiunti la cui unione è tutto $A$. In effetti 
 dare una partizione di $A$ è equivalente da dare una relazione 
 di equivalenza.
+
+\subsubsection{relazioni d'ordine}
+
+\begin{definition}[relazione d'ordine]
+  \label{def:ordine}%
+  Una relazione
+  $\le$ su un insieme $X$ viene detta
+  \emph{relazione d'ordine}%
+\mymargin{relazione d'ordine}%
+\index{relazione!d'ordine}
+  se soddisfa le seguenti proprietà (per ogni $x,y,z\in X$):
+  \begin{enumerate}
+    \item[1.] riflessiva: $x\le x$;
+    \item[2.] antisimmetrica: $x\le y \land y\le x \implies x=y$;
+    \item[3.] transitiva: $x\le y \land y\le z \implies x\le z$.
+  \end{enumerate}
+  Si dice inoltre che la relazione d'ordine $\le$
+  è una relazione d'\emph{ordine totale}
+\mymargin{ordine totale}%
+  (o \emph{lineare}) 
+  \index{ordinamento!totale}%
+  \index{ordinamento!lineare}%
+  \index{totale!ordine}%
+  \index{lineare!ordine}%
+  e si dice che $X$ è \emph{totalmente ordinato} se vale
+  \index{totalmente ordinato}%
+  \begin{enumerate}
+    \item[4.] dicotomia: $x\le y \lor y\le x$.
+  \end{enumerate}
+\end{definition}
+
+In generale, se $\le$ è una relazione d'ordine su $X$ si definisce la 
+relazione inversa $\ge$ ponendo $x\ge y$ quando $y\le x$.
+La proprietà riflessiva identifica gli ordinamenti \emph{larghi}.
+Si definisce il corrispondente ordinamento stretto $<$
+ponendo $x < y$ quando $x\le y \land x\neq y$
+e la relazione inversa $>$ ponendo $x>y$ quando $y<x$.
+
+\begin{example} 
+  Sia $X=\ENCLOSE{1,2,3,4}$. 
+  Si può verificare che c'è una unica relazione d'ordine totale
+  su $X$ per cui si ha $1 \le 2$, $2 \le 3$ e $3 \le 4$
+  (scriveremo più brevemente $1 \le 2 \le 3 \le 4$).
+  Questa relazione è definita dall'insieme di coppie:
+  \[
+    R_\le = \ENCLOSE{
+          (1,1),(1,2),(1,3),(1,4),
+          (2,2),(2,3),(2,4),
+          (3,3),(3,4),
+          (4,4)}
+  \]
+  nel senso che $x\le y$ se $(x,y)\in R_\le$.
+  La relazione inversa $\ge$ corrisponde a:
+  \[
+    R_\ge = \ENCLOSE{
+          (1,1),(2,1),(3,1),(4,1),
+          (2,2),(3,2),(4,2),
+          (3,3),(4,3),
+          (4,4)}
+  \]
+  e le relazioni strette $<$ e $>$ corrispondono a:
+  \begin{align*}
+    R_< &= \ENCLOSE{
+          (1,2),(1,3),(1,4),
+          (2,3),(2,4),
+          (3,4)}, \\
+    R_> &= \ENCLOSE{
+          (2,1),(3,1),(4,1),
+          (3,2),(4,2),
+          (4,3)}.
+  \end{align*}
+\end{example}
+
+\begin{example}
+Se prendiamo l'insieme $X=\ENCLOSE{1,2,3}$ e consideriamo la relazione
+su $\mathcal P(X)$ definita da $A\le B$ se $A\subset B$ otteniamo una relazione 
+d'ordine che non è totale. 
+Infatti se $A=\ENCLOSE{1,2}$ e $B=\ENCLOSE{2,3}$ non è vero né che $A\subset B$ 
+né che $B\subset A$.
+\end{example}
+
+\begin{definition}[ordinamento continuo]
+  \label{def:ordinamento_continuo}%
+  Un ordinamento $\le$ su un insieme $X$ si dice essere
+  \emph{continuo}%
+\mymargin{ordinamento continuo}%
+\index{continuo}
+  \index{continuità!ordinamento}%
+  \index{ordine!continuo}%
+  (o \emph{Dedekind-completo})
+  \index{Dedekind-completo}%
+  \index{completo!Dedekind}%
+  se dati comunque $A,B$ sottoinsiemi non vuoti di $X$
+    tali che per ogni $a\in A$ e per ogni $b\in B$ risulta $a\le b$
+    (concisamente scriveremo $A\le B$ e diremo che $A$ e $B$ sono 
+    \emph{separati})
+    allora esiste $c\in X$ tale che per ogni $a\in A$ e ogni $b\in B$ 
+    si ha $a\le c \le b$ (concisamente scriveremo $A\le c \le B$
+    e diremo che $c$ è un elemento di separazione tra $A$ e $B$).
+\end{definition}
+
+A parole la precedente definizione si esprime dicendo che un insieme ordinato
+è \emph{continuo} se ogni coppia di sottoinsiemi separati 
+ammette un elemento di separazione.
+In molti testi questa condizione viene chiamata \emph{completezza}
+o, più precisamente, \emph{completezza di Dedekind}.
+\index{completezza!di Dedekind}%
+\index{Dedekind!completo}%
+
+\begin{definition}[ordinamento denso]
+  \label{def:ordinamento_denso}%
+  Un ordinamento si dice essere
+  \emph{denso}%
+\mymargin{ordinamento denso}%
+\index{denso} o \emph{divisibile} 
+  se tra due punti distinti esiste sempre un punto intermedio:
+  \index{denso!sottoinsieme}%
+  \index{denso!ordinamento}%
+  \index{sottoinsieme!denso}%
+  \index{ordinamento!denso}%
+  \mynote{Più in generale se $X$ è un insieme totalmente 
+  ordinato e $A\subset X$ si dice che $A$ è denso in $X$ 
+  se dati comunque $x,y\in X$ con $x<y$ esiste $c\in A$ tale che 
+  $x<c<y$.}
+  \[
+   x < y \implies \exists c \colon x < c < y.
+  \]
+\end{definition}
 
 \subsection{funzioni}
 
@@ -1433,226 +1574,6 @@ dunque $(g\circ f)^{-1}(c) = a = f^{-1}(g^{-1}(c))$ da cui si ottiene
 
 \subsection{cardinalità}
 
-\begin{definition}[cardinalità]
-  Diremo che due insiemi $A$ e $B$ hanno la stessa \emph{cardinalità}%
-\mymargin{cardinalità}%
-\index{cardinalità} 
-  (oppure sono \emph{equipotenti}) 
-  \index{equipotenza}%
-  \index{insiemi!equipotenti}%
-  \index{insieme!equipotente}%
-  se esiste una funzione bigettiva $f\colon A \to B$.
-  Scriveremo in tal caso:
-  \[
-    \# A = \# B.  
-  \] 
-  Se esiste una funzione iniettiva $f\colon A\to B$ significa che 
-  $A$ ha la stessa cardinalità di un sottoinsieme di $B$ (in quanto $f\colon A \to f(A)$
-  risulta essere bigettiva). Scriveremo in tal caso:
-  \[
-    \# A \le \#B.
-  \]
-\end{definition}
-
-Intuitivamente se due insiemi hanno la stessa cardinalità 
-significa che hanno lo stesso numero di elementi.
-Ma la precedente definizione riesce a catturare tale concetto senza dover 
-ricorrere al concetto di numero. 
-Questo ha il vantaggio di rendere questa definizione applicabile 
-a qualunque insieme, anche con \emph{infiniti} elementi.
-
-Si osservi che non abbiamo dato una definizione di $\#A$ e quindi non stiamo 
-definendo cos'è la cardinalità di un insieme ma stiamo soltanto definendo 
-una relazione tra insiemi che 
-denotiamo, impropriamente, utilizzando una uguaglianza: $\#A = \#B$.
-
-E' ovvio che $\#A = \#A$ in quanto l'identità $\id_A$ è bigettiva.
-E' anche chiaro che se $\#A = \#B$ e $\#B = \#C$ allora $\#A = \#C$ in quanto 
-componendo tra loro due funzioni bigettive si ottiene ancora una funzione 
-bigettiva. 
-Infine se $\#A = \#B$ allora $\#A \le \#B$ (in quanto le funzioni bigettive 
-sono iniettive) ed è chiaro che se $\#A \le \#B$ e $\#B \le \#C$ allora 
-$\#A\le \#C$ (in quanto composizione di funzioni iniettive è iniettiva).
-
-Possiamo definire il simbolo inverso $\#A \ge \#B$ 
-come $\#B\le \#A$.
-Se $B\neq \emptyset$ 
-il seguente teorema ci dice che $\#A \ge \#B$ 
-è equivalente a dire che 
-esiste $f\colon A \to B$
-surgettiva. 
-%
-
-\begin{theorem}\label{th:95444}
-  Sia $B\neq \emptyset$.
-  Esiste $f\colon A\to B$ surgettiva 
-  se e solo se esiste $g\colon B\to A$ iniettiva.
-\end{theorem}
-% 
-\begin{proof}
-Da un lato se esiste $g\colon B\to A$ iniettiva, allora $g$ è una bigezione 
-tra $B$ e $g(B)$. La funzione inversa $f\colon g(B) \to B$ 
-\mynote{Questa funzione $f$ si chiama 
-\emph{inversa sinistra}
-\index{inversa!sinistra}%
-di $g$ in quanto si ha $f(g(y))=y$ per ogni $y\in B$}
-può essere estesa a tutto $A$ fissando un valore qualunque 
-(questo si può fare se $B$ non è vuoto) nei punti di $A\setminus g(B)$
-ottenendo quindi una funzione surgettiva da $A$ in $B$.
-D'altro lato se esiste una funzione $f\colon A\to B$ surgettiva,
-per ogni $b\in B$ l'insieme $f^{-1}(\ENCLOSE{b})$ non è mai 
-vuoto e quindi è chiaro che debba esistere 
-una funzione $g\colon B\to A$ tale che $g(b)$ è un qualunque elemento 
-di tale insieme
-\mynote{Questa funzione $g$ si chiama 
-\emph{inversa destra} 
-\index{inversa!destra}%
-di $f$ 
-in quanto $f(g(y))=y$ per ogni $y\in B$}
-(qui si utilizza l'assioma~\ref{axiom:AC} discusso più sotto). 
-Chiaramente $g$ è iniettiva.
-\end{proof}
-
-Nella dimostrazione del teorema precedente abbiamo utilizzato il seguente assioma 
-della teoria degli insiemi che, sorprendentemente, non è conseguenza degli assiomi 
-che abbiamo già introdotto finora.
-
-\begin{axiom}[della scelta]%
-  \label{axiom:AC}%
-  \index{assioma!della scelta}%
-  \index{scelta!assioma della}%
-  \index{AC}%
-  Sia $F\colon A \to \mathcal P(B)$
-  una funzione tale che $F(a)\neq \emptyset$ 
-  per ogni $a\in A$. Allora esiste una funzione
-  $f\colon A \to B$ tale che $f(a)\in F(a)$
-  per ogni $a\in A$.
-\end{axiom}
-
-L'assioma della scelta (denotato spesso con \emph{$AC$}%
-\mymargin{$AC$}%
-\index{AC}, \emph{axiom of choice})
-è un assioma per certi versi controverso
-e alcuni matematici preferiscono non utilizzarlo nelle loro dimostrazioni.
-Il sistema formale che definisce la teoria degli insiemi senza 
-introdurre l'assioma della scelta 
-si chiama \emph{$ZF$}%
-\mymargin{$ZF$}%
-\index{ZF} (Zermelo-Fraenkel) mentre 
-se si aggiunge l'assioma della scelta (choice) la teoria si chiama 
-\emph{$ZFC$}%
-\mymargin{$ZFC$}%
-\index{ZFC}.
-
-Grazie all'assioma della scelta è anche possibile dimostrare 
-che dati due insiemi $A$ e $B$ le loro cardinalità
-si possono confrontare: $\#A\le \#B$ oppure 
-$\#B\le \#A$. 
-La dimostrazione però diventa complicata e va oltre i nostri scopi.
-
-Il seguente teorema dimostra invece la proprietà antisimmetrica 
-della relazione tra cardinalità. 
-E' probabilmente il primo vero teorema 
-(con dimostrazione decisamente non banale) 
-che andiamo a dimostrare.
-
-\begin{theorem}[Cantor-Bernstein]%
-  \label{th:cantor_bernstein}%
-  \index{teorema!di Cantor-Bernstein}%
-  \index{Cantor-Bernstein!teorema di}%
-  Se $\#A \le \#B$ e $\#B \le \#A$ allora $\#A = \#B$.
-\end{theorem}
-%
-\begin{figure}
-  \centering
-  \begin{tikzpicture}
-    \foreach \x in {1,0.5,0.25,0.25*0.5,0.25*0.25,0.25*0.25*0.5} {
-      \path[draw,fill=black!20] (2*\x,2*\x)--(-2*\x,2*\x)--(-2*\x,-2*\x)--(2*\x,-2*\x)--cycle;
-      \draw[fill=white] (0,0) circle (1.6*\x);
-    };
-    \node at (-1.0,2.2) {$A$};
-    \node at (-1.5,1.5) {$A\setminus B$};
-    \node at (0,1.3) {$B$};
-%    \node at (-0.75,0.75) {$$};
-  \end{tikzpicture}
-  \caption{
-  Nella dimostrazione del teorema di Cantor-Bernstein
-  $A$ è rappresentato da un quadrato e $B$ da un cerchio contenuto
-  in $A$. L'immagine di $A$ in $B$ è rappresentata da un quadrato contenuto
-  in $B$ e così via. La parte ombreggiata è l'insieme $D$.
-  }
-  \label{fig:omotetia}
-\end{figure}
-%
-\begin{proof}
-Per ipotesi sappiamo che esiste
-$g\colon B\to A$ iniettiva. 
-Posto $B'=g(B)$ risulta che $g\colon B\to B'$ è bigettiva.
-Ma allora dimostrare che esiste una bigezione tra $A$ e $B$ 
-è equivalente a dimostrare che esiste una bigezione tra 
-$A$ e $B'$. 
-Dunque senza perdere di generalità, sostituendo $B'$ a $B$ 
-possiamo supporre che sia $B\subset A$.
-
-Essendo per ipotesi $\#A \le \#B$ esiste $f\colon A \to B$ iniettiva.
-Intuitivamente l'idea è quella di definire l'insieme
-\[
- D = (A\setminus B)  
- \cup f(A\setminus B) 
- \cup f(f(A\setminus B)) 
- \cup \dots
-\]
-e di definire la bigezione $\phi \colon A \to B$ 
-utilizzando $f$ sull'insieme $D$ e lasciando fisso
-il resto.
-
-Per farlo in maniera rigorosa
-consideriamo la famiglia di insiemi 
-$\F = \{X \subset A \colon X \supset A \setminus B, f(X) \subset X\}$ 
-e definiamo $D = \bigcap \F$.
-Osserviamo che $A \in \F$ quindi $\F\neq \emptyset$.
-Abbiamo in pratica definito $D$ come il più piccolo 
-sottoinsieme di $A$ che viene mandato in se stesso da $f$.
-
-E' facile verificare che $f(D) \subset D$ infatti dato $x\in D$ per ogni $X\in \F$ deve essere $x\in X$ ma allora $f(x) \in X$ (per come è definito $\F$), dunque $f(x) \in D$. 
-In modo analogo si dimostra che $D\supset A\setminus B$ e dunque concludiamo che $D\in \F$.
-
-Verifichiamo ora che $f(D)=D\cap B$. Da un lato se $x\in D$ allora
-$f(x) \in f(D)\subset D$ e $f(x)\subset f(A)\subset B$ da cui $f(x) \in D\cap B$.
-Dall'altro lato se $y\in D \cap B$ e non fosse $y \in f(D)$
-allora potremmo considerare l'insieme $X=D\setminus\{y\}$
-e osservare che $X\in \F$.
-Infatti in primo luogo $X \supset A \setminus B$ in quanto $D$ ha questa proprietà e $y \in B$.
-Inoltre dato qualunque $x \in X$ visto che $X\subset D$ allora
-$f(x) \in f(D)$ e, per ipotesi,
-$y\not \in f(D)$ dunque $f(x)\neq y$ da cui $f(x) \in X$.
-Dunque $X\in \F$ ma allora dovrebbe essere $D\subset X$ mentre
-per costruzione abbiamo $y\in D$ ma non in $X$.
-
-% Avendo visto che $f(D)=D\cap B$ possiamo facilmente
-% osservare che $f(A\setminus D) \subset A \setminus D$.
-% Infatti $f(A\setminus D)\subset f(A)=B$ e quindi
-% $f(A\setminus D)\cap D \subset D \cap B = f(D)$
-% ma essendo $f$ iniettiva si deve avere
-% $f(A\setminus D) \cap f(D)=\emptyset$.
-
-Possiamo allora definire $\phi \colon A \to B$
-\[
-\phi(x) =
-\begin{cases}
-   f(x) & \text{se $x\in D$}, \\
-   x & \text{altrimenti.}
-\end{cases}
-\]
-Chiaramente $\phi$ è iniettiva in quanto $f$ è iniettiva e manda $D$ in $D$
-e l'identità è iniettiva e manda $A\setminus D$ in $A\setminus D$.
-
-Per dimostrare che $\phi$ è suriettiva consideriamo qualunque $y \in B$.
-Se $y\not \in D$ allora $\phi(y)=y$.
-Se invece $y\in D$ essendo $y\in D\cap B = f(D)$ esisterà $x\in D$ tale
-che $\phi(x) = f(x) = y$.
-\end{proof}
-
 Possiamo ora determinare se un insieme $X$ è finito o infinito.
 Gli insiemi infiniti sono quelli che possono essere messi in corrispondenza 
 biunivoca con un loro sottoinsieme proprio: esiste $f\colon X\to X$ 
@@ -1815,7 +1736,7 @@ significa che $\NN$ può essere messo in corrispondenza biunivoca con
 $\sigma(\NN)$ che è un sottoinsieme proprio di $\NN$.
 Dunque $\NN$ è necessariamente un insieme infinito 
 (definizione~\ref{def:infinito}).
-In particolare $\#\NN = \#\enclose{\NN \setminus\ENCLOSE{0}}$.
+%In particolare $\#\NN = \#\enclose{\NN \setminus\ENCLOSE{0}}$.
 Questa proprietà è per certi versi paradossale
 (paradosso di Galileo, o paradosso dell'hotel Hilbert)
 \index{paradosso!di Galileo}%
@@ -2491,7 +2412,7 @@ Grazie a questa proprietà possiamo definire la somma di una funzione
 definita su qualunque insieme finito. 
 Se $f\colon X \to M$
 dove $M$ è un monoide, 
-e $\sigma\colon \Enclose{n} \to X$ è una bigezione (dunque $\#X = n$)
+e $\sigma\colon \Enclose{n} \to X$ è una bigezione
 allora si può definire 
 \[
   \sum_{x\in X} f(x) = \sum_{j=0}^{n-1} f(\sigma(j))  
@@ -2532,41 +2453,6 @@ L'insieme $\RR$ dei numeri reali si caratterizza
 con l'essere un \emph{gruppo totalmente ordinato denso e continuo}
 in base alle seguenti definizioni.
 
-\begin{definition}[relazione d'ordine]
-  \label{def:ordine}%
-  Una relazione
-  $\le$ su un insieme $R$ viene detta
-  \emph{relazione d'ordine}%
-\mymargin{relazione d'ordine}%
-\index{relazione!d'ordine}
-  se soddisfa le seguenti proprietà (per ogni $x,y,z\in R$):
-  \begin{enumerate}
-    \item[1.] riflessiva: $x\le x$;
-    \item[2.] antisimmetrica: $x\le y \land y\le x \implies x=y$;
-    \item[3.] transitiva: $x\le y \land y\le z \implies x\le z$.
-  \end{enumerate}
-  Si dice inoltre che la relazione d'ordine $\le$
-  è una relazione d'\emph{ordine totale}
-\mymargin{ordine totale}%
-  (o \emph{lineare}) 
-  \index{ordinamento!totale}%
-  \index{ordinamento!lineare}%
-  \index{totale!ordine}%
-  \index{lineare!ordine}%
-  e si dice che $R$ è \emph{totalmente ordinato} se vale
-  \index{totalmente ordinato}%
-  \begin{enumerate}
-    \item[4.] dicotomia: $x\le y \lor y\le x$.
-  \end{enumerate}
-\end{definition}
-
-In generale, se $\le$ è una relazione d'ordine su $R$ si definisce la 
-relazione inversa $\ge$ ponendo $x\ge y$ quando $y\le x$.
-La proprietà riflessiva identifica gli ordinamenti \emph{larghi}.
-Si definisce il corrispondente ordinamento stretto $<$
-ponendo $x < y$ quando $x\le y \land x\neq y$
-e la relazione inversa $>$ ponendo $x>y$ quando $y<x$.
-
 \begin{definition}[funzioni monotòne]
   \label{def:monotonia}%
   Siano $R$ e $S$ insiemi ordinati 
@@ -2585,54 +2471,6 @@ e la relazione inversa $>$ ponendo $x>y$ quando $y<x$.
     \item \emph{strettamente monotòna} se è strettamente crescente 
     o strettamente decrescente
   \end{enumerate}
-\end{definition}
-
-\begin{definition}[ordinamento continuo]
-  \label{def:ordinamento_continuo}%
-  Un ordinamento $\le$ su un insieme $R$ si dice essere
-  \emph{continuo}%
-\mymargin{ordinamento continuo}%
-\index{continuo}
-  \index{continuità!ordinamento}%
-  \index{ordine!continuo}%
-  (o \emph{Dedekind-completo})
-  \index{Dedekind-completo}%
-  \index{completo!Dedekind}%
-  se dati comunque $A,B$ sottoinsiemi non vuoti di $R$
-    tali che per ogni $a\in A$ e per ogni $b\in B$ risulta $a\le b$
-    (concisamente scriveremo $A\le B$ e diremo che $A$ e $B$ sono 
-    \emph{separati})
-    allora esiste $c\in R$ tale che per ogni $a\in A$ e ogni $b\in B$ 
-    si ha $a\le c \le b$ (concisamente scriveremo $A\le c \le B$
-    e diremo che $c$ è un elemento di separazione tra $A$ e $B$).
-\end{definition}
-
-A parole la precedente definizione si esprime dicendo che un insieme ordinato
-è \emph{continuo} se ogni coppia di sottoinsiemi separati 
-ammette un elemento di separazione.
-In molti testi questa condizione viene chiamata \emph{completezza}
-o, più precisamente, \emph{completezza di Dedekind}.
-\index{completezza!di Dedekind}%
-\index{Dedekind!completo}%
-
-\begin{definition}[ordinamento denso]
-  \label{def:ordinamento_denso}%
-  Un ordinamento si dice essere
-  \emph{denso}%
-\mymargin{ordinamento denso}%
-\index{denso} o \emph{divisibile} 
-  se tra due punti distinti esiste sempre un punto intermedio:
-  \index{denso!sottoinsieme}%
-  \index{denso!ordinamento}%
-  \index{sottoinsieme!denso}%
-  \index{ordinamento!denso}%
-  \mynote{Più in generale se $R$ è un insieme totalmente 
-  ordinato e $A\subset R$ si dice che $A$ è denso in $R$ 
-  se dati comunque $x,y\in R$ con $x<y$ esiste $c\in A$ tale che 
-  $x<c<y$.}
-  \[
-   x < y \implies \exists c \colon x < c < y.
-  \]
 \end{definition}
 
 \begin{definition}[gruppo]
@@ -4019,12 +3857,12 @@ Chiaramente $A\le B$ ma in $\RR$ questi due insiemi
 hanno come unico elemento di separazione $\sqrt 2$ che non è elemento di
 $\QQ$.
 
-Abbiamo appena verificato che esistono numeri irrazionali. 
-Può però essere sorprendente scoprire che non solo i numeri irrazionali 
-sono infiniti (chiaramente se $x$ è irrazionale anche $n\cdot x$ è irrazionale 
-se $n$ è intero o razionale) ma addirittura la cardinalità 
-dei numeri irrazionali è maggiore di quella dei numeri razionali 
-$\# (\RR\setminus \QQ) > \# \QQ$ (teorema~\ref{th:cantor_secondo}).
+% Abbiamo appena verificato che esistono numeri irrazionali. 
+% Può però essere sorprendente scoprire che non solo i numeri irrazionali 
+% sono infiniti (chiaramente se $x$ è irrazionale anche $n\cdot x$ è irrazionale 
+% se $n$ è intero o razionale) ma addirittura la cardinalità 
+% dei numeri irrazionali è maggiore di quella dei numeri razionali 
+% $\# (\RR\setminus \QQ) > \# \QQ$ (teorema~\ref{th:cantor_secondo}).
 
 Ogni numero razionale ha una rappresentazione finita. 
 Se $x=\frac p q$ possiamo scrivere $p$ e $q$ nella loro rappresentazione 
@@ -4266,9 +4104,9 @@ quindi $x=y$. Ragionamento analogo se $x$ e $y$ fossero due massimi.
   una funzione $f\colon \NN\to A$ tale che $f(0)\in A$ 
   è qualunque e $f(n+1) < f(n)$ (visto che $f(n)$ non è un minimo 
   di $A$ esiste un numero più piccolo). 
-  Chiaramente $f$ è iniettiva quindi $\#A\ge \#\NN$
+  Chiaramente $f$ è iniettiva %quindi $\#A\ge \#\NN$
   e dunque $A$ è infinito.
-  Se invece $A$ è infinito il massimo e il minimo 
+  Viceversa se $A$ è infinito il massimo e il minimo 
   potrebbero non esistere. 
   Ad esempio l'insieme $A=\ENCLOSE{x\in \RR\colon 0<x<1}$
   non ha né massimo né minimo.
@@ -6713,10 +6551,12 @@ $\NN\subset A$ visto che $\NN$, per come è definito,
 \end{proof}
 
 La costruzione precedente ci dice che l'insieme $\NN$ è il più piccolo insieme infinito
-nel senso che: se $X$ è infinito allora $\# X \ge \# \NN$. 
-\mynote{Questa osservazione ci dice che se $\NN$ e $\NN'$ sono due diversi insiemi di 
-numeri naturali allora $\#\NN\le \#\NN'$ e $\#\NN'\le\#\NN$ per cui, 
-grazie al teorema~\ref{th:cantor_bernstein}, $\# \NN = \# \NN'$.
+nel senso che: se $X$ è infinito allora $X$ contiene una copia isomorfa di $\NN$. 
+\mynote{
+Grazie al teorema~\ref{th:cantor_bernstein}, potremmo dire che se abbiamo due insiemi 
+che soddisfano gli assiomi di Peano allora essendoci una immersione iniettiva di ognuno
+nell'altro, allora esiste una corrispondenza biunivoca tra i due insiemi.
+Diremo che i due insiemi hanno la stessa cardinalità. 
 Nel teorema~\ref{th:unicitaN} vedremo che non solo esiste una corrispondenza biunivoca 
 tra $\NN$ e $\NN'$ ma anche che esiste 
 una corrispondenza che preserva la struttura 
@@ -7772,7 +7612,230 @@ Dunque $\RR\neq \QQ$, l'elemento $x=[A]_\sim$ di $\RR$ sarà
 proprio quello che abbiamo chiamato $\sqrt 2$ e che risolve 
 l'equazione $x^2=2$. 
 
-\section{cardinalità finite}
+\section{cardinalità}
+\label{sec:cardinali}
+
+\begin{definition}[cardinalità]
+  Diremo che due insiemi $A$ e $B$ hanno la stessa \emph{cardinalità}%
+\mymargin{cardinalità}%
+\index{cardinalità} 
+  (oppure sono \emph{equipotenti}) 
+  \index{equipotenza}%
+  \index{insiemi!equipotenti}%
+  \index{insieme!equipotente}%
+  se esiste una funzione bigettiva $f\colon A \to B$.
+  Scriveremo in tal caso:
+  \[
+    \# A = \# B.  
+  \] 
+  Se esiste una funzione iniettiva $f\colon A\to B$ significa che 
+  $A$ ha la stessa cardinalità di un sottoinsieme di $B$ (in quanto $f\colon A \to f(A)$
+  risulta essere bigettiva). Scriveremo in tal caso:
+  \[
+    \# A \le \#B.
+  \]
+\end{definition}
+
+Intuitivamente se due insiemi hanno la stessa cardinalità 
+significa che hanno lo stesso numero di elementi.
+Ma la precedente definizione riesce a catturare tale concetto senza dover 
+ricorrere al concetto di numero. 
+Questo ha il vantaggio di rendere questa definizione applicabile 
+a qualunque insieme, anche con \emph{infiniti} elementi.
+
+Si osservi che non abbiamo dato una definizione di $\#A$ e quindi non stiamo 
+definendo cos'è la cardinalità di un insieme ma stiamo soltanto definendo 
+una relazione tra insiemi che 
+denotiamo, impropriamente, utilizzando una uguaglianza: $\#A = \#B$.
+
+E' ovvio che $\#A = \#A$ in quanto l'identità $\id_A$ è bigettiva.
+E' anche chiaro che se $\#A = \#B$ e $\#B = \#C$ allora $\#A = \#C$ in quanto 
+componendo tra loro due funzioni bigettive si ottiene ancora una funzione 
+bigettiva. 
+Infine se $\#A = \#B$ allora $\#A \le \#B$ (in quanto le funzioni bigettive 
+sono iniettive) ed è chiaro che se $\#A \le \#B$ e $\#B \le \#C$ allora 
+$\#A\le \#C$ (in quanto composizione di funzioni iniettive è iniettiva).
+
+Possiamo definire il simbolo inverso $\#A \ge \#B$ 
+come $\#B\le \#A$.
+Se $B\neq \emptyset$ 
+il seguente teorema ci dice che $\#A \ge \#B$ 
+è equivalente a dire che 
+esiste $f\colon A \to B$
+surgettiva. 
+%
+
+\begin{theorem}\label{th:95444}
+  Sia $B\neq \emptyset$.
+  Esiste $f\colon A\to B$ surgettiva 
+  se e solo se esiste $g\colon B\to A$ iniettiva.
+\end{theorem}
+% 
+\begin{proof}
+Da un lato se esiste $g\colon B\to A$ iniettiva, allora $g$ è una bigezione 
+tra $B$ e $g(B)$. La funzione inversa $f\colon g(B) \to B$ 
+\mynote{Questa funzione $f$ si chiama 
+\emph{inversa sinistra}
+\index{inversa!sinistra}%
+di $g$ in quanto si ha $f(g(y))=y$ per ogni $y\in B$}
+può essere estesa a tutto $A$ fissando un valore qualunque 
+(questo si può fare se $B$ non è vuoto) nei punti di $A\setminus g(B)$
+ottenendo quindi una funzione surgettiva da $A$ in $B$.
+D'altro lato se esiste una funzione $f\colon A\to B$ surgettiva,
+per ogni $b\in B$ l'insieme $f^{-1}(\ENCLOSE{b})$ non è mai 
+vuoto e quindi è chiaro che debba esistere 
+una funzione $g\colon B\to A$ tale che $g(b)$ è un qualunque elemento 
+di tale insieme
+\mynote{Questa funzione $g$ si chiama 
+\emph{inversa destra} 
+\index{inversa!destra}%
+di $f$ 
+in quanto $f(g(y))=y$ per ogni $y\in B$}
+(qui si utilizza l'assioma~\ref{axiom:AC} discusso più sotto). 
+Chiaramente $g$ è iniettiva.
+\end{proof}
+
+Nella dimostrazione del teorema precedente abbiamo utilizzato il seguente assioma 
+della teoria degli insiemi che, sorprendentemente, non è conseguenza degli assiomi 
+che abbiamo già introdotto finora.
+
+\begin{axiom}[della scelta]%
+  \label{axiom:AC}%
+  \index{assioma!della scelta}%
+  \index{scelta!assioma della}%
+  \index{AC}%
+  Sia $F\colon A \to \mathcal P(B)$
+  una funzione tale che $F(a)\neq \emptyset$ 
+  per ogni $a\in A$. Allora esiste una funzione
+  $f\colon A \to B$ tale che $f(a)\in F(a)$
+  per ogni $a\in A$.
+\end{axiom}
+
+L'assioma della scelta (denotato spesso con \emph{$AC$}%
+\mymargin{$AC$}%
+\index{AC}, \emph{axiom of choice})
+è un assioma per certi versi controverso
+e alcuni matematici preferiscono non utilizzarlo nelle loro dimostrazioni.
+Il sistema formale che definisce la teoria degli insiemi senza 
+introdurre l'assioma della scelta 
+si chiama \emph{$ZF$}%
+\mymargin{$ZF$}%
+\index{ZF} (Zermelo-Fraenkel) mentre 
+se si aggiunge l'assioma della scelta (choice) la teoria si chiama 
+\emph{$ZFC$}%
+\mymargin{$ZFC$}%
+\index{ZFC}.
+
+Grazie all'assioma della scelta è anche possibile dimostrare 
+che dati due insiemi $A$ e $B$ le loro cardinalità
+si possono confrontare: $\#A\le \#B$ oppure 
+$\#B\le \#A$. 
+La dimostrazione però diventa complicata e va oltre i nostri scopi.
+
+Il seguente teorema dimostra invece la proprietà antisimmetrica 
+della relazione tra cardinalità. 
+E' probabilmente il primo vero teorema 
+(con dimostrazione decisamente non banale) 
+che andiamo a dimostrare.
+
+\begin{theorem}[Cantor-Bernstein]%
+  \label{th:cantor_bernstein}%
+  \index{teorema!di Cantor-Bernstein}%
+  \index{Cantor-Bernstein!teorema di}%
+  Se $\#A \le \#B$ e $\#B \le \#A$ allora $\#A = \#B$.
+\end{theorem}
+%
+\begin{figure}
+  \centering
+  \begin{tikzpicture}
+    \foreach \x in {1,0.5,0.25,0.25*0.5,0.25*0.25,0.25*0.25*0.5} {
+      \path[draw,fill=black!20] (2*\x,2*\x)--(-2*\x,2*\x)--(-2*\x,-2*\x)--(2*\x,-2*\x)--cycle;
+      \draw[fill=white] (0,0) circle (1.6*\x);
+    };
+    \node at (-1.0,2.2) {$A$};
+    \node at (-1.5,1.5) {$A\setminus B$};
+    \node at (0,1.3) {$B$};
+%    \node at (-0.75,0.75) {$$};
+  \end{tikzpicture}
+  \caption{
+  Nella dimostrazione del teorema di Cantor-Bernstein
+  $A$ è rappresentato da un quadrato e $B$ da un cerchio contenuto
+  in $A$. L'immagine di $A$ in $B$ è rappresentata da un quadrato contenuto
+  in $B$ e così via. La parte ombreggiata è l'insieme $D$.
+  }
+  \label{fig:omotetia}
+\end{figure}
+%
+\begin{proof}
+Per ipotesi sappiamo che esiste
+$g\colon B\to A$ iniettiva. 
+Posto $B'=g(B)$ risulta che $g\colon B\to B'$ è bigettiva.
+Ma allora dimostrare che esiste una bigezione tra $A$ e $B$ 
+è equivalente a dimostrare che esiste una bigezione tra 
+$A$ e $B'$. 
+Dunque senza perdere di generalità, sostituendo $B'$ a $B$ 
+possiamo supporre che sia $B\subset A$.
+
+Essendo per ipotesi $\#A \le \#B$ esiste $f\colon A \to B$ iniettiva.
+Intuitivamente l'idea è quella di definire l'insieme
+\[
+ D = (A\setminus B)  
+ \cup f(A\setminus B) 
+ \cup f(f(A\setminus B)) 
+ \cup \dots
+\]
+e di definire la bigezione $\phi \colon A \to B$ 
+utilizzando $f$ sull'insieme $D$ e lasciando fisso
+il resto.
+
+Per farlo in maniera rigorosa
+consideriamo la famiglia di insiemi 
+$\F = \{X \subset A \colon X \supset A \setminus B, f(X) \subset X\}$ 
+e definiamo $D = \bigcap \F$.
+Osserviamo che $A \in \F$ quindi $\F\neq \emptyset$.
+Abbiamo in pratica definito $D$ come il più piccolo 
+sottoinsieme di $A$ che viene mandato in se stesso da $f$.
+
+E' facile verificare che $f(D) \subset D$ infatti dato $x\in D$ per ogni $X\in \F$ deve essere $x\in X$ ma allora $f(x) \in X$ (per come è definito $\F$), dunque $f(x) \in D$. 
+In modo analogo si dimostra che $D\supset A\setminus B$ e dunque concludiamo che $D\in \F$.
+
+Verifichiamo ora che $f(D)=D\cap B$. Da un lato se $x\in D$ allora
+$f(x) \in f(D)\subset D$ e $f(x)\subset f(A)\subset B$ da cui $f(x) \in D\cap B$.
+Dall'altro lato se $y\in D \cap B$ e non fosse $y \in f(D)$
+allora potremmo considerare l'insieme $X=D\setminus\{y\}$
+e osservare che $X\in \F$.
+Infatti in primo luogo $X \supset A \setminus B$ in quanto $D$ ha questa proprietà e $y \in B$.
+Inoltre dato qualunque $x \in X$ visto che $X\subset D$ allora
+$f(x) \in f(D)$ e, per ipotesi,
+$y\not \in f(D)$ dunque $f(x)\neq y$ da cui $f(x) \in X$.
+Dunque $X\in \F$ ma allora dovrebbe essere $D\subset X$ mentre
+per costruzione abbiamo $y\in D$ ma non in $X$.
+
+% Avendo visto che $f(D)=D\cap B$ possiamo facilmente
+% osservare che $f(A\setminus D) \subset A \setminus D$.
+% Infatti $f(A\setminus D)\subset f(A)=B$ e quindi
+% $f(A\setminus D)\cap D \subset D \cap B = f(D)$
+% ma essendo $f$ iniettiva si deve avere
+% $f(A\setminus D) \cap f(D)=\emptyset$.
+
+Possiamo allora definire $\phi \colon A \to B$
+\[
+\phi(x) =
+\begin{cases}
+   f(x) & \text{se $x\in D$}, \\
+   x & \text{altrimenti.}
+\end{cases}
+\]
+Chiaramente $\phi$ è iniettiva in quanto $f$ è iniettiva e manda $D$ in $D$
+e l'identità è iniettiva e manda $A\setminus D$ in $A\setminus D$.
+
+Per dimostrare che $\phi$ è suriettiva consideriamo qualunque $y \in B$.
+Se $y\not \in D$ allora $\phi(y)=y$.
+Se invece $y\in D$ essendo $y\in D\cap B = f(D)$ esisterà $x\in D$ tale
+che $\phi(x) = f(x) = y$.
+\end{proof}
+
+\subsection{cardinalità finite}
 \label{sec:cardinali_finiti}
 
 Vogliamo dimostrare che i numeri naturali possono essere utilizzati 
@@ -7981,7 +8044,7 @@ la cui dimostrazione lasciamo per esercizio.
   \end{gather*}
 \end{exercise}
 
-\section{cardinalità infinite}
+\subsection{cardinalità infinite}
 \label{sec:cardinali_infiniti}
 
 Abbiamo già osservato che $\NN$ è un insieme infinito e dunque (per il teorema~\ref{th:cantor_bernstein})
