@@ -1256,7 +1256,7 @@ tra il punto medio e uno dei due punti, e così via...
 
 \begin{definition}[ordinamento continuo]
   \label{def:ordinamento_continuo}%
-  Un ordinamento $\le$ su un insieme $X$ si dice essere
+  Un ordinamento denso $\le$ su un insieme $X$ si dice essere
   \emph{continuo}%
 \mymargin{ordinamento continuo}%
 \index{continuo}
@@ -1275,7 +1275,7 @@ tra il punto medio e uno dei due punti, e così via...
 \end{definition}
 
 A parole la precedente definizione si esprime dicendo che un insieme ordinato
-è \emph{continuo} se ogni coppia di sottoinsiemi separati 
+denso è \emph{continuo} se ogni coppia di sottoinsiemi separati 
 ammette un elemento di separazione.
 In molti testi questa condizione viene chiamata \emph{completezza}
 o, più precisamente, \emph{completezza di Dedekind}.
@@ -1297,6 +1297,13 @@ tale punto dovrebbe avere distanza $\frac 1 3 PQ$ da $P$ mentre tutti i punti
 di $X$ hanno una distanza da $P$ che si esprime con una frazione di $PQ$ 
 che ha come denominatore una potenza di $2$.
 \end{example}
+
+\mymargin{
+Eviteremo di usare la definizione di continuità sugli ordinamenti che non sono 
+densi, altrimenti tutti gli insiemi finiti avrebbero un ordinamento continuo 
+e anche insiemi come $\NN$ e $\ZZ$ risulterebbero continui, cosa che 
+va contro l'intuizione di continuità che abbiamo in mente.
+}
 
 \begin{theorem}[esistenza del $\sup$]%
   \label{th:sup}%
@@ -1733,56 +1740,108 @@ dunque $(g\circ f)^{-1}(c) = a = f^{-1}(g^{-1}(c))$ da cui si ottiene
   di funzione suriettive è suriettiva.
 \end{exercise}
 
-\section{gruppi, anelli, campi}
+\section{strutture algebriche}
 
-Una operazione binaria $*$ è una funzione $*\colon A\times B \to C$
-che associa ad ogni coppia $(a,b)$ con $a\in A$ e $b\in B$ un elemento $c\in C$.
-Invece di scrivere $c = *(a,b)$ scriveremo $c = a*b$.
-Se $A=B=C$ diremo che $*$ è un'operazione su $A$.
+Andremo presto a definire strutture numeriche su cui sono definite le operazioni 
+di addizione e moltiplicazione. 
+In generale vogliamo definire cosa si intende con una \emph{operazione}.
+\mymargin{operazione}%
+\index{operazione}%
+
+Una \emph{operazione} sull'insieme $A$ è una funzione 
+$f\colon A\to(A\to A)$.
+Dati $a,b\in A$ avremo dunque che $f(a)$ è una funzione $A\to A$
+e quindi $f(a)(b)$ sarà un elemento di $A$. 
+Tipicamente le operazioni si denotano con simboli come $+$, $\cdot$, $\div$, $\times$ etc...
+Se $*$ è una operazione, invece di scrivere $*(a)(b)$ scriveremo 
+$a*b$.
+
+Si noti che una funzione $f\colon A\to (A\to A)$ è equivalente ad una funzione
+$g\colon A\times A \to A$ ponendo $g(a,b) = f(a)(b)$. 
+Si può dunque pensare equivalentemente ad una operazione 
+come ad una funzione di due variabili.
 
 \begin{example}
-Su $A=\ENCLOSE{-1,0,1}$ possiamo definire l'usuale operazione di 
-moltiplicazione come la funzione $\cdot \colon A\times A \to A$
-con grafico:
-\[
-G_\cdot = \ENCLOSE{
-  (-1,-1)\mapsto 1, (-1,0)\mapsto 0, (-1,1)\mapsto -1, 
-  (0,-1)\mapsto 0, (0,0)\mapsto 0, (0,1)\mapsto 0, 
-  (1,-1)\mapsto -1, (1,0)\mapsto 0, (1,1)\mapsto 1}.
-\]
-Scriveremo allora $-1\cdot 1 = -1$, $0\cdot 0 = 0$, $1\cdot 1 = 1$ etc... 
+La usuale operazione di addizione $+$ definita sugli insiemi numerici è una operazione.
+Se $\NN$ è l'insieme dei numeri naturali (lo definiremo tra poco)
+possiamo pensare a $+\colon \NN\to (\NN\to \NN)$ come ad una funzione che ad un 
+numero $n\in \NN$ associa la funzione $+n$ che incrementa di $n$ il suo argomento:
+$(+3)(5)=3+5=8$.
 \end{example}
+
+Quando i simboli delle operazioni vengono utilizzati in una espressione si pone 
+il problema di stabilire la precedenza delle operazioni.
+Se ad esempio scriviamo $a*b*c$ dobbiamo decidere se intendiamo
+$(a*b)*c$ (associatività a sinistra) oppure $a*(b*c)$ (associatività a destra).
+Se $(a*b)*c=a*(b*c)$ diremo che l'operazione è associativa, in tal 
+caso ovviamente non importa specificare se è associativa a sinistra o a destra.
+Usualmente si intende che l'operazione è associativa a sinistra.
+Ad esempio $5-4-3 = (5-4)-3$ e non $5-(4-3)$. 
+In alcuni rari casi l'associatività è a destra, un esempio tipico è l'elevamento 
+a potenza: $2^{3^2} = 2^{(3^2)} \neq (2^3)^2$.
+Il motivo è che $(a^b)^c$ si scrive più facilmente $a^{b\cdot c}$.
+Nei linguaggi di programmazione che implementano l'operazione di elevamento 
+a potenza bisogna fare molta attenzione: in alcuni linguaggi (ad esempio Fortran) 
+l'elevamento a potenza 
+associa a sinistra come le altre operazioni, in altri linguaggi (ad esempio Python)
+associa a destra.
+
+Quando compaiono operazioni diverse nella stessa espressione, alcune operazioni 
+hanno la precedenza su altre.
+Ad esempio in $a+b\cdot c$ la moltiplicazione ha la precedenza sull'addizione
+e quindi l'espressione va interpretata come $a+(b\cdot c)$ non come $(a+b)\cdot c$.
+Addizione e sottrazione hanno la stessa precedenza e vanno quindi interpretate da sinistra a destra:
+$a-b+c = (a-b)+c$. Per la divisione noi useremo, raramente, il simbolo $/$, 
+in tal caso la divisione associa a sinistra ed ha la stessa precedenza della 
+moltiplicazione: $a/b/c=(a/b)/c$, $a/b\cdot c=(a/b)\cdot c$.
+Questa regola è a volte controintuitiva, per cui noi eviteremo di scrivere 
+espressioni di questo tipo, soprattutto perché il puntino della moltiplicazione 
+può essere omesso, come in $a/bc$ rendendo l'espressione ancora più ambigua.
+Nel dubbio: usare le parentesi!
+Per denotare la divisione utilizzeremo più spesso il simbolo di frazione $\frac a b$ che non richiede 
+di specificare l'associatività e la precedenza in quanto la lunghezza della 
+linea di frazione determina come vengono associati gli operandi: 
+\[
+  \frac{\,\frac a b\,}{c}=(a/b)/c, \qquad 
+  \frac{a}{\,\frac bc\,}=a/(b/c).
+\]  
+
+Gli insiemi numerici che ci proponiamo di definire (naturali, interi, razionali, reali, complessi)
+sono dotati tutti delle due operazioni di addizione e moltiplicazione
+oltre che (salvo i numeri complessi) di una relazione di ordine.
+In base alle proprietà che queste operazioni soddisfano potranno rientrare nelle 
+seguenti strutture algebriche astratte. 
+
+Per adesso facciamo un elenco delle strutture che incontreremo più avanti. 
+Man mano che individueremo gli esempi di insiemi che rientrano in queste strutture
+sarà più chiaro il significato di queste definizioni.
 
 \begin{definition}[gruppo]
   \label{def:gruppo}%
-  Un insieme $R$ su cui è definita una \emph{operazione} $*$ 
-%  \mynote{%
-%  una operazione $*$ su $R$ è una funzione $*\colon R\times R \to R$ 
-%  che si indica utilizzando la notazione \emph{infissa}: $x*y = *(x,y)$.}
-%% già detto
+  Un insieme $G$ su cui è definita una \emph{operazione} $*$ 
   si dice essere un \emph{gruppo}%
 \mymargin{gruppo}%
 \index{gruppo} se l'operazione
   ha le seguenti proprietà:
   \begin{enumerate}
-    \item associativa: $\forall x,y,z\in R\colon (x*y)*z = x*(y*z)$;
+    \item associativa: $\forall x,y,z\in G\colon (x*y)*z = x*(y*z)$;
     \index{proprietà!associativa}%
     \index{associatività}%
     \item esistenza elemento neutro: 
     \index{elemento!neutro}%
     \index{neutro}%
-    $\exists e\in R\colon \forall x\in R \colon e*x=x*e = x$;
+    $\exists e\in G\colon \forall x\in G \colon e*x=x*e = x$;
     \item esistenza inverso: 
     \index{elemento!inverso}%
     \index{inverso}%
-    $\forall x\in R\colon \exists y\in R\colon x*y=y*x=e$.
+    $\forall x\in G\colon \exists y\in G\colon x*y=y*x=e$.
   \end{enumerate}
   Inoltre il gruppo si dice essere \emph{abeliano}%
 \mymargin{gruppo abeliano}%
 \index{abeliano} o \emph{commutativo}
   se vale la proprietà:
   \begin{enumerate}
-    \item[4.] commutativa: $\forall x,y\in R\colon x*y = y*x$.
+    \item[4.] commutativa: $\forall x,y\in G\colon x*y = y*x$.
     \index{proprietà!commutativa}%
     \index{commutatività}% 
   \end{enumerate}
@@ -1807,22 +1866,129 @@ Se infatti $x$ e $y$ fossero due elementi neutri
 si avrebbe $x = x*y = y$. 
 Anche l'inverso è unico: infatti se $y$ e $z$ fossero 
 due inversi di $x$ si avrebbe $y = y * x * z = z$.
-  
-\begin{definition}[gruppo ordinato]
+
+\begin{example}
+  L'insieme dei numeri interi $\ZZ$ con l'operazione di addizione 
+  è un gruppo abeliano. 
+  L'elemento neutro è lo zero, l'opposto di $x$ è $-x$.
+  Su $\ZZ$ definiremo anche l'operazione di moltiplicazione,
+  ma $\ZZ$ con l'operazione di moltiplicazione non è un gruppo 
+  in quanto non tutti gli elementi hanno inverso moltiplicativo in $\ZZ$.
+\end{example}
+
+\begin{example}[gruppo simmetrico]
+  Se $X$ è un insieme qualunque si può considerare l'insieme
+  $X!$ delle funzioni bigettive su $X$:
+  \[
+    X! = \ENCLOSE{f\colon X\to X\colon f \text{ bigettiva}}.
+  \]
+  Quando $X$ è un insieme finito le funzioni bigettive su $X$ si chiamano 
+  anche \emph{permutazioni} in quanto, appunto, permutano gli elementi di $X$.
+
+  Per esercizio si può verificare che l'operazione $\circ$ di composizione 
+  rende $X!$ un gruppo.
+  Tale gruppo si chiama \emph{gruppo simmetrico} di $X$ 
+  (viene anche usualmente denotato con $S_X$).
+  Il gruppo simmetrico non è abeliano se $X$ ha più di due elementi.
+\end{example}
+
+\begin{definition}[anello e campo]
+  \label{def:anello}%
+  \label{def:campo}%
+  Sia $A$ un insieme su cui sono definite due operazioni: 
+  addizione e moltiplicazione.  
+  Diremo che $A$ è un \emph{anello} se $A$ è un gruppo abeliano rispetto alla 
+  addizione, 
+  se la moltiplicazione è associativa $(x\cdot y)\cdot z = x\cdot (y\cdot z)$ 
+  e se vale la proprietà distributiva $x\cdot(y+z) = x\cdot y + x\cdot z$,
+  $(x+y)\cdot z = x\cdot z + y\cdot z$.
+
+  Se inoltre esiste un elemento $1\in A$ neutro per la moltiplicazione 
+  diremo che $A$ è un anello \emph{con unità}.
+
+  Se la moltiplicazione è commutativa diremo che $A$ è un \emph{anello abeliano}.
+
+  Se $A$ è un anello ed $A\setminus \ENCLOSE{0}$ risulta essere un gruppo abeliano
+  per l'operazione di moltiplicazione 
+  (dunque c'è una unità $1\neq 0$ e ogni elemento non nullo ha inverso moltiplicativo)
+  diremo che $A$ è un \emph{campo}.
+\end{definition}
+
+\begin{example}
+  L'insieme dei numeri interi $\ZZ$ (lo definiremo tra poco) è un anello abeliano con unità
+  ma non è un campo.
+  L'insieme dei numeri razionali $\QQ$ (lo definiremo tra poco) è un campo.
+\end{example}
+
+Un anello $A$ è un gruppo additivo, per cui negli anelli l'elemento neutro 
+dell'addizione si indica con $0$. 
+L'inverso additivo di $a\in A$ si chiama \emph{opposto} e si indica con $-a$.
+E' quindi definita anche l'operazione di sottrazione: $a-b = a+(-b)$.
+
+Lo stesso vale in un campo $R$ dove, inoltre, ogni elemento non nullo ha 
+anche un inverso moltiplicativo. Se $x\in R\setminus\ENCLOSE{0}$ il suo
+inverso moltiplicativo si chiama \emph{reciproco} e si indica con $1/x$ oppure $x^{-1}$.
+Dunque è definita anche l'operazione di divisione: $a/b = a\cdot (1/b)$
+se $b\neq 0$.
+
+\begin{definition}[gruppo totalmente ordinato]
   \label{def:gruppo_ordinato}%
-  Diremo che $R$ è un \emph{gruppo ordinato}%
-\mymargin{gruppo ordinato}%
-\index{gruppo!ordinato} se $R$ è un gruppo
-  (con operazione $*$ ed elemento neutro $e$),
-  se è anche un insieme ordinato (con relazione $\le$)
-  e se vale la proprietà:
+  \label{def:campo_ordinato}%
+  Diremo che $G$ è un \emph{gruppo totalmente ordinato}
+\mymargin{gruppo totalmente ordinato}%
+\index{gruppo!ordinato}% 
+  se $G$ è un gruppo
+  (con operazione $*$),
+  se è anche un insieme totalmente ordinato (con relazione $\le$)
+  e se l'operazione del gruppo mantiene 
+  l'ordinamento ovvero vale la proprietà
   \begin{enumerate}
-    \item[1.] monotonia: se $x\le y$ allora per ogni $z$ si ha:
+    \item[1.] monotonia:
+    se $x\le y$ allora per ogni $z$ si ha:
       \[
       x*z \le y*z \qquad\text{e}\qquad z*x \le z*y.
       \] 
   \end{enumerate}
+  Diremo che il gruppo totalmente ordinato, 
+  è \emph{denso} o \emph{continuo} se la relazione 
+  d'ordine ha anche tali proprietà.
+
+  Diremo che $R$ è un \emph{campo ordinato}
+\mymargin{campo ordinato}%
+\index{campo!ordinato}%
+  se è un campo, 
+  se rispetto alla addizione 
+  è un gruppo abeliano totalmente ordinato
+  (dunque l'addizione preserva l'ordinamento 
+  $x\le y \implies x+z\le y+z$)
+  e se inoltre anche la moltiplicazione per un numero positivo 
+  mantiene l'ordinamento:
+  \begin{enumerate}
+    \item[2.] monotonia: 
+    se $x\le y$ e $0\le z$ allora $x\cdot z \le y\cdot z$. 
+  \end{enumerate} 
+
+  Diremo che il campo ordinato è \emph{continuo} 
+  se l'ordinamento è continuo.
 \end{definition}
+
+Se $G$ è un gruppo totalmente ordinato con elemento neutro $e$ si ha:
+\[
+  x\le y  \iff e\le x * y^{-1}.
+\]
+Significa che l'ordinamento è univocamente determinato 
+dal confronto con l'elemento neutro, ovvero dal sapere 
+quali sono gli elementi positivi.
+
+\begin{example}
+Vedremo che $\QQ$ è un esempio di campo ordinato denso ma non continuo 
+mentre $\RR$ è l'unico esempio di campo ordinato continuo.
+Vedremo anzi che $\RR$ è anche l'unico gruppo additivo totalmente ordinato denso, continuo non banale.
+\end{example}
+
+\begin{example}
+Un esempio banale di gruppo totalmente ordinato denso e continuo è $X=\ENCLOSE{0}$.
+\end{example}
 
 \section{i numeri naturali}
 \label{sec:naturali}
@@ -2931,27 +3097,7 @@ moltiplicazione su $\ZZ$.
 
 In effetti scopriamo che $\ZZ$ è un \emph{anello}%
 \mymargin{anello}%
-\index{anello} abeliano con unità, in base alla seguente.
-%
-\begin{definition}[anello]
-  \label{def:anello}%
-  \mynote{Nella definizione~\ref{def:campo} abbiamo introdotto la 
-  struttura di \emph{campo}. 
-  E' utile osservare che ogni campo è in particolare un anello,
-  quello che manca all'anello per essere un campo è l'esistenza 
-  dell'inverso moltiplicativo (la moltiplicazione mi dà una 
-  struttura di monoide ma non necessariamente di gruppo).}
-  Sia $A$ un insieme su cui sono definite due operazioni: 
-  addizione e moltiplicazione.  
-  Diremo che $A$ è un \emph{anello} se $A$ è un gruppo abeliano rispetto alla 
-  addizione, 
-  se la moltiplicazione è associativa $(x\cdot y)\cdot z = x\cdot (y\cdot z)$ 
-  e se vale la proprietà distributiva $x\cdot(y+z) = x\cdot y + x\cdot z$,
-  $(x+y)\cdot z = x\cdot z + y\cdot z$.
-  Se inoltre la moltiplicazione è commutativa diremo che $A$ è un \emph{anello abeliano}.
-  Se inoltre esiste un elemento $1\in A$ neutro per la moltiplicazione 
-  diremo che $A$ è un anello \emph{con unità}.
-\end{definition}
+\index{anello} abeliano con unità.
 
 In generale se $A$ è un anello allora si può dimostrare che valgono anche le usuali proprietà:
 \[
@@ -4286,125 +4432,8 @@ Di conseguenza si ottiene anche la stretta monotonia.
 
 Su $\RR$ abbiamo definito due operazioni: l'addizione e la moltiplicazione.
 Le proprietà di queste operazioni ci dicono che $\RR$ 
-è un campo ordinato in base alla seguente
+è un campo ordinato.
 
-\begin{definition}[campo]
-  \label{def:campo}%
-Sia $R$ un insieme su cui sono definite due operazioni: l'addizione $+$ e la moltiplicazione $\cdot$.
-Diremo che $R$ è un \emph{campo}
-se valgono le seguenti proprietà:
-\begin{enumerate}
-  \item $R$ è un gruppo abeliano rispetto alla addizione e denotiamo con $0$ il suo elemento neutro;
-  \item $R\setminus\ENCLOSE{0}$ è un gruppo abeliano rispetto alla moltiplicazione e,
-  se denotiamo con $1$ l'elemento neutro si ha $1\neq 0$;
-  \mynote{se non richiediamo la proprietà commutativa della moltiplicazione si dirà 
-  che $R$ è un \emph{corpo}.}
-  \item proprietà distributiva: $x\cdot(y+z) = x\cdot y + x\cdot z$.
-\end{enumerate}
-
-Diremo inoltre che $R$ 
-è un \emph{campo ordinato}
-se è definita una relazione $\le$ 
-con le seguenti proprietà:
-\begin{enumerate}
-  \item[4.] la relazione $\le$ è una relazione d'ordine totale;
-  \item[5.] monotonia: 
-  se $x\le y$ allora $x+z\le y+z$, 
-  se $x\ge 0$ e $y\ge 0$ allora $x\cdot y \ge 0$.
-\end{enumerate} 
-
-Diremo infine che $R$ è un \emph{campo ordinato continuo} se è un campo ordinato 
-e l'ordinamento è continuo.
-\end{definition}
-
-Ovviamente in un campo sono definite, oltre all'addizione e la moltiplicazione anche 
-la sottrazione e la divisione. 
-Infatti la proprietà di essere un gruppo additivo garantisce che 
-per ogni $x\in R$ esista l'opposto $-x$ tale che $x+(-x)=0$.
-Si potrà quindi definire la sottrazione come la somma con l'opposto: 
-$z-x \defeq z + (-x)$.
-Analogamente essendo $R\setminus\ENCLOSE{0}$ un gruppo moltiplicativo,
-se $x\neq 0$ esiste anche il reciproco $y=1/x$, 
-ovvero un elemento tale che $x\cdot y = 1$.
-Se $x\neq 0$ si può quindi definire la divisione per $x$ come 
-il prodotto col reciproco: $z/x = \frac{z}{x} = z\cdot (1/x)$.
-
-Se $R$ è un campo ordinato allora l'ordinamento di $R$ è sempre denso.
-Infatti dati $x<y$ il punto $z=\frac{x+y}{2}$ è sempre 
-un punto intermedio tra $x$ e $y$.
-
-%Le proprietà delle operazioni di un campo dovrebbero essere ben note 
-%a chi ha seguito un qualunque programma scolastico di matematica.
-%Tipicamente se abbiamo una equazione su un campo, o una disequazione 
-%su un campo ordinato, 
-%è utile sapere come l'equazione (o disequazione) può essere modificata per ottenere 
-%una equazione (o disequazione) equivalente. 
-%Ad esempio:
-%%
-%\begin{enumerate}
-%  \item possiamo aggiungere o sottrarre lo stesso valore ai due lati 
-%  di una equazione o disequazione;
-%  \item possiamo moltiplicare o dividere i due lati di una 
-%  equazione per qualunque
-%  valore diverso da zero; possiamo moltiplicare ambo i lati di 
-%  una disequazione per un numero positivo; 
-%  possiamo moltiplicare ambo i lati di una disequazione 
-%  per un numero negativo se poi invertiamo il verso della disequazione.
-%\end{enumerate}
-%
-%Queste regole sono casi particolari di una regola più generale. 
-%Per quanto riguarda le equazioni se abbiamo una qualunque 
-%funzione iniettiva 
-%$f\colon A\to B$ sappiamo che 
-%\[
-%  x = y \iff f(x) = f(y).   
-%\]
-%Si nota allora che la funzione $f(x) = x + c$, 
-%$f\colon R\to R$ 
-%è iniettiva se $R$ è un gruppo additivo.
-%Allo stesso modo se $c\neq 0$ la funzione $f(x)=c\cdot x$ 
-%$f\colon R\to R$,
-%è bigettiva 
-%se $R$ è un campo. 
-%Per questo motivo si ottengono le regole enunciate in precedenza.
-%
-%Su un insieme totalmente ordinato, 
-%le funzioni che mantengono l'ordinamento:
-%\[
-% x < y \iff f(x) < f(y), \qquad x\le y \iff f(x)\le f(x)
-%\]
-%sono, per definizione, le funzioni \emph{strettamente crescenti}.
-%Tali funzioni mantengono sia l'ordine stretto che l'ordine largo.
-%Questo spiega le proprietà delle disequazioni.
-%  
-%\begin{exercise}[punto medio]
-%Sia $R$ un campo ordinato e siano $x,y\in R$ con $x<y$.
-%Dimostrare che posto $z=\frac{x+y}{2}$ si ha $x<z<y$. 
-%\end{exercise}
-%
-%\begin{exercise}
-%  Si dimostri che su un campo risulta
-%  \[
-%   x = y \iff x^3= y^3
-%  \]
-%  e su un campo ordinato
-%  \[
-%  x < y \iff x\cdot x \cdot x^3 < y^3.
-%  \]
-%  Si mostri, con un esempio, che invece
-%  \[
-%  \text{non valgono:} \qquad 
-%  x = y \iff x^2 = y^2,
-%  x < y \iff x^2 < y^2.
-%  \]
-%\end{exercise}
-%
-%L'esercizio precedente ci dice che un campo ordinato è sempre \emph{denso}.
-%Dunque un campo ordinato continuo è in particolare un gruppo totalmente 
-%ordinato denso e continuo.
-%Dunque per il teorema di isomorfismo ogni campo ordinato e continuo è
-%isomorfo ad $\RR$.
-%
 
 \subsection{valore assoluto}
 
