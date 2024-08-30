@@ -2724,7 +2724,6 @@ Ovvero, dimostrare che per ogni $n\in \NN$ si ha
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
 \subsection{buon ordinamento e unicità dei numeri naturali}
 
 Si faccia riferimento alle definizioni~\ref{def:minimo}
@@ -2806,7 +2805,7 @@ Ma allora $f(\sigma(n))=\sigma'(f(n))=\sigma'(n')$
 e dunque anche $\sigma'(n')\in B$. 
 \end{proof}
 
-\subsection{rappresentazione posizionale dei numeri naturali}
+\subsection{rappresentazione decimale dei numeri naturali}
 
 Per rappresentare in modo efficiente qualunque numero naturale utilizziamo la 
 \emph{notazione posizionale decimale}%
@@ -2998,6 +2997,221 @@ in tal modo risulta che $n!$ è il prodotto dei primi $n$ numeri naturali positi
   (separatamente per i pari e per i dispari)
   e si dimostrino, per induzione, le formule nell'osservazione precedente.
 \end{exercise}
+
+\subsection{cardinalità finite}
+
+Denotiamo con $[n] = \ENCLOSE{k\in \NN\colon k<n}$
+l'insieme dei primi $n$ numeri naturali.
+Si avrà $[n]=\ENCLOSE{0,1,\dots, n-1}$.
+\mynote{
+  Si noti che se $\NN$ è l'insieme 
+  degli ordinali di Von Neumann \eqref{eq:vonNeumann} allora $[n]=n$.
+}
+
+\begin{definition}[cardinalità finite]
+Se $A$ è un insieme e $n\in \NN$ diremo che 
+$A$ ha $n$ elementi (o ha cardinalità $n$) e scriveremo 
+\mymargin{numero di elementi}%
+\[
+  \#A = n
+\]
+se esiste una funzione bigettiva $f\colon [n]\to A$.
+\end{definition}
+
+Intuitivamente se $f\colon [n]\to A$ è una qualunque funzione, 
+posto $a_1=f(0)$, $a_2=f(1)$, \dots, $a_{n}=f(n-1)$ 
+avremo che l'immagine di $f$ è $f([n]) = \ENCLOSE{a_1,a_2,\dots,a_n}$.
+Se $f$ è surgettiva $A=f([n])$ e se $f$ è iniettiva 
+tutti gli elementi $a_1$, \dots, $a_n$ saranno distinti
+e quindi effettivamente l'insieme $A=\ENCLOSE{a_1,a_2,\dots,a_n}$
+ha $n$ elementi.
+
+\begin{theorem}[cardinalità finite]
+Un insieme $A$ è finito
+(nel senso di Dedekind, definizione~\ref{def:infinito})
+se e solo se esiste $n\in \NN$ tale che $\#A = n$.
+Inoltre tale $n$, se esiste, è unico.
+\end{theorem}
+\begin{proof}
+\emph{Passo 1.} Dimostriamo innanzitutto che $[n]$ è finito.
+Si tratta di dimostrare che se $f\colon [n]\to [n]$ è iniettiva allora è anche surgettiva.
+Lo facciamo per induzione. 
+Per $n=0$ notiamo che $[0]=\emptyset$ e c'è una unica funzione $f\colon \emptyset \to \emptyset$
+(la funzione vuota: $\emptyset^\emptyset = \ENCLOSE{\emptyset}$)
+che in effetti è bigettiva.
+Supponiamo ora che $[n]$ sia finito e che $f\colon [n+1]\to [n+1]$ sia iniettiva.
+Possiamo allora definire $g\colon[n]\to[n]$ ponendo:
+\[
+  g(k) = \begin{cases}
+    f(k) & \text{se $f(k)\neq n$,}\\
+    f(n) & \text{se $f(k)=n$.}
+  \end{cases}
+\]
+Con un poco di attenzione si verifica facilmente che se $f$ è iniettiva allora anche $g$ è iniettiva
+(l'idea è che $g$ utilizza gli stessi valori di $f$ scartando il valore $n$, visto che $n\not in [n]$, 
+e utilizzando al suo posto il valore $f(n)$).
+Ma allora, per ipotesi induttiva, $g$ è bigettiva.
+Dunque anche $f$ è bigettiva perché assume tutti i valori assunti da $g$  
+e, avendo un punto più ed essendo iniettiva deve assumere un ulteriore valore che non può 
+che essere $n$.
+
+\emph{Passo 2.}
+Dimostriamo che se $\#A=n$ allora $A$ è finito.
+Data $f\colon A\to A$ iniettiva dobbiamo dimostrare che $f$ è surgettiva.
+Per ipotesi $\#A=n$ dunque esiste una funzione bigettiva $g\colon A\to [n]$.
+La funzione $h=g\circ f\circ g^{-1}\colon [n]\to [n]$ è iniettiva, in quanto composizione di funzioni iniettiva.
+Dunque, essendo $[n]$ finito per il passo 1, la funzione $h$ è anche surgettiva.
+Ma allora anche $f$ è surgettiva in quanto $f=g^{-1}\circ h\circ g$.
+
+\emph{Passo 3.} Dimostriamo che se $f\colon[n]\to A$ è iniettiva
+ed esiste $g\colon[n+1]\to A$ iniettiva allora $f$ non può 
+essere surgettiva.
+Infatti se $f$ fosse bigettiva allora la funzione
+$h\colon [n+1]\to [n]$ definita da $h=f^{-1}\circ g$ 
+sarebbe iniettiva.
+Ma la sua restrizione $h'=h \llcorner [n]$ sarebbe una funzione
+iniettiva $h'\colon[n]\to[n]$ ma non assumerebbe mai il valore 
+$h(n)$ dunque non sarebbe suriettiva.
+Per definizione questo significa che $[n]$ è infinito, 
+cosa che abbiamo già escluso al passo 1.
+
+\emph{Passo 4.}
+Dimostriamo che se $A$ è finito allora esiste $n\in \NN$ tale che $\#A=n$.
+Passiamo alla contronomiale e supponiamo che non esista $n\in \NN$ tale che $\#A=n$:
+dobbiamo dimostrare che in tal caso $A$ è infinito.
+Per fare questo consideriamo le famiglie di funzioni:
+\[
+  J_n(A) = \ENCLOSE{f\colon [n]\to A\colon f \text{ iniettiva}}.
+\]
+
+Ovviamente se $f\in J_{n+1}(A)$ allora $f$ ristretta a $[n]$ è elemento di $J_n(A)$.
+Dunque se $J_n(A)=\emptyset$ allora anche $J_{n+1}(A)=\emptyset$.
+ 
+Se $J_n(A)\neq \emptyset$ e $J_{n+1}(A)=\emptyset$ allora possiamo affermare che $\#A=n$ 
+perché presa una funzione iniettiva $f\in J_n(A)$ se questa non fosse surgettiva potremmo 
+estenderla ad una funzione iniettiva $f'\in J_{n+1}(A)$.
+
+Dunque dovrà essere $J_n(A)\neq \emptyset$ per ogni $n\in \NN$.
+
+Per il passo 3 sappiamo che data 
+$f\in J_n(A)$ esiste $g\in J_{n+1}(A)$
+tale che $g$ coincide con $f$ su $[n]$. 
+Deve dunque esistere una successione di funzioni
+$f_n\colon [n]\to A$ tali che $f_{n+1}$ coincide con $f_n$ su $[n]$.
+I grafici di queste funzioni sono dunque una successione crescente di insiemi e la loro 
+unione è il grafico di una funzione $f\colon \NN \to A$ che anch'essa 
+coincide con $f_n$ su $[n]$. 
+Dunque $f$ è iniettiva perché se fosse $f(n)=f(m)$
+con $m<n$ si avrebbe anche $f_n(n)=f_n(m)$ che non può essere visto che ogni $f_n$ è iniettiva.
+Sull'immagine di $f$ ho quindi una struttura isomorfa a $\NN$ che posso sfruttare per 
+costruire una funzione iniettiva ma non suriettiva su $A$.
+Definisco $h\colon A\to A$ ponendo:
+\[
+  h(x) = \begin{cases}
+    f(f^{-1}(x)+1) &\text{se $x$ è nell'immagine di $f$},\\
+    x &\text{altrimenti}
+  \end{cases}
+\]
+ovviamente $h$ è iniettiva (in quanto $f$ lo è) 
+ma non è suriettiva (in quanto $f(0)$ non è nell'immagine di $h$).
+
+Abbiamo quindi mostrato che $A$ è infinito, come volevamo.
+
+\emph{Passo 5.}
+Dimostriamo che se $A\subset B$, $\#A=m$, $\#B=n$ allora $m\le n$.
+Se per assurdo fosse $\#A=n$ e $\#A=m$ con $m>n$ allora 
+avremmo una contraddizione con quanto affermato al passo 3
+in quanto dovrebbe esistere una funzione bigettiva $f\colon[n]\to A$ 
+(in quanto $\#A=n$) e dovrebbe esistere una funzione iniettiva 
+$g\colon[n+1]\to A$ in quanto essendo $\#A=m$ c'è una funzione iniettiva 
+$[m]\to A$ che posso restringere a $[n+1]$.
+\end{proof}
+
+\begin{theorem}[operazioni con le cardinalità finite]
+  Se $A$ e $B$ sono insiemi finiti risulta:
+  \begin{align}
+    \#(A\cup B) &= \#A + \#B \quad \text{se $A\cap B=\emptyset$},\\
+    \#(A\setminus B) &= \#A - \#B \quad \text{se $B\subset A$},\\
+    \#(A\times B) &= \#A \cdot \#B, \\
+    \#(B^A) &= \#B^{\#A}, \\
+    \#(A!) &= (\#A)!, \\
+    \#(\P(A)) &= 2^{\#A}.
+  \end{align}
+\end{theorem}
+\begin{proof}
+Per quanto riguarda l'unione disgiunta, se $f\colon [n]\to A$ e $g\colon [m]\to B$
+sono bigettive, una funzione bigettiva $h\colon [n+m] \to A\cup B$ si può
+definire così:
+\[
+  h(k) = \begin{cases}
+    f(k) & \text{se } k<n,\\
+    g(k-n) & \text{se } k\ge n.
+  \end{cases}
+\] 
+Si verifica facilmente che $h$ è bigettiva.
+Per quanto riguarda la differenza $A\setminus B$ basta osservare che se $B\subset A$
+allora $A = (A\setminus B) \cup B$ e dunque $\#A = \#(A\setminus B) + \#B$ per il punto precedente.
+
+Nei casi rimanenti, senza perdità di generalità, 
+possiamo supporre che sia $A=[n]$. E procediamo per induzione su $n$.
+
+Per il prodotto cartesiano il caso $n=0$ corrisponde a $\emptyset\times B = \emptyset$.
+Il passo induttivo si dimostra osservando che $[n+1]\times B = [n]\times B \cup \ENCLOSE{n} \times B$
+da cui, passando alle cardinalità diventa $(n+1)\cdot m = n\cdot m + m$.
+
+Per le funzioni $B^[n+1]$ sono le funzioni $[n+1]\to B$ che si possono identificare
+univocamente prendendo una funzione $f\colon [n]\to B$ e un valore $b\in B$ da assegnare 
+al punto $n$. 
+Dunque $B^{[n+1]}$ è in corrispondenza biunivoca con $B^{[n]}\times B$
+e passando alle cardinalità si ottiene appunto $m^{n+1} = m^n\cdot m$.
+
+L'insieme $A!$ è l'insieme delle funzioni bigettive $A\to A$. 
+Visto che $A$ è finito l'insieme delle funzioni bigettive coincide 
+con l'insieme delle funzioni iniettive. 
+Supponiamo $A=[n]$ e procediamo per induzione su $n$.
+Se $n=0$ si ha $\emptyset!=\ENCLOSE{\emptyset}$ che, passando alle cardinalità, diventa $0!=1$.
+Per il passo induttivo osserviamo che una funzione iniettiva $[n+1]\to B$ 
+si identifica univocamente scegliendo il valore $b\in B$ da assegnare al punto $n$ 
+e poi prendendo una funzione $f\colon [n]\to B\setminus\ENCLOSE{b}$ iniettiva. 
+Dunque $[n+1]!$ si identifica con $B\times [n]!$ e, passando alle cardinalità, questo diventa 
+la definizione ricorsiva del fattoriale: $(n+1)! = (n+1)\cdot n!$.
+
+Per l'insieme delle parti osserviamo che $\P(A)$ è in corrispondenza biunivoca con
+l'insieme delle funzioni $A\to \ENCLOSE{0,1}$: basta associare ad ogni sottoinsieme $X$ di $A$ 
+la funzione che vale $1$ su $X$ e $0$ altrimenti. 
+Dunque $\#(\P(A)) = \#([2]^A) = 2^{\#A}$.
+\end{proof}
+
+\begin{theorem}[principio dei cassetti (o dei piccioni)]
+  \index{principio!dei cassetti}%
+  \index{cassetti, principio dei}%
+  \index{piccioni, principio dei}%
+Se $A$ e $B$ sono insiemi finiti e $\#A > n\cdot \#B$ allora 
+per ogni $f\colon A \to B$ esiste $b\in B$ tale che 
+\[
+ \# f^{-1}(\ENCLOSE{b}) \ge n+1.
+\]
+\end{theorem}
+\begin{proof}
+Dimostriamo l'implicazione contronominale: se per ogni $b\in B$ si ha $\# f^{-1}(b) < n+1$
+allora $\#A \le n\cdot \#B$.
+Senza perdere di generalità supponiamo inoltre $A=[m]$.
+Data la funzione $f\colon A\to B$ possiamo definire una nuova funzione $g\colon A\to B\times[n]$ 
+ponendo:
+\[
+  g(a) = \left(f(a),\# \ENCLOSE{x\in [a]\colon f(x)=f(a)}\right).
+\]
+Abbiamo in pratica appiccicato una diversa etichetta ad ogni valore di $f$. 
+In questo modo è facile convincersi che $g$ risulta essere iniettiva.
+Dunque $\#A \le \#(B\times [n]) = n\cdot \# B$ che è la tesi contronominale.
+\end{proof}
+
+\begin{example}
+In un gruppo di 1000 persone ci sono almeno tre persone che compiono gli anni lo stesso giorno.
+Si applica il principio dei cassetti con $A$ insieme delle persone, 
+$B$ insieme dei giorni dell'anno $f\colon A\to B$ che associa ad ogni persona il giorno
+del suo compleanno. Visto che $1000 > 366 \cdot 2$ il teorema si applica con $n=2$.
+\end{example}
 
 \section{i numeri interi}
 
@@ -7761,7 +7975,7 @@ per significare rispettivamente
 \]
 \end{definition}
   
-\begin{lemma}\label{lm:nfinito}
+\begin{lemma}\label{lm:infinito}
 Per ogni $n\in \NN$ l'insieme $[n]=\ENCLOSE{0,1,2, \dots, n-1}$ è 
 finito (nel senso di Dedekind, definizione~\ref{def:infinito}).
 \end{lemma}
@@ -7841,7 +8055,7 @@ l'utilizzo dell'assioma della scelta.
 $\#A < \aleph_0$%
 
 Se $\#A = n$ significa che $\#A = \#\Enclose{n}$ e 
-grazie al lemma~\ref{lm:nfinito} sappiamo che $[n]$ è finito 
+grazie al lemma~\ref{lm:infinito} sappiamo che $[n]$ è finito 
 e dunque anche $A$ è finito.
 
 Supponiamo ora che $A$ sia un insieme per il quale per ogni $n\in \NN$ 
