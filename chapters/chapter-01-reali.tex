@@ -2437,54 +2437,55 @@ Allora applicando la prima parte possiamo trovare $F\colon \NN\to Y$
 tale che $F(0) = (0,\alpha)$ e $F(\sigma(n)) = G(F(n))$.
 Basterà prendere come $f(n)$ la seconda componente di $G(n)$.
 \end{proof}
-  
-% In particolare il teorema precedente ci permette di definire l'iterata $n$-esima $f^n$ 
-% di una qualunque funzione $f\colon X\to X$.
-% Se $\id_X\colon X\to X$ rappresenta la funzione identità su $X$:
-% $\id_X(x)=x$,
-% possiamo definire:
-% \index{iterazioni}%
-% \index{funzione!iterata}%
-% \index{funzione!composta}%
-% \begin{equation}\label{def:iterata}
-%   \begin{cases}
-%     f^0 = id_X,\\
-%     f^{\sigma(n)} = f\circ f^n.
-%   \end{cases}
-% \end{equation}
 
-Tramite il precedente teorema
-è possibile definire
-le operazioni di addizione, 
-moltiplicazione ed elevamento a potenza
-su $\NN$
-tramite le seguenti definizioni ricorsive:
-\index{addizione!su $\NN$}%
-\index{moltiplicazione!su $\NN$}%
-\index{elevamento a potenza!su $\NN$}%
-\begin{gather*}
+\begin{theorem}[addizione su $\NN$]
+  \label{th:addizione_naturali}%
+  \index{addizione!su $\NN$}%
+  \mymargin{addizione}%
+Su $\NN$ è definita in modo unico una operazione di addizione 
+che soddisfa le seguenti proprietà:
+\begin{equation}\label{eq:3408923}
   \begin{cases}
     n + 0 = n,\\
-    n + \sigma(m) = \sigma(n+m);
+    n + \sigma(m) = \sigma(n+m).
   \end{cases}
-  \qquad
-  \begin{cases}
-    n \cdot 0 = 0,\\
-    n \cdot (m+1) = n\cdot m + n;
-  \end{cases}
-  \qquad
-  \begin{cases}
-    n^0 = 1,\\
-    n^{m+1} = n\cdot n^m.
-  \end{cases}
-\end{gather*}
+\end{equation}
 
-Queste definizioni catturano l'idea che la somma è una ripetizione dell'operazione di successore:
-$n+k$ si ottiene applicando $k$ volte la funzione $\sigma$ ad $n$,
-la moltiplicazione è una somma ripetuta: 
-$n\cdot k = \underbrace{n+\dots+n}_{k \text{ addendi}}$,
-e l'elevamento a potenza è un prodotto ripetuto: 
-$n^k = \underbrace{n\cdot \ldots \cdot n}_{k \text{ fattori}}$.
+Questa operazione rende $\NN$ un monoide additivo commutativo 
+con elemento neutro $0$.
+\end{theorem}
+\begin{proof}
+L'operazione di addizione è univocamente definita 
+grazie al teorema~\ref{th:induzione}.
+
+Per dimostrare che $\NN$ è un monoide commutativo dobbiamo verificare
+che $0$ è elemento neutro e che valgono la proprietà associativa 
+e commutativa.
+
+Chiaramento $n+0=n$ per la definizione~\eqref{eq:3408923}. 
+Verifichiamo ora che anche $0+m=m$ e lo facciamo per induzione su $m$.
+Se $m=0$ risulta vero per la definizione.
+Per quanto riguarda $0+\sigma(m)$ abbiamo per definizione:
+$0+\sigma(m)=\sigma(0+m)$ e per ipotesi induttiva $0+m=m$.
+Dunque $0+\sigma(m)=\sigma(m)$, che è quanto volevamo dimostrare.
+
+Verifichiamo la proprietà associativa: $n+(m+k) = (n+m)+k$, lo 
+facciamo per induzione su $k$. 
+Se $k=0$ allora $n+(m+0)=n+m=(n+m)+0$, per le proprietà precedenti.
+Per il passo induttivo valutiamo (usando sempre la definizione~\eqref{eq:3408923}):
+$n+(m+\sigma(k)) = n+\sigma(m+k) =\sigma(n+(m+k))$.
+L'ipotesi induttiva garantisce che $n+(m+k)=(n+m)+k$ e quindi:
+$n+(m+\sigma(k)) = \sigma((n+m)+k) = (n+m)+\sigma(k)$
+che è quanto volevamo dimostrare.
+
+Verifichiamo infine la proprietà commutativa: $n+m=m+n$.
+Lo facciamo per induzione su $m$. 
+Se $m=0$ è banale per le proprietà dell'elemento neutro.
+Il passo induttivo risulta immediatamente 
+grazie alla definizione~\ref{eq:3408923} 
+e all'ipotesi induttiva: 
+$n+\sigma(m) = \sigma(n+m) = \sigma(m+n) = m+\sigma(n)$.
+\end{proof}
 
 \begin{example}\label{ex235}
   Dimostrare che $2+3=5$.
@@ -2505,24 +2506,21 @@ e $n+0=n$:
 \end{align*}
 \end{proof}
 
-\begin{exercise}
-Dimostrare che $2\cdot 3 = 6$ e che $2^3 = 8$.
-\end{exercise}
+\mymargin{$\sigma(n)=n+1$}%
+Visto che $\sigma(n) = \sigma(n+0) = n+\sigma(0) = n+1$, 
+potremo in futuro evitare di utilizzare la funzione \emph{successore} 
+e scrivere direttamente $n+1$ per indicare il successore di $n$.
 
-Definiamo l'ordinamento di $\NN$ 
-con l'idea che un numero $m$ è \emph{più grande} di $n$ 
-se si ottiene aggiungendo qualcosa ad $n$.
-\index{relazione!d'ordine su $\NN$}%
-\mymargin{ordinamento di $\NN$}%
-\[
-   n\le m \iff \exists k\in \NN \colon n+k = m.
-\]
-
-Nel seguente teorema vogliamo definire la moltiplicazione
-come somma ripetuta e l'elevamento a potenza come moltiplicazione ripetuta.
+Abbiamo definito l'addizione $n+m$ 
+come l'iterazione della funzione successore.
+In generale è possibile definire la moltiplicazione per un numero naturale 
+come una somma ripetuta, e l'elevamento a potenza (con esponente naturale)
+come una moltiplicazione ripetute. 
+Questo può essere fatto su $\NN$ come su ogni monoide.
 
 \begin{theorem}[operazioni iterate]
-Se $M$ è un monoide additivo con zero (definizione~\ref{def:monoide})
+\label{th:operazioni_iterate}%
+Se $M$ è un monoide additivo (definizione~\ref{def:monoide})
 possiamo definire per induzione la moltiplicazione $n\cdot x$ tra un numero 
 naturale $n\in \NN$ e un elemento $x$ del monoide:
 \[
@@ -2542,13 +2540,13 @@ Valgono inoltre le seguenti proprietà
   \item proprietà associativa: $n\cdot (m\cdot x)= (n\cdot m)\cdot x$.
 \end{enumerate}
 
-Lo stesso ovviamente si può fare nei monoidi moltiplicativi con unità
-per definire la potenza $x^n$ come prodotto ripetuto:
+Lo stesso ovviamente si può fare nei monoidi moltiplicativi
+se definiamo la potenza $x^n$ come prodotto ripetuto:
 \[
   x^0 = 1 \in M \\
-  x^{n+1} = x^n \cdot x.
+  x^{n+1} = x^n \cdot x,
 \]
-Le proprietà sono analoghe:
+le proprietà sono analoghe:
 \begin{enumerate}
   \item potenze banali: $x^0=1$, $1^n=1$;
   \item potenza del prodotto: $(x\cdot y)^n = x^n\cdot y^n$;
@@ -2589,15 +2587,32 @@ $((n+1)\cdot m)\cdot x
 
 Per quanto riguarda il monoide moltiplicativo le proprietà sono esattamente 
 le stesse, cambia solamente la notazione con cui le scriviamo:
-al posto della somma su $M$ scriviamo un prodotto, al posto del prodotto 
-scriviamo una potenza. Le operazioni su $\NN$ invece rimangono le stesse.
+al posto della somma su $M$ scriviamo un prodotto, e al posto del prodotto 
+scriviamo una potenza. 
 \end{proof}
 
-\begin{theorem}[operazioni su $\NN$]
-  \label{th:operazioni_naturali}%
-Le operazioni di addizione e moltiplicazione 
-soddisfano le seguenti proprietà:
-  \begin{enumerate}
+\begin{exercise}
+  Dimostrare che $2\cdot 3 = 6$ e che $2^3 = 8$.
+\end{exercise}
+  
+Definiamo l'ordinamento di $\NN$ 
+con l'idea che un numero $m$ è \emph{più grande} di $n$ 
+se si ottiene aggiungendo qualcosa ad $n$.
+\index{relazione!d'ordine su $\NN$}%
+\mymargin{ordinamento di $\NN$}%
+\[
+    n\le m \iff \exists k\in \NN \colon n+k = m.
+\]
+
+\begin{theorem}[proprietà delle operazioni su $\NN$]
+\label{th:operazioni_naturali}%
+\index{moltiplicazione!su $\NN$}%
+\index{elevamento a potenza!su $\NN$}%
+Le operazioni di addizione, moltiplicazione, elevamento a potenza 
+e l'ordinamento definiti su $\NN$
+soddisfano le seguenti proprietà.
+Proprietà di addizione e moltiplicazione:
+\begin{enumerate}
     \item elemento neutro:
       $n + 0 = 0 + n = n$,
       $n\cdot 1 = 1\cdot n = n$;
@@ -2611,9 +2626,9 @@ soddisfano le seguenti proprietà:
      $k\cdot (n+m) = k\cdot n + k\cdot m$;
     \item proprietà invariantiva:
      se $m+k = n+k$ allora $m=n$;
-    \item annullamento del prodotto: se $m\cdot n=0$ allora $m=0$ o $n=0$;  
-  \end{enumerate}
-l'elevamento a potenza soddisfa le seguenti proprietà:
+    \item annullamento del prodotto: se $m\cdot n=0$ allora $m=0$ o $n=0$;
+\end{enumerate}
+proprietà dell'elevamento a potenza:
 \begin{enumerate}
   \item $n^0 = 1$;
   \item $n^1 = n$;
@@ -2621,7 +2636,7 @@ l'elevamento a potenza soddisfa le seguenti proprietà:
   \item $(n^m)^k = n^{m\cdot k}$;
   \item $(n\cdot m)^k = n^k \cdot m^k$;
 \end{enumerate}
-l'ordinamento soddisfa infine queste proprietà:
+proprietà di ordinamento:
 \begin{enumerate}
   \item $n\le n$ (proprietà riflessiva);
   \item se $n\le m$ e $m\le k$ allora $n\le k$ (proprietà transitiva);
@@ -2633,81 +2648,41 @@ l'ordinamento soddisfa infine queste proprietà:
    $k^m \le k^n$ e $m^k \le n^k$. 
 \end{enumerate}
 \end{theorem}
+%
 \begin{proof}
-  Le proprietà andranno dimostrate per induzione.
-  I casi base sono sempre banali, verifichiamo sinteticamente i passi induttivi.
-  
-  Cominciamo con le proprietà della addizione.
-  Ricordiamo che la definizione induttiva 
-  garantisce che $n+(m+1) = (n+m)+1$.
-  Il passo induttivo per dimostrare 
-  la proprietà associativa è 
-  \[
-  (n+m)+(k+1) 
-  = ((n+m)+k)+1 
-  = (n+(m+k))+1
-  = n +((m+k)+1)
-  = n + (m + (k+1)).
-  \]
-  Per l'elemento neutro:
-  \[
-  0+(n+1) = (0+n)+1 = n+1.
-  \]
-  Per la proprietà commutativa dobbiamo prima dimostrare che $n+1=1+n$.
-  Ma infatti per induzione si ha $n+1+1 = 1+n+1$.
-  Allora il passo induttivo della proprietà commutativa risulta:
-  \[
-  n + m + 1 
-  = m + n + 1
-  = m + 1 + n.
-  \]
-  
-  Per dimostrare la proprietà invariantiva se vale $m+k+1=n+k+1$
-  allora $\sigma(m+k)=\sigma(n+k)$ ed essendo $\sigma$ iniettiva 
-  possiamo dedurre $m+k=n+k$. Ma allora, per ipotesi induttiva, $m=n$. 
-    
-  Passiamo ora alla moltiplicazione.
-  L'elemento assorbente è dato per definizione: $n\cdot 0 = 0$.
-  Per l'elemento neutro si ha $n\cdot 1 = n\cdot 0 + n = 0+n=n$.
+Molte di queste proprietà sono valide in qualunque monoide, e sono già 
+state dimostrate nel teorema~\ref{th:operazioni_iterate}:
+elemento neutro, elemento assorbente, proprietà associativa, 
+distributiva e tutte le proprietà delle potenze.
+Che l'addizione sia commutativa e associativa è già stato dimostrato 
+nel teorema~\ref{th:addizione_naturali}.
+Dimostriamo le proprietà rimanenti.
 
-  Le altre proprietà andranno tutte dimostrate 
-  per induzione. 
-  I casi base saranno sempre banali, ci limitiamo a verificare 
-  i passi induttivi. 
+Dimostrare la proprietà invariantiva $n+k=m+k \implies n=m$ 
+per induzione su $k$.
+Per $k=0$ la proprietà è banale.  
+Per il passo induttivo osserviamo che se vale $m+k+1=n+k+1$
+allora, grazie all'iniettività di $\sigma$, 
+dovrà essere $m+k = n+k$
+e per ipotesi induttiva concludiamo $m=n$ come dovevamo dimostrare.
+  
+La proprietà $1\cdot n=n$ è conseguenza 
+della definizione: $(0+1)\cdot n = 0\cdot n + n = 0 + n = n$. 
+La proprietà $n\cdot 1=n$ si può dimostrare per induzione.
+Se $n=0$ è data per definizione. 
+Per il passo induttivo abbiamo $(n+1)\cdot 1 = n\cdot 1 + 1$
+ed essendo $n\cdot 1=n$ per ipotesi induttiva 
+si conclude $(n+1)\cdot 1 = n+1$, che è quanto dovevamo dimostrare.
 
-  Per la proprietà commutativa verifichiamo innanzitutto che 
-  $(m+1)\cdot n = m\cdot n + n$. 
-  Il passo induttivo è
-  \[
-  (m+1)\cdot(n+1) 
-  = (m+1)\cdot n + m + 1  
-  = m\cdot n + n + m + 1
-  = m\cdot (n+1) + n + 1. 
-  \]
-  Allora il passo induttivo della proprietà commutativa risulta:
-  \[
-  n\cdot (m+1) 
-  = n\cdot m + n 
-  = m \cdot n + n 
-  = (m+1)\cdot n.  
-  \]
-  Per la proprietà distributiva:
-  \begin{align*}
-  (n+1)\cdot(k+j) 
-  &= (k+j)\cdot (n+1)  
-  = (k+j)\cdot n + k + j
-  = n\cdot(k+j) + k + j\\
-  &= n\cdot k +k + n\cdot j + j
-  = (n+1)\cdot k + (n+1)\cdot j.
-  \end{align*}
-  Infine la proprietà associativa:
-  \[
-  n\cdot(m\cdot(k+1))
-  = n\cdot (m\cdot k + m) 
-  = n\cdot (m\cdot k) + n\cdot m
-  = (n\cdot m)\cdot k + n\cdot m
-  = (n\cdot m)\cdot (k+1). 
-  \]
+La proprietà commutativa $n\cdot m=m\cdot n$ si può dimostrare 
+facilmente per induzione su $n$. 
+Per $n=0$ è banale, grazie alla proprietà assorbente.
+Per il passo induttivo osserviamo che $(n+1)\cdot m = n\cdot m + m$
+e suppendo per ipotesi induttiva che $n\cdot m=m\cdot n$ 
+e usando la proprietà distributiva otteniamo:
+si ottiene $(n+1)\cdot m = m\cdot n + m\cdot 1 = m\cdot (n+1)$
+che è quanto dovevamo dimostrare.
+
 Per dimostrare l'annullamento del prodotto supponiamo per assurdo che 
 il prodotto di due numeri diversi da $0$ possa essere nullo.
 Un numero naturale diverso da zero è il successore di un altro numero naturale, 
@@ -2715,68 +2690,40 @@ quindi potremmo scrivere $(n+1)\cdot(m+1)=0$.
 Ma $(n+1)\cdot(m+1) = n\cdot m + n + m + 1$ è il successore di un numero naturale  
 quindi non può essere zero.
 
-Passiamo alle proprietà delle potenze.
-La prima proprietà $k^0=1$ è data per definizione.
-
-Le altre proprietà si dimostrano per induzione.
-I casi base sono tutti banali, ci limitiamo quindi 
-a mostrare i passi induttivi.
-
-Per dimostrare $k^{n+m}=k^n\cdot k^m$ il passo induttivo è:
-\[
-k^{n+m+1} 
-= k\cdot k^{n+m}  
-= k\cdot k^n\cdot k^m
-= k^n \cdot k^{m+1}.
-\]
-
-Per dimostrare $(k^n)^m = k^{n\cdot m}$ il passo induttivo è 
-\[
-  (k^n)^{m+1} 
-  = k^n\cdot (k^n)^m
-  = k^n\cdot k^{n\cdot m}
-  = k^{n+n\cdot m}
-  = k^{n\cdot(m+1)}.
-\]
-
-Infine per dimostrare $(k\cdot j)^n = k^n\cdot j^n$ 
-il passo induttivo è
-\[
-(k\cdot j)^{n+1} 
-= k\cdot j\cdot (k\cdot j)^n  
-= k\cdot j\cdot k^n\cdot j^n
-= k^{n+1}\cdot j^{n+1}.
-\]
-
 vediamo infinite le proprietà dell'ordinamento.
-Il fatto che $x+0=x$ dimostra la proprietà riflessiva.
+Il fatto che $n+0=n$ dimostra la proprietà riflessiva: $n\ge n$.
   
 Per la proprietà transitiva è sufficiente osservare
-che se $y=x+k$ e $z=y+j$ allora $z=x+k+j$.
+che se $n=m+j$ e $m=k+l$ allora $n=k+l+j$.
 
-Per la proprietà antisimmetrica supponiamo di avere $x=y+k$ 
-e $y=x+j$. Deduciamo che $x+k+j = y +k+j$ da cui $x=y$
-per la proprietà invariantiva dell'addizione.
+Per la proprietà antisimmetrica supponiamo di avere $n=m+k$ 
+e $m=n+j$. 
+Deduciamo che $ m = m+k+j$ da cui $k+j=0$.
+Se fosse $k\neq 0$ o $j\neq 0$ il lato sinistro sarebbe il successore 
+di un numero naturale, ma $0$ non è il successore di nessun numero naturale.
+Questo significa che $k=j=0$ e quindi $n=m$, come volevamo dimostrare.
 
 Per mostrare che l'ordinamento è totale dobbiamo invece 
 procedere con una dimostrazione per induzione. 
-Per induzione su $x\in \NN$ vogliamo mostrare 
-che per ogni $y\in \NN$ si ha $x\le y$ oppure $y\le x$. 
-Se $x=0$ il fatto è ovvio in quanto $y=y+0$ e quindi $y\ge 0$
-per ogni $y\in \NN$.
-Supponiamo ora di sapere che $x\le y$ oppure $y\le x$.
-Se $y\le x$ significa che $x = y + k$ per un qualche 
-$k\in \NN$. Ma allora $x+1 = y + k + 1$ e quindi 
-vale anche $y\le x+1$. 
-Se invece $x\le y$ significa che esiste $k\in \NN$ 
-per cui $y=x+k$. Se $k\neq 0$ allora $k=1+j$ con $j\in \NN$
-da cui $y=x+1+j$ e dunque anche $x+1\le y$.
-Se $k=0$ allora $x=y$ e dunque $x+1=y+1$ che ci porta 
-alla disuguaglianza inversa $x+1\ge y$.
+Per induzione su $n\in \NN$ vogliamo mostrare 
+che per ogni $m\in \NN$ si ha $n\le m$ oppure $m\le n$. 
+Se $n=0$ il fatto è ovvio in quanto $m=m+0$ e quindi $m\ge 0$
+per ogni $m\in \NN$.
+Fissati $m$ ed $n$, supponiamo ora di sapere che $n\le m$ oppure $m\le n$
+e dimostriamo che allora $n+1\le m$ oppure $m\le n+1$.
+Se $m\le n$ significa che $n = m + k$ per un qualche 
+$k\in \NN$. Ma allora $n+1 = m + k + 1$ e quindi 
+vale anche $m\le n+1$. 
+Se invece $n\le m$ significa che esiste $k\in \NN$ 
+per cui $m=n+k$. Se $k\neq 0$ allora $k=1+j$ con $j\in \NN$
+da cui $m=n+1+j$ e dunque anche $n+1\le m$.
+Se $k=0$ allora $n=m$ e dunque $n+1=m+1$ che ci porta 
+alla disuguaglianza inversa $m \le n+1$.
 In ogni caso il passo induttivo è dimostrato.
 
-
-Se $m\le n$ si ha $n=m+j$. 
+Dimostriamo ora la monotonia della somma e del prodotto.
+Sia $m\le n$ e sia $k$ qualunque.
+Visto che $m\le n$ si ha $n=m+j$. 
 Dunque
 \[
 n+k = m + j + k \ge m+k   
@@ -2786,7 +2733,7 @@ e
 m\cdot k = (n+j)\cdot k = n\cdot k + j\cdot k \ge n\cdot k.  
 \]
 
-Per la monotonia delle potenze procediamo per induzione.
+Per verificare la monotonia delle potenze procediamo per induzione.
 Basterà dimostrare che $m^k\le(m+1)^k$ e $k^m\le k^{m+1}$.
 Lo facciamo, a loro volta, per induzione:
 \[
@@ -2812,6 +2759,8 @@ diremo che $m$ è un \emph{multiplo} di $n$
 \index{multiplo}%
 \mymargin{multipli e divisori}%
 ovvero che $n$ \emph{divide} $m$ (si può scrivere $n\vert m$).
+Diremo che $n$ è \emph{pari} se $n$ è divisibile per due,
+altrimenti diremo che $n$ è \emph{dispari}.
 Se $n\neq 0$ e $m=k\cdot n$ allora $k$ è unico 
 (lo si verifichi utilizzando la proprietà di annullamento del prodotto)
 e si chiama \emph{quoziente} di $m$ diviso $n$, 
@@ -2830,6 +2779,15 @@ Ma nel prodotto $0^0$ ci sono $0$ fattori $0$ quindi non c'è in effetti nessuna
 moltiplicazione per $0$. 
 E' dunque naturale che il risultato sia $1$, 
 l'elemento neutro della moltiplicazione.
+
+\subsection{esercizi sul principio di induzione}
+
+\begin{exercise}
+Dimostrare che per ogni $n\in \NN$ si ha:
+\[
+  n \text{ dispari} \implies \exists k\in \NN\colon n=2k+1.
+\]
+\end{exercise}
 
 \begin{exercise}
 Si consideri la funzione definita per ricorrenza da 
