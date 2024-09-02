@@ -1817,7 +1817,30 @@ Per adesso facciamo un elenco delle strutture che incontreremo più avanti.
 Man mano che individueremo gli esempi di insiemi che rientrano in queste strutture
 sarà più chiaro il significato di queste definizioni.
 
-\begin{definition}[gruppo]
+\begin{definition}[monoide]%
+  \label{def:monoide}%
+  Sia $A$ un insieme su cui è definita una operazione $*$.
+  Se l'operazione è associativa: $x*(y*z) = (x*y)*z$ 
+  ed ha elemento neutro $e\in A$ tale che $e*x = x*e = x$
+  diremo che $A$ è un \emph{monoide}.
+  Se inoltre l'operazione è commutativa, $x*y=y*x$ 
+  diremo che $A$ è un \emph{monoide commutativo} (o abeliano).
+  
+  Quando per l'operazione $*$ viene utilizzato il simbolo di addizione $+$
+  diremo che il monoide è additivo. In tal caso l'elemento neutro 
+  si chiama \emph{zero} e si indica con $0$.
+  Se utilizziamo invece il simbolo di moltiplicazione $x\cdot y$
+  diremo che il monoide è moltiplicativo. In tal caso l'elemento 
+  neutro si chiama \emph{unità} e si indica usualmente con $1$.
+  \end{definition}
+  
+  \begin{example}
+  L'insieme dei numeri naturali è un monoide commutativo sia con l'operazione di addizione $+$ 
+  (monoide additivo) che con l'operazione di moltiplicazione 
+  $\cdot$ (monoide moltiplicativo).
+  \end{example}
+  
+  \begin{definition}[gruppo]
   \label{def:gruppo}%
   Un insieme $G$ su cui è definita una \emph{operazione} $*$ 
   si dice essere un \emph{gruppo}%
@@ -1953,6 +1976,17 @@ Allora possiamo dimostrare anche la seconda proprietà:
    (-1)\cdot x = (-1)\cdot x + x + (-x) = (-1 + 1)\cdot x + (-x) = 0 + (-x) = -x
 \]
 e anche in questo caso scrivendo gli addendi in ordine opposto si ottiene $x\cdot(-1)=-x$.
+
+Se $A$ è un campo, vale la legge di \emph{annullamento del prodotto}:
+\index{annullamento!prodotto}%
+\mymargin{annullamento prodotto}%
+\[
+  x\cdot y = 0 \iff x=0 \lor y=0.
+\]
+L'implicazione verso sinistra è la proprietà assorbente, che abbiamo già 
+verificato. 
+Viceversa se $x\cdot y = 0$ e $x\neq 0$ allora possiamo moltiplicare
+ambo i membri per $x^{-1}$ e ottenere $y=x^{-1}\cdot 0 = 0$.
 
 \begin{definition}[gruppo totalmente ordinato]
   \label{def:gruppo_ordinato}%
@@ -2483,6 +2517,81 @@ se si ottiene aggiungendo qualcosa ad $n$.
 \[
    n\le m \iff \exists k\in \NN \colon n+k = m.
 \]
+
+Nel seguente teorema vogliamo definire la moltiplicazione
+come somma ripetuta e l'elevamento a potenza come moltiplicazione ripetuta.
+
+\begin{theorem}[operazioni iterate]
+Se $M$ è un monoide additivo con zero (definizione~\ref{def:monoide})
+possiamo definire per induzione la moltiplicazione $n\cdot x$ tra un numero 
+naturale $n\in \NN$ e un elemento $x$ del monoide:
+\[
+\begin{cases}
+  0\cdot x = 0 \in M \\
+  (n+1)\cdot x = n\cdot x + x.
+\end{cases}
+\]
+
+Valgono inoltre le seguenti proprietà
+(valide per ogni $n,m\in \NN$ e ogni $x,y\in M$):
+\begin{enumerate}
+  \item elemento assorbente: $0\cdot x = 0$ e $n\cdot 0 = 0$;
+  \item proprietà distributive: 
+    $n\cdot (x+y)=n\cdot x + n\cdot y$
+    e $(n+m)\cdot x = n\cdot x + m\cdot x$;
+  \item proprietà associativa: $n\cdot (m\cdot x)= (n\cdot m)\cdot x$.
+\end{enumerate}
+
+Lo stesso ovviamente si può fare nei monoidi moltiplicativi con unità
+per definire la potenza $x^n$ come prodotto ripetuto:
+\[
+  x^0 = 1 \in M \\
+  x^{n+1} = x^n \cdot x.
+\]
+Le proprietà sono analoghe:
+\begin{enumerate}
+  \item potenze banali: $x^0=1$, $1^n=1$;
+  \item potenza del prodotto: $(x\cdot y)^n = x^n\cdot y^n$;
+  \item prodotto di potenze: $x^{n+m}=x^n\cdot x^m$;
+  \item potenza di potenza: $(x^m)^n = x^{m\cdot n}$.
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+Le proprietà andranno dimostrate per induzione.
+Facciamo il caso che $M$ sia un monoide additivo.
+La proprietà assorbente $0\cdot x = 0$ è data per definizione,
+mentre $n\cdot 0 = 0$ si dimostra immediatamente 
+per induzione, infatti per $n=0$ si ha $0\cdot 0 = 0$ 
+e il passo induttivo è $(n+1)\cdot 0 = n\cdot 0 + 0 = 0 + 0 = 0$.
+
+Per la prima proprietà distributiva: $n\cdot (x+y)=n\cdot x + n\cdot y$
+è verificato il caso base: $0\cdot(x+y) = 0 = 0 + 0 = 0\cdot x + 0\cdot y$.
+Il passo induttivo diventa: 
+$(n+1)\cdot(x+y)
+=n\cdot(x+y)+x+y
+=n\cdot x + x + n\cdot y + y 
+=(n+1)\cdot x + (n+1)\cdot y$.
+La seconda $(n+m)\cdot x = n\cdot x + m\cdot x$
+per $n=0$ è banale: $(0+m)\cdot x = m\cdot x = 0\cdot x + m\cdot x$.
+Il passo induttivo:
+$(n+1+m)\cdot x = (n+m)\cdot x + x 
+= n\cdot x + x + m\cdot x
+= (n+1)\cdot x + m\cdot x$.
+
+La proprietà associativa: $(n\cdot m)\cdot x = n\cdot (m\cdot x)$
+è ovvia per $n=0$: $(0\cdot m)\cdot x = 0 = 0\cdot x = 0\cdot (m\cdot x)$.
+Per il passo induttivo usiamo anche la proprietà distributiva:
+$((n+1)\cdot m)\cdot x 
+= (n\cdot m+m)\cdot x 
+= (n\cdot m)\cdot x + m\cdot x
+= n\cdot (m\cdot x)+m\cdot x
+= (n+1)\cdot (m\cdot x)$.
+
+Per quanto riguarda il monoide moltiplicativo le proprietà sono esattamente 
+le stesse, cambia solamente la notazione con cui le scriviamo:
+al posto della somma su $M$ scriviamo un prodotto, al posto del prodotto 
+scriviamo una potenza. Le operazioni su $\NN$ invece rimangono le stesse.
+\end{proof}
 
 \begin{theorem}[operazioni su $\NN$]
   \label{th:operazioni_naturali}%
@@ -3693,101 +3802,61 @@ ed $\ENCLOSE{s}$ non hanno gli stessi maggioranti e quindi si ottengono
 elementi distinti di $\RR$. Identificando $q$ con $\Enclose{\ENCLOSE q}_\sim$ 
 possiamo quindi pensare che sia $\QQ \subset \RR$.
 
-\section{i numeri reali}
+\section{unicità dei numeri reali}
 
-Intuitivamente si può ottenere l'insieme $\RR$ dei numeri reali
-a partire da una retta geometrica 
-con lo stesso procedimento con cui si costruisce un righello.
-Iniziamo col segnare
-sulla retta un punto di riferimento che chiamiamo $0$, 
-dopodiché osserviamo che
-il punto $0$ (come ogni altro punto) divide la retta in due parti. In modo arbitrario
-chiamiamo positivi i punti che si trovano da una parte e negativi i punti che
-si trovano dall'altra parte. Sulla semiretta dei numeri positivi scegliamo, arbitrariamente,
-un punto $1$. Il segmento compreso tra i punti $0$ e $1$ sarà la nostra unità di
-misura.
-L'addizione potrebbe essere definita utilizzando i movimenti rigidi.
-Traslando il punto $1$ di una unità alla volta si ottengono, per iterazione, tutti i numeri naturali.
-Traslando all'indietro si ottengono i numeri interi negativi. 
-Assumendo che tra due punti qualunque esistano sempre punti intermedi (divisibilità) e
-assumendo che suddividendo la retta in due parti esista sempre un punto di 
-suddivisione (continuità) mostreremo come si può suddividere 
-ogni segmento in $n$ parti uguali per ogni numero naturale $n$. 
-In tal modo potremo ritrovare i numeri razionali e la moltiplicazione per un numero razionale.
-Con una estensione crescente riusciremo quindi a definire la moltiplicazione 
-tra numeri reali. 
-Osserveremo poi che la struttura moltiplicativa dei numeri reali positivi soddisfa 
-gli stessi assiomi della struttura additiva dei reali e che quindi la costruzione fatta 
-per costruire la moltiplicazione si potrà ripetere identica per costruire l'elevamento a potenza.
+Nel capitolo precedente abbiamo costruito un insieme $\RR$ 
+che risulta essere un gruppo additivo totalmente ordinato 
+denso e continuo. 
+In questo capitolo vogliamo dimostrare (teorema~\ref{th:isomorfismo})
+che $\RR$ è sostanzialmente l'unico gruppo che soddisfa 
+tali proprietà, nel senso che ogni gruppo additivo totalmente ordinato 
+denso continuo e non banale, è isomorfo a $\RR$.
 
-\subsection{gruppi ordinati}
+% Esistono dei gruppi additivi che estendono $\RR$, ma nessuna 
+% estensione mantiene tutte le proprietà dell'ordinamento di $\RR$.
+% I numeri \emph{complessi} (li vedremo tra poco), 
+% e i \emph{quaternioni}, ad esempio, non sono totalmente ordinati.
+% I numeri \emph{iperreali} di Robinson, alla base dell'analisi non standard, 
+% non soddisfano la proprietà di continuità dell'ordinamento. 
+% Lo stesso vale per i numeri \emph{surreali} introdotto da Conway.
 
-L'insieme $\RR$ dei numeri reali si caratterizza 
-con l'essere un \emph{gruppo totalmente ordinato denso e continuo}
-in base alle seguenti definizioni.
+Vogliamo quindi considerare un generico gruppo additivo 
+denso e continuo $R$. 
+Supporremo anche che $R$ non sia banale, cioè che il gruppo non
+consista solamente dell'elemento neutro: $R\neq \ENCLOSE{0}$.
 
-\begin{definition}[funzioni monotòne]
-  \label{def:monotonia}%
-  Siano $R$ e $S$ insiemi ordinati 
-  e sia $f\colon R\to S$.
-  Diremo che $f$ è:
-  \begin{enumerate}
-    \item \emph{crescente} quando mantiene l'ordinamento: 
-    per ogni $x,y\in R$ se $x\le y$ allora $f(x) \le f(y)$
-    \item \emph{decrescente} quando inverte l'ordinamento: 
-    per ogni $x,y\in R$ se $x\le y$ allora $f(y) \le f(x)$
-    \item \emph{strettamente crescente} quando mantiene l'ordinamento stretto: 
-    per ogni $x,y\in R$ se $x < y$ allora $f(x) < f(y)$
-    \item \emph{strettamente decrescente} quando inverte l'ordinamento stretto: 
-    per ogni $x,y\in R$ se $x < y$ allora $f(y) > f(x)$
-    \item \emph{monotòna} se è crescente o decrescente
-    \item \emph{strettamente monotòna} se è strettamente crescente 
-    o strettamente decrescente
-  \end{enumerate}
-\end{definition}
+In effetti le proprietà di $R$ corrispondono esattamente 
+alle proprietà che ci aspettiamo debba avere una retta geometrica:
+l'ordinamento corrisponde alla proprietà che ogni punto 
+della retta divide la retta in due parti e che fissati due punti 
+si possono identificare i punti intermedi.
+L'operazione di addizione corrisponde alla possibilità 
+di effettuare traslazioni lungo la retta.
 
-Su un gruppo additivo si può definire la moltiplicazione $n\cdot x$ per un numero 
-naturale $n\in\NN$ come addizione ripetuta:
-ad esempio $3\cdot x = x + x + x$.
-Questo è garantito dal seguente.
-%
-\begin{theorem}[addizione ripetuta]
-  \label{th:addizione_ripetuta}%
-Sia $R$ un gruppo additivo. 
-Esiste una unica operazione, $n \cdot x$ definita per $n\in \NN$ 
-e $x\in R$ tale che
-\[
-\begin{cases}
-  0\cdot x  = 0 \\
-  (n+1) \cdot x = n\cdot x + x.
-\end{cases}  
-\]
-Inoltre risulta:
-\begin{enumerate}
-  \item[1.] $1\cdot x = x$, $n\cdot 0 = 0$;
-  \item[2.] $(n+m)\cdot x = n\cdot x + m\cdot x$; 
-  \item[3.] $(n\cdot m)\cdot x = n\cdot (m\cdot x)$;
-  \item[4.] $-(n\cdot x) = n\cdot(-x)$;
-  \item[5.] se $n\cdot x = 0$ allora o $n=0$ o $x=0$;
-\end{enumerate}
-se il gruppo è abeliano si ha anche:
-\begin{enumerate}
-\item[6.] $n\cdot(x+y) = n\cdot x + n\cdot y$.
-\end{enumerate}
-e se il gruppo è totalmente ordinato si ha:
-\begin{enumerate}
-  \item[7.] se $x \le y$ allora $n\cdot x \le n\cdot y$;
-  \item[8.] se $x < y$ e $n \neq 0$ allora $n\cdot x < n\cdot y$;
-  \item[9.] se $x\ge 0$ e $n\ge m$ allora $n\cdot x\ge m\cdot x$;
-\end{enumerate}
-\end{theorem}
-%
-\begin{proof}
-La dimostrazione si porta a termine facilmente dimostrando tutte le proprietà 
-per induzione.
-E' la stessa costruzione che abbiamo fatto per definire 
-la moltiplicazione su $\NN$.
-\end{proof}
+% Intuitivamente si può ottenere l'insieme $\RR$ dei numeri reali
+% a partire da una retta geometrica 
+% con lo stesso procedimento con cui si costruisce un righello.
+% Iniziamo col segnare
+% sulla retta un punto di riferimento che chiamiamo $0$, 
+% dopodiché osserviamo che
+% il punto $0$ (come ogni altro punto) divide la retta in due parti. In modo arbitrario
+% chiamiamo positivi i punti che si trovano da una parte e negativi i punti che
+% si trovano dall'altra parte. Sulla semiretta dei numeri positivi scegliamo, arbitrariamente,
+% un punto $1$. Il segmento compreso tra i punti $0$ e $1$ sarà la nostra unità di
+% misura.
+% L'addizione potrebbe essere definita utilizzando i movimenti rigidi.
+% Traslando il punto $1$ di una unità alla volta si ottengono, per iterazione, tutti i numeri naturali.
+% Traslando all'indietro si ottengono i numeri interi negativi. 
+% Assumendo che tra due punti qualunque esistano sempre punti intermedi (divisibilità) e
+% assumendo che suddividendo la retta in due parti esista sempre un punto di 
+% suddivisione (continuità) mostreremo come si può suddividere 
+% ogni segmento in $n$ parti uguali per ogni numero naturale $n$. 
+% In tal modo potremo ritrovare i numeri razionali e la moltiplicazione per un numero razionale.
+% Con una estensione crescente riusciremo quindi a definire la moltiplicazione 
+% tra numeri reali. 
+% Osserveremo poi che la struttura moltiplicativa dei numeri reali positivi soddisfa 
+% gli stessi assiomi della struttura additiva dei reali e che quindi la costruzione fatta 
+% per costruire la moltiplicazione si potrà ripetere identica per costruire l'elevamento a potenza.
 
 \begin{theorem}[proprietà archimedea]
   \label{th:archimede}%
@@ -4007,10 +4076,25 @@ in modo che $u$ vada in $v$ e che i punti intermedi vadano in punti
 intermedi con le stesse proporzioni (cioè rispettando l'operazione
 di gruppo).
 
-Vedremo che questo teorema verrà utilizzato diverse volte 
-in particolare per definire le funzioni elementari 
-sui numeri reali: moltiplicazione, elevamento a potenza, 
-funzioni trigonometriche.
+\begin{definition}[funzioni monotòne]
+  \label{def:monotonia}%
+  Siano $R$ e $S$ insiemi ordinati 
+  e sia $f\colon R\to S$.
+  Diremo che $f$ è:
+  \begin{enumerate}
+    \item \emph{crescente} quando mantiene l'ordinamento: 
+    per ogni $x,y\in R$ se $x\le y$ allora $f(x) \le f(y)$
+    \item \emph{decrescente} quando inverte l'ordinamento: 
+    per ogni $x,y\in R$ se $x\le y$ allora $f(y) \le f(x)$
+    \item \emph{strettamente crescente} quando mantiene l'ordinamento stretto: 
+    per ogni $x,y\in R$ se $x < y$ allora $f(x) < f(y)$
+    \item \emph{strettamente decrescente} quando inverte l'ordinamento stretto: 
+    per ogni $x,y\in R$ se $x < y$ allora $f(y) > f(x)$
+    \item \emph{monotòna} se è crescente o decrescente
+    \item \emph{strettamente monotòna} se è strettamente crescente 
+    o strettamente decrescente
+  \end{enumerate}
+\end{definition}
 
 \begin{theorem}[isomorfismi di gruppi ordinati]%
   \label{th:isomorfismo}%  
@@ -4256,32 +4340,42 @@ Ma il teorema ci dice anche che $\phi(x+y) = \phi(y)+\phi(x)$ da cui si ottiene
 $x+y=y+x$, come volevamo dimostrare.
 \end{proof}
 
-\subsection{assiomatica dei numeri reali}
+\begin{corollary}[unicità dei numeri reali]
+  Sia $R$ un gruppo additivo, totalmente ordinato denso e continuo.
+  Sia $u\in R$, $u>0$.
+  Allora, per il teorema~\ref{th:isomorfismo} 
+  esiste una unica funzione bigettiva $\phi \colon \RR\to R$ 
+  che preserva la struttura di gruppo ordinato e che manda $1$ in $u$.
+  In altre parole $\RR$ è, a meno di isomorfismo, 
+  l'unico gruppo additivo totalmente ordinato, denso, continuo, non banale.
+\end{corollary}
 
-L'insieme dei numeri reali $\RR$ non è altro che un gruppo additivo 
-totalmente ordinato, denso e continuo su cui abbiamo fissato una unità 
-$1\in \RR$, con $1>0$.
+% \subsection{assiomatica dei numeri reali}
+% 
+% L'insieme dei numeri reali $\RR$ non è altro che un gruppo additivo 
+% totalmente ordinato, denso e continuo su cui abbiamo fissato una unità 
+% $1\in \RR$, con $1>0$.
+% 
+% Per il teorema di isomorfismo~\ref{th:isomorfismo}
+% i gruppi totalmente ordinati, densi e continui 
+% possono essere messi in corrispondenza gli uni con gli altri 
+% una volta che si sia fissata una unità $u>0$. 
+% In questo senso possiamo dire che l'insieme dei numeri reali 
+% $\RR$, se esiste, è unico (a meno di isomorfismi).
+% 
+% L'esistenza di $\RR$, vista la sua rilevanza, potrebbe anche essere presa 
+% per assioma. 
+% Ma in realtà tale gruppo può essere costruito a partire dall'insieme $\NN$ 
+% dei numeri naturali (passando per gli interi $\ZZ$ e i razionali $\QQ$). 
+% Per maggiori dettagli si veda il capitolo~\ref{sec:costruzione_reali}.
+% 
+% Per ora su $\RR$ abbiamo una unica operazione: l'addizione 
+% (e la sua operazione inversa, ovvero la sottrazione).
+% Abbiamo visto come si possa definire la moltiplicazione per un numero naturale 
+% come addizione ripetuta (e la divisione per un numero naturale non nullo 
+% come operazione inversa). 
 
-Per il teorema di isomorfismo~\ref{th:isomorfismo}
-i gruppi totalmente ordinati, densi e continui 
-possono essere messi in corrispondenza gli uni con gli altri 
-una volta che si sia fissata una unità $u>0$. 
-In questo senso possiamo dire che l'insieme dei numeri reali 
-$\RR$, se esiste, è unico (a meno di isomorfismi).
-
-L'esistenza di $\RR$, vista la sua rilevanza, potrebbe anche essere presa 
-per assioma. 
-Ma in realtà tale gruppo può essere costruito a partire dall'insieme $\NN$ 
-dei numeri naturali (passando per gli interi $\ZZ$ e i razionali $\QQ$). 
-Per maggiori dettagli si veda il capitolo~\ref{sec:costruzione_reali}.
-
-Per ora su $\RR$ abbiamo una unica operazione: l'addizione 
-(e la sua operazione inversa, ovvero la sottrazione).
-Abbiamo visto come si possa definire la moltiplicazione per un numero naturale 
-come addizione ripetuta (e la divisione per un numero naturale non nullo 
-come operazione inversa). 
-
-\subsection{moltiplicazione su $\RR$}
+%\subsection{$\RR$}
 
 Vogliamo ora utilizzare il teorema di isomorfismo per definire 
 la moltiplicazione tra numeri reali.
@@ -4306,28 +4400,12 @@ la moltiplicazione tra numeri reali.
   ottengo un risultato che vive in uno spazio diverso, la cui unità 
   si chiama Ampère-quadro.
 }
-\begin{theorem}[moltiplicazione sui reali]
-  Su $\RR$ è definita una unica operazione $\cdot$ (moltiplicazione) 
-  che a due numeri $x,y\in \RR$ associa il loro prodotto $x\cdot y\in \RR$ 
-  con le seguenti proprietà:
-  \begin{enumerate}
-    \item proprietà distributiva: $x\cdot (y+z) = x\cdot y + x\cdot z$;
-    \item elemento neutro: $x\cdot 1 = x$;
-    \item positività: $x\cdot y\ge 0$ se $x\ge 0$ e $y\ge 0$.
-  \end{enumerate}
-
-  Inoltre tale operazione ha anche le seguenti proprietà:
-  \begin{enumerate}
-    \item elemento assorbente: $x\cdot 0 = 0$;
-    \item regola del segno: $(-y)\cdot x = -(y\cdot x)$.
-    \item proprietà commutativa: $x\cdot y = y\cdot x$;
-    \item proprietà associativa: $(x\cdot y)\cdot z = x\cdot (y\cdot z)$;
-    \item esistenza del reciproco: se $x\neq 0$ esiste $y$ tale 
-    che $x\cdot y = 1$;
-    \item annullamento del prodotto: se $x\cdot y=0$ allora $x=0$ oppure $y=0$;
-    \item monotonia: se $x\ge 0$ e $y\ge z$ allora $x\cdot y\ge x\cdot z$;
-    \item stretta monotonia: se $x>0$ e $y>z$ allora $x\cdot y > x\cdot z$.
-  \end{enumerate}
+\begin{theorem}[moltiplicazione]
+  Sia $R$ un gruppo additivo totalmente ordinato, denso e continuo.
+  Sia $u\in R$, $u>0$, fissato.
+  Allora su $R$ è definita in modo unico una operazione 
+  di moltiplicazione che rende $R$ un campo con $1=u$ 
+  elemento neutro del prodotto.
 \end{theorem}
 %
 \begin{proof}
@@ -4350,59 +4428,9 @@ $x\cdot (y+z) = x\cdot y + x\cdot z$ (proprietà distributiva),
 e infine $x\cdot y\ge 0$ se $x\ge 0$ e $y\ge 0$ (positività).
 Queste proprietà definiscono dunque il prodotto 
 in modo univoco. 
-Inoltre essendo $\phi_x(0)=0$ si ottiene immediatamente 
-la proprietà assorbente: $x\cdot 0 = 0$.
-Dobbiamo ora dimostrare che valgono anche tutte le 
-altre proprietà. 
-
-\mymargin{$(-x)\cdot y = -(x\cdot y) = x\cdot(-y)$}
-Cominciamo col dimostrare la regola del segno.
-Ovviamente $x\cdot(-y) = -(x\cdot y)$ perché dal teorema 
-di isomorfismo sappiamo che $\phi_x(-y) = -\phi_x(y)$.
-Per dimostrare che $(-x)\cdot y=-(x\cdot y)$ dobbiamo 
-mostrare che $\phi_{-x}(y)=-\phi_x(y)$. 
-Fissato $x$ consideriamo quindi la funzione 
-$f(y) = -\phi_x(y)$. 
-Chiaramente $f$ è additiva ed è negativa se $x\ge 0$
-o positiva (se $x\le 0$). 
-Inoltre $f(1) = -x$ dunque, per l'unicità degli isomorfismi,
-deve essere $f(y) = \phi_{-x}(y)$ che è quanto dovevamo dimostrare.
-
-\mymargin{$1\cdot x=x$}
-Sappiamo già che $x\cdot 1=x$, vogliamo però dimostrare 
-che anche $1\cdot x=x$. 
-Basta osservare che la funzione identità $f(x)=x$ 
-è additiva e positiva e risulta $f(1)=1$.
-Dunque dall'unicità dell'isomorfismo si deduce che $f = \phi_1$
-e dunque $x=1\cdot x$.
-
-\mymargin{$(x+y)\cdot z = x\cdot z + y\cdot z$}
-Dimostriamo ora che $(x+y)\cdot z = x\cdot z + y\cdot z$.
-Ciò equivale a dimostrare che $\phi_{x+y} = \phi_x + \phi_y$.
-Consideriamo allora la funzione $f(z)=\phi_x(z) + \phi_y(z)$
-e supponiamo inizialmente che siano $x,y\ge 0$.
-Chiaramente $f$ è additiva e positiva
-perché $\phi_x$ e $\phi_y$ lo sono.
-Inoltre $f(1)=\phi_x(1) + \phi_y(1) = x+y$. 
-Dunque per l'unicità dell'isomorfismo 
-deve essere $f = \phi_{x+y}$ come volevamo dimostrare.
-
-\mymargin{$x\cdot y = y\cdot x$}
-Sempre supponendo che $x,y\ge 0$ 
-dimostriamo ora la proprietà commutativa cioè
-$\phi_x(y) = \phi_y(x)$. 
-Fissato $y$ consideriamo allora la funzione $f(x) = \phi_x(y)$
-e osserviamo che per quanto visto al passo precedente 
-$f$ è additiva. 
-Se $x\ge 0$ e $y\ge 0$ risulta anche che $f$ è positiva.
-Inoltre $f(1) = y$ e dunque, per l'unicità dell'isomorfismo,
-deve essere $f(x) = \phi_y(x)$ che è quanto volevamo dimostrare
-con $x\ge 0$ e $y\ge 0$.
-Utilizzando la regola del segno possiamo estendere 
-la proprietà commutativa anche al caso $x\le 0$ e/o $y\le 0$.
 
 \mymargin{$x\cdot(y\cdot z) = (x\cdot y)\cdot z$}
-Per la proprietà associativa dobbiamo dimostrare che 
+Per dimostrare la proprietà associativa dobbiamo dimostrare che 
 $\phi_x(y\cdot z) = \phi_{x\cdot y}(z)$.
 Fissati $x,y\ge 0$ consideriamo 
 la funzione $f(z) = \phi_x(y\cdot z)$.
@@ -4497,32 +4525,8 @@ Introduciamo ora su $\NN$ il concetto di somma (e prodotto) iterato.
 Quello che ora facciamo su $\NN$ vale allo stesso modo sugli insiemi 
 numerici che andremo a definire più avanti, in particolare lo useremo 
 molto sull'insieme $\RR$ dei numeri reali. 
-In generale potremmo considerare un insieme $A$ su 
-cui è defina una operazione associativa 
-con elemento neutro. 
 
-\begin{definition}[monoide]%
-\label{def:monoide}%
-Sia $A$ un insieme su cui è definita una operazione $*$.
-Se l'operazione è associativa: $x*(y*z) = (x*y)*z$ 
-ed ha elemento neutro $e\in A$ tale che $e*x = x*e = x$
-diremo che $A$ è un \emph{monoide}.
-Se inoltre l'operazione è commutativa, $x*y=y*x$ 
-diremo che $A$ è un \emph{monoide commutativo} (o abeliano).
-
-Quando per l'operazione $*$ viene utilizzato il simbolo di addizione $+$
-diremo che il monoide è additivo. In tal caso l'elemento neutro 
-si chiama \emph{zero} e si indica con $0$.
-Se utilizziamo invece il simbolo di moltiplicazione $x\cdot y$
-diremo che il monoide è moltiplicativo. In tal caso l'elemento 
-neutro si chiama \emph{unità} e si indica usualmente con $1$.
-\end{definition}
-
-L'insieme $\NN$ è un monoide commutativo sia con l'operazione di addizione $+$ 
-(monoide additivo) che con l'operazione di moltiplicazione 
-$\cdot$ (monoide moltiplicativo).
-
-In generale se $A$ è un monoide additivo 
+In generale se $A$ è un monoide (definizione~\ref{def:monoide}) additivo 
 (o moltiplicativo) possiamo fare somme (o prodotti) di un numero 
 arbitrario (ma finito) di addendi (o fattori) di $A$.
 Più precisamente se $\vec a \in A^n$ 
@@ -4834,40 +4838,8 @@ $x$ e $y$.
 
 Se $n \in \NN$ è un numero naturale possiamo definire 
 l'elevamento a potenza $x^n$ induttivamente, come moltiplicazione 
-ripetuta, ad esempio: $x^3 = x\cdot x \cdot x$.
-
-Si osservi che la definizione di potenza $x^n$ 
-è l'analogo moltiplicativo della definizione 
-di moltiplicazione $n\cdot x$ che abbiamo definito su $\RR$
-e il seguente teorema è analogo al 
-teorema~\ref{th:addizione_ripetuta}.
-
-\begin{theorem}[moltiplicazione ripetuta]
-\label{th:moltiplicazione_ripetuta}%
-Se $n\in \NN$ e $x\in \RR$ si definisce 
-l'elevamento a potenza $x^n$ come l'unica operazione 
-che soddisfa le seguenti proprietà:
-\[
-  \begin{cases}
-    x^0 = 1 \\
-    x^{n+1} = x^n \cdot x.
-  \end{cases}  
-\]
-Tale operazione ha inoltre le seguenti proprietà:
-\begin{enumerate}
-  \item $x^1 = x$, $0^n = 0$;
-  \item $x^{n+m} = x^n \cdot x^m$; 
-  \item $x^{n\cdot m} = \enclose{x^m}^n$;
-  \item $\frac{1}{x^n} = \enclose{\frac 1 x}^n$;
-  \item $(x \cdot y)^n = x^n \cdot y^n$.
-  \item se $0\le x \le y$ allora $x^n \le y^n$;
-  \item se $0\le x < y$ e $n \neq 0$ allora $x^n < y^n$;
-  \item se $x\ge 1$ e $n\ge m$ allora $x^n \ge x^m$;
-\end{enumerate}
-\end{theorem}
-\begin{proof}
-La dimostrazione si ottiene facilmente per induzione.
-\end{proof}
+ripetuta, ad esempio: $x^3 = x\cdot x \cdot x$
+(si veda il teorema~\ref{th:operazione_ripetuta}).
 
 Si osservi anche che abbiamo definito $0^0=1$ dove lo $0$ 
 alla base è un numero reale e lo $0$ all'esponente 
