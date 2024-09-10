@@ -1,6 +1,2267 @@
 \chapter{continuità e limiti}
 \label{ch:successioni}
 
+%\subsection{assiomatica dei reali}
+
+Nel capitolo precedente abbiamo costruito l'insieme numerico $\RR$ dei numeri reali, e abbiamo 
+messo in evidenza il fatto che si tratta di un campo ordinato e continuo
+(definizione~\ref{def:campo_ordinato}). 
+Abbiamo anche visto la proprietà di essere un campo ordinato e continuo caratterizza univocamente $\RR$.
+Dunque, in effetti, non sarà più necessario fare riferimento alla costruzione di $\RR$ ma potremo 
+d'ora in poi semplicemente pensare che $\RR$ è un dato campo ordinato e continuo.
+Tale proprietà caratterizza $\RR$ ed è quindi una informazione sufficiente per poter dedurre 
+qualunque altra sua proprietà. 
+
+A questo punto possiamo identificare anche gli insiemi $\NN$, $\ZZ$ e $\QQ$ come particolari sottoinsiemi 
+dell'insieme $\RR$, senza doverli costruire esplicitamente.
+
+Per identificare $\NN$ l'idea è quella di considerare il più piccolo sottoinsieme di $\RR$ che 
+contiene $0$ e che se contiene $n$ contiene anche $n+1$. 
+Per formalizzare questa idea diremo che
+$X\subset \RR$ è \emph{induttivo} se $0\in X$ e se $n\in X$ implica $n+1\in X$. 
+Definiamo quindi $\NN$ come l'intersezione di tutti gli insiemi induttivi:
+\[
+ \NN = \cap\ENCLOSE{X\subset \RR\colon X \text{ induttivo}}.
+\]
+Chiaramente $\NN$ è esso stesso induttivo. Ed è facile dimostrare che soddisfa 
+gli assiomi di Peano (def~\ref{def:assiomi_peano}).
+
+Si osserva poi che $\NN$ è superiormente illimitato perché se esistesse $x\in \RR$ maggiorante di 
+$\NN$ allora per assurdo anche $x-1$ sarebbe un maggiorante, 
+contro l'ipotesi di continuità di $\RR$ che garantisce l'esistenza di un minimo dei maggioranti.
+Da questo si ricava la proprietà archimedea: per ogni $x>0$ e $y>0$ esiste $n \in \NN$ tale che $nx>y$.
+%E tramite la proprietà archimedea si deduce la densità di $\QQ$ in $\RR$: se $x<y$ posto $\eps=y-x>0$
+%si trova $q\in \NN$ tale che $\frac{1}{q}<\eps$ e dunque si trova $p\in \ZZ$ tale che $x<\frac{p}{q}<y$.
+
+Dopodiché si definisce $\ZZ$ come l'insieme di tutte le differenze tra coppie di numeri naturali: 
+$\ZZ = \NN - \NN = \ENCLOSE{n-m\colon n,m\in \NN}$.
+
+Infine si definisce $\QQ$ come l'insieme di tutti i quozienti $\frac{p}{q}$ con $p\in \ZZ$ e $q\in \NN$, 
+$q\neq 0$.
+
+\subsection{valore assoluto}
+
+\begin{definition}[valore assoluto]
+\mymark{***}
+Definiamo il \emph{valore assoluto}%
+\mymargin{valore assoluto}%
+\index{valore!assoluto} $\abs{x}$ di un numero $x\in \RR$ nel seguente modo:
+\[
+\abs{x} =
+\begin{cases}
+  x & \text{se $x\ge 0$}, \\
+  -x & \text{se $x<0 $}.
+\end{cases}
+\]
+\end{definition}
+  
+\begin{proposition}[proprietà del valore assoluto]
+\mymark{**}
+Si ha
+\begin{enumerate}
+\item $\abs{x}\ge 0$ (positività)
+\item $\big\lvert\abs{x}\big\rvert = \abs{x}$ (idempotenza)
+\item $\abs{-x} = \abs{x}$ (simmetria)
+\item $\abs{x\cdot y} = \abs{x}\cdot \abs{y}$ (omogenità)
+\item $\abs{x+y} \le \abs{x} + \abs{y}$ (convessità)
+\item $\abs{x-y} \le \abs{x-z} + \abs{z-y}$ (disuguaglianza triangolare)
+\item $\big\lvert\abs{x}-\abs{y}\big\rvert \le \abs{x-y}$ (disuguaglianza triangolare inversa)
+\end{enumerate}
+Useremo inoltre spesso la seguente equivalenza (valida
+anche con $<$ al posto di $\le$). Se $r\ge 0$ allora
+\[
+  \abs{x-y} \le r
+  \iff
+  y - r \le x \le y + r.
+\]
+\end{proposition}
+%
+\begin{proof}
+\mymark{*}
+Positività, idempotenza, simmetria e omogenità sono immediate conseguenze della definizione.
+
+Dimostriamo ora l'ultima osservazione.
+Se $x\ge y$ allora $x-y\ge 0$ e quindi $\abs{x-y} \le r$ è
+equivalente a $x-y\le r$ cioè $x\le y+r$.
+Se $x<y$ allora $x-y<0$ e quindi $\abs{x-y} \le r$ è
+equivalente a $y-x \le r$ cioè $x\ge y-r$.
+Viceversa se $y-r \le x \le y+r$ allora vale sia $x-y \le r$ che $y-x \le r$ e 
+dunque $\abs{x-y}\le r$.
+
+Osserviamo allora che per la precedente osservazione applicata
+a $\abs{x-0} \le \abs{x}$ si ottiene
+\[
+  -\abs{x} \le x \le \abs{x}
+\]
+e sommando la stessa disuguaglianza con $y$ al posto di $x$ si
+ottiene
+\[
+  -(\abs{x} + \abs{y}) \le x + y \le \abs{x} + \abs{y}
+\]
+che è equivalente alla proprietà di convessità:
+\[
+  \abs{x+y} \le \big\lvert\abs{x} + \abs{y}\big\rvert = \abs{x} + \abs{y}.
+\]
+
+Ponendo $y=z-x$ nella disuguaglianza precedente, si ottiene
+\[
+  \abs{z} \le \abs{x} + \abs{z-x}
+\]
+da cui
+\[
+  \abs{z} - \abs{x} \le \abs{z-x}.
+\]
+Scambiando $z$ con $x$ si ottiene la disuguaglianza opposta
+e mettendole assieme si ottiene
+la disuguaglianza triangolare inversa:
+\[
+\big\lvert \abs{z}-\abs{x} \big\rvert  \le \abs{z-x}.
+\]
+
+La disuguaglianza triangolare segue dalla convessità:
+\[
+  \abs{x-y} = \abs{x-z + z-y} \le \abs{x-z} + \abs{z-y}.
+\]
+\end{proof}
+
+Osserviamo che dal punto di vista geometrico
+$\abs{x-y}$ rappresenta la \emph{distanza} tra i punti
+$x$ e $y$.
+
+\subsubsection{parte intera}
+
+\begin{theorem}[parte intera]
+\mymark{*}%
+  Dato $x\in \RR$ esiste un unico $m\in \ZZ$ tale che $m-1 < x \le m$.
+\end{theorem}
+%
+\begin{proof}
+  Supponiamo per un attimo che sia $x > 0$
+  e consideriamo l'insieme $A=\ENCLOSE{n \in \NN \colon n\ge x}$.
+  Tale insieme non è vuoto per la proprietà archimedea 
+  e dunque ammette minimo per il principio del buon ordinamento.
+  Se $m=\min A$ risulta quindi $m\in \NN$ e $m-1< x \le m$.
+
+  Se $x\le 0$ per la proprietà archimedea esiste $k\in \NN$ tale che 
+  $k>-x$. Allora applichiamo il risultato precedente a $x+k$ e consideriamo 
+  $m-k$ al posto di $m$.
+\end{proof}
+
+\begin{definition}[parte intera]
+  \mymark{**}%
+  \mymargin{parte intera}%
+\index{parte!intera}%
+  Dato $x\in \RR$ denotiamo con $\lfloor x\rfloor$ l'unico intero
+  che soddisfa
+  \mymargin{$\lfloor\cdot\rfloor$} %% *** non viene bene nell'indice!
+  \[
+    x - 1 < \lfloor x \rfloor \le x
+  \]
+  e denotiamo con $\lceil x \rceil = - \lfloor -x \rfloor$ l'unico intero che soddisfa (verificare!)
+  \mymargin{$\lceil\cdot\rceil$} %% *** non viene bene nell'indice!
+  \[
+    x \le \lceil x \rceil < x + 1.
+  \]
+  Si ha dunque
+  \[
+    \lfloor x \rfloor \le x \le \lceil x \rceil
+  \]
+  con entrambe le uguaglianze che si realizzano quando $x\in \ZZ$.
+  I due interi $\lfloor x \rfloor$ e $\lceil x \rceil$
+  sono la migliore approssimazione intera di $x$ rispettivamente
+  per difetto e per eccesso.
+  L'intero più vicino ad $x$ (approssimazione per \emph{arrotondamento}%
+\mymargin{arrotondamento}%
+\index{arrotondamento})
+  è
+  \[
+    \left\lfloor x + \frac 1 2 \right\rfloor
+  \quad \text{ossia} \quad
+    \left\lceil x-\frac 1 2 \right\rceil
+  \]
+  (le due espressioni differiscono solamente quando $x$ si trova nel punto medio tra 
+  due interi consecutivi, nel qual caso la prima approssima per eccesso e la seconda 
+  per difetto).
+\end{definition}
+
+In alcuni testi si usa la notazione $[x]$ per denotare la parte intera $\lfloor x \rfloor$ e si definisce
+anche la \emph{parte frazionaria}
+\[
+  \ENCLOSE{x} = x - [x].
+\]
+Per evitare ambiguità con il normale utilizzo delle parentesi
+non useremo queste notazioni.
+
+\subsection{potenza e radice $n$-esima}
+%
+%
+\label{sec:potenza}%
+\label{sec:radice}%
+
+Se $n \in \NN$ è un numero naturale possiamo definire 
+l'elevamento a potenza $x^n$ induttivamente, come moltiplicazione 
+ripetuta, ad esempio: $x^3 = x\cdot x \cdot x$
+(si veda il teorema~\ref{th:operazione_ripetuta}).
+
+Si osservi anche che abbiamo definito $0^0=1$ dove lo $0$ 
+alla base è un numero reale e lo $0$ all'esponente 
+è un numero naturale.
+
+% Il teorema~\ref{th:divisibile}
+% ci garantiva l'esistenza della frazione $\frac x n$ come operazione inversa 
+% della somma ripetuta: $n\cdot x$. 
+% Lo stesso teorema, applicato alla struttura moltiplicativa, può essere utilizzato 
+% per definire la radice $n$-esima: $\sqrt[n]{x}$.
+
+Definiamo l'insieme dei \emph{reali positivi}:
+\[
+\RR_+ = \ENCLOSE{x\in \RR\colon x>0}
+\]
+e su di esso consideriamo l'operazione di moltiplicazione.
+
+\begin{theorem}[$\RR_+$ è un gruppo moltiplicativo]
+  \label{th:gruppo_moltiplicativo}%
+  \index{gruppo!moltiplicativo}%
+  \index{reali!positivi}%
+L'insieme $\RR_+$ dei reali positivi con l'operazione di moltiplicazione 
+e l'ordinamento usuale ereditato da $\RR$ risulta essere 
+un gruppo totalmente ordinato, denso e continuo.
+\end{theorem}
+%
+\begin{proof}
+Sappiamo che il prodotto di due numeri positivi 
+è un numero positivo. Anche il reciproco di un numero positivo
+esiste sempre (perché escludiamo $0$) ed è positivo. 
+L'elemento neutro $1$ è anch'esso positivo. 
+Dunque risulta che $\RR_+$ è un gruppo moltiplicativo.
+Non solo, l'ordinamento di $\RR$ è ovviamente un ordinamento anche su $\RR_+$
+e mantiene le proprietà di essere un ordinamento totale 
+denso e continuo visto che queste proprietà sono indipendenti dalla struttura di gruppo.
+La compatibilità dell'ordinamento con la moltiplicazione 
+è data dalla proprietà di monotonia della moltiplicazione.
+\end{proof}
+
+\begin{theorem}[radice $n$-esima]
+  \label{radice!$n$-esima}%
+Sia $n\in \NN$, $n\ge 1$ fissato.
+Dato $y\in \RR$, $y \ge 0$, esiste un unico $x\in \RR$, $x\ge 0$ tale che $x^n = y$.
+Tale numero $x$ si chiama \emph{radice} $n$-esima di $y$ e si 
+denota con questo simbolo:
+\[
+  x = \sqrt[n]{y}.
+\]
+
+Se $n$ è pari e $y>0$ l'equazione $x^n=y$ ha due soluzioni, oltre alla soluzione positiva 
+$\sqrt[n]{y}$ c'è anche una soluzione negativa $-\sqrt[n]{y}$.
+Se $y=0$ l'equazione $x^n=0$ ha come unica soluzione $x=\sqrt[n]{0}=0$.
+E se $y<0$ (sempre nel caso $n$ pari) l'equazione $x^n = y$ non ha soluzioni.
+
+Se $n$ è dispari l'equazione $x^n=y$ ha una unica soluzione per ogni $y\in \RR$.
+Se $y<0$ la soluzione è negativa ed è $x=-\sqrt[n]{\abs y}$.
+Per comodità, se $n$ è dispari, definiamo la radice $n$-esima anche sui numeri negativi 
+ponendo appunto 
+\[
+  \sqrt[n]{-y} \defeq  -\sqrt[n]{y}\qquad\text{(se $n$ è dispari).}
+\]
+\end{theorem}
+\begin{proof}
+Il teorema~\ref{th:divisibile} (divisibilità) può essere applicato al gruppo moltiplicativo 
+$\RR_+$ e ci dice che se $n\neq 0$ dato $y\in \RR_+$ esiste un unico $x\in \RR_+$ tale 
+che $x^n = y$. Se $y=0$ chiaramente solo $x=0$ è soluzione di $x^n= y$ per la regola 
+di annullamento del prodotto. 
+
+Le altre proprietà si deducono per simmetria osservando che $(-x)^n = (-1)^n\cdot x^n$
+e $(-1)^n$ vale $1$ se $n$ è pari e $-1$ se $n$ è dispari per la regola del segno 
+del prodotto.
+\end{proof}
+
+\index{radice!quadrata}%
+\index{radice!cubica}%
+Per $n=2$ si omette l'indicazione dell'esponente scrivendo $\sqrt y$ al posto di $\sqrt[2] y$.
+La $\sqrt y$ si chiama \emph{radice quadrata} di $y$.
+Per $n=3$ la radice $\sqrt[3]{y}$ si chiama \emph{radice cubica} di $y$.
+
+\begin{figure}
+  \begin{center}
+    \begin{tikzpicture}[x=1.0cm,y=1.0cm]
+      \clip(-3,-2) rectangle (4,3);
+    	\draw[->] (-3,0) -- (4,0);
+      \draw[->] (0,-2) -- (0,3);
+      \draw[dotted] (1,0) -- (1,1) -- (0,1);
+%      \draw[domain=0.2:4,samples=50,variable=\x,dashed,color=gray] plot
+%        ({\x}, {1/(\x))});
+%      \draw[domain=-3:-0.5,samples=50,variable=\x,dashed,color=gray] plot
+%        ({\x}, {1/(\x))});
+      \draw[domain=-2.0:2.0,smooth,variable=\x,thick,color=gray] plot
+        ({\x}, {\x*\x*\x)});
+      \draw[domain=-3.1:4.0,samples=200,variable=\x,color=gray] plot
+        ({\x}, {pow(abs(\x),1/3)*\x / abs(\x)});
+      \draw[domain=-3.0:3.0,smooth,variable=\x,thick] plot
+        ({\x}, {\x*\x});
+      \draw[domain=0.0:4.0,samples=200,variable=\x] plot
+      ({\x}, {pow(\x,1/2)});
+      \node at (-2.0,1.8) {$y=x^2$};
+      \node at (3,2) {$y=\sqrt{x}$};
+      \node[color=gray] at (-1.7,-1.8) {$y=x^{3}$};
+      \node[color=gray] at (-2.0,-1) {$y=\sqrt[3]{x}$};
+      \fill (1,0) node[below]{$1$} circle[radius=1.5pt];
+      \fill (0,1) node[left]{$1$} circle[radius=1.5pt];
+    \end{tikzpicture}
+  \end{center}
+  \caption{Grafici delle potenze $x^2$, $x^3$ e radici
+  $\sqrt x$, $\sqrt[3] x$.}
+  \label{fig:potenza_intera_radice}
+\end{figure}
+
+%\subsubsection{numeri irrazionali}
+%
+%
+%******************** SISTEMARE ****************
+%
+%
+%Abbiamo quindi dimostrato che $\QQ$ non può essere continuo (altrimenti 
+%sarebbe isomorfo a $\RR$ dove l'equazione $x^2=2$ ha soluzione). 
+%Utilizzando l'irrazionalità di $\sqrt 2$ 
+%possiamo ora esibire un esempio di sottoinsiemi di $\QQ$ che sono 
+%\emph{separati} (nel senso della definizione~\ref{def:ordinamento_continuo})
+%ma non hanno elemento di separazione in $\QQ$:
+%\[
+%A= \ENCLOSE{x\in\QQ\colon x^2< 2},
+%\qquad
+%B = \ENCLOSE{x\in \QQ\colon x<0, x^2>2}.  
+%\]
+%Chiaramente $A\le B$ ma in $\RR$ questi due insiemi 
+%hanno come unico elemento di separazione $\sqrt 2$ che non è elemento di
+%$\QQ$.
+%
+%% Abbiamo appena verificato che esistono numeri irrazionali. 
+%% Può però essere sorprendente scoprire che non solo i numeri irrazionali 
+%% sono infiniti (chiaramente se $x$ è irrazionale anche $n\cdot x$ è irrazionale 
+%% se $n$ è intero o razionale) ma addirittura la cardinalità 
+%% dei numeri irrazionali è maggiore di quella dei numeri razionali 
+%% $\# (\RR\setminus \QQ) > \# \QQ$ (teorema~\ref{th:cantor_secondo}).
+%
+%Ogni numero razionale ha una rappresentazione finita. 
+%Se $x=\frac p q$ possiamo scrivere $p$ e $q$ nella loro rappresentazione 
+%decimale utilizzando una sequenza finita di cifre.
+%Possiamo dare \emph{un nome} anche a molti
+%numeri irrazionali. 
+%Ad esempio $\sqrt 2$, $e$, $\pi$, $\sin 1$, $\ln 2$ identificheranno 
+%alcuni numeri irrazionali. 
+%Ma non è possibile dare una rappresentazione \emph{finita} di ogni numero reale.
+%Per questo motivo è rilevante il fatto che i numeri razionali siano \emph{densi}
+%nei numeri reali perché questo significa che ogni numero reale può essere 
+%approssimato, con un errore piccolo a piacere, tramite un numero razionale.
+%
+\begin{theorem}[densità di $\QQ$ in $\RR$]
+\label{th:densita_frazioni}%
+\index{densità!frazioni}%
+\index{approssimazioni!decimali}%
+Dati $a,b\in \RR$ se $a<b$ esiste $q\in \QQ$ tale che $a< q < b$.
+
+Equivalentemente dato $x\in \RR$ e dato $\eps>0$ esiste $q\in \QQ$ 
+tale che $\abs{x-q} < \eps$.
+
+Inoltre la frazione $q= \frac{p}{n}$ può essere scelta 
+in modo tale che il denominatore sia una potenza di $10$: $n=10^k$.
+\end{theorem}
+\begin{proof}
+La prima parte è conseguenza della seconda perché 
+dati $a<b$
+se scegliamo 
+$x= \frac{a+b}{2}$ ed $\eps = \frac{b-a} 2$ se 
+esiste $q$ tale che $\abs{x-q}< \eps$ 
+allora 
+\[
+   a = \frac{a+b}{2} - \eps < q < \frac{a+b}{2} + \eps = b.
+\]
+
+Per dimostrare la seconda parte dati $x$ e $\eps$ basterà scegliere 
+$n\in \NN$ tale che $\frac 1 n < \eps$ (l'esistenza di $n$ è garantita 
+dal teorema~\ref{th:archimede}, proprietà archimedea) e predere $q = \frac{\lfloor nx\rfloor}{n}$
+cosicché, per le proprietà della parte intera, si ha:
+\[
+  nx-1\le \lfloor nx\rfloor \le nx 
+  \qquad\text{e quindi}\qquad
+  x - \frac 1 n \le q \le x
+\]
+da cui $0 \le x-q < \frac 1 n < \eps$ come volevamo dimostrare.
+
+Per avere una frazione con denominatore potenza di $10$ basta osservare 
+che se aumentiamo $n$ la precisione della approssimazione aumenta. 
+Dunque basta osservare che per ogni $n\in \NN$ esiste $d\in \NN$
+tale che $10^d \ge n$ (basta scegliere $d=n$ e dimostrare per induzione 
+che $10^n\ge n$).
+\end{proof}
+
+\begin{exercise}\label{ex:densita_irrazionali}
+  Dimostrare che anche gli irrazionali 
+  sono densi in $\RR$ cioè che se $a<b$ allora esiste 
+  $x \in \openinterval{a}{b}$, $x\not \in \QQ$.
+\end{exercise}
+
+\subsubsection{frazioni decimali}
+%
+Le frazioni il cui denominatore è una potenza
+di $10$ si chiamano frazioni decimali:
+\[
+  x = \frac{p}{10^d}, \qquad p\in \ZZ, d\in \NN.
+\]
+Tali frazioni si possono rappresentare
+scrivendo il numero
+intero $p$ e segnando un punto
+\mynote{%
+in Italia si preferisce utilizzare la virgola, ma
+ci rassegnamo alla notazione anglosassone che ormai è
+ubiqua in tutta la strumentazione elettronica.
+}%
+di separazione
+prima della $d$-esima cifra a partire da destra.
+Ad esempio scriveremo:
+\[
+  1.4142 = \frac{14142}{10^4}.
+\]
+In generale una frazione $\frac{p}{q}\in \QQ$
+può essere scritta in forma decimale solamente
+se, quando ridotta ai minimi termini,
+risulta che $q$ non ha fattori primi diversi
+da $2$ e $5$ (in quanto le potenze di dieci
+hanno solo questi fattori).
+
+Anche se non tutte le frazioni hanno una rappresentazione 
+decimale finita, in ogni caso le frazioni decimali 
+sono dense in $\RR$ (come dimostrato nel teorema~\ref{th:densita_frazioni})
+e quindi ogni numero reale può essere approssimato, con errore piccolo a piacere,
+mediante una frazione decimale.
+
+Scriveremo
+\mymargin{$\approx$}%
+\index{$\approx$}%
+\[
+  x \approx \frac{p}{10^d}
+\]
+(si può leggere: ``$x$ è approssimativamente uguale a\dots'')
+se
+\[
+    \frac{p-1}{10^d} < x < \frac{p+1}{10^d}.
+\]
+
+Ad esempio possiamo scrivere
+\[
+  \sqrt 2 \approx 1.41 = \frac{141}{10^2}
+\]
+per intendere%
+\mynote{%
+Si osservi che in base alla definizione data sarebbe anche corretto 
+scrivere $\sqrt 2 \approx 1.42$ che però è una approssimazione 
+peggiore. 
+Questa ambiguità è necessaria se vogliamo evitare i casi 
+limite in cui bisogna conoscere molte più cifre decimali di quelle richieste 
+per capire qual è la migliore approssimazione.
+}%
+\begin{equation}\label{eq:approx_sqrt2}
+\frac{140}{100} < \sqrt 2 < \frac{142}{100}.
+\end{equation}
+Nel calcolo numerico scientifico ogni uguaglianza numerica è intesa nel 
+senso precedente, se non specificato diversamente. 
+
+\begin{exercise}
+Dimostrare \ref{eq:approx_sqrt2} senza 
+utilizzare la calcolatrice.
+\end{exercise}
+
+Osserviamo infine che anche i calcolatori utilizzano una rappresentazione frazionaria, 
+nel caso specifico \emph{binaria}, dei numeri.
+I numeri frazionari su cui opera un calcolatore sono tutti della forma $\frac{p}{2^d}$.
+Visto che $2$ divide $10$, le frazioni binarie sono anche sempre frazioni decimali, 
+in particolare anche questi numeri sono densi in $\RR$.
+\mynote{In un moderno calcolatore a 64 bit la rappresentazione binaria (float64) 
+utilizza frazioni binarie con esponente $d\le 1024$. 
+Questo permette di rappresentare numeri con una precisione non superiore alle 
+$308$ cifre decimali. 
+La rappresentazione è a virgola mobile e quindi questa precisione si può raggiungere 
+solamente con numeri vicini allo zero, per numeri vicini a $1$ 
+si ha invece $d\le 53$ che corrisponde ad una precisione di quasi $16$ cifre decimali.}
+
+\subsubsection{frazioni decimali periodiche}
+
+Le frazioni non decimali si possono scrivere con uno sviluppo
+decimale \emph{periodico}. 
+Non useremo mai questa notazione
+che ricordiamo solamente con un esempio.
+Il numero
+\[
+  x = 12.34\overline{567}
+    = 12.34567\overline{567}
+\]
+è la frazione $x$ che risolve l'equazione
+\[
+  \frac{100x - 1234}{1000}
+  = 100x-1234.567
+  \qquad
+\enclose
+{\frac{0.\overline{567}}{1000}
+= 0.000\overline{567} }
+\]
+ovvero
+\[
+  1234567 - 1234 = 99900 \cdot x,
+  \qquad x = \frac{1234567-1234}{99900}.
+\]
+
+\begin{exercise}
+Si verifichi che $0.\overline 9 = 1$.
+\end{exercise}
+    
+Per passare dalla rappresentazione frazionaria alla rappresentazione 
+decimale periodica basta svolgere la divisione in colonna.
+Se l'algoritmo termina la frazione era decimale, altrimenti l'algoritmo 
+diventa periodico e le cifre decimali si ripetono indefinitamente.
+
+
+\subsection{punti all'infinito}
+\label{sec:reali_estesi}
+%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%
+
+\begin{definition}[reali estesi]
+\mymargin{$\bar\RR$}%
+\index{$\bar{\RR}$}
+Denotiamo con $\bar \RR=\RR \cup \ENCLOSE{+\infty, -\infty}$ l'insieme dei numeri reali
+\mymargin{$+\infty$, $-\infty$}%
+\index{$+\infty$, $-\infty$}
+a cui vengono aggiunti due ulteriori \emph{quantità} che chiameremo
+\emph{infinite} e che denotiamo con $+\infty$ e $-\infty$.
+Diremo che $x\in \bar \RR$ è \emph{finito} se $x\in \RR$.
+\end{definition}
+
+
+Estendiamo la relazione d'ordine imponendo che valga
+\[
+  -\infty \le x \le +\infty, \qquad \forall x \in \bar\RR.
+\]
+
+Estendiamo anche la addizione e moltiplicazione
+tra reali estesi imponendo che valga per ogni $x\in \bar \RR$
+\begin{gather*}
+  x + (+\infty) = +\infty, \qquad \text{se $x\neq -\infty$}\\
+  x + (-\infty) = -\infty, \qquad \text{se $x\neq +\infty$}\\
+  x \cdot (+\infty) = +\infty, \qquad
+  x \cdot (-\infty) = -\infty, \qquad \text{se $x>0$} \\
+  x \cdot (+\infty) = -\infty, \qquad
+  x \cdot (-\infty) = +\infty, \qquad \text{se $x<0$}.
+\end{gather*}
+
+Si definiscono anche:
+\[
+ -(+\infty) = -\infty, \qquad
+ -(-\infty) = +\infty, \qquad
+ \frac{1}{+\infty} = \frac{1}{-\infty}=0
+\]
+facendo però attenzione che
+questi formalmente non sono \emph{opposto}
+e \emph{reciproco} in quanto
+su $\bar \RR$ non sono più garantite
+le regole: $x + (-x) = 0$ e $x \cdot (1/x) = 1$.
+Infatti
+le operazioni $(+\infty) + (-\infty)$ e $+\infty \cdot 0$ vengono
+lasciate indefinite.
+
+Definiamo anche il valore assoluto: $\abs{+\infty} = \abs{-\infty} = +\infty$.
+
+Possiamo infine definire la sottrazione e la divisione tramite
+addizione e moltiplicazione:
+\[
+  x - y = x + (-y), \qquad \frac{x}{y} = x \cdot \frac{1}{y}.
+\]
+
+Possiamo definire gli operatori $\sup$ e $\inf$
+anche sugli insiemi illimitati ponendo:
+\begin{align*}
+  \sup A = +\infty \qquad \text{se $A$ non è superiormente limitato}\\
+  \inf A = -\infty \qquad \text{se $A$ non è inferiormente limitato}.
+\end{align*}
+Osserviamo infatti che su $\bar \RR$ la quantità $+\infty$
+è maggiorante di qualunque insieme e $-\infty$ è minorante, dunque
+queste definizioni mantengono su $\bar \RR$ le proprietà caratterizzanti:
+l'estremo superiore è il minimo dei maggioranti e
+l'estremo inferiore è il massimo dei minoranti.
+Definiamo infine
+\begin{align*}
+  \sup \emptyset = -\infty\\
+  \inf \emptyset = +\infty.
+\end{align*}
+Queste ultime definizioni possono essere comprese da un punto di vista
+strettamente logico: ogni numero reale è sia maggiorante che minorante
+dell'insieme vuoto, dunque il minimo dei maggioranti non esiste in $\RR$
+ma in $\bar \RR$ è $-\infty$
+e il massimo dei minoranti è $+\infty$.
+
+\subsection{intervalli}
+
+\begin{definition}[intervallo]
+\label{def:intervallo}%
+\mymargin{intervallo}%
+\index{intervallo}%
+Un insieme $I\subset \bar\RR$ si dice essere un \emph{intervallo}
+se contiene tutti i punti intermedi:
+\[
+  \text{se $x, y \in I$ e $x<z<y$ allora $z \in I$.}
+\]
+\end{definition}
+%
+\begin{theorem}[caratterizzazione intervalli di $\RR$]
+Sia $I\subset \RR$ un intervallo e siano $a=\inf I$, $b=\sup I$
+i suoi estremi. Allora
+$z\in I$ se $a < z < b$.
+\end{theorem}
+%
+\begin{proof}
+Se $I=\emptyset$ si ha $a>b$ e quindi nessuno $z$ verifica $a<z<b$.
+Supponiamo $I\neq \emptyset$ e
+sia $a < z < b$.
+Visto che $a$ è il massimo dei minoranti di $I$
+il numero $z$ non è un minorante dunque
+deve esistere $x \in I$ tale
+che $x < z$. Analogamente dovrebbe esistere $y\in I$
+con $z<y$.
+Ma allora, per definizione di intervallo, anche $z\in I$.
+\end{proof}
+
+Il teorema precedente ci dice che una volta identificati i due estremi
+di un intervallo, tutti i punti intermedi devono stare nell'intervallo.
+Gli estremi, invece, possono essere o non essere inclusi nell'intervallo.
+Punti esterni agli estremi non possono invece essere elementi dell'intervallo.
+Possiamo quindi caratterizzare tutti gli intervalli di $\RR$
+introducendo le seguenti notazioni. Dati $a,b\in \bar \RR$ con $a\le b$
+tutti i possibili intervalli con estremi $a$ e $b$ sono i seguenti:
+\begin{equation}\label{eq:499494}
+\begin{aligned}
+\closeinterval{a}{b} &= \ENCLOSE{x\in \bar \RR\colon a \le x \le b} \\
+\closeopeninterval{a}{b} &= \ENCLOSE{x\in \bar \RR\colon a \le x < b} \\
+\opencloseinterval{a}{b} &= \ENCLOSE{x\in \bar \RR\colon a < x \le b}\\
+\openinterval{a}{b} &= \ENCLOSE{x\in \bar \RR\colon a < x < b}.
+\end{aligned}
+\end{equation}
+Abbiamo utilizzato le parentesi quadre per indicare che gli estremi
+sono inclusi e le parentesi tonde per indicare che gli estremi sono esclusi.
+Osserviamo che in alcuni testi si usano le parentesi quadre rovesciate al posto
+delle parentesi tonde.
+
+Se invece $a>b$ potremmo definire per convenzione:
+\begin{equation}\label{eq:488364}
+  [a,b] = [b,a], \quad
+  [a,b) = (b,a], \quad
+  (a,b] = [b,a), \quad
+  (a,b) = (b,a).
+\end{equation}
+Si faccia però attenzione che in altri testi gli intervalli con gli estremi
+scambiati non vengono definiti oppure vengono considerati vuoti.
+
+La convenzione può essere utile perché in generale se $\vec a, \vec b$ sono
+elementi di uno spazio vettoriale reale $V$ allora ha senso
+definire:
+\begin{align*}
+    [\vec a,\vec b] &= \ENCLOSE{(1-t)\vec a + t \vec b\colon t\in [0,1]},\\
+    [\vec a,\vec b) &= \ENCLOSE{(1-t)\vec a + t \vec b\colon t\in [0,1)},\\
+    (\vec a,\vec b] &= \ENCLOSE{(1-t)\vec a + t \vec b\colon t\in (0,1]},\\
+    (\vec a,\vec b) &= \ENCLOSE{(1-t)\vec a + t \vec b\colon t\in (0,1)}.
+\end{align*}
+L'intervallo $[\vec a,\vec b]$ è quindi il segmento di estremi
+$\vec a$ e $\vec b$ e può essere definito anche se sullo spazio
+vettoriale non è dato un ordinamento.
+Questo rimane coerente con la definizione~\eqref{eq:499494}
+data sopra solamente se adottiamo la convenzione~\eqref{eq:488364}.
+
+Noi considereremo per lo più intervalli di $\RR$ (non di $\bar \RR$): in tal
+caso gli estremi infiniti saranno sempre esclusi dall'intervallo.
+
+\subsection{andamento del grafico di una funzione}
+%
+Se $f\colon A \subset \RR\to \RR$ è una funzione, un modo molto
+utile di rappresentarla graficamente è quello di disegnarne il
+grafico, ovvero la curva del piano cartesiano:
+\[
+   G_f = \ENCLOSE{(x,y)\in A\times \RR\colon y = f(x)}.
+\]
+Molte proprietà della funzione potranno essere riconosciute
+geometricamente guardandone il grafico.
+
+\begin{definition}[simmetrie]
+Sia $f\colon A \subset \RR \to \RR$ una funzione.
+Diremo che $f$ è:
+\begin{enumerate}
+\item \emph{pari}%
+\mymargin{pari}%
+\index{pari}
+\index{funzione!pari}%
+se $A=-A$ (significa che se $x\in A$ allora anche $-x\in A$) e
+\[
+  f(-x) = f(x);
+\]
+\item \emph{dispari}%
+\mymargin{dispari}%
+\index{dispari}
+\index{funzione!dispari}%
+se $A=-A$ e
+\[
+  f(-x) = -f(x);
+\]
+\item \emph{periodica}%
+\mymargin{periodica}%
+\index{periodico}
+\index{funzione!periodica}%
+di periodo $T$ se $A+T=A$
+(significa che $x\in A \iff x+T \in A$)
+se per ogni $x\in A$ si ha
+\[
+  f(x+T)=f(x)
+\]
+\end{enumerate}
+\end{definition}
+
+Ad esempio se $n\in \ZZ$ la funzione $f(x)=x^n$
+è pari se $n$ è pari ed è dispari se $n$ è dispari.
+Il grafico di una funzione dispari ha una simmetria
+centrale, in quanto se $(x,f(x))\in G_f$ allora
+anche $(-x,-f(x)) = (-x,f(-x))\in G_f$.
+Il grafico di una funzione pari ha invece una
+simmetria rispetto all'asse delle ordinate $x=0$
+infatti se $(x,f(x))\in G_f$ allora $(-x,f(x)) = (-x,f(-x)) \in G_f$.
+
+La funzione $f(x) = x - \lfloor x\rfloor$ (la parte frazionaria di $x$)
+è un esempio di funzione periodica di periodo $T=1$. Infatti
+è chiaro che $\lfloor x+1\rfloor = \lfloor x \rfloor +1$ e quindi
+$f(x+1)=f(x)$.
+
+Si osservi che \emph{dispari} per le funzioni non è la negazione
+di \emph{pari}.
+La funzione $f(x) = x+1$ non è né pari, né dispari, né periodica
+(verificare).
+
+\begin{definition}[zeri]
+  Se $f\colon A\subset \RR \to \RR$ è una funzione diremo che
+  $x\in A$ è uno \emph{zero} di $f$ se $f(x)=0$.
+  L'\emph{insieme degli zeri}%
+\mymargin{insieme degli zeri}%
+\index{insieme!degli zeri}
+  \index{zero!di una funzione}%
+  è quindi dato da
+  \[
+    f^{-1}(\ENCLOSE{0}) = \ENCLOSE{x\in \RR\colon f(x) = 0}.
+  \]
+\end{definition}
+
+Abbiamo già accennato al fatto che uno dei problemi più comuni in
+matematica è quello di invertire una funzione. In particolare 
+dato $y\in \RR$ ci si chiede quali siano gli $x\in \RR$ 
+tali che $f(x)=y$. 
+Questo problema si riconduce
+a trovare gli zeri della funzione $f(x)-y$ e per questo motivo 
+siamo interessati allo studio degli zeri.
+
+Riprendiamo ora la definizione~\ref{def:monotonia} (monotonia) che da ora in avanti 
+potrà essere applicata alle funzioni $f\colon A \to \RR$ definite 
+su un insieme $A\subset \RR$.
+
+Dal punto di vista grafico una funzione $f$ è crescente
+se preso qualunque punto $(x,f(x))$ sul grafico della funzione
+e tracciati gli assi paralleli agli assi cartesiani, passanti
+per il punto fissato, si osserva che il grafico della funzione
+è tutto contenuto nel primo e terzo quadrante determinati
+dagli assi traslati.
+
+E' facile verificare che la funzione $f\colon [0,+\infty)\to \RR$
+definita da $f(x)=x^n$
+è strettamente crescente se $n$ è un intero positivo.
+Se però consideriamo la funzione definita su tutto
+$\RR$: $f\colon \RR \to \RR$,
+$f(x)=x^n$ allora solo se $n$ è dispari la funzione rimane
+strettamente crescente
+(le funzioni pari non possono mai essere strettamente crescenti se
+il loro dominio contiene almeno tre punti distinti).
+
+Se una funzione non è monotona è piuttosto comune studiare 
+la monotonia della funzione ristretta a particolari intervalli: 
+su alcuni intervalli la funzione (ristretta) potrà essere crescente e su altri 
+intervalli potrà essere decrescente.
+
+\begin{exercise}
+Verificare che la composizione di funzioni monotone è una
+funzione monotona e la composizione di funzioni strettamente
+monotone è strettamente monotona.
+Quando è che la funzione composta risulta crescente?
+Quando decrescente?
+\end{exercise}
+
+\begin{exercise}
+Si dimostri che applicando una funzione strettamente crescente ai due
+membri di una equazione o disequazione (stretta o larga che sia)
+si ottiene una equazione o disequazione equivalente.
+Ovviamente è necessario che la funzione sia definita dove viene applicata.
+
+Lo stesso vale per le funzioni strettamente decrescenti 
+se però si cambia il verso della disequazione.
+\end{exercise}
+
+\begin{definition}[funzioni limitate, massimo/minimo]
+\label{def:funzione_limitata}%
+Se $f\colon A \to \RR$ è una funzione allora definiamo
+l'estremo superiore di $f$ come l'estremo superiore
+dell'immagine di $f$:
+\[
+  \sup f = \sup_{x\in A} f(x) = \sup f(A).
+\]
+In maniera analoga si definiscono l'estremo inferiore $\inf f$,
+il massimo $\max f$ e il minimo $\min f$.
+
+Dunque il massimo di una funzione è (se esiste) il valore massimo
+che la funzione può assumere. I punti $x$ in cui
+la funzione assume il valore massimo $f(x)$ vengono chiamati
+\emph{punti di massimo}.
+\mymargin{punto di massimo/minimo}%
+\index{punto di massimo/minimo}%
+\index{punto!di massimo}%
+\index{punto!di minimo}%
+Analogamente i punti in cui la funzione
+assume il valore minimo (sempre che esistano) vengono
+chiamati \emph{punti di minimo}.
+
+Diremo che la funzione $f$ è
+\emph{superiormente limitata}%
+\mymargin{funzione superiormente limitata}%
+\index{superiormente limitata}
+se $\sup f<+\infty$
+ovvero se esiste $M\in \RR$ tale che
+\[
+\forall x\in A \colon f(x) \le M.
+\]
+Diremo che la funzione $f$ è
+\emph{inferiormente limitata}%
+\mymargin{funzione inferiormente limitata}%
+\index{inferiormente!limitato}
+se $\inf f > -\infty$ ovvero se esiste $M\in \RR$ tale che
+\[
+ \forall x \in A \colon f(x) \ge M.
+\]
+Diremo che la funzione $f$ è \emph{limitata}%
+\mymargin{funzione limitata}%
+\index{limitata}
+se è sia superiormente che inferiormente limitata ovvero
+se $\sup\abs{f}<+\infty$ cioè se esiste $M\in \RR$ tale che
+\[
+\forall x \in A \colon \abs{f(x)}\le M.
+\]
+\end{definition}
+
+Nel seguente esercizio abbiamo un esempio di funzione limitata.
+\begin{exercise}
+Si consideri la funzione $f\colon \RR\to\RR$
+\[
+ f(x) = \frac{1}{1+x^2}.
+\]
+Verificare che $\max f = \sup f = 1$, che $0$ è l'unico punto di massimo,
+che $\inf f = 0$ e che $\min f$ non esiste.
+\end{exercise}
+
+\subsection{funzioni lineari}
+
+\begin{figure}
+  \begin{center}
+    \begin{tikzpicture}[x=1.0cm,y=1.0cm]
+    	\draw[->] (-1,0) -- (4,0);
+      \draw[->] (0,-1) -- (0,3);
+      % y = (3/5)*x + 1/5
+      \fill[fill=lightgray,draw] (1,0.8) -- (2,0.8) node [midway,below]{$\Delta x$} -- (2,1.4) node [midway,right]{$\Delta f(x)$};
+      \draw[thick] (-1,-0.4) -- (4,2.6);
+      \draw[->] (1,0) node[below]{$x_1$} -- (1,0.8)
+      -- (0,0.8) node[left]{$f(x_1)$};
+      \draw[->] (2,0) node[below]{$x_2$} -- (2,1.4)
+      -- (0,1.4) node[left]{$f(x_2)$};
+      \fill (1,0.8) circle[radius=1.5pt];
+      \fill (2,1.4) circle[radius=1.5pt];
+      \node[left] at (3.0,2.5) {$y=mx+q$};
+    \end{tikzpicture}
+  \end{center}
+  \caption{Il grafico di una funzione lineare.}
+  \label{fig:funzione_lineare}
+\end{figure}
+
+Le \emph{funzioni lineari}%
+\mymargin{funzione lineare}%
+\index{funzioni lineari}
+$f\colon \RR \to \RR$ sono le funzioni per le quali
+esistono $m,q\in\RR$ tali che%
+\mynote{%
+Attenzione: nell'ambito dell'algebra lineare queste
+funzioni verrebbero chiamate \emph{lineari affini}, mentre
+le funzioni lineari dovrebbero sempre avere $q=0$.
+Noi invece (come spesso accade nell'ambito dell'analisi)
+chiameremo lineari queste funzioni e chiameremo
+\emph{lineari omogenee} quelle con $q=0$.
+Il termine \emph{lineare} pervade tutta la matematica 
+e si applica in particolare alle equazioni che si ottengono 
+tramite le funzioni lineari.
+Purtroppo il nome scelto è fuorviante: la parola \emph{linea} viene 
+usata a volte come abbreviazione di \emph{linea retta}, quando 
+invece sarebbe più giusto utilizzare l'abbreviazione \emph{retta}
+in quanto una linea può benissimo essere curva.
+In altri contesti (come ad esempio nell'ambito degli ordinamenti)
+il termine \emph{lineare} rappresenta un oggetto unidimensionale
+senza ramificazioni ed è quindi maggiormente aderente 
+al significato originale della parola.
+} % marginnote
+\[
+  f(x) = mx + q.
+\]
+
+Se prendiamo due punti $(x_1,f(x_1))$
+e $(x_2,f(x_2))$ sul grafico di una funzione lineare
+possiamo osservare che si ha
+\[
+  \frac{f(x_2) - f(x_1)}{x_2 - x_1} = m.
+\]
+Il coefficiente $m$, dunque, rappresenta la pendenza del
+grafico di $f$, ovvero il rapporto tra la variazione
+dei valori della funzione $\Delta f = f(x_2) - f(x_1)$
+e la variazione della variabile in ingresso
+$\Delta x = x_2 - x_1$.
+Geometricamente questo è il rapporto tra i due cateti
+(base e altezza) che formano un triangolo rettangolo la
+cui ipotenusa è il segmento che congiunge i due punti sul grafico.
+Il fatto che questo rapporto sia costante significa,
+in base al teorema di Talete, che i punti del grafico sono
+allineati ovvero che il grafico di una funzione lineare è,
+dal punto di vista geometrico, una retta.
+
+\begin{definition}[retta]
+  \index{retta}%
+  \index{linea!retta}%
+  Una \emph{linea retta} (più semplicemente: \emph{retta}) in è un sottospazio affine di dimensione 1 
+  ovvero la traslazione di un sottospazio vettoriale di dimensione 1
+  (si rimanda al corso di geometria).
+\end{definition}
+
+Tutte le rette del piano, 
+tranne quelle parallele all'asse delle ordinate,
+sono grafico di una funzione lineare.
+
+Si osservi che per $m>0$ la funzione è strettamente crescente,
+per $m=0$ la funzione è costante e per $m<0$ la funzione è
+strettamente decrescente.
+
+\subsection{funzioni quadratiche}
+\label{sec:funzioni_quadratiche}
+
+\begin{figure}
+  \begin{center}
+    \begin{tikzpicture}[x=1.0cm,y=1.0cm]
+      \clip(-1,-1) rectangle (4,3);
+    	\draw[->] (-1,0) -- (4,0);
+      \draw[->] (0,-1) -- (0,3);
+      % y = (3/5)*x + 1/5
+      \draw[dashed] (1.75,-1) -- (1.75,4);
+      \node[right] at (1.75,2.5){$x=-\frac b {2a}$};
+      \draw[domain=-1.0:4.0,smooth,variable=\x,thick] plot
+      ({\x}, {0.5*(\x-0.5)*(\x-3.0)});
+      \fill (0.5,0.0) node[below]{$x_1$} circle[radius=1.5pt];
+      \fill (3,0.0) node[below]{$x_2$} circle[radius=1.5pt];
+      \node at (1.8,1) {$y=ax^2+bx+c$};
+    \end{tikzpicture}
+  \end{center}
+  \caption{Il grafico di una funzione quadratica.}
+  \label{fig:funzione_quadratica}
+\end{figure}
+
+Le funzioni espresse mediante un \emph{polinomio di secondo grado}%
+\mymargin{polinomio di secondo grado}%
+\index{polinomio!di secondo grado}
+\begin{equation}\label{eq:funzione_quadratica}
+  f(x) = ax^2 + bx +c
+\end{equation}
+con $a,b,c\in \RR$, $a\neq 0$, si possono chiamare
+\emph{funzioni quadratiche}%
+\mymargin{funzioni quadratiche}%
+\index{funzione!quadratica}.
+
+Il modello di funzione quadratica è la funzione
+$f(x) = x^2$ che (come tutte le potenze di esponente positivo e pari)
+risulta essere una funzione pari, strettamente crescente
+sull'intervallo $[0,+\infty)$ e strettamente decrescente
+su $(-\infty,0]$. La funzione assume solamente valori non negativi
+e si annulla solo per $x=0$.
+Dunque l'equazione
+\[
+  x^2 = b
+\]
+non ha soluzione se $b<0$ ed ha come unica soluzione $x=0$ se $b=0$.
+Se $b>0$ sappiamo che
+questa equazione ha una unica soluzione positiva $x_1 = \sqrt{b}$
+e, per simmetria, ha anche una soluzione negativa $x_2 = -\sqrt{b}$.
+Sintetizzando si usa scrivere $x_{1,2} = \pm \sqrt{b}$
+per unire in una unica riga le due definizioni.
+
+La generica funzione quadratica~\eqref{eq:funzione_quadratica}
+può essere ricondotta al caso modello tramite un cambio
+di variabile lineare. In pratica si cerca di comporre il quadrato
+di un binomio con un procedimento chiamato
+\emph{completamento del quadrato}%
+\mymargin{completamento del quadrato}%
+\index{completamento del quadrato}:
+\begin{equation}\label{eq:24589}
+\begin{aligned}
+f(x) = ax^2+bx+c
+  &= a \Enclose{x^2+\frac b a x + \frac c a}\\
+  &= a \Enclose{x^2+2 \frac{b}{2a} x + \frac{b^2}{4a^2} - \frac{b^2}{4a^2} + \frac c a}\\
+  &= a \Enclose{\enclose{x+\frac{b}{2a}}^2 - \frac{b^2-4ac}{4a^2}} \\
+  &= a\enclose{x+\frac b{2a}}^2  - \frac{b^2-4ac}{4a}.
+\end{aligned}
+\end{equation}
+
+Ponendo $X=x+\frac b{2a}$ e $Y=y+\frac{b^2-4ac}{4a}$
+l'equazione $y=ax^2+bx+c$ diventa quindi $Y=aX^2$. 
+Significa
+che il grafico della funzione quadratica~\eqref{eq:funzione_quadratica}
+si ottiene traslando la curva $y = a x^2$ che, 
+dal punto di vista geometrico, si può facilmente
+dimostrare essere una parabola con fuoco
+nel punto di coordinate $\enclose{0,\frac 1 {4a}}$
+e asse la retta di equazione $x=0$.
+Dunque il grafico di ogni funzione quadratica è una parabola, 
+e più precisamente: ogni parabola con direttrice parallela all'asse delle
+ascisse è il grafico di una funzione quadratica.
+
+\begin{definition}[parabola]
+  Una parabola con fuoco nel punto $\vec F=(F_1,F_2)\in \RR\times \RR$ 
+  e retta direttrice 
+  la retta $r \subset \RR\times\RR$ 
+  è l'insieme dei punti  $\vec x = (x_1,x_2)\in \RR\times\RR$ 
+  equidistanti da $\vec F$ e da $r$:
+  \[
+  \ENCLOSE{\vec x\in \RR\times\RR\colon 
+  \sqrt{(x_1-F_1)^2 + (x_2-F_2)^2} 
+  = \inf_{\vec P\in r}\sqrt{(x_1-P_1)^2+(y_1-P_1)^2}
+  }.
+  \]
+\end{definition}
+
+\begin{exercise}
+  Si dimostri che per ogni $a\neq 0$ esiste $s\neq 0$ 
+  per cui il riscalamento $X=sx$, $Y=sy$ porta il grafico della 
+  parabola $y=ax^2$ nel grafico della parabola $Y=X^2$.
+  Significa che 
+  c'è una unica parabola 
+  a meno di isometrie e riscalamenti.
+\end{exercise}
+
+Ricordando le proprietà di monotonia della funzione $X\mapsto X^2$
+possiamo dedurre che se $a>0$ la funzione $f(x)$ è strettamente
+decrescente se ristretta all'intervallo 
+$\left(-\infty,-\frac b {2a}\right]$ ed è invece strettamente crescente 
+sull'intervallo $\left[-\frac b{2a},+\infty\right)$. 
+Ha dunque un punto di minimo in $x=-\frac{b}{2a}$.
+Inoltre (sempre se $a>0$) la funzione è superiormente illimitata.
+Viceversa se $a<0$ la funzione è inferiormente illimitata ed ha 
+un massimo nel punto $x=-\frac{b}{2a}$.
+
+E' molto importante saper risolvere equazioni e disequazioni
+quadratiche. Grazie a~\eqref{eq:24589} l'equazione
+\[
+ a x^2 + bx + c = 0
+\]
+risulta equivalente a
+\[
+  \enclose{x+\frac{b}{2a}}^2 = \frac{b^2-4ac}{4a^2}.
+\]
+Dunque se $b^2-4ac<0$ l'equazione $ax^2+bx+c=0$ non ha soluzioni.
+Se $b^2-4ac=0$ l'equazione ha una unica soluzione $x=-\frac{b}{2a}$.
+Infine se $b^2-4ac>0$ si ottiene
+\[
+  x+\frac b{2a} = \pm \frac{\sqrt{b^2-4ac}}{2a}
+\]
+da cui la famosa formula risolutiva
+\mymark{***}
+\begin{equation}\label{eq:secondo_grado}
+  x_{1,2} = \frac{-b \pm \sqrt{b^2-4ac}}{2a}.
+\end{equation}
+
+Risolvendo le disequazioni allo stesso modo, si trova
+che la funzione $ax^2+bx+c$ quando $a>0$ è positiva
+nei punti esterni alle soluzioni dell'equazione
+(in tutti i punti se le soluzioni non esistono) ed
+è negativa nei punti interni alle due soluzioni.
+Viceversa se $a<0$ la funzione è positiva all'interno
+delle due soluzioni e negativa all'esterno.
+
+
+\subsection{funzioni esponenziali}
+%
+%
+\label{sec:esponenziale}%
+
+Il teorema di isomorfismo ci ha permesso di definire la moltiplicazione sui 
+numeri reali. 
+Lo stesso identico metodo ci permetterà di definire la funzione esponenziale
+ovvero la potenza $a^x$ con base $a>0$ fissata ed esponente variabile $x\in \RR$.
+Abbiamo infatti già osservato che l'insieme $\RR_+$ dei reali positivi
+risulta essere un gruppo moltiplicativo totalmente ordinato, denso e continuo 
+(teorema~\ref{th:gruppo_moltiplicativo}).
+
+\begin{theorem}[funzione esponenziale]
+  \label{th:esponenziale}%
+Dato $a\in \RR$, $a\ge 1$ per ogni $x\in \RR$ si può definire in modo unico 
+la funzione esponenziale $x\mapsto a^x$ con le seguenti proprietà:
+\begin{enumerate}
+  \item $a^1=a$;
+  \item $a^{x+y} = a^x \cdot a^y$;
+  \item per ogni $x\ge 0$ si ha $a^x\ge 1$.
+\end{enumerate}
+Se $0<a \le 1$ si può definire in modo unico l'esponenziale $x\mapsto a^x$ 
+con le stesse proprietà, salvo che per ogni $x\ge 0$ si ha $a^x\le 1$.
+
+Inoltre l'esponenziale ha le seguenti proprietà, 
+valide per $a,b>0$, $x,y\in \RR$:
+\begin{enumerate}
+  \item $a^0=1$;
+  \item $a^{-1} = \frac{1}{a}$;
+  \item $(a\cdot b)^x = a^x\cdot b^x$;
+  \item $(a^x)^y = a^{x\cdot y}$;
+  \item $a^x \le a^y$ se $a\ge 1$ e $x\le y$;
+  \item $1^x=1$.
+\end{enumerate}
+\end{theorem}
+%
+\begin{proof}
+Fissato $a>0$ possiamo applicare il teorema~\ref{th:isomorfismo} (isomorfismo)
+con $R=\RR$ gruppo additivo e $S=\RR_+$ gruppo moltiplicativo.
+Se $a\ge 1$ si ottiene l'esistenza di una, unica, funzione $\phi_a\colon \RR \to \RR_+$ 
+che soddisfa le seguenti proprietà:
+$\phi_a(1)=a$, $\phi_a(x+y) = \phi_a(x)\cdot \phi_a(y)$, 
+$\phi_a(x)\ge 1$ se $x\ge 0$. 
+Se $0<a\le 1$ otteniamo una unica funzione con le stesse proprietà 
+ma $\phi_a(x) \le 1$ se $x\ge 0$.
+
+Definiamo $a^x = \phi_a(x)$ e la chiamiamo \emph{funzione esponenziale}
+con \emph{base} $a>0$ ed esponente $x\in \RR$.
+  
+L'omomorfismo manda sempre l'elemento neutro nell'elemento 
+neutro dunque $a^0 = 1$.
+\mynote{Ricordiamo che in partenza abbiamo il gruppo additivo $\RR$
+con elemento neutro $0$ mentre in arrivo 
+abbiamo il gruppo moltiplicativo $\RR_+$ con elemento neutro $1$.}
+
+\mymargin{$a^{-1}=\frac 1 a$}
+Per la proprietà di omomorfismo si ha $a^{x-x} = a^x \cdot a^{-x}$
+da cui $a^{-x}$ risulta essere il reciproco di $a^x$ cioè 
+$a^{-x}= 1/a^x$.
+
+Per la potenza del prodotto fissati $a,b\ge 1$ basta considerare la 
+funzione $f(x) = a^x\cdot b^x$. 
+\mymargin{$(a\cdot b)^x = a^x\cdot b^x$}
+Chiaramente $f$ è un omomorfismo in quanto $a^x$ e $a^y$ lo sono 
+(e il prodotto è commutativo): 
+$a^{x+y}\cdot b^{x+y} = a^x \cdot b^x\cdot a^yb^y$.
+Inoltre se $x\ge 0$ si ha $a^x\ge1$ e $b^x\ge 1$ da cui $f_(x)\ge 1$.
+Essendo $f(1) = a^1\cdot b^1 = a\cdot b$ 
+per l'unicità dell'omomorfismo positivo concludiamo che $f = \phi_{a\cdot b}$
+cioè $a^x\cdot b^x = (a\cdot b)^x$.
+Usando la regola del reciproco possiamo estendere questa proprietà 
+quando $a<1$ e/o $b<1$ (ma sempre $a,b\ge 0$).
+
+\mymargin{$(a^x)^y = a^{x\cdot y}$}
+Infine per la potenza di potenza fissato $a\ge 1$ e $x\ge 0$ 
+consideriamo la funzione $f(y) = a^{x\cdot y}$.
+Per le proprietà precedenti si verifica facilmente che  
+$f(y+z) = f(x)\cdot f(z)$. 
+Inoltre se $a\ge 1$, $x\ge 0$ e $y\ge 0$ si ha 
+$f(y)\ge 1$ che è la positività. 
+Dunque per il teorema di isomorfismo,
+essendo $f(1)=a^x$, si ottiene $f(y) = (a^x)^y$
+che è quanto volevamo dimostrare.
+La regola del reciproco estende questa proprietà 
+ai casi $x\le 0$ e $a\le 1$ (sempre con $a\ge 0$).
+
+Se $a\ge 1$ e $x\le y$ allora $a^{y-x}\ge 1$.
+\mymargin{monotonia}
+Ma $a^{y-x} = \frac{a^y}{a^x}$ e dunque $a^y\ge a^x$.
+
+Se $a=1$ per $x\ge 0$ si ha contemporaneamente $1^x\ge 1$ e $1^x\le 1$
+dunque $1^x=1$. 
+Lo stesso vale se $x\le 0$ in quanto $1^{-x}=\frac 1{1^x}$.
+\mymargin{$1^x=1$}
+\end{proof}
+
+\begin{figure}
+  \begin{center}
+    \begin{tikzpicture}[x=1.0cm,y=1.0cm]
+      \clip(-4,-2) rectangle (4,3);
+    	\draw[->] (-4,0) -- (4,0);
+      \draw[->] (0,-2) -- (0,3);
+      % y = (3/5)*x + 1/5
+      \draw[dotted] (1,0) -- (1,2) -- (0,2);
+      \draw[dotted] (2,0) -- (2,1) -- (0,1);
+%      \node[right] at (1.75,2.5){$x=-\frac b {2a}$};
+      \draw[domain=-2.0:4.0,smooth,variable=\x,dashed] plot
+        ({\x}, {pow(2,-\x)});
+      \draw[domain=0.1:4.0,smooth,variable=\x,dashed] plot
+        ({\x}, {-ln(\x) / ln(2)});
+      \draw[domain=-4.0:2.0,smooth,variable=\x,thick] plot
+        ({\x}, {pow(2,\x)});
+      \node at (2,2.5) {$y=a^x$};
+      \node at (-2,2.1) {$y=\enclose{\frac 1 a}^x$};
+      \fill (0,1.0) node[left]{\!\!$1$} circle[radius=1.5pt];
+      \draw[domain=0.1:4.0,smooth,variable=\x,thick] plot
+        ({\x}, {ln(\x) / ln(2)});
+      \node at (3.2,1.1) {$y=\log_a x$};
+      \node at (3.2,-1.1) {$y=\log_{\frac 1 a} x$};
+      \fill (1,0) node[below]{$1$} circle[radius=1.5pt];
+      \fill (0,2) node[left]{$a$} circle[radius=1.5pt];
+      \fill (2,0) node[below]{$a$} circle[radius=1.5pt];
+      \fill (2,1) circle[radius=1.5pt];
+      \fill (1,2) circle[radius=1.5pt];
+    \end{tikzpicture}
+  \end{center}
+  \caption{Il grafico della funzione esponenziale e logaritmo 
+  in base $a>1$ e $\frac 1 a < 1$ ($a=2$ in figura).}
+  \label{fig:esponenziale_logaritmo}
+\end{figure}
+
+
+
+
+%
+\subsection{logaritmo}
+%
+%
+%
+
+\label{sec:logaritmo}
+\index{logaritmo}%
+
+Il teorema di isomorfismo ci dice che fissato $a\in \RR_+$, $a\neq 1$ 
+la funzione $\phi_a\colon \RR\to\RR_+$ definita nel paragrafo 
+precedente ($\phi_a(x)=a^x$) è bigettiva.
+La funzione inversa si chiama \emph{logaritmo in base $a$}
+e si denota con $\log_a\colon \RR_+ \to \RR$.
+
+Grazie alle proprietà della funzione esponenziale, già dimostrate
+nel teorema~\ref{th:esponenziale} possiamo ottenere 
+le proprietà del logaritmo.
+
+\begin{theorem}[proprietà del logaritmo]
+Per ogni $a>1$
+esiste una unica funzione $\log_a\colon \RR_+\to \RR$ 
+tale che 
+\begin{enumerate}
+  \item $\log_a(a) = 1$;
+  \item $\log_a(x\cdot y) =\log_a x + \log_a y$;
+  \item $\log_a x \ge 0$ se $x\ge 1$. 
+\end{enumerate}
+Se $0<a<1$ 
+esiste una unica funzione $\log_a$ con le stesse proprietà 
+salvo che $\log_a x \le 0$ se $x\ge 1$.
+
+La funzione $\log_a$ viene chiamata \emph{logaritmo in base $a$}
+ed ha inoltre le seguenti proprietà valide 
+per ogni $a>0$, $a\neq 1$, $x,y\in \RR$, $b>0$, $c>0$, $c\neq 1$:
+\begin{enumerate}
+  \item $\log_a x = y$ se e solo se $a^y = x$;
+  \item $\log_a 1 = 0$;
+  \item $\log_a (b^x) = x\log_a b$;
+  \item $\log_a x = \frac{\log_c x}{\log_c a}$.
+\end{enumerate}
+\end{theorem}
+
+\subsection{potenze con esponente reale}
+
+Nel capitolo~\ref{sec:potenza} abbiamo definito 
+la funzione potenza $x^n$ con base $x\in \RR$ 
+ed esponente $n\in \NN$. 
+Invertendo la fuzione $x^n$ 
+(solo per $x\ge 0$ quando $n$ è pari e positivo, per ogni $x\in \RR$ se 
+$n$ è dispari) abbiamo definito la radice $n$-esima 
+$\sqrt[n]{x}$.
+Nel capitolo~\ref{sec:esponenziale} abbiamo 
+definito la funzione esponenziale $a^x$ con 
+base $a\in \RR_+$ ed esponente $x\in \RR$.
+La funzione inversa dell'esponenziale 
+è il logaritmo $\log_a x$ definito per $x>0$.
+
+Formalmente abbiamo quindi due diverse definizioni 
+dell'operazione \emph{potenza} $a^b$ quando $a>0$ 
+e $b\in \NN$ ma, ovviamente, queste due definizioni 
+coincidono in quanto il teorema di isomorfismo 
+ci garantisce che la funzione esponenziale 
+$a^x$ coincide con la moltiplicazione ripetuta 
+quando $x$ è un numero naturale.
+Grazie a questa osservazione possiamo osservare 
+che se $x>0$, $p\in \NN$ e $q\in \NN$, $q\neq 0$ si ha 
+\begin{equation}
+\label{eq:9783023}
+  x^{\frac p q} = \sqrt[q]{x^p}, 
+  \qquad 
+  x^{-\frac p q} = \frac{1}{\sqrt[q]{x^p}}
+\end{equation}
+in quanto 
+\[
+  \enclose{x^{\frac p q}}^q = x^p,
+  \qquad
+  x^{-y} = \frac{1}{x^y}.
+\]
+Se ripercorriamo la dimostrazione del teorema di isomorfismo 
+usando in arrivo il gruppo additivo (è così che abbiamo 
+definito la funzione esponenziale) ci accorgiamo 
+che la funzione $a^x$ viene dapprima definita sugli $x$
+naturali come moltiplicazione ripetuta, 
+poi sugli $x$ razionali 
+positivi tramite la radice $n$-esima e poi sugli 
+$x$ negativi passando al reciproco.
+
+Senz'altro potrà essere utile definire 
+$a^{-n} = \frac 1 {a^n}$ avendo quindi una definizione 
+di potenza $a^n$ valida per ogni $a$ se $n\in \NN$ 
+e per ogni $a\neq 0$ se $n\in \ZZ$.
+In alcuni testi si va oltre e si considera $a^b$ 
+definito anche quando $a<0$ e $b$ è razionale
+utilizzando il lato destro delle equazioni 
+in~\eqref{eq:9783023}.
+Ognuno può scegliere le definizioni che preferisce 
+ed è bene ricordare che le definizioni si scelgono, 
+non si dimostrano. 
+E' però anche bene sapere che certe definizioni 
+possono essere fuorvianti.
+
+Ci sono buoni motivi per pensare che la funzione 
+esponenziale $a^x$ ($a>0$) e la funzione potenza $x^n$ 
+$n\in \NN$ siano funzioni sostanzialmente diverse.
+Si noti ad esempio che le regole delle potenze sono 
+soddisfatte da entrambe le definizioni, separatamente, 
+ma se mescoliamo le due definizioni le proprietà 
+possono cadere. Ad esempio:
+\[
+  \enclose{(-2)^6}^{\frac 1 2} 
+  \neq \enclose{-2}^{6\cdot \frac 1 2}.
+\]
+
+Anche il fatto che abbiamo definito $0^0=1$ andrebbe 
+interpretato nel senso che lo $0$ all'esponente 
+è un numero naturale, non un numero reale:
+La funzione esponenziale $a^x$ è definita 
+solo per $a>0$ mentre la funzione $x^n$ è definita anche 
+per $x=0$ ma solo per $n\in \NN$.
+
+
+% \begin{figure}
+%   \begin{center}
+%     \begin{tikzpicture}[x=1.0cm,y=1.0cm]
+%       \clip(-3,-2) rectangle (4,3);
+%     	\draw[->] (-3,0) -- (4,0);
+%       \draw[->] (0,-2) -- (0,3);
+%       \draw[dotted] (1,0) -- (1,1) -- (0,1);
+%       % \draw[dotted] (2,0) -- (2,1) -- (0,1);
+%       \draw[domain=0.5:4,samples=50,variable=\x,thick,dashed] plot
+%         ({\x}, {1/(\x*\x))});
+%       \draw[domain=-3:-0.5,samples=50,variable=\x,thick,dashed] plot
+%         ({\x}, {1/(\x*\x))});
+%       \draw[domain=0.2:4,samples=50,variable=\x,dashed,color=gray] plot
+%         ({\x}, {1/(\x))});
+%       \draw[domain=-3:-0.5,samples=50,variable=\x,dashed,color=gray] plot
+%         ({\x}, {1/(\x))});
+%       \draw[domain=-2.0:2.0,smooth,variable=\x,thick,color=gray] plot
+%         ({\x}, {\x*\x*\x)});
+%       \draw[domain=-3.1:4.0,samples=200,variable=\x,color=gray] plot
+%         ({\x}, {pow(abs(\x),1/3)*\x / abs(\x)});
+%       \draw[domain=-3.0:3.0,smooth,variable=\x,thick] plot
+%         ({\x}, {\x*\x});
+%       \draw[domain=0.0:4.0,samples=200,variable=\x] plot
+%       ({\x}, {pow(\x,1/2)});
+%       \node at (-2.0,1.8) {$y=x^2$};
+%       \node at (3,2) {$y=\sqrt{x}$};
+%       \node[color=gray] at (-1.7,-1.8) {$y=x^{3}$};
+%       \node[color=gray] at (-2.0,-1) {$y=\sqrt[3]{x}$};
+%       \node[color=gray] at (-1.7,-0.3) {$y=\frac 1 x$};
+%       \node at (-2.5,0.6) {$y=\frac 1 {x^2}$};
+%       \fill (1,0) node[below]{$1$} circle[radius=1.5pt];
+%       \fill (0,1) node[left]{$1$} circle[radius=1.5pt];
+%     \end{tikzpicture}
+%   \end{center}
+%   \caption{Grafici tipici di potenze e radici.}
+%   \label{fig:potenza_radice}
+% \end{figure}
+
+
+\subsection{equazioni e disequazioni}
+
+Un problema matematico molto comune è quello di dover risolvere 
+equazioni e disequazioni del tipo:
+\begin{equation}\label{eq:573197}
+  f(x) = b, \quad f(x) \ge b, \quad f(x) > b, 
+  \quad f(x) \le b, \quad f(x) < b
+\end{equation}
+dove $f\colon A \subset \RR \to\RR$ è una funzione data e 
+$b\in \RR$ è fissato.
+
+Quando $f$ è strettamente crescente e $b\in f(A)$ 
+la soluzione può essere 
+scritta banalmente: 
+ovviamente deve essere $x\in A$
+e ogni equazione o disequazione in~\eqref{eq:573197}
+avrà la corrispondente soluzione:
+\[
+  x= f^{-1}(b), \quad x \ge f^{-1}(b), \quad x>f^{-1}(b),
+  \quad x \le f^{-1}(b), \quad x < f^{-1}(b).
+\]
+Se la funzione fosse strettamente decrescente 
+si può procedere allo stesso modo, ma le disuguaglianze si invertono.
+Se la funzione fosse strettamente crescente su alcuni intervalli 
+e strettamente decrescente su altri si potranno separare i diversi 
+casi e si otterranno più soluzioni espresse da uguaglianze
+o disuguaglianze.
+
+\begin{example}
+  Si risolva la disequazione 
+  \[
+   \log_2\Enclose{\sqrt[3]{(x+1)^4-3}-2} \le 3. 
+  \]
+\end{example}%
+\begin{proof}[Svolgimento.]
+La funzione logaritmo è strettamente crescente ed è definita 
+quando l'argomento è positivo. 
+Dunque la disequazione data 
+è equivalente al sistema di disequazioni:
+\[
+0 < \sqrt[3]{(x+1)^4 - 3} - 2 \le 8.  
+\]
+Possiamo sommare $2$ per ottenere 
+\[
+  2 < \sqrt[3]{(x+1)^4 - 3} \le 10.  
+\]
+La funzione radice cubica è strettamente crescente 
+su tutto $\RR$ quindi possiamo invertirla elevando 
+tutto al cubo:
+\[
+ 8 < (x+1)^4 - 3 \le 1000.
+\]
+Sommiamo $3$:
+\[
+11 < (x+1)^4 \le 1003.  
+\]
+L'elevamento alla quarta potenza è strettamente crescente 
+solo quando l'argomento è positivo, ed è una funzione pari.
+Possiamo quindi affermare che le nostre disequazioni sono 
+equivalenti all'unione delle soluzioni di due sistemi:
+\[
+  \sqrt[4]{11} < x+1 \le \sqrt[4]{1003}
+  \qquad\text{o}\qquad 
+  -\sqrt[4]{1003} \le x+1 < -\sqrt[4]{11}.
+\]
+Sottraendo $1$ otteniamo infine 
+\[
+  \sqrt[4]{11} -1 < x \le \sqrt[4]{1003} - 1
+  \qquad\text{o}\qquad 
+  -\sqrt[4]{1003} -1 \le x < -\sqrt[4]{11} -1.
+\]
+In definitiva l'insieme delle soluzioni è 
+\[
+\left[-\sqrt[4]{1003} - 1, -\sqrt[4]{11}-1\right)
+\cup \left(\sqrt[4]{11}-1 , \sqrt[4]{1003} -1\right].  
+\]
+\end{proof}
+
+Nell'esempio precedente la funzione 
+$f(x) = \log_2\Enclose{\sqrt[3]{(x+1)^4-3}-2}$
+è ottenuta mediante composizione di funzioni elementari:
+\begin{align*}
+f &= (x\mapsto \log_2 x)\circ(x\mapsto x-2)\circ (x \mapsto \sqrt[3]{x})\\
+  &\quad \circ (x \mapsto x-3) \circ (x\mapsto x^4) \circ (x\mapsto x+1).
+\end{align*}
+Negli intervalli in cui tutte queste funzioni sono invertibili 
+la funzione inversa si ottiene componendo, in ordine opposto,
+tutte le inverse:
+\begin{align*}
+  f^{-1} &= (x\mapsto x-1) \circ (x\mapsto \sqrt[4]{x}) \circ (x \mapsto x+3) \\
+    &\quad \circ (x \mapsto x^3) \circ (x \mapsto x+2) \circ (x\mapsto 2^x).
+\end{align*}
+In effetti il caposaldo $\sqrt[4]{1003}-1$ è proprio tale 
+funzione valutata in $b=3$.
+
+Il metodo precedente è puramente algebrico e 
+si applica alle equazioni 
+come la~\eqref{eq:573197} dove la variabile $x$ 
+compare una sola volta e dove la funzione $f$ si esprime 
+come composizione di funzioni elementari di cui sappiamo 
+scrivere la funzione inversa. 
+
+Ben diverso è il caso in cui nell'equazione la variabile $x$ 
+compare più di una volta.
+In alcuni casi, come ad esempio,
+\[
+  x^2 > 2x - 1  
+\]
+queste equazioni 
+possono essere ricondotte al caso precedente tramite 
+opportune manipolazioni algebriche.
+Il caso delle equazioni quadratiche lo abbiamo 
+fatto nel paragrafo precedente utilizzato il completamento 
+del quadrato: $x^2-2x = (x-1)^2-1$. 
+In altri casi, come ad esempio l'equazione
+\[
+  2^x = x^2
+\]  
+le manipolazioni algebriche non sono utili.
+Nel capitolo sul calcolo differenziale svilupperemo degli strumenti 
+che ci permetteranno di determinare l'andamento di molte di queste 
+di funzioni. 
+Nel capitolo sulle successioni svilupperemo invece gli strumenti 
+che ci permetteranno di determinare le soluzioni mediante 
+algoritmi di approssimazione.
+Questi strumenti presuppongono il concetto 
+di limite e continuità: è sostanzialmente questo che identifica 
+la materia chiamata analisi matematica.
+
+\section{i numeri complessi}
+%
+%
+%
+\label{sec:complessi}
+
+Dal punto di vista geometrico l'insieme $\CC$ dei \emph{numeri complessi}%
+\mymargin{numeri complessi}%
+\index{numeri!complessi}
+\index{$\CC$}
+può essere visto come una rappresentazione cartesiana 
+del piano euclideo.
+Sul piano fissiamo arbitrarimente un punto $0$ (l'origine) 
+e fissiamo, arbitrariamente, una base $e_1$, $e_2$ di vettori ortonormali.
+Identifichiamo ogni punto del piano con i corrispondenti vettori
+applicati in $0$. La retta generata dal vettore $e_1$ la identifichiamo
+con la retta $\RR$ dei numeri reali e quindi poniamo $1=e_1$.
+La retta ortogonale generata dal vettore $e_2$ verrà chiamata
+retta dei \emph{numeri immaginari} e definiamo $i=e_2$.
+
+Un generico punto $z$ del piano $\CC$ potrà essere scritto in
+maniera univoca nella base scelta: $z = x e_1 + y e_2$ ovvero,
+per come abbiamo chiamato $e_1$ ed $e_2$:
+\[
+z = x + i y.
+\]
+Tale $z$ viene chiamato
+\emph{numero complesso} con parte reale $x$ e parte immaginaria $y$.
+Questa rappresentazione del numero complesso $z$ viene
+chiamata \emph{rappresentazione cartesiana}%
+\mymargin{rappresentazione cartesiana}%
+\index{rappresentazione!cartesiana} in quanto definisce
+il punto $z$ del piano complesso tramite le sue coordinate cartesiane
+$x$ e $y$.
+I numeri reali sono \emph{immersi} nei complessi, nel senso che se
+$x\in \RR$ allora $z= x + i\cdot 0 = x$ è anche un numero complesso.
+Il numero complesso $i = 0 + i\cdot 1$ viene chiamata \emph{unità immaginaria}%
+\mymargin{unità immaginaria}%
+\index{unità!immaginaria}
+e i numeri complessi della forma $iy$ sono chiamati \emph{immaginari}.
+\index{numeri!immaginari}
+\index{immaginario}
+Un numero
+complesso $z = x+iy$ è quindi una somma tra un numero reale ed un numero
+immaginario. Il numero reale $x$ viene chiamato \emph{parte reale}
+\index{parte!reale}
+di $z$ e
+si denota con $x=\Re z$.
+\mymargin{$\Re z$}%
+\index{$\Re z$}
+Il numero reale $y$ viene chiamato
+\emph{parte immaginaria}
+\index{parte!immaginaria}
+di $z$ e si denota con $y=\Im z$
+\mymargin{$\Im z$}%
+\index{$\Im z$}
+(osserviamo che la parte immaginaria di un numero complesso è un numero
+reale, non immaginario). Dunque $z= \Re z + i \Im z$.
+
+L'insieme $\CC$, per come
+è stato costruito, è uno spazio vettoriale reale di dimensione $2$.
+Abbiamo quindi già definite la \emph{addizione}%
+\mymargin{addizione}%
+\index{addizione}
+\index{complessi!addizione}
+tra elementi di $\CC$ e la moltiplicazione
+tra elementi di $\CC$ ed elementi di $\RR$.
+Se $a,b,c,d,t\in \RR$ si ha:
+\begin{gather*}
+ (a+ib) + (c+id) = (a+c) + i (b+d), \\
+ t(a+ib) = ta + itb.
+\end{gather*}
+
+Vogliamo estendere la \emph{moltiplicazione}%
+\mymargin{moltiplicazione}%
+\index{moltiplicazione} a tutte le coppie di numeri complessi.
+\index{complessi!moltiplicazione}
+Imponendo (arbitrariamente) che valga $i\cdot i = -1$ e che rimanga
+valida la proprietà distributiva, si ottiene
+questa definizione:
+\[
+   (a+ib) \cdot (c+id) = (ac-bd) + i(ad+bc).
+\]
+
+Si può verificare che questa moltiplicazione estende quella ``scalare'' definita
+in precedenza.
+E' anche facile verificare che addizione e moltiplicazione soddisfano
+le proprietà commutativa associativa e distributiva,
+che $0$ è elemento neutro per la addizione, che $1$ è elemento neutro
+della moltiplicazione.
+Si osservi che se $z=x+iy$ non è nullo, allora
+\[
+  (x+iy) \cdot \frac{x-iy}{x^2+y^2} = 1.
+\]
+Significa che ogni $z\neq 0$ ammette inverso moltiplicativo e quindi $\CC$
+risulta essere un campo.
+
+Osserviamo che su $\CC$ non si definisce una relazione d'ordine perché
+in effetti non è possibile definire un ordine ``compatibile'' con le operazioni
+appena definite.%
+\mynote{%
+Se $\CC$ fosse un campo ordinato per assurdo
+si dovrebbe avere,
+che $z^2\ge 0$ per ogni $z\in \CC$ (questo è vero in tutti i campi ordinati). 
+Ma
+allora $-1 =i^2 \ge 0$ cioè $1\le 0$ che è in contraddizione
+con la proprietà $0<1$ valida in ogni campo ordinato.
+} % marginnote
+
+Su $\CC$ definiamo delle ulteriori operazioni.
+Il \emph{coniugato}%
+\mymargin{coniugato}%
+\index{coniugato}%
+\index{complessi!coniugio}
+di un numero complesso $z=x+iy$ è il numero
+$\bar z = x - iy$. Geometricamente l'operazione di coniugio è una simmetria
+rispetto alla retta reale. I numeri reali sono in effetti punti fissi del
+coniugio (il coniugato di un numero reale è il numero stesso).
+E' un semplice esercizio verificare che il coniugio ``attraversa''
+somma e prodotto:
+\[
+\overline{z+w} = \bar z + \bar w, \qquad
+\overline{z\cdot w} = \bar z \cdot \bar w.
+\]
+Ovviamente risulta $\overline {\bar z} = z$.
+E' anche utile osservare che si ha:
+\begin{equation}\label{eq:re_im}
+  \Re z = \frac{z+\bar z}{2}, \qquad
+  \Im z = \frac{z-\bar z}{2i}
+\end{equation}
+e
+\[
+z \cdot \bar z = (x+iy)(x-iy) = x^2-i^2y^2 = x^2+y^2.
+\]
+
+Possiamo allora definire il
+\emph{modulo}%
+\mymargin{modulo}%
+\index{modulo}%
+\index{complessi!modulo}
+ di un numero complesso $z=x+iy$
+come il numero reale
+\[
+\abs{z} = \sqrt{z\cdot\bar z} = \sqrt{x^2+y^2}.
+\]
+Geometricamente tale quantità rappresenta la distanza del punto $z$
+dal punto $0$ e quindi la distanza tra due numeri complessi $z$ e
+$w$ si potrà rappresentare con $\abs{z-w}$.
+
+Osserviamo che se $z = x \in \RR \subset \CC$ il modulo di $z$ coincide
+con il valore assoluto: $\abs{z} = \sqrt{x^2} = \abs{x}$ e per questo
+motivo non distinguiamo, nelle notazioni, il modulo dal valore assoluto.
+Più in generale risulta per ogni $z\in \CC$ (la verifica è immediata):
+\[
+  \abs{\Re z} \le \abs{z}, \qquad
+  \abs{\Im z} \le \abs{z}.
+\]
+
+Possiamo a questo punto trovare una utile formula per calcolare
+il reciproco di un numero complesso. Essendo infatti
+$z\cdot \bar z = \abs{z}^2$ si osserva che
+\[
+  \frac{1}{z}
+  = \frac{\bar z}{ \bar z \cdot z}
+  = \frac{\bar z}{\abs{z}^2}.
+\]
+
+\begin{theorem}
+Il modulo di un numero complesso soddisfa (come il valore assoluto)
+le seguenti proprietà
+\begin{enumerate}
+\item $\big\lvert\abs{z}\big\rvert = \abs{z}$,
+\item $\abs{-z} = \abs{z}$ = $\abs{\bar z}$,
+\item $\abs{z\cdot w} = \abs{z}\cdot\abs{w}$.
+\item $\abs{z+w} \le \abs{z}+\abs{w}$ (convessità),
+\item $\abs{z-w} \le \abs{z-v} + \abs{v-w}$ (disuguaglianza triangolare),
+\end{enumerate}
+\end{theorem}
+%
+\begin{proof}
+La prima proprietà è ovvia in quanto il valore assoluto di un numero reale
+non negativo è il numero stesso.
+
+La seconda proprietà viene immediatamente dalla definizione.
+
+Per la terza proprietà sia $z=x+iy$, $w=a+ib$.
+Allora:
+\begin{align*}
+\abs{z\cdot w}
+&= \abs{(x+iy)\cdot(a+ib)}
+=\abs{xa - y b+ i(xb + ay)} \\
+&= \sqrt{(xa-yb)^2 + (xb+ay)^2}\\
+&=\sqrt{x^2 a^2 + y^2b^2 - 2xayb + x^2b^2+a^2y^2+2xbay} \\
+&=\sqrt{x^2 a^2 + y^2 b^2 + x^2 b^2 + a^2 y^2}\\
+&=\sqrt{x^2(a^2+b^2) + y^2(a^2+b^2)}\\
+&=\sqrt{(x^2+y^2)(a^2+b^2)}
+=\abs{x+iy} \cdot \abs{a+ib}\\
+&=\abs{z}\cdot\abs{w}.
+\end{align*}
+
+Per la quarta disuguaglianza osserviamo che si ha
+\[
+  \abs{z+w}^2 = (z+w)\cdot(\bar z + \bar w)
+  = \abs{z}^2 + \abs{w}^2 + z\cdot \bar w + \bar z \cdot w
+\]
+e visto che
+\[
+  z\cdot \bar w + \bar z \cdot w
+  = z \cdot \bar w + \overline{z \cdot \bar w}
+  = 2 \Re(z\bar w)
+  \le 2 \abs {z\bar w}
+  = 2 \abs{z}\cdot\abs{\bar w}
+  = 2 \abs{z}\cdot\abs{w}
+\]
+otteniamo
+\[
+ \abs{z+w}^2 \le \abs{z}^2+\abs{w}^2 + 2 \abs{z}\cdot\abs{w}
+ =\enclose{\abs z + \abs w}^2
+\]
+che è equivalente alla disuguaglianza di convessità.
+
+La disuguaglianza triangolare è conseguenza immediata della convessità, infatti
+\[
+  \abs{z-w} = \abs{(z-v) + (v-w)}
+  \le \abs{z-v} + \abs{v-w}.
+\]
+\end{proof}
+
+\begin{figure}
+  \begin{center}
+    \begin{tikzpicture}[x=0.5cm,y=0.5cm]
+    	\draw[->] (-1,0) -- (9,0);
+      \draw[->] (0,-1) -- (0,8);
+      %
+      \draw[dotted] (0,0) -- ({sqrt(45)},{sqrt(20)}) -- ({sqrt(45)},0);
+      \draw[fill] ({sqrt(45)},{sqrt(20)}) node[right] {$w$} circle [radius=0.1];
+      %
+      \draw[thick] (0,0) -- (6,0);
+      \draw[thick] (0,0) -- (6,3);
+      \draw[thick] (0,0) -- (4,7);
+      \draw[thick] (6,0) -- (6,3);
+      \draw[thick] (6,3) -- (4,7);
+      %
+      \draw[dashed] (4,0) -- (4,7);
+      \draw[dashed] (4,3) -- (6,3);
+      %
+      \draw (1,0) arc (0:{atan(1/2)}:1);
+      \draw (6,3)+(-1,0) arc (180:{180+atan(1/2)}:1);
+      \draw (4,7)+(0,-1) arc (-90:{-90+atan(1/2)}:1);
+      %
+      \draw[fill] (6,3) node[right] {$z$} circle [radius=0.1];
+      \draw[fill] (4,7) node[above] {$u$} circle [radius=0.1];
+      %
+      \node[below] at (3,0) {$a$};
+      \node[left] at (6,1.5) {$b$};
+      \node[above] at (3,1.5) {$\alpha$};
+      \node[right] at (5,5) {$\beta$};
+      \node[above] at (5,3) {$s$};
+      \node[left] at (4,4.5) {$t$};
+      \node[above] at (8.5,0) {$x$};
+      \node[left] at (0,7.5) {$y$};
+      \node[below left] at (0,0) {$0$};
+    \end{tikzpicture}
+  \end{center}
+  \caption{Consideriamo i numeri complessi $z=a+ib$ e $w=\alpha+i\beta$
+  e supponiamo che sia $\alpha^2 = a^2+b^2$.
+  Si consideri il punto $u$ che si ottiene ruotando il punto $w$ dell'angolo
+  individuato dal punto $z$. Si avrà allora $u=a-s + i(b+t)$ dove $s$ e $t$
+  sono i cateti del triangolo rettangolo con ipotenusa $\beta$.
+  Grazie alle proprietà di similitudine dei triangoli si ha
+  $\frac{s}{\beta} = \frac{b}{\alpha}$ e $\frac{t}{\beta} = \frac{a}{\alpha}$
+  da cui si ottiene quindi $u = a-\frac{b\beta}{\alpha}+i(b+\frac{a\beta}{\alpha})$
+  ovvero $\alpha u = (a\alpha - b \beta) + i (b\alpha + a \beta) = z\cdot w$.
+  Significa che il numero complesso $z\cdot w$ si trova sulla semiretta
+  che individua un angolo che è la somma degli angoli individuati
+  dai numeri complessi $z$ e $w$.
+  }
+  \label{fig:prodotto_complesso}
+\end{figure}
+
+Possiamo ora dare una interpretazione geometrica del prodotto $z\cdot w$
+tra due numeri complessi. In primo luogo sappiamo che $\abs{z\cdot w} = \abs{z} \cdot \abs{w}$ e dunque il punto del piano che rappresenta il prodotto $z\cdot w$ si trova ad una distanza dall'origine che è pari al prodotto delle distanze
+dei punti $z$ e $w$. Inoltre l'angolo individuato da $z\cdot w$ rispetto
+all'asse delle $x$ positive risulta uguale alla somma
+degli angoli individuati dai punti $z$ e $w$ come mostrato in figura~\ref{fig:prodotto_complesso}.
+
+Anche il piano dei numeri complessi può essere esteso aggiungendoci
+un punto all'\emph{infinito}%
+\mymargin{infinito}%
+\index{infinito}.
+A differenza dei reali, su cui era presente un ordinamento che era utile conservare,
+nel caso dei numeri complessi è più usuale utilizzare un unico punto infinito
+che si denota con \emph{$\infty$}%
+\mymargin{$\infty$}%
+\index{$\infty$}.
+Definiamo il piano dei complessi estesi $\bar \CC$ come
+\[
+\bar \CC = \CC \cup \ENCLOSE{\infty}.
+\]
+Definiamo
+\begin{align*}
+  z + \infty &= \infty \qquad \forall z \in \CC\\
+  z - \infty &= \infty \qquad \forall z \in \CC\\
+   z\cdot \infty &= \infty \qquad \forall z \in \bar\CC\setminus\ENCLOSE{0} \\
+   z / \infty &= 0 \qquad \forall z \in \CC \\
+   z / 0 &= \infty \qquad \forall z \in \bar \CC \setminus\ENCLOSE{0}\\
+   \bar \infty &= \infty \\
+   \abs{\infty} &= +\infty \in \bar \RR.
+\end{align*}
+Si noti che abbiamo definito la divisione per zero di numeri complessi
+(e quindi anche reali) diversi da zero. Il risultato è $\infty$ e quindi
+rimane confermato che la divisione per zero non è una operazione valida
+se vogliamo un risultato finito.
+Una quantità $z\in \bar \CC$ sarà detta \emph{finita} se $z\in \CC$.
+
+\begin{example}
+  La funzione $f\colon \bar \CC \to \bar \CC$ 
+  definita da 
+  \[
+  f(z) = \frac{1}{z}
+  \]
+  è una funzione bigettiva di $\bar \CC$ in sé.
+  Dal punto di vista geometrico il coniugato di tale funzione
+  ovvero la funzione $z\mapsto \frac 1 {\bar z}$ 
+  è l'inversione circolare rispetto al cerchio unitario di $\CC$:
+  i punti sulla circonferenza unitaria vengono lasciati fissi,
+  i punti all'interno vengono mandati all'esterno rimanendo sullo 
+  stesso raggio uscente dall'origine e invertendo il proprio modulo.
+  I punti $0$ e $\infty$ si scambiano.
+\end{example}
+
+%% % ancora non abbiamo definito il concetto di funzione continua
+%% Per le funzioni di variabile complessa e/o a valori complessi 
+%% si applica la stessa definizione~\ref{def:continua} di continuità 
+%% che abbiamo dato per le funzioni reali utilizzando il modulo 
+%% complesso al posto del valore assoluto.
+%% \index{continuità!campo complesso}%
+%% \index{funzione!continua!complessa}%
+
+\begin{exercise}[vertici di un triangolo equilatero]
+Si risolva l'equazione 
+\[ 
+ z^3 - 1 = 0
+\]
+nel campo complesso.
+\end{exercise}
+%
+\begin{proof}[Svolgimento.]
+Ricordiamo il prodotto notevole:
+\[
+  z^3 - 1 = (z-1)(z^2+z+1).
+\]
+Dunque $z=1$ è una soluzione e le altre soluzioni devono risolvere 
+l'equazione $z^2+z+1=0$. 
+Certamente $z=0$ non è soluzione e dunque possiamo dividere per $z$ 
+e ottenere:
+\[
+  z + 1 + \frac 1 z = 0.
+\]
+Osserviamo ora che se $z$ è soluzione si ha $1=z^3$
+e quindi: $1 = \abs{z^3}= \abs{z}^3$ da cui $\abs z = 1$.
+Ma allora $z\cdot \bar z = \abs{z}^2 = 1$ ovvero $\frac 1 z = \bar z$.
+Dunque si ha 
+\[
+    z + 1 + \bar z = 0.
+\]
+Ma se $z=x+iy$ con $x,y\in \RR$ allora $z+\bar z = 2x$
+e quindi 
+\[
+    2x + 1 = 0 
+\]
+da cui $x=-\frac 1 2$. Essendo inoltre $x^2+y^2=\abs{z}^2=1$ si ottiene
+$y^2 = 1-x^2 = \frac 3 4$ da cui $y=\pm \frac{\sqrt 3}{2}$.
+
+L'equazione data ha quindi $3$ soluzioni:
+\[
+z_0 = 1, \qquad 
+z_{1,2} = -\frac 1 2 \pm i \frac{\sqrt 3} 2.
+\]
+
+Questi tre punti, se disegnati sul piano di Gauss, si trovano 
+ai vertici di un triangolo equilatero iscritto nella circonferenza unitaria.
+Infatti l'interpretazione geometrica del prodotto di numeri complessi ci dice 
+che il punto $z_1$ individua sul piano di Gauss un angolo pari 
+ad un terzo dell'angolo giro. Inoltre si ha $z_2 = z_1^2$ e dunque 
+$z_2$ corrisponde a $\frac 2 3$ di angolo giro e $z_0=z_1^3 = 1$ rappresenta 
+l'angolo giro (o l'angolo nullo).
+\end{proof}
+
+\begin{exercise}[pentagono regolare]
+Si determini la massima distanza tra due soluzioni 
+dell'equazione $z^5=1$. 
+\end{exercise}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{funzioni trigonometriche}
+\label{sec:funzioni_trigonometriche}%
+\label{sec:avvolgimento}%
+
+Consideriamo la circonferenza unitaria 
+\[
+  U = \ENCLOSE{z\in \CC\colon \abs{z} = 1}.
+\]
+Ogni punto $z\in U$ individua un angolo geometrico con l'asse reale.
+Il nostro obiettivo è ora quello di definire la misura di un angolo.
+Il punto $z=1$ individuerà un angolo di misura nulla e 
+ruotando $z$ in senso antiorario vogliamo ottenere angoli 
+di misura crescente in modo che l'angolo che si ottiene 
+giustapponendo uno di seguito all'altro gli angoli individuati 
+dal punto $z$ e dal punto $w$ abbia misura pari alla somma delle misure 
+degli angoli individuati da $z$ e da $w$.
+
+Scegliamo arbitrariamente di dare una misura $\tau>0$ all'angolo giro.
+L'idea intuitiva è quella di \emph{arrotolare} la retta $\RR$ come un filo 
+attorno alla circonferenza $U\subset \CC$ 
+mandando il punto $0\in \RR$ sul punto $1\in \CC$,
+e poi il punto $\frac \tau 4$ su $i$, il punto $\frac \tau 2$ su $-1$,
+il punto $3\frac \tau 4$ su $-i$ e il punto $\tau$ di nuovo su $1$.
+Punti intermedi andranno su punti intermedi di $U$ in modo da avere 
+l'additività degli angoli: la misura della somma di due angoli dovrà 
+essere la somma delle misure.
+
+L'insieme $U$ eredita la struttura di gruppo moltiplicativo di $\CC$: 
+se $z,w\in U$ 
+allora $z\cdot w \in U$ in quanto $\abs{z\cdot w} = \abs{z}\cdot \abs{w} = 1$
+essendo $\abs{z}=\abs{w}=1$. 
+Vorremmo quindi utilizzare il teorema~\ref{th:isomorfismo} di isomorfismo 
+come abbiamo fatto per definire la funzione esponenziale.
+Purtroppo però non è possibile mettere su $U$ 
+un ordinamento compatibile con l'operazione di gruppo: intuitivamente 
+quando mi muovo su $U$ in senso antiorario mi ritrovo a ripercorrere più volte 
+la stessa circonferenza.
+
+Possiamo dare un ordinamento solo in una parte della circonferenza. 
+Dunque l'idea è quella di ripercorrere il teorema di isomorfismo (capitolo~\ref{sec:isomorfismo}) 
+nell'ambito più generale dei gruppi localmente ordinati.
+
+Localizziamo la definizione~\ref{def:gruppo_ordinato} di gruppo ordinato.
+%
+\begin{definition}[gruppo localmente ordinato]
+Diremo che $G$ è un gruppo additivo localmente ordinato 
+se $G$ ha una struttura di gruppo con elemento neutro $0$ e operazione $+$ 
+e se su $G$ è definito un ordinamento totale $\le$ tale che 
+esiste $u\in G$, $u>0$ per cui per ogni $x,y,z \in [0,u]$
+(ovvero $0\le x\le u$, $0\le y\le u$, $0\le z \le u$)
+risulta 
+\[
+    x \le y \iff x+z \le y+z.
+\]
+\end{definition}
+
+Generalizziamo il teorema~\ref{th:divisibile}.
+\begin{theorem}[divisibilità locale]
+Sia $G$ un gruppo additivo localmente ordinato
+$u>0$ dato come nella definizione
+e supponiamo che l'ordinamento su $[0,u]$ sia denso e continuo.
+Allora per ogni $y\in(0,u]$ 
+e per ogni $n\in \NN\setminus\ENCLOSE{0}$ 
+esiste $x_n\in(0,u]$ tale che 
+$n x_n = y$ e per ogni $n$ si ha $x_{n+1}< x_n$.
+\end{theorem}
+%
+\begin{proof}
+La dimostrazione segue quella già data nel capitolo~\ref{sec:isomorfismo}.
+Per prima cosa si dimostra che dato $y\in(0,u]$ 
+per densità esiste $x\in (0,u]$ tale che $x+x\le y$.
+Poi, iterando, si dimostra che dato qualunque $n\in \NN$ 
+esiste $x\in (0,u]$ tale che $kx\le y$ per ogni $k=1,\dots, n$.
+Si osservi che qui non basta dire che $nx\le y$ perché 
+la successione $k\mapsto kx$ è crescente solamente se rimaniamo 
+all'interno di $[0,u]$.
+Ora si può completare la dimostrazione utilizzando l'ipotesi di 
+continuità dell'ordinamento. 
+Fissato $y\in(0,u]$ e $n\in \NN\setminus\ENCLOSE{0}$, 
+si considerano gli insiemi 
+\[
+  A_y = \ENCLOSE{x\in(0,u]\colon \forall k\in \NN\colon k\le n\implies kx \in [0,y) },
+  \qquad 
+  B_y = (0,u] \setminus A_y.
+\]
+Per le proprietà dimostrate più sopra sappiamo che $A_y \neq \emptyset$.
+Chiaramente $u+u\not \in[0,u]$ perché se fosse $u+u\in[0,u]$ allora 
+da $u>0$ deduciamo $u+u>u$, assurdo. 
+Dunque $u\in B_y$ se $n>1$ (il caso $n=1$ è banale e può essere fatto 
+a parte) e quindi anche $B_y\neq \emptyset$.
+Si prosegue poi come con la dimostrazione usuale.
+\end{proof}
+
+Estendiamo infine il teorema~\ref{th:isomorfismo}.
+%
+\begin{theorem}[omomorfismo]
+  \label{th:omomorfismo_U}
+Siano $R$ e $S$ gruppi additivi localmente ordinati, con rispettivi 
+intervalli $[0,u]\subset R$, $u>0$, e $[0,v]\subset S$, 
+$v>0$ in cui l'ordinamento 
+è compatibile con l'operazione di gruppo.
+Supponiamo che gli ordinamenti su $[0,u]$ e su $[0,v]$ siano densi e completi.
+Allora esiste una unica funzione $\phi\colon [0,u]\to[0,v]$ tale che 
+\begin{enumerate}
+  \item $\phi(u)=v$;
+  \item $\phi(x+y) = \phi(x)+\phi(y)$ per ogni $x,y\in [0,u]$ con $x+y\in [0,u]$;
+  \item $\phi$ è strettamente crescente.
+\end{enumerate}
+Inoltre $\phi$ risulta essere bigettiva.
+\end{theorem}
+%
+\begin{proof}
+Si segue la dimostrazione del teorema~\ref{th:isomorfismo}.
+Per ogni $q\in \NN$ sono ben definiti $\frac u q$ e $\frac v q$ 
+e per ogni $p\in \NN$, $p\le q$ si deve 
+avere
+\[
+    \phi\enclose{p\frac u q} = p \frac{\phi(u)} q = p \frac{v}{q}.
+\]
+A questo punto la funzione può essere estesa a tutto $[0,u]$ 
+sfruttando la continuità dell'ordinamento in $[0,v]$ e mantenendo 
+la proprietà di omomorfismo.
+La funzione risultante è surgettiva se l'ordinamento 
+di $[0,u]$ è anch'esso continuo.
+\end{proof}
+
+Possiamo applicare il teorema precedente al gruppo 
+$U$ dei numeri complessi unitari, facendo attenzione che questo gruppo 
+è moltiplicativo e dunque gli enunciati vanno tradotti opportunamente 
+rimpiazzando la notazione additiva con quella moltiplicativa.
+Su $U$ possiamo mettere l'ordinamento che taglia la circonferenza 
+unitaria nel punto $-1$.
+Se consideriamo la funzione 
+\[
+  f(z) = \begin{cases}
+    \Im z &\text{se $\Re z\ge 0$} \\
+    2-\Im z&\text{se $\Re z<0$ e $\Im z>0$} \\
+    -2-\Im z&\text{se $\Re z<0$ e $\Im z \le 0$} 
+  \end{cases}  
+\]
+si ha che $f\colon U\to (-2,2]$ è bigettiva e si può dunque 
+definire $z\le w$ su $U$ se $f(z)\le f(w)$ in $(-2,2]$.
+Tale ordinamento su $U$ ha dunque le stesse proprietà 
+dell'ordinamento usuale su $(-2,2]$, in particolare 
+è un ordinamento totale, denso e continuo.
+L'intervallo $[1,i]\subset U$ 
+è il quarto di cerchio di $U$ contenuto nel primo quadrante.
+Vogliamo verificare che tali $z,w\in [1,i]$ risulta 
+$z<w$ se e solo se $\frac{w}{z} > 1$ in $U$, questo è quanto 
+basta per dire che $U$ è localmente ordinato.
+Dati $z,w \in[1,i]$ si ha $z=x+iy$ con $x,y\ge 0$ 
+e $w=a+ib$ con $a,b\ge 0$. 
+Per definizione $z<w$ se $f(z)<f(w)$ ovvero se $y<b$.
+Si ha 
+\[
+  \frac w z = w \bar z = ax + by + i(bx - ay).  
+\]
+Chiaramente $\Re \frac w z\ge 0$ dunque $\frac w z > 1$ in 
+$U$ se e solo se $\Im \frac w z = bx - ay > 0$.
+Se $y<b$ risulta $x>a$ (in quanto $x=\sqrt{1-y^2}$ e $a=\sqrt{1-b^2}$
+sono funzioni decrescenti) e dunque $bx - ay > ya - a y =0$.
+Abbiamo quindi mostrato che se $z<w$ allora $\frac w z > 1$.
+Simmetricamente si dimostra che se $z>w$ allora $\frac w z < 1$ 
+e dunque le due condizioni sono equivalenti.
+
+Possiamo finalmente ottenere l'isomorfismo tra $\RR$ e $U$.
+\begin{theorem}[isomorfismo unitario]
+Fissato $\tau > 0$ esiste una unica funzione 
+$\phi\colon \RR \to U = \ENCLOSE{z\in \CC\colon \abs{z}=1}$ 
+tale che 
+%
+\mynote{Quando avremo introdotto l'esponenziale complesso 
+scopriremo che $\phi(x) = e^{ix}$ se si sceglie $\tau=2\pi$.}
+%
+\begin{enumerate}
+  \item $\phi$ è $\tau$-periodica;
+  \item $\phi(x+y)=\phi(x)\cdot \phi(y)$ per ogni $x,y\in \RR$;
+  \item $\Im \phi$ è strettamente crescente sull'intervallo $\Enclose{-\frac \tau 4,\frac \tau 4}$.
+\end{enumerate}
+\end{theorem}
+%
+\begin{proof}
+  Poniamo $u=\frac{\tau}4$.
+  Per il teorema precedente applicato 
+  al gruppo additivo $R=\RR$ e al gruppo moltiplicativo $S=U$
+  con l'ordinamento introdotto qui sopra deve esistere
+  $\psi\colon[0,u]\to U$ tale che $\psi(u)=i$
+  e $\psi(x+y)=\psi(x)\cdot \psi(y)$ (proprietà di omomorfismo) 
+  quando $x,y,x+y \in [0,u]$.
+  Possiamo definire $\phi$ su tutto $\RR$ estendendo $\psi$:
+  \[
+    \phi(x) =
+      i^k\cdot \psi(x-ku) \quad \text{se $x\in [k u,(k+1)u)$}.
+  \]
+  Questa funzione è $\tau$-periodica infatti
+  se $x\in [0,u)$ risulta
+  $\phi(ku+x) = i^{k} \psi(x)$
+  e dunque 
+  \[
+    \phi(ku+x+\tau) = i^{4+k} \psi(x) = i^k \psi(x) = \phi(ku+x).
+  \]
+
+  Chiaramente se $x\in[0,u]$ 
+  si ha $\phi(x) = \psi(x)$ 
+  e 
+  \[
+    \phi(-x) = i^{-1}\psi(u-x) = i^{-1}\frac{i}{\psi(x)} = \overline{\psi(x)}
+  \]
+  in quanto $i=\psi(u)=\psi(u-x+x) = \psi(u-x)\cdot \psi(x)$.
+  Dunque $\Im \phi(x)$ risulta essere strettamente crescente su tutto 
+  l'intervallo $[-u,u]$, come richiesto.
+
+  Rimane da dimostrare la proprietà di omomorfismo $\phi(x+y)=\phi(x)\cdot \phi(y)$. 
+  Dati $x,y\in \RR$ possiamo scrivere 
+  \[
+     x= n \frac u 2 + x', \qquad y=m \frac u 2 + y'
+  \]
+  con $x',y'\in[0,u/2]$ cosicché sappiamo che $x'+y'\in [0,u]$ 
+  e dunque $\psi(x'+y') = \psi(x')\cdot \psi(y')$.
+  Posto $\theta = \psi(u/2)$, si ha $\theta^2=i$ e dunque,
+  per come abbiamo definito $\phi$, risulta 
+  \[
+    \phi\enclose{n \frac u 2 + x'} = \theta^n \psi(x'),
+    \qquad 
+    \phi\enclose{m \frac u 2 + y'} = \theta^m \psi(y').
+  \]
+  Dunque 
+  \begin{align*}
+    \phi(x+y) 
+    &= \phi\enclose{(n+m)\frac u 2+x'+y'} 
+    = \theta^{n+m}\psi(x'+y')\\
+    &= \theta^n \psi(x') \theta^m \psi(y')
+    = \phi(x)\cdot \phi(y)
+  \end{align*}
+  come volevamo dimostrare.
+  \end{proof}
+
+\begin{theorem}[definizione funzioni trigonometriche]%
+\label{def:sin_cos}%
+\label{th:proprieta_trigonometriche}%
+Per ogni $\tau>0$ esistono due uniche funzioni $\sin,\cos\colon \RR\to \RR$ 
+tali che per ogni $x,y\in \RR$ valgono le seguenti proprietà:
+\mynote{Quando avremo definito $\pi$ otterremo 
+le usuali funzioni trigonometriche scegliendo $\tau=2\pi$. 
+Ma altre scelte di $\tau$ non sono inusuali. 
+Ad esempio con $\tau=360$ otteniamo le funzioni trigonometriche 
+con gli angoli misurati in gradi. 
+Sulle calcolatrici scientifiche 
+c'è usualmente l'opzione \texttt{RAD} (radiante) che pone $\tau=2\pi$ e l'opzione 
+\texttt{DEG} (\emph{degree} ovvero grado) che pone $\tau=360$.
+Si può anche trovare l'opzione \texttt{GRAD} (\emph{gradian} o grado centesimale)
+che corrisponde alla scelta $\tau=400$ utilizzata a volte in topografia.}%
+\begin{enumerate}
+  \item $\sin$ e $\cos$ sono $\tau$-periodiche;
+  \item $\sin^2 x + \cos^2 x =1$;
+  \item $\sin(x+y) = \sin x \cdot \cos y + \cos x\cdot \sin y$;
+  \item $\cos(x+y) = \cos x \cdot \cos y - \sin x\cdot \sin y$;
+  \item $\sin(-x) = -\sin(x)$ ($\sin$ è dispari), $\cos(-x) = \cos(x)$ ($\cos$ è pari);
+  \item $\sin \colon \closeinterval{-\frac \tau 4}{\frac \tau 4} \to [-1,1]$
+  è strettamente crescente e bigettiva;
+  \item $\cos \colon \closeinterval{0}{\frac \tau 2} \to [-1,1]$.
+  è strettamente decrescente e bigettiva.
+\end{enumerate}
+\end{theorem}
+%
+\begin{proof}
+Consideriamo la funzione $\phi\colon \RR \to U\subset \CC$ 
+definita nel teorema precedente (\ref{th:omomorfismo_U}) 
+e definiamo $\cos x = \Re \phi(x)$, $\sin x = \Im \phi(x)$
+cosicché $\phi(x) = \cos(x) + i \sin (x)$.
+Chiaramente $\cos$ e $\sin$ hanno periodo $\tau$ in quanto 
+$\phi$ ha periodo $\tau$.
+
+Visto che $\phi(x)\in U$ si ha $\abs{\phi(x)}^2=1$.
+Ma allora vale il punto 2:
+\[
+ 1 = \abs{\phi(x)}^2 
+ = \abs{\cos x + i\sin x}^2 
+ = \cos^2 x + \sin^2 x.
+\]
+
+La proprietà di omomorfismo 
+$\phi(x+y)=\phi(x)\cdot \phi(y)$ diventa 
+\begin{align*}
+  \cos(x+y) + i \sin(x+y)
+  &=(\cos x + i \sin x)\cdot(\cos y + i \sin y) \\
+  &= 
+  \Enclose{\cos x\cdot \cos y - \sin x \sin y}
+  + i\Enclose{\sin x\cdot \cos y + \cos x\cdot \sin y}
+\end{align*}
+da cui, eguagliando parte reale e parte immaginaria, 
+si ottengono le formule di addizione dei punti 3 e 4.
+
+Visto che $\abs{\phi(x)}=1$ sappiamo che 
+$1/\phi(x) = \overline{\phi(x)}$. 
+Ma, per le proprietà di omomorfismo, $1/\phi(x)=\phi(-x)$ e quindi 
+\[
+\cos (-x) + i \sin(-x) 
+= \phi(-x) 
+= \overline{\phi(x)}
+= \cos(x) - i \sin(x)
+\]
+da cui, uguagliando parte reale e parte immaginaria, 
+si ottiene il punto 5.
+
+Visto che $\Im \phi\colon[-\tau/4,\tau/4]\to[0,1]$ è strettamente crescente e bigettiva
+deduciamo che anche $\sin\colon[-\tau/4,\tau/4]\to [0,1]$ lo è.
+Ricordando che $\phi(\tau/4)=i$, 
+si ha $\cos(\tau/4)=0$, $\sin(\tau/4)=1$ e grazie alle formule 
+di addizione troviamo $\sin(\tau/4-x)=\cos(x)$.
+Dunque se $\sin$ è strettamente crescente sull'intervallo 
+$[-\tau/4,\tau/4]$ scopriamo che $\cos$ è strettamente 
+decrescente sull'intervallo $[0,\tau/2]$
+e su tale intervallo assume 
+tutti i valori compresi tra $[-1,1]$.
+\end{proof}
+
+\begin{figure}
+  \centering%
+  \begin{tikzpicture}[scale=0.75]
+  \draw[->] (-2,0) -- (10,0) node[right] {$x$};
+  \draw[->] (0,-3) -- (0,3) node[above] {$y$};
+  \foreach \x/\xtext in
+    {{pi/2}/{\frac \tau 4}, {pi}/{\frac \tau 2},
+     {2*pi}/{\tau}, {3*pi/2}/{\frac {3\tau} 4}, {-pi/2}/{-\frac {\tau}{4}}} {
+    \draw[shift={(\x,0)},lightgray] (0,-3) -- (0,3);
+    \draw[shift={(\x,0)}] (0pt,2pt) -- (0pt,-2pt) node[below] {$\xtext$};
+  }
+  \foreach \y in {1, -1} {
+    \draw[shift={(0,\y)},lightgray] (-1,0) -- (11,0);
+  }
+  \draw (0,1) node [above right] {$1$};
+  \draw (0,-1) node [right] {$-1$};
+  \draw[domain=-2:10,smooth,variable=\x,blue,thick] plot ({\x},{cos(deg(\x))});
+  \draw[domain=-2:10,smooth,variable=\x,red,thick] plot ({\x},{sin(deg(\x))});
+  \draw (3.7,-1) node[blue,below] {$y=\cos x$};
+  \draw (2,0.9)  node[red,above] {$y=\sin x$};
+  \end{tikzpicture}
+  \caption{%
+  I grafici delle funzioni $\sin$, $\cos$ di 
+  un generico periodo $\tau$.}
+\end{figure}
+
+
 \section{funzioni continue}
 \label{sec:continuita}
 
