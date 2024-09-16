@@ -7,18 +7,18 @@ jobs:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
       - name: Check out repository code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: compile LaTeX project
         uses: xu-cheng/latex-action@v2
         with:
           root_file: AnalisiUno.tex
       - name: upload PDF artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: AnalisiUno.pdf
           path: AnalisiUno.pdf
       - name: upload myaux artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: AnalisiUno.myaux
           path: AnalisiUno.myaux
@@ -28,9 +28,9 @@ jobs:
     if: startsWith(github.ref, 'refs/heads/')
     steps:
       - name: Check out repository code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: download myaux artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
           name: AnalisiUno.myaux
       - name: make-docs
@@ -48,7 +48,7 @@ jobs:
     if: startsWith(github.ref, 'refs/tags/20') # expect a tag like 2021-10-28 for releases
     steps:
       - name: download PDF artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
           name: AnalisiUno.pdf
       - name: create Release
