@@ -11,7 +11,7 @@ grep "%% README" chapters/*-00*.tex | cut -f1 -d"%" | sed "s/\\\\emph{\\([^}]*\\
 cat << EOF >> ${out} 
 # release
 
-Releases (PDF format) are available at the github repository: <https://github.com/paolini/AnalisiUno>
+Releases (PDF format) are available at the github repository: <https://github.com/paolini/AnalisiUno/tags>
 
 # compiling 
 
