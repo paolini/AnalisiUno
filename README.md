@@ -72,7 +72,7 @@ e certamente contiene errori e incoerenze. Ogni suggerimento o commento è
 benvenuto! 
 # release
 
-Releases (PDF format) are available at the github repository: <https://github.com/paolini/AnalisiUno>
+Releases (PDF format) are available at the github repository: <https://github.com/paolini/AnalisiUno/tags>
 
 # compiling 
 
