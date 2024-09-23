@@ -4409,16 +4409,43 @@ e dunque $m+1\in M$ come volevamo dimostrare.
 
 \begin{theorem}[estensione monotòna]
   \label{th:estensione_monotona}
-Siano $I$ e $J$ insiemi totalmente ordinati e sia
-$D\subset I$ un insieme denso.
-Sia $f\colon D\to J$ una funzione crescente.
-Se $f(D)$ è denso in $J$ e se l'ordinamento di $J$ 
-è continuo, allora esiste 
-una unica funzione crescente $\tilde f\colon I\to J$
+Siano $I$ e $J$ insiemi totalmente ordinati e supponiamo che l'ordinamento 
+di $I$ sia continuo. 
+Sia $D\subset I$ un sottoinsieme tale che 
+per ogni $x \in I$ esistano $a,b\in D$ tali che $a\le x\le b$.
+Sia $f\colon D\to J$ una funzione crescente (o decrescente).
+Se $f(D)$ è denso in $J$ allora esiste 
+una unica funzione crescente (o decrescente) $\tilde f\colon I\to J$
 tale che $\tilde f(x) = f(x)$ per $x\in D$.
 \end{theorem}
 \begin{proof}
-********** WIP *************
+Facciamo la dimostrazione nel caso in cui $f$ è crescente.
+Fissato $x\in I$ definiamo i seguenti sottoinsiemi di $J$:
+\[
+  A_x = \ENCLOSE{f(t)\colon t\in D, t\le x},
+  \qquad
+  B_x = \ENCLOSE{f(t)\colon t\in D, t\ge x}.
+\]
+l'ipotesi su $D$ garantisce che esistano $a,b\in D$ con $a\le x \le b$ 
+e dunque $A_x$ e $B_x$ non sono vuoti in quanto
+$f(a)\in A_x$ e $f(b)\in B_x$.
+Inoltre $A_x \le B_x$ (sono separati ovvero per ogni $a\in A_x$ e $b\in B_x$
+si ha $a\le b$) grazie alla monotonia crescente di $f$.
+Affinché $\tilde f$ sia crescente 
+e coincida con $f$ su $D$ si deve necessariamente avere 
+$A_x \le \tilde f(x) \le B_x$ 
+(ovvero $\tilde f(x)$ deve essere un elemento di separazione).
+Visto che l'ordinamento di $J$ è continuo 
+un elemento di separazione esiste certamente, 
+vogliamo però dimostrare che tale elemento è unico.
+
+Se per assurdo esistessero $y,z\in J$ tali che $A_x\le y<z\le B_x$
+per l'ipotesi di densità di $f(D)$ in $J$ dovrebbe esistere $w\in D$ 
+tale che $y<f(w)<z$. Ma si deve avere $w\le x$ oppure $w\ge x$ 
+e dunque $f(w)$ sta in $A_x$ oppure in $B_x$. 
+Questo è assurdo perché se $f(w)\in A_x$ allora non si 
+avrebbe $A_x\le y$ se invece $f(w)\in B_x$ non si 
+avrebbe $z\le B_x$.
 \end{proof}
 
 % \begin{definition}[omomorfismo]
@@ -4534,78 +4561,56 @@ $k \cdot n'\cdot  u = k' \cdot n\cdot u$
 e $k\cdot n' = k'\cdot n$ dunque risulta anche 
 $k\cdot \frac v n = k'\cdot \frac v {n'}$.
 
-\emph{Passo 3: estensione a tutto $R$.}
-Rimane ora da definire $\phi(x)$ per ogni $x\in R$.
-L'univocità della definizione sarà garantita dalla positività:
-$\phi(x)\ge 0$ se $x\ge 0$.
+Analogamente si può (e si deve) definire $\phi$ sulle frazioni negative
+in questo modo:
+\[
+\phi\enclose{-k\cdot \frac u n} = -k\cdot \frac v n.
+\]
 
-Osserviamo innanzitutto che essendo valida la proprietà di omomorfismo
-la positività implica la monotonia. 
-Infatti se $y\le x$ si ha $x-y\ge 0$
+\emph{Passo 3: estensione a tutto $R$.}
+Dobbiamo ora estendere $\phi$ a tutto $R$.
+L'idea è di utilizzare il teorema~\ref{th:estensione_monotona} di 
+estensione. 
+
+Innanzitutto dobbiamo verificare che $\phi$, già definita sull'insieme 
+$D$ delle frazioni della forma $k\cdot \frac u n$ con $k\in \ZZ$ e $n\in \NN$, $n\neq 0$,
+sia crescente. Questo discende dalla positività, 
+infatti se $y\le x$ si ha $x-y\ge 0$
 e dunque essendo $\phi(x-y) = \phi(x) - \phi(y)$
 se $\phi(x-y)\ge 0$ allora risulta $\phi(x)\ge \phi(y)$. 
 
-Nei punti precedenti il valore di $\phi$ è già univocamente assegnato sugli $a$ e $b$ 
-che si scrivono in forma di frazione: $k\cdot \frac u n$.
-Dunque fissato $x\in R$, $x>0$ 
-se $a \le x \le b$ con $a,b$ frazioni, 
-per la monotonia 
-dovremo necessariamente avere che $\phi(x)$ è 
-compreso tra $\phi(a)$ e $\phi(b)$.
-Dunque $\phi(x)$ deve essere elemento di separazione 
-dei due insiemi:
-\[
-A = \ENCLOSE{k \cdot \frac v n \colon k,n\in \NN, n\neq 0, k\cdot \frac u n \le x },\qquad
-B = \ENCLOSE{k \cdot \frac v n \colon k,n\in \NN, n\neq 0, k\cdot \frac u n \ge x}.
-\]
-Effettivamente questi insiemi sono separati 
-perché se $k\cdot \frac u n \le k'\cdot \frac u {n'}$ allora $kn'\le k'n$ 
-e di conseguenza $k\cdot \frac v n \le k' \cdot \frac v {n'}$.
-Dunque per l'ipotesi di continuità di $S$ 
-possiamo trovare almeno un elemento di separazione $s\in R$ 
-tale che $A\le s \le B$.
-
-E tale elemento è unico in quanto se ci fossero due elementi di separazione, 
-$y_1<y_2$, per la proprietà archimedea (teorema~\ref{th:archimede}).
-dovrebbe esistere $n\in \NN$ tale che $\frac v n < y_2-y_1$
+Dobbiamo poi dimostrare che $\phi(D)$ è denso in $S$.
+Prendiamo $y_1< y_2$ in $S$.
+Per la proprietà archimedea (teorema~\ref{th:archimede})
+esiste $n\in \NN$ tale che $\frac v n < y_2-y_1$
 e allora, prendendo i multipli di $\frac v n$ si troverebbe un $k\in\NN$ 
 tale che $y_1 < k\cdot \frac v n < y_2$. 
-Ma allora ci chiediamo se $k\cdot \frac u n$ è maggiore o minore di $x$ e 
-in entrambi i casi otteniamo un assurdo: se fosse minore o uguale a $x$ 
-allora $k\cdot \frac v n$ dovrebbe essere elemento di $A$ ma non può esserlo 
-perché $k\cdot \frac v n>y_1\ge A$, 
-analogamente se fosse $k\frac u n \ge x$ 
-si avrebbe un elemento di $B$ che è strettamente più piccolo di $y_2\le B$.
+Ma $k\cdot \frac v n = \phi(k\cdot \frac u n)$ e quindi abbiamo dimostrato 
+che $\phi(D)$ è denso in $S$.
 
-Dunque $\phi(x)$ è univocamente determinata dall'essere elemento di 
-separazione degli insiemi $A$ e $B$.
-Ponendo poi $\phi(-x) = -\phi(x)$ abbiamo univocamente definito $\phi$ 
-su tutto $R$. 
-Osserviamo che se $x=k\cdot \frac u n$ (con $k,n\in \NN$, $n\neq 0$)
-allora $k\cdot \frac v n \in A\cap B$ e quindi abbiamo effettivamente 
-definito $\phi\enclose{k\cdot \frac u n} = k\cdot \frac v n$ estendendo la definizione 
-già data nei passi precedenti.
+Abbiamo quindi verificato che $\phi$ può essere estesa ad una funzione 
+crescente definita su tutto $R$.
 Dobbiamo ora verificare che effettivamente $\phi$ 
 verifica le proprietà richieste.
 
-\emph{Passo 4: monotonia.}
-Per prima cosa dimostriamo che $\phi$ risulta essere crescente. 
-Prendiamo $x,y\in R$ con $0<x<y$.
-Per la proprietà archimedea (teorema~\ref{th:archimede})
-esiste $n\in \NN$ tale che $n\cdot(y-x) < \frac u 2$ 
-e quindi esisterà un $k\in \NN$ 
-tale che $x \le k \cdot \frac u n < (k+1)\cdot \frac u n \le y$.
-Per definizione sappiamo che $\phi(x)$ è minore o uguale ad ogni 
-elemento dell'insieme $B$ e quindi $\phi(x) \le k\cdot \frac v n$.
-Analogamente $\phi(y) \ge (k+1)\cdot \frac v n$. 
-Ma $(k+1)\cdot \frac v n \ge k\cdot \frac v n$ in quanto $\frac v n\ge 0$ 
-e quindi possiamo concludere che $\phi(x) \le \phi(y)$.
-Se inoltre $v>0$ si ha $(k+1)\cdot \frac v n > k\cdot \frac v n$
-e quindi $\phi(x) < \phi(y)$.
-Passando agli opposti la verifica si estende facilmente al caso in cui $x<y<0$.
-Il caso $x= 0$ o $y=0$ è infine banale.
+%\emph{Passo 4: monotonia.}
+%Per prima cosa dimostriamo che $\phi$ risulta essere crescente. 
+%Prendiamo $x,y\in R$ con $0<x<y$.
+%Per la proprietà archimedea (teorema~\ref{th:archimede})
+%esiste $n\in \NN$ tale che $n\cdot(y-x) < \frac u 2$ 
+%e quindi esisterà un $k\in \NN$ 
+%tale che $x \le k \cdot \frac u n < (k+1)\cdot \frac u n \le y$.
+%Per definizione sappiamo che $\phi(x)$ è minore o uguale ad ogni 
+%elemento dell'insieme $B$ e quindi $\phi(x) \le k\cdot \frac v n$.
+%Analogamente $\phi(y) \ge (k+1)\cdot \frac v n$. 
+%Ma $(k+1)\cdot \frac v n \ge k\cdot \frac v n$ in quanto $\frac v n\ge 0$ 
+%e quindi possiamo concludere che $\phi(x) \le \phi(y)$.
+%Se inoltre $v>0$ si ha $(k+1)\cdot \frac v n > k\cdot \frac v n$
+%e quindi $\phi(x) < \phi(y)$.
+%Passando agli opposti la verifica si estende facilmente al caso in cui $x<y<0$.
+%Il caso $x= 0$ o $y=0$ è infine banale.
 
-\emph{Passo 5: additività.}
+\emph{Passo 4: additività.}
 Dimostriamo ora che $\phi(x+y)=\phi(x)+\phi(y)$.
 Al solito lo facciamo nel caso $x>0$ e $y>0$, 
 gli altri casi verranno di conseguenza.
@@ -4645,7 +4650,7 @@ Se ne deduce che $\phi(x+y)-\phi(x)-\phi(y)=0$
 ovvero vale la proprietà di omomorfismo $\phi(x+y)=\phi(x) + \phi(y)$
 e anche $\phi(x+y) = \phi(y) + \phi(x)$.
 
-\emph{Passo 6: isomorfismo.}
+\emph{Passo 5: isomorfismo.}
 L'ultima proprietà che ci resta da dimostrare è che 
 se $v > 0$ allora $\phi\colon R\to S$ 
 risulta essere iniettiva e suriettiva. 
@@ -4678,7 +4683,7 @@ Nel caso in cui si scelga $v\le 0$ si può rifare tutta la dimostrazione
 invertendo opportunamente le disuguaglianze nel gruppo ordinato $S$.
 Oppure ci si può ricondurre al caso $v\ge 0$ considerando l'omomorfismo 
 positivo che manda $u$ in $-v$ e invertendone il segno.
-Le proprietà algebriche rimangono invariante mentre la monotonia si inverte.
+Le proprietà algebriche rimangono invariate mentre la monotonia si inverte.
 \end{proof}
 
 \begin{theorem}[commutatività]
