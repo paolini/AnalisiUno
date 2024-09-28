@@ -1979,9 +1979,31 @@ bisezionando l'angolo giro, quindi estendendola ai multipli
 degli angoli bisecati con \eqref{eq:4012387}
 e, infine, estendendola per monotonia a tutti gli angoli.
 
-Per fissare le idee scegliamo $\tau=4$ cioè decidiamo di voler 
-dare misura $1$ all'angolo retto e quindi misura $4$ all'angolo 
-giro.
+\begin{theorem}
+Fissato $\tau>0$ esiste una unica funzione $\phi\colon \RR \to \CC$ tale che 
+\begin{enumerate}
+\item $\abs{\phi(t)}=1$,
+\item $\phi(t+s)=\phi(t)\cdot \phi(s)$ (proprietà di omomorfismo),
+\item $\phi(\tau) = 1$ e $\phi(t)\neq 1$ per ogni $t\in(0,\tau)$,
+\item $\Im\phi(t)$ è crescente per $t\in\Enclose{0,\frac \tau 4}$.
+\end{enumerate}
+
+Inoltre tale funzione ha le seguenti proprietà:
+\begin{enumerate}
+  \item $\phi(t+\tau)=\phi(t)$ ($\phi$ è $\tau$-periodica),
+  \item $\phi([0,\tau)) = U = \ENCLOSE{z\in \CC\colon \abs{z}=1}$,
+  \item $\Im \phi(t)$ è strettamente crescente per $t\in\Enclose{-\frac \tau 4,\frac \tau 4}$,
+  \item $\Re \phi(t)$ è strettamente decrescente per $t\in\Enclose{0,\frac \tau 2}$,
+\end{enumerate}
+\end{theorem}
+Per fissare le idee facciamo la costruzione con $\tau=4$ 
+cioè decidiamo di voler dare misura $1$ all'angolo retto e 
+quindi misura $4$ all'angolo 
+giro. 
+E' facile osservare che se riusciamo a costruire $\phi$ con le proprietà 
+richieste per $\tau=4$ allora la funzione $t\mapsto \phi(\tau t / 4)$ 
+avrà le proprietà richieste per un $\tau$ generico.
+
 Vogliamo innanzitutto definire $\phi\colon[0,1]\to U$ la funzione
 che associa alla misura $t\in[0,1]$ un angolo rappresentato da 
 un numero complesso unitario $z\in U$ con $\Re z\ge 0$ e $\Im z\ge 0$
@@ -2139,16 +2161,74 @@ Analogamente si ottiene:
 \Re \phi(s+t) - \Re (\phi(s)\phi(t))
 &\ge -4\eps.
 \end{align*}
+\mynote{
 Nelle disuguaglianze con la parte reale si ottengono 
 termini del tipo $a_1 b_1 - a_2 b_2$ 
 ai quali bisogna aggiungere e togliere $a_1 b_2$ 
 per ottenere la forma $a_1(b_1-b_2) + (a_1-a_2)b_2$: 
 per questo motivo si ottiene $4\eps$ invece che $2\eps$.
+}
 
-**** WIP ****
+Abbiamo finora osservato che $\Im \phi$ e $\Re \phi$ sono monotone.
+Possiamo notare però che devono essere strettamente monotone, altrimenti 
+ci sarebbe un piccolo intervallo su cui $\phi$ è costante, e per la proprietà 
+di omomorfismo potremmo dedurre che per un piccolo intervallo $[0,t_0]$ 
+si dovrebbe avere $\phi(t)=1$, che è assurdo visto che $\frac{1}{2^n}$ 
+sta in tale intervallo per $n$ abbastanza grande, e in corrispondenza 
+di tale valore di $t$ si ha $\phi(t)=u_n$ e, chiaramente, $u_n\neq 1$
+per ogni $n\in \NN$.
 
+A questo punto abbiamo una funzione $\phi\colon[0,1]\to U\cap Q$ 
+che soddisfa, in $[0,1]$ le proprietà richieste.
 Si tratta ora di estendere $\phi$ a tutto $\RR$.
+Se $[t]\in \ZZ$ è la parte intera di $t$ (con la proprietà 
+$[t]\le t < [t]+1$), definiamo $\ENCLOSE{t} = t-[t]$
+la parte frazionaria. 
+Affinché valga la proprietà
+di omomorfismo dovremo avere $\phi(t)=\phi([t])\cdot\phi(\ENCLOSE t)$.
+Ma dovrà anche essere $\phi([t])=\phi(1)^{[t]}=i^{[t]}$ e dunque
+l'unico modo di estendere $\phi$ a tutto $\RR$ è quello di porre,
+per ogni $t\in \RR$,
+\[
+  \phi(t) = i^{[t]}\phi(\ENCLOSE t).
+\]
+Visto che $i^4=1$ otteniamo la proprietà richiesta $\phi(4)=1$.
+Inoltre osserviamo che se per $t\in[0,1]$ abbiamo costruito 
+$\phi(t)$ con valori nel primo quadrante $Q$, nell'intervallo $[1,2]$
+i valori di $\phi$ vengono moltiplicati per $i$, cioè vengono 
+ruotati, nel piano di gauss, di un angolo retto in senso antiorario.
+Dunque $\phi(t)$ ha valori nel secondo quadrante se $t\in[1,2]$.
+Analogamente si trova che per $t\in[2,3]$ i valori sono nel terzo 
+quadrante e per $t\in[3,4]$ i valori sono nel quarto quadrante.
+In particolare $t=4$ è il primo valore positivo per cui si ha 
+$\phi(t)=1$, come era richiesto nell'enunciato del teorema.
 
+La proprietà di omomorfismo $\phi(t+s)=\phi(t)\cdot\phi(s)$ 
+rimane valida per ogni $t,s\in\RR$.
+Posto $t=[t]+\ENCLOSE t$, $s=[s]+\ENCLOSE s$ si ha 
+$[t+s]=[t]+[s]$ oppure $[t+s]=[t]+[s]+1$ a seconda che 
+$\ENCLOSE t+\ENCLOSE s$ sia minore di $1$ oppure no.
+Nel primo caso si ha:
+\[
+\phi(t+s) = i^{[t]+[s]}\phi(\ENCLOSE{t}+\ENCLOSE{s})
+  = i^{[t]}i^{[s]}\phi(\ENCLOSE{t})\phi(\ENCLOSE{s})
+  = \phi(t)\cdot\phi(s).
+\]
+Il secondo caso rimane valido se riusciamo a dimostrare che 
+se $\ENCLOSE t+\ENCLOSE s>1$ si ha 
+$\phi(\ENCLOSE t)\cdot \phi(\ENCLOSE s) = i\phi(\ENCLOSE t+\ENCLOSE s-1)$.
+Questo è vero perché si ha
+$\phi(\ENCLOSE s)=\phi(1-\ENCLOSE t)\phi(\ENCLOSE t+\ENCLOSE s-1)$ in quanto 
+$\ENCLOSE s=(1-\ENCLOSE t)+(\ENCLOSE t+\ENCLOSE s-1)$ 
+e $\ENCLOSE s,1-\ENCLOSE t,\ENCLOSE t+\ENCLOSE s-1\in[0,1]$
+e inoltre $i=\phi(1)=\phi(\ENCLOSE t)\phi(1-\ENCLOSE t)$
+dunque 
+\[
+\phi(\ENCLOSE t)\phi(\ENCLOSE s) 
+  = \frac{i}{\phi(1-\ENCLOSE t)}\phi(1-\ENCLOSE t)\phi(\ENCLOSE t+\ENCLOSE s-1)
+  = i \phi(\ENCLOSE t+\ENCLOSE s-1).
+\]
+\end{proof}
 
 \begin{theorem}[definizione funzioni trigonometriche]%
 \label{def:sin_cos}%
