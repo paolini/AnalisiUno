@@ -2001,15 +2001,15 @@ Posto $u=a+ib$ e $z=x+iy$ l'equazione $z^2=u$ si scrive:
   (x^2-y^2) + i(2xy) = a+ib
 \]
 da cui $a=x^2-y^2$. Visto che $x^2+y^2=1$ (essendo $u\in U$)
-si ha $a=2x^2-1$ da cui $x=\pm\sqrt{\frac{a+1}{2}}$.
+si ha $a=2x^2-1$ da cui $x=\pm\sqrt{\frac{1+a}{2}}$.
 La soluzione in $Q$ dovrà avere $x\ge 0$ e dunque segliamo 
 il segno positivo:
 \[
-  x = \sqrt{\frac{a+1}{2}}, \qquad 
+  x = \sqrt{\frac{1+a}{2}}, \qquad 
   y = \sqrt{1-x^2} = \sqrt{\frac{1-a}{2}}.
 \]
 Denotiamo con $z=\sqrt u$ la soluzione con parte reale positiva 
-dell'equazione $z^2=u$.
+dell'equazione $z^2=u$ che abbiamo appena calcolato.
 Possiamo allora definire la successione degli angoli dimezzati:
 \[
 \begin{cases}
@@ -2032,20 +2032,22 @@ si ha $p=2^k q$ e quindi $(u_n)^p = (u_n)^{2^k q} = u_{n+k}^q$.
 
 Posto 
 \[
-B = \ENCLOSE{\frac{p}{2^n}\colon n\in \NN, p\in \NN, p\le 2^n}
+B = \ENCLOSE{\frac{p}{2^n}\colon n\in \NN, p\in \NN, p\le 2^n} \subset [0,1]
 \]
-abbiamo definito $\phi\colon B\to U$ in modo che {eq:4012387}
+abbiamo definito $\phi\colon B\to U$ in modo che \eqref{eq:4012387}
 sia soddisfatta. 
 Inoltre la definizione di $\phi$ è unica se imponiamo  
 $\phi(1)=i$.
 Si tratta ora di estendere la definizione di $\phi$ a tutto 
-l'intervallo $[0,1]$.
+l'intervallo $[0,1]$. 
+Possiamo riutilizzare il teorema~\ref{th:estensione_monotona} di 
+estensione monotona.
 
 Innanzitutto vogliamo dimostrare che $\Re \phi\colon B\to \RR$ 
 e $\Im \phi\colon B\to \RR$ sono funzioni monotone.
 In particolare vogliamo dimostrare che se $t\ge s$ allora 
 $\Re \phi(t) \le \Re \phi(s)$.
-Osserviamo che sia ha $\phi(t) = \phi(s)\cdot \phi(t-s)$, 
+Osserviamo che si ha $\phi(t) = \phi(s)\cdot \phi(t-s)$, 
 quindi basta capire come si comporta la moltiplicazione per un 
 numero complesso del primo quadrante.
 Se $\phi(s)=z=a+ib$ e $\phi(t-s)=w=x+iy$ si ha
@@ -2061,56 +2063,92 @@ $\phi(0) = 1$
 e $\phi(1)=i$ ogni altro valore deve avere parte reale 
 e parte immaginaria compresa tra $0$ e $1$.
 
-Possiamo allora estendere la funzione $\phi$ per monotonia.
-Fissato $t\in[0,1]$ consideriamo gli insiemi:
+Possiamo allora considerare la funzione 
+$f=\Im \phi$, $f\colon B\subset [0,1]\to[0,1]$
+a cui applicare il teorema~\ref{th:estensione_monotona}.
+Dobbiamo verificare che $f(B)$ è denso in $J=[0,1]$. 
+Dati $y_1,y_2\in [0,1]$ con $y_1<y_2$ dobbiamo mosrare che esiste $t\in B$ tale 
+che $y_1 < \Im phi(t) < y_2$.
+Sarà $y_1=\Im z_1$ e $y_2=\Im z_2$ con $z_1,z_2\in U$.
+L'idea è quella di trovare $n$ abbastanza grande in modo che uno dei punti 
+$u_n^p$ stia tra $z_1$ e $z_2$. 
+L'angolo differenza tra $z_1$ e $z_2$ è rappresentato da 
+$w=\frac{z_2}{z_1}$. 
+Siccome $u_n\to 1$ per $n\to +\infty$ 
+esisterà $n$ tale che $\abs{u_n-1}<y_2-y_1$.
+La successione $\Im u_n^p$, al crescere di $p\in \NN$ è crescente 
+(come abbiamo già osservato) e varia tra $0$ (quando $p=0$) e $1$ 
+(quando $p=2^n$). 
+Si ha
 \[
-  A_t = \ENCLOSE{\Re \phi(s)\colon s\in B, s\ge t}, \qquad
-  B_t = \ENCLOSE{\Re \phi(s)\colon s\in B, s\le t}.
+ \Im u_n^{p+1} - \Im u_n^p = \Im (u_n^{p+1}-u_n^p) 
+ \le \abs{u_n^{p+1}-u_n^p} < y_2-y_1.
 \]
-Per quanto visto sopra sappiamo che $A_t \le B_t$ 
-sono insiemi separati e dunque, 
-per l'assioma di continuità,
-ammettono elemento di separazione.
-Vogliamo ora dimostrare che tale elemento di separazione è 
-unico.
+Dunque dovrà esistere $p\in \NN$, $p\le 2^n$ tale che 
+$y_1 < \Im u_n^p <y_2$. 
+Visto che $\Im u_n^p = f(p/2^n)$ abbiamo dimostrato 
+che $f(B)$ è denso in $[0,1]$.
+Per il teorema~\ref{th:estensione_monotona} possiamo allora estendere 
+$f$ a tutto $[0,1]$ preservando la monotonia.
+Ma allora possiamo estendere $\phi$ a tutto $[0,1]$ 
+ponendo $\phi(t) = \sqrt{1-f^2(t)} + i f(t)$. 
+In questo modo $\Im \phi = f$ è monotona crescente mentre 
+$\Re \phi=\sqrt{1-f^2}$ risulta decrescente.
 
-Supponiamo per assurdo che ci siano due elementi di separazione 
-$t_1<t_2$ e poniamo $\eps=\frac{t_2-t_1}{2}$.
-Innanzitutto vogliamo dimostrare che 
-esiste $n\in \NN$ tale che $\abs{u_n-1}<\eps$.
-Notiamo che
-\[
-\abs{z^2-1}=\abs{z+1}\abs{z-1}
-\]
-e se $z\in U\cap Q$ si ha $\abs{z+1}\ge \sqrt 2$ 
-(il punto di $U\cap Q$ più vicino a $-1$ è $i$).
-Dunque essendo $u_{n+1}^2=u_n$ si ha 
-\[
- \abs{u_{n+1}-1} \le \frac{\abs{u_n}-1}{\sqrt 2}.
-\]
-Visto che $\abs{u_0-1}=\abs{i-1}=\sqrt 2$, 
-per induzione si ottiene facilmente che 
-$\abs{u_n-1}\le \frac{1}{\sqrt{2}^{n-1}}$.
-Ricordando che $2^{n+1}\ge n+1$ (esercizio~\ref{ex:6734098})
-deve esistere $n\in \NN$ per cui $2^{n-1} > \frac{1}{\eps^2}$
-da cui $\abs{u_n-1} < \eps$.
+Vogliamo ora verificare che la proprietà di omomorfismo 
+\eqref{eq:4012387} è verificata
+ora per ogni $t\in [0,1]$.
+Prendiamo dunque $s,t\in[0,1]$ tali che anche $s+t\in [0,1]$
+e puntiamo a dimostrare che per ogni $\eps>0$ 
+si ha:
+\begin{equation}\label{eq:4438844}
+  \Im(\phi(s+t)- \phi(s)\phi(t)) < 4\eps,
+  \qquad
+  \Re(\phi(s+t)-\phi(s)\phi(t)) < 4\eps.
+\end{equation}
+Questo direbbe che $\phi(s+t)=\phi(s)\phi(t)$.
 
-Preso tale $n\in \NN$ scegliamo $p\in \NN$ in modo che 
-$\frac{p}{2^n}\le t_1 \le \frac{p+1}{2^n}$.
-Posto $z=\phi(p/2^n)$ e $u_n=\phi(1/2^n)$ si ha 
-$\Re z \in B_t$ e $\Re (zu_n) \A_t$.
-Se $z=a+ib$ e $u_n=x_n+iy_n$ si ha 
+Per dimostrare~\eqref{eq:4438844} consideriamo 
+$s_1,s_2,t_1,t_2\in B$ tali che $s_1<s<s_2$, 
+$t_1<t<t_2$
+e $0<\Im \phi(s_2)-\Im \phi(s_1)<\eps$, $0<\Im \phi(t_2)-\Im \phi(t_1)<\eps$,
+  $0<\Re \phi(s_1)-\Re \phi(s_2)<\eps$, $0<\Re \phi(t_1)-\Re \phi(t_2)<\eps$.
+Questo si può fare perché abbiamo visto che $\Im  \phi$ è crescente 
+e $\Im \phi(B)$ è denso in $[0,1]$.
+Analogamente si verifica che $\Re \phi$ è decrescente e
+e anche $\Re \phi(B)$ è denso in $[0,1]$.
+Si ha allora:
 \[
-  \Re \phi\enclose{\frac p {2^n}}-\Re \phi\enclose{\frac{p+1}{2^n}}
-  = \Re z - \Re (zu)
-  = a - (ax_n-by_n) 
-  = a(1-x_n)+by_n 
-  \le (1-x_n)+y_n
-  \le 2\abs{u_n-1}
-  < 2\eps.
+\Im \phi(s+t) - \Im (\phi(s)\phi(t))
+= \Im \phi(s+t) - \Re \phi(s)\Im \phi(t) - \Re \phi(t)\Im \phi(s)
 \]
+e usando la monotonia di $\Im \phi$ e $\Re \phi$ si ottiene:
+\begin{align*}
+\Im \phi(s+t) &- \Im (\phi(s)\phi(t))
+\le \Im \phi(s_2+t_2) - \Re \phi(s_2)\Im \phi(t_1) - \Re \phi(t_2)\Im \phi(s_1)\\ 
+&= \Im (\phi(s_2)\phi(t_2)) - \Re \phi(s_2)\Im \phi(t_1) - \Re \phi(t_2)\Im \phi(s_1)\\ 
+&= \Re\phi(s_2)(\Im\phi(t_2) - \Im \phi(t_1))+\Re\phi(t_2)(\Im\phi(s_2) - \Im \phi(s_1))\\
+&< 2\eps.
+\end{align*}
+Analogamente si ottiene:
+\begin{align*}
+\Im \phi(s+t) - \Im (\phi(s)\phi(t))
+&\ge -2\eps,\\
+\Re \phi(s+t) - \Re (\phi(s)\phi(t))
+&\le 4\eps,\\
+\Re \phi(s+t) - \Re (\phi(s)\phi(t))
+&\ge -4\eps.
+\end{align*}
+Nelle disuguaglianze con la parte reale si ottengono 
+termini del tipo $a_1 b_1 - a_2 b_2$ 
+ai quali bisogna aggiungere e togliere $a_1 b_2$ 
+per ottenere la forma $a_1(b_1-b_2) + (a_1-a_2)b_2$: 
+per questo motivo si ottiene $4\eps$ invece che $2\eps$.
 
-************************* WIP *****************
+**** WIP ****
+
+Si tratta ora di estendere $\phi$ a tutto $\RR$.
+
 
 \begin{theorem}[definizione funzioni trigonometriche]%
 \label{def:sin_cos}%
