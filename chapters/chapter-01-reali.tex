@@ -3468,6 +3468,7 @@ e quindi effettivamente l'insieme $A=\ENCLOSE{a_1,a_2,\dots,a_n}$
 ha $n$ elementi.
 
 \begin{theorem}[cardinalità finite]
+  \label{th:cardinali_finiti}%
 Un insieme $A$ è finito
 (nel senso di Dedekind, definizione~\ref{def:infinito})
 se e solo se esiste $n\in \NN$ tale che $\#A = n$.
@@ -3489,7 +3490,7 @@ Possiamo allora definire $g\colon[n]\to[n]$ ponendo:
   \end{cases}
 \]
 Con un poco di attenzione si verifica facilmente che se $f$ è iniettiva allora anche $g$ è iniettiva
-(l'idea è che $g$ utilizza gli stessi valori di $f$ scartando il valore $n$, visto che $n\not in [n]$, 
+(l'idea è che $g$ utilizza gli stessi valori di $f$ scartando il valore $n$, visto che $n\not \in [n]$, 
 e utilizzando al suo posto il valore $f(n)$).
 Ma allora, per ipotesi induttiva, $g$ è bigettiva.
 Dunque anche $f$ è bigettiva perché assume tutti i valori assunti da $g$  
@@ -5429,11 +5430,6 @@ Il polinomio $P = x^2+x$ risulta annullarsi sia
 per $x=0$ che per $x=1$, ma non è il polinomio nullo.
 \end{example}
 
-
-\section{costruzione degli insiemi numerici}
-\label{sec:costruzione}
-
-
 \section{cardinalità}
 \label{sec:cardinali}
 
@@ -5480,13 +5476,13 @@ $\#A\le \#C$ (in quanto composizione di funzioni iniettive è iniettiva).
 
 Possiamo definire il simbolo inverso $\#A \ge \#B$ 
 come $\#B\le \#A$.
+Ovviamente se $A\subset B$ si ha $\#A \le \#B$.
 Se $B\neq \emptyset$ 
 il seguente teorema ci dice che $\#A \ge \#B$ 
 è equivalente a dire che 
 esiste $f\colon A \to B$
 surgettiva. 
 %
-
 \begin{theorem}\label{th:95444}
   Sia $B\neq \emptyset$.
   Esiste $f\colon A\to B$ surgettiva 
@@ -5662,36 +5658,12 @@ Se invece $y\in D$ essendo $y\in D\cap B = f(D)$ esisterà $x\in D$ tale
 che $\phi(x) = f(x) = y$.
 \end{proof}
 
-\subsection{cardinalità finite}
-\label{sec:cardinali_finiti}
-
-Vogliamo dimostrare che i numeri naturali possono essere utilizzati 
-per contare gli elementi degli insiemi finiti.
-
-\begin{definition}[numero di elementi]
-Se $n\in \NN$ denotiamo con 
-\[
-  \Enclose{n} 
-  = \ENCLOSE{0,1,\dots, n-1}
-  = \ENCLOSE{k\in \NN\colon k<n}
-\]
-l'insieme dei primi $n$ numeri naturali.
-\mynote{Siccome per noi il primo numero naturale è $0$, c'è uno scarto di 
-una unità tra gli ordinali \emph{primo}, \emph{secondo}, \emph{terzo}\dots e i cardinali \emph{zero},
- \emph{uno}, \emph{due}\dots
-La cosa può sembrare strana ma in realtà è perfettamente \emph{naturale}
-e infatti in gran parte dei linguaggi di programmazione moderni quando 
-si itera una operazione $n$ volte si conta da $0$ a $n-1$.}
-Questo è il prototipo di insieme con $n$ elementi.
-Allora informalmente andremo a identificare $\#\Enclose{n}$ con $n$ e 
-dunque scriveremo 
-\[
-   \#A = n, \qquad \#A\ge n, \qquad \#A\le n
-\]
-per significare rispettivamente
-\[
-  \#A = \#\Enclose{n}, \qquad \#A \ge \#\Enclose{n}, \qquad \#A\le \#\Enclose{n}.  
-\]
+Ricordiamo il teorema~\ref{th:cardinali_finiti}
+che ci dice che $A$ è un insieme finito se e solo se 
+esiste $n\in\NN$ 
+tale che $\#A = #[n]$ dove abbiamo posto $[n]=\ENCLOSE{k\in \NN, k<n}
+=\ENCLOSE{0,\dots,n-1}$.
+Ora possiamo osservare che $\#A=n$ è una abbreviazione di $\#A = \#[n]$.
 
 La cardinalità di $\NN$ viene a volte indicata con il simbolo
 \index{$\aleph_0$}%
@@ -5700,9 +5672,18 @@ $\aleph_0$ dunque potremo scrivere
 \mynote{%
 Il simbolo $\aleph$ è la prima lettera dell'alfabeto ebraico 
 e si legge \emph{aleph}. \\
-Abbiamo già osservato che $\NN$ è il \emph{più piccolo} insieme 
+Ricordiamo (teorema~\ref{th:unicitaN}) che gli insiemi 
+$\NN$ che soddisfano gli assiomi di Peano sono tutti tra loro isomorfi 
+e quindi, in particolare, hanno tutti la stessa cardinalità.
+Abbiamo già osservato (teorema~\ref{th:esistenza_naturali}) 
+che se $A$ è un insieme infinito esiste $N\subset A$
+che soddisfa gli assiomi di Peano. 
+L'inclusione $N\to A$ è iniettiva e quindi $\aleph_0 = \# \NN \le \# A$
+per qualunque $A$ infinito.
+In questo senso $\NN$ è il \emph{più piccolo} insieme 
 infinito dunque $\aleph_0$ è la più piccola 
-cardinalità infinita. 
+cardinalità infinita.
+
 Si potrebbe anche dimostrare che deve esistere una cardinalità $\aleph_1>\aleph_0$
 che è la più piccola cardinalità maggiore di $\aleph_0$.
 Sappiamo che $\# \mathcal P(\NN)>\# \NN$ ma curiosamente non è possibile dimostrare 
@@ -5729,158 +5710,8 @@ per significare rispettivamente
   \# A \ge \# \NN.  
 \]
 \end{definition}
-  
-\begin{lemma}\label{lm:infinito}
-Per ogni $n\in \NN$ l'insieme $[n]=\ENCLOSE{0,1,2, \dots, n-1}$ è 
-finito (nel senso di Dedekind, definizione~\ref{def:infinito}).
-\end{lemma}
-%
-\begin{proof}
-Lo possiamo dimostrare per induzione su $n\in \NN$.
-Per $n=0$ si ha $[n]=\emptyset$ ed è ovvio che ogni funzione 
-$f\colon \emptyset \to \emptyset$ è bigettiva. 
-Dunque $[0]=\emptyset$ è finito.
 
-Supponiamo allora che $[n]$ sia finito e supponiamo per assurdo che $[n+1]$ sia 
-infinito.
-Allora esiste $f\colon [n+1]\to[n+1]$ iniettiva ma non surgettiva. 
-Se componiamo $f$ con la funzione $s$ che scambia $n$ con $f(n)$ otteniamo 
-una funzione $g = s\circ f$ tale che $g(n)=n$.
-Se $f$ era iniettiva ma non surgettiva anche $g$ mantiene le due proprietà.
-Inoltre $g$ può essere ristretta a $[n]$ (in quanto $g(k)=n$ solo per $k=n$ 
-visto che $g$ è iniettiva): $g\colon [n]\to [n]$
-e anche la funzione ristretta risulterebbe essere iniettiva e suriettiva.
-Ma questo è assurdo perché per ipotesi induttiva $[n]$ è finito.
-\end{proof}
-
-\begin{theorem}[caratterizzazione insiemi finiti]
-Un insieme $A$ è infinito (nel senso di Dedekind, definizione~\ref{def:infinito})
-se e solo se $\aleph_0 \le \# A$.
-Viceversa $A$ è finito se e solo se esiste $n\in\NN$ tale che $\# A = n$.
-\end{theorem}
-%
-\begin{proof}
-Se $\aleph_0 \le \#A$ significa che esiste una funzione 
-iniettiva $f\colon \NN\to A$. 
-Dunque se definiamo $\sigma \colon A \to A$ come
-\[
-\sigma(a) = \begin{cases}
-  a & \text{se $a\not\in f(\NN)$}\\
-  f(n+1) & \text{se $a=f(n)$ con $n\in\NN$}
-\end{cases}
-\]
-otteniamo una funzione iniettiva ma non suriettiva 
-(in quanto $\sigma(A) = A\setminus\ENCLOSE{f(0)}$).
-Dunque se $\aleph_0\le \#A$ deduciamo che $A$ è infinito
-
-Viceversa se $A$ è infinito significa che esiste $\sigma\colon A \to A$ 
-iniettiva ma non suriettiva. 
-Preso $\alpha \in A \setminus\sigma(A)$
-possiamo definire induttivamente $f\colon \NN\to A$ come segue:
-\[
-\begin{cases}
-  f(0) = \alpha\\
-  f(n+1) = \sigma(f(n))
-\end{cases}
-\]
-e possiamo verificare che $f$ è iniettiva. 
-Infatti supponiamo che sia $f(n)=f(m)$.
-Se $f(n)=f(m)=\alpha$ allora necessariamente $n=m=0$ 
-perché $f(n)=\alpha$ è equivalente a $n=0$ visto che $\sigma$
-non assume mai il valore $\alpha$.
-Se $f(n)=f(m)\neq \alpha$ significa dunque che $n>0$ e $m>0$
-ma allora $f(n)=\sigma(f(n-1))$ e $f(m)=\sigma(f(m-1))$
-e dunque, essendo $\sigma$ iniettiva, $n-1=m-1$ da cui $n=m$. 
-Dunque se $A$ è infinito si ha $\#\NN\le \#A$
-(in realtà l'avevamo già osservato: $\NN$ è il più piccolo insieme infinito).
-
-Dobbiamo ora caratterizzare gli insiemi finiti.
-Abbiamo già verificato che se $\#A \ge \aleph_0$ 
-allora $\#A$ è infinito, dunque se $\#A$ è finito 
-non può essere $\aleph_0 \le \#A$.
-Ma da questo non possiamo immediatamente 
-dedurre che%
-\mynote{%
-Per dimostrare che ogni cardinalità può essere confrontata 
-con ogni altra (cioè che l'ordinamento dato dalla cardinalità è totale) 
-bisogna dimostrare che ogni insieme ammette un buon 
-ordinamento. La cosa diventa molto tecnica e richiede,
-l'utilizzo dell'assioma della scelta.
-}%
-$\#A < \aleph_0$%
-
-Se $\#A = n$ significa che $\#A = \#\Enclose{n}$ e 
-grazie al lemma~\ref{lm:infinito} sappiamo che $[n]$ è finito 
-e dunque anche $A$ è finito.
-
-Supponiamo ora che $A$ sia un insieme per il quale per ogni $n\in \NN$ 
-si ha $\#A \neq n$. 
-Per il teorema~\ref{th:cardinale_totale} (che non abbiamo dimostrato)
-per ogni $n\in \NN$, deve esistere una funzione iniettiva $[n]\to A$ 
-oppure una funzione iniettiva $A\to [n]$.
-Ma nel secondo caso, dovremmo concludere che $A$ è finito perché è
-già sappiamo che $[n]$ è finito e $A$ si può mettere in corrispondenza
-con un sottoinsieme di $[n]$.
-Dunque possiamo supporre che per ogni $n\in \NN$ esiste una funzione
-iniettiva $f_n\colon [n]\to A$.
-Scegliamo tale funzione. 
-\mynote{Qui stiamo usando l'assioma della scelta}
-Dalle $f_n$ possiamo definire le funzioni iniettive $g_n\colon \Enclose{n}\to A$
-in modo che $g_{n+1}$ sia una estensione di $g_n$.
-Basterà infatti porre:
-\[
-  \begin{cases}
-  g_0 = f_0,\\
-  g_{n+1}(k) = \begin{cases}
-    g_n(k) &\text{se $k<n$}\\
-    f_{n+1}\enclose{\min \ENCLOSE{h\in \Enclose{n}\colon f_{n+1}(h)\not \in g_n(\Enclose{n})}}
-    & \text{altrimenti}
-    \end{cases}
-  \end{cases}
-\]
-l'insieme $f_{n+1}([n+1])\setminus g_n([n])$ essendo non vuoto 
-in quanto $\# g_n([n]) = n < n+1 = \# f_{n+1}([n+1])$.
-Ma allora possiamo definire la funzione iniettiva $g\colon \NN \to A$
-come $g(n) = g_{n+1}(n)$ ottenendo $\#\NN \le \#A$ e dunque $A$ 
-è Dedekind infinito.
-\end{proof}
-
-Nella dimostrazione precedente abbiamo implicitamente utilizzato il seguente lemma,
-la cui dimostrazione lasciamo per esercizio.
-\begin{lemma}
-  Se $\#A = n$ e $\#B = m$ con $n,m\in \NN$ allora 
-  \[
-    \#A = \#B \iff n=m
-    \qquad \text{e}\qquad
-    \#A \le \#B \iff n \le m.
-  \]
-\end{lemma}
-
-
-\begin{exercise}[operazioni con le cardinalità finite]
-  \label{th:combinatoria}
-  Se $A$ e $B$ sono insiemi disgiunti e finiti allora  
-  \[
-    \#(A\cup B) = \#A + \#B.
-  \]
-  Se $A$ e $B$ sono insiemi finiti allora 
-  (ricordiamo che $B^A$ è l'insieme delle funzioni $A\to B$,
-  mentre i coefficienti binomiali sono definiti nel capitolo
-  \ref{ch:binomiale})
-  \begin{gather*}
-    \#(A \times B) = \#A\cdot \#B, \qquad
-    \#(B^A) = \#B^{\#A}, \qquad
-    \#\mathcal P(A) = 2^{\# A}, \\
-    \#\ENCLOSE{f\in A^A\colon \text{$f$ bigettiva}} = (\#A)!, \\
-     \#\ENCLOSE{X\in \mathcal P(A)\colon \#X = k}  
-     = {\#A \choose k}. 
-  \end{gather*}
-\end{exercise}
-
-\subsection{cardinalità infinite}
-\label{sec:cardinali_infiniti}
-
-Abbiamo già osservato che $\NN$ è un insieme infinito e dunque (per il teorema~\ref{th:cantor_bernstein})
+Abbiamo già osservato che $\NN$ è un insieme infinito e dunque 
 anche $\ZZ$, $\QQ$ e $\RR$ sono infiniti.
 Per gli insiemi finiti se $A\subset B$ ma $A\neq B$ risulta $\#A < \# B$
 in quanto $\#A - \#B = \#(B\setminus A) > 0$. 
@@ -5898,7 +5729,8 @@ e la funzione $n\mapsto n^2$ sono iniettive.
 Non è difficile trovare una funzione iniettiva da $\ZZ$ in $\NN$
 (lo lasciamo per esercizio): questo dimostra che anche $\#\ZZ = \# \NN$.
 
-Cantor dimostra addirittura che $\#\QQ = \#\NN$: per farlo utilizza il seguente.
+Cantor dimostra addirittura che $\#\QQ = \#\NN$: 
+per farlo utilizza il seguente.
 
 \begin{theorem}[primo metodo diagonale di Cantor]
 \label{th:Cantor_primo}%
