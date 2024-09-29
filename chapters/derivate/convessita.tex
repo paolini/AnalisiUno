@@ -1,0 +1,551 @@
+\section{convessità}
+\index{concavo}%
+\index{convesso}%
+
+\begin{definition}[funzione convessa]
+\mymark{**}
+Sia $I\subset \RR$ un intervallo.
+Una funzione $f\colon I\to \RR$
+si dice essere
+\emph{convessa}
+\mymargin{funzione convessa}%
+\index{funzione!convessa}%
+\index{convessa!funzione}%
+se per ogni $x,y\in I$ e per ogni $t\in [0,1]$ si ha
+\[
+f((1-t)x + ty) \le (1-t) f(x) + t f(y).
+\]
+
+Analogamente diremo che $f$ è \emph{concava} 
+\mymargin{funzione concava}%
+\index{funzione!concava}%
+\index{concava!funzione}%
+se vale la disuguaglianza inversa:
+\[
+f((1-t)x + ty) \ge (1-t) f(x) + t f(y)
+\]
+(o, equivalentemente, se $-f$ è convessa).
+\end{definition}
+
+Osserviamo che la retta del piano passante per i punti $(x,f(x))$ e $(y,f(y))$ può essere parametrizzata in maniera uniforme per $t\in \RR$
+da
+\[
+  (1-t) (x,f(x)) + t(y,f(y)) = ((1-t)x + ty, (1-t) f(x) + tf(y)).
+\]
+Chiaramente per $t=0$ si ottiene il punto $(x,f(x))$ per $t=1$ il punto $(y,f(y))$ e per $t\in[0,1]$ il segmento congiungente tali punti. La condizione di convessità della funzione $f$ corrisponde quindi a richiedere che ogni corda (segmento) che unisce due punti del grafico si trovi "al di sopra" del grafico della funzione.
+
+\begin{definition}[insieme convesso]
+\mymark{*}
+Un insieme $E\subset \RR^n$ si dice essere \emph{convesso}%
+\mymargin{convesso}%
+\index{convesso} se dati
+due punti qualunque $a,b\in E$ l'intero segmento $[a,b]=\ENCLOSE{(1-t)a+tb\colon t\in [0,1]}$ è contenuto in $E$.
+\end{definition}
+
+\begin{theorem}[epigrafico delle funzioni convesse]
+Sia $I\subset \RR$ e $f\colon I\subset \RR\to \RR$ una funzione.
+Allora sono equivalenti:
+\begin{enumerate}
+\item $I$ è un intervallo e $f$ è convessa;
+\item l'\emph{epigrafico di $f$}%
+\mymargin{epigrafico di $f$}%
+\index{epigrafico}%
+(o \emph{sopragrafico})
+\index{epigrafico}%
+ovvero l'insieme
+\[
+  E = \ENCLOSE{(x,y)\in \RR^2\colon x\in I, y\ge f(x)}
+\]
+è convesso.
+\end{enumerate}
+
+Per le funzioni concave sarà il \emph{sottografico} $\ENCLOSE{(x,y)\colon y\le f(x)}$ ad essere convesso.
+\end{theorem}
+%
+\begin{proof}
+Supponiamo che $I$ sia un intervallo e $f$ sia convessa. 
+Per dimostrare che l'epigrafico $E$ è convesso consideriamo due punti $a,b\in E$ 
+e un qualunque punto $p$ sul segmento $[a,b]$.
+Se $a=(x_a, y_a)$, $b=(x_b,y_b)$, $p=(x_p, y_p)$
+allora esiste un $t\in [0,1]$ tale che $x_p = (1-t)x_a + t x_b$ e $y_p=(1-t)y_a + t y_b$.
+Visto che $a,b\in E$ sappiamo che $y_a \ge f(x_a)$ e $y_b\ge f(x_b)$. 
+Dunque necessariamente si ha
+\[
+  y_p \ge (1-t)f(x_a) + t f(x_b).
+\]
+Ma essendo $f$ convessa si ha:
+\[
+  (1-t)f(x_a) + t f(x_b) \ge f((1-t)x_a + t x_b) = f(x_p).
+\]
+Dunque $y_p\ge f(x_p)$ che significa $p\in E$.
+
+Viceversa supponiamo di sapere che $E$ è convesso. Siano $x,y\in I$ punti qualunque. Allora i punti $a=(x,f(x))$ e $b=(y,f(y))$ sono certamente punti di $E$ e quindi l'intero segmento $[a,b]$ deve essere contenuto in $E$. Dunque per ogni $t\in [0,1]$ il punto $p = ((1-t)x + t y,$ $(1-t)f(x)+ tf(y))$ deve stare in $E$. In primo luogo deve quindi essere $(1-t)x+ty\in I$ e se questo è vero per ogni $t\in[0,1]$ significa che $I$ è un intervallo. In secondo luogo se $p\in E$ significa che
+\[
+  (1-t)f(x) +t f(y) \ge f((1-t)x + t y)
+\]
+che corrisponde alla definizione di funzione convessa.
+\end{proof}
+
+
+\begin{lemma}[rapporto incrementale di una funzione convessa]
+\mymark{*}%
+\label{lemma:547091}%
+Sia $I$ un intervallo di $\RR$ e sia $f\colon I\to \RR$.
+Dati $x,y\in I$ con $x\neq y$ definiamo il \emph{rapporto incrementale}
+di $f$ come:
+\[
+  R(x,y) = \frac{f(y) - f(x)}{y-x}.
+\]
+Allora sono condizioni equivalenti:
+\begin{enumerate}
+\item $f$ è convessa;
+\item per ogni $x,y,z\in I$ se $x<y<z$ si ha $R(x,y)\le R(y,z)$;
+\item per ogni $x,y,z\in I$ se $x<y<z$ si ha $R(x,y)\le R(x,z)$;
+\item per ogni $x,y,z\in I$ se $x<y<z$ si ha $R(x,z)\le R(y,z)$;
+\item la funzione $R(x,y)$ è crescente in ognuna delle due variabili.
+\end{enumerate}
+\end{lemma}
+%
+\begin{proof}
+Attenzione:
+il lemma risulta ovvio se si utilizza la giusta interpretazione geometrica
+(il rapporto incrementale è la pendenza della corda corrispondente).
+Quella che segue è la traduzione algebrica di quanto
+è geometricamente ovvio ma risulta inevitabilmente pesante
+e più difficilmente comprensibile.
+
+Siano $x,y,z\in I$ con $x<y<z$.
+Posto $t=(y-x)/(z-x)$ si ha $y=(1-t)x + tz$,
+ $y-x = t(z-x)$, $z-y = (1-t)(z-x)$.
+Si ha allora
+ \begin{equation*}
+ \begin{aligned}
+ R(x,z) - R(x,y)
+ &= \frac{f(z)-f(x)}{z-x} - \frac{f(y)-f(x)}{y-x} \\
+  &= t\frac{f(z)-f(x)}{y-x} - \frac{f(y)-f(x)}{y-x} \\
+  &= \frac{tf(z) + (1-t) f(x) - f(y)}{y-x}
+ \end{aligned}
+ \end{equation*}
+
+La condizione di convessità di $f$ è
+\[
+  f(y) \le (1-t)f(x) + tf(z)
+\]
+ed è quindi equivalente alla condizione $R(x,y) \le R(x,z)$.
+Dunque le condizioni 1 e 3 sono equivalenti.
+
+Ma con una verifica diretta si osserva che
+\[
+  R(x,z) = t R(x,y) + (1-t) R(y,z)
+\]
+da cui si ottiene
+\[
+  R(y,z) - R(x,z) = t[R(y,z) - R(x,y)]
+\]
+oppure anche
+\[
+ R(x,z) - R(x,y) = (1-t) [R(y,z) - R(x,y)].
+\]
+Risulta quindi che le quantità
+\[
+  R(y,z) - R(x,y), \qquad
+  R(x,z) - R(x,y), \qquad
+  R(y,z) - R(x,z)
+\]
+hanno tutte lo stesso segno. E quindi le condizioni 2, 3 e 4 sono tra loro equivalenti (se vale una delle tre valgono tutte e tre).
+
+Se valgono le tre condizioni 2, 3 e 4 è facile verificare che la funzione $R(x,y)$ è crescente in entrambe le variabili. Innanzitutto per simmetria, visto che $R(x,y) = R(y,x)$, è sufficiente verificare che $R(x,y)$ è crescente nella seconda variabile $y$ per ogni $x$ fissato. Quindi dato $z>y$ bisogna mostrare che $R(x,z) \ge R(x,y)$.
+Abbiamo allora tre possibilità a seconda che sia $x<y$ oppure $y<x<z$ oppure $z<x$. Nel primo caso si ha $x<y<z$ e dunque la disuguaglianza $R(x,y) \le R(x,z)$ corrisponde alla condizione 3.
+Nel secondo caso si ha $y<x<z$ e la condizione $R(x,y)\le R(x,z)$ si può scrivere come $R(y,x) \le R(x,z)$ che è, riordinando opportunamente le variabili, la condizione 2. Se, infine, $y < z < x$ la condizione $R(x,y) \le R(x,z)$ si può scrivere $R(y,x) \le R(z,x)$ che, riordinando le variabili, è la condizione 4.
+
+Viceversa (e infine) se la funzione $R(x,y)$ è crescente in entrambe le variabili in particolare è crescente nella seconda variabile e quindi se $x<y<z$ si ha $R(x,y) \le R(x,z)$. Risulta quindi che la condizione 5 implica la 3 e quindi tutte le altre condizioni.
+\end{proof}
+
+\begin{theorem}
+\mymark{***}
+Sia $I\subset \RR$ un intervallo e $f\colon I \to \RR$ una funzione derivabile su tutto $I$.
+Allora sono equivalenti:
+\begin{enumerate}
+\item $f$ è convessa;
+\item per ogni $x_0 \in I$ e per ogni $x\in I$ si ha
+\[
+   f(x) \ge f'(x_0) (x-x_0) + f(x_0)
+\]
+(geometricamente: il grafico della funzione sta sopra la retta tangente);
+\item $f'$ è crescente.
+\end{enumerate}
+
+Analogamente per le funzioni concave si avrà che il grafico ``sta sotto'' la retta tangente e che la derivata è decrescente.
+\end{theorem}
+%
+\begin{proof}
+\mymark{**}
+Osserviamo che
+\[
+  f'(x_0) = \lim_{x\to x_0} R(x_0,x).
+\]
+Se $f$ è convessa allora, per il lemma, il rapporto incrementale $R(x_0,x)$ è crescente e quindi  $f'(x_0) = \inf_{x>x_0} R(x_0,x)$. In particolare $f'(x_0) \le R(x_0,x)$ per ogni $x> x_0$. In maniera analoga si trova $f'(x_0) \ge R(x_0,x)$ se $x<x_0$.
+In ogni caso risulta quindi che per ogni $x$ si ha
+\[
+(R(x_0,x)- f'(x_0))(x-x_0)\ge 0
+\]
+ovvero
+\[
+  f(x) - f(x_0) - f'(x_0)(x-x_0) \ge 0.
+\]
+Dunque la condizione 1 implica la 2.
+
+Se vale la condizione 2, dati $x,y \in I$ si ha
+\[
+  f(x) - f(y) \ge f'(y)(x-y)
+\]
+se scambiamo $x$ e $y$ e cambiamo di segno ambo i membri si ottiene invece
+\[
+  f(x) - f(y) \le f'(x)(x-y)
+\]
+mettendo insieme le due disuguaglianze,
+se ora supponiamo che sia $x>y$ otteniamo proprio
+$f'(x) \ge f'(y)$ cioè $f'$ è crescente (condizione 3).
+
+Supponiamo ora di sapere che $f'$ è crescente 
+e dimostriamo che se $x<y<z$ allora $R(x,y) \le R(y,z)$.
+Per il teorema di Lagrange esistono $s\in (x,y)$ 
+e $t\in (y,z)$ tali che $f'(s) = R(x,y)$ e $f'(t) = R(y,z)$.
+Ma $s<t$ dunque $f'(s) \le f'(t)$ ovvero $R(x,y) \le R(y,z)$
+come volevamo dimostrare.
+\end{proof}
+
+\begin{corollary}[criterio di convessità tramite derivata seconda]
+\mymark{***}
+Sia $I\subset \RR$ un intervallo e sia $f\colon I \to \RR$ una funzione derivabile due volte (cioè $f$ è derivabile e anche $f'$ è derivabile).
+Allora $f$ è convessa se e solo se $f''(x)\ge 0$ per ogni $x\in I$.
+Analogamente $f$ è concava se e solo se $f''\le 0$.
+\end{corollary}
+\begin{proof}
+\mymark{***}
+Per il criterio precedente $f$ è convessa se e solo se $f'$ è crescente. Per il criterio di monotonia $f'$ è crescente se e solo se $f'' \ge 0$. Considerazioni analoghe valgono per la concavità.
+\end{proof}
+
+\begin{theorem}
+Siano $a\in \RR$, $b\in \bar \RR$, $a<b$.
+Sia $f\colon [a,b)\to \RR$ una funzione convessa 
+in $(a,b)$ e continua in $a$. 
+Allora $f$ è convessa su tutto $[a,b)$. 
+Risultato analogo vale per funzioni definite su 
+intervalli aperti a sinistra $(a,b]$
+o su intervalli aperti da ambo i lati $(a,b)$.
+\end{theorem}
+%
+\begin{proof}
+Basta dimostrare che se $x<y<z$ allora $R(x,y)\le R(y,z)$.
+La disuguaglianza è valida per $x>a$ essendo $f$ convessa 
+in $(a,b)$ e dunque, passando al limite per $x\to a$, 
+grazie alla continuità di $f$ in $a$,
+la disuguaglianza risulta dimostrata anche quando $x=a$.
+\end{proof}
+
+\begin{example}
+La funzione $f(x) = \sqrt{x}$ è definita su $[0,+\infty)$ ma è derivabile solamente in $(0,+\infty)$. La sua derivata è $f'(x) = x^{-\frac 1 2 }/2$ e la derivata seconda è $f''(x) = -x^{-\frac 3 2}/4 < 0$. Dunque la funzione è concava sull'intervallo aperto $(0,+\infty)$. Ma essendo continua possiamo concludere che $f$ è concava su tutto il dominio $[0,+\infty)$.
+\end{example}
+
+\begin{comment}
+\begin{theorem}[continuità delle funzioni convesse]
+Siano $a,b \in \bar \RR$ con $a< b$.
+Sia $f\colon (a,b) \to \RR$ una funzione convessa. Allora $f$ è continua.
+\end{theorem}
+%
+\begin{proof}
+Sia $x_0 \in (a,b)$ e siano $y,z \in (a,b)$ con $y < x_0 < z$.
+Per il lemma sui rapporti incrementali sappiamo che per ogni $x\in (y,z)$ si ha
+\[
+   R(x_0, y) \le R(x_0,x) \le R(x_0,z).
+\]
+In particolare esiste una costante $C$ tale che
+\[
+  \abs{R(x_0,x)} \le C,\qquad \forall x \in (y,z).
+\]
+Moltiplicando per $\abs{x-x_0}$ si ottiene allora
+\[
+   \abs{f(x) - f(x_0)} \le C \abs{x-x_0}
+\]
+e per $x\to x_0$ il lato destro tende a zero e quindi per confronto anche il lato sinistro deve tendere a zero. Dunque $f(x)\to f(x_0)$
+e $f$ è continua in $x_0$.
+\end{proof}
+\end{comment}
+
+\begin{theorem}[derivabilità delle funzioni convesse]
+  Sia $I\subset \RR$ un intervallo e sia $f\colon I \to \RR$ una funzione convessa.
+  Se $x_0\in (\inf I, \sup I)$ esistono e sono finite la derivata destra 
+  e sinistra di $f$ in $x_0$:
+  \begin{align*}
+    f'_+(x_0) &= \lim_{x\to x_0^+} \frac{f(x)-f(x_0)}{x-x_0}\\
+    f'_-(x_0)  &= \lim_{x\to x_0^-} \frac{f(x)-f(x_0)}{x-x_0}  
+  \end{align*}
+  e risulta
+  \[
+    f'_-(x_0) \le f'_+(x_0).
+  \]
+  Inoltre se $\inf I < x_1 < x_2 < \sup I$ si ha 
+  \[
+    f'_+(x_1) \le f'_-(x_2).
+  \]
+  Se ne deduce che $f$ è continua in tutti i punti interni di $I$ 
+  e che l'insieme dei punti in cui $f$ non è derivabile 
+  è al più numerabile.
+  \end{theorem}
+  %
+  \begin{proof}
+    Nel lemma~\ref{lemma:547091} abbiamo osservato che il rapporto incrementale
+    \[
+      R(x_0,x) = \frac{f(x)-f(x_0)}{x-x_0}
+    \] 
+    di una funzione convessa è crescente rispetto alla variabile $x$. 
+    Dunque per il teorema~\ref{th:limite_monotona} si 
+    ha 
+    \[
+      f'_-(x_0) = \sup_{x<x_0} R(x_0,x)>-\infty, \qquad 
+      f'_+(x_0) = \inf_{x>x_0} R(x_0,x)<+\infty
+    \]
+    e visto che se $x<x_0$ e $y>x_0$ si ha $R(x_0,x)\le R(x_0,y)$ 
+    deduciamo che $f'_-(x_0)\le f'_+(x_0)$ ed entrambi i limiti 
+    sono dunque finiti. Se $x_1 < x_2$ allora preso un qualunque 
+    punto $x$ con $x_1<x<x_2$ si ha (sempre per il lemma~\ref{lemma:547091})
+    \[
+      R(x_1,x) \le R(x,x_2)
+    \]
+    e dunque passando al limite si trova $f'_+(x_1) \le f'_-(x_2)$.
+    Le derivate destra e sinistra esistono dunque in tutti i punti interni 
+    all'intervallo $I$. 
+    In particolare $f$ è continua in tali punti in quanto è continua sia da destra 
+    che da sinistra.
+    I punti di non derivabilità di $f$ sono i punti in cui 
+    le derivate destra e sinistra differiscono. 
+    Ma ad ogni punto $x$ di non differenziabilità 
+    posso associare l'intervallo aperto non vuoto $I_x = (f'_-(x),f'_+(x))$ e per 
+    le proprietà appena viste è chiaro che questi intervalli sono a due a due disgiunti
+    in quanto se $x_1<x_2$ l'estremo destro di $I_{x_1}$ è minore o uguale all'estremo 
+    sinistro di $I_{x_2}$.
+    Siccome ognuno di questi intervalli contiene almeno un numero razionale concludiamo che 
+    il numero di punti di discontinuità non può essere maggiore della cardinalità 
+    dei numeri razionali.
+  \end{proof}
+  
+  \begin{theorem}[retta di supporto]
+    \label{th:supporto_convessa}%
+    Sia $I\subset \RR$ un intervallo, $f\colon I\to\RR$ una funzione convessa 
+    e $x_0$ un punto interno ad $I$. Allora esiste una funzione lineare affine 
+    \[
+      L(x) = mx+q
+    \]
+    tale che $f(x_0) = L(x_0)$ e per ogni $x\in I$ si abbia $f(x)\ge L(x)$.
+  \end{theorem}
+  %
+  \begin{proof}
+    Basta scegliere qualunque $m\in [f'_-(x_0),f'_+(x_0)]$ e considerare la funzione 
+    lineare affine $L(x) = m(x-x_0) + f(x_0)$. Se $x>x_0$ allora si ha $R(x_0,x)\ge m$ 
+    e dunque $f(x) - f(x_0) \ge m (x-x_0) = L(x)$. Viceversa se $x<x_0$ 
+    si ha $R(x_0,x)\le m$ da cui, di nuovo, $f(x)-f(x_0) \ge m(x-x_0) = L(x)$.
+  \end{proof}
+  %
+  Il seguente teorema può essere enunciato anche per gli integrali 
+  come vedremo nel teorema~\ref{th:jensen}. 
+  La dimostrazione è sostanzialmente identica ed è valida anche 
+  per funzioni convesse di più variabili.
+  %
+  \begin{theorem}[combinazioni baricentriche/disuguaglianza di Jensen]
+    \mymark{*}%
+    \label{th:combinazioni_baricentriche}%
+    \index{combinazioni baricentriche}%
+    \index{disuguaglianza!di Jensen}%
+    \index{Jensen!disuguaglianza di}%
+    Se $f$ è una funzione convessa definita su un intervallo $I$, dati $x_1, \dots, x_n \in I$ e $\lambda_1, \dots, \lambda_n\in \RR$ tali che $\sum_{k=1}^n \lambda_k = 1$ e $\lambda_k \ge 0$ per ogni $k=1, \dots, n$ allora
+    \[
+      f\enclose{\sum_{k=1}^n \lambda_k x_k}
+      \le \sum_{k=1}^n \lambda_k f(x_k).
+    \]
+    Per le funzioni concave vale la disuguaglianza inversa.
+    \end{theorem}
+    %
+    \begin{comment}
+    \begin{proof}
+    Procediamo per induzione su $n$. Nel caso $n=1$ si ha $\lambda_1=1$ e i due lati della disuguaglianza sono effettivamente uguali. Supponendo il teorema dimostrato per un certo $n$, procediamo a dimostrarlo per $n+1$.
+    Osserviamo che
+    \begin{align*}
+      \sum_{k=1}^{n+1} \lambda_k x_k
+      &= \sum_{k=1}^n \lambda_k x_k  + \lambda_{n+1} x_{n+1} \\
+      &= (1-\lambda_{n+1})\sum_{k=1}^n\frac{\lambda_k}{1-\lambda_{n+1}} x_k + \lambda_{n+1} x_{n+1}.
+    \end{align*}
+    Visto che
+    \[
+      \sum_{k=1}^{n+1} \lambda_k = 1
+    \]
+    si ha
+    \[
+      \sum_{k=1}^n \frac{\lambda_k}{1-\lambda_{n+1}}
+      = \frac{1-\lambda_{n+1}}{1-\lambda_{n+1}} = 1.
+    \]
+    Dunque, per ipotesi induttiva si ha allora
+    \[
+      f\enclose{\sum_{k=1}^n\frac{\lambda_k}{1-\lambda_{n+1}} x_k}
+      \le \sum_{k=1}^n \frac{\lambda_k}{1-\lambda_{n+1}}f(x_k).
+    \]
+    Usando di nuovo la convessità di $f$ con $t=\lambda_{n+1}$ si ha
+    \begin{align*}
+    f\enclose{\sum_{k=1}^{n+1} \lambda_k x_k}
+    &=f\enclose{(1-\lambda_{n+1})\sum_{k=1}^n \frac{\lambda_k}{1-\lambda_{n+1}}x_k + \lambda_{n+1}x_{n+1}}\\
+    &\le (1-\lambda_{n+1})f\enclose{\sum_{k=1}^n \frac{\lambda_k}{1-\lambda_{n+1}}x_k} + \lambda_{n+1}f(x_{n+1}) \\
+    &\le (1-\lambda_{n+1})\sum_{k=1}^n \frac{\lambda_k}{1-\lambda_{n+1}} f(x_k) + \lambda_{n+1} f(x_{n+1})\\
+    &= \sum_{k=1}^{n+1}\lambda_k f(x_k).
+    \end{align*}
+    come volevamo dimostrare.
+    \end{proof}
+  \end{comment}
+  %    
+  \begin{proof}
+  Poniamo 
+  \[
+    \bar x =  \sum_{k=1}^n \lambda_k x_k.
+  \]
+  Per il teorema~\ref{th:supporto_convessa} precedente 
+  sappiamo che esiste una retta $L(x) = mx + q$ 
+  tale che $L(\bar x) = f(\bar x)$ 
+  e $L(x)\le f(x)$ per ogni $x \in I$.
+  Allora si ha 
+  \[
+  L \enclose{\sum_{k=1}^n \lambda_k x_k}
+  = \sum_{k=1}^n m \lambda_k x_k + q \sum_{k=1}^n \lambda_k 
+  = \sum_{k=1}^n \lambda_k L(x_k).  
+  \]
+  Dunque 
+  \[
+  f(\bar x) = L(\bar x) = \sum_{k=1}^n \lambda_k L(x_k) \le 
+  \sum_{k=1}^n \lambda_k f(x_k).
+  \]
+  \end{proof}
+
+\begin{example}[disuguaglianza tra media aritmetica e media geometrica]
+\mymark{*}
+\index{disuguaglianza!media aritmetica media geometrica}
+Osserviamo che la funzione $f(x) = \ln x$ è concava, infatti si ha
+$f''(x) = -1/x^2 < 0$. Dunque, per il teorema precedente, se $\lambda_1 + \dots + \lambda_n =1$, $\lambda_k \ge 0$ si ha
+\[
+    \ln\enclose{\sum_{k=1}^n \lambda_k x_k}
+    \ge \sum_{k=1}^n \lambda_k \ln x_k.
+\]
+Facendo l'esponenziale di ambo i membri si ottiene
+\[
+  \sum_{k=1}^n \lambda_k x_k \ge \prod_{k=1}^n x_k^{\lambda_k}.
+\]
+Nel caso particolare $\lambda_k = 1/n$ si ottiene
+la disuguaglianza tra \emph{media aritmetica} (AM per gli anglofoni)
+e \emph{media geometrica}
+\mymargin{media aritmetica geometrica}%
+\index{media aritmetica geometrica}%
+\index{media!aritmetica}%
+\index{media!geometrica}%
+\index{AM}%
+\index{GM}%
+(GM):
+\[
+  \frac{x_1 + \dots + x_n}{n} \ge \sqrt[n]{x_1\cdots x_n}.
+\]
+\end{example}
+
+\begin{exercise}[subadditività delle funzioni concave]
+\index{subadditività!delle funzioni concave}%
+\index{funzione!concava!subadditiva}%
+\index{concavo!subadditiva}%
+Sia $f\colon [0,+\infty) \to \RR$ una funzione concava con $f(0)\ge 0$. Allora $f$ è subadditiva cioè:
+\[
+  f(x+y) \le f(x) + f(y),\qquad \forall x,y\ge 0.
+\]
+\end{exercise}
+%
+\begin{proof}
+Se $x=y=0$ la disuguaglianza è ovvia.
+Altrimenti $x+y>0$ e si ha
+\begin{align*}
+f(x) &= f\enclose{\frac{y}{x+y}\cdot 0 + \frac{x}{x+y}\cdot (x+y)}\\ &\ge \frac{y}{x+y}f(0) + \frac{x}{x+y}f(x+y)
+\ge \frac{x}{x+y}f(x+y).
+\end{align*}
+Scambiando $x$ con $y$ e sommando si ottiene:
+\[
+  f(x) + f(y) \ge \frac{x}{x+y}f(x+y) + \frac{y}{x+y}f(x+y) = f(x+y).
+\]
+\end{proof}
+
+Si osservi che sviluppando la disuguaglianza $(x-y)^2\ge 0$ si ottiene:
+\[
+  x y \le \frac{x^2 + y^2}{2}.
+\]
+Questa disuguaglianza può essere generalizzata ad esponenti diversi 
+come si vede nel seguente.
+
+\begin{theorem}[disuguaglianza di Young]%
+\label{th:young}%
+\index{Young!disuguaglianza di}%
+\index{disuguaglianza!di Young}%
+Se $p>1$, $q>1$, $\frac{1}{p}+\frac{1}{q}=1$, $x,y\ge 0$:
+\begin{equation}\label{eq:young}
+  x y \le \frac{x^p}{p} + \frac{y^q}{q}.
+\end{equation}
+\end{theorem}
+%
+\begin{proof}
+Si utilizza la disuguaglianza di convessità per la funzione $\exp(x)=e^x$. 
+Visto che la derivata seconda dell'esponenziale è positiva, la funzione $\exp$ 
+è convessa e dunque, se $x>0$ e $y>0$ si ha:
+\begin{align*}
+ x\cdot y 
+  &= \exp(\ln x + \ln y)
+  = \exp\enclose{\frac 1 p \ln (x^p) + \frac 1 q \ln (y^q)}  \\
+  &\le \frac 1 p \cdot \exp \ln (x^p) + \frac 1 q \exp \ln (y^q)
+  = \frac{x^p}{p} + \frac{y^q}{q}.
+\end{align*}
+Se $x=0$ o $y=0$ la disuguaglianza è ovvia in quanto il lato sinistro 
+di~\eqref{eq:young} è nullo.
+\end{proof}
+
+\begin{theorem}[disuguaglianza di Hölder]
+Se $a_k\ge 0$ e $b_k\ge 0$ per $k\in \NN$
+e siano $p>1$ e $q>1$ tali che $\frac 1 p + \frac 1 q = 1$.
+Allora 
+\[
+ \sum_k a_k b_k  \le \enclose{\sum_k a_k^p}^{1 \over p} \cdot \enclose{\sum_k b_k^q}^{1\over q}.
+\]
+\end{theorem}
+\begin{proof}
+Poniamo 
+\[
+A = \enclose{\sum_k a_k^p}^{1 \over p}, \qquad 
+B = \enclose{\sum_k b_k^q}^{1\over q}.
+\]
+Se $A>0$ e $B>0$ possiamo dividere il lato sinistro della disuguaglianza 
+per il lato destro e applicare la disuguaglianza~\eqref{eq:young} di Young:
+\begin{align*}
+  \frac{\sum_k a_k b_k}{A\cdot B} 
+  & = \sum_k \frac{a_k}{A}\cdot \frac{b_k}{B} 
+  \le \sum_k \frac 1 p \frac{a_k^p}{A^p} + \frac 1 q \frac{b_k^q}{B^q} \\
+  &= \frac 1 p \frac{\sum_k a_k^p}{A^p} + \frac 1 q \frac{\sum_k b_k^q}{B^q}
+  = \frac 1 p + \frac 1 q = 1.
+\end{align*}
+E il teorema e dimostrato. 
+
+Se fosse $A=0$ tutti i termini $a_k$ sarebbero nulli e la disuguaglianza 
+si riduce banalmente a $0\le 0$. Lo stesso se fosse $B=0$.  
+\end{proof}
+
+Nel caso $p=q=2$ si ottiene la 
+\emph{disuguaglianza di Cauchy-Schwarz}%
+\mymargin{disuguaglianza di Cauchy-Schwarz}%
+\index{disuguaglianza!di Cauchy-Schwarz}
+\index{disuguaglianza!di Cauchy-Schwarz}%
+\index{Cauchy-Schwarz!disuguaglianza di}%
+\index{Schwarz!disuguaglianza di Cauchy-}%
+\[
+   \sum_k \abs{a_k b_k} \le \sqrt{\sum_k a_k^2} \cdot \sqrt{\sum_k b_k^2}
+\]
+che potrebbe però essere più facilmente dimostrata 
+per un generico prodotto scalare, come faremo 
+nel teorema~\ref{th:spazio_euclideo}.
+

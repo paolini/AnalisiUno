@@ -1,0 +1,204 @@
+\section{serie a segno variabile}
+\label{sec:serie_segno_variabile}
+\index{serie!a segni alterni}
+
+La serie $\sum \frac{(-1)^k}{k+1}$ la cui somma si può scrivere come
+\mymargin{serie armonica a segni alterni}%
+\index{serie!armonica!a segni alterni}%
+\[
+1 - \frac{1}{2} + \frac{1}{3} - \frac{1}{4} +  \frac{1}{5} \dots
+\]
+non è assolutamente convergente
+(in quanto la serie $\sum \frac 1 {k+1}$ è divergente) ma ha il termine generico
+infinitesimo. 
+Non abbiamo quindi nessun criterio che ci permetta di
+determinarne il carattere.
+Possiamo però sfruttare il fatto che i segni sono \emph{alterni} cioè
+che i termini di indice pari hanno segno opposto ai termini di indice dispari. 
+Si nota infatti che posto
+\[
+  S_n = \sum_{k=0}^n \frac{(-1)^k}{k+1}
+\]
+si ha
+\begin{align*}
+S_{2n+2}
+  &= S_{2n+1} + \frac{1}{2n+3}
+  = S_{2n} - \frac{1}{2n+2} + \frac{1}{2n+3}
+  < S_{2n}\\
+S_{2n+3}
+  &= S_{2n+2} - \frac{1}{2n+4}
+  = S_{2n+1} + \frac{1}{2n+3} - \frac{1}{2n+4}
+  > S_{2n+1} \\
+\end{align*}
+Dunque la successione delle somme parziali di indice pari è decrescente mentre
+sui termini di indice dispari è crescente. Avremo quindi che entrambe
+le sottosuccessioni hanno limite: $S_{2n} \to S$, $S_{2n+1} \to R$.
+
+Ma
+\[
+  S - R = \lim_{n\to +\infty} (S_{2n} - S_{2n+1}) = \lim_{n\to+\infty}\frac{1}{2n+2} = 0.
+\]
+Dunque $S=R$ e l'intera successione ha limite $S$. 
+D'altra parte $S \le S_0$ in quanto $S_{2n}$ è decrescente e $S\ge S_1$ in quanto $S_{2n+1}$ è crescente. 
+Concludiamo che $S$ è finito e dunque la serie è convergente.%
+\mynote{%
+Per determinare il valore della somma di questa serie ci serviranno degli strumenti più avanzati.
+Si veda l'equazione~\ref{eq:serie_ln2}.
+}
+
+Questa dimostrazione può essere resa più in generale nel seguente.
+
+\begin{theorem}[criterio di Leibniz per le serie a segno alterno]
+\label{th:Leibniz}%
+\mymark{***}%
+\mymargin{criterio di Leibniz}%
+\index{criterio!di Leibniz}%
+\index{teorema!di Leibniz}%
+\index{Leibniz!criterio di}%
+Sia $b_n$ una successione monotòna e infinitesima. Allora
+la serie
+\[
+  \sum (-1)^{n} b_n
+\]
+è convergente.
+
+Più precisamente se $\displaystyle S_n = \sum_{k=0}^n (-1)^k b_k$
+sono le somme parziali
+si osserva che la somma della serie $S= \lim S_n$ è sempre compresa
+tra due termini consecutivi della successione $S_n$. 
+Cioè, se $b_k\ge 0$, si ha
+\[
+  S_{2n+1} \le S \le S_{2n}.
+\]
+\end{theorem}
+%
+\begin{proof}
+\mymark{***}
+Senza perdere di generalità possiamo supporre che la successione $b_n$ sia decrescente e quindi $b_n \ge 0$ (visto che il limite è zero).
+Posto
+\[
+ S_n = \sum_{k=0}^n (-1)^k b_k
+\]
+si ha
+\begin{align*}
+  S_{2n+2} &= S_{2n} - b_{2n+1} + b_{2n+2} \\
+  S_{2n+3} &= S_{2n+1} + b_{2n+2} - b_{2n+3}.
+\end{align*}
+Essendo $b_n$ decrescente si ha $b_{2n+2} < b_{2n+1}$ e $b_{2n+3} < b_{2n+2}$ da cui
+\[
+  S_{2n+2} < S_{2n}, \qquad S_{2n+3} > S_{2n+1}.
+\]
+Dunque le successioni $S_{2n}$ e $S_{2n+1}$ sono monotone e di conseguenza
+hanno limite:
+\[
+  S_{2n} \to S, \qquad S_{2n+1} \to R
+\]
+con $S, R  \in [-\infty, +\infty]$.
+D'altronde, essendo $b_n$ infinitesima
+\[
+  S - R
+  = \lim_{n\to +\infty} S_{2n} - S_{2n+1}
+  = \lim_{n\to +\infty} b_{2n+1} = 0.
+\]
+Dunque $S=R$. Inoltre essendo $S_{2n}$ decrescente si ha
+$S \le S_0$ ed essendo $S_{2n+1}$ crescente si ha $S\ge S_1$.
+Dunque $S$ è finito e la serie converge.
+
+Abbiamo anche ottenuto che
+$S_{2n-1} \le S \le S_{2n}$ e $S_{2n+1} \le S \le S_{2n}$
+dunque è verificata anche la seconda parte dell'enunciato.
+\end{proof}
+
+Il teorema precedente si applica, ad esempio, alle seguenti serie,
+che risultano essere convergenti anche se non assolutamente 
+convergenti:
+\[
+   \sum \frac{(-1)^n}{\sqrt n}, 
+   \sum \frac{(-1)^n}{n\ln n}.
+\]
+
+Si faccia attenzione alla verifica delle ipotesi nel teorema precedente.
+Visto che si tratta di una serie alternata, non si può applicare 
+il criterio di confronto asintotico per ricondurre i termini $b_n$ 
+ai termini di una serie più semplice da studiare. 
+In particolare la monotonia dei termini $b_n$ non è garantita 
+dall'esistenza di una successione asintotica e monotona. 
+Si veda il seguente.
+
+\begin{exercise}
+Sia $a_k = \frac{(-1)^k}{\sqrt k} - \frac{1}{k}$.
+Si noti che $a_k \sim c_k = \frac{(-1)^k}{\sqrt k}$
+ma le due serie $\sum a_k$ e $\sum c_k$ hanno caratteri diversi:
+la prima è divergente in quanto si spezza nella differenza 
+di una serie convergente e di una divergente,
+mentre la seconda è convergente per il criterio di 
+Leibniz (teorema~\ref{th:Leibniz}).
+\end{exercise}
+
+Grazie al criterio di Leibniz è facile 
+produrre esempi di serie convergenti
+ma non assolutamente convergenti.
+Il seguente teorema ci dice che per le serie di questo tipo 
+la somma della serie dipende dall'ordine in cui sono stati presi i termini:
+anzi, si può ottenere come somma qualunque valore si voglia.
+
+\begin{theorem}[convergenza condizionata]%
+\label{th:convergenza_condizionata}%
+\index{convergenza!condizionata di una serie}%
+\mymargin{convergenza condizionata}%
+Sia $\sum a_k$ una serie convergente ma non assolutamente convergente a termini reali.
+Allora fissato qualunque $x \in [-\infty , +\infty]$ esiste un riordinamento
+$\sigma \colon \NN \to \NN$ biettivo tale che
+\[
+  \sum_{k=0}^{+\infty}  a_{\sigma(k)} = x.
+\]
+\end{theorem}
+%
+\begin{proof}
+Dividiamo i termini della successione $a_k$ in termini maggiori o uguali a zero
+e in termini negativi. Sia $a^+_k$ la sottosuccessione dei termini non negativi
+e $-a^-_k$ la sottosuccessione
+dei termini negativi (quindi $a^+_k\ge 0$ e $a^-_k > 0$). Si avrà
+\begin{align*}
+  \sum_{k=0}^n a_k &= \sum_{k=0}^{n^+} a^+_k - \sum_{k=0}^{n^-} a^-_k \\
+  \sum_{k=0}^n \abs{a_k} &= \sum_{k=0}^{n^+} a^+_k + \sum_{k=0}^{n^-} a^-_k
+\end{align*}
+dove $n^+ +1$ e $n^-+1$ sono rispettivamente
+il numero di termini non-negativi e negativi
+tra i primi $n+1$ termini della successione $a_k$.
+
+Osserviamo ora che dovrà essere
+\[
+\sum_{k=0}^{+\infty} a_k^+ = +\infty \qquad \text{e} \qquad
+\sum_{k=0}^{+\infty} a_k^- = +\infty.
+\]
+Innanzitutto le somme esistono perché le serie sono a termini non negativi.
+Se entrambe queste somme fossero finite allora la serie $\sum\abs{a_k}$ sarebbe convergente, ma per ipotesi abbiamo assunto che $\sum a_k$ non fosse
+assolutamente convergente.
+Quindi almeno una delle due somme è infinita. Se la somma dei termini positivi
+fosse infinita e quella dei termini negativi fosse finita potremmo però
+concludere che anche la somma della serie $\sum a_k$ sarebbe infinita.
+Viceversa se la somma dei termini positivi fosse finita e quella dei termini
+negativi fosse infinita la somma $\sum a_k$ sarebbe $-\infty$. Ma per ipotesi
+abbiamo richiesto che la serie $\sum a_k$ fosse convergente.
+
+Fissato $x\in \RR$ possiamo quindi cominciare a sommare i termini positivi
+$a^+_k$ finché non si raggiunge o si supera il valore $x$. A quel punto cominciamo a sommare i termini negativi finché non torniamo sotto al valore $x$.
+Poi continuiamo a sommare i termini positivi finché non si torna a superare $x$
+e di nuovo poi continuiamo con i termini negativi finché non si torna a scendere
+sotto $x$. Intermezzando opportunamente termini positivi e termini negativi
+riusciamo quindi ad ottenere delle somme parziali che oscillano intorno al valore 
+di $x$ e si avvicinano sempre di più a $x$ in quanto ad ogni cambio di ``rotta'' 
+la distanza da $x$ è inferiore al valore assoluto dell'ultimo termine sommato 
+e la successione dei termini $a_k$ è infinitesima in quanto la serie $\sum a_k$ è convergente.
+
+Stessa cosa si può fare per ottenere una somma $x=+\infty$. Fissata una qualunque
+successione $x_n \to +\infty$ comincio a sommare i termini positivi finché non supero il valore $x_1+a_1^-$. 
+Poi sommo un solo termine negativo, $-a_1^-$ e ottengo una somma maggiore di $x_1$. 
+Poi sommo tanti positivi finché non supero $x_2+a_2^-$. 
+Poi sommo un altro unico termine negativo e così via. 
+Chiaramente le somme tenderanno a $+\infty$.
+
+Il caso $x=-\infty$ si tratta in maniera analoga.
+\end{proof}
+

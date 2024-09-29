@@ -1,0 +1,317 @@
+\section{integrale di Riemann}
+
+\begin{definition}[integrale di Riemann]%
+\label{def:integrale}%
+\mymark{***}%
+\index{integrale!definizione}%
+\index{definizione!di integrale}%
+\index{Riemann!integrale di}%
+Siano $a,b\in \RR$, $a \le b$.
+Un insieme $P\subset [a,b]$ si dice essere una \emph{suddivisione di Riemann}%
+\mymargin{suddivisione di Riemann}%
+\index{suddivisione!di Riemann}
+\index{Riemann!suddivisione di}
+\index{partizione di Riemann}
+\index{Riemann!partizione di}
+dell'intervallo $[a,b]$ se $P$ è un insieme finito tale che $a,b\in P$.
+In particolare $P$ si
+potrà scrivere come
+\[
+ P = \ENCLOSE{ x_0, x_1, \dots, x_N}
+\]
+con
+\[
+  a = x_0 < x_1 < \dots < x_{N-1} < x_N = b.
+\]
+
+Sia $f\colon [a,b] \to \RR$ una funzione limitata.
+Data una qualunque suddivisione $P$ di $[a,b]$ definiamo
+rispettivamente le \emph{somme superiori} e le \emph{somme inferiori}
+\mymargin{somme superiori/inferiori}%
+\index{somme superiori/inferiori}
+\index{Riemann!somme superiori}
+\index{Riemann!somme inferiori}
+come
+\begin{align*}
+S^*(f,P)
+&= \sum_{k=1}^N (x_k - x_{k-1}) \cdot \sup f([x_{k-1},x_k]) \\
+S_*(f,P)
+&= \sum_{k=1}^N (x_k - x_{k-1}) \cdot \inf f([x_{k-1},x_k]).
+\end{align*}
+Definiamo infine
+\begin{align*}
+  I^*(f) &= \inf \ENCLOSE{S^*(f,P) \colon \text{$P$ suddivisione di $[a,b]$}}
+  \\
+  I_*(f) &= \sup \ENCLOSE{S_*(f,P) \colon \text{$P$ suddivisione di $[a,b]$}}.
+\end{align*}
+
+Se $I^*(f) = I_*(f)$ diremo che $f$ è
+\emph{Riemann-integrabile}
+\mymargin{integrale di Riemann}%
+\index{integrale!di Riemann}%
+\index{Riemann!integrale di}%
+\index{integrabilità}%
+\index{integrale}%
+\index{integrale!definizione}%
+e diremo che l'\emph{integrale} di $f$ su $[a,b]$ è
+il valore comune $I^*(f)=I_*(f)$ che verrà denotato con
+\[
+  \int_a^b f
+  \qquad{\text{oppure con}} \qquad
+  \int_a^b f(x)\, dx.
+\]
+
+Se $b<a$ e se $f$ è Riemann-integrabile su $[b,a]$
+definiamo per convenzione:
+\[
+  \int_a^b f = -\int_b^a f.
+\]
+\end{definition}
+
+\begin{lemma}
+Sia $f\colon[a,b]\to \RR$ una funzione limitata.
+Se $P$ e $Q$ sono due suddivisioni qualunque dell'intervallo
+$[a,b]$ si ha
+\begin{equation}\label{eq:5112309}
+  S_*(f,P) \le S_*(f,P\cup Q)\le S^*(f,P\cup Q) \le S^*(f,Q).
+\end{equation}
+Di conseguenza $I_*(f) \le I^*(f)$.
+\end{lemma}
+\begin{proof}
+  Sia $P$ una qualunque suddivisione di $[a,b]$ e sia $y\in [a,b]$ un punto qualunque. Posto $P' = P \cup \ENCLOSE{y}$ vogliamo mostrare
+  che si ha
+  \begin{equation}\label{eq:39543}
+    S_*(f,P) \le S_*(f,P') \le S^*(f,P') \le S^*(f,P).
+  \end{equation}
+  Se $y\in P$ non c'è niente da dimostrare in quanto
+  risulterebbe $P'=P$ e la disuguaglianza $S_*(f,P') \le S^*(f,P')$ è sempre verificata in quanto ogni estremo superiore che compare nella definizione di $S^*$ è maggiore o uguale al corrispondente
+  estremo inferiore che compare nella definizione di $S_*$.
+  Supponiamo allora che $y \not \in P$ e dunque che $y$ sia compreso tra due punti consecutivi $x_{k-1}, x_k$ della suddivisione $P$:
+  \[
+    a= x_0 < x_1 < \dots < x_{k-1} < y < x_k < \dots < x_N=b.
+  \]
+  Allora le somme che definiscono $S_*(f,P)$ e $S_*(f,P')$ 
+  differiscono solo sull'intervallo $[x_{k-1},x_k]$. 
+  % e si ha
+  % \begin{align*}
+  %   S_*(f,P') - S_*(f,P)
+  %  &= (y-x_{k-1})\cdot \!\!\inf_{[x_{k-1},y]}\!\!\! f
+  %  + (x_k - y)\cdot\! \inf_{[y,x_k]}\! f\\
+  %  &\quad - (x_k - x_{k-1})\cdot \!\!\inf_{[x_{k-1}, x_k]}\!\!\!f
+  % \end{align*}
+  Ma osservando che
+  \[
+  \inf_{[x_{k-1}, x_k]}\!\!f
+  \le\inf_{[x_{k-1},y]}\!\! f
+  \qquad \text{e} \qquad
+  \inf_{[x_{k-1}, x_k]}\!\!f
+  \le\inf_{[y,x_k]}\!\! f
+  \]
+  si ottiene $S_*(f,P) \le S_*(f,P')$.
+  In maniera analoga si ottiene $S^*(f,P) \ge S^*(f,P')$.
+  Dunque \eqref{eq:39543} è dimostrata.
+  Ma allora se $P$ e $Q$ sono suddivisioni qualunque osserviamo che $P\cup Q$ 
+  si può ottenere da $P$ aggiungendo uno alla volta i punti di $Q$. 
+  Iterando la \eqref{eq:39543} si ottiene \eqref{eq:5112309}.
+  Facendo l'estremo inferiore al variare di $Q$
+  si ottiene $S_*(f,P) \le I^*(f)$ e facendo l'estremo superiore al variare 
+  di $P$ si ottiene $I_*(f) \le I^*(f)$.
+  \end{proof}
+
+
+\begin{theorem}[criteri di integrabilità]
+\label{th:criteri_integrabilita}%
+\mymark{*}%
+\mymargin{criteri di integrabilità}%
+\index{criterio!di integrabilità}%
+Sia $f\colon[a,b]\to \RR$ una funzione limitata.
+\begin{enumerate}
+\item
+La funzione $f$ è Riemann-integrabile se e solo se
+per ogni $\eps>0$ esiste una suddivisione $P$
+tale che
+\[
+  S^*(f,P) - S_*(f,P) < \eps.
+\]
+
+\item
+Se $f$ è Riemann-integrabile su $[a,b]$ allora
+esiste una successione $P_n$ di suddivisioni tali che
+\begin{equation}\label{eq:93765}
+  \lim_{n\to +\infty} S^*(f,P_n)
+  = \lim_{n\to+\infty} S_*(f,P_n)
+  = \int_a^b f.
+\end{equation}
+Viceversa se $f$ è limitata ed esiste una successione $P_n$ 
+di suddivisioni di $[a,b]$ per cui si ha
+\begin{equation*}
+  \lim_{n\to +\infty} \enclose{S^*(f,P_n) - S_*(f,P_n)} = 0
+\end{equation*}
+allora la funzione $f$ è Riemann-integrabile e vale~\eqref{eq:93765}.
+\end{enumerate}
+\end{theorem}
+%
+\begin{proof}
+Se esiste una suddivisione $P$ tale che $S^*(f,P)-S_*(f,P) < \eps$ possiamo immediatamente concludere che
+\[
+I^*(f) - I_*(f) \le S^*(f,P) - S_*(f,P) < \eps.
+\]
+Se questo è vero per ogni $\eps >0$ deduciamo che $I^*(f) - I_*(f) = 0$ e dunque che $f$ è Riemann-integrabile.
+
+Viceversa qualunque sia $f$, per le proprietà
+di $\sup$ e $\inf$
+esistono $Q$ e $R$ suddivisioni tali che
+\[
+  I^*(f) \ge S^*(f,Q) - \frac\eps 2
+  \qquad\text{e}\qquad
+  I_*(f) \le S_*(f,R) + \frac\eps 2
+\]
+da cui, per il lemma precedente, ponendo $P=Q\cup R$
+se $f$ è Riemann-integrabile
+si ottiene
+\begin{align*}
+S^*(f,P)-S_*(f,P) 
+&\le S^*(f,Q) - S_*(f,R) \\
+&\le I^*(f) + \frac\eps 2 - \enclose{I_*(f) - \frac \eps 2} = \eps.
+\end{align*}
+
+Dimostriamo ora il secondo punto.
+Supponiamo dapprima che $f$ sia Riemann-integrabile su $[a,b]$.
+Allora per il punto precedente per ogni $n\in \NN$ ponendo $\eps=1/n$ possiamo trovare una suddivisione $P_n$ tale che
+\[
+  S^*(f,P_n) - S_*(f,P_n) < \frac 1 n
+\]
+da cui
+\[
+  I^*(f) \le S^*(f,P_n) \le S_*(f,P_n) + \frac 1 n
+   \le I_*(f) + \frac 1 n
+\]
+perciò passando al limite per $n\to +\infty$,
+essendo $I^*(f) = I_*(f) = \int_a^b f$ deve valere
+\[
+  \lim S^*(f,P_n) = \lim S_*(f,P_n) = \int_a^b f.
+\]
+
+Viceversa se
+\[
+ \lim_{n\to +\infty} S^*(f,P_n) - S_*(f,P_n) = 0
+\]
+per ogni $\eps>0$ esiste $n$ tale che
+\[
+  S^*(f,P_n) - S_*(f,P_n) < \eps.
+\]
+Per il punto precedente concludiamo che $f$ è Riemann-integrabile.
+D'altra parte sappiamo che
+\[
+  S_*(f,P_n) \le I_*(f) = \int_a^b f = I^*(f) \le S^*(f,P_n)
+\]
+dunque se $S^*(f,P_n) - S_*(f,P_n) \to 0$ necessariamente
+l'integrale coincide con i limiti di $S^*(f,P_n)$ e di
+$S_*(f,P_n)$.
+\end{proof}
+
+\begin{example}[calcolo dell'integrale mediante suddivisioni]%
+\label{ex:integrale_quadrato}%
+Mostriamo che per ogni $b>0$ la funzione $f(x)=x^2$ è Riemann-integrabile sull'intervallo $[0,b]$ e si ha
+\[
+ \int_0^b x^2\, dx = \frac{b^3}{3}.
+\]
+\end{example}
+\begin{proof}
+Consideriamo le suddivisioni \emph{equispaziate} dell'intervallo $[0,b]$, cioè dividiamo $[0,b]$ in $N$ intervalli ognuno di ampiezza $b/N$:
+\[
+P_N = \ENCLOSE{\frac{kb}{N}\colon k \in 0, 1, \dots, N}.
+\]
+Si ha
+\[
+  S^*(f,P_N) = \sum_{k=1}^N \sup_{[(k-1)b/N,kb/N]}f \cdot \frac b N
+   = \frac{b}{N} \sum_{k=1}^N \frac{k^2b^2}{N^2}
+   = \frac{b^3}{N^3} \sum_{k=1}^N k^2.
+\]
+Ricordiamo ora che vale
+\[
+  \sum_{k=1}^n k^2 = \frac{n(n+1)(2n+1)}{6} = \frac{2n^3+3n^2+n}{6}
+\]
+(tale formula può essere facilmente verificata per induzione). Dunque si ha
+\[
+  S^*(f,P_N) = \frac{b^3}{N^3} \frac{2N^3+3N^2+N}{6}
+       = \frac{b^3}{6}\enclose{2 + \frac{3}{N}+\frac 1 N^2}
+       \to \frac{b^3}{3}
+\]
+per $N\to +\infty$.
+Analogamente si trova
+\[
+  S_*(f,P_N) = \sum_{k=1}^N \inf_{[(k-1)b/N,kb/N]} f \cdot \frac{b}{N}
+  = \frac{b}{N}\sum_{k=1}^N \frac{(k-1)^2b^2}{N^2}
+  = \frac{b^3}{N^3} \sum_{k=0}^{N-1} k^2
+\]
+e osservando che si ha
+\[
+ \sum_{k=0}^{N-1} k^2 = \sum_{k=1}^{N-1} k^2 = \frac{2(N-1)^3+3(N-2)^2+(N-1)}{6}
+\]
+otteniamo
+\[
+ \lim_{N\to+\infty} S_*(f,P_N) 
+ = \frac{b^3}{3}
+ \qquad
+ \lim_{N\to+\infty} S^*(f,P_N)
+  = \frac{b^3}{3}.
+\]
+La dimostrazione si conclude quindi applicando
+il criterio \eqref{eq:93765} del teorema precedente.
+\end{proof}
+
+\begin{theorem}[integrale della costante]
+\label{th:integrale_costante}
+Se $f\colon[a,b]\to \RR$ è costante: $f(x) = c$ allora
+$f$ è Riemann-integrabile e si ha
+\[
+  \int_a^b f = c\cdot (b-a).
+\]
+\end{theorem}
+%
+\begin{proof}
+Visto che su ogni $A\subset [a,b]$ si ha
+\[
+  \sup_A f = \inf_A f = c
+\]
+è facile verificare che si ha
+\[
+  S^*(f,P) = S_*(f,P) = c\cdot (b-a)
+\]
+qualunque sia la suddivisione $P$ di $[a,b]$. Il risultato segue immediatamente.
+\end{proof}
+
+Non tutte le funzioni sono Riemann-integrabili come ci mostra il seguente esempio.
+\begin{example}[funzione di Dirichlet]
+\mymark{**}
+\mymargin{funzione di Dirichlet}
+\index{funzione!di Dirichlet}
+\index{integrabilità!controesempio}
+Sia $a<b$ e sia $f\colon[a,b]\to \RR$ la funzione definita da
+\[
+ f(x) =
+ \begin{cases}
+   1 & \text{se $x\in \QQ$}\\
+   0 & \text{se $x\not \in \QQ$}.
+ \end{cases}
+\]
+Allora $f$ non è Riemann-integrabile.
+\end{example}
+%
+\begin{proof}
+\mymark{*}
+Sia $P=\ENCLOSE{x_0, x_1, \dots, x_N}$ con $a=x_0 < x_1 < \dots < x_N = b$
+una qualunque suddivisione di $[a,b]$.
+Allora basta osservare che, per la densità dei razionali (teorema~\ref{th:densita_frazioni}),
+e degli irrazionali (esercizio~\ref{ex:densita_irrazionali}),
+in qualunque intervallino $I=[x_{k-1}, x_k]$ sono presenti infiniti punti
+razionali e infiniti punti irrazionali. Dunque $\sup f(I)=1$ e $\inf f(I)=0$ e di conseguenza
+\begin{align*}
+  S^*(f,P) &= \sum_{k=1}^N (x_k - x_{k-1})\cdot 1 = b-a \\
+  S_*(f,P) &= \sum_{k=1}^N (x_k - x_{k-1})\cdot 0 = 0
+\end{align*}
+da cui $I^*(f) = b-a \neq 0 = I_*(f)$.
+\end{proof}
+
+%%%%%

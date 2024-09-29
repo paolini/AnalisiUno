@@ -1,0 +1,655 @@
+\section{integrale di una funzione razionale}
+%
+In questa sezione presenteremo un metodo per
+calcolare esplicitamente l'integrale di una qualunque funzione razionale.
+\index{integrale!di una funzione razionale}%
+\index{primitiva!di una funzione razionale}%
+
+\begin{definition}[funzione razionale]
+\mymargin{funzione razionale}%
+\index{funzione!razionale}%
+\index{razionale!funzione}%
+Una funzione $f\colon A \subset \RR \to \RR$
+si dice essere \emph{razionale} se si può scrivere nella forma
+\[
+  f(x) = \frac{P(x)}{Q(x)}
+\]
+con $P$ e $Q$ funzioni polinomiali a coefficienti reali.
+\end{definition}
+
+Il metodo che andremo a presentare può essere utilizzato ``alla cieca'' in
+quanto una volta trovata la decomposizione non c'è bisogno di sapere
+come mai il metodo utilizzato funziona (e perché funziona sempre).
+La dimostrazione del perché questo metodo funzioni è un esercizio non
+banale di algebra lineare a cui dedicheremo il resto di questo capitolo
+perché, tutto sommato, pensiamo che sia sempre utile avere la consapevolezza degli strumenti che si utilizzano.
+
+\subsection{esempi con denominatore di primo e secondo grado}
+
+Prima ancora di enunciare il teorema e di farne la dimostrazione,
+vogliamo presentare il metodo tramite degli esempi. 
+Probabilmente questo è il modo più semplice per capire come bisogna operare.
+
+\begin{example}[denominatore di grado $1$]
+  Calcolare 
+  \[
+  \int \frac{x^3+1}{x-1}\, dx.  
+  \]
+\end{example}
+\begin{proof}[Svolgimento.]
+Siamo di fronte all'integrale di una funzione razionale con denominatore di grado 1 e numeratore di grado 3.
+In generale quando il grado del numeratore non è inferiore a quello del denominatore bisogna innanzitutto 
+svolgere la divisione tra polinomi (si veda~\ref{th:divisione_polinomi}). Si trova: 
+\[
+\frac{x^3+1}{x-1} = x^2 + x + 1 + \frac{2}{x-1}.
+\]
+Calcolare l'integrale del polinomio quoziente è sempre banale:
+\[
+\int \enclose{x^2+x+1}  \, dx \ni \frac{x^3}{3} + \frac{x^2}{2} + x.
+\]
+Visto che il resto nella divisione tra polinomi ha grado inferiore al denominatore, ci si riconduce 
+sempre all'integrale di una funzione razionale in cui il numeratore ha grado inferiore del denominatore.
+Se il denominatore ha grado $1$, come in questo esempio, il numeratore dovrà sempre avere grado $0$ e quindi
+è costante. 
+Dunque a meno di costanti moltiplicative ci si riconduce sempre all'integrale di una funzione del tipo $\frac{1}{x+c}$
+la cui primitiva è un logaritmo:
+\[
+ \int \frac{2}{x-1}\, dx \ni 2 \ln \abs{x-1} = \ln (x-1)^2
+\]
+In conclusione una delle primitive cercate è 
+\[
+  \int \frac{x^3+1}{x-1}\, dx \ni \frac{x^3}{3} + \frac{x^2}{2} + x + \ln (x-1)^2.
+\]
+\end{proof}
+
+\begin{example}[denominatore di grado 2 con radici reali distinte]
+Calcolare 
+\[
+  \int \frac{x+1}{x^2-x}\, dx.
+\]
+\end{example}
+\begin{proof}[Svolgimento.]
+Il polinomio a denominatore si fattorizza $x^2 -x = x (x-1)$. 
+Allora l'idea è quella di pensare che il denominatore di secondo 
+grado si sia ottenuto come denominatore comune in una somma di 
+funzioni razionali con denominatori di primo grado:
+\begin{equation}\label{eq:541177}
+  \frac{x+1}{x(x-1)} \stackrel?= \frac{A}{x} + \frac{B}{x-1}  
+\end{equation}
+con $A,B\in \RR$ costanti da determinare. 
+Questa si chiama \emph{decomposizione in fratti semplici}.
+\index{decomposizione!in fratti semplici}%
+Le costanti possono essere determinate andando a ritroso:
+\[
+  \frac{A}{x} + \frac{B}{x-1}    
+  = \frac{A(x-1) + Bx}{x(x-1)} \stackrel!= \frac{x+1}{x(x-1)}.
+\]
+Affinchè valga l'uguaglianza si deve avere 
+\[
+  A(x-1) + Bx = (A+B)x - A \stackrel!= x+1  
+\]
+e quindi $A+B = 1$ e $-A=1$ da cui $A=-1$ e $B=2$.
+%
+\mynote{\textbf{metodo dei residui.} 
+\index{residui!metodo dei}%
+\index{metodo!dei residui}%
+I coefficienti $A$ e $B$ si possono trovare
+anche nel modo seguente. 
+Se moltiplico l'equazione~\eqref{eq:541177}
+per $x$ e poi faccio tendere $x$ a $0$,
+il termine $B$ sul lato destro si cancella 
+e ottengo immediatamente $A=-1$. 
+Se invece moltiplico l'equazione per $x-1$ e poi faccio tendere $x$ a $1$,
+il termine $A$ sul lato destro si cancella
+e ottengo immediatamente $B=2$.}
+%
+Dunque 
+\[
+  \frac{x+1}{x(x-1)} = \frac{-1}{x} + \frac{2}{x-1}  
+\]
+e la primitiva è una somma di logaritmi:
+\[
+  \int \frac{x+1}{x^2-x}\, dx
+  \ni -\ln\abs{x} + 2 \ln \abs{x-1} 
+  = \ln \frac{(x-1)^2}{\abs{x}}.
+\]
+\end{proof}
+
+\begin{example}[denominatore di secondo grado con una radice doppia]
+Calcolare 
+\[
+  \int \frac{x-1}{x^2+2x+1}\, dx
+\]
+\end{example}
+\begin{proof}[Svolgimento.]
+Il polinomio a denominatore è un quadrato perfetto $x^2+2x+1=(x+1)^2$.
+In questo caso la decomposizione in fratti semplici non può avere 
+i due denominatori uguali ma bisogna elevare un denominatore al 
+quadrato:
+\begin{equation}\label{eq:2888323}
+\frac{x-1}{(x+1)^2} \stackrel?= \frac{A}{x+1} + \frac{B}{(x+1)^2}.  
+\end{equation}
+Perché valga l'uguaglianza si deve avere
+\[
+\frac{A}{x+1} + \frac{B}{(x+1)^2} = \frac{A(x+1) + B}{(x+1)^2}  
+\stackrel!=\frac{x-1}{(x+1)^2}. 
+\]
+Da cui si trova $Ax+A+B=x-1$ ovvero $A=1$ e $B=-2$. 
+
+\mynote{\textbf{metodo dei residui.} I coefficienti $A$ e $B$ si possono trovare
+anche nel modo seguente.
+Se moltiplico l'equazione~\eqref{eq:2888323}
+per $(x+1)^2$ e poi faccio tendere $x$ a $-1$,
+il coefficiente $A$ sul lato destro sparisce 
+e si ottiene immediatamente $B=-2$.
+Tenendo ora in considerazione il fatto che il termine 
+con il coefficiente $B$ compensa il primo ordine di infinito 
+del termine a lato sinistro (formalmente: si porti a sinistra 
+dell'equazione il termine con coefficiente $B$)
+se moltiplichiamo l'equazione per $x+1$ e poi facciamo tendere $x$ a $-1$
+Sottraendo ora $-2/(x+1)^2$ ad ambo i membri si elimina 
+il coefficiente $B$ e si ottiene immediatamente $A=1$.}
+
+Dunque 
+\[
+  \int \frac{x-1}{(x+1)^2}\, dx
+  = \int \frac{1}{x+1}\, dx - 2 \int \frac{1}{(x+1)^2}
+  \ni \ln \abs{x+1} + \frac{2}{x+1}. 
+\]
+\end{proof}
+
+\begin{example}[denominatore di secondo grado indecomponibile]
+Calcolare 
+\[
+ \int \frac{x+2}{x^2+2x+3}\, dx
+\]
+\end{example}
+\begin{proof}[Svolgimento.]
+In questo caso il denominatore non ha radici reali (il discriminante è negativo) e quindi non può 
+essere fattorizzato.
+Bisogna allora svolgere un procedimento in due passi: 
+\begin{enumerate}
+  \item si elimina il termine con la $x$ al numeratore sottraendo 
+  una opportuna derivata del denominatore (così da ottenere la derivata 
+  del logaritmo del denominatore);
+  \item si completa il quadrato a denominatore per ricondursi alla 
+  derivata dell'arcotangente. 
+\end{enumerate} 
+Per il primo passo si osserva che $(x^2+2x+3)' = 2x+2$ e dividendo il numeratore 
+per $2x+2$ si ottiene $x+2 = \frac 1 2 (2x+2) + 1$ da cui:
+\[
+\int \frac{x+2}{x^2+2x+3} \, dx
+= \frac 1 2 \int \frac{2x + 2}{x^2+2x+3}\, dx + \int \frac{1}{x^2+2x+3}\, dx. 
+\]
+Ma il primo integrale è immediato 
+\[
+\int \frac{2x+2}{x^2+2x+3}\, dx \ni \ln (x^2+2x+3).
+\]
+Per il secondo integrale l'idea è di fare il completamento 
+del quadrato per eliminare il monomio di grado uno e quindi 
+ricondursi con un cambio di variabile 
+$y=(x+1)/\sqrt 2$, $dx = \sqrt 2 dy$ 
+a $\int \frac{1}{1+y^2}\, dy\ni \arctg y$:
+\[
+  \int \frac{1}{x^2+2x+3}\, dx 
+  = \int \frac{1}{\enclose{x+1}^2 + 2}\, dx 
+  = \frac 1 2 \int \frac{1}{\enclose{\frac{x+1}{\sqrt 2}}^2+1}\, dx 
+  \ni \frac{\sqrt 2}{2} \arctg \frac{x+1}{\sqrt 2}.
+\]
+In conclusione l'integrale cercato è:
+\[
+  \frac 1 2 \ln (x^2+2x+3) + \frac{\sqrt 2}{2} \arctg \frac{x+1}{\sqrt 2}.
+\]
+\end{proof}
+
+\subsection{esempio del metodo generale}
+
+Il metodo generale può essere intuito con il seguente 
+esempio (decisamente più complicato).
+
+\begin{example}
+  Calcolare
+  \[
+   \int \frac{x^{10}+x^8-x^6+1}{x^8-x^7+2x^6-2x^5+x^4-x^3}\, dx
+  \]
+\end{example}
+\begin{proof}[Svolgimento.]
+Per prima cosa vogliamo ricondurci ad una funzione razionale
+in cui il grado del polinomio al numeratore sia inferiore
+al grado del polinomio al denominatore. Per fare questo svolgiamo
+la divisione tra polinomi
+(teorema~\ref{th:divisione_polinomi}):
+\[
+  \frac{x^{10}+x^8-x^6+1}{x^8-x^7+2x^6-2x^5+x^4-x^3}
+  = x^2 + x + \frac{x^4+1}{x^8-x^7+2x^6-2x^5+x^4-x^3}.
+\]
+L'integrale di $x^2+x$ è immediato e quindi ci possiamo concentrare
+sulla funzione razionale con numeratore $x^4+1$.
+Per procedere è ora necessario determinare tutte le radici, reali e complesse, del polinomio a denominatore in modo da poterlo fattorizzare
+come prodotto di fattori lineari e quadratici
+(teorema~\ref{th:fattorizzazione_polinomio_reale}).
+Non c'è un metodo generale per trovare le radici di un polinomio.
+In questo caso particolare si osserva
+che il polinomio è divisibile per $x^3$. Poi si osserva che il polinomio
+di quinto grado risultante si annulla per $x=1$ (caso fortunato!) ed
+è quindi divisibile per $x-1$ (teorema~\ref{th:Ruffini} di Ruffini).
+Il polinomio di quarto grado
+risulta infine un quadrato perfetto e si ottiene quindi la fattorizzazione
+cercata:
+\[
+x^8-x^7+2x^6-2x^5+x^4-x^3 = x^3(x-1)(x^2+1)^2.
+\]
+Ora il teorema di decomposizione di Hermite (teorema~\ref{th:Hermite} che andremo poi a dimostrare)
+ci garantisce che ogni funzione razionale della forma
+\[
+\frac{P(x)}{x^3(x-1)(x^2+1)^2}
+\]
+con $\deg P < 8$ (il grado del denominatore) può essere
+scritto nel modo seguente, con
+opportune costanti $A,B,C,\dots,H$:
+\begin{equation}\label{eq:438943}
+  \frac{A}{x} + \frac{B}{x-1} + \frac{Cx+D}{x^2+1}
+  + \enclose{\frac{Ex^3 + Fx^2 + G x + H}{x^2(x^2+1)}}'.
+\end{equation}
+I primi addendi hanno a denominatore i fattori in cui abbiamo
+decomposto il denominatore della funzione originale. A numeratore
+c'è sempre un polinomio di grado inferiore al grado del denominatore
+e quindi c'è una costante sopra i fattori lineari e una funzione lineare
+sopra i termini quadratici. Dopodiché si aggiunge la derivata di una funzione
+razionale in cui il denominatore ha gli stessi fattori ma elevati ad una
+potenza di uno inferiore a quella che c'era nel polinomio originale.
+A numeratore, di nuovo, un generico polinomio di grado inferiore al denominatore.
+Per trovare i coefficienti $A,B,C, \dots, H$ 
+(il numero dei coefficienti è pari al grado del polinomio a denominatore) 
+è sufficiente svolgere la derivata in~\eqref{eq:438943}, 
+mettere a denominatore comune tutti gli addendi 
+e uguagliare con la funzione razionale originale:
+\mynote{%
+Nello svolgere la derivata della funzione razionale è conveniente
+considerare la funzione razionale come il prodotto del numeratore
+per i reciproci dei fattori a denominatore ed utilizzare la formula
+per la derivata di un prodotto (invece che la formula per la derivata del rapporto)%
+}
+\begin{align*}
+  &\frac{A}{x} + \frac{B}{x-1} + \frac{Cx+D}{x^2+1}
+  + \frac{3 E x^2 + 2 F x + G}{x^2(x^2+1)} \\
+  & \quad + (E x^3 + F x^2 + G x + H)\cdot \left[\frac{-2}{x^3}\cdot \frac{1}{x^2+1}
+  + \frac{1}{x^2}\cdot\frac{-2x}{(1+x^2)^2}\right]
+\end{align*}
+moltiplicando tutto per $x^3(x-1)(x^2+1)^2$ si ottiene
+\begin{align*}
+  &Ax^2(x-1)(x^2+1)^2 + Bx^3(x^2+1)^2 \\
+  &\quad + (Cx+D)x^3(x-1)(x^2+1) + (3Ex^2+2Fx+G)x(x-1)(x^2+1)\\
+  &\quad + (Ex^3+Fx^2+Gx+H)(-2(x-1)(x^2+1)-2x\cdot x(x-1))
+\end{align*}
+ovvero
+\begin{align*}
+  &(A+B+C)x^7+(-A-C+D-E)x^6 + (2A+2B+C-D+E-2F)x^5 \\
+  &\quad  +(-2A-C+D+E+2F-3G)x^4 + (A+B-D-E+3G-4H)x^3 \\
+  &\quad  + (-A-G+4H)x^2 + (G-2H) x + 2H.
+\end{align*}
+Ora imponiamo che quest'ultimo polinomio sia identicamente uguale
+al polinomio originario $x^4+1$ ottenendo il seguente sistema lineare
+\[
+  \begin{dcases}
+    \scriptstyle
+    A+B+C=0 \\[-1ex]
+    \scriptstyle
+    -A-C+D-E=0 \\[-1ex]
+    \scriptstyle
+    2A + 2B + C - D + E - 2 F = 0\\[-1ex]
+    \scriptstyle
+    -2A-C+D+E+2F-3G = 1\\[-1ex]
+    \scriptstyle
+    A+B-D-E+3G-4H=0\\[-1ex]
+    \scriptstyle
+    -A-G+4H=0\\[-1ex]
+    \scriptstyle
+    G-2H=0\\[-1ex]
+    \scriptstyle
+    2H=1
+  \end{dcases}
+\]
+che risolto ci dà: $A=1$, $B=\frac 1 2$, $C = -\frac 3 2$, $D=1$, $E=\frac 3 2$, $F=1$, $G=1$, $H=\frac 1 2$.
+Abbiamo ottenuto, in definitiva:
+\begin{align*}
+\frac{x^4+1}{x^3(x-1)(x^2+1)^2}
+&= \frac{1}{x} + \frac{\frac 1 2}{x-1} + \frac{1 - \frac 3 2 x}{x^2+1}
++ \enclose{\frac{\frac 3 2 x^3 + x^2 + x + \frac 1 2}{x^2(x^2+1)}}'
+\end{align*}
+e osservando che
+\[
+ \int \frac{1 - \frac 3 2 x}{x^2+1}\, dx
+ = \int \frac{1}{x^2+1}\, dx - \frac 3 4 \int \frac{2x}{x^2+1}\, dx
+ \ni \arctg x - \frac 3 4 \ln(x^2+1)
+\]
+si ottiene infine
+\begin{align*}
+\int \frac{x^4+1}{x^3(x-1)(x^2+1)^2}\, dx
+ &\ni \ln \abs{x} + \frac 1 2 \ln\abs{x-1} + \arctg x - \frac 3 4 \ln(x^2+1) \\
+ &\quad + \frac{\frac 3 2 x^3 + x^2+x+\frac 1 2}{x^2(x^2+1)}
+\end{align*}
+\end{proof}
+
+Il metodo esposto nell'esempio precedente è un algoritmo 
+valido in generale:
+\index{algoritmo!per l'integrazione di funzioni razionali}%
+\index{integrazione!di funzioni razionali!algoritmo}%
+\index{funzione!razionale!integrazione}%
+\index{decomposizione!in fratti semplici}%
+\index{scomposizione!in fratti semplici}%
+\begin{enumerate}
+  \item si effettua la divisione con resto per ricondursi
+  al caso in cui il numeratore della funzione razionale
+  ha grado inferiore al denominatore
+  \item si decompone il denominatore come prodotto di
+  polinomi lineari e quadratici
+  \item si utilizza la scomposizione di Hermite (teorema~\ref{th:Hermite})
+  per scrivere la funzione razionale come somma di \emph{fratti semplici}
+  più la derivata di un'altra funzione razionale. I coefficienti
+  della scomposizione vanno trovati risolvendo un sistema lineare.
+  \item si integrano i fratti semplici.
+\end{enumerate}
+
+Per concludere l'algoritmo precedente è necessario saper integrare i fratti semplici. Se il denominatore è lineare l'integrale è immediato (si ottiene un logaritmo).
+
+Se il denominatore è invece quadratico l'integrale può essere leggermente più complicato ed è opportuno sapere come procedere. I termini quadratici
+saranno della forma:
+\begin{equation}\label{eq:0943784}
+\frac{Ax + B}{x^2 + \alpha x + \beta}
+\end{equation}
+con $\alpha^2-4\beta<0$ (in caso contrario il polinomio quadratico
+a denominatore può essere scomposto in due fattori lineari, utilizzando
+la formula risolutiva per le equazioni di secondo grado~\eqref{eq:secondo_grado}). L'idea è quella di effettuare un cambio
+di variabile lineare in modo da ricondursi ad un denominatore
+della forma $y^2+1$. Per fare questo si utilizza il metodo del completamento del quadrato come abbiamo già fatto in~\eqref{eq:24589}:
+\[
+  x^2 + \alpha x + \beta
+  = \enclose{x+\frac\alpha 2}^2  + \beta - \frac{\alpha^2}{4}
+  = \dots
+\]
+a questo punto si raccoglie $\beta-\frac{\alpha^2}{4}$
+(che per ipotesi è positivo)
+e lo si porta dentro il quadrato:
+\[
+ \dots = \enclose{\beta-\frac{\alpha^2}{4}}\cdot\Enclose{\enclose{\frac{x+\frac \alpha 2}{\sqrt{\beta -\frac{\alpha^2}{4}}}}^2 + 1}
+\]
+e dunque tramite la sostituzione $y=\frac{x + \frac \alpha 2 }{\sqrt{\beta - \frac{\alpha^2}{4}}}$
+abbiamo ricondotto la nostra funzione razionale~\eqref{eq:0943784}
+alla forma
+\[
+  \frac{a y + b}{y^2 + 1} = \frac a 2 \frac{2y}{y^2+1} + b\frac{1}{y^2+1}
+\]
+che può essere integrata immediatamente.
+
+\subsection{decomposizione in fratti semplici e decomposizione di Hermite}
+\index{decomposizione!in fratti semplici}%
+\index{scomposizione!in fratti semplici}%
+\index{decomposizione!di Hermite}%
+\index{scomposizione!di Hermite}%
+
+Nel seguito proponiamo gli enunciati e le dimostrazioni che garantiscono
+il funzionamento dell'algoritmo per l'integrazione delle funzioni razionali.
+Difficilmente queste dimostrazioni possono essere portate a termine
+senza utilizzare un minimo di proprietà delle funzioni complesse. In particolare è necessario sapere che le derivate delle funzioni elementari
+complesse (somme, prodotti, rapporti, composizione) si svolgono esattamente
+con le stesse regole che si applicano alle funzioni reali (si veda a riguardo il capitolo~\ref{sec:derivata_complessa}).
+
+\begin{lemma}[indipendenza dei fratti semplici]
+\label{lemma:72995}
+Siano $\lambda_1,$ $\dots,$ $\lambda_n \in \CC$ numeri complessi
+distinti e siano $p_1,\dots,p_n \in \NN\setminus\ENCLOSE{0}$.
+Sia $\Omega = \CC \setminus \ENCLOSE{\lambda_1, \dots, \lambda_n}$.
+Allora le funzioni
+$u_{\lambda_k}^{j}\colon \Omega\subset \CC \to \CC$
+\begin{equation}
+\label{eq:483818}
+  u_{\lambda_k}^{j}(z) = \frac{1}{(z-\lambda_k)^{j}}
+  \qquad k=1,\dots,n, \quad j=1,\dots, p_k
+\end{equation}
+sono elementi linearmente indipendenti dello spazio
+vettoriale complesso $\CC^\Omega$.
+\end{lemma}
+%
+\begin{proof}
+Procediamo per induzione sul numero di funzioni
+$N=p_1+ \dots + p_n$.
+Se $N=1$ abbiamo una unica funzione che non è identicamente
+nulla (anzi: non si annulla mai)
+e quindi costituisce un insieme linearmente indipendente.
+
+Supponiamo allora di avere un insieme formato da più funzioni
+nella forma~\eqref{eq:483818}.
+e di avere
+una combinazione lineare complessa identicamente nulla:
+\[
+\sum_{k=1}^n \sum_{j=1}^{p_k} \alpha_{k,j} u_{\lambda_k}^j = 0.
+\]
+Consideriamo la funzione $f\colon \Omega \to \CC$
+definita da
+\begin{equation}
+\label{eq:567384}
+  f(z)
+  = (z-\lambda_n)^{p_n}\sum_{k=1}^n \sum_{j=1}^{p_k} \frac{\alpha_{k,j}}{(z-\lambda_k)^{j}}
+  = \sum_{k=1}^n \sum_{j=1}^{p_k} \alpha_{k,j}\frac{(z-\lambda_n)^{p_n}}{(z-\lambda_k)^{j}}.
+\end{equation}
+Questa funzione è identicamente nulla
+in $\Omega$ in quanto ottenuta moltiplicando la combinazione lineare identicamente
+nulla per il fattore $(z-\lambda_n)^{p_n}$.
+Ma si osserva che si ha
+\[
+  \lim_{z\to \lambda_n} f(z) = \alpha_{n,p_n}
+\]
+in quanto se $k\neq n$ si ha
+\[
+\lim_{z\to \lambda_n}\frac{(z-\lambda_n)^{p_n}}{(z-\lambda_k)^{p_k}} = 0
+\]
+in quanto $\lambda_k\neq \lambda_n$ e il numeratore
+tende a zero, se invece $k=n$ e $j<p_n$ si ha comunque
+\[
+\lim_{z\to \lambda_n}\frac{(z-\lambda_n)^{p_n}}{(z-\lambda_k)^{j}}
+= \lim_{z\to \lambda_n}(z-\lambda_n)^{p_n-j} = 0.
+\]
+Dunque $\alpha_{n,p_n}=0$.
+Ma allora abbiamo una combinazione lineare nulla di $N-1$
+funzioni e per ipotesi induttiva possiamo quindi concludere
+che anche tutti gli altri coefficienti sono nulli.
+\end{proof}
+
+\begin{theorem}[scomposizione complessa in fratti semplici]
+\label{th:fratti_semplici_complessi}%
+\index{scomposizione!in fratti semplici complessi}%
+\index{decomposizione!in fratti semplici complessi}%
+\index{fratti semplici!scomposizione complessa}%
+Se $\lambda_1, \dots, \lambda_n$ sono le radici complesse
+distinte del polinomio $Q$ a coefficienti complessi,
+e $p_1,\dots, p_n$ sono le rispettive molteplicità
+con $p_1 + \dots + p_n = \deg Q$
+e se $P$ è un qualunque polinomio a coefficienti complessi
+con $\deg P < \deg Q$,
+allora esistono, unici, dei polinomi $R_1, \dots, R_n$
+a coefficienti complessi con $\deg R_k < p_k$ tali che
+si abbia
+\begin{equation}\label{eq:46772341}
+  \frac{P(z)}{Q(z)}
+  = \sum_{k=1}^n \frac{R_k(z)}{(z-\lambda_k)^{p_k}}
+  \qquad \forall z \in \CC\setminus\ENCLOSE{\lambda_1,\dots,\lambda_n}.
+\end{equation}
+\end{theorem}
+%
+\begin{proof}
+Sia $N=\deg Q$ e consideriamo
+l'insieme dei polinomi a coefficienti complessi
+di grado inferiore a $N$:
+\[
+  V_N = \ENCLOSE{P\in \CC[z]\colon \deg P < N}.
+\]
+Questo è un sottospazio vettoriale di
+$V=\CC^\Omega$ ed ha dimensione
+$N$ (una base è data dai monomi $1, z, z^2, \dots, z^{N-1}$).
+Di conseguenza è facile verificare che anche lo spazio vettoriale
+\[
+  W_Q = V_N \cdot \frac{1}{Q} = \ENCLOSE{\frac{P}{Q}\colon \text{$\deg P < N$}}
+\]
+i cui elementi sono le funzioni razionali che stanno al lato sinistro
+di~\eqref{eq:46772341},
+ha la stessa dimensione $\dim W_Q = \dim V_N = N$.
+D'altra parte il lato destro di~\eqref{eq:46772341}
+è una combinazione lineare di funzioni
+$u_{\lambda_k}^j = 1/(z-\lambda_k)^j$ che sono
+anch'esse elementi di $W_Q$ in quanto $(z-\lambda_k)^j$ divide $Q(x)$
+se $j\le p_k$.
+Ma per il lemma~\ref{lemma:72995} i vettori $u_{\lambda_k}^j$ sono
+$N$ vettori indipendenti e quindi
+sono una base di $W$.
+Significa allora che ogni elemento di $W$ può
+essere scritto in modo unico come combinazione lineare degli
+$u_{\lambda_k}^j$ cioè, per ogni
+polinomio $P$ con $\deg P < \deg Q$ si ha
+\begin{equation}\label{eq:458934}
+ \frac{P(z)}{Q(z)}
+ = \sum_{k=1}^n \sum_{j=1}^{p_k} \frac{A_{k,j}}{(z-\lambda_k)^j}
+ = \sum_{k=1}^n \frac{\displaystyle \sum_{j=1}^{p_n} A_{k,j}\cdot (z-\lambda_k)^{p_n-j}}{(z-\lambda_k)^{p_n}}
+\end{equation}
+e posto
+\[
+  R_k(z) = \sum_{j=1}^{p_n} A_{k,j}\cdot(z-\lambda_k)^{p_n-j}
+\]
+è chiaro che $R_k$ è un polinomio di grado inferiore a $p_n$
+univocamente determinato dai coefficienti $A_{k,j}$.
+\end{proof}
+
+
+\begin{theorem}[scomposizione di Hermite]
+\label{th:Hermite}%
+\index{Hermite!scomposizione in fratti semplici}%
+\index{teorema!di Hermite}%
+Sia $Q(x)$ un polinomio monico a coefficienti reali
+con radici reali $\lambda_1, \dots, \lambda_n$ di molteplicità
+$p_1, \dots, p_n$ e radici complesse coniugate non reali
+$\mu_1, \bar \mu_1, \dots, \mu_m, \bar \mu_m$ di molteplicità
+$q_1, \dots, q_m$. Posto $\alpha_k = 2\Re \mu_k$ e $\beta_k = \abs{\mu_k}^2$
+potremo scrivere (grazie al teorema~\ref{th:fattorizzazione_polinomio_reale})
+\begin{equation}\label{eq:8845638}
+  Q(x) = \prod_{k=1}^n (x-\lambda_k)^{p_k} \cdot \prod_{k=1}^m (x^2+ \alpha_k x + \beta_k)^{q_k}.
+\end{equation}
+Sia $P(x)$ un qualunque polinomio a coefficienti reali
+con $\deg P < \deg Q$.
+
+Allora posto
+\[
+ \tilde Q(x) = \prod_{k=1}^n (x-\lambda_k)^{p_k-1} \cdot \prod_{k=1}^m (x^2+\alpha_k x+\beta_k)^{q_k-1}
+\]
+esistono (unici) dei coefficienti reali
+$A_1,\dots, A_n$, $B_1, \dots, B_m$, $C_1,\dots, C_m$
+e un polinomio a coefficienti reali $R(x)$ con $\deg R < \deg \tilde Q$
+per cui risulta:
+\begin{equation}\label{eq:scomposizione_hermite}
+  \frac{P(x)}{Q(x)} = \sum_{k=1}^n \frac{A_k}{x-\lambda_k}
+  + \sum_{k=1}^m \frac{B_k x + C_k}{x^2+\alpha_k x + \beta_k}
+  + \enclose{\frac{R(x)}{\tilde Q(x)}}'.
+\end{equation}
+Svolgendo la derivata si potrà
+riscrivere il lato destro con denominatore comune $Q(x)$
+e uguagliando i numeratori di lato destro e lato sinistro
+si otterrà un sistema lineare in $\deg Q$ incognite
+che avrà una unica soluzione.
+\end{theorem}
+%
+\begin{proof}
+Consideriamo le funzioni
+\begin{align*}
+   u_\lambda^j(z) &= \frac{1}{(z-\lambda)^j}\\
+   v_\mu(z) &= \frac{1}{z^2-2 \Re \mu\cdot z + \abs{\mu}^2},\\
+   w_\mu(z) &= \frac{z}{z^2-2 \Re \mu\cdot z + \abs{\mu}^2},\\
+   t_j(z) &= \frac{z^j}{\tilde Q(z)}.
+\end{align*}
+Siano $\lambda_1, \dots, \lambda_N$ tutte le radici
+complesse del polinomio $Q(z)$ con $p_1, \dots, p_N$
+le rispettive molteplicità.
+Grazie al lemma~\ref{lemma:72995} possiamo affermare,
+come abbiamo fatto nella dimostrazione del
+teorema~\ref{th:fratti_semplici_complessi} che lo
+spazio vettoriale $V_Q$ di tutte le funzioni
+razionali della forma $\frac{P(z)}{Q(z)}$
+con $Q$ fissato e $\deg P<\deg Q$
+è generato dalle combinazioni lineari
+a coefficienti complessi delle funzioni
+\[
+  u_{\lambda_k}^j, \qquad k=1, \dots, N, \quad j=1, \dots, p_k.
+\]
+Analogamente lo spazio vettoriale $V_{\tilde Q}$
+è generato dalle funzioni
+\[
+  u_{\lambda_k}^j, \qquad k=1, \dots, N, \quad j=1, \dots, p_k-1.
+\]
+Osserviamo ora che per $j>1$ si ha
+\[
+ \frac {d}{dz} u_\lambda^{j-1} =
+ \frac {d}{dz} \frac{1}{(z-\lambda)^{j-1}}
+ = \frac{1-j}{(z-\lambda)^j} = (1-j) u_\lambda^j
+\]
+significa quindi che l'operatore lineare $\frac d {dz}$
+manda $V_{\tilde Q}$ in $V_Q$, più precisamente
+l'immagine di $\frac{d}{dz} V_{\tilde Q}$ è il sottospazio
+di $V_Q$ generato dalle funzioni $u_{\lambda_k}^j$
+con $j>1$. Tale operatore
+è inoltre iniettivo in quanto manda vettori della
+base di $V_{\tilde Q}$ in vettori della base di $V_Q$
+che sono certamente indipendenti.
+Abbiamo quindi una decomposizione in somma diretta:
+\[
+  V_Q = V_1 \oplus \frac{d}{dz} V_{\tilde Q}
+\]
+dove $V_1$ è lo spazio generato
+dalle funzioni $u_{\lambda_1}^1, \dots, u_{\lambda_N}^1$.
+
+Ma anche le funzioni $t_0, \dots, t_{M-1}$ con $M=\deg \tilde Q$
+sono una base di $V_{\tilde Q}$ dunque una base
+di $V_Q$ è data da
+\[
+  u_{\lambda_1}, \dots, u_{\lambda_N},
+  t_0', \dots, t_{M-1}'
+\]
+dove $t_m'$ è la derivata di $t_m$.
+Quindi, visto che ogni combinazione lineare
+di $u_{\mu}$ e $u_{\bar \mu}$ può essere scritta
+come combinazione lineare di $v_\mu$ e $w_\mu$
+si ottiene che un'altra base di $V_Q$ è
+\begin{equation}\label{eq:63928}
+  u_{\lambda_1}, \dots, u_{\lambda_n},
+  v_{\mu_1}, \dots, v_{\mu_m},
+  w_{\mu_1}, \dots, w_{\mu_m},
+  t_0', \dots, t_{M-1}'.
+\end{equation}
+Per brevità chiamiamo $e_1, \dots, e_N$
+la base di $V_Q$ elencata in~\eqref{eq:63928}.
+Ognuna di queste funzioni si scrive come
+rapporto di polinomi a coefficienti reali
+il cui denominatore è un divisore del polinomio $Q$
+che è anch'esso un polinomio a coefficienti reali.
+Dunque le funzioni $Q\cdot e_1, \dots, Q\cdot e_N$
+sono in realtà dei polinomi a coefficienti reali
+e devono necessariamente essere una base dello spazio
+vettoriale complesso $Q\cdot V_Q$ che non è altro che l'insieme
+di tutti i polinomi a coefficienti complessi
+di grado inferiore ad $N$. In particolare questi polinomi
+sono indipendenti.
+Ma allora, visti come polinomi a
+coefficienti reali sono pure indipendenti e sono quindi
+una base dello spazio di tutti i polinomi a coefficienti reali
+di grado inferiore a $N$.
+Dunque devono esistere dei coefficienti reali $\alpha_1, \dots, \alpha_N$
+per cui si ha
+\[
+  P(x) = \sum_{k=1}^N \alpha_k\cdot Q(x)\cdot e_k(x)
+\]
+da cui
+\[
+  \frac{P(x)}{Q(x)} = \sum_{k=1}^N \alpha_k \cdot e_k(x).
+\]
+Ricordando che le funzioni $e_k$ non sono altro che le funzioni
+elencate in~\eqref{eq:63928} si ottiene finalmente la decomposizione
+cercata.
+\end{proof}
+

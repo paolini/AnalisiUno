@@ -1,0 +1,789 @@
+\section{la serie esponenziale}
+
+Consideriamo la funzione $f \colon \CC \to \CC$
+definita da 
+\begin{equation}\label{eq:def_exp}
+f(z) = \sum_{k=0}^{+\infty} \frac{z^k}{k!}.
+\end{equation}
+La funzione è definita su tutto $\CC$ in quanto (grazie al criterio del rapporto)
+è facile verificare che il raggio di convergenza di questa serie è $R=+\infty$.
+
+Il nostro obiettivo sarà quello di dimostrare che $f(z)=e^z$ per ogni $z\in \CC$.
+In effetti si potrebbe prendere~\ref{eq:def_exp} come definizione 
+dell'esponenziale complesso e definire la funzione esponenziale 
+reale e le funzioni trigonometriche di conseguenza.
+
+\begin{theorem}[proprietà della serie esponenziale]
+\label{th:exp_complesso}%
+Sia $f$ la funzione definita da ~\eqref{eq:def_exp}.
+Si ha:
+\begin{enumerate}
+\item
+$\displaystyle f(0) = 1$;
+
+\item
+$\displaystyle f(\bar z) = \overline{f(z)}$;
+
+\item
+per ogni $z,w \in \CC$
+\[
+  f(z+w) = f(z) \cdot f(w);
+\]
+
+\item
+per ogni $z\in \CC$ si ha $f(z) \neq 0$ e
+\[
+ f(-z) = \frac{1}{f(z)};
+\]
+
+\item la funzione $f\colon \CC \to \CC$ è continua;
+
+\item si ha
+\begin{equation}\label{eq:limite_exp_complesso}
+   \lim_{z\to 0}\frac{f(z)-1}{z} = 1.
+\end{equation}
+\end{enumerate}
+\end{theorem}
+%
+\begin{proof}
+\mymark{*}
+\begin{enumerate}
+\item
+La proprietà $f(0)=1$ si ottiene per verifica diretta (ricordiamo che $0^0=1$
+e $0!=1$).
+
+\item La proprietà $f(\bar z) = \overline{f(z)}$ si ottiene
+passando al limite la seguente uguaglianza tra le somme parziali
+che sfrutta le proprietà del coniugio di somma e prodotto:
+\[
+\sum_{k=0}^{n} \frac{\bar z^k}{k!} = \overline{\sum_{k=0}^n \frac{z^k}{k!}}.
+\]
+
+
+\item
+Consideriamo la matrice infinita
+\[
+m_{k,j}  = \frac{z^k}{k!} \cdot \frac{w^j}{j!}.
+\]
+Allora da un lato
+\begin{align*}
+ f(z+w)
+ &= \sum_{n=0}^{+\infty} \frac{(z+w)^n}{n!}\\
+ &= \sum_{n=0}^{+\infty} \frac{1}{n!}\sum_{k=0}^n \frac{n!}{k!(n-k)!} z^k\cdot w^{n-k}\\
+ &= \sum_{n=0}^{+\infty} \sum_{k=0}^n m_{k, n-k}
+\end{align*}
+e dall'altro
+\begin{align*}
+ f(z) \cdot f(w)
+ &= \sum_{k=0}^{+\infty}\frac{z^k}{k!} \sum_{j=0}^{+\infty}\frac{w^j}{j!}
+ = \sum_{k=0}^{+\infty}\sum_{j=0}^{+\infty}\frac{z^k}{k!} \frac{w^j}{j!} \\
+ &= \sum_{k=0}^{+\infty}\sum_{j=0}^{+\infty} m_{k,j}.
+\end{align*}
+
+Il risultato segue dunque dal teorema~\ref{th:somma_Cauchy}.
+
+\item
+Visto che
+\[
+  1 = f(0) = f(z-z) = f(z) \cdot f(-z)
+\]
+ricaviamo che $f(z)\neq 0$ e $f(-z) =  1 / f(z)$.
+
+\item
+La continuità discende dal risultato generale sulla continuità della
+somma di una serie di potenze: teorema~\ref{th:continuita_somma_serie}.
+
+\item
+Direttamente dalla definizione~\eqref{eq:def_exp}
+si ottiene
+\[
+ f(z) - 1 = \sum_{k=1}^{+\infty} \frac{z^k}{k!}
+ = z \cdot \sum_{k=0}^{+\infty} \frac{z^k}{(k+1)!}.
+\]
+Osserviamo ora che la serie $\sum \frac{z^k}{(k+1)!}$ ha raggio di
+convergenza infinito e quindi è assolutamente convergente per ogni $z\in \CC$.
+In particolare la somma di tale serie è continua e
+quindi si ha
+\[
+\lim_{z\to 0}\frac{\exp(z) - 1}{z}
+   =  \lim_{z\to 0} \sum_{k=0}^{+\infty} \frac{z^k}{(k+1)!}
+   = \sum_{k=0}^{+\infty}\frac{0^k}{(k+1)!} = 1.
+\]
+\end{enumerate}
+\end{proof}
+
+\begin{theorem}[coincidenza tra funzione esponenziale e serie esponenziale]%
+\label{th:exp=ex}%
+\label{th:serie_esponenziale}%
+\index{funzione!esponenziale}%
+\mymark{***}%
+Per ogni $x\in \RR$ si ha
+\[
+  \sum_{k=0}^{+\infty} \frac{x^k}{k!} = e^x.
+\]
+\end{theorem}
+%
+\begin{proof}\mymark{**}
+Vogliamo applicare il teorema~\ref{th:isomorfismo}.
+Posto $f(x)=\sum_{k=0}^{+\infty} \frac{x^k}{k!}$, 
+$f\colon \RR\to\RR$ sappiamo,
+per il teorema precedente, che $f(x+y)=f(x)\cdot f(y)$.
+Dobbiamo verificare che $f$ è crescente.
+Innanzitutto notiamo che se $x> 0$ la serie che definisce
+$f(x)$ è a termini positivi e il primo termine è $1$.
+Dunque per ogni $x> 0$ si ha $f(x)>1$.
+In particolare posto $a=f(1)$ si ha $a>1$.
+Inoltre se $y>x$ si ha $f(y-x)>1$ e dunque
+\[
+ f(y) = f(x+y-x) = f(x)\cdot f(y-x) > f(x).
+\]
+La funzione è quindi strettamente crescente. 
+Dunque è un omomorfismo monotono dal gruppo additivo $\RR$ al 
+gruppo moltiplicativo $(0,+\infty)$.
+Fissato $a=f(1)$ sappiamo,
+per quanto visto nella sezione~\ref{sec:esponenziale},
+che c'è una unica funzione con queste proprietà e dunque 
+deve essere: 
+\[
+  f(x)= a^x.
+\]
+Non ci rimane che dimostrare che $a=e$.
+Ma grazie al teorema~\ref{th:exp_complesso}
+appena dimostrato sappiamo che per $x\to 0$ si ha
+\[
+  \frac{f(x)-1}{x}\to 1.
+\]
+D'altra parte sappiamo che $f(x)=a^x$ e quindi
+per il limite notevole (corollario~\ref{cor:limite_notevole_e})
+\[
+\frac{f(x)-1}{x} = \frac{a^{x}-1}{x}
+= \frac{e^{x \ln a}-1}{x \ln a} \cdot \ln a
+\to \ln a.
+\]
+Deduciamo quindi che $\ln a= 1$ ovvero che $a=e$.
+\end{proof}
+
+Con una certa fatica sarebbe anche possibile dimostrare che 
+effettivamente $f(z)=e^z$ (nel teorema precedente l'abbiamo dimostrato 
+solamente per $x\in \RR$). 
+Si tratterebbe di verificare che la funzione 
+$\phi(x) = f\enclose{i\frac{x}{2\pi}}$
+ha le proprietà enunciate nel teorema~\ref{th:omomorfismo_U}.
+Sarà però più semplice utilizzare le derivate, quindi rimandiamo questa 
+verifica al prossimo capitolo.
+
+% Aver distinto le due definizioni di $e^x$ (tramite funzione potenza) e di $\exp(x)$ (tramite somma della serie esponenziale) è puramente strumentale.
+% C'è una unica funzione esponenziale che può essere definita in
+% un modo o nell'altro. Non ci si fissi quindi con l'identificare
+% le due diverse notazioni $e^x$ ed $\exp(x)$ con le due diverse definizioni.
+% Ogni testo avrà una sua definizione di funzione esponenziale che può
+% essere per certi versi arbitraria salvo poi ritrovare le proprietà
+% caratterizzanti di tale funzione.
+% 
+% D'ora in poi scriveremo, per ogni $z\in \CC$
+% \[
+%   e^z = \exp z
+% \]
+% considerando quindi $\exp z$ l'estensione a tutto il piano complesso
+% della funzione esponenziale già definita
+% sulla retta reale.
+
+Nel corollario~\ref{cor:limite_notevole_ex}
+abbiamo dimostrato che 
+per ogni $x\in \RR$ si ha
+\[
+  e^x = \lim_{n\to +\infty} \enclose{1+\frac x n}^n.  
+\]
+Il seguente teorema ci dice che la serie esponenziale $f(z)$ 
+soddisfa la stessa proprietà per ogni $z \in \CC$.
+Dunque in effetti ci fornisce una dimostrazione 
+alternativa dell'identità $f(x) = e^x$ e un indizio ulteriore 
+della coincidenza tra $f(z)$ ed $e^z$.
+
+\begin{theorem}[limite notevole esponenziale complesso]%
+\label{th:limite_notevole_esponenziale_complesso}%
+\mymark{*}%
+Per ogni $z\in \CC$ risulta
+\[
+  \sum_{k=0}^{+\infty} \frac{z^k}{k!} = \lim_{n \to +\infty} \enclose{1+\frac z n}^n  
+\]
+\end{theorem}
+%
+\begin{proof}
+\mymark{*}
+Utilizzando lo sviluppo del binomio osserviamo che si ha
+\[
+ \enclose{1+\frac z n}^n
+ = \sum_{k=0}^n \binom{n}{k} \frac{z^k}{n^k}
+ = \sum_{k=0}^n \frac{z^k}{k!} \cdot \frac{n!}{n^k\cdot (n-k)!}.
+\]
+Posto per ogni $k\le n$
+\begin{align*}
+ c(n,k)
+  &= \frac{n!}{n^k\cdot (n-k)!}
+  = \frac{n \cdot (n-1) \cdot \ldots \cdot(n-k+1)}{n^k} \\
+  &= \frac{n}{n}\cdot {\frac {n-1} n} \cdot \frac {n-2} {n} \cdot \ldots \cdot \frac{n-k+1}{n}
+\end{align*}
+osserviamo che $0\le c(n,k)\le 1$ in quanto
+prodotto di numeri non negativi minori o uguali ad $1$.
+Inoltre, fissato $k$, si ha $c(n,k)  \to 1$ per $n\to +\infty$
+in quanto ogni fattore $\frac{n-j}{n}$ tende
+a $1$ per $n\to +\infty$ (si noti che a $k$ fissato il numero di fattori $k$ è
+fissato).
+
+
+Sia $z\in \CC$ fissato e sia
+\[
+  S = \sum_{k=0}^{+\infty} \frac{\abs{z}^k}{k!}.
+\]
+Sappiamo che la serie esponenziale è assolutamente convergente
+per ogni $z\in \CC$ (in quanto il raggio di convergenza è $+\infty$)
+quindi $S$ è un numero reale (finito).
+Dunque per il teorema \ref{th:coda} (della coda) sappiamo che per ogni $\eps>0$
+esiste $M$ tale che
+\[
+   \sum_{k=M+1}^{+\infty} \frac{\abs{z}^k}{k!} < \eps.
+\]
+
+Fissato $k\le M$ visto che $c(n,k)\to 1$
+esiste $N_k > M$ tale che per ogni $n>N_k$
+si abbia $1-c(n,k) < \eps$
+(ricordiamo che $c(n,k)\le 1$).
+Prendiamo allora
+\[
+  N=\max\ENCLOSE{N_k\colon k\le M}
+\]
+cosicchè per ogni $n>N$ e per ogni $k\le M$ si avrà $0 \le 1-c(n,k) < \eps$.
+Allora, per ogni $n>N$, possiamo spezzare la somma da $0$ a $n$ nelle due
+somme da $0$ a $M$ e da $M+1$ a $n$:
+\begin{align*}
+\abs{\sum_{k=0}^n \frac{z^k}{k!} - \enclose{1+\frac z n}^n}
+&= \abs{\sum_{k=0}^n \enclose{\frac{z^k}{k!} - c(n,k)\frac{z^k}{k!}}}
+= \abs{\sum_{k=0}^n  (1-c(n,k))\frac{z^k}{k!}} \\
+&\le \sum_{k=0}^n  (1-c(n,k))\frac{\abs{z}^k}{k!} \\
+  &= \sum_{k=0}^{M} (1-c(n,k)) \frac{\abs{z}^k}{k!}
+   + \sum_{k=M+1}^n (1-c(n,k)) \frac{\abs{z}^k}{k!} \\
+&\le \sum_{k=0}^{M} \eps \frac{\abs{z}^k}{k!}
+   + \sum_{k=M+1}^n \frac{\abs{z}^k}{k!} \\
+&\le  \eps \sum_{k=0}^{+\infty} \frac{\abs{z}^k}{k!}
+    + \eps \\
+&\le \eps S + \eps
+= \eps (S+1).
+\end{align*}
+
+Visto che $\eps>0$ era arbitrario abbiamo verificato
+tramite la definizione che
+\[
+\sum_{k=0}^n \frac{z^k}{k!} - \enclose{1+\frac z n}^n \to 0
+\]
+cioè
+\[
+\lim_{n\to +\infty} \enclose{1+\frac z n}^n = \sum_{k=0}^{+\infty} \frac{z^k}{k!}.
+\]
+\end{proof}
+
+\begin{table}
+\begin{center}
+\begin{tabular}{r}
+\ttfamily\footnotesize 2.7182818284 5904523536 0287471352 6624977572 4709369995 \\
+\ttfamily\footnotesize   9574966967 6277240766 3035354759 4571382178 5251664274 \\
+\ttfamily\footnotesize   2746639193 2003059921 8174135966 2904357290 0334295260 \\
+\ttfamily\footnotesize   5956307381 3232862794 3490763233 8298807531 9525101901 \\
+\ttfamily\footnotesize   1573834187 9307021540 8914993488 4167509244 7614606680 \\
+\ttfamily\footnotesize   8226480016 8477411853 7423454424 3710753907 7744992069 \\
+\ttfamily\footnotesize   5517027618 3860626133 1384583000 7520449338 2656029760 \\
+\ttfamily\footnotesize   6737113200 7093287091 2744374704 7230696977 2093101416 \\
+\ttfamily\footnotesize   9283681902 5515108657 4637721112 5238978442 5056953696 \\
+\ttfamily\footnotesize   7707854499 6996794686 4454905987 9316368892 3009879312 \\
+\ttfamily\footnotesize   7736178215 4249992295 7635148220 8269895193 6680331825 \\
+\ttfamily\footnotesize   2886939849 6465105820 9392398294 8879332036 2509443117 \\
+\ttfamily\footnotesize   3012381970 6841614039 7019837679 3206832823 7646480429 \\
+\ttfamily\footnotesize   5311802328 7825098194 5581530175 6717361332 0698112509 \\
+\ttfamily\footnotesize   9618188159 3041690351 5988885193 4580727386 6738589422 \\
+\ttfamily\footnotesize   8792284998 9208680582 5749279610 4841984443 6346324496 \\
+\ttfamily\footnotesize   8487560233 6248270419 7862320900 2160990235 3043699418 \\
+\ttfamily\footnotesize   4914631409 3431738143 6405462531 5209618369 0888707016 \\
+\ttfamily\footnotesize   7683964243 7814059271 4563549061 3031072085 1038375051 \\
+\ttfamily\footnotesize   0115747704 1718986106 8739696552 1267154688 9570350354
+\end{tabular}
+\end{center}
+\caption{Le prime 1000 cifre decimali del numero $e$
+calcolate con il metodo utilizzato nella dimostrazione
+del teorema~\ref{th:approx_e}.
+Si veda il codice a pagina~\pageref{code:compute_e}.}
+\label{fig:cifre_e}
+\index{$e$!cifre decimali}
+\index{cifre!$e$}
+\end{table}
+
+\begin{theorem}[approssimazione dell'esponenziale]
+  \label{th:approx_exp}%
+  \label{th:approx_e}%
+  \index{$\exp$!approssimazione}%
+  \index{approssimazione!di $\exp$}%
+  Se $\abs{x}\le 1$ si ha 
+  \begin{equation}\label{eq:stima_exp}
+    \abs{e^x - \sum_{k=0}^n \frac{x^k}{k!}}
+    \le \frac{\abs{x}^{n+1}}{n\cdot n!}.
+  \end{equation}
+  In particolare ponendo $x=1$ si trova
+  \begin{equation}\label{eq:stima_e}
+     0 < e - \sum_{k=0}^n \frac{1}{k!} \le \frac{1}{n \cdot n!}
+  \end{equation}
+  e per $n=5$ si ottiene
+  \begin{equation}
+    2.716 < e < 2.719
+  \end{equation}
+  \end{theorem}
+  %
+  \begin{proof}
+  La coda della serie esponenziale può essere stimata 
+  tramite la somma di una serie geometrica:
+  \begin{align*}
+    \abs{f(x) - \sum_{k=0}^n \frac {x^k} {k!}}
+    & \le \sum_{k=n+1}^{+\infty} \frac{\abs{x}^k}{k!} 
+     = \sum_{k=0}^{+\infty}\frac{\abs{x}^{n+k+1}}{(n+k+1)!} \\
+    & \le \sum_{k=0}^{+\infty}\frac{\abs{x}^{n+1+k}}{(n+1)^{k+1}\cdot n!}
+     = \frac{\abs{x}^{n+1}}{(n+1)\cdot n!}\sum_{k=0}^{+\infty} \enclose{\frac{\abs{x}}{(n+1)}}^k \\
+    & = \frac{\abs{x}^{n+1}}{(n+1)\cdot n!} \cdot \frac{1}{1-\frac{\abs{x}}{(n+1)}} 
+     = \frac{\abs{x}^{n+1}}{(n+1-\abs{x})\cdot n!}.
+  \end{align*}
+  Se $\abs{x}\le 1$ si ottiene quindi la stima~\eqref{eq:stima_exp}.
+  Se $x=1$ la serie esponenziale è a termini positivi e dunque 
+  approssima $e$ per difetto: si ottiene dunque~\eqref{eq:stima_e}.
+  Per $n=5$ si ha
+  \[
+   \sum_{k=0}^5 \frac{1}{k!} = 1 + 1 + \frac 1 2 + \frac{1}{6} + \frac {1}{24} + \frac{1}{120}
+   = \frac{326}{120}
+  \]
+  Dunque da un lato
+  \[
+    e \ge \frac{326}{120} \ge 2.716
+  \]
+  e dall'altro
+  \[
+   e \le \frac{326}{120} + \frac{1}{5\cdot 5!}
+     \le 2.717 + 0.002 = 2.719
+  \]
+\end{proof}
+  
+\begin{theorem}[irrazionalità di $e$]
+\mymargin{$e\not\in \QQ$}%
+\index{$e\not\in \QQ$}%
+\mymark{**}%
+\index{irrazionalità!di $e$}%
+\index{$e$!è irrazionale}%
+Il numero $e$ è irrazionale.
+\end{theorem}
+%
+\begin{proof}
+Supponiamo per assurdo che sia $e=p/q$ con $p\in \ZZ$ e $q \in \NN$.
+Possiamo supporre $q>1$
+(non importa che la frazione sia ridotta ai minimi termini).
+
+Per ogni $n\in \NN$ si ha 
+\[
+  n! \cdot e = \sum_{k=0}^{+\infty} \frac{n!}{k!}
+   = \sum_{k=0}^n \frac{n!}{k!} + n!\sum_{k=n+1}^{+\infty} \frac{1}{k!}.
+\]
+Il primo addendo nella somma precedente è intero
+in quanto se $k\le n$ il rapporto $n!/k!$ è intero.
+Grazie al teorema~\ref{th:approx_e}
+per il secondo addendo se $n>1$ si ha:
+\[
+0 < n! \cdot \sum_{k=n+1}^{+\infty} \frac{1}{k!}
+\le \frac{1}{n} < 1.
+\]
+Risulta dunque che per ogni $n\ge 2$ il numero $n! e$
+è strettamente compreso tra due interi consecutivi e quindi non 
+è mai intero. Dunque $e$ non può essere razionale perché 
+se fosse $e=\frac p q$ si avrebbe $n! e \in \ZZ$ per ogni 
+$n>q$.
+\end{proof}
+
+\begin{comment}
+\subsection{definizione alternativa delle funzioni trigonometriche}
+
+In questa sezione proponiamo una definizione alternativa 
+delle funzioni trigonometriche a partire dall'esponenziale complesso.
+
+\begin{definition}[funzioni trigonometriche]%
+\label{def:sincos}%
+\index{$\cos$}%
+\index{$\sin$}%
+\index{funzioni!trigonometriche}%
+\index{funzioni!circolari}%
+\index{trigonometria!funzioni elementari}%
+Per ogni $x\in \RR$ si potrà definire
+\[
+  \cos x = \Re \enclose{e^{ix}}, \qquad
+  \sin x = \Im \enclose{e^{ix}}
+\]
+cosicché valga per definizione la
+\emph{formula di Eulero}%
+\mymargin{formula di Eulero}%
+\index{formula!di Eulero}%
+\index{Eulero!formula di}%
+\mymark{***}%
+\[
+  e^{ix} = \cos x + i \sin x.
+\]
+\end{definition}
+
+\begin{theorem}[proprietà delle funzioni seno e coseno]
+\index{proprietà!delle funzioni seno e coseno}%
+\mymark{***}%
+Se definiamo 
+\[
+\cos x = \Re e^{ix},
+\]
+Le funzioni $\sin$ e $\cos$ appena definite
+soddisfano le stesse proprietà 
+delle corrispondenti funzioni definite 
+nel capitolo~\ref{sec:funzioni_trigonometriche}:
+\mynote{Queste proprietà caratterizzano univocamente le funzioni 
+$\sin$ e $\cos$ e quindi effettivamente coincidono con quelle 
+che avevamo già definito. 
+La dimostrazione più semplice richiede però l'utilizzo delle 
+derivate.
+}
+\begin{enumerate}
+\item
+$\displaystyle
+\cos(x) = \frac{e^{ix}+e^{-ix}}{2}$,
+$\displaystyle
+\sin(x) = \frac{e^{ix}-e^{-ix}}{2i}$;
+\item
+$\sin(-x) = -\sin x$ (la funzione $\sin$ è dispari),
+$\cos(-x) = \cos x$ (la funzione $\cos$ è pari);
+\item identità fondamentale della trigonometria:
+\index{trigonometria!identità fondamentale}%
+\index{identità!fondamentale della trigonometria}%
+\index{formula!fondamentale della trigonometria}%
+\[
+\cos^2 x + \sin^2 x = 1;
+\]
+\item
+formule di addizione:
+\index{formula!di addizione}%
+\index{trigonometria!formule di addizione}%
+\index{addizione!formule della trigonometria}%
+\begin{gather*}
+\cos(\alpha+\beta) = \cos \alpha \cos \beta - \sin \alpha \sin \beta,\\
+\sin(\alpha+\beta) = \sin \alpha \cos \beta + \cos \alpha \sin \beta;
+\end{gather*}
+\item
+le funzioni $\cos\colon \RR\to\RR$ e $\sin \colon \RR \to \RR$
+sono continue;
+\item si ha
+\index{sviluppo in serie!coseno}%
+\index{sviluppo in serie!seno}%
+\index{$\cos$!sviluppo in serie}%
+\index{$\sin$!sviluppo in serie}%
+\begin{align}
+\label{eq:serie_cos}
+\cos x &= \sum_{k=0}^{+\infty} (-1)^k\frac{x^{2k}}{(2k)!}
+  = 1 - \frac{x^2}{2} + \frac{x^4}{4!} - \frac{x^6}{6!} + \dots
+\\
+\label{eq:serie_sin}
+\sin x &= \sum_{k=0}^{+\infty} (-1)^k\frac{x^{2k+1}}{(2k+1)!}
+  = x - \frac{x^3}{6} + \frac{x^5}{5!} - \frac{x^7}{7!} + \dots
+\end{align}
+\item
+vale il seguente limite notevole
+\[
+ \lim_{x\to 0} \frac{\sin x}{x} = 1
+ \qquad\text{e}\qquad
+ \lim_{x\to 0} \frac{1-\cos x}{x^2} = \frac 1 2.
+\]
+\end{enumerate}
+\end{theorem}
+%
+%
+\begin{proof}
+\mymark{*}
+\begin{enumerate}
+\item
+Essendo $\overline{e^{ix}} = e^{\overline{ix}} = e^{-ix}$
+discende dalla formula~\eqref{eq:re_im} per il calcolo
+di parte reale ed immaginaria.
+
+\item
+Si verifica direttamente con le formule precedenti.
+
+\item
+Per $x\in \RR$ si ha da un lato
+\[
+  \abs{\exp (ix)}^2 = \exp(ix)\cdot \overline{\exp(ix)}
+  = \exp(ix)\cdot \exp(-ix)
+  = \exp(0) = 1
+\]
+e dall'altro
+\[
+  \abs{\exp(ix)}^2 = \abs{\cos x + i \sin x}^2
+    = \cos^2 x + \sin^2 x.
+\]
+
+\item
+Grazie alla formula che esprime l'esponenziale
+della somma:
+\begin{align*}
+\cos(\alpha+\beta) + i \sin(\alpha + \beta)
+&= \exp(i(\alpha + \beta))
+= \exp(i\alpha) \cdot \exp(i\beta) \\
+&= (\cos \alpha + i \sin \alpha) \cdot (\cos \beta + i \sin \beta)\\
+&= \cos \alpha \cos \beta - \sin \alpha \sin \beta \\
+&\quad + i (\sin \alpha \cos \beta + \cos \alpha \sin \beta)
+\end{align*}
+e uguagliando parte reale e parte immaginaria si ottengono le formule
+di addizione.
+
+\item
+Visto che la funzione $\exp\colon \CC \to \CC$ è continua
+anche la sua restrizione all'asse immaginario lo è.
+E dunque anche parte reale (coseno) e parte immaginaria (seno) lo sono.
+
+\item
+Sia $x\in \RR$.
+Osservando che $i^{2k} = (i^2)^k = (-1)^k$ e $i^{2k+1}= i \cdot i^{2k}
+= i\cdot(-1)^k$ suddividendo i termini pari e dispari
+della serie che definisce l'esponenziale si ha:
+\begin{align*}
+  \exp(ix)
+  &= \sum_{k=0}^{+\infty} \frac{i^k x^k}{k!}
+  = \sum_{k=0}^{+\infty}\frac{i^{2k} x^{2k}}{(2k)!}
+    + \sum_{k=0}^{+\infty}\frac{i^{2k+1} x^{2k+1}}{(2k+1)!}\\
+  &= \sum_{k=0}^{+\infty}\frac{(-1)^k x^{2k}}{(2k)!}
+    +  i \sum_{k=0}^{+\infty}\frac{(-1)^k x^{2k+1}}{(2k+1)!}.
+\end{align*}
+Osserviamo ora che le due serie che compaiono a destra dell'uguaglianza
+sono a termini reali e quindi la loro somma è reale.
+Dunque queste due serie coincidono con la parte reale e la parte immaginaria di $\exp(ix) = \cos x + i \sin x$.
+
+\item
+Per la corrispondente proprietà dell'esponenziale
+sappiamo che per $x \to 0$ si ha
+\[
+  \frac{e^{i x}-1}{i x} \to 1.
+\]
+Ma
+\[
+  \frac{e^{ix}-1}{i x}
+  = \frac{\cos x - 1 + i \sin x}{i x}
+  = \frac{\sin x}{x} + i\frac{1- \cos x}{x}.
+\]
+Scopriamo dunque che
+\[
+  \frac{1-\cos x}{x} \to 0
+  \qquad\text{e}\qquad
+  \frac{\sin x}{x} \to 1.
+\]
+D'altra parte si ha
+\begin{align*}
+  \frac{1-\cos x}{x^2}
+  &=\frac{(1-\cos x)\cdot(1+\cos x)}{x^2(1+\cos x)}
+  = \frac{1-\cos^2 x}{x^2} \cdot \frac{1}{1+\cos x}\\
+  &= \enclose{\frac{\sin x}{x}}^2\cdot \frac 1{1+\cos x}
+  \to 1 \cdot \frac 1 {1+\cos 0} = \frac 1 2.
+\end{align*}
+
+\end{enumerate}
+\end{proof}
+
+Definiamo $\pi$ come la misura in radianti dell'angolo piatto, 
+cioè dell'angolo identificato dal numero $e^{i\pi} = -1$ 
+sul piano complesso.
+
+\begin{theorem}[definizione di $\pi$]
+\index{$\pi$!definizione}%
+\index{$\tau$!definizione}%
+\label{th:pi}%
+\mymargin{$\pi$}%
+Definiamo $\pi$ come il più piccolo numero reale
+positivo in cui si annulla la funzione $\sin x$.
+Si ha $\pi \in [2.8,4]$.
+Le funzioni $e^{ix}$, $\sin x$ e $\cos x$ sono
+periodiche di periodo $\tau = 2\pi$:
+\mymargin{$\tau$}%
+\[
+  e^{i(x+2\pi)} = e^{ix}, \qquad
+  \cos(x + 2\pi) = \cos x, \qquad
+  \sin(x + 2\pi) = \sin x.
+\]
+La funzione $\sin x$ è strettamente crescente nell'intervallo
+$\closeinterval{-\frac \pi 2}{\frac \pi 2}$
+mentre la funzione $\cos x$ è strettamente decrescente 
+nell'intervallo $\closeinterval{0}{\pi}$.
+Si ha infine:
+\begin{align*}
+\sin(\pi + x) = -\sin x, \qquad 
+\cos(\pi + x) = -\cos x.
+\end{align*}
+
+Vale inoltre la celeberrima formula di Eulero:
+\index{Eulero!formula di}%
+\index{formula!di Eulero}%
+\[
+  e^{i\pi} + 1 = 0.
+\]
+\end{theorem}
+%%
+%%
+\begin{proof}
+Il teorema~\ref{th:approx_exp} ci permette di approssimare la 
+funzione esponenziale $e^{ix}$ per $x\in [0,1]$. 
+Ci proponiamo quindi di determinare l'andamento delle funzioni 
+$\sin x$ e $\cos x$ in tale intervallo e definire in tale intervallo 
+il valore di $\alpha=\frac \pi 4$.
+Tramite tale valore $\alpha$ e tramite le formule di addizione riusciremo 
+a determinare l'andamento delle funzioni $\sin$ e $\cos$ su tutta la 
+retta reale.
+
+Se $x\in[0,1]$ grazie al teorema~\ref{th:approx_exp} applicato 
+con $n=3$ sappiamo che 
+\begin{align*}
+  \abs{e^{ix} - \enclose{1 + ix  + \frac{(ix)^2}{2} + \frac{(ix)^3}{6}}}
+  \le \frac{\abs{ix}^4}{18}
+\end{align*}
+sviluppando
+\begin{align*}
+  \abs{\cos x + i \sin x - 1 - ix + \frac{x^2}{2} + i\frac{x^3}{6}}
+  \le \frac{x^4}{18}.
+\end{align*}
+Il valore assoluto delle parti reale e immaginaria di un numero 
+complesso sono minori del modulo del numero complesso.
+Dunque si ottiene:
+\begin{align}\label{eq:86035}
+    \abs{\cos x - 1 + \frac{x^2}{2}} \le \frac{x^4}{18}\smallskip
+    \qquad\text{e}\qquad
+    \abs{\sin x - x + \frac{x^3}{6}} \le \frac{x^4}{18}.
+\end{align}
+Per la funzione $\sin x$ si ha dunque
+\begin{align*}
+    x - \frac{x^3}{6} - \frac{x^4}{18}
+    \le \sin x 
+    \le x - \frac{x^3}{6} + \frac{x^4}{18}
+\end{align*}
+e sapendo che $0<x<1$ possiamo affermare che 
+\[
+  x - \frac{x^3}{6} - \frac{x^4}{18}
+  \ge x - \frac{x}{6} - \frac{x}{18}
+  = \frac{7}{9} x
+\]
+e 
+\[
+  x - \frac{x^3}{6} + \frac{x^4}{18}
+  \le x - \frac{x^3}{6} + \frac{x^3}{18}
+  \le x.
+\]
+Dunque se $x\in[0,1]$ si ha 
+\begin{equation}\label{eq:4757614}
+  \frac{7}{9} x \le \sin x \le x.
+\end{equation}
+Per il coseno da un lato osserviamo che da~\eqref{eq:86035}
+si ottiene, se $x\in [0,1]$:
+\[
+\cos x 
+  \ge 1 - \frac{x^2}{2} -\frac{x^4}{18}   
+  \ge 1 - \frac{1}{2} - \frac{1}{18}
+  = \frac 4 9 > 0.
+\]
+Dall'altro lato si ha
+\[
+\cos x 
+\le 1 - \frac{x^2}{2} + \frac{x^4}{18}
+= 1 - \frac{x^2}{2} + \frac{x^2}{18}
+\le 1 - \frac{4}{9} x^2.
+\]
+
+Vogliamo ora dimostrare che la funzione $\cos x$ 
+è strettamente decrescente sull'intervallo $[0,1]$.
+Infatti se $x\in[0,1]$ e $t\in(0,1]$ si ha 
+\begin{align*}
+  \cos(x+t) 
+  = \cos x \cos t - \sin x \sin t
+  \le \cos x \cos t < \cos x
+\end{align*}
+in quanto $\sin x\ge 0$, $\sin t \ge 0$ 
+e $\cos t < 1 - \frac{5}{9}t^2 < 1$ se $t>0$.
+Dunque la funzione $\cos x$ è strettamente 
+decrescente su $[0,1]$. 
+Visto che $\cos^2 x + \sin^2 x = 1$ 
+deduciamo che la funzione $\sin^2 x$ 
+è strettamente crescente in $[0,1]$.
+Inoltre $\sin x$ è positiva su tale 
+intervallo e dunque anche $\sin x$
+è strettamente crescente in $[0,1]$.
+
+Vogliamo ora dimostrare che esiste 
+$\alpha \in [0,1]$ tale per cui 
+$\sin \alpha = \frac{\sqrt 2}{2}$.
+Visto che $\sin x$ è una funzione continua, 
+e $\sin 0 = 0$, per utilizzare 
+il teorema~\ref{th:zeri} dei valori intermedi 
+basterà verificare che $\sin 1 > \frac{\sqrt 2}{2}$.
+E infatti si ha:
+\[
+\sin 1 \ge \frac 7 9 > \frac{\sqrt 2}{2}.
+\]
+Dunque esiste un unico $\alpha\in [0,1]$ 
+tale che $\sin \alpha = \frac{\sqrt 2}{2}$.
+Allora anche $\cos \alpha = \frac{\sqrt 2}{2}$ 
+(in quanto $\sin^2 + \cos^2 = 1$)
+e quindi
+\[
+  e^{2i\alpha} 
+  = \enclose{\frac{\sqrt 2}{2} \enclose{1+i}}^2
+  = \frac 1 2 \enclose{1+2i-1} = i.
+\]
+Dunque $\alpha$ è la misura in radianti di metà 
+angolo retto.
+
+Se poniamo $\pi = 4\alpha$ scopriamo dunque che 
+\[
+  e^{i\pi} 
+  = \enclose{e^{2i\alpha}}^2
+  = i^2 = -1
+\]
+da cui $\sin \pi = 0$ e $\cos \pi = -1$.
+Analogamente da $e^{2i\alpha}=i$ 
+troviamo che $\sin \frac \pi 2 = 1$
+$\cos \frac \pi 2 = 0$.
+
+Dalla stima~\eqref{eq:4757614} si ottiene 
+\[
+  \frac 7 9 \alpha 
+  \le \frac{\sqrt 2}{2}
+  \le \alpha
+\]
+da cui $\pi=4\alpha \in [2.8, 4]$.
+
+Abbiamo verificato che sull'intervallo 
+$\closeinterval{0}{\frac \pi 4}$ la funzione $\sin x$ è strettamente 
+crescente mentre $\cos x$ è strettamente decrescente.
+Dalle formule di addizione possiamo quindi dedurre che 
+$\sin\enclose{\frac \pi 2 - x} = \cos x$ 
+e $\cos\enclose{\frac \pi 2 -x} = \sin x$.
+Dunque anche sull'intervallo $\closeinterval{\frac \pi 4}{\frac \pi 2}$ 
+la funzione $\sin x$ è crescente e $\cos x$ è decrescente.
+Ancora, tramite le formula di addizione troviamo che 
+$\sin(\pi - x)=\sin x$ e $\cos(\pi - x) = -\cos x$ 
+da cui possiamo dedurre che sia la funzione $\sin x$ 
+che la funzione $\cos x$ sono strettamente decrescenti 
+sull'intervallo $\closeopeninterval{\frac \pi 2}{\pi}$.
+Possiamo dunque affermare che $\sin x>0$ se $0<x<\pi$ 
+e dunque $\pi$ è il più piccolo reale positivo in cui 
+la funzione $\sin$ si annulla.
+
+Visto che $\sin(\pi+x) = -\sin x$ e $\cos(\pi+x)=-\cos x$
+possiamo stabilire l'andamento delle funzioni $\sin$ e $\cos$
+anche sull'intervallo $\closeinterval{\pi}{2\pi}$.
+Infine essendo $e^{2i\pi} = 1$ si osserva che la funzione 
+$e^{2ix}$ e di conseguenza le funzioni $\sin x$ e $\cos x$
+sono periodiche di periodo $2\pi$.
+\end{proof}
+\end{comment}
+
+%%%%
+%%%%
+%%%%

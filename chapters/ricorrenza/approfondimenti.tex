@@ -1,0 +1,69 @@
+\section{approfondimenti}
+
+I risultati esposti finora non richiedevano
+alcuna nozione del calcolo differenziale
+e potevano essere compresi utilizzando solamente
+le nozioni del capitolo~\ref{ch:successioni}.
+In questo capitolo useremo invece
+alcuni concetti che riguardano il calcolo differenziale.
+
+\begin{theorem}[criterio per la stabilità di un punto fisso]
+Sia $x_0\in \RR$, $R>0$, $I=(x_0 - R, x_0+R)$ e $f\colon I \to \RR$
+una funzione che ha $x_0$ come punto fisso.
+Se $f$ è $L$-lipschitziana su $I$ con $L<1$ allora $I$ è un intervallo
+invariante per $f$ e se $a_n$ è una successione che soddisfa la relazione di ricorrenza $a_{n+1} = f(a_n)$ con $a_0 \in I$
+allora $a_n \to x_0$ per $n\to +\infty$.
+
+In particolare se $f\in C^1(I)$ con punto fisso $x_0 \in I$ e $\sup\ENCLOSE{\abs{f'(x)}\colon x\in I} < 1$ allora $I$ è invariante ed ogni successione $a_n$ definita per ricorrenza da $a_{n+1}=f(a_n)$ con $a_0 \in I$ converge ad $x_0$.
+
+Ancora più in particolare, se $f$ è di classe $C^1$ in un intorno di un punto $x_0$, se $x_0$ è punto fisso di $f$ e $\abs{f'(x_0)}<1$ allora
+esiste un intorno $I$ di $x_0$ che è invariante per $f$ e ogni successione $a_n$ definita per ricorrenza tramite $a_{n+1}= f(a_n)$ con $a_0\in I$ converge ad $x_0$.
+\end{theorem}
+  %
+\begin{proof}
+Osserviamo che se $f$ è di classe $C^1$ in un intorno di $x_0$ e $\abs{f'(x_0)} < 1$ allora, per continuità, esiste $L<1$ tale $\abs{f'(x)} < L$ per ogni $x$ in un intorno $I$ di $x_0$. Dunque $\sup\ENCLOSE{\abs{f'(x)}\colon x \in I} \le L < 1$ e la funzione $f$ risulta dunque essere $L$-lipschitziana. E' chiaro quindi che la seconda e la terza parte del teorema si riconducono alla prima, che è quella che andremo ora a dimostrare.
+
+Se $f$ è $L$-lipschitziana e $x_0$ è punto fisso di $f$ osserviamo che si ha
+\[
+\abs{f(x) - x_0} = \abs{f(x) - f(x_0)} \le L \abs{x-x_0}
+\]
+da cui se $\abs{x - x_0} < R$ anche $\abs{f(x) - x_0} < R$.
+Dunque $I = (x_0-R, x_0+R)$ è invariante.
+Possiamo poi dimostrare per induzione che risulta
+\[
+ \abs{a_n - x_0} \le L^n \cdot \abs{a_0-x_0}.
+\]
+Infatti per $n=0$ la relazione è una uguaglianza. Il passo induttivo si ottiene osservando che
+\begin{align*}
+\abs{a_{n+1} - x_0}
+ &= \abs{f(a_n) - f(x_0)}
+ \le L \abs{a_n - x_0} \\
+ &\le L\cdot L^n\abs{a_0-x_0}
+ = L^{n+1}\abs{a_0-x_0}.
+\end{align*}
+
+Ma ora se $L<1$ si ha $L^n\to 0$ e dunque $\abs{a_n -x_0} \to 0$ come volevamo dimostrare.
+\end{proof}
+
+\begin{theorem}[instabilità del punto fisso]
+Sia $f$ di classe $C^1$ in un intorno di un suo punto fisso $x_0$.
+Se $\abs{f'(x_0)}>1$ allora non esiste una successione $a_n$ che soddisfa la relazione ricorsiva $a_{n+1} = f(a_n)$ e tale che $a_n \to x_0$ a meno che non si abbia $a_n = x_0$ da un certo indice $n$ in poi.
+\end{theorem}
+%
+\begin{proof}
+Per continuità della derivata esisterà $L>1$ e un intervallo $I$
+intorno di $x_0$ tale che per ogni $x\in I$ si abbia $\abs{f'(x)} > 1$.
+Se $a_n \to x_0$ allora da un certo indice $n$
+in poi si avrà $a_n \in I$.
+Se $a_n$ verifica la relazione ricorsiva $a_{n+1} = f(a_n)$ possiamo
+allora applicare il teorema di Lagrange per ottenere che per ogni $n$ esiste $b_n$ compreso tra $x_0$ e $a_n$ tale che:
+\begin{align*}
+  \abs{a_{n+1} - x_0}
+  &= \abs{f(a_n) - f(x_0)}
+  = \abs{f'(b_n)(a_n - x_0)} \\
+  &\ge L \cdot \abs{a_n - x_0} \ge \abs{a_n - x_0}.
+\end{align*}
+Risulta quindi che la distanza $\abs{a_n - x_0}$ deve essere crescente
+e quindi l'unica possibilità perché $a_n \to x_0$ è che sia $a_n = x_0$.
+\end{proof}
+

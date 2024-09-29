@@ -1,0 +1,95 @@
+\section{il problema di Cauchy per equazioni di ordine $n$}
+
+Il problema di Cauchy per le equazioni di ordine $n$ è il problema di
+determinare la soluzione di una equazione differenziale ordinaria di ordine $n$
+in forma normale accoppiato ad una condizione iniziale per il valore della
+funzione e di tutte le sue derivate fino all'ordine $n-1$.
+Dato $\Omega\subset \RR\times \RR^n$ aperto, $f\in C^0(\Omega)$,
+$\vec y = (y_1, \dots, y_n) \in \RR^n$
+si tratta quindi di trovare un intervallo $I\subset \RR$ e una funzione
+$u\in C^n(I)$ che soddisfi le seguenti condizioni:
+\begin{equation}\label{eq:problema_cauchy_ordine_n}
+  \begin{cases}
+    u^{(n)}(x) = f(x,u(x), u'(x), \dots, u^{(n-1)}(x))\\
+    u(x_0) = y_1 \\
+    u'(x_0) = y_2 \\
+    \ \vdots \\
+    u^{(n-1)}(x_0) = y_n.
+  \end{cases}
+\end{equation}
+
+\begin{theorem}[esistenza e unicità per le equazioni di ordine $n$]
+\label{th:cauchy_lipschitz_ordine_n}
+\mymargin{esistenza e unicità locale}%
+\index{esistenza e unicità locale}
+Sia $f\colon \Omega\to \RR$
+una funzione che soddisfa la condizione di Cauchy-Lipschitz.
+Allora il problema di Cauchy~\eqref{eq:problema_cauchy_ordine_n}
+ammette una unica soluzione locale.
+Esiste cioè un $\delta>0$ tale che per ogni intervallo
+$I\subset [x_0-\delta,x_0+\delta]$ esiste una unica $u\in C^n(I)$ che
+soddisfa~\eqref{eq:problema_cauchy_ordine_n}.
+
+\mymargin{esistenza e unicità globale}%
+\index{esistenza e unicità globale}
+Se poi $\Omega$ è della forma $\Omega = I \times \RR^n$ con $I\subset \RR$ intervallo aperto e se
+$f$ è anche sublineare (come nelle ipotesi di esistenza globale) allora il problema di Cauchy~\eqref{eq:problema_cauchy_ordine_n} ammette una unica soluzione definita su tutto $I$.
+\end{theorem}
+%
+\begin{proof}
+Se $u\in C^n$ è una funzione scalare possiamo considerare la funzione vettoriale $\vec u \in C^1$ le cui componenti sono $u$ e le sue prime $n-1$ derivate:
+\[
+\vec u(x) = (u(x), u'(x), \dots, u^{(n-1)}(x))
+\]
+ovvero $u_k(x) = u^{(k-1)}(x)$ per $k=1,\dots ,n$ essendo $\vec u(x) = (u_1(x), \dots, u_n(x))$.
+
+Con questa trasformazione il problema~\eqref{eq:problema_cauchy_ordine_n} si può scrivere nella forma:
+\[
+ \begin{cases}
+   u_1'(x) = u_2 \\
+   %u_2'(x) = u_3 \\
+   \ \vdots \\
+   u_{n-1}'(x) = u_n \\
+   u_n'(x) = f(x, u_1(x), u_2(x), \dots, u_n(x))\\\\
+   u_1(x_0) = y_1\\
+   \ \vdots \\
+   u_{n}(x_0) = y_n
+ \end{cases}
+\]
+ovvero posto $\vec f(x,\vec y) = (y_2, y_3, \dots, y_n, f(x, \vec y))$ abbiamo una funzione vettoriale $\vec f\colon \Omega \to \RR^n$ e il problema~\eqref{eq:problema_cauchy_ordine_n} risulta equivalente a
+\begin{equation}\label{eq:437583}
+  \begin{cases}
+   \vec u'(x) = \vec f(x,\vec u(x))\\
+   \vec u(x_0) = \vec y.
+  \end{cases}
+\end{equation}
+Visto che $f$ è continua, anche $\vec f$ risulta continua.
+Verifichiamo se $\vec f$ soddisfa la condizione di Lipschitz.
+Per ipotesi $f$ la soddisfa, cioè
+esiste $L>0$ tale che:
+\[
+  \abs{f(x,\vec y)-f(x,\vec z)} \le L\abs{\vec y - \vec z}.
+\]
+Ma allora si ha
+\begin{align*}
+\abs{\vec f(x,\vec y) - \vec f(x,\vec z)}
+  &= \sqrt{\sum_{k=2}^n \abs{y_k-z_k}^2 + \abs{f(x,\vec y)-f(x,\vec z)}^2} \\
+  &\le \sqrt{\abs{\vec y - \vec z}^2 + L^2 \abs{\vec y - \vec z}^2}
+  = \sqrt{1+L^2}\cdot \abs{\vec y - \vec z}.
+\end{align*}
+Dunque la funzione $\vec f$ verifica le ipotesi del teorema di Cauchy\hyp{}Lipschitz: esiste dunque una soluzione $\vec u$ di tale problema in un opportuno intervallo centrato nel punto $x_0$.
+Ponendo $u=u_1$ (la prima componente di $\vec u$)
+si osserva che $u$ è di classe $C^n$.
+Infatti sappiamo che $\vec u$ è di classe $C^1$
+ed essendo
+$u_1' = u_2$,
+$u_2' = u_3$, \dots,
+$u_{n-1}'=u_n$
+ed essendo $u_n\in C^1$,
+si scopre che $u=u_1$ è di classe $C^n$
+ed è una soluzione del problema \eqref{eq:problema_cauchy_ordine_n}.
+Anche l'unicità segue direttamente dall'equivalenza delle due formulazioni.
+
+L'esistenza globale segue in maniera analoga dal teorema per i sistemi del primo ordine. Basti osservare che se la funzione $f$ soddisfa l'ipotesi di sublinearità anche $\vec f$ la soddisfa.
+\end{proof}
+

@@ -1,0 +1,747 @@
+\section{teoria degli insiemi}
+
+Nei paragrafi precedenti abbiamo visto che i predicati possono essere
+combinati tra loro e quantificati.
+Ma quali sono i predicati elementari che possiamo considerare per fondare 
+tutta la matematica?
+La teoria degli insiemi ci fornisce la formalizzazione del concetto
+di \emph{appartenenza}: il predicato di base (l'unico che ci servirà) è
+un predicato della forma $x \in A$ che significa ``l'oggetto $x$ è un elemento
+dell'insieme $A$''.
+La teoria degli insiemi non spiega (né tantomento definisce)
+cosa siano gli oggetti e cosa siano gli insiemi perché questi sono concetti
+primitivi (come lo sono i \emph{punti} e le \emph{rette} per la geometria euclidea).
+La teoria degli insiemi ci fornisce, semplicemente, le regole formali che
+possono essere utilizzate per trattare i predicati della forma $x\in A$.
+Ad esempio un \emph{assioma} 
+della teoria degli insiemi è il seguente.
+\begin{axiom}[insieme vuoto]
+\[
+  \exists A \colon \lnot \exists x\colon x \in A
+\]
+\end{axiom}
+L'assioma significa: ``esiste un insieme $A$ che non contiene alcun elemento $x$''
+ovvero stiamo dicendo che esiste l'\emph{insieme vuoto}%
+\mymargin{insieme vuoto}%
+\index{insieme vuoto} che normalmente viene
+denotato con il simbolo $\emptyset$.
+Scriveremo quindi $\exists\emptyset\colon \forall x\colon \lnot(x\in \emptyset)$.
+Possiamo quindi introdurre un contesto dimostrativo 
+in cui $\emptyset$ è una costante e l'assioma diventa più
+semplicemente $\forall x\colon \lnot (x\in \emptyset)$.
+
+Altri opportuni assiomi della teoria degli insiemi garantiscono l'esistenza
+dell'unione $A\cup B$, intersezione $A\cap B$ e differenza $A\setminus B$
+di due insiemi qualunque $A$ e $B$. Tali operazioni
+tra insiemi possono essere ricondotte alla relazione di appartenenza
+e possono quindi essere definite come segue.
+
+\begin{axiom}[operazioni tra insiemi]
+Se $A$ e $B$ sono insiemi allora esistono gli insiemi  
+$U=A\cup B$ (unione), $I=A\cap B$ (intersezione) e 
+$D=A\setminus B$ (differenza).
+\mymargin{unione intersezione differenza}%
+\index{unione}%
+\index{intersezione}%
+\index{differenza}%
+Formalmente:
+\begin{align*}
+    \forall A,B\colon \exists U\colon \forall x\colon x\in U &\iff (x\in A) \lor (x\in B),\\
+    \forall A,B\colon \exists I\colon \forall x\colon x\in I &\iff (x\in A) \land (x\in B),\\
+    \forall A,B\colon \exists D\colon \forall x\colon x\in D &\iff (x\in A) \land \lnot (x \in B).
+\end{align*}
+\end{axiom}
+
+La negazione dell'appartenenza $\lnot (x \in A)$ viene usualmente
+abbreviata con $x \not \in A$.
+
+Sempre utilizzando la semplice relazione di appartenenza possiamo definire
+le relazioni di inclusione e uguaglianza tra insiemi:
+$A \subset B$ si legge ``$A$ è un sottoinsieme di $B$'',
+$A \supset B$ si legge ``$A$ è un sovrainsieme di $B$''
+e $A=B$ si legge ``$A$ è uguale a $B$''. 
+Queste relazioni sono definite dalle seguenti proprietà:
+\begin{align*}
+  A \subset B &\iff \forall x\colon (x\in A \implies x\in B)\\
+  A \supset B &\iff \forall x\colon (x\in A \implied x\in B)\\
+  A = B &\iff \forall x\colon (x\in A \iff x \in B).
+\end{align*}
+A parole diremo che $A$ è un sottoinsieme di $B$, 
+$A \subset B$, se ogni elemento di $A$ è anche elemento di $B$.
+Diremo che $A$ e $B$ sono uguali, $A=B$, 
+se $A$ e $B$ hanno gli stessi elementi.
+Ovviamente la relazione $\supset$ non è altro 
+che la relazione inversa di $\subset$ cioè risulta 
+$A\supset B$ se e solo se $B\subset A$.
+Scriveremo anche $A \neq B$ per indicare
+la relazione opposta dell'uguaglianza ovvero: $\lnot(A=B)$.
+Si noti che $A=B$ è equivalente a $(A\subset B) \land (B\subset A)$.
+
+% In molti sistemi formali l'uguaglianza è un predicato primitivo con la 
+% proprietà che oggetti uguali possono essere sostituiti uno all'altro 
+% in ogni proposizione. Per recuperare tale proprietà 
+% dobbiamo imporre il seguente.
+% 
+% \begin{axiom}[estensionalità]
+% Se $x=y$ allora il predicato $x\in A$ è equivalente 
+% al predicato $y\in A$.
+% \end{axiom}
+
+La relazione $A \subset B$ significa che ogni elemento di $A$ 
+è anche elemento di $B$ e quindi non ci sono elementi di $A$ che non stiano 
+in $B$ cioè $A$ non è più grande di $B$. 
+Come stratagemma mnemonico si osservi che il simbolo 
+$\subset$ è orientato in modo che l'insieme più piccolo 
+stia dal lato più stretto della relazione così come 
+nella disuguaglianza $3 \le 5$ il numero più piccolo 
+sta dal lato più stretto del simbolo $\le$.
+Per dimostrare che la relazione $A \subset B$ è vera 
+bisognerà prendere un qualunque elemento di $A$ e dimostrare 
+che tale elemento è anche elemento di $B$.
+Per dimostrare che vale l'uguaglianza $A=B$ tipicamente si procede 
+dimostrando separatamente le due inclusioni $A\subset B$ e $B\subset A$.
+
+Risulta molto utile la possibilità di costruire insiemi di insiemi.
+Per questo motivo la teoria degli insiemi usualmente non fa distinzione
+tra oggetti e insiemi di oggetti. Nella relazione primitiva $x\in A$ anche
+$x$ può essere un insieme. Possiamo allora immaginare che ogni oggetto del
+nostro universo sia un insieme. In questo modo la relazione di uguaglianza $A=B$
+che abbiamo definito sopra risulta ben definita per ogni coppia di oggetti
+(o insiemi, che è lo stesso) $A$ e $B$.
+
+Visto che gli elementi di un insieme $\mathcal A$ sono a loro volta insiemi,
+è possibile considerare l'unione $\bigcup \mathcal A$
+e, se\mynote{%
+L'intersezione di una famiglia vuota di insiemi darebbe l'insieme 
+universo, che vedremo non può essere definito.
+} 
+$\mathcal A \neq \emptyset$, l'intersezione $\bigcap \mathcal A$ di tutti gli elementi
+di $\mathcal A$.
+Questo estende il concetto di unione e intersezione anche a famiglie
+eventualmente infinite.
+
+\begin{axiom}[unione e intersezione arbitraria]
+Se $\mathcal A$ è un insieme qualunque esiste l'insieme $\bigcup \mathcal A$
+e se $\mathcal A \neq \emptyset$ esiste l'insieme $\bigcap \mathcal A$
+con le seguenti proprietà:
+\begin{align*}
+  x \in \bigcup \mathcal A & \iff \exists A \in \mathcal A \colon x\in A, \\
+  x \in \bigcap \mathcal A & \iff \forall A \in \mathcal A \colon x\in A.
+\end{align*}
+\end{axiom}
+Una notazione alternativa è la seguente:
+\[
+ \bigcup \mathcal A = \bigcup_{A\in \mathcal A} A, \qquad 
+ \bigcap \mathcal A = \bigcap_{A\in \mathcal A} A.  
+\]
+Questa notazione mette in evidenza il fatto che l'insieme 
+$\bigcup \mathcal A$ è l'unione di tutti gli elementi $A$ dell'insieme 
+$\mathcal A$ mentre $\bigcap \mathcal A$ è l'intersezione 
+di tutti gli elementi di $\mathcal A$.
+L'insieme $\mathcal A$ viene spesso chiamata una \emph{famiglia}
+di insiemi perché i suoi elementi vengono trattati come insiemi 
+più che come oggetti.
+
+Un altro assioma della teoria degli insiemi garantisce che per ogni
+$x$ esiste un insieme il cui unico elemento è $x$. 
+\begin{axiom}[singoletto]
+  Se $x$ è un insieme esiste l'insieme $\ENCLOSE{x}$, 
+  chiamato \emph{singoletto}%
+\mymargin{singoletto}%
+\index{singoletto}
+  tale che:
+  \[
+    y \in \ENCLOSE{x} \iff y=x.
+  \]
+\end{axiom}
+Facendo l'unione di singoletti possiamo definire (per elencazione) insiemi che contengono
+un numero finito di oggetti:
+\begin{align*}
+  \ENCLOSE{a,b} &= \ENCLOSE{a} \cup \ENCLOSE{b} \\
+  \ENCLOSE{a, b, c} &= \ENCLOSE{a,b} \cup \ENCLOSE{c}\\
+  \ENCLOSE{a, b, c, d} &= \ENCLOSE{a,b,c} \cup \ENCLOSE{d}\\
+  &\quad\vdots
+\end{align*}
+
+Si faccia però attenzione: l'insieme $\ENCLOSE{a,b}$ contiene due elementi
+solamente se $a\neq b$, infatti se $a=b$ si potrà facilmente verificare
+che
+\begin{equation}\label{eq:4775523}
+\ENCLOSE{a,a} = \ENCLOSE{a}.
+\end{equation}
+
+\begin{exercise}
+  Verificare \eqref{eq:4775523} utilizzando le definizioni formali date in precedenza.
+\end{exercise}
+\begin{proof}[Svolgimento.]
+Utilizzando le definizioni di unione, di singoletto e di disgiunzione logica
+si ha l'equivalenza dei seguenti
+predicati:
+\begin{gather*}
+  x \in \ENCLOSE{a,a}  \\
+  x \in \ENCLOSE{a} \cup \ENCLOSE{a}\\
+  (x \in \ENCLOSE{a}) \lor (x \in \ENCLOSE{a})\\
+  (x = a) \lor (x = a) \\
+  x = a \\
+  x \in \ENCLOSE{a}
+\end{gather*}
+e dunque $\ENCLOSE{a,a}=\ENCLOSE{a}$ per la definizione di uguaglianza tra insiemi.
+\end{proof}
+
+Se $P(x)$ è un predicato in una sola variabile $x$ vorremmo poter
+definire l'insieme di tutti gli oggetti $x$ 
+che rendono vero il predicato $P$.
+Sorprendentemente se aggiungessimo questo assioma 
+(chiamato assioma di specificazione ingenua) nella teoria degli insiemi
+avremmo un paradosso%
+\index{teoria!ingenua degli insiemi}%
+\index{insiemi!teoria ingenua}%
+\index{Cantor, Georg}%
+\index{Frege}%
+\index{Russell}%
+\mynote{Georg Cantor (1845--1918), Bertrand Russell (1872--1970) 
+vedi note storiche a pag.~\pageref{nota:Cantor}}.
+
+\begin{theorem}[paradosso di Russell]
+\label{th:Russell}%
+Non esiste un insieme $R$ tale che per ogni $x$ si abbia
+\[
+   x\in R \iff x\not \in x
+\]
+(un tale insieme si potrebbe definire così
+tramite un assioma di specificazione \emph{ingenua}: $R=\ENCLOSE{x\colon x\not \in x}$).
+\end{theorem}
+%
+\begin{proof}
+  Se esistesse avremmo:
+  \[
+    R \in R 
+    \iff R\not \in R
+  \]
+  e questo è in contrasto
+  con il principio di non contraddizione
+  (un predicato e la sua negazione non possono essere entrambi veri).
+\end{proof}
+
+Per evitare l'incoerenza è necessario limitare l'\emph{assioma di specificazione}
+alla costruzione di sottoinsiemi di insiemi già costruiti.
+
+\begin{axiom}[specificazione]
+  Se $P$ è un qualunque predicato con una variabile libera $x$
+  e se $B$ è un insieme, allora esiste l'insieme 
+  $\ENCLOSE {x\in B\colon P(x)}$ formato 
+  da tutti gli elementi di $B$ che soddisfano il predicato $P$:
+\[
+  a \in \ENCLOSE{x\in B\colon P(x)} \iff (a \in B \land P(a)).
+\]
+\end{axiom}
+
+Se ora proviamo a ripetere il ragionamento di Russell dato un insieme $A$ 
+possiamo costruire l'insieme $R=\ENCLOSE{x\in A\colon x\not \in x}$
+e scopriremmo che non può essere $R\in R$ 
+(altrimenti dovrebbe essere $R\not \in R$ assurdo).
+Ma potrebbe benissimo essere $R\not \in R$ se inoltre $R\not \in A$.
+Dunque si deduce che dato qualunque insieme $A$ c'è un insieme 
+che non è elemento di $A$: dobbiamo quindi rassegnarci al fatto che non
+esiste un insieme \emph{universo} contenente qualunque altro insieme,
+ma almeno non otteniamo una contraddizione%
+\mynote{%
+D'altra parte non possiamo comunque escludere che una contraddizione 
+esista. 
+Infatti Goedel ha dimostrato che non è possibile dimostrare che 
+non ci siano contraddizioni nel sistema assiomatico da noi considerato.
+}.
+
+Per completare la teoria degli insiemi introduciamo anche il concetto di
+\emph{insieme delle parti}%
+\mymargin{insieme delle parti}%
+\index{insieme!delle parti}
+\index{$\mathcal P(\cdot)$}% 
+cioè l'insieme di tutti i sottoinsiemi di un insieme dato.
+\begin{axiom}[insieme delle parti]
+\label{def:insieme_parti}%
+Se $A$ è un insieme esiste l'insieme $\P(A)$ delle parti di $A$
+che è l'insieme di tutti i sottoinsiemi di $A$:
+\begin{equation}\label{eq:insieme_delle_parti}
+  x \in \mathcal P(A) \iff x \subset A.
+\end{equation}
+\end{axiom}
+
+\subsection{gli ordinali finiti di Von Neumann}
+
+Con i soli assiomi che abbiamo introdotto fin'ora possiamo 
+costruire un numero arbitrariamente grande di insiemi finiti
+tramite una costruzione dovuta a Von Neumann. 
+Possiamo definire 
+\begin{equation}\label{eq:vonNeumann}
+  \begin{aligned}
+  0&=\emptyset, &
+  1&=0\cup\ENCLOSE{0}, &
+  2&=1\cup\ENCLOSE{1}, &
+  3&=2\cup\ENCLOSE{2}, &
+  4&=3\cup\ENCLOSE{3},\\
+  5&=4\cup\ENCLOSE{4}, &
+  6&=5\cup\ENCLOSE{5}, &
+  7&=6\cup\ENCLOSE{6}, &
+  8&=7\cup\ENCLOSE{7}, &
+  9&=8\cup\ENCLOSE{8}.
+  \end{aligned}
+\end{equation}
+Esplicitando queste definizioni si osserva che:
+$0=\ENCLOSE{}$ è un insieme con zero elementi, 
+$1=\ENCLOSE{0}=\ENCLOSE{\ENCLOSE{}}$ è un insieme con un elemento (lo zero),
+$2=\ENCLOSE{0,1}=\ENCLOSE{\ENCLOSE{},\ENCLOSE{\ENCLOSE{}}}$ è un insieme con due elementi (i due precedenti), 
+$3=\ENCLOSE{0,1,2}=\ENCLOSE{\ENCLOSE{},\ENCLOSE{\ENCLOSE{}},\ENCLOSE{\ENCLOSE{},\ENCLOSE{\ENCLOSE{}}}}$ 
+è un insieme con tre elementi (i tre precedenti),
+etc.
+Procedendo a piacere è possibile definire un numero arbitrariamente 
+grande di insiemi finiti, uno diverso dall'altro.
+
+Questi particolari insiemi esistono certamente e potremo quindi utilizzarli 
+nel seguito per fare esempi di insiemi finiti.
+E' anche possibile (ma non necessario) utilizzare questi insiemi 
+per definire i numeri naturali (si veda l'Assioma di infinito~\ref{axiom:infinito}).
+
+\begin{exercise}
+Verificare che $4\in 5$, 
+che $4\subset 5$ 
+e che $4\neq 5$.
+\end{exercise}
+
+\subsection{relazioni}
+
+Grazie agli assiomi precedenti è possibile definire il prodotto cartesiano
+di due insiemi: sarà questo un concetto molto importante nel seguito.
+Innanzitutto dobbiamo definire il concetto di \emph{coppia}%
+\mymargin{coppia}%
+\index{coppia}: dati
+$a,b$ definiamo la coppia $(a,b)$ con primo elemento $a$ e secondo elemento $b$
+come un oggetto che ha questa proprietà:%
+\mynote{%
+Un modo formale per definire la coppia tramite l'utilizzo di insiemi 
+è dovuto a Kuratowski:
+\[
+   (a,b) = \ENCLOSE{\ENCLOSE{a},\ENCLOSE{a,b}}.
+\]
+Non è difficile verificare che questa definizione soddisfa la 
+proprietà~\eqref{eq:coppia}.
+Così possiamo definire l'insieme prodotto
+\begin{align*}
+  A\times B = \big\{&C\in \mathcal P(\mathcal P(A\cup B))\colon \\ 
+  & \exists a\colon \exists b\colon a\in A, b\in B, \\
+  & C=\ENCLOSE{\ENCLOSE{a},\ENCLOSE{a,b}}\big\}
+\end{align*}
+}%
+\begin{equation}\label{eq:coppia}
+  (a, b) = (a', b') \iff (a=a') \land (b=b').
+\end{equation}
+Stiamo cioè richiedendo che una coppia venga identificata dai due
+elementi che la compongono in cui, però, è importante anche l'ordine in
+cui vengono elencati (a differenza dell'insieme $\ENCLOSE{a,b}$, in cui
+l'ordine degli elementi è irrilevante).
+Nel seguito useremo anche la notazione $a \mapsto b$ per indicare 
+la coppia $(a,b)$ e la chiameremo \emph{freccia}%
+\mymargin{freccia}%
+\index{freccia} da $a$ in $b$.
+
+Il \emph{prodotto cartesiano} $A\times B$ di due insiemi $A$ e $B$
+è l'insieme di tutte le coppie
+il cui primo elemento sta in $A$ e
+il secondo elemento sta in $B$:
+\[
+  (a, b) \in A \times B \iff (a\in A \land b\in B).
+\]
+
+Se rappresentiamo gli elementi di $A$ come dei punti su una retta
+orizzontale (asse delle $x$) e gli elementi di $B$ come dei punti
+su una retta verticale (asse delle $y$) gli elementi di $A\times B$
+possono essere rappresentati come i punti del piano che proiettati sull'asse
+delle $x$ vanno in $A$ e proiettati sull'asse delle $y$ vanno in $B$
+(si veda la figura~\ref{fig:funzione}). 
+  
+Una \emph{relazione}%
+\mymargin{relazione}%
+\index{relazione} $R$ tra gli elementi di un insieme $A$ e gli elementi
+di un insieme $B$ non è altro che un sottoinsieme di $A\times B$
+ovvero $R\in \mathcal P(A\times B)$.
+Per una relazione $R\subset A\times B$ si userà la notazione infissa
+$aRb$ per indicare $(a,b)\in R$.
+Oppure con la notazione delle freccie potremo 
+scrivere $a \stackrel R \mapsto b$
+per indicare che la freccia $a\mapsto b$ è un elemento di $R$. 
+Ad esempio se prendo $A=B=\ENCLOSE{1,2,3}$ e considero la relazione 
+$R=\ENCLOSE{(1,2),(1,3),(2,3)}$
+il predicato $aRb$ rappresenta l'usuale relazione d'ordine $a<b$ sui
+tre numeri considerati.
+
+\subsubsection{relazioni di equivalenza}
+
+\begin{definition}[relazione di equivalenza]
+\label{def:equivalenza}%
+\label{def:insieme_quoziente}%
+Sia $R\subset A\times A$ una relazione sull'insieme $A$. Diremo che 
+$R$ è una \emph{relazione di equivalenza}%
+\mymargin{relazione di equivalenza}%
+\index{relazione!di equivalenza} se valgono le seguenti proprietà
+(tipiche dell'uguaglianza)
+per ogni $x,y,z\in A$:
+\begin{enumerate}
+  \item riflessiva: $x R x$;
+  \item simmetrica: se $x R y$ allora $y R x$;
+  \item transitiva: se $x R y$ e $yRz$ allora $x R z$.
+\end{enumerate}
+Se $R$ è una relazione di equivalenza diremo che $x$ è equivalente a $y$ 
+(tramite $R$) quando $xRy$.
+Dato $x \in A$ l'insieme di tutti gli elementi $y\in A$ che sono equivalenti 
+a $x$ si chiama \emph{classe di equivalenza}%
+\mymargin{classe di equivalenza}%
+\index{classe!di equivalenza} di $x$. 
+Si definisce in questo modo:
+\[
+  [x]_R = \ENCLOSE{y\in A \colon xRy}.  
+\]
+Se $R$ è una relazione di equivalenza su $A$ definiamo 
+l'\emph{insieme quoziente}
+\mymargin{insieme quoziente}%
+\index{insieme!quoziente}%
+$A/R$
+come l'insieme di tutte le classi di equivalenza:
+\[
+ A/R 
+ = \ENCLOSE{[x]_R\colon x\in A} 
+ = \ENCLOSE{B\in \mathcal P(A)\colon \exists x\in A\colon B=[x]_R}.  
+\]
+\end{definition}
+
+Se $R$ è una relazione di equivalenza su $A$ 
+l'insieme quoziente $A/R$ rappresenta l'insieme 
+degli oggetti di $A$ in cui vengono identificati tra loro gli oggetti tra loro 
+equivalenti.
+Spesso diremo che $A/R$ rappresenta $A$ a meno della equivalenza $R$.
+
+Ad esempio se $A=\ENCLOSE{1,2,3,4,5}$ e prendiamo $D=\ENCLOSE{1,3,5}$ (i numeri dispari)
+e $P=\ENCLOSE{2,4}=A\setminus D$ 
+(i numeri pari) possiamo definire una relazione $R$ su $A$ mediante la proprietà:
+\[
+ x R  y \iff (x\in P \land y\in P) \lor (x\in D \land y\in D).
+\]
+La relazione $R$ rappresenta la proprietà degli elementi di $A$ 
+di avere la stessa ``parità''. 
+Si avrà $[1]_R = [3]_R=[5]_R= D$ e $[2]_R=[4]_R=P$.
+Dunque 
+\[
+   A/R = \ENCLOSE{P,D} = \ENCLOSE{\ENCLOSE{2,4},\ENCLOSE{1,3,5}}
+\]
+e, in effetti, questo insieme ha due elementi $P$ e $D$ che è quello 
+che si ottiene identificando i numeri di $A$ in base alla proprietà 
+di essere pari o dispari. 
+
+L'insieme quoziente $A/R$ è una \emph{partizione}%
+\mymargin{partizione}%
+\index{partizione} di $A$ in quanto 
+è formato da insiemi disgiunti la cui unione è tutto $A$. In effetti 
+dare una partizione di $A$ è equivalente a dare una relazione 
+di equivalenza.
+
+\subsubsection{relazioni d'ordine}
+
+\begin{definition}[relazione d'ordine]
+  \label{def:ordine}%
+  Una relazione
+  $\le$ su un insieme $X$ viene detta
+  \emph{relazione d'ordine}%
+\mymargin{relazione d'ordine}%
+\index{relazione!d'ordine}
+  se soddisfa le seguenti proprietà (per ogni $x,y,z\in X$):
+  \begin{enumerate}
+    \item[1.] riflessiva: $x\le x$;
+    \item[2.] antisimmetrica: $x\le y \land y\le x \implies x=y$;
+    \item[3.] transitiva: $x\le y \land y\le z \implies x\le z$.
+  \end{enumerate}
+  Si dice inoltre che la relazione d'ordine $\le$
+  è una relazione d'\emph{ordine totale}
+\mymargin{ordine totale}%
+  (o \emph{lineare}) 
+  \index{ordinamento!totale}%
+  \index{ordinamento!lineare}%
+  \index{totale!ordine}%
+  \index{lineare!ordine}%
+  e si dice che $X$ è \emph{totalmente ordinato} se vale
+  \index{totalmente ordinato}%
+  \begin{enumerate}
+    \item[4.] dicotomia: $x\le y \lor y\le x$.
+  \end{enumerate}
+\end{definition}
+
+\begin{definition}
+  \label{def:massimo}%
+  \label{def:minimo}%
+  \label{def:maggiorante}%
+  \label{def:minorante}%
+  \label{def:sup}%
+  \label{def:inf}%
+  Sia $\le$ una relazione d'ordine su un insieme $X$
+  sia $A\subset X$ e sia $x\in X$.
+
+  Diremo che $x$ è un \emph{maggiorante} di $A$ se per ogni $a\in A$
+  si ha $a\le x$.
+  \mymargin{maggiorante, minorante}%
+  Diremo che $x$ è un \emph{minorante} di $A$ se per ogni $a\in A$
+  si ha $x\le a$.
+  
+  Diremo che $x$ è il \emph{massimo} di $A$ 
+  e scriveremo $x=\max A$,
+  se $x$ è un maggiorante di $A$ e $x\in A$.
+  \mymargin{massimo, minimo}
+  Diremo che $x$ è il \emph{minimo} di $A$ 
+  e scriveremo $x=\min A$,
+  se $x$ è un minorante di $A$ e $x\in A$.
+  
+  Diremo che $x$ è l'\emph{estremo superiore} di $A$ 
+  e scriveremo $x=\sup A$,
+  se $x$ è un maggiorante di $A$
+  e non esistono maggioranti di $A$ più piccoli di $x$
+  ($x$ è il minimo dei maggioranti).
+  \mymargin{estremo superiore e inferiore}%
+  Diremo che $x$ è l'\emph{estremo inferiore} di $A$ 
+  e scriveremo $x=\inf A$,
+  se $x$ è un minorante di $A$
+  e non esistono minoranti di $A$ più grandi di $x$
+  ($x$ è il massimo dei minoranti).
+
+  Se l'insieme $A$ ha almeno un maggiorante $x\in X$, diremo che $A$ 
+  è \emph{superiormente limitato}. 
+  Se $A$ ha almeno un minorante diremo che $A$ è \emph{inferiormente limitato}.
+  Se $A$ è sia superiormente che inferiormente limitato diremo che $A$ è \emph{limitato}.
+\end{definition}
+
+Si osservi che il massimo e il minimo di un insieme $A$, se esistono, 
+sono unici. Infatti se $x$ e $y$ sono entrambi massimi di $A$
+si deve avere $x\le y$ in quanto $y$ è massimo, ma anche $y\le x$ 
+visto che anche $x$ è massimo. 
+Dunque $x=y$ per la proprietà antisimmetrica. 
+Lo stesso vale per il minimo.
+Visto che l'estremo superiore è il minimo dei maggioranti, e l'estremo inferiore 
+è il massimo dei minoranti, anche estremo superiore ed estremo inferiore,
+se esistono, sono unici.
+Se il massimo (o il minimo) esiste, allora coincide con 
+l'estremo superiore (o inferiore). 
+Viceversa vedremo degli esempi in cui l'estremo superiore esiste ma non 
+è elemento dell'insieme (dunque non è un massimo, e il massimo non esiste).
+
+In generale, se $\le$ è una relazione d'ordine su $X$ si definisce la 
+relazione inversa $\ge$ ponendo $x\ge y$ quando $y\le x$.
+La proprietà riflessiva identifica gli ordinamenti \emph{larghi}.
+Si definisce il corrispondente ordinamento stretto $<$
+ponendo $x < y$ quando $x\le y \land x\neq y$
+e la relazione inversa $>$ ponendo $x>y$ quando $y<x$.
+
+\begin{example} 
+  Sia $X=\ENCLOSE{1,2,3,4}$. 
+  Si può verificare che c'è una unica relazione d'ordine totale
+  su $X$ per cui si ha $1 \le 2$, $2 \le 3$ e $3 \le 4$
+  (scriveremo più brevemente $1 \le 2 \le 3 \le 4$).
+  Questa relazione è definita dall'insieme di coppie:
+  \[
+    R_\le = \ENCLOSE{
+          (1,1),(1,2),(1,3),(1,4),
+          (2,2),(2,3),(2,4),
+          (3,3),(3,4),
+          (4,4)}
+  \]
+  nel senso che $x\le y$ se $(x,y)\in R_\le$.
+  La relazione inversa $\ge$ corrisponde a:
+  \[
+    R_\ge = \ENCLOSE{
+          (1,1),(2,1),(3,1),(4,1),
+          (2,2),(3,2),(4,2),
+          (3,3),(4,3),
+          (4,4)}
+  \]
+  e le relazioni strette $<$ e $>$ corrispondono a:
+  \begin{align*}
+    R_< &= \ENCLOSE{
+          (1,2),(1,3),(1,4),
+          (2,3),(2,4),
+          (3,4)}, \\
+    R_> &= \ENCLOSE{
+          (2,1),(3,1),(4,1),
+          (3,2),(4,2),
+          (4,3)}.
+  \end{align*}
+
+  Preso $A=\ENCLOSE{1,3}\subset X$ si ha $\max A = \sup A = 3$ e 
+  $\min A = \inf A = 1$.
+  I maggioranti di $A$ sono $3$ e $4$. 
+  C'è un unico minorante che è $1$.
+\end{example}
+
+\begin{example}
+Se prendiamo l'insieme $A=\ENCLOSE{1,2,3}$ e consideriamo la relazione
+su $X=\mathcal P(A)$ definita da $x\le y$ se $x\subset y$ otteniamo una relazione 
+d'ordine che non è totale. 
+Infatti se $x=\ENCLOSE{1,2}$ e $y=\ENCLOSE{2,3}$ non è vero né che $x\subset y$ 
+né che $y\subset x$.
+Si ha $\max \P(A) = \sup \P(A) = A$ e $\min \P(A) = \inf \P(A) = \emptyset$.
+\end{example}
+
+\begin{example}
+L'insieme $\NN$ dei numeri naturali (verrà introdotto nel capitolo~\ref{sec:naturali}) non ha maggioranti 
+quindi non ha né massimo né estremo superiore. 
+Infatti scelto 
+qualunque numero naturale ce n'è sempre un'altro più grande.
+
+Se all'insieme dei numeri naturali aggiungiamo un elemento $\infty$,
+che definiamo essere più grande di ogni numero naturale, 
+otteniamo un insieme totalmente ordinato $X=\NN\cup\ENCLOSE{\infty}\supset \NN$
+tale che $\max X = \infty$ e $\sup \NN = \infty$ in $X$.
+Ma $\infty$ non è un elemento di $\NN$ quindi non è un massimo di $\NN$ in $X$.
+\end{example}
+
+\begin{definition}[ordinamento denso]
+  \label{def:ordinamento_denso}%
+  Un ordinamento si dice essere
+  \emph{denso}%
+\mymargin{ordinamento denso}%
+\index{denso} o \emph{divisibile} 
+  se tra due punti distinti esiste sempre un punto intermedio:
+  \index{denso!sottoinsieme}%
+  \index{denso!ordinamento}%
+  \index{sottoinsieme!denso}%
+  \index{ordinamento!denso}%
+  \mynote{Più in generale se $X$ è un insieme totalmente 
+  ordinato e $A\subset X$ si dice che $A$ è denso in $X$ 
+  se dati comunque $x,y\in X$ con $x<y$ esiste $c\in A$ tale che 
+  $x<c<y$.}
+  \[
+   x < y \implies \exists c \colon x < c < y.
+  \]
+\end{definition}
+
+\begin{example}
+Un esempio di ordinamento denso è quello dato sull'insieme dei punti 
+di una retta geometrica orientata.
+Dati due punti distinti $P$ e $Q$ sulla retta, 
+esiste sempre un punto intermedio tra $P$ e $Q$ (ad esempio il punto medio).
+
+Intuitivamente osserviamo che se ho un ordinamento denso su un insieme 
+e l'insieme contiene almeno due punti, allora l'insieme 
+contiene infiniti punti visto che c'è il punto medio, e poi il punto medio 
+tra il punto medio e uno dei due punti, e così via...
+\end{example}
+
+\begin{definition}[ordinamento continuo]
+  \label{def:ordinamento_continuo}%
+  Un ordinamento denso $\le$ su un insieme $X$ si dice essere
+  \emph{continuo}%
+\mymargin{ordinamento continuo}%
+\index{continuo}
+  \index{continuità!ordinamento}%
+  \index{ordine!continuo}%
+  (o \emph{Dedekind-completo})
+  \index{Dedekind-completo}%
+  \index{completo!Dedekind}%
+  se dati comunque $A,B$ sottoinsiemi non vuoti di $X$
+    tali che per ogni $a\in A$ e per ogni $b\in B$ risulta $a\le b$
+    (concisamente scriveremo $A\le B$ e diremo che $A$ e $B$ sono 
+    \emph{separati})
+    allora esiste $c\in X$ tale che per ogni $a\in A$ e ogni $b\in B$ 
+    si ha $a\le c \le b$ (concisamente scriveremo $A\le c \le B$
+    e diremo che $c$ è un elemento di separazione tra $A$ e $B$).
+\end{definition}
+
+A parole la precedente definizione si esprime dicendo che un insieme ordinato
+denso è \emph{continuo} se ogni coppia di sottoinsiemi separati 
+ammette un elemento di separazione.
+In molti testi questa condizione viene chiamata \emph{completezza}
+o, più precisamente, \emph{completezza di Dedekind}.
+\index{completezza!di Dedekind}%
+\index{Dedekind!completo}%
+
+\begin{example}
+Un insieme può essere denso ma non continuo. 
+Se ad esempio prendiamo due punti distinti $P$, $Q$ su una retta orientata, 
+in modo che sia $P<Q$, poi prendiamo il punto 
+medio $M$ tra $P$ e $Q$, poi il punto medio tra tutti i punti precedenti 
+e così via,
+intuitivamente otteniamo un insieme di punti $X$ che risulta essere denso.
+Ma se prendiamo l'insieme $A$ dei punti di $X$ che distano da $P$ 
+meno del doppio di quanto distano da $Q$, 
+e l'insieme $B=X\setminus A$ è chiaro che i due insiemi sono non vuoti e 
+separati, ma non esiste un punto di separazione tra $A$ e $B$ in quanto 
+tale punto dovrebbe avere distanza $\frac 1 3 PQ$ da $P$ mentre tutti i punti 
+di $X$ hanno una distanza da $P$ che si esprime con una frazione di $PQ$ 
+che ha come denominatore una potenza di $2$.
+\end{example}
+
+\mynote{
+Eviteremo di usare la definizione di continuità sugli ordinamenti che non sono 
+densi, altrimenti tutti gli insiemi finiti avrebbero un ordinamento continuo 
+e anche insiemi come $\NN$ e $\ZZ$ risulterebbero continui, cosa che 
+va contro l'intuizione di continuità che abbiamo in mente.
+}
+
+\begin{theorem}[esistenza del $\sup$]%
+  \label{th:sup}%
+  \mymark{**}%
+  Sia $X$ un insieme con un ordinamento continuo.
+  Se $A\subset X$ è un insieme non vuoto
+  e superiormente limitato, allora esiste $\sup A$ (l'estremo superiore).
+  Se $A\subset X$ è un insieme non vuoto e inferiormente limitato 
+  allora esiste $\inf A$ (l'estremo inferiore).
+
+  Se $X$ ha minimo allora $\sup\emptyset = \min X$
+  e se $X$ ha massimo allora $\inf\emptyset = \max X$.
+  \end{theorem}
+  %
+  \begin{proof}
+  \mymark{*}
+  Consideriamo l'insieme dei maggioranti di $A$:
+  \[
+  B = \ENCLOSE{ b\in \RR \colon b \ge A}.
+  \]
+  Preso $a\in A$ e $b\in B$ essendo che $b$ è un maggiorante di $A$,
+  si deve avere $a\le b$. Dunque $A$ e $B$ sono separati.
+  Inoltre $A$ è non vuoto per ipotesi e $B$ è non vuoto perché 
+  $A$ è superiormente limitato e dunque esiste almeno un maggiorante di $A$.
+  Dunque, essendo per ipotesi l'ordinamento continuo,
+  deve esistere $c\in X$ che è un maggiorante di $A$ e un minorante di $B$.
+  Visto che $c$ è un maggiorante di $A$ si ha $c\in B$.
+  Ma $c$ è anche un minorante di $B$ dunque $c=\min B$.
+  Essendo $c$ il minimo dei maggioranti di $A$ si ha, per definizione,
+  $c= \sup A$.
+ì
+  Dimostrazione analoga vale per l'estremo inferiore.
+
+  Per quanto riguarda l'insieme vuoto notiamo che ogni $x\in X$ 
+  è sia un maggiorante che un minorante dell'insieme vuoto.
+  Dunque l'insieme dei maggioranti e l'insieme dei minoranti coincidono con $X$.
+  Il minimo dei maggioranti è dunque $\min X$ e il massimo dei minoranti è $\max X$.
+\end{proof}
+
+Osserviamo che l'esistenza del $\sup$
+degli insiemi non vuoti e superiormente limitati
+è in effetti una condizione equivalente all'assioma di continuità.
+Infatti se $A\le B$ certamente $\sup A$, se esiste, è elemento 
+di separazione tra $A$ e $B$.
+
+La retta geometrica è un esempio di insieme che 
+vorremmo avesse la proprietà di continuità.
+Questo perché quando si traccia una retta che attraversa una figura 
+geometrica vorremmo avere la certezza che, 
+se la retta ha un punto interno alla figura ed un punto esterno, 
+allora abbia anche un punto di intersezione (per noi questo sarà il teorema 
+degli zeri~\ref{th:zeri}).
+Questi punti di intersezione possono essere  
+visti come punti di separazione tra i punti
+interni e i punti esterni alla figura:
+per questo motivo siamo interessati alle proprietà di continuità.
+
+La questione è delicata e non banale. 
+Invece che puntare a formalizzare gli assiomi della geometria di Euclide
+noi avremo un approccio più algebrico nel senso che andremo a definire 
+la retta geometrica utilizzando l'insieme $\RR$ dei numeri reali.
+Gran parte di questo capitolo sarà sostanzialmente dedicato a questo scopo.
+Ma si veda la discussione su Euclide e Hilbert nelle note storiche 
+a fine capitolo.
+

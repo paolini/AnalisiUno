@@ -1,0 +1,1549 @@
+\section{i numeri naturali}
+\label{sec:naturali}
+
+Sebbene le proprietà dei numeri naturali dovrebbero essere intuitivamente già ben note,
+la loro formalizzazione non è banale.
+In particolare alcune dimostrazioni risultano complicate perché quando dobbiamo dimostrare 
+molti fatti ovvi, bisogna fare attenzione a non utilizzare proprietà che ci risultano ovvie 
+ma che ancora non sono state dimostrate.
+Per questo motivo è perfettamente legittimo se in prima lettura saltiamo le dimostrazioni 
+per capire il senso generale del discorso e poi, se necessario, torniamo indietro per
+approfondire i dettagli.
+
+I numeri naturali $0,1,2,\dots$ sono i numeri che utilizziamo per contare o per 
+fare le iterazioni. C'è un primo numero naturale, che per noi sarà $0$, e poi
+per ogni numero naturale $n$ ce n'è uno successivo che chiameremo $\sigma(n)$. 
+Partendo da $0$ e passando al successivo si raggiungono tutti i numeri naturali.
+
+\begin{definition}[assiomi di Peano]
+  \label{def:assiomi_peano}%
+  \label{def:naturali}%
+  \mynote{Giuseppe Peano (1858--1932) vedi note storiche a pag.~\pageref{nota:Peano}} 
+  \index{numeri!naturali}%
+  \index{$\NN$}%
+  \index{Peano}%
+  \index{assiomi!di Peano}%
+  \index{insieme!induttivo}%
+  \index{induttivo}%
+Dato un insieme $\NN$, 
+un elemento $0\in \NN$ 
+e una funzione $\sigma\colon \NN\to\NN$ 
+diremo che $(\NN,0,\sigma)$
+soddisfa gli assiomi di Peano,
+o più semplicemente che $\NN$ è un insieme di numeri naturali,
+se valgono le seguenti proprietà: 
+\mynote{La funzione $\sigma$ ci dà il successore di ogni numero. 
+Definiremo $1=\sigma(0)$, $2=\sigma(2)$, $3=\sigma(2)$, \dots
+Il primo assioma di Peano dice che numeri diversi hanno 
+numeri successori diversi. 
+Il secondo assioma ci dice che il primo 
+numero naturale, per noi lo $0$, 
+non è il successore di nessun'altro mentre ogni altro numero 
+ne ha uno precedente. Il terzo assioma, il principio di induzione, 
+ci dice che ogni numero naturale può essere raggiunto dallo $0$ 
+facendo un numero finito di passaggi al successore.}
+\begin{enumerate}
+  \item $\sigma$ è iniettiva;
+  \item $\sigma(\NN) = \NN \setminus\ENCLOSE{0}$;
+  \item se $A\subset \NN$ e 
+  \begin{enumerate} 
+    \item[(i)] $0\in A$ 
+    \item[(ii)] $n\in A \implies \sigma(n)\in A$
+  \end{enumerate}
+  allora $A=\NN$.
+\end{enumerate}
+\end{definition}
+
+Nel seguito supporremo sempre che $\NN$ sia un insieme che soddisfa la precedente definizione.
+Vedremo nel Teorema~\ref{th:unicitaN} che due diversi insiemi che soddisfano gli assiomi di Peano 
+sono isomorfi, cioè possono essere messi in corrispondenza biunivoca mantenendo la stessa struttura.
+In questo senso possiamo dire che gli assiomi di Peano caratterizzano univocamente 
+l'insieme dei numeri naturali. 
+Diremo quindi che $\NN$ è \emph{l}'insieme dei numeri naturali piuttosto 
+che \emph{un} insieme di numeri naturali.
+
+Dato $n\in \NN$ il numero $\sigma(n)$ si chiama il \emph{successore}%
+\mymargin{successore}%
+\index{successore} di $n$. 
+Il numero $0\in \NN$, che per assioma non è il successore di nessun'altro 
+numero naturale, si chiama \emph{zero}%
+\mymargin{zero}%
+\index{zero}. 
+Per comodità diamo un nome amche alle altre \emph{cifre decimali}%
+\mymargin{cifre decimali}%
+\index{cifre!decimali}%
+ovvero ai primi numeri naturali
+(più avanti introdurremo la notazione posizionale per poter rappresentare ogni numero naturale 
+con una sequenza di cifre decimali):
+\begin{equation}\label{eq:cifre}
+\begin{gathered}
+ 1 \defeq \sigma(0),\quad  
+ 2 \defeq \sigma(1),\quad
+ 3 \defeq \sigma(2),\quad 
+ 4 \defeq \sigma(3),\quad
+ 5 \defeq \sigma(4),\\ 
+ 6 \defeq \sigma(5),\quad 
+ 7 \defeq \sigma(6),\quad 
+ 8 \defeq \sigma(7),\quad 
+ 9 \defeq \sigma(8)
+\end{gathered}
+\end{equation}
+e osserviamo che $\sigma$ è l'usuale operazione del contare:
+ \[
+ 0 \stackrel\sigma\mapsto 1 \stackrel\sigma\mapsto 2 \stackrel\sigma\mapsto 
+ 3 \stackrel\sigma\mapsto 4 \stackrel\sigma\mapsto 5 \stackrel\sigma\mapsto 
+ 6 \stackrel\sigma\mapsto \dots  n \stackrel\sigma\mapsto \sigma(n) \dots
+ \]
+
+I primi due assiomi di Peano (definizione~\ref{def:assiomi_peano}) 
+servono a garantire che in questo processo del \emph{contare}%
+\mymargin{contare}%
+\index{contare}
+troviamo sempre numeri diversi (non si torna mai indietro) in quanto nessun numero 
+può avere come successore $0$ o un numero già incontrato in precedenza (che 
+se non è zero è il successore di un altro numero).
+Questa proprietà è per certi versi paradossale
+(paradosso di Galileo, o paradosso dell'hotel Hilbert)
+\index{paradosso!di Galileo}%
+\index{paradosso!degli insiemi infiniti}%
+\index{hotel Hilbert}%
+\index{Hilbert!hotel}%
+ed per Dedekind è la definizione di insieme infinito (tra poco la andremo a introdurre).%
+\mynote{Galileo Galilei (1564--1642) vedi note storiche a pag.~\pageref{nota:Galileo}}%
+
+Gli assiomi che abbiamo visto finora non garantiscono l'esistenza di insiemi infiniti, e dunque se 
+vogliamo garantire che l'insieme dei numeri naturali effettivamente esiste, 
+dobbiamo aggiungere un ulteriore assioma. 
+
+Potremmo semplicemente richiedere per assioma che esiste un insieme $\NN$ che soddisfa gli assiomi
+di Peano~\ref{def:assiomi_peano}.
+Ad esempio potremmo richiedere 
+che esista l'insieme degli ordinali di Von Neumann \eqref{eq:vonNeumann}. 
+\mynote{
+Se denotiamo con $P(\alpha)$ il predicato 
+$(\emptyset\in \alpha \land \forall n\colon n\in \alpha) \implies n\cup\ENCLOSE{n}\in \alpha$
+allora l'assioma che garantisce l'esistenza dell'insieme $\omega$ degli ordinali finiti 
+può essere scritto nella forma:
+  $\exists \omega\colon (P(\omega) \land \forall \alpha\colon P(\alpha)\implies \omega\subset \alpha)$.
+  La funzione $\sigma\omega\colon\omega$ sarebbe quindi $\sigma(n) = n\cup\ENCLOSE n$.
+}
+
+Ma sembra più naturale richiedere più semplicemente che esista almeno un insieme infinito,
+vedremo infatti che questo è sufficiente a garantire l'esistenza dell'insieme dei numeri naturali
+(teorema~\ref{th:esistenza_naturali}, dove si dimostra che ogni insieme infinito contiene un insieme 
+che soddisfa gli assiomi di Peano).
+
+Investighiamo quindi per un attimo cosa significa che un insieme sia infinito.
+Per dare una definizione indipendente dall'esistenza dei numeri naturali possiamo usare 
+una idea dovuta a Dedekind:
+un insieme $X$ è infinito se può essere messo in corrispondenza 
+biunivoca con un suo sottoinsieme proprio: 
+esiste $f\colon X\to X$ tale che $f$ è iniettiva ma non suriettiva. 
+Intuitivamente questo non può succedere su un insieme finito: 
+se $X$ è finito ci aspettiamo che ogni suo sottoinsieme sia strettamente più piccolo di $X$
+e quindi non possa essere messo in corrispondenza con tutto $X$.
+
+\begin{definition}[insieme infinito]
+  \label{def:infinito}%
+  Diremo che un insieme $X$ è \emph{finito}
+  \index{insieme!finito}%
+  \index{finito!insieme}%
+  \index{Dedekind!finito}%
+  (più precisamente: Dedekind-finito)
+  se ogni funzione iniettiva $f\colon X\to X$ è anche suriettiva.
+  \mymargin{insieme finito}%
+\index{insieme finito}%
+
+  Diremo che un insieme $X$ è \emph{infinito} 
+  (più precisamente Dedekind-infinito)
+  \index{insieme!infinito}%
+  \index{infinito!insieme}%
+  \index{Dedekind!infinito}%
+  se non è finito ovvero
+  se esiste $f\colon X\to X$ iniettiva ma non suriettiva.
+  \mymargin{insieme infinito}%
+\index{insieme infinito}%
+\end{definition}
+
+Come abbiamo già osservato gli assiomi di Peano (definizione~\ref{def:assiomi_peano}) 
+richiedono che la funzione $\sigma\colon \NN\to\NN$ sia iniettiva ma non suriettiva.
+Risulta quindi che $\NN$ deve essere un insieme infinito.
+
+Ma non si può escludere che tutti gli insiemi siano finiti (e che quindi $\NN$ non esista) 
+se non introduciamo il seguente assioma.
+
+\begin{axiom}[infinito]
+  \label{axiom:infinito}%
+  Esiste un insieme infinito. 
+\end{axiom}
+
+Grazie al precedente assioma il teorema seguente garantisce
+l'esistenza di un insieme $\NN$ che soddisfa gli assiomi di Peano.
+
+\begin{theorem}[esistenza dei numeri naturali]
+  \label{th:esistenza_naturali}%
+Se $X$ è un qualunque insieme infinito (definizione~\ref{def:infinito})
+esistono $\NN\subset X$, $0\in \NN$ e $\sigma\colon \NN\to\NN$ 
+che soddisfano gli assiomi di Peano (definizione~\ref{def:assiomi_peano}).
+\end{theorem}
+%
+\begin{proof}
+Se $X$ è infinito esiste $f\colon X\to X$ iniettiva ma non suriettiva. 
+Scegliamo arbitrariamente $0\in X\setminus f(X)$. 
+Preso un sottoinsieme $I\subset X$ diremo che $I$ è \emph{induttivo}
+\mymargin{induttivo}%
+\index{induttivo}%
+se $0\in I$ e $n\in I\implies f(n)\in I$. 
+Possiamo quindi definire:
+\[
+  \NN = \bigcap \ENCLOSE{I\subset X\colon \text{$I$ induttivo}}.
+\]
+Si verifica facilmente che $\NN$ è anch'esso un sottoinsieme induttivo di $X$.
+\mynote{Nella definizione~\ref{def:restrizione} viene introdotto il simbolo
+$\llcorner$ per la restrizione di funzione.}
+Dunque per ogni $n\in \NN$ si ha $f(n)\in \NN$ e quindi possiamo 
+definire $\sigma\colon \NN\to \NN$ come la restrizione di $f$ 
+ad $\NN$: $\sigma=f\llcorner \NN$.
+
+Osserviamo quindi che $\sigma$ soddisfa gli assiomi di Peano.
+Il primo assioma è conseguenza dell'iniettività di $f$.
+Il secondo è verificato per come abbiamo scelto $0$.
+Per verificare il terzo assioma consideriamo un qualunque insieme 
+$A\subset \NN$ tale che $0\in A$ e tale che se $n\in A$ anche $n+1\in A$.
+Per definizione $A$ è induttivo e quindi certamente 
+$\NN\subset A$ visto che $\NN$, per come è definito,
+è sottoinsieme di ogni insieme induttivo.
+\end{proof}
+
+La costruzione precedente ci dice che l'insieme $\NN$ è il più piccolo insieme infinito
+nel senso che: se $X$ è infinito allora $X$ contiene una copia isomorfa di $\NN$. 
+\mynote{
+Grazie al teorema~\ref{th:cantor_bernstein}, potremmo dire che se abbiamo due insiemi 
+che soddisfano gli assiomi di Peano, essendoci una immersione iniettiva di ognuno
+nell'altro (teorema~\ref{th:esistenza_naturali}), 
+allora esiste una corrispondenza biunivoca tra i due insiemi.
+Nel teorema~\ref{th:unicitaN} vedremo che non solo esiste una corrispondenza biunivoca 
+ma anche che esiste una tale corrispondenza che preserva la struttura 
+(cioè l'operazione $\sigma$ e l'elemento $0$). 
+}
+
+\subsection{principio di induzione}
+
+L'ultimo degli assiomi di Peano 
+ci dice che se un sottoinsieme dei numeri naturali contiene lo 
+zero e contiene il successore di ogni suo elemento, allora contiene tutti i 
+numeri naturali.
+Serve a garantire che il processo del contare esaurisca tutti 
+i numeri naturali, e che quindi non ci siano dei naturali \emph{irraggiungibili}
+partendo da zero.
+Questa proprietà viene usualmente utilizzata mediante il seguente.
+
+\mynote{%
+Formalmente dovremmo dire che $P$ è una funzione da $\NN$ in $\{V,F\}$
+dove $V$,$F$ sono due valori distinti che interpretiamo come vero e falso.
+Infatti il concetto di \emph{predicato} non è definito all'interno del 
+sistema formale, ma è un concetto esterno.
+Ma è ovvio che ad ogni predicato $P$ corrisponde 
+una funzione $P\colon \NN\to \{V,F\}$ e viceversa.
+}
+
+\index{principio!di induzione}%
+\index{induzione matematica}%
+\begin{theorem}[principio di induzione]
+  Sia $P(n)$ un predicato.
+  Se 
+  \begin{enumerate}
+    \item vale $P(0)$
+    \item $\forall n\in \NN\colon P(n)\implies P(n+1)$
+  \end{enumerate} 
+  allora $\forall n\in \NN\colon P(n)$.
+\end{theorem}
+%
+\begin{proof}
+  Consideriamo l'insieme $A=\{n\in \NN\colon P(n)\}$.
+  Grazie alle ipotesi del teorema possiamo applicare la terza
+  proprietà dei numeri naturali per dedurre che $A=\NN$.
+  Dunque $P(n)$ è soddisfatta per ogni $n\in\NN$.
+\end{proof}
+
+Tramite il principio di induzione è anche possibile 
+definire funzioni (o operazioni) per induzione.
+Grazie al seguente teorema~\ref{th:induzione}, 
+se vogliamo definire una funzione $f\colon\NN\to X$
+basterà dichiarare il valore di $f(0)$ e definire $f(n+1)$ 
+(cioè $f(\sigma(n)))$ in funzione di $f(n)$.
+Questo metodo per definire una funzione si chiama 
+\emph{definizione ricorsiva} (o per ricorrenza) in quanto definisce 
+il valore della funzione sul termine $n$-esimo ricorrendo
+al valore assegnato sui termini precedenti.
+
+\begin{theorem}[definizione per induzione]
+  \label{th:induzione}%
+  Sia $X$ un insieme, sia $\alpha\in X$ e sia $g\colon X\to X$ una funzione.
+  Allora esiste una unica funzione $f\colon \NN \to X$ tale che
+  \begin{equation}\label{eq:4835628}
+    \begin{cases}
+      f(0) = \alpha, \\
+      f(\sigma(n)) = g(f(n)).
+    \end{cases}
+  \end{equation}
+  Si avrà dunque
+  \[
+    f(0) = \alpha,\quad
+    f(1) = g(\alpha),\quad
+    f(2) = g(g(\alpha)),\quad
+    f(3) = g(g(g(\alpha)))\dots
+  \]
+  Più in generale se abbiamo $\alpha\in X$ e una funzione $g\colon \NN \times X \to X$
+  esisterà una unica funzione $f\colon \NN \to X$ tale che
+  %
+  \begin{equation}
+    \begin{cases}
+      f(0) = \alpha, \\
+      f(\sigma(n)) = g(n, f(n)).
+    \end{cases}
+  \end{equation}
+\end{theorem}
+%
+\begin{proof}
+Dobbiamo ricordarci che le funzioni $f\colon \NN \to X$ non sono altro che relazioni 
+e cioè sottoinsiemi del prodotto $\NN\times X$.
+Le proprietà~\eqref{eq:4835628} si scrivono dunque nella forma 
+$(0,\alpha)\in f$ e $(n,x) \in f \implies (\sigma(0),g(x))\in f$
+(se $f(n)=x$ allora $f(\sigma(n))=g(x)$).
+L'idea è quindi di prendere il più piccolo sottoinsieme di $\NN\times X$ 
+che possa rappresentare una funzione con le proprietà richieste.
+Consideriamo dunque la famiglia di insiemi:
+\[
+\mathcal F = \ENCLOSE{F\in \mathcal P(\NN\times X)\colon 
+  (0,\alpha)\in F,\quad (n,x)\in F \Rightarrow (\sigma(n),g(x))\in F}.
+\]
+Chiaramente $\mathcal F$ non è vuota in quanto $\NN\times X \in \mathcal F$.
+Possiamo dunque farne l'intersezione e definire un insieme $f$:
+\[
+  f = \bigcap_{F\in \mathcal F} F.
+\]
+L'insieme $f$ che abbiamo definito rappresenta una relazione tra $\NN$ e $X$.
+Visto che $(0,\alpha)\in F$ per ogni $F\in \mathcal F$ dovrà essere 
+$(0,\alpha)\in f$.
+Inoltre se $(n,x)\in f$ allora $(n,x)\in F$ per ogni $F\in \mathcal F$ 
+e quindi $(\sigma(n),g(x))\in F$ per ogni $F\in \mathcal F$
+da cui $(\sigma(n),g(x))\in f$. Significa che $f\in \mathcal F$.
+
+Vogliamo ora dimostrare che $f$ è una funzione, cioè che è univocamente definita 
+su tutto $\NN$.
+Per prima cosa consideriamo l'insieme su cui $f$ è definita 
+e cioè $A=\ENCLOSE{n\in \NN\colon \exists x\in X\colon (n,x)\in f}$
+e dimostriamo, per induzione, che $A=\NN$.
+In effetti $(0,\alpha)\in f$ quindi $0\in A$. 
+E se $n\in A$ sappiamo che esiste $x\in X$ tale che $(n,x)\in f$ 
+e dunque, essendo $f\in \mathcal F$, anche $(\sigma(n),g(x))\in f$
+da cui $\sigma(n)\in A$. 
+Abbiamo dimostrato che $f$ è definita su tutto $\NN$.
+
+Dimostriamo ora che $f$ è univoca. Consideriamo 
+l'insieme su cui $f$ è univocamente definita: 
+$B=\ENCLOSE{n\in \NN\colon \exists! x\in X\colon (n,x)\in f}$.
+Di nuovo vogliamo dimostrare per induzione che $B=\NN$. 
+Per dimostrare che $0\in B$, visto che già sappiamo che $(0,\alpha)\in f$, 
+dobbiamo dimostrare che se $x\neq \alpha$ si ha $(0,x)\not\in f$.
+Sia dunque $x\neq \alpha$ e consideriamo 
+l'insieme $F=f\setminus\ENCLOSE{(0,x)}$.
+Chiaramente $F\in \mathcal F$ in quanto $(0,\alpha)\in F$
+visto che $(0,\alpha)\in f$ e $(0,\alpha)\neq (0,x)$
+inoltre se $(n,y)\in F$ allora $(n,y)\in f$ 
+e quindi $(\sigma(n),g(y)) \in f$.
+Ma certamente $(\sigma(n),g(y))\neq (0,x)$ in quanto $\sigma(n)\neq 0$ 
+dunque $(\sigma(n),g(y))\in F$.
+Visto che $F\in \mathcal F$ si deve avere $f\subset F$ e dunque 
+$(0,x)\not \in f$. Dunque $f$ è univocamente definita in $0$.
+
+Dobbiamo ora mostrare che se $n\in B$ anche $\sigma(n)\in B$.
+Se $n\in B$ significa che c'è un unico $x\in X$ tale che $(n,x)\in f$
+e certamente anche $(\sigma(n),g(x))\in f$.
+Prendiamo allora $y\neq g(x)$, vorremo dimostrare che $(\sigma(n),y)\not \in f$.
+Consideriamo, similmente a prima, l'insieme $F=f\setminus\ENCLOSE{(\sigma(n),y)}$
+e cerchiamo di dimostrare che $F\in \mathcal F$.
+Chiaramente $(0,\alpha)\in F$ perché $(0,\alpha)\in f$ 
+e non può essere $(0,\alpha)=(\sigma(n),y)$ in quanto $\sigma(n)\neq 0$.
+Se ora supponiamo che sia $(m,z)\in F$ certamente sarà $(m,z)\in f$ 
+e dunque $(\sigma(m),g(z))\in f$: 
+dobbiamo mostrare che $(\sigma(m),g(z))\in F$. 
+D'altra parte se fosse $(\sigma(m), g(z))=(\sigma(n),y)$ 
+dovrebbe essere $m=n$ in quanto $\sigma$ è iniettiva. 
+Ma visto che $f$ è univocamente definita su $n$ dovrà allora essere 
+anche $(n,z) = (n,x)$ e quindi $g(z)=g(x) \neq y$. 
+Dunque $(\sigma(m),g(z))\in F$ e $F\in \mathcal F$.
+Ma allora $f\subset F$ e quindi $(\sigma(n),y)\not \in f$.
+Significa che $f$ è univocamente definita anche in $\sigma(n)$.
+Per induzione $B=\NN$ ed $f$ è una funzione $f\colon \NN\to X$.
+
+Ovviamente visto che $f\in \mathcal F$ sappiamo che $f$ 
+soddisfa le proprietà richieste dal teorema.
+
+Nella seconda parte del teorema, dove $g\colon \NN\times X \to X$,
+possiamo considerare l'insieme $Y=\NN\times X$ e la funzione 
+$G\colon Y\to Y$ definita da $G(n,x) = (\sigma(n), g(n,x))$.
+Allora applicando la prima parte possiamo trovare $F\colon \NN\to Y$
+tale che $F(0) = (0,\alpha)$ e $F(\sigma(n)) = G(F(n))$.
+Basterà prendere come $f(n)$ la seconda componente di $G(n)$.
+\end{proof}
+
+\begin{theorem}[addizione su $\NN$]
+  \label{th:addizione_naturali}%
+  \index{addizione!su $\NN$}%
+  \mymargin{addizione}%
+Su $\NN$ è definita in modo unico una operazione di addizione 
+che soddisfa le seguenti proprietà:
+\begin{equation}\label{eq:3408923}
+  \begin{cases}
+    n + 0 = n,\\
+    n + \sigma(m) = \sigma(n+m).
+  \end{cases}
+\end{equation}
+
+Questa operazione rende $\NN$ un monoide additivo commutativo 
+con elemento neutro $0$.
+\end{theorem}
+\begin{proof}
+L'operazione di addizione è univocamente definita 
+grazie al teorema~\ref{th:induzione}.
+
+Per dimostrare che $\NN$ è un monoide commutativo dobbiamo verificare
+che $0$ è elemento neutro e che valgono la proprietà associativa 
+e commutativa.
+
+Chiaramento $n+0=n$ per la definizione~\eqref{eq:3408923}. 
+Verifichiamo ora che anche $0+m=m$ e lo facciamo per induzione su $m$.
+Se $m=0$ risulta vero per la definizione.
+Per quanto riguarda $0+\sigma(m)$ abbiamo per definizione:
+$0+\sigma(m)=\sigma(0+m)$ e per ipotesi induttiva $0+m=m$.
+Dunque $0+\sigma(m)=\sigma(m)$, che è quanto volevamo dimostrare.
+
+Verifichiamo la proprietà associativa: $n+(m+k) = (n+m)+k$, lo 
+facciamo per induzione su $k$. 
+Se $k=0$ allora $n+(m+0)=n+m=(n+m)+0$, per le proprietà precedenti.
+Per il passo induttivo valutiamo (usando sempre la definizione~\eqref{eq:3408923}):
+$n+(m+\sigma(k)) = n+\sigma(m+k) =\sigma(n+(m+k))$.
+L'ipotesi induttiva garantisce che $n+(m+k)=(n+m)+k$ e quindi:
+$n+(m+\sigma(k)) = \sigma((n+m)+k) = (n+m)+\sigma(k)$
+che è quanto volevamo dimostrare.
+
+Verifichiamo infine la proprietà commutativa: $n+m=m+n$.
+Lo facciamo per induzione su $m$. 
+Se $m=0$ è banale per le proprietà dell'elemento neutro.
+Il passo induttivo risulta immediatamente 
+grazie alla definizione~\ref{eq:3408923} 
+e all'ipotesi induttiva: 
+$n+\sigma(m) = \sigma(n+m) = \sigma(m+n) = m+\sigma(n)$.
+\end{proof}
+
+\begin{example}\label{ex235}
+  Dimostrare che $2+3=5$.
+\end{example}  
+%
+\begin{proof}[Svolgimento]
+Ricordiamo che, per definizione \eqref{eq:cifre}, 
+$1=\sigma(0)$, $2=\sigma(1)$, $3=\sigma(2)$, $4=\sigma(3)$ e $5=\sigma(4)$.
+Dobbiamo usare le proprietà $n+\sigma(m) = \sigma(n+m)$ 
+e $n+0=n$:
+\begin{align*}
+2+3 &= 2 + \sigma(2) = \sigma(2+2) = \sigma(2+\sigma(1))
+=\sigma(\sigma(2+1)) = \sigma(\sigma(2+\sigma(0)))\\
+&=\sigma(\sigma(\sigma(2+0)))
+=\sigma(\sigma(\sigma(2)))
+=\sigma(\sigma(3))
+=\sigma(4)=5.
+\end{align*}
+\end{proof}
+
+\mymargin{$\sigma(n)=n+1$}%
+Visto che $\sigma(n) = \sigma(n+0) = n+\sigma(0) = n+1$, 
+potremo in futuro evitare di utilizzare la funzione \emph{successore} 
+e scrivere direttamente $n+1$ per indicare il successore di $n$.
+
+Abbiamo definito l'addizione $n+m$ 
+come l'iterazione della funzione successore.
+In generale è possibile definire la moltiplicazione per un numero naturale 
+come una somma ripetuta, e l'elevamento a potenza (con esponente naturale)
+come una moltiplicazione ripetute. 
+Questo può essere fatto su $\NN$ come su ogni monoide.
+
+\begin{theorem}[operazioni iterate]
+\label{th:operazioni_iterate}%
+\label{th:operazione_ripetuta}%
+Se $M$ è un monoide additivo (definizione~\ref{def:monoide})
+possiamo definire per induzione la moltiplicazione $n\cdot x$ tra un numero 
+naturale $n\in \NN$ e un elemento $x$ del monoide:
+\[
+\begin{cases}
+  0\cdot x = 0 \in M \\
+  (n+1)\cdot x = n\cdot x + x.
+\end{cases}
+\]
+
+Valgono inoltre le seguenti proprietà
+(valide per ogni $n,m\in \NN$ e ogni $x,y\in M$):
+\begin{enumerate}
+  \item elemento assorbente: $0\cdot x = 0$ e $n\cdot 0 = 0$;
+  \item proprietà distributive: 
+    $n\cdot (x+y)=n\cdot x + n\cdot y$
+    e $(n+m)\cdot x = n\cdot x + m\cdot x$;
+  \item proprietà associativa: $n\cdot (m\cdot x)= (n\cdot m)\cdot x$.
+\end{enumerate}
+
+Lo stesso ovviamente si può fare nei monoidi moltiplicativi
+se definiamo la potenza $x^n$ come prodotto ripetuto:
+\[
+  x^0 = 1 \in M \\
+  x^{n+1} = x^n \cdot x,
+\]
+le proprietà sono analoghe:
+\begin{enumerate}
+  \item potenze banali: $x^0=1$, $1^n=1$;
+  \item potenza del prodotto: $(x\cdot y)^n = x^n\cdot y^n$;
+  \item prodotto di potenze: $x^{n+m}=x^n\cdot x^m$;
+  \item potenza di potenza: $(x^m)^n = x^{m\cdot n}$.
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+Le proprietà andranno dimostrate per induzione.
+Facciamo il caso che $M$ sia un monoide additivo.
+La proprietà assorbente $0\cdot x = 0$ è data per definizione,
+mentre $n\cdot 0 = 0$ si dimostra immediatamente 
+per induzione, infatti per $n=0$ si ha $0\cdot 0 = 0$ 
+e il passo induttivo è $(n+1)\cdot 0 = n\cdot 0 + 0 = 0 + 0 = 0$.
+
+Per la prima proprietà distributiva: $n\cdot (x+y)=n\cdot x + n\cdot y$
+è verificato il caso base: $0\cdot(x+y) = 0 = 0 + 0 = 0\cdot x + 0\cdot y$.
+Il passo induttivo diventa: 
+$(n+1)\cdot(x+y)
+=n\cdot(x+y)+x+y
+=n\cdot x + x + n\cdot y + y 
+=(n+1)\cdot x + (n+1)\cdot y$.
+La seconda $(n+m)\cdot x = n\cdot x + m\cdot x$
+per $n=0$ è banale: $(0+m)\cdot x = m\cdot x = 0\cdot x + m\cdot x$.
+Il passo induttivo:
+$(n+1+m)\cdot x = (n+m)\cdot x + x 
+= n\cdot x + x + m\cdot x
+= (n+1)\cdot x + m\cdot x$.
+
+La proprietà associativa: $(n\cdot m)\cdot x = n\cdot (m\cdot x)$
+è ovvia per $n=0$: $(0\cdot m)\cdot x = 0 = 0\cdot x = 0\cdot (m\cdot x)$.
+Per il passo induttivo usiamo anche la proprietà distributiva:
+$((n+1)\cdot m)\cdot x 
+= (n\cdot m+m)\cdot x 
+= (n\cdot m)\cdot x + m\cdot x
+= n\cdot (m\cdot x)+m\cdot x
+= (n+1)\cdot (m\cdot x)$.
+
+Per quanto riguarda il monoide moltiplicativo le proprietà sono esattamente 
+le stesse, cambia solamente la notazione con cui le scriviamo:
+al posto della somma su $M$ scriviamo un prodotto, e al posto del prodotto 
+scriviamo una potenza. 
+\end{proof}
+
+\begin{exercise}
+  Dimostrare che $2\cdot 3 = 6$ e che $2^3 = 8$.
+\end{exercise}
+  
+Definiamo l'ordinamento di $\NN$ 
+con l'idea che un numero $m$ è \emph{più grande} di $n$ 
+se si ottiene aggiungendo qualcosa ad $n$.
+\index{relazione!d'ordine su $\NN$}%
+\mymargin{ordinamento di $\NN$}%
+\[
+    n\le m \iff \exists k\in \NN \colon n+k = m.
+\]
+
+\begin{theorem}[proprietà delle operazioni su $\NN$]
+\label{th:operazioni_naturali}%
+\index{moltiplicazione!su $\NN$}%
+\index{elevamento a potenza!su $\NN$}%
+Le operazioni di addizione, moltiplicazione, elevamento a potenza 
+e l'ordinamento definiti su $\NN$
+soddisfano le seguenti proprietà.
+Proprietà di addizione e moltiplicazione:
+\begin{enumerate}
+    \item elemento neutro:
+      $n + 0 = 0 + n = n$,
+      $n\cdot 1 = 1\cdot n = n$;
+    \item elemento assorbente:
+      $n\cdot 0 = 0$;
+    \item proprietà associativa: 
+      $(n+m)+k = n+(m+k)$, $(n\cdot m)\cdot k = n \cdot (m\cdot k)$
+    \item proprietà commutativa: 
+      $n+m = m+n$, $n\cdot m = m\cdot n$;
+    \item proprietà distributiva:
+     $k\cdot (n+m) = k\cdot n + k\cdot m$;
+    \item proprietà invariantiva:
+     se $m+k = n+k$ allora $m=n$;
+    \item annullamento del prodotto: se $m\cdot n=0$ allora $m=0$ o $n=0$;
+\end{enumerate}
+proprietà dell'elevamento a potenza:
+\begin{enumerate}
+  \item $n^0 = 1$;
+  \item $n^1 = n$;
+  \item $n^{m+k} = n^m \cdot n^k$;
+  \item $(n^m)^k = n^{m\cdot k}$;
+  \item $(n\cdot m)^k = n^k \cdot m^k$;
+\end{enumerate}
+proprietà di ordinamento:
+\begin{enumerate}
+  \item $n\le n$ (proprietà riflessiva);
+  \item se $n\le m$ e $m\le k$ allora $n\le k$ (proprietà transitiva);
+  \item se $n\le m$ e $m\le n$ allora $n=m$ (proprietà antisimmetrica);
+  \item o $n\le m$ oppure $m\le n$ (dicotomia);
+  \item monotonia:
+   se $m\le n$ allora 
+   $m+k\le n+k$, $m\cdot k \le n\cdot k$,
+   $k^m \le k^n$ e $m^k \le n^k$. 
+\end{enumerate}
+\end{theorem}
+%
+\begin{proof}
+Molte di queste proprietà sono valide in qualunque monoide, e sono già 
+state dimostrate nel teorema~\ref{th:operazioni_iterate}:
+elemento neutro, elemento assorbente, proprietà associativa, 
+distributiva e tutte le proprietà delle potenze.
+Che l'addizione sia commutativa e associativa è già stato dimostrato 
+nel teorema~\ref{th:addizione_naturali}.
+Dimostriamo le proprietà rimanenti.
+
+Dimostrare la proprietà invariantiva $n+k=m+k \implies n=m$ 
+per induzione su $k$.
+Per $k=0$ la proprietà è banale.  
+Per il passo induttivo osserviamo che se vale $m+k+1=n+k+1$
+allora, grazie all'iniettività di $\sigma$, 
+dovrà essere $m+k = n+k$
+e per ipotesi induttiva concludiamo $m=n$ come dovevamo dimostrare.
+  
+La proprietà $1\cdot n=n$ è conseguenza 
+della definizione: $(0+1)\cdot n = 0\cdot n + n = 0 + n = n$. 
+La proprietà $n\cdot 1=n$ si può dimostrare per induzione.
+Se $n=0$ è data per definizione. 
+Per il passo induttivo abbiamo $(n+1)\cdot 1 = n\cdot 1 + 1$
+ed essendo $n\cdot 1=n$ per ipotesi induttiva 
+si conclude $(n+1)\cdot 1 = n+1$, che è quanto dovevamo dimostrare.
+
+La proprietà commutativa $n\cdot m=m\cdot n$ si può dimostrare 
+facilmente per induzione su $n$. 
+Per $n=0$ è banale, grazie alla proprietà assorbente.
+Per il passo induttivo osserviamo che $(n+1)\cdot m = n\cdot m + m$
+e suppendo per ipotesi induttiva che $n\cdot m=m\cdot n$ 
+e usando la proprietà distributiva otteniamo:
+si ottiene $(n+1)\cdot m = m\cdot n + m\cdot 1 = m\cdot (n+1)$
+che è quanto dovevamo dimostrare.
+
+Per dimostrare l'annullamento del prodotto supponiamo per assurdo che 
+il prodotto di due numeri diversi da $0$ possa essere nullo.
+Un numero naturale diverso da zero è il successore di un altro numero naturale, 
+quindi potremmo scrivere $(n+1)\cdot(m+1)=0$. 
+Ma $(n+1)\cdot(m+1) = n\cdot m + n + m + 1$ è il successore di un numero naturale  
+quindi non può essere zero.
+
+vediamo infinite le proprietà dell'ordinamento.
+Il fatto che $n+0=n$ dimostra la proprietà riflessiva: $n\ge n$.
+  
+Per la proprietà transitiva è sufficiente osservare
+che se $n=m+j$ e $m=k+l$ allora $n=k+l+j$.
+
+Per la proprietà antisimmetrica supponiamo di avere $n=m+k$ 
+e $m=n+j$. 
+Deduciamo che $ m = m+k+j$ da cui $k+j=0$.
+Se fosse $k\neq 0$ o $j\neq 0$ il lato sinistro sarebbe il successore 
+di un numero naturale, ma $0$ non è il successore di nessun numero naturale.
+Questo significa che $k=j=0$ e quindi $n=m$, come volevamo dimostrare.
+
+Per mostrare che l'ordinamento è totale dobbiamo invece 
+procedere con una dimostrazione per induzione. 
+Per induzione su $n\in \NN$ vogliamo mostrare 
+che per ogni $m\in \NN$ si ha $n\le m$ oppure $m\le n$. 
+Se $n=0$ il fatto è ovvio in quanto $m=m+0$ e quindi $m\ge 0$
+per ogni $m\in \NN$.
+Fissati $m$ ed $n$, supponiamo ora di sapere che $n\le m$ oppure $m\le n$
+e dimostriamo che allora $n+1\le m$ oppure $m\le n+1$.
+Se $m\le n$ significa che $n = m + k$ per un qualche 
+$k\in \NN$. Ma allora $n+1 = m + k + 1$ e quindi 
+vale anche $m\le n+1$. 
+Se invece $n\le m$ significa che esiste $k\in \NN$ 
+per cui $m=n+k$. Se $k\neq 0$ allora $k=1+j$ con $j\in \NN$
+da cui $m=n+1+j$ e dunque anche $n+1\le m$.
+Se $k=0$ allora $n=m$ e dunque $n+1=m+1$ che ci porta 
+alla disuguaglianza inversa $m \le n+1$.
+In ogni caso il passo induttivo è dimostrato.
+
+Dimostriamo ora la monotonia della somma e del prodotto.
+Sia $m\le n$ e sia $k$ qualunque.
+Visto che $m\le n$ si ha $n=m+j$. 
+Dunque
+\[
+n+k = m + j + k \ge m+k   
+\] 
+e
+\[
+m\cdot k = (n+j)\cdot k = n\cdot k + j\cdot k \ge n\cdot k.  
+\]
+
+Per verificare la monotonia delle potenze procediamo per induzione.
+Basterà dimostrare che $m^k\le(m+1)^k$ e $k^m\le k^{m+1}$.
+Lo facciamo, a loro volta, per induzione:
+\[
+(m+1)^{k+1} = (m+1)\cdot (m+1)^k \ge m\cdot m^k
+\]
+e (supponendo $k\ge 1$)
+\[
+k^{m+1} = k\cdot k^m \ge 1\cdot k^m = k^m. 
+\]
+\end{proof}
+
+\begin{exercise}[prodotti notevoli]
+Usando la proprietà distributiva dimostrare che, per $a,b\in \NN$ si ha:
+\[
+(a+b)^2 = a^2+2ab+b^2,
+\qquad
+(a+b)^3 = a^3 + 3a^2b + 3ab^2 + b^3.
+\]
+\end{exercise}
+
+La proprietà invariantiva ci dice 
+che se esiste $k\in \NN$ tale che $n+k=m$
+allora tale $k$ è unico. 
+\index{differenza}%
+\index{sottrazione}%
+\mymargin{differenza}
+Dunque se $m\ge n$ si può definire la differenza $k=m-n$
+come quell'unico $k$ tale che $n+k=m$.
+
+In maniera analoga se esiste $k\in \NN$ tale che $m=k\cdot n$
+diremo che $m$ è un \emph{multiplo} di $n$ 
+\index{multiplo}%
+\mymargin{multipli e divisori}%
+ovvero che $n$ \emph{divide} $m$ (si può scrivere $n\vert m$).
+Diremo che $n$ è \emph{pari} se $n$ è divisibile per due,
+altrimenti diremo che $n$ è \emph{dispari}.
+Se $n\neq 0$ e $m=k\cdot n$ allora $k$ è unico 
+(lo si verifichi utilizzando la proprietà di annullamento del prodotto)
+e si chiama \emph{quoziente} di $m$ diviso $n$, 
+\index{quoziente}%
+scriveremo: $k=\frac m n$.
+
+Si osservi che abbiamo definito $n^0=1$ per ogni $n\in \NN$,
+compreso $n=0$. 
+Dunque abbiamo consapevolmente definito $0^0=1$:
+questa definizione (controversa) risulterà essere utile.
+Si noti invece che $0^n=0$ solo se $n\neq 0$.
+Infatti qualunque numero moltiplicato per $0$ dà zero, 
+quindi una moltiplicazione ripetuta dà zero 
+se c'è almeno un fattore nullo. 
+Ma nel prodotto $0^0$ ci sono $0$ fattori $0$ quindi non c'è in effetti nessuna 
+moltiplicazione per $0$. 
+E' dunque naturale che il risultato sia $1$, 
+l'elemento neutro della moltiplicazione.
+
+\begin{exercise}
+  Dimostrare che per ogni $n\in \NN$ si ha:
+  \[
+    n \text{ dispari} \implies \exists k\in \NN\colon n=2k+1.
+  \]
+\end{exercise}
+  
+\begin{exercise}
+  Dimostrare per induzione che per ogni $n\in \NN$, $n\ge 4$ si ha 
+  \[  
+    2^n \ge n^2.
+  \]
+  Ovvero, dimostrare che per ogni $n\in \NN$ si ha 
+  \[
+    2^{n+4} \ge (n+4)^2.  
+  \]
+  \end{exercise}
+  
+\subsection{esercizi sul principio di induzione}
+
+\subsection{sequenze finite o ennuple}
+\index{ennuple}%
+\index{sequenza!finita}%
+
+Abbiamo già visto che se $A$ è un insieme possiamo definire l'insieme 
+delle coppie di elementi di $A$ con il prodotto cartesiano tra insiemi: 
+$A\times A$. 
+Cosa rappresenta un prodotto ripetuto?
+Gli insiemi $(A\times A)\times A$ e $A\times(A\times A)$ non sono 
+uguali, in quanto il primo è un insieme di coppie il cui primo elemento 
+è a sua volta una coppia, il secondo insieme invece è un insieme di coppie 
+il cui secondo elemento è una coppia:
+\begin{gather*}
+  (A\times A)\times A = \ENCLOSE{((a_0,a_1),a_2)\colon a_0,a_1,a_2\in A},
+  \\
+  A \times (A\times A) = \ENCLOSE{(a_0,(a_1,a_2))\colon a_0,a_1,a_2\in A}.
+\end{gather*}
+Questi insiemi sono molto simili tra loro e potrebbero essere identificati.
+Un'altro insieme molto simile è l'insieme $A^{3}$.  
+Usando la definizione di Von Neumann, $3 = \ENCLOSE{0,1,2}$, l'insieme 
+$A^{3}$ rappresenta l'insieme di tutte le funzioni 
+$\vec a\colon \ENCLOSE{0,1,2}\to A$.
+La funzione $\vec a$ è univocamente determinata dal suo valore nei 
+tre punti del dominio: $a_0 = \vec a(0)$, $a_1=\vec a(1)$, $a_2=\vec a(2)$
+in quanto $\vec a = \ENCLOSE{0\mapsto a_0, 1\mapsto a_1, 2\mapsto a_2}$.
+Possiamo quindi identificare $\vec a$ con la tripla (o vettore) di valori:
+\[
+  \vec a = (a_0, a_1, a_2), \qquad a_0,a_1,a_2 \in A.  
+\]
+I valori $a_0$, $a_1$ e $a_2$ vengono anche chiamate \emph{coordinate}
+o \emph{componenti} del \emph{vettore} $\vec a$.
+\mymargin{coordinate, componenti, vettore}%
+\index{coordinate, componenti, vettore}%
+\index{coordinate!vettore}%
+\index{componenti!vettore}%
+\index{vettore}%
+In effetti l'insieme $A^{2}$ può essere identificato con $A\times A$, l'insieme 
+$A^{3}$ sarà l'insieme delle triple di elementi di $A$ e in generale se $n\in\NN$ 
+identifichiamo con $A^{n}$ l'insieme delle $n$-uple (leggi: ennuple) di elementi 
+\index{ennuple}%
+di $A$:%
+\mynote{
+  Stiamo qui identificando $n\in \NN$ con l'insieme $\ENCLOSE{0,1,\dots, n-1}$.}%
+\[
+   \vec a \in A^{n} \iff 
+   \vec a = (a_0, a_1, \dots, a_{n-1}).  
+\]
+
+Storicamente ci siamo abituati a contare partendo da $1$ invece che da $0$.
+Per questo motivo è usuale numerare gli elementi di una $n$-upla con gli indici 
+che vanno da $1$ a $n$ invece che da $0$ a $n-1$.
+Dunque se $\vec a \in A^{3}$ sarà usuale scrivere 
+$\vec a = (a_1, a_2, a_3)$ invece che $\vec a = (a_0, a_1, a_2)$.
+
+\subsection{somme e prodotti con un numero variabile di addendi}
+\index{sommatoria}%
+\index{produttoria}%
+
+Introduciamo ora su $\NN$ il concetto di somma (e prodotto) iterato.
+Quello che ora facciamo su $\NN$ vale allo stesso modo sugli insiemi 
+numerici che andremo a definire più avanti, in particolare lo useremo 
+molto sull'insieme $\RR$ dei numeri reali. 
+
+In generale se $A$ è un monoide (definizione~\ref{def:monoide}) additivo 
+(o moltiplicativo) possiamo fare somme (o prodotti) di un numero 
+arbitrario (ma finito) di addendi (o fattori) di $A$.
+Più precisamente se $\vec a \in A^n$ 
+è una $n$-upla di elementi di $A$, 
+vogliamo definirne la somma e il prodotto:
+\mynote{In questo ambito è usuale numerare gli elementi della 
+$n$-upla a partire dall'indice $1$ invece che dall'indice $0$.}
+\begin{equation}\label{eq:6122112}
+\sum_{k=1}^n a_k = a_1 + a_2 + \dots + a_n,
+\qquad 
+\prod_{k=1}^n a_k = a_1 \cdot a_2 \dots a_n.
+\end{equation}
+Formalmente bisogna dare una definizione per induzione. 
+Basterà dire che la somma (o il prodotto)
+di zero addendi (o fattori) vale l'elemento neutro 
+dell'operazione cioè $0$ per la somma (e $1$ per il prodotto).
+La somma di $n+1$ addendi (o $n+1$ fattori) è la somma dei primi $n$ 
+a cui aggiungiamo l'ultimo addendo (o moltiplichiamo per l'ultimo fattore).
+Formalmente:
+\[
+  \begin{cases}
+    \displaystyle\sum_{k=1}^{0} a_k = 0, \\
+    \displaystyle\sum_{k=1}^{n+1} a_k = \enclose{\sum_{k=1}^{n} a_k} + a_{n+1};
+  \end{cases}  \qquad
+  \begin{cases}
+    \displaystyle\prod_{k=1}^{0} a_k = 1, \\
+    \displaystyle\prod_{k=1}^{n+1} a_k = \enclose{\prod_{k=1}^{n} a_k} \cdot a_{n+1}.
+  \end{cases}
+\]
+La variabile $k$ che si trova nelle formule~\eqref{eq:6122112} è \emph{muta}: 
+al suo posto si può utilizzare qualunque altra variabile che non
+compaia altrove.
+
+E' naturalmente possibile anche fare una somma a partire da un indice 
+diverso da $0$:
+\[
+  \sum_{k=m+1}^{m+n} a_k = \sum_{j=1}^{n} a_{m+j}.
+\]
+Dal punto di vista mnemonico abbiamo fatto 
+un \emph{cambio di variabile} $k=m+j$:
+per $j=1$ si trova $k=m+1$ e per $j=n$ si trova $k=m+n$.
+
+Si osservi che risulta:
+\[
+  x^n = \prod_{k=1}^n x, \qquad 
+  n! = \prod_{k=1}^n k.  
+\]
+in quanto le definizioni ricorsive di potenze e fattoriale
+coincidono con le definizioni ricorsive del prodotto sul lato destro.
+
+\begin{theorem}
+In un monoide commutativo, si ha:
+  \[
+  \sum_{k=1}^n  \enclose{a_k + b_k} 
+  = \sum_{k=1}^n a_k + \sum_{k=1}^n b_k.
+  \]
+
+Sia $f\colon A\to A$ una funzione \emph{additiva}
+cioè $f(0) = 0$ e $f(x+y)=f(x)+f(y)$.
+Allora 
+  \[
+    \sum_{k=1}^n  f(a_k) = f\enclose{\sum_{k=1}^n a_k}.
+  \]
+
+Infine risulta 
+  \[
+  \sum_{k=1}^{m+n} a_k = \sum_{k=1}^m a_k + \sum_{k=1}^n a_{k+m}
+  \]
+ovvero 
+  \[
+  \sum_{k=1}^{m+n} a_k = \sum_{k=1}^m a_k + \sum_{k=m+1}^{m+n} a_k.  
+  \]
+\end{theorem}
+\begin{proof}
+  Le dimostrazioni possono essere svolte 
+  per induzione.
+\end{proof}
+
+\begin{exercise}
+  \label{ex:somma_lineare}%
+  Dimostrare che 
+  \[
+    \sum_{k=1}^n k = \frac{n\cdot (n+1)}{2}, \qquad
+    \sum_{k=1}^n k^2 = \frac{n\cdot (n+1)\cdot (2n+1)}{6}.
+  \]
+\end{exercise}
+Il risultato della somma può essere ricordato nel modo seguente:
+la media di una progressione aritmetica $\frac{1+2+ \dots + n}{n}$ 
+è uguale alla media tra il primo 
+e l'ultimo termine della progressione: $\frac{1+n}{2}$.
+\begin{proof}[Svolgimento]
+Lo dimostriamo per induzione.
+Per $n=0$ la somma è pari a $0$ per definizione.
+Se la formula è vera per un certo $n$, si ha 
+\[
+  \sum_{k=1}^{n+1} k = \enclose{\sum_{k=1}^n k} + (n+1)
+   = \frac{n\cdot(n+1)}{2} + (n+1) 
+   = \frac{(n+2)(n+1)}{2}
+\]
+che è quanto volevamo dimostrare.
+\end{proof}
+
+\begin{exercise}
+Dimostrare che 
+\[
+  \sum_{k=1}^n k^3 = \frac{n^2\cdot (n+1)^2}{4}.
+\]
+\end{exercise}
+
+\begin{exercise}
+  Trovare una formula per calcolare esplicitamente:
+  \[
+    \sum_{k=1}^n k^2.
+  \]
+\end{exercise}
+\begin{proof}[Svolgimento.]
+Vogliamo una formula simile a quelle dimostrate negli esercizi 
+precedenti. 
+Questa volta, però, la formula la dobbiamo trovare noi.
+Presentiamo un metodo che permette, in generale, 
+di trovare la formula per calcolare $\sum_{k=1}^n k^{m+1}$
+se conosciamo la formula per $\sum_{k=1}^n k^m$.
+
+Osserviamo che la differenza 
+di due termini cubici consecutivi risulta essere quadratico:
+\[
+(k+1)^3 - k^3 = 3 k^2 + 3k + 1.  
+\]
+Sommando ambo i lati della precedente equazione si ottiene:
+\begin{equation}\label{eq:309838}
+\sum_{k=1}^n (k+1)^3 - \sum_{k=1}^n k^3 
+= 3\sum_{k=1}^n k^2+3\sum_{k=1}^n k+\sum_{k=1}^n 1.
+\end{equation}
+Al lato destro compare la somma di cui vogliamo calcolare il valore 
+(moltiplicata per $3$)
+insieme ad altre due somme di cui sappiamo già il valore. 
+Basterà allora determinare il valore del lato sinistro dove 
+osserviamo che i termini delle due somme si cancellano 
+a vicenda,
+\mynote{%
+si chiama \emph{somma telescopica}
+\index{somma!telescopica}%
+\index{telescopico}%
+in quanto i termini delle due sommatorie si chiudono uno nell'altro 
+come i tubi di un cannocchiale.} %
+tranne l'ultimo della prima somma 
+e il primo della seconda: 
+\[
+  \sum_{k=1}^n(k+1)^3 - \sum_{k=1}^n k^3 = (n+1)^3 - 1^3.
+\]
+Moltiplichiamo per $2$ l'equazione~\eqref{eq:309838},
+mettiamo in evidenza la somma dei quadrati e 
+utilizzando la formula $2\sum_{k=1}^n k = n(n+1)$
+per ottenere:
+\begin{align*}
+  6 \sum_{k=1}^n k^2 
+  &=  2(n+1)^3 - 3 n(n+1) - 2n - 2
+  = (n+1) \cdot \Enclose{2(n+1)^2 - 3n} - 2(n+1)\\
+  &= (n+1)\cdot \Enclose{2n^2+4n+2 -3n - 2}
+   = (n+1)\cdot \Enclose{2n^2+n} 
+   = n \cdot (n+1)(2n+1)
+\end{align*}
+che è quanto volevamo dimostrare.
+\end{proof}
+
+\begin{exercise}
+  Si trovi una formula per esprimere
+  \[
+  \sum_{k=1}^n k^3.
+  \]
+\end{exercise}
+
+\begin{exercise}
+Si noti che se prendiamo una progressione geometrica 
+(potenze successive con la stessa base) 
+ad esempio:
+\[
+  x = 3^3 + 3^4 + 3^5 + 3^6
+\]
+ogni addendo è uguale al precedente moltiplicato per $3$.
+Dunque se moltiplichiamo per la base l'intera somma
+\[
+  3x = 3^4 + 3^5 + 3^6 + 3^7
+\]
+si ottiene la somma iniziale con un termine in più alla fine 
+e un termine in meno all'inizio. 
+\mynote{Anche questa è una somma \emph{telescopica}}
+Facendo la differenza tutti i termini si cancellano tranne 
+il primo e l'ultimo
+\[
+ 3x - x = 3^7 - 3^3  
+\]
+e possiamo ricavare $x$.
+
+Si formalizzi il ragionamento precedente per dimostrare che 
+fissato $a\neq 1$ si ha per ogni naturale $n$:
+  \[
+    \sum_{k=0}^n a^k = \frac{a^{n+1}-1}{a-1}.
+  \] 
+\end{exercise}
+
+Denotiamo con $\Enclose{n} = \ENCLOSE{0,1,2, \dots, n-1}$.
+Se $\sigma\colon \Enclose{n} \to \Enclose{n}$
+è bigettiva (una tale funzione si chiama \emph{permutazione}%
+\mymargin{permutazione}%
+\index{permutazione})
+allora si può fare il cambio di variabile $k=g(j)$:
+\[
+    \sum_{k=0}^{n-1} a_k = \sum_{j=0}^{n-1} a_{\sigma(j)}.
+\]
+Questa uguaglianza può essere dimostrata facilmente nel caso 
+in cui $\sigma$ scambi due soli indici lasciando fissi tutti gli altri 
+(trasposizione) e poi può essere estesa a tutte le permutazioni
+osservando che ogni permutazione si può scrivere come composizione 
+di trasposizioni.
+
+Questa proprietà è sostanzialmente la proprietà commutativa della somma 
+estesa ad un numero qualunque di addendi.
+Grazie a questa proprietà possiamo definire la somma di una funzione 
+definita su qualunque insieme finito. 
+Se $f\colon X \to M$
+dove $M$ è un monoide, 
+e $\sigma\colon \Enclose{n} \to X$ è una bigezione
+allora si può definire 
+\[
+  \sum_{x\in X} f(x) = \sum_{j=0}^{n-1} f(\sigma(j))  
+\]
+in quanto la somma sul lato destro non dipende dalla bigezione $\sigma$ che 
+abbiamo scelto.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{buon ordinamento e unicità dei numeri naturali}
+
+Si faccia riferimento alle definizioni~\ref{def:minimo}
+per il concetto di minimo, maggiorante e minorante.
+%
+\begin{theorem}[principio del buon ordinamento]
+  \label{th:buon_ordinamento}
+  Sia $A\subset \NN$, $A\neq \emptyset$. 
+  Allora $A$ ha minimo.
+\end{theorem}
+%
+\begin{proof}
+  Osserviamo che se $n\in \NN$ è un minorante di $A\subset \NN$ 
+  allora o $n\in A$ e quindi $n$ è il minimo di $A$
+  oppure anche $n+1$ è un minorante di $A$ in quanto 
+  non ci sono numeri naturali strettamente compresi tra $n$ e $n+1$.
+  \mynote{Se ci fosse un numero naturale tra $n$ e $n+1$ 
+  sottraendo $n$ avremmo un numero naturale tra $0$ e $1$. 
+  Ma non esiste $x\in \NN$ tale che $0<x<1$.
+  Infatti se $x\in \NN$, $x>0$ allora $x\neq 0$ e quindi 
+  esiste $m\in \NN$ tale che $x=m+1$. 
+  Ma allora $x\ge 1$.}
+  Dunque se $A$ non avesse minimo, per il principio di induzione 
+  ogni $n\in\NN$ sarebbe un minorante di $A$.
+  In tal caso $A$ dovrebbe essere vuoto perché se esistesse $a\in A$ 
+  certamente $a+1$ non sarebbe un minorante di $A$.
+\end{proof}
+
+Vogliamo ora dimostrare che l'insieme dei numeri naturali è sostanzialmente 
+unico nel senso che se ci sono due insiemi che soddisfano gli assiomi di 
+Peano allora è possibile mettere in corrispondenza gli elementi dei due insiemi 
+in modo che lo zero vada in zero e numeri corrispondenti abbiano successori 
+corrispondenti.
+
+\begin{theorem}[unicità dei numeri naturali]
+  \label{th:unicitaN}%
+  Se $\NN$ e $\NN'$ sono due insiemi che soddisfano gli assiomi di Peano 
+  con zero $0\in \NN$ e $0'\in \NN'$ e funzioni 
+  successore $\sigma$ su $\NN$ e $\sigma'$ su $\NN'$ allora
+  esiste una funzione bigettiva $f\colon \NN\to \NN'$ tale che 
+  $f(0) = 0'$ e $f(\sigma(n)) = \sigma'(f(n))$.
+\end{theorem}
+%
+\begin{proof}
+Possiamo definire $f$ per induzione:
+\[
+\begin{cases}
+  f(0) = 0' \\ 
+  f(\sigma(n)) = \sigma'(f(n))
+\end{cases}  
+\]
+così rimane solo da dimostrare che $f$ è una bigezione.
+
+Per dimostrare che $f$ è iniettiva consideriamo l'insieme 
+\[
+  A=\ENCLOSE{a\in \NN\colon \exists b\in \NN\colon b\neq a, f(a)=f(b)}.
+\]
+Se tale insieme è vuoto allora $f$ è effettivamente iniettiva.
+Supponiamo allora per assurdo che $A$ non sia vuoto.
+In tal caso possiamo considerare il minimo $a=\min A$ 
+(grazie al teorema~\ref{th:buon_ordinamento}).
+Dovrà quindi esistere $b\in \NN$ tale che $b\neq a$ e $f(b)=f(a)$.
+Ovviamente anche $b\in A$ e quindi dovrà essere $b>a$ in quanto
+$a$ è il minimo. Dunque $b>0$ e $f(b) = f(\sigma(b-1))
+=\sigma'(f(b-1))$. Se $a=0$ abbiamo $f(a)=0'$ e quindi da $f(a)=f(b)$ 
+otteniamo che $0'$ è nell'immagine di $\sigma'$ che è contrario 
+agli assiomi di Peano. 
+Se invece $a>0$ si avrà, come per $b$,
+$f(a)=\sigma'(f(a-1))$ e dunque $\sigma'(f(a-1)) = \sigma'(f(b-1))$.
+Per l'iniettività di $\sigma'$ si deduce $f(a-1)=f(b-1)$ da cui 
+$a-1 \in A$. Ma questo è assurdo in quanto $a$ era il minimo di $A$.
+
+Per dimostrare che $f$ è surgettiva consideriamo l'immagine 
+$B'=f(\NN)$ e usiamo il principio di induzione su $\NN'$ 
+per dimostrare che $B'=\NN'$.
+Per prima cosa $0'\in B'$ in quanto $0'=f(0)$.
+Se poi $n'\in B'$ allora esiste $n\in \NN$ tale che $f(n)=n'$.
+Ma allora $f(\sigma(n))=\sigma'(f(n))=\sigma'(n')$ 
+e dunque anche $\sigma'(n')\in B$. 
+\end{proof}
+
+\subsection{rappresentazione decimale dei numeri naturali}
+
+Per rappresentare in modo efficiente qualunque numero naturale utilizziamo la 
+\emph{notazione posizionale decimale}%
+\mymargin{notazione posizionale decimale}%
+\index{notazione!posizionale decimale}.
+Ricordiamo che le cifre decimali $0,1,2,\dots, 9$ sono state definite in~\eqref{eq:cifre}
+a pag~\pageref{eq:cifre}.
+Il numero rappresentato da una sequenza finita di cifre decimali può essere 
+definito ricorsivamente: una sequenza di una sola cifra rappresenta il numero 
+corrispondente alla cifra stessa, una sequenza di $n+1$ cifre rappresenta il 
+numero rappresentato dalle prime $n$ cifre, moltiplicato per $d=9+1$ (cioè dieci),
+e sommato alla ultima cifra. 
+Ad esempio la sequenza di cifre $4701$ (leggi: quattromilasettecentouno)
+è definita così:
+\[ 
+  4701 = ((4\cdot d+7)\cdot d+0)\cdot d+1, \qquad d=9+1.
+\]
+Osservando che $10 = 1\cdot d + 0 = d$ si scriverà:
+\begin{align*}
+  4701 
+  & = ((4\cdot 10 + 7)\cdot 10 +0)\cdot 10 + 1 \\
+  & = \mathbf 4\cdot 10^3 + \mathbf 7\cdot 10^2 + \mathbf 0\cdot 10^1 + \mathbf 1 \cdot 10^0. 
+\end{align*}
+
+\begin{table}
+  \begin{center}
+    \def\tabcolsep{3pt}
+    \begin{tabular}{>{\small}r|>{\small}r>{\small}r>{\small}r>{\small}r>{\small}r>{\small}r>{\small}r>{\small}r>{\small}r}
+      $+$       & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\ \hline
+      1         & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\
+      2         & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 \\
+      3         & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 \\
+      4         & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 \\
+      5         & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 \\
+      6         & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 \\
+      7         & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 & 16 \\
+      8         & 9 & 10 & 11 & 12 & 13 & 14 & 15 & 16 & 17 \\
+      9         & 10 & 11 & 12 & 13 & 14 & 15 & 16 & 17 & 18
+      \end{tabular}
+      \qquad
+      \begin{tabular}{>{\small}r|r>{\small}r>{\small}r>{\small}r>{\small}r>{\small}r>{\small}r>{\small}r>{\small}r}
+        $\cdot$       & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\ \hline
+        2         & 4 & 6 & 8 & 10 & 12 & 14 & 16 & 18 \\
+        3         & 6 & 9 & 12 & 15 & 18 & 21 & 24 & 27 \\
+        4         & 8 & 12 & 16 & 20 & 24 & 28 & 32 & 36 \\
+        5         & 10 & 15 & 20 & 25 & 30 & 35 & 40 & 45 \\
+        6         & 12 & 18 & 24 & 30 & 36 & 42 & 48 & 54 \\
+        7         & 14 & 21 & 28 & 35 & 42 & 49 & 56 & 63 \\
+        8         & 16 & 24 & 32 & 40 & 48 & 56 & 64 & 72 \\
+        9         & 18 & 27 & 36 & 45 & 54 & 63 & 72 & 81
+      \end{tabular}
+    \end{center}
+    \caption{Le \emph{tabelline} dell'addizione e della moltiplicazione.}
+    \label{tab:tabelline}
+\end{table}
+
+Procedendo come nell'esempio~\ref{ex235} si può costruire la \emph{tabellina}
+della somma, dove sono riportate le somme di tutte le coppie di cifre decimali
+(tabella~\ref{tab:tabelline}).
+Sfruttando la definizione e la proprietà distributiva del prodotto 
+(teorema~\ref{th:operazioni_naturali})
+non sarà difficile 
+costruire anche la \emph{tabellina} della moltiplicazione, dove sono riportati i prodotti delle 
+coppie di cifre decimali. 
+Ad esempio una volta dimostrato che $7\cdot 7 = 49$ si può procedere 
+a dimostrare che $7\cdot 8 = 56$ come segue:
+\begin{align*}
+  7\cdot 8 &= 7\cdot (7+1) = 7\cdot 7 + 7 = 49+7 
+  = (4\cdot 10 + 9) + 7 = 4\cdot 10 + 16 \\
+  &= 4\cdot 10 + 10\cdot 1 + 6 = 5\cdot 10 + 6 = 56.
+\end{align*}
+
+Una volta imparate a memoria le \emph{tabelline} è possibile svolgere le operazioni di addizione 
+e moltiplicazione su qualunque coppia di numeri naturali espressi in forma decimale. 
+L'algoritmo è quello della somma e della moltiplicazione in colonna che abbiamo imparato alla 
+scuola elementare. Si può capire la correttezza di questi algoritmi con un esempio.
+Proviamo a dimostrare che $34\cdot 56 = 1904$:
+\begin{align*}
+\mathbf{34}\cdot \mathbf{56} 
+  &= \mathbf{34}\cdot (\mathbf 5\cdot 10+ \mathbf 6) 
+   = \mathbf{34}\cdot \mathbf 6 + (\mathbf{34}\cdot \mathbf 5) \cdot 10 \\
+  &= (\mathbf 3\cdot 10 + \mathbf 4)\cdot \mathbf 6 + (\mathbf 3\cdot 10 + \mathbf 4)\cdot \mathbf 5 \cdot 10 \\
+  &= \mathbf{18}\cdot 10 + \mathbf{24} + (\mathbf{15}\cdot 10 + \mathbf{20})\cdot 10 \\
+  &= \mathbf{1}\cdot 10^2+(\mathbf 8+\mathbf 2)\cdot 10 + \mathbf 4 + (\mathbf 1\cdot 10^2 + (\mathbf 5+\mathbf 2)\cdot 10 + \mathbf 0)\cdot 10 \\
+  &= (\mathbf 1+\mathbf 1)\cdot 10^2 +\mathbf 0\cdot 10 + \mathbf 4 + (\mathbf 1\cdot 10^2 + \mathbf 7\cdot 10 + \mathbf 0)\cdot 10 \\
+  &= \mathbf 2\cdot 10^2 + \mathbf 0\cdot 10 + \mathbf 4 + \mathbf 1\cdot 10^3+\mathbf 7\cdot 10^2 + \mathbf 0 \cdot 10\\
+  &= \mathbf 1\cdot 10^3 + \mathbf 9\cdot 10^2 + \mathbf 0\cdot 10 + \mathbf 4
+  = \mathbf{1904}.
+\end{align*}
+
+\subsection{fattoriale e semi-fattoriale}
+
+Definiamo il 
+\emph{fattoriale}%
+\mymargin{fattoriale}%
+\index{fattoriale} 
+\index{"!}%
+\index{$n$"!}%
+di un numero naturale $n$
+denotato con $n!$ (leggi: $n$ fattoriale) 
+tramite la seguente definizione ricorsiva
+\[
+  \begin{cases}
+    0! = 1 \\
+    (n+1)! = (n+1) \cdot n!
+  \end{cases}
+\]
+in tal modo risulta che $n!$ è il prodotto dei primi $n$ numeri naturali positivi:
+\[
+  n! = 1 \cdot 2 \cdot 3 \cdots n.  
+\]
+
+\begin{exercise}
+  \label{ex:6734098}%
+  Utilizzando il principio di induzione
+  si dimostri che per ogni $n\in \NN$:
+  \[
+    2^{n+1} \ge n+1, \qquad
+    (n+1)! \ge 2^n, \qquad
+    n^n \ge n!
+  \]
+\end{exercise}
+
+\begin{table}
+  \begin{center}
+  \begin{tabular}{r|>{\small}r>{\small}r>{\small}r>{\small}r>{\small}r}
+  $n$       & 0 & 1 & 2 & 3 & 4 \\
+  \footnotesize $n+5$     & 5 & 6 & 7 & 8 & 9 \\ \hline
+  $2^n$     & 1 & 2 & 4 & 8 & 16 \\
+  \footnotesize $2^{5+n}$ & 32 & 64 & 128 & 256 & 512 \\
+  \footnotesize $2^{10+n}$ & 1024 & 2048 & 4096 & 8192 & 16384 \\
+  \footnotesize $2^{15+n}$ & 32768 & 65536 & 131072 & 262144 & 524288 \\
+  \footnotesize $2^{20+n}$ & 1048576 & 2097152 & 4194304 & 8388608 & 16777216 \\  \hline
+  $3^n$                    & 1 & 3 & 9 & 27 & 81 \\
+  \footnotesize $3^{5+n}$  & 243 & 729 & 2187 & 6561 & 19683 \\  \hline
+  $n!$      & 1 & 1 & 2 & 6 & 24 \\
+  \footnotesize $(5+n)!$  & 120 & 720 & 5040 & 40320 & 362880 \\
+  \footnotesize $(10+n)!$  & 3628800 & 39916800 & 479001600 & 6227020800 & 87178291200 \\ \hline
+  \footnotesize $10^{3n}$  &  & K (chilo) & M (mega) & G (giga) & T (tera) \\ 
+  \footnotesize $10^{3(n+5)}$  & P (peta) & E (exa) & Z (zetta) & Y (yotta) \\ \hline
+  \footnotesize $2^{10n}$  &  & Ki (chibi) & Mi (mebi) & Gi (gibi) & Ti (tebi) \\
+  \footnotesize $2^{10(n+5)}$ & Pi (pebi)& Ei (exbi) & Zi (zebi) & Yi (yobi)
+  \end{tabular}
+  \end{center}
+  \caption{I primi valori (e nomi) di alcune delle sequenze che abbiamo definito.
+  Sarà utile in particolare ricordare che  $2^{10}=1024$ 
+  è molto vicino a $10^3=1000$: questo giustifica i nomi simili utilizzati
+  per le potenze di $2^{10}$ e per le potenze di $10^3$.
+  }
+  \end{table}
+  
+  A volte sarà utile considerare anche i prodotti di solamente i numeri
+  pari o i numeri dispari fino ad un certo numero $n$. Questo
+  si chiama \emph{semi-fattoriale}%
+\mymargin{semi-fattoriale}%
+\index{semi-fattoriale} e si indica con $n!!$
+  Lo possiamo definire separatamente sui numeri pari (cioè 
+  i numeri che si possono scrivere nella forma $2n$ con $n\in \NN$)
+  e i numeri dispari (che scriviamo nella forma $2n+1$):
+  \index{"!"!}
+  \index{$n$"!"!}
+  \index{doppio fattoriale}%
+  \index{fattoriale!doppio}%
+  \index{fattoriale!semi-fattoriale}%
+  \index{semi-fattoriale}%
+  \begin{align*}
+    (2n)!! &= 2 \cdot 4 \cdot 6 \cdots (2n) \\
+    (2n+1)!! &= 1 \cdot 3 \cdot 5 \cdots (2n+1).
+  \end{align*}
+  
+  \begin{remark}
+  \label{rem:doppio_fattoriale}%
+  Si osservi che risulta
+  \[
+    (2n)!! = (2\cdot 1) \cdot (2\cdot 2) \cdot (2\cdot 3) \cdots (2\cdot n)
+          = 2^n \cdot n!
+  \]
+  mentre
+  \[
+    (2n+1)!! = \frac{(2n+1)!}{2n!!} = \frac{(2n+1)!}{2^n\cdot n!}.
+  \]
+  Queste formule permettono di esprimere il semi-fattoriale utilizzando
+  il fattoriale intero e le potenze.
+  \end{remark}
+  
+\begin{exercise}
+  Si dia una definizione per induzione del semi-fattoriale
+  (separatamente per i pari e per i dispari)
+  e si dimostrino, per induzione, le formule nell'osservazione precedente.
+\end{exercise}
+
+\subsection{cardinalità finite}
+
+Denotiamo con $[n] = \ENCLOSE{k\in \NN\colon k<n}$
+l'insieme dei primi $n$ numeri naturali.
+Si avrà $[n]=\ENCLOSE{0,1,\dots, n-1}$.
+\mynote{
+  Si noti che se $\NN$ è l'insieme 
+  degli ordinali di Von Neumann \eqref{eq:vonNeumann} allora $[n]=n$.
+}
+
+\begin{definition}[cardinalità finite]
+Se $A$ è un insieme e $n\in \NN$ diremo che 
+$A$ ha $n$ elementi (o ha cardinalità $n$) e scriveremo 
+\mymargin{numero di elementi}%
+\[
+  \#A = n
+\]
+se esiste una funzione bigettiva $f\colon [n]\to A$.
+\end{definition}
+
+Intuitivamente se $f\colon [n]\to A$ è una qualunque funzione, 
+posto $a_1=f(0)$, $a_2=f(1)$, \dots, $a_{n}=f(n-1)$ 
+avremo che l'immagine di $f$ è $f([n]) = \ENCLOSE{a_1,a_2,\dots,a_n}$.
+Se $f$ è surgettiva $A=f([n])$ e se $f$ è iniettiva 
+tutti gli elementi $a_1$, \dots, $a_n$ saranno distinti
+e quindi effettivamente l'insieme $A=\ENCLOSE{a_1,a_2,\dots,a_n}$
+ha $n$ elementi.
+
+\begin{theorem}[cardinalità finite]
+  \label{th:cardinali_finiti}%
+Un insieme $A$ è finito
+(nel senso di Dedekind, definizione~\ref{def:infinito})
+se e solo se esiste $n\in \NN$ tale che $\#A = n$.
+Inoltre tale $n$, se esiste, è unico.
+\end{theorem}
+\begin{proof}
+\emph{Passo 1.} Dimostriamo innanzitutto che $[n]$ è finito.
+Si tratta di dimostrare che se $f\colon [n]\to [n]$ è iniettiva allora è anche surgettiva.
+Lo facciamo per induzione. 
+Per $n=0$ notiamo che $[0]=\emptyset$ e c'è una unica funzione $f\colon \emptyset \to \emptyset$
+(la funzione vuota: $\emptyset^\emptyset = \ENCLOSE{\emptyset}$)
+che in effetti è bigettiva.
+Supponiamo ora che $[n]$ sia finito e che $f\colon [n+1]\to [n+1]$ sia iniettiva.
+Possiamo allora definire $g\colon[n]\to[n]$ ponendo:
+\[
+  g(k) = \begin{cases}
+    f(k) & \text{se $f(k)\neq n$,}\\
+    f(n) & \text{se $f(k)=n$.}
+  \end{cases}
+\]
+Con un poco di attenzione si verifica facilmente che se $f$ è iniettiva allora anche $g$ è iniettiva
+(l'idea è che $g$ utilizza gli stessi valori di $f$ scartando il valore $n$, visto che $n\not \in [n]$, 
+e utilizzando al suo posto il valore $f(n)$).
+Ma allora, per ipotesi induttiva, $g$ è bigettiva.
+Dunque anche $f$ è bigettiva perché assume tutti i valori assunti da $g$  
+e, avendo un punto più ed essendo iniettiva deve assumere un ulteriore valore che non può 
+che essere $n$.
+
+\emph{Passo 2.}
+Dimostriamo che se $\#A=n$ allora $A$ è finito.
+Data $f\colon A\to A$ iniettiva dobbiamo dimostrare che $f$ è surgettiva.
+Per ipotesi $\#A=n$ dunque esiste una funzione bigettiva $g\colon A\to [n]$.
+La funzione $h=g\circ f\circ g^{-1}\colon [n]\to [n]$ è iniettiva, in quanto composizione di funzioni iniettiva.
+Dunque, essendo $[n]$ finito per il passo 1, la funzione $h$ è anche surgettiva.
+Ma allora anche $f$ è surgettiva in quanto $f=g^{-1}\circ h\circ g$.
+
+\emph{Passo 3.} Dimostriamo che se $f\colon[n]\to A$ è iniettiva
+ed esiste $g\colon[n+1]\to A$ iniettiva allora $f$ non può 
+essere surgettiva.
+Infatti se $f$ fosse bigettiva allora la funzione
+$h\colon [n+1]\to [n]$ definita da $h=f^{-1}\circ g$ 
+sarebbe iniettiva.
+Ma la sua restrizione $h'=h \llcorner [n]$ sarebbe una funzione
+iniettiva $h'\colon[n]\to[n]$ ma non assumerebbe mai il valore 
+$h(n)$ dunque non sarebbe suriettiva.
+Per definizione questo significa che $[n]$ è infinito, 
+cosa che abbiamo già escluso al passo 1.
+
+\emph{Passo 4.}
+Dimostriamo che se $A$ è finito allora esiste $n\in \NN$ tale che $\#A=n$.
+Passiamo alla contronomiale e supponiamo che non esista $n\in \NN$ tale che $\#A=n$:
+dobbiamo dimostrare che in tal caso $A$ è infinito.
+Per fare questo consideriamo le famiglie di funzioni:
+\[
+  J_n(A) = \ENCLOSE{f\colon [n]\to A\colon f \text{ iniettiva}}.
+\]
+
+Ovviamente se $f\in J_{n+1}(A)$ allora $f$ ristretta a $[n]$ è elemento di $J_n(A)$.
+Dunque se $J_n(A)=\emptyset$ allora anche $J_{n+1}(A)=\emptyset$.
+ 
+Se $J_n(A)\neq \emptyset$ e $J_{n+1}(A)=\emptyset$ allora possiamo affermare che $\#A=n$ 
+perché presa una funzione iniettiva $f\in J_n(A)$ se questa non fosse surgettiva potremmo 
+estenderla ad una funzione iniettiva $f'\in J_{n+1}(A)$.
+
+Dunque dovrà essere $J_n(A)\neq \emptyset$ per ogni $n\in \NN$.
+
+Per il passo 3 sappiamo che data 
+$f\in J_n(A)$ esiste $g\in J_{n+1}(A)$
+tale che $g$ coincide con $f$ su $[n]$. 
+Deve dunque esistere una successione di funzioni
+$f_n\colon [n]\to A$ tali che $f_{n+1}$ coincide con $f_n$ su $[n]$.
+I grafici di queste funzioni sono dunque una successione crescente di insiemi e la loro 
+unione è il grafico di una funzione $f\colon \NN \to A$ che anch'essa 
+coincide con $f_n$ su $[n]$. 
+Dunque $f$ è iniettiva perché se fosse $f(n)=f(m)$
+con $m<n$ si avrebbe anche $f_n(n)=f_n(m)$ che non può essere visto che ogni $f_n$ è iniettiva.
+Sull'immagine di $f$ ho quindi una struttura isomorfa a $\NN$ che posso sfruttare per 
+costruire una funzione iniettiva ma non suriettiva su $A$.
+Definisco $h\colon A\to A$ ponendo:
+\[
+  h(x) = \begin{cases}
+    f(f^{-1}(x)+1) &\text{se $x$ è nell'immagine di $f$},\\
+    x &\text{altrimenti}
+  \end{cases}
+\]
+ovviamente $h$ è iniettiva (in quanto $f$ lo è) 
+ma non è suriettiva (in quanto $f(0)$ non è nell'immagine di $h$).
+
+Abbiamo quindi mostrato che $A$ è infinito, come volevamo.
+
+\emph{Passo 5.}
+Dimostriamo che se $A\subset B$, $\#A=m$, $\#B=n$ allora $m\le n$.
+Se per assurdo fosse $\#A=n$ e $\#A=m$ con $m>n$ allora 
+avremmo una contraddizione con quanto affermato al passo 3
+in quanto dovrebbe esistere una funzione bigettiva $f\colon[n]\to A$ 
+(in quanto $\#A=n$) e dovrebbe esistere una funzione iniettiva 
+$g\colon[n+1]\to A$ in quanto essendo $\#A=m$ c'è una funzione iniettiva 
+$[m]\to A$ che posso restringere a $[n+1]$.
+\end{proof}
+
+\begin{theorem}[operazioni con le cardinalità finite]
+  Se $A$ e $B$ sono insiemi finiti risulta:
+  \begin{align}
+    \#(A\cup B) &= \#A + \#B \quad \text{se $A\cap B=\emptyset$},\\
+    \#(A\setminus B) &= \#A - \#B \quad \text{se $B\subset A$},\\
+    \#(A\times B) &= \#A \cdot \#B, \\
+    \#(B^A) &= \#B^{\#A}, \\
+    \#(A!) &= (\#A)!, \\
+    \#(\P(A)) &= 2^{\#A}.
+  \end{align}
+\end{theorem}
+\begin{proof}
+Per quanto riguarda l'unione disgiunta, se $f\colon [n]\to A$ e $g\colon [m]\to B$
+sono bigettive, una funzione bigettiva $h\colon [n+m] \to A\cup B$ si può
+definire così:
+\[
+  h(k) = \begin{cases}
+    f(k) & \text{se } k<n,\\
+    g(k-n) & \text{se } k\ge n.
+  \end{cases}
+\] 
+Si verifica facilmente che $h$ è bigettiva.
+Per quanto riguarda la differenza $A\setminus B$ basta osservare che se $B\subset A$
+allora $A = (A\setminus B) \cup B$ e dunque $\#A = \#(A\setminus B) + \#B$ per il punto precedente.
+
+Nei casi rimanenti, senza perdità di generalità, 
+possiamo supporre che sia $A=[n]$. E procediamo per induzione su $n$.
+
+Per il prodotto cartesiano il caso $n=0$ corrisponde a $\emptyset\times B = \emptyset$.
+Il passo induttivo si dimostra osservando che $[n+1]\times B = [n]\times B \cup \ENCLOSE{n} \times B$
+da cui, passando alle cardinalità diventa $(n+1)\cdot m = n\cdot m + m$.
+
+Gli elementi di $B^{[n+1]}$ sono le funzioni $[n+1]\to B$ 
+e si possono identificare
+univocamente prendendo una funzione $f\colon [n]\to B$ e un valore $b\in B$ da assegnare 
+al punto $n$. 
+Dunque $B^{[n+1]}$ è in corrispondenza biunivoca con $B^{[n]}\times B$
+e passando alle cardinalità si ottiene appunto $m^{n+1} = m^n\cdot m$.
+
+L'insieme $A!$ è l'insieme delle funzioni bigettive $A\to A$. 
+Visto che $A$ è finito l'insieme delle funzioni bigettive coincide 
+con l'insieme delle funzioni iniettive. 
+Supponiamo $A=[n]$ e procediamo per induzione su $n$.
+Se $n=0$ si ha $\emptyset!=\ENCLOSE{\emptyset}$ che, passando alle cardinalità, diventa $0!=1$.
+Per il passo induttivo osserviamo che una funzione iniettiva $[n+1]\to B$ 
+si identifica univocamente scegliendo il valore $b\in B$ da assegnare al punto $n$ 
+e poi prendendo una funzione $f\colon [n]\to B\setminus\ENCLOSE{b}$ iniettiva. 
+Dunque $[n+1]!$ si identifica con $B\times [n]!$ e, passando alle cardinalità, questo diventa 
+la definizione ricorsiva del fattoriale: $(n+1)! = (n+1)\cdot n!$.
+
+Per l'insieme delle parti osserviamo che $\P(A)$ è in corrispondenza biunivoca con
+l'insieme delle funzioni $A\to \ENCLOSE{0,1}$: basta associare ad ogni sottoinsieme $X$ di $A$ 
+la funzione che vale $1$ su $X$ e $0$ altrimenti. 
+Dunque $\#(\P(A)) = \#([2]^A) = 2^{\#A}$.
+\end{proof}
+
+\begin{theorem}[principio dei cassetti (o dei piccioni)]
+  \index{principio!dei cassetti}%
+  \index{cassetti, principio dei}%
+  \index{piccioni, principio dei}%
+Se $A$ e $B$ sono insiemi finiti e $\#A > n\cdot \#B$ allora 
+per ogni $f\colon A \to B$ esiste $b\in B$ tale che 
+\[
+ \# f^{-1}(\ENCLOSE{b}) \ge n+1.
+\]
+\end{theorem}
+\begin{proof}
+Dimostriamo l'implicazione contronominale: se per ogni $b\in B$ si ha $\# f^{-1}(b) < n+1$
+allora $\#A \le n\cdot \#B$.
+Senza perdere di generalità supponiamo inoltre $A=[m]$.
+Data la funzione $f\colon A\to B$ possiamo definire una nuova funzione $g\colon A\to B\times[n]$ 
+ponendo:
+\[
+  g(a) = \left(f(a),\# \ENCLOSE{x\in [a]\colon f(x)=f(a)}\right).
+\]
+Abbiamo in pratica appiccicato una diversa etichetta ad ogni valore di $f$. 
+In questo modo è facile convincersi che $g$ risulta essere iniettiva.
+Dunque $\#A \le \#(B\times [n]) = n\cdot \# B$ che è la tesi contronominale.
+\end{proof}
+
+\begin{example}
+In un gruppo di 1000 persone ci sono almeno tre persone che compiono gli anni lo stesso giorno.
+Si applica il principio dei cassetti con $A$ insieme delle persone, 
+$B$ insieme dei giorni dell'anno $f\colon A\to B$ che associa ad ogni persona il giorno
+del suo compleanno. Visto che $1000 > 366 \cdot 2$ il teorema si applica con $n=2$.
+\end{example}
+

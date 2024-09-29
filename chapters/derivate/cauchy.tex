@@ -1,0 +1,200 @@
+\section{teoremi di Cauchy e de l'Hospital}
+
+\begin{theorem}[Cauchy]
+\label{th:cauchy}%
+\mymark{**}%
+\index{teorema!di Cauchy}%
+\mymargin{Cauchy}%
+\index{Cauchy}%
+Siano $a,b\in \RR$, $a < b$.
+\mynote{Se $b<a$ il teorema è ugualmente valido intendendo $[a,b]=[b,a]$.}%
+Siano $f\colon[a,b]\to \RR$ e $g\colon[a,b]\to \RR$ funzioni continue su tutto $[a,b]$ e derivabili su $(a,b)$.
+Supponiamo inoltre che $g'(x)\neq 0$ per ogni $x\in (a,b)$.
+Allora $g(b) \neq g(a)$ ed esiste $x_0\in(a,b)$ tale che
+\[
+  \frac{f'(x_0)}{g'(x_0)} = \frac{f(b)-f(a)}{g(b)-g(a)}.
+\]
+\end{theorem}
+%
+\begin{proof}
+\mymark{**}
+Si consideri la funzione ausiliaria
+\[
+ h(x) = (g(b)-g(a))f(x) - (f(b)-f(a))g(x).
+\]
+Per verifica diretta si osserva che
+\[
+  h(b) = g(b)f(a) - f(b)g(a) = h(a).
+\]
+Dunque $h$ verifica le ipotesi del teorema di Rolle ed esiste
+dunque un punto $x_0\in(a,b)$ per cui $h'(x_0) = 0$.
+Essendo però
+\[
+  h'(x) = (g(b) - g(a)) f'(x) - (f(b)-f(a)) g'(x)
+\]
+si ottiene
+\[
+ (g(b)-g(a))f'(x_0) = (f(b) - f(a))g'(x_0).
+\]
+Per ipotesi sappiamo che $g'(x_0)\neq 0$.
+Ma necessariamente anche $g(b) - g(a)\neq 0$ perché altrimenti potremmo applicare il teorema di Rolle alla funzione $g$ e ottenere che $g'$ si annulla in un punto di $(a,b)$, cosa che abbiamo escluso per ipotesi.
+Dunque possiamo dividere ambo i membri per $(g(b)-g(a))$ e per $g'(x_0)$ per ottenere l'uguaglianza enunciata nel teorema.
+\end{proof}
+
+\begin{theorem}[de l'Hospital $0/0$]
+\mymark{***}
+Sia $I\subset \RR$ un intervallo, $x_0\in [-\infty,+\infty]$ un punto di accumulazione
+di $I$
+e siano $f,g \colon I\setminus\ENCLOSE{x_0} \to \RR$ funzioni derivabili.
+Supponiamo che sia $g'(x)\neq 0$ per ogni $x\in I\setminus\ENCLOSE{x_0}$.
+Se
+\[
+  \lim_{x\to x_0} f(x) = 0 \qquad \text{e}\qquad \lim_{x\to x_0} g(x) = 0
+\]
+e se esiste (finito o infinito) il limite
+\[
+  \ell = \lim_{x\to x_0}\frac{f'(x)}{g'(x)}
+\]
+allora si ha
+\[
+  \lim_{x\to x_0} \frac{f(x)}{g(x)} = \ell.
+\]
+\end{theorem}
+%
+\begin{proof}
+\mymark{**}
+Bisognerà distinguere diversi casi a seconda che $x_0$ sia finito o infinito
+e che sia un punto interno o un estremo dell'intervallo $I$.
+Fatta la dimostrazione nel primo caso tutti gli altri si riconducono ad esso.
+
+\emph{Caso 1:} supponiamo che sia $I=[x_0, b]$. In questo caso possiamo
+estendere le funzioni $f$ e $g$ anche nel punto $x_0$ ponendo:
+\[
+\tilde f(x) =
+\begin{cases}
+  f(x) & \text{se $x\in (x_0,b]$}\\
+  0 & \text{se $x=x_0$,}
+\end{cases}
+\qquad
+\tilde g(x) =
+\begin{cases}
+  g(x) & \text{se $x\in (x_0,b]$}\\
+  0 & \text{se $x=x_0$.}
+\end{cases}
+\]
+Visto che per ipotesi $f(x) \to 0$ e $g(x)\to 0$ per $x\to x_0$ risulta
+che $\tilde f$ e $\tilde g$ siano funzioni continue su tutto l'intervallo $[x_0,b]$
+inoltre, sempre per ipotesi, sono derivabili nell'intervallo $(x_0,b]$
+visto che l'estensione per $x=x_0$ non modifica le derivate negli altri punti.
+In particolare le funzioni estese soddisfano le ipotesi del teorema di Cauchy in
+ogni intervallo $[x_0,x]$ con $x\in (x_0,b]$, dunque possiamo affermare
+che per ogni $x$ esiste $c(x)\in (x_0,x)$ tale che
+\[
+  \frac{f(x)}{g(x)}
+  = \frac{\tilde f(x) - \tilde f(x_0)}
+  {\tilde g(x)- \tilde g(x_0)}
+  = \frac{\tilde f'(c(x))}{\tilde g'(c(x))}
+  = \frac{f'(c(x))}{g'(c(x))}.
+\]
+Ma essendo $x_0< c(x) < x$ per $x\to x_0$ si ha $c(x)\to x_0$ e quindi,
+tramite un cambio di variabile
+(Teorema~\ref{th:limite_composta})
+possiamo affermare che
+\[
+    \lim_{x\to x_0} \frac{f(x)}{g(x)}
+  = \lim_{x\to x_0}\frac{f'(c(x))}{g'(c(x))}
+  = \lim_{x\to x_0}\frac{f'(x)}{g'(x)} = \ell.
+\]
+
+\emph{Caso 2:} supponiamo sia $I$ qualunque e $x_0$ finito.
+Visto che le funzioni sono definite su $I\setminus\ENCLOSE{x_0}$ possiamo sempre
+supporre $x_0\in I$. Inoltre
+visto che i limiti dipendono solo dai valori in un intorno del punto $x_0$
+possiamo sempre supporre che $I$ sia un intervallo chiuso e limitato.
+Nel passo precedente abbiamo fatto il caso in cui $x_0$ era l'estremo
+inferiore di $I$, ma allo stesso modo si può fare il caso in cui
+$x_0$ è l'estremo superiore. Se invece $x_0$ fosse un punto interno di $I$
+possiamo considerare separatamente il limite destro e sinistro e ricondurci
+ai casi in cui $x_0$ era un estremo.
+
+\emph{Caso 3:} supponiamo sia $x_0=+\infty$. In tal caso
+l'intervallo $I$ contiene un intevallo $[a,+\infty)$ con $a\in\RR$.
+Anche in questo caso vogliamo ricondurci al primo caso tramite il cambio
+di variabile $t=1/x$. Posto $F(t) = f(1/t)$ e $G(t)= g(1/t)$ si osserva che $F$ e $G$
+sono definite sull'intervallo $(0,1/a]$,
+tendono a zero per $t\to 0^+$
+sono derivabili,
+\[
+  F'(t) = -\frac{f'(1/t)}{t^2}, \qquad
+  G'(t) = -\frac{g'(1/t))}{t^2}
+\]
+e risulta quindi
+\[
+  \lim_{t\to 0^+} \frac{F'(t)}{G'(t)}
+  = \lim_{t\to 0^+} \frac{f'(1/t)}{g'(1/t)}
+  = \lim_{x\to +\infty} \frac{f'(x)}{g'(x)} = \ell.
+\]
+Quindi applicano il teorema nel caso già dimostrato possiamo affermare che
+\[
+  \lim_{x\to +\infty} \frac{f(x)}{g(x)} = \lim_{t\to 0^+} \frac{F(t)}{G(t)} = \ell.
+\]
+
+\emph{Caso 4:} il caso $x_0 = -\infty$ si svolge in maniera analoga al caso precedente.
+\end{proof}
+
+\begin{theorem}[de l'Hospital $\cdot/\infty$]
+\mymark{*}
+\index{teorema!di de l'Hospital}
+\mymargin{de l'Hospital}%
+\index{de l'Hospital}
+Siano $a,b\in [-\infty,+\infty]$ con $a<b$.
+Siano $f,g \colon (a,b)\to \RR$ funzioni derivabili.
+Se
+\[
+ \lim_{x\to a^+} \abs{g(x)} = +\infty,
+\]
+se $g'(x) \neq 0$ per ogni $x\in (a,b)$
+e se esiste il limite (finito o infinito)
+\[
+  \ell = \lim_{x\to a^+}\frac{f'(x)}{g'(x)}
+\]
+allora
+si ha
+\[
+ \lim_{x\to a^+}\frac{f(x)}{g(x)} = \ell.
+\]
+
+Risultato analogo si ha facendo i limiti per $x\to b^-$ invece che per $x\to a^+$ e di conseguenza anche nel caso in cui la funzione sia definita su un intervallo ``bucato''
+$f\colon (a,b)\setminus\ENCLOSE{x_0} \to \RR$ e si considerino i limiti ``pieni'' per $x\to x_0$.
+\end{theorem}
+%
+\begin{proof}
+Supponiamo per assurdo che non si abbia
+\[
+  \lim_{x\to a^+} \frac{f(x)}{g(x)} = \ell.
+\]
+Allora, per il teorema di collegamento tra limiti di funzione e limiti di successione, deve esistere una successione $a_k\in (a,b)$, $a_k\to a$ tale che non si abbia
+\[
+  \lim_{k\to +\infty} \frac{f(a_k)}{g(a_k)} = \ell.
+\]
+Se la successione $f(a_k) / g(a_k)$ è limitata allora applicando il teorema di Bolzano Weierstrass sappiamo esistere una sottosuccessione
+convergente ad un valore $m\neq \ell$ (se tutte le sottosuccessioni convergessero ad $\ell$ l'intera successione convergerebbe ad $\ell$).
+Se invece $f(a_k) / g(a_k)$ non è limitata possiamo estrarre una sottosuccessione che converge a $+\infty$ oppure a $-\infty$. In ogni caso esiste una successione, che chiameremo ancora $a_k$, ed esiste $m\in \bar \RR$ tale che
+\[
+  \lim_{k \to +\infty} \frac{f(a_k)}{g(a_k)} = m \neq \ell.
+\]
+Consideriamo ora un intorno $U$ di $m$ e un intorno $V$ di $\ell$ tali che $U\cap V = \emptyset$.
+Siccome $f'(x) / g'(x) \to \ell$ per $x\to a$ esiste un $c\in (a,b)$ tale che per ogni $x\in (a,c)$ si ha
+\[
+  \frac{f'(x)}{g'(x)} \in V.
+\]
+Consideriamo allora il seguente rapporto incrementale
+\begin{align*}
+\frac{f(a_k) - f(x)}{g(a_k) - g(x)}
+=\frac{\frac{f(a_k)}{g(a_k)}-\frac{f(x)}{g(a_k)}}{1-\frac{g(x)}{g(a_k)}}
+\end{align*}
+e osserviamo che il lato destro tende a $m$ per $k\to +\infty$ in quanto $f(a_k)/g(a_k) \to m$ e visto che $\abs{g(a_k)}\to +\infty$ si ha $f(x)/g(a_k)\to 0$ e $g(x)/g(a_k) \to 0$.
+Dunque esisterà un $k$ per cui il lato destro sta nell'intorno $U$ di $m$. Al lato sinistro possiamo invece applicare il teorema di Cauchy e trovare quindi un punto $y\in(a_k,c)$ per cui tale lato risulti
+uguale a $f'(y)/g'(y)$. Ma visto che $y\in (a,c)$ si dovrà avere $f'(y)/g'(y) \in V$. Questo è assurdo in quanto $U\cap V = \emptyset$.
+\end{proof}
+

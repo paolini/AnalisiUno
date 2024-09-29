@@ -1,0 +1,413 @@
+\section{funzioni trigonometriche}
+\label{sec:funzioni_trigonometriche}%
+\label{sec:avvolgimento}%
+
+Consideriamo la circonferenza unitaria 
+\[
+  U = \ENCLOSE{z\in \CC\colon \abs{z} = 1}.
+\]
+Ogni punto $z\in U$ individua un angolo geometrico con l'asse reale.
+Il nostro obiettivo è ora quello di definire la misura di un angolo.
+Il punto $z=1$ individuerà un angolo di misura nulla e 
+ruotando $z$ in senso antiorario vogliamo ottenere angoli 
+di misura crescente in modo che l'angolo che si ottiene 
+giustapponendo uno di seguito all'altro gli angoli individuati 
+dal punto $z$ e dal punto $w$ abbia misura pari alla somma delle misure 
+degli angoli individuati da $z$ e da $w$.
+
+Scegliamo arbitrariamente di dare una misura $\tau>0$ all'angolo giro.
+L'idea intuitiva è quella di \emph{arrotolare} la retta $\RR$ come un filo 
+attorno alla circonferenza $U\subset \CC$ 
+mandando il punto $0\in \RR$ sul punto $1\in \CC$,
+e poi il punto $\frac \tau 4$ su $i$, il punto $\frac \tau 2$ su $-1$,
+il punto $3\frac \tau 4$ su $-i$ e il punto $\tau$ di nuovo su $1$.
+Punti intermedi andranno su punti intermedi di $U$ in modo da avere 
+l'additività degli angoli: la misura della somma di due angoli dovrà 
+essere la somma delle misure.
+
+L'insieme $U$ eredita la struttura di gruppo moltiplicativo di $\CC$: 
+se $z,w\in U$ 
+allora $z\cdot w \in U$ in quanto $\abs{z\cdot w} = \abs{z}\cdot \abs{w} = 1$
+essendo $\abs{z}=\abs{w}=1$.
+Ricordiamo inoltre che la moltiplicazione di numeri complessi unitari 
+corrisponde alla somma dei loro angoli geometrici.
+Dunque la funzione $\phi\colon \RR \to U$ che misura gli angoli, 
+dovrà avere la proprietà di \emph{omomorfismo}:
+\begin{equation}\label{eq:4012387}
+  \phi(x+y) = \phi(x)\cdot \phi(y).
+\end{equation}
+Purtroppo sul gruppo $U$ non possiamo mettere un ordinamento e 
+dunque non possiamo utilizzare il teorema~\ref{th:isomorfismo} 
+di isomorfismo 
+come abbiamo fatto per definire la funzione esponenziale.
+L'idea sarà invece quella di definire la funzione $\phi$ 
+bisezionando l'angolo giro, quindi estendendola ai multipli 
+degli angoli bisecati con \eqref{eq:4012387}
+e, infine, estendendola per monotonia a tutti gli angoli.
+
+\begin{theorem}
+Fissato $\tau>0$ esiste una unica funzione $\phi\colon \RR \to \CC$ tale che 
+\begin{enumerate}
+\item $\abs{\phi(t)}=1$,
+\item $\phi(t+s)=\phi(t)\cdot \phi(s)$ (proprietà di omomorfismo),
+\item $\phi(\tau) = 1$ e $\phi(t)\neq 1$ per ogni $t\in(0,\tau)$,
+\item $\Im\phi(t)$ è crescente per $t\in\Enclose{0,\frac \tau 4}$.
+\end{enumerate}
+
+Inoltre tale funzione ha le seguenti proprietà:
+\begin{enumerate}
+  \item $\phi(t+\tau)=\phi(t)$ ($\phi$ è $\tau$-periodica),
+  \item $\phi([0,\tau)) = U = \ENCLOSE{z\in \CC\colon \abs{z}=1}$,
+  \item $\Im \phi(t)$ è strettamente crescente per $t\in\Enclose{-\frac \tau 4,\frac \tau 4}$,
+  \item $\Re \phi(t)$ è strettamente decrescente per $t\in\Enclose{0,\frac \tau 2}$,
+\end{enumerate}
+\end{theorem}
+%
+\begin{proof}
+Per fissare le idee facciamo la costruzione con $\tau=4$ 
+cioè decidiamo di voler dare misura $1$ all'angolo retto e 
+quindi misura $4$ all'angolo 
+giro. 
+E' facile osservare che se riusciamo a costruire $\phi$ con le proprietà 
+richieste per $\tau=4$ allora la funzione $t\mapsto \phi(\tau t / 4)$ 
+avrà le proprietà richieste per un $\tau$ generico.
+
+Vogliamo innanzitutto definire $\phi\colon[0,1]\to U$ la funzione
+che associa alla misura $t\in[0,1]$ un angolo rappresentato da 
+un numero complesso unitario $z\in U$ con $\Re z\ge 0$ e $\Im z\ge 0$
+(nel primo quadrante del piano complesso).
+Vorremo definire $\phi$ in modo che sia $\phi(0)=1$, $\phi(1)=i$,
+$\phi(1/2)=\frac{1+i}{\sqrt 2}$ (angolo di $45^\circ$) e così via.
+
+Per fare questo dobbiamo innanzitutto bisecare un generico angolo 
+$u\in U$.
+Se $u\in U$ l'angolo metà è rappresentato da un numero 
+complesso $z\in U$ tale che $z^2=u$. 
+L'equazione $z^2=u$ ha in generale due soluzioni, ma se $u$ 
+è nel primo quadrante $Q=\ENCLOSE{z\in U\colon \Re z\ge 0, \Im z\ge 0}$
+ci sarà una sola soluzione nel primo quadrante.
+Posto $u=a+ib$ e $z=x+iy$ l'equazione $z^2=u$ si scrive:
+\[
+  (x^2-y^2) + i(2xy) = a+ib
+\]
+da cui $a=x^2-y^2$. Visto che $x^2+y^2=1$ (essendo $u\in U$)
+si ha $a=2x^2-1$ da cui $x=\pm\sqrt{\frac{1+a}{2}}$.
+La soluzione in $Q$ dovrà avere $x\ge 0$ e dunque segliamo 
+il segno positivo:
+\[
+  x = \sqrt{\frac{1+a}{2}}, \qquad 
+  y = \sqrt{1-x^2} = \sqrt{\frac{1-a}{2}}.
+\]
+Denotiamo con $z=\sqrt u$ la soluzione con parte reale positiva 
+dell'equazione $z^2=u$ che abbiamo appena calcolato.
+Possiamo allora definire la successione degli angoli dimezzati:
+\[
+\begin{cases}
+u_0 = i\\
+u_{n+1} = \sqrt{u_n}.
+\end{cases}
+\]
+Questi angoli sono uno la metà dell'altro $u_{n+1}^2 = u_n$.
+Induttivamente si dimostra facilmente che vale $u_{n+k}^{2^k} = u_n$
+per ogni $n,k\in \NN$.
+Avendo posto $\tau=4$ dovrà essere $\phi(1)=i$ e quindi 
+$\phi(1/2^n)=u_n$ affinchè sia rispettata l'equazione \eqref{eq:4012387}.
+Inoltre dovrà essere
+\begin{equation}
+\phi\enclose{\frac{p}{2^n}} = (u_n)^p,
+\qquad n\in \NN, p\in \NN, p\le 2^n.
+\end{equation}
+Questa definizione è ben posta in quanto se $\frac{p}{2^n}=\frac{q}{2^{n+k}}$
+si ha $p=2^k q$ e quindi $(u_n)^p = (u_n)^{2^k q} = u_{n+k}^q$.
+
+Posto 
+\[
+B = \ENCLOSE{\frac{p}{2^n}\colon n\in \NN, p\in \NN, p\le 2^n} \subset [0,1]
+\]
+abbiamo definito $\phi\colon B\to U$ in modo che \eqref{eq:4012387}
+sia soddisfatta. 
+Inoltre la definizione di $\phi$ è unica se imponiamo  
+$\phi(1)=i$.
+Si tratta ora di estendere la definizione di $\phi$ a tutto 
+l'intervallo $[0,1]$. 
+Possiamo riutilizzare il teorema~\ref{th:estensione_monotona} di 
+estensione monotona.
+
+Innanzitutto vogliamo dimostrare che $\Re \phi\colon B\to \RR$ 
+e $\Im \phi\colon B\to \RR$ sono funzioni monotone.
+In particolare vogliamo dimostrare che se $t\ge s$ allora 
+$\Re \phi(t) \le \Re \phi(s)$.
+Osserviamo che si ha $\phi(t) = \phi(s)\cdot \phi(t-s)$, 
+quindi basta capire come si comporta la moltiplicazione per un 
+numero complesso del primo quadrante.
+Se $\phi(s)=z=a+ib$ e $\phi(t-s)=w=x+iy$ si ha
+$\Re (zw) = ax-by$. Banalmente se $a,b,x,y\in[0,1]$ si ha 
+$ax-by \le a$. 
+Dunque $\Re \phi(t)\le \Re \phi(s)$ come volevamo dimostrare.
+Visto che $\Im \phi(t) = \sqrt{1-\Re \phi(t)^2}$ si ha
+anche $\Im \phi(t) \le \Im \phi(s)$.
+
+Questa proprietà ci dice in particolare che $\phi$ assume valori 
+nel primo quadrante, in quanto sapendo che agli estremi 
+$\phi(0) = 1$ 
+e $\phi(1)=i$ ogni altro valore deve avere parte reale 
+e parte immaginaria compresa tra $0$ e $1$.
+
+Possiamo allora considerare la funzione 
+$f=\Im \phi$, $f\colon B\subset [0,1]\to[0,1]$
+a cui applicare il teorema~\ref{th:estensione_monotona}.
+Dobbiamo verificare che $f(B)$ è denso in $J=[0,1]$. 
+Dati $y_1,y_2\in [0,1]$ con $y_1<y_2$ dobbiamo mosrare che esiste $t\in B$ tale 
+che $y_1 < \Im phi(t) < y_2$.
+Sarà $y_1=\Im z_1$ e $y_2=\Im z_2$ con $z_1,z_2\in U$.
+L'idea è quella di trovare $n$ abbastanza grande in modo che uno dei punti 
+$u_n^p$ stia tra $z_1$ e $z_2$. 
+L'angolo differenza tra $z_1$ e $z_2$ è rappresentato da 
+$w=\frac{z_2}{z_1}$. 
+Siccome $u_n\to 1$ per $n\to +\infty$ 
+esisterà $n$ tale che $\abs{u_n-1}<y_2-y_1$.
+La successione $\Im u_n^p$, al crescere di $p\in \NN$ è crescente 
+(come abbiamo già osservato) e varia tra $0$ (quando $p=0$) e $1$ 
+(quando $p=2^n$). 
+Si ha
+\[
+ \Im u_n^{p+1} - \Im u_n^p = \Im (u_n^{p+1}-u_n^p) 
+ \le \abs{u_n^{p+1}-u_n^p} < y_2-y_1.
+\]
+Dunque dovrà esistere $p\in \NN$, $p\le 2^n$ tale che 
+$y_1 < \Im u_n^p <y_2$. 
+Visto che $\Im u_n^p = f(p/2^n)$ abbiamo dimostrato 
+che $f(B)$ è denso in $[0,1]$.
+Per il teorema~\ref{th:estensione_monotona} possiamo allora estendere 
+$f$ a tutto $[0,1]$ preservando la monotonia.
+Ma allora possiamo estendere $\phi$ a tutto $[0,1]$ 
+ponendo $\phi(t) = \sqrt{1-f^2(t)} + i f(t)$. 
+In questo modo $\Im \phi = f$ è monotona crescente mentre 
+$\Re \phi=\sqrt{1-f^2}$ risulta decrescente.
+
+Vogliamo ora verificare che la proprietà di omomorfismo 
+\eqref{eq:4012387} è verificata
+ora per ogni $t\in [0,1]$.
+Prendiamo dunque $s,t\in[0,1]$ tali che anche $s+t\in [0,1]$
+e puntiamo a dimostrare che per ogni $\eps>0$ 
+si ha:
+\begin{equation}\label{eq:4438844}
+  \Im(\phi(s+t)- \phi(s)\phi(t)) < 4\eps,
+  \qquad
+  \Re(\phi(s+t)-\phi(s)\phi(t)) < 4\eps.
+\end{equation}
+Questo direbbe che $\phi(s+t)=\phi(s)\phi(t)$.
+
+Per dimostrare~\eqref{eq:4438844} consideriamo 
+$s_1,s_2,t_1,t_2\in B$ tali che $s_1<s<s_2$, 
+$t_1<t<t_2$
+e $0<\Im \phi(s_2)-\Im \phi(s_1)<\eps$, $0<\Im \phi(t_2)-\Im \phi(t_1)<\eps$,
+  $0<\Re \phi(s_1)-\Re \phi(s_2)<\eps$, $0<\Re \phi(t_1)-\Re \phi(t_2)<\eps$.
+Questo si può fare perché abbiamo visto che $\Im  \phi$ è crescente 
+e $\Im \phi(B)$ è denso in $[0,1]$.
+Analogamente si verifica che $\Re \phi$ è decrescente e
+e anche $\Re \phi(B)$ è denso in $[0,1]$.
+Si ha allora:
+\[
+\Im \phi(s+t) - \Im (\phi(s)\phi(t))
+= \Im \phi(s+t) - \Re \phi(s)\Im \phi(t) - \Re \phi(t)\Im \phi(s)
+\]
+e usando la monotonia di $\Im \phi$ e $\Re \phi$ si ottiene:
+\begin{align*}
+\Im \phi(s+t) &- \Im (\phi(s)\phi(t))
+\le \Im \phi(s_2+t_2) - \Re \phi(s_2)\Im \phi(t_1) - \Re \phi(t_2)\Im \phi(s_1)\\ 
+&= \Im (\phi(s_2)\phi(t_2)) - \Re \phi(s_2)\Im \phi(t_1) - \Re \phi(t_2)\Im \phi(s_1)\\ 
+&= \Re\phi(s_2)(\Im\phi(t_2) - \Im \phi(t_1))+\Re\phi(t_2)(\Im\phi(s_2) - \Im \phi(s_1))\\
+&< 2\eps.
+\end{align*}
+Analogamente si ottiene:
+\begin{align*}
+\Im \phi(s+t) - \Im (\phi(s)\phi(t))
+&\ge -2\eps,\\
+\Re \phi(s+t) - \Re (\phi(s)\phi(t))
+&\le 4\eps,\\
+\Re \phi(s+t) - \Re (\phi(s)\phi(t))
+&\ge -4\eps.
+\end{align*}
+\mynote{
+Nelle disuguaglianze con la parte reale si ottengono 
+termini del tipo $a_1 b_1 - a_2 b_2$ 
+ai quali bisogna aggiungere e togliere $a_1 b_2$ 
+per ottenere la forma $a_1(b_1-b_2) + (a_1-a_2)b_2$: 
+per questo motivo si ottiene $4\eps$ invece che $2\eps$.
+}
+
+Abbiamo finora osservato che $\Im \phi$ e $\Re \phi$ sono monotone.
+Possiamo notare però che devono essere strettamente monotone, altrimenti 
+ci sarebbe un piccolo intervallo su cui $\phi$ è costante, e per la proprietà 
+di omomorfismo potremmo dedurre che per un piccolo intervallo $[0,t_0]$ 
+si dovrebbe avere $\phi(t)=1$, che è assurdo visto che $\frac{1}{2^n}$ 
+sta in tale intervallo per $n$ abbastanza grande, e in corrispondenza 
+di tale valore di $t$ si ha $\phi(t)=u_n$ e, chiaramente, $u_n\neq 1$
+per ogni $n\in \NN$.
+
+A questo punto abbiamo una funzione $\phi\colon[0,1]\to U\cap Q$ 
+che soddisfa, in $[0,1]$ le proprietà richieste.
+Si tratta ora di estendere $\phi$ a tutto $\RR$.
+Se $[t]\in \ZZ$ è la parte intera di $t$ (con la proprietà 
+$[t]\le t < [t]+1$), definiamo $\ENCLOSE{t} = t-[t]$
+la parte frazionaria. 
+Affinché valga la proprietà
+di omomorfismo dovremo avere $\phi(t)=\phi([t])\cdot\phi(\ENCLOSE t)$.
+Ma dovrà anche essere $\phi([t])=\phi(1)^{[t]}=i^{[t]}$ e dunque
+l'unico modo di estendere $\phi$ a tutto $\RR$ è quello di porre,
+per ogni $t\in \RR$,
+\[
+  \phi(t) = i^{[t]}\phi(\ENCLOSE t).
+\]
+Visto che $i^4=1$ otteniamo la proprietà richiesta $\phi(4)=1$.
+Inoltre osserviamo che se per $t\in[0,1]$ abbiamo costruito 
+$\phi(t)$ con valori nel primo quadrante $Q$, nell'intervallo $[1,2]$
+i valori di $\phi$ vengono moltiplicati per $i$, cioè vengono 
+ruotati, nel piano di gauss, di un angolo retto in senso antiorario.
+Dunque $\phi(t)$ ha valori nel secondo quadrante se $t\in[1,2]$.
+Analogamente si trova che per $t\in[2,3]$ i valori sono nel terzo 
+quadrante e per $t\in[3,4]$ i valori sono nel quarto quadrante.
+In particolare $t=4$ è il primo valore positivo per cui si ha 
+$\phi(t)=1$, come era richiesto nell'enunciato del teorema.
+
+La proprietà di omomorfismo $\phi(t+s)=\phi(t)\cdot\phi(s)$ 
+rimane valida per ogni $t,s\in\RR$.
+Posto $t=[t]+\ENCLOSE t$, $s=[s]+\ENCLOSE s$ si ha 
+$[t+s]=[t]+[s]$ oppure $[t+s]=[t]+[s]+1$ a seconda che 
+$\ENCLOSE t+\ENCLOSE s$ sia minore di $1$ oppure no.
+Nel primo caso si ha:
+\[
+\phi(t+s) = i^{[t]+[s]}\phi(\ENCLOSE{t}+\ENCLOSE{s})
+  = i^{[t]}i^{[s]}\phi(\ENCLOSE{t})\phi(\ENCLOSE{s})
+  = \phi(t)\cdot\phi(s).
+\]
+Il secondo caso rimane valido se riusciamo a dimostrare che 
+se $\ENCLOSE t+\ENCLOSE s>1$ si ha 
+$\phi(\ENCLOSE t)\cdot \phi(\ENCLOSE s) = i\phi(\ENCLOSE t+\ENCLOSE s-1)$.
+Questo è vero perché si ha
+$\phi(\ENCLOSE s)=\phi(1-\ENCLOSE t)\phi(\ENCLOSE t+\ENCLOSE s-1)$ in quanto 
+$\ENCLOSE s=(1-\ENCLOSE t)+(\ENCLOSE t+\ENCLOSE s-1)$ 
+e $\ENCLOSE s,1-\ENCLOSE t,\ENCLOSE t+\ENCLOSE s-1\in[0,1]$
+e inoltre $i=\phi(1)=\phi(\ENCLOSE t)\phi(1-\ENCLOSE t)$
+dunque 
+\[
+\phi(\ENCLOSE t)\phi(\ENCLOSE s) 
+  = \frac{i}{\phi(1-\ENCLOSE t)}\phi(1-\ENCLOSE t)\phi(\ENCLOSE t+\ENCLOSE s-1)
+  = i \phi(\ENCLOSE t+\ENCLOSE s-1).
+\]
+
+Rimane solo da mostrare che $\Im \phi$ è strettamente crescente anche 
+sull'intervallo $[-1,0]$, ma questo è ovvio se si nota che 
+$\phi(-t)=\frac{1}{\phi(t)}=\overline{\phi(t)}$ 
+e quindi $\Im \phi(-t)=-\Im \phi(t)$.
+La parte reale $\Re \phi$ è strettamente decrescente anche su $[1,2]$
+in quanto $\phi(t+1)=i\phi(t)$ e quindi $\Re \phi(t+1)=-\Im \phi(t)$.
+\end{proof}
+
+\begin{theorem}[definizione funzioni trigonometriche]%
+\label{def:sin_cos}%
+\label{th:proprieta_trigonometriche}%
+Per ogni $\tau>0$ esistono due uniche funzioni $\sin,\cos\colon \RR\to \RR$ 
+tali che per ogni $x,y\in \RR$ valgono le seguenti proprietà:
+\mynote{Quando avremo definito $\pi$ otterremo 
+le usuali funzioni trigonometriche scegliendo $\tau=2\pi$. 
+Ma altre scelte di $\tau$ non sono inusuali. 
+Ad esempio con $\tau=360$ otteniamo le funzioni trigonometriche 
+con gli angoli misurati in gradi. 
+Sulle calcolatrici scientifiche 
+c'è usualmente l'opzione \texttt{RAD} (radiante) che pone $\tau=2\pi$ e l'opzione 
+\texttt{DEG} (\emph{degree} ovvero grado) che pone $\tau=360$.
+Si può anche trovare l'opzione \texttt{GRAD} (\emph{gradian} o grado centesimale)
+che corrisponde alla scelta $\tau=400$ utilizzata a volte in topografia.}%
+\begin{enumerate}
+  \item $\sin$ e $\cos$ sono $\tau$-periodiche;
+  \item $\sin^2 x + \cos^2 x =1$;
+  \item $\sin(x+y) = \sin x \cdot \cos y + \cos x\cdot \sin y$;
+  \item $\cos(x+y) = \cos x \cdot \cos y - \sin x\cdot \sin y$;
+  \item $\sin(-x) = -\sin(x)$ ($\sin$ è dispari), $\cos(-x) = \cos(x)$ ($\cos$ è pari);
+  \item $\sin \colon \closeinterval{-\frac \tau 4}{\frac \tau 4} \to [-1,1]$
+  è strettamente crescente e bigettiva;
+  \item $\cos \colon \closeinterval{0}{\frac \tau 2} \to [-1,1]$.
+  è strettamente decrescente e bigettiva.
+\end{enumerate}
+\end{theorem}
+%
+\begin{proof}
+Consideriamo la funzione $\phi\colon \RR \to U\subset \CC$ 
+definita nel teorema precedente (\ref{th:omomorfismo_U}) 
+e definiamo $\cos x = \Re \phi(x)$, $\sin x = \Im \phi(x)$
+cosicché $\phi(x) = \cos(x) + i \sin (x)$.
+Chiaramente $\cos$ e $\sin$ hanno periodo $\tau$ in quanto 
+$\phi$ ha periodo $\tau$.
+
+Visto che $\phi(x)\in U$ si ha $\abs{\phi(x)}^2=1$.
+Ma allora vale il punto 2:
+\[
+ 1 = \abs{\phi(x)}^2 
+ = \abs{\cos x + i\sin x}^2 
+ = \cos^2 x + \sin^2 x.
+\]
+
+La proprietà di omomorfismo 
+$\phi(x+y)=\phi(x)\cdot \phi(y)$ diventa 
+\begin{align*}
+  \cos(x+y) + i \sin(x+y)
+  &=(\cos x + i \sin x)\cdot(\cos y + i \sin y) \\
+  &= 
+  \Enclose{\cos x\cdot \cos y - \sin x \sin y}
+  + i\Enclose{\sin x\cdot \cos y + \cos x\cdot \sin y}
+\end{align*}
+da cui, eguagliando parte reale e parte immaginaria, 
+si ottengono le formule di addizione dei punti 3 e 4.
+
+Visto che $\abs{\phi(x)}=1$ sappiamo che 
+$1/\phi(x) = \overline{\phi(x)}$. 
+Ma, per le proprietà di omomorfismo, $1/\phi(x)=\phi(-x)$ e quindi 
+\[
+\cos (-x) + i \sin(-x) 
+= \phi(-x) 
+= \overline{\phi(x)}
+= \cos(x) - i \sin(x)
+\]
+da cui, uguagliando parte reale e parte immaginaria, 
+si ottiene il punto 5.
+
+Visto che $\Im \phi\colon[-\tau/4,\tau/4]\to[0,1]$ è strettamente crescente e bigettiva
+deduciamo che anche $\sin\colon[-\tau/4,\tau/4]\to [0,1]$ lo è.
+Ricordando che $\phi(\tau/4)=i$, 
+si ha $\cos(\tau/4)=0$, $\sin(\tau/4)=1$ e grazie alle formule 
+di addizione troviamo $\sin(\tau/4-x)=\cos(x)$.
+Dunque se $\sin$ è strettamente crescente sull'intervallo 
+$[-\tau/4,\tau/4]$ scopriamo che $\cos$ è strettamente 
+decrescente sull'intervallo $[0,\tau/2]$
+e su tale intervallo assume 
+tutti i valori compresi tra $[-1,1]$.
+\end{proof}
+
+\begin{figure}
+  \centering%
+  \begin{tikzpicture}[scale=0.75]
+  \draw[->] (-2,0) -- (10,0) node[right] {$x$};
+  \draw[->] (0,-3) -- (0,3) node[above] {$y$};
+  \foreach \x/\xtext in
+    {{pi/2}/{\frac \tau 4}, {pi}/{\frac \tau 2},
+     {2*pi}/{\tau}, {3*pi/2}/{\frac {3\tau} 4}, {-pi/2}/{-\frac {\tau}{4}}} {
+    \draw[shift={(\x,0)},lightgray] (0,-3) -- (0,3);
+    \draw[shift={(\x,0)}] (0pt,2pt) -- (0pt,-2pt) node[below] {$\xtext$};
+  }
+  \foreach \y in {1, -1} {
+    \draw[shift={(0,\y)},lightgray] (-1,0) -- (11,0);
+  }
+  \draw (0,1) node [above right] {$1$};
+  \draw (0,-1) node [right] {$-1$};
+  \draw[domain=-2:10,smooth,variable=\x,blue,thick] plot ({\x},{cos(deg(\x))});
+  \draw[domain=-2:10,smooth,variable=\x,red,thick] plot ({\x},{sin(deg(\x))});
+  \draw (3.7,-1) node[blue,below] {$y=\cos x$};
+  \draw (2,0.9)  node[red,above] {$y=\sin x$};
+  \end{tikzpicture}
+  \caption{%
+  I grafici delle funzioni $\sin$, $\cos$ di 
+  un generico periodo $\tau$.}
+\end{figure}
+

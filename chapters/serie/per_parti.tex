@@ -1,0 +1,341 @@
+\section{somma per parti}
+\begin{theorem}[somma per parti]
+\label{th:somma_per_parti}%
+Siano $a_k$ e $B_k$ successioni (reali o complesse).
+Posto
+\[
+  A_n = \sum_{k=0}^{n-1} a_k, \qquad
+  b_n = B_{n+1} - B_n
+\]
+si ha
+\mymargin{somma per parti}%
+\index{somma!per parti}%
+\begin{equation}\label{eq:somma_per_parti}
+ \sum_{k=m}^{n-1} a_k B_k = A_n B_n - A_m B_m - \sum_{k=m}^{n-1} A_{k+1}b_k.
+\end{equation}
+\end{theorem}
+%
+\begin{proof}
+Osserviamo che $a_n = A_{n+1}-A_n$ dunque
+\begin{align*}
+  A_n B_n - A_m B_m
+  &= \sum_{k=m}^{n-1} (A_{k+1}B_{k+1}-A_k B_k)\\
+  &= \sum_{k=m}^{n-1} (A_{k+1}B_{k+1}-A_{k+1}B_k + A_{k+1}B_k - A_k B_k)\\
+  &= \sum_{k=m}^{n-1} A_{k+1}b_k + \sum_{k=m}^{n-1} a_k B_k.
+\end{align*}
+\end{proof}
+
+Se prendiamo $a_k=(-1)^k$ si può osservare che $A_n = \sum_{k=0}^{n-1} (-1)^k$
+è una successione limitata in quanto $A_n = 1$ se $n$ è dispari mentre
+$A_n=0$ se $n$ è pari.
+Se invece scegliamo una successione $B_n$ è positiva,
+decrescente e infinitesima
+e poniamo $b_n = B_{n+1}-B_n$
+si ha
+\[
+  \sum_{k=0}^{+\infty} \abs{b_k}
+  = \lim_{n\to+\infty}\sum_{k=0}^{n-1} (B_k-B_{k+1})
+  = \lim_{n\to +\infty} (B_0 - B_n) = B_0 < +\infty.
+\]
+Dunque il seguente teorema è una estensione del criterio
+di Leibniz per le serie a segni alterni.
+
+\begin{theorem}[criterio di Dirichlet]%
+\label{th:dirichlet}%
+Siano $a_n$ e $B_n$ successioni (reali o complesse)
+e poniamo $\displaystyle A_n = \sum_{k=0}^{n-1} a_k$,
+$b_n = B_{n+1} - B_n$.
+Se $A_n$ è limitata,
+$B_n\to 0$
+e $\sum \abs{b_n} < +\infty$
+allora la serie $\sum a_k B_k$ è convergente.
+\end{theorem}
+%
+\begin{proof}
+Per la formula di somma per parti~\eqref{eq:somma_per_parti}
+ si ha
+\begin{equation}\label{eq:3498954}
+ \sum_{k=0}^{n-1} a_k B_k
+ = A_n B_n - A_0 B_0 - \sum_{k=0}^{n-1} A_{k+1}b_k.
+\end{equation}
+Il primo addendo $A_n B_n$ tende a zero per $n\to +\infty$
+in quanto prodotto di una successione limitata per una infinitesima.
+Il secondo addendo è costante.
+La serie $\sum A_{k+1} b_k$ è assolutamente convergente
+in quanto essendo $\abs{A_n}\le L$ limitata
+e $\sum b_n$ assolutamente convergente si ha
+\[
+  \sum \abs{A_{k+1}} \cdot \abs{b_k}
+  \le L \cdot \sum \abs{b_k} < +\infty.
+\]
+
+Dunque il limite della somma sul lato destro converge e quindi
+la somma sul lato sinistro
+dell'equazione~\eqref{eq:3498954}
+è convergente per $n\to +\infty$.
+\end{proof}
+
+\begin{example}\label{ex:serie_log}
+Fissato $z\in \CC$, $\abs{z} \le 1$, $z\neq 1$ la serie
+\[
+  \sum_{k=1}^{+\infty} \frac{z^k}{k}
+\]
+è convergente.
+\end{example}
+\begin{proof}
+Si noti che per $\abs{z}<1$ si può facilmente applicare
+il criterio del rapporto o della radice.
+Ma per $\abs{z}=1$ quei criteri non si applicano e
+bisogna invece utilizzare il teorema~\ref{th:dirichlet}.
+
+Posto $a_k=z^k$ si osserva che $\sum a_k$ è una
+serie geometrica e (essendo $z\neq 1$) si ha
+\[
+  A_n = \sum_{k=0}^{n-1} z^k = \frac{1-z^n}{1-z}
+\]
+che è limitata, infatti:
+\[
+  \abs{A_n} = \frac{\abs{1-z^n}}{\abs{1-z}} \le \frac{1+\abs{z^n}}{\abs{1-z}}
+  = \frac{2}{\abs{1-z}}.
+\]
+Mentre posto $B_n = 1/n$ è chiaro che, essendo $B_n$ reale,
+decrescente si ha
+\begin{align*}
+\sum_{k=1}^{+\infty} \abs{B_{k+1}-B_{k}}
+&= \lim_{n\to +\infty}\sum_{k=1}^{n-1} (B_k-B_{k+1})
+= \lim_{n\to +\infty}(B_1 - B_n)\\
+&= \lim_{n\to +\infty}\enclose{1 - \frac{1}{n}} = 1
+< +\infty.
+\end{align*}
+Si applica quindi il teorema~\ref{th:dirichlet}
+per ottenere la convergenza
+della serie data.
+
+Si osservi che se $\abs{z}>1$ la serie in questione non
+converge perché il termine generico $z^k/k$ non è infinitesimo.
+Per $z=1$ si ottiene la serie armonica, che pure non converge.
+\end{proof}
+
+\begin{exercise}
+  La serie
+  \[
+    \sum_{k=1}^{+\infty} \frac{\sin k}{k}
+  \]
+  è convergente.
+  \end{exercise}
+  \begin{proof}
+  Applichiamo il teorema~\ref{th:dirichlet}.
+  Posto $a_k = \sin k$ e $B_k=1/k$
+  si ha
+  \[
+    A_n = \sum_{k=0}^{n-1} \sin k = \Im \sum_{k=0}^{n-1} e^{ik}.
+  \]
+  Osserviamo allora che $e^{ik}=(e^i)^k$ e dunque $A_n$ è la parte immaginaria
+  della somma di una serie geometrica. 
+  Si può quindi calcolare esplicitamente
+  \[
+    A_n = \Im \frac{1-(e^i)^n}{1-e^i}
+  \]
+  da cui
+  \[
+    \abs{A_n} \le \abs{\frac{1-e^{in}}{1-e^i}} \le \frac{1+\abs{e^{in}}}{\abs{1-e^i}}
+    = \frac{2}{\abs{1-e^i}}
+  \]
+  e dunque $A_n$ è limitata.
+  
+  D'altro canto posto $B_k = 1/k$ è chiaro che $B_k$ è
+  decrescente e infinitesima.
+  \end{proof}
+  
+%% \begin{comment}
+%% section{somme su insiemi qualunque}
+%% 
+%% La teoria che abbiamo visto finora ci permette di definire
+%% la somma di una sequenza di numeri $\vec a \colon \NN\to \RR$
+%% (o $\vec a \colon \NN \to \CC$).
+%% In questo capitolo daremo una definizione di somma che può
+%% essere applicata a una funzione definita su un insieme di indici qualunque, non necessariamente l'insieme $\NN$ dei
+%% numeri naturali.
+%% 
+%% Scopriremo che la definizione che stiamo introducendo se
+%% applicata al caso $A=\NN$ corrisponde esattamente alla convergenza assoluta.
+%% 
+%% \begin{definition}[funzioni sommabili]
+%% Sia $A$ un insieme qualunque.
+%% Sia $A_n$ una successione di sottoinsiemi finiti di $A$.
+%% Diremo che $A_n$ tende ad $A$ e scriveremo
+%% \[
+%%   A_n \to A
+%% \]
+%% se per ogni insieme finito $B\subset A$ esiste $N\in \NN$
+%% tale che per ogni $n\ge N$ si ha $A_n\supset B$.
+%% 
+%% Sia ora $f$ una funzione reale (o complessa) definita
+%% su $A$: $f\colon A \to \RR$ (oppure $f\colon A \to \CC$).
+%% 
+%% Se $A = \ENCLOSE{a_1, a_2, \dots, a_m}$ è finito si può definire
+%% \[
+%%   \sum_{a \in A} f(a) = f(a_1) + f(a_2) + \dots + f(a_m).
+%% \]
+%% (la definizione può essere formalizzata mediante una
+%% induzione sulla cardinalità dell'insieme finito $A$).
+%% 
+%% Se invece $A$ è infinito scriveremo
+%% \[
+%%   \sum_{a\in A} f(a) = S
+%% \]
+%% con $S\in \bar \RR$ (oppure $S\in \bar \CC$)
+%% se per ogni successione di sottoinsiemi finiti $A_n \to A$
+%% si ha
+%% \begin{equation}\label{eq:589421}
+%%   \lim_{n\to +\infty}\sum_{a\in A_n}f(a) = S.
+%% \end{equation}
+%% 
+%% In tal caso diremo che esiste la somma di $f$ su $A$.
+%% Se tale somma $S$ è finita diremo che $f$ è sommabile su $A$.
+%% \end{definition}
+%% 
+%% \begin{theorem}[invarianza per permutazioni]
+%%   Sia $f$ una funzione definita su un insieme $A$
+%%   a valori reali o complessi. Sia $\sigma\colon A \to A$
+%%   una qualunque funzione bigettiva.
+%%   Allora la funzione $f$ ha somma su $A$ se e solo se
+%%   la funzione $f\circ \sigma$ ha somma su $A$ e in tal
+%%   caso le somme coincidono:
+%%   \[
+%%     \sum_{x\in A} f(x) = \sum_{x\in A} f(\sigma(x)).
+%%   \]
+%% \end{theorem}
+%% %
+%% \begin{proof}
+%%   Basta osservare che se $A_n$ è una qualunque successione
+%%   di sottoinsiemi finiti di $A$ tale che $A_n\to A$
+%%   allora anche $B_n=\sigma(A_n)$ è una successione
+%%   di sottoinsiemi finiti di $A$ tale che $B_n\to A$.
+%%   E viceversa.
+%%   Dunque le definizione di somma per $f$ e per $\sigma\circ f$ sono equivalenti.
+%% \end{proof}
+%% 
+%% \begin{theorem}[collegamento tra serie e somme arbitrarie]
+%% Sia $a_k$ con $k\in \NN$, una successione numerica (reale o complessa).
+%% 
+%% Se $S$ è un numero finito (reale o complesso)
+%% sono equivalenti:
+%% \begin{enumerate}
+%%   \item la funzione $f(k)=a_k$ è sommabile su $\NN$ e
+%% \begin{equation}\label{eq:488484}
+%%   \sum_{k\in \NN} a_k = S;
+%% \end{equation}
+%% \item la serie $\sum_k a_k$ è assolutamente
+%% convergente e
+%% \begin{equation}\label{eq:497494}
+%%   \sum_{k=0}^{+\infty} a_k = S.
+%% \end{equation}
+%% \end{enumerate}
+%% 
+%% Se $a_k\ge 0$ (dunque reale) allora anche
+%% \[
+%%   \sum_{k\in \NN} a_k = +\infty
+%% \qquad
+%% \text{e}
+%% \qquad
+%% \sum_{k=0}^{+\infty} a_k = +\infty
+%% \]
+%% sono equivalenti.
+%% \end{theorem}
+%% %
+%% \begin{proof}
+%%   Se vale \eqref{eq:488484} allora per ogni successione
+%%   di insiemi finiti $A_n \to \NN$ si deve avere
+%%   \[
+%%     S_n = \sum_{k\in A_n} a_k  \to S.
+%%   \]
+%%   In particolare se scegliamo $A_k=\ENCLOSE{0,1,2, \dots, n}$
+%%   risulta che $S_n$ non è altro che la successione delle somme parziali della serie $\sum a_k$ 
+%%   e dunque deve valere \eqref{eq:497494}.
+%%   Ma più in generale se prendiamo qualunque permutazione $\sigma$
+%%   si dovrà avere $\sum_k a_{\sigma(k)} = S$
+%%   e quindi la serie deve convergere assolutamente altrimenti 
+%%   si violerebbe il teorema~\ref{th:convergenza_condizionata} 
+%%   di convergenza condizionata.
+%% 
+%%   Viceversa supponiamo che $\sum a_n$ sia una serie assolutamente convergente e poniamo
+%%   \[
+%%     S = \sum_{k=0}^{\infty} a_k.
+%%   \]
+%%   Dovremo dimostrare che per ogni successione
+%%   $A_n\to A$ di sottoinsiemi finiti vale~\eqref{eq:589421}.
+%%   Cioè dovremo dimostrare che per ogni $\eps>0$
+%%   esiste $N\in \NN$ tale che per ogni $n>N$ si ha
+%%   \begin{equation}\label{eq:4389567}
+%%     \abs{\sum_{k\in A_n} a_k - S} < \eps.
+%%   \end{equation}
+%%   Dato $\eps>0$ per il teorema~\ref{th:coda} esiste $M\in \NN$
+%%   tale che
+%%   \[
+%%     \sum_{k=M+1}^{+\infty} \abs{a_k} < \eps.
+%%   \]
+%%   Ma visto che $A_n \to A$ deve esistere $N\in \NN$
+%%   tale che per ogni $n\ge N$ si ha $A_n \supset \ENCLOSE{0,1,2,\dots ,M}$
+%%   e allora per ogni $n\ge N$
+%%   \[
+%%     \sum_{k \in A_n} a_k - S = \sum_{k=0}^M a_k + \sum_{k\in A_n, k>M} a_k - \sum_{k=0}^{+\infty} a_k
+%%     = \sum_{k\in A_n, k>M} a_k - \sum_{k=M+1}^{+\infty} a_k
+%%   \]
+%%   ma è chiaro che
+%%   \[
+%%     \abs{\sum_{k\in A_n, k>M} a_k - \sum_{k=M+1}^{+\infty} a_k}
+%%     \le \sum_{k=M+1}^{+\infty} \abs{a_k} < \eps
+%%   \]
+%%   da cui si ottiene, come voluto, \eqref{eq:4389567}.
+%% \end{proof}
+%% 
+%% \end{comment}
+%% \begin{comment}
+%% \begin{theorem}[somme più che numerabili]
+%%   Sia $f$ una funzione definita su un insieme $A$
+%%   a valori reali o complessi. Se $f$ è sommabile
+%%   su $A$ allora l'insieme
+%%   \[
+%%     \ENCLOSE{x\in A\colon f(x)\neq 0}
+%%   \]
+%%   è al più numerabile.
+%% \end{theorem}
+%% %
+%% \begin{proof}
+%% Supponiamo dapprima che $f$ abbia valori reali.
+%% Se l'insieme $\ENCLOSE{f\neq 0}$ fosse più che numerabile almeno uno dei due insiemi $\ENCLOSE{f>0}$ o $\ENCLOSE{f<0}$
+%% sarebbe più che numerabile.
+%% Senza perdita di generalità possiamo supporre che sia
+%% il primo cioè che $A_+ = \ENCLOSE{x \in A\colon f(x)>0}$
+%% sia più che numerabile. Considero allora per ogni $n\in \NN$
+%% gli insiemi $A_n = \ENCLOSE{x\in A\colon \frac 1 {f(x)} \in (n,n+1]}$. Almeno uno di questi insiemi
+%% deve essere infinito perché se gli $A_n$ fossero
+%% tutti finiti allora l'insieme $A=\bigcup_n A_n$ sarebbe
+%% numerabile. Dunque esiste $N\in \NN$ tale che $A_N$ è infinito.
+%% Posto $\eps = \frac{1}{N+1}>0$
+%% esistono dunque $x_0,x_1, \dots, x_k, \dots$ infiniti punti di $A$ tali che $f(x_k) \ge \eps$.
+%% 
+%% ***DUBBIO*** Se $A$ è più che numerabile
+%% esiste $A_n$ finito tale che $A_n\to A$?
+%% \end{proof}
+%% \end{comment}
+%% \begin{comment}
+%% 
+%% \begin{theorem}[somme iterate]
+%% Sia $f$ una funzione definita su un insieme $A$ a
+%% valori reali o complessi. Supponiamo che sia
+%% \[
+%%   A = \bigcup_{k\in K} A_k
+%% \]
+%% dove $K$ è un arbitrario insieme di indici e
+%% $A_k$ sono sottoinsiemi di $A$ a due a due disgiunti.
+%% Allora
+%% \[
+%%   \sum_{x\in A} f(x) = \sum_{k\in K} \sum_{x\in A_k} f(x)
+%% \]
+%% se almeno uno dei due lati dell'uguaglianza esiste.
+%% \end{theorem}
+%% \end{comment}
+
+%%%%%%%%%%

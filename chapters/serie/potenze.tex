@@ -1,0 +1,400 @@
+\section{le serie di potenze}
+%%%
+
+Se $a_k$ è una successione di numeri complessi, e $z_0\in \CC$, 
+la serie
+\[
+ \sum a_k \cdot (z-z_0)^k
+\]
+dipendente dal parametro $z\in \CC$ si chiama
+\emph{serie di potenze}%
+\mymargin{serie di potenze}%
+\index{serie!di potenze}
+di coefficienti $a_k$ centrata in $z_0$.
+Se chiamiamo $A\subset \CC$ l'insieme dei numeri complessi $z$
+per i quali la serie di potenze converge
+\[
+A= \ENCLOSE{z\in \CC \colon \sum a_k (z-z_0)^k \text{ è convergente}}
+\]
+la somma della serie risulta essere una funzione
+$f \colon A \to \CC$ definita da
+\[
+  f(z) = \sum_{k=0}^{+\infty} a_k (z-z_0)^k.
+\]
+L'insieme $A$ si chiama \emph{insieme di convergenza}%
+\mymargin{insieme di convergenza}%
+\index{insieme!di convergenza}
+(o \emph{dominio di convergenza}) della serie
+di potenze $\sum a_k (z-z_0)^k$.
+
+D'ora in avanti, per semplificare le notazioni, 
+supporremo $z_0=0$ cosicché 
+la serie diventa $\sum a_k \cdot z^k$. 
+In generale si potrà fare il cambio di variabile $w=z-z_0$ 
+per ricondursi al caso $z_0=0$.
+
+Come al solito ci potrà capitare di considerare serie
+di potenze con l'indice $k$ che parte da $1$ invece che da $0$
+(o da qualunque altro numero naturale).
+Ciò non è rilevante, potremo sempre considerare $a_k=0$ per i termini
+che non partecipano alla sommatoria.
+
+Osserviamo anche che per $k=0$ e $z=z_0$, 
+il termine corrispondente della serie è
+$a_0 \cdot 0^0 = a_0$ in
+quanto abbiamo definito $0^0=1$. Dunque potremo anche scrivere:
+\[
+  \sum_{k=0}^{+\infty} a_k z^k = a_0 + a_1 z + a_2 z^2 + \dots + a_n z^n + \dots.
+\]
+Le serie di potenze assomigliano quindi a dei polinomi, ma con infiniti termini.
+
+\begin{example}[la serie geometrica]
+La serie di potenze di coefficienti $a_k=1$ è la
+serie geometrica $\sum z^k$.
+Grazie al teorema~\ref{th:serie_geometrica} 
+sappiamo che l'insieme di convergenza è il cerchio
+$A=\ENCLOSE{z\in \CC \colon \abs{z}<1}$
+e per $z\in A$ sappiamo calcolare la somma della serie:
+\[
+ f(z) = \sum_{k=0}^{+\infty} z^k  = \frac{1}{1-z}.
+\]
+Se $\abs{z}\ge 1$ la serie non può convergere perché il termine $z^k$ non è
+infinitesimo: $\abs{z^k} = \abs{z}^k \ge 1$.
+\end{example}
+
+\begin{example}
+\label{ex:477474}
+La serie di potenze $\sum \frac{z^n}{n^n}$ (ottenuta ponendo $a_n=1/n^n$)
+ha come insieme di convergenza $A=\CC$
+in quanto
+\[
+\sqrt[n]{\abs{\frac{z^n}{n^n}}} = \frac{\abs{z}}{n} \to 0 < 1
+\]
+e quindi per il criterio della radice la serie in questione converge assolutamente
+qualunque sia $z\in \CC$.
+\end{example}
+
+\begin{theorem}[convergenza delle serie di potenze]
+\mymark{***}%
+Se la serie di potenze $\sum a_k z^k$ converge in un punto $z\in \CC$
+(anzi, basta che la successione $a_k z^k$ sia limitata)
+allora la serie
+converge assolutamente per ogni $w\in \CC$ tale che $\abs{w}< \abs{z}$.
+Viceversa, se la serie non converge in un punto $z\in \CC$
+allora
+non  converge in nessun $w$ tale che $\abs{w} > \abs{z}$ (anzi la successione
+$a_n w^n$ non è nemmeno limitata e tantomento infinitesima).
+\end{theorem}
+%
+\begin{proof}
+\mymark{*}
+Se la serie $\sum a_k z^k$ converge significa che la successione
+$a_k z^k$ è infinitesima e in particolare è limitata.
+Esiste dunque $M$ tale che per ogni $k\in \NN$
+\[
+ \abs{a_k z^k} \le M.
+\]
+Se $z=0$ non c'è niente da dimostrare.
+Se $z\neq 0$ si ha
+\[
+ \abs{a_k} \le \frac{M}{\abs{z}^k}.
+\]
+Scelto ora qualunque $w\in \CC$ con $\abs{w} < \abs{z}$ si ha
+\[
+  \abs{a_k w^k} = \abs{a_k}\cdot \abs{w}^k \le M \frac{\abs{w}^k}{\abs{z}^k}
+  = M q^k
+\]
+avendo posto $q = \frac{\abs{w}}{\abs{z}}$.
+Essendo $q<1$ la serie geometrica $\sum q^k$ converge e, per confronto,
+anche la serie $\sum \abs{a_k w^k}$ converge.
+Dunque la serie $\sum a_k w^k$ converge assolutamente.
+
+Viceversa supponiamo che $\sum a_k z^k$ non converga
+e prendiamo $w$ con $\abs{w} > \abs{z}$.
+Allora $\sum a_k w^k$ non può convergere,
+anzi $a_k w^k$ non può neanche essere limitata perché
+se lo fosse allora, scambiando i ruoli di $z$ e $w$,
+per il punto precedente la serie $\sum a_k z^k$ dovrebbe convergere.
+\end{proof}
+
+\begin{corollary}[l'insieme di convergenza è circolare]%
+\mymark{**}
+\label{cor:insieme_convergenza}%
+Sia $\sum a_k z^k$ una serie di potenze e sia $A$ il suo insieme di convergenza.
+Allora $A$ non è vuoto e posto
+\[
+  R= \sup \ENCLOSE{\abs{z}\colon z\in A}.
+\]
+risulta che $R\in[0,+\infty]$ e $A$ coincide con il cerchio centrato in $0$
+e di raggio $R$ a meno dei punti di bordo, nel senso che:
+\begin{equation}\label{eq:48463}
+   \ENCLOSE{z\in \CC \colon \abs{z} < R}
+   \subset A
+   \subset \ENCLOSE{z\in \CC \colon \abs{z}\le R}.
+\end{equation}
+Inoltre la serie converge assolutamente in ogni $z\in \CC$ con $\abs{z}<R$
+mentre
+il termine generico $a_k z^k$ non è nemmeno limitato (e quindi la serie non converge)
+quando $\abs{z}>R$.
+\end{corollary}
+%
+\begin{proof}
+Se $\abs{z}<R$ significa che esiste $z_0\in A$ tale che $\abs{z_0} > \abs{z}$.
+Ma visto che la serie converge in $z_0$ (per definizione di $A$) grazie al teorema
+precedente possiamo affermare che la serie converge, anzi, converge assolutamente
+in $z$. Dunque si ottiene la prima inclusione in~\eqref{eq:48463}.
+
+Se invece prendiamo $z\in \CC$ con $\abs{z}>R$ allora
+certamente la serie non converge in $z$ altrimenti (per come è definito $R$)
+avremmo $R\ge \abs{z}$.
+Inoltre possiamo certamente considerare un punto $z_1\in\CC$
+tale che $R < \abs{z_1} \le \abs{z}$ e la serie
+di potenze non può convergere neanche in $z_1$.
+Ma allora, per il teorema precedente,
+deduciamo che $a_k z^k$ non è nemmeno limitata.
+
+Abbiamo quindi mostrato l'esistenza di $R\in \bar \RR$ che soddisfa \eqref{eq:48463}.
+Chiaramente risulta $R\ge 0$ perché $A$ è un insieme non vuoto
+(per ogni serie di potenze si ha $0\in A$).
+\end{proof}
+
+\begin{definition}[raggio di convergenza]
+\mymark{**}
+Il \emph{raggio di convergenza}%
+\mymargin{raggio di convergenza}%
+\index{raggio!di convergenza} di una serie di potenze $\sum a_k z^k$
+è il valore $R\in[0,+\infty]$
+dato dal corollario~\ref{cor:insieme_convergenza}:
+\begin{align*}
+  R &= \sup \ENCLOSE{\abs{z}\colon z\in \CC,\ \sum a_k z^k \text{ è convergente}}.
+\end{align*}
+\end{definition}
+
+\begin{theorem}[calcolo del raggio di convergenza]
+\mymark{***}
+\label{th:calcolo_raggio_convergenza}
+Sia $\sum a_n z^n$ una serie di potenze. Se esiste il limite
+\begin{equation}\label{eq:9267345623}
+  \lim_{n\to+\infty}\sqrt[n]{\abs{a_n}} =\ell
+\end{equation}
+allora $R=1/\ell$ è il raggio di convergenza della serie
+(dove si intende $R=+\infty$ se $\ell = 0$ e $R=0$ se $\ell=+\infty$).
+
+Lo stesso accade se esiste il limite
+\[
+  \lim_{n\to +\infty} \frac{\abs{a_{n+1}}}{\abs{a_n}} = \ell.
+\]
+
+Più in generale risulta $R=1/\ell$ se poniamo
+\[
+   \ell = \limsup_{n\to +\infty} \sqrt[n]{\abs{a_n}}.
+\]
+anche nel caso in cui il limite in~\eqref{eq:9267345623}
+non dovesse esistere.
+\end{theorem}
+%
+\begin{proof}
+\mymark{***}
+Prendiamo $r\ge 0$.
+Applicando il criterio della radice alla serie $\sum \abs{a_n} r^n$ si ha
+\[
+  \sqrt[n]{\abs{a_n} r^n}
+  = r \sqrt[n]{\abs{a_n}} \to r\ell.
+\]
+Dunque se scegliamo un $r < 1/\ell$ si ha $r \ell<1$ e la serie
+$\sum a_n z^n$ converge
+assolutamente per $z=r$.
+Dunque per ogni $r<1/\ell$
+troviamo che $r\in A$: ne consegue che $R\ge 1/\ell$.
+Se invece scegliamo $r > 1/\ell$ si ha $r \ell > 1$ e dunque
+$\abs{a_n} r^n \to +\infty$ e la serie non può essere convergente
+in $z=r$. Significa che $R\le 1/\ell$.
+
+Il criterio della radice si applica anche nel caso in cui $\ell$ è definito
+tramite $\limsup$.
+
+Nel caso esista il limite del rapporto $\abs{a_{n+1}} / \abs{a_n}$
+sappiamo (grazie al criterio di convergenza alla Cesàro teorema~\ref{th:criterio_cesaro}) che
+il limite della radice coincide con il limite del rapporto e quindi
+ci si riconduce al caso precedente (oppure si può ripetere la dimostrazione
+utilizzando il criterio del rapporto invece del criterio della radice).
+\end{proof}
+
+\begin{example}
+Nell'esempio~\ref{ex:serie_log} abbiamo visto
+che l'insieme di convergenza della serie di potenze
+\[
+  \sum_{k=1}^{+\infty} \frac{z^k}{k}
+\]
+è
+\[
+  A = \ENCLOSE{ z\in \CC \colon \abs{z}\le 1, z\neq 1}.
+\]
+Il raggio di convergenza dovrà quindi essere $R=1$ e questo può essere
+facilmente verificato con uno dei criteri precedenti. Ad esempio:
+\[
+  \lim_{n\to+\infty} \frac{\frac{1}{n+1}}{\frac{1}{n}}
+  = \lim_{n\to+\infty} \frac{n}{n+1} = 1
+\]
+da cui $R=1/1=1$.
+Si osservi dunque che nessuna delle due inclusioni in \eqref{eq:48463}
+è, in questo caso, una uguaglianza.
+\end{example}
+
+\begin{theorem}[stabilità del raggio di convergenza]
+\label{th:raggio_serie_derivate}
+Le serie di potenze $\sum a_k z^k$ e $\sum k a_k z^k$ hanno
+lo stesso raggio di convergenza.
+\end{theorem}
+%
+\begin{proof}
+  Sia $R$ il raggio di convergenza della serie $\sum a_k z^k$ 
+  e $r$ il raggio di convergenza della serie $\sum k a_k z^k$.
+  
+  Visto che per $k>0$ si ha $\abs{a_k z^k} \le \abs{k a_k z^k}$
+  la serie $\sum a_k z^k$ converge assolutamente nei punti 
+  in cui converge assolutamente la serie $\sum k a_k z^k$.
+  Questo significa che $R\ge r$.
+
+  Preso ora un punto $w$ con $\abs{w}<R$ consideriamo un
+  qualunque punto $z$ con $\abs{w}<\abs{z}<R$.
+  La serie $\sum a_k z^k$ converge assolutamente in $z$ 
+  quindi $\abs{a_k z^k}$ è infinitesima e limitata.
+  Esiste quindi $M$ per cui $\abs{a_k z^k}\le M$ 
+  che significa $\abs{a_k} \le \frac{M}{\abs{z}^k}$.
+  Ma allora 
+  \[
+    \abs{k a_k w^k} 
+    \le k \abs{a_k} \abs{w}^k
+    \le k M \frac{\abs{w}^k}{\abs{z}^k}
+  \]
+  da cui, posto $q=\frac{\abs w}{\abs z}$, si ottiene 
+  $\abs{k a_k w^k} \le k M q^k$. 
+  Visto che $q<1$ sappiamo che la serie $\sum k M q^k$ 
+  è convergente e dunque, per confronto, anche la 
+  serie $\sum k a_k w^k$ è assolutamente convergente.
+  Siccome questo è vero per ogni $w$ con $\abs{w}<R$
+  significa che $r\ge R$ e questo conclude la dimostrazione.
+\end{proof}
+%
+\begin{proof}[Dimostrazione alternativa]
+Visto che $\sqrt[k]{k}\to 1$ si ha
+\[
+  \limsup \sqrt[k]{\abs{k a_k}} = \limsup \sqrt[k]{\abs{a_k}}.
+\]
+Per il teorema~\ref{th:calcolo_raggio_convergenza} si ottiene
+che le due corrispondenti serie di potenze hanno lo stesso raggio di convergenza.
+\end{proof}
+
+\begin{theorem}(continuità delle serie di potenze)
+\label{th:continuita_somma_serie}%
+\mymargin{continuità delle serie di potenze}%
+\index{continuità!delle serie di potenze}%
+Sia $\sum a_k z^k$ una serie di potenze con raggio di convergenza $R$.
+Allora posto $B=\ENCLOSE{z\in \CC\colon \abs{z}<R}$ la funzione $f\colon B \to \CC$
+definita da
+\[
+ f(z) = \sum_{k=0}^{+\infty} a_k z^k
+\]
+è continua (su $B$).
+\end{theorem}
+%
+\begin{proof}
+Supponiamo $R>0$ altrimenti non c'è niente da dimostrare.
+Fissiamo $r<R$ e consideriamo due punti $z,w\in \CC$ 
+con $\abs{z}<r$ e $\abs{w}<r$.
+Ricordiamo che si ha 
+\[
+  z^n - w^n = (z-w)\cdot(z^{n-1} + wz^{n-2} + \dots + w^{n-2}z + w^{n-1}).
+\]
+Osservando che per ogni addendo sul lato destro si ha 
+$\abs{w^k z^{n-k-1}}\le r^{n-1}$, essendoci $n$ addendi si ottiene 
+\[
+  \abs{z^n - w^n} \le \abs{z-w}\cdot n\cdot  r^{n-1}.
+\]
+Dunque 
+\begin{align*}
+  \abs{f(z)-f(w)} 
+  &= \abs{\sum_{n=0}^{+\infty} a_n z^n - \sum_{n=0}^{+\infty} a_n w^n}
+   = \abs{\sum_{n=0}^{+\infty} a_n (z^n - w^n)} \\
+& \le \sum_{n=0}^{+\infty} \abs{a_n} \cdot \abs{z^n - w^n}
+\le \abs{z-w}\sum_{n=0}^{+\infty} \abs{a_n} n r^{n-1}.
+\end{align*}
+Ma noi sappiamo che la serie $\sum n a_n z^n$ 
+ha lo stesso raggio di convergenza $R$ della serie originaria 
+(per il teorema~\ref{th:raggio_serie_derivate})
+dunque la serie $\sum n a_n r^n$ è assolutamente convergente e, 
+dividendo per $r$, 
+scopriamo che anche la serie $\sum n a_n r^{n-1}$
+è convergente. 
+Posto $L = \sum_{n=0}^{+\infty} n \abs{a_n} r^{n-1}$
+per quanto scritto sopra possiamo concludere che 
+\[
+\abs{f(z)-f(w)} \le L\cdot \abs{z-w}.
+\]
+Dunque per ogni $\eps>0$ scelto $\delta = \frac{\eps}{L}$
+se $\abs{z-w}<\delta$ risulta $\abs{f(z)-f(w)}\le \eps$.
+Significa che la funzione $f$ è continua nel punto $z$ e 
+questo è vero per ogni $z$ con $\abs{z}<R$.
+\end{proof}
+
+Il teorema precedente ci garantisce che la somma di una serie di potenze
+è una funzione continua all'interno del raggio di convergenza.
+Nei punti che si trovano esattamente sulla frontiera del raggio di convergenza
+la funzione $f$ potrebbe non essere continua.
+Ma se la serie converge in un
+punto di frontiera, la somma della serie è continua se mi avvicino al punto di
+convergenza lungo il raggio del disco di convergenza, come enunciato nel seguente teorema.
+
+\begin{theorem}[lemma di Abel]
+\mymark{*}%
+\label{th:lemma_abel}%
+\index{lemma!di Abel}%
+\index{Abel!lemma di}%
+Sia
+\[
+  f(z) = \sum_{k=0}^{+\infty} a_k z^k
+\]
+la somma di una serie di potenze. 
+Se la serie converge in un punto $z_0\in \CC$, $z_0\neq 0$, 
+allora la serie converge per ogni $z=t z_0$ con $t\in [0,1]$ inoltre la funzione
+\[
+  t \mapsto f(tz_0)
+\]
+è continua nel punto $t=1$.
+\end{theorem}
+%
+\begin{proof}
+Senza perdita di generalità possiamo supporre che sia $f(z_0)=0$ infatti basterà sostituire il primo termine della serie, $a_0$, con $a_0' = a_0 - f(z_0)$ e dimostrare il teorema per la serie modificata.
+Dunque posto
+\[
+  A_n = \sum_{k=0}^{n-1} a_k z_0^k
+\]
+si ha che $A_n \to f(z_0) = 0$ e, per definizione, $A_0 = 0$.
+Utilizzando la formula \eqref{eq:somma_per_parti} di somma per parti, preso $t\in [0,1)$
+si avrà
+\begin{align*}
+\sum_{k=0}^n a_k \cdot (tz_0)^k
+= \sum_{k=0}^n a_k z_0^k \cdot t^k
+= A_{n+1} \cdot t^{n+1} + \sum_{k=0}^n A_{k+1}\cdot (t^k - t^{k+1})
+\end{align*}
+e per $n\to +\infty$ si ottiene
+\[
+  f(t\cdot z_0) = f(z_0)\cdot 0 + \sum_{k=0}^{+\infty}A_{k+1}(t^k-t^{k+1})
+  = (1-t)\sum_{k=0}^{+\infty} A_{k+1} t^k.
+\]
+Visto che $A_n \to 0$ per ogni $\eps>0$ esiste $m$ tale che per ogni $k > m$ si ha $\abs{A_k} \le  \eps$. Dunque, per ogni $t\in [0,1)$, si ha
+\begin{align*}
+\abs{f(t\cdot z_0)}
+ &\le (1-t)\sum_{k=0}^{m-1} \abs{A_{k+1}} t^k
+  + (1-t)\sum_{k=m}^{+\infty} \abs{A_{k+1}} t^k \\
+ &\le (1-t)\cdot \sum_{k=0}^{m-1}\abs{A_{k+1}} + (1-t)\cdot \eps \cdot \frac{t^{m}}{1-t} \\
+ &\le (1-t)\sum_{k=0}^{m-1}\abs{A_{k+1}} + \eps.
+\end{align*}
+Scelto $\delta \le \frac{\eps} {\sum_{k=0}^{m-1} \abs{A_{k+1}}}$ se $\abs{1-t}<\delta$ si avrà
+dunque
+\[
+  \abs{f(t\cdot z_0)-f(z_0)} = \abs{f(t\cdot z_0)} < 2\eps
+\]
+che significa che $t\mapsto f(t\cdot z_0)$ è continua nel punto $t=1$.
+\end{proof}

@@ -1,0 +1,460 @@
+\section{serie a termini positivi}
+
+\index{serie!a termini positivi}
+Nel seguito considereremo serie i cui termini sono numeri reali
+positivi (o almeno non negativi).
+Quando scriveremo $a_n >0$ (o $a_n \ge 0$) sarà sempre
+sottointeso che $a_n\in \RR$ visto che per i numeri complessi non
+reali non abbiamo definito la relazione d'ordine.
+
+\begin{theorem}[carattere delle serie a termini positivi]\label{th:serie_positiva}
+\mymark{***}%
+\mymargin{carattere delle serie a termini positivi}%
+\index{carattere!di una serie a termini positivi}%
+Se $a_n\ge 0$
+la serie $\sum a_n$ è regolare:
+o converge oppure diverge a $+\infty$.
+\end{theorem}
+%
+\begin{proof}
+\mymark{***}
+Se $a_n \ge 0$ essendo $a_n = S_n - S_{n-1}$ significa che
+la successione $S_n$ delle somme parziali è crescente.
+Dunque il limite delle $S_n$ esiste e non può essere negativo.
+\end{proof}
+
+\begin{theorem}[criterio del confronto]
+\mymark{**}
+\mymargin{criterio del confronto}
+\index{criterio!del confronto per serie}
+Siano $\sum a_n$ e $\sum b_n$ serie a
+termini positivi che si confrontano: $0\le a_n\le b_n$.
+Allora
+\[
+  \sum_{k=0}^{+\infty} a_k \le \sum_{k=0}^{+\infty} b_k.
+\]
+In particolare se $\sum b_n$ converge anche $\sum a_n$ converge
+e se $\sum a_n$ diverge anche $\sum b_n$ diverge.
+
+Quest'ultimo risultato vale anche se $0 \le a_n \ll b_n$.
+\end{theorem}
+%
+\begin{proof}
+\mymark{*}
+Se $S_n$ sono le somme parziali di $\sum a_n$ e $R_n$ sono le somme
+parziali di $\sum b_n$ si ha $S_n \le R_n$ e il risultato
+si riconduce al confronto tra successioni.
+
+Nel caso in cui $a_n \ll b_n$ per definizione sappiamo che $\frac{a_n}{b_n}\to 0$
+e quindi dalla definizione di limite sappiamo che
+esiste $N$ tale che per ogni $n>N$ si ha (avendo scelto $\eps=1$)
+\[
+  \frac{a_n}{b_n} < 1.
+\]
+Dunque si ottiene $a_n \le b_n$ per tutti gli $n$ tranne al più un numero
+finito. Sapendo che il carattere della serie non cambia se si modifica
+la serie su un numero finito di termini ci si riconduce al caso precedente.
+\end{proof}
+
+\begin{example}\label{ex:52573}
+\mymark{***}
+La serie
+\begin{equation}\label{eq:296453}
+ \sum_{k=1}^{+\infty} \frac{1}{k^2}
+\end{equation}
+è convergente.
+Infatti osservando che si ha per ogni $n>0$
+\[
+  \frac{1}{(n+1)^2} \le \frac{1}{n(n+1)}
+\]
+possiamo affermare che
+\[
+  \sum_{k=1}^{+\infty} \frac{1}{k^2}
+  = 1 + \sum_{k=1}^{+\infty} \frac{1}{(k+1)^2}
+  \le 1+ \sum_{k=1}^{+\infty} \frac{1}{k(k+1)}
+  = 2
+\]
+in quanto ci siamo ricondotti alla
+serie telescopica di Mengoli che ha somma pari a $1$.
+
+Sappiamo quindi che la serie~\eqref{eq:296453} è convergente
+senza sapere esattamente quale sia la sua somma.
+Possiamo però trovare numericamente delle approssimazioni
+della somma, facendo la somma dei primi termini
+e stimando l'errore tramite la serie di Mengoli,
+di cui sappiamo calcolare la somma.
+Infatti se $S_N$ è la somma parziale dei primi
+$N$ termini e $S = \lim S_N$ è la somma della serie,
+essendo $1/(k+1)^2 \le 1/(k^2+k)$ si ha
+\[
+S_N
+\le S
+\le S_N + \sum_{k=N}^{+\infty} \frac{1}{k(k+1)}
+\le S_N + \frac{1}{N}.
+\]
+Per calcolare le prime 6 cifre decimali esatte basterà
+quindi sommare il primo milione di termini della serie.
+Lo si può fare, ad esempio, con il codice riportato
+a pagina~\pageref{code:series}, ottenendo $S=1.644934\ldots$
+
+Utilizzando strumenti molto più avanzati
+Eulero \index{Eulero}
+(Leonard Euler, 1707--1783) è
+riuscito ad esprimere la somma di questa serie mediante costanti matematiche fondamentali
+(noi lo faremo con un metodo diverso nell'esercizio~\ref{ex:Basilea}).
+\end{example}
+
+\begin{corollary}[criterio del confronto asintotico]
+\mymark{*}
+\mymargin{criterio del confronto asintotico}
+\index{criterio!del confronto asintotico}
+Se $a_n$ e $b_n$ sono successioni a termini positivi,
+asintoticamente equivalenti (definizione~\ref{def:ordine_infinito}),
+allora le serie corrispondenti $\sum a_n$ e $\sum b_n$
+hanno lo stesso carattere.
+\end{corollary}
+%
+\begin{proof}
+\mymark{*}
+Le serie a termini positivi non possono essere indeterminate
+quindi è sufficiente verificare che se una serie converge, converge anche l'altra.
+Essendo $a_n / b_n$ convergente tale rapporto deve anche essere
+limitato, quindi esiste $C\in \RR$ tale che
+\[
+   a_n \le C \cdot b_n.
+\]
+Se la serie $\sum b_n$ converge anche $\sum C \cdot b_n$ converge e, per confronto,
+converge anche $\sum a_n$.
+
+Viceversa, scambiando il ruolo di $a_n$ e $b_n$ si verifica che se $a_n$
+converge, converge anche $b_n$.
+\end{proof}
+
+\begin{example}
+La serie
+\[
+\sum_n \frac{n^2+2n+3}{2n^4-n^3+n+1}
+\]
+è convergente. Infatti si può facilmente verificare che
+\[
+   \frac{n^2+2n+3}{2n^4-n^3+n+1} \sim \frac{1}{2n^2}.
+\]
+Ma sappiamo che la serie $\sum 1/n^2$ è convergente, di conseguenza
+anche la serie $\sum 1/(2n^2)$ lo è (per linearità della somma)
+e quindi, per confronto
+asintotico, anche la serie data è convergente.
+\end{example}
+
+Nel capitolo \ref{sec:serie_segno_variabile} vedremo che il criterio di convergenza 
+asintotica può essere applicato solamente alle serie a termini positivi.
+
+\begin{theorem}[criterio della radice]
+\mymargin{criterio della radice}
+\index{criterio!della radice}
+Sia $\sum a_n$ una serie a termini non negativi
+(cioè $a_n\ge 0$) tale che
+\mymark{***}
+$\sqrt[n]{a_n} \to \ell \in [0,+\infty]$.
+Se $\ell<1$ allora la serie converge.
+Se $\ell>1$ allora la serie diverge.
+
+Più in generale il risultato è valido con
+\[
+  \ell = \limsup \sqrt[n]{a_n}
+\]
+anche nel caso in cui il limite di $\sqrt[n]{a_n}$ non dovesse esistere.
+\end{theorem}
+%
+\begin{proof}
+\mymark{***}
+Nel caso $\ell < 1$
+prendiamo $q$ con $\ell < q < 1$ e poniamo $\eps = q-\ell$.
+Per la definizione di limite $\sqrt[n]{a_n}\to \ell$
+(ma basta che sia $\limsup \sqrt[n]{a_n}=\ell$)
+sappiamo
+esistere $N$ tale che per ogni $n > N$ si abbia
+\[
+  \sqrt[n]{a_n} < \ell + \eps = q
+\]
+cioè
+\[
+   a_n < q^n.
+\]
+Sapendo che $\sum q^n$ converge, sapendo anche che il carattere
+della serie non cambia modificando un numero finito di termini,
+per confronto possiamo concludere che anche la serie $\sum a_n$ converge.
+
+Se $\ell>1$ si ha che $\sqrt[n]{a_n}>1$ e quindi $a_n>1$ per infiniti valori di $n$. La successione $a_n$ non è infinitesima e quindi la serie non può convergere.
+\end{proof}
+
+\begin{example}
+La serie
+\[
+  \sum_k 2^{(\ln k) - k}
+\]
+è convergente. Infatti si ha
+\[
+ \sqrt[k]{2^{\ln k - k}}
+ = 2^{\frac{\ln k - k}{k}}
+ = 2^{\frac{\ln k }k - 1}
+ \to 2^{-1}
+ = \frac{1}{2}
+ < 1.
+\]
+\end{example}
+
+\begin{theorem}[criterio del rapporto]
+\mymark{***}
+\mymargin{criterio del rapporto}
+\index{criterio!del rapporto per serie}
+Sia $\sum a_n$ una serie a termini non negativi
+($a_n\ge 0$)
+tale che $a_{n+1} / a_n \to \ell \in [0,+\infty]$.
+Se $\ell <1$ allora la serie converge.
+Se $\ell > 1$ la serie diverge.
+\end{theorem}
+%
+\begin{proof}
+\mymark{*}
+Non sarebbe difficile fare una dimostrazione diretta, simile alla dimostrazione fatta per il criterio della radice.
+Possiamo però osservare che
+per il criterio di convergenza alla Cesàro (teorema~\ref{th:criterio_cesaro}) si ha $\sqrt[n]{a_n} \to \ell$
+quindi ci riconduciamo al criterio della radice senza dover fare ulteriori dimostrazioni.
+\end{proof}
+
+\begin{example}
+\mymark{***}
+Per ogni $x\ge 0$ la serie
+\[
+  \sum \frac{x^n}{n!}
+\]
+converge.
+\end{example}
+%
+\begin{proof}
+Applichiamo il criterio del rapporto.
+Posto $a_n = x^n / n!$ si ha
+\[
+\frac{a_{n+1}}{a_n}
+= \frac{x^{n+1}}{(n+1)!}\cdot \frac{n!}{x^n}
+= \frac{x}{n+1} \to 0 < 1.
+\]
+Dunque la serie converge.
+\end{proof}
+
+\subsection{associatività della somma di una serie}
+
+\begin{example}
+Posto $a_k = (-1)^k$ sappiamo che la serie corrispondente:
+\[
+  1 - 1 + 1 - 1 + 1 \dots
+\]
+è indeterminata perché le somme parziali sono
+\[
+  S_n = \sum_{k=0}^n (-1)^k
+  = \begin{cases}
+   1 & \text{se $n$ pari}\\
+   0 & \text{se $n$ è dispari.}
+  \end{cases}
+\]
+Se però associamo i termini a due a due otteniamo la serie
+\[
+  (1-1) + (1-1) + (1-1) \dots = 0 + 0 + 0 + \dots = 0
+\]
+che è convergente.
+Il motivo è che la successione delle somme
+parziali di questa nuova serie è una particolare estratta (quella
+con gli indici pari) della successione delle somme parziali della
+serie originale. Quindi non ci dovrebbe sorprendere il fatto che
+nonostante la serie originale fosse indeterminata è possibile
+associare i termini della serie in modo da ottenere una serie
+regolare (in questo caso convergente).
+In effetti per il teorema~\ref{th:bolzano_weierstrass} 
+di Bolzano-Weierstrass sappiamo che
+è sempre possibile estrarre una sottosuccessione regolare (convergente o divergente)
+da qualunque successione.
+Anche quando da una serie indeterminata si estrae una serie
+convergente la somma della serie può dipendere da come i termini
+vengono associati.
+Se ad esempio nella serie precedente prendessimo
+solamente le somme di indice dispari
+otterremmo:
+\[
+  1 + (-1+1) + (-1+1) + \dots = 1.
+\]
+\end{example}
+
+L'esempio precedente ci mostra che associando i termini di una
+serie indeterminata è possibile ottenere serie con carattere
+e somma diversi.
+Il seguente teorema ci dice che questo fenomeno \emph{cattivo}
+può solo avvenire quando si parte da una serie indeterminata.
+Se la serie è regolare allora possiamo associarne i termini
+senza modificarne né il carattere né la somma.
+In particolare questo è vero per le serie a termini positivi.
+
+\begin{theorem}[associatività delle serie regolari]%
+\label{th:serie_associativa}%
+Se $\sum a_k$ è una serie, scelta comunque
+una successione crescente $k_n$ con $k_0=0$
+possiamo considerare la serie $\sum b_n$
+i cui termini
+\[
+  b_n = \sum_{j=k_n}^{k_{n+1}-1} a_j
+\]
+si ottengono associando i termini di $a_k$ a gruppi
+consecutivi delimitati dalla successione di indici
+$k_n$.
+
+Se la serie $\sum a_k$ è regolare (convergente o divergente)
+allora anche la serie $\sum b_n$ è regolare e si ha
+\[
+\sum_{n=0}^{+\infty} b_n
+= \sum_{k=0}^{+\infty} a_k.
+\]
+
+In particolare questo vale se la serie $\sum a_k$ è a termini
+positivi.
+\end{theorem}
+%
+\begin{proof}
+Siano $S_k = \sum_{j=0}^k a_j$ le somme parziali della
+serie $\sum a_j$. Allora le somme parziali della serie $\sum b_n$
+non sono altro che la sottosuccessione $S_{k_n}$.
+Dunque se $S_k$ converge anche ogni sua sottosuccessione
+converge allo stesso limite.
+
+Il teorema~\ref{th:serie_positiva} ci dice
+che le serie a termini positivi sono regolari e quindi
+soddisfano le ipotesi del teorema.
+\end{proof}
+
+\subsection{la serie armonica}
+
+Osserviamo che il criterio del rapporto non si applica alla
+\emph{serie armonica}%
+\mymargin{serie armonica}%
+\index{serie!armonica}%
+\[
+  \sum_k \frac{1}{k}
+\]
+in quanto
+\[
+ \frac{\frac{1}{k+1}}{\frac{1}{k}}
+ = \frac{k}{k+1} \to 1.
+\]
+
+Per capire se la serie armonica converge o diverge presentiamo il metodo
+di \emph{condensazione} che verrà enunciato in generale nel prossimo teorema
+ma che può essere meglio compreso se applicato al caso particolare
+della serie armonica.
+
+Mostreremo che la serie armonica diverge.
+L'idea è semplicemente quella di associare gli addendi della serie armonica
+in gruppi di lunghezza potenze di due e stimare la somma di ogni gruppo dal basso
+con il termine più piccolo (cioè l'ultimo) di ogni gruppo:
+\begin{align*}
+ \sum_{k=1}^{+\infty} \frac{1}{k}
+ & = 1 + \frac 1 2
+     + \enclose{\frac 1 3 + \frac 1 4}
+     + \enclose{\frac 1 5 + \frac 1 6 + \frac 1 7 + \frac 1 8}
+     + \dots\\
+ & > 1 + \frac 1 2 + 2 \cdot \frac 1 4 + 4 \cdot \frac 1 8 + \dots \\
+   & = 1 + \frac 1 2 + \frac 1 2 + \frac 1 2 + \dots
+    = +\infty.
+\end{align*}
+
+\begin{theorem}[criterio di condensazione di Cauchy]%
+\label{th:condensazione}%
+\mymark{**}%
+\mymargin{criterio di condensazione di Cauchy}%
+\index{criterio!di condensazione di Cauchy}%
+\index{condensazione!criterio di Cauchy}%
+\index{Cauchy!criterio di condensazione}%
+Sia $a_n$ una successione decrescente di numeri reali non negativi:
+$a_n \ge 0$.
+Allora la serie $\sum a_k$ converge se e solo se converge
+la serie
+\[
+  \sum 2^k a_{2^k}.
+\]
+\end{theorem}
+%
+\begin{proof}
+\mymark{**}
+Supponiamo per comodità che le somme partano da $k=1$.
+Si tratta di raggruppare i termini $a_k$ in gruppi di potenze di due:
+\begin{align*}
+  b_0 & = a_1, \\
+  b_1 &= a_2 +  a_3, \\
+  b_2 &= a_4 +  a_5 +  a_6 +  a_7, \\
+  b_3 &= a_8 +  a_9 +  a_{10} + \dots + a_{15}, \\
+  &\vdots\\
+  b_n &= a_{2^n} +  a_{2^{n}+1} + \dots + a_{2^{n+1}-1},\\
+  &\vdots
+\end{align*}
+Grazie al teorema~\ref{th:serie_associativa} sulla associatività
+delle serie a termini positivi sappiamo che
+  \[
+  \sum_{k=1}^{+\infty} a_k = \sum_{n=0}^{+\infty} b_n.
+  \]
+Ogni termine $b_n$ è la somma di $2^n$ termini della
+successione $a_k$ che, essendo la successione decrescente,
+possono essere stimati dall'alto e dal basso con il primo
+e l'ultimo termine di ogni somma, dunque:
+\[
+  2^n a_{2^{n+1}-1} \le b_n \le 2^n a_{2^{n}}.
+\]
+Per ipotesi la serie $\sum 2^n a_{2^n}$ è convergente
+dunque per confronto anche la serie $\sum b_n$ è convergente.
+
+Viceversa se la serie $\sum 2^n a_{2^n}$ è divergente
+anche la serie $\sum 2^{n+1} a_{2^{n+1}}$ è divergente
+e sapendo che $b_n\ge 2^n a_{2^{n+1}-1}\ge \frac 1 2 2^{n+1} a_{2^{n+1}}$
+otteniamo, per confronto, che anche la serie $\sum b_n$ è divergente.
+\end{proof}
+
+\begin{corollary}[serie armonica generalizzata]
+\mymark{***}
+\mymargin{serie armonica generalizzata}%
+\index{serie!armonica!generalizzata}
+La serie
+\[
+ \sum_n \frac{1}{n^\alpha}
+\]
+converge se $\alpha>1$,
+diverge se $0\le \alpha\le 1$.
+\end{corollary}
+%
+\begin{proof}
+\mymark{***}
+Applichiamo il criterio di condensazione. Posto $a_n = \frac 1{n^\alpha}$ Si ha
+\[
+  \sum_n 2^n a_{2^n} = \sum_n 2^n \frac{1}{(2^n)^\alpha}
+  = \sum_n 2^{n(1-\alpha)}
+  = \sum_n \enclose{2^{(1-\alpha)}}^n
+\]
+che è una serie geometrica di ragione $q=2^{1-\alpha}$.
+Se $\alpha>1$ allora $q<1$ e la serie armonica è convergente
+se invece $\alpha \le 1$ allora $q\ge 1$ e la serie
+armonica è divergente.
+\end{proof}
+
+\begin{exercise}
+Utilizzare il criterio di condensazione per dimostrare che la serie
+\[
+  \sum \frac{1}{n \cdot \ln n}
+\]
+diverge.
+\end{exercise}
+
+\begin{exercise}
+  Determinare i valori dei parametri $\alpha\in \RR$ e $\beta\in \RR$
+  per i quali la seguente serie risulta essere convergente:
+  \[
+    \sum \frac{1}{n^\alpha (\ln n)^\beta}.
+  \]
+\end{exercise}
+
+%%%
+%%%

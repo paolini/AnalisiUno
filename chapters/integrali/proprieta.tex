@@ -1,0 +1,616 @@
+\section{proprietà degli integrali}
+%%%%%
+\index{integrali!proprietà}%
+\index{proprietà!degli integrali}%
+
+\begin{theorem}[additività dell'integrale]
+\mymark{*}%
+\mymargin{additività dell'integrale}%
+\index{additività dell'integrale}%
+\index{integrale!additività}%
+\label{th:additivita_integrale}%
+Sia $f\colon [a,b]\to \RR$ una funzione limitata e sia $c\in [a,b]$.
+Allora $f$ è Riemann-integrabile su $[a,b]$ se e solo se
+$f$ è Riemann-integrabile su $[a,c]$ e su $[c,b]$.
+E in tal caso risulta
+\begin{equation}\label{eq:36645}
+  \int_a^b f = \int_a^c f + \int_c^b f.
+\end{equation}
+
+In base alla convenzione
+\[
+    \int_b^a f = -\int_a^b f
+\]
+la formula \eqref{eq:36645} è valida non solo se $a\le c\le b$ ma anche
+se $a,b,c$ sono in qualunque ordine, purché la funzione $f$ sia integrabile
+sull'intervallo che contiene tutti e tre i punti $a,b,c$.
+\end{theorem}
+%
+\begin{proof}
+\mymark{*}
+Supponiamo che $f$ sia integrabile su $[a,c]$ e su $[c,b]$.
+Allora, in base ai criteri di integrabilità, per ogni $\eps>0$ esisteranno una
+suddivisione $P$ di $[a,c]$ e una suddivisione $Q$ di $[c,b]$ tali che
+\[
+  S^*(f,P) - S_*(f,P) < \frac \eps 2,
+  \qquad
+  S^*(f,Q) - S_*(f,Q) < \frac \eps 2.
+\]
+L'insieme $R=P\cup Q$ risulta essere una suddivisione di $[a,b]$ su cui si avrà
+\begin{equation}\label{eq:56632}
+S^*(f,R) = S^*(f,P) + S^*(f,Q), \qquad
+S_*(f,R) = S_*(f,P) + S_*(f,Q)
+\end{equation}
+e dunque
+\[
+S^*(f,R) - S_*(f,R) \le \frac \eps 2 + \frac \eps 2 = \eps.
+\]
+Applicando nuovamente il criterio di integrabilità in senso invertito otteniamo
+dunque l'integrabilità di $f$ su $[a,b]$ e le equazioni
+\eqref{eq:56632} garantiscono l'additività dell'integrale rispetto al dominio.
+
+Viceversa se $f$ è integrabile su $[a,b]$ il criterio di integrabilità
+ci garantisce che per ogni $\eps>0$ esiste una suddivisione $R$ di $[a,b]$ tale che
+\[
+S^*(f,R) - S_*(f,R) < \eps.
+\]
+Se ora consideriamo $R' = R \cup \ENCLOSE{c}$ sappiamo che $S^*(f,R') \le S^*(f,R)$
+e $S_*(f,R') \ge S_*(f,R)$ dunque anche $R'$ soddisfa la proprietà
+\[
+S^*(f,R') - S_*(f,R') < \eps.
+\]
+Ma ora è chiaro che posto $P=R'\cap[a,c]$ e $Q=R'\cap[c,b]$ risulta che $P$
+e $Q$ siano suddivisioni di $[a,c]$ e $[c,b]$ rispettivamente e che
+\begin{align*}
+  S^*(f,R') &= S^*(f,P) + S^*(f,Q), \\
+  S_*(f,R') &= S_*(f,P) + S_*(f,Q).
+\end{align*}
+Dunque si ha
+\begin{align*}
+(S^*(f,P) - S_*(f,P)) + (S^*(f,Q) - S_*(f,Q))
+&= S^*(f,R') - S_*(f,R')
+< \eps.
+\end{align*}
+Visto che entrambi gli addendi $S^*-S_*$ sono non negativi
+risulta che valgono separatamente le disuguaglianze
+\[
+S^*(f,P) - S_*(f,P) < \eps, \qquad
+S^*(f,Q) - S_*(f,Q) < \eps.
+\]
+Dunque $f$ è integrabile sia su $[a,c]$ che su $[c,b]$.
+E nuovamente possiamo osservare che l'integrale è additivo sul dominio.
+\end{proof}  
+
+\begin{theorem}[monotonia dell'integrale]%
+\label{th:monotonia_integrale}%
+\mymark{*}%
+Sia $a\le b$ e siano
+$f,g\colon [a,b]\to \RR$ due funzioni Riemann-integrabili.
+Se per ogni $x\in [a,b]$ si ha $f(x) \le g(x)$ allora
+\[
+  \int_a^b f(x) \le \int_a^b g(x).
+\]
+
+In particolare se $f\ge 0$ allora $\int_a^b f \ge 0$.
+\end{theorem}
+%
+\begin{proof}
+Chiaramente se $f \le g$ si avrà che il $\sup$ di $f$ su qualunque intervallo sarà minore o uguale al $\sup$ di $g$ sullo stesso intervallo. Dunque su ogni suddivisione $P$ di $[a,b]$ si avrà:
+\[
+  S^*(f,P) \le S^*(g,P)
+\]
+da cui si ottiene immediatamente $I^*(f) \le I^*(g)$ e il risultato segue.
+\end{proof}
+
+\begin{theorem}[linearità dell'integrale]
+\mymark{*}
+\label{th:integrale_lineare}
+Siano $f,g\colon [a,b]\to \RR$ due funzioni Riemann-integrabili
+e siano $\lambda, \mu \in \RR$. Allora $\lambda f + \mu g$
+è Riemann-integrabile e si ha
+\[
+  \int_a^b (\lambda f + \mu g) = \lambda \int_a^b f + \mu \int_a^b g.
+\]
+
+In particolare l'insieme delle funzioni Riemann-integrabili su $[a,b]$ risulta
+essere uno spazio vettoriale reale e l'integrale è una
+applicazione lineare su tale spazio, a valori in $\RR$.
+\end{theorem}
+%
+\begin{proof}
+\mymark{*}
+Mostriamo innanzitutto che
+\begin{equation}\label{eq:20043}
+  \int_a^b (-f) = -\int_a^b f.
+\end{equation}
+Questo deriva dal fatto che su qualunque insieme $A$ si ha
+$\sup_A (-f) = -\inf_A f$ e dunque per una qualunque suddivisione $P$
+si ha
+\[
+  S^*(-f,P) = -S_*(f,P).
+\]
+Se ne deduce che $I^*(-f) = -I_*(f)$ e, analogamente, $I_*(-f) = -I^*(f)$.
+Dunque se $f$ è Riemann-integrabile anche $-f$ lo è e vale la proprietà \eqref{eq:20043}.
+
+Ora se $\lambda \ge 0$ vogliamo mostrare che vale
+\begin{equation}\label{eq:10032}
+  \int_a^b \lambda f = \lambda \int_a^b f.
+\end{equation}
+Semplicemente si osserva che $\sup_I \lambda f = \lambda \sup_I f$ e dunque
+$S^*(\lambda f,P) = \lambda S^*(f,P)$ per ogni suddivisione $P$.
+Ne consegue che $I^*(\lambda f) = \lambda I^*(f)$. In maniera analoga si può
+mostrare che $I_*(\lambda f) = \lambda I_*(f)$. Dunque se $f$ è
+Riemann-integrabile anche $\lambda f$ (con $\lambda \ge 0$) lo è e vale \eqref{eq:10032}.
+
+Mettendo assieme \eqref{eq:20043} e $\eqref{eq:10032}$ si ottiene
+che $\eqref{eq:10032}$ vale per ogni $\lambda \in \RR$.
+Lo stesso sarà vero se mettiamo $g$ al posto di $f$ e $\mu$ al posto di $\lambda$.
+Per concludere la dimostrazione sarà dunque sufficiente
+mostrare che vale anche
+\begin{equation}\label{eq:80003}
+\int_a^b (f+g) = \int_a^b f + \int_a^b g.
+\end{equation}
+Osserviamo che su qualunque insieme $A$ si ha
+\[
+  \sup_A (f+g) \le \sup_A f + \sup_A g.
+\]
+Infatti per ogni $x\in A$ si ha $\sup_A f\ge f(x)$ 
+e $\sup_A g \ge g(x)$ dunque $\sup_A f + \sup_A g$
+è maggiore di $f(x)+g(x)$ per ogni $x\in A$ 
+ed è quindi non inferiore a $\sup_A (f+g)$ che 
+è il minimo dei maggioranti.
+Questo significa che
+\[
+  S^*(f+g) \le S^*(f) + S^*(g).
+\]
+analogamente si potrà dimostrare che
+\[
+  S_*(f+g) \ge S_*(f) + S_*(g).
+\]
+Si ottiene dunque
+\[
+  I^*(f+g) \le I^*(f) + I^*(g)
+  \qquad\text{e}\qquad
+  I_*(f+g) \ge I_*(f) + I_*(g)
+\]
+e dunque se $f$ e $g$ sono integrabili anche $f+g$ risulta integrabile
+e vale la \eqref{eq:80003}.
+
+Per concludere che l'insieme delle funzioni integrali sia uno spazio vettoriale
+è sufficiente osservare che, grazie al teorema~\ref{th:integrale_costante},
+la funzione $0$ risulta integrabile.
+\end{proof}
+
+\begin{definition}\label{def:osc}
+Sia $A\subset \RR$. Definiamo 
+l'\emph{oscillazione} di $A$ come:
+\[
+  \osc A \defeq \sup A - \inf A.
+\]
+Nel caso $A=f(D)$ sia l'immagine di una funzione 
+definiamo l'\emph{oscillazione} di $f$ sull'insieme 
+$D$ come l'oscillazione della sua immagine, ovvero:
+\[
+   \osc_{x\in D} f(x) 
+   \defeq \osc f(D) 
+   = \sup_{x\in D} f(x) - \inf_{x\in D} f(x).  
+\]
+\end{definition}
+
+\begin{theorem}[integrabilità delle funzioni continue]
+  \mymark{***}
+  \label{th:integrabilita_continue}
+  \mymargin{integrabilità delle funzioni continue}
+  \index{integrabilità!funzioni continue}
+  Sia $f\colon [a,b]\to \RR$ una funzione continua.
+  Allora $f$ è limitata e Riemann-integrabile.
+  \end{theorem}
+  %
+  \begin{proof}
+  \mymark{***}
+  Per il teorema di Weierstrass sappiamo che $f$ è limitata.
+  Per il teorema di Heine-Cantor sappiamo che $f$ è uniformemente continua,
+  dunque per ogni $\eps>0$ esiste un $\delta>0$ tale che
+  \[
+   \abs{x-y} < \delta \implies \abs{f(x)-f(y)} < \eps.
+  \]
+  Possiamo allora considerare una suddivisione $P_\delta$ con la proprietà che
+  gli intervalli individuati dalla suddivisione abbiano tutti ampiezza minore di
+  $\delta$ (ad esempio potremmo prendere la suddivisione formata da
+  $(b-a)/\delta+2$ punti equispaziati in $[a,b]$). Su ogni intervallo $I$ di tale
+  suddivisione si avrà che se $x,y\in I$ allora $\abs{f(x)-f(y)} < \eps$ da cui
+  si deduce $\sup_I f - \inf_I f \le \eps$.
+  In particolare, sommando su tutti gli intervalli, si avrà
+  \begin{align*}
+    S^*(f,P_\delta) - S_*(f,P_\delta)
+    &= \sum_{k=1}^N (x_k-x_{k-1})\enclose{\sup_{[x_{k-1},x_k]} f - \inf_{[x_{k-1},x_k]} f} \\
+    &\le \eps \sum_{k=1}^N (x_k - x_{k-1})
+     = \eps (b-a).
+  \end{align*}
+  Visto che questa quantità può essere resa arbitrariamente piccola per
+  $\eps \to 0$, in base ai criteri di integrabilità possiamo concludere che la
+  funzione $f$ è integrabile.
+  \end{proof}
+  
+  \begin{theorem}[integrabilità delle funzioni monotone]
+  \label{th:integrabilita_monotone}%
+  \mymargin{integrabilità delle funzioni monotone}%
+  \index{integrabilità!funzioni monotone}%
+  Sia $f\colon [a,b]\to \RR$ una funzione monotona. Allora $f$ è limitata e
+  Riemann-integrabile.
+  \end{theorem}
+  %
+  \begin{proof}
+  Supponiamo, per fissare le idee, che $f$ sia crescente.
+  
+  Chiaramente $f$ è limitata in quanto $f(a) \le f(x) \le f(b)$ per ogni
+  $x\in [a,b]$.
+  
+  Per avere l'integrabilità e sufficiente mostrare
+  che esiste una successione di suddivisioni $P_n$
+  tale che $S^*(f,P_n) - S_*(f,P_n) \to 0$.
+  Consideriamo la suddivisione equispaziata
+  $P_n=\ENCLOSE{x_k \colon k=0,1, \dots, n}$ con $x_k=a+k(b-a)/N$.
+  In tal caso su ogni intervallino $[x_{k-1},x_k]$ si ha
+  \[
+    \sup f([x_{k-1}, x_k]) = f(x_k),
+    \qquad
+    \inf f([x_{k-1}, x_k]) = f(x_{k-1}).
+  \]
+  Dunque la differenza tra le somme superiori
+  e le somme inferiori è telescopica
+  e si ha, per $n\to +\infty$
+  \begin{align*}
+  S^*(f,P) - S_*(f,P)
+  &= \sum_{k=1}^n \frac{b-a}{n} f(x_k)
+    - \sum_{k=1}^n \frac{b-a}{n} f(x_{k-1}) \\
+  &= \frac{b-a}{n}(f(b)-f(a)) \to 0.
+  \end{align*}
+  E' quanto volevamo dimostrare.
+  \end{proof}
+  
+  \begin{example}[funzione di Heaviside]
+  \label{ex:heaviside}
+  \mymargin{funzione di Heaviside}
+  \index{funzione!di Heaviside}
+  Sia $a<0<b$.
+  La funzione $H\colon [a,b] \to \RR$ definita da
+  \[
+  H(x) =
+  \begin{cases}
+  1 & \text{se $x\ge 0$}\\
+  0 & \text{se $x< 0$}
+  \end{cases}
+  \]
+  è crescente quindi integrabile.
+  \end{example}
+  
+\begin{theorem}[integrabilità della funzione composta]
+  \label{th:composta_integrabile}%
+  \index{integrabilità!della funzione composta}%
+  \index{composizione!integrabilità}%
+  Sia $\phi\colon [\alpha,\beta]\to \RR$ una funzione 
+  continua e sia $f\colon [a,b]\to [\alpha,\beta]$ una 
+  funzione Riemann-integrabile.
+  Allora la funzione composta 
+  $\phi\circ f\colon[a,b]\to \RR$ è 
+  limitata e Riemann-integrabile.
+\end{theorem}
+%
+\begin{proof}
+Per i criteri di integrabilità, teorema~\ref{th:criteri_integrabilita},
+fissato $\eps>0$ basta trovare una suddivisione $P$
+per cui si abbia $S^*(\phi\circ f,P) - S_*(\phi\circ f,P)\le \eps(b-a)$.
+Per il teorema~\ref{th:heine_cantor} di Heine-Cantor 
+la funzione $\phi$ è uniformemente continua su $[\alpha,\beta]$ 
+e quindi esiste $\delta>0$ tale che se $\abs{y_1-y_2}< \delta$
+allora $\abs{\phi(y_1)-\phi(y_2)}< \eps$. 
+Per il teorema~\ref{th:weierstrass} di Weierstrass, invece, 
+esiste $M$ tale che $\abs{\phi(y)}\le M$ per ogni $y\in [\alpha,\beta]$.
+In particolare questo garantisce che la funzione composta $\phi \circ f$ 
+sia limitata: $\phi(f(x))\le M$ per ogni $x\in [a,b]$.
+Scelto $\sigma = \frac{\eps \delta}{4M} (b-a)$ 
+(vedremo alla fine perché si sceglie così)
+per l'integrabilità di $f$ sappiamo che 
+esiste una suddivisione $P$ fatta 
+dai punti $x_0=a < x_1 < \dots < x_n=b$ tale che 
+\mynote{L'operatore $\osc$ è stato introdotto 
+nella definizione~\ref{def:osc}}%
+\[
+  S^*(f,P) - S_*(f,P) 
+  = \sum_{k=1}^n (x_k - x_{k-1})
+  \cdot \osc f([x_{k-1},x_k])
+  \le \sigma.
+\]
+
+Vogliamo dimostrare che la seguente quantità è piccola:
+\[
+ S^*(\phi\circ f,P) - S_*(\phi\circ f,P)
+ = \sum_{k=1}^n (x_k - x_{k-1}) \cdot \osc \phi(f([x_{k-1},x_k])).
+\]
+Se $\osc f([x_{k-1},x_k]) \le \frac{\delta }2$, 
+allora per ogni $t,s\in[x_{k-1},x_k]$ si ha 
+$\abs{f(t)-f(s)}\le \frac{\delta}{2}$
+e quindi, per l'uniforme continuità di $\phi$,
+$\abs{\phi(f(t))-\phi(f(s))}<\eps$.
+Dunque 
+\[
+  \osc f([x_{k-1},x_k]) \le \frac{\delta}{2} 
+  \implies  
+  \osc \phi(f([x_{k-1},x_k]))\le \eps.
+\] 
+D'altra parte gli intervalli in cui 
+$\osc f([x_{k-1},x_k]) > \frac{\delta}{2}$ 
+dovranno essere pochi perché altrimenti la funzione non sarebbe 
+integrabile.
+Se chiamiamo $K$ l'insieme degli indici $k$ per cui si 
+ha $M_k-m_k\ge \frac \delta 2$, dovrà infatti essere 
+\[
+  \frac{\delta}{2}\sum_{k\in K} (x_k-x_{k-1})
+  \le \sum_{k\in K} (x_k-x_{k-1})\cdot \osc f([x_{k-1},x_k])
+  \le S^*(f,P) - S_*(f,P) \le \sigma.
+\]
+Visto che la funzione $\phi$ assume valori tra $-M$ e $M$, 
+si ha  
+\[
+   \sum_{k\in K} (x_k-x_{k-1})
+   \osc \phi(f([x_{k-1},x_k]))
+   \le 2M \sum_{k\in K} (x_k-x_{k-1})
+   \le \frac{4M\sigma}{\delta} = \eps (b-a).
+\]
+
+In conclusione: 
+\begin{align*}
+  S^*(\phi\circ f,P)-S_*(\phi\circ f,P)
+  \le 
+  \eps (b-a) + 
+  \sum_{k\not \in K} (x_k-x_{k-1}) \eps
+  = 2\eps (b-a)
+\end{align*}
+che per i criteri di integrabilità ci dà la tesi.
+\end{proof}
+
+Se $f$ e $g$ sono funzioni a valori reali definiamo le
+funzioni $f\wedge g$ (minimo), $f \vee g$ (massimo),
+$f^+$ (parte positiva) e $f^-$ (parte negativa) come segue:
+\begin{gather*}
+  (f \wedge g)(x) = \min\ENCLOSE{f(x), g(x)}  \qquad
+  (f \vee g)(x) = \max\ENCLOSE{f(x), g(x)} \\
+  f^+ (x) =
+      \begin{cases}
+      f(x) & \text{se $f(x)> 0$}\\
+      0 & \text{altrimenti}
+      \end{cases} \qquad
+  f^- (x) =
+      \begin{cases}
+      -f(x) & \text{se $f(x)< 0$}\\
+      0 & \text{altrimenti.}
+      \end{cases}
+\end{gather*}
+Risulta $f= f^+ - f^-$, $\abs{f}=f^+ + f^-$.
+
+\begin{theorem}[proprietà di reticolo]%
+  \label{th:reticolo}%  
+  Se $f$ è una funzione Riemann-integrabile sull'intervallo $[a,b]$ allora
+  anche $\abs{f}$, $f^+$ e $f^-$ sono integrabili e, se
+  anche $g$ è Riemann-integrabile su $[a,b]$, allora anche $f\vee g$ e $f\wedge g$
+  sono integrabili sullo stesso intervallo.
+  Inoltre si ha 
+  \mynote{Si noti che se $b<a$ allora $\int_a^b\abs{f}\le 0$.}
+  \begin{equation}\label{eq:489732}
+    \abs{\int_a^b f} 
+    \le 
+    \abs{\int_a^b \abs{f}}. 
+  \end{equation}
+  \end{theorem}
+  \begin{proof}
+  Basta osservare che le funzioni 
+  $y\mapsto \abs{y}$, $y\mapsto y^+$ e $y\mapsto y^-$ 
+  sono funzioni continue, e applicare il teorema~\ref{th:composta_integrabile}
+  di integrabilità della funzione composta.
+  \end{proof}
+  %
+  \begin{proof}[Dimostrazione alternativa.]
+  Possiamo fare una dimostrazione che non richiede 
+  il teorema~\ref{th:composta_integrabile}
+  ma, sostanzialmente, ne ricalca la dimostrazione nel 
+  caso particolare, molto più semplice, che ci interessa.
+
+  Dimostriamo innanzitutto che se $f$ è integrabile anche $f^+$ lo è.
+  Visto che $\abs{f^+(x)-f^+(y)}\le \abs{f(x)-f(y)}$ 
+  è facile convincersi che su ogni insieme $A$ risulta: 
+  \mynote{L'operatore $\osc$ è stato introdotto 
+  nella definizone~\ref{def:osc}}%
+  $\osc_A f^+ \le \osc_A f$.
+  Dunque su qualunque suddivisione $P$
+  si ottiene:
+  \[
+    0 \le S^*(f^+,P) - S_*(f^+,P) \le S^*(f,P) - S_*(f,P).
+  \]
+  Per il primo criterio di integrabilità del 
+  teorema~\ref{th:criteri_integrabilita} essendo $f$ integrabile 
+  sappiamo che per ogni $\eps>0$ esiste $P$ tale che il lato 
+  destro dell'equazione precedente è inferiore ad $\eps$.
+  Ma allora anche il lato sinistro lo è e dunque, 
+  per lo stesso criterio, anche $f^+$ è integrabile.    
+  In maniera analoga si dimostra che se $f$ è integrabile 
+  anche $f^-$ è integrabile.
+  \mynote{
+    Oppure si può osservare che $f^- = -(-f)^+$ e sfruttare il 
+    fatto che se $f$ è integrabile già sappiamo che $-f$ 
+    è integrabile.
+  }
+  
+  Per quanto riguarda $\abs f$, $f\vee g$ e $f\wedge g$  
+  basta osservare che%
+  \mynote{Per ogni $a,b\in \RR$ 
+  è facile convincersi che valgono 
+  le seguenti identità
+  \[
+    \begin{cases}
+    a = a^+ - a^-\\
+    \abs{a} = a^+ + a^-\\
+    \end{cases}
+  \]\[
+    \begin{cases}
+      a + b = (a\vee b) + (a\wedge b)\\
+      \abs{a - b} = (a\vee b) - (a\wedge b) 
+    \end{cases}
+  \]}
+  \begin{gather*}
+    \abs{f} = f^+ + f^-
+  %  f^+ = \frac{\abs{f} + f}{2}, \qquad
+  %  f^- = \frac{\abs{f} - f}{2}, \\
+    f\wedge g = \frac{f + g - \abs{f-g}}{2}, \qquad
+    f\vee g = \frac{f+g + \abs{f-g}}{2}
+  \end{gather*}
+  e visto che combinazioni lineari di funzioni integrabili 
+  sono funzioni integrabili (teorema~\ref{th:integrale_lineare})
+  si ottiene l'integrabilità delle funzioni a lato sinistro
+  delle uguaglianze.
+  
+  Per dimostrare~\eqref{eq:489732} basta osservare che
+  $f^+\ge 0$ e $f^-\ge 0$ dunque per il 
+  teorema~\ref{th:monotonia_integrale} 
+  se $a\le b$ si ha $\int_a^b f^+\ge 0$ 
+  e $\int_a^b f^-\ge 0$, cosicché:
+  \begin{align*}
+  \abs{\int_a^b f} 
+  &= \abs{\int_a^b f^+ - \int_a^b f^-}\\
+  &\le \abs{\int_a^b f^+} + \abs{\int_a^b f^-}
+  = \int_a^b f^+ + \int_a^b f^-
+  = \int_a^b \abs{f}.   
+  \end{align*}
+  Se $b\le a$ ci si riconduce al caso precedente scambiando 
+  gli estremi di integrazione.
+  \end{proof}
+  
+    \begin{theorem}[continuità dell'integrale]
+    \label{th:integrale_continuo}
+    Sia $f\colon [a,b]\to \RR$ una funzione limitata e tale
+    che per ogni $c\in (a,b]$ risulta che $f$ sia Riemann-integrabile
+    su $[c,b]$. Allora $f$ è Riemann-integrabile su $[a,b]$ e risulta
+    \[
+      \int_a^b f = \lim_{c\to a^+} \int_c^b f.
+    \]
+    
+    Analogamente se $f$ è integrabile su ogni intervallo $[a,c]$
+    con $c\in [a,b)$ allora $f$ è integrabile su $[a,b]$ e vale
+    \[
+      \int_a^b f = \lim_{c\to b^-} \int_a^c f.
+    \]
+    \end{theorem}
+    %
+    \begin{proof}
+    Dimostriamo solamente la prima parte, visto che la seconda si tratta in
+    maniera del tutto analoga. Supponiamo quindi che $f$ sia integrabile su ogni
+    intervallo $[c,b]$ con $c\in (a,b]$. Sappiamo inoltre che $f$ è limitata su
+    tutto $[a,b]$ e quindi esiste $M>0$ tale che $\abs{f(x)}\le M$ per ogni
+    $x\in [a,b]$. Fissato $\eps>0$ qualunque,
+    scegliamo $c = a + \eps/(4M)$ e, sapendo che $f$ è integrabile su $[c,b]$,
+    consideriamo una suddivisione $Q_\eps$ di $[c,b]$ tale che
+    \[
+      S^*(f, Q_\eps) - S_*(f, Q_\eps) < \frac \eps 2.
+    \]
+    Ma allora posto $P_\eps = \ENCLOSE{a} \cup Q_\eps$ otteniamo:
+    \begin{align*}
+      S^*(f,P_\eps) &= S^*(f,Q_\eps) + (c-a)\sup_{[a,c]} f
+        \le S^*(f,Q_\eps) + M \cdot (c-a) \le S^*(f,Q_\eps) + \frac \epsilon 2\\
+      S_*(f,P_\eps) &= S_*(f,Q_\eps) + (c-a)\inf_{[a,c]} f
+        \ge S_*(f,Q_\eps) - M \cdot (c-a) \ge S_*(f,Q_\eps) - \frac \epsilon 2
+    \end{align*}
+    da cui
+    \begin{align*}
+     S^*(f,P_\eps)-S_*(f,P_\eps)
+     &\le S^*(f,Q_\eps) - S_*(f,Q\eps) + 2 M \cdot (c-a)\\
+     &< \frac{\eps}{2} + 2 M \frac{\eps}{4M}
+     = \eps.
+    \end{align*}
+    Dunque, la funzione $f$ è integrabile. Ma si ha
+    \begin{align*}
+    \int_a^b f \le S^*(f,P_\eps) \le S^*(f,Q_\eps) + \frac{\eps}{4}
+    \le S_*(f,Q_\eps) + \frac 3 4 \eps
+    \le \int_{a+\frac {\eps}{4M}}^b f + \frac {3}{2} \eps \\
+    \int_a^b f \ge S_*(f,P_\eps) \ge S_*(f,Q_\eps) - \frac{\eps}{4}
+    \ge S^*(f,Q_\eps) - \frac 3 4 \eps
+    \ge \int_{a+\frac {\eps}{4M}}^b f - \frac {3}{2} \eps
+    \end{align*}
+    da cui, passando al limite per $\eps \to 0^+$, si ottiene
+    \[
+      \lim_{c\to a^+} \int_c^b f \le \int_a^b f \le \lim_{c\to a^+} \int_c^b f
+    \]
+    e quindi l'uguaglianza.
+    \end{proof}
+    
+    \begin{example}
+    La funzione
+    \[
+      f(x) = \begin{cases}
+      \sin\frac 1 x & \text{se $x\neq 0$,}\\
+      0 & \text{se $x=0$}
+      \end{cases}
+    \]
+    è integrabile su ogni intervallo chiuso e limitato $[a,b]$.
+    \end{example}
+    \begin{proof}
+    Su ogni intervallo $[\eps,b]$ con $\eps>0$ e $b>\eps$ la funzione
+    è integrabile in quanto su tali intervalli è continua (la funzione è continua su
+    tutto $\RR\setminus\ENCLOSE{0}$). Inoltre la funzione è limitata, quindi per il teorema
+    precedente possiamo concludere che è integrabile su $[0,b]$ per ogni $b>0$.
+    
+    In maniera analoga (per simmetria) la funzione è integrabile su $[a,0]$
+    per ogni $a<0$.
+    Dunque, per additività, la funzione è integrabile su ogni $[a,b]$ con $a<0$ e $b>0$
+    e di conseguenza (sempre grazie al teorema~\ref{th:additivita_integrale})
+    è integrabile su ogni intervallo $[a,b]$.
+    \end{proof}
+    
+    Il seguente risultato è una versione continua della disuguaglianza di convessità 
+    per le combinazioni baricentriche.
+    %
+    \begin{theorem}[disuguaglianza di Jensen]
+      \label{th:jensen}%
+      \index{disuguaglianza!di Jensen}%
+      \index{Jensen!disuguaglianza di}%
+      \index{teorema!Jensen}%
+    Sia $f\colon[a,b]\to I\subset \RR$ una funzione continua a valori 
+    in un intervallo $I$ e sia $\phi\colon I \to \RR$ una funzione convessa e continua.
+    Sia inoltre $g\colon [a,b]\to \RR$ una funzione continua,
+    non negativa e tale che 
+    \[
+        \int_a^b g(x)\, dx = 1
+    \]
+    Allora si ha 
+      \[
+      \phi\enclose{\int_a^b f(x) g(x) \, dx} \le \int_a^b \phi(f(x)) g(x)\, dx.
+      \]
+    Nel caso particolare in cui si scelga $g$ la funzione costante $g(x)=1/(b-a)$ si ottiene 
+    la formulazione più espressiva:
+    \[
+      \phi\enclose{\dashint_a^b f(x)\, dx} \le \dashint_a^b \phi(f(x))\, dx.
+    \]
+    \end{theorem}
+    %
+    \begin{proof}
+    Le ipotesi di continuità di $f$, $g$ e $\phi$ sono sovrabbondanti, ma ci servono 
+    per avere una garanzia immediata che entrambe le funzioni integrande
+    siano effettivamente Riemann-integrabili.
+    Posto 
+    \[
+      y_0 = \int_a^b f(x) g(x)\, dx 
+    \]
+    scegliamo una funzione affine $L(y) = my + q$ tale che $L(y_0)=\phi(y_0)$ 
+    e $L(y)\le \phi(y)$ per ogni $y\in I$ (grazie al teorema~\ref{th:supporto_convessa}).
+    Per la linearità dell'integrale si ha: 
+    \[
+      L(y_0)
+      = \int_a^b mf(x)g(x)\, dx + q \int_a^b g(x)\, dx
+      = \int_a^b L(f(x)) g(x)\, dx.
+    \]
+    Allora per la monotonia dell'integrale risulta
+    \[
+      \phi(y_0) = L(y_0) = \int_a^b L(f(x)) g(x)\, dx \le \int_a^b \phi(f(x)) g(x)\, dx.
+    \]
+    \end{proof}
+    
+%%%%

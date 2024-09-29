@@ -1,0 +1,597 @@
+\section{polinomi}
+\label{ch:polinomi}
+
+Il concetto di ``polinomio'' è una astrazione che non risulta facile esplicitare formalmente.
+Nel capitolo~\ref{ch:edo} ci sarà molto utile applicare un polinomio ad un operatore 
+differenziale e dunque ci teniamo ora a rendere molto chiaro cosa intendiamo per polinomio.
+In particolare distingueremo tre concetti che spesso vengono sovrapposti: 
+\emph{espressione polinomiale}, \emph{polinomio} e \emph{funzione polinomiale}.
+
+Se $A$ è un anello abeliano con unità 
+(definizione~\ref{def:anello}, 
+ad esempio $A=\ZZ$, $A=\QQ$, $A=\RR$ o $A=\CC$)
+possiamo considerare tutte le espressioni
+(formalmente: alberi di valutazione)
+che possono essere costruite utilizzando le operazioni
+di addizione e moltiplicazione che coinvolgono coefficienti presi da $A$
+e una variabile che possiamo chiamare $x$ 
+(e più in generale è possibile considerare polinomi in più variabili).
+Queste espressioni verranno chiamate \emph{espressioni polinomiali}%
+\mymargin{espressioni polinomiali}%
+\index{espressioni!polinomiali} su $A$
+(o a coefficienti in $A$) nella variabile $x$. 
+Un esempio di espressione polinomiale
+è riportato in Figura~\ref{fig:49389}.
+\begin{figure}
+\begin{center}
+\begin{tikzpicture}
+\node [circle,draw] {$\cdot$}
+  child {
+    node [circle,draw,xshift=-15mm] {$+$}
+    child {
+      node [circle,draw] {$\cdot$}
+      child {node [draw]{$-7$}}
+      child {node [draw]{$x$}}
+    }
+    child {node [draw] {$42$}}
+  }
+  child {
+    node [circle,draw,xshift=15mm] (M) {$+$}
+    child {
+      node [circle,draw,xshift=-10mm]{$\cdot$}
+      child {node [draw]{$x$}}
+      child {
+        node [circle,draw]{$+$}
+        child {node [draw] {$2$}}
+        child {node [draw] {$x$}}
+        }
+      }
+    child {
+      node [circle,draw,xshift=10mm]{$\cdot$}
+      child {node [draw] {$3$}}
+      child {
+        node [circle,draw] {$+$}
+        child {node [draw] {$-1$}}
+        child {node [draw] {$x$}}
+        }
+    }
+  };
+\end{tikzpicture}
+\end{center}
+\caption{Il polinomio $P = \enclose{(-7)\cdot x + 42}\cdot(x\cdot (2+x) + 3\cdot(-1+x))$
+rappresentato come albero di valutazione.}
+\label{fig:49389}%
+\end{figure}
+Le espressioni polinomiali possono essere sommate e moltiplicate tra loro 
+per ottenere nuove espressioni. 
+Come comoda notazione si utilizzano le potenze intere per 
+denotare un prodotto ripetuto $n$ volte: $x^n = x\cdots x$.
+
+Diremo che due espressioni sono \emph{equivalenti} se è possibile trasformare 
+una nell'altra utilizzando le proprietà valide negli anelli abeliani: 
+proprietà associativa 
+e commutativa per somma e prodotto, proprietà distributiva, elementi 
+neutri $1\cdot x = x$, $0 + x = x$.
+Inoltre se un ramo dell'espressione non contiene la variabile $x$ è possibile valutare 
+(nell'anello $A$) le operazioni e sostituire l'intero ramo con il 
+risultato di tali operazioni (e viceversa).
+
+In particolare se abbiamo una qualunque espressione possiamo sviluppare tutti i prodotti
+mediante la proprietà distributiva e poi riassociare i termini 
+con le stesse potenze di $x$, ad esempio:
+\begin{align*}
+P &= \enclose{(-7)\cdot x+42}\cdot(x\cdot (2 + x)
++ 3\cdot(-1+x))\\
+&= \enclose{(-7)\cdot x + 42}\cdot (2x+x^2-3+3x) \\
+% (42-7x)  *  (-3 + 5x + x^2)
+&= 126 + 231 x + 7 x^2 - 7 x^3
+\end{align*}
+In generale si otterrà una espressione polinomiale che diremo 
+essere in \emph{forma canonica}:
+\[
+  P = a_0 + a_1 x + a_2 x^2 + \dots + a_n x^n
+       = \sum_{k=0}^n a_k x^k.
+\]
+Dunque ogni espressione polinomiale è equivalente ad una 
+espressione polinomiale in forma canonica. 
+
+Se due espressioni polinomiali sono equivalenti 
+diremo che rappresentano lo stesso \emph{polinomio}%
+\mymargin{polinomio}%
+\index{polinomio}.
+Se $A$ è un anello denoteremo con 
+$A[x]$ \index{$\KK[x]$}\index{$A[x]$}%
+l'insieme di tutti i polinomi con coefficienti in $A$ e variabile $x$. 
+Formalmente $A[x]$ è il quoziente dell'insieme 
+di tutte le espressioni polinomiali rispetto alla relazione di equivalenza
+che abbiamo appena definito. 
+Possiamo fare la somma e il prodotto di polinomi e queste operazioni 
+rendono $A[x]$ anch'esso un anello.
+
+Più esplicitamente se $P$ e $Q$ sono polinomi in forma canonica
+\[
+  P = \sum_{k=0}^n a_k x^k, \qquad Q = \sum_{k=0}^m b_k x^k
+\]
+si avrà:
+\[
+  P + Q = \sum_{k=0}^{N} (a_k+b_k) \cdot x^k
+\]
+dove $N$ è il più grande tra $n$ e $m$ e si intende che $a_k=0$ per $k>n$ e 
+$b_k=0$ per $k>m$.
+Se $t\in A$ avremo:
+\[
+  t P = \sum_{k=0}^n (ta_k)\cdot x^k.
+\]
+Per quanto riguarda il prodotto si avrà invece:
+\begin{align*}
+  P\cdot Q
+  &= \enclose{\sum_{k=0}^n a_k x^k}\cdot \enclose{\sum_{j=0}^n b_j x^j}
+  = \enclose{\sum_{k=0}^n a_k \enclose{\sum_{j=0}^m b_j x^j} x^k} \\
+  &= \enclose{\sum_{k=0}^n \sum_{j=0}^m a_k b_j x^{j+k}}
+  = \sum_{s=0}^{m+n} \enclose{\sum_{j=0}^s a_j b_{s-j}} x^s.
+\end{align*}
+
+Le formule per la somma e il prodotto dei polinomi in forma canonica 
+possono essere applicate ad ognuna delle proprietà di anello per dimostrare
+che polinomi equivalenti hanno la stessa forma canonica e che quindi 
+due espressioni polinomiali sono equivalenti se e solo se i coefficienti 
+della loro forma canonica coincidono.
+In pratica i polinomi a coefficienti in $A$ sono 
+rappresentati dai coefficienti delle loro forme canoniche che 
+non sono altro che sequenze finite:
+\begin{align*}
+  A[x] 
+  &= \{\sum_{k=0}^n a_k x^k\colon a_k\in A, n\in \NN\}\\
+  &\approx A^\NN_c 
+  = \ENCLOSE{\vec a \in A^\NN\colon \ENCLOSE{k\in \NN\colon \vec a(k)\neq 0} \text{ è finito}}.  
+\end{align*}
+
+Se il polinomio $P$ si scrive in forma canonica
+\[
+  P = \sum_{k=0}^n a_k x^k
+\]
+se $n>0$ possiamo supporre che il coefficiente $a_n$ sia diverso da $0$ 
+perché altrimenti potremmo rimuovere il termine corrispondente e ridurci 
+ad una somma di $n-1$ termini. 
+In tal caso diremo che il polinomio $P$ ha \emph{grado}%
+\mymargin{grado}%
+\index{grado} $n$.
+\index{polinomio!grado}%
+\index{grado!polinomio}% 
+Se $n=0$ diremo anche che il polinomio è costante.
+Se $n=0$ e $a_n=0$ diremo che $P$ è il polinomio \emph{nullo}.
+I polinomi costanti non nulli hanno grado pari a $0$, mentre il polinomio nullo, 
+per convenzione, diremo avere grado $-\infty$ (questa definizione ha senso se si pensa 
+al grado di un polinomio come al più piccolo numero per cui tutti i coefficienti di
+indice maggiore a lui sono nulli).
+
+Finora abbiamo definito il polinomio come una classe di equivalenza di 
+espressioni polinomiali. 
+Se prendiamo una espressione $P$ e al posto della variabile $x$ 
+mettiamo un elemento $a$ dell'anello $A$ (o di qualunque anello che estende 
+$A$) allora possiamo valutare tutte le operazioni (somme e prodotti) ed 
+ottenere un risultato nell'anello scelto: il risultato 
+ottenuto si indica con $P(a)$ (stessa notazione utilizzata per le funzioni).
+Se $P$ è un polinomio nella variabile $x$ la funzione $x\mapsto P(x)$ 
+può essere chiamata \emph{funzione polinomiale}%
+\mymargin{funzione polinomiale}%
+\index{funzione!polinomiale} e si indica usualmente 
+con con lo stesso nome $P$ dato al polinomio. Sarà il contesto a dirci 
+se con $P$ si intende il polinomio (l'espressione) o la funzione.
+
+Come già anticipato è utile tenere separato il concetto di polinomio da quello di 
+funzione polinomiale in quanto lo stesso polinomio può essere valutato su diversi 
+anelli (ad esempio nel corso di geometria si potrà sostituire
+la variabile $x$ di un polinomio con una matrice, 
+e nell'ultimo capitolo di questi appunti 
+sostituiremo la $x$ con un operatore differenziale).
+
+Proseguiremo con la trattazione dei polinomi 
+nel capitolo~\ref{ch:ancora_polinomi}.
+
+\subsection{coefficienti binomiali}
+\label{ch:binomiale}
+
+Capiterà spesso di imbattersi in alcuni polinomi particolari, che vengono 
+a volte chiamati \emph{prodotti notevoli}%
+\mymargin{prodotti notevoli}%
+\index{prodotto!notevole}. 
+Di fondamentale iportanza quelli di grado 2:
+\[
+  (x+1)\cdot(x-1) = x^2-1, \qquad (x+1)^2 = x^2+2x + 1.
+\]
+Ma anche quelli di grado $n$:
+\[
+  (x-1)\cdot \sum_{k=0}^{n-1} x^k
+  = \sum_{k=0}^{n-1} x^{k+1} - \sum_{k=0}^n x^k = x^n - 1
+\]
+e, mettendo $-x$ al posto di $x$ e cambiando di segno:
+\[
+  (x+1)\cdot \sum_{k=0}^{n-1} (-1)^k x^k
+  = 1 + (-1)^n x^n.
+\]
+
+Le potenze del binomio $x+1$ sono decisamente rilevanti. 
+Se scriviamo il polinomio $(x+1)^n$ in forma canonica:
+\[
+  (x+1)^n = \sum_{k=0}^n a_k x^k  
+\]
+saremmo interessati a calcolare il valore
+dei coefficienti $a_k$. 
+Innanzitutto gli diamo un nome: questi coefficienti vengono chiamati 
+\emph{coefficienti binomiali}%
+\mymargin{coefficienti binomiali}%
+\index{coefficienti binomiali}
+\index{binomio!coefficienti}%
+e si denotano nel modo seguente:%
+\mynote{%
+I coefficienti binomiali nell'ambito del calcolo combinatorio 
+vengono anche chiamati \emph{combinazioni}
+e denotati con il simbolo $C_{n,k} = {n \choose k}$.
+La coincidenza tra le combinazioni e i coefficienti binomiali 
+è espressa nel teorema~\ref{th:combinatoria}.
+}%
+\[
+    a_k = {n \choose k}.
+\]
+
+Non è difficile convincersi che se sviluppiamo il binomio $(x+y)^n$
+si ottengono gli stessi coefficienti dunque
+in generale vale la seguente formula per la \emph{potenza del binomio}%
+\mymargin{potenza del binomio}%
+\index{potenza!del binomio}:
+\index{binomio!potenza}% 
+\begin{equation*}
+  (x+y)^n = \sum_{k=0}^n {n \choose k} x^k y^{n-k}. 
+\end{equation*}
+
+Per determinare il valore effettivo dei coefficienti 
+binomiali si utilizza usualmente il seguente.
+  
+\begin{theorem}[triangolo di Tartaglia]
+\mymark{*}%
+\label{th:tartaglia}%
+Per ogni $n\in \NN$ e $k \in \NN$ con $1 \le k \le n$ si ha
+\[
+  {n+1 \choose k} =
+      {n \choose k-1} + {n \choose k}
+\]
+mentre
+\[
+  {n+1 \choose 0} = 1 = {n+1 \choose n+1}
+\]
+\end{theorem}
+  %
+  \begin{proof}
+  Infatti si ha 
+  \begin{align*}
+    \sum_{k=0}^{n+1} {n+1 \choose k} x^k
+    &= (1+x)^{n+1} 
+    = (1+x)\cdot \sum_{k=0}^n {n \choose k} x^k \\
+    &= \sum_{k=0}^n {n\choose k} x^k 
+    + \sum_{k=0}^n {n\choose k} x^{k+1}\\
+    &= \sum_{k=0}^n {n\choose k} x^k 
+    + \sum_{k=1}^{n+1} {n\choose k-1} x^{k}\\
+    &= {n\choose 0} x^0 
+      + \sum_{k=1}^n \Enclose{{n\choose k} + {n\choose k-1}} x^k
+      + {n \choose n} x^{n+1}.
+    \end{align*}
+  Per l'unicità della forma canonica dei polinomi 
+  i coefficienti corrispondenti devono essere uguali e quindi 
+  troviamo
+  \[
+  {n+1 \choose 0} = {n \choose 0}, \qquad 
+  {n+1 \choose k} = {n \choose k} + {n \choose k-1}, \qquad 
+  {n+1 \choose n+1} = {n \choose n}.
+  \]
+
+  Si può facilmente verificare che  ${0 \choose 0} = 1$ 
+  e questo conclude la dimostrazione.
+  \end{proof}
+  
+  In base al teorema precedente i coefficienti binomiali si possono
+  elencare come nella tabella~\ref{tab:binomiali}:
+  ogni riga inizia e finisce con il numero $1$
+  e ogni termine intermedio coincide con la somma dei
+  due termini nella riga precedente sopra e
+  a sinistra del numero considerato.
+  
+  \begin{table}
+  \begin{tabular}{c|ccccccccc}
+  $\displaystyle{n \choose k}$& 0 & 1 & 2 & 3 & 4 & 5 & 6 & $k$ &\\ \hline
+    0 & 1 &   &   &   &   &   &   & &\\
+    1 & 1 & 1 &   &   &   &   &   & &\\
+    2 & 1 & 2 & 1 &   &   &   &   & &\\
+    3 & 1 & 3 & 3 & 1 &   &   &   & &\\
+    4 & 1 & 4 & 6 & 4 & 1 &   &   & &\\
+    5 & 1 & 5 & 10& 10& 5 & 1 &   & &\\
+    6 & 1 & 6 & 15& 20& 15& 6 & 1 & &\\
+  $n$ &$\vdots$&&   &   &   &   &   & $\ddots$ &
+  \end{tabular}
+  \caption{Il triangolo di Tartaglia (o di Pascal):
+  ogni numero è la somma dei due numeri che si trovano 
+  nella riga precedente sopra e immediatamente a sinistra.}
+  \label{tab:binomiali}
+  \end{table}
+  
+  \begin{theorem}[formula per i coefficienti binomiali]
+  \mymark{***}%
+  Se $n\in \NN$ e $k\in \NN$, $k\le n$
+  si ha 
+  \[
+  {n \choose k}  
+  = \frac{n!}{k!(n-k)!}.  
+  \]
+  \end{theorem}
+  %
+  \begin{proof}
+  Lo dimostriamo per induzione su $n$.
+  Per $n=0$ sappiamo che ${0 \choose 0} = 1$ che 
+  è ugule a $\frac{0!}{0!0!}$.
+  Utilizziamo il teorema~\ref{th:tartaglia}.
+  Se $k=0$ o $k=n$ sappiamo che ${n \choose k}=1$ che coincide 
+  con la formula enunciata. 
+  Per gli altri casi, supponendo per induzione che la formula sia 
+  vera per un certo $n\in \NN$ si ha: 
+  \begin{align*}
+   {n+1 \choose k} 
+   &= {n \choose k} + {n \choose k-1}
+   =  \frac{n!}{k!(n-k)!} + \frac{n!}{(k-1)!(n-k+1)!} \\
+   &= \frac{n!(n-k+1) + n! k}{k!(n-k+1)!}
+   = \frac{n!(n+1)}{k!(n+1-k)!} \\
+   &= \frac{(n+1)!}{k!(n+1-k)!}
+  \end{align*}
+  che è quanto dovevamo dimostrare.
+\end{proof}
+
+Si osservi che risulta, per ogni $n\in \NN$:
+\[
+  {n \choose 1} = {n \choose n-1} = n.
+\]
+  
+\begin{exercise}
+  Provare che
+  \[
+   \sum_{k=0}^n {n \choose k} = 2^n.
+  \]
+\end{exercise}  
+
+
+\subsection{scomposizione dei polinomi}
+
+\begin{theorem}[divisione di Euclide]
+  \label{th:divisione_polinomi}%
+  \index{divisione tra polinomi}%
+  \index{polinomio!divisione}%
+  \index{polinomio!algoritmo di Euclide}%
+  \index{Euclide!algoritmo di divisione}%
+  \index{algoritmo!di Euclide}%
+  Se $\KK$ è un campo,
+  dati due polinomi $P$ e $S$ in $\KK[x]$ con $S\neq 0$ è possibile
+  trovare, in modo unico, due polinomi $Q$ (quoziente)
+  e $R$ (resto) in $\KK[x]$ con $\deg R < \deg S$
+  tali che:
+  \[
+    P = Q \cdot S + R.
+  \]
+  \end{theorem}
+  %
+  \begin{proof}
+  \emph{Passo 1:} supponiamo che sia $\deg P < \deg S$.
+  In questo caso basta prendere $Q=0$ e $R=P$.
+  
+  \emph{Passo 2:} supponiamo che sia $\deg P \ge \deg S$.
+  Poniamo $N=\deg P$ e $M=\deg S$.
+  Sia $a_N\neq 0$ il coefficiente del termine di grado massimo
+  di $P$ e $b_M\neq 0$ il coefficiente di grado massimo
+  del polinomio $S$.
+  E' allora facile verificare che il polinomio
+  \[
+  \frac{a_N}{b_M} \cdot x^{N-M}\cdot S
+  \]
+  ha lo stesso grado di $P$ e il suo coefficiente di grado
+  massimo è uguale ad $a_N$ in quanto è il prodotto di
+  $a_N/b_M$ per $b_M$.
+  Dunque il polinomio
+  \[
+   P_1 = P - \frac{a_N}{b_M} \cdot x^{N-M}\cdot S
+  \]
+  ha grado strettamente inferiore a $P$.
+  Possiamo ora supporre, mediante un ragionamento induttivo
+  su $\deg P - \deg S$
+  che per il polinomio $P_1$ il risultato del teorema sia
+  valido cioè
+  che esistano, dei polinomio $Q_1$ e $R$
+  con $\deg R < \deg S$ tali che
+  \[
+    P_1 = Q_1 \cdot S + R.
+  \]
+  Il caso base del ragionamento induttivo,
+  $\deg P = \deg S$, è garantito dal passo 1.
+  Avremo allora:
+  \begin{align*}
+    P &= P_1 + \frac{a_N}{b_M} x^{N-M}\cdot S\\
+      &= Q_1 \cdot S + R_1 + \frac{a_N}{b_M} x^{N-M}\cdot S\\
+      &= (\frac{a_N}{b_M} x^{N-M} + Q_1) \cdot S + R_1.
+  \end{align*}
+  Posto quindi
+  \[
+   Q = \frac{a_N}{b_N} x^{N-M} + Q_1
+  \]
+  il risultato è dimostrato.
+  
+  \emph{Passo 3:} dimostriamo che $Q$ e $R$ sono unici. Se infatti avvessimo 
+  \[
+    P = Q_1 S + R_1 = Q_2 S + R_2   
+  \]
+  con $\deg R_1<\deg S$ e $\deg R_2 < \deg S$ si avrebbe 
+  \[
+  (Q_2 - Q_1) S = R_1 - R_2.    
+  \]
+  Se fosse $Q_2 \neq Q_1$ il polinomio al lato sinistro avrebbe grado non inferiore al grado di 
+  $S$ mentre il lato destro ha certamente grado minore di $S$.
+  Dunque $Q_2=Q_1$ ma allora il lato sinistro è nullo e quindi anche il lato destro deve 
+  esserlo: $R_2=R_1$.
+  \end{proof}
+  
+  La dimostrazione del teorema precedente fornisce anche un
+  algoritmo, chiamato \emph{algoritmo di Euclide},
+  per eseguire la divisione (con resto) tra polinomi.
+  Lo sperimentiamo nel seguente esercizio.
+  
+  \begin{exercise}
+  Sia $P = x^4-3 x^2 + 2x + 1$ e $S = x^2-1$.
+  Eseguire la divisione con resto cioè:
+  trovare $Q$ ed $R$ con $\deg R < \deg S$ tali che
+  \[
+  P = Q \cdot S + R.
+  \]
+  \end{exercise}
+  %
+  \begin{proof}[Svolgimento.]
+  Il rapporto tra i termini di grado massimo di
+  $P$ e $S$ è $x^4/x^2 = x^2$.
+  Dunque consideriamo come primo monomio $x^2$.
+  Si ha
+  \begin{align*}
+    P_1
+    &= P - x^2 \cdot S
+    = x^4-3x^2+2x+1 - x^4+x^2 \\
+    &= -2x^2+2x+1.
+  \end{align*}
+  Ripetiamo il procedimento con $P_1$ al posto di $P$.
+  Il rapporto tra i termini di grado massimo di $P_1$ e $S$
+  è il monomio $-2$. Si ha
+  \[
+    P_2 = P_1 - (-2) S = -2x^2 + 2x + 1 + 2x^2 - 2 = 2x -1.
+  \]
+  Visto che $\deg P_2 < \deg S$ la divisione termina e
+  si pone $R = 2x-1$.
+  Si ha quindi $Q = x^2 - 2$ (la somma dei monomi trovati)
+  e risulta:
+  \[
+    P = (x^2 - 2)\cdot S + 2x -1.
+  \]
+  \end{proof}
+  
+  \begin{theorem}[Ruffini]
+  \label{th:Ruffini}%
+  \index{teorema!di Ruffini}%
+  \index{Ruffini}%
+  Sia $P\in \KK[x]$ un polinomio non nullo.
+  Se $x_0 \in \KK$ è tale che $P(x_0)=0$
+  allora esiste un polinomio $Q$ con $\deg Q = (\deg P) - 1$
+  tale che
+  \[
+    P = (x-x_0)\cdot Q.
+  \]
+  \end{theorem}
+  %
+  \begin{proof}
+  In base al teorema precedente si può fare la divisione tra
+  $P$ e $S = x - x_0$ per ottenere un polinomio $Q$ e un resto
+  $R$ con $\deg R < 1$ tali che
+  \[
+    P = (x-x_0)\cdot Q + R.
+  \]
+  Siccome $\deg R < 1$ si ha in effetti che $R=c\in \KK$
+  è un polinomio costante e dunque
+  \[
+    P = (x-x_0) \cdot Q + c
+  \]
+  ma valutando $P$ in $x=x_0$ si scopre che
+  \[
+   P(x_0) = 0\cdot Q(x_0) + c = c
+  \]
+  dunque $c=P(x_0) = 0$.
+  \end{proof}
+  
+  Possiamo ora chiederci se polinomi diversi corrispondono
+  a funzioni polinomiali diverse.
+  In generale questo non è vero, se ad esempio prendessimo
+  come campo $\KK=\ZZ_2 = \ENCLOSE{0,1}$, un campo finito
+  in cui poniamo $1+1=0$ scopriremmo che la funzione polinomiale
+  $P(x) = x^2+x$ è identicamente nulla in quanto $0^2+0=0$
+  e $1^2+1=1+1=0$ in questo campo.
+  Ma nei casi che interessano a noi $\KK=\RR$ o $\KK=\CC$
+  questo problema non si presenta e si potrà quindi identificare
+  ogni polinomio con la corrispondente funzione polinomiale.
+  Per avere questa garanzia ci servono i seguenti risultati.
+  
+  \begin{theorem}[principio di annullamento dei polinomi]
+  \label{th:annullamento_polinomi}%
+  \index{principio!di annullamento dei polinomi}%
+  Sia $P\in \KK[x]$ un polinomio non nullo di grado $n$.
+  Allora la funzione polinomiale associata a $P$
+  si annulla in al più $n$ punti distinti di $\KK$.
+  
+  In particolare se un polinomio si annulla in infiniti
+  punti distinti allora tale polinomio è certamente nullo.
+  \end{theorem}
+  %
+  \begin{proof}
+  Dimostriamo per induzione su $n$ che se un polinomio
+  $P$ di grado non superiore a $n$ si annulla in $n+1$
+  punti distinti $x_1, \dots, x_{n+1}\in \KK$ allora
+  $P=0$.
+  
+  Se $n=0$ il polinomio $P$ è costante ma si annulla
+  in un punto e quindi è il polinomio nullo.
+  Se $n>0$ per il teorema di Ruffini applicato al
+  punto $x_{n+1}$ sappiamo che esise un polinomio $Q$
+  di grado inferiore ad $n$ per cui si ha
+  \[
+    P = (x-x_{n+1}) \cdot Q
+  \]
+  sostituendo $x=x_k$ con $k\le n$ si ha $x_k-x_{n+1}\neq 0$
+  e quindi
+  \[
+    Q(x_k) = \frac{P(x_k)}{x_k-x_{n+1}} = 0.
+  \]
+  Dunque $Q$ si annulla nei punti $x_1, \dots, x_n$
+  e, per ipotesi induttiva, scopriamo che $Q$ deve
+  essere nullo. Di conseguenza anche $P$ è nullo.
+  \end{proof}
+  
+  Se $\KK$ è un insieme infinito (come nei casi $\KK=\RR$ o $\KK=\CC$)
+  si trova che
+  se a due polinomi $P$, $Q$ corrisponde
+  la stessa funzione polinomiale:
+  \[
+    P(x) = Q(x) \qquad \text{per ogni $x\in \KK$}
+  \]
+  allora $P$ e $Q$ sono lo stesso polinomio $P=Q$
+  in quanto la differenza $P-Q$ si annulla in tutti i punti
+  di $\KK$ e qualunque sia il suo grado, se $\KK$ è infinito,
+  questo ci dice che $P-Q=0$. 
+  
+  Questo corollario viene spesso enunciato come segue.
+  \begin{theorem}[principio di identità dei polinomi]
+    Siano $a_k$ e $b_k$ coefficienti nel campo $\KK=\RR$ o $\KK=\CC$.
+    Se per ogni $x\in \KK$ si ha 
+    \[
+       \sum_{k=1}^n a_k x^k = \sum_{k=1}^m b_k x^k
+    \]
+    allora $m=n$ e $a_k=b_k$ per ogni $k=0, \dots, n$.
+  \end{theorem}
+  %
+  \begin{proof}
+  Facendo la differenza dei due lati dell'uguaglianza si ottiene 
+  che una espressione polinomiale si annulla identicamente. 
+  Allora per il teorema~\ref{th:annullamento_polinomi} tale espressione 
+  rappresenta il polinomio nullo e di conseguenza tutti i coefficienti, 
+  che sono dati dalla differenza $a_k-b_k$, devono essere nulli.
+  \end{proof}
+  
+\begin{example}
+L'insieme $\ZZ_2={0,1}$ può essere reso un campo 
+se si definisce la somma e il prodotto come sui 
+numeri naturali prendendo però sempre il resto 
+modulo $2$: $0+0=1+1=0$, $0+1=1+0=1$, $0\cdot 0
+=1\cdot 0 = 0\cdot 1 = 0$, $1\cdot 1=1$.
+Si può verificare che effettivamente $\ZZ_2$ 
+è un campo.
+Il polinomio $P = x^2+x$ risulta annullarsi sia 
+per $x=0$ che per $x=1$, ma non è il polinomio nullo.
+\end{example}
+

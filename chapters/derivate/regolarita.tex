@@ -1,0 +1,303 @@
+\section{classi di regolarità}
+
+Sia $A\subset \RR$ e sia $f\colon A\to \RR$ una funzione definita su $A$.
+Diremo che $f$ è di classe $C^0$ se $f$ è continua. 
+Possiamo definire $C^0(A)$ come l'insieme delle funzioni continue definite 
+su $A$ (a valori in $\RR$).
+Se $f$ è derivabile (su tutto $A$) e la derivata di $f$ è anch'essa continua 
+(su tutto $A$) diremo che 
+$f$ è di classe $C^1$ e scriveremo $f\in C^1(A)$.
+Andando avanti: se $f$ è derivabile e anche $f'$ è derivabile e se la derivata 
+seconda $f''$ è continua, diremo che $f$ è di classe $C^2$. 
+E così via.
+
+Per definire formalmente l'insieme delle funzioni di classe $C^k$ 
+per ogni $k\in \NN$ dobbiamo dare una definizione per induzione.
+Definiamo inoltre la classe $C^{\infty}(A)$ che è l'insieme delle funzioni 
+che sono derivabili $k$ volte per ogni $k\in \NN$.
+%
+\begin{definition}[funzioni di classe $C^k$]
+\mymark{**}
+Dato $A\subset \RR$ denotiamo con $\RR^A$ l'insieme di tutte le funzioni $f\colon A \to \RR$.
+Per ogni $k\in \NN$ definiamo
+$C^k(A) \subset \RR^A$ nel modo seguente:
+\mymargin{$C^k$}%
+\index{$C^k$}
+\begin{enumerate}
+\item se $k=0$ poniamo
+\[
+  C^0(A) = \ENCLOSE{f\in \RR^A \colon \text{$f$ continua}}.
+\]
+\item
+  se $k>0$ definiamo induttivamente
+  \[
+  C^{k}(A) = \ENCLOSE{f\in \RR^A \colon \text{$f$ derivabile e $f'\in C^{k-1}(A)$}}.
+  \]
+\end{enumerate}
+Chiaramente se $j\ge k$ si ha $C^j(A) \subset C^k(A)$ dunque $C^k(A)$ è una famiglia decrescente (rispetto all'inclusione insiemistica) ed ha senso definire:
+\mymargin{$C^\infty$}%
+\index{$C^\infty$}
+\[
+  C^\infty(A) = \ENCLOSE{f\in \RR^A\colon \forall k \in \NN\colon f\in C^k(A)} = \bigcap_{k\in \NN} C^k(A).
+\]
+
+Le funzioni $f\in C^k(A)$ sono derivabili $k$ volte.
+Utilizziamo la notazione $f^{(j)}$%
+\mymargin{$f^{(j)}$}%
+\index{$f^{(j)}$} per denotare la $j$-esima derivata
+di una funzione $f$.
+Dunque avremo
+\[
+  f^{(0)} = f, \qquad
+  f^{(1)} = f', \qquad
+  f^{(2)} = f'', \dots
+\]
+\end{definition}
+
+Abbiamo già osservato che $\RR^A$ è uno spazio vettoriale reale.
+Gli spazi $C^k(A)$ per $k=0, \dots, \infty$ sono una famiglia decrescente di sottospazi vettoriali di $\RR^A$.
+Infatti sappiamo che la combinazione lineare di funzioni continue è continua e che la combinazione lineare di funzioni derivabili è derivabile.
+
+E' importante osservare che $C^1(A)$ non coincide con l'insieme delle funzioni derivabili su $A$. Infatti abbiamo già visto nell'esempio~\ref{ex:derivata_non_continua} che esistono funzioni derivabili la cui derivata non è continua e quindi tali funzioni, pur essendo derivabili, non sono di classe $C^1$.
+
+\begin{definition}[funzioni lipschitziane]
+\mymark{**}
+\mymargin{funzione lipschitziana}
+\index{funzione!lipschitziana}
+\index{Lipschitz}
+Una funzione $f\colon A\subset \RR \to \RR$ si dice essere 
+\emph{lipschitziana} (o anche $L$-lipschitziana se vogliamo mettere 
+in evidenza la dipendenza da $L$) se esiste $L>0$ tale che
+per ogni $x,y\in A$ si ha 
+\[
+  \abs{f(x) - f(y)} \le L\cdot  \abs{x-y}.
+\]
+La più piccola costante $L$ per la quale è soddisfatta la precedente relazione si chiama \emph{costante di Lipschitz}
+\mymargin{costante di Lipschitz}
+\index{costante!di Lipschitz}
+di $f$.
+\end{definition}
+
+\begin{theorem}[criterio di Lipschitz]
+\mymark{**}
+Sia $f\colon A \subset \RR$ una funzione lipschitziana
+con costante di Lipschitz $L$.
+Se $f$ è derivabile in un punto $x\in A$ allora $\abs{f'(x)}\le L$.
+Viceversa se $f\colon I \subset \RR \to \RR$ è una funzione derivabile 
+definita su un intervallo $I$
+e se esiste $L$ tale che per ogni $x\in I$ si ha $\abs{f'(x)}\le L$ 
+allora $f$ è lipschitziana.
+\end{theorem}
+%
+\begin{proof}
+Se $f$ è Lipschitziana significa che il rapporto incrementale è limitato.
+Cioè esiste $L>0$ tale che
+\[
+  \abs{\frac{f(x) - f(y)}{x-y}} \le L \qquad \forall x,y\in A.
+\]
+Dunque la derivata, che è il limite del rapporto incrementale, se esiste è anch'essa limitata
+dalla stessa costante: $\abs{f'(x)}\le L$ per ogni $x \in A$.
+
+Viceversa se la derivata è limitata $\abs{f'(z)}\le L$ per ogni $z \in I$ e se $x,y\in I$ sono punti qualunque,
+allora, per il teorema di Lagrange, il rapporto incrementale di $f$ è uguale alla derivata in un punto $z\in(x,y)$:
+\[
+  \abs{\frac{f(x) - f(y)}{x-y}} = \abs{f'(z)} \le L.
+\]
+e dunque la funzione è $L$ lipschitziana:
+\[
+  \abs{f(x)- f(y)} \le L \abs{x-y}.
+\]
+\end{proof}
+
+\begin{definition}[funzioni Hoelderiane]
+Sia $\alpha>0$.
+\mymargin{funzione hoelderiana}
+\index{funzione!hoelderiana}
+\index{Hoelder}
+Una funzione $f\colon A \subset \RR \to \RR$ si dice essere $\alpha$-Hoelderiana se
+esiste una costante $C>0$ tale che
+\begin{equation}\label{eq:2964536}
+  \abs{f(x) - f(y)} \le C \abs{x-y}^\alpha.
+\end{equation}
+\end{definition}
+
+\begin{definition}[uniforme continuità]
+\mymark{**}%
+Una funzione $f\colon A \subset \RR \to \RR$ si dice essere
+\emph{uniformemente continua}
+\index{uniforme continuità}%
+\index{continuità!uniforme}%
+\mymargin{uniforme continuità}%
+se
+\[
+ \forall \eps>0\colon \exists \delta > 0 \colon
+ \forall x,y\in A \colon \abs{x-y} < \delta \implies \abs{f(x)-f(y)} < \eps.
+\]
+\end{definition}
+
+\begin{theorem}
+Ogni funzione lipschitziana è $1$-Hoelderiana (e viceversa).
+Ogni funzione $\alpha$-Hoelderiana è uniformemente continua.
+Ogni funzione uniformemente continua è continua.
+Ogni funzione $\alpha$-Hoelderiana con $\alpha>1$ ha derivata nulla.
+\end{theorem}
+%
+\begin{proof}
+Le prime tre affermazioni seguono direttamente dalle definizioni.
+Per l'ultima osservazione si noti che se $\alpha>1$ nella
+disuguaglianza~\eqref{eq:2964536} si può dividere per $\abs{x-y}$ e
+ottenere quindi che il rapporto incrementale tende a zero se $y\to x$.
+\end{proof}
+
+\begin{definition}[modulo di continuità]
+Sia $f\colon A\subset \RR \to\RR$ una funzione.
+Definiamo il \emph{modulo di continuità}%
+\mymargin{modulo di continuità}%
+\index{modulo!di continuità} di $f$ come la funzione
+$M\colon$ $[0,+\infty) \to [0,+\infty]$ definita da
+\[
+  M(r) = \sup \ENCLOSE{\abs{f(x)-f(y)}\colon x,y \in A, \abs{x-y} \le r}.
+\]
+\end{definition}
+
+\begin{theorem}[proprietà del modulo di continuità]
+Sia $f\colon A\to \RR$ e sia $M\colon [0,+\infty)\to [0,+\infty)$ il suo
+modulo di contintuità.
+La funzione $M(r)$ è crescente.
+
+La funzione $f$ è uniformemente continua se e solo se
+\[
+  \lim_{r\to 0} M(r) = 0.
+\]
+
+La funzione $f$ è lipschitziana se e solo se esiste $L$ tale che
+\[
+  M(r) \le Lr.
+\]
+
+La funzione $f$ è $\alpha$-Hoelderiana se e solo se esiste $C$ tale che
+\[
+  M(r) \le C r^\alpha.
+\]
+\end{theorem}
+%
+\begin{proof}
+Osserviamo che la condizione
+\[
+   M(r) \le c
+\]
+è equivalente a
+\[
+\forall x,y\in A \colon \abs{x-y}\le r \implies  \abs{f(x)-f(y)} \le c.
+\]
+La condizione $M(r)\to 0$ per $r \to 0$ significa
+\[
+ \forall \eps>0\colon \exists \delta>0 \colon \forall r>0\colon r<\delta \implies M(r)<\eps
+\]
+e diventa quindi la condizione di uniforme continuità.
+
+Le condizioni di lipschitzianità e di $\alpha$-hoelderianità risultano pure immediatamente.
+\end{proof}
+
+\begin{theorem}[restrizione / incollamento di funzioni uniformemente continue]
+Sia $f\colon A \subset \RR \to \RR$ una funzione uniformemente continua. Se $B\subset A$ la restrizione $f_{|B}$ di $f$ a $B$ è anch'essa uniformemente continua.
+
+Siano $I,J\subset \RR$ intervalli tali che $I\cap J \neq \emptyset$.
+Sia $f\colon I \cup J \to \RR$ una funzione. Se $f_{|I}$ e $f_{|J}$ sono uniformemente continue allora $f$ è uniformemente continua.
+\end{theorem}
+\begin{proof}
+La prima parte, sulla restrizione di una funzione uniformemente continua, deriva direttamente dalla definizione:
+se una qualunque proprietà vale per ogni $x,y\in A$ allora a maggior ragione vale per ogni $x,y\in B$ quando $B\subset A$.
+
+Vediamo la seconda parte dell'enunciato: supponiamo $f$ sia uniformemente continua su $I$ e su $J$.
+Sia dato $\eps>0$ e siano $\delta_1$ e $\delta_2$ i valori di $\delta$ dati dalle condizioni di uniforme continuità di $f$ rispettivamente su $I$ e su $J$. Consideriamo $\delta = \min\ENCLOSE{\delta_1, \delta_2}$.
+Siano ora $x,y$ punti qualunque di $I\cup J$ con $\abs{x-y}< \delta$.
+
+Si possono allora avere due casi possibili:
+$x$ e $y$ stanno nello stesso intervallo ($I$ o $J$) oppure stanno uno in $I$ e l'altro in $J$.
+Nel primo caso essendo $\delta < \delta_1$ e $\delta< \delta_2$ l'uniforme continuità di $f$ su $I$ e su $J$ garantisce che valga in ogni caso $\abs{f(x)-f(y)} < \eps$. Nel secondo caso deve esistere un punto $z \in I\cap J$ che sia un punto intermedio tra $x$ e $y$.
+Allora usando la disuguaglianza triangolare:
+\[
+  \abs{f(x) - f(y)} \le \abs{f(x) - f(z)} + \abs{f(z) - f(y)}
+     \le \eps + \eps.
+\]
+si ottiene dunque (salvo rimpiazzare $\eps$ con $\eps/2$) anche in
+questo caso la stima voluta.
+\end{proof}
+
+\begin{theorem}[Heine-Cantor]
+  \label{th:heine_cantor}%
+  \mymark{***}%
+  \index{teorema!di Heine-Cantor}%
+  \mymargin{Heine-Cantor}%
+Siano $a,b\in \RR$, $a<b$.
+Sia $f\colon [a,b]\to \RR$ una funzione continua.
+Allora $f$ è uniformemente continua.
+\end{theorem}
+%
+\begin{proof}
+\mymark{***}%
+Supponiamo per assurdo che $f$ non sia uniformemente continua. Allora
+$f$ soddisfa la negazione della proprietà
+\[
+ \forall \eps>0\colon \exists \delta > 0 \colon
+ \forall x,y\in A \colon \abs{x-y} < \delta \implies \abs{f(x)-f(y)} < \eps
+\]
+che è
+\[
+ \exists \eps>0\colon \forall \delta > 0 \colon
+ \exists x,y \in A \colon \abs{x-y} < \delta \land \abs{f(x)-f(y)} \ge \eps.
+\]
+Dunque dato $\eps>0$ che soddisfa la precedente proprietà possiamo
+prendere $\delta=1/k$
+per ogni $k\in \NN$, ottenendo quindi due successioni $x_k$, $y_k$ tali che
+\[
+  \abs{x_k-y_k} < \frac 1 k \qquad\text{e}\qquad \abs{f(x_k) - f(y_k)} \ge \eps.
+\]
+Per il teorema di Bolzano-Weierstrass esisterà una sottosuccessione convergente $x_{k_j} \to c$.
+Visto che $\abs{x_k-y_k}\to 0$ si dovrà avere anche $y_{k_j}\to c$.
+Ma allora, per la continuità di $f$:
+\[
+ \abs{f(x_{k_j})-f(y_{k_j})} \to \abs{f(c) - f(c)} = 0
+\]
+in contraddizione con la condizione $\abs{f(x_k)-f(y_k)}\ge \eps$.
+\end{proof}
+
+\begin{theorem}[dell'asintoto]
+\index{teorema!dell'asintoto}
+\mymargin{teorema dell'asintoto}
+Sia $f\colon [a,+\infty) \to \RR$ una funzione continua e sia $g\colon [a,+\infty) \to \RR$ una funzione uniformemente continua tale che
+\[
+  \lim_{x\to +\infty} f(x) - g(x) = 0.
+\]
+Allora anche $f$ è uniformemente continua.
+
+In particolare se $f$ ha un \emph{asintoto obliquo}%
+\mymargin{asintoto obliquo}%
+\index{asintoto!obliquo} ovvero se esistono $m\in \RR$ e $q\in \RR$ tali che
+\[
+  \lim_{x\to +\infty} f(x) - (mx + q)  = 0
+\]
+allora $f$, se è continua, è uniformemente continua.
+
+Risultato analogo vale per le funzioni definite su intervalli del tipo $(-\infty,a]$ (facendo i limiti a $-\infty$) e quindi per funzioni definite su tutto $\RR$ (facendo i limiti sia a $+\infty$ che a $-\infty$).
+\end{theorem}
+
+\begin{proof}
+Per ogni $\eps>0$ esiste $M>a$ tale che $\abs{f(x)-g(x)} < \eps/3$ per ogni $x\ge M$. D'altra parte la funzione $f$, per il teorema di Heine-Cantor, è uniformemente continua su $[a,M+1]$ e dunque esiste $\delta_1>0$ tale che presi $x,y \in [a,M+1]$ con $\abs{x-y}< \delta_1$
+si ha $\abs{f(x)-f(y)} < \eps$. D'altra parte $g$ è uniformemente continua su $[M,+\infty)$ e quindi esiste $\delta_2$ tale che dati $x,y\in [M,+\infty)$ con $\abs{x-y} < \delta_2$ si ha $\abs{g(x)-g(y)} < \eps/3$. Ma in quest'ultimo caso si ha:
+\begin{align*}
+  \abs{f(x)-f(y)} &\le \abs{f(x) - g(x)} + \abs{g(x) - g(y)} + \abs{g(y)-f(y)} \\
+  & \le \frac{\eps}{3} + \frac{\eps}{3} + \frac{\eps}{3} = \eps.
+\end{align*}
+Posto dunque $\delta = \min\ENCLOSE{1, \delta_1, \delta_2}$
+scelti comunque $x,y\in [a,+\infty)$ con $\abs{x-y}< \delta$ siamo certamente in uno dei due casi precedenti e quindi, in ogni caso, si ottiene $\abs{f(x)-f(y)} < \eps$, come dovevamo dimostrare.
+
+Nel caso particolare $g(x) = mx +q$ si osserva semplicemente che $g$ è uniformemente continua in quanto è $L$-lipschitziana con $L=\abs{m}$.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+

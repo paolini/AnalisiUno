@@ -1,0 +1,430 @@
+\section{formula di Taylor}
+\index{formula!di Taylor}
+
+
+\begin{definition}[polinomio di Taylor]
+\mymark{***}
+Sia $A\subset \RR$, $f\colon A \to \RR$ una funzione
+e sia $x_0\in A$ un punto in cui la derivata $n$-esima
+(e quindi anche le derivate precedenti) sia definita.
+
+Allora il polinomio:
+\[
+  P(x) = \sum_{k=0}^n \frac{f^{(k)}(x_0)}{k!}(x-x_0)^k
+\]
+viene detto \emph{polinomio di Taylor}%
+\mymargin{polinomio di Taylor}%
+\index{polinomio!di Taylor}
+di ordine $n$
+della funzione $f$,
+centrato in $x_0$.
+\end{definition}
+
+Nel caso particolare in cui sia $x_0=0$ il polinomio di Taylor viene anche chiamato \emph{polinomio di MacLaurin}%
+\mymargin{polinomio di MacLaurin}%
+\index{polinomio!di MacLaurin}.
+
+\begin{example}
+  Il polinomio di Taylor di ordine $3$ per la funzione $f(x) = \sin x$ 
+  centrato in $x_0=0$ è:
+  \[
+    P(x) = x - \frac{x^3}{6}.
+  \]
+  Infatti si ha $f(0) = \sin(0) = 0$, $f'(0) = \cos(0) = 1$, 
+  $f''(0) = -\sin(0) = 0$ e $f'''(0) = -\cos(0) = -1$.
+  Ovviamente $1!=1$ e $3!=6$. 
+\end{example}
+
+\begin{theorem}[caratterizzazione polinomio di Taylor]%
+\label{th:caratterizzazioneTaylor}%
+\mymark{***}%
+Il polinomio di Taylor di una funzione $f$, di ordine $n$, centrato in $x_0$ è l'unico polinomio $P$ di grado non superiore ad $n$ tale che
+\[
+  P^{(k)}(x_0) = f^{(k)}(x_0), \qquad \forall k \in \ENCLOSE{0,\dots,n}.
+\]
+\end{theorem}
+%
+\begin{proof}
+  Ogni polinomio di grado non superiore ad $n$ può essere scritto nella forma:
+\[
+  P(x) = \sum_{k=0}^{n} a_k (x-x_0)^k
+\]
+(basti notare che se $P(x)$ è un polinomio anche $Q(t) = P(x_0+t)$ è
+un polinomio)
+e le sue derivate sono:
+\begin{align*}
+   P^{(j)}(x)
+   = \sum_{k=j}^n a_k \cdot \frac{k!}{(k-j)!}\cdot (x-x_0)^{k-j}.
+\end{align*}
+Per $x=x_0$ l'unico addendo non nullo è quello con $k=j$, dunque
+\[
+  P^{(k)}(x_0) = k! \cdot a_k.
+\]
+Dunque si ha $P^{(k)}(x_0) = f^{(k)}(x_0)$ se e solo se $a_k = f^{(k)}(x_0)/k!$ 
+cioè se $P$ è il polinomio di Taylor di $f$.
+\end{proof}
+
+\begin{remark}[polinomio di Taylor della derivata]
+  \label{rem:taylor_derivata}%
+Se $P_n$ è il polinomio di Taylor centrato in $x_0$ di ordine $n$ per $f$, allora
+si ha
+\begin{align*}
+P_n'(x) &= \sum_{k=1}^{n} \frac{f^{(k)}(x)}{k!}\cdot k(x-x_0)^{k-1} \\
+  &= \sum_{k=1}^{n} \frac{f^{(k)}(x)}{(k-1)!} (x-x_0)^{k-1} \\
+  &= \sum_{j=0}^{n-1} \frac{f^{(j+1)}(x)}{j!} (x-x_0)^j.
+\end{align*}
+Dunque si verifica che $P'_n$ è il polinomio di Taylor di ordine $n-1$ per $f'$.
+In breve: il polinomio di Taylor di ordine $n-1$ della derivata è la derivata
+del polinomio di Taylor di ordine $n$ della funzione.
+
+Viceversa se
+\[
+   \sum_{k=0}^n a_k (x-x_0)^k
+\]
+è il polinomio di Taylor di ordine $n$ della derivata $f'(x)$, allora
+il polinomio di Taylor di ordine $n+1$ di $f$ sarà%
+\mynote{Questa è una \emph{antiderivata} (o \emph{primitiva}) del polinomio dato, 
+si veda la definizione~\ref{def:primitiva}.}
+\begin{equation}\label{eq:4993725}
+  P_{n+1}(x) = f(x_0) + \sum_{k=0}^{n} \frac{a_{k}}{k+1}\cdot (x-x_0)^{k+1}
+\end{equation}
+in quanto
+\[
+  \frac{f^{(k+1)}(x_0)}{(k+1)!}
+  =\frac{(f')^{(k)}(x_0)}{(k+1)!}
+  = \frac{a_k \cdot k!}{ (k+1)!}
+  = \frac{a_k}{k+1}.
+\]
+\end{remark}
+
+\begin{theorem}[formula di Taylor con resto di Lagrange]
+\label{th:taylor_lagrange}%
+\mymark{**}%
+\index{formula!di Taylor!con resto di Lagrange}%
+\index{teorema!di Taylor con resto di Lagrange}%
+\index{Taylor!resto di Lagrange}
+\mymargin{Taylor con resto di Lagrange}
+Sia $I\subset \RR$ un intervallo, $x_0\in I$
+e $f\in C^{n+1}(I)$.
+% \mynote{Si intende che $I$ non può essere vuoto, perché $x_0\in I$, 
+% e $I$ non può essere un singoletto perché se $I=\ENCLOSE{x_0}$
+% nessuna funzione può essere derivabile in $x_0$ 
+% in quanto $x_0$ non è punto di accumulazione per $I$.
+% }%
+Sia $P$ il polinomio di Taylor di $f$ di ordine $n$ centrato in $x_0$.
+Per ogni $x\in I\setminus\ENCLOSE{x_0}$ esiste $y\in (x_0,x)$
+\mynote{%
+in questa dimostrazione gli intervalli si considerano 
+non orientati: $[a,b] = [b,a]$, $(a,b)=(b,a)$ se $a>b$.}
+tale che
+\[
+  f(x) = P(x) + \frac{f^{(n+1)}(y)}{(n+1)!}(x-x_0)^{n+1}.
+\]
+\end{theorem}
+%
+\begin{proof}\mymark{*}%
+La tesi si può scrivere nella forma 
+\[
+  \frac{f(x) - P(x)}{(x-x_0)^{n+1}} 
+  = \frac{f^{(n+1)}(y)}{(n+1)!}.
+\]
+
+Procediamo con una dimostrazione per induzione su $n$. 
+Per $n=0$ abbiamo che $f$ è derivabile (anzi è $C^1$, ma è una 
+ipotesi eccessiva) e la tesi è
+\begin{equation}\label{eq:655643}
+  \frac{f(x) - f(x_0)}{x-x_0}  = f'(y)  
+\end{equation}
+che coincide con il teorema~\ref{th:lagrange} di Lagrange.
+
+Supponiamo allora per induzione 
+che il teorema sia vero con $n-1$ al posto 
+di $n$ e consideriamo $f\in C^{n+1}$ con polinomio di Taylor $P$
+di ordine $n$ centrato in $x_0$. 
+La funzione $f'$ è in $C^{n}$ e il suo polinomio 
+di Taylor di ordine $n-1$ è $P'$ (osservazione~\ref{rem:taylor_derivata}).
+Per ottenere~\eqref{eq:655643} osserviamo ora che si ha,
+essendo $P(x_0)=f(x_0)$:
+\[
+  \frac{f(x)-P(x)}{(x-x_0)^{n+1}}  
+  = \frac{f(x) - P(x) - (f(x_0)-P(x_0))}{(x-x_0)^{n+1} - (x_0-x_0)^{n+1}}
+\]
+ed applicando il teorema~\ref{th:cauchy} di Cauchy
+si trova che esiste $t\in (x_0,x)$ tale che
+\[
+  \frac{f(x)-P(x)}{(x-x_0)^{n+1}}  
+  = \frac{f'(t)-P'(t)}{(n+1)(t-x_0)^n}. 
+\]
+Ora possiamo applicare l'ipotesi induttiva alla funzione 
+$f'$ con polinomio di Taylor $P'$
+e mettendo $t$ al posto di $x$ per ottenere 
+l'esistenza di $y\in (x_0,t)\subset(x_0,x)$ tale che 
+\[
+  \frac{f'(t)-P'(t)}{(n+1)(t-x_0)^n}
+  = \frac{(f')^{(n)}(y)}{(n+1)\cdot n!}.
+\]
+Osservando che $(f')^{(n)} = f^{(n+1)}$ e che $(n+1)\cdot n!=(n+1)!$ 
+si ottiene la tesi.
+\end{proof}
+
+\begin{example}[somma della serie armonica a segni alterni]
+Si ha:
+  \[
+    \sum_{k=1}^{+\infty} \frac{(-1)^{k-1}}{k} = \ln 2.
+  \]
+\end{example}
+\begin{proof}
+Consideriamo la funzione $f(x) = \ln x$.
+Si osservi che
+\begin{gather*}
+  f'(x) = x^{-1},\qquad
+  f''(x) = -x^{-2},\qquad
+  f'''(x) = 2x^{-3}, \\
+  f^{(4)}(x) = -3\cdot 2 x^{-4}, \qquad
+  \dots. \qquad
+  f^{(k)}(x) = \frac{(-1)^{k-1}(k-1)!}{x^k}
+\end{gather*}
+e si ha quindi, per ogni $k\ge 1$,
+\[
+  \frac{f^{(k)}(1)}{k!} = \frac{(-1)^{k-1}}{k}
+\]
+da cui si deduce che il polinomio di Taylor di ordine $n$
+centrato in $x_0=1$ è
+\[
+P(x) = \sum_{k=1}^n (-1)^{k-1}\frac{(x-1)^k}{k}.
+\]
+La formula di Taylor con resto di Lagrange ci dice allora che per
+ogni $x>1$ esiste $y\in(1,x)$ tale che
+\[
+  \ln(x) - \sum_{k=1}^n (-1)^{k-1}\frac{(x-1)^k}{k} 
+  = \frac{(-1)^n(x-1)^{n+1}}{(n+1)y^{n+1}}.
+\]
+Se $x=2$ si ha $y>1$ e $(x-1)^{n+1}=1$ dunque
+il lato destro tende a zero per $n\to +\infty$ 
+(attenzione che $y$ dipende anch'esso da $n$). 
+Ma per $x=2$ e $k\to +\infty$ il lato sinistro tende a 
+\[
+ \ln 2 - \sum_{k=1}^\infty \frac{(-1)^{k-1}}{k}
+\]
+e dunque si ottiene il risultato voluto.
+\end{proof}
+
+Nel teorema seguente utilizzeremo una nuova notazione. Scriveremo
+\mymargin{$o$-piccolo}%
+\index{$o$-piccolo}%
+\[
+  f(x) = P(x) + o(g(x)), \qquad \text{per $x\to x_0$}
+\]
+(si legga: ``$f(x)$ è uguale a $P(x)$ più un $o$-piccolo di $g(x)$'')
+se risulta
+\[
+  f(x) - P(x) \ll g(x)
+  \qquad\text{ovvero}\qquad
+  \lim_{x\to x_0} \frac{f(x)-P(x)}{g(x)} = 0.
+\]
+La quantità $o(g(x))$ rappresenta una funzione incognita
+che però sappiamo essere trascurabile (nel senso appena descritto)
+rispetto alla funzione $g(x)$.
+Questa notazione è molto comoda ma va utilizzata con cautela:
+nel capitolo~\ref{sec:landau} vedremo come formalizzare rigorosamente 
+questa notazione.
+
+\begin{theorem}[formula di Taylor con resto di Peano]
+\label{th:taylor_peano}%
+\mymark{***}%
+\index{formula!di Taylor!con resto di Peano}%
+\index{teorema!di Taylor con resto di Peano}%
+\index{Taylor!resto di Peano}%
+Sia $I\subset \RR$ un intervallo, $x_0\in I$, $f\in C^{n-1}(I)$ 
+e supponiamo $f^{(n-1)}$
+sia derivabile nel punto $x_0$ (dunque $f$ è derivabile $n-1$ su tutto $I$ 
+ed esiste $f^{(n)}(x_0)$).
+\mynote{In particolare le ipotesi sono soddisfatte se $f\in C^n(I)$.}%
+Sia $P$ il polinomio di Taylor di $f$ di ordine $n>0$ centrato in $x_0$. 
+Allora si ha
+\begin{equation}\label{eq:taylor_peano}
+  \lim_{x\to x_0}\frac{f(x) - P(x)}{(x-x_0)^n} = 0
+\end{equation}
+ovvero, scritto in maniera più espressiva:
+\begin{equation}\label{eq:Taylor}
+  f(x) = P(x) + o((x-x_0)^n).
+\end{equation}
+
+Viceversa se $P(x)$ è un polinomio qualunqu, di grado minore o uguale a $n$, e vale la
+formula~\eqref{eq:Taylor} allora $P$ è il polinomio di Taylor di $f$.
+\end{theorem}
+%
+\begin{proof}
+\mymark{**}%
+\mynote{Anche qui usiamo la convenzione $[a,b] = [b,a]$ quando $b<a$.}
+%
+Si procede per induzione in modo simile alla dimostrazione 
+del teorema~\ref{th:taylor_lagrange}.
+%
+Per $n=1$ si ha $P(x)=f(x_0) + f'(x_0)\cdot (x-x_0)$ e quindi 
+\[
+ \frac{f(x)-P(x)}{x-x_0} = \frac{f(x) - f(x_0)}{x-x_0} - f'(x_0) 
+ \to f'(x_0) - f'(x_0) = 0  \qquad\text{per $x\to x_0$.}
+\]
+
+Supponiamo ora che il teorema sia vero
+con $n-1$ al posto di $n$. Si ha 
+\[
+  \frac{f(x)-P(x)}{(x-x_0)^n} 
+  = \frac{f(x)-P(x)-(f(x_0)-P(x_0))}{(x-x_0)^n - (x_0-x_0)^n}
+\]
+e, visto che $P(x_0) = f(x_0)$ possiamo applicare il teorema~\ref{th:cauchy} di Cauchy
+alle funzioni $f(x)-P(x)$ e $(x-x_0)^n$,
+per ottenere che esiste $t\in (x_0,x)$ tale che
+\[
+  \frac{f(x)-P(x)}{(x-x_0)^n} = \frac{f'(t)-P'(t)}{n\cdot (t-x_0)^{n-1}}.
+\]
+Applichiamo ora l'ipotesi induttiva alla funzione $f'(t)$ il cui 
+polinomio di Taylor di ordine $n-1$ è proprio $P'(t)$. Si ottiene dunque 
+che 
+\[
+ \lim_{t\to x_0} \frac{f'(t)-P'(t)}{(t-x_0)^{n-1}} = 0 
+\]
+e visto che per $x\to x_0$ essendo $t\in(x_0,x)$ si ha anche 
+$t\to x_0$, si ottiene, come volevamo dimostare,
+\[
+ \lim_{x\to x_0} \frac{f(x)-P(x)}{(x-x_0)^n} 
+ = \lim_{t\to x_0} \frac{f'(t)-P'(t)}{n\cdot (t-x_0)^{n-1}} = 0. 
+\]
+
+\emph{Implicazione inversa.}
+Per completare la dimostrazione dobbiamo dimostrare che il polinomio di 
+Taylor $P$ è l'unico polinomio di grado non superiore ad $n$ che soddisfa 
+la condizione~\eqref{eq:taylor_peano}.
+Se ci fosse un altro polinomio $Q$ con la stessa proprietà la differenza 
+$R=(f-P)-(f-Q)=Q-P$ dovrebbe essere un polinomio di grado 
+non superiore ad $n$ che soddisfa la condizione 
+\begin{equation}\label{eq:496390}
+  \lim_{x\to x_0}\frac{R(x)}{(x-x_0)^n}=0.  
+\end{equation}
+Posto 
+\[
+  R(x) = \sum_{k=0}^n a_k (x-x_0)^k  
+\]
+osserviamo che $R(x)\to R(x_0) = a_0$ per $x\to x_0$. 
+Allora deve essere necessariamente $a_0 = 0$, 
+altrimenti il limite~\eqref{eq:496390} sarebbe infinito.
+Ma se $a_0=0$ possiamo raccogliere $x-x_0$ a numeratore 
+e denominatore e da~\eqref{eq:496390} ottenere 
+\[
+  \lim_{x\to x_0}\frac{\displaystyle \sum_{k=1}^n a_k (x-x_0)^{k-1}}{(x-x_0)^{n-1}}=0.  
+\]
+Iterando il procedimento scopriamo che tutti i coefficienti $a_k$ 
+devono essere nulli e dunque $Q=P$.
+\end{proof}
+
+\begin{definition}[coefficiente binomiale reale]
+\label{def:binomiale_reale}%
+\mymark{***}%
+Dato $\alpha \in \RR$, $k \in \NN$ definiamo
+\[
+ {\alpha \choose k } 
+ = \frac{\alpha \cdot (\alpha-1) \cdots (\alpha -k +1)}{k!}
+ = \prod_{j=1}^k \frac{\alpha-j+1}{j}.
+\]
+Osserviamo che se $\alpha \in \NN$ questa definizione coincide
+con la definizione data nel capitolo~\ref{ch:binomiale}.
+\end{definition}
+
+\begin{theorem}[sviluppi di Taylor di alcune funzioni elementari]
+\label{th:sviluppi_taylor}%
+\mymark{***}%
+Per ogni $n\in \NN$ si hanno, per $x\to 0$,
+le relazioni riportate nella tabella~\ref{tb:taylor}
+a pagina~\pageref{tb:taylor}.
+\end{theorem}
+\begin{table}
+\begin{align*}
+e^x &= \sum_{k=0}^n \frac{x^k}{k!} + o(x^n) \\
+  &= 1 + x + \frac{x^2}{2} + \frac {x^3}{6} + \dots + \frac{x^n}{n!} + o(x^n) \\
+\sin x &= \sum_{k=0}^n (-1)^k\frac{x^{2k+1}}{(2k+1)!} + o(x^{2n+2}) \\
+ &= x - \frac{x^3}{6} + \dots + (-1)^{n} \frac{x^{2n+1}}{(2n+1)!}  + o(x^{2n+2})\\
+ \cos x &= \sum_{k=0}^n (-1)^k \frac{x^{2k}}{(2k)!} + o(x^{2n+1}) \\
+   &= 1 - \frac{x^2}{2} + \frac{x^4}{24} - \dots + (-1)^n\frac{x^{2n}}{(2n)!} + o(x^{2n+1})\\
+ (1+x)^\alpha &= \sum_{k=0}^n {\alpha \choose k} x^k + o(x^n)\\
+    &= 1 + \alpha x + \frac{\alpha (\alpha-1)}{2} x^2 + \dots + {\alpha \choose n} x^n + o(x^n) \\
+  \ln (1+x) &= \sum_{k=1}^n (-1)^{k-1} \frac{x^k}{k} + o(x^n) \\
+         &= x - \frac{x^2}{2} + \frac{x^3}{3} - \dots + (-1)^{n-1}\frac{x^n}{n} + o(x^n) \\
+  \arctg x &= \sum_{k=0}^n (-1)^k \frac{x^{2k+1}}{2k+1} + o(x^{2n+1})\\
+    &= x - \frac{x^3}{3} + \frac{x^5}{5} - \dots + (-1)^n \frac{x^{2n+1}}{2n +1} + o(x^{2n+1})\\
+  \arcsin x &= x + \frac{x^3}{6} + \frac{3}{40} x^5 + \dots + \frac{(2n-1)!!}{(2n)!!} \frac{x^{2n+1}}{2n+1} + o(x^{2n+1}) \\
+  \arccos x &= \frac \pi 2 - \arcsin x\\
+  \tg x &= x + \frac{x^3}{3} + \frac{2}{15} x^5 + o(x^5).
+\end{align*}
+\caption{sviluppi di Taylor, per $x\to 0$, di alcune funzioni elementari.
+\index{Taylor!polinomi delle funzioni elementari}%
+\index{sviluppo!polinomio di Taylor}%
+Si veda il teorema~\ref{th:sviluppi_taylor}.}
+\label{tb:taylor}%
+\end{table}
+%
+\begin{proof}
+\mymark{**}
+Per definizione, il coefficiente del termine $x^k$
+nel polinomio di Taylor di $f(x)$ non è altro che $a_k=f^{(k)}(0)/k!$
+Se $f(x) = e^x$ allora $f^{(k)}(x) = e^x$ e dunque $f^{(k)}(0) = 1$. Si trovano quindi i coefficienti $a_k = 1/k!$.
+
+Se $f(x) = \sin x$ si ha $f'(x)=\cos x$, $f''(x) =-\sin x$, $f'''(x) = -\cos x$ e $f^{(4)}(x) = \sin x$... e poi le derivate si ripetono ogni quattro iterazioni. Valutando le derivate in $x=0$ si ottiene dunque la sequenza $0, 1, 0, -1, \dots$ che si ripete indefinitamente. Si ottiene dunque lo sviluppo indicato. Discorso analogo si può fare per $f(x) = \cos x$.
+
+Se $f(x) = (1+x)^\alpha$ si ottiene $f'(x) = \alpha (1+x)^{\alpha -1}$, $f''(x) = \alpha (\alpha -1) (1+x)^{\alpha -2}$ e così via...
+Valutando le derivate in $x=0$ si ottiene la sequenza: $1$, $\alpha$, $\alpha(\alpha-1)$, $\alpha (\alpha-1)(\alpha -2)$\dots da cui, dividendo per $k!$, si ottiene che i coefficienti del polinomio di Taylor risultano essere i coefficienti binomiali ${\alpha \choose k}$.
+
+Se $f(x) = \ln (1+x)$ osserviamo che $f(0)=0$ poi si ha $f'(x) = (1+x)^{-1}$ e le derivate successive coincidono dunque con le derivate di $(1+x)^\alpha$ con $\alpha=-1$: i coefficienti (a parte il primo che è nullo) concidono quindi con i coefficienti binomiali
+\[
+{-1 \choose k} = \frac{(-1)(-2)(-3) \dots (-k)}{k!} = (-1)^k.
+\]
+
+Similmente se $f(x) = \arctg x$ osserviamo che $f(0) = 0$ e $f'(x) = (1+x^2)^{-1}$. Per quanto già visto sappiamo che si ha
+\[
+ (1+y)^{-1} = \sum_{k=0}^n (-1)^k y^k + o(y^n)
+\]
+da cui sostituendo $y=x^2$ si ha
+\[
+ f'(x) = (1+x^2)^{-1} = \sum_{k=0}^n (-1)^k x^{2k} + o(x^{2n}).
+\]
+Utilizzando la seconda parte del Teorema~\ref{th:taylor_peano} (formula di Taylor con resto di Peano),
+abbiamo verificato che vale l'equazione \eqref{eq:Taylor}
+per il polinomio $P(x) = \sum_{k=0}^n (-1)^k x^{2k}$.
+Dunque $P(x)$ è il polinomio di Taylor di grado $2n$ di $f'(x)$.
+Ma il polinomio di Taylor della derivata è la derivata del polinomio
+di Taylor, quindi possiamo utilizzare \eqref{eq:4993725} per ottenere
+il polinomio di Taylor riportato in tabella.
+
+Metodo analogo si usa per $f(x)=\arcsin x$, osservando che
+\begin{align*}
+  f'(x) &= \frac{1}{\sqrt{1-x^2}}
+  = (1-x^2)^{-\frac 1 2} \\
+  &= \sum_{k=0}^n {-\frac 1 2 \choose k} (-x^2)^k + o(x^{2n}) \\
+  &= \sum_{k=0}^n \frac{\enclose{-\frac 1 2}\cdot \enclose{-\frac 1 2 - 1}\cdots \enclose{-\frac 1 2 - k+1}}{k!}(-1)^k x^{2k} + o(x^{2n}) \\
+  &= \sum_{k=0}^n \frac{\frac{-1}{2} \cdot \frac{-3}{2}\cdots \frac{-(2k-1)}{2}}{k!}(-1)^k x^{2k} + o(x^{2n}) \\
+  &= \sum_{k=0}^n \frac{(2k-1)!!}{2^k \cdot k!}x^{2k} + o(x^{2n}) \\
+  &= \sum_{k=0}^n \frac{(2k-1)!!}{(2k)!!}x^{2k} + o(x^{2n})
+ \end{align*}
+abbiamo trovato il polinomio di Taylor di $f'(x)$ e utilizzando \eqref{eq:4993725}
+si ottiene la formula riportata in tabella.
+
+Per quanto riguarda la funzione $f(x) = \tg x$ ci limitiamo a calcolare esplicitamente i primi termini:
+\begin{align*}
+  f(x) &= \tg x
+  & f(0)&=0\\
+  f^{(1)} &= 1+ f^2
+  & f^{(1)}(0) &= 1\\
+  f^{(2)} &= 2ff'
+  & f^{(2)}(0) &= 0 \\
+  f^{(3)} &= 2(f')^2 + 2f f''
+  & f^{(3)}(0) &= 2 \\
+  f^{(4)} &= 4 f' f'' + 2 f' f'' + 2 f f''' = 6 f' f'' + 2 f f'''
+   & f^{(4)}(0) &= 0 \\
+   f^{(5)} &= 6 (f'')^2 + 6 f' f''' + 2 f' f''' + 2 f f^{(4)}&&\\
+           &= 6 (f'')^2 + 8 f' f''' + 2 f f^{(4)}
+    & f^{(5)}(0) &= 16.
+\end{align*}
+Si ottengono quindi i coefficienti:
+ $a_0 = 0$, $a_1 = 1$, $a_2 = 0$, $a_3 = 2/3! = 1/3$, $a_4=0$, $a_5 = 16/ 5! = 2/15$.
+\end{proof}
+

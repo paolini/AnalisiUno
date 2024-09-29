@@ -1,0 +1,366 @@
+\section{alcune applicazioni del calcolo integrale}
+
+\begin{theorem}[irrazionalità di $\pi$]
+\mymargin{$\pi$ è irrazionale}
+\index{$\pi$!irrazionalità}
+\index{irrazionalità!di $\pi$}
+Il numero $\pi$ è irrazionale.
+\end{theorem}
+%
+\begin{proof}
+Il nostro primo obiettivo è quello di trovare delle formule
+ricorsive per il calcolo del seguente integrale:
+\[
+  I_n = \int_0^\pi x^n (\pi-x)^n \sin x\, dx.
+\]
+Innanzitutto osserviamo che si ha
+\[
+  I_0 = \int_0^\pi \sin x\, dx = \Enclose{-\cos x}_0^\pi = 2
+\]
+e, utilizzando l'integrazione per parti:
+\begin{align*}
+  I_1 &= \int_0^\pi x(\pi-x)\sin x\, dx\\
+      &= \Enclose{x(\pi-x)(-\cos x)}_0^\pi
+       -\int_0^\pi (\pi-2x)(-\cos x)\, dx \\
+      &= \int_0^\pi (\pi-2x)\cos x\, dx
+      = \pi \int_0^\pi \cos x\, dx - 2 \int_0^\pi x\cos x\, dx \\
+      &= - 2 \enclose{\Enclose{x\sin x}_0^\pi - \int_0^\pi \sin x\, dx}
+      = 2 \Enclose{\cos x}_0^\pi = 4.
+\end{align*}
+Per $n\ge 2$ si procede in maniera simile,
+la funzione $x^n (\pi-x)^n$ si
+annulla agli estremi di integrazione quindi integrando per parti
+ si ottiene:
+\[
+  I_n = \int_0^\pi \Enclose{n x^{n-1}(\pi-x)^n - n x^n (\pi-x)^{n-1}} \cos x\, dx
+\]
+anche la funzione tra parentesi quadre si annulla
+agli estremi dell'intervallo di integrazione e quindi integrando nuovamente
+per parti si ottiene:
+\begin{align*}
+  I_n &= -\int_0^\pi \big[n(n-1) x^{n-2}(\pi-x)^n
+    - 2n^2 x^{n-1}(\pi-x)^{n-1} \\
+  &\qquad\quad   + n(n-1) x^n(\pi-x)^{n-2}\big] \sin(x)\, dx \\
+  &= 2n^2 I_{n-1} - (n^2-n) \int_0^\pi \Enclose{(\pi-x)^2 + x^2}x^{n-2}(\pi-x)^{n-2} \sin x\, dx \\
+  &= 2n^2 I_{n-1} - (n^2-n) \int_0^\pi \Enclose{\pi^2 - 2x(\pi-x)}x^{n-2}(\pi-x)^{n-2}\sin x\, dx \\
+  &= 2n^2 I_{n-1} - (n^2-n) \pi^2 I_{n-2} + 2(n^2-n) I_{n-1}
+\end{align*}
+da cui
+\begin{align}\label{eq:9530978}
+   I_n = (4n^2-2n)I_{n-1} -(n^2-n)\pi^2 I_{n-2}.
+\end{align}
+
+Supponiamo ora per assurdo che sia $\pi = \frac p q$ con $p,q\in \NN$ e consideriamo
+la successione
+\[
+   a_n = \frac{q^{2n}}{n!} I_n.
+\]
+Dalla relazione~\eqref{eq:9530978} deduciamo
+un relazione ricorsiva per $a_n$:
+\begin{align*}
+  a_n &= \frac{q^{2n}}{n!}\enclose{-(n^2-n)\frac{p^2}{q^2} \frac{(n-2)!}{q^{2n-4}}a_{n-2}
+  + (4n^2-2n) \frac{(n-1)!}{q^{2n-2}}a_{n-1}} \\
+  &= - q^2 p^2 a_{n-2} + (4n-2)q^2 a_{n-1}
+\end{align*}
+che ci dice, in particolare, che se $a_{n-2}$ e $a_{n-1}$
+sono interi allora anche $a_n$ è intero (in quanto somma di prodotti
+di numeri interi).
+Visto che anche i primi due termini:
+\[
+  a_0 = I_0 = 2, \qquad
+  a_1 = q^2 I_1 = 4 q^2
+\]
+sono interi possiamo dedurre, per induzione, che
+tutti i termini della successione $a_n$ sono interi.
+
+D'altra parte osservando che $y=x(\pi-x)$
+è il grafico di una parabola con asse $x=\frac \pi 2$
+sappiamo che per ogni $x$ si ha $x(\pi-x) \le \frac{\pi^2}{4}$
+e quindi
+\[
+  0 \le x^n(\pi-x)^n \sin x
+    \le x^n (\pi-x)^n \le \frac{\pi^{2n}}{4^n}.
+\]
+Dunque
+\[
+  0 \le I_n \le \frac{\pi^{2n+1}}{4^n}
+\]
+cioè
+\[
+  0 \le a_n \le \frac{q^{2n}}{n!}\frac{\pi^{2n+1}}{4^n}.
+\]
+Visto che $n! \gg C^n$, possiamo dunque affermare che $a_n\to 0$.
+D'altra parte abbiamo visto che
+$a_n \in \ZZ$ e certamente $a_n > 0$ in quanto $I_n \neq 0$ visto che $f_n$ è
+una funzione continua, non negativa e non identicamente nulla.
+Ma non è
+possibile che una successione di numeri interi positivi converga a zero:
+abbiamo quindi ottenuto l'assurdo.
+\end{proof}
+
+\begin{theorem}[prodotto di Wallis]
+\label{th:wallis}%
+\mymark{*}%
+\mymargin{prodotto di Wallis}%
+\index{$\pi$!prodotto di Wallis}%
+\index{Wallis!approssimazione di $\pi$}%
+\index{formula!di Wallis}%
+Si ha
+\[
+  \frac{\pi}{2}
+  = \prod_{k=1}^{+\infty} \frac{(2k)^2}{(2k-1)(2k+1)}
+  = \frac{2}{1}
+  \cdot \frac{2}{3}
+  \cdot \frac{4}{3}
+  \cdot \frac{4}{5}
+  \cdot \frac{6}{5}
+  \cdot \frac{6}{7}
+  \cdot \frac{8}{7}
+  \cdot \frac{8}{9}
+  \dots
+\]
+E si ottiene di conseguenza la seguente stima asintotica per
+il coefficiente \emph{binomiale centrale}%
+\mymargin{binomiale centrale}%
+\index{binomiale!centrale}
+\[
+ {2n \choose n} \sim \frac{4^n}{\sqrt{\pi n}}
+ \qquad \text{per $n\to +\infty$.}
+\]
+\end{theorem}
+%
+\begin{proof}
+Consideriamo la successione di integrali:
+\[
+  I_n = \int_0^\pi \sin^n(x)\, dx.
+\]
+Essendo $0\le \sin^n(x) \le 1$ per ogni $x\in [0,\pi]$ ed essendo
+$\sin^{n+1}(x)\le \sin^n(x)$ per ogni $x\in[0,\pi]$ è chiaro che $I_n$ è una
+successione decrescente di numeri positivi.
+
+Da un calcolo diretto troviamo che
+\[
+  I_0 = \int_0^\pi 1\, dx = \pi, \qquad
+  I_1 = \int_0^\pi \sin(x)\, dx = \Enclose {-\cos x}_0^\pi = 2.
+\]
+Se $n\ge 2$,
+integrando per parti troviamo invece una relazione ricorsiva
+\begin{align*}
+ I_n &= \int_0^\pi \sin^{n-1}(x) \sin x\, dx \\
+     &= \Enclose{-\sin^{n-1} x \cos x }_0^\pi + (n-1)\int_0^\pi \sin^{n-2} x \cos^2 x \, dx \\
+     &= 0 + (n-1)\int_0^\pi\sin^{n-2}x\cdot (1-\sin^2 x)\, dx \\
+     &= (n-1) I_{n-2} - (n-1) I_{n}
+\end{align*}
+da cui
+\begin{equation}
+\label{eq:187464}%
+  I_n = \frac{n-1}{n} I_{n-2}.
+\end{equation}
+Questa formula ricorsiva ci permette di calcolare separatamente
+i termini pari e dispari della successione
+utilizzando la notazione del \emph{semi fattoriale}
+(si veda l'osservazione~\ref{rem:doppio_fattoriale}):
+\begin{align*}
+  I_{2n}
+  &= \frac{2n-1}{2n}\cdot \frac{2n-3}{2n-2} \cdots \frac {3}{4}\cdot \frac{1}{2} \cdot I_0
+  = \frac{(2n-1)!!}{(2n)!!} \cdot \pi \\
+  I_{2n+1} &= \frac{2n}{2n+1}\cdot \frac {2n-2}{2n-1} \cdots
+  \frac{4}{5}\cdot \frac{2}{3} \cdot I_1
+  = \frac{(2n)!!}{(2n+1)!!}\cdot 2.
+\end{align*}
+
+Ricordando che $I_n$ è decrescente si osserva
+che vale
+\[
+  \frac{I_{2n+2}}{I_{2n}}
+  \le \frac{I_{2n+1}}{I_{2n}}
+  \le \frac{I_{2n}}{I_{2n}} = 1
+\]
+e grazie a~\eqref{eq:187464}
+\[
+ \frac{I_{2n+2}}{I_{2n}}
+ = \frac{2n+1}{2n+2} \to 1
+\]
+da cui ottieniamo che $\frac{I_{2n+1}}{I_{2n}}\to 1$.
+
+In conclusione, visto che $\pi$ compare nella formula dei termini pari, ma
+non in quella dei termini dispari, e visto che le due espressioni sono
+asintotiche possiamo ottenere
+la formula per il calcolo di $\frac \pi 2$:
+\begin{align*}
+\frac{\pi}{2}
+&= \frac{\pi}{2} \lim_{n\to +\infty} \frac{I_{2n+1}}{I_{2n}}
+= \lim_{n\to +\infty} \frac{\frac{(2n)!!}{(2n+1)!!}}{\frac{(2n-1)!!}{(2n)!!}}
+= \lim_{n\to +\infty} \frac{\enclose{(2n)!!}^2}{(2n+1)!!(2n-1)!!} \\
+&= \lim_{n\to +\infty} \frac{(2n)(2n)(2n-2)(2n-2) \cdots 4\cdot 4 \cdot 2 \cdot 2}
+  {(2n+1)(2n-1)(2n-1)(2n-3)(2n-3)\cdots 3 \cdot 3 \cdot 1}.
+\end{align*}
+
+Per ottenere una stima asintotica del coefficiente binomiale centrale
+ricordiamo che si ha (osservazione~\ref{rem:doppio_fattoriale})
+\begin{align*}
+  (2n)!! &= 2^n n! \\
+  (2n+1)!! &= \frac{(2n+1)!}{2^n n!}
+\end{align*}
+dunque la stima asintotica di Wallis si può scrivere come
+\begin{align*}
+ \sqrt{\frac{\pi}{2}}
+ &\sim \frac{(2n)!!}{\sqrt{2n+1}(2n-1)!!}
+  = \frac{2^n n!\sqrt{2n+1}}{\frac{(2n+1)!}{2^n n!}} \\
+ &= \frac{\enclose{2^n (n!)}^2 \sqrt{2n+1}}{(2n+1)!} 
+ \sim \frac{4^n (n!)^2}{\sqrt{2n}(2n)!}
+\end{align*}
+da cui
+\[
+{2n \choose n}
+= \frac{(2n)!}{(n!)^2}
+\sim \frac{4^n}{\sqrt{\pi n}}.
+\]
+\end{proof}
+
+% \begin{remark}\label{rem:cifre_pi}
+% Non è difficile stimare l'errore che si commette nell'approssimare
+% $\pi$ tramite la formula di Wallis. Posto
+% \[
+%   P_n = 2 \prod_{k=1}^n \frac{(2k)^2}{(2k-1)(2k+1)}
+% \]
+% la successione $P_n$ converge crescendo a $\pi$ e si ha
+% \begin{align*}
+% \ln\frac{\pi}{P_n}
+% &= \sum_{k=n+1}^{+\infty}\ln \frac{(2k)}{(2k-1)(2k+1)}
+% = \sum_{k=n+1}^{+\infty}\ln \enclose{1+\frac{1}{4k^2-1}} \\
+% &\le \sum_{k=n+1}^{+\infty}\frac{1}{4k^2-1}
+% = \frac 1 2 \sum_{k=n+1}^{+\infty}\Enclose{\frac{1}{2k-1} - \frac{1}{2k+1}}\\
+% &= \frac 1 2 \cdot \frac{1}{2(n+1)-1}
+% = \frac{1}{4n-2}
+% \end{align*}
+% da cui, usando il fatto che per
+% $x$ piccolo vale $e^{2x}-1 \le x$,
+% si ha
+% \[
+%  0
+%  \le \pi-P_n
+%  = P_n\enclose{\frac{\pi}{P_n} - 1}
+%  \le \pi \enclose{e^{\frac{1}{4n-2}}-1}
+%  \le \frac{\pi}{2n} \le \frac{1}{n}.
+% \]
+% Si scopre dunque che la convergenza è piuttosto lenta,
+% per calcolare $N$ cifre decimali bisogna moltiplicare
+% tra loro $10^N$ termini.
+% \end{remark}
+
+\begin{theorem}[formula di Stirling]
+\label{th:stirling}%
+\mymark{*}%
+\mymargin{formula di Stirling}%
+\index{formula!di Stirling}%
+\index{Stirling formula di}%
+\index{fattoriale!formula di Stirling}%
+Si ha
+\[
+  n! \sim \sqrt{2\pi n}\cdot \frac{n^n}{e^n}
+  \qquad \text{per $n\to +\infty$.}
+\]
+\end{theorem}
+%
+\begin{proof}
+Si osservi che la tesi:
+\[
+  \lim_{n\to +\infty}\frac{\sqrt{n} \cdot n^n}{n!\cdot e^n } = \frac{1}{\sqrt{2\pi}}
+\]
+è equivalente, passando ai logaritmi, a dimostrare che
+\[
+   \lim_{n\to +\infty} \enclose{\frac 1 2 \ln n + n \ln n - \ln(n!) - n}
+   = -\frac 1 2 \ln (2\pi).
+\]
+La prima parte della dimostrazione sarà volta a dimostrare che il limite
+precedente esiste ed è finito. Alla fine, per trovare il valore esatto,
+si utilizzerà la formula di Wallis.
+La quantità $n\ln n - n$ è, a meno di una costante additiva, l'integrale
+del logaritmo sull'intervallo $[1,n]$.
+Abbiamo già visto nell'esempio~\ref{ex:498124}
+che $\ln(n!)$ si ottiene approssimando tale integrale con dei rettangoli.
+Se procediamo invece con una approssimazione tramite trapezi, otteniamo
+una stima più precisa che ci darà il termine aggiuntivo $\frac 1 2 \ln n$,
+necessario per far convergere il limite.
+
+Osserviamo in generale che se $f:[a,b]\to \RR$ è una funzione concava allora
+il grafico di $f$ è compreso tra la retta passante per gli estremi $(a,f(a))$,
+$(b,f(b))$ (retta secante) e una qualunque retta tangente, ad esempio la retta
+tangente in $((a+b)/2,f((a+b)/2))$.
+Di conseguenza l'area sotto il grafico, cioè $\int_a^b f(x)\, dx$ è compreso tra
+le aree dei due corrispondenti trapezi rettangoli. L'altezza di entrambi i
+trapezi è pari a $(b-a)$ e l'area si calcola moltiplicando l'altezza per la
+media delle basi. Nel caso del trapezio con lato obliquo sulla secante, la media
+delle basi è $(f(a)+f(b))/2$, nel caso del trapezio con lato obliquo sulla
+retta tangente nel punto medio, la media delle basi è uguale alla sezione nel
+punto medio: $f((a+b)/2)$. Si ottiene dunque,
+per ogni $f$ concava:
+\[
+   (b-a)\cdot  \frac{f(a) + f(b)}{2}
+   \le \int_a^b f(x) \, dx
+   \le (b-a) \cdot f\enclose{\frac{a+b}{2}}.
+\]
+
+Applicando queste stime alla funzione $f(x) = \ln x$ nell'intervallo $[k, k+1]$
+si ottiene:
+\[
+\frac{\ln(k) + \ln(k+1)}{2}
+\le \int_k^{k+1} \ln x\, dx
+\le \ln \enclose{k+\frac 1 2}.
+\]
+
+Chiamiamo $a_k$ la differenza tra le prime due quantità.
+Chiaramente $a_k\ge 0$
+e risulta
+\begin{align*}
+a_k
+ &= \int_k^{k+1} \ln x\, dx - \frac{\ln (k) + \ln(k+1)}{2}\\
+ & \le \ln\enclose{k+\frac 1 2} - \frac{\ln(k) + \ln(k+1)}{2} \\
+ & = \frac 1 2 \ln\frac{\enclose{k+\frac 1 2}^2}{k(k+1)}
+  = \frac 1 2 \ln\enclose{1+\frac{1}{4(k^2+k)}}\\
+ & = \frac 1 {8k^2} + o\enclose{\frac 1 {k^2}}
+ \qquad \text{per $k\to+\infty$.}
+\end{align*}
+La serie $\sum a_k$ è dunque convergente ovvero
+la successione
+\[
+  A_n = \sum_{k=1}^n a_k
+\]
+è convergente. Chiamiamo $\ell$ il limite di $A_n$. Si ha:
+\begin{align*}
+A_n
+&= \sum_{k=1}^{n-1} \int_{k}^{k+1} \ln x\, dx -
+\sum_{k=1}^{n-1} \frac{\ln k + \ln(k+1)}{2} \\
+&= \int_{1}^{n} \ln x\, dx - \sum_{k=2}^{n-1} \ln k - \frac{\ln 1}{2}
+-\frac{\ln n}{2} \\
+&= \Enclose{ x \ln x -x}_1^n
+- \sum_{k=1}^n \ln k + \frac{\ln n}{2} \\
+&= n \ln n - n + 1 - \ln(n!) + \frac {\ln n}{2} \to \ell
+ \end{align*}
+da cui
+\[
+e^{A_n} = \frac{n^n\cdot e \cdot \sqrt{n}}{e^n \cdot n!} \to e^\ell
+\]
+ovvero, posto $c=e/e^\ell$,
+\[
+  n! \sim c\cdot\frac{n^n \sqrt{n}}{e^n}.
+\]
+Per determinare la costante incognita $c$ possiamo sfruttare la formula di Wallis
+sul coefficiente binomiale centrale:
+\begin{align*}
+\frac{4^n}{\sqrt{\pi n}}
+ &\sim
+{2n \choose n}
+= \frac{(2n)!}{(n!)^2}
+\sim \frac{\displaystyle c \frac{(2n)^{2n}\sqrt{2n}}{e^{2n}}}
+{\displaystyle\enclose{c\frac{n^n\sqrt n}{e^n}}^2} \\
+&= \frac{2^{2n}\sqrt{2}}{c\sqrt{n}}
+= \frac{4^n \sqrt 2}{c\sqrt n}
+\end{align*}
+da cui si ottiene
+\[
+  \frac{1}{\sqrt \pi} \sim \frac{\sqrt 2}{c}
+\]
+e quindi $c=\sqrt{2\pi}$.
+\end{proof}

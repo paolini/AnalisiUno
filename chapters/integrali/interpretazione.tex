@@ -1,0 +1,101 @@
+\section{interpretazione geometrica dell'integrale}
+\index{integrale!interpretazione geometrica}%
+\index{interpretazione!geometrica dell'integrale}%
+%%%%
+
+Il seguente risultato mette in corrispondenza l'integrale di Riemann 
+con la misura di Peano-Jordan ed è un modo formale per dare all'integrale 
+di Riemann il significato di area (con segno) del sottografico della 
+funzione integranda. 
+Nel seguito non faremo mai uso di questo risultato che serve solo 
+a soddisfare la nostra intuizione.
+
+\begin{theorem}[interpretazione geometrica dell'integrale]
+Sia $f\colon[a,b]\to \RR$, una funzione limitata, $a\leq b$. Posto 
+\begin{align*}
+  E^+ &= \ENCLOSE{(x,y)\in [a,b]\times\RR\colon 0\le y \le f(x)}, \\
+  E^- &= \ENCLOSE{(x,y)\in [a,b]\times\RR\colon f(x)\le y \le 0}   
+\end{align*}
+si ha che $f$ è Riemann-integrabile su $[a,b]$ se e solo se 
+gli insiemi $E^+$ ed $E^-$ sono misurabili secondo Peano-Jordan.
+E in tal caso risulta:
+\[
+   \int_a^b f = m(E^+) - m(E^-)  
+\]
+dove $m$ è la misura di Peano-Jordan.
+\end{theorem}
+%
+\begin{proof}
+\emph{Passo 1:} supponiamo che sia $f(x)\ge 0$ per ogni $x\in [a,b]$.
+Se $P=\ENCLOSE{x_0,x_1, \dots, x_N}$ è una suddivione di $[a,b]$ 
+è chiaro che posto $I_k = [x_k,x_{k+1}]$ l'unione dei rettangoli 
+$R_k = I_k \times [0,\inf f(I_k)]$ ci dà
+un polirettangolo contenuto in $E^+$.
+E $S_*(f,P)$ rappresenta proprio la misura di tale polirettangolo.
+Dunque $m_*(E^+)\ge S_*(f,P)$ per ogni suddivisione $P$ 
+e quindi $m_*(E^+)\ge I_*(f,P)$.
+Ragionando in maniera analoga con i rettangoli la cui altezza 
+è il $\sup$ di $f$, si osserva che $S^*(f,P)$ rappresenta 
+la misura di un polirettangolo contenente $E^+$ e dunque 
+$m^*(E^+)\le I^*(f,P)$.
+
+D'altra parte preso un qualunque polirettangolo contenuto in $E^+$
+possiamo considerare la suddivisione $P$ formata da $a$, $b$ e da tutte le coordinate $x$ 
+dei lati verticali dei rettangoli che compongono il polirettangolo. 
+E' chiaro che il polirettangolo sarà allora contenuto nell'unione
+dei rettangoli determinati da $P$ con altezza l'estremo inferiore di $f$.
+Dunque $m_*(E^+)\le I_*(f)$.
+Analogamente se prendiamo un polirettangolo che contiene $E^+$ possiamo 
+innanzitutto tagliare tutti i rettangoli con le rette $x=a$ e $x=b$
+e rimuovere eventuali rettangoli che si trovino a sinistra di $x=a$ 
+o a destra di $x=b$. 
+Questo diminuisce la misura del polirettangolo e mantiene l'inclusione di $E^+$.
+A questo punto consideriamo la suddivisione $P$ ottenuta prendendo i punti 
+$a$, $b$ e tutte le coordinate $x$ dei lati verticali dei rettangoli che formano 
+il polirettangolo.
+E' chiaro allora che la misura del polirettangolo originario è maggiore o uguale 
+a $S^*(f,P)$ e dunque $m^*(E^+)\ge I^*(f)$.
+
+Essendo dunque $m_*(E^+)=I_*(f)$ e $m^*(E^+)=I_*(f)$ risulta 
+che se $f\ge0$ allora $f$ è Riemann-integrabile se e solo se $E^+$ è Peano-Jordan 
+misurabile e in tal caso si ha $\int_a^b f = m(E^+)$.
+
+\emph{Passo 2:} sia $f\colon[a,b]\to \RR$ qualunque.
+Allora si avrà $f = f^+ - f^-$. 
+A $f^+$ e $f^-$ potremo applicare il passo precedente.
+Osserviamo che l'insieme $E^+$ di $f^-$ non è altro che la riflessione 
+(rispetto all'asse delle ascisse) dell'insieme $E^-$ di $f$
+e questi insiemi hanno la stessa misura di Peano-Jordan.
+Dunque, se $f$ è Riemann-integrabile anche $f^+$ e $f^-$ 
+lo sono (Teorema~\ref{th:reticolo}) 
+dunque $E^+$ ed $E^-$ sono Peano-Jordan misurabili per il passo precedente
+e si ha 
+\begin{equation}
+  \label{47694}
+\int_a^b f = \int_a^b f^+ - \int_a^b f^- = m(E^+) - m(E^-).  
+\end{equation}
+Viceversa se $E^+$ ed $E^-$ sono Peano-Jordan misurabili 
+allora $f^+$ ed $f^-$ sono Riemann-integrabili (per il passo precedente)
+e anche $f=f^+-f^-$ è Riemann-integrabile (Teorema~\ref{th:integrale_lineare})
+e di nuovo deve valere~\eqref{47694}.
+\end{proof}
+
+\begin{example}[area del trapezio]
+Sia $f(x) = mx + q$ una funzione lineare definita 
+su un intervallo $[a,b]$ e supponiamo che $f(a)\ge 0$ 
+e $f(b)\ge 0$.
+L'insieme $E^+=\ENCLOSE{(x,y)\colon x\in [a,b], 0\le y \le f(x)}$
+è dunque un trapezio di basi (verticali) $f(a)$ e $f(b)$
+e altezza (orizzontale) $b-a$. La sua area sarà dunque 
+\begin{align*}
+  \int_a^b f 
+  &= \int_a^b (mx+q)\, dx 
+  = m\int_a^b x\, dx + \int_a^b q\, dx
+  = \frac{m}{2}(b^2-a^2) + (b-a) q\\ 
+  &= \frac 1 2 (b-a)(mb+ma+2q)
+  = \frac 1 2 (b-a)(f(a) + f(b))
+\end{align*}
+che è effettivamente la formula elementare per 
+calcolare l'area di un trapezio.
+\end{example}
+

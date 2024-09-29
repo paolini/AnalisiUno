@@ -1,0 +1,237 @@
+\section{convergenza uniforme}
+
+\begin{definition}[convergenza uniforme]
+\mymark{***}
+Sia $A$ un insieme non vuoto e
+$f\colon A \to \RR$.
+Definiamo la \emph{norma uniforme}%
+\mymargin{norma uniforme}\index{norma!uniforme} (o norma del $\sup$)
+di $f$ come
+\[
+  \Abs{f}_\infty = \sup_{x\in A} \abs{f(x)}
+\]
+
+Se anche $g\colon A \to \RR$
+definiamo la \emph{distanza uniforme}
+\mymargin{distanza uniforme}
+\index{distanza!uniforme}
+tra $f$ e $g$ come
+\[
+  d_\infty(f,g) = \sup_{x\in A} \abs{f(x)-g(x)}.
+\]
+
+Se $f_k$ è una successione di funzioni e $f$ è una funzione, diremo che $f_k$
+\emph{converge uniformemente}
+\mymargin{convergenza uniforme}%
+\index{convergenza!uniforme}%
+a $f$
+e scriveremo
+\[
+f_k \To f
+\] se
+$d_\infty(f_k,f)\to 0$.
+\end{definition}
+
+
+\begin{example}
+\label{ex:466533}
+La successione
+\[
+f_k(x) = \sqrt{x^2 + \frac{1}{k}}
+\]
+converge uniformemente (su tutto $\RR$) alla funzione $f(x) = \abs{x}$. Infatti posto $g_k(x) = f_k(x) - f(x)$, 
+la funzione $g_k$ risulta essere derivabile per $x\neq 0$ e per $x>0$ si ha
+\[
+  g'_k(x) = \frac{x}{\sqrt{x^2+\frac 1 k}} - 1 < 0.
+\]
+Dunque la funzione $g_k$ è decrescente su $[0,+\infty)$. Per simmetria (è una funzione pari) è crescente su $(-\infty, 0]$. 
+Risulta quindi che il massimo di $g_k$ è in $x=0$. Chiaramente $g_k \ge 0$ quindi si ha:
+\[
+  \Abs{f_k - f}_\infty = \sup_{x\in \RR} g_k(x) = g_k(0) = \frac{1}{\sqrt k} \to 0.
+\]
+Dunque $f_k \To f$.
+\end{example}
+
+Osserviamo che in generale $\Abs{f}_\infty$ e $d_\infty(f,g)$ possono assumere il valore $+\infty$ (ad esempio se $A=\RR$, $f(x)=x$ e $g(x)=0$)
+e quindi non è detto che siano effettivamente
+una norma e una distanza.
+
+\begin{theorem}[proprietà della norma uniforme]
+La norma uniforme soddisfa tutte le proprietà di una norma
+(Definizione~\ref{def:norma}), salvo il fatto che può assumere valori in $[0,+\infty]$ invece che in $[0,+\infty)$.
+\end{theorem}
+%
+\begin{proof}
+Chiaramente la norma uniforme non assume valori negativi in quanto estremo superiore di un insieme (non vuoto) di numeri reali non negativi. Inoltre se $\Abs{f}_\infty=0$ significa che $\abs{f(x)}=0$ per ogni $x$ e dunque $f=0$ (proprietà di separazione).
+
+L'omogenità segue dall'omogeneità del valore assoluto, in quanto si ha
+\[
+  \sup_{x\in A} \abs{(\lambda \cdot f)(x)}
+  = \sup_{x\in A}\abs{\lambda \cdot f(x)}
+  = \sup_{x\in A}\abs{\lambda}\cdot \abs{f(x)}
+  = \abs{\lambda} \cdot \sup_{x\in A}\abs{f(x)}.
+\]
+
+La disuguaglianza triangolare segue dalla disuguaglianza triangolare del valore assoluto, che viene preservata facendone l'estremo superiore:
+\[
+  \sup_{x\in A} \abs{f(x)+g(x)}
+  \le \sup_{x\in A} \Enclose{\abs{f(x)} + \abs{g(x)}}
+  \le \sup_{x\in A} \abs{f(x)} + \sup_{x\in A} \abs{g(x)}.
+\]
+\end{proof}
+
+\begin{theorem}[completezza delle funzioni limitate]%
+  \label{th:limitate_completo}%
+Sia $A$ un insieme.
+Lo spazio vettoriale
+delle funzioni limitate $f\colon A \to \RR$
+(cioè delle funzioni con norma uniforme finita)
+\[
+  \B(A) = \ENCLOSE{f\in \RR^A\colon \Abs{f}_\infty < +\infty }
+\]
+dotato della norma uniforme $\Abs{\cdot}_\infty$ risulta essere uno spazio di Banach (ovvero uno spazio vettoriale normato e completo).
+Su tale spazio di Banach la distanza indotta dalla norma è la distanza uniforme $d_\infty$ e la convergenza indotta dalla distanza è la convergenza uniforme.
+\end{theorem}
+%
+\begin{proof}
+Per definizione risulta verificato che la norma uniforme $\Abs{\cdot}_\infty$ assume valori finiti su $\B(A)$.
+Dunque, in base al teorema precedente, $\Abs{\cdot}_\infty$ è effettivamente una norma e $\B(A)$ risulta quindi essere uno spazio normato. Dimostriamo ora che esso è completo, cioè che le successioni di Cauchy convergono.
+
+Sia $f_k$ una successione di Cauchy in $\B(A)$.
+Allora per ogni $x\in A$ risulta che $f_k(x)$ è una successione di Cauchy in $\RR$ in quanto si ha (per definizione di $\sup$)
+\[
+  \abs{f_k(x) - f_j(x)} \le \Abs{f_k - f_j}_\infty
+\]
+e quindi se $\Abs{f_k- f_j}_\infty < \eps$
+a maggior ragione per $x\in A$ fissato si ha $\abs{f_k(x)-f_j(x)} < \eps$.
+
+Dunque per ogni $x\in A$ la successione numerica $f_k(x)$ converge in quanto $\RR$ è completo. Posto $f(x) = \lim f_k(x)$ abbiamo dunque trovato un candidato limite della successione.
+Dovremo ora mostrare che $f\in \B(A)$ e che $f_k$ converge uniformemente a $f$.
+Per ogni $\eps>0$ per la condizione di Cauchy dovrà esistere $N\in \NN$ tale che se $k,j>N$ allora
+\[
+  d_\infty(f_k,f_j) < \eps.
+\]
+Ma allora per ogni $x\in A$, per ogni $k>N$ e per ogni $j>N$ si avrà:
+\[
+  \abs{f_k(x) - f(x)} \le \abs{f_k(x) - f_j(x)} +
+  \abs{f_j(x) - f(x)} < \eps + \abs{f_j(x)-f(x)}.
+\]
+Visto che per ogni $x$ si ha $f_j(x) \to f(x)$, per ogni $x$ esiste un $j$ tale che $\abs{f_j(x)-f(x)} < \eps$ e quindi possiamo concludere che
+\[
+  \abs{f_k(x)-f(x)} < 2\eps.
+\]
+Facendo il $\sup$ per $x\in A$ si ottiene dunque
+\[
+  \Abs{f_k -f}_\infty \le 2 \eps.
+\]
+Abbiamo quindi verificato la definizione di limite $\Abs{f_k -f}_\infty\to 0$. In particolare $\Abs{f}_\infty < +\infty$ in quanto vale la disuguaglianza triangolare
+\[
+  \Abs{f}_\infty \le \Abs{f-f_k}_\infty + \Abs{f_k}_\infty < +\infty
+\]
+essendo $\Abs{f-f_k}_\infty \to 0$ e $\Abs{f_k}_\infty < +\infty$.
+\end{proof}
+
+\begin{definition}[convergenza puntuale]
+\mymark{***}
+Sia $f_k\colon A \to \RR$ una successione di funzioni
+e sia $f\colon A \to \RR$ una funzione.
+Se per ogni $x\in A$ si ha $f_k(x)\to f(x)$ diremo che
+la successione $f_k$
+\emph{converge puntualmente}
+\mymargin{convergenza puntuale}
+\index{convergenza!puntuale}
+ad $f$.
+\end{definition}
+
+\begin{theorem}[convergenza uniforme implica convergenza puntuale]
+\mymark{***}
+Sia $f_k\colon A \to \RR$ una successione di funzioni.
+Se $f_k$ converge uniformemente ad una funzione $f$ allora $f_k$ converge puntualmente ad $f$.
+\end{theorem}
+%
+\begin{proof}
+E' sufficiente osservare che per ogni $x\in A$ si ha
+\[
+  \abs{f_k(x)-f(x)} \le \sup_{y\in A} \abs{f_k(y)-f(y)}
+   = \Abs{f_k-f}_\infty \to 0.
+\]
+\end{proof}
+
+\begin{example}[successione che converge puntualmente ma non uniformemente]
+\mymark{***}%
+\label{ex:puntuale_non_uniforme}%
+Sia $f_k\colon [0,1]\to \RR$ la successione di funzioni definita da $f_k(x)=x^k$. Se $x\in[0,1)$ si ha $x^k \to 0$ mentre se $x=1$ si ha $x^k \to 1$. 
+Dunque la successione $f_k$ converge puntualmente alla funzione
+\[
+f(x) =
+ \begin{cases}
+  0 & \text{se $x\in [0,1)$}\\
+  1 & \text{se $x=1$}.
+ \end{cases}
+\]
+Osserviamo però che
+\[
+  d_\infty(f_k,f) = \sup_{x\in [0,1]} \abs{f_k(x)-f(x)}
+  \ge \lim_{x\to 1^-} \abs{f_k(x) - f(x)} = 1.
+\]
+dunque non ci può essere convergenza uniforme di $f_k$ verso $f$.
+\end{example}
+
+E' facile convincersi che la successione $f_k$ dell'esempio precedente, oltre a non convergere uniformemente non ammette nessuna estratta convergente uniformemente. Perciò tale successione non può essere contenuta in nessun compatto di $C^0([0,1])$. In particolare il disco unitario
+\[
+  D = \ENCLOSE{f\in C^0([0,1])\colon \Abs{f}_\infty \le 1}
+\]
+risulta essere un insieme chiuso e limitato che però non è compatto.
+
+\begin{theorem}[continuità del limite uniforme]
+\mymark{***}%
+Sia $X$ uno spazio metrico e siano $f_k\colon X\to \RR$
+funzioni continue che
+convergono uniformemente ad una funzione $f\colon X \to \RR$. 
+Allora anche $f$ è continua.
+\end{theorem}
+%
+\begin{proof}
+\mymark{***}
+Fissato $x_0\in X$ basta dimostrare che per ogni $\eps>0$
+esiste $\delta>0$ tale che se $d(x,x_0)< \delta$ allora $\abs{f(x)-f(x_0)} < 3 \eps$.
+Per definizione di convergenza uniforme dato $\eps>0$
+esiste un $N\in \NN$ (in realtà ne esistono infiniti) per cui
+$d_\infty(f_N,f)< \eps$. Per la continuità di $f_N$ in corrispondenza dello stesso $\eps$ esiste $\delta>0$
+tale che se $d(x,x_0) < \delta$ allora $\abs{f_N(x)-f_N(x_0)} < \eps$. Ma allora se $d(x,x_0)<\delta$ si ha
+\begin{align*}
+\abs{f(x)-f(x_0)}
+&\le \abs{f(x) - f_N(x)}
+ + \abs{f_N(x)-f_N(x_0)}
+ + \abs{f_N(x_0) - f(x_0)} \\
+ &\le \Abs{f-f_N}_\infty + \eps + \Abs{f-f_N}_\infty
+  \le 3\eps.
+\end{align*}
+\end{proof}
+
+\begin{theorem}[completezza di $C^0({[a,b]})$]%
+\label{th:C0_completo}
+\mymark{***}%
+\mymargin{$C^0([a,b])$ è completo}%
+\index{completezza!di $C^0([a,b])$}%
+Lo spazio $C^0([a,b])$ delle funzioni continue definite su un intervallo chiuso e limitato, 
+dotato della norma uniforme $\Abs{\cdot}_\infty$ risulta essere uno spazio di Banach (ovvero uno spazio vettoriale normato e completo).
+\end{theorem}
+%
+\begin{proof}
+Per il teorema di Weierstrass ogni funzione continua definita sul compatto $[a,b]$ è limitata. 
+Dunque $C^0([a,b])$ è un sottospazio vettoriale di $\B([a,b])$. 
+Inoltre il teorema precedente (continuità del limite) ci dice che $C^0([a,b])$ è un sottospazio chiuso di $\B([a,b])$.
+Ma $\B([a,b])$ è completo e quindi anche $C^0([a,b])$ essendo chiuso in $\B([a,b])$ è completo.
+\end{proof}
+
+La norma uniforme è la norma naturale su $C^0([a,b])$ in quanto lo rende uno spazio completo. Per questo motivo la norma uniforme sulle funzioni continue
+viene anche chiamata \emph{norma $C^0$} e si
+può denotare nel modo seguente:
+\index{$\Abs{\cdot}_{C^0}$}
+\index{norma!$C^0$}
+\[
+  \Abs{f}_{C^0} = \Abs{f}_{C^0([a,b])} = \Abs{f}_\infty
+  \qquad\text{per $f\in C^0([a,b])$.}
+\]
+

@@ -1,0 +1,459 @@
+\section{calcolo delle primitive}
+
+Come già detto utilizzeremo la notazione $\int f$ per indicare le primitive
+della funzione $f$.
+Ma invece di scrivere $F\in \int f$
+per indicare che $F$ è una primitiva di $f$
+potremo scrivere
+più semplicemente ma con abuso di notazione $\int f = F$
+ricordando (come facevamo con la notazione degli $o$-piccolo) che tale relazione
+non è affatto simmetrica.
+Tradizionalmente si scrive
+\begin{equation}\label{eq:4137878}
+  \int \cos x\, dx = \sin x + c 
+\end{equation}
+ma potremmo anche scrivere più semplicemente:
+\mynote{%
+Il modo di scrivere \eqref{eq:4137878} è solo apparentemente 
+migliore di~\eqref{eq:489417} in quanto in alcuni casi non 
+tutte le primitive posso essere determinate a meno di una costante
+(si veda l'esempio~\ref{ex:primitive_non_connesso}).
+Vale quindi la regola (valida in generale per tutte le notazioni che richiedono 
+una interpretazione) di usare con cautela e cognizione di causa la notazione 
+degli integrali indefiniti: bisogna essere consapevoli del significato di quello 
+che scriviamo e dobbiamo utilizzare una notazione che sia comprensibile a chi ci ascolta.
+}%
+\begin{equation}\label{eq:489417}
+  \int \cos x\, dx = \sin x.
+\end{equation}
+
+\begin{theorem}[primitive di alcune funzioni elementari]
+\index{integrale!funzioni elementari}
+Si ha
+per ogni $\alpha \in \RR$, $\alpha\neq -1$
+\begin{gather*}
+\int x^\alpha\, dx \ni \frac{x^{\alpha+1}}{\alpha+1},
+\qquad
+\int \frac{1}{x}\, dx \ni \ln\abs{x}
+\\
+\int e^x \, dx \ni e^x,
+\qquad
+\int \cos x\, dx \ni \sin x,
+\qquad
+\int \sin x\, dx \ni -\cos x
+\\
+\int \cosh x \, dx \ni \sinh x,\qquad
+\int \sinh x \, dx \ni \cosh x, \\
+\int \frac{1}{1+x^2}\, dx \ni \arctg x, \qquad
+\int \frac{1}{\sqrt{1-x^2}}\, dx \ni \arcsin x, \\
+\int \frac{1}{\sqrt{x^2+1}}\, dx \ni \settsinh x = \ln\enclose{x+\sqrt{x^2+1}}\\
+\int \frac{1}{\sqrt{x^2-1}}\, dx \ni \settcosh x = \ln\enclose{x+\sqrt{x^2-1}}.
+\end{gather*}
+\end{theorem}
+%
+\begin{proof}
+E' sufficiente fare riferimento alla corrispondente tabella
+delle derivate delle funzioni elementari (teorema~\ref{th:derivate_elementari}).
+\end{proof}
+
+\begin{theorem}[linearità dell'integrale indefinito]
+Per ogni $\lambda,\mu \in \RR$ e se $f$, $g$ sono funzioni qualunque si ha:
+\[
+  \int \enclose{\lambda f + \mu g} \supset \lambda \int f + \mu \int g
+\]
+\end{theorem}
+%
+\begin{proof}
+Ogni elemento dell'insieme che si trova sul lato destro
+si scrive nella forma $\lambda F + \mu G$ con $F\in \int f$ e $G\in \int g$.
+Dunque si ha $F'=f$ e $G'=g$ da cui
+\[
+  (\lambda F + \mu G)' = \lambda f + \mu g
+\]
+e quindi
+\[
+  \lambda F + \mu G \in \int (\lambda f + \mu g)
+\]
+come dovevamo dimostrare.
+\end{proof}
+
+\begin{example}\label{ex:234045}
+  Calcolare $\int (2x-1)^2\, dx$.
+\end{example}
+\begin{proof}[Svolgimento.]
+  Si ha 
+  \[
+  \int (x-1)^2\, dx = \int \enclose{4x^2 - 4x +1}\, dx 
+  \ni 4\frac{x^3}{3} - 4 \frac {x^2}{2} + x
+  = \frac 4 3 x^3 - 2 x^2 + x.
+  \]
+\end{proof}
+
+\begin{theorem}[cambio di variabile negli integrali]
+Valgono le seguenti proprietà:
+\begin{enumerate}
+\item
+se $g\colon A \to \RR$ è derivabile e $f\colon g(A) \to \RR$
+allora
+\mymargin{sostituzione diretta}%
+\index{sostituzione!diretta}%
+\index{integrale!sostituzione diretta}%
+\begin{equation}\label{eq:sostituzione_1}
+  \int f(g(x)) g'(x)\, dx \supset
+  \Enclose{\int f(y) \, dy}_{y=g(x)}
+\end{equation}
+dove si intende
+\[
+ \Enclose{F(y)}_{y=g(x)} = F(g(x));
+\]
+
+\item
+se $g\in C^1([a,b])$ e $f\in C^0(g([a,b]))$ allora
+\mymargin{cambio di variabile}%
+\index{cambio!di variabile}%
+\index{integrale!cambio di variabile}%
+\begin{equation}\label{eq:sostituzione_2}
+ \int_{g(a)}^{g(b)} f(x)\, dx = \int_a^b f(g(t))\, g'(t)\, dt;
+\end{equation}
+
+\item
+se $I$ è un intervallo, $g\in C^1(I)$ è iniettiva e $f\in C^0(g(I))$
+allora $g^{-1}$ è definita sull'intervallo $g(I)$
+e si ha
+\mymargin{sostituzione inversa}%
+\index{sostituzione!inversa}%
+\index{integrale!sostituzione inversa}%
+\begin{equation}\label{eq:239455}
+  \int f(x)\, dx \supset \Enclose{\int f(g(t)) g'(t)\, dt}_{t=g^{-1}(x)}
+\end{equation}
+\end{enumerate}
+\end{theorem}
+%
+\begin{proof}
+Per~\eqref{eq:sostituzione_1}
+basta osservare che se $F(y)$ è una qualunque primitiva di $f(y)$ 
+allora $F(g(x))$ è una primitiva di $f(g(x))\cdot g'(x)$
+(basta applicare la formula di derivazione della funzione composta).
+Dunque ogni elemento dell'insieme di destra in~\eqref{eq:sostituzione_1}
+è elemento dell'insieme di sinistra.
+
+Per dimostrare~\eqref{eq:sostituzione_2} sappiamo che $f$, essendo continua, ammette almeno una
+primitiva $F(x)$. Per il punto precedente sappiamo che $F(g(t))$ è una
+primitiva di $f(g(t))g'(t)$ (basta farne la derivata per verificarlo).
+Dunque, utilizzando la formula fondamentale del calcolo, si ottiene:
+\[
+\int_{g(a)}^{g(b)}\!\! f(x) \, dx
+= \Enclose{F(x)}_{g(a)}^{g(b)}
+= F(g(b)) - F(g(a))
+= \Enclose{F(g(t))}_a^b
+=\int_a^b\! f(g(t))g'(t)\, dt.
+\]
+
+Per dimostrare~\eqref{eq:239455}
+sia $F$ una qualunque funzione elemento dell'insieme sul lato destro della
+relazione.
+Si avrà $F(x) = H(g^{-1}(x))$ con $H(t)$ primitiva
+di $f(g(t))g'(t)$. 
+Ma allora, per la formula fondamentale del calcolo integrale,
+fissato $t_0 \in I$ si ha, per~\eqref{eq:sostituzione_2},
+\mynote{Se $g^{-1}$ fosse derivabile 
+la dimostrazione sarebbe immediata, ma in generale 
+può capitare che la derivata di $g$ si annulli in 
+qualche punto e quindi $g^{-1}$ potrebbe non 
+essere derivabile.}%
+\begin{align*}
+  F(x) - F(g(t_0))
+  &= H(g^{-1}(x)) - H(t_0)
+  = \int_{t_0}^{g^{-1}(x)} f(g(t)) g'(t)\, dt
+  = \int_{g(t_0)}^x f(s)\, ds
+\end{align*}
+da cui, per il teorema~\ref{th:torricelli-barrow}, 
+possiamo fare la derivata di 
+ambo i membri per ottenere
+$F'(x) = f(x)$. 
+Dunque la funzione $F$ è elemento dell'insieme a 
+sinistra della relazione~\eqref{eq:239455},
+come volevamo dimostrare.
+\end{proof}
+
+Le formule del teorema precedente si scrivono usualmente nella forma
+\[
+  \int f(g(x)) g'(x)\, dx = \int f(y) \, dy
+\]
+dove si intende che le variabili $x$ e $y$ devono soddisfare la relazione
+$y=g(x)$ (o, viceversa, $x=g^{-1}(y)$).
+Per memorizzare tale formula si usa normalmente definire il
+\emph{differenziale} di una funzione $g$ come $dg(x) = g'(x)\, dx$
+(coerentemente con la notazione $g' = dg / dx$)
+cosicché se $y=g(x)$ si ha $dy = g'(x)\, dx$.
+Non daremo qui una definizione formale di cosa sia un differenziale
+ma senz'altro utilizzeremo questa comoda notazione, pensandola
+semplicemente come una facilitazione tipografica.
+
+\begin{example}
+Calcolare $\int (2x-1)^2\, dx$.
+\end{example}
+\begin{proof}[Svolgimento.]
+Possiamo fare il cambio di variabile $y=2x-1$, $dy = 2\, dx$.
+Dunque 
+\begin{align*}
+\int (2x-1)^2\, dx 
+&= \frac 1 2 \int (2x-1)^2\, 2dx
+\supset \frac 1 2 \Enclose{\int y^2\, dy}_{y=2x-1}
+\ni \frac 1 2 \Enclose{\frac{y^3}{3}}_{y=2x-1}\\
+&= \frac 1 6 \enclose{2x-1}^3 = \frac{8x^3 - 12x^3 + 6 x - 1}{6}
+= \frac 4 3 x^3 - \frac 2 x^2 + 1 - \frac 1 6.
+\end{align*}
+Osserviamo che questa primitiva è diversa da quella trovata 
+Nell'esempio~\ref{ex:234045} ma differisce da questa per una costante.
+Dunque entrambi i risultati sono corretti.
+\end{proof}
+\begin{example}
+Calcolare
+$\int \cos^2 x \, dx$.
+\end{example}
+\begin{proof}[Svolgimento.]
+Ricordando che $\cos(2t) = \cos^2 t - \sin^2 t = 2\cos^2 t - 1$ si
+ha $\cos^2 t = \frac{1+\cos(2t)}2$ (formula di bisezione).
+Dunque
+\[
+\int \cos^2 t\, dt
+= \int\frac{1+\cos(2t)}{2}\, dt
+= \int \frac 1 2 \, dt + \int \frac{\cos(2t)}{2}\, dt.
+\]
+Chiaramente $\int \frac 1 2 \, dt  = \frac t 2$.
+Nel secondo integrale
+possiamo fare un cambio di variabile, ponendo
+$2t=s$ da cui $2dt = ds$:
+\begin{align*}
+\int \frac{\cos(2t)}{2}\, dt
+&= \frac 1 4 \int \cos(2t)\, 2dt
+= \frac 1 4 \Enclose{\int \cos s \, ds}_{s=2t}
+= \frac 1 4 \Enclose{\sin s}_{s=2t}\\
+&= \frac 1 4 \sin(2t)
+= \frac{1}{2}\sin t \cdot \cos t.
+\end{align*}
+In definitiva otteniamo
+\[
+  \int \cos^2 x \, dx = \frac{t+\sin t \cdot \cos t}{2}.
+\]
+\end{proof}
+
+
+\begin{example}
+Calcolare
+$\int \sqrt{1-x^2}\, dx$.
+\end{example}
+\begin{proof}
+La funzione integranda è definita per $x\in [-1,1]$.
+Ci viene in mente di operare la sostituzione $x=\sin t$
+con $t\in [-\pi/2, \pi/2]$.
+Osserviamo che su $[-\pi/2,\pi/2]$ la funzione $\sin t$ è derivabile,
+invertibile e la sua inversa è $t = \arcsin x$.
+Informalmente si ha
+\[
+ x= \sin t, \qquad dx = \cos t \, dt
+\]
+da cui si ottiene la formula
+\[
+ \int \sqrt{1-x^2}\, dx = \Enclose{\int \sqrt{1-\sin^2(t)} \cos t\, dt}_{t=\arcsin x}.
+\]
+Osserviamo ora che per $t\in [-\pi/2, \pi/2]$ risulta $\sqrt{1-\sin^2(t)}=\cos t$
+e dunque l'integrale
+diventa
+\[
+ \int \sqrt{1-\sin^2(t)}\cos t\, dt = \int \cos^2(t)\, dt.
+\]
+Quest'ultimo integrale lo abbiamo calcolato nell'esercizio precedente.
+Dunque otteniamo:
+\begin{align*}
+ \int \sqrt{1-x^2}\, dx
+ &\stackrel{(x=\sin t)}= \int \cos^2(t)\, dt
+ = \frac{t + \sin t \cos t}{2} \\
+ &= \frac{t + (\sin t) \sqrt{1-\sin^2 t}}{2} \\
+ &\stackrel{(t=\arcsin x)}= \frac{\arcsin x + x \sqrt{1-x^2}}{2}.
+\end{align*}
+\end{proof}
+
+Si osservi che il grafico $y=\sqrt{1-x^2}$ dell'esempio precedente
+è una semicirconferenza e dunque l'integrale 
+\[
+ \int_{-1}^1 \sqrt{1-x^2}\, dx = \Enclose{\frac{\arcsin x +x\sqrt{1-x^2}}{2}}_{-1}^{1}
+ = \frac{\pi}{2}.
+\]
+rappresenta l'area di un semicerchio unitario.
+
+\begin{exercise}
+Calcolare
+\[
+ \int \sqrt{1+x^2}\, dx, \qquad \int \sqrt{x^2-1}\, dx.  
+\]
+
+Suggerimento: in analogia con l'integrale di $\sqrt{1-x^2}$
+di può effettuare la sostituzione $t=\sinh x$ nel primo 
+integrale e $t=\cos h x$ nel secondo.
+\end{exercise}
+
+\begin{theorem}[integrazione per parti]
+\mymark{*}%
+\mymargin{integrale per parti}%
+\index{integrale!per parti}%
+Sia $f\colon A\subset \RR \to \RR$ una funzione qualunque, sia $g\colon A \to\RR$
+una funzione derivabile
+e sia $F \in \int f$.
+Allora
+\[
+  \int f\cdot g \supset F \cdot g - \int F \cdot g'.
+\]
+
+In particolare se $f\in C^0([a,b])$ e $g\in C^1([a,b])$
+e $F \in \int f$, si ha
+\[
+  \int_a^b f\cdot g = \Enclose{F\cdot g}_a^b - \int_a^b F \cdot g'.
+\]
+\end{theorem}
+%
+\begin{proof}
+\mymark{*}
+Ogni funzione dell'insieme di destra si scrive nella forma
+$F\cdot g - H$ con $H \in \int F \cdot g'$.
+Dunque $H' = F \cdot g'$ e, per ipotesi, $F'=f$ da cui
+\[
+(F\cdot g - H)' = F' \cdot g + F \cdot g' - H' = F' \cdot g
+= f\cdot g
+\]
+che è quanto dovevamo dimostrare.
+
+La seconda parte del teorema
+deriva direttamente dalla formula fondamentale del calcolo integrale
+(valida in quanto sia $f\cdot g$ che $F \cdot g'$ sono funzioni continue),
+osservando che
+\[
+\Enclose{F\cdot g - \int F \cdot g'}_a^b
+= \Enclose{F\cdot g}_a^b - \int_a^b F \cdot g'.
+\]
+\end{proof}
+
+\begin{example}
+Si voglia calcolare
+\[
+  \int x \cos x\, dx.
+\]
+Il metodo di integrazione per parti ci permette
+di ricondurre l'integrale di un prodotto ad un integrale
+di un prodotto in cui uno dei fattori viene integrato e l'altro derivato.
+In questo caso sarà conveniente derivare il fattore $x$
+e integrare il fattore $\cos x$ in modo da ricondursi all'integrale di
+$1\cdot \sin x$, che sappiamo svolgere.
+Precisamente si ha
+\[
+ \int x \cos x\, dx = x \sin x - \int 1 \cdot \sin x \, dx
+  = x \sin x + \cos x.
+\]
+\end{example}
+
+\begin{example}
+  \label{ex:822309}
+Si voglia calcolare
+\[
+ \int e^x \cos x\, dx.
+\]
+In questo caso se utilizziamo l'integrazione per parti possiamo ricondurre
+questo integrale a $\int e^x \sin x$. Integrando ancora per parti ci si
+ricondurrà nuovamente ad $\int e^x \cos x$. Se però in questi passaggi si
+riottiene la quantità originale con un segno cambiato, si potrà risolvere
+l'equazione ottenuta per trovare il risultato cercato.
+
+Precisamente:
+\begin{align*}
+\int e^x \cos x\, dx
+&= e^x \sin x - \int e^x \sin x\, dx\\
+ &= e^x \sin x - \Enclose{e^x(-\cos x) - \int e^x(-\cos x)\, dx} \\
+ &= e^x \sin x + e^x \cos x - \int e^x \cos x \, dx
+\end{align*}
+da cui:
+\[
+ 2 \cdot \int e^x \cos x\, dx  = e^x \sin x + e^x \cos x
+\]
+ovvero
+\[
+  \int e^x \cos x\, dx = \frac{e^x(\sin x + \cos x)}{2}.
+\]
+\end{example}
+
+\begin{theorem}[ancora primitive di funzioni elementari]
+\mymark{***}
+Si ha
+\begin{align*}
+  \int \ln x\, dx  &= x \ln x - x, \\
+  \int \arctg x\, dx &= x \arctg x - \ln \sqrt{1+x^2},\\
+  \int \arcsin x\, dx &= x \arcsin x + \sqrt{1-x^2},\\
+  \int \arccos x\, dx &= x \arccos x - \sqrt{1-x^2}.
+\end{align*}
+\end{theorem}
+%
+\begin{proof}
+\mymark{***}
+L'idea, in tutti i casi, è che la derivata della funzione integranda
+è molto più semplice della funzione stessa (nei primi due casi è una funzione 
+razionale negli altri due una funzione irrazionale ma non trascendente).
+Può quindi risultare utile applicare l'integrazione
+per parti nella forma:
+\[
+  \int f(x)\, dx = \int 1\cdot f(x)\, dx = x f(x) - \int x f'(x)\, dx.
+\]
+Nel primo caso si ha:
+\[
+\int \ln x\, dx = x \ln x - \int x \frac{1}{x}\, dx
+ = x \ln x - \int 1 dx = x \ln x - x.
+\]
+Nel secondo caso:
+\[
+\int \arctg x\, dx = x \arctg x - \int \frac{x}{1+x^2}\, dx.
+\]
+Operiamo quindi un cambio di variabile $y=1+x^2$:
+\begin{align*}
+\int \frac{x}{1+x^2}\, dx
+&= \frac{1}{2}\int \frac{1}{1+x^2} 2x \, dx
+\stackrel{y=1+x^2} = \frac{1}{2}\int \frac 1 y\, dy \\
+&= \frac{\ln y}{2} = \frac{1}{2}\ln\enclose{1+x^2}
+\end{align*}
+da cui, in conclusione:
+\[
+ \int \arctg x\, dx = x \arctg x - \frac 1 2 \ln\enclose{1+x^2}.
+\]
+Nel terzo caso:
+\[
+ \int 1\cdot \arcsin x\, dx = x\cdot \arcsin x - \int\frac{x}{\sqrt{1-x^2}}\, dx  
+\]
+e operando la sostituzione $y=1-x^2$ si arriva a 
+\[
+  \int \arcsin x\, dx = x \cdot \arcsin x + \sqrt{1-x^2}.  
+\]
+L'ultimo integrale si svolge in maniera analoga.
+\end{proof}
+
+\begin{remark}
+Se si applica il metodo di integrazione per parti nella ricerca della primitiva
+della funzione $\frac{1}{x\ln x}$, integrando il fattore $\frac 1 x$ e
+derivando il fattore $\frac 1 {\ln x}$ si ottiene un fenomeno a prima vista
+sconcertante:
+\begin{align*}
+  \int \frac{1}{x\ln x}\,dx
+  &= \ln x \cdot \frac{1}{\ln x} - \int \ln x \cdot \frac{\frac 1 x}{-\ln^2 x}\, dx\\
+  &= 1 + \int \frac{1}{x\ln x}\, dx.
+\end{align*}
+Si potrebbe infatti pensare di poter semplificare gli integrali ai due lati
+dell'uguaglianza per ottenere $0=1$.
+Questo non si può fare perché, ricordiamolo, l'integrale indefinito è un insieme
+di funzioni (le primitive della funzione $\frac{1}{x\ln x}$ in questo caso)
+e sappiamo che sommando una costante ad una primitiva si ottiene un'altra primitiva.
+Quindi non ci deve stupire il fatto che sommando $1$ all'insieme delle primitive
+questo rimanga invariato.
+
+Per la cronaca: l'integrale in questione può essere calcolato per sostituzione,
+ponendo $y=\ln x$ trovando $F(x) = \ln\abs{\ln x}$ come una delle primitive.
+\end{remark}
+%
+%
+%

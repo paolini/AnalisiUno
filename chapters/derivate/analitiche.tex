@@ -1,0 +1,587 @@
+\section{funzioni analitiche e serie di Taylor}
+\index{funzione!analitica}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Nel capitolo sulle serie di potenze abbiamo studiato le serie di potenze
+della forma
+\begin{equation}\label{eq:4748219}
+    g(z) = \sum_{k=0}^{+\infty} a_k z^k.
+\end{equation}
+E' chiaro che se fissiamo un punto $z_0$ possiamo fare un cambio di variabile
+e osservare che la serie
+\begin{equation}\label{eq:33783}
+  f(z) = \sum_{k=0}^{+\infty} a_k \cdot(z-z_0)^k = g(z-z_0)
+\end{equation}
+converge nel cerchio $B_R(z_0) = \ENCLOSE{z \in \ZZ\colon \abs{z-z_0}< R}$
+dove $R$ è il raggio della serie di potenze~\eqref{eq:4748219}.
+Diremo che la serie nell'equazione~\eqref{eq:33783} è una
+serie di potenze centrata in $z_0$ e chiameremo $R$ il suo raggio di convergenza.
+
+Risulta allora naturale chiedersi se 
+una serie di potenze centrata in un punto $z_0$
+può essere scritta come serie di potenze centrata 
+nel punto $z_1$ almeno quando $\abs{z_1-z_0}<R$.
+La risposta, affermativa, è data dal seguente.
+
+\begin{theorem}[traslazione di una serie di potenze]
+\index{serie di potenze!traslazione}%
+\index{traslazione!di una serie di potenze}%
+\label{th:488456367}
+Si consideri la serie di potenze~\eqref{eq:33783} centrata in $z_0$
+con raggio di convergenza
+$R\in (0,+\infty]$, si prenda un punto $z_1 \in B_R(z_0)$
+e si ponga $r=R-\abs{z_1-z_0}$ cosicché $B_r(z_1)\subset B_R(z_0)$.
+Allora
+per ogni $z\in B_r(z_1)$ si ha
+\begin{equation}\label{eq:48478643}
+  f(z) = \sum_{j=0}^{+\infty} b_j (z - z_1)^j
+\end{equation}
+per opportuni coefficienti $b_j$. In particolare la serie
+di potenze in~\eqref{eq:48478643}, centrata in $z_1$,
+ha raggio di convergenza non inferiore a $r$.
+\end{theorem}
+%
+\begin{proof}
+Per semplificare le notazioni possiamo supporre, senza perdere di generalità,
+che sia $z_0=0$. Se poniamo $h=z-z_1$ si ha
+\begin{align*}
+f(z) 
+&= \sum_{k=0}^{+\infty} a_k z^k 
+= \sum_{k=0}^{+\infty} a_k (z_1+h)^k
+= \sum_{k=0}^{+\infty} \sum_{j=0}^k a_k {k \choose j}z_1^{k-j}h^j.
+\end{align*}
+Vorremmo ora applicare il teorema~\ref{th:somma_Cauchy}
+per scambiare l'ordine delle due somme.
+Per fare ciò bisogna verificare la convergenza
+della seguente serie:
+\begin{align*}
+  \sum_{k=0}^{+\infty} \sum_{j=0}^k \abs{a_k} {k \choose j}\abs{z_1}^{k-j}\abs{h}^j 
+  &= \sum_{k=0}^{+\infty} \abs{a_k \enclose{\abs{z_1}+\abs{h}}^k}.
+\end{align*}
+Questa serie converge perché per ipotesi $\abs{z_1}+\abs{h} \le \abs{z_1} + r < R$
+e dunque siamo all'interno del raggio di convergenza dove la serie converge
+assolutamente . 
+Dunque possiamo scambiare le somme e ottenere:
+\[
+  f(z) = \sum_{j=0}^{+\infty} \sum_{k=j}^{+\infty} a_k {k\choose j} z_1^{k-j} h^j
+    = \sum_{j=0}^{+\infty} b_j h^j
+  \qquad\text{con }
+b_j = \sum_{k=j}^{+\infty}
+ a_k {k\choose j}z_1^{k-j}.
+\]
+Dunque la serie di potenze $\sum b_j (z-z_1)^j$ 
+ha raggio di convergenza non inferiore ad $r$ 
+ed ha somma $f(z)$, come volevamo dimostrare.
+\end{proof}
+
+La teoria delle funzioni analitiche potrebbe essere svolta, senza cambiare
+sostanzialmente nulla, per le funzioni di variabile complessa.
+Si dovrebbe però introdurre il concetto di derivata in senso complesso
+e quindi per semplicità ci limitiamo alle funzioni reali, 
+che sono il nostro argomento di studio.
+
+\begin{definition}[funzione analitica]
+\mymargin{funzione analitica}%
+\index{funzione!analitica}
+Sia $A\subset \RR$ e sia $f\colon A\subset \RR \to \RR$ una funzione. 
+Diremo che
+$f$ è \emph{analitica} se per ogni $x_0\in A$ esiste $R>0$ 
+tale $(x_0-R,x_0+R)\subset A$ ed esiste una successione
+di numeri reali $a_k$ tale che per ogni 
+$x\in (x_0-R,x_0+R)$ si ha:
+\[
+  f(x) = \sum_{k=0}^{+\infty} a_k (x-x_0)^k.
+\]
+\end{definition}
+
+Il teorema~\ref{th:488456367} ci dice in particolare che la somma di una serie
+di potenze è una funzione analitica, almeno all'interno del raggio di convergenza.
+Ad esempio la funzione $f(x)=e^x$ è una funzione 
+analitica definita su tutto $\RR$ in quanto, 
+grazie al teorema~\ref{th:serie_esponenziale} 
+$f(x)$ risulta essere la somma di una serie di potenze
+con raggio di convergenza $R=+\infty$ centrata in $x=0$.
+
+\begin{theorem}[Sviluppabilità in serie di Taylor]
+\label{th:48765}%
+Se $f\colon A\subset \RR\to\RR$ è una funzione analitica allora
+$f\in C^\infty(A)$ e per ogni $x_0\in A$ esiste $R>0$, tale che
+per ogni $x \in (x_0-R, x_0+R)\subset A$ risulta
+\begin{equation}\label{eq:2344494}
+  f(x) = \sum_{k=0}^{+\infty} \frac{f^{(k)}(x_0)}{k!}(x-x_0)^k.
+\end{equation}
+Anche la derivata di $f$ è una funzione analitica e la serie
+di Taylor della derivata si ottiene derivando termine a termine
+la serie di Taylor di $f$.
+\end{theorem}
+%
+\begin{proof}
+Senza perdere di generalità supponiamo che sia $x_0=0$. 
+Essendo $f$
+una funzione analitica, per definizione sappiamo che esiste $R>0$
+tale che per $\abs{x}<R$ si ha
+\[
+f(x) = \sum_{k=0}^{+\infty} a_k x^k
+\]
+con opportuni coefficienti $a_k$. 
+Vogliamo mostrare che $f(x)$ è derivabile.
+Informalmente vorremmo svolgere i seguenti passaggi:
+\begin{align*}
+\frac{f(x+h) - f(x)}{h}
+&= \sum_{k=1}^{+\infty} a_k \cdot \frac{(x+h)^k-x^k}{h}
+= \sum_{k=1}^{+\infty} a_k \cdot \frac{\sum_{j=1}^k {k\choose j} \cdot h^j \cdot x^{k-j}}{h} \\
+&= \sum_{k=1}^{+\infty} a_k \cdot \sum_{j=1}^k {k\choose j} \cdot h^{j-1} \cdot x^{k-j} \\
+&= \sum_{k=1}^{+\infty} a_k \cdot \sum_{j=0}^{k-1} {k\choose j+1} \cdot h^j \cdot x^{k-j-1} \\
+&= \sum_{j=0}^{+\infty} \enclose{\sum_{k=j+1}^{+\infty} a_k \cdot {k\choose j+1} \cdot x^{k-j-1}} h^j.
+\end{align*}
+Se poniamo
+\[
+  c_{k,j} = a_k\cdot {k\choose j+1}\cdot x^{k-j-1}
+\]
+i passaggi risultano giustificati se la serie $\sum_{k,j} c_{k,j}$
+è assolutamente convergente. Ma, mettendo opportunamente
+i valori assoluti nei passaggi già fatti, si ottiene
+\[
+  \sum_{j=0}^{+\infty} \sum_{k=j+1}^{+\infty} \abs{c_{k,j}}
+  =  \sum_{k=1}^{+\infty} \abs{a_k} \frac{\enclose{\abs x + \abs h}^k-\abs{x}^k}{\abs{h}}
+\]
+e dunque possiamo affermare che c'è convergenza assoluta
+se $\abs{x}<R$ e $\abs{x}+\abs{h}<R$ cioè se $\abs{h}< R-\abs{x}$. In tal caso
+i passaggi fatti prima sono giustificati e quindi il risultato
+è una serie di potenze convergente per $\abs{h}<R-\abs{x}$. In particolare
+fissato $x$
+la somma della serie di potenze ottenuta alla fine è una funzione continua
+e per $h\to 0$
+tende al termine noto della serie (quello con $j=0$), dunque si ha
+\[
+  \lim_{h\to 0} \frac{f(x+h)-f(x)}{h}
+  = \sum_{k=1}^{+\infty} a_k \cdot {k \choose 1} \cdot x^{k-1}
+  = \sum_{k=1}^{+\infty} k a_k \cdot x^{k-1}.
+\]
+Abbiamo trovato che la derivata della serie di potenze è uguale
+alla serie di potenze delle derivate.
+
+Visto che la serie delle derivate ha lo stesso raggio di convergenza $R$
+della serie originaria (teorema~\ref{th:raggio_serie_derivate})
+il procedimento può essere iterato trovando che ogni derivata è derivabile
+e per ogni $x\in (-R,R)$ si avrà dunque:
+\[
+  f^{(n)}(x) = \sum_{k=n}^{+\infty}k (k-1) \cdots (k-n+1) \cdot a_k \cdot x^{k-n}.
+\]
+In particolare
+\[
+  f^{(n)}(0) = n! \cdot a_n
+\]
+e quindi
+\[
+  f(x) = \sum_{k=0}^{+\infty} \frac{f^{(k)}(0)}{k!} x^k
+\]
+come dovevamo dimostrare.
+\end{proof}
+
+Abbiamo visto che le funzioni analitiche sono di classe $C^\infty$. Il seguente
+esempio ci mostra che il viceversa non è vero e dunque la classe delle funzioni
+analitiche è strettamente contenuta nella classe delle funzioni $C^\infty$.
+
+\begin{example}[funzione $C^\infty$ non analitica]
+La funzione
+\[
+  f(x) =
+  \begin{cases}
+    e^{-\frac 1 {x^2}} & \text{se $x\neq 0$}\\
+    0 & \text{se $x=0$}
+  \end{cases}
+\]
+è di classe $C^\infty$ in quanto per $x\neq 0$ possiamo calcolare
+tutte le derivate e osservare che si possono scrivere nella forma
+\[
+  f^{(n)}(x) = \frac{P_n(x)}{x^{3n}}e^{-\frac 1 {x^2}}
+\]
+per un opportuno polinomio $P_n$ (lo si dimostri per induzione).
+Dunque per $x\to 0$ si ha, per ogni $n\in \NN$
+\[
+  f^{(n)}(x) \to 0
+\]
+e quindi la funzione $f$ è derivabile infinite volte anche nel
+punto $x=0$ (grazie alla proposizione~\ref{prop:4384774})
+e risulta $f^{(n)}(0) = 0$ per ogni $n\in \NN$. Se la funzione $f$
+fosse analitica in un intorno di $0$ dovremmo avere, per il teorema~\ref{th:48765}:
+\[
+  f(x) = \sum_{k=0}^{+\infty} 0\cdot x^k = 0
+\]
+che è assurdo in quanto $f(x)>0$ per ogni $x\neq 0$.
+\end{example}
+
+
+\begin{theorem}[serie binomiale]
+\label{th:serie_binomiale}%
+\mymargin{serie binomiale}%
+\index{serie!binomiale}\index{binomiale!serie}
+Per ogni $\alpha\in \RR$ per ogni $x\in (-1,1)$ si ha
+\[
+  (1+x)^{\alpha}  = \sum_{k=0}^{+\infty} {\alpha \choose k} \cdot x^k.
+\]
+\end{theorem}
+%
+\begin{proof}
+Innanzitutto osserviamo che la serie di potenze di coefficiente
+$a_k = {\alpha \choose k}$ ha raggio di convergenza $R=1$.
+Infatti, tramite il criterio del rapporto, si trova:
+\[
+  \frac{\abs{a_{n+1}}}{\abs{a_n}}
+  = \frac{\abs{\alpha (\alpha-1) \cdots (\alpha-n)}}{(n+1)!}
+  \cdot \frac{n!}{\abs{\alpha(\alpha-1) \cdots (\alpha-n+1)}}
+  = \frac{\abs{\alpha-n}}{n+1} \to 1.
+\]
+Dunque la funzione
+\[
+ f(x) = \sum_{k=0}^{+\infty} {\alpha \choose k} x^k
+\]
+è definita per ogni $x\in(-1,1)$.
+Grazie al teorema~\ref{th:488456367} la funzione $f$ è sviluppabile
+in serie di potenze nell'intorno di ogni punto dell'intervallo $(-1,1)$
+e dunque è una funzione analitica su tale intervallo. Inoltre la sua
+derivata ha come sviluppo la serie delle derivate:
+\[
+  f'(x) = \sum_{k=1}^{+\infty} k {\alpha \choose k} \cdot x^{k-1}.
+\]
+
+Per dimostrare che $f(x) = (1+x)^\alpha$ basta mostrare che il rapporto:
+\[
+  u(x) = \frac{f(x)}{(1+x)^\alpha}
+\]
+è costantemente uguale ad $1$. Per verifica diretta si vede che $f(0)=1$
+dunque abbiamo almeno $u(0) = 1$. Basta allora mostrare che $u$ è costante
+ovvero che $u'=0$. Ma si ha
+\begin{align*}
+  u'(x)
+  &= \frac{f'(x) (1+x)^\alpha - f(x) \alpha (1+x)^{\alpha-1}}{(1+x)^{2\alpha}} \\
+  &= \frac{(1+x) f'(x) - \alpha f(x)}{(1+x)^{\alpha+1}}.
+\end{align*}
+Osserviamo allora che
+\begin{align*}
+(1+x)f'(x)
+&= \sum_{k=1}^{+\infty} k{\alpha \choose k} x^{k-1}
++ \sum_{k=1}^{+\infty} k{\alpha \choose k} x^{k}\\
+&= \sum_{k=0}^{+\infty} (k+1){\alpha \choose k+1} x^k
++ \sum_{k=0}^{+\infty} k {\alpha \choose k} x^k \\
+&= \sum_{k=0}^{+\infty} \Enclose{\frac{\alpha(\alpha-1) \cdots (\alpha-k)}{k!}
+ + k \frac{\alpha(\alpha-1)\cdots(\alpha-k+1)}{k!}} x^k \\
+ &= \sum_{k=0}^{+\infty} \frac{\alpha(\alpha-1)\cdots(\alpha-k+1)}{k!}\Enclose{(\alpha-k)+k} x^k\\
+ &= \alpha \sum_{k=0}^{+\infty} {\alpha \choose k} x^k = \alpha \cdot f(x).
+\end{align*}
+Dunque $u'(x)=0$ e $f(x) = (1+x)^\alpha$ per ogni $x\in(-1,1)$, come
+volevamo dimostrare.
+\end{proof}
+
+Non basta che una funzione sia di classe $C^\infty$ per garantire
+che sia anche analitica e quindi può essere utile il seguente.
+
+\begin{theorem}[criterio di analiticità]
+\label{th:criterio_analitica}
+Sia $f\in C^\infty(A)$ una funzione reale definita su un
+insieme aperto $A\subset \RR$. Supponiamo che per ogni $x_0\in A$ esistano $r>0$,
+$M>0$ e $L>0$ tali che $[x_0-r, x_0+r] \subset A$ e
+per ogni $x\in [x_0-r, x_0+r]$ e per
+ogni $n\in \NN$ si abbia
+\[
+  \frac{\abs{f^{(n)}(x)}}{n!} \le M\cdot L^n.
+\]
+Allora $f$ è analitica in $A$.
+\end{theorem}
+%
+\begin{proof}
+Fissiamo $x_0\in A$.
+Dobbiamo dimostrare che in un intorno di $x_0$ è possibile
+scrivere $f$ come somma di una serie di potenze $\sum a_k (x-x_0)^k$.
+Necessariamente, per il teorema~\ref{th:48765}, la serie
+di potenze dovrà essere la serie di Taylor, cioè vogliamo dimostrare che
+esiste $\rho>0$ tale che se $\abs{x-x_0}< \rho$ si ha
+\[
+  f(x) = \sum_{k=0}^{+\infty} \frac{f^{(k)}(x_0)}{k!}(x-x_0)^k.
+\]
+Grazie alla formula di Taylor con resto di Lagrange (teorema~\ref{th:taylor_lagrange}),
+noi sappiamo che
+\[
+  f(x) = \sum_{k=0}^{n} \frac{f^{(k)}(x_0)}{k!}(x-x_0)^k
+   + \frac{f^{(n+1)}(y)}{(n+1)!}(x-x_0)^{n+1}.
+\]
+Dunque sarà sufficiente mostrare che fissato $x$ per $n\to +\infty$ il resto
+tende a zero.
+Ma infatti se $\abs{x-x_0}\le \rho$ si ha
+\begin{align*}
+ \abs{\frac{f^{(n+1)}(y)}{(n+1)!}(x-x_0)^{n+1}}
+ & \le  M\cdot L^{n+1}\abs{x-x_0}^{n+1}
+ = M (L\rho)^{n+1}\to 0
+\end{align*}
+se scegliamo $\rho$ in modo che sia $\rho < 1/L$.
+\end{proof}
+
+\begin{theorem}[analiticità di alcune funzioni elementari]
+  \label{th:serie_taylor}
+  Le funzioni $e^x$, $\sin x$, $\cos x$, $\ln x$ sono funzioni
+  analitiche. Le funzioni $\arcsin$ e $\arccos$ sono analitiche sull'intervallo
+  aperto $(-1,1)$. Per ogni $\alpha \in \RR$
+  la funzione $x^\alpha$ è analitica sull'intervallo $(0,+\infty)$.
+  Valgono inoltre le formule riportate in tabella~\ref{tb:taylor2}.
+\end{theorem}
+%
+\begin{table}
+\begin{align*}
+e^x &= \sum_{k=0}^{+\infty} \frac{x^k}{k!}\\
+\sin x &= \sum_{k=0}^{+\infty} (-1)^k\frac{x^{2k+1}}{(2k+1)!}\\
+\cos x &= \sum_{k=0}^{+\infty} (-1)^k\frac{x^{2k}}{(2k)!}\\
+\sinh x &= \sum_{k=0}^{+\infty} \frac{x^{2k+1}}{(2k+1)!}\\
+\cosh x &= \sum_{k=0}^{+\infty} \frac{x^{2k}}{(2k)!} \\
+(1+x)^\alpha &= \sum_{k=0}^{+\infty} {\alpha \choose k} x^k, \qquad \text{se $\abs{x}<1$} \\
+\ln (1+x) &= \sum_{k=1}^{+\infty} (-1)^{k-1} \frac{x^k}{k}, \qquad \text{se $x\in(-1,1]$} \\
+\arctg x &= \sum_{k=0}^{+\infty} (-1)^k \frac{x^{2k+1}}{2k+1}, \qquad \text{se $x\in [-1,1]$} \\
+\arcsin x &= \sum_{k=0}^{+\infty} \frac{(2k-1)!!}{(2k)!!} \frac{x^{2k+1}}{2k+1}, 
+  \qquad \text{se $x\in[-1,1]$} \\
+\arccos x &= \frac \pi 2 - \arcsin x
+\end{align*}
+\caption{sviluppi in serie di Taylor, di alcune funzioni elementari.
+\index{Taylor!sviluppi in serie delle funzioni elementari}%
+\index{sviluppo!serie di Taylor}%
+Si veda il teorema~\ref{th:serie_taylor}.}
+\label{tb:taylor2}%
+\end{table}
+%
+\begin{proof}
+  Che $e^x$ sia analitica lo abbiamo già osservato
+  (è conseguenza dei teoremi~\ref{th:serie_esponenziale}
+  e \ref{th:488456367}).
+  Le funzioni $\sin x$ e $\cos x$ hanno tutte le derivate 
+  limitate (tra $-1$ e $1$)
+  e quindi, grazie al teorema~\ref{th:criterio_analitica},
+  risultano essere analitiche su tutto $\RR$.
+  
+  Per quanto riguarda la funzione $f(x)=x^\alpha$ 
+  scelto un punto qualunque $x_0>0$
+  possiamo utilizzare il teorema~\ref{th:serie_binomiale}:
+    \begin{align*}
+    x^\alpha
+    &= (x_0 + x-x_0)^\alpha
+    = x_0^\alpha \enclose{1+\frac {x-x_0} {x_0}}^\alpha \\
+    &= x_0^\alpha \sum_{k=0}^{+\infty} {\alpha \choose k} \enclose{\frac{x-x_0}{x_0}}^k
+    = \sum_{k=0}^{+\infty} x_0^{\alpha-k}{\alpha \choose k} (x-x_0)^k
+  \end{align*}
+  e dunque anche $x^\alpha$ è sviluppabile in serie di potenze
+  nell'intorno di un qualunque punto $x_0>0$ ed è quindi una
+  funzione analitica.
+
+  Osserviamo ora che se $f$ è derivabile ed $f'$ è analitica
+  allora anche
+  $f$ è analitica. Infatti se
+  \[
+    f'(x) = \sum_{k=0}^{+\infty} a_k (x-x_0)^k
+  \]
+  su un certo intervallo $I$
+  allora la funzione
+  \begin{equation}\label{eq:4569903}
+    g(x) = f(x_0) + \sum_{k=0}^{+\infty} \frac{a_k}{k+1}x^{k+1}
+  \end{equation}
+  è anch'essa analitica su $I$ (in quanto definita da una serie di potenze)
+  ma chiaramente $g(x_0) = f(x_0)$ e $g'(x) = f'(x)$ per ogni $x\in I$,
+  dunque $g-f$ è costantemente uguale a $0$ cioè $f(x) = g(x)$.
+
+  La precedente osservazione si applica alle funzioni 
+  $\ln x$, $\arctg x$, $\arcsin x$ e $\arccos x$ 
+  in quanto la loro derivata è una funzione potenza e quindi
+  è analitica per quanto già visto:
+  \begin{align*}
+    D \ln (1+x) &= \enclose{1+x}^{-1}, &
+    D \arctg x &= \enclose{1+x^2}^{-1}, \\
+    D \arcsin x &= \enclose{1+x^2}^{-\frac 1 2}, &
+    D \arccos x &= -\enclose{1+x^2}^{-\frac 1 2}.
+  \end{align*}
+
+  Si trovano quindi gli sviluppi in serie riportati nella tabella~\ref{tb:taylor2}
+  validi all'interno del raggio di convergenza di queste serie ovvero per $x\in (-1,1)$.
+
+  Ci ricordiamo però il teorema~\ref{th:lemma_abel} (lemma di Abel) il quale 
+  garantisce che se abbiamo una serie di potenze il cui raggio di convergenza 
+  è $R$ e se la serie è convergente nel punto $x$ con $x=\pm R$ allora 
+  la somma della serie risulta essere una funzione continua fino al punto $x$.
+  Ad esempio la somma della serie di Taylor della funzione $\ln(1+x)$
+  è continua nel punto $x=1$ in quanto in tale punto è convergente 
+  (si tratta infatti della serie armonica a segni alterni, 
+  convergente per il criterio di Leibniz). 
+  Dunque si ha 
+  \begin{equation}\label{eq:somma_serie_leibniz}
+    \sum_{k=1}^{+\infty} \frac{(-1)^{k-1}} k 
+    = \lim_{x\to 1^-} \sum_{k=1}^{+\infty} (-1)^{k-1} \frac{x^k}{k}
+    = \lim_{x\to 1^-} \ln (1+x) = \ln 2 
+  \end{equation}
+  e lo sviluppo in serie del logaritmo $\ln(1+x)$ è valido su 
+  tutto l'intervallo semiaperto $(-1,1]$. 
+
+  Lo stesso vale per le funzioni $\arctg x$, $\arcsin x$ e $\arccos x$ le cui serie 
+  sono convergenti su tutto l'intervallo chiuso $[-1,1]$.
+
+  Naturalmente i coefficienti delle serie di Taylor che abbiamo trovato ora
+  coincidono con i coefficienti 
+  dei polinomi di Taylor che avevamo già trovato nella tabella~\ref{tb:taylor}
+  a pagina \pageref{tb:taylor} in quanto troncando la serie di Taylor otteniamo 
+  un polinomio che soddisfa la formula di Taylor~\eqref{eq:Taylor} 
+  e quindi è proprio il polinomio di Taylor.
+
+  La serie di Taylor delle funzioni $\sinh$ e $\cosh$ si ottiene immediatamente 
+  sommando o sottraendo le serie di Taylor di $e^x$ e di $e^{-x}$.
+\end{proof}
+
+Il teorema precedente ci permette di scrivere delle identità notevoli. 
+Ponendo $x=1$ nella serie che definisce il logaritmo abbiamo già osservato 
+che si ottiene la somma della serie armonica a segni alterni di \emph{Newton-Mercator}%
+\mymargin{Newton-Mercator}%
+\index{Newton-Mercator}:
+\index{formula!di Newton-Mercator}%
+\index{serie!di Newton-Mercator}%
+\index{serie!armonica!a segni alterni}%
+\index{$\sqrt 2$!sviluppo in serie}%
+\begin{equation}\label{eq:serie_ln2}
+  \ln 2 = 1 - \frac 1 2 + \frac 1 3 - \frac 1 4 + \frac 1 5 - \frac 1 6 + \dots
+\end{equation}
+Ponendo $x=1$ nella serie di Taylor dell'arcotangente otteniamo 
+la formula di \emph{Gregory-Leibniz}%
+\mymargin{Gregory-Leibniz}%
+\index{Gregory-Leibniz}
+\index{$\pi$!formula di Gregory-Leibniz}%
+\index{Gregory!approssimazione $\pi$}%
+\index{Leibniz!approssimazione $\pi$}%
+\index{formula!di Gregory-Lebniz per $\pi/4$}%
+\[
+  \frac \pi 4 =
+   1 - \frac 1 3 + \frac 1 5 - \frac 1 7 + \frac 1 9 - \frac 1 {11} + \dots
+\]
+
+Anche lo sviluppo in serie dell'arcoseno determina una formula utile per calcolare 
+le cifre decimali di $\pi$. 
+Per avere una convergenza più rapida conviene prendere $x$ più possibile 
+vicino a zero, nel seguente esercizio prendiamo $x=\frac 1 2$ per trovare 
+la ben nota approssimazione $\pi \approx 3.14$.
+
+\begin{exercise}[calcolo cifre di $\pi$]
+  \label{ex:cifre_pi}
+%  Possiamo perfezionare il calcolo delle cifre di $\pi$
+%  fatto nell'esercizio~\ref{ex:4899264}.
+  Grazie allo sviluppo di Taylor della funzione $\arcsin$
+  sappiamo che
+  \[
+    \frac \pi 6
+    = \arcsin \frac 1 2
+    = \sum_{k=0}^{+\infty} \frac{(2k-1)!!}{(2k)!!} \frac{1}{(2k+1)\cdot 2^{2k+1}}
+  \]
+  dunque
+  \[
+    \pi = 3 \sum_{k=0}^n \frac{(2k-1)!!}{(2k)!!} \frac{1}{(2k+1)\cdot 4^k} + \eps_{n+1}
+  \]
+  dove
+  \begin{align*}
+   \eps_n
+   &= 3 \sum_{k=n}^{+\infty} \frac{(2k-1)!!}{(2k)!!} \frac{1}{(2k+1)\cdot 4^k}
+   \le 3 \sum_{k=n}^{+\infty} \frac{1}{(2k+1)\cdot 4^k} \\
+   &\le \frac{3}{(2n+1)\cdot 4^n} \sum_{k=0}^{+\infty} \frac{1}{4^k}
+   = \frac{3}{(2n+1)\cdot 4^n} \cdot \frac{1}{1-\frac 1 4}
+   = \frac{4}{(2n+1)\cdot 4^n}.
+ \end{align*}
+ Per $n=3$ si ottiene dunque
+ \begin{align*}
+  \pi
+  &= 3 + \frac{3}{2\cdot 3 \cdot 4} + \frac{3\cdot 3}{4\cdot 2 \cdot 5 \cdot 4^2}
+  + \frac{3\cdot 5\cdot 3}{6\cdot 4\cdot 2 \cdot 7 \cdot 4^3} + \eps_4 \\
+  &= 3+\frac{1}{8} + \frac{9}{640} + \frac{45}{21504} + \eps_4
+\end{align*}
+ con
+ \[
+ 0 < \eps_4 < \frac{1}{9\cdot 4^3} < 0.0018
+ \]
+ da cui
+ \[
+   3.141 < \pi < 3.143
+ \]
+
+ Usando questo metodo con un calcolatore possiamo trovare rapidamente molte
+ cifre esatte, come riportato nella tabella~\ref{tab:cifre_pi}.
+\end{exercise}
+%
+\begin{table}
+\begin{center}
+\begin{tabular}{r}
+\ttfamily\footnotesize 3.1415926535 8979323846 2643383279 5028841971 6939937510 \\
+\ttfamily\footnotesize   5820974944 5923078164 0628620899 8628034825 3421170679 \\
+\ttfamily\footnotesize   8214808651 3282306647 0938446095 5058223172 5359408128 \\
+\ttfamily\footnotesize   4811174502 8410270193 8521105559 6446229489 5493038196 \\
+\ttfamily\footnotesize   4428810975 6659334461 2847564823 3786783165 2712019091 \\
+\ttfamily\footnotesize   4564856692 3460348610 4543266482 1339360726 0249141273 \\
+\ttfamily\footnotesize   7245870066 0631558817 4881520920 9628292540 9171536436 \\
+\ttfamily\footnotesize   7892590360 0113305305 4882046652 1384146951 9415116094 \\
+\ttfamily\footnotesize   3305727036 5759591953 0921861173 8193261179 3105118548 \\
+\ttfamily\footnotesize   0744623799 6274956735 1885752724 8912279381 8301194912 \\
+\ttfamily\footnotesize   9833673362 4406566430 8602139494 6395224737 1907021798 \\
+\ttfamily\footnotesize   6094370277 0539217176 2931767523 8467481846 7669405132 \\
+\ttfamily\footnotesize   0005681271 4526356082 7785771342 7577896091 7363717872 \\
+\ttfamily\footnotesize   1468440901 2249534301 4654958537 1050792279 6892589235 \\
+\ttfamily\footnotesize   4201995611 2129021960 8640344181 5981362977 4771309960 \\
+\ttfamily\footnotesize   5187072113 4999999837 2978049951 0597317328 1609631859 \\
+\ttfamily\footnotesize   5024459455 3469083026 4252230825 3344685035 2619311881 \\
+\ttfamily\footnotesize   7101000313 7838752886 5875332083 8142061717 7669147303 \\
+\ttfamily\footnotesize   5982534904 2875546873 1159562863 8823537875 9375195778 \\
+\ttfamily\footnotesize   1857780532 1712268066 1300192787 6611195909 2164201989
+\end{tabular}
+\end{center}
+\caption{Le prime 1000 cifre decimali del numero $\pi$
+calcolate con il metodo utilizzato nell'esercizio~\ref{ex:cifre_pi}.
+Si veda il codice a pagina~\pageref{code:compute_pi}.}
+\label{tab:cifre_pi}
+\index{$\pi$!cifre decimali}
+\index{cifre!$\pi$}
+\end{table}
+
+\begin{theorem}[principio di identità delle funzioni analitiche]
+  Se $f$ e $g$ sono due funzioni analitiche definite su uno stesso intervallo
+  aperto $I\subset \RR$ allora risultano fatti equivalenti:
+  \begin{enumerate}
+   \item $f(x)=g(x)$ per ogni $x\in I$,
+   \item esiste $x_0\in I$ tale che per ogni $k\in \NN$ si ha $f^{(k)}(x_0) = g^{(k)}(x_0)$,
+   \item esiste $x_0\in I$ e $\rho>0$ tale che per ogni $x\in I$ con $\abs{x-x_0}<\rho$ si ha
+   $f(x)=g(x)$.
+  \end{enumerate}
+  \end{theorem}
+  \begin{proof}
+  Se $f=g$ allora chiaramente le derivate di $f$ e $g$ coincidono in tutti i punti,
+  quindi $1\implies 2$.
+  
+  Se $f$ e $g$ sono analitiche e $x_0\in I$ esiste un intorno del punto
+  $x_0$ in cui entrambe le funzioni possono essere scritte come
+  somma della serie di Taylor. Ma se $f$ e $g$ hanno le stesse derivate
+  nel punto $x_0$ le loro serie di Taylor coincidono e dunque le funzioni
+  coincidono all'interno del raggio di convergenza. Dunque $2\implies 3$.
+  
+  Ci rimane da dimostrare che $3 \implies 1$.
+  Per ipotesi sappiamo che esiste $x_0\in I$ tale che $f(x) = g(x)$ in un intorno
+  di $x_0$. Supponiamo per assurdo che esista almeno un punto $x\in I$ in cui
+  $f(x) \neq g(x)$. Senza perdita di generalità possiamo supporre che sia
+  $x>x_0$ e possiamo prendere l'estremo inferiore di tali punti:
+  \[
+    x_1 = \inf\ENCLOSE{x\in I\colon x>x_0, f(x)\neq g(x)}.
+  \]
+  Sappiamo che $x_1>x_0$ perché in un intorno di $x_0$ le due funzioni
+  coincidono per ipotesi. Per definizione di $x_1$ sappiamo anche
+  che $f(x)=g(x)$ per ogni $x\in [x_0,x_1)$ e quindi, facendo le derivate,
+  possiamo affermare che $f^{(k)}(x) = g^{(k)}(x)$ per ogni $k\in \NN$
+  e per ogni $x\in [x_0,x_1)$. Visto che $f$ e $g$ sono di classe $C^\infty$
+  possiamo concludere, per continuità, che anche $f^{(k)}(x_1)=g^{(k)}(x_1)$
+  per ogni $k\in \NN$. Dunque le due funzioni hanno le stesse derivate
+  nel punto $x_1$. Essendo $f$ e $g$ funzioni analitiche sappiamo
+  che c'è un intorno del punto $x_1$ in cui entrambe le funzioni
+  coincidono con la somma della propria serie di Taylor. Ma avendo le
+  stesse derivate in $x_1$ le due funzioni hanno anche la stessa serie
+  di Taylor e quindi coincidono in un intorno di $x_1$. Questo
+  è assurdo perché per come abbiamo definito $x_1$ ci devono
+  essere dei punti arbitrariamente vicini a $x_1$ in cui $f(x)\neq g(x)$.
+  \end{proof}
+  
