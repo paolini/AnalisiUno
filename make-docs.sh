@@ -1,11 +1,11 @@
 out=README.md
-
+INTRODUZIONE=chapters/introduzione.tex
 # truncate
 echo "writing file" ${out}
 echo "" > ${out}
 
 # extracting documentation from latex source
-grep "%% README" chapters/*-00*.tex | cut -f1 -d"%" | sed "s/\\\\emph{\\([^}]*\\)}/\\*\\1\\*/g" >> ${out}
+grep "%% README" "${INTRODUZIONE}" | cut -f1 -d"%" | sed "s/\\\\emph{\\([^}]*\\)}/\\*\\1\\*/g" >> ${out}
 
 # writing additional info for the repository
 cat << EOF >> ${out} 
@@ -142,7 +142,7 @@ MathJax.Hub.Config({
 <p>
 EOF
 
-grep "%% README" chapters/*-00-*.tex \
+grep "%% README" "${INTRODUZIONE}" \
   | cut -f1 -d"%" \
   | sed "s/^ *$/<\/p><p>/g" \
   | sed "s/\\\\emph{\\([^}]*\\)}/<i>\\1<\\/i>/g" \
