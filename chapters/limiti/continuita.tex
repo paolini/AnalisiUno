@@ -1,0 +1,1581 @@
+\section{funzioni continue}
+\label{sec:continuita}
+
+Intuitivamente una funzione continua ha la proprietà
+che se in un punto $x_0$ assume un valore $y_0=f(x_0)$ allora
+in punti abbastanza vicini ad $x_0$ i valori assunti
+non saranno molto diversi dal valore $y_0$.
+Nella definizione seguente questo viene formalizzato:
+fissato il punto $x_0$ e scelto un errore $\eps>0$
+che siamo disposti a commettere sui valori della funzione
+possiamo trovare un errore $\delta>0$ per cui nei punti
+che differiscono da $x_0$ per meno di $\delta$ il valore
+della funzione differisce da $y_0$ per meno di $\eps$.
+
+Se $x$ e $y$ sono due punti di $\RR$ la loro distanza 
+è data da $\abs{x-y}$. 
+Una disuguaglianza del tipo $\abs{x-y}<r$ significa 
+che il punto $x$ si trova nell'intervallo $(x-r,x+r)$.
+Nel seguito ci concentreremo sulle funzioni con dominio 
+e codominio nei numeri reali. 
+Ma potremo osservare che molte delle definizioni e molti 
+dei teoremi possono essere enunciati e dimostrati in maniera 
+identica anche per le funzioni con dominio e codominio 
+nei numeri complessi%
+\footnote{Ci sono in realtà quattro casi rilevanti:
+dominio e codominio reale, dominio e codominio complesso, 
+dominio reale e codominio complesso, 
+dominio complesso e codominio reale, cominio reale 
+e codominio complesso. 
+Per dire che il dominio è sottoinsieme dei numeri complessi 
+diremo che la funzione $f$ è \emph{di variabile complessa},
+mentre per dire che la funzione $f$ ha codominio nei numeri 
+complessi diremo che $f$ è \emph{a valori complessi}
+o più semplicemente che $f$ è complessa.
+Il caso di funzioni complesse di variabile complessa 
+è ovviamente il caso più generale. 
+Ma a volte può essere utile restringersi alla variabile 
+reale dove abbiamo la struttura lineare data dall'ordinamento.
+Sempre per mantenere l'ordinamento il caso reale e complesso 
+si distinguono anche per i punti all'infinito: nel caso reale 
+ne introduciamo due, $+\infty$ e $-\infty$ mentre nel caso 
+complesso si introduce un unico punto $\infty$.
+} 
+Ad una prima lettura si consiglia di trascurare 
+il caso complesso.
+Anche quando $x$ e $y$ sono punti di $\CC$ il modulo della 
+differenza $\abs{x-y}$ rappresenta la distanza tra i due 
+punti $x$ e $y$. 
+Fissato $y\in \CC$ e $r>0$
+\mynote{La condizione $r>0$ non ha senso se $r\in \CC$ 
+quindi se si impone questa condizione è sottointeso 
+che $r\in \RR$}
+la condizione $\abs{x-y}<r$ identifica i punti $x$ 
+che si trovano all'interno di un cerchio di raggio $r$
+intorno a $y$.
+
+\begin{definition}[funzione continua]
+  \label{def:continua}%
+  \index{funzione!continua}%
+  \index{continuità}%
+  Sia $f\colon A \subset \RR \to \RR$ 
+  (oppure $f\colon A\subset \CC \to \CC$) una funzione. 
+  Diremo che $f$ è \emph{continua nel punto}%
+\mymargin{continua nel punto}%
+\index{continuo!nel punto} $x_0\in A$ se
+  \begin{equation}\label{eq:continuita}
+  \forall \eps>0 \colon \exists \delta>0 \colon
+  \forall x\in A\colon
+  \abs{x-x_0} < \delta \implies \abs{f(x)-f(x_0)} < \eps.
+  \end{equation}
+  
+  Diremo che $f$ è \emph{continua}%
+\mymargin{continua}%
+\index{continuo} se è continua in ogni punto $x_0 \in A$.
+  \end{definition}
+  
+  %%%%%%%%%%%%%%%%%%%
+  %%%%%%%%%%%%%%%%%%%
+  %%%%%%%%%%%%%%%%%%%
+  
+  Attenzione: la funzione $f(x)=\frac{1}{x}$
+  assume vicino a $x=0$ valori molto diversi tra loro (ad esempio $f(0.01)-f(-0.01)=200$)
+  ma ciò non toglie che la funzione possa essere continua in quanto il punto
+  $x=0$ non appartiene al dominio e quindi,
+  in base alla definizione precedente, non ha senso e non ha importanza
+  verificare se la funzione è continua in tale punto.
+  
+  \begin{theorem}[continuità del reciproco]
+  \label{th:cont_reciproco}%
+  La funzione $f\colon \RR\setminus\ENCLOSE{0}\to \RR$ definita
+  da $f(x)=\frac 1 x$ è una funzione continua.
+  \end{theorem}
+  %
+  \begin{proof}
+  Siano $x,x_0\neq 0$.
+  Se prendiamo $\delta < \frac{\abs{x_0}}2$
+  e se $\abs{x-x_0} < \delta$ si avrà,
+  per disuguaglianza triangolare inversa,
+  $\abs{x} > \frac{\abs{x_0}}2$. Dunque
+  \[
+  \abs{\frac 1 x - \frac 1 {x_0}}
+  = \frac{\abs{x-x_0}}{\abs{x\cdot x_0}}
+  \le \frac{2\delta}{\abs{x_0}^2}.
+  \]
+  Si ottiene quindi la condizione $\abs{f(x)-f(x_0)}<\eps$
+  se si sceglie $\delta$ in modo che
+  risulti anche $\delta < \frac{\abs{x_0}^2\cdot \eps}{2}$.
+  \end{proof}
+  
+  \begin{example}
+  La \emph{funzione segno}%
+\mymargin{funzione segno}%
+\index{funzione!segno} $\sgn\colon \RR \to \RR$ definita da
+  \[
+    \sgn(x) = \begin{cases}
+    1 & \text{se $x> 0$}\\
+    0 & \text{se $x=0$}\\
+    -1 & \text{se $x<0$}
+    \end{cases}
+  \]
+  è un esempio di funzione non continua.
+  \end{example}
+  %
+  \begin{proof}
+  Verifichiamo che la funzione non è continua
+  nel punto $x_0=0$.
+  Infatti se $x\neq 0$ si ha
+  \[
+  \abs{\sgn(x)-\sgn(x_0)} = \abs{\sgn(x)} = 1
+  \]
+  e quindi se scegliamo $\eps<1$ non è possibile
+  trovare $\delta>0$ per cui valga la condizione
+  di continuità~\eqref{eq:continuita}
+  nel punto $x_0=0$.
+  \end{proof}
+  
+  \begin{exercise}
+  Dimostrare che le funzioni $f(x) = x$ e $g(x)=\abs{x}$ sono continue.
+  Dimostrare che le funzioni $h(x) = \lfloor x\rfloor$ e $k(x)=\lceil x \rceil$
+  non sono continue (ma sono continue in ogni punto
+  $x_0\in \RR \setminus \ZZ$).
+  \end{exercise}
+  
+  \begin{definition}[operazioni sulle funzioni]
+  Sia $A \subset \RR$ (oppure $A\subset \CC$) 
+  e siano $f,g$ funzioni $A \to \RR$ (oppure $A\to \CC$).
+  Possiamo allora definire
+  $f+g$, $-f$, $f-g$, $f\cdot g$, $\abs f$, $f^n$ (con $n\in \NN$)
+  e (se $g(x)\neq 0$ per ogni $x\in A$) anche $f/g$
+  come funzioni $A \to \RR$ (o $A\to \CC$) mediante le seguenti ovvie
+  definizioni
+  \begin{gather*}
+  (f+g)(x) = f(x) + g(x), \qquad
+  (f-g)(x) = f(x) - g(x), \\
+  (f\cdot g)(x) = f(x) \cdot g(x), \qquad
+  (f/g)(x) = f(x) / g(x), \\
+  (-f)(x) = -(f(x)), \qquad
+  \abs f(x) = \abs{f(x)}, \qquad
+  f^n(x) = (f(x))^n.
+  \end{gather*}
+  
+  Se $f\colon A \to B$ e $g\colon B\to C$ ricordiamo
+  che abbiamo definito la funzione composta
+  $g\circ f\colon A \to C$:
+  \[
+    (g\circ f)(x) = g(f(x)).
+  \]
+  
+  Se $c\in \RR$ (o $c\in \CC$) è un numero considereremo a volte 
+  $c\colon A \to \RR$ come una funzione \emph{costante}.
+  Risulta quindi inteso che $c\cdot f$ è la funzione definita da
+  $(c\cdot f)(x) = c\cdot (f(x))$.
+  La somma e il prodotto per costante rendono l'insieme $\RR^A$
+  delle funzioni $A \to \RR$ uno spazio vettoriale sul campo $\RR$
+  (lo stesso vale per $\CC^A$ con $A\subset \CC$)
+  \end{definition}
+  
+  \begin{theorem}[composizione di funzioni continue]
+  \label{th:continuita_composizione}%
+  Se $f$ e $g$ sono funzioni (reali o complesse) definite e continue
+  in uno stesso punto $x_0$ (reale o complesso)
+  allora anche
+  \[
+    f+g, \qquad
+    f\cdot g, \qquad
+    f-g, \qquad
+    \abs{f}, \qquad
+    f^n\ \text{(con $n\in \NN$)}
+  \]
+  sono funzioni definite e continue nel punto $x_0$.
+  Se inoltre $g(x_0)\neq 0$ anche la funzione
+  $f/g$
+  è definita e continua nel punto $x_0$.
+  
+  Se $f\colon A\subset \RR \to \RR$ è una funzione continua
+  nel punto $x_0\in A$ e
+  $g\colon B\subset \RR \to \RR$ è una funzione
+  continua nel punto $y_0=f(x_0)\in B$ allora la funzione $g\circ f$
+  definita in $f^{-1}(B)$ è continua nel punto $x_0$
+  (lo stesso vale sostituendo $\CC$ ad $\RR$)
+  \end{theorem}
+  %
+  \begin{proof}
+  Mostriamo prima di tutto la continuità
+  della composizione $g\circ f$.
+  Per la continuità di $f$ in $x_0$ e di $g$ in $y_0=f(x_0)$
+  si ha che per ogni $\eps>0$ esiste un $\gamma>0$
+  e per ogni $\gamma>0$ esiste un $\delta>0$ per cui
+  \begin{align*}
+   \abs{x-x_0}< \delta &\implies \abs{f(x)-f(x_0)}<\gamma,\\
+   \abs{y-y_0}< \gamma & \implies \abs{g(y)-g(y_0)}<\eps
+  \end{align*}
+  da cui
+  \[
+  \abs{x-x_0}< \delta
+  \implies \abs{f(x)-f(x_0)}< \gamma
+  \implies \abs{g(f(x))-g(f(x_0))} < \eps
+  \]
+  che non è altro che la condizione di
+  continuità~\eqref{eq:continuita} per $g\circ f$.
+  
+  Se $f$ e $g$ sono continue nel punto $x_0$
+  allora per ogni $\eps'>0$ esistono $\delta_1$
+  e $\delta_2$ tali che
+  \begin{align*}
+   \abs{x-x_0} < \delta_1 &\implies \abs{f(x)-f(x_0)} < \eps',
+   \\
+   \abs{x-x_0} < \delta_2 &\implies \abs{g(x)-g(x_0)} < \eps'.
+  \end{align*}
+  In particolare scegliendo $\delta = \min\ENCLOSE{\delta_1,\delta_2}$
+  se $\abs{x-x_0} < \delta$ valgono contemporaneamente
+  entrambe le stime:
+  \[
+   \abs{f(x)-f(x_0)}< \eps', \qquad
+   \abs{g(x)-g(x_0)}< \eps'.
+  \]
+  
+  Dunque per la somma osserviamo che se $\abs{x-x_0}<\delta$
+  si ha
+  \begin{align*}
+   \abs{(f+g)(x) - (f+g)(x_0)}
+    &= \abs{f(x)+g(x)-f(x_0)-g(x_0)}\\
+    &\le \abs{f(x)-f(x_0)} + \abs{g(x)-g(x_0)}
+    \le 2 \eps'.
+  \end{align*}
+  Dato $\eps>0$ basterà quindi scegliere $\eps' = \eps / 2$
+  e $\delta$ come sopra per ottenere la condizione di continuità.
+  
+  Per il prodotto si ha
+  \begin{align*}
+    \MoveEqLeft \abs{f(x)g(x)-f(x_0)g(x_0)}\\
+    &= \abs{f(x)g(x) - f(x_0)g(x) + f(x_0)g(x) - f(x_0)g(x_0)}\\
+    &\le \abs{f(x)-f(x_0)}\cdot\abs{g(x)} + \abs{f(x_0)}\cdot \abs{g(x)-g(x_0)} \\
+    &\le \eps' \abs{g(x)} + \abs{f(x_0)} \eps'.
+  \end{align*}
+  Osserviamo ora che $\abs{g(x)}\le \abs{g(x)-g(x_0)} + \abs{g(x_0)}$
+  e quindi $\abs{g(x)}\le \abs{g(x_0)}+\eps'$ da cui:
+  \begin{align*}
+    \abs{f(x)g(x)-f(x_0)g(x_0)}
+    &\le \eps' \enclose{\abs{g(x_0)}+\eps'} + \abs{f(x_0)} \eps' \\
+    &= \eps' \cdot(\abs{f(x_0)} + \abs{g(x_0)} + \eps').
+  \end{align*}
+  Possiamo facilmente rendere questa quantità inferiore a
+  qualunque $\eps>0$: basterà prendere $\eps'<1$ e
+  \[
+    \eps' < \frac{\eps}{\abs{f(x_0)} + \abs{g(x_0)} + 1}.
+  \]
+  
+  La funzione $f^n$ è continua per induzione su $n$
+  in quanto prodotto di funzioni
+  continue: $f^{n+1} = f^{n} \cdot f$.
+  
+  Abbiamo già visto che la funzione $h(x) = \frac{1}{x}$ è continua,
+  dunque se $g$ è continua anche la funzione $\frac{1}{g(x)} = h\circ g$
+  è continua essendo composizione di funzioni continue. 
+  Di conseguenza anche la funzione $\frac{f}{g} = f \cdot \frac{1}{g}$
+  è continua, essendo il prodotto di funzioni continue.
+  
+  Analogamente la funzione $f-g$ è la somma di $f$ con $-g$ e
+  la funzione $-g$ è la composizione di $g$ con $h(x)=-x$.
+  E' immediato verificare che la funzione $h(x)=-x$ è continua
+  e dunque anche la differenza $f-g$ è continua.
+  Lo stesso vale per la funzione $\abs f$ che è la composizione
+  di $f$ con la funzione $h(x) = \abs{x}$.
+  \end{proof}
+  
+  Il precedente teorema è molto importante ed utile in quanto
+  garantisce che ogni funzione definita tramite una espressione
+  che coinvolge solamente le funzioni e le operazioni
+  elencate nell'enunciato del teorema, risulta certamente
+  essere una funzione continua. Come nel seguente.
+  
+  \begin{example}
+  La funzione
+  \[
+  f(x) = \frac{(x-3)\cdot x -\frac{1}{x+x^2}}{\abs{x-\frac{1-x^3}{x}}}
+  \]
+  è continua.
+  
+  Si intende che tale funzione è definita sull'insieme degli $x\in \RR$
+  per cui tutte le operazioni coinvolte sono definite ovvero
+  $f\colon D \subset \RR \to \RR$
+  con
+  \[
+    D = \ENCLOSE{x\in \RR \colon x+x^2 \neq 0,\ x\neq 0,\ \abs{x-\frac{1-x^3}{x}}\neq 0}.
+  \]
+  \end{example}
+  \begin{proof}
+  Per convincersi che questa funzione $f$ è continua
+  si nota che le funzioni $x$ e le costanti $3$ e $1$ sono
+  funzioni continue.
+  Ma allora, per il teorema~\ref{th:continuita_composizione},
+  anche le funzioni $x-3$ e $x^2=x\cdot x$ sono continue.
+  Dunque anche $(x-3)\cdot x$, $x+x^2$ e $x^3$ e $1-x^3$ sono continue.
+  Di conseguenza sono continue pure $\frac 1{1+x^2}$ e $\frac{1-x^3}{x}$.
+  E poi saranno continue anche $(x-3)\cdot x - \frac 1{1+x^2}$ e $x-\frac{1-x^3}{x}$
+  e quindi $x-\frac{1-x^3}{x}$ e pure $\abs{x-\frac{1-x^3}{x}}$. Infine sarà
+  dunque continua $f(x)$.
+  \end{proof}
+  
+  In particolare è chiaro che le funzioni lineari e quadratiche 
+  che abbiamo introdotto nelle sezioni precedenti sono funzioni continue
+  in quanto sono ottenute sommando e moltiplicando tra loro funzioni continue.
+  
+  %%%%%%%%%%%%%%%%%%%
+  
+  \begin{theorem}[continuità delle funzioni monotone]
+    \label{th:monotona_continua}%
+    \mymark{*}%
+    \index{funzione!continua}%
+    \index{funzione!monotòna}%
+    \index{funzione!suriettiva}%
+    Sia $A\subset \RR$ e sia
+    $f\colon I \to \RR$ una funzione monotòna.
+    Se $f(I)$ è un intervallo allora $f$ è continua.
+%    \label{th:monotona_continua_reverse}%
+%    Allora $f$ è continua se e solo se $f(I)$ è 
+%    un intervallo.
+\end{theorem}
+  %
+  \begin{proof}
+  Senza perdita di generalità possiamo supporre che $f$ 
+  sia crescente. 
+  % Dimostriamo innanzitutto che se $f(I)$ è intervallo allora $f$ è continua.
+  
+  Prendiamo un punto $x_0\in I$ e sia $\eps>0$.
+  Vogliamo trovare $x_1<x_0$ tale che  
+  per ogni $x\in [x_1,x_0]\cap I$ si abbia $f(x)>f(x_0)-\eps$.
+  Siccome $f(I)$ è un intervallo che contiene il punto $f(x_0)$ 
+  ci sono due possibilità: o $f(x)>f(x_0)-\eps$ per ogni $x\in I$
+  e quindi possiamo scegliere $x_1<x_0$ a piacere
+  oppure esiste $x_1\in I$ tale che $f(x_1)=f(x_0) - \frac \eps 2$.
+  In questo secondo caso dovrà essere $x_1<x_0$ (in quanto $f$ è crescente)
+  e per monotonia si avrà, come voluto $f(x)\ge f(x_1) > f(x_0)-\eps$ 
+  per ogni $x\in [x_1,x_0]$.
+  
+  In modo analogo possiamo trovare $x_2>x_0$ tale 
+  che per ogni $x\in [x_0,x_2]\cap I$ si abbia $f(x) < f(x_0)+\eps$.
+  Essendo $f$ crescente se $x\ge x_0$ si avrà anche $f(x)\ge f(x_0)$ 
+  e se $x\le x_0$ si avrà $f(x) \le f(x_0)$. 
+  Dunque per ogni $x\in [x_1,x_2]$ si avrà $\abs{f(x)-f(x_0)}<\eps$.
+  Basterà scegliere $\delta = \min\ENCLOSE{x_0-x_1,x_2-x_0}$ 
+  per ottenere la continuità di $f$ in $x_0$.
+  
+%  Supponiamo ora che $f$ sia una funzione continua e crescente.
+%  Vogliamo dimostrare che $f(I)$ è un intervallo.
+%  
+%  Siano $y_1, y_2 \in f(I)$ e sia $y_0\in \RR$
+%  con $y_1 < y_0 < y_2$.
+%  Vogliamo dimostrare che $y_0\in f(I)$ cioè che esiste $x_0\in I$
+%  tale che $f(x_0)=y_0$.
+%  Sappiamo che esistono $x_1,x_2$ in $I$ tali che
+%  $f(x_1) = y_1$ e $f(x_2) = y_2$.
+%  Dovrà essere $x_1<x_2$ perché $f(x_1)<f(x_2)$ e
+%  $f$ è crescente.
+%  Definiamo:
+%  \[
+%   x_0 = \sup A
+%  \qquad
+%  \text{con } A=\ENCLOSE{x\in I\colon f(x)<y_0},
+%  \]
+%  e dimostriamo che $f(x_0)=y_0$. 
+%  Chiaramente $x_0\in [x_1,x_2]$ in quanto 
+%  $x_1\in A$ e $x_2$ è un maggiorante di $A$
+%  e dunque $f$ è definita e continua in $x_0$.
+%  
+%  Se fosse $f(x_0)<y_0$ scelto $\eps = y_0-f(x_0)$
+%  per la definizione di continuità dovrebbe esistere
+%  $\delta>0$ tale che per ogni $x\in I$ con $\abs{x-x_0}<\delta$
+%  si abbia $\abs{f(x)-f(x_0)}<\eps$.
+%  In particolare scelto $x=x_0+\frac \delta 2$
+%  si avrebbe $f(x) < f(x_0) + \eps = y_0$.
+%  Ma allora avremmo $x\in A$ che è assurdo in quanto
+%  $\sup A = x_0 < x$.
+%  
+%  Se fosse invece $f(x_0)>y_0$ posto $\eps = f(x_0)-y_0$,
+%  grazie alla continuità di $f$ in $x_0$,
+%  possiamo trovare $\delta>0$ tale che per ogni $x\in I$
+%  con $\abs{x-x_0}<\delta$ si abbia $\abs{f(x)-f(x_0)}<\eps$.
+%  In particolare scelto $t = x_0 - \frac \delta 2$
+%  si ha $f(t) > f(x_0)-\eps = y_0$. 
+%  Ma essendo $t<x_0 = \sup A$ sappiamo che $t$ non può essere 
+%  un maggiorante di $A$ dunque deve esistere $x\in A$
+%  tale che $t<x$. 
+%  Ma se $x\in A$ allora $f(x) < y_0 < f(t)$
+%  che è assurdo in quanto $f$ è crescente.
+%  
+%  Abbiamo quindi mostrato che $f(x_0)=y_0$. 
+%  Questo è vero per ogni scelta di $y_1<y_2$ in $f(I)$
+%  dunque $f(I)$ è un intervallo.
+\end{proof}
+  %
+
+Il teorema precedente (teorema~\ref{th:monotona_continua}) 
+ci permette di affermare che per $a>0$, $a\neq 1$ 
+le funzioni $\exp_a$ e $\log_a$ sono continue. 
+Infatti tali funzioni sono bigezioni monotone tra 
+gli intervalli $\RR$ e $\RR_+$.
+
+Anche le funzioni trigonometriche $\sin$ e $\cos$ sono funzioni continue.
+Sappiamo infatti che $\sin \colon [-\tau/4,\tau /4]\to [-1,1]$
+e $\cos\colon [0,\tau/2]\to [-1,1]$ sono strettamente monotone 
+e bigettive dunque sono continue su tali intervalli. 
+Grazie alle proprietà di simmetria e periodicità
+(oppure utilizzando le formule di addizione) è facile verificare 
+che tali funzioni sono continue su tutto $\RR$.
+
+Grazie al teorema~\ref{th:continuita_composizione} sappiamo 
+che se $n\in \NN$ la funzione $x^n$ è continua su tutto il suo 
+dominio $\RR$. 
+La funzione inversa $\sqrt[n]{x}$ è anch'essa crescente e 
+bigettiva come funzione $[0,+\infty)\to[0,+\infty)$ e dunque 
+anch'essa risulta essere continua.
+Per simmetria (si veda l'esercizio~\ref{ex:simmetrica_continua}) 
+possiamo concludere 
+%che sia la potenza $x^n$ 
+che le radici $\sqrt[n]{x}$ sono 
+funzioni continue su tutto il loro dominio.
+Anche la funzione $f(x) = x^\alpha$, $f\colon [0,+\infty)\to [0,+\infty]$ 
+con $\alpha>0$ è crescente ed è invertibile (l'inversa è $x^{\frac 1 \alpha}$)
+e dunque è surgettiva e continua.
+Se $\alpha<0$ la funzione $f(x)=x^\alpha$ è definita sull'intervallo 
+$(0,+\infty)$ ed è anch'essa continua in quanto 
+composizione di funzioni continue: $x^{\alpha} = \frac{1}{x^{-\alpha}}$.
+
+%
+\begin{exercise}\label{ex:simmetrica_continua}
+  Sia $f\colon \RR\to \RR$ una funzione pari oppure dispari.
+  Se la restrizione di $f$ all'intervallo $[0,+\infty)$ 
+  è continua allora $f$ è continua su tutto $\RR$.
+\end{exercise}
+
+\subsection{limite}
+
+Se una funzione $f$ non è definita in un punto $x_0$ non ha senso chiedersi
+se in tale punto è continua. 
+Possiamo però chiederci se è possibile definire la funzione anche nel punto 
+$x_0$ dando un valore opportuno $\ell$ in modo da rendere $f$ continua 
+in quel punto. 
+Se ciò è possibile diremo che la funzione $f(x)$ ha limite $\ell$ 
+per $x$ che tende a $x_0$ e scriveremo:
+\[
+  f(x) \to \ell \qquad \text{per $x\to x_0$}
+\]
+(daremo tra poco una definizione con maggiore precisione e generalità).
+
+Ad esempio la funzione $f(x) = \frac{x^2-1}{x-1}$ è una funzione definita per $x\neq 1$
+e coincide, se $x\neq 1$ con la funzione lineare $\tilde f(x) = x+1$ definita 
+su tutto $\RR$. 
+Visto che $\tilde f$ è continua e $\tilde f(1)=2$
+scriveremo:
+\[
+  \frac{x^2-1}{x-1} \to 2
+  \qquad \text{per $x\to 1$.}
+\]
+
+Se estendiamo $f$ con un valore $\ell$ nel punto $x_0$ otteniamo 
+in generale la funzione 
+\[
+  \tilde f(x) = \begin{cases}
+    f(x) & \text{se $x\neq x_0$}\\
+    \ell & \text{se $x=x_0$}
+  \end{cases}  
+\]
+e la continuità di $\tilde f$ nel punto $x_0$ si scrive così:
+\[
+\forall\eps>0\colon \exists \delta>0\colon
+\abs{x-x_0}<\delta \implies \abs{\tilde f(x)-\tilde f(x_0)}<\eps.  
+\]
+Osserviamo che se $x=x_0$ allora ovviamente $\abs{\tilde f(x)-\tilde f(x_0)}
+= 0 < \eps$ dunque possiamo supporre, nella condizione precedente, 
+che sia $x\neq x_0$ e dunque $\tilde f(x)=f(x)$. 
+Inoltre visto che $\tilde f(x_0)=\ell$ 
+e $\tilde f(x)=f(x)$ se $x\neq x_0$,
+si ottiene 
+la seguente condizione:
+\begin{equation}\label{eq:55338}
+\forall \eps>0\colon \exists \delta >0 \colon 
+  \forall x\neq x_0\colon
+  \abs{x-x_0}<\delta \implies \abs{f(x) - \ell} < \eps.
+\end{equation}
+La~\eqref{eq:55338} potrebbe dunque essere utilizzata per definire 
+il concetto di limite $f(x)\to \ell$ per $x\to x_0$.
+Sarà però molto utile estendere il concetto di limite $f(x)\to \ell$ 
+per $x\to x_0$ anche nei casi in cui $\ell$ e/o $x_0$ possano 
+essere infiniti (cioè elementi dei reali estesi $\bar \RR$).
+
+Per fare ciò osserviamo che
+se definiamo%
+\mynote{%
+la lettera $B$ sta per \emph{ball} in quanto 
+più in generale (se fossimo in $\RR^3$ invece che in $\RR$)
+l'insieme dei punti che distano meno di $\rho$ da un punto fissato 
+è l'interno di una sfera piena. 
+In geometria una sfera piena si chiama \emph{palla} 
+se contiene solo i punti interni (e non la superficie sferica)
+e si chiama \emph{disco} o \emph{palla chiusa} se contiene 
+anche i punti della superficie.
+}
+$B_\rho(x_0) = \ENCLOSE{x\in \RR \colon \abs{x-x_0}<\rho}$
+la condizione \eqref{eq:55338}
+può essere scritta anche nella forma 
+\[
+  \forall \eps>0\colon \exists \delta >0 \colon 
+  x \in B_\delta(x_0)\setminus\ENCLOSE{x_0} \implies f(x) \in B_\eps(\ell)  
+\]
+che a sua volta si può scrivere nella forma:
+\[
+  \forall \eps>0\colon \exists \delta >0 \colon 
+  f(B_\delta(x_0)\setminus\ENCLOSE{x_0}) \subset  B_\eps(\ell).    
+\]
+
+L'idea è che gli insiemi del tipo
+$B_\rho(x_0)$ 
+rappresentano i punti \emph{vicini} al punto $x_0$. 
+In analogia potremmo pensare che i punti \emph{vicini} 
+a $+\infty$ siano i punti di una qualunque semiretta 
+del tipo $(M,+\infty]$.
+Si dà quindi la seguente.
+
+
+\begin{definition}[intorno]
+Per $x\in \RR$ definiamo la famiglia degli \emph{intorni}%
+\mymargin{intorni}%
+\index{intorno} (basilari) di $x$
+come l'insieme di tutti gli intervallini aperti, simmetrici, centrati in $x$:
+\[
+  \B_x = \ENCLOSE{ (x-\eps, x+\eps) \colon \eps>0}.
+\]
+Definiamo poi le famiglie 
+degli \emph{intorni destri} e \emph{intorni sinistri}
+\mymargin{intorni destri/sinistri}%
+\index{intorni!destri/sinistri}
+\index{intorni}
+di $x$ come
+\[
+  \B_{x^+} = \ENCLOSE{ [x, x+\eps) \colon \eps>0},
+  \qquad
+  \B_{x^-} = \ENCLOSE{ (x-\eps , x] \colon \eps>0}
+\]
+e le famiglie degli intorni di $+\infty$ e $-\infty$ come segue
+\[
+  \B_{+\infty} = \ENCLOSE{ (\alpha,+\infty], \colon \alpha \in \RR },\qquad
+  \B_{-\infty} = \ENCLOSE{ [-\infty, -\beta), \colon \beta\in \RR}.
+\]
+
+Per ogni $x\in \bar \RR = [-\infty, +\infty]$
+risultano quindi definiti gli intorni $\B_x$ e per
+ogni $x\in \RR$ sono definiti gli intorni $\B_{x^+}$ e $\B_{x^-}$.
+
+Più in generale se $x\in \CC$ o $x\in \RR^n$
+si definiscono gli intorni di $x$ 
+utilizzando la norma $\abs{\cdot}$.
+Posto $B_\rho(x) = \ENCLOSE{y\colon \abs{y-x}<\rho}$
+(palla di raggio $\rho$ centrata in $x$)
+la famiglia di intorni di $x$ non è altro che
+\[
+  \B_x = \ENCLOSE{B_\rho(x)\colon \rho>0}.
+\]
+Nel caso $x\in \RR$ si riottiene la stessa definizione che 
+abbiamo dato sopra.
+
+In $\CC$ o in $\RR^n$ non c'è un ordinamento quindi 
+tipicamente si aggiunge un solo punto all'infinito: $\infty$.
+Gli intorni di $\infty$
+sono dati dall'esterno di una palla:
+\[
+  \B_\infty = \ENCLOSE{\ENCLOSE{y\colon \abs{y}\ge R}\colon R>0}.
+\]
+
+Anche su $\RR$ si può considerare un unico punto 
+all'infinito (che potremmo denotare con $\infty$)
+invece che i due punti $+\infty$ e $-\infty$.
+\end{definition}
+
+% \begin{remark}
+% Sarebbe possibile definire in maniera analoga gli intorni dei punti in $\RR^n$
+% (per l'analisi di funzioni di più variabili)
+% o in $\CC$ (per l'analisi complessa).
+% Ma in questo corso e in questo capitolo in particolare siamo interessati 
+% allo studio delle funzioni di una singola variabile.
+% 
+% Su $\RR$ c'è una struttura di ordine totale che è utile preservare aggiungendo
+% due punti all'infinito: $+\infty$ e $-\infty$.
+% Su $\RR^n$ (e su $\CC$, che in questo contesto possiamo identificare con $\RR^2$)
+% non c'è una struttura d'ordine naturale e quindi
+% usualmente si considera un unico punto all'infinito $\infty$ i cui intorni
+% saranno
+% \[
+%   \B_\infty = \ENCLOSE{\ENCLOSE{x \in \RR^n\colon \abs{x}>R}\colon R>0}.
+% \]
+% 
+% Su $\RR^n$ (e su $\CC$) non esiste il concetto di intorno \emph{destro}
+% e \emph{sinistro} proprio perché questi concetti presuppongono un ordinamento.
+% 
+% In certi casi può tornare utile considerare un unico punto all'infinito,
+% denotato con $\infty$, anche in $\RR$ (in molti testi tale punto verrebbe
+% denotato con il simbolo $\pm\infty$)
+% e si potrebbero usare le notazioni $+\infty = \infty^-$ e $-\infty = \infty^
+% +$ visto che gli intorni di $+\infty$ e $-\infty$ sono in effetti intorni
+% unilaterali del punto all'infinito.
+% \end{remark}
+
+\begin{definition}[limite di funzione]
+\mymark{***}
+Sia $A\subset \RR$ e $f\colon A \to \RR$. 
+Sia $x_0\in [-\infty,+\infty]$
+% un punto di accumulazione di $A$ 
+e sia $\ell \in [-\infty,+\infty]$.
+Allora diremo che la funzione $f$ ha limite $\ell$ per $x$ che tende a $x_0$ 
+e scriveremo\mymargin{limite di funzione}%
+\index{limite!di funzione}
+\[
+  f(x) \to \ell \qquad \text{per $x\to x_0$}
+\]
+se per ogni intorno di $\ell$ esiste un intorno di $x_0$ tale che
+la funzione valutata nell'intorno di $x_0$, tolto eventualmente $x_0$,
+assume valori
+nell'intorno di $\ell$:
+\begin{equation}\label{eq:def_limite}
+  \forall V \in \B_\ell \colon \exists U \in \B_{x_0} \colon f(U\setminus\ENCLOSE{x_0}) \subset V.
+\end{equation}
+
+La stessa definizione può essere data restringendosi agli intorni destri/sinistri del punto $x_0$ (nel caso $x_0 \in \RR$). Si otterranno quindi le definizioni
+di \emph{limite destro} e \emph{limite sinistro}
+\mymargin{limite destro/sinistro}%
+\index{limite!destro/sinistro} %
+semplicemente sostituendo $\B_{x_0^+}$ o $\B_{x_0^-}$ al posto di 
+$\B_{x_0}$ nella definizione
+precedente. 
+In tal caso scriveremo $f(x)\to \ell$ per $x\to x_0^+$ per il limite 
+destro e $f(x)\to \ell$ per $x\to x_0^-$ per il limite sinistro.
+
+Infine anche il risultato del limite può essere $\ell^+$ o $\ell^-$, 
+in tal caso useremo $\B_{\ell^+}$ o $\B_{\ell^-}$ 
+al posto di $\B_{\ell}$.
+
+Anche per le funzioni complesse $f\colon A\subset \CC \to \CC$ 
+si applica la stessa identica definizione.
+\end{definition}
+  
+\begin{example}
+Si consideri la funzione segno:
+\[
+\sgn(x) =
+\begin{cases}
+  1 & \text{se $x>0$},\\
+  0 & \text{se $x=0$},\\
+  -1 & \text{se $x<0$}.
+\end{cases}
+\]
+Si può verificare che
+\[
+\sgn(x) \to 1 \qquad \text{per $x\to 0^+$}
+\]
+e
+\[
+\sgn(x) \to -1 \qquad \text{per $x\to 0^-$}
+\]
+\end{example}
+
+Abbiamo già visto che nel caso in cui $x_0\in \RR$ e $\ell\in \RR$ 
+siano entrambi finiti 
+la definizione di limite $f(x)\to \ell$ per $x\to x_0$
+si traduce nella condizione~\eqref{eq:55338}.
+
+Anche negli altri casi esplicitando le definizioni di intorno
+si possono ottenere delle condizioni più esplicite.
+Ad esempio la condizione $f(x)\to -\infty$ per $x\to x_0^+$
+si traduce nel modo seguente:
+\[
+\forall \beta\in \RR\colon \exists \delta>0 \colon x_0 < x < x_0+\delta 
+\implies f(x) < -\beta.  
+\]
+Visto che ci sono cinque diversi casi per il punto $x_0$:
+$x_0\in \RR$, $x_0^+$, $x_0^-$, $+\infty$, $-\infty$ e altrettanti 
+casi per $\ell$ (in effetti anche il risultato del limite 
+può essere \emph{destro} o \emph{sinistro}), si ottengono 
+in tutto 25 diverse definizioni di limite.
+
+In tutte queste definizioni di limite è sottointeso che i punti 
+$x$ che vengono presi in considerazione sono punti 
+del dominio di $f\colon A \subset \RR \to \RR$.
+Accade allora che se esiste un intorno $V\in \B_{x_0}$
+per cui $A \cap V \setminus \ENCLOSE{x_0}$ è vuoto allora 
+la condizione di limite è vuota ed è quindi sempre verificata 
+qualunque sia il valore di $\ell$. 
+E' quindi inutile fare il limite per $x\to x_0$ 
+se $x_0$ non soddisfa la seguente.
+
+\begin{definition}[punto di accumulazione]
+  \mymark{*}
+  Siano $A\subset  \RR$ un insieme e $x_0\in [-\infty, +\infty]$.
+  Diremo che $x_0$ è un \emph{punto di accumulazione}%
+\mymargin{punto di accumulazione}%
+\index{punto!di accumulazione} di $A$
+  se ogni intorno di $x_0$ contiene punti di $A$ diversi da $x_0$, ovvero:
+  \[
+   \forall U \in \B_{x_0}\colon (A\setminus \ENCLOSE{x_0}) \cap U \neq \emptyset.
+  \]
+
+  Stessa definizione si può dare per $x_0^+$ e $x_0^-$ 
+  utilizzando gli intorni destri/sinistri di $x_0$. 
+
+  Sempre la stessa definizione si può applicare 
+  quando $A\subset \CC$ e $x_0\in \bar \CC$.
+\end{definition}
+
+\begin{theorem}[unicità del limite]
+\mymark{*}
+Sia $A\subset \RR$, $f\colon A \to \RR$, $x_0$
+punto di accumulazione per $A$ e $\ell_1, \ell_2\in [-\infty,+\infty]$.
+Se per $x\to x_0$ si ha
+\[
+  f(x) \to \ell_1 \qquad\text{e}\qquad f(x) \to \ell_2
+\]
+allora $\ell_1=\ell_2$.
+
+Risultato analogo si ha per i limiti destro e sinistro: $x\to x_0^+$, 
+$x\to x_0^-$.
+Anche su $\CC$ vale lo stesso risultato
+prendendo $\ell_1,\ell_2\in \bar \CC$.
+\end{theorem}
+%
+\begin{proof}
+\mymark{*}
+Supponiamo per assurdo che $\ell_1\neq \ell_2$.
+Allora esiste un intorno $V_1$ di $\ell_1$ ed un intorno $V_2$ di $\ell_2$
+tali che $V_1\cap V_2 = \emptyset$ (basta prendere degli intorni abbastanza piccoli). 
+Ma per le definizioni di limite $f(x)\to \ell_1$ e $f(x)\to \ell_2$ 
+dovranno esistere $U_1$ e $U_2$ intorni di $x_0$ su cui si ha 
+$f(U_1)\subset V_1$ e $f(U_2)\subset V_2$. 
+Ma allora $f((A\setminus\ENCLOSE{x_0})\cap U_1)\cap f((A\setminus\ENCLOSE{x_0})\cap U_2)\subset V_1\cap V_2 = \emptyset$... 
+e questo è assurdo perché certamente $U_1\cap U_2$ 
+contiene punti di $A$ diversi da $x_0$ in quanto 
+$U_1$ e $U_2$ sono uno contenuto nell'altro e $x_0$ 
+è un punto di accumulazione per $A$.
+\end{proof}
+
+Il teorema precedente garantisce che se $x_0$ è un punto di accumulazione 
+del dominio di $f$ allora il limite per $x\to x_0$ se esiste è unico. 
+In tal caso possiamo dunque dare la seguente.
+%
+\begin{definition}[operatore di limite]
+Sia $f\colon A\subset \RR \to \RR$ una funzione e $x_0$ 
+un punto di accumulazione per $A$. 
+Se esiste $\ell\in\closeinterval{-\infty}{+\infty}$ tale che
+$f(x)\to \ell$ per $x\to x_0$ allora poniamo
+\[
+  \lim_{x\to x_0} f(x) = \ell.
+\]
+Lo stesso si può fare per il limite destro $x\to x_0^+$ 
+e sinistro $x\to x_0^-$.
+Anche per funzioni di variabile e/o di valore 
+complesso si può dare la stessa definizione prendendo $x_0\in \bar \CC$ 
+e/o $\ell\in \bar \CC$.
+\end{definition}
+
+Abbiamo visto che in un punto di accumulazione se il limite 
+esiste allora è unico.
+Sarà però utile osservare che in effetti il limite può non 
+esistere, come si può verificare con un esempio.
+
+\begin{example}[in generale il limite non esiste]
+Il limite 
+\[
+  \lim_{x\to 0} \frac{x}{\abs{x}}
+\]
+non esiste. 
+\end{example}
+\begin{proof}
+Osserviamo infatti che la funzione $f(x) = \frac{x}{\abs x}$ 
+vale $1$ se $x>0$ e $-1$ se $x<0$.
+Dunque se il limite esistesse e fosse $\ell\in \bar \RR$, 
+scelto $\eps=1$, dovrebbe esistere un intervallo intorno di $0$ 
+della forma $\openinterval{-\delta}{\delta}$ tale che 
+$\abs{f(x)-\ell}<1$ per ogni $x$ in tale intervallo.
+In particolare siccome in tale intervallo ci sono sicuramente 
+sia numeri positivi che negativi si dovrà avere 
+contemporaneamente
+\[
+  \abs{1-\ell}<1, \qquad 
+  \abs{-1-\ell}<1  
+\]
+che è impossibile in quanto per disuguaglianza triangolare 
+\[
+ 2 = \abs{1-(-1)} 
+ \le \abs{1-\ell} + \abs{-1-\ell}
+ < 1 + 1 = 2
+\]
+che è assurdo.
+\end{proof}
+
+Si noti che nell'esempio precedente il limite per $x\to 0$ 
+non esiste ma in realtà esistono sia il limite per $x\to 0^+$ 
+(vale $1$) che i limite per $x\to 0^-$ (vale $-1$).
+Possiamo esibire un esempio ``patologico'' di funzione 
+che non ammette limite (né da destra né da sinistra)
+in nessun punto:
+\[
+  f(x) = 
+  \begin{cases}
+     1 & \text{se $x\in \QQ$}\\ 
+     0 & \text{se $x\in \RR\setminus \QQ$}.
+  \end{cases}
+\]
+In ogni intervallo $\openinterval a b$ con $a<b$ questa funzione 
+assume sia il valore $0$ che il valore $1$ 
+in quanto sia $\QQ$ che $\RR\setminus \QQ$ intersecano 
+l'intervallo (sono insiemi densi).
+Ma se $f$ avesse limite $\ell$ dovrebbe esistere un intervallo 
+in cui i valori distano meno di $\eps$ da $\ell$ e quindi 
+dovrebbe essere $\abs{1-\ell}<\eps$ e $\abs{0-\ell}<\eps$
+che è impossibile se scegliamo $\eps < \frac 1 2$.
+
+\begin{theorem}[collegamento tra limiti e continuità]%
+\mymark{***}%
+  Sia $A\subset \RR$, $f\colon A \to \RR$. 
+  Se $x_0\in A$ è un punto di accumulazione di $A$
+  allora $f$ è continua in $x_0$ se e solo se
+  \[
+    \lim_{x\to x_0}f(x) = f(x_0).
+  \]
+  Se $x_0\in A$ non è punto di accumulazione diremo 
+  che $x_0$ è un \emph{punto isolato}%
+\mymargin{punto isolato}%
+\index{punto!isolato} di $A$.
+  In tal caso la funzione $f$ è sempre continua nel punto $x_0$.
+
+Risultato analogo vale per funzioni complesse e/o di variabile complessa.
+\end{theorem}
+  
+  \begin{proof}
+  In base alla definizione~\ref{def:continua} la funzione $f$ è continua nel
+  punto $x_0\in \RR$ se
+  \[
+   \forall \eps>0 \colon \exists \delta >0 \colon
+   \forall x \in A\colon
+   \abs{x-x_0}<\delta \implies \abs{f(x)-f(x_0)} < \eps
+  \]
+  mentre la definizione di limite $f(x)\to f(x_0)$ per $x\to x_0$
+  si espande in
+  \[
+  \forall \eps>0 \colon \exists \delta>0\colon
+  \forall x \in A, x\neq x_0\colon
+  \abs{x-x_0}<\delta \implies \abs{f(x)-f(x_0)} < \eps.
+  \]
+  L'unica differenza è che nella definizione di limite
+  c'è la condizione $x\neq x_0$. Ma visto che per $x=x_0$
+  si ha $\abs{f(x)-f(x_0)}=0$ tale condizione è in questo caso 
+  inutile e quindi le due definizioni sono equivalenti.
+
+  Se il punto $x_0$ è isolato la definizione di continuità
+  è sempre verificata in quanto esiste un $\delta>0$ 
+  tale che il punto $x=x_0$ è l'unico punto di $A$ 
+  nell'intorno $(x_0-\delta,x_0+\delta)$.
+  \end{proof}
+
+\begin{example}
+  Non è difficile convincersi che gli unici punti di accumulazione 
+  per l'insieme $\ZZ$ sono $+\infty$ e $-\infty$.
+  Dunque qualunque funzione $f\colon \ZZ \to \RR$ è continua in quanto 
+  tutti i punti del suo dominio sono punti isolati.
+\end{example}
+  
+\begin{theorem}[località del limite]%
+\label{th:localita_limite}%
+Il limite di una funzione per $x\to x_0$ dipende solamente dai valori di $f$
+in un intorno di $x_0$ e non dipende dal valore di $f$ in $x_0$.
+
+Più precisamente: se $A,B\subset \RR$, $f\colon A\to \RR$, $g\colon B\to \RR$, 
+$x_0\in \RR$ sono tali che 
+esiste un intorno $V$ di $x_0$ per cui 
+$(A\setminus\ENCLOSE{x_0}) \cap  V = (B\setminus \ENCLOSE{x_0}) \cap V$ 
+e $f(x)=g(x)$ per ogni $x\in(A\setminus\ENCLOSE{x_0}) \cap  V$ 
+allora se $f(x)\to \ell$ per $x\to x_0$ anche $g(x)\to \ell$ 
+per $x\to x_0$.
+
+Lo stesso risultato vale per funzioni complesse e/o di variabile complessa.
+\end{theorem}
+%
+\begin{proof}
+  Basta osservare che nella definizione di limite 
+  non è restrittivo supporre che l'intorno del punto $x_0$ 
+  sia sempre preso all'interno dell'intorno $V$ su cui 
+  le due funzioni coincidono.
+\end{proof}
+
+\begin{theorem}[restrizione del limite]
+Se una funzione ha limite $\ell$ per $x\to x_0$ 
+e se restringiamo l'insieme di definizione della funzione 
+allora il limite della funzione non cambia. 
+Più precisamente
+se $f\colon A \to \RR$ è una funzione tale che $f(x)\to \ell$ per $x\to x_0$
+e se $B \subset A$ e $g\colon B\to \RR$ è la restrizione di $f$ 
+a $B$ allora anche $g(x)\to \ell$ per $x\to x_0$. 
+\end{theorem}
+%
+\begin{proof}
+Il teorema segue immediatamente dalla definizione di limite se si osserva
+che restringendo il dominio la condizione di validità del limite si indebolisce
+in quanto gli intorni di $x_0$ vengono intersecati con il dominio della funzione.
+\end{proof}
+
+Si osservi che a differenza del teorema sulla località del limite è
+possibile che la funzione ristretta $g$ abbia limite quando la funzione
+$f$ non aveva limite.
+Si osservi anche che in entrambi questi teoremi sarà opportuno 
+che $x_0$ sia un punto di accumulazione, altrimenti la condizione $f(x)\to \ell$ 
+risulta essere vuota.
+
+\begin{theorem}[legame tra limite, limite destro e limite sinistro]%
+\mymark{*}%
+Sia $A\subset \RR$, $f\colon A \to \RR$ una funzione e $x_0$ un punto di accumulazione
+di $A$. Sia $A^+ = A \cap [x_0,+\infty)$ e $A^- = A \cap (-\infty, x_0]$.
+
+Se $x_0$ è punto di accumulazione sia di $A^+$ che di $A^-$
+allora si ha
+\[
+  \lim_{x\to x_0} f(x) = \ell
+\]
+se e solo se
+\[
+  \lim_{x\to x_0^+} f(x) = \lim_{x\to x_0^-} f(x) = \ell.
+\]
+
+Se $x_0$ è punto di accumulazione di $A^+$ ma non di $A^-$ allora
+i limiti
+\[
+  \lim_{x\to x_0} f(x) \qquad \text{e}\qquad \lim_{x\to x_0^+} f(x)
+\]
+sono equivalenti. Analogamente se $x_0$ è punto di accumulazione
+di $A^-$ ma non di $A^+$ risultano equivalenti
+\[
+  \lim_{x\to x_0} f(x) \qquad \text{e}\qquad \lim_{x\to x_0^-} f(x).
+\]
+\end{theorem}
+%
+\begin{proof}
+Si tratta semplicemente di verificare le definizioni di limite sfruttando il fatto che intorni di un punto $x_0$ sono formati dall'unione di intorno destro e intorno sinistro.
+\end{proof}
+
+\begin{theorem}[limite della funzione composta/cambio di variabile]
+\label{th:limite_composta}
+Siano $A\subset \RR$, $B\subset \RR$,
+$x_0$ un punto di accumulazione di $A$,
+$y_0$ un punto di accumulazione di $B$,
+$\ell\in [-\infty,+\infty]$.
+Siano $f\colon A \to B$, $g\colon B\to \RR$
+funzioni tali che $f(x)\neq y_0$ se $x\neq x_0$ e 
+\[
+  \lim_{x\to x_0} f(x) = y_0,
+\qquad
+  \lim_{y\to y_0} g(y) = \ell.
+\]
+Allora nel secondo limite si può porre $y=f(x)$ e al posto di $y\to y_0$ 
+si può mettere $x\to x_0$ (in quanto il primo limite ci dice che se $x\to x_0$ 
+allora $y\to y_0$) e dunque vale:
+\[
+ \lim_{x\to x_0} g(f(x)) = \ell.
+\]
+\end{theorem}
+%
+\begin{proof}
+Visto che $g(y)\to \ell$
+per ogni $U$ intorno di $\ell$ deve esistere un $V$ intorno di $y_0$
+tale che $g((B\setminus\ENCLOSE{y_0})\cap V) \subset U$
+e visto  che $f(x)\to y_0$ deve esistere un intorno $W$ di $x_0$
+tale che $f((A\setminus\ENCLOSE{x_0})\cap W) \subset V$.
+Ma visto che per ipotesi $f$ assume valori in $B\setminus\ENCLOSE{y_0}$
+si ha anche $f((A\setminus\ENCLOSE{x_0})\cap W)\subset (B\setminus\ENCLOSE{y_0}) \cap V$
+e quindi
+\[
+  g(f((A\setminus\ENCLOSE{x_0})\cap W)) \subset g((B\setminus \ENCLOSE{y_0}) \cap V)
+  \subset U
+\]
+che significa che $g(f(x)) \to \ell$.
+\end{proof}
+
+\begin{exercise}
+  Si faccia un esempio di una funzione $f\colon\RR\to \RR$ 
+  e una funzione $g\colon\RR\to \RR$ tali che 
+  \[
+  \lim_{x\to 0} f(x) = 0, \qquad 
+  \lim_{x\to 0} g(x) = 0
+  \]
+  ma
+  \[
+  \lim_{x\to 0} g(f(x)) = 1.
+  \]
+  Quale ipotesi nel teorema precedente viene a mancare?
+\end{exercise}
+
+\begin{theorem}[limite di funzioni monotòne]%
+  \mymark{**}%
+  \label{th:limite_monotona}%
+Sia $f\colon A \subset \RR \to \RR$ una funzione crescente. 
+Se $x_0$ è un punto di accumulazione sinistro per $A$ 
+il seguente limite esiste e vale
+\[
+   \lim_{x\to x_0^-}f(x) = \sup f(\ENCLOSE{x\in A\colon x<x_0})
+\]
+e se $x_0$ è un punto di accumulazione destro per $A$ 
+il seguente limite esiste e vale
+\[
+   \lim_{x\to x_0^+} f(x) = \inf f(\ENCLOSE{x\in A\colon x>x_0}).
+\]
+In particolare se $+\infty$ è punto di accumulazione per $A$ 
+si ha 
+\[
+  \lim_{x\to +\infty} f(x) = \sup f(A)
+\]
+e se $-\infty$ è punto di accumulazione per $A$ si ha 
+\[
+  \lim_{x\to -\infty} f(x) = \inf f(A).
+\]
+
+Gli stessi risultati valgono per le funzioni decrescenti, 
+scambiando $\sup$ e $\inf$.
+\end{theorem}
+%
+\begin{proof}\mymark{**}
+Supponiamo che $f$ sia crescente e consideriamo il limite 
+sinistro $x\to x_0^-$. Può anche essere $x_0=+\infty$, in tal 
+caso il limite sinistro $x\to x_0^-$ equivale a $x\to +\infty$.
+Poniamo $B=\ENCLOSE{x\in A\colon x<x_0}$
+e $\ell=\sup f(B)$ e ricordiamo le proprietà che caratterizzano 
+l'estremo superiore
+(sappiamo che $B$ non è vuoto in quanto $x_0^-$ per ipotesi 
+è un punto di accumulazione per $A$):
+\begin{gather*}
+  \forall x \in B \colon f(x) \le \ell \\
+  \forall y < \ell \colon \exists \alpha \in B \colon f(\alpha) > y.
+\end{gather*}
+Siccome $f$ è crescente, dalla seconda condizione 
+si ottiene che per ogni $x>\alpha$ si ha $f(x)\ge f(\alpha)> y$
+e mettendo insieme le due condizioni si ottiene che per ogni $y<\ell$
+esiste $\alpha\in\RR$ tale che per ogni $x>\alpha$ si ha $y<f(x)\le \ell$.
+Certamente si ha $\alpha < x_0$ perché $\alpha\in B$.   
+Dunque la condizione $x>\alpha$ identifica un intorno sinistro 
+del punto $x_0$ e si ha dunque $f(x)\to \ell$ per $x\to x_0^-$.
+
+Ragionamento analogo si può fare per il limite destro  
+e per le funzioni decrescenti.
+\end{proof}
+
+\begin{exercise}
+  Utilizzando il teorema precedente si studino le \emph{discontinuità}
+  delle funzioni monotone. 
+  Si dimostri quindi che l'insieme dei punti in cui una funzione monotona 
+  \emph{non} è continua può essere messo in corrispondenza biunivoca 
+  con un sottoinsieme di $\QQ$ e dunque tale insieme è numerabile.
+\end{exercise}
+
+Il teorema precedente si applica in particolare alle funzioni 
+esponenziali, potenze, radici e logaritmi negli estremi dei loro 
+domini. Ad esempio è chiaro che se $x_0\in (0,+\infty)$ 
+si ha 
+\[
+  \lim_{x\to x_0} \log_a x = \log_a x_0
+\]
+in quanto il logaritmo è una funzione continua. 
+Se $a>1$ il logaritmo è crescente e la sua immagine è tutto $\RR$ 
+dunque si ha 
+\[
+  \lim_{x\to 0^+} \log_a x = \inf \RR = -\infty
+  \qquad
+  \lim_{x\to +\infty} \log_a x = \sup \RR = +\infty.
+\]
+Per l'esponenziale avremo 
+\[
+ \lim_{x\to x_0} a^x = a^{x_0}
+\]
+se $x_0\in \RR$ per continuità. 
+Se $a>1$ l'esponenziale è crescente 
+ed ha immagine $(0,+\infty)$ dunque 
+\[
+  \lim_{x\to -\infty} a^x = 0, \qquad 
+  \lim_{x\to +\infty} a^x = +\infty.
+\]
+Se $0<a<1$ i limiti all'infinito 
+si scambiano in quanto $a^{x}= \frac{1}{a^{-x}}$.
+Per le potenze avremo, se $x_0\in[0,+\infty)$ e $\alpha>0$
+\[
+  \lim_{x\to x_0} x^\alpha = x_0^\alpha
+\]
+per continuità. Invece essendo $x^\alpha$ crescente e bigettiva 
+su $[0,+\infty)$ si avrà 
+\[
+  \lim_{x\to +\infty} x^\alpha = +\infty.
+\]
+Se $\alpha<0$ la funzione $x^\alpha$ è continua, decrescente e bigettiva 
+su $(0,+\infty)$ e dunque in tal caso:
+\[
+  \lim_{x\to +\infty} x^\alpha = 0.
+\]
+Tutti questi limiti \emph{notevoli} possono essere facilmente 
+ricordati se teniamo in mente i grafici delle funzioni elementari
+Figura~\ref{fig:esponenziale_logaritmo} (a pagina \pageref{fig:esponenziale_logaritmo})
+e~\ref{fig:potenza_intera_radice} (a pagina \pageref{fig:potenza_intera_radice}).
+
+Anche la funzione valore assoluto $f(x)=\abs{x}$ è separatamente 
+monotona sugli intervalli $[0,+\infty)$ e $(-\infty,0]$. 
+Dunque sappiamo che 
+\[
+  \lim_{x\to +\infty} \abs{x} = \abs{+\infty} = +\infty, 
+  \lim_{x\to -\infty} \abs{x} = \abs{-\infty} = +\infty.
+\]
+Se $x_0\in \RR$ ovviamente si ha pure
+\[
+  \lim_{x\to x_0} \abs{x_0} = \abs{x_0}
+\]
+in quanto è banale verificare che la funzione $\abs{x}$ è continua.
+Lo stesso vale per la funzione \emph{modulo} $\abs{z}$ quando $z\in \CC$.
+
+Ci sarà anche utile osservare che vale anche questa proprietà 
+\[
+\lim_{x\to x_0} \abs{f(x)} = 0 \iff 
+\lim_{x\to x_0} f(x) = 0
+\]
+valida perché le definizioni di limite $f(x)\to 0$ e $\abs{f(x)}\to 0$ 
+coincidono in quanto $\abs{f(x)-0} = \big\lvert{\abs{f(x)} - 0}\big\rvert$.
+
+\begin{theorem}[permanenza del segno]%
+\mymark{***}%
+\index{permanenza del segno}%
+\index{teorema!della permanenza del segno}%
+\mymargin{permanenza del segno}%
+Se
+\[
+  \lim_{x\to x_0} f(x) > 0
+\]
+allora esiste un intorno $U$ di $x_0$ tale che 
+per ogni $x\in U$ si ha $f(x) > 0$.
+
+Viceversa se esiste un intorno $U$ di $x_0$ tale che per ogni $x \in U$  
+si ha $f(x)\ge 0$ e se esiste $\ell$ tale che 
+\[
+    \lim_{x\to x_0} = \ell
+\]
+allora $\ell\ge 0$.
+\end{theorem}
+%
+Intuitivamente il teorema precedente ci dice che le disuguaglianze strette 
+si preservano (permangono) togliendo l'operatore di limite mentre 
+le disuguaglianze larghe si preservano passando al limite.
+%
+\begin{proof}
+Sia $\ell\in [-\infty,+\infty]$ il valore del limite.
+Se $\ell>0$ esiste certamente un intorno $V$ di $\ell$ 
+tale che $V\subset (0,+\infty]$: se $\ell\in \RR$ basta prendere 
+$V=(\ell/2,3 \ell/2)$, se $\ell=+\infty$ basta prendere $V=(1,+\infty]$.
+Per la definizione di limite esiste $U$ intorno di $x_0$ 
+tale che $f(U)\subset V$ e il risultato segue.
+
+Per il viceversa si ragiona per assurdo. 
+Se il limite $\ell$ di $f$ esistesse e fosse $\ell < 0$
+allora per il punto precedente (applicato a $-f$) dovremmo 
+concludere che c'è un intorno di $x_0$ in cui $f(x)<0$.
+Ma allora non è possibile che ci sia un intorno in cui $f(x)\ge 0$.
+\end{proof}
+
+\begin{theorem}[operazioni con i limiti di funzione]
+  \label{th:operazioni_limiti}%
+  \index{limite!della somma}%
+  \index{limite!del prodotto}%
+  \index{limite!del rapporto}%
+\mymark{***}%
+Se
+\[
+  \lim_{x\to x_0}f(x) = \ell_1,\qquad
+  \lim_{x\to x_0}g(x) = \ell_2
+\]
+allora si ha
+\begin{gather*}
+  \lim_{x\to x_0} \enclose{f(x) + g(x)} = \ell_1 + \ell_2, \qquad
+  \lim_{x\to x_0} \enclose{f(x) - g(x)} = \ell_1 - \ell_2, \\
+  \lim_{x\to x_0} f(x)\cdot g(x) = \ell_1 \cdot \ell_2, \qquad
+  \lim_{x\to x_0} \frac{f(x)}{g(x)} = \frac{\ell_1}{\ell_2}
+\end{gather*}
+sempre che le operazioni utilizzate sul lato destro delle uguaglianze
+siano state definite\mynote{%
+Si veda la sezione~\ref{sec:reali_estesi}.
+I casi in cui le operazioni non sono definite si chiamano 
+usualmente \emph{forme indeterminate}
+\index{forme indeterminate}
+e sono: $+\infty - (+\infty)$, 
+$-\infty - (-\infty)$, $+\infty + (-\infty)$, 
+$-\infty + (+\infty)$, $0\cdot (+\infty)$, $+\infty \cdot 0$
+$0\cdot (-\infty)$, $-\infty \cdot 0$, $\frac 0 0$,
+$\frac{+\infty}{+\infty}$, $\frac{-\infty}{-\infty}$,
+$\frac{+\infty}{-\infty}$, $\frac{-\infty}{+\infty}$. 
+}.
+Inoltre se $g(x)\to 0^+$ 
+si ha
+\[
+    \lim_{x\to x_0} \frac{1}{g(x)} = +\infty
+\]
+(informalmente potremmo scrivere: $\frac{1}{0^+} = +\infty$).
+
+Gli stessi risultati valgono per funzioni di variabile e/o valore complesso.
+Anzi i limiti a $\infty$ si comportano meglio, visto che 
+$g(z)\to 0$ risulta equivalente a $1/g(z)\to \infty$.
+
+\end{theorem}
+%
+\begin{proof}
+Consideriamo la somma dei limiti
+e innanzitutto il caso in cui $\ell_1$ ed $\ell_2$ 
+siano entrambi finiti. 
+In tal caso
+dato un qualunque intorno $U=(\ell-\eps,\ell+\eps)$ 
+di $\ell=\ell_1+\ell_2$
+se prendiamo gli intorni $U_1=(\ell_1-\eps/2,\ell_1+\eps/2)$ 
+e $U_2 = (\ell_2-\eps/2,\ell_2+\eps/2)$ si possono trovare 
+degli intorni $V_1$ e $V_2$ di $x_0$ per cui si ha 
+$f(V_1\setminus\ENCLOSE{x_0}) \subset U_1$ e 
+$f(V_2\setminus \ENCLOSE{x_0}) \subset U_2$
+e a maggior ragione questo risulta se prendiamo $V=V_1\cap V_2$ 
+al posto di $V_1$ e $V_2$. 
+Visto che $U_1+U_2 = U$ si avrà allora 
+$(f+g)(V\setminus\ENCLOSE{x_0})\subset U$.
+
+Sempre nel caso della somma 
+se $\ell_1=+\infty$ e $\ell_2\neq -\infty$
+allora $\ell_1+\ell_2=+\infty$ e 
+dato un intorno di $+\infty$ 
+della forma $U=(\alpha,+\infty]$ con $\alpha>0$
+possiamo prendere 
+$U_1 = (2\alpha,+\infty)$ e $U_2 = (\ell_2-\alpha,\ell_2+\alpha)$ 
+se $\ell_2\in \RR$ oppure $U_2 = (\alpha,+\infty)$ se $\ell_2=+\infty$.
+In ogni caso si ha $U_1+U_2 = U$ e si procede quindi come nel caso precedente.
+Il caso $\ell_1=-\infty$ si dimostra in maniera del tutto analoga.
+
+Per la differenza basta osservare che $f(x)-g(x) = f(x) + (-g(x))$.
+Se $\ell_2$ è finito la continuità della funzione $h(y)=-y$
+ci garantisce che $-g(x)\to -\ell_2$.
+Lo stesso si verifica facilmente quando $\ell_2$ è infinito 
+(basta osservare che se $U=(\alpha,+\infty]$ è un intorno di $+\infty$
+allora $-U = [-\infty,-\alpha)$ è un intorno di $-\infty$). 
+Dunque il limite della differenza si riconduce al limite della somma.
+
+Per quanto riguarda il prodotto ci ricordiamo che grazie 
+al teorema~\ref{th:isomorfismo} il gruppo additivo totalmente 
+ordinato $\RR = \openinterval{-\infty}{+\infty}$ 
+è isomorfo al gruppo moltiplicativo $\RR_+ = \openinterval 0 {+\infty}$
+e di conseguenza $\bar \RR = \closeinterval{-\infty}{+\infty}$
+corrisponde a $\closeinterval {0^+}{+\infty}$
+(l'isomorfismo $\RR_+\to \RR$ è dato dalla funzione $\log_a x$ con $a>1$ 
+fissato,
+tale funzione preserva gli intorni dei punti corrispondenti salvo il fatto 
+che gli intorni di $-\infty$ si trasformano in intorni destri di $0$).
+
+Dunque se $f > 0$ e $g > 0$ i risultati per il limite del prodotto 
+sono conseguenza dei risultati analoghi per il limite della somma.
+Cambiando segno ad una delle due funzioni o ad entrambe ci si può 
+ricondurre al caso $f > 0$ e $g > 0$ quando le due funzioni assumono 
+un segno costante in almeno un intorno del punto $x_0$.
+Per il teorema della permanenza del segno questo è vero se 
+$\ell_1\neq 0$ e $\ell_2\neq 0$: il limite del prodotto in questo caso 
+è dunque $\ell_1\cdot \ell_2$.
+Se invece $\ell_1=0$ e $\ell_2\in\RR$ sappiamo che $f(x)\to 0$ 
+è equivalente a $\abs{f(x)}\to 0$ dunque in tal caso si può rimpiazzare $f(x)$ con $\abs{f(x)}\ge 0$
+(gli eventuali punti in cui $f(x)=0$ sono irrilevanti e possono essere tolti 
+dal dominio di $f$ per garantire $\abs{f}>0$) e ottenere che il limite 
+del prodotto è $0$.
+Lo stesso accade se $\ell_2=0$ con la funzione $g(x)$.
+
+Per quanto riguarda il rapporto il teorema~\ref{th:isomorfismo}
+ci dice che le proprietà additive dell'opposto diventano (tramite logaritmo)
+proprietà moltiplicative del reciproco, almeno se siamo nell'ambito di numeri positivi.
+Dunque se $f(x)\to \ell$ con $\ell>0$ 
+allora $\frac{1}{f(x)} \to \frac{1}{\ell}$.
+Se $\ell=0$ non possiamo concludere niente in quanto le proprietà 
+additive a $-\infty$ si rispecchiano nelle proprietà moltiplicative 
+in $0^+$, non in $0$. 
+Dunque i risultati sul limite del rapporto discendono dai risultati 
+sul limite del prodotto con il reciproco.
+\end{proof}
+
+
+Se dobbiamo calcolare un limite in cui compare un elevamento 
+a potenza $f(x)^{g(x)}$ con base ed esponente variabile converrà 
+scrivere
+\[
+ f(x)^{g(x)} = a^{g(x)\cdot \log_a f(x)}
+\]
+per poter applicare il teorema precedente al prodotto $g(x)\cdot \log_a f(x)$.
+
+\begin{example}
+  Si calcoli
+  \[
+  \lim_{x\to +\infty} \frac{2+x^2-x^3}{(x^2-x+2)^2}.
+  \]
+  \end{example}
+  \begin{proof}[Svolgimento.]
+  Per $x\to +\infty$ per il teorema sul limite del
+  prodotto sappiamo che $x^2\to +\infty$ e
+  $x^3\to +\infty$.
+  Per il teorema sulla somma dei limiti
+  sappiamo che $2+x^2\to +\infty$ ma
+  a priori non possiamo applicare tale teorema
+  al limite di $(2+x^2)-x^3$ in quanto
+  $(+\infty)-(+\infty)$ è una forma indeterminata
+  (non rientra nelle ipotesi di quel teorema).
+  Bisogna allora intuire che le potenze di $x$
+  con esponente maggiore sono preponderanti e vanno
+  quindi messe in evidenza tramite
+  manipolazioni algebriche. L'espressione
+  di cui vogliamo calcolare il limite
+  si può quindi riscrivere in questo modo:
+  \begin{align*}
+  \frac{2+x^2-x^3}{(x^2-x+2)^2}
+  &= \frac{x^3 \enclose{\frac 2 {x^3}+\frac{1}{x}-1}}{x^4\enclose{1-\frac 1 x + \frac{2}{x^2}}^2}
+  = \frac{1}{x}\cdot \frac{\frac 2 {x^3}+\frac{1}{x}-1}{\enclose{1-\frac 1 x + \frac{2}{x^2}}^2}.
+  \end{align*}
+  A questo punto l'espressione non presenta più forme indeterminate.
+  Applicando i teoremi precedenti possiamo allora affermare che
+  si ha
+  \begin{align*}
+  \lim_{x\to+\infty}\frac{1}{x}\cdot \frac{\frac 2 {x^3}+\frac{1}{x}-1}{\enclose{1-\frac 1 x + \frac{2}{x^2}}^2}
+  &= \frac{1}{+\infty} \cdot \frac{\frac 2 {(+\infty)^3}+\frac{1}{+\infty}-1}{\enclose{1-\frac 1 {+\infty} + \frac{2}{(+\infty)^2}}^2}\\
+  &= 0 \cdot \frac{0+0-1}{(1-0+0)^2} = 0\cdot (-1) = 0.
+  \end{align*}
+\end{proof}
+
+L'aver definito le operazioni sulle quantità infinite
+risulta in effetti comodo nello svolgimento dei limiti.
+Bisogna però essere consapevoli che $\bar \RR$ non è un campo
+e quindi le operazioni con i simboli $+\infty$ e $-\infty$
+non rispettano molte delle regole che siamo abituati
+ad avere sui numeri finiti.
+Sarà quindi opportuno ricondursi immediatamente ad una espressione
+che abbia senso in $\RR$, sulla quale potremo
+applicare le manipolazioni algebriche con più tranquillità.
+Per questo motivo in molti testi l'espressione intermedia in cui compaiono 
+le operazioni eseguite sulle quantità $+\infty$ e $-\infty$ non è ritenuta valida
+e si preferisce scrivere direttamente il risultato.
+  
+\begin{example}
+Si calcoli il seguente limite nel campo complesso:
+\[
+\lim_{z\to 0} \enclose{\frac 1 {z} - \frac 1 {z^2-z}}. 
+\]
+\end{example}
+\begin{proof}
+  Anche in questo caso non possiamo applicare direttamente le regole 
+  di calcolo del limite in quanto otterremmo la forma indeterminata 
+  $\infty - \infty$.
+  Possiamo però operare una semplice manipolazione algebrica
+  per eliminare l'indeterminazione:
+  \[
+    \frac 1 {z} - \frac 1 {z^2-z}
+    = \frac{z- 1 - 1}{z^2-z}
+    = \frac{z-2}{z^2-z}
+    \to \frac{0-2}{0^2-0} = \frac{-2}{0} = \infty 
+    \qquad \text{per $z\to 0.$}
+  \]
+\end{proof}
+
+\begin{comment} % non abbiamo ancora gli strumenti per fare questi esercizi
+\begin{exercise}
+  Calcolare 
+  \[
+  \lim_{x\to 0^+} x^x.
+  \]
+\end{exercise}
+
+\begin{exercise}
+  Trovare un esempio di funzioni $f(x)$ e $g(x)$ tali che 
+  \[
+     \lim_{x\to 0} f(x) = 0, \qquad 
+     \lim_{x\to 0} g(x) = 0
+  \]
+  ma 
+  \[
+    \lim_{x\to 0} f(x)^{g(x)} \neq 1.
+  \]
+\end{exercise}
+\end{comment}
+
+\subsection{proprietà frequenti e definitive}
+
+\begin{definition}[proprietà frequenti e definitive]
+Diremo che un predicato $P(x)$ definito su un insieme $A\subset \RR$ 
+di cui $x_0$ è punto di accumulazione vale 
+\emph{definitivamente}%
+\mymargin{definitivamente}%
+\index{definitivamente} per $x\to x_0$ se
+vale in un intorno di $x_0$ ovvero:
+\[
+  \exists U\in \B_{x_0}\colon \forall x \in A\cap U\setminus\ENCLOSE{x_0}\colon P(x).
+\]
+Diremo che $P(x)$ vale \emph{frequentemente}%
+\mymargin{frequentemente}%
+\index{frequentemente} per $x\to x_0$
+se in ogni intorno di $x_0$ c'è almeno un punto $x\neq x_0$ 
+in cui vale:
+\[
+  \forall U\in \B_{x_0}\colon \exists x\in A\cap U\setminus\ENCLOSE{x_0}
+  \colon P(x).
+\]
+\end{definition}
+
+Chiaramente se una proprietà vale definitivamente vale anche frequentemente
+infatti se c'è un intorno $U$ su cui vale la proprietà per ogni altro intorno 
+$V$ la proprietà risulta valida su $U\cap V$ che non è mai vuoto.
+Se una proprietà vale frequentemente significa in particolare che vale per 
+infiniti valori diversi in quanto se vale in punto $x\neq x_0$ 
+posso sempre trovare un intorno $V$ di $x_0$ che non contiene $x$
+e in tale intorno trovo un ulteriore punto in cui vale la proprietà. 
+Iterando il procedimento posso trovare infiniti punti diversi su cui 
+la proprietà è valida.
+
+Le due proprietà sono complementari nel senso che
+in base alle proprietà dei quantificatori logici vale 
+la seguente relazione:
+\[
+  \text{non frequentemente $P(x)$} \iff
+  \text{definitivamente non $P(x)$}
+\]
+
+Se due proprietà $P(x)$ e $Q(x)$ valgono definitivamente allora anche
+$P(x)\land Q(x)$ vale definitivamente. Se invece valgono entrambe
+frequentemente allora anche $P(x) \lor Q(x)$ vale frequentemente.
+
+\begin{example}
+La proprietà $x^3 - x > 1000 x^2 + 1$
+vale definitivamente per $x\to +\infty$.
+La proprietà $x>0$ vale frequentemente per $x\to 0$.
+\end{example}
+
+
+La definizione di limite $f(x) \to \ell$ per $x\to x_0$ 
+potrebbe quindi enunciarsi così:
+per ogni intorno $U$ di $\ell$ si ha $f(x)\in U$ definitivamente.
+E la sua negazione è: esiste un intorno $U$ di $\ell$ per cui
+frequentemente $f(x)\not\in U$.
+
+
+\subsection{criteri di confronto}
+
+\begin{theorem}[criteri di confronto]
+\label{th:confronto}%
+\index{teorema!del confronto}%
+\index{limite!confronto}%
+\index{teorema!dei due carabinieri}%
+\index{carabineri!teorema dei}%
+\mymark{***}%
+Siano 
+$f$, $g$, $h$ tre funzioni reali%
+\mynote{Non è possibile fare confronti tra valori complessi, visto che
+sui numeri complessi non abbiamo un ordinamento}
+definite su uno stesso dominio $A\subset \RR$ 
+con punto di accumulazione $x_0$
+\mymargin{confronto tra limiti}%
+\index{confronto tra limiti}
+\begin{enumerate}
+\item
+Se per ogni $x\in A$ si ha
+\[
+f(x) \le g(x)
+\]
+e se entrambe le funzioni ammettono limite: $f(x) \to \ell_1$ 
+e $g(x) \to \ell_2$ per $x\to x_0$
+allora
+\[
+\ell_1 \le \ell_2.
+\]
+
+\item
+Se per ogni $x\in A$ si ha:
+\[
+f(x) \le g(x)
+\]
+e se $f(x)\to +\infty$ allora anche $g(x) \to +\infty$ per $x\to x_0$.
+Viceversa se $f(x) \le g(x)$ e $g(x) \to -\infty$ allora anche $f(x) \to -\infty$.
+
+\item
+(teorema dei carabinieri)
+Se per ogni $x\in A$ vale
+\mymargin{teorema dei carabinieri}%
+\index{teorema!dei carabinieri}%
+\[
+f(x) \le h(x) \le g(x)
+\]
+ e se le due
+funzioni $f$ e $g$ hanno lo stesso limite: $f(x) \to \ell$ e $g(x)\to \ell$
+per $x\to x_0$
+allora anche $h(x) \to \ell$.
+\end{enumerate}
+\end{theorem}
+%
+\begin{proof}
+\mymark{**}
+\begin{enumerate}
+\item
+Se per assurdo fosse $\ell_1 > \ell_2$
+la funzione $f(x)-g(x)$ avrebbe limite positivo e per il teorema
+della permanenza del segno dovrebbe essere definitivamente positiva. 
+Ma questo contraddice l'ipotesi $f(x)-g(x)\le 0$. 
+
+\item 
+Se non fosse $g(x)\to +\infty$ significa che 
+esiste $\alpha \in \RR$ tale che $g(x)<\alpha$ frequentemente. 
+Ma visto che definitivamente $f(x)>\alpha$ troviamo 
+che frequentemente si ha $f(x)>g(x)$ in contrasto con l'ipotesi 
+$f(x)\le g(x)$.
+
+\item
+Se $f$ e $g$ hanno lo stesso limite $\ell$ significa che per ogni
+$U$ intorno di $\ell$ si ha definitivamente $f(x)\in U$ e $g(x)\in U$.
+Visto che $U$ è un intervallo anche $h(x)$ è definitivamente in $U$ 
+e quindi $h(x)\to \ell$.
+\end{enumerate}
+\end{proof}
+
+\begin{example}
+  Dimostrare che 
+  \[
+    \lim_{x\to +\infty} \enclose{2x - \lfloor x\rfloor} = +\infty. 
+  \]
+\end{example}
+\begin{proof}[Svolgimento.]
+  Sappiamo che $\lfloor x\rfloor \le x$ dunque 
+  \[
+    2x - \lfloor x \rfloor \ge 2x -x = x \to +\infty.  
+  \]
+  Dunque per confronto si ottiene il risultato richiesto.
+\end{proof}
+
+\begin{corollary}[limitata per infinitesima]%
+\label{cor:limitata_per_infinitesima}%
+\mymark{**}%
+  Se $f(x)$ è una funzione limitata e $g(x)\to 0$ per 
+  $x\to x_0$ allora anche
+  \[
+    f(x)\cdot g(x) \to 0 \qquad \text{per $x\to x_0.$} 
+  \]
+\end{corollary}
+%
+\begin{proof}
+  Se $f$ è limitata significa che esiste $R>0$ tale che $\abs{f(x)}\le R$
+  per ogni $x$ nel dominio di $f$.
+  Ma allora 
+  \[
+     0\le \abs{f(x)\cdot g(x)} = \abs{f(x)}\cdot \abs{g(x)} 
+     \le R \abs{g(x)} \to R\cdot 0 = 0.
+  \]
+  Per confronto deduciamo che $\abs{f(x)\cdot g(x)}\to 0$ 
+  che è equivalente alla tesi.
+\end{proof}
+
+\begin{exercise}
+  Mostrare che 
+  \[
+   \lim_{x\to +\infty} \frac{x-\lfloor x \rfloor}{x} = 0.  
+  \]
+\end{exercise}
+%\input{chapters/AnalisiUno-02-funzioni.tex}
+
