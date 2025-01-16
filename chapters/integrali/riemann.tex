@@ -101,13 +101,19 @@ Di conseguenza $I_*(f) \le I^*(f)$.
   % \end{align*}
   Ma osservando che
   \[
-  \inf_{[x_{k-1}, x_k]}\!\!f
-  \le\inf_{[x_{k-1},y]}\!\! f
+  \inf f([x_{k-1}, x_k])
+  \le \inf f([x_{k-1},y])
   \qquad \text{e} \qquad
-  \inf_{[x_{k-1}, x_k]}\!\!f
-  \le\inf_{[y,x_k]}\!\! f
+  \inf f([x_{k-1}, x_k])
+  \le \inf f([y,x_k])
   \]
-  si ottiene $S_*(f,P) \le S_*(f,P')$.
+  si ottiene 
+  \begin{align*}
+    (x_k - x_{k-1})\cdot \inf f([x_{k-1}, x_k])
+    & = (y - x_{k-1} + x_k - y)\cdot \inf f([x_{k-1}, x_k]) \\
+    & \le (y-x_{k-1})\cdot \inf f([x_{k-1},y]) + (x_k - y)\cdot \inf f([y,x_k])
+  \end{align*}
+  e dunque $S_*(f,P) \le S_*(f,P')$.
   In maniera analoga si ottiene $S^*(f,P) \ge S^*(f,P')$.
   Dunque \eqref{eq:39543} è dimostrata.
   Ma allora se $P$ e $Q$ sono suddivisioni qualunque osserviamo che $P\cup Q$ 
@@ -210,6 +216,9 @@ l'integrale coincide con i limiti di $S^*(f,P_n)$ e di
 $S_*(f,P_n)$.
 \end{proof}
 
+Il seguente esercizio è stato svolto da Archimede (287 a.C. - 212 a.C.) 
+per calcolare l'area di un settore di parabola (metodo di esaustione).
+
 \begin{example}[calcolo dell'integrale mediante suddivisioni]%
 \label{ex:integrale_quadrato}%
 Mostriamo che per ogni $b>0$ la funzione $f(x)=x^2$ è Riemann-integrabile sull'intervallo $[0,b]$ e si ha
@@ -224,41 +233,33 @@ P_N = \ENCLOSE{\frac{kb}{N}\colon k \in 0, 1, \dots, N}.
 \]
 Si ha
 \[
-  S^*(f,P_N) = \sum_{k=1}^N \sup_{[(k-1)b/N,kb/N]}f \cdot \frac b N
+  S^*(f,P_N) 
+   = \sum_{k=1}^N \frac b N \sup f\enclose{\Enclose{\frac{k-1}{N} b,\frac k N b}}
    = \frac{b}{N} \sum_{k=1}^N \frac{k^2b^2}{N^2}
    = \frac{b^3}{N^3} \sum_{k=1}^N k^2.
 \]
-Ricordiamo ora che vale
+Ricordiamo ora che vale (si veda esercizio~\ref{ex:somma_quadrati}):
 \[
-  \sum_{k=1}^n k^2 = \frac{n(n+1)(2n+1)}{6} = \frac{2n^3+3n^2+n}{6}
+  \sum_{k=1}^N k^2 = \frac{N(N+1)(2N+1)}{6} = \frac{2N^3+3N^2+N}{6}
+  \sim \frac 1 3 N^3,\qquad \text{per $N\to +\infty$}.
 \]
-(tale formula può essere facilmente verificata per induzione). Dunque si ha
+Dunque si ha
 \[
-  S^*(f,P_N) = \frac{b^3}{N^3} \frac{2N^3+3N^2+N}{6}
-       = \frac{b^3}{6}\enclose{2 + \frac{3}{N}+\frac 1 N^2}
-       \to \frac{b^3}{3}
+  S^*(f,P_N) \to \frac {b^3} 3, \qquad \text{per $N\to +\infty$}.
 \]
-per $N\to +\infty$.
 Analogamente si trova
 \[
-  S_*(f,P_N) = \sum_{k=1}^N \inf_{[(k-1)b/N,kb/N]} f \cdot \frac{b}{N}
+  S_*(f,P_N) 
+  = \sum_{k=1}^N \frac{b}{N}\inf f\enclose{\Enclose{\frac{k-1} N b,\frac k N b}} 
   = \frac{b}{N}\sum_{k=1}^N \frac{(k-1)^2b^2}{N^2}
   = \frac{b^3}{N^3} \sum_{k=0}^{N-1} k^2
 \]
-e osservando che si ha
+e dunque 
 \[
- \sum_{k=0}^{N-1} k^2 = \sum_{k=1}^{N-1} k^2 = \frac{2(N-1)^3+3(N-2)^2+(N-1)}{6}
-\]
-otteniamo
-\[
- \lim_{N\to+\infty} S_*(f,P_N) 
- = \frac{b^3}{3}
- \qquad
- \lim_{N\to+\infty} S^*(f,P_N)
-  = \frac{b^3}{3}.
+  S_*(f,P_N) \sim \frac {b^3} {N^3} \frac {(N-1)^3} 3 \to \frac {b^3} 3, \qquad \text{per $N\to +\infty$}.
 \]
 La dimostrazione si conclude quindi applicando
-il criterio \eqref{eq:93765} del teorema precedente.
+il criterio \eqref{eq:93765} del teorema~\ref{th:criteri_integrabilita} precedente.
 \end{proof}
 
 \begin{theorem}[integrale della costante]
