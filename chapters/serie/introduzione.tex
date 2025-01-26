@@ -4,31 +4,28 @@ delle cosiddette \emph{somme parziali}%
 \mymargin{somme parziali}%
 \index{somme!parziali}
 \[
-  S_n = \sum_{k=0}^{n} a_k.
+  S_n = \sum_{k=0}^{n-1} a_k.
 \]
 \mynote{La somma parte da $k=0$ perché vogliamo utilizzare 
 tutti i termini della successione, ma in molti casi 
-sarà naturale partire da $k=1$ o da qualunque altro numero 
-intero. 
-Anche l'ultimo indice della somma $k=n$ è arbitrario, 
-sarebbe sensato anche scegliere $n-1$ in modo da avere 
-un totale di $n$ addendi. 
-Vedremo nel seguito che questa libertà di scelta 
-è del tutto irrilevante per le questioni che ci interessano.
-}
+la successione avrà come primo indice $k=1$ e quindi
+sarà naturale partire da $k=1$. 
+L'ultimo termine è $n-1$ in modo che $S_n$ sia la somma dei primi 
+$n$ termini della successione.
+Non cambierebbe niente se scegliessimo $n$ al posto di $n-1$}
 Potremo scrivere più concisamente $S_n = \sum a_n$.
 Intuitivamente si intende sommare i termini della successione $a_k$
-per $k$ che parte da $0$ fino a $k=n$:
+per $k$ che parte da $0$ fino a $k=n-1$:
 \[
-  \sum_{k=0}^n a_k = a_0 + a_1 + a_2 + \dots + a_n.
+  \sum_{k=0}^{n-1} a_k = a_0 + a_1 + a_2 + \dots + a_{n-1}.
 \]
 Formalmente la somma $S_n=\displaystyle \sum_{k=0}^n a_k$
 è definita ricorsivamente
 dalle seguenti relazioni:
 \[
   \begin{cases}
-    S_0 = a_0, \\
-    S_{n+1} = S_n + a_{n+1}.
+    S_0 = 0, \\
+    S_{n+1} = S_n + a_{n}.
   \end{cases}
 \]
 
@@ -43,7 +40,9 @@ Se la successione delle somme parziali ammette limite il limite viene chiamato
 \index{somma!di una serie}\index{serie!somma}%
 della serie e si indica con
 \[
-  \sum_{k=0}^{+\infty} a_k = \lim_{n\to +\infty} S_n = \lim_{n\to+\infty} \sum_{k=0}^n a_k.
+  \sum_{k=0}^{+\infty} a_k 
+  = \lim_{n\to +\infty} S_n 
+  = \lim_{n\to+\infty} \sum_{k=0}^{n-1} a_k.
 \]
 
 La terminologia già introdotta per le successioni si applica anche alle
@@ -58,19 +57,22 @@ Più in generale si potrà considerare la somma che parte da un certo
 indice $m\in \ZZ$.
 Fissato $m$ si potrà ad esempio considerare la serie:
 \[
-  S_n = \sum_{k=m}^n a_k
+  S_n = \sum_{k=m}^{n-1} a_k
 \]
 che risulta definita per ogni $n\in\NN$, $n\ge m$
 come
 \[
-  S_n = a_m + a_{m+1} + \dots + a_n.
+  S_n = a_m + a_{m+1} + \dots + a_{n-1}.
 \]
 
 \begin{example}
 Consideriamo la serie $S_n$ definita
 come la somma dei numeri naturali da $1$ a $n$:
 \[
-  S_n = \sum_{k=1}^n k = 1 + 2 + \dots + n.
+  S_n 
+  = \sum_{k=0}^{n-1} (k+1)
+  = \sum_{k=1}^{n} k
+  = 1 + 2 + \dots + n.
 \]
 Sappiamo che si ha (esercizio~\ref{ex:somma_lineare})
 \[
@@ -81,7 +83,9 @@ risulta $S_n \to +\infty$.
 
 Questo si esprime dicendo che la serie $\sum n$ è divergente:
 \[
-     \sum_{k=1}^{+\infty} k = +\infty.
+  \sum_{k=0}^{+\infty} (k+1)
+  = \sum_{k=1}^{+\infty} k 
+  = +\infty.
 \]
 \end{example}
 
@@ -102,9 +106,10 @@ di termini
 $\sum q^n$
 le cui somme parziali sono
 \[
-  S_0 = 1, \qquad
-  S_1 = 1 + q, \qquad
-  S_2 = 1 + q + q^2, \qquad
+  S_0 = 0, \qquad
+  S_1 = 1, \qquad
+  S_2 = 1 + q, \qquad
+  S_3 = 1 + q + q^2, \qquad
   \dots
 \]
 \end{example}
@@ -121,7 +126,7 @@ convergente, divergente, indeterminato.
 \index{somma!della serie geometrica}%
 Sia $q\in \CC$. Se $q\neq 1$ si ha
 \[
- \sum_{k=0}^n q^k  = \frac{1-q^{n+1}\!\!\!\!\!\!}{1-q}.
+ \sum_{k=0}^{n-1} q^k  = \frac{1-q^n}{1-q}.
 \]
 Se $\abs{q} < 1$ la serie geometrica converge:
 \[
@@ -149,28 +154,28 @@ Se $\abs{q}=1$ ma $q\neq 1$ la serie
 Il primo risultato riguarda una somma finita.
 Si ha
 \[
-  (1-q)\cdot \sum_{k=0}^n q^k
-  = \sum_{k=0}^n q^k - q \cdot \sum_{k=0}^n q^k
-  = \sum_{k=0}^n q^k - \sum_{k=1}^{n+1} q^k
-  = 1 - q^{n+1}
+  (1-q)\cdot \sum_{k=0}^{n-1} q^k
+  = \sum_{k=0}^{n-1} q^k - q \cdot \sum_{k=0}^{n-1} q^k
+  = \sum_{k=0}^{n-1} q^k - \sum_{k=1}^{n} q^k
+  = 1 - q^n
 \]
 da cui si ottiene, se $q\neq 1$, il risultato voluto.
 
 Passando al limite per $n\to +\infty$, se $\abs{q} < 1 $
-si nota che $\abs{q^{n+1}} = \abs{q}^{n+1} \to 0$
-e la serie converge a $\frac 1{1-q}$.
+si nota che $\abs{q^n} = \abs{q}^{n} \to 0$
+e la serie converge dunque a $\frac 1{1-q}$.
 
 Consideriamo ora la serie a valori reali.
 Se $q>1$ osserviamo che
 $q^n\to +\infty$ e quindi la serie diverge a $+\infty$
 (infatti in questo caso $1-q$ è negativo).
 Se $q=1$ si ha $q^k=1$ e quindi
-$\displaystyle\sum_{k=0}^n q^k = n+1 \to +\infty$.
+$\displaystyle\sum_{k=0}^{n-1} q^k = n \to +\infty$.
 
 Per gli altri casi osserviamo che si ha
 \[
-  \sum_{k=0}^n q^k = \frac{1-q^{k+1}}{1-q}
-  = \frac{1}{1-q} - \frac{q}{1-q}\cdot q^k
+  \sum_{k=0}^{n-1} q^k = \frac{1-q^n}{1-q}
+  = \frac{1}{1-q} - \frac{1}{1-q}\cdot q^k
 \]
 e dunque il carattere della serie coincide
 con il carattere della successione $q^k$.
@@ -191,7 +196,7 @@ che $(-1)^k$ è indeterminata.
 Anche se $q$ è complesso vogliamo dimostrare
 che la successione $q^k$ è indeterminata:
 se non lo fosse si avrebbe $q^k\to \ell$
-con $\abs{\ell}=1$ in quanto $\abs{q^k}=1$.
+con $\abs{\ell}=1$ in quanto $\abs{q^k}=1$
 e passando al limite nell'uguaglianza
 \[
   q^{k+2} = q\cdot q^{k+1}
@@ -204,6 +209,7 @@ geometrica.
 \end{proof}
 
 \begin{theorem}[linearità della somma]
+\label{th:linearita_somma_serie}%
 \mymargin{linearità della somma infinita}%
 \index{linearità della somma infinita}
 Se $\sum a_n$ e $\sum b_n$ sono convergenti
@@ -240,7 +246,7 @@ Se la serie $\sum a_n$ converge allora $a_n \to 0$.
 \begin{proof}
 \mymark{***}
 Se la serie $\sum a_n$ converge significa che le somme parziali
-$S_n = \sum_{k=0}^n a_k$ convergono: $S_n \to S$. Ma allora
+$S_n = \displaystyle\sum_{k=0}^{n-1} a_k$ convergono: $S_n \to S$. Ma allora
 \[
   a_n = S_n - S_{n-1} \to S - S = 0.
 \]
@@ -259,14 +265,17 @@ di termini, allora le serie corrispondenti $\sum a_n$ e $\sum b_n$ hanno lo stes
 \begin{proof}
 Se le successioni differiscono su un numero finito di termini significa
 che esiste un $N\in \NN$ tale che per ogni $k>N$ si ha $a_k=b_k$.
-Dunque se indichiamo con $S_n = \sum_{k=0}^n a_k$ e $R_n = \sum_{k=0}^n b_k$
+Dunque se indichiamo con $S_n = \sum_{k=0}^{n-1} a_k$ e 
+$R_n = \sum_{k=0}^{n-1} b_k$
 le corrispondenti successioni delle somme parziali, si avrà per ogni $n>N$
 \[
   S_n - R_n
-    = \sum_{k=0}^n a_k - \sum_{k=0}^n b_k
-    = \sum_{k=0}^N (a_k - b_k) = C
+    = \sum_{k=0}^{n-1} a_k - \sum_{k=0}^{n-1} b_k
+    = \sum_{k=0}^{N-1} (a_k - b_k) 
+    = C
 \]
-dove $C$ è una costante indipendente da $n$. Dunque
+dove $C$ è una costante indipendente da $n$. 
+Dunque, per $n>N$ si ha
 \[
   S_n = R_n + C.
 \]
@@ -322,7 +331,7 @@ dell'uguaglianza esistano e non abbiano somme infinite di segno opposto.
 \mymark{*}%
 Sia $\sum a_n$ una serie convergente. Allora
 \[
-  \lim_{n\to +\infty} \sum_{k=n+1}^{+\infty} a_k = 0.
+  \lim_{n\to +\infty} \sum_{k=n}^{+\infty} a_k = 0.
 \]
 \end{theorem}
 %
@@ -330,12 +339,12 @@ Sia $\sum a_n$ una serie convergente. Allora
 \mymark{*}
 Posto
 \[
-  S_n = \sum_{k=0}^n a_k,
+  S_n = \sum_{k=0}^{n-1} a_k,
 \]
 per definizione di serie convergente sappiamo che esiste $S$ finito
 tale che $S_n \to S$. Osserviamo allora che
 \[
-  \sum_{k=n+1}^{+\infty} a_k = \lim_{N\to+\infty} \sum_{k=n+1}^N a_k
+  \sum_{k=n}^{+\infty} a_k = \lim_{N\to+\infty} \sum_{k=n}^{N-1} a_k
    = \lim_{N\to +\infty} S_N - S_n = S - S_n
 \]
 e, per $n\to +\infty$ si ha ovviamente $S - S_n \to S - S = 0$.

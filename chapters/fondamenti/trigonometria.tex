@@ -58,8 +58,8 @@ Inoltre tale funzione ha le seguenti proprietà:
 \begin{enumerate}
   \item $\phi(t+\tau)=\phi(t)$ ($\phi$ è $\tau$-periodica),
   \item $\phi([0,\tau)) = U = \ENCLOSE{z\in \CC\colon \abs{z}=1}$,
-  \item $\Im \phi(t)$ è strettamente crescente per $t\in\Enclose{-\frac \tau 4,\frac \tau 4}$,
-  \item $\Re \phi(t)$ è strettamente decrescente per $t\in\Enclose{0,\frac \tau 2}$,
+  \item $\Im \phi(t)\colon \Enclose{0,\frac \tau 4}\to [0,1]$
+  è strettamente crescente e bigettiva,
 \end{enumerate}
 \end{theorem}
 %
@@ -107,6 +107,7 @@ u_0 = i\\
 u_{n+1} = \sqrt{u_n}.
 \end{cases}
 \]
+Moralmente $u_n=\sqrt[2^n] i$.
 Questi angoli sono uno la metà dell'altro $u_{n+1}^2 = u_n$.
 Induttivamente si dimostra facilmente che vale $u_{n+k}^{2^k} = u_n$
 per ogni $n,k\in \NN$.
@@ -141,8 +142,8 @@ Osserviamo che si ha $\phi(t) = \phi(s)\cdot \phi(t-s)$,
 quindi basta capire come si comporta la moltiplicazione per un 
 numero complesso del primo quadrante.
 Se $\phi(s)=z=a+ib$ e $\phi(t-s)=w=x+iy$ si ha
-$\Re (zw) = ax-by$. Banalmente se $a,b,x,y\in[0,1]$ si ha 
-$ax-by \le a$. 
+$\Re (zw) = ax-by$. 
+Banalmente se $a,b,x,y\in[0,1]$ si ha $ax-by \le a$. 
 Dunque $\Re \phi(t)\le \Re \phi(s)$ come volevamo dimostrare.
 Visto che $\Im \phi(t) = \sqrt{1-\Re \phi(t)^2}$ si ha
 anche $\Im \phi(t) \le \Im \phi(s)$.
@@ -160,34 +161,89 @@ Dobbiamo verificare che $f(B)$ è denso in $J=[0,1]$.
 Dati $y_1,y_2\in [0,1]$ con $y_1<y_2$ dobbiamo mosrare che esiste $t\in B$ tale 
 che $y_1 < \Im phi(t) < y_2$.
 Sarà $y_1=\Im z_1$ e $y_2=\Im z_2$ con $z_1,z_2\in U$.
-L'idea è quella di trovare $n$ abbastanza grande in modo che uno dei punti 
-$u_n^p$ stia tra $z_1$ e $z_2$. 
-L'angolo differenza tra $z_1$ e $z_2$ è rappresentato da 
-$w=\frac{z_2}{z_1}$. 
-Siccome $u_n\to 1$ per $n\to +\infty$ 
-esisterà $n$ tale che $\abs{u_n-1}<y_2-y_1$.
-La successione $\Im u_n^p$, al crescere di $p\in \NN$ è crescente 
-(come abbiamo già osservato) e varia tra $0$ (quando $p=0$) e $1$ 
-(quando $p=2^n$). 
-Si ha
+L'idea è quella di considerare $n$ abbastanza grande in modo tale 
+che i punti $f(p/2^n)= \Re \phi(p/2^n)$ siano abbastanza ravvicinati tra loro.
+
+Ci servirà dimostrare che per ogni $n\ge 1$ si ha
+\begin{equation}
+  \label{eq:44385834}
+  \abs{u_n-1}^2 \le \frac{2}{2^n}.
+\end{equation}
+La disequazione~\eqref{eq:44385834} si dimostra per induzione.
+Per $n=1$ si verifica che 
+verificando che è soddisfatta per $n=1$ e che 
+$u_1=\frac{1+i}{\sqrt 2}$ e quindi,
+$\abs{u_1-1}^2 = \dots = 2-\sqrt 2 \le 1$ e dunque 
+\eqref{eq:44385834} è soddisfatta.
+Per il passo induttivo è sufficiente dimostrare che:
+\begin{equation}
+  \label{eq:4398633}
+   \abs{u_{n+1}-1}^2 \le \frac 1 2 \abs{u_n-1}^2.
+\end{equation}
+E infatti si ha
 \[
- \Im u_n^{p+1} - \Im u_n^p = \Im (u_n^{p+1}-u_n^p) 
- \le \abs{u_n^{p+1}-u_n^p} < y_2-y_1.
+  \abs{u_n-1}^2
+  = \abs{u_{n+1}^2-1}^2
+  = \abs{u_{n+1}-1}^2 \abs{u_{n+1}+1}^2
 \]
-Dunque dovrà esistere $p\in \NN$, $p\le 2^n$ tale che 
-$y_1 < \Im u_n^p <y_2$. 
-Visto che $\Im u_n^p = f(p/2^n)$ abbiamo dimostrato 
-che $f(B)$ è denso in $[0,1]$.
+e, osservando che $\Re u_{n+1}\ge \Re u_1 = 1/\sqrt 2$ si ha
+\[
+ \abs{u_{n+1}+1}^2 \ge \Re^2(u_{n+1}+1) 
+ \ge \enclose{\frac{1}{\sqrt 2}+1}^2 = \frac 1 2 + \sqrt 2 + 1 > 2.
+\]
+Questo conclude la dimostrazione di~\eqref{eq:4398633} e 
+quindi anche di~\eqref{eq:44385834}.
+
+Grazie a \eqref{eq:4398633} possiamo scegliere $n$ abbastanza grande in modo che 
+$\abs{u_n-1}<y_2-y_1$. 
+Questo significa che per ogni $p\in \NN$, $p\le 2^n$ si ha 
+\[
+  0
+  \le f\enclose{\frac{p+1}{2^n}} - f\enclose{\frac{p}{2^n}}
+  = \Im u_n^{p+1} - \Im u_n^p 
+  \le \abs{u_n^{p+1}-u_n^p}
+  = \abs{u_n}^p \abs{u_n-1} 
+  = \abs{u_n-1} \le y_2-y_1.
+\]
+Dunque deve esistere $p$ per cui $f(p/2^n)$ sta tra $y_1$ e $y_2$.
+Questo dimostra che $f(B)$ è denso in $[0,1]$.
+
 Per il teorema~\ref{th:estensione_monotona} possiamo allora estendere 
-$f$ a tutto $[0,1]$ preservando la monotonia.
-Ma allora possiamo estendere $\phi$ a tutto $[0,1]$ 
-ponendo $\phi(t) = \sqrt{1-f^2(t)} + i f(t)$. 
-In questo modo $\Im \phi = f$ è monotona crescente mentre 
-$\Re \phi=\sqrt{1-f^2}$ risulta decrescente.
+$f$ in modo unico ad una funzione crescente $\tilde f \colon [0,1]\to [0,1]$.
+Ma allora possiamo estendere anche $\phi$ a tutto $[0,1]$,
+in modo unico,
+ponendo $\phi(t) = \sqrt{1-{\tilde f}^2(t)} + i \tilde f(t)$. 
+In questo modo $\Im \phi = \tilde f$ è monotona crescente mentre 
+$\Re \phi=\sqrt{1-{\tilde f}^2}$ risulta decrescente.
+
+Vogliamo ora dimostrare che la funzione $\tilde f\colon [0,1]\to [0,1]$ 
+è bigettiva.
+Innanzitutto $\tilde f$ è strettamente crescente (oltre che crescente)
+perché se fosse $\tilde f(t_1)=\tilde f(t_2)$ con $t_1<t_2$ esisterebbero 
+$s_1,s_2\in B$ con $t_1<s_1<s_2<t_2$ tali che $\tilde f(s_1)=\tilde f(s_2)$.
+E questo non è possibile perché $\tilde f(s_1)=f(s_1)$ e $\tilde f(s_2) = f(s_2)$ sono potenze 
+diverse di uno stesso $u_n$. Dunque $\tilde f$ è iniettiva.
+Sia ora $C=\tilde f([0,1])$ l'immagine di $\tilde f$. 
+Ovviamente $\tilde f\colon [0,1]\to C$ è suriettiva e quindi bigettiva.
+La funzione inversa $g\colon C \to [0,1]$ soddisfa anch'essa 
+le ipotesi del teorema~\ref{th:estensione_monotona}
+(ovviamente $g(C)=[0,1]$ è denso in $[0,1]$ e si osserva che 
+$0\in C$ e $1\in C$).
+Dunque se fosse $C \neq [0,1]$ si potrebbe estendere $g$ a tutto
+$[0,1]$ mantenendo la monotonia. 
+Ma visto che $g$ assumeva già tutti i valori di $[0,1]$ significa 
+che l'estensione di $g$ non è più iniettiva.
+Esistono cioè $y_1<y_2$ tali che $g(y_1)=g(y_2)=x$
+e visto che $g$ è monotona si avrà $g(y)=x$ per ogni $y\in[y_1,y_2]$. 
+Ma l'immagine della funzione $\tilde f$ 
+contiene al più un punto di tale intervallo, e questo è assurdo 
+perché l'immagine di $\tilde f$ contiene l'immagine di $f$ che 
+è densa in $[0,1]$.
+Dunque $f = \Im \phi\colon[0,1]\to[0,1]$ è bigettiva e strettamente 
+crescente.
 
 Vogliamo ora verificare che la proprietà di omomorfismo 
-\eqref{eq:4012387} è verificata
-ora per ogni $t\in [0,1]$.
+\eqref{eq:4012387} è verificata su $[0,1]$.
 Prendiamo dunque $s,t\in[0,1]$ tali che anche $s+t\in [0,1]$
 e puntiamo a dimostrare che per ogni $\eps>0$ 
 si ha:
@@ -237,28 +293,19 @@ per ottenere la forma $a_1(b_1-b_2) + (a_1-a_2)b_2$:
 per questo motivo si ottiene $4\eps$ invece che $2\eps$.
 }
 
-Abbiamo finora osservato che $\Im \phi$ e $\Re \phi$ sono monotone.
-Possiamo notare però che devono essere strettamente monotone, altrimenti 
-ci sarebbe un piccolo intervallo su cui $\phi$ è costante, e per la proprietà 
-di omomorfismo potremmo dedurre che per un piccolo intervallo $[0,t_0]$ 
-si dovrebbe avere $\phi(t)=1$, che è assurdo visto che $\frac{1}{2^n}$ 
-sta in tale intervallo per $n$ abbastanza grande, e in corrispondenza 
-di tale valore di $t$ si ha $\phi(t)=u_n$ e, chiaramente, $u_n\neq 1$
-per ogni $n\in \NN$.
-
 A questo punto abbiamo una funzione $\phi\colon[0,1]\to U\cap Q$ 
 che soddisfa, in $[0,1]$ le proprietà richieste.
 Si tratta ora di estendere $\phi$ a tutto $\RR$.
-Se $[t]\in \ZZ$ è la parte intera di $t$ (con la proprietà 
-$[t]\le t < [t]+1$), definiamo $\ENCLOSE{t} = t-[t]$
+Se $\lfloor t \rfloor \in \ZZ$ è la parte intera di $t$ (con la proprietà 
+$\lfloor t \rfloor \le t < \lfloor t \rfloor +1$), definiamo $\ENCLOSE{t} = t-\lfloor t \rfloor $
 la parte frazionaria. 
 Affinché valga la proprietà
-di omomorfismo dovremo avere $\phi(t)=\phi([t])\cdot\phi(\ENCLOSE t)$.
-Ma dovrà anche essere $\phi([t])=\phi(1)^{[t]}=i^{[t]}$ e dunque
+di omomorfismo dovremo avere $\phi(t)=\phi(\lfloor t \rfloor )\cdot\phi(\ENCLOSE t)$.
+Ma dovrà anche essere $\phi(\lfloor t \rfloor )=\phi(1)^{\lfloor t \rfloor }=i^{\lfloor t \rfloor }$ e dunque
 l'unico modo di estendere $\phi$ a tutto $\RR$ è quello di porre,
 per ogni $t\in \RR$,
 \[
-  \phi(t) = i^{[t]}\phi(\ENCLOSE t).
+  \phi(t) = i^{\lfloor t \rfloor }\phi(\ENCLOSE t).
 \]
 Visto che $i^4=1$ otteniamo la proprietà richiesta $\phi(4)=1$.
 Inoltre osserviamo che se per $t\in[0,1]$ abbiamo costruito 
@@ -273,13 +320,13 @@ $\phi(t)=1$, come era richiesto nell'enunciato del teorema.
 
 La proprietà di omomorfismo $\phi(t+s)=\phi(t)\cdot\phi(s)$ 
 rimane valida per ogni $t,s\in\RR$.
-Posto $t=[t]+\ENCLOSE t$, $s=[s]+\ENCLOSE s$ si ha 
-$[t+s]=[t]+[s]$ oppure $[t+s]=[t]+[s]+1$ a seconda che 
+Posto $t=\lfloor t \rfloor +\ENCLOSE t$, $s=[s]+\ENCLOSE s$ si ha 
+$[t+s]=\lfloor t \rfloor +[s]$ oppure $[t+s]=\lfloor t \rfloor +[s]+1$ a seconda che 
 $\ENCLOSE t+\ENCLOSE s$ sia minore di $1$ oppure no.
 Nel primo caso si ha:
 \[
-\phi(t+s) = i^{[t]+[s]}\phi(\ENCLOSE{t}+\ENCLOSE{s})
-  = i^{[t]}i^{[s]}\phi(\ENCLOSE{t})\phi(\ENCLOSE{s})
+\phi(t+s) = i^{\lfloor t \rfloor +[s]}\phi(\ENCLOSE{t}+\ENCLOSE{s})
+  = i^{\lfloor t \rfloor }i^{[s]}\phi(\ENCLOSE{t})\phi(\ENCLOSE{s})
   = \phi(t)\cdot\phi(s).
 \]
 Il secondo caso rimane valido se riusciamo a dimostrare che 
@@ -296,13 +343,6 @@ dunque
   = \frac{i}{\phi(1-\ENCLOSE t)}\phi(1-\ENCLOSE t)\phi(\ENCLOSE t+\ENCLOSE s-1)
   = i \phi(\ENCLOSE t+\ENCLOSE s-1).
 \]
-
-Rimane solo da mostrare che $\Im \phi$ è strettamente crescente anche 
-sull'intervallo $[-1,0]$, ma questo è ovvio se si nota che 
-$\phi(-t)=\frac{1}{\phi(t)}=\overline{\phi(t)}$ 
-e quindi $\Im \phi(-t)=-\Im \phi(t)$.
-La parte reale $\Re \phi$ è strettamente decrescente anche su $[1,2]$
-in quanto $\phi(t+1)=i\phi(t)$ e quindi $\Re \phi(t+1)=-\Im \phi(t)$.
 \end{proof}
 
 \begin{theorem}[definizione funzioni trigonometriche]%
@@ -373,8 +413,13 @@ Ma, per le proprietà di omomorfismo, $1/\phi(x)=\phi(-x)$ e quindi
 da cui, uguagliando parte reale e parte immaginaria, 
 si ottiene il punto 5.
 
-Visto che $\Im \phi\colon[-\tau/4,\tau/4]\to[0,1]$ è strettamente crescente e bigettiva
-deduciamo che anche $\sin\colon[-\tau/4,\tau/4]\to [0,1]$ lo è.
+Visto che $\Im \phi\colon[0,\tau/4]\to[0,1]$ 
+è strettamente crescente e bigettiva
+deduciamo che la funzione $\sin = \Im \phi$
+ha tali proprietà su $[0,\tau/4]$. 
+Visto che $\sin$ è dispari è facile verificare
+per simmetria che tali proprietà sono verificate 
+su tutto l'intervallo $[-\tau/4,\tau/4]$.
 Ricordando che $\phi(\tau/4)=i$, 
 si ha $\cos(\tau/4)=0$, $\sin(\tau/4)=1$ e grazie alle formule 
 di addizione troviamo $\sin(\tau/4-x)=\cos(x)$.

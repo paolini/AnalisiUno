@@ -209,7 +209,9 @@ Ma per $x=2$ e $k\to +\infty$ il lato sinistro tende a
 e dunque si ottiene il risultato voluto.
 \end{proof}
 
-Nel teorema seguente utilizzeremo una nuova notazione. Scriveremo
+Nel teorema seguente utilizzeremo una nuova notazione. 
+\begin{definition}[notazione $o$-piccolo]
+Scriveremo
 \mymargin{$o$-piccolo}%
 \index{$o$-piccolo}%
 \[
@@ -222,6 +224,8 @@ se risulta
   \qquad\text{ovvero}\qquad
   \lim_{x\to x_0} \frac{f(x)-P(x)}{g(x)} = 0.
 \]
+\end{definition}
+
 La quantità $o(g(x))$ rappresenta una funzione incognita
 che però sappiamo essere trascurabile (nel senso appena descritto)
 rispetto alla funzione $g(x)$.
@@ -250,7 +254,7 @@ ovvero, scritto in maniera più espressiva:
   f(x) = P(x) + o((x-x_0)^n).
 \end{equation}
 
-Viceversa se $P(x)$ è un polinomio qualunqu, di grado minore o uguale a $n$, e vale la
+Viceversa se $P(x)$ è un polinomio qualunque, di grado minore o uguale a $n$, e vale la
 formula~\eqref{eq:Taylor} allora $P$ è il polinomio di Taylor di $f$.
 \end{theorem}
 %
@@ -316,6 +320,83 @@ e denominatore e da~\eqref{eq:496390} ottenere
 \]
 Iterando il procedimento scopriamo che tutti i coefficienti $a_k$ 
 devono essere nulli e dunque $Q=P$.
+\end{proof}
+
+\begin{exercise}
+Calcolare:
+\[
+  \lim_{x\to 0} \frac{1-\cos(x^2)}{x^4}.
+\]
+\end{exercise}
+\begin{proof}[Svolgimento.]
+Il polinomio di Taylor di ordine $2$ per la funzione $f(x) = \cos x$ 
+centrato in $x_0=0$ è 
+\[ 
+  P(x)
+   = \cos 0 - \sin 0\cdot x -\frac{\cos 0}{2} \cdot x^2 
+   = 1 - \frac{x^2}{2}.
+\]
+Il teorema~\ref{th:taylor_peano} (formula di Taylor con resto di Peano)
+ci dice allora che si ha  
+\begin{equation}\label{eq:498101}
+   \lim_{x\to 0} \frac{\cos x - 1 + \frac {x^2}{2}}{x^2} = 0
+\end{equation}
+ovvero, utilizzando la notazione degli $o$-piccolo:
+\begin{equation}\label{eq:498102}
+  \cos x = 1 - \frac{x^2}{2} + o(x^2)
+  \qquad \text{per $x\to 0.$}
+\end{equation}
+Sostituendo $x^2$ al posto di $x$ nel limite~\eqref{eq:498101} 
+si ottiene di conseguenza:
+\begin{equation}\label{eq:498103}
+  \lim_{x\to 0}\frac{\cos x^2 -1 + \frac{x^4}{2}}{x^4} = 0
+\end{equation}
+che può essere scritta in maniera più espressiva come:
+\[
+  \cos (x^2) = 1 - \frac{x^4}{2} + o(x^4).
+\]
+Quest'ultima relazione può essere ottenuta direttamente 
+da~\eqref{eq:498102} sostituendo $x^2$ al posto di $x$, 
+come vedremo nel capitolo~\ref{sec:landau}.
+Allora per $x\to 0$ si ha:
+\[
+  \frac{1-\cos(x^2)}{x^4} 
+  = \frac{\frac{x^4}{2} - o(x^4)}{x^4} 
+  = \frac 1 2 - \frac{o(x^4)}{x^4} \to \frac 1 2
+\]
+in quanto, per definizione di $o$-piccolo, si ha
+\[
+  \lim_{x\to 0 } \frac{o(x^4)}{x^4} = 0.
+\]
+\end{proof}
+
+\begin{example}
+Sia $f(x) = \cos(x^2)$. Calcolare $f''''(0)$.
+\end{example}
+\begin{proof}[Svolgimento.]
+Abbiamo visto nell'esempio precedente che per $x\to 0$ si ha 
+\[
+  \cos(x^2) = 1 - \frac{x^4}{2} + o(x^4).
+\]
+Grazie alla seconda parte del teorema~\ref{th:taylor_peano} (formula di Taylor con resto di Peano)
+sappiamo allora che il polinomio 
+\[
+  P(x) = 1 - \frac{x^4}{2}
+\]
+è il polinomio di Taylor di ordine $4$ centrato in $x_0=0$ per la funzione $f(x)$.
+D'altra parte, per la definizione di polinomio di Taylor, si ha
+\[
+  P(x) = f(0) + f'(0) \cdot x + \frac{f''(0)}{2} \cdot x^2 
+  + \frac{f'''(0)}{6} \cdot x^3 + \frac{f''''(0)}{24} \cdot x^4
+\]
+e quindi, per il principio di identità dei polinomi, si deduce
+\[
+  f(0) = 1,\qquad
+  f'(0) = 0,\qquad
+  f''(0) = 0,\qquad
+  f'''(0) = 0,\qquad
+  f''''(0) = -12.
+\]
 \end{proof}
 
 \begin{definition}[coefficiente binomiale reale]
