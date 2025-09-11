@@ -198,10 +198,10 @@ $D$ come l'oscillazione della sua immagine, ovvero:
 \end{definition}
 
 \begin{theorem}[integrabilità delle funzioni continue]
-  \mymark{***}
-  \label{th:integrabilita_continue}
-  \mymargin{integrabilità delle funzioni continue}
-  \index{integrabilità!funzioni continue}
+  \mymark{***}%
+  \label{th:integrabilita_continue}%
+  \mymargin{integrabilità delle funzioni continue}%
+  \index{integrabilità!funzioni continue}%
   Sia $f\colon [a,b]\to \RR$ una funzione continua.
   Allora $f$ è limitata e Riemann-integrabile.
   \end{theorem}
@@ -370,40 +370,65 @@ In conclusione:
 che per i criteri di integrabilità ci dà la tesi.
 \end{proof}
 
-Se $f$ e $g$ sono funzioni a valori reali definiamo le
-funzioni $f\wedge g$ (minimo), $f \vee g$ (massimo),
-$f^+$ (parte positiva) e $f^-$ (parte negativa) come segue:
+\begin{remark}
+Se nel teorema precedente si prende $f(x)=x$ si ottiene 
+il teorema~\ref{th:integrabilita_continue} di integrabilità delle funzioni continue.
+\end{remark}
+
+Dati $a,b\in \RR$ definiamo:
+\begin{align*}
+  a^+ &= \begin{cases}
+    a & \text{se $a>0$,}\\
+    0 & \text{altrimenti,}
+  \end{cases} &
+  a^- &= \begin{cases}
+    -a & \text{se $a<0$,}\\
+    0 & \text{altrimenti,}
+  \end{cases} \\
+  a \vee b &= \begin{cases}
+    a & \text{se $a\ge b$,}\\
+    b & \text{altrimenti,}
+  \end{cases} &
+  a \wedge b &= \begin{cases}
+    a & \text{se $a\le b$,}\\
+    b & \text{altrimenti.}
+  \end{cases}
+\end{align*}
+I valori $a^+$ e $a^-$ si chiamano rispettivamente 
+\emph{parte positiva} e \emph{parte negativa} di $a$.
+L'operazione $a\vee b = \max\ENCLOSE{a,b}$ restituisce il massimo tra $a$ e $b$,
+mentre $a\wedge b = \min\ENCLOSE{a,b}$ restituisce il minimo tra $a$ e $b$.
+Si noti che valgono le seguenti proprietà:
+\[
+   a^+ = a \vee 0, \qquad
+   a^- = -(a \wedge 0), \qquad
+   a = a^+ - a^-, \qquad
+   \abs{a} = a^+ + a^-.
+\]
+Inoltre ci si può facilmente convincere che risulta:
+\[
+  a + b = (a \vee b) + (a \wedge b), \qquad
+  \abs{a-b} = (a \vee b) - (a \wedge b).
+\]
+
+Se $f$ e $g$ sono funzioni a valori reali definiamo 
+di conseguenza le funzioni $f^+$, $f^-$, $f\vee g$ e $f\wedge g$:
 \begin{gather*}
-  (f \wedge g)(x) = \min\ENCLOSE{f(x), g(x)}  \qquad
-  (f \vee g)(x) = \max\ENCLOSE{f(x), g(x)} \\
-  f^+ (x) =
-      \begin{cases}
-      f(x) & \text{se $f(x)> 0$}\\
-      0 & \text{altrimenti}
-      \end{cases} \qquad
-  f^- (x) =
-      \begin{cases}
-      -f(x) & \text{se $f(x)< 0$}\\
-      0 & \text{altrimenti.}
-      \end{cases}
+  f^+(x) = (f(x))^+, \qquad
+  f^-(x) = (f(x))^-, \\
+  (f\vee g)(x) = f(x) \vee g(x), \qquad
+  (f\wedge g)(x) = f(x) \wedge g(x).
 \end{gather*}
-Risulta $f= f^+ - f^-$, $\abs{f}=f^+ + f^-$.
 
 \begin{theorem}[proprietà di reticolo]%
-  \label{th:reticolo}%  
-  Se $f$ è una funzione Riemann-integrabile sull'intervallo $[a,b]$ allora
-  anche $\abs{f}$, $f^+$ e $f^-$ sono integrabili e, se
-  anche $g$ è Riemann-integrabile su $[a,b]$, allora anche $f\vee g$ e $f\wedge g$
-  sono integrabili sullo stesso intervallo.
-  Inoltre si ha 
-  \mynote{Si noti che se $b<a$ allora $\int_a^b\abs{f}\le 0$.}
-  \begin{equation}\label{eq:489732}
-    \abs{\int_a^b f} 
-    \le 
-    \abs{\int_a^b \abs{f}}. 
-  \end{equation}
-  \end{theorem}
-  \begin{proof}
+\label{th:reticolo}%
+Se $f$ è una funzione Riemann-integrabile sull'intervallo $[a,b]$ allora
+anche $\abs{f}$, $f^+$ e $f^-$ sono integrabili e, se
+anche $g$ è Riemann-integrabile su $[a,b]$, allora anche $f\vee g$ e $f\wedge g$
+sono integrabili sullo stesso intervallo.
+\end{theorem}
+%
+\begin{proof}
   Basta osservare che le funzioni 
   $y\mapsto \abs{y}$, $y\mapsto y^+$ e $y\mapsto y^-$ 
   sono funzioni continue, e applicare il teorema~\ref{th:composta_integrabile}
@@ -458,7 +483,7 @@ Risulta $f= f^+ - f^-$, $\abs{f}=f^+ + f^-$.
     \end{cases}
   \]}
   \begin{gather*}
-    \abs{f} = f^+ + f^-
+    \abs{f} = f^+ + f^-, \qquad
   %  f^+ = \frac{\abs{f} + f}{2}, \qquad
   %  f^- = \frac{\abs{f} - f}{2}, \\
     f\wedge g = \frac{f + g - \abs{f-g}}{2}, \qquad
@@ -468,149 +493,182 @@ Risulta $f= f^+ - f^-$, $\abs{f}=f^+ + f^-$.
   sono funzioni integrabili (teorema~\ref{th:integrale_lineare})
   si ottiene l'integrabilità delle funzioni a lato sinistro
   delle uguaglianze.
-  
-  Per dimostrare~\eqref{eq:489732} basta osservare che
-  $f^+\ge 0$ e $f^-\ge 0$ dunque per il 
-  teorema~\ref{th:monotonia_integrale} 
-  se $a\le b$ si ha $\int_a^b f^+\ge 0$ 
-  e $\int_a^b f^-\ge 0$, cosicché:
-  \begin{align*}
-  \abs{\int_a^b f} 
-  &= \abs{\int_a^b f^+ - \int_a^b f^-}\\
-  &\le \abs{\int_a^b f^+} + \abs{\int_a^b f^-}
-  = \int_a^b f^+ + \int_a^b f^-
-  = \int_a^b \abs{f}.   
-  \end{align*}
-  Se $b\le a$ ci si riconduce al caso precedente scambiando 
-  gli estremi di integrazione.
-  \end{proof}
-  
-    \begin{theorem}[continuità dell'integrale]
-    \label{th:integrale_continuo}
-    Sia $f\colon [a,b]\to \RR$ una funzione limitata e tale
-    che per ogni $c\in (a,b]$ risulta che $f$ sia Riemann-integrabile
-    su $[c,b]$. Allora $f$ è Riemann-integrabile su $[a,b]$ e risulta
-    \[
-      \int_a^b f = \lim_{c\to a^+} \int_c^b f.
-    \]
+\end{proof}
+
+\begin{remark}
+Osserviamo che se $f$ e $g$ sono funzioni continue, 
+allora anche $f^+$, $f^-$, $\abs f$, $f\vee g$ e $f\wedge g$ sono funzioni continue
+e dunque Riemann integrabili grazie al teorema~\ref{th:integrabilita_continue}.
+Dunque il teorema precedente è utile solamente quando si ha a che fare con funzioni 
+Riemann integrabili che non sappiamo essere continue. 
+\end{remark}
+
+\begin{theorem}
+\label{th:integrale_modulo}%
+Se $a\le b$ ed $f$ è una funzione limitata e Riemann-integrabile su $[a,b]$
+si ha 
+\[
+  \abs{\int_a^b f(x)\, dx} \le \int_a^b \abs{f(x)}\, dx.
+\]
+In generale (tolta l'ipotesi $a \le b$) si ha
+\begin{equation}\label{eq:489732}
+  \abs{\int_a^b f(x)\, dx} 
+  \le 
+  \abs{\int_a^b \abs{f(x)}}. 
+\end{equation}
+\end{theorem}
+\begin{proof}
+Osserviamo che le funzione $\abs{f}$, $f^+$, $f^-$ sono Riemann-integrabili
+per il teorema~\ref{th:reticolo} precedente.
+
+Se $a\le b$, essendo $f^+\ge 0$ e $f^-a\ge 0$,
+per monotonia (teorema~\ref{th:monotonia_integrale})
+sappiamo che $\int_a^b f^+\ge 0$ 
+e $\int_a^b f^-\ge 0$, cosicché, 
+per linearità (teorema~\ref{th:integrale_lineare}):
+\begin{align*}
+\abs{\int_a^b f} 
+&= \abs{\int_a^b f^+ - \int_a^b f^-}\\
+&\le \abs{\int_a^b f^+} + \abs{\int_a^b f^-}
+= \int_a^b f^+ + \int_a^b f^-
+= \int_a^b \abs{f}.   
+\end{align*}
+Se $b\le a$ ci si riconduce al caso precedente scambiando 
+gli estremi di integrazione.
+\end{proof}
+
+Il seguente risultato è una versione continua della disuguaglianza di convessità 
+per le combinazioni baricentriche.
+Si può notare che il teorema~\ref{th:integrale_modulo} precedente è un caso particolare 
+del seguente con $\phi(x)=\abs{x}$.
+%
+\begin{theorem}[disuguaglianza di Jensen]
+  \label{th:jensen}%
+  \index{disuguaglianza!di Jensen}%
+  \index{Jensen!disuguaglianza di}%
+  \index{teorema!Jensen}%
+Sia $f\colon[a,b]\to I\subset \RR$ una funzione continua a valori 
+in un intervallo $I$ e sia $\phi\colon I \to \RR$ una funzione convessa e continua.
+Sia inoltre $g\colon [a,b]\to \RR$ una funzione continua,
+non negativa e tale che 
+\[
+    \int_a^b g(x)\, dx = 1
+\]
+Allora si ha 
+  \[
+  \phi\enclose{\int_a^b f(x) g(x) \, dx} \le \int_a^b \phi(f(x)) g(x)\, dx.
+  \]
+Nel caso particolare in cui si scelga $g$ la funzione costante $g(x)=1/(b-a)$ si ottiene 
+la formulazione più espressiva:
+\[
+  \phi\enclose{\dashint_a^b f(x)\, dx} \le \dashint_a^b \phi(f(x))\, dx
+\]
+dove con $\dashint$ si è indicata la media integrale:
+\[
+  \dashint_a^b f(x)\, dx = \frac{1}{b-a} \int_a^b f(x)\, dx.
+\]
+\end{theorem}
+%
+\begin{proof}
+Le ipotesi di continuità di $f$, $g$ e $\phi$ sono sovrabbondanti, ma ci servono 
+per avere una garanzia immediata che entrambe le funzioni integrande
+siano effettivamente Riemann-integrabili.
+Posto 
+\[
+  y_0 = \int_a^b f(x) g(x)\, dx 
+\]
+scegliamo una funzione affine $L(y) = my + q$ tale che $L(y_0)=\phi(y_0)$ 
+e $L(y)\le \phi(y)$ per ogni $y\in I$ (grazie al teorema~\ref{th:supporto_convessa}).
+Per la linearità dell'integrale si ha: 
+\[
+  L(y_0)
+  = \int_a^b mf(x)g(x)\, dx + q \int_a^b g(x)\, dx
+  = \int_a^b L(f(x)) g(x)\, dx.
+\]
+Allora per la monotonia dell'integrale risulta
+\[
+  \phi(y_0) = L(y_0) = \int_a^b L(f(x)) g(x)\, dx \le \int_a^b \phi(f(x)) g(x)\, dx.
+\]
+\end{proof}
     
-    Analogamente se $f$ è integrabile su ogni intervallo $[a,c]$
-    con $c\in [a,b)$ allora $f$ è integrabile su $[a,b]$ e vale
-    \[
-      \int_a^b f = \lim_{c\to b^-} \int_a^c f.
-    \]
-    \end{theorem}
-    %
-    \begin{proof}
-    Dimostriamo solamente la prima parte, visto che la seconda si tratta in
-    maniera del tutto analoga. Supponiamo quindi che $f$ sia integrabile su ogni
-    intervallo $[c,b]$ con $c\in (a,b]$. Sappiamo inoltre che $f$ è limitata su
-    tutto $[a,b]$ e quindi esiste $M>0$ tale che $\abs{f(x)}\le M$ per ogni
-    $x\in [a,b]$. Fissato $\eps>0$ qualunque,
-    scegliamo $c = a + \eps/(4M)$ e, sapendo che $f$ è integrabile su $[c,b]$,
-    consideriamo una suddivisione $Q_\eps$ di $[c,b]$ tale che
-    \[
-      S^*(f, Q_\eps) - S_*(f, Q_\eps) < \frac \eps 2.
-    \]
-    Ma allora posto $P_\eps = \ENCLOSE{a} \cup Q_\eps$ otteniamo:
-    \begin{align*}
-      S^*(f,P_\eps) &= S^*(f,Q_\eps) + (c-a)\sup_{[a,c]} f
-        \le S^*(f,Q_\eps) + M \cdot (c-a) \le S^*(f,Q_\eps) + \frac \epsilon 2\\
-      S_*(f,P_\eps) &= S_*(f,Q_\eps) + (c-a)\inf_{[a,c]} f
-        \ge S_*(f,Q_\eps) - M \cdot (c-a) \ge S_*(f,Q_\eps) - \frac \epsilon 2
-    \end{align*}
-    da cui
-    \begin{align*}
-     S^*(f,P_\eps)-S_*(f,P_\eps)
-     &\le S^*(f,Q_\eps) - S_*(f,Q\eps) + 2 M \cdot (c-a)\\
-     &< \frac{\eps}{2} + 2 M \frac{\eps}{4M}
-     = \eps.
-    \end{align*}
-    Dunque, la funzione $f$ è integrabile. Ma si ha
-    \begin{align*}
-    \int_a^b f \le S^*(f,P_\eps) \le S^*(f,Q_\eps) + \frac{\eps}{4}
-    \le S_*(f,Q_\eps) + \frac 3 4 \eps
-    \le \int_{a+\frac {\eps}{4M}}^b f + \frac {3}{2} \eps \\
-    \int_a^b f \ge S_*(f,P_\eps) \ge S_*(f,Q_\eps) - \frac{\eps}{4}
-    \ge S^*(f,Q_\eps) - \frac 3 4 \eps
-    \ge \int_{a+\frac {\eps}{4M}}^b f - \frac {3}{2} \eps
-    \end{align*}
-    da cui, passando al limite per $\eps \to 0^+$, si ottiene
-    \[
-      \lim_{c\to a^+} \int_c^b f \le \int_a^b f \le \lim_{c\to a^+} \int_c^b f
-    \]
-    e quindi l'uguaglianza.
-    \end{proof}
-    
-    \begin{example}
-    La funzione
-    \[
-      f(x) = \begin{cases}
-      \sin\frac 1 x & \text{se $x\neq 0$,}\\
-      0 & \text{se $x=0$}
-      \end{cases}
-    \]
-    è integrabile su ogni intervallo chiuso e limitato $[a,b]$.
-    \end{example}
-    \begin{proof}
-    Su ogni intervallo $[\eps,b]$ con $\eps>0$ e $b>\eps$ la funzione
-    è integrabile in quanto su tali intervalli è continua (la funzione è continua su
-    tutto $\RR\setminus\ENCLOSE{0}$). Inoltre la funzione è limitata, quindi per il teorema
-    precedente possiamo concludere che è integrabile su $[0,b]$ per ogni $b>0$.
-    
-    In maniera analoga (per simmetria) la funzione è integrabile su $[a,0]$
-    per ogni $a<0$.
-    Dunque, per additività, la funzione è integrabile su ogni $[a,b]$ con $a<0$ e $b>0$
-    e di conseguenza (sempre grazie al teorema~\ref{th:additivita_integrale})
-    è integrabile su ogni intervallo $[a,b]$.
-    \end{proof}
-    
-    Il seguente risultato è una versione continua della disuguaglianza di convessità 
-    per le combinazioni baricentriche.
-    %
-    \begin{theorem}[disuguaglianza di Jensen]
-      \label{th:jensen}%
-      \index{disuguaglianza!di Jensen}%
-      \index{Jensen!disuguaglianza di}%
-      \index{teorema!Jensen}%
-    Sia $f\colon[a,b]\to I\subset \RR$ una funzione continua a valori 
-    in un intervallo $I$ e sia $\phi\colon I \to \RR$ una funzione convessa e continua.
-    Sia inoltre $g\colon [a,b]\to \RR$ una funzione continua,
-    non negativa e tale che 
-    \[
-        \int_a^b g(x)\, dx = 1
-    \]
-    Allora si ha 
-      \[
-      \phi\enclose{\int_a^b f(x) g(x) \, dx} \le \int_a^b \phi(f(x)) g(x)\, dx.
-      \]
-    Nel caso particolare in cui si scelga $g$ la funzione costante $g(x)=1/(b-a)$ si ottiene 
-    la formulazione più espressiva:
-    \[
-      \phi\enclose{\dashint_a^b f(x)\, dx} \le \dashint_a^b \phi(f(x))\, dx.
-    \]
-    \end{theorem}
-    %
-    \begin{proof}
-    Le ipotesi di continuità di $f$, $g$ e $\phi$ sono sovrabbondanti, ma ci servono 
-    per avere una garanzia immediata che entrambe le funzioni integrande
-    siano effettivamente Riemann-integrabili.
-    Posto 
-    \[
-      y_0 = \int_a^b f(x) g(x)\, dx 
-    \]
-    scegliamo una funzione affine $L(y) = my + q$ tale che $L(y_0)=\phi(y_0)$ 
-    e $L(y)\le \phi(y)$ per ogni $y\in I$ (grazie al teorema~\ref{th:supporto_convessa}).
-    Per la linearità dell'integrale si ha: 
-    \[
-      L(y_0)
-      = \int_a^b mf(x)g(x)\, dx + q \int_a^b g(x)\, dx
-      = \int_a^b L(f(x)) g(x)\, dx.
-    \]
-    Allora per la monotonia dell'integrale risulta
-    \[
-      \phi(y_0) = L(y_0) = \int_a^b L(f(x)) g(x)\, dx \le \int_a^b \phi(f(x)) g(x)\, dx.
-    \]
-    \end{proof}
-    
-%%%%
+
+\begin{theorem}[continuità dell'integrale]
+\label{th:integrale_continuo}
+Sia $f\colon [a,b]\to \RR$ una funzione limitata e tale
+che per ogni $c\in (a,b]$ risulta che $f$ sia Riemann-integrabile
+su $[c,b]$. Allora $f$ è Riemann-integrabile su $[a,b]$ e risulta
+\[
+  \int_a^b f = \lim_{c\to a^+} \int_c^b f.
+\]
+
+Analogamente se $f$ è integrabile su ogni intervallo $[a,c]$
+con $c\in [a,b)$ allora $f$ è integrabile su $[a,b]$ e vale
+\[
+  \int_a^b f = \lim_{c\to b^-} \int_a^c f.
+\]
+\end{theorem}
+%
+\begin{proof}
+Dimostriamo solamente la prima parte, visto che la seconda si tratta in
+maniera del tutto analoga. Supponiamo quindi che $f$ sia integrabile su ogni
+intervallo $[c,b]$ con $c\in (a,b]$. Sappiamo inoltre che $f$ è limitata su
+tutto $[a,b]$ e quindi esiste $M>0$ tale che $\abs{f(x)}\le M$ per ogni
+$x\in [a,b]$. Fissato $\eps>0$ qualunque,
+scegliamo $c = a + \eps/(4M)$ e, sapendo che $f$ è integrabile su $[c,b]$,
+consideriamo una suddivisione $Q_\eps$ di $[c,b]$ tale che
+\[
+  S^*(f, Q_\eps) - S_*(f, Q_\eps) < \frac \eps 2.
+\]
+Ma allora posto $P_\eps = \ENCLOSE{a} \cup Q_\eps$ otteniamo:
+\begin{align*}
+  S^*(f,P_\eps) &= S^*(f,Q_\eps) + (c-a)\sup_{[a,c]} f
+    \le S^*(f,Q_\eps) + M \cdot (c-a) \le S^*(f,Q_\eps) + \frac \epsilon 2\\
+  S_*(f,P_\eps) &= S_*(f,Q_\eps) + (c-a)\inf_{[a,c]} f
+    \ge S_*(f,Q_\eps) - M \cdot (c-a) \ge S_*(f,Q_\eps) - \frac \epsilon 2
+\end{align*}
+da cui
+\begin{align*}
+  S^*(f,P_\eps)-S_*(f,P_\eps)
+  &\le S^*(f,Q_\eps) - S_*(f,Q\eps) + 2 M \cdot (c-a)\\
+  &< \frac{\eps}{2} + 2 M \frac{\eps}{4M}
+  = \eps.
+\end{align*}
+Dunque, la funzione $f$ è integrabile. Ma si ha
+\begin{align*}
+\int_a^b f \le S^*(f,P_\eps) \le S^*(f,Q_\eps) + \frac{\eps}{4}
+\le S_*(f,Q_\eps) + \frac 3 4 \eps
+\le \int_{a+\frac {\eps}{4M}}^b f + \frac {3}{2} \eps \\
+\int_a^b f \ge S_*(f,P_\eps) \ge S_*(f,Q_\eps) - \frac{\eps}{4}
+\ge S^*(f,Q_\eps) - \frac 3 4 \eps
+\ge \int_{a+\frac {\eps}{4M}}^b f - \frac {3}{2} \eps
+\end{align*}
+da cui, passando al limite per $\eps \to 0^+$, si ottiene
+\[
+  \lim_{c\to a^+} \int_c^b f \le \int_a^b f \le \lim_{c\to a^+} \int_c^b f
+\]
+e quindi l'uguaglianza.
+\end{proof}
+
+\begin{example}
+La funzione
+\[
+  f(x) = \begin{cases}
+  \sin\frac 1 x & \text{se $x\neq 0$,}\\
+  0 & \text{se $x=0$}
+  \end{cases}
+\]
+è integrabile su ogni intervallo chiuso e limitato $[a,b]$.
+\end{example}
+\begin{proof}
+Su ogni intervallo $[\eps,b]$ con $\eps>0$ e $b>\eps$ la funzione
+è integrabile in quanto su tali intervalli è continua (la funzione è continua su
+tutto $\RR\setminus\ENCLOSE{0}$). Inoltre la funzione è limitata, quindi per il teorema
+precedente possiamo concludere che è integrabile su $[0,b]$ per ogni $b>0$.
+
+In maniera analoga (per simmetria) la funzione è integrabile su $[a,0]$
+per ogni $a<0$.
+Dunque, per additività, la funzione è integrabile su ogni $[a,b]$ con $a<0$ e $b>0$
+e di conseguenza (sempre grazie al teorema~\ref{th:additivita_integrale})
+è integrabile su ogni intervallo $[a,b]$.
+\end{proof}
+
