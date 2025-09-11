@@ -1,8 +1,19 @@
+
+# Opzioni di sicurezza e robustezza per bash
+set -e          # termina lo script se un comando fallisce
+set -u          # termina lo script se si usa una variabile non definita
+set -o pipefail # termina lo script se un comando in una pipeline fallisce
+set -o noclobber # previene la sovrascrittura accidentale dei file con >
+# set -o nullglob # (decommenta se vuoi che i glob vuoti diventino stringa vuota)
+# set -o nounset  # equivalente a -u, lasciato per chiarezza
+# set -o errexit  # equivalente a -e, lasciato per chiarezza
+# set -o noglob   # disabilita l'espansione dei glob (raramente utile)
+
 out=README.md
-INTRODUZIONE=chapters/introduzione.tex
+INTRODUZIONE=chapters/00_introduzione.tex
 # truncate
 echo "writing file" ${out}
-echo "" > ${out}
+echo "" >| ${out}
 
 # extracting documentation from latex source
 grep "%% README" "${INTRODUZIONE}" | cut -f1 -d"%" | sed "s/\\\\emph{\\([^}]*\\)}/\\*\\1\\*/g" >> ${out}
@@ -35,7 +46,7 @@ out=docs/index.html
 
 echo "writing file" ${out}
 
-cat <<EOF > ${out}
+cat <<EOF >| ${out}
 <html>
 <!-- questo file e' stato creato automaticamente da make-docs.sh. non modificarlo! -->
 <head>
