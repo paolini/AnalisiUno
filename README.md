@@ -1,7 +1,7 @@
 
 Queste note sono nate come appunti per il corso di Analisi Matematica 
 del corso di studi in Fisica dell'Università 
-di Pisa negli anni accademici dal 2017/18 al 2022/23. 
+di Pisa negli anni accademici dal 2017/18 al 2024/25. 
  
 Le note (come il corso a cui fanno riferimento) 
 riguardano l'analisi delle funzioni di una variabile 
