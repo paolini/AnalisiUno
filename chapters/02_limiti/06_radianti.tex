@@ -3,7 +3,7 @@
 %%%%%%%%%%%
 %%%%%%%%%%%
 
-Nel capitolo~\ref{sec:avvolgimento} abbiamo definito le 
+Nel capitolo~\ref{sec:funzioni_trigonometriche} abbiamo definito le 
 funzioni $\sin$ e $\cos\colon \RR\to \RR$ con periodo $\tau>0$ (arbitrario)
 in modo tale che la funzione $\phi\colon \RR\to\RR^2$, $\phi(t)=(\cos t, \sin t)$ 
 percorra, con moto circolare uniforme, in senso antiorario, la circonferenza 
@@ -75,20 +75,31 @@ sia derivabile in senso complesso ed abbia derivata complessa pari a $1$.
 
 In questo capitolo dobbiamo lavorare con le funzioni 
 $\sin$, $\cos$ e $\tg=\frac{\sin }{\cos}$ introdotte 
-nel capitolo~\ref{sec:avvolgimento}. 
+nel capitolo~\ref{sec:funzioni_trigonometriche}. 
 Queste funzioni sono state definite con un periodo $\tau>0$
-fissato in modo arbitrario. 
-Scriveremo 
-$\sin_\tau$ 
-e $\cos_\tau$ invece di $\sin$ e $\cos$ se è utile mettere in evidenza 
-la dipendenza da $\tau$.
+fissato in modo arbitrario a partire dalla funzione $\phi$ definita 
+dal Teorema~\ref{th:omomorfismo_U}. 
+Scriveremo $\phi_\tau$,
+$\sin_\tau$ e $\cos_\tau$ quando è utile mettere in evidenza 
+la dipendenza da $\tau$. 
+In questo capitolo definiremo il numero $\pi$ e a quel 
+punto si sceglierà sempre $\tau=2\pi$ come misura dell'angolo giro.
 
-\begin{theorem}[limite notevole $\sin$]
-Per ogni $\tau>0$, $x\in \RR$, $x\neq 0$, la successione
+Se scegliamo due diverse misure $\tau$ e $\sigma$ per l'angolo giro, 
+la relazione tra le due funzioni è semplicemente:
+\begin{equation}\label{cambio_angolo}
+  \phi_\tau (\tau t) = \phi_1(t) = \phi_\sigma(\sigma t), 
+\end{equation}
+in quanto $\phi_\tau(\tau t)$ soddisfa le proprietà che 
+definiscono in modo univoco $\phi_1$ in base al Teorema~\ref{th:omomorfismo_U}.
+
+\begin{theorem}
+\label{teo_limite_pi}
+Per ogni $x\in \RR$ con $0<x \le \frac \tau 2$, la successione
 \[
-    a_n = \frac{\sin_\tau \frac xn} {\frac xn}
+    a_n = n \sin_\tau \frac x n
 \]
-converge ad un limite positivo (e finito).
+converge ad un limite finito, positivo.
 \end{theorem}
 %
 \begin{proof}
@@ -107,168 +118,147 @@ Useremo anche il fatto che sull'intervallo
 $\closeinterval{0}{\frac \tau 4}$
 \mynote{ricordiamo che $\tau$ è il periodo (scelto arbitrariamente)
 delle funzioni $\sin$ e $\cos$} 
-la funzione $\sin$ è crescente, la funzione $\cos $
-è decrescente ed entrambe hanno valori compresi 
-tra $0$ e $1$.
-Tutte queste proprietà sono garantite 
+le funzioni $\sin$ e $\cos $
+hanno valori compresi tra $0$ e $1$.
+Queste proprietà sono garantite 
 dal teorema~\ref{th:proprieta_trigonometriche}.
+La funzione $\tg x$ a sua volta è definita se $0\le x < \frac \tau 4$
+(visto che $\cos \frac \tau 4=$, la tangente non è definita per $x=\frac \tau 4$).
 
 \emph{Passo 1:}
-vogliamo dimostrare che se $n$ è un intero positivo 
-e $x>0$ è tale che $0\le nx <\frac \tau 4$ allora si ha
+vogliamo dimostrare che se $n\in \NN$ e $t>0$, si ha
 \begin{equation}\label{eq:4813509}
-  \sin n x \le n\sin x\le \tg nx.
+  nt <\frac \tau 4
+  \implies
+  n\sin t\le \tg nt.
 \end{equation}
-Possiamo dimostrare per induzione l'implicazione 
-$nx\le \frac \tau 4 \implies$~\eqref{eq:4813509}.
-Se $n=1$ è ovvio.
-Supponiamo allora che \eqref{eq:4813509} 
-sia valida per un certo $n$ e che  
-sia $(n+1)x<\frac \tau 4$. 
-Allora da un lato si ha
+Lo dimostriamo per induzione.
+Se $n=0$ è ovvio.
+Supponendo \eqref{eq:4813509} vera per un certo $n$
+vogliamo ora dimostrare che se $(n+1)t < \frac \tau 4$
+si ha $(n+1)\sin t \le \tg (n+1)t$.
+Osserviamo che se $(n+1)t<\frac \tau 4$ anche $nt < \frac \tau 4$ e 
+le funzioni $\sin,\cos$ e $\tg$ sono tutte positive nei punti 
+$t$, $nt$ e $(n+1)t$.
+Dunque si ha:
 \begin{align*}
-  \sin (n+1)x 
-  &= \sin nx \cdot \cos x + \cos nx\sin x
-  \le \sin nx + \sin x
+\tg (n+1) t 
+  &= \frac{\tg nt + \tg t}{1-\tg nt \tg t}
+  \ge \tg nt + \tg t \\
+  &\ge n\sin t + \tg t \qquad\text{[per \eqref{eq:4813509}]}\\
+  &\ge n\sin t + \sin t
+  =(n+1)\sin t. 
 \end{align*}
-e usando l'ipotesi induttiva $\sin nx\le n\sin x$ 
-si ottiene 
-\[
- \sin(n+1)x \le n\sin x+\sin x = (n+1)\sin x  
-\]
-che è la prima disuguaglianza che dovevamo dimostrare.
-Per l'altra disuguaglianza osserviamo che si ha 
-\begin{align*}
-  \tg(n+1)x 
-  &= \frac{\tg nx + \tg x}{1-\tg nx \tg x}
-  \ge \tg nx + \tg x
-  \ge \tg nx + \sin x
-\end{align*}
-e applicando l'ipotesi induttiva 
-$\tg nx\ge n\sin x$ si ottiene 
-\[
- \tg(n+1)x 
- \ge n\sin x +\sin x 
- =   (n+1)\sin x
-\]
-come volevamo dimostrare.
 
 \emph{Passo 2:}
-dimostriamo che se $x>0$,
-posto
-\[
-  a_n = \frac{\sin \frac x n}{\frac x n} = \frac{n\sin \frac x n}{x}
-\]
-si ha $a_{n+1}\ge a_n$ per ogni $n \ge \frac{4x}{\tau}$
-e dunque, essendo definitivamente monotona, 
-la successione ammette limite 
-(grazie al teorema~\ref{th:limite_monotona}):
-$a_n \to \ell$ per $n\to +\infty$.
-Posto $y=\frac{x}{n(n+1)}$ basta mostrare che 
-se $\frac{x}{n} \le \frac{\tau}{4}$, si ha
-\[
-  (n+1) \sin ny \ge n \sin (n+1)y.  
-\]
-Ma usando $n\sin y\le \tg ny$ da~\eqref{eq:4813509} si ha 
+dimostriamo che se $n\ge 2$ allora risulta $a_{n+1} \ge a_n$.
+Per poter applicare \eqref{eq:4813509} 
+ci serve avere $nt < \frac \tau 4$ cioè $\frac x {n+1}< \frac \tau 4$
+che è vero essendo $x\le \frac \tau 2$ e $n\ge 2$.
+Dunque, posto $t = \frac{x}{n(n+1)}$, si ha:
 \begin{align*}
-  n \sin(n+1)y
-  &=n(\sin ny\cos y + \cos ny \sin y) \\
-  &\le n\sin ny + n\sin y\cos ny\\
-  &\le n\sin ny + \tg ny\cos ny\\
-  &= (n+1)\sin ny
+  a_n &= n \sin\frac{x}{n+1} 
+    = n \sin (n+1)t
+    = n \sin nt \cos t + n \sin t \cos nt\\
+    &\le n \sin nt \cos t + \tg nt \cos nt
+    \qquad\text{[per \eqref{eq:4813509}]}\\
+    &\le n \sin nt + \sin nt
+    = (n+1) \sin nt = (n+1) \sin \frac x n.
 \end{align*}
-che è quanto volevamo dimostrare.
 
-\emph{Passo 3.}
-vogliamo mostrare che il limite $\ell=\lim a_n$ è positivo e 
-finito.
-Basta osservare che se $x>0$ e $\frac x m <\frac \tau 4$
-per $m$ intero sufficientemente grande, 
-usando~\eqref{eq:4813509} con 
-con $\frac x {mn}$ al posto di $x$,
-si ha $\sin \frac x m \le n\sin\frac x {m n} \le \tg \frac{x}{m}$ 
-e quindi
-\[
-  \frac{\sin \frac x m}{\frac x m} 
-  \le \frac{\sin \frac x {mn}}{\frac x {mn}} 
-  \le \frac{\tg \frac x m}{\frac x m}.
-  \]
-Sappiamo che la sottosuccessione $a_{mn}\to \ell$ e, dunque,
-dovrà essere 
-\[
-  0 <
-  \frac{\sin \frac x m}{\frac x m} 
-  \le \ell
-  \le \frac{\tg \frac x m}{\frac x m} < +\infty.
-\]
+\emph{Passo 3:}
+la successione $a_{3n}$ è limitata.
+Infatti si ha
+\begin{align*}
+ a_{3n} = 3n \sin \frac x {3n} 
+ \le 3\tg \frac x 3
+\end{align*}
+dove abbiamo potuto applicare~\eqref{eq:4813509}
+visto che $\frac x 3 < \frac{\tau }{2}$
+essendo $x\le \frac {\tau} 2$.
 
-\emph{Conclusione.}
-Abbiamo dimostrato il teorema per ogni $x>0$.
-Se $x<0$ il risultato si ottiene per simmetria usando: 
-$\sin(-x)=-\sin x$.
+\emph{Passo 4: conclusione.}
+Per il passo 2 la successione $a_{n+1}$ è crescente,
+dunque per il Teorema~\ref{th:limite_monotona} la successione 
+ha limite $a_n\to \ell$ per $n\to +\infty$.
+Visto che $a_n \ge a_2$ per ogni $n\ge 2$ si ha $\ell \ge a_2 >0$.
+E, per il passo 3, non può essere $\ell=+\infty$ altrimenti $a_{3n}$ 
+non sarebbe limitata.
 \end{proof}
 
-Se applichiamo il teorema precedente 
-con $\tau=1$ e $x=1$ otteniamo che la successione 
-$a_n = n\cdot \sin_1\enclose{\frac 1 n}$ converge 
-ad una costante universale.
-In particolare avendo posto la misura dell'angolo giro pari a 
-$\tau=1$, l'angolo di misura $\frac 1 n$ 
-è l'angolo formato dal lato di un $n$-agono 
-regolare inscritto nella circonferenza unitaria.
-Dunque $a_n$ non è altro che il perimetro di tale 
-$n$-agono regolare e il limite a cui tende deve essere,
-geometricamente, la lunghezza della circonferenza unitaria.
-
-Questo dà significato geometrico alla seguente definizione.
+Diamo una interpretazione geometrica del risultato precedente.
+Vogliamo calcolare la lunghezza di un arco di misura $x$
+sulla circonferenza unitaria. 
+Dividiamo l'arco in $n$ parti uguali e consideriamo 
+la poligonale formata dalle corde sugli $n$ angoli di misura 
+$\frac {x} n$. 
+In generale la corda sull'angolo $\alpha$ di una circonferenza 
+di raggio $r$ misura $2r \sin \frac \alpha 2$.
+Dunque la poligonale costruita sull'arco $x$ 
+misura $n\sin\frac{x}{2n}$.
+Vorremmo quindi definire $\pi$ come il limite di questa successione.
 
 \begin{definition}[$\pi$ costante fondamentale della trigonometria]%
   \label{def:pi}%
 Definiamo
 \[
  \pi 
-  \defeq \frac 1 2 \lim_{n\to +\infty} n\cdot \sin_1 \enclose{\frac 1 n}.
+  \defeq \lim_{n\to +\infty} n\cdot \sin_\tau \frac \tau {2n}.
 \]
-dove $\sin_1$ è la funzione $\sin$ costruita nel 
-teorema~\ref{def:sin_cos} con periodo $\tau=1$.
+dove $\sin_\tau$ è la funzione $\sin$ costruita nel 
+teorema~\ref{def:sin_cos} con periodo $\tau$.
+Visto che $\sin_\tau \tau x = \sin_\sigma \sigma x$ il limite 
+non dipende dalla scelta di $\tau$.
+Questo limite esiste ed è finito e positivo per il Teorema~\ref{teo_limite_pi}.
 \end{definition}
+
+Scegliendo $\tau = 360$ si trova $a_4 = 4 \sin_\tau \frac{180}{4} = 2 \sqrt 2 > 2.8$ da cui,
+per la proprietà di monotonia di $a_n$, si trova $\pi > 2.8$.
+Osservando che $a_{2^n} = 2^n \sin_\tau \frac{45}{2^{n-2}}\le 4 \tg_\tau 45 = 4$
+si ottiene $\pi<4$.
+Troveremo dei metodi molto più raffinati per determinare i valori approssimati 
+di $\pi$, si veda ad esempio l'esercizio~\ref{ex:cifre_pi} e la 
+tabella~\ref{tab:cifre_pi}.
 
 \begin{theorem}[limite notevole $\sin$]
   \label{th:limite_notevole_sin}%
-Sia $\sin_\tau$ la funzione seno definita 
-dal teorema~\ref{def:sin_cos} con periodo $\tau>0$.
 Per ogni $x\in\RR$, $x\neq 0$ si ha 
 \[
 \lim_{x\to 0}\frac{\sin_{\tau} x}{x}
 = \frac{2\pi}{\tau}.
 \]
+In particolare se scegliamo $\tau = 2\pi$ si ha
+il limite notevole:
+\begin{equation}\label{eq:limite_notevole_sin}
+ \lim_{x\to 0} \frac{\sin x}{x} = 1.
+\end{equation}
 \end{theorem}
 %
 \begin{proof}
-Risulta ovviamente $\sin_\tau(\tau x) = \sin_1 x$ in quanto 
-la funzione $\sin_\tau(\tau x)$ ha periodo $1$ e soddisfa tutte le proprietà 
-enunciate nel teorema~\ref{def:sin_cos}.
-Ora per ogni $x>0$ esiste $n\in \NN$ tale che 
-$\frac \tau {n+1} \le x \le \frac \tau n$ 
-e se $nx<\frac \tau 4$ usando la monotonia della funzione $\sin_\tau$ 
-si ottiene:
-\begin{align*}
-  n \sin_1 \frac 1 {n+1}
-  = n \sin_\tau \frac \tau {(n+1)}
-  \le n \sin_\tau x 
-  = n \sin_1 \frac x \tau 
-  \le n \sin_1 \frac 1 n.
-\end{align*}
-Ovviamente se $x\to 0^+$ si ha $n=n(x)\to +\infty$.
-Per come abbiamo definito $\pi$ 
-sappiamo che $n \sin_1 \frac 1 n\to 2\pi$ per $n\to +\infty$
-e visto che $n\sim n+1$ entrambi i lati della precedente equazione 
-tendono allo stesso limite $2\pi$ e dunque, per confronto, 
+Mostriamo innanzitutto che si ha
+\begin{equation}\label{eq:771743}
+   \lim_{t\to+\infty} t \sin_\tau \frac{\tau}{2t} = \pi.
+\end{equation}
+Infatti 
+\begin{equation}\label{eq:4961077}
+  \frac{\lfloor t \rfloor}{\lceil t \rceil} \cdot \lceil t \rceil \sin_\tau \frac{\tau}{2\lceil t \rceil}
+  \le \lfloor t \rfloor \sin_\tau \frac{\tau}{2\lceil t \rceil}
+  \le t \sin_\tau \frac{\tau}{2t} 
+  \le \lceil t \rceil \sin_\tau \frac{\tau}{2\lfloor t \rfloor}
+  \le \frac{\lceil t \rceil}{\lfloor t \rfloor} \cdot \lfloor t \rfloor \sin_\tau \frac{\tau}{2\lfloor t \rfloor}
+\end{equation}
+e visto che 
 \[
-  \lim_{x\to 0^+} \tau \cdot \frac{\sin_\tau x}{x} = 2\pi.  
+  \frac{\lfloor t \rfloor}{\lceil t \rceil}\to 1, \qquad
+  \frac{\lceil t \rceil}{\lfloor t \rfloor}\to 1
 \]
-Per simmetria lo stesso limite vale quanto $x\to 0^-$
-e si ottiene dunque il risultato voluto.
+per la definizione di $\pi$, entrambi gli estremi della catena 
+di disuguaglianze~\eqref{eq:4961077} tendono a $\pi$
+e dunque per il teorema dei carabinieri
+si ottiene il limite volute~\eqref{eq:771743}.
+Con il cambio di variabile $x=\frac 1 t$ si ottiene 
+il limite~\eqref{eq:limite_notevole_sin} quando $x\to 0^+$.
+Il limite completo per $x\to 0$ si ottiene per simmetria.
 \end{proof}
 
 D'ora in avanti sceglieremo $\tau=2\pi$ come periodo 
@@ -340,6 +330,9 @@ La funzione inversa
   \arcsin\colon[-1,1]\to [-\pi/2, \pi/2]
 \]
 si chiama \emph{arco seno}. 
+E' una funzione continua per il Teorema~{th:monotona_continua}
+di continuità delle funzioni monotòne.
+
 Per definizione di funzione inversa si ha
 \[
   \arcsin(\sin x) = x, \qquad \forall x \in [-\pi/2, \pi/2]
@@ -355,7 +348,9 @@ La funzione inversa
 \[
   \arccos\colon[-1,1] \to [0,\pi]
 \]
-si chiama \emph{arco coseno}. Per definizione si ha
+si chiama \emph{arco coseno}. 
+Anch'essa è continua per le proprietà di monotonia.
+Per definizione si ha
 \[
   \arccos(\cos x) = x, \qquad \forall x \in [0,\pi]
 \]
