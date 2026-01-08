@@ -564,20 +564,21 @@
 
 % Detect whether there is a caption in the current environment by switching the kaocaption toggle when \caption is called. If there is no caption, reset the floatsetup. Without this fix, the floatrow package will align the environment to the main text if there is a caption, but to the margin if there is no caption.
 \newtoggle{kaocaption}
-\AtBeginEnvironment{figure}{%
-	\let\oldcaption\caption%
-	\RenewDocumentCommand{\caption}{s o m}{%
-		\IfBooleanTF{#1}{%
-			\oldcaption*{#3}%
+\let\kao@oldcaption\caption
+\NewDocumentCommand{\kaocaption}{s o m}{%
+	\IfBooleanTF{#1}{%
+		\kao@oldcaption*{#3}%
+	}{%
+		\IfValueTF{#2}{%
+			\kao@oldcaption[#2]{#3}%
 		}{%
-			\IfValueTF{#2}{%
-				\oldcaption[#2]{#3}%
-			}{%
-				\oldcaption{#3}%
-			}%
+			\kao@oldcaption{#3}%
 		}%
-		\toggletrue{kaocaption}%
 	}%
+	\toggletrue{kaocaption}%
+}
+\AtBeginEnvironment{figure}{%
+	\let\caption\kaocaption%
 }
 \AtEndEnvironment{figure}{%
 	\iftoggle{kaocaption}{%
@@ -588,19 +589,7 @@
 	\togglefalse{kaocaption}%
 }
 \AtBeginEnvironment{table}{%
-	\let\oldcaption\caption%
-	\RenewDocumentCommand{\caption}{s o m}{%
-		\IfBooleanTF{#1}{%
-			\oldcaption*{#3}%
-		}{%
-			\IfValueTF{#2}{%
-				\oldcaption[#2]{#3}%
-			}{%
-				\oldcaption{#3}%
-			}%
-		}%
-		\toggletrue{kaocaption}%
-	}%
+	\let\caption\kaocaption%
 }
 \AtEndEnvironment{table}{%
 	\iftoggle{kaocaption}{%
