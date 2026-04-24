@@ -318,8 +318,6 @@ In particolare per $x=1$ si ottiene la formula di \emph{Gregory-Leibniz}%
 \]
 \end{example}
 
-\newpage
-
 Il seguente esempio sfrutta la convergenza totale 
 per costruire una funzione continua ma non derivabile in alcun punto.
 Funzioni di questo genere non sono solamente curiosità matematiche, 
@@ -361,7 +359,8 @@ tale che si abbia
 \end{equation}
 Questo implica che $W$ non è derivabile in $x$.
 Visto che il coseno ha periodo $2\pi$ siamo certi che nell'intervallo 
-$[4\pi,6\pi]$ assume tutti i valori tra $-1$ e $1$. 
+$[4\pi,6\pi]$ la funzione $\theta \mapsto \cos(b^n \pi x+\theta)$ 
+assume tutti i valori tra $-1$ e $1$. 
 Dunque esiste $\theta_n \in [4\pi,6\pi]$ tale che 
 \[
    \abs{\cos (b^n \pi x + \theta_n) - \cos(b^n\pi x)} = 1.
@@ -370,11 +369,20 @@ Poniamo $\delta_n = \frac{\theta_n}{b^n \pi}$ cosicché
 \[
   \abs{\cos (b^n \pi (x+\delta_n))- \cos(b^n \pi x)} = 1.
 \]
+Usiamo quindi le seguenti stime
+\[
+  \abs{\cos(b^k\pi (x + \delta_n)) - \cos(b^k \pi x)}
+  \begin{cases}
+    \le b^k\pi\delta_n &\text{se $k<n$},\\
+    = 1 &\text{se $k=n$},\\
+    \le 2 &\text{se $k>n$}.
+  \end{cases}
+\]
 Abbiamo quindi:
 \begin{align*}
     \abs{\frac{W(x+\delta_n) - W(x)}{\delta_n}} 
-    &= \frac{\pi b^n}{\theta_n}\cdot \abs{\sum_{k=0}^{+\infty}a^k\Enclose{\cos(b^k\pi x + b^{k-n}\theta_n) - \cos(b^k \pi x)}}  \\
-    &\ge \frac{\pi}{6}b^n a^n\cdot 1 - \frac{\pi b^n}{\theta_n}\Enclose{\sum_{k=0}^{n-1} a^k b^{k-n} \theta_n + \sum_{k=n+1}^{+\infty} 2a^k} \\
+    &= \frac{\pi b^n}{\theta_n}\cdot \abs{\sum_{k=0}^{+\infty}a^k\Enclose{\cos(b^k\pi (x + \delta_n) - \cos(b^k \pi x)}}  \\
+    &\ge \frac{\pi b^n}{\theta_n}\cdot \Enclose{a^n - \sum_{k=0}^{n-1} a^k b^{k-n} \theta_n - \sum_{k=n+1}^{+\infty} 2a^k} \\
     &\ge \frac{a^n b^n}{6} - \frac{b^n}{4}\Enclose{\frac{6\pi}{b^n}\sum_{k=0}^{n-1} (ab)^k + 2 a^{n+1} \frac{1}{1-a}} \\
     &\ge \frac{a^n b^n}{6} -\frac {3\pi} 2\cdot  \frac{(ab)^n-1}{ab-1} - \frac{a^n b^n}{2}\cdot \frac{a}{a-1}\\
     &\ge (ab)^n \Enclose{\frac 1 6 - 5\cdot \frac{1}{ab-1} - \frac 1 2 \cdot \frac{1}{1-a}} \\
@@ -388,5 +396,3 @@ si abbia $ab>1$, $1-a>0$ e
 \end{align*}
 Si ottiene dunque \eqref{eq:30234354} come voluto.
 \end{proof}
-
-\newpage
