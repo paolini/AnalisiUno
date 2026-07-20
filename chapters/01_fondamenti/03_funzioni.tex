@@ -377,3 +377,121 @@ dunque $(g\circ f)^{-1}(c) = a = f^{-1}(g^{-1}(c))$ da cui si ottiene
   di funzioni suriettive è suriettiva.
 \end{exercise}
 
+\begin{theorem}[Cantor-Bernstein]%
+  \label{th:cantor_bernstein}%
+  \index{teorema!di Cantor-Bernstein}%
+  \index{Cantor-Bernstein!teorema di}%
+  Se esiste $f\colon A \to B$ iniettiva e $g\colon B\to A$ iniettiva,
+  allora esiste $h \colon A \to B$ bigettiva.
+\end{theorem}
+%
+\begin{figure}
+  \centering
+\begin{tikzpicture}
+    \foreach \x in {1,0.5,0.25,0.25*0.5,0.25*0.25,0.25*0.25*0.5} {
+      \path[draw,fill=black!20] (2*\x,2*\x)--(-2*\x,2*\x)--(-2*\x,-2*\x)--(2*\x,-2*\x)--cycle;
+      \draw[fill=white] (0,0) circle (1.6*\x);
+    };
+    \node at (0,2.2) {$A$};
+%    \node at (-1.3,1.65) {$A\setminus g(B)$};
+    \node at (0,1.3) {$g(B)$};
+
+    \node at (3,0.5) {$\stackrel f \longrightarrow$};
+    \node at (3,-0.5) {$\stackrel g \longleftarrow$};
+
+    \draw[fill=white] (6,0) circle (2.3);
+    \foreach \x in {0.75,0.5*0.75,0.25*0.75,0.5*0.25*0.75,0.25*0.25*0.75} {
+      \path[draw,fill=black!20] (6 + 2*\x, 2*\x)--(6 - 2*\x, 2*\x)--(6 - 2*\x,-2*\x)--(6 + 2*\x,-2*\x)--cycle;
+      \draw[fill=white] (6,0) circle (1.6*\x);
+      };
+    \node at (4.6,2.2) {$B$};
+%    \node at (6,1.9) {$B\setminus f(A)$};
+    \node at (5,1.2) {$f(A)$};
+\end{tikzpicture}
+
+\caption{
+  Nella dimostrazione del teorema di Cantor-Bernstein
+  $A$ è rappresentato da un quadrato e $B$ da un cerchio contenuto
+  in $A$. 
+  L'immagine di $A$ in $B$ è rappresentata da un quadrato contenuto
+  in $B$ e così via.
+  La parte ombreggiata nell'insieme $A$ va nella parte ombreggiata
+  dell'insieme $B$ tramite $f$, mentre la parte bianca va nella parte 
+  bianca.
+  }
+  \label{fig:omotetia}
+\end{figure}
+%
+\begin{proof}
+\emph{Passo 1:}
+mostriamo che senza perdita di generalità si può supporre $B\subset A$
+e $g(x)=x$.
+Notiamo infatti che in generale $g\colon B\to g(B)$ è una bigezione e dunque
+ha una funzione inversa $g^{-1}\colon g(B)\to B$.
+Se consideriamo $\tilde f = g^{-1}\circ f$ abbiamo allora una 
+funzione iniettiva $\tilde f\colon A \to g(B)\subset A$.
+Se il teorema è vero in questo caso (lo vedremo nel passo successivo) 
+avremo quindi una bigezione $\phi\colon A\to g(B)$. 
+Componendo $\phi$ con $g^{-1}$ si otterrà una bigezione tra $A$ e $B$.
+
+\emph{Passo 2:}
+Supponiamo che sia $B\subset A$ e che $f\colon A \to B$ sia iniettiva.
+Intuitivamente l'idea è quella di definire l'insieme
+\[
+ D = (A\setminus B)  
+ \cup f(A\setminus B) 
+ \cup f(f(A\setminus B)) 
+ \cup \dots
+\]
+e di definire la bigezione $\phi \colon A \to B$ 
+utilizzando $f$ sull'insieme $D$ e lasciando fisso
+il resto.
+
+Per farlo in maniera rigorosa
+consideriamo la famiglia di insiemi 
+$\F = \{X \subset A \colon X \supset A \setminus B, f(X) \subset X\}$ 
+e definiamo $D = \bigcap \F$.
+Osserviamo che $A \in \F$ quindi $\F\neq \emptyset$.
+Abbiamo in pratica definito $D$ come il più piccolo 
+sottoinsieme di $A$ che viene mandato in se stesso da $f$.
+
+E' facile verificare che $f(D) \subset D$ infatti dato $x\in D$ per ogni $X\in \F$ deve essere $x\in X$ ma allora $f(x) \in X$ (per come è definito $\F$), dunque $f(x) \in D$. 
+In modo analogo si dimostra che $D\supset A\setminus B$ e dunque concludiamo che $D\in \F$.
+
+Verifichiamo ora che $f(D)=D\cap B$. Da un lato se $x\in D$ allora
+$f(x) \in f(D)\subset D$ e $f(x)\subset f(A)\subset B$ da cui $f(x) \in D\cap B$.
+Dall'altro lato se $y\in D \cap B$ e non fosse $y \in f(D)$
+allora potremmo considerare l'insieme $X=D\setminus\{y\}$
+e osservare che $X\in \F$.
+Infatti in primo luogo $X \supset A \setminus B$ in quanto $D$ ha questa proprietà e $y \in B$.
+Inoltre dato qualunque $x \in X$ visto che $X\subset D$ allora
+$f(x) \in f(D)$ e, per ipotesi,
+$y\not \in f(D)$ dunque $f(x)\neq y$ da cui $f(x) \in X$.
+Dunque $X\in \F$ ma allora dovrebbe essere $D\subset X$ mentre
+per costruzione abbiamo $y\in D$ ma non in $X$.
+
+% Avendo visto che $f(D)=D\cap B$ possiamo facilmente
+% osservare che $f(A\setminus D) \subset A \setminus D$.
+% Infatti $f(A\setminus D)\subset f(A)=B$ e quindi
+% $f(A\setminus D)\cap D \subset D \cap B = f(D)$
+% ma essendo $f$ iniettiva si deve avere
+% $f(A\setminus D) \cap f(D)=\emptyset$.
+
+Possiamo allora definire $\phi \colon A \to B$
+\[
+\phi(x) =
+\begin{cases}
+   f(x) & \text{se $x\in D$}, \\
+   x & \text{altrimenti.}
+\end{cases}
+\]
+Chiaramente $\phi$ è iniettiva in quanto $f$ è iniettiva e manda $D$ in $D\cap B \subset D$
+mentre l'identità è iniettiva e manda $A\setminus D$ in $A\setminus D$.
+
+Per dimostrare che $\phi$ è suriettiva consideriamo qualunque $y \in B$.
+Se $y\not \in D$ allora $\phi(y)=y$.
+Se invece $y\in D$ essendo $y\in D\cap B = f(D)$ esisterà $x\in D$ tale
+che $\phi(x) = f(x) = y$.
+\end{proof}
+
+
