@@ -9,6 +9,9 @@ AnalisiUnoFonts.pdf: AnalisiUno.pdf
 AnalisiUno.pdf AnalisiUno.myaux: AnalisiUno.tex chapters/*.tex figures/* code/* figures/figurePJAinside.tex figures/figurePJBinside.tex figures/figurePJAoutside.tex figures/figurePJBoutside.tex
 	latexmk -pdf -file-line-error -halt-on-error -interaction=nonstopmode $<
 
+Fondamenti.pdf::
+	latexmk -pdf Fondamenti.tex
+
 strutture.pdf: strutture.gv
 	dot -Tpdf $< -o $@
 

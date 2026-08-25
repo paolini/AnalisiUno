@@ -1,0 +1,97 @@
+object sum x y:
+    __DEFINED__
+
+axiom sum_associativity:
+    all x:
+        all y: 
+            all z:
+                equals sum x sum y z sum sum x y z
+
+axiom sum_commutativity:
+    all x:
+        all y:
+            equals sum x y sum y x
+
+object zero:
+    __DEFINED__
+
+axiom zero_neutral:
+    all x:
+        equals sum x zero x
+
+object one:
+    __DEFINED__
+
+object product x y:
+    __DEFINED__
+
+axiom product_associative:
+    all x:
+        all y:
+            all z:
+                equals product x product y z product product x y z
+
+axiom product_commutative:
+    all x:
+        all y:
+            equals product x y product y z
+
+axiom one_neutral:
+    all x:
+        equals product x one x
+    
+axiom distributivity:
+    all x:
+        all y:
+            all z:
+                equals product x sum y z sum product x y product x z 
+
+schema induction P x:
+    if P zero and all n (P n implies P sum n one):
+        all n:
+            P n
+
+predicate less_or_equal n m:
+    exists k:
+        m equals sum n k
+
+theorem order_transitive:
+    all n:
+        all m:
+            all k:
+                if n less_or_equal m:
+                    if m less_or_equal k:
+                        n less_or_equal k
+proof:
+    all n:
+        all m:
+            all k:
+                if n less_or_equal m:
+                    exists nm: [by predicate less_or_equal]
+                        m equals sum n nm
+                        if m less_or_equal k:
+                            exists mk: [by predicate less_or_equal]
+                                k equals sum m mk
+                                k equals sum sum n nm mk [by substitution]
+                                k equals sum n sum nm mk [by sum_associativity]
+                                exist nmk:
+                                    nmk equals sum nm mk [???]
+                                    k equals sum n nmk [by substitution]
+                                    k less_or_equal n
+                                k less_or_equal n
+                            k less_or_equal n
+                        m less_or_equal k implies k less_or_equal n
+                    m less_or_equal k implies k less_or_equal n
+                    if m less_or_equal k:
+                        k less_or_equal n
+
+predicate divides n m:
+    exists k:
+        m equals product n k
+
+predicate prime p:
+    all n:
+        all m:
+            if p divides product n m:
+                p divides n or p divides m
+

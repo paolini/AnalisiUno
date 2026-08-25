@@ -1,0 +1,160 @@
+% Load the kaobook class
+\documentclass[
+	fontsize=10pt, % Base font size
+	twoside=true, % Use different layouts for even and odd pages (in particular, if twoside=true, the margin column will be always on the outside)
+	pagewidth=8.5in, % 21.59 cm 
+	pageheight=11.0in, % 27.94 cm §(US letter) 
+	%open=any, % If twoside=true, uncomment this to force new chapters to start on any page, not only on right (odd) pages
+	%secnumdepth=1, % How deep to number headings. Defaults to 1 (sections)
+	numbers=noenddots, % non sembra essere utile, ridefinito \autodot in mykaobook.cls
+]{mykaobook}
+% Choose the language
+\usepackage[italian]{babel} % Load characters and hyphenation
+%\usepackage[english=british]{csquotes}	% English quotes
+
+% Load packages for testing
+\usepackage{blindtext}
+%\usepackage{showframe} % Uncomment to show boxes around the text area, margin, header and footer
+%\usepackage{showlabels} % Uncomment to output the content of \label commands to the document where they are used
+
+\let\openbox\relax %% avoid clash between amsthm and kaobook
+\usepackage{amsmath,amsthm,thmtools}
+\usepackage{mathtools} % MoveEqLeft
+\usepackage{comment}
+\usepackage{qrcode}
+\usepackage[type={CC},modifier={by-nc-sa},version={4.0},lang={en}]{doclicense}
+\usepackage{eucal}
+\usepackage{tcolorbox}
+%\usepackage{textpos} %% for textblock environment
+%\usepackage{mparhack} % fix margin notes (otherwise sometime they go to wrong margin!)
+\usepackage{marginfix} %
+\usepackage{caption,subcaption}
+\usepackage{tikz}
+\usepackage{pgfplots} % per disegnare i grafici di funzione
+\usetikzlibrary{cd,calc,backgrounds} % commutative diagrams
+\usepackage{cite}
+\usepackage{csquotes}
+\allowdisplaybreaks % break displayed equations if needed
+
+%\renewcommand{\footnote}[1]{*\marginnote{* #1}}
+
+%\usepackage{showkeys} % print labels
+
+\input{AnalisiUno-custom.tex}
+\widemargintrue
+
+\graphicspath{{figures/}}
+
+\makeindex[columns=3, title=Indice analitico, intoc] % Make LaTeX produce the files required to compile the index
+
+%% per compilare un solo capitolo scommenta
+%% una delle righe seguenti:
+%\includeonly{chapters/01_fondamenti}
+
+\begin{document}
+\nocite{forallx}
+%----------------------------------------------------------------------------------------
+%	BOOK INFORMATION
+%----------------------------------------------------------------------------------------
+
+%\titlehead{Appunti di Analisi Matematica Uno}
+\title[Fondamenti di logica e teoria degli insiemi]{Fondamenti di \\ logica e teoria degli insiemi}
+\author[EP]{Emanuele Paolini}
+\date{\today}
+\publishers{manu-fatto}
+
+%----------------------------------------------------------------------------------------
+
+\frontmatter % Denotes the start of the pre-document content, uses roman numerals
+
+%----------------------------------------------------------------------------------------
+%	COPYRIGHT PAGE
+%----------------------------------------------------------------------------------------
+
+%----------------------------------------------------------------------------------------
+%	OUTPUT TITLE PAGE AND PREVIOUS
+%----------------------------------------------------------------------------------------
+
+% Note that \maketitle outputs the pages before here
+\maketitle
+
+\thispagestyle{empty}
+\mbox{}
+\vfill
+\doclicenseThis
+%----------------------------------------------------------------------------------------
+%	PREFACE
+%----------------------------------------------------------------------------------------
+
+\pagelayout{margin} % Restore margins
+\setchapterstyle{kao} % Choose the default chapter heading style
+
+\include{chapters/00_introduzione}
+
+%----------------------------------------------------------------------------------------
+%	TABLE OF CONTENTS & LIST OF FIGURES/TABLES
+%----------------------------------------------------------------------------------------
+
+\begingroup % Local scope for the following commands
+
+\setlength{\textheight}{230\vscale} % Manually adjust the height of the ToC pages
+
+% Turn on compatibility mode for the etoc package
+\etocstandarddisplaystyle % "toc display" as if etoc was not loaded
+\etocstandardlines % "toc lines as if etoc was not loaded
+
+\tableofcontents % Output the table of contents
+
+
+\endgroup
+
+%----------------------------------------------------------------------------------------
+%	MAIN BODY
+%----------------------------------------------------------------------------------------
+
+\mainmatter % Denotes the start of the main document content, resets page numbering and uses arabic numbers
+\setchapterstyle{kao} % Choose the default chapter heading style
+
+\include{chapters/01_fondamenti}
+
+\appendix % From here onwards, chapters are numbered with letters, as is the appendix convention
+
+\pagelayout{margin} % Restore margins
+
+% \include{chapters/99_appendix}
+
+%----------------------------------------------------------------------------------------
+
+\backmatter % Denotes the end of the main document content
+
+%----------------------------------------------------------------------------------------
+%	BIBLIOGRAPHY
+%----------------------------------------------------------------------------------------
+
+% \nocite{Giusti}
+% \nocite{Courant}
+% \nocite{Marcellini}
+% \nocite{Rudin}
+% \nocite{PaganiSalsa}
+
+% The bibliography needs to be compiled with biber using your LaTeX editor, or on the command line with 'biber main' from the template directory
+
+% \defbibnote{bibnote}{Here are the references in citation order.\par\bigskip} % Prepend this text to the bibliography
+% \printbibliography[heading=bibintoc, title=Bibliography, prenote=bibnote] % Add the bibliography heading to the ToC, set the title of the bibliography and output the bibliography note
+
+\pagelayout{margin} % Restore margins
+
+\bibliography{biblio}{}
+\bibliographystyle{plain}
+
+\pagelayout{wide} % No margins
+
+%----------------------------------------------------------------------------------------
+%	INDEX
+%----------------------------------------------------------------------------------------
+
+% The index needs to be compiled on the command line with 'makeindex main' from the template directory
+
+\printindex % Output the index
+
+\end{document}

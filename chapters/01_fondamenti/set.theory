@@ -1,0 +1,306 @@
+## primitive constructs:
+
+# __EQUALS__ has substitution rules
+predicate equals x y:
+    __EQUALS__ x y
+
+axiom equality_reflexive:
+    all x:
+        equals x x
+
+axiom equality_symmetric:
+    all x:
+        all y:
+            if equals x y:
+                equals y x
+
+schema specification P:
+    all x:
+        exists y:
+            all z:
+                iff z in y:
+                    P z
+                    z in x
+
+predicate false:
+    __FALSE__
+
+predicate true:
+    __TRUE__
+
+## set theory only atomic predicate:
+predicate in x y:
+    __ATOMIC__
+
+## subsets
+predicate subset x y:
+    all z:
+        if z in x:
+            z in y
+
+theorem subset_reflexive:
+    all x:
+        subset x x
+proof:
+    all x:
+        all z:
+            if z in x:
+                z in x
+        subset x x
+
+theorem subset_transitive:
+    all x:
+        all y:
+            if x subset y:
+                all z:
+                    if y subset z:
+                        x subset z
+proof:
+    all x:
+        all y:
+            if x subset y:
+                all z:
+                    if y subset z:
+                        all w:
+                            if w in x:
+                                x subset y
+                                w in y
+                                y subset z
+                                w in z
+                        x subset z 
+
+axiom extensionality:
+    all x:
+        all y:
+            if subset x y:
+                if subset y x:
+                    equals x y  
+
+theorem reverse_extensionality:
+    all x:
+        all y:
+            if equals x y:
+                x subset y
+                y subset x
+proof:
+    all x:
+        x subset x
+        all y:
+            y subset y
+            if equals x y:
+                x subset y [by substitution]
+                y subset x [by substitution]
+                x equals y [by axiom extensionality]             
+
+predicate is_empty x: 
+    all z: 
+        if z in x:
+            false
+
+axiom exists_set:
+    exists x:
+        __TRUE__ # pass
+
+theorem exists_emptyset: 
+    exists x:
+        is_empty x
+proof:
+    exists y: [by theorem exists_set]
+        all w:
+            exists x: [by schema specification false]
+                all z:
+                    iff z in x:
+                        z in w
+                        false
+                    if z in x:
+                        false
+                is_empty x
+        exists x: [by universal removal]
+            is_empty x
+
+    exists x: [by existence dropping]
+        is_empty x
+
+theorem emptyset_is_unique:
+    all x: 
+        if is_empty x:
+            all y: 
+                if is_empty y:
+                    equals x y
+proof:
+    all x: 
+        if is_empty x:
+            all y: 
+                if is_empty y:
+                    all z:
+                        if z in x:
+                            false [by definition is_empty]
+                            z in y [by false]
+                        if z in y:
+                            false [by definition is_empty]
+                            z in x [by false]
+                    subset x y
+                    subset y x
+                    equals x y
+
+object emptyset: 
+    is_emptyset emptyset
+proof:
+    exists_emptyset
+    emptyset_is_unique
+
+proposition is_singleton y x:
+    all z: 
+        if z in y:
+            equals x z
+        if equals x z:
+            z in y
+
+axiom exists_singleton: 
+    all x: 
+        exists y: 
+            is_singleton y x
+
+theorem singleton_is_unique:
+    all x:
+        all y:
+            all y':
+                if is_singleton y x and is_singleton y' x:
+                    equals y y'
+proof:
+    all x:
+        all y:
+            all y':
+                if is_singleton y x and is_singleton y' x:
+                    is_singleton y x [by and removal]
+                    is_singleton y' x [by and removal]
+                    all z:
+                        if z in y:
+                            equals x z [by is_singleton y x]
+                            z in y' [by is_singleton y' x]
+                        subset y y' [by definition]
+                        all z:
+                            if z in y':
+                                equals x z [by is_singleton y' x]
+                                z in y [by is_singleton y x]
+                        subset y' y [by definition]
+                        equals y y' [by definition]
+
+set singleton x: 
+    is_singleton singleton x
+
+prove singleton:
+    exists_singleton
+    singleton_is_unique
+
+define is_union z x y:
+    all w: 
+        if w in z:
+            w in x or w in y
+        if w in x or w in y:
+            w in z
+
+axiom exists_union: 
+    all x: 
+        all y: 
+            exists z: 
+                all w: 
+                    if w in z:
+                        w in x or w in y
+                    if w in x or w in y:
+                        w in z
+
+theorem union_is_unique:
+    all x:
+        all y:
+            all z:
+                all z':
+                    if is_union z x y and is_union z' x y:
+                            equals z z'                   
+proof:
+    all x:
+        all y:
+            all z:
+                all z':
+                    if is_union z x y and is_union z' x y:
+                        is_union z x y [by and removal]
+                        is_union z' x y [by and removal]
+                        all w:
+                            if w in z:
+                                w in x or w in y [by is_union z x y]
+                                w in z' [by is_union z' x y]
+                        subset z z' [by definition]
+                        all w:
+                            if w in z':
+                                w in x or w in y [by is_union z' x y]
+                                w in z [by is_union z x y]
+                        subset z' z [by definition]
+                        equals z z' [by definition]
+
+proposition is_power_set z x:
+    all y:
+        if subset y x:
+            y in z
+        if y in z:
+            subset y x
+
+theorem power_set_is_unique:
+    all x:
+        all z:
+            all z':
+                if is_power_set z x:
+                    if is_power_set z' x:
+                        equals z z'
+proof:
+    all x:
+        all z:
+            if is_power_set z x:
+                all z':
+                    if is_power_set z' x:
+                        all y:
+                            if y in z:
+                                subset y x [by is_power_set z x]
+                                y in z' [by is_power_set z' x]
+                        subset z z' [by definition]
+                        all y:
+                            if y in z':
+                                subset y x [by is_power_set z' x]
+                                y in z [by is_power_set z x]
+                        subset z' z [by definition]
+                        equals z z' [by definition]
+
+axiom exists_power_set:
+    all x:
+        exists z:
+            is_power_set z x
+
+set power_set x:
+    is_power_set power_set x x
+proof:
+    exists_power_set
+    power_set_is_unique
+
+proposition is_intersection z x y:
+    all w:
+        if w in z:
+            w in x and w in y
+        if w in x and w in y:
+            w in z
+
+theorem exists_intersection:
+    all x:
+        all y:
+            exists z:
+                is_intersection z x y
+proof:
+    all x:
+        all y:
+            exists z: [by comprehension]
+                all w: 
+                    if w in z:
+                        w in x
+                        w in y
+                    if w in x:
+                        if w in y:
+                            w in z
+            
