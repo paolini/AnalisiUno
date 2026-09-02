@@ -1,0 +1,286 @@
+\section{linear recursive equations}
+\label{sec:ricorrenza_lineare}
+
+Given the constants $c_0, c_1, \dots, c_n$,
+with $c_n \neq 0$,
+we shall say that the recursive equation:
+\begin{equation}\label{eq:ricorsione_lineare}
+  c_n \cdot a_{k+n} + c_{n-1} \cdot a_{k+n-1} + \dots
+    + c_1 \cdot a_{k+1} + c_0 \cdot a_k = 0
+\end{equation}
+is a \emph{linear recursive equation}%
+\mymargin{linear recursive equation}\index{equation!recursive!linear} (homogeneous) of order $n$.
+The polynomial $P$ with the same coefficients:
+\[
+    P(\lambda) = c_n \cdot \lambda^n + c_{n-1}\cdot \lambda^{n-1} + \dots + c_1
+  \cdot \lambda + c_0
+\]
+is called the \emph{characteristic polynomial}%
+\mymargin{characteristic polynomial}\index{polynomial!characteristic}
+\index{equation!recursive!linear!characteristic polynomial}%
+\index{polynomial!characteristic!of a linear recursive equation}%
+associated with the linear equation~\eqref{eq:ricorsione_lineare}.
+
+For example, the Fibonacci sequence $F_k$ defined by~\eqref{eq:Fibonacci}
+is a solution of the second-order linear recursive equation:
+\[
+   a_{k+2} - a_{k+1} - a_{k} = 0
+\]
+whose characteristic polynomial is
+\[
+  P(\lambda) = \lambda^2 - \lambda - 1.
+\]
+
+\begin{theorem}[independence of exponential sequences]
+\label{th:indipendenza_successioni_esponenziali}
+Let $\lambda_1, \dots, \lambda_n$ be distinct complex numbers. 
+Then the sequences $\vec a_j$ defined by
+\[
+  \vec a_j (k) = \lambda_j^k
+\]
+are independent vectors in the complex vector space $\CC^\NN$ of all
+sequences with complex values.
+\end{theorem}
+%
+\begin{proof}
+We must show that if a linear combination of the
+sequences $\vec a_j$ is zero, then all the coefficients
+are zero. 
+We prove this by induction on the number $n$. 
+If $n=1$, the result is trivial. 
+Suppose then that we know $a_1,\dots, a_{n-1}$ are independent 
+and we prove that $a_1,\dots, a_n$ are also independent.
+
+Suppose we have $c_1, \dots, c_n\in \CC$ such that
+\[
+  \sum_{j=1}^n c_j \vec a_j = \vec 0 \in \CC^\NN.
+\]
+This means that for every $k\in \NN$ we have
+\begin{equation}\label{eq:47862}
+  \sum_{j=1}^n c_j \lambda_j^k = 0.
+\end{equation}
+If we replace $k$ with $k+1$, we have
+\[
+  \sum_{j=1}^n c_j \lambda_j^{k+1} = 0.
+\]
+If we now multiply \eqref{eq:47862} by $\lambda_n$ and
+subtract the previous equation, we obtain:
+\[
+  \sum_{j=1}^n c_j \lambda_j^k(\lambda_n - \lambda_j) = 0.   
+\]
+Setting $b_j = c_j (\lambda_n - \lambda_j)$, we thus obtain,
+for every $k\in \NN$
+\[
+ \sum_{j=1}^{n-1}  b_j \lambda_j^k = 0.
+\]
+By the inductive hypothesis, we know that the coefficients $b_1,\dots, b_{n-1}$ 
+must all be zero, which means, 
+since $\lambda_n-\lambda_j\neq 0$, that $c_1,\dots, c_{n-1}$ 
+are all zero. 
+But then \eqref{eq:47862} becomes 
+\[
+  c_n \lambda_n^k = 0  
+\]
+which for $k=0$ implies that $c_n=0$ as well.
+\end{proof}
+
+\begin{proof}[alternative proof]
+Evaluating equation~\eqref{eq:47862} for $k=0,\dots, n-1$, we obtain
+\begin{align*}
+  c_1 + c_2 + \dots + c_n & = 0 \\
+  c_1 \lambda_1 + c_2 \lambda_2 + \dots + c_n \lambda_n & = 0 \\
+  &\quad \vdots\\
+  c_1 \lambda_1^{n-1} + c_2 \lambda_2^{n-1} + \dots + c_n \lambda_n^{n-1} & = 0
+\end{align*}
+which is a linear system whose associated matrix is
+the \emph{Vandermonde} matrix%
+\mymargin{Vandermonde}\index{Vandermonde}
+\index{matrix!Vandermonde}%
+\[
+V =
+\begin{pmatrix}
+  1 & 1 &  \dots & 1 \\
+  \lambda_1 & \lambda_2 & \dots & \lambda_n \\
+  \lambda_1^2 & \lambda_2^2 & \dots & \lambda_n^2 \\
+  \vdots & \vdots & \vdots & \vdots \\
+  \lambda_1^{n-1} & \lambda_2^{n-1} & \dots & \lambda_n^{n-1}
+\end{pmatrix}
+\]
+which is known (it can be proven by induction) to have determinant
+\[
+  \det V = \prod_{j=2}^{n} \prod_{k=1}^{j-1}(\lambda_j-\lambda_k)
+\]
+and thus
+is invertible if and only if
+the $\lambda_j$ are distinct from each other.
+
+Thus $c_1 = c_2 = \dots = c_n = 0$ is the only solution
+of the linear system.
+\end{proof}
+
+\begin{theorem}[dimension of solutions]
+\label{th:dimensione_ricorsione_lineare}
+The set $W$ of all sequence solutions of equation~\eqref{eq:ricorsione_lineare}
+of order $n$
+is a vector subspace of dimension $n$
+of the space $\CC^\NN$ of all sequences.
+\end{theorem}
+%
+\begin{proof}
+Let $\vec a \in \CC^\NN$ denote the sequence $a_k = \vec a(k)$.
+The set $W$ of solutions of equation~\eqref{eq:ricorsione_lineare}
+is a vector subspace of $\CC^\NN$ since if $\vec a$
+and $\vec b$ are solutions, then $\vec a + \vec b$ is also a solution, and if
+$\vec a$
+is a solution, then $t \vec a$ is a solution for every $t\in \CC$
+(this can be verified).
+
+Consider then the operator (called \emph{jet}%
+\mymargin{jet}\index{jet}) $J\colon W \to \CC^n$
+defined by
+\[
+  J(\vec a) = \enclose{\vec a(0), \vec a(1), \dots, \vec a(n-1)}.
+\]
+It is easy to verify that $J$ is a linear operator since the evaluation
+of a function at a point is a linear operation.
+
+We now want to determine
+\[
+  \ker J = \ENCLOSE{\vec a \in W \colon J(\vec a)=0}.
+\]
+If $\vec a\in \ker J$, it means that the first $n$ terms
+of the sequence
+$a_0, a_1, \dots, a_{n-1}$ are all zero.
+But if $\vec a\in W$, we know that~\eqref{eq:ricorsione_lineare} holds, and thus
+$a_n$ is also zero. Applying~\eqref{eq:ricorsione_lineare} recursively,
+we obtain that $a_{n+k}=0$ for every $k\in \NN$, and thus $\vec a = 0$.
+Therefore, $\ker J = \ENCLOSE{\vec 0}$,
+and by the known properties of linear operators, we can
+assert that $J\colon W \to \CC^n$ is injective.
+Thus $\dim W \le \dim \CC^n = n$.
+
+But we can also observe that $J$ is surjective since
+given the values of $a_0,a_1, \dots, a_{n-1}$, the equation
+~\eqref{eq:ricorsione_lineare} allows us to determine,
+inductively, all subsequent terms. Thus
+given $\vec y = (y_0, \dots, y_{n-1}) \in \CC^n$,
+it is possible to find $\vec a \in W$ such that $J(\vec a) = \vec y$.
+
+Since $J\colon W\to\CC^n$ is injective and surjective,
+we conclude that $\dim W = \dim \CC^n = n$.
+\end{proof}
+
+\begin{theorem}[characterization of solutions]
+If the characteristic polynomial of equation~\eqref{eq:ricorsione_lineare}
+has $n$ distinct zeros $\lambda_1, \dots, \lambda_n$,
+then
+every solution of the equation can be expressed in the form
+\[
+  a_k = c_1 \lambda_1^k + c_2 \lambda_2^k + \dots + c_n \lambda_n^k
+\]
+where $c_1, \dots, c_n$ are arbitrary constants.
+\end{theorem}
+%
+\begin{proof}
+Let $V=\CC^\NN$ be the vector space of all sequences.
+We can define the \emph{shift} operator $\sigma\colon V\to V$
+\[
+  (\sigma \vec a)(k) = \vec a(k+1).
+\]
+It follows that $a_{k+n} = (\sigma^n \vec a)(k)$ where
+$\sigma^n = \sigma \circ \sigma \circ \dots \circ \sigma$
+is the composition of $\sigma$ with itself $n$ times.
+We can thus rewrite equation~\eqref{eq:ricorsione_lineare} in the form
+\[
+  c_n \sigma^n \vec a + \dots + c_0 \sigma^0 \vec a = 0
+\]
+or
+\[
+  P(\sigma)\vec a = 0
+\]
+where $P(\sigma)$ denotes the operator $P(\sigma)\colon V\to V$
+obtained by applying the characteristic polynomial $P$ to the operator $\sigma$.
+
+If $\lambda_1,\dots,\lambda_n$ are the $n$ roots of the polynomial $P$, we can
+decompose the polynomial $P$ using Ruffini's theorem~\ref{th:Ruffini}
+\begin{equation}\label{eq:375628}
+  P(\lambda)
+  = a_n (\lambda -\lambda_1)(\lambda- \lambda_2)\cdots (\lambda - \lambda_n).
+\end{equation}
+The same decomposition can be done for $P(\sigma)$,
+and thus equation~\eqref{eq:ricorsione_lineare}
+can be written in the form:
+\begin{equation}\label{eq:437343}
+(\sigma - \lambda_1 I)\circ (\sigma-\lambda_2 I)\circ \dots \circ (\sigma
+-\lambda_n I) \vec a = 0
+\end{equation}
+where $I\colon V\to V$ is the identity operator $I\vec a = \vec a$.
+Since in the decomposition~\eqref{eq:375628}
+the order in which the factors are multiplied does not matter,
+in equation~\eqref{eq:437343}, we can apply the operators
+$(\sigma -\lambda_j I)$ in any order (the operators commute).
+Thus it is immediate to notice that if $\vec a$ solves
+\[
+  (\sigma - \lambda_j I) \vec a = 0
+\]
+for any $j=1,\dots, n$, then $\vec a\in W$.
+But this last equation is easy to solve since
+setting $a_k = \vec a(k)$, it is explicit in the form:
+\[
+  a_{k+1} - \lambda_j a_k = 0
+\]
+which is satisfied if
+one chooses $a_k = \lambda_j^k$.
+
+Thus the sequence $\vec a_j$ defined by
+\[
+  \vec a_j(k) = \lambda_j^k
+\]
+is an element of $W$.
+For $j=1,\dots, n$, we have found $n$ distinct solutions
+$\vec a_1, \dots, \vec a_n$. These solutions are
+independent by theorem~\ref{th:indipendenza_successioni_esponenziali},
+and thus, since $\dim W = n$ by theorem~\ref{th:dimensione_ricorsione_lineare},
+we can assert that these solutions form a basis of $W$,
+which is exactly what we wanted to prove.
+\end{proof}
+
+\begin{example}[explicit formula for the Fibonacci sequence]
+\index{sequence!Fibonacci}%
+\index{Fibonacci!explicit formula}%
+The Fibonacci sequence $F_k$ defined by~\eqref{eq:Fibonacci}
+satisfies a second-order linear recursive equation with associated polynomial
+$P(\lambda) = \lambda^2 - \lambda - 1$. Solving the equation $P(\lambda)=0$,
+we find the two distinct roots:
+\[
+  \lambda_{1,2} = \frac{1 \pm \sqrt{5}}{2}.
+\]
+The larger root, $\lambda_2$, corresponds to the
+\emph{golden ratio}%
+\mymargin{golden ratio}\index{ratio!golden} which is usually denoted by $\phi$.
+\index{$\phi$}%
+Since $\lambda_1 \lambda_2 = -1$, we find $\lambda_1 = -1/\phi$.
+Thus, by the previous theorem, we know that there exist two constants $c_1$ and
+$c_2$ such that
+\[
+  F_k = c_1 \frac{(-1)^k}{\phi^k} + c_2 \phi^k .
+\]
+Imposing the conditions $F_0=0$, $F_1=1$ (imposing $F_2 = 1$ is equivalent to
+$F_0=0$),
+we obtain
+\[
+  c_1 + c_2 = 0, \qquad - \frac{c_1}{\phi} + c_2 \phi  = 1
+\]
+from which it is possible to find $c_1 = - c_2 = 1/\sqrt{5}$ and thus obtain
+Binet's formula for the $k$-th Fibonacci number:
+\mymargin{Binet's Formula}%
+\index{Fibonacci}%
+\index{sequence!Fibonacci}%
+\index{formula!Binet's}%
+\index{Binet!formula of}%
+\[
+  F_k = \frac{\phi^k}{\sqrt 5} + \frac{(-1)^{k+1}}{\sqrt 5\phi^k}.
+\]
+It is quite surprising to observe that the values $F_k$ obtained
+with this expression are all integers.
+\end{example}

@@ -1,0 +1,910 @@
+\section{Improper Integrals}
+
+The definition of the Riemann integral was given only for bounded functions
+defined on a bounded interval. We now wish to extend the definition of the
+integral to unbounded functions and unbounded intervals. We will do this by
+reducing, through a limit, to the case already studied.
+
+\begin{definition}[Local Integrability]
+\label{def:localmente_riemann}
+Let $f\colon A \to \RR$ be a function defined on a set $A\subset \RR$. We say
+that $f$ is \emph{locally Riemann-integrable} if for every closed and bounded
+interval $[\alpha,\beta]\subset A$, it follows that $f$ is bounded and
+Riemann-integrable on $[\alpha,\beta]$.
+\end{definition}
+
+\begin{remark}
+If $f\colon A \to \RR$ is a continuous function, then on every interval
+$[\alpha,\beta]\subset A$, the function $f$ is continuous and hence bounded and
+Riemann-integrable by theorem~\ref{th:integrabilita_continue}. The same holds
+for monotone functions: thanks to theorem~\ref{th:integrabilita_monotone}, we
+know that a monotone function is bounded and Riemann-integrable on every
+interval $[\alpha,\beta]$, thus it is also locally Riemann-integrable. It will
+be very rare to encounter locally Riemann-integrable functions that do not fall
+into these two cases.
+\end{remark}
+
+\begin{definition}[Improper Integral]
+\label{def:integrale_improprio}
+\index{integral!improper}
+If $f$ is a locally Riemann-integrable function on the interval $[a,b)$ with
+$a\in \RR$, $b\in (a,+\infty]$, we define the improper integral of $f$ on
+$[a,b)$ as:
+\[
+  \int_a^b f(x)\, dx = \lim_{\beta \to b^-} \int_a^\beta f(x)\, dx
+\]
+if the limit on the right-hand side exists (finite or infinite).
+
+If $f$ is a locally Riemann-integrable function on the interval $(a,b]$ with
+$b\in \RR$, $a\in [-\infty,b)$, we define the improper integral of $f$ on
+$(a,b]$ as:
+\[
+  \int_a^b f(x)\, dx = \lim_{\alpha \to a^+} \int_\alpha^b f(x)\, dx
+\]
+if the limit exists (finite or infinite).
+
+If $f$ is a locally Riemann-integrable function on the interval $(a,b)$ with
+$a\in [-\infty,+\infty)$, $b\in(a,+\infty]$, given any point $c\in (a,b)$, we
+define the improper integral of $f$ on $(a,b)$ as:
+\begin{align*}
+  \int_a^b f(x)\, dx &=
+  \int_a^c f(x)\, dx + \int_c^b f(x)\, dx \\
+  &= \lim_{\alpha \to a^+}\int_\alpha^c f(x)\,dx
+    + \lim_{\beta\to b^-}\int_c^\beta f(x)\, dx
+\end{align*}
+provided that both limits exist (finite or infinite) and are not infinite with
+opposite signs (so that their sum is well-defined). According to
+observation~\ref{rem:4821341}, the integral does not depend on the chosen point
+$c$.
+
+If $I$ is an interval with endpoints $a,b\in [-\infty, +\infty]$, $a<b$, and
+there exist a finite number of points $x_0,\dots,x_n \in I$ such that $a = x_0 <
+x_1 < \dots < x_n = b$ and if $f$ is locally Riemann-integrable on the set
+$A=I\setminus\ENCLOSE{x_0, \dots, x_n}$, then we define the improper integral of
+$f$ on $A$ as:
+\[
+  \int_a^b f(x)\, dx = \sum_{k=1}^n \int_{x_{k-1}}^{x_k} f(x)\, dx
+\]
+if each improper integral $\int_{x_{k-1}}^{x_k} f(x)\, dx$ exists (finite or
+infinite) and if the sum is well-defined since all infinite integrals have the
+same sign.
+
+If the improper integral $\int_a^b f(x)\, dx$ exists and is finite (according to
+one of the previous definitions), we say that the function $f$ is
+\mymargin{integrable} \emph{integrable in the improper sense} (or
+\emph{integrable in the generalized sense}) and we say that the integral
+\emph{converges}. \mymargin{convergent}%
+\index{convergence!integral}%
+\index{integral!convergent}%
+\index{integral!improper!convergent}%
+If instead the integral exists but is not finite, we say that the integral
+\emph{diverges}. \mymargin{divergent}%
+\index{divergence!integral}%
+\index{integral!divergent}%
+\index{integral!improper!divergence}%
+In other cases, we say that the integral is \emph{indeterminate}.
+\mymargin{indeterminate}%
+\index{integral!improper!indeterminate}%
+\index{integral!indeterminate}%
+
+Determining the \emph{nature} \mymargin{nature}%
+\index{nature!of the integral}%
+\index{integral!nature}%
+\index{integral!improper!nature}%
+of the integral $\int_a^b f(x)\, dx$ means stating whether such an integral is
+convergent, divergent, or indeterminate.
+
+If the limits of integration are swapped, $a>b$, it is useful to use the
+convention already introduced for Riemann integrals even for improper integrals:
+\[
+  \int_a^b f(x) \, dx = - \int_b^a f(x)\, dx.
+\]
+\end{definition}
+
+\begin{remark}\label{rem:4821341}
+In the definition of the improper integral on the open interval $(a,b)$, the
+choice of the point $c\in(a,b)$ does not affect the definition. Indeed, if we
+choose two different points $c,c'\in(a,b)$ for every $\alpha,\beta \in (a,b)$,
+we have, thanks to the additivity of the Riemann integral:
+\[
+  \int_\alpha^c f(x)\,dx + \int_c^\beta f(x)\,dx =
+  \int_\alpha^{c'} f(x)\, dx + \int_{c'}^\beta f(x)\, dx.
+\]
+And thus the limits, if they exist, are equal.
+\end{remark}
+
+\begin{example}
+The function $f(x)= \ln x$ can be integrated in the improper sense on the
+interval $[1,+\infty)$ and we have:
+\begin{align*}
+ \int_1^{+\infty} f(x)\,dx
+ &= \lim_{\beta\to +\infty} \int_1^\beta \ln(x)\, dx
+ = \lim_{\beta\to +\infty}\Enclose{x\ln x - x}_1^\beta \\
+ &= \lim_{\beta\to +\infty} \enclose{\beta \ln \beta - \beta + 1}
+ = +\infty.
+\end{align*}
+Also on the interval $(0,1]$, the function $\ln x$ has an improper integral
+\[
+  \int_0^1 \ln x\, dx = \lim_{\alpha \to 0^+}\Enclose{x \ln x -x}_\alpha^1
+  = \lim_{\alpha\to 0^+} (-1-\alpha \ln \alpha + \alpha)  = -1.
+\]
+Thus on the interval $(0,+\infty)$, the function $\ln x$ has an improper
+integral
+\[
+  \int_0^{+\infty}\ln x\, dx = \int_0^1 \ln x\, dx + \int_1^{+\infty}\ln x\, dx
+   = -1 + (+\infty) = +\infty.
+\]
+We will therefore say that the function $f(x)=\ln x$ is not integrable in the
+improper sense on the interval $(0,+\infty)$, but the integral exists and is
+divergent.
+\end{example}
+
+To abbreviate the notations, we will mean:
+\[
+  \Enclose {F(x)}_a^b
+  = \lim_{x\to b^-}F(x) - \lim_{x\to a^+}F(x)
+\]
+noting that if $F$ is defined and continuous at the endpoints $a$ and $b$, this
+notation coincides with the usual
+\[
+\Enclose{F(x)}_a^b = F(b) - F(a).
+\]
+
+We can then write:
+\begin{align*}
+  \int_0^1 \ln x\, dx
+  &= \Enclose{x\ln x- x}_0^1
+  = 1 \cdot\ln 1 -1 - \lim_{x\to 0^+} (x\ln x - x) \\
+  &= -1  - 0 = -1.
+\end{align*}
+
+Note that if $f\colon(a,b) \to \RR$ is continuous and $F\colon(a,b)\to \RR$ is
+its antiderivative, then we will have
+\begin{align*}
+  \int_a^b f(x)\, dx
+   &= \lim_{\alpha\to a^+}\int_{\alpha}^c f(x)\, dx
+   + \lim_{\beta\to b^-}\int_c^{\beta} f(x)\, dx \\
+   & = \lim_{x\to a} (F(c)-F(x)) + \lim_{x\to b} (F(x)-F(c)) \\
+   & = \lim_{x\to b} F(x) - \lim_{x\to a} F(x)
+   = \Enclose{F(x)}_a^b.
+\end{align*}
+Thus, the fundamental theorem of calculus remains formally identical for
+improper integrals.
+
+\begin{example}
+To calculate the integral
+\[
+  \int_{-\infty}^{+\infty} \frac{1}{1+x^2}\, dx
+\]
+we can choose any point $c\in \RR$ and calculate
+\begin{align*}
+\int_{-\infty}^{+\infty}\frac{1}{1+x^2}\, dx
+&=
+\lim_{\alpha\to-\infty}\int_\alpha^c \frac{1}{1+x^2}\, dx
+  + \lim_{\beta\to+\infty}\int_c^\beta \frac{1}{1+x^2}\, dx\\
+  &= [\arctg x]_{-\infty}^c
+  + [\arctg x]_c^{+\infty}  \\
+  &= \arctg c - (-\frac\pi 2) + \frac \pi 2 - \arctg c
+  = \pi.
+\end{align*}
+
+But more simply, we can write:
+\[
+ \int_{-\infty}^{+\infty}\frac{1}{1+x^2}\, dx
+ = \Enclose{\arctg x}_{-\infty}^{+\infty}
+ = \frac \pi 2 - \enclose{-\frac \pi 2} = \pi.
+ \]
+
+\end{example}
+
+\begin{remark}
+If $f\colon[a,b]\to\RR$ is bounded and Riemann-integrable on $[a,b]$, then,
+according to theorem~\ref{th:integrale_continuo}, we have:
+\[
+ \int_a^b f(x)\, dx
+  = \lim_{\alpha \to a^+} \int_\alpha^b f(x)\, dx
+  = \lim_{\beta\to b^-}\int_a^\beta f(x)\,dx.
+\]
+Thus, in this case, the improper integrals on $[a,b)$ and on $(a,b]$ coincide
+with the usual Riemann integral (and are therefore convergent). Similarly, if
+$f$ is locally integrable on $[a,b)$, the improper integral on $[a,b)$ and the
+improper integral on $(a,b)$ coincide. The same happens if the function is
+locally integrable on $(a,b)$ and we consider the set
+$A=(a,b)\setminus\ENCLOSE{x_0,\dots,x_n}$. The integral on $(a,b)$ coincides
+with the integral on $A$ thanks to the additivity of the integral with respect
+to the domain.
+
+This justifies using the same notation $\int_a^b$ for both the Riemann integral
+on $[a,b]$ and the various improper integrals on $[a,b)$, $(a,b]$, $(a,b)$, or
+$(a,b)\setminus\ENCLOSE{x_0, \dots, x_n}$.
+\end{remark}
+
+\begin{example}
+The function $\sin x$, although integrable on every closed and bounded interval
+(as it is a continuous function), does not admit an improper integral on the
+interval $[0,+\infty)$ because the integral:
+\[
+  \int_0^\beta \sin(x)\, dx
+  = \Enclose{-\cos(x)}_0^\beta
+  = -\cos(\beta)+\cos(0) = 1-\cos(\beta)
+\]
+does not admit a limit as $\beta\to +\infty$.
+\end{example}
+
+\begin{example}
+The function $2x/(x^2+1)$ is not integrable in the improper sense on $\RR$
+because we have
+\begin{align*}
+\int_{0}^{+\infty} \frac {2x} {1+x^2}\, dx
+ &= \Enclose{\ln (1+x^2)}_0^{+\infty} = +\infty \\
+\int_{-\infty}^0 \frac{2x}{1+x^2}\, dx
+ &= \Enclose{\ln(1+x^2)}_{-\infty}^0 = -\infty
+\end{align*}
+and $(+\infty)+ (-\infty)$ is undefined.
+\end{example}
+
+\begin{example}
+We have
+\begin{align*}
+  \int_{-1}^2 \frac{1}{\sqrt[3]{x}}\, dx
+  &= \int_{-1}^0 \frac{1}{\sqrt[3] {x}}\, dx
+   + \int_{0}^2 \frac{1}{\sqrt[3] x}\, dx \\
+    &= \Enclose{\frac 3 2 \sqrt[3] {x^2}}_{-1}^0  + \Enclose{\frac 3 2 \sqrt[3]
+  {x^2}}_0^2
+  = 0 - \frac 3 2 + \frac 3 2 \sqrt[3]{4} - 0 \\
+  &= \frac 3 2 (\sqrt[3] 4-1).
+\end{align*}
+\end{example}
+
+\begin{example}
+We have
+\[
+  \int_0^{+\infty} \frac{1}{x}\, dx
+  = \Enclose{\ln x}_0^{+\infty}
+  = +\infty - (-\infty) = +\infty
+\]
+and
+\[
+  \int_{-\infty}^{0} \frac{1}{x}\, dx
+  = \Enclose{\ln(-x)}_{-\infty}^{0}
+  = -\infty - (+\infty) = -\infty.
+\]
+Therefore, the integral
+\[
+  \int_{-\infty}^{+\infty} \frac{1}{x}\, dx
+\]
+is not defined as it is the sum of infinities with opposite signs.
+\end{example}
+
+\begin{remark}
+Be careful not to forget the "bad" points within the integration interval. If we
+want to evaluate:
+\[
+  \int_{-1}^1 \frac{1}{x}\, dx
+\]
+We might be led to think that this integral is equal to:
+\[
+ \Enclose{\ln \abs{x}}_{-1}^1 = \ln \abs{1} - \ln \abs{-1} = 0.
+\]
+However, this integral is not defined because the integrand function is not
+defined and is not bounded in a neighborhood of $x=0$, and therefore the
+interval $[-1,1]$ must be split into the union of the two intervals $[-1,0)$ and
+$(0,1]$, from which:
+\[
+  \int_{-1}^1 \frac{1}{x}\, dx = \Enclose{\ln \abs{x}}_{-1}^0 + \Enclose{\ln\abs{x}}_0^{1}
+   = -\infty + (+\infty)
+\]
+and since there is a sum of infinities with opposite signs, the sum is
+meaningless, and the improper integral is not defined.
+\end{remark}
+
+\begin{theorem}[Properties of the Improper Integral]
+\label{th:proprieta_integrale_improprio}
+If $f\le g$ and if both integrals are defined, it follows:
+\index{integral!improper!monotonicity}%
+\mymargin{monotonicity}%
+\index{monotonicity}%
+\[
+  \int_a^b f(x)\, dx \le \int_a^b g(x)\, dx.
+\]
+
+Let $a,b,c \in \bar \RR$ with $a\le c \le b$. Then in the following equality
+\index{integral!improper!additivity}%
+\mymargin{additivity}%
+\index{additivity}%
+\[
+  \int_a^b f(x)\, dx = \int_a^c f(x)\, dx + \int_c^b f(x)\, dx
+\]
+if at least one of the two sides is defined, then the other side is also
+defined, and the equality holds.
+
+Let $\lambda, \mu \in \RR$.
+\index{integral!improper!linearity}%
+\mymargin{linearity}%
+\index{linearity}%
+\[
+  \int_a^b \enclose{\lambda f(x) + \mu g(x)}\, dx
+  = \lambda \int_a^b f(x) + \mu \int_a^b g(x)
+\]
+if the right side is well-defined (the improper integrals of $f$ and $g$ exist,
+and the operations make sense).
+
+Let $g\colon (a,b)\to (c,d)$ be a $C^1$ function and $f\colon (c,d) \to \RR$ a
+continuous function integrable in the improper sense on $(c,d)$. Let $-\infty
+\le a < b \le +\infty$ and $-\infty \le c < d \le +\infty$ such that
+\[
+c = \lim_{x\to a^+} g(x),
+\qquad
+d = \lim_{x\to b^-} g(x).
+\]
+If $f$ is integrable in the improper sense on $(c,d)$, then $f \circ g$ is
+integrable on $(a,b)$ and we have
+\index{integral!improper!change of variable}%
+\mymargin{change of variable}%
+\index{change of variable}%
+\[
+\int_a^b f(g(x)) g'(x)\, dx = \int_c^d f(y)\, dy.
+\]
+
+If instead the limits are swapped:
+\[
+d = \lim_{x\to a^+} g(x),
+\qquad
+c = \lim_{x\to b^-} g(x)
+\]
+we will have, under the same hypotheses:
+\[
+  \int_a^b f(g(x)) g'(x) \, dx = \int_d^c f(y)\, dy.
+\]
+
+If $F$ is differentiable on $(a,b)$, $g$ is continuous, and $G$ is an
+antiderivative of $g$, then the formula holds:
+\index{integral!improper!by parts}%
+\mymargin{integration by parts}%
+\index{integration by parts}%
+\[
+ \int_a^b F(x)g(x)\, dx = \Enclose {F(x) G(x)}_a^b - \int_a^b F'(x)G(x)\, dx  
+\]
+if the quantities on the right side exist (finite or infinite) and their
+difference is not an indeterminate form.
+\end{theorem}
+%
+\begin{proof}
+All these properties have already been proven for the integral of bounded
+functions on bounded intervals. They can be easily extended to the lateral
+improper integral by observing that the limit maintains the required properties.
+Consequently, the properties hold for bilateral improper integrals by
+additivity, taking care not to produce an indeterminate sum $+\infty +
+(-\infty)$. Finally, by additivity, the formulas are valid for multilateral
+improper integrals.
+\end{proof}
+
+\begin{exercise}\label{ex:821685}
+  Calculate the following double integral:
+  \[
+    \int_0^{+\infty} \Enclose{\int_0^{+\infty} \sin t \cdot e^{-tx}\, dt}\, dx.
+  \]
+\end{exercise}
+%
+\begin{proof}
+The innermost integral can be calculated by parts:
+\begin{align*}
+  I(x) &= \int_0^{+\infty} \sin t\cdot e^{-tx}\, dt \\
+  &=  \Enclose{-\cos t \cdot e^{-tx}}_0^{+\infty}
+    - x \int_0^{+\infty} \cos t \cdot e^{-tx}\, dt \\
+  &= 0 + 1 - x\enclose{\Enclose{\sin t \cdot e^{-tx}}_0^{+\infty} 
+  +x \int_0^{+\infty}\sin t \cdot e^{-tx}\, dt}
+\end{align*}
+from which 
+\[
+  I(x) = 1 - x^2 I(x), \qquad I(x) = \frac{1}{1+x^2}   
+\]
+and 
+\[
+ \int_0^{+\infty} \frac{1}{1+x^2}\, dx = \Enclose{\arctg x}_0^{+\infty} = \frac \pi 2.
+\]
+\end{proof}
+
+\begin{theorem}[Integrability of Positive Functions]
+\label{th:integrabilita_positive}
+\mymark{**}
+Let $f\colon (a,b)\to \RR$ be a locally Riemann-integrable non-negative
+function: $f\ge 0$. Then the integral of $f$ exists (finite or infinite) and is
+non-negative:
+\[
+  \int_a^b f(x)\, dx \ge 0.
+\]
+\end{theorem}
+%
+\begin{proof}
+\mymark{**}
+Let $c\in (a,b)$ be a fixed point and let
+\[
+  F(x) = \int_c^x f(t)\, dt.
+\]
+Since $f$ is locally Riemann-integrable, the function $F$ is well-defined, and
+since $f\ge 0$, it follows that $F$ is increasing because if $x_2>x_1$, since
+$f\ge 0$, we have
+\[
+  F(x_2)-F(x_1) = \int_{x_1}^{x_2} f(t)\, dt \ge \int_{x_1}^{x_2} 0\, dt = 0.
+\]
+Thus, the limits exist:
+\begin{align*}
+  \int_c^b f(x)\, dx  &= \lim_{\beta\to b^-} F(\beta)\\
+  \int_a^c f(x)\, dx  &= \lim_{\alpha\to a^+} -F(\alpha)
+\end{align*}
+and since $F$ is increasing, both limits are non-negative, and therefore the sum
+of the two limits is well-defined.
+\end{proof}
+
+Even if we do not know how to explicitly calculate an integral, it is often
+possible to determine its convergence by comparing it, through the following
+theorem, with a known integral.
+
+\begin{theorem}[Comparison Criterion and Asymptotic Comparison]
+\mymark{**}
+Let $f, g \colon$ $ [a,b)\to \RR$ (with $a \le b \le +\infty$) be locally
+Riemann-integrable functions. Suppose also that for every $x\in [a,b)$, we have
+$f(x)\ge 0$ and $g(x)\ge 0$. Under these assumptions, we know that the two
+integrals:
+\begin{equation}\label{eq:921754}
+  \int_a^b f(x)\, dx, \qquad \int_a^b g(x)\, dx
+\end{equation}
+both exist (finite or infinite) and are non-negative. Moreover, we have the
+following comparison criteria.
+
+\begin{enumerate}
+\item \emph{Pointwise Comparison ``$\le$''.}
+Suppose that for every $x\in [a,b)$, we have $f(x) \le g(x)$. Then we have:
+\begin{equation}\label{eq:467143}
+  \int_a^b f(x)\, dx \le \int_a^b g(x)\, dx.
+\end{equation}
+In particular, if the integral of $g$ is convergent, then the integral of $f$ is
+convergent, while if the integral of $f$ is divergent, then the integral of $g$
+is divergent.
+
+\item \emph{Asymptotic Comparison ``$\ll$''.}
+Suppose that for $x\to b^-$, we have $f \ll g$ (i.e., $f/g\to 0$). Then it
+follows that if the integral of $g$ is convergent, then the integral of $f$ is
+convergent, while if the integral of $f$ is divergent, then the integral of $g$
+is divergent.
+
+\item \emph{Asymptotic Comparison ``$\sim$''.}
+Suppose that for $x\to b^-$, we have $f\sim g$ (i.e., $f/g\to 1$). Then the two
+integrals~\eqref{eq:921754} have the same nature (both convergent or both
+divergent).
+\end{enumerate}
+
+Analogous results hold for functions defined on an interval open on the left:
+$(a, b]$ with $-\infty \le a \le b$, in which case, in the asymptotic criteria,
+the limits are taken as $x\to a^+$.
+\end{theorem}
+%
+\begin{proof}
+\mymark{**}
+The integrals of $f$ and $g$ exist thanks to
+theorem~\ref{th:integrabilita_positive}.
+
+If $f\le g$, the inequality~\eqref{eq:467143} is guaranteed by the monotonicity
+property (theorem~\ref{th:proprieta_integrale_improprio}).
+
+If $f(x)/g(x) \to 0$ as $x\to b^-$, it means that there exists a point
+$c\in[a,b)$ such that for every $x\in [c,b)$, we have $f(x)/g(x)\le 1$, i.e.,
+$f(x)\le g(x)$. Thus, by the additivity and monotonicity of the integral, we can
+assert that
+\[
+  \int_a^b f
+  = \int_a^c f + \int_c^b f
+  \le \int_a^c f + \int_c^b g
+  = \int_a^c f + \int_a^b g - \int_a^c g.
+\]
+We know that the integrals of $f$ and $g$ on the interval $[a,c]$ are convergent
+since $f$ and $g$ are bounded and Riemann-integrable on $[a,c]$. Thus, if the
+integral $\int_a^b g$ is convergent, then the integral $\int_a^b f$ is
+convergent. Conversely, if $\int_a^b f$ is divergent, then $\int_a^b g$ is
+divergent.
+
+In the case where $f(x)/g(x)\to 1$ as $x\to b^-$, we can find a point
+$c\in[a,b)$ such that $\frac 1 2 \le f(x)/g(x) \le 2$ for every $x\in [c,b)$.
+Then, for every $x\in [c,b)$, we have
+\[
+f(x) \le 2g(x), \qquad g(x) \le 2 f(x)
+\]
+and we can proceed as in the previous case.
+\end{proof}
+
+In the most frequent cases, the previous theorem is applied by comparing the
+function with a power:
+\[
+  (x-x_0)^\alpha, \qquad \alpha \in \RR.
+\]
+
+It will therefore be useful to know, as a benchmark, for which $\alpha$ these
+functions have a convergent integral, as in the following example.
+
+\begin{example}
+\label{ex:416145}%
+\mymark{***}%
+Let $a>0$ and $p\in \RR$. The integrals
+\[
+  \int_{a}^{+\infty}\frac{1}{x^p}\, dx,
+  \qquad
+  \int_{-\infty}^{-a}\frac{1}{(-x)^p}\, dx
+\]
+are convergent if and only if $p>1$.
+
+Let $x_0\in [a,b]$ and $p\in\RR$. The integrals
+\[
+  \int_a^{x_0} \frac{1}{(x-x_0)^p}\, dx,
+  \qquad
+  \int_{x_0}^b \frac{1}{(x-x_0)^p}\, dx
+\]
+are convergent if and only if $p<1$.
+
+The verification is easily done by evaluating the limit of the antiderivative
+$F(x) = x^{1-p}/(1-p)$ at the endpoints of the interval.
+\end{example}
+
+\begin{example}
+\label{ex:integrale_gaussiana_finito}%
+\index{integral!Gaussian}%
+\index{function!Gaussian}%
+\index{Gauss!function of}%
+The integral
+\[
+ \int_{-\infty}^{+\infty}e^{-x^2}\, dx
+\]
+is convergent because for $x\to +\infty$, it holds that $e^{-x^2} \ll 1/x^2$,
+and the integral of $1/x^2$ is convergent (example~\ref{ex:416145}) in a
+neighborhood of $+\infty$ and $-\infty$. In
+exercise~\ref{ex:integrale_gaussiana}, we will demonstrate that this integral
+equals $\sqrt \pi$.
+\end{example}
+
+\begin{example}[Euler's Gamma Function]%
+  \label{ex:gamma_eulero}%
+  \index{$\Gamma$ Euler's function}%
+  \index{function!$\Gamma$ of Euler}%
+  We define $\Gamma\colon (0,+\infty) \to \RR$ as
+  \[
+    \Gamma(x) = \int_0^{+\infty} e^{-t} t^{x-1}\, dt.
+  \]
+    The integral converges for every $x>0$ because, setting $f(t) = e^{-t}
+  t^{x-1}$, for $t\to 0^+$, we have $f(t) \sim t^{x-1}$, which has a convergent
+  integral in a neighborhood of $0$, while for $t\to +\infty$, we have $f(t) \ll
+  e^{-t/2}$, which has a convergent integral in a neighborhood of $+\infty$.
+  
+  Integrating by parts, we obtain an interesting property of the Gamma function:
+  \begin{align*}
+  \int_0^{+\infty} e^{-t}t^{x}\, dt
+  &= \Enclose{-e^{-t}t^{x}}_0^{+\infty}
+  + \int_0^{+\infty} e^{-t}xt^{x-1}\, dt\\
+  &= x\int_0^{+\infty} e^{-t}t^{x-1}\, dt
+  \end{align*}
+  that is, $\Gamma(x+1) = x\Gamma(x)$.
+    Observing that $\Gamma(1)=1=0!$, we can thus prove, by induction, that
+  $\Gamma(n+1) = n!$ for every $n\in \NN$. We have therefore found a function
+  that extends the factorial from $\NN$ to the entire interval of real numbers
+  $(-1,+\infty)$.
+  
+    In chapter~\ref{sec:scambio_integrale_limite}, we will demonstrate that the
+  Gamma function is differentiable.
+  
+    We are not currently able to calculate the value of $\Gamma(x)$ if $x$ is
+  not an integer, but we can relate the value of $\Gamma(1/2)$ to the integral
+  of the Gaussian function by making the change of variable $t=s^2$, $dt=2s ds$:
+  \begin{align*}
+  \Gamma(1/2) 
+  &= \int_0^{+\infty} \frac{e^{-t}}{\sqrt t}\, dt  
+  = \int_0^{+\infty} \frac{e^{-s^2}}{s} \cdot 2s\, ds
+  = \int_{-\infty}^{+\infty} e^{-s^2}\, ds.
+  \end{align*}
+    In exercise~\ref{ex:integrale_gaussiana}, we will find the value of the
+  integral of the Gaussian function and will be able to conclude that
+  $\Gamma(1/2) = \sqrt \pi$. This allows us to calculate the value of $\Gamma$
+  on all half-integers:
+  \[
+  \Gamma(3/2) = \frac 1 2 \Gamma(1/2) = \frac{\sqrt \pi}{2}, \qquad
+  \Gamma(5/2) = \frac 3 2 \Gamma(3/2) = \frac{3\sqrt \pi}{4}, \dots 
+  \]
+\end{example}
+    
+\begin{example}
+The integral
+\[
+  \int_{-\infty}^{+\infty}\frac{1}{1+x^2}\, dx
+\]
+is convergent because for $x\to +\infty$, it holds that $1/(1+x^2) \sim 1/x^2$.
+
+The integral
+\[
+  \int_1^{+\infty} \frac{1}{\ln x}\, dx
+\]
+is divergent because for $x\to +\infty$, we have $1/\ln x \gg 1/x$, and for
+$x\to 1^+$, we have $1/\ln x \sim 1/(x-1)$. For $p=1$, the integrals of $1/x$ at
+$+\infty$ and of $1/(x-1)$ at $1$ are both divergent.
+
+If $f\colon [a,+\infty)$ is a locally Riemann-integrable function and if
+$f(x)\to \ell \neq 0$ as $x\to +\infty$, then the integral of $f$ is divergent.
+If $\ell>0$, there will exist $c>a$ such that for $x>c$, we have $f(x)\ge 0$
+(persistence of sign). Since $f(x)\sim \ell$ as $x\to +\infty$, we can conclude
+that $\int_c^{+\infty} f(x) = +\infty$ and therefore also $\int_a^{+\infty} f(x)
+= +\infty$. If $\ell<0$, we can change the sign of $f$ and repeat the previous
+argument, thus discovering that in this case, the integral of $f$ is $-\infty$.
+\end{example}
+
+\begin{exercise}
+Show with an example that if a function $f$ has a convergent integral on the
+interval $[0,+\infty)$, it is not necessarily the case that $f(x)\to 0$ as $x\to
++\infty$.
+\end{exercise}
+
+% \begin{exercise}[difficult]
+% Show that the integral
+% \[
+%   \int_0^{+\infty} \exp\enclose{x^2 \ln \frac{2+\cos(2\pi x)}{3}} \, dx
+% \]
+% is finite. But the integrand function does not tend to zero as $x\to +\infty$.
+% \end{exercise}
+
+\begin{exercise}
+Determine whether the following integrals are convergent:
+\[
+  \int_0^{+\infty} \frac{1}{(x^2-1)\cdot \ln^2 x}\, dx, \qquad
+  \int_0^{+\infty} \frac{\ln^2 x}{x^2-1}\, dx.  
+\]
+\end{exercise}
+
+\begin{exercise}
+Determine the values of $p\in \RR$ for which the following integral is
+convergent:
+  \[
+  \int_0^{+\infty} \frac{\sqrt x-\ln x}{(x-\sin x)^p}\, dx.  
+  \]
+\end{exercise}
+
+
+\begin{theorem}[Criterion of Absolute Convergence]
+\label{th:convergenza_assoluta_integrale}
+\mymark{**}%
+Let $f\colon (a,b)\to \RR$ be a locally Riemann-integrable function. Then
+$\abs{f}$ is also locally Riemann-integrable, and if
+\[
+\int_a^b \abs{f(x)}\, dx < +\infty
+\]
+(i.e., $\abs{f}$ is integrable in the improper sense), then $f$ is also
+integrable in the improper sense, and
+\[
+  \abs{\int_a^b f(x)\,dx}
+  \le \int_a^b \abs{f(x)}\, dx < +\infty.
+\]
+\end{theorem}
+%
+%
+\begin{proof}
+Let $f = f^+ - f^-$ with $f^+\ge 0$ and $f^-\ge 0$. If $f$ is locally
+Riemann-integrable, then $f^+$ and $f^-$ are locally Riemann-integrable (thanks
+to theorem~\ref{th:reticolo}). Note that we have $f = f^+ - f^-$ and $\abs{f} =
+f^+ + f^-$. Since $0\le f^+ \le \abs{f}$, we can apply the comparison criteria
+and assert that $f^+$ has a convergent integral. The same holds for $f^-$ and
+thus for $f=f^+ - f^-$. Moreover,
+\[
+  \abs{\int_a^b f }
+  = \abs{\int_a^b f^+ - \int_a^b f^-}
+  \le \int_a^b f^+ + \int_a^b f^-
+  = \int_a^b \abs{f}.
+\]
+\end{proof}
+
+\begin{definition}[Absolute Convergence]
+\index{integral!improper!absolute convergence}%
+\index{integral!absolute convergence}%
+\index{convergence!absolute!integral}%
+\index{integrable!absolutely}%
+\index{absolutely!integrable}%
+When
+\[
+  \int_a^b \abs{f(x)}\, dx <+\infty
+\]
+we say that the integral of $f$ is \emph{absolutely convergent} or that $f$ is
+\emph{absolutely integrable} (in the improper sense). The previous theorem
+guarantees that an absolutely integrable function (if locally
+Riemann-integrable) is integrable.
+\end{definition}
+
+\begin{example}
+The integral
+\[
+  \int_0^{+\infty} \sin(x^2)\cdot e^{-x}\, dx
+\]
+is absolutely convergent (and therefore convergent) because the integrand
+function is continuous, and we have
+\[
+ \abs{\sin(x^2)\cdot e^{-x}} \le e^{-x}
+\]
+from which, by comparison,
+\[
+ \int \abs{\sin(x^2)\cdot e^{-x}}\, dx  \le
+  \int_0^{+\infty} e^{-x}\, dx < +\infty.
+\]
+\end{example}
+
+\begin{example}[Function Integrable but Not Absolutely]
+\label{ex:48864}%
+\mymark{*}%
+We want to show that the integral
+\[
+  \int_\pi^{+\infty} \frac{\sin x}{x}\, dx  
+\]
+is convergent but not absolutely convergent.
+
+One way to do this is to relate it to series. Let 
+\[
+  a_k = \int_{k\pi}^{(k+1)\pi} \frac{\sin x}{x}\, dx
+\]
+we have
+\[
+  \abs{a_k} = \int_{k\pi}^{(k+1)\pi} \frac{\abs{\sin x}}{x}\, dx
+\]
+and thus 
+\[
+\int_\pi^{+\infty} \frac{\sin x}{x}\, dx
+= \sum_{k=1}^{+\infty} a_k, \qquad
+\int_\pi^{n\pi} \frac{\abs{\sin x}}{x}\, dx
+= \sum_{k=1}^{n-1} \abs{a_k}.
+\]
+
+
+
+Note that 
+\[
+   \int_\pi^{n\pi} \frac{\sin x}{x}\, dx
+   = \sum_{k=1}^{n-1} \int_{k\pi}^{(k+1)\pi} \frac{\sin x}{x}\, dx
+\]
+and that 
+
+
+
+Integrating by parts,
+\begin{align*}
+  \int_1^{+\infty} \frac{\sin x}{x}\, dx
+  &= \Enclose{\frac{-\cos x}{x}}_1^{+\infty} -
+  \int_1^{+\infty} \frac{\cos x}{x^2} \, dx \\
+  &= \cos 1 - \int_1^{+\infty} \frac{\cos x}{x^2}\, dx.
+\end{align*}
+Now observe that the function $\frac{\cos x}{x^2}$ is integrable by the
+criterion of absolute convergence, since:
+\[
+  \abs{\frac{\cos x}{x^2}} \le \frac{1}{x^2}
+\]
+which is integrable on $[1,+\infty)$. Thus, our function has a convergent
+integral also on $[1,+\infty)$ and therefore has a convergent integral on the
+entire $(0,+\infty)$. In exercise~\ref{ex:integrale_sin_integrale}, we will see
+that $\int_0^{+\infty} \frac{\sin x}{x} = \frac \pi 2$.
+
+However, this function is not absolutely integrable. Indeed, for every $k\in
+\NN$, we have
+\begin{align*}
+  \int_{k\pi}^{(k+1)\pi} \abs{\frac{\sin x} x}\, dx
+  &\ge \int_{k\pi}^{(k+1)\pi} \frac{\abs{\sin x}}{(k+1)\pi}\, dx\\
+  &= \frac{\int_0^\pi \sin x \, dx}{(k+1)\pi}
+  = \frac{2}{(k+1)\pi}
+\end{align*}
+from which
+\begin{align*}
+  \int_0^{+\infty} \abs{\frac{\sin x}{x}}\, dx
+  & = \lim_{b\to +\infty} \int_0^b \abs{\frac{\sin x}{x}}\, dx 
+  \ge \lim_{b\to+\infty} \sum_{k=0}^{\lfloor \frac{b}{\pi}\rfloor-1} \int_{k\pi}^{(k+1)\pi}\abs{\frac{\sin x} x}\, dx\\
+  &= \sum_{k=0}^{+\infty} \frac{2}{(k+1)\pi} = +\infty.
+\end{align*}
+\end{example}
+
+\begin{exercise}
+    Try to apply the method used in example \ref{ex:48864} to a generic integral
+  of the form $\int_1^{+\infty} f\cdot g$, identifying the hypotheses on $f$ and
+  $g$ that guarantee the convergence of the integral. You should obtain a
+  criterion analogous to Dirichlet's theorem~\ref{th:dirichlet} for the
+  convergence of series.
+\end{exercise}
+
+
+The criteria we have seen so far highlight a remarkable analogy between series
+and integrals. Determining the convergence of an integral is, in general,
+simpler than determining the convergence of the corresponding series. In the
+following exercise, for example, if $\alpha=1$, it is sufficient to find an
+antiderivative of the integrand functions to determine the nature of the
+integral.
+
+\begin{exercise}
+Determine for which $\alpha,\beta\in \RR$ the integrals are convergent:
+\[
+  \int_0^{\frac 1 2} \frac{1}{x^\alpha \abs{\ln x}^\beta}\, dx,
+  \qquad
+  \int_2^{+\infty} \frac{1}{x^\alpha \ln^\beta x} \, dx.
+\]
+\end{exercise}
+
+\begin{theorem}[Connection Between Series and Improper Integrals]
+\mymark{**}
+Let $f\colon$ $[1,+\infty)\to \RR$ be a non-negative decreasing function, and
+let $a_k=f(k)$. Then the series
+\[
+   \sum_{k=1}^{+\infty} a_k
+\]
+is convergent if and only if the integral
+\[
+  \int_1^{+\infty} f(x)\, dx.
+\]
+is convergent.
+
+And, more precisely, for every $n\in \NN\cup\ENCLOSE{+\infty}$, we have
+\begin{equation}\label{eq:39185}
+  0
+  \le \sum_{k=1}^{n} a_k - \int_1^{n}f(x)\, dx
+  \le a_1.
+\end{equation}
+
+\end{theorem}
+%
+\begin{proof}
+\mymark{**}
+Since the function $f$ is non-negative and monotonic, the improper integral of
+$f$ on $[1,+\infty)$ exists (finite or infinite) by
+theorem~\ref{th:integrabilita_positive}. The series $\sum f(k)$, being
+non-negative, is also determined.
+
+Since $f$ is decreasing, for every $x \in [k,k+1]$, we have
+\[
+  f(k+1) \le f(x) \le f(k)
+\]
+integrating over $[k,k+1]$, we obtain
+\[
+  f(k+1) \le \int_{k}^{k+1} f(x)\, dx \le f(k)
+\]
+and summing for $k=1,\dots, n-1$, we obtain:
+\[
+  \sum_{k=2}^{n} f(k) \le \int_{1}^{n} f(x)\, dx \le \sum_{k=1}^{n-1} f(k)
+\]
+which implies~\eqref{eq:39185} if $n\in \NN$. Letting
+$n\to+\infty$,~\eqref{eq:39185} remains valid. The first inequality allows us to
+estimate the series with the integral, and the second allows us to estimate the
+integral with the series. Thus, if one of the two converges, the other also
+converges, as we wanted to prove.
+\end{proof}
+
+\begin{example}[Asymptotic Estimate of $\ln n!$]
+\label{ex:498124}%
+\index{factorial!asymptotic estimate}%
+\mymargin{asymptotic estimate $\ln n!" $}%
+Note that
+\[
+  \ln (n!) = \ln \prod_{k=1}^n k = \sum_{k=1}^n \ln k.
+\]
+We apply the same procedure used in the previous theorem to the function $f(x) =
+\ln x$. Since the logarithm is increasing (instead of decreasing), we will
+obtain reversed but analogous estimates. Repeating the calculations carefully,
+we obtain:
+\[
+    \int_1^n \ln(x)\, dx \le  \sum_{k=2}^n \ln k \le \int_2^{n+1} \ln(x) \, dx
+\]
+and recalling that $\int \ln x = x \ln x - x$, we obtain
+\[
+  n \ln n - n + 1 \le \ln(n!) \le (n+1) \ln (n+1) - n - 2\ln 2 + 1
+\]
+from which, dividing both sides by $n \ln n$ and letting $n\to +\infty$, we find
+\[
+ \frac{\ln n!}{n \ln n}\to 1
+\]
+that is,
+\[
+  \ln (n!) \sim n \ln n \qquad \text{as $n\to +\infty$.}
+\]
+
+Note that, in general, we cannot take the exponential of both sides of an
+asymptotic equivalence and hope that the asymptotic equivalence remains valid.
+In fact, finding an asymptotic estimate for $n!$ is much more complicated
+(compared to the estimate we found for its logarithm). We will do this in
+theorem~\ref{th:stirling} by finding Stirling's formula. See also
+exercise~\ref{ex:7340098}.
+
+\end{example}

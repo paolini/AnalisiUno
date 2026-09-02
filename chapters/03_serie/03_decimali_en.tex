@@ -1,0 +1,89 @@
+\section{Positional Representation of Real Numbers}
+\label{sec:decimali}
+%%%
+%%%
+When we write $\frac{3}{8} = 0.375$, we mean that it holds 
+\[
+\frac 3 8 = \frac{3}{10} + \frac{7}{10^2} + \frac{5}{10^3}.  
+\]
+More generally, given a base $d\in \NN$, $d\ge 2$, ($d=10$ in 
+the case of decimal representation), we consider the set $\Enclose{d} =
+\ENCLOSE{0,1,2,\dots, d-1}$
+of digits in base $d$.
+An infinite sequence of digits will thus be an element 
+$\vec a \in \Enclose{d}^\NN$, $\vec a = (a_0,a_1,\dots, a_n, \dots)$
+with $a_k\in \Enclose{d}$.
+We can then consider the number ``$0.a_0 a_1 a_2 \ldots$'' represented 
+by the sequence of digits $\vec a$:
+\[
+  r(\vec a) = \sum_{k=0}^{+\infty} \frac{a_k}{d^{k+1}}.
+\]
+Clearly, $r(\vec a)\in [0,1]$ since, given $0\le a_k\le d-1$, 
+it follows that
+\begin{equation}\label{eq:10445934}
+ 0 \le r(\vec a) \le \sum_{k=0}^{+\infty} \frac{d-1}{d^{k+1}}
+  = \frac{d-1}{d}\sum_{k=0}^{+\infty}\frac 1 {d^k}
+  = \frac{d-1}{d}\cdot \frac{1}{1-\frac 1 d} = 1.
+\end{equation}
+
+Every number $x\in [0,1)$ admits a representation in digits $x=r(\vec a)$ 
+with $\vec a \in \Enclose{d}^\NN$. 
+Indeed, for every $N\in \NN$, we can write 
+\[
+  \lfloor x\cdot 10^N \rfloor= \sum_{k=0}^{N-1} a_k 10^{N-1-k}
+\]
+and as $N$ increases, we obtain a sequence of digits $a_k\in \Enclose{d}$ 
+such that 
+\[
+  \abs{x \cdot d^N - \sum_{k=0}^{N-1} a_k \cdot d^{N-1-k}} \le 1
+\]
+from which 
+\[
+  \abs{x - \sum_{k=0}^{N-1} \frac{a_k}{d^{k+1}}} \le \frac{1}{d^{N}}
+\]
+which, letting $N\to +\infty$, implies $r(\vec a) = x$.
+The number $x=1$ can also be represented by taking 
+$a_k=d-1$ for every $k\in \NN$, thus achieving equality 
+on the right side of \eqref{eq:10445934}. 
+In base $d=10$, this is expressed by saying that 
+\[
+ 0.999\ldots = 1.  
+\]
+
+We may ask whether it is possible for the same number 
+to have two distinct representations in digits.
+Suppose, therefore, that there exist $\vec a,\vec b\in \Enclose{d}^\NN$
+with $\vec a \neq \vec b$ 
+such that $r(\vec a) = r(\vec b)$. 
+Let $m = \min\ENCLOSE{n\in\NN\colon a_n\neq b_n}$ be the position 
+of the first differing digit between $\vec a$ and $\vec b$.
+Then we have 
+\[
+ r(b) - r(a) = \sum_{k=0}^{+\infty}\frac{b_k - a_k}{d^{k+1}}
+ = \frac{b_m - a_m}{d^{m+1}} + \sum_{k=m+1}^{+\infty} \frac{b_k - a_k}{d^{k+1}}
+ = A+B
+\]
+with 
+\[
+\abs{A} = \abs{\frac{b_m - a_m}{d^{m+1}}} \ge \frac{1}{d^{m+1}}  
+\]
+and 
+\begin{align*}
+\abs{B} &= \abs{\sum_{k=m+1}^{+\infty} \frac{b_k - a_k}{d^{k+1}}}
+        \le \sum_{k=m+1}^{+\infty} \frac{d-1}{d^{k+1}}\\
+        &= \frac{d-1}{d^{m+2}}\sum_{k=0}^{+\infty}\frac{1}{d^k}
+        = \frac{d-1}{d^{m+2}}\cdot \frac{1}{1-\frac 1 d} = \frac{1}{d^{m+1}}.
+\end{align*}
+Thus, by the reverse triangle inequality,
+\[
+0 = \abs{r(b)-r(a)}\ge \abs{A} - \abs{B} \ge 0.  
+\]
+This means that all inequalities are, in fact, equalities,
+and thus it must be $\abs{b_m-a_m}=1$ 
+and for every $k>m$, it must be $\abs{b_k-a_k}=d-1$. 
+Assuming $b_m=a_m+1$ (the other case is analogous),
+for $k>m$, it must necessarily be $b_k=0$ and $a_k=d-1$.
+
+For example, if $d=10$, $\vec a = (1,2,3,9,9,9,9,\dots )$ 
+and $\vec b = (1,2,4,0,0,0,0,\dots)$, we will have 
+$r(\vec a) = r(\vec b) = 0.124$.

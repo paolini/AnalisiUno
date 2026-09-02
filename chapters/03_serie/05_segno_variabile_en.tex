@@ -1,0 +1,213 @@
+\section{series with variable sign}
+\label{sec:serie_segno_variabile}
+\index{series!alternating signs}
+
+The series $\sum \frac{(-1)^k}{k+1}$ whose sum can be expressed as
+\mymargin{alternating harmonic series}%
+\index{series!harmonic!alternating}%
+\[
+1 - \frac{1}{2} + \frac{1}{3} - \frac{1}{4} +  \frac{1}{5} \dots
+\]
+is not absolutely convergent
+(since the series $\sum \frac 1 {k+1}$ is divergent) but has a generic
+infinitesimal term.
+Therefore, we do not have any criterion that allows us to determine its nature.
+However, we can exploit the fact that the signs are \emph{alternating}, meaning
+that the terms with even indices have opposite signs to those with odd indices.
+Indeed, it is noted that setting
+\[
+  S_n = \sum_{k=0}^n \frac{(-1)^k}{k+1}
+\]
+we have
+\begin{align*}
+S_{2n+2}
+  &= S_{2n+1} + \frac{1}{2n+3}
+  = S_{2n} - \frac{1}{2n+2} + \frac{1}{2n+3}
+  < S_{2n}\\
+S_{2n+3}
+  &= S_{2n+2} - \frac{1}{2n+4}
+  = S_{2n+1} + \frac{1}{2n+3} - \frac{1}{2n+4}
+  > S_{2n+1} \\
+\end{align*}
+Thus, the sequence of partial sums with even indices is decreasing while
+the sequence with odd indices is increasing. Therefore, both
+subsequences have a limit: $S_{2n} \to S$, $S_{2n+1} \to R$.
+
+But
+\[
+    S - R = \lim_{n\to +\infty} (S_{2n} - S_{2n+1}) =
+  \lim_{n\to+\infty}\frac{1}{2n+2} = 0.
+\]
+Thus $S=R$ and the entire sequence has limit $S$.
+On the other hand, $S \le S_0$ since $S_{2n}$ is decreasing and $S\ge S_1$ since
+$S_{2n+1}$ is increasing.
+We conclude that $S$ is finite and thus the series is convergent.%
+\mynote{%
+To determine the value of the sum of this series, more advanced tools are
+needed.
+See equation~\ref{eq:serie_ln2}.
+}
+
+This proof can be generalized in the following.
+
+\begin{theorem}[Leibniz criterion for alternating series]
+\label{th:Leibniz}%
+\mymark{***}%
+\mymargin{Leibniz criterion}%
+\index{criterion!Leibniz}%
+\index{theorem!Leibniz}%
+\index{Leibniz!criterion}%
+Let $b_n$ be a monotonic and infinitesimal sequence. Then
+the series
+\[
+  \sum (-1)^{n} b_n
+\]
+is convergent.
+
+More precisely, if $\displaystyle S_n = \sum_{k=0}^n (-1)^k b_k$
+are the partial sums,
+it is observed that the sum of the series $S= \lim S_n$ is always between
+two consecutive terms of the sequence $S_n$.
+That is, if $b_k\ge 0$, we have
+\[
+  S_{2n+1} \le S \le S_{2n}.
+\]
+\end{theorem}
+%
+\begin{proof}
+\mymark{***}
+Without loss of generality, we can assume that the sequence $b_n$ is decreasing
+and thus $b_n \ge 0$ (since the limit is zero).
+Setting
+\[
+ S_n = \sum_{k=0}^n (-1)^k b_k
+\]
+we have
+\begin{align*}
+  S_{2n+2} &= S_{2n} - b_{2n+1} + b_{2n+2} \\
+  S_{2n+3} &= S_{2n+1} + b_{2n+2} - b_{2n+3}.
+\end{align*}
+Since $b_n$ is decreasing, we have $b_{2n+2} < b_{2n+1}$ and $b_{2n+3} <
+b_{2n+2}$ from which
+\[
+  S_{2n+2} < S_{2n}, \qquad S_{2n+3} > S_{2n+1}.
+\]
+Thus, the sequences $S_{2n}$ and $S_{2n+1}$ are monotonic and consequently
+have a limit:
+\[
+  S_{2n} \to S, \qquad S_{2n+1} \to R
+\]
+with $S, R  \in [-\infty, +\infty]$.
+Moreover, since $b_n$ is infinitesimal
+\[
+  S - R
+  = \lim_{n\to +\infty} S_{2n} - S_{2n+1}
+  = \lim_{n\to +\infty} b_{2n+1} = 0.
+\]
+Thus $S=R$. Furthermore, since $S_{2n}$ is decreasing, we have
+$S \le S_0$ and since $S_{2n+1}$ is increasing, we have $S\ge S_1$.
+Thus $S$ is finite and the series converges.
+
+We have also obtained that
+$S_{2n-1} \le S \le S_{2n}$ and $S_{2n+1} \le S \le S_{2n}$
+thus the second part of the statement is also verified.
+\end{proof}
+
+The previous theorem applies, for example, to the following series,
+which are convergent but not absolutely convergent:
+\[
+   \sum \frac{(-1)^n}{\sqrt n}, 
+   \sum \frac{(-1)^n}{n\ln n}.
+\]
+
+Care should be taken to verify the hypotheses in the previous theorem.
+Since it is an alternating series, the asymptotic comparison criterion cannot be
+applied to reduce the terms $b_n$ to the terms of a simpler series to study.
+In particular, the monotonicity of the terms $b_n$ is not guaranteed by the
+existence of an asymptotic and monotonic sequence.
+See the following.
+
+\begin{example}
+Let $a_k = \frac{(-1)^k}{\sqrt k} - \frac{1}{k}$.
+Note that $a_k \sim c_k = \frac{(-1)^k}{\sqrt k}$
+but the two series $\sum a_k$ and $\sum c_k$ have different natures:
+the first is divergent as it breaks into the difference 
+of a convergent series and a divergent one,
+while the second is convergent by the Leibniz criterion
+(theorem~\ref{th:Leibniz}).
+\end{example}
+
+Thanks to the Leibniz criterion, it is easy 
+to produce examples of convergent series
+but not absolutely convergent.
+The following theorem tells us that for series of this type 
+the sum of the series depends on the order in which the terms are taken:
+indeed, any desired value can be obtained as the sum.
+
+\begin{theorem}[conditional convergence]%
+\label{th:convergenza_condizionata}%
+\index{convergence!conditional of a series}%
+\mymargin{conditional convergence}%
+Let $\sum a_k$ be a convergent but not absolutely convergent series with real
+terms.
+Then, given any $x \in [-\infty , +\infty]$, there exists a bijective
+rearrangement
+$\sigma \colon \NN \to \NN$ such that
+\[
+  \sum_{k=0}^{+\infty}  a_{\sigma(k)} = x.
+\]
+\end{theorem}
+%
+\begin{proof}
+We divide the terms of the sequence $a_k$ into non-negative terms
+and negative terms. Let $a^+_k$ be the subsequence of non-negative terms
+and $-a^-_k$ the subsequence
+of negative terms (thus $a^+_k\ge 0$ and $a^-_k > 0$). We will have
+\begin{align*}
+  \sum_{k=0}^n a_k &= \sum_{k=0}^{n^+} a^+_k - \sum_{k=0}^{n^-} a^-_k \\
+  \sum_{k=0}^n \abs{a_k} &= \sum_{k=0}^{n^+} a^+_k + \sum_{k=0}^{n^-} a^-_k
+\end{align*}
+where $n^+ +1$ and $n^-+1$ are respectively
+the number of non-negative and negative terms
+among the first $n+1$ terms of the sequence $a_k$.
+
+Now observe that it must be
+\[
+\sum_{k=0}^{+\infty} a_k^+ = +\infty \qquad \text{and} \qquad
+\sum_{k=0}^{+\infty} a_k^- = +\infty.
+\]
+First, the sums exist because the series are non-negative.
+If both these sums were finite, then the series $\sum\abs{a_k}$ would be
+convergent, but by hypothesis, we have assumed that $\sum a_k$ is not
+absolutely convergent.
+Therefore, at least one of the two sums is infinite. If the sum of the positive
+terms
+were infinite and that of the negative terms were finite, we could conclude that
+the sum of the series $\sum a_k$ would be infinite.
+Conversely, if the sum of the positive terms were finite and that of the
+negative terms were infinite, the sum $\sum a_k$ would be $-\infty$. But by
+hypothesis,
+we have required that the series $\sum a_k$ be convergent.
+
+Given $x\in \RR$, we can then start summing the positive terms
+$a^+_k$ until we reach or exceed the value $x$. At that point, we begin summing
+the negative terms until we fall below the value $x$.
+Then we continue summing the positive terms until we exceed $x$
+and again continue with the negative terms until we fall below $x$. By
+appropriately interspersing positive and negative terms,
+we can thus obtain partial sums that oscillate around the value 
+of $x$ and get closer and closer to $x$ since at each change of "direction" 
+the distance from $x$ is less than the absolute value of the last term summed 
+and the sequence of terms $a_k$ is infinitesimal since the series $\sum a_k$ is
+convergent.
+
+The same can be done to obtain a sum $x=+\infty$. Given any
+sequence $x_n \to +\infty$, start summing the positive terms until you exceed
+the value $x_1+a_1^-$.
+Then sum a single negative term, $-a_1^-$, and obtain a sum greater than $x_1$. 
+Then sum enough positives until you exceed $x_2+a_2^-$. 
+Then sum another single negative term and so on. 
+Clearly, the sums will tend to $+\infty$.
+
+The case $x=-\infty$ is treated similarly.
+\end{proof}

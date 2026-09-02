@@ -1,0 +1,294 @@
+\section{Fundamental Theorem of Calculus}
+
+\begin{theorem}[Mean Value Theorem]%
+  \label{th:media_integrale}%
+  \mymark{***}%
+  Let $a,b\in \RR$, $a<b$, and let
+  $f\colon \closeinterval{a}{b} \to \RR$ be a Riemann-integrable function.
+  Then
+  \begin{equation}\label{eq:media_inf_sup}
+    \inf_{\closeinterval{a}{b}} f 
+    \le \frac{\int_a^b f(x)\, dx}{b-a} 
+    \le \sup_{\closeinterval{a}{b}} f.
+  \end{equation}
+  Furthermore, if $f$ is continuous, 
+  there exists a point $c \in \closeinterval{a}{b}$
+  such that
+  \[
+  \frac{\int_a^b f}{b-a} = f(c).
+  \]
+  \end{theorem}
+  %
+  The quantity
+  \[
+    \frac{\int_a^b f}{b-a}
+  \]
+  is called the \emph{integral mean value} of $f$ on $[a,b]$ and is often
+  denoted by the symbol
+  \[
+    \dashint_a^b f.
+  \]
+  %
+  \begin{proof}
+  \mymark{***}
+  For every $x\in [a,b]$, we have 
+  \[
+    \inf_{\closeinterval{a}{b}} f \le f(x) \le \sup_{\closeinterval{a}{b}}f.
+  \]
+  Integrating, we obtain
+  \[
+    \inf_{\closeinterval{a}{b}} f \cdot (b-a)
+    \le \int_a^b f(x)\, dx 
+    \le \sup_{\closeinterval{a}{b}}f\cdot (b-a)
+  \]
+  and dividing by $b-a$, we arrive at~\eqref{eq:media_inf_sup}.
+
+  If the function $f$ is continuous on $[a,b]$, by the Weierstrass theorem, 
+  $\inf$ and $\sup$ are values assumed by the function, 
+  and the integral mean $\dashint_a^b f$ is an intermediate value between the 
+  minimum and the maximum.
+  But by the intermediate value theorem~\ref{th:valori_intermedi}, 
+  we can finally assert that there exists a point $c\in [a,b]$
+  where the function assumes this value.
+\end{proof}
+  
+\mymargin{fundamental theorem}
+\begin{theorem}[Torricelli-Barrow: Fundamental Theorem of Calculus]
+\mymark{***}%
+\index{theorem!fundamental theorem of calculus}%
+\index{theorem!Torricelli-Barrow}%
+\index{Torricelli-Barrow!theorem of}%
+\label{th:torricelli-barrow}%
+Let $I\subset \RR$ be an interval, let $x_0 \in I$,
+ and let $f\colon I\to \RR$ be a continuous function.
+Then the \emph{integral function}
+\index{function!integral function}
+$F\colon I \to \RR$
+\mymargin{integral function}
+\[
+  F(x) = \int_{x_0}^x f
+\]
+is well-defined, is differentiable, and for every $x\in I$, we have
+\[
+  F'(x) = f(x).
+\]
+In particular, since $f\in C^0(I)$, we have $F\in C^1(I)$.
+
+Moreover, if $G\colon I \to \RR$ is any function such that
+$G'(x) = f(x)$ for every $x\in I$, then for every $a,b \in I$, we have
+\mymargin{fundamental formula of calculus}
+\index{formula!fundamental formula of calculus}%
+\[
+  \int_a^b f = G(b) - G(a).
+\]
+\end{theorem}
+%
+\begin{proof}
+\mymark{***}
+First, observe that the function $f$, being continuous, is integrable
+on every closed and bounded interval contained in $I$. Thus, the integral
+$\int_{x_0}^x f$ is well-defined.
+
+For every $h\neq 0$, if $x+h \in I$, by the additivity of the integral,
+we have
+\[
+\frac{F(x+h) - F(x)}{h} = \frac{\int_{x_0}^{x+h} f - \int_{x_0}^x f}{h}
+ = \frac{\int_x^{x+h} f}{h}.
+\]
+Applying now the mean value theorem, we can
+assert that there exists a point $\xi(h)$ in the interval with endpoints $x$ and
+$x+h$
+such that
+\[
+  \frac{\int_x^{x+h} f}{h} = f(\xi(h)).
+\]
+As $h\to 0$, we have $\xi(h) \to x$ and, by the continuity of $f$,
+$f(\xi(h)) \to f(x)$.
+Thus, we have shown that $F$ is differentiable at $x$:
+\[
+ \lim_{h\to 0}\frac{F(x+h)-F(x)}{h} = f(x)
+\]
+and $F'(x) = f(x)$.
+
+Thus, if $a,b\in I$ are any points, we have:
+\[
+\int_a^b f = \int_{x_0}^b f - \int_{x_0}^a f = F(b) - F(a).
+\]
+And if $G\colon I \to \RR$ is any function such that $G'(x)=f(x)$, we
+will have $G'(x) = F'(x)$ for every $x\in I$, and thus $(G-F)' = 0$ on $I$.
+By the monotonicity criteria, we can conclude that $G-F$ is constant on $I$:
+$G-F = c$. Thus, we have
+\[
+ \int_a^b f = F(b) - F(a) = (G(b) - c) - (G(a) - c) = G(b) - G(a).
+\]
+\end{proof}
+
+\begin{example}
+We wish to calculate
+\[
+  \int_0^b x^2\, dx.
+\]
+It will suffice to observe that setting $G(x)=\frac{x^3}{3}$, we have
+$G'(x)=x^2$,
+and thus, thanks to the fundamental formula of calculus, we have
+\[
+  \int_0^b x^2\, dx = G(b) - G(0) = \frac{b^3}{3}.
+\]
+It is evident how this method of resolution is much simpler
+and more powerful than the one used in example~\ref{ex:integrale_quadrato}.
+\end{example}
+
+\begin{definition}[Primitive]
+\label{def:primitiva}%
+\mymark{***}%
+Let $A \subset \RR$ and let $f\colon A \to \RR$ be any function.
+A function $F\colon A \to \RR$ is said to be a \emph{primitive}%
+\mymargin{primitive}%
+\index{primitive}
+(or \emph{antiderivative})
+\index{antiderivative}
+of $f$ if $F$ is differentiable and $F'(x)=f(x)$ for every $x\in A$.
+\end{definition}
+
+The fundamental theorem of calculus can thus be expressed in
+the following way: every continuous function $f$, defined on an interval,
+admits at least one primitive, and if $F$ is any primitive of $f$, we have
+\[
+  \int_a^b f = F(b) - F(a).
+\]
+To denote the difference $F(b)-F(a)$, the following notations are sometimes
+used:
+\[
+  \Enclose{F(x)}_{x=a}^b = \Enclose F_a^b
+  = F(x) \vert_{x=a}^b
+  = F \vert_a^b = F(b) - F(a).
+\]
+
+The calculation of integrals is thus reduced to the determination of primitives,
+i.e., to inverting the derivative operator.
+It will therefore be important to have tools for determining the primitives
+of a function.
+
+\begin{definition}[Indefinite Integral]
+\mymark{***}
+The set of all primitives of a function $f\colon A \to \RR$
+is denoted by the symbol
+\[
+  \int f
+  \qquad\text{or}\qquad
+  \int f(x) \, dx
+\]
+and is called the \emph{indefinite integral}.
+The reason for this notation (and the name) derives from the fundamental theorem
+of
+calculus, according to which if $f\colon[a,b]\to \RR$
+is continuous, we have
+\[
+  \int_a^b f = \Enclose{\int f}_a^b.
+\]
+\end{definition}
+
+\begin{remark}
+Note, however, that in the case of non-continuous functions, it is possible
+that the integral functions are not primitives. For example,
+if we take the Heaviside function $H(x)$ defined in example~\ref{ex:heaviside},
+we can observe that $F(x)=\int_0^x H(t)\, dt = \abs{x}$
+is $0$ if $x \le 0$ and is $x$ if $x \ge 0$.
+Thus, $F$ is an integral function but not a primitive of $H$
+(and the set of primitives, in this case, is empty).
+\end{remark}
+
+If we think of the linear operator $D$ defined on the set of differentiable
+functions
+$Df = f'$,
+we can think of $\int f$ as the set of preimages of $f$
+via $D$, i.e.:
+\[
+  \int f = D^{-1}(\ENCLOSE{f}) = \ENCLOSE{F \colon DF =f }.
+\]
+Thus, $\int f$ is the set of solutions $F$ of the non-homogeneous linear
+equation
+$DF =f$. The associated homogeneous equation is $DF = 0$.
+If the functions are defined on an interval, then the solutions of the
+homogeneous equation are constants (as stated in the following theorem).
+Thus, in such a case, the space $\int f$ is a one-dimensional affine space
+parallel to the vector space of constant functions. 
+But if we choose a domain that is not an interval 
+(as in example~\ref{ex:primitive_non_connesso}), 
+we will have a space whose dimension is equal to the number of intervals that
+compose the domain.
+
+\begin{theorem}[Properties of Primitives]
+\label{th:primitive}
+\mymark{***}
+Let $f\colon I \to \RR$
+be a continuous function defined on a non-empty interval $I\subset \RR$. Then
+\begin{enumerate}
+\item there exists at least one primitive $F$ of $f$;
+\item given a primitive $F$ of $f$, every other
+primitive $G$ differs from $F$ by a constant: $\exists c\in \RR\colon G= F+c$.
+\end{enumerate}
+
+In other words, if $f$ is continuous, $\int f$ is not empty, and if 
+the domain of $f$ is an interval and $F\in \int f$ is any primitive, then
+\[
+  \int f = \ENCLOSE{F+c \colon c \in \RR}.
+\]
+\end{theorem}
+
+Observe that the set of constant functions
+on an interval
+is nothing but $\ker D$, i.e., the null space of the derivative operator.
+We are thus simply observing that the preimages of a linear operator
+are affine spaces parallel to the kernel of the operator.
+
+\begin{proof}
+\mymark{***}
+Choosing a point $x_0\in I$, we can
+consider the integral function
+\[
+  F(x) = \int_{x_0}^x f(t)\, dt.
+\]
+The fundamental theorem of calculus
+assures us that $F$ is a primitive of $f$.
+
+Conversely, if $F$ and $G$ are two primitives of $f$, then we have:
+\[
+  F' = G' = f.
+\]
+Setting $H=G-F$, we will have $H'=0$ on the interval $I$. By the monotonicity
+criteria, we know that $H$ is constant, i.e., there exists $c\in \RR$ such
+that $H(x)=c$ for every $x\in I$. Thus, we obtain, as desired: $G=F+H=F+c$.
+\end{proof}
+
+If the function $f$ is not defined on an interval, the set of primitives
+will have a dimension greater than $1$, as seen in the following.
+
+\begin{example}[Primitives on Non-Connected Sets]
+\label{ex:primitive_non_connesso}%
+\mymark{*}%
+Consider the function $f(x) = 1/x$. Observe that
+$f\colon (-\infty, 0) \cup (0,+\infty)\to \RR$ is defined on the union of two
+intervals. By direct verification, we can observe that the function
+$F(x) = \ln \abs{x}$ is a primitive of $f$. To obtain the set of all
+primitives, we can add to $F$ any function with a zero derivative on the domain
+of $f$. The functions with zero derivative are constant on each
+interval, and thus we find that for every $c_1, c_2\in \RR$, the function
+\[
+G(x) =
+\begin{cases}
+  \ln (x) + c_1 &\text{if $x>0$},\\
+  \ln (-x) + c_2 & \text{if $x<0$}
+\end{cases}
+\]
+is a primitive of $f$, and there are no other primitives.
+
+In this case, the space of primitives has dimension $2$ because the kernel
+of the derivative operator on the space of functions defined on the union of
+two intervals has dimension $2$.
+This is the simplest example of a rather general phenomenon where differential
+operators on a certain space are closely related to the topology of the space
+itself. In this case, the dimension of the kernel
+of the derivative operator $D$ is equal to the number of connected components of
+the domain of the functions in the domain of $D$.
+\end{example}

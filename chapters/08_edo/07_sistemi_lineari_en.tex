@@ -1,0 +1,501 @@
+\section{linear systems}
+
+A first-order homogeneous linear system with constant coefficients is generally
+written in the form:
+\[
+  \vec u'(x) = A \vec u(x)
+\]
+where $A$ is a constant $n\times n$ matrix and the unknown vector function is
+$\vec u \colon \RR\to \RR^n$. As with algebraic linear systems, it will be
+useful, if possible, to seek a reference system in which the matrix $A$ is
+diagonal. If we perform the change of variable
+\[
+  \vec u = M \vec v
+\]
+using an invertible matrix $M$, we obtain $\vec u' = (M \vec v)' = M \vec v'$
+(verify this!... we are assuming that $M$ is a constant matrix) and thus the
+linear system becomes:
+\[
+ M \vec v' = A M \vec v
+\]
+or
+\[
+  \vec v' = M^{-1} A M \vec v.
+\]
+Up to a change of variables, we can therefore replace the matrix $A$ with any
+matrix similar to it: $M^{-1} A M$. In particular, if the matrix $A$ is
+diagonalizable (for example, if the eigenvalues of $A$ are all real and
+distinct), we can reduce it to a diagonal system:
+\[
+\begin{cases}
+ v_1' = \lambda_1 v_1 \\
+      \vdots\\
+ v_n' = \lambda_n v_n
+\end{cases}
+\]
+where $\lambda_1, \dots, \lambda_n$ are the eigenvalues of the matrix $A$. The
+matrix $M$ of the change of basis will have as column vectors the eigenvectors
+of the matrix $A$, which thus represent the new basis. At this point, we have
+$n$ independent equations that can be solved without difficulty:
+\begin{align*}
+  v_1(x) &= c_1 e^{\lambda_1 x}\\
+  v_2(x) &= c_2 e^{\lambda_2 x}\\
+  &\vdots \\
+  v_n(x) &= c_n e^{\lambda_n x}
+\end{align*}
+with $c_1, \dots, c_n$ arbitrary constants.
+
+If the matrix $A$ is not diagonalizable over the real field, it may be
+diagonalizable in the complex field. More generally, the matrix can be brought
+to Jordan form. For brevity, we will not attempt to treat the general case, but
+will focus on the case $n=2$, which still contains a fairly wide range of
+scenarios.
+
+\subsection{$2\times 2$ systems}
+
+In the case $n=2$, it will be convenient to use $t$ as the independent variable
+(instead of $x$) and call $x(t)$ and $y(t)$ the two coordinates of the unknown
+vector function. The system we want to treat will therefore be of the form:
+\[
+\begin{cases}
+  x'(t) = a\cdot  x(t) + b \cdot y(t)\\
+  y'(t) = c\cdot  x(t) + d \cdot y(t).
+\end{cases}
+\]
+where $a,b,c,d$ are the constant (real) coefficients of the matrix
+\[
+   A = \begin{pmatrix}
+   a & b \\
+   c & d
+   \end{pmatrix}.
+\]
+We will see that the behavior of the system can be classified based on the
+eigenvalues of the matrix. Let $\lambda$ and $\mu$ be the (possibly complex)
+eigenvalues of the matrix $A$, i.e., the zeros of the characteristic polynomial:
+\[
+ P(z)
+ = \det (A - z I)
+ = z^2 - (a+d) z + ad - bc.
+\]
+
+If the eigenvalues are real and distinct, the matrix is diagonalizable. If $\vec
+v, \vec w$ are the eigenvectors corresponding to the eigenvalues $\lambda, \mu$,
+we can then perform the change of variable
+\[
+\begin{pmatrix} x \\ y \end{pmatrix}
+= X \vec v + Y \vec w
+\]
+through which the equations separate:
+\[
+  \begin{cases}
+  X' = \lambda X \\
+  Y' = \mu Y
+  \end{cases}
+\]
+from which we obtain $X = a e^{\lambda t}$, $Y= b e^{\mu t}$ with $a,b\in \RR$
+arbitrary constants.
+
+Since the constant coefficient equations are autonomous, we know that a temporal
+translation of a solution remains a solution. Indeed, it is observed that
+\[
+\begin{cases}
+  X(t+c) = a e^{\lambda (t+c)} = a e^{\lambda c} e^{\lambda t}, \\
+  Y(t+c) = b e^{\mu (t+c)} = b e^{\mu c} e^{\mu t}.
+\end{cases}
+\]
+This allows us to draw the trajectories of the solutions in the $(x,y)$ plane.
+On this plane, temporal translations of a solution are represented on the same
+trajectory. Different trajectories, however, can never intersect due to the
+uniqueness of the solution.
+
+If $a=b=0$, we obtain the zero solution $X=0$, $Y=0$, which, in the phase plane,
+is represented by a single point at the origin. If $b=0$, the solutions are of
+the form $X=a e^{\lambda t}$, $Y=0$, which has a trajectory in the $xy$ plane
+along the half-line emanating from the origin in the direction of $\vec v$ if
+$a>0$ and in the direction of $-\vec v$ if $a<0$. The solution will approach $0$
+(as $t$ increases) if $\lambda<0$ and will instead be outgoing from $0$ if
+$\lambda >0$. Similarly, there is a trajectory on the two half-lines in the
+direction of $\vec w$ and $-\vec w$ when $a=0$ and $b\neq 0$.
+
+If both $a$ and $b$ are non-zero, we can find the equation of the trajectory by
+eliminating the variable $t$ in the equations representing the solution. If $X=a
+e^{\lambda t}$, $Y=b e^{\mu t}$, it results in
+\[
+  \frac{\abs{b}^\lambda \abs{X}^\mu}{\abs{a}^\mu \abs{Y}^\lambda}
+  = \frac{e^{\lambda t \mu}}{e^{\mu t \lambda}} = 1
+\]
+from which
+\[
+ Y = k \abs{X}^{\frac \mu \lambda}
+\]
+with $k$ an arbitrary constant.
+
+\newsavebox{\qrsistemisella}\sbox{\qrsistemisella}{%
+  \myqrshortdoclink{sistemi_sella}{linear systems: saddle}}
+\newsavebox{\qrsisteminodo}\sbox{\qrsisteminodo}{%
+  \myqrshortdoclink{sistemi_nodo}{linear systems: node}}
+\newsavebox{\qrsisteminodoimproprio}\sbox{\qrsisteminodoimproprio}{%
+  \myqrshortdoclink{sistemi_nodo_improprio}{linear systems: improper node}}
+\newsavebox{\qrsistemistella}\sbox{\qrsistemistella}{%
+  \myqrshortdoclink{sistemi_stella}{linear systems: star}}
+\newsavebox{\qrsistemifuoco}\sbox{\qrsistemifuoco}{%
+  \myqrshortdoclink{sistemi_fuoco}{linear systems: focus}}
+\newsavebox{\qrsistemicentro}\sbox{\qrsistemicentro}{%
+  \myqrshortdoclink{sistemi_centro}{linear systems: center}}
+\begin{figure}
+\centering
+ \begin{subfigure}{5cm}
+  %\centering
+  \includegraphics[width=0.75\textwidth]{sistemi_sella.pdf}
+  \caption[1a]{saddle (unstable)}
+ \end{subfigure}
+ \begin{subfigure}{5cm}
+  %\centering
+  \includegraphics[width=0.75\textwidth]{sistemi_nodo.pdf}
+  \caption{stable node}
+ \end{subfigure}
+ \begin{subfigure}{5cm}
+ \centering\includegraphics[width=0.75\textwidth]{sistemi_nodo_improprio.pdf}
+  \caption{stable improper node}
+ \end{subfigure}
+ \begin{subfigure}{5cm}
+  \centering\includegraphics[width=0.75\textwidth]{sistemi_stella.pdf}
+  \caption{stable star}
+ \end{subfigure}
+ \begin{subfigure}{5cm}
+  \centering\includegraphics[width=0.75\textwidth]{sistemi_fuoco.pdf}
+  \caption{stable focus}
+ \end{subfigure}
+ \begin{subfigure}{5cm}
+  \centering\includegraphics[width=0.75\textwidth]{sistemi_centro.pdf}
+  \caption{center (stable)}
+ \end{subfigure}
+ \caption{\\%
+ \usebox{\qrsistemisella} \usebox{\qrsisteminodo}\\
+ \usebox{\qrsisteminodoimproprio} \usebox{\qrsistemistella}\\
+ \usebox{\qrsistemifuoco} \usebox{\qrsistemicentro}
+ }
+\end{figure}
+
+If the signs of $\lambda$ and $\mu$ are opposite, a configuration called a
+\emph{saddle}%
+\mymargin{saddle}\index{saddle} is obtained (see figure). Along the eigenvector with a negative eigenvalue, there will be convergence towards the origin, but this convergence is unstable since every other curve will instead tend to be deviated and asymptotically approach the direction of the eigenvector with a positive eigenvalue.
+
+If $\lambda$ and $\mu$ are both negative, there is a \emph{stable node}%
+\mymargin{stable node}\index{node!stable} where all curves converge towards the origin (attractive solution). If instead $\lambda$ and $\mu$ are both positive, the curves will be traversed in the reverse direction and will be outgoing from the origin: we will then have an \emph{unstable node}%
+\mymargin{unstable node}\index{node!unstable}.
+
+If the eigenvalues coincide $\lambda=\mu$ and if the matrix is diagonalizable,
+then the matrix is diagonal, all vectors are eigenvectors, so in every
+direction, there is a straight-line trajectory. The configuration is called a
+\emph{star}%
+\mymargin{star}\index{star} (stable or unstable depending on the negative or positive sign).
+
+If the eigenvalues coincide $\lambda = \mu$ and the matrix is not
+diagonalizable, consider the (unique) eigenvector $\vec u$ with $A \vec u =
+\lambda \vec u$ and take any vector $\vec w$ independent of $\vec u$. Then we
+have
+\[
+  A \vec w = \alpha \vec u + \beta \vec w.
+\]
+Certainly, $\alpha \neq 0$ otherwise $\vec w$ would be an eigenvector and the
+matrix would be diagonalizable. Consider then $\vec v = \vec w / \alpha$ so that
+$A \vec v = \vec u + \frac{\beta}{\alpha} \vec w$. In the basis $\vec u, \vec
+v$, the matrix $A$ becomes triangular, and on the diagonal, we find the values
+$\lambda$ and $\frac{\beta}{\alpha}$. But then $\frac{\beta}{\alpha} = \lambda$
+since only the eigenvalues are on the diagonal. Thus, if $X,Y$ are the
+coordinates in the system $\vec u, \vec v$, the system of equations becomes:
+\[
+\begin{cases}
+X' = \lambda X + Y \\
+Y' = \lambda Y.
+\end{cases}
+\]
+From the second equation, we then obtain $Y = a e^{\lambda t}$ with $a\in \RR$
+an arbitrary constant, and substituting into the first, we obtain the equation
+\[
+  X' - \lambda X = a e^{\lambda t}
+\]
+which can be solved by finding a second arbitrary constant $b\in \RR$ and
+\[
+  X = (at+b) e^{\lambda t}.
+\]
+If $a=0$, a trajectory with $Y=0$, i.e., in the direction of the unique
+eigenvector. If $\lambda <0$, such a trajectory will converge to $0$; otherwise,
+it will diverge. If $a\neq 0$, we can eliminate $t$ by setting:
+\[
+  t = \frac 1 \lambda \ln \frac{Y}{a}
+\]
+and thus
+\[
+  X = \enclose{\frac{a}{\lambda} \ln \frac{Y}{a}+ b} \frac{Y}{a}
+  =  \frac{Y}{\lambda}\ln \frac{Y}{a}+ \frac{b}{a}Y.
+\]
+By studying the graph of this function, we qualitatively obtain the curves drawn
+in the figure: the configuration is called an \emph{improper node}%
+\mymargin{improper node}\index{improper node}. As with nodes, the trajectories converge to the origin if $\lambda < 0$ and diverge if $\lambda >0$.
+
+Let us try to treat the more interesting case of complex eigenvalues. If the
+matrix has real coefficients, the eigenvalues, when not real, will certainly be
+complex conjugates:
+\[
+  \lambda = \alpha - i \beta,
+  \qquad
+  \mu = \alpha + i \beta
+\]
+with $\alpha,\beta\in \RR$, $\beta\neq 0$.
+
+Let $\vec v + i \vec w$ be a complex eigenvector relative to the eigenvalue
+$\alpha - i \beta$. Then we have
+\[
+ A\vec v + i A \vec w
+ = A(\vec v + i \vec w)
+ = (\alpha - i \beta)(\vec v + i \vec w)
+ = \alpha \vec v + \beta \vec w +i(-\beta \vec v + \alpha \vec w).
+\]
+By equating the real and imaginary parts, we find
+\[
+  A \vec v = \alpha \vec v + \beta \vec w,
+  \qquad
+  A \vec w = -\beta \vec v + \alpha \vec w.
+\]
+At this point, it is not difficult to verify that $\vec v - i \vec w$ is an
+eigenvector relative to the conjugate eigenvalue $\alpha + i\beta$. Since $\vec
+v\pm i\vec w$ are two eigenvectors with distinct eigenvalues, they are certainly
+independent vectors. Thus, $\vec v$ and $\vec w$ (which are obtained as
+multiples of the sum and difference) are independent vectors (this time real).
+If $X,Y$ are the coordinates in the basis $\vec v$, $\vec w$, the differential
+equation becomes:
+\[
+\begin{cases}
+ X' = \alpha X - \beta Y \\
+ Y' = \beta X + \alpha Y.
+\end{cases}
+\]
+We then have%
+\mynote{It could be observed that the matrix
+$\begin{pmatrix}\alpha&-\beta\\ \beta & \alpha\end{pmatrix}$
+is the matrix representing the complex multiplication by the number $\alpha +
+i\beta$. Thus, by calling $Z=X+iY$, the system could be written in the form
+$Z'=(\alpha +i\beta)Z$, and it could then be immediately observed that the
+solution must be of the form $Z = c e^{(\alpha+i\beta)t}$ with $c$ a complex
+constant. Then, by setting $c=\rho e^{i\theta}$, the result is obtained.}
+\[
+ X'' = \alpha X' - \beta Y'
+ = \alpha X' - \beta (\beta X + \alpha Y)
+\]
+from which, using $\beta Y = \alpha X - X'$, we can eliminate the variable $Y$
+and obtain a second-order equation in $X$:
+\[
+ X'' = \alpha X' - \beta^2 X - \alpha (\alpha X - X')
+  = 2 \alpha X' - (\alpha^2+\beta^2) X
+\]
+or
+\[
+ X'' - 2 \alpha X' + (\alpha^2 + \beta^2) X = 0.
+\]
+Solving this second-order equation, we realize that the roots of the
+characteristic polynomial are precisely $\alpha \pm i \beta$, and thus the
+solutions are written in the form
+\[
+X = e^{\alpha t}(a \cos \beta t + b \sin \beta t)
+\]
+from which
+\begin{align*}
+\beta Y
+&= \alpha X - X'\\
+& = \alpha e^{\alpha t}(a \cos \beta t + b \sin \beta t) \\
+&\quad - \alpha e^{\alpha t}(a\cos \beta t + b \sin \beta t)
+  - e^{\alpha t}(-\beta a \sin \beta t + b \beta \cos \beta t) \\
+ &= \beta e^{\alpha t}(a\sin \beta t - b \cos \beta t).
+\end{align*}
+Thus, by setting $\rho=\sqrt{a^2+b^2}$ and choosing $\theta$ such that $\cos
+\theta = \frac a \rho$ and $\sin \theta = - \frac b \rho$, we have
+\[
+  \begin{cases}
+   X = \rho e^{\alpha t} \cos(\beta t + \theta),\\
+   Y = \rho e^{\alpha t} \sin(\beta t + \theta).
+  \end{cases}
+\]
+If $\alpha \neq 0$, the corresponding trajectories form elliptical spirals that
+wind in the direction that takes the vector $\vec v$ towards the vector $\vec
+w$. If $\alpha < 0$, the spirals converge towards the origin of the system: we
+will have a \emph{stable focus}%
+\mymargin{stable focus}\index{focus stable}. If $\alpha >0$, the orbits diverge, and we will call the configuration an \emph{unstable focus}%
+\mymargin{unstable focus}\index{focus unstable}. If $\alpha = 0$, the trajectories are concentric ellipses, the solutions are therefore periodic, and the configuration is called a \emph{center}%
+\mymargin{center}\index{center}.
+
+If at least one of the two eigenvalues is zero, the behavior of the system is
+degenerate, resulting in trivial solutions that we will not investigate.
+
+\subsection{matrix exponential}
+
+To solve, in abstract terms, the first-order $n\times n$ homogeneous linear
+system with constant coefficients
+\[
+  \vec u' = A \vec u
+\]
+we introduce the following notions.
+
+Let $A$ be an $n\times n$ square matrix. We define the norm (operator norm) of
+$A$ as follows:
+\[
+  \Abs{ A } = \sup_{\abs{\vec v} \le 1} \abs{A\vec v}
+\]
+where $\abs{ \vec v} = \sqrt{v_1^2+ \dots + v_n^2}$ is the usual norm of the
+vector $\vec v\in \RR^n$. We observe that $\vec v\mapsto A\vec v$ is a
+continuous function and that $\ENCLOSE{\vec v\colon \abs{ \vec v} \le 1}$ is a
+compact set, thus the $\sup$ in the definition is actually a $\max$.
+
+For the properties of the $\sup$, we have:
+\[
+  \abs{A\vec v} \le \Abs{ A }\, \abs{ v }
+\qquad\text{and}\qquad
+  \Abs{ A B } \le \Abs{ A } \, \Abs{ B }.
+\]
+Thus, we can assert that the absolute value of every element of a matrix is
+estimated by the norm of the matrix: $\abs{ A_{ij}} \le \Abs{ A }$, indeed:
+\[
+  \abs{ A_{ij} } = \abs{ (A \vec e_j)_i} \le \abs{ A e_j}
+  \le \Abs{ A }
+\]
+(where $\vec e_j$ is the $j$-th vector of the canonical basis of $\RR^n$).
+
+If $A_k$ is a sequence of matrices, we will say that $A_k\to A$ if every element
+of the matrix $A_k$ converges to the corresponding element of the matrix $A$:
+$(A_k)_{ij} \to A_{ij}$. This corresponds to considering the $n\times n$ matrix
+as a vector in the space $\RR^{(n^2)}$.
+
+If $A(t)$ is a matrix-valued function (i.e., a matrix whose elements are
+functions of $t$), its derivative can be taken as for vector functions:
+$(A'(t))_{ij} = (A_{ij}(t))'$ component by component. The usual rules for
+derivatives also apply to matrices; in particular, it is not difficult to verify
+(by making explicit the definition of matrix product) that
+\[
+ (A(t)B(t))' = A'(t) B(t) + A(t) B'(t)
+\]
+where, we emphasize, it is important to maintain the products in the correct
+order, as the product of matrices may not be commutative.
+
+If $A$ is a square matrix, the matrix power $A^k$ is defined for every natural
+$k$ by the properties
+\[
+  A^0 = I, \qquad A^{k+1} = A^kA.
+\]
+(if $A$ is invertible, negative powers can also be defined $A^{-k}=(A^{-1})^k =
+(A^k)^{-1}$).
+
+We then define the matrix exponential of $A$:
+\[
+  e^A = \sum_{k=0}^{+\infty} \frac{A^k}{k!}.
+\]
+To give meaning to this definition, we must verify that the series just written
+is convergent. That is, we must verify that for every pair of indices $ij$, the
+numerical series is convergent:
+\[
+ \sum_{k=0}^{+\infty} \frac{(A^k)_{ij}}{k!}.
+\]
+As mentioned earlier, we know that $\abs{(A^k)_{ij}} \le \Abs{A^k} \le
+\Abs{A}^k$. Thus, the series in question is absolutely convergent since its
+absolute value is estimated by the series
+\[
+ \sum_{k=0}^{+\infty} \frac{\Abs{ A}^k}{k!} = e^{\Abs{ A}}
+\]
+which is convergent. The definition of the matrix $e^A$ is thus well-posed, and
+we have
+\[
+ \Abs{ e^A} \le e^{\Abs{ A }}.
+\]
+
+\begin{theorem}[properties of the matrix exponential]
+Let $A$ and $B$ be $n\times n$ square matrices and $t$ a scalar. The following
+properties hold:
+\begin{enumerate}
+\item $e^0 = I$ (where $0$ is the $n\times n$ zero matrix and $I$ is the identity matrix of the same dimensions);
+\item if $AB=BA$, then $e^A B = B e^A$;
+\item $(e^{tA})' = A e^{tA}$;
+\item $e^{-A} = (e^A)^{-1}$ (in particular, the matrix exponential is always invertible);
+\item if $\vec u(t)$ is a function valued in $\RR^n$ that satisfies the differential equation $\vec u'(t) = A\vec u(t)$, then $\vec u(t) = e^{tA} \vec u(0)$;
+\item if $AB=BA$, then $e^{A+B} = e^A e^B$;
+\item if $A$ is invertible, then $e^{ABA^{-1}} = Ae^BA^{-1}$;
+\item if $A$ is the diagonal matrix $A = \diag(\lambda_1, \dots, \lambda_n)$, then $e^A$ is also a diagonal matrix with $e^A = \diag(e^{\lambda_1},\dots, e^{\lambda_n})$;
+\item if $A$ is a triangular matrix with a zero diagonal (i.e., $A_{ij}=0$ if $i\ge j$), then $e^A = \sum_{k=0}^n \frac{A^k}{k!}$ (just sum the first $n+1$ terms);
+\item if $B$ is a triangular matrix (i.e., $B_{ij}=0$ if $i > j$), then $B = D + A$ with $D$ a diagonal matrix and $A$ a triangular matrix with a zero diagonal, and thus $e^B = e^De^A$ can be calculated by reducing to the previous points.
+\end{enumerate}
+\begin{proof}
+1. Regarding $e^0$, we observe that by definition $0^0=I$ while $0^k=0$ if
+$k>0$. Thus, directly from the definition, we obtain $e^0=I$.
+
+2. If $AB=BA$, we observe that $A^k B=B A^k$ (the matrix $B$ commutes with every
+factor of the product $A^k$). Thus:
+\[
+ \sum_{k=0}^N \frac{A^k}{k!} B = B \sum_{k=0}^N \frac{A^k}{k!}
+\]
+and passing to the limit $N\to \infty$, we obtain $e^A B = B e^A$.
+
+3. To calculate the derivative of $e^{tA}$, we want to show that the series
+defining $e^{tA}$ converges totally when $t$ varies in any bounded interval. We
+then set $t\in [-M,M]$. We have:
+\[
+  \sup_{t\in[-M,M]}\frac{\Abs{ (tA)^k}}{k!}
+  = \sup_{t\in[-M,M]}\frac{\abs{ t}^k \Abs{ A^k}}{k!}
+  \le \frac{M^k\Abs{ A}^k}{k!}
+\]
+whose series is convergent for any $M\in \RR$. Thus, the series defining
+$e^{tA}$ is a series of continuous and differentiable functions that converges
+totally on every bounded interval. We can therefore differentiate the series
+term by term:
+\[
+(e^{tA})' = \sum_{k=0}^\infty \frac{((tA)^k)'}{k!}
+ = \sum_{k=1}^\infty \frac{kt^{k-1} A^k}{k!}
+ = A \sum_{k=1}^\infty \frac{t^{k-1}A^{k-1}}{(k-1)!}
+ = A e^{tA}.
+\]
+
+4. We now demonstrate that $U(t) = e^{tA}e^{-tA}=I$ for every $t$. We have:
+\[
+ U'(t) = A e^{tA}e^{-tA} + e^{tA}(-A)e^{-tA}
+       = A e^{tA}e^{-tA} - A e^{tA}e^{-tA} = 0
+\]
+($Ae^{tA} = e^{tA}A$ since $A$ and $tA$ commute).
+Thus $U'(t)=0$, meaning $U(t)$ is constant, i.e., $U(t)=U(0)$. But $U(0)=I$
+since $e^0=I$, and therefore $U(t)=I$ for every $t$.
+
+5. Consider the equation $\vec u' = A\vec u$, multiplying on the left by
+$e^{-tA}$, the equation becomes $e^{-tA} \vec u' - e^{-tA} A \vec u=0$, i.e.,
+$(e^{-tA} \vec u)' = 0$. This means that the function $e^{-tA}\vec u = c$ is
+constant, and multiplying on the left by $e^{tA}$, we thus obtain $\vec u =
+e^{tA}c$ as desired.
+
+6. To demonstrate the property $e^{A+B}=e^A e^B$, consider the quantity $U(t) =
+e^{-t(A+B)} e^{tA} e^{tB}$. If we demonstrate that $U$ is constant, since $\vec
+u(0)=I$, we will also have $U(1)=I$, which is equivalent to what we want to
+demonstrate. Thus, we verify that the derivative is zero, exploiting the
+hypothesis $AB=BA$ which allows us to commute the products:
+\begin{align*}
+U'(t) & = -(A+B)e^{-t(A+B)} e^{tA} e^{tB} + e^{-t(A+B)}Ae^{tA}e^{tB} +
+e^{-t(A+B)}e^{tA} B e^{tB} \\
+& = [-(A+B) + A + B] U(t) = 0.
+\end{align*}
+
+7. If $A$ is invertible, then $(ABA^{-1})^k = ABA^{-1}ABA\dots ABA^{-1} = AB^k
+A^{-1}$. Thus, in the partial sums of the series defining the exponential
+$e^{ABA^{-1}}$, we can factor out $A$ on the left and $A^{-1}$ on the right, and
+in the center remains the series defining $e^B$.
+
+8. If the matrix $A$ is diagonal with $A_{ii}=\lambda_i$, then $A^k$ results in
+a diagonal matrix with $(A^k)_{ii} = \lambda_i^k$. Thus, in the definition of
+the exponential $e^A$, the terms of the series are all diagonal matrices, and on
+the diagonal appears the series defining the exponential $e^{\lambda_i}$.
+
+9. If $A$ is a triangular matrix with $A_{ij}=0$ when $i\ge j$, it is observed
+that $A^2$ will have zeros also above the diagonal: $(A^2)_{ij}=0$ when $i+1\ge
+j$ (apply the definition of product, row by column). In successive
+multiplications $A^3, A^4,\dots$, a diagonal of zeros will always be added until
+the matrix completely nullifies $A^n=0$. Thus, the series defining $e^A$
+contains only a finite number of terms (the first $n+1$) and can be calculated
+explicitly.
+
+10. The last property is an observation that requires no proof.
+\end{proof}
+\end{theorem}

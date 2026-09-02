@@ -1,0 +1,162 @@
+\section{Linear Equations of Order $n$}
+\label{sec:edo_lineari}
+
+\index{equation!differential!linear of order $n$}
+\mymargin{linear equations of order $n$}
+Linear ordinary differential equations of order $n$ in normal form can be
+written as:
+\begin{equation}\label{eq:edo_lineare_ordine_n}
+    u^{(n)}(x) + a_{n-1}(x) \cdot u^{(n-1)}(x) + \dots + a_1(x) \cdot u'(x) +
+  a_0(x) \cdot u(x) = b(x)
+\end{equation}
+where $a_k\colon A \to \RR$, $b\colon A\to \RR$ are continuous functions defined
+on the same domain $A\subset \RR$.
+In the case $b(x) = 0$, the equation is said to be \emph{homogeneous}%
+\mymargin{homogeneous}\index{homogeneous}
+and can be written as:
+\begin{equation}\label{eq:edo_lineare_omogenea_ordine_n}
+    u^{(n)}(x) + a_{n-1}(x) \cdot u^{(n-1)}(x) + \dots + a_1(x)\cdot u'(x) +
+  a_0(x)\cdot u(x) = 0.
+\end{equation}
+In general, equation \eqref{eq:edo_lineare_ordine_n}
+is called a \emph{non-homogeneous equation}
+\mymargin{non-homogeneous equation}
+\index{equation!differential!non-homogeneous}
+and the corresponding equation~\eqref{eq:edo_lineare_omogenea_ordine_n}
+is called the \emph{associated homogeneous equation}.
+\mymargin{associated homogeneous equation}
+\index{equation!differential!associated homogeneous}
+
+\begin{theorem}[structure of solutions of a linear equation]%
+\label{th:edo_lineare_ordine_n}%
+\mymark{***}%
+Let $a_k\in C^0(I)$ with $I\subset \RR$
+an open interval.
+
+\begin{enumerate}
+\item
+The set $V$ of solutions of the homogeneous linear
+equation~\eqref{eq:edo_lineare_omogenea_ordine_n}
+is a vector subspace of $C^n(I)$ of dimension $n$.
+Moreover, given any point $x_0\in I$, the operator $J\colon V \to \RR^n$
+(called \emph{jet}%
+\mymargin{jet}\index{jet}) defined by
+\begin{equation}\label{eq:jet}
+  J[u] = (u(x_0), u'(x_0), u''(x_0), \dots, u^{(n-1)}(x_0))
+\end{equation}
+is a bijective linear operator (i.e., a vector space isomorphism).
+
+\item
+The set of solutions of the non-homogeneous
+equation~\eqref{eq:edo_lineare_ordine_n}
+is an affine subspace of $C^n(A)$ of dimension $n$,
+parallel to the subspace of solutions of the associated homogeneous
+equation~\eqref{eq:edo_lineare_omogenea_ordine_n}.
+In particular, if $u_*$ is a particular solution of the non-homogeneous
+equation~\eqref{eq:edo_lineare_ordine_n}, every other solution $u$ of
+\eqref{eq:edo_lineare_ordine_n} can be expressed in the form
+\[
+  u = u_* + v
+\]
+with $v$ a solution of the associated homogeneous equation.
+\end{enumerate}
+\end{theorem}
+%
+\begin{proof}
+\mymark{***}
+First of all, the global existence theorem~\ref{th:edo_esistenza_globale}
+guarantees that
+the solutions of equations~\eqref{eq:edo_lineare_ordine_n}
+and~\eqref{eq:edo_lineare_omogenea_ordine_n} exist and are functions in
+$C^n(I)$.
+
+We can rewrite equation~\eqref{eq:edo_lineare_ordine_n} in the form
+\[
+  L[u] = b
+\]
+(we use square brackets to delimit the argument when it is a linear application)
+with
+\[
+  L[u] = u^{(n)} + \sum_{k=0}^{n-1} a_k u^{(k)}
+\]
+
+The homogeneous equation~\eqref{eq:edo_lineare_omogenea_ordine_n}
+thus becomes
+\[
+  L[u] = 0.
+\]
+Note that $L\colon C^n(I) \to C^0(I)$ is a linear operator since
+addition, differentiation, and multiplication by a function are linear operators
+on the vector space of functions.
+Thus, the set $V$ of solutions of the homogeneous equation is nothing but
+$\ker L$, which is known to be a vector space since if $L[u]=0$ and $L[v]=0$
+then also $L[\lambda u + \mu v] = \lambda L[u] + \mu L[v] = 0$.
+
+We can now determine the dimension of this space by associating the solutions of
+the equation with their initial data,
+via the application $J[u]$ defined by~\eqref{eq:jet}.
+Clearly, $J$ is linear because the derivative operator and evaluation at a
+point are linear operators. We observe that $J$ is surjective because given any
+$\vec y\in \RR^n$, by the existence theorem \ref{th:cauchy_lipschitz_ordine_n}
+for solutions of the Cauchy problem of order $n$, we know there exists a
+solution $u\in V$ such that $J[u]=\vec y$. But $J$ is also
+injective because if $u,v\in V$ are two solutions with $J[u]=J[v]$, it means
+that $u$ and $v$ satisfy the same Cauchy problem.
+By the uniqueness of the solution, it follows that $u=v$.
+We have thus shown that $J\colon V \to \RR^n$ is a vector space isomorphism,
+hence $\dim V=n$.
+
+Regarding the non-homogeneous equation,
+let
+\[
+W = \ENCLOSE{v\in C^n(A)\colon L[v] = b}
+\]
+be the set of all solutions.
+If we consider a particular solution $v_0\in W$ and if $v\in W$ is any
+other solution, we observe that
+\[
+  L[v-v_0] = L[v] - L[v_0] = b-b = 0.
+\]
+This means that $u=v-v_0$ is a solution of the associated homogeneous equation:
+$u\in V=\ker L$.
+Thus, every solution $v$ of the non-homogeneous equation can be written in the
+form $v = v_0 + u$ with $v_0$ a particular solution of the non-homogeneous
+equation and
+$u$ a general solution of the associated homogeneous equation, i.e.,
+\[
+  W = v_0 + V.
+\]
+\end{proof}
+
+\begin{theorem}[greater regularity of solutions]%
+  \label{th:maggiore_regolarita}%
+If $u(x)$ is a solution of the linear differential
+equation~\eqref{eq:edo_lineare_ordine_n} and if the coefficients $a_1, \dots,
+a_{n-1}, b$ are functions of class $C^m$ for some $m\in \NN$, then the solution
+is of class $C^{m+n}$. In particular, if the coefficients are of class
+$C^\infty$, the solutions are also of class $C^\infty$.
+\end{theorem}
+%
+\begin{proof}
+If $u$ is a solution of~\eqref{eq:edo_lineare_ordine_n},
+by definition we know that $u$ is differentiable $n$ times in the interval $I$
+on which it is defined.
+If we write the equation in normal form:
+\[
+  u^{(n)}(x) = b(x) - \sum_{k=0}^{n-1}a_k(x) u^{(k)}(x)
+\]
+since $a_k \in C^0$, we know that $u^{(n)}$ is continuous, thus $u$ is of class
+$C^n$.
+Now suppose that $u\in C^j$ for some $j\ge n$.
+The coefficients of the equation are of class $C^m$ and are multiplied by the
+derivatives of $u$, which are at least of class $C^{j-n+1}$.
+If $j-n+1 \le m$, then the right-hand side of the previous equation is of class
+$j-n+1$.
+Thus $u^{(n)}\in C^{j-n+1}$, from which $u\in C^{j+1}$.
+One step at a time, it is therefore possible to increase the regularity of $u\in
+C^j$ as long as $j-n+1\le m$, i.e., as long as $j\le m+n-1$. At that point, we
+obtain $u\in C^{j+1} = C^{m+n}$.
+
+If the coefficients are of class $C^\infty$, the process never ends,
+and thus $u$ is also of class $C^\infty$.
+\end{proof}

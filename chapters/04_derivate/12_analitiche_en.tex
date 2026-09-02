@@ -1,0 +1,561 @@
+\section{Analytic Functions and Taylor Series}
+\index{function!analytic}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+In the chapter on power series, we studied power series of the form
+\begin{equation}\label{eq:4748219}
+    g(z) = \sum_{k=0}^{+\infty} a_k z^k.
+\end{equation}
+It is clear that if we fix a point $z_0$, we can perform a change of variable
+and observe that the series
+\begin{equation}\label{eq:33783}
+  f(z) = \sum_{k=0}^{+\infty} a_k \cdot(z-z_0)^k = g(z-z_0)
+\end{equation}
+converges in the circle $B_R(z_0) = \ENCLOSE{z \in \ZZ\colon \abs{z-z_0}< R}$
+where $R$ is the radius of the power series~\eqref{eq:4748219}. We will say that
+the series in equation~\eqref{eq:33783} is a power series centered at $z_0$ and
+will call $R$ its radius of convergence.
+
+It is then natural to ask whether a power series centered at a point $z_0$ can
+be written as a power series centered at the point $z_1$, at least when
+$\abs{z_1-z_0}<R$. The affirmative answer is given by the following.
+
+\begin{theorem}[Translation of a Power Series]
+\index{power series!translation}%
+\index{translation!of a power series}%
+\label{th:488456367}
+Consider the power series~\eqref{eq:33783} centered at $z_0$ with radius of
+convergence $R\in (0,+\infty]$, take a point $z_1 \in B_R(z_0)$ and set
+$r=R-\abs{z_1-z_0}$ so that $B_r(z_1)\subset B_R(z_0)$. Then for every $z\in
+B_r(z_1)$, we have
+\begin{equation}\label{eq:48478643}
+  f(z) = \sum_{j=0}^{+\infty} b_j (z - z_1)^j
+\end{equation}
+for suitable coefficients $b_j$. In particular, the power series
+in~\eqref{eq:48478643}, centered at $z_1$, has a radius of convergence not less
+than $r$.
+\end{theorem}
+%
+\begin{proof}
+To simplify the notation, we can assume, without loss of generality, that
+$z_0=0$. If we set $h=z-z_1$, we have
+\begin{align*}
+f(z) 
+&= \sum_{k=0}^{+\infty} a_k z^k 
+= \sum_{k=0}^{+\infty} a_k (z_1+h)^k
+= \sum_{k=0}^{+\infty} \sum_{j=0}^k a_k {k \choose j}z_1^{k-j}h^j.
+\end{align*}
+We would now like to apply theorem~\ref{th:somma_Cauchy} to exchange the order
+of the two sums. To do this, we need to verify the convergence of the following
+series:
+\begin{align*}
+  \sum_{k=0}^{+\infty} \sum_{j=0}^k \abs{a_k} {k \choose j}\abs{z_1}^{k-j}\abs{h}^j 
+  &= \sum_{k=0}^{+\infty} \abs{a_k \enclose{\abs{z_1}+\abs{h}}^k}.
+\end{align*}
+This series converges because, by hypothesis, $\abs{z_1}+\abs{h} \le \abs{z_1} +
+r < R$, and thus we are within the radius of convergence where the series
+converges absolutely. Therefore, we can exchange the sums and obtain:
+\[
+    f(z) = \sum_{j=0}^{+\infty} \sum_{k=j}^{+\infty} a_k {k\choose j} z_1^{k-j}
+  h^j
+    = \sum_{j=0}^{+\infty} b_j h^j
+  \qquad\text{with }
+b_j = \sum_{k=j}^{+\infty}
+ a_k {k\choose j}z_1^{k-j}.
+\]
+Thus, the power series $\sum b_j (z-z_1)^j$ has a radius of convergence not less
+than $r$ and has sum $f(z)$, as we wanted to prove.
+\end{proof}
+
+The theory of analytic functions could be developed, without substantially
+changing anything, for functions of a complex variable. However, it would be
+necessary to introduce the concept of derivative in the complex sense, and
+therefore, for simplicity, we limit ourselves to real functions, which are our
+subject of study.
+
+\begin{definition}[Analytic Function]
+\mymargin{analytic function}%
+\index{function!analytic}
+Let $A\subset \RR$ and let $f\colon A\subset \RR \to \RR$ be a function. We will
+say that $f$ is \emph{analytic} if for every $x_0\in A$, there exists $R>0$ such
+that $(x_0-R,x_0+R)\subset A$ and there exists a sequence of real numbers $a_k$
+such that for every $x\in (x_0-R,x_0+R)$, we have:
+\[
+  f(x) = \sum_{k=0}^{+\infty} a_k (x-x_0)^k.
+\]
+\end{definition}
+
+Theorem~\ref{th:488456367} tells us, in particular, that the sum of a power
+series is an analytic function, at least within the radius of convergence. For
+example, the function $f(x)=e^x$ is an analytic function defined on all of $\RR$
+since, thanks to theorem~\ref{th:serie_esponenziale}, $f(x)$ turns out to be the
+sum of a power series with radius of convergence $R=+\infty$ centered at $x=0$.
+
+\begin{theorem}[Developability in Taylor Series]
+\label{th:48765}%
+If $f\colon A\subset \RR\to\RR$ is an analytic function, then $f\in C^\infty(A)$
+and for every $x_0\in A$, there exists $R>0$, such that for every $x \in (x_0-R,
+x_0+R)\subset A$, we have
+\begin{equation}\label{eq:2344494}
+  f(x) = \sum_{k=0}^{+\infty} \frac{f^{(k)}(x_0)}{k!}(x-x_0)^k.
+\end{equation}
+Also, the derivative of $f$ is an analytic function, and the Taylor series of
+the derivative is obtained by differentiating term by term the Taylor series of
+$f$.
+\end{theorem}
+%
+\begin{proof}
+Without loss of generality, let us assume that $x_0=0$. Since $f$ is an analytic
+function, by definition, we know that there exists $R>0$ such that for
+$\abs{x}<R$, we have
+\[
+f(x) = \sum_{k=0}^{+\infty} a_k x^k
+\]
+with suitable coefficients $a_k$. We want to show that $f(x)$ is differentiable.
+Informally, we would like to perform the following steps:
+\begin{align*}
+\frac{f(x+h) - f(x)}{h}
+&= \sum_{k=1}^{+\infty} a_k \cdot \frac{(x+h)^k-x^k}{h}
+= \sum_{k=1}^{+\infty} a_k \cdot \frac{\sum_{j=1}^k {k\choose j} \cdot h^j \cdot
+x^{k-j}}{h} \\
+&= \sum_{k=1}^{+\infty} a_k \cdot \sum_{j=1}^k {k\choose j} \cdot h^{j-1} \cdot
+x^{k-j} \\
+&= \sum_{k=1}^{+\infty} a_k \cdot \sum_{j=0}^{k-1} {k\choose j+1} \cdot h^j
+\cdot x^{k-j-1} \\
+&= \sum_{j=0}^{+\infty} \enclose{\sum_{k=j+1}^{+\infty} a_k \cdot {k\choose j+1}
+\cdot x^{k-j-1}} h^j.
+\end{align*}
+If we set
+\[
+  c_{k,j} = a_k\cdot {k\choose j+1}\cdot x^{k-j-1}\cdot h^j
+\]
+the steps are justified if the series $\sum_{k,j} c_{k,j}$ is absolutely
+convergent. But, by appropriately placing absolute values in the steps already
+taken, we obtain
+\[
+  \sum_{j=0}^{+\infty} \sum_{k=j+1}^{+\infty} \abs{c_{k,j}}
+    =  \sum_{k=1}^{+\infty} \abs{a_k} \frac{\enclose{\abs x + \abs
+  h}^k-\abs{x}^k}{\abs{h}}
+\]
+and thus we can assert that there is absolute convergence if $\abs{x}<R$ and
+$\abs{x}+\abs{h}<R$, that is, if $\abs{h}< R-\abs{x}$. In such a case, the steps
+taken before are justified, and therefore the result is a power series
+convergent for $\abs{h}<R-\abs{x}$. In particular, for fixed $x$, the sum of the
+power series obtained at the end is a continuous function, and as $h\to 0$, it
+tends to the constant term of the series (the one with $j=0$), thus we have
+\[
+  \lim_{h\to 0} \frac{f(x+h)-f(x)}{h}
+  = \sum_{k=1}^{+\infty} a_k \cdot {k \choose 1} \cdot x^{k-1}
+  = \sum_{k=1}^{+\infty} k a_k \cdot x^{k-1}.
+\]
+We have found that the derivative of the power series is equal to the power
+series of the derivatives.
+
+Since the series of derivatives has the same radius of convergence $R$ as the
+original series (theorem~\ref{th:raggio_serie_derivate}), the procedure can be
+iterated, finding that each derivative is differentiable, and for every $x\in
+(-R,R)$, we will have:
+\[
+    f^{(n)}(x) = \sum_{k=n}^{+\infty}k (k-1) \cdots (k-n+1) \cdot a_k \cdot
+  x^{k-n}.
+\]
+In particular,
+\[
+  f^{(n)}(0) = n! \cdot a_n
+\]
+and therefore
+\[
+  f(x) = \sum_{k=0}^{+\infty} \frac{f^{(k)}(0)}{k!} x^k
+\]
+as we needed to prove.
+\end{proof}
+
+We have seen that analytic functions are of class $C^\infty$. The following
+example shows us that the converse is not true, and thus the class of analytic
+functions is strictly contained within the class of $C^\infty$ functions.
+
+\begin{example}[A $C^\infty$ Function That Is Not Analytic]
+The function
+\[
+  f(x) =
+  \begin{cases}
+    e^{-\frac 1 {x^2}} & \text{if $x\neq 0$}\\
+    0 & \text{if $x=0$}
+  \end{cases}
+\]
+is of class $C^\infty$ because for $x\neq 0$, we can calculate all the
+derivatives and observe that they can be written in the form
+\[
+  f^{(n)}(x) = \frac{P_n(x)}{x^{3n}}e^{-\frac 1 {x^2}}
+\]
+for a suitable polynomial $P_n$ (this can be proven by induction). Thus, as
+$x\to 0$, we have, for every $n\in \NN$,
+\[
+  f^{(n)}(x) \to 0
+\]
+and therefore the function $f$ is infinitely differentiable even at the point
+$x=0$ (thanks to proposition~\ref{prop:4384774}), and it results in $f^{(n)}(0)
+= 0$ for every $n\in \NN$. If the function $f$ were analytic in a neighborhood
+of $0$, we would have, by theorem~\ref{th:48765}:
+\[
+  f(x) = \sum_{k=0}^{+\infty} 0\cdot x^k = 0
+\]
+which is absurd since $f(x)>0$ for every $x\neq 0$.
+\end{example}
+
+\begin{theorem}[Binomial Series]
+\label{th:serie_binomiale}%
+\mymargin{binomial series}%
+\index{series!binomial}\index{binomial!series}
+For every $\alpha\in \RR$ and for every $x\in (-1,1)$, we have
+\[
+  (1+x)^{\alpha}  = \sum_{k=0}^{+\infty} {\alpha \choose k} \cdot x^k.
+\]
+\end{theorem}
+%
+\begin{proof}
+First, observe that the power series with coefficient $a_k = {\alpha \choose k}$
+has a radius of convergence $R=1$. Indeed, using the ratio test, we find:
+\[
+  \frac{\abs{a_{n+1}}}{\abs{a_n}}
+  = \frac{\abs{\alpha (\alpha-1) \cdots (\alpha-n)}}{(n+1)!}
+  \cdot \frac{n!}{\abs{\alpha(\alpha-1) \cdots (\alpha-n+1)}}
+  = \frac{\abs{\alpha-n}}{n+1} \to 1.
+\]
+Thus, the function
+\[
+ f(x) = \sum_{k=0}^{+\infty} {\alpha \choose k} x^k
+\]
+is defined for every $x\in(-1,1)$. Thanks to theorem~\ref{th:488456367}, the
+function $f$ is developable in a power series in the neighborhood of every point
+of the interval $(-1,1)$ and thus is an analytic function on this interval.
+Moreover, its derivative has as its development the series of derivatives:
+\[
+  f'(x) = \sum_{k=1}^{+\infty} k {\alpha \choose k} \cdot x^{k-1}.
+\]
+
+To prove that $f(x) = (1+x)^\alpha$, it suffices to show that the ratio:
+\[
+  u(x) = \frac{f(x)}{(1+x)^\alpha}
+\]
+is constantly equal to $1$. By direct verification, we see that $f(0)=1$, so we
+have at least $u(0) = 1$. It is then enough to show that $u$ is constant, i.e.,
+that $u'=0$. But we have
+\begin{align*}
+  u'(x)
+    &= \frac{f'(x) (1+x)^\alpha - f(x) \alpha (1+x)^{\alpha-1}}{(1+x)^{2\alpha}}
+  \\
+  &= \frac{(1+x) f'(x) - \alpha f(x)}{(1+x)^{\alpha+1}}.
+\end{align*}
+We then observe that
+\begin{align*}
+(1+x)f'(x)
+&= \sum_{k=1}^{+\infty} k{\alpha \choose k} x^{k-1}
++ \sum_{k=1}^{+\infty} k{\alpha \choose k} x^{k}\\
+&= \sum_{k=0}^{+\infty} (k+1){\alpha \choose k+1} x^k
++ \sum_{k=0}^{+\infty} k {\alpha \choose k} x^k \\
+&= \sum_{k=0}^{+\infty} \Enclose{\frac{\alpha(\alpha-1) \cdots (\alpha-k)}{k!}
+ + k \frac{\alpha(\alpha-1)\cdots(\alpha-k+1)}{k!}} x^k \\
+  &= \sum_{k=0}^{+\infty}
+ \frac{\alpha(\alpha-1)\cdots(\alpha-k+1)}{k!}\Enclose{(\alpha-k)+k} x^k\\
+ &= \alpha \sum_{k=0}^{+\infty} {\alpha \choose k} x^k = \alpha \cdot f(x).
+\end{align*}
+Thus, $u'(x)=0$ and $f(x) = (1+x)^\alpha$ for every $x\in(-1,1)$, as we wanted
+to prove.
+\end{proof}
+
+It is not enough for a function to be of class $C^\infty$ to guarantee that it
+is also analytic, and therefore the following can be useful.
+
+\begin{theorem}[Criterion of Analyticity]
+\label{th:criterio_analitica}
+Let $f\in C^\infty(A)$ be a real function defined on an open set $A\subset \RR$.
+Suppose that for every $x_0\in A$, there exist $r>0$, $M>0$, and $L>0$ such that
+$[x_0-r, x_0+r] \subset A$ and for every $x\in [x_0-r, x_0+r]$ and for every
+$n\in \NN$, we have
+\[
+  \frac{\abs{f^{(n)}(x)}}{n!} \le M\cdot L^n.
+\]
+Then $f$ is analytic in $A$.
+\end{theorem}
+%
+\begin{proof}
+Fix $x_0\in A$. We need to show that in a neighborhood of $x_0$, it is possible
+to write $f$ as the sum of a power series $\sum a_k (x-x_0)^k$. Necessarily, by
+theorem~\ref{th:48765}, the power series must be the Taylor series, i.e., we
+want to show that there exists $\rho>0$ such that if $\abs{x-x_0}< \rho$, we
+have
+\[
+  f(x) = \sum_{k=0}^{+\infty} \frac{f^{(k)}(x_0)}{k!}(x-x_0)^k.
+\]
+Thanks to the Taylor formula with Lagrange remainder
+(theorem~\ref{th:taylor_lagrange}), we know that
+\[
+  f(x) = \sum_{k=0}^{n} \frac{f^{(k)}(x_0)}{k!}(x-x_0)^k
+   + \frac{f^{(n+1)}(y)}{(n+1)!}(x-x_0)^{n+1}.
+\]
+Thus, it will be sufficient to show that for fixed $x$, as $n\to +\infty$, the
+remainder tends to zero. But indeed, if $\abs{x-x_0}\le \rho$, we have
+\begin{align*}
+ \abs{\frac{f^{(n+1)}(y)}{(n+1)!}(x-x_0)^{n+1}}
+ & \le  M\cdot L^{n+1}\abs{x-x_0}^{n+1}
+ = M (L\rho)^{n+1}\to 0
+\end{align*}
+if we choose $\rho$ such that $\rho < 1/L$.
+\end{proof}
+
+\begin{theorem}[Analyticity of Some Elementary Functions]
+  \label{th:serie_taylor}
+    The functions $e^x$, $\sin x$, $\cos x$, $\ln x$ are analytic functions. The
+  functions $\arcsin$ and $\arccos$ are analytic on the open interval $(-1,1)$.
+  For every $\alpha \in \RR$, the function $x^\alpha$ is analytic on the
+  interval $(0,+\infty)$. Moreover, the formulas reported in
+  table~\ref{tb:taylor2} hold.
+\end{theorem}
+%
+\begin{table}
+\begin{align*}
+e^x &= \sum_{k=0}^{+\infty} \frac{x^k}{k!}\\
+\sin x &= \sum_{k=0}^{+\infty} (-1)^k\frac{x^{2k+1}}{(2k+1)!}\\
+\cos x &= \sum_{k=0}^{+\infty} (-1)^k\frac{x^{2k}}{(2k)!}\\
+\sinh x &= \sum_{k=0}^{+\infty} \frac{x^{2k+1}}{(2k+1)!}\\
+\cosh x &= \sum_{k=0}^{+\infty} \frac{x^{2k}}{(2k)!} \\
+(1+x)^\alpha &= \sum_{k=0}^{+\infty} {\alpha \choose k} x^k, \qquad \text{if
+$\abs{x}<1$} \\
+\ln (1+x) &= \sum_{k=1}^{+\infty} (-1)^{k-1} \frac{x^k}{k}, \qquad \text{if $x\in(-1,1]$} \\
+\arctg x &= \sum_{k=0}^{+\infty} (-1)^k \frac{x^{2k+1}}{2k+1}, \qquad \text{if $x\in [-1,1]$} \\
+\arcsin x &= \sum_{k=0}^{+\infty} \frac{(2k-1)!!}{(2k)!!} \frac{x^{2k+1}}{2k+1}, 
+  \qquad \text{if $x\in[-1,1]$} \\
+\arccos x &= \frac \pi 2 - \arcsin x
+\end{align*}
+\caption{Taylor series expansions of some elementary functions.
+\index{Taylor!series expansions of elementary functions}%
+\index{expansion!Taylor series}%
+See theorem~\ref{th:serie_taylor}.}
+\label{tb:taylor2}%
+\end{table}
+%
+\begin{proof}
+    That $e^x$ is analytic has already been observed (it is a consequence of
+  theorems~\ref{th:serie_esponenziale} and \ref{th:488456367}). The functions
+  $\sin x$ and $\cos x$ have all derivatives bounded (between $-1$ and $1$), and
+  therefore, thanks to theorem~\ref{th:criterio_analitica}, they turn out to be
+  analytic over all $\RR$.
+  
+    Regarding the function $f(x)=x^\alpha$, chosen any point $x_0>0$, we can use
+  theorem~\ref{th:serie_binomiale}:
+    \begin{align*}
+    x^\alpha
+    &= (x_0 + x-x_0)^\alpha
+    = x_0^\alpha \enclose{1+\frac {x-x_0} {x_0}}^\alpha \\
+        &= x_0^\alpha \sum_{k=0}^{+\infty} {\alpha \choose k}
+    \enclose{\frac{x-x_0}{x_0}}^k
+    = \sum_{k=0}^{+\infty} x_0^{\alpha-k}{\alpha \choose k} (x-x_0)^k
+  \end{align*}
+    and thus $x^\alpha$ is also developable in a power series in the
+  neighborhood of any point $x_0>0$ and is therefore an analytic function.
+
+    We now observe that if $f$ is differentiable and $f'$ is analytic, then also
+  $f$ is analytic. Indeed, if
+  \[
+    f'(x) = \sum_{k=0}^{+\infty} a_k (x-x_0)^k
+  \]
+  on a certain interval $I$, then the function
+  \begin{equation}\label{eq:4569903}
+    g(x) = f(x_0) + \sum_{k=0}^{+\infty} \frac{a_k}{k+1}x^{k+1}
+  \end{equation}
+    is also analytic on $I$ (since it is defined by a power series), but clearly
+  $g(x_0) = f(x_0)$ and $g'(x) = f'(x)$ for every $x\in I$, thus $g-f$ is
+  constantly equal to $0$, i.e., $f(x) = g(x)$.
+
+    The previous observation applies to the functions $\ln x$, $\arctg x$,
+  $\arcsin x$, and $\arccos x$ since their derivative is a power function and
+  therefore is analytic as already seen:
+  \begin{align*}
+    D \ln (1+x) &= \enclose{1+x}^{-1}, &
+    D \arctg x &= \enclose{1+x^2}^{-1}, \\
+    D \arcsin x &= \enclose{1+x^2}^{-\frac 1 2}, &
+    D \arccos x &= -\enclose{1+x^2}^{-\frac 1 2}.
+  \end{align*}
+
+    We then find the series expansions reported in table~\ref{tb:taylor2}, valid
+  within the radius of convergence of these series, i.e., for $x\in (-1,1)$.
+
+    We recall, however, theorem~\ref{th:lemma_abel} (Abel's lemma), which
+  guarantees that if we have a power series whose radius of convergence is $R$
+  and if the series is convergent at the point $x$ with $x=\pm R$, then the sum
+  of the series turns out to be a continuous function up to the point $x$. For
+  example, the sum of the Taylor series of the function $\ln(1+x)$ is continuous
+  at the point $x=1$ since at that point it is convergent (it is indeed the
+  alternating harmonic series, convergent by the Leibniz criterion). Thus, we
+  have
+  \begin{equation}\label{eq:somma_serie_leibniz}
+    \sum_{k=1}^{+\infty} \frac{(-1)^{k-1}} k 
+    = \lim_{x\to 1^-} \sum_{k=1}^{+\infty} (-1)^{k-1} \frac{x^k}{k}
+    = \lim_{x\to 1^-} \ln (1+x) = \ln 2 
+  \end{equation}
+    and the series expansion of the logarithm $\ln(1+x)$ is valid over the
+  entire semi-open interval $(-1,1]$.
+
+    The same holds for the functions $\arctg x$, $\arcsin x$, and $\arccos x$,
+  whose series are convergent over the entire closed interval $[-1,1]$.
+
+    Naturally, the coefficients of the Taylor series we have found now coincide
+  with the coefficients of the Taylor polynomials we had already found in
+  table~\ref{tb:taylor} on page \pageref{tb:taylor} since truncating the Taylor
+  series yields a polynomial that satisfies the Taylor formula~\eqref{eq:Taylor}
+  and is therefore precisely the Taylor polynomial.
+
+    The Taylor series of the functions $\sinh$ and $\cosh$ is immediately
+  obtained by summing or subtracting the Taylor series of $e^x$ and $e^{-x}$.
+\end{proof}
+
+The previous theorem allows us to write remarkable identities. Setting $x=1$ in
+the series that defines the logarithm, we have already observed that we obtain
+the sum of the alternating harmonic series of \emph{Newton-Mercator}%
+\mymargin{Newton-Mercator}%
+\index{Newton-Mercator}%
+\index{formula!of Newton-Mercator}%
+\index{series!of Newton-Mercator}%
+\index{series!harmonic!alternating}%
+\index{$\sqrt 2$!series expansion}%
+\begin{equation}\label{eq:serie_ln2}
+  \ln 2 = 1 - \frac 1 2 + \frac 1 3 - \frac 1 4 + \frac 1 5 - \frac 1 6 + \dots
+\end{equation}
+Setting $x=1$ in the Taylor series of the arctangent, we obtain the formula of
+\emph{Gregory-Leibniz}%
+\mymargin{Gregory-Leibniz}%
+\index{Gregory-Leibniz}
+\index{$\pi$!Gregory-Leibniz formula}%
+\index{Gregory!approximation $\pi$}%
+\index{Leibniz!approximation $\pi$}%
+\index{formula!of Gregory-Leibniz for $\pi/4$}%
+\[
+  \frac \pi 4 =
+   1 - \frac 1 3 + \frac 1 5 - \frac 1 7 + \frac 1 9 - \frac 1 {11} + \dots
+\]
+
+Even the series expansion of the arcsine determines a useful formula for
+calculating the decimal digits of $\pi$. For faster convergence, it is advisable
+to take $x$ as close to zero as possible; in the following exercise, we take
+$x=\frac 1 2$ to find the well-known approximation $\pi \approx 3.14$.
+
+\begin{exercise}[Calculating Digits of $\pi$]
+  \label{ex:cifre_pi}
+%  We can refine the calculation of the digits of $\pi$
+%  done in exercise~\ref{ex:4899264}.
+  Thanks to the Taylor expansion of the $\arcsin$ function, we know that
+  \[
+    \frac \pi 6
+    = \arcsin \frac 1 2
+        = \sum_{k=0}^{+\infty} \frac{(2k-1)!!}{(2k)!!} \frac{1}{(2k+1)\cdot
+    2^{2k+1}}
+  \]
+  thus
+  \[
+    \pi = 3 \sum_{k=0}^n \frac{(2k-1)!!}{(2k)!!} \frac{1}{(2k+1)\cdot 4^k} + \eps_{n+1}
+  \]
+  where
+  \begin{align*}
+   \eps_n
+   &= 3 \sum_{k=n}^{+\infty} \frac{(2k-1)!!}{(2k)!!} \frac{1}{(2k+1)\cdot 4^k}
+   \le 3 \sum_{k=n}^{+\infty} \frac{1}{(2k+1)\cdot 4^k} \\
+   &\le \frac{3}{(2n+1)\cdot 4^n} \sum_{k=0}^{+\infty} \frac{1}{4^k}
+   = \frac{3}{(2n+1)\cdot 4^n} \cdot \frac{1}{1-\frac 1 4}
+   = \frac{4}{(2n+1)\cdot 4^n}.
+ \end{align*}
+ For $n=3$, we thus obtain
+ \begin{align*}
+  \pi
+    &= 3 + \frac{3}{2\cdot 3 \cdot 4} + \frac{3\cdot 3}{4\cdot 2 \cdot 5 \cdot
+  4^2}
+  + \frac{3\cdot 5\cdot 3}{6\cdot 4\cdot 2 \cdot 7 \cdot 4^3} + \eps_4 \\
+  &= 3+\frac{1}{8} + \frac{9}{640} + \frac{45}{21504} + \eps_4
+\end{align*}
+ with
+ \[
+ 0 < \eps_4 < \frac{1}{9\cdot 4^3} < 0.0018
+ \]
+ from which
+ \[
+   3.141 < \pi < 3.143
+ \]
+
+  Using this method with a calculator, we can quickly find many exact digits, as
+ reported in table~\ref{tab:cifre_pi}.
+\end{exercise}
+%
+\begin{table}
+\begin{center}
+\begin{tabular}{r}
+\ttfamily\footnotesize 3.1415926535 8979323846 2643383279 5028841971 6939937510 \\
+\ttfamily\footnotesize   5820974944 5923078164 0628620899 8628034825 3421170679 \\
+\ttfamily\footnotesize   8214808651 3282306647 0938446095 5058223172 5359408128 \\
+\ttfamily\footnotesize   4811174502 8410270193 8521105559 6446229489 5493038196 \\
+\ttfamily\footnotesize   4428810975 6659334461 2847564823 3786783165 2712019091 \\
+\ttfamily\footnotesize   4564856692 3460348610 4543266482 1339360726 0249141273 \\
+\ttfamily\footnotesize   7245870066 0631558817 4881520920 9628292540 9171536436 \\
+\ttfamily\footnotesize   7892590360 0113305305 4882046652 1384146951 9415116094 \\
+\ttfamily\footnotesize   3305727036 5759591953 0921861173 8193261179 3105118548 \\
+\ttfamily\footnotesize   0744623799 6274956735 1885752724 8912279381 8301194912 \\
+\ttfamily\footnotesize   9833673362 4406566430 8602139494 6395224737 1907021798 \\
+\ttfamily\footnotesize   6094370277 0539217176 2931767523 8467481846 7669405132 \\
+\ttfamily\footnotesize   0005681271 4526356082 7785771342 7577896091 7363717872 \\
+\ttfamily\footnotesize   1468440901 2249534301 4654958537 1050792279 6892589235 \\
+\ttfamily\footnotesize   4201995611 2129021960 8640344181 5981362977 4771309960 \\
+\ttfamily\footnotesize   5187072113 4999999837 2978049951 0597317328 1609631859 \\
+\ttfamily\footnotesize   5024459455 3469083026 4252230825 3344685035 2619311881 \\
+\ttfamily\footnotesize   7101000313 7838752886 5875332083 8142061717 7669147303 \\
+\ttfamily\footnotesize   5982534904 2875546873 1159562863 8823537875 9375195778 \\
+\ttfamily\footnotesize   1857780532 1712268066 1300192787 6611195909 2164201989
+\end{tabular}
+\end{center}
+\caption{The first 1000 decimal digits of the number $\pi$ calculated using the method employed in exercise~\ref{ex:cifre_pi}. See the code on page~\pageref{code:compute_pi}.}
+\label{tab:cifre_pi}
+\index{$\pi$!decimal digits}
+\index{digits!$\pi$}
+\end{table}
+
+\begin{theorem}[Principle of Identity of Analytic Functions]
+    If $f$ and $g$ are two analytic functions defined on the same open interval
+  $I\subset \RR$, then the following are equivalent:
+  \begin{enumerate}
+   \item $f(x)=g(x)$ for every $x\in I$,
+   \item there exists $x_0\in I$ such that for every $k\in \NN$, we have $f^{(k)}(x_0) = g^{(k)}(x_0)$,
+   \item there exists $x_0\in I$ and $\rho>0$ such that for every $x\in I$ with $\abs{x-x_0}<\rho$, we have $f(x)=g(x)$.
+  \end{enumerate}
+  \end{theorem}
+  \begin{proof}
+    If $f=g$, then clearly the derivatives of $f$ and $g$ coincide at all
+  points, so $1\implies 2$.
+  
+    If $f$ and $g$ are analytic and $x_0\in I$, there exists a neighborhood of
+  the point $x_0$ in which both functions can be written as the sum of their
+  Taylor series. But if $f$ and $g$ have the same derivatives at the point
+  $x_0$, their Taylor series coincide, and thus the functions coincide within
+  the radius of convergence. Therefore, $2\implies 3$.
+  
+    We are left to prove that $3 \implies 1$. By hypothesis, we know that there
+  exists $x_0\in I$ such that $f(x) = g(x)$ in a neighborhood of $x_0$. Suppose,
+  for contradiction, that there exists at least one point $x\in I$ where $f(x)
+  \neq g(x)$. Without loss of generality, we can assume that $x>x_0$ and we can
+  take the infimum of such points:
+  \[
+    x_1 = \inf\ENCLOSE{x\in I\colon x>x_0, f(x)\neq g(x)}.
+  \]
+    We know that $x_1>x_0$ because in a neighborhood of $x_0$, the two functions
+  coincide by hypothesis. By definition of $x_1$, we also know that $f(x)=g(x)$
+  for every $x\in [x_0,x_1)$, and therefore, by differentiating, we can assert
+  that $f^{(k)}(x) = g^{(k)}(x)$ for every $k\in \NN$ and for every $x\in
+  [x_0,x_1)$. Since $f$ and $g$ are of class $C^\infty$, we can conclude, by
+  continuity, that also $f^{(k)}(x_1)=g^{(k)}(x_1)$ for every $k\in \NN$. Thus,
+  the two functions have the same derivatives at the point $x_1$. Since $f$ and
+  $g$ are analytic functions, we know that there is a neighborhood of the point
+  $x_1$ in which both functions coincide with the sum of their Taylor series.
+  But having the same derivatives at $x_1$, the two functions also have the same
+  Taylor series and thus coincide in a neighborhood of $x_1$. This is absurd
+  because, as we defined $x_1$, there must be points arbitrarily close to $x_1$
+  where $f(x)\neq g(x)$.
+  \end{proof}

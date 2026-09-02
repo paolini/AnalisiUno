@@ -1,0 +1,673 @@
+\section{Integral of a Rational Function}
+%
+In this section, we will present a method to explicitly calculate the integral
+of any rational function.
+\index{integral!of a rational function}%
+\index{primitive!of a rational function}%
+
+\begin{definition}[rational function]
+\mymargin{rational function}%
+\index{function!rational}%
+\index{rational!function}%
+A function $f\colon A \subset \RR \to \RR$
+is said to be \emph{rational} if it can be expressed in the form
+\[
+  f(x) = \frac{P(x)}{Q(x)}
+\]
+where $P$ and $Q$ are polynomial functions with real coefficients.
+\end{definition}
+
+The method we are going to present can be used "blindly" because once the
+decomposition is found, there is no need to know why the method works (and why
+it always works).
+The proof of why this method works is a non-trivial exercise in linear algebra
+to which we will dedicate the rest of this chapter because, all in all, we
+believe it is always useful to have an understanding of the tools being used.
+
+\subsection{Examples with Denominator of First and Second Degree}
+
+Before even stating the theorem and proving it, we want to present the method
+through examples.
+This is probably the simplest way to understand how to proceed.
+
+\begin{example}[denominator of degree $1$]
+  Calculate 
+  \[
+  \int \frac{x^3+1}{x-1}\, dx.  
+  \]
+\end{example}
+\begin{proof}[Solution.]
+We are faced with the integral of a rational function with a denominator of
+degree 1 and a numerator of degree 3.
+In general, when the degree of the numerator is not less than that of the
+denominator, one must first perform the division between polynomials
+(see~\ref{th:divisione_polinomi}). We find:
+\[
+\frac{x^3+1}{x-1} = x^2 + x + 1 + \frac{2}{x-1}.
+\]
+Calculating the integral of the quotient polynomial is always trivial:
+\[
+\int \enclose{x^2+x+1}  \, dx \ni \frac{x^3}{3} + \frac{x^2}{2} + x.
+\]
+Since the remainder in the division between polynomials has a degree lower than
+the denominator, we always reduce to the integral of a rational function where
+the numerator has a degree lower than the denominator.
+If the denominator has degree $1$, as in this example, the numerator will always
+have degree $0$ and thus is constant.
+Therefore, up to multiplicative constants, we always reduce to the integral of a
+function of the type $\frac{1}{x+c}$ whose primitive is a logarithm:
+\[
+ \int \frac{2}{x-1}\, dx \ni 2 \ln \abs{x-1} = \ln (x-1)^2
+\]
+In conclusion, one of the sought primitives is 
+\[
+  \int \frac{x^3+1}{x-1}\, dx \ni \frac{x^3}{3} + \frac{x^2}{2} + x + \ln (x-1)^2.
+\]
+\end{proof}
+
+\begin{example}[denominator of degree 2 with distinct real roots]
+Calculate 
+\[
+  \int \frac{x+1}{x^2-x}\, dx.
+\]
+\end{example}
+\begin{proof}[Solution.]
+The polynomial in the denominator factors as $x^2 -x = x (x-1)$. 
+Then the idea is to think that the second-degree denominator was obtained as a
+common denominator in a sum of rational functions with first-degree
+denominators:
+\begin{equation}\label{eq:541177}
+  \frac{x+1}{x(x-1)} \stackrel?= \frac{A}{x} + \frac{B}{x-1}  
+\end{equation}
+with $A,B\in \RR$ constants to be determined. 
+This is called \emph{partial fraction decomposition}.
+\index{decomposition!into partial fractions}%
+The constants can be determined by working backwards:
+\[
+  \frac{A}{x} + \frac{B}{x-1}    
+  = \frac{A(x-1) + Bx}{x(x-1)} \stackrel!= \frac{x+1}{x(x-1)}.
+\]
+For the equality to hold, we must have 
+\[
+  A(x-1) + Bx = (A+B)x - A \stackrel!= x+1  
+\]
+and thus $A+B = 1$ and $-A=1$ from which $A=-1$ and $B=2$.
+%
+\mynote{\textbf{method of residues.} 
+\index{residues!method of}%
+\index{method!of residues}%
+The coefficients $A$ and $B$ can also be found
+in the following way. 
+If I multiply equation~\eqref{eq:541177}
+by $x$ and then let $x$ tend to $0$,
+the term $B$ on the right-hand side cancels 
+and I immediately obtain $A=-1$. 
+If instead I multiply the equation by $x-1$ and then let $x$ tend to $1$,
+the term $A$ on the right-hand side cancels
+and I immediately obtain $B=2$.}
+%
+Thus 
+\[
+  \frac{x+1}{x(x-1)} = \frac{-1}{x} + \frac{2}{x-1}  
+\]
+and the primitive is a sum of logarithms:
+\[
+  \int \frac{x+1}{x^2-x}\, dx
+  \ni -\ln\abs{x} + 2 \ln \abs{x-1} 
+  = \ln \frac{(x-1)^2}{\abs{x}}.
+\]
+\end{proof}
+
+\begin{example}[denominator of second degree with a double root]
+Calculate 
+\[
+  \int \frac{x-1}{x^2+2x+1}\, dx
+\]
+\end{example}
+\begin{proof}[Solution.]
+The polynomial in the denominator is a perfect square $x^2+2x+1=(x+1)^2$.
+In this case, the partial fraction decomposition cannot have 
+the two denominators equal but one must raise a denominator to 
+the square:
+\begin{equation}\label{eq:2888323}
+\frac{x-1}{(x+1)^2} \stackrel?= \frac{A}{x+1} + \frac{B}{(x+1)^2}.  
+\end{equation}
+For the equality to hold, we must have
+\[
+\frac{A}{x+1} + \frac{B}{(x+1)^2} = \frac{A(x+1) + B}{(x+1)^2}  
+\stackrel!=\frac{x-1}{(x+1)^2}. 
+\]
+From which we find $Ax+A+B=x-1$ or $A=1$ and $B=-2$. 
+
+\mynote{\textbf{method of residues.} The coefficients $A$ and $B$ can also be found
+in the following way.
+If I multiply equation~\eqref{eq:2888323}
+by $(x+1)^2$ and then let $x$ tend to $-1$,
+the coefficient $A$ on the right-hand side disappears 
+and we immediately obtain $B=-2$.
+Now considering the fact that the term 
+with the coefficient $B$ compensates the first order of infinity 
+of the term on the left-hand side (formally: bring to the left 
+of the equation the term with coefficient $B$)
+if we multiply the equation by $x+1$ and then let $x$ tend to $-1$
+Now subtracting $-2/(x+1)^2$ from both sides eliminates 
+the coefficient $B$ and we immediately obtain $A=1$.}
+
+Thus 
+\[
+  \int \frac{x-1}{(x+1)^2}\, dx
+  = \int \frac{1}{x+1}\, dx - 2 \int \frac{1}{(x+1)^2}
+  \ni \ln \abs{x+1} + \frac{2}{x+1}. 
+\]
+\end{proof}
+
+\begin{example}[denominator of second degree irreducible]
+Calculate 
+\[
+ \int \frac{x+2}{x^2+2x+3}\, dx
+\]
+\end{example}
+\begin{proof}[Solution.]
+In this case, the denominator has no real roots (the discriminant is negative)
+and therefore cannot be factored.
+One must then proceed in two steps: 
+\begin{enumerate}
+  \item eliminate the term with $x$ in the numerator by subtracting 
+  an appropriate derivative of the denominator (thus obtaining the derivative 
+  of the logarithm of the denominator);
+  \item complete the square in the denominator to reduce to the 
+  derivative of the arctangent. 
+\end{enumerate} 
+For the first step, observe that $(x^2+2x+3)' = 2x+2$ and dividing the numerator
+by $2x+2$ gives $x+2 = \frac 1 2 (2x+2) + 1$ from which:
+\[
+\int \frac{x+2}{x^2+2x+3} \, dx
+= \frac 1 2 \int \frac{2x + 2}{x^2+2x+3}\, dx + \int \frac{1}{x^2+2x+3}\, dx. 
+\]
+But the first integral is immediate 
+\[
+\int \frac{2x+2}{x^2+2x+3}\, dx \ni \ln (x^2+2x+3).
+\]
+For the second integral, the idea is to complete the 
+square to eliminate the linear term and then 
+reduce with a change of variable 
+$y=(x+1)/\sqrt 2$, $dx = \sqrt 2 dy$ 
+to $\int \frac{1}{1+y^2}\, dy\ni \arctg y$:
+\[
+  \int \frac{1}{x^2+2x+3}\, dx 
+  = \int \frac{1}{\enclose{x+1}^2 + 2}\, dx 
+  = \frac 1 2 \int \frac{1}{\enclose{\frac{x+1}{\sqrt 2}}^2+1}\, dx 
+  \ni \frac{\sqrt 2}{2} \arctg \frac{x+1}{\sqrt 2}.
+\]
+In conclusion, the sought integral is:
+\[
+  \frac 1 2 \ln (x^2+2x+3) + \frac{\sqrt 2}{2} \arctg \frac{x+1}{\sqrt 2}.
+\]
+\end{proof}
+
+\subsection{Example of the General Method}
+
+The general method can be intuited with the following 
+example (decidedly more complicated).
+
+\begin{example}
+  Calculate
+  \[
+   \int \frac{x^{10}+x^8-x^6+1}{x^8-x^7+2x^6-2x^5+x^4-x^3}\, dx
+  \]
+\end{example}
+\begin{proof}[Solution.]
+First, we want to reduce to a rational function
+where the degree of the polynomial in the numerator is less
+than the degree of the polynomial in the denominator. To do this, we perform
+the division between polynomials
+(theorem~\ref{th:divisione_polinomi}):
+\[
+  \frac{x^{10}+x^8-x^6+1}{x^8-x^7+2x^6-2x^5+x^4-x^3}
+  = x^2 + x + \frac{x^4+1}{x^8-x^7+2x^6-2x^5+x^4-x^3}.
+\]
+The integral of $x^2+x$ is immediate, so we can focus
+on the rational function with numerator $x^4+1$.
+To proceed, it is now necessary to determine all the roots, real and complex, of
+the polynomial in the denominator so that it can be factored
+as a product of linear and quadratic factors
+(theorem~\ref{th:fattorizzazione_polinomio_reale}).
+There is no general method for finding the roots of a polynomial.
+In this particular case, it is observed
+that the polynomial is divisible by $x^3$. Then it is observed that the
+polynomial
+of degree five resulting is zero for $x=1$ (fortunate case!) and
+is therefore divisible by $x-1$ (Ruffini's theorem~\ref{th:Ruffini}).
+The polynomial of degree four
+is finally a perfect square, and we obtain the sought factorization:
+\[
+x^8-x^7+2x^6-2x^5+x^4-x^3 = x^3(x-1)(x^2+1)^2.
+\]
+Now Hermite's decomposition theorem (theorem~\ref{th:Hermite} which we will
+later prove)
+guarantees that every rational function of the form
+\[
+\frac{P(x)}{x^3(x-1)(x^2+1)^2}
+\]
+with $\deg P < 8$ (the degree of the denominator) can be
+written in the following way, with
+appropriate constants $A,B,C,\dots,H$:
+\begin{equation}\label{eq:438943}
+  \frac{A}{x} + \frac{B}{x-1} + \frac{Cx+D}{x^2+1}
+  + \enclose{\frac{Ex^3 + Fx^2 + G x + H}{x^2(x^2+1)}}'.
+\end{equation}
+The first terms have in the denominator the factors into which we have
+decomposed the denominator of the original function. In the numerator
+there is always a polynomial of degree less than the denominator
+and thus there is a constant above the linear factors and a linear function
+above the quadratic terms. Then we add the derivative of a function
+rational where the denominator has the same factors but raised to a
+power one less than what was in the original polynomial.
+In the numerator, again, a generic polynomial of degree less than the
+denominator.
+To find the coefficients $A,B,C, \dots, H$ 
+(the number of coefficients is equal to the degree of the polynomial in the
+denominator)
+it is sufficient to perform the derivative in~\eqref{eq:438943}, 
+put all terms over a common denominator 
+and equate with the original rational function:
+\mynote{%
+When performing the derivative of the rational function, it is convenient
+to consider the rational function as the product of the numerator
+by the reciprocals of the factors in the denominator and use the formula
+for the derivative of a product (instead of the formula for the derivative of
+the quotient)%
+}
+\begin{align*}
+  &\frac{A}{x} + \frac{B}{x-1} + \frac{Cx+D}{x^2+1}
+  + \frac{3 E x^2 + 2 F x + G}{x^2(x^2+1)} \\
+    & \quad + (E x^3 + F x^2 + G x + H)\cdot \left[\frac{-2}{x^3}\cdot
+  \frac{1}{x^2+1}
+  + \frac{1}{x^2}\cdot\frac{-2x}{(1+x^2)^2}\right]
+\end{align*}
+multiplying everything by $x^3(x-1)(x^2+1)^2$ we obtain
+\begin{align*}
+  &Ax^2(x-1)(x^2+1)^2 + Bx^3(x^2+1)^2 \\
+  &\quad + (Cx+D)x^3(x-1)(x^2+1) + (3Ex^2+2Fx+G)x(x-1)(x^2+1)\\
+  &\quad + (Ex^3+Fx^2+Gx+H)(-2(x-1)(x^2+1)-2x\cdot x(x-1))
+\end{align*}
+or
+\begin{align*}
+  &(A+B+C)x^7+(-A-C+D-E)x^6 + (2A+2B+C-D+E-2F)x^5 \\
+  &\quad  +(-2A-C+D+E+2F-3G)x^4 + (A+B-D-E+3G-4H)x^3 \\
+  &\quad  + (-A-G+4H)x^2 + (G-2H) x + 2H.
+\end{align*}
+Now we impose that this last polynomial is identically equal
+to the original polynomial $x^4+1$ obtaining the following linear system
+\[
+  \begin{dcases}
+    \scriptstyle
+    A+B+C=0 \\[-1ex]
+    \scriptstyle
+    -A-C+D-E=0 \\[-1ex]
+    \scriptstyle
+    2A + 2B + C - D + E - 2 F = 0\\[-1ex]
+    \scriptstyle
+    -2A-C+D+E+2F-3G = 1\\[-1ex]
+    \scriptstyle
+    A+B-D-E+3G-4H=0\\[-1ex]
+    \scriptstyle
+    -A-G+4H=0\\[-1ex]
+    \scriptstyle
+    G-2H=0\\[-1ex]
+    \scriptstyle
+    2H=1
+  \end{dcases}
+\]
+which, when solved, gives us: $A=1$, $B=\frac 1 2$, $C = -\frac 3 2$, $D=1$,
+$E=\frac 3 2$, $F=1$, $G=1$, $H=\frac 1 2$.
+We have obtained, ultimately:
+\begin{align*}
+\frac{x^4+1}{x^3(x-1)(x^2+1)^2}
+&= \frac{1}{x} + \frac{\frac 1 2}{x-1} + \frac{1 - \frac 3 2 x}{x^2+1}
++ \enclose{\frac{\frac 3 2 x^3 + x^2 + x + \frac 1 2}{x^2(x^2+1)}}'
+\end{align*}
+and observing that
+\[
+ \int \frac{1 - \frac 3 2 x}{x^2+1}\, dx
+ = \int \frac{1}{x^2+1}\, dx - \frac 3 4 \int \frac{2x}{x^2+1}\, dx
+ \ni \arctg x - \frac 3 4 \ln(x^2+1)
+\]
+we finally obtain
+\begin{align*}
+\int \frac{x^4+1}{x^3(x-1)(x^2+1)^2}\, dx
+ &\ni \ln \abs{x} + \frac 1 2 \ln\abs{x-1} + \arctg x - \frac 3 4 \ln(x^2+1) \\
+ &\quad + \frac{\frac 3 2 x^3 + x^2+x+\frac 1 2}{x^2(x^2+1)}
+\end{align*}
+\end{proof}
+
+The method outlined in the previous example is an algorithm 
+valid in general:
+\index{algorithm!for the integration of rational functions}%
+\index{integration!of rational functions!algorithm}%
+\index{function!rational!integration}%
+\index{decomposition!into partial fractions}%
+\index{decomposition!into partial fractions}%
+\begin{enumerate}
+  \item Perform the division with remainder to reduce
+  to the case where the numerator of the rational function
+  has a degree lower than the denominator.
+  \item Decompose the denominator as a product of
+  linear and quadratic polynomials.
+  \item Use Hermite's decomposition (theorem~\ref{th:Hermite})
+  to write the rational function as a sum of \emph{partial fractions}
+  plus the derivative of another rational function. The coefficients
+  of the decomposition are found by solving a linear system.
+  \item Integrate the partial fractions.
+\end{enumerate}
+
+To conclude the previous algorithm, it is necessary to know how to integrate the
+partial fractions. If the denominator is linear, the integral is immediate
+(resulting in a logarithm).
+
+If the denominator is quadratic, the integral can be slightly more complicated,
+and it is useful to know how to proceed. The quadratic terms
+will be of the form:
+\begin{equation}\label{eq:0943784}
+\frac{Ax + B}{x^2 + \alpha x + \beta}
+\end{equation}
+with $\alpha^2-4\beta<0$ (otherwise, the quadratic polynomial
+in the denominator can be decomposed into two linear factors, using
+the quadratic formula~\eqref{eq:secondo_grado}). The idea is to perform a linear
+change
+of variable to reduce to a denominator
+of the form $y^2+1$. To do this, use the method of completing the square as we
+have already done in~\eqref{eq:24589}:
+\[
+  x^2 + \alpha x + \beta
+  = \enclose{x+\frac\alpha 2}^2  + \beta - \frac{\alpha^2}{4}
+  = \dots
+\]
+at this point, factor out $\beta-\frac{\alpha^2}{4}$
+(which by hypothesis is positive)
+and bring it inside the square:
+\[
+ \dots = \enclose{\beta-\frac{\alpha^2}{4}}\cdot\Enclose{\enclose{\frac{x+\frac \alpha 2}{\sqrt{\beta -\frac{\alpha^2}{4}}}}^2 + 1}
+\]
+and thus through the substitution $y=\frac{x + \frac \alpha 2 }{\sqrt{\beta -
+\frac{\alpha^2}{4}}}$
+we have reduced our rational function~\eqref{eq:0943784}
+to the form
+\[
+  \frac{a y + b}{y^2 + 1} = \frac a 2 \frac{2y}{y^2+1} + b\frac{1}{y^2+1}
+\]
+which can be integrated immediately.
+
+\subsection{Partial Fraction Decomposition and Hermite Decomposition}
+\index{decomposition!into partial fractions}%
+\index{decomposition!into partial fractions}%
+\index{decomposition!of Hermite}%
+\index{decomposition!of Hermite}%
+
+In the following, we propose the statements and proofs that guarantee
+the functioning of the algorithm for the integration of rational functions.
+These proofs can hardly be completed
+without using a minimum of properties of complex functions. In particular, it is
+necessary to know that the derivatives of elementary complex functions
+(sums, products, quotients, composition) are carried out exactly
+with the same rules that apply to real functions (see
+chapter~\ref{sec:derivata_complessa}).
+
+\begin{lemma}[independence of partial fractions]
+\label{lemma:72995}
+Let $\lambda_1,$ $\dots,$ $\lambda_n \in \CC$ be distinct complex numbers
+and let $p_1,\dots,p_n \in \NN\setminus\ENCLOSE{0}$.
+Let $\Omega = \CC \setminus \ENCLOSE{\lambda_1, \dots, \lambda_n}$.
+Then the functions
+$u_{\lambda_k}^{j}\colon \Omega\subset \CC \to \CC$
+\begin{equation}
+\label{eq:483818}
+  u_{\lambda_k}^{j}(z) = \frac{1}{(z-\lambda_k)^{j}}
+  \qquad k=1,\dots,n, \quad j=1,\dots, p_k
+\end{equation}
+are linearly independent elements of the complex vector space
+$\CC^\Omega$.
+\end{lemma}
+%
+\begin{proof}
+We proceed by induction on the number of functions
+$N=p_1+ \dots + p_n$.
+If $N=1$, we have a single function that is not identically
+zero (in fact: it never vanishes)
+and thus constitutes a linearly independent set.
+
+Suppose then we have a set consisting of more functions
+in the form~\eqref{eq:483818}.
+and have
+a complex linear combination identically zero:
+\[
+\sum_{k=1}^n \sum_{j=1}^{p_k} \alpha_{k,j} u_{\lambda_k}^j = 0.
+\]
+Consider the function $f\colon \Omega \to \CC$
+defined by
+\begin{equation}
+\label{eq:567384}
+  f(z)
+    = (z-\lambda_n)^{p_n}\sum_{k=1}^n \sum_{j=1}^{p_k}
+  \frac{\alpha_{k,j}}{(z-\lambda_k)^{j}}
+    = \sum_{k=1}^n \sum_{j=1}^{p_k}
+  \alpha_{k,j}\frac{(z-\lambda_n)^{p_n}}{(z-\lambda_k)^{j}}.
+\end{equation}
+This function is identically zero
+in $\Omega$ as it is obtained by multiplying the identically
+zero linear combination by the factor $(z-\lambda_n)^{p_n}$.
+But it is observed that we have
+\[
+  \lim_{z\to \lambda_n} f(z) = \alpha_{n,p_n}
+\]
+since if $k\neq n$ we have
+\[
+\lim_{z\to \lambda_n}\frac{(z-\lambda_n)^{p_n}}{(z-\lambda_k)^{p_k}} = 0
+\]
+since $\lambda_k\neq \lambda_n$ and the numerator
+tends to zero, if instead $k=n$ and $j<p_n$ we still have
+\[
+\lim_{z\to \lambda_n}\frac{(z-\lambda_n)^{p_n}}{(z-\lambda_k)^{j}}
+= \lim_{z\to \lambda_n}(z-\lambda_n)^{p_n-j} = 0.
+\]
+Thus $\alpha_{n,p_n}=0$.
+But then we have a zero linear combination of $N-1$
+functions and by the inductive hypothesis, we can conclude
+that all other coefficients are also zero.
+\end{proof}
+
+\begin{theorem}[complex partial fraction decomposition]
+\label{th:fratti_semplici_complessi}%
+\index{decomposition!into complex partial fractions}%
+\index{decomposition!into complex partial fractions}%
+\index{partial fractions!complex decomposition}%
+If $\lambda_1, \dots, \lambda_n$ are the distinct complex roots
+of the polynomial $Q$ with complex coefficients,
+and $p_1,\dots, p_n$ are the respective multiplicities
+with $p_1 + \dots + p_n = \deg Q$
+and if $P$ is any polynomial with complex coefficients
+with $\deg P < \deg Q$,
+then there exist unique polynomials $R_1, \dots, R_n$
+with complex coefficients with $\deg R_k < p_k$ such that
+\begin{equation}\label{eq:46772341}
+  \frac{P(z)}{Q(z)}
+  = \sum_{k=1}^n \frac{R_k(z)}{(z-\lambda_k)^{p_k}}
+  \qquad \forall z \in \CC\setminus\ENCLOSE{\lambda_1,\dots,\lambda_n}.
+\end{equation}
+\end{theorem}
+%
+\begin{proof}
+Let $N=\deg Q$ and consider
+the set of polynomials with complex coefficients
+of degree less than $N$:
+\[
+  V_N = \ENCLOSE{P\in \CC[z]\colon \deg P < N}.
+\]
+This is a vector subspace of
+$V=\CC^\Omega$ and has dimension
+$N$ (a basis is given by the monomials $1, z, z^2, \dots, z^{N-1}$).
+Consequently, it is easy to verify that also the vector space
+\[
+  W_Q = V_N \cdot \frac{1}{Q} = \ENCLOSE{\frac{P}{Q}\colon \text{$\deg P < N$}}
+\]
+whose elements are the rational functions on the left side
+of~\eqref{eq:46772341},
+has the same dimension $\dim W_Q = \dim V_N = N$.
+On the other hand, the right side of~\eqref{eq:46772341}
+is a linear combination of functions
+$u_{\lambda_k}^j = 1/(z-\lambda_k)^j$ which are
+also elements of $W_Q$ since $(z-\lambda_k)^j$ divides $Q(x)$
+if $j\le p_k$.
+But by lemma~\ref{lemma:72995} the vectors $u_{\lambda_k}^j$ are
+$N$ independent vectors and thus
+are a basis of $W$.
+This means that every element of $W$ can
+be uniquely written as a linear combination of the
+$u_{\lambda_k}^j$, that is, for every
+polynomial $P$ with $\deg P < \deg Q$ we have
+\begin{equation}\label{eq:458934}
+ \frac{P(z)}{Q(z)}
+ = \sum_{k=1}^n \sum_{j=1}^{p_k} \frac{A_{k,j}}{(z-\lambda_k)^j}
+  = \sum_{k=1}^n \frac{\displaystyle \sum_{j=1}^{p_n} A_{k,j}\cdot
+ (z-\lambda_k)^{p_n-j}}{(z-\lambda_k)^{p_n}}
+\end{equation}
+and setting
+\[
+  R_k(z) = \sum_{j=1}^{p_n} A_{k,j}\cdot(z-\lambda_k)^{p_n-j}
+\]
+it is clear that $R_k$ is a polynomial of degree less than $p_n$
+uniquely determined by the coefficients $A_{k,j}$.
+\end{proof}
+
+
+\begin{theorem}[Hermite decomposition]
+\label{th:Hermite}%
+\index{Hermite!decomposition into partial fractions}%
+\index{theorem!of Hermite}%
+Let $Q(x)$ be a monic polynomial with real coefficients
+with real roots $\lambda_1, \dots, \lambda_n$ of multiplicity
+$p_1, \dots, p_n$ and non-real complex conjugate roots
+$\mu_1, \bar \mu_1, \dots, \mu_m, \bar \mu_m$ of multiplicity
+$q_1, \dots, q_m$. Setting $\alpha_k = 2\Re \mu_k$ and $\beta_k = \abs{\mu_k}^2$
+we can write (thanks to theorem~\ref{th:fattorizzazione_polinomio_reale})
+\begin{equation}\label{eq:8845638}
+    Q(x) = \prod_{k=1}^n (x-\lambda_k)^{p_k} \cdot \prod_{k=1}^m (x^2+ \alpha_k
+  x + \beta_k)^{q_k}.
+\end{equation}
+Let $P(x)$ be any polynomial with real coefficients
+with $\deg P < \deg Q$.
+
+Then setting
+\[
+ \tilde Q(x) = \prod_{k=1}^n (x-\lambda_k)^{p_k-1} \cdot \prod_{k=1}^m (x^2+\alpha_k x+\beta_k)^{q_k-1}
+\]
+there exist (unique) real coefficients
+$A_1,\dots, A_n$, $B_1, \dots, B_m$, $C_1,\dots, C_m$
+and a polynomial with real coefficients $R(x)$ with $\deg R < \deg \tilde Q$
+such that:
+\begin{equation}\label{eq:scomposizione_hermite}
+  \frac{P(x)}{Q(x)} = \sum_{k=1}^n \frac{A_k}{x-\lambda_k}
+  + \sum_{k=1}^m \frac{B_k x + C_k}{x^2+\alpha_k x + \beta_k}
+  + \enclose{\frac{R(x)}{\tilde Q(x)}}'.
+\end{equation}
+By performing the derivative, the right side can be
+rewritten with a common denominator $Q(x)$
+and by equating the numerators of the right and left sides
+a linear system with $\deg Q$ unknowns will be obtained
+which will have a unique solution.
+\end{theorem}
+%
+\begin{proof}
+Consider the functions
+\begin{align*}
+   u_\lambda^j(z) &= \frac{1}{(z-\lambda)^j}\\
+   v_\mu(z) &= \frac{1}{z^2-2 \Re \mu\cdot z + \abs{\mu}^2},\\
+   w_\mu(z) &= \frac{z}{z^2-2 \Re \mu\cdot z + \abs{\mu}^2},\\
+   t_j(z) &= \frac{z^j}{\tilde Q(z)}.
+\end{align*}
+Let $\lambda_1, \dots, \lambda_N$ be all the complex roots
+of the polynomial $Q(z)$ with $p_1, \dots, p_N$
+the respective multiplicities.
+Thanks to lemma~\ref{lemma:72995}, we can assert,
+as we did in the proof of
+theorem~\ref{th:fratti_semplici_complessi}, that the
+vector space $V_Q$ of all rational functions of the form $\frac{P(z)}{Q(z)}$
+with $Q$ fixed and $\deg P<\deg Q$
+is generated by the linear combinations
+with complex coefficients of the functions
+\[
+  u_{\lambda_k}^j, \qquad k=1, \dots, N, \quad j=1, \dots, p_k.
+\]
+Similarly, the vector space $V_{\tilde Q}$
+is generated by the functions
+\[
+  u_{\lambda_k}^j, \qquad k=1, \dots, N, \quad j=1, \dots, p_k-1.
+\]
+Now observe that for $j>1$ we have
+\[
+ \frac {d}{dz} u_\lambda^{j-1} =
+ \frac {d}{dz} \frac{1}{(z-\lambda)^{j-1}}
+ = \frac{1-j}{(z-\lambda)^j} = (1-j) u_\lambda^j
+\]
+which means that the linear operator $\frac d {dz}$
+maps $V_{\tilde Q}$ into $V_Q$, more precisely
+the image of $\frac{d}{dz} V_{\tilde Q}$ is the subspace
+of $V_Q$ generated by the functions $u_{\lambda_k}^j$
+with $j>1$. Such an operator
+is also injective as it maps vectors of
+the basis of $V_{\tilde Q}$ into vectors of the basis of $V_Q$
+which are certainly independent.
+We thus have a decomposition into a direct sum:
+\[
+  V_Q = V_1 \oplus \frac{d}{dz} V_{\tilde Q}
+\]
+where $V_1$ is the space generated
+by the functions $u_{\lambda_1}^1, \dots, u_{\lambda_N}^1$.
+
+But also the functions $t_0, \dots, t_{M-1}$ with $M=\deg \tilde Q$
+are a basis of $V_{\tilde Q}$, thus a basis
+of $V_Q$ is given by
+\[
+  u_{\lambda_1}, \dots, u_{\lambda_N},
+  t_0', \dots, t_{M-1}'
+\]
+where $t_m'$ is the derivative of $t_m$.
+Therefore, since every linear combination
+of $u_{\mu}$ and $u_{\bar \mu}$ can be written
+as a linear combination of $v_\mu$ and $w_\mu$
+we obtain that another basis of $V_Q$ is
+\begin{equation}\label{eq:63928}
+  u_{\lambda_1}, \dots, u_{\lambda_n},
+  v_{\mu_1}, \dots, v_{\mu_m},
+  w_{\mu_1}, \dots, w_{\mu_m},
+  t_0', \dots, t_{M-1}'.
+\end{equation}
+For brevity, we call $e_1, \dots, e_N$
+the basis of $V_Q$ listed in~\eqref{eq:63928}.
+Each of these functions can be written as
+a ratio of polynomials with real coefficients
+whose denominator is a divisor of the polynomial $Q$
+which is also a polynomial with real coefficients.
+Thus the functions $Q\cdot e_1, \dots, Q\cdot e_N$
+are actually polynomials with real coefficients
+and must necessarily be a basis of the complex vector space $Q\cdot V_Q$, which
+is nothing but the set
+of all polynomials with complex coefficients
+of degree less than $N$. In particular, these polynomials
+are independent.
+But then, viewed as polynomials with
+real coefficients, they are also independent and are thus
+a basis of the space of all polynomials with real coefficients
+of degree less than $N$.
+Therefore, there must exist real coefficients $\alpha_1, \dots, \alpha_N$
+such that we have
+\[
+  P(x) = \sum_{k=1}^N \alpha_k\cdot Q(x)\cdot e_k(x)
+\]
+from which
+\[
+  \frac{P(x)}{Q(x)} = \sum_{k=1}^N \alpha_k \cdot e_k(x).
+\]
+Recalling that the functions $e_k$ are nothing but the functions
+listed in~\eqref{eq:63928}, we finally obtain the sought decomposition.
+\end{proof}

@@ -1,0 +1,447 @@
+\section{The Cauchy Problem}
+%%%%%
+%%%%%
+%%%%%
+%%%%%
+
+The Cauchy problem for first-order systems consists of finding a solution to a
+system of $n$ first-order ordinary differential equations in $n$ unknowns $u_1,
+\dots, u_n$ with a given initial condition. That is, given $x_0\in \RR$, and
+$\vec y_0 \in \RR^n$, we seek an interval $I\subset \RR$ with $x_0\in I$ and a
+function $\vec u \colon I\to \RR^n$, $\vec u = (u_1, \dots, u_n)$, such that
+$\vec u$ is differentiable and satisfies:
+\begin{equation}\label{eq:problema_cauchy}
+\begin{cases}
+ \vec u'(x) = \vec f(x, \vec u(x)), \qquad \forall x\in I\\
+ \vec u(x_0) = \vec y_0.
+\end{cases}
+\end{equation}
+
+\subsection{Local Existence and Uniqueness}
+
+\begin{theorem}[Cauchy-Lipschitz: Local Existence and Uniqueness]%
+  \label{th:cauchy_lipschitz}%
+  \index{Cauchy!Cauchy-Lipschitz theorem}%
+  \index{theorem!Cauchy-Lipschitz}%
+  \index{theorem!local existence and uniqueness}%  
+Let $a\le x_0 \le b$, $R>0$, $\vec y_0 \in \RR^n$. Let $K=\ENCLOSE{\vec y\in
+\RR^n \colon \abs{\vec y - \vec y_0}\le R}\subset \RR^n$ and let $\vec f\colon
+[a,b]\times K\to \RR^n$ be a function with the properties:
+\begin{enumerate}
+  \item $\vec f$ is continuous,
+  \item there exists $L>0$ such that for every $x\in [a,b]$, and every $\vec y_1,\vec y_2 \in K$, we have 
+  \begin{equation}\label{eq:hp_lipschitz}
+  \abs{\vec f(x, \vec y_2) - \vec f(x,\vec y_1)} \le L \abs{\vec y_2- \vec y_1}.  
+  \end{equation}
+\end{enumerate}
+
+Then there exists $\delta>0$ such that, given any interval $I$ with $x_0 \in I
+\subset [a,b]\cap [x_0-\delta, x_0+\delta]$, there exists a unique
+differentiable function $\vec u\colon I \to K$ that solves the Cauchy
+problem~\eqref{eq:problema_cauchy}.
+\end{theorem}
+%
+\begin{proof}
+  \emph{Step 1.}
+    First, we want to show that a function $\vec u\colon I\to K\subset \RR^n$ is
+  differentiable and solves the Cauchy problem~\eqref{eq:problema_cauchy} if and
+  only if $\vec u$ is continuous and solves the integral equation
+  \begin{equation}\label{eq:problema_cauchy_integrale}
+  \vec u(x) = \vec y_0 + \int_{x_0}^x \vec f(t,\vec u(t))\, dt.
+  \end{equation}
+
+    If $\vec u$ is differentiable and $\vec u'(x) = \vec f(x, \vec u(x))$ for
+  every $x\in I$, then since $\vec f$ is continuous, the function $\vec f(t,\vec
+  u(t))$ is continuous (theorem~\ref{th:continuita_funzione_composta_metrico}),
+  and thus $\vec u$ is of class $C^1$. We can then integrate both sides and
+  obtain:
+  \[
+   \int_{x_0}^x \vec u'(t)\, dt = \int_{x_0}^x \vec f(t,\vec u(t))\, dt.  
+  \]
+    By the fundamental theorem of calculus, the left side equals $\vec u(x) -
+  \vec u(x_0) = \vec u(x) - \vec y_0$, thus establishing the validity
+  of~\eqref{eq:problema_cauchy_integrale}.
+
+    Conversely, if $\vec u$ is continuous and
+  satisfies~\eqref{eq:problema_cauchy_integrale}, then, again by the fundamental
+  theorem of calculus, we can assert that the integral on the right side of the
+  equality~\eqref{eq:problema_cauchy_integrale} is a differentiable function
+  with derivative $\vec f(x,\vec u(x))$, and thus the left side is
+  differentiable, and $\vec u'(x) = \vec f(x,\vec u(x))$ for every $x\in I$. We
+  have already observed that if $\vec u$ is continuous, this function (which is
+  the derivative of $\vec u$) is also continuous, and thus $\vec u$ is of class
+  $C^1$. For $x=x_0$, the integral vanishes, and thus we also obtain $\vec
+  u(x_0) = \vec y_0$, concluding that indeed $\vec u$ solves the Cauchy
+  problem~\eqref{eq:problema_cauchy}.
+
+  \emph{Step 2.}
+    Since $[a,b]\times K$ is a closed and bounded set in $\RR \times \RR^n$, the
+  Weierstrass theorem guarantees that there exists $M>0$ such that $\abs{\vec
+  f(x,y)}\le M$ for every $x\in [a,b]$ and every $y\in K$. Choose $\delta >0$
+  such that $\delta \le \frac{R}{M}$ and $\delta < \frac {1}{L}$, and take the
+  interval $I = [a,b]\cap [x_0-\delta,x_0+\delta]$. Now consider the set
+  $X=C(I,K)\subset C(I,\RR^n)$ of all continuous functions $\vec u\colon I\to K$
+  and equip $X$ with the uniform distance $d_\infty$. It is easy to observe that
+  $X$ is a closed subspace of $\B(I,\RR^n)$ (the bounded functions defined on
+  $I$), and since the latter is a complete space
+  (theorem~\ref{th:limitate_completo}), $X$ is also complete
+  (theorem~\ref{th:chiuso_completo}).
+
+  Define on $X$ the operator $T\colon X \to C(I,\RR^n)$ as follows:
+  \[
+    T(\vec u)(x) = \vec y_0 + \int_{x_0}^x \vec f(t,\vec u(t))\, dt.
+  \]
+    Observe that the equation~\eqref{eq:problema_cauchy_integrale} can be
+  rewritten as a fixed-point equation: $T(\vec u) = \vec u$. Our aim is thus to
+  use the contraction theorem~\ref{th:banach-caccioppoli}.
+
+  \emph{Step 3.}
+    First, we demonstrate that $T(X)\subset X$ so that we can consider $T$ as an
+  operator $T\colon X\to X$ that maps $X$ into itself. Let $\vec v = T(\vec u)$;
+  we have (theorem~\ref{th:stima_modulo_integrale}):
+  \begin{align*}
+    \abs{\vec v(x)-\vec y_0} 
+    &= \abs{\int_{x_0}^x \vec f(t, \vec u(t))\, dt} 
+    \le \abs{\int_{x_0}^x \abs{\vec f(t,\vec u(t))}\, dt}\\
+    &\le \abs{\int_{x_0}^x M\, dt } 
+    = \abs{x-x_0}\cdot M \le \delta \cdot M.
+  \end{align*}
+Since we have chosen $\delta \le \frac{R}{M}$, it follows that $v(x) \in K$ for
+every $x\in I$, and thus indeed $T(u)\in K$.
+
+\emph{Step 4.}
+Finally, we demonstrate that $T$ is a contraction. If $\vec u,\vec v\in X$, we
+have, using the hypothesis~\eqref{eq:hp_lipschitz} with $x=t$, $\vec y_1=\vec
+u(x)$, $\vec y_2 = \vec v(x)$,
+\begin{align*}
+\abs{T(\vec u)(x)-T(\vec v)(x)} 
+    &= \abs{\int_{x_0}^x \vec f(t,\vec u(t))\, dt - \int_{x_0}^x \vec f(t,\vec
+  v(t))\, dt} \\
+  &\le \abs{\int_{x_0}^x \abs{\vec f(t,\vec u(t))- \vec f(t,\vec v(t))}\, dt }\\
+  &\le \abs{\int_{x_0}^x L\cdot  \abs{\vec u(t) - \vec v(t)}\, dt} 
+  \le \abs{\int_{x_0}^x L \cdot d_\infty(\vec u, \vec v)\, dt}  \\
+  &=\abs{x-x_0}\cdot L \cdot d_\infty(\vec u,\vec v)
+  \le \delta \cdot L \cdot d_\infty(\vec u,\vec v).
+\end{align*}
+Having chosen $\delta < \frac{1}{L}$, we have $\delta L<1$, and thus indeed the
+operator $T$ is a contraction. Therefore, the hypotheses of the contraction
+theorem~\ref{th:banach-caccioppoli} are verified, which guarantees the existence
+and uniqueness of the fixed point $\vec u$.
+
+But we have already observed that $T(\vec u) = \vec u$ is equivalent to the
+Cauchy problem~\eqref{eq:problema_cauchy}, and thus the proof is complete.
+\end{proof}
+
+\begin{definition}[Cauchy-Lipschitz]%
+\label{def:cauchy_lipschitz}%
+We say that a function $\vec f\colon \Omega\subset \RR\times \RR^n \to \RR^m$
+satisfies the \emph{Cauchy-Lipschitz property}%
+\mymargin{Cauchy-Lipschitz property}\index{Cauchy-Lipschitz property} if $f$ is continuous and if for every $(x_0,\vec y_0)\in \Omega$, there exist $a<x_0$, $b>x_0$, $R>0$, and $L>0$ such that the hypotheses of theorem~\ref{th:cauchy_lipschitz} are satisfied.
+\end{definition}
+ 
+The Cauchy-Lipschitz condition may seem rather complicated to verify. A much
+simpler condition is that the function $\vec f$ is of class $C^1$. The following
+proposition tells us that this condition is sufficient to apply the
+Cauchy-Lipschitz theorem.
+
+\begin{proposition}%
+\mymark{***}%
+Let $\Omega \subset \RR\times \RR^n$ be an open set. If $\vec f\in
+C^1(\Omega,\RR^m)$, then $f$ satisfies the Cauchy-Lipschitz condition
+(definition~\ref{def:cauchy_lipschitz}).
+
+In particular, thanks to theorem~\ref{th:cauchy_lipschitz}, for every $(x_0,\vec
+y_0)\in \Omega$, there exists an open interval $I$ containing the point $x_0$
+and there exists a unique solution $u$ of the Cauchy
+problem~\eqref{eq:problema_cauchy} defined on this interval $I$.
+\end{proposition}
+%
+\begin{proof}
+\mymark{***}%
+If we take any cylinder $[a,b]\times K$ with 
+\[
+  K=\ENCLOSE{\vec y\in \RR^n\colon \abs{\vec y-\vec y_0}\le R}, 
+\]
+$\vec y_0\in \Omega$, $K\subset \Omega$, we know that each partial derivative
+$\partial f_k / \partial y_j$ is continuous and thus bounded (by the Weierstrass
+theorem) on $[a,b]\times K$. Let $L_{k,j}$ be the maximum of $\abs{\partial f_k
+/ \partial y_j}$ on $K$, and let $L$ be the maximum of the $L_{k,j}$ for
+$k=1,\dots m$ and $j=1\dots,n$. Then, for $\vec y, \vec z\in K$, we can
+decompose the vector increment $\vec z - \vec y$ along the $n$ coordinate
+directions and apply the Lagrange theorem along each direction. For each $k =
+1,\dots, m$, we have:
+\begin{align*}
+\MoveEqLeft
+\abs{f_k(x,\vec z)-f_k(x,\vec y)}\\
+&\le \sum_{j=1}^n \abs{f_k(x,z_1, \dots, z_j, y_{j+1}, \dots, y_n) - f_k(x,z_1,
+\dots, z_{j-1}, y_j, \dots, y_n)}\\
+&\le \sum_{j=1}^n L_{k,j} \abs{z_j-y_j}
+\le \sum_{j=1}^n L_{k,j} \abs{\vec z-\vec y}
+\le n L \abs{\vec z-\vec y}
+\end{align*}
+from which
+\begin{align*}
+  \abs{\vec f(x,\vec z) - \vec f(x,\vec y)}
+  &= \sqrt{\sum_{k=1}^m \abs{f_k(x,\vec z) - f_k(x,\vec y)}^2} 
+  \le \sqrt{\sum_{k=1}^m n^2 L^2 \abs{\vec z-\vec y}^2} \\
+  &\le n\sqrt{m} L \abs{\vec z-\vec y} = L' \abs{\vec z-\vec y}.
+\end{align*}
+\end{proof}
+
+The Cauchy-Lipschitz theorem guarantees the existence of a solution defined in a
+small interval $[x_0-\delta_0, x_0+\delta_0]$ around the initial point $x_0$. If
+we choose $x_1 = x_0+\delta_0$, we can apply the same theorem again to find a
+solution defined in the interval $[x_1, x_1+\delta_1]$ that coincides with the
+previous solution at the point $x_1$. The two solutions can be glued together to
+obtain a solution defined on the union of the two intervals. This process can be
+repeated infinitely, but the intervals might become progressively smaller, so
+there is no guarantee of obtaining a solution defined on increasingly larger
+intervals. In the following, we will try to understand how large the
+\emph{maximal} interval on which the solution can be extended can be.
+
+\begin{definition}[maximal solution/interval]
+Let $I\subset \RR$ be a non-empty interval and let $\vec u \colon I \to \RR^n$
+be a solution of a differential equation.
+
+If $J\supset I$, $J \neq I$ is an interval, and if $\vec v\colon J \to \RR^n$
+solves the same differential equation and if $\vec v(x)=\vec u(x)$ for every
+$x\in I$, we will say that $\vec v$ is an \emph{extension of the solution}%
+\mymargin{extension of the solution}\index{extension of the solution} $u(x)$.
+
+If the solution $\vec u$ admits no extensions, we will say that $\vec u$ is a
+solution defined on a maximal interval or, more simply, we will say that $\vec
+u$ is a \emph{maximal solution}%
+\mymargin{maximal solution}\index{maximal solution}.
+\end{definition}
+
+\begin{proposition}[characterization of maximal solutions]
+\label{prop:edo_massimale}
+Let $\Omega \subset \RR\times \RR^n$ be an open set and suppose that $\vec
+f\colon \Omega\subset \RR\times\RR^n\to\RR^n$ is a continuous function that
+satisfies the Cauchy-Lipschitz condition
+(definition~\ref{def:cauchy_lipschitz}). Then a solution $\vec u$ of the
+equation
+\begin{equation}\label{eq:edo_normale_ordine_uno}
+  \vec u'(x) = \vec f(x, \vec u(x))
+\end{equation}
+defined on an interval $I$ is maximal if and only if $I$ is open and for every
+compact $K\subset \Omega$ and for every $x_0 \in I$, there exist $x_1,x_2\in I$,
+$x_1 < x_0 < x_2$ such that $(x_1, \vec u(x_1))\not \in K$ and $(x_2,\vec
+u(x_2)) \not \in K$. This means that the graph of $\vec u$, i.e., the curve
+$(x,\vec u(x))$, exits any compact $K\subset \Omega$ both as $x$ increases to
+the right and as $x$ decreases to the left. Intuitively, the graph of the
+maximal solution tends to reach the boundaries of $\Omega$.
+\end{proposition}
+%
+\begin{proof}
+\emph{First implication}.
+Suppose that $\vec u\colon I \to \RR^n$ is a solution
+of~\eqref{eq:edo_normale_ordine_uno} defined on a maximal interval $I$. It must
+be that $(x,\vec u(x))\in \Omega$ for every $x\in I$.
+
+First, we show that $I$ is an interval open to the right: if it were not, we
+would have $x_0=\sup I \in I$. Then $(x_0,\vec u(x_0))\in \Omega$, and by the
+local existence and uniqueness theorem, we could find a small interval
+$J=[x_0,x_0+\delta]$ and a function $\vec v\colon J\to \RR^n$ that
+solves~\eqref{eq:edo_normale_ordine_uno} with $\vec v(x_0)=\vec u(x_0)$. By
+taking the union of the two graphs, we obtain an extension of $\vec u$ to the
+entire interval $I\cup J$, which is strictly larger than $I$. Thus, $\vec u$
+could not have been a maximal solution.
+
+Now, we show that the curve $(x,\vec u(x))$ exits every compact $K\subset
+\Omega$ both from the right and from the left. Suppose, for contradiction, that
+there exists a compact $K$ such that $(x,\vec u(x))\in K$ for every $x\in I$.
+The graph $(x,\vec u(x))$ is bounded for $x\in I$, so certainly $I$ must be
+bounded. Moreover, we have seen that $I$ is open, so $I=(a,b)$ with $a,b\in
+\RR$, $a<b$.
+
+Then for every $x\in I=(a,b)$, we have
+\[
+  \abs{\vec u'(x)} = \abs{\vec f(x, \vec u(x))}
+   \le \sup_K \abs{\vec f}.
+\]
+Since $\vec f$ is continuous, the function $\abs{\vec f}$ has a maximum on $K$
+by the Weierstrass theorem, and thus the bounded function $\vec u$ has a
+derivative $\vec u'(x)=\vec f(x,\vec u(x))$ that is also bounded. We can then
+apply exercise~\ref{ex:estensione_continua_derivata_limitata} or
+theorem~\ref{th:estensione_uniformemente_continua} (having observed that $\vec
+u$ is Lipschitz continuous by theorem~\ref{th:lipschitz_uniformemente_continua}
+and thus uniformly continuous) to deduce that $\vec u$ can be extended
+continuously to the endpoints $a$ and $b$ of the interval $I$.
+
+Since $(x,\vec u(x)) \in K$ for every $x\in(a,b)$ and since $\vec v(b) =
+\lim_{x\to b^-}\vec u(x)$, being $K$ closed, we can assert that $(b,\vec v(b))
+\in K$. The same holds for $x\to a^+$, thus $(a,\vec v(a))\in K$, and thus
+$(x,\vec v(x))\in K \subset \Omega$ for every $x\in [a,b]$. We now want to
+verify that $\vec v$ is a solution of the differential
+equation~\eqref{eq:edo_normale_ordine_uno}. Clearly, $\vec v$ satisfies the
+equation for every $x\in (a,b)$ since it coincides with $\vec u$ on $(a,b)$,
+which is a solution. Consider the endpoint $b$. Since $\vec v$ is continuous at
+$b$ and $\vec f$ is continuous at $(b,\vec v(b))$, we have
+\[
+  \lim_{x\to b^-} \vec v'(x)
+  = \lim_{x\to b^-} \vec f(x,\vec  v(x))
+  = \vec f(b,\vec v(b)) \in \RR^n.
+\]
+However, we know that if the limit of the derivative of a continuous function
+exists and is finite, then the function is differentiable at the limit point,
+and the derivative is continuous at that point (proposition~\ref{prop:4384774}).
+Thus, $\vec v$ is differentiable at $b$ and also satisfies the differential
+equation at that point. The same holds at point $a$. Thus, we have found an
+extension $\vec v$ of $\vec u$, contradicting the assumption that $\vec u$ was a
+maximal solution.
+
+\emph{Second implication}. Now suppose $\vec u\colon I\to \RR^n$ is a solution of the differential equation~\eqref{eq:edo_normale_ordine_uno} defined on an interval $I$ such that the curve $(x,\vec u(x))$ exits every compact $K$ as $x$ varies in $I$. We want to show that $\vec u$ is a maximal solution. First, $I$ cannot be compact; otherwise, $K=\ENCLOSE{(x,\vec u(x))\colon x \in I}$ would also be a compact subset of $\Omega$, and obviously, the curve does not exit $K$. Let $a=\inf I$ and $b=\sup I$. Since $I$ is not closed, it does not contain one of the two endpoints: suppose it is $b$. Then if $\vec u$ were extendable to the right, there would exist a continuous extension $\vec v\colon (a,b]\to \RR^n$ that coincides with $\vec u$ on $(a,b)$ and satisfies the differential equation, so in particular, $(b,\vec v(b))\in \Omega$. But then, choosing $x_0 \in (a,b)$, take $K=\ENCLOSE{(x,\vec v(x))\colon x\in [x_0,b]}$. Since $\vec v\colon[x_0,b]\to \RR^n$ is continuous, it is easy to verify that $K$ is closed and bounded, $K\subset \Omega$. But obviously, $(x,\vec v(x))\in K$ for every $x\ge x_0$, against the hypotheses.
+\end{proof}
+
+\begin{proposition}[separation of solutions]
+\label{prop:separazione_soluzioni}%
+If $\vec f\colon \Omega\subset \RR \times \RR^n\to \RR^n$ satisfies the
+Cauchy-Lipschitz condition (definition~\ref{def:cauchy_lipschitz}), and if $\vec
+u\colon I \to \RR^n$ and $\vec v\colon J\to\RR^n$ are two solutions of the
+differential equation $\vec u'(x) = \vec f(x,\vec u(x))$ defined on two
+intervals $I,J \subset \RR$, and if there exists $x_0\in I\cap J$ such that
+$\vec u(x_0) = \vec v(x_0)$, then $\vec u(x) = \vec v(x)$ for every $x\in I\cap
+J$. In other words, under the hypotheses of the existence and uniqueness
+theorem, the graphs of two different solutions defined on an interval cannot
+intersect.
+\end{proposition}
+%
+\begin{proof}
+Let $x_0 \in I\cap J$ be a point where $\vec u(x_0) = \vec v(x_0)$, and suppose,
+for contradiction, that there exists $x_2 \in I\cap J$ such that $\vec
+u(x_2)\neq \vec v(x_2)$. In this case, we can consider the point
+\[
+   x_1 = \sup \ENCLOSE{x \in [x_0,x_2] \colon \vec u(x) = \vec v(x)}.
+\]
+On the entire interval $[x_0,x_1)$, we have $\vec u(x) = \vec v(x)$, and by
+continuity, it must also be that $\vec u(x_1) =  \vec v(x_1)$. In practice,
+$x_1$ is the last point of contact between the two solutions. Then, taking the
+point $(x_1,\vec u(x_1))$ as the initial condition of the Cauchy problem, we
+discover that $\vec u$ and $\vec v$ are locally two solutions of this problem.
+By local uniqueness, the two solutions must coincide in a small neighborhood of
+the point $x_1$, say, in particular, they must coincide on $[x_1,x_1+\eps]$, but
+this contradicts the definition of $x_1$.
+\end{proof}
+
+\begin{theorem}[existence of maximal solutions]
+\label{th:edo_esistenza_massimali}
+Let $\vec u\colon I\to \RR^n$ be a solution of the differential
+equation~\eqref{eq:edo_normale_ordine_uno} defined on a non-empty interval
+$I\subset \RR$, and suppose that this equation satisfies the local existence and
+uniqueness theorem (this happens, for example, if $f\in C^1$). If $\vec u$ is
+not itself a maximal solution, there always exists a maximal extension $\vec
+v\colon J\to \RR^n$, $J\supset I$.
+\end{theorem}
+%
+\begin{proof}
+Suppose that $\vec u$ is not maximal, thus $\vec u$ admits extensions. 
+
+Let $\mathcal F$ be the set of all extensions of $\vec u$. More precisely, each
+$\vec w\in \mathcal F$ is a function $\vec w\colon J_{\vec w}\to \RR^n$ defined
+on an open interval $J_{\vec w}\supset I$ that satisfies the differential
+equation~\eqref{eq:edo_normale_ordine_uno} and coincides with $\vec u$ on $I$.
+Define $\vec v\colon J\to\RR^n$ as follows:
+\begin{align*}
+J &= \bigcup_{\vec w \in \mathcal F} J_{\vec w}\\
+\vec v(x) &= \vec w(x) \qquad\text{if $x\in J_{\vec w}$}.
+\end{align*}
+Note that given $x\in I$, if $\vec w_1, \vec w_2\in\mathcal F$ are two
+extensions both defined at a point $x$, then they coincide at $x$ by
+Proposition~\ref{prop:separazione_soluzioni}, thus $\vec v(x)$ is uniquely
+defined.
+
+Clearly, $J$ must be an interval, as all the $J_{\vec w}$ share the points of
+$I$. Now, verify that $\vec v$ satisfies the differential equation. Given a
+point $x\in J$, there must exist $\vec w$ such that $x\in J_{\vec w}$. Moreover,
+if $x$ is not an endpoint of $J$, we can choose $\vec w$ such that $x$ is not an
+endpoint of $J_{\vec w}$. We know that $\vec w'(x) = f(x,\vec w(x))$, and since
+$\vec u$ coincides with $\vec w$ on $J_{\vec w}$, we can deduce that $\vec u$ is
+differentiable and that the derivatives coincide:
+\[
+\vec u'(x) = \vec w'(x) = f(x,\vec w(x)) = f(x,\vec u(x)).
+\]
+Thus, $\vec u$ is also a solution of~\eqref{eq:edo_normale_ordine_uno}. In
+practice, we have verified that $\vec v\in \mathcal F$ and is therefore an
+extension of $\vec u$. This is a maximal extension because if there were an
+extension defined on a larger interval, it would also be included in $\mathcal
+F$.
+\end{proof}
+
+\subsection{Global Existence}
+
+\begin{theorem}[global existence]
+\label{th:edo_esistenza_globale}
+Let $I = (a,b) \subset \RR$ be an open interval, $\Omega=I\times \RR^n$, and let
+$\vec f\colon \Omega \to \RR^n$, $\vec f = \vec f(x,\vec y)$ be a function that
+satisfies the Cauchy-Lipschitz property and is sublinear in $\vec y$ uniformly
+with respect to $x$, i.e., there exist $m,q\in \RR$ such that:
+\[
+  \abs{\vec f(x,\vec y)} \le m\abs{\vec y} + q,
+  \qquad\forall (x,\vec y)\in \Omega.
+\]
+Then for every $x_0\in I$ and for every $\vec y_0\in \RR^n$, there exists a
+function $\vec u\colon I \to \RR^n$ (defined on the entire $I$) that is a
+solution of the Cauchy problem~\eqref{eq:problema_cauchy}.
+\end{theorem}
+%
+The proof requires a preliminary lemma.
+\begin{lemma}[Gronwall]
+Let $a,b\in \RR$ with $a<b$ and let $m,q\ge 0$. Let $\vec u \colon [a,b) \to
+\RR^n$ be a function of class $C^1$ such that
+\[
+  \abs{\vec u'(t)} \le m \abs{\vec u(t)} + q
+  \qquad \forall t\in [a,b).
+\]
+Then $\vec u$ is bounded.
+\end{lemma}
+%
+\begin{proof}
+Recalling that
+\[
+  (\abs{\vec u}^2)'
+  = (\vec u\cdot \vec u)'
+  = 2 \vec u \cdot \vec u'
+\]
+for every $x\in [a,b)$, we can make the following estimate:
+\begin{align*}
+\Enclose{\ln(1+\abs{\vec u(t)}^2)}_{a}^{x}
+&= \int_{a}^{x}
+  \enclose{\ln(1+\abs{\vec u(t)}^2)}' \, dt
+= \int_{a}^{x}
+\frac{2\vec u(t)\cdot \vec u'(t)}{1+\abs{\vec u(t)}^2}\, dt \\
+&\le 2 \int_{a}^{x} \frac{\abs{\vec u(t)} \abs{\vec u'(t)}}{1+\abs{\vec
+u(t)}^2}\, dt
+\le 2\int_{a}^{x} \frac{\abs{\vec u(t)}\enclose{m\abs{\vec u(t)}+q}}{1+\abs{\vec u(t)}^2}\, dt\\
+&\le 2\int_{a}^{x} \enclose{m + \frac{q\abs{\vec u(t)}}{1+\abs{\vec u(t)}^2}}\,
+dt\\
+&\le (x-a)(2m + q) \le (b-a)(2m+q)
+\end{align*}
+having also exploited the inequality $s/(1+s^2) \le 1/2$ with $s=\abs{\vec
+u(t)}$. Thus,
+\[
+  \ln(1+\abs{\vec u(x)}^2) \le \ln(1+\abs{\vec u(a)}^2) + (b-a)(2m+q)
+\]
+is a bounded function, and consequently, $\abs{\vec u(x)}$ is also bounded.
+\end{proof}
+
+\begin{proof}[Proof of theorem~\ref{th:edo_esistenza_globale}]
+Let $\vec u$ be a maximal solution of the Cauchy problem, and let $J\subset I$
+be the maximal interval on which $\vec u$ is defined. Let $b=\sup J$. We know
+that $\vec u$ is defined on $[x_0,b)$, and thus, by the previous lemma, it must
+be bounded: that is, there exists $M>0$ such that $\abs{\vec u(x)}\le M$ for
+every $x\in[x_0,b)$. If we consider the compact set
+\[
+K=[x_0,b] \times \overline{B_M(\vec 0)}
+  = \ENCLOSE{(x,\vec y)\in \RR \times \RR^n\colon x\in [x_0,b], \abs{\vec y}\le
+ M}
+\]
+we have thus verified that $(x,\vec u(x))\in K$ for every $x\in [a_0,b)$. If
+$b\in I$, we would have $K\subset \Omega$, and this would contradict
+proposition~\ref{prop:edo_massimale}, which tells us that every maximal solution
+exits any compact contained in $\Omega$. This means that $b\not \in I$, i.e., $b
+= \sup J = \sup I$ (it cannot be $\sup J>\sup I$ since $J\subset I$).
+
+Similarly (or by symmetry), it can be shown that $\inf J=\inf I$, and thus
+$J=I$, as we wanted to demonstrate.
+\end{proof}

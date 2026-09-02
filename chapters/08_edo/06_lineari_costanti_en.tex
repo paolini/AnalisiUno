@@ -1,0 +1,849 @@
+\section{Linear equations of order $n$ with constant coefficients}
+
+An ordinary differential equation of order $n$ with constant coefficients is an
+equation of the form:
+\mymark{***}
+\begin{equation}\label{eq:edo_lineare_omogenea_coeff_costanti_non_omogenea}
+    a_n\cdot u^{(n)}(x) + a_{n-1} \cdot u^{(n-1)}(x) + \dots + a_1 \cdot u'(x) +
+  a_0 \cdot u(x) = g(x)
+%  \sum_{k=0}^n a_k \cdot u^{(k)}(x) = g(x)
+\end{equation}
+with $a_0, a_1, \dots a_n \in \RR$ (these are the constant coefficients)
+$a_n\neq 0$ and $g(x)$ a continuous function
+(if $a_n=0$ it is not a problem: we have an equation of lower order).
+Such an equation can be written in normal form and falls within the general case
+we considered in the previous chapter.
+In particular, 
+theorem~\ref{th:edo_lineare_ordine_n}
+tells us that the solution space is an affine linear space of dimension $n$.
+
+If $g=0$ we will say that the equation is linear homogeneous (still with
+constant coefficients)
+\index{equation!differential!linear!with constant coefficients}
+\begin{equation}\label{eq:edo_lineare_omogenea_coeff_costanti}
+    a_n \cdot u^{(n)}(x) + a_{n-1} \cdot u^{(n-1)}(x) + \dots + a_1 \cdot u'(x)
+  + a_0 \cdot u(x) = 0
+%   \sum_{k=0}^n a_k \cdot u^{(k)}(x) = 0.
+\end{equation}
+In this case, the set of solutions is a vector space of dimension $n$.
+We observe that the global existence and uniqueness theorem guarantees that the
+solutions
+of the linear differential equation with constant coefficients are functions of 
+class $C^n$ defined on the entire $\RR$. 
+But the constant coefficients are of class $C^\infty$, thus the greater
+regularity of the solutions
+(theorem~\ref{th:maggiore_regolarita}) 
+tells us, in this case, that the solutions must be functions of class
+$C^\infty$.
+
+For purely algebraic reasons, it will be useful to consider complex-valued
+functions.
+Recall that if $u(x)$ is a complex-valued function,
+then it can be written as $u(x) = f(x) + i g(x)$ with $f$ and $g$ real-valued
+functions.
+Then we have $u'(x) = f'(x) + ig'(x)$.
+We denote by $D \colon C^\infty(\RR, \CC)\to C^\infty(\RR, \CC)$ the derivative
+operator: $D u = u'$.
+
+We explicitly observe that even when $\lambda \in \CC$, it holds,
+as in the case $\lambda\in \RR$
+\begin{equation}\label{eq:499375}
+  D e^{\lambda x} = \lambda e^{\lambda x}.
+\end{equation}
+One could perform a direct verification by reducing to the functions $\sin$ and
+$\cos$
+via Euler's formulas, but this
+is actually a fundamental property of the complex exponential
+that directly follows from theorem~\ref{th:exp_complesso} (we only need $h,x\in
+\RR$, but in reality
+this is true even if $h,x\in \CC$):
+\[
+ \lim_{h\to 0} \frac{e^{\lambda(x+h)}-e^{\lambda x}}{h}
+ = \lim_{h\to 0} e^{\lambda x}\frac{e^{\lambda h}-1}{h}
+ = \lambda e^{\lambda x} \lim_{h\to 0}\frac{e^{\lambda h}-1}{\lambda h}
+ = \lambda e^{\lambda x}.
+\]
+
+If $P\in \RR[x]$ is a polynomial of degree $n$,
+we can evaluate $P$ on the derivative operator
+$D\colon C^\infty(\RR,\CC)\to C^\infty(\RR,\CC)$.
+This makes sense because on the space $C^\infty(\RR,\CC)$
+the operations of a real vector space
+(addition and scalar multiplication) are defined, along with the operation
+of multiplication $D\cdot D$, and thus the power
+$D^k$ is understood as the composition of the linear operator
+with itself.
+In practice, the operator
+$P(D)\colon C^\infty(\RR,\CC) \to C^\infty(\RR,\CC)$
+is defined as follows
+\[
+  P(D)[u] = \sum_{k=0}^n a_k D^k u = \sum_{k=0}^n a_k u^{(k)}.
+\]
+Note that $D^0 = I$ is the identity, but keeping the convention
+$D^0 = 1$ valid, we will occasionally write
+$\lambda$ instead of $\lambda I$ when $\lambda\in \RR$.
+
+The linear homogeneous equation with constant
+coefficients~\eqref{eq:edo_lineare_omogenea_coeff_costanti}
+can be more expressively written in the form
+\[
+  P(D)[u] = 0
+\]
+Since $a_n\neq 0$, we will have $\deg P = n$.
+
+\subsection{Homogeneous equations}
+
+\begin{theorem}
+\mymark{***}
+Let $P$ be a polynomial and let $\lambda\in \CC$ be a root of $P$ with
+multiplicity $m$.
+Then if $p(x)$ is a polynomial (with complex coefficients) of degree less than
+$m$,
+the function $u(x) = p(x) e^{\lambda x}$ is a (complex) solution of the
+differential equation
+\[
+   P(D) [u] = 0.
+\]
+\end{theorem}
+%
+\begin{proof}
+\mymark{***}
+If the polynomial $P(t)$ has a root $\lambda$ with multiplicity $m$, it means
+that $P(t)$ is divisible by $(t-\lambda)^m$, i.e., there exists a polynomial
+$R(t)$ such that
+\[
+  P(t) = R(t)\cdot (t-\lambda)^m.
+\]
+
+But then we can also decompose the differential equation:
+\[
+ P(D) [u] = R(D)[(D - \lambda)^m u].
+\]
+If $u(x) = p(x) e^{\lambda x}$, we have,
+using~\eqref{eq:499375},
+\begin{align*}
+  (D-\lambda) u(x) &= Du(x) -\lambda u(x) =
+    p'(x) e^{\lambda x} + p(x) \lambda e^{\lambda x} - \lambda p(x) e^{\lambda
+  x} \\
+  &= p'(x) e^{\lambda x},
+\end{align*}
+from which
+\[
+  (D-\lambda)^m u(x) = p^{(m)}(x) \cdot e^{\lambda x}.
+\]
+Since the derivative of a polynomial is a polynomial of lower degree,
+if the polynomial $p$ has degree less than $m$, it follows that $p^{(m)}=0$.
+Thus, as we wanted to prove,
+\[
+ P(D) [u] = R(D) [(D-\lambda)^m u] = R(D) [0] = 0.
+\]
+\end{proof}
+
+\begin{theorem}[independence of complex fundamental solutions]
+\mymark{***}
+The subset $\B$ of $C^\infty(\RR, \CC)$ given by the functions $u(x)$ of the
+form
+\[
+   u(x) = x^m e^{\lambda x}
+\]
+as $m\in \NN$, and $\lambda \in \CC$ vary, is a linearly independent subset
+of the vector space $C^\infty(\RR,\CC)$ over the field $\CC$.
+\end{theorem}
+%
+\begin{proof}
+It is a matter of showing that if a finite linear combination of such functions
+is identically zero, then all the coefficients are zero.
+
+Suppose, for contradiction, that there exist
+$u_1, \dots, u_N\in \B$
+\[
+  u_k(x) = x^{m_k} e^{\lambda_k x}, \qquad k=1, \dots, N
+\]
+such that
+\[
+\sum_{k=1}^N c_k x^{m_k} e^{\lambda_k x} = 0
+  \qquad \forall x \in \RR
+\]
+for some choice of coefficients $c_k \in \CC$ not all zero.
+By summing together the monomials that multiply the exponentials with the same
+coefficient, we can rewrite the previous relation in the form:
+\begin{equation}\label{eq:4656978}
+  \sum_{j=1}^M P_j(x) e^{\lambda_j x} = 0 \qquad \forall x\in \RR
+\end{equation}
+with the coefficients $\lambda_j$ all different from each other and with
+$P_j$ non-zero polynomials.
+
+We have already observed that $(D-\lambda)P(x)e^{\lambda x}= P'(x)e^{\lambda x}$
+while if $\lambda\neq \mu$, we have $(D-\lambda)P(x) e^{\mu x} = Q(x) e^{\mu x}$
+with $Q$ a polynomial of the same degree as $P$ because:
+\[
+(D-\lambda) P(x) e^{\mu x} = (P'(x) + (\mu-\lambda) P(x)) e^{\mu x}.  
+\]
+Let $d_j = \deg P_j$. We apply to equation~\eqref{eq:4656978}
+the operator $(D-\lambda_1)^{d_1}$.
+What is obtained is:
+\begin{equation}\label{eq:4656979}
+    k_1 e^{\lambda_1 x} + \sum_{j=2}^M Q_j(x) e^{\lambda_j x} = 0 \qquad \forall
+  x\in \RR
+\end{equation}
+where $k_1$ is the $d_1$-th derivative of the polynomial $P_1$.
+Since $P_1$ is a polynomial of degree $d_1$, its
+$d_1$-th derivative is a polynomial of degree $0$ not zero,
+thus it is a constant $k_1 \neq 0$.
+The polynomials $Q_j$ have instead the same degree as the $P_j$ because we have
+seen
+that if $\lambda\neq \mu$, the degree of the polynomial does not change.
+
+Now we apply in sequence to equation~\eqref{eq:4656979} the operators
+$(D-\lambda_j)^{d_j+1}$ for $j=2,\dots, M$.
+Applying these operators, the coefficient $k_1$ will change, but it will remain
+non-zero (let's call it $k\neq 0$) while all the other polynomials
+will be annulled because their respective polynomials are derived one more time
+than
+their degree. We will obtain:
+\[
+  k e^{\lambda_1 x} = 0 \qquad \forall x\in \RR.
+\]
+But this is absurd because for $x=0$, we obtain $k=0$, which we have excluded.
+\end{proof}
+
+The previous results allow us to determine all complex solutions of linear 
+homogeneous equations with constant coefficients. Indeed, for each complex root
+$\lambda$ of the associated polynomial
+$P(t) = a_n t^n + \dots + a_1 t + a_0$, if $m$ is the multiplicity of $\lambda$,
+the functions 
+\[
+  e^{\lambda x}, x e^{\lambda x}, \dots, x^{m-1} e^{\lambda x}  
+\]
+are $m$ independent solutions, and as $\lambda$ varies among the roots of $P$,
+we obtain
+a total of $n$ independent solutions. Since 
+we know that the solution space has dimension $n$, the linear combinations of
+these
+solutions give us the set of all solutions.
+
+If all the roots of the polynomial $P$ are real, the functions $e^{\lambda x}$
+are indeed
+real solutions, and, thanks to the following lemma, we can assert that all real
+solutions
+are obtained by making linear combinations with real coefficients of these
+solutions.
+
+\begin{lemma}\label{lm:combinazioni_reali}
+Let $u_1(x), \dots, u_n(x)$ be independent real-valued functions
+and let 
+\[
+  h(x) = c_1 \cdot u_1(x) + \dots + c_n \cdot u_n(x)
+\]
+be a linear combination with complex coefficients.
+Then $h(x)$ is real-valued if and only if the coefficients $c_1, \dots, c_n$ 
+are also real.
+\end{lemma}
+%
+\begin{proof}
+It is obvious that if the coefficients $c_1,\dots,c_n$ are real and the
+functions $u_1, \dots, u_n$ are real,
+making a linear combination of them results in a real function.
+
+To prove the converse, it is necessary to know that the functions are also
+independent. Indeed,
+if $h(x)$ is real, we can write $\bar h(x) - h(x) = 0$, that is, since the
+conjugate
+passes through the sum and product and since $\overline u_k(x) = u_k(x)$, we
+have
+\[
+ (\bar c_1 - c_1) u_1(x) + \dots + (\bar c_n-c_n) u_n(x)=0.
+\]
+But the zero linear combination can only be obtained with all coefficients zero 
+(it is the definition of linear independence), thus $\bar c_k = c_k$ for each
+$k$, meaning
+the coefficients are real.
+\end{proof}
+
+\begin{example}
+Solve the equation
+\[
+  u^{(5)} - 2 u''' + u' = 0.  
+\]
+\end{example}
+%
+\begin{proof}[Solution.]
+The polynomial associated with the equation is $P(\lambda) = \lambda^5 -
+2\lambda^3 + \lambda$
+and can be factored as follows:
+\[
+  \lambda^5 - 2\lambda^3 + \lambda
+  = \lambda(\lambda^4-2\lambda^2+1)
+  = \lambda(\lambda^2-1)^2
+  = \lambda(\lambda-1)^2(\lambda+1)^2.
+\]
+Thus, we have three distinct roots $\lambda_1=0$, $\lambda_2=1$, $\lambda_3=-1$
+with multiplicities
+$m_1=1$, $m_2=2$, $m_3=2$.
+A basis of solutions is therefore given by the five independent functions
+\[
+ 1, e^x, xe^x, e^{-x}, xe^{-x}.
+\]
+All solutions can thus be written in the form
+\[
+  u(x) = c_1 + (c_2 + c_3 x)e^x + (c_4 + c_5 x) e^{-x}  
+\]
+with $c_1, \dots, c_5$ arbitrary constants.
+\end{proof}
+
+However, if the roots of the polynomial are complex, we are still interested in
+identifying
+the real solutions.
+To do this, we observe that if $\lambda = \alpha + i \beta $ is a complex root
+of a polynomial $P$ with real coefficients, then $\bar \lambda =\alpha - i
+\beta$ is also a complex root with the same multiplicity as $\lambda$
+(see the proof of theorem~\ref{th:fattorizzazione_polinomio_reale}). 
+But then we observe that the space generated by the linear combinations with
+complex coefficients
+of two solutions corresponding to the two conjugate coefficients:
+\begin{align*}
+  c_1 x^k e^{\lambda x} + c_2  x^k e^{\bar\lambda x}
+  &= c_1 x^k e^{\alpha x+i \beta x} + c_2 x^k e^{\alpha x - i \beta x}\\
+  &= x^k e^{\alpha x}\enclose{(c_1+c_2) \cos \beta x + i (c_1-c_2) \sin \beta x}
+\end{align*}
+is also a linear combination with complex coefficients of the two real
+functions:
+\begin{equation}\label{eq:489571798}
+  x^k e^{\alpha x} \cos(\beta x), \qquad
+  x^k e^{\alpha x} \sin(\beta x)
+\end{equation}
+Thus, by lemma~\ref{lm:combinazioni_reali}, 
+the real solutions can be written as linear combinations with constant
+coefficients
+of these latter functions.
+
+In practice, the method for determining the solutions is therefore very simple. 
+Each real root $\lambda$ of the polynomial $P$ associated with the equation
+gives rise
+to the following independent solutions:
+\[
+  e^{\lambda x}, x e^{\lambda x}, \dots, x^{m-1} e^{\lambda x}
+\]
+where $m$ is the multiplicity of $\lambda$ as a root of the polynomial.
+For each pair of complex roots $\lambda = \alpha \pm i \beta$ with multiplicity
+$m$,
+we will have the following independent solutions:
+\begin{gather*}
+    e^{\alpha x}\cos(\beta x), x e^{\alpha x}\cos(\beta x), \dots x^{m-1}
+  e^{\alpha x}\cos(\beta x),\\
+    e^{\alpha x}\sin(\beta x), x e^{\alpha x}\sin(\beta x), \dots x^{m-1}
+  e^{\alpha x}\sin(\beta x).
+\end{gather*}
+In total, we always have $n=\deg P$ independent solutions.
+
+\begin{example}
+Determine all solutions of the differential equation
+\[
+  u^{(5)}(x) + 2 u'''(x) + u'(x) = 0.
+\]
+\end{example}
+%
+\begin{proof}[Solution]
+The equation can be written in the form
+\[
+  P(D) [u] = 0
+\]
+with $P(\lambda) = \lambda^5 + 2 \lambda^3+\lambda$. 
+We can factor the polynomial $P$ in the complex field:
+\[
+\lambda^5 + 2\lambda^3 +\lambda = \lambda(\lambda^2+1)^2 = \lambda (\lambda+i)^2(\lambda-i)^2.
+\]
+The polynomial has one root $\lambda_0=0$ with multiplicity one and two
+conjugate complex roots
+$\lambda_1 = i$, $\lambda_2=-i$ with multiplicity two.
+It follows that the following functions must be independent real solutions of
+the equation:
+\begin{equation}\label{eq:4995566}
+ 1, \qquad
+ \cos x, \qquad
+ x \cos x, \qquad
+ \sin x, \qquad
+ x \sin x
+\end{equation}
+Every real solution can thus be written in the form:
+\begin{equation}\label{eq:499355456}
+  u(x) = c_1 + c_2 \cos x + c_3 \sin x + c_4 x \cos x + c_5 x \sin x
+\end{equation}
+with $c_1, c_2, \dots, c_5 \in \CC$ appropriate real coefficients.
+\end{proof}
+
+% Formalizing in general
+% the method used in the previous exercise, we can
+% give the following statement.
+% 
+% \begin{theorem}[solutions of the linear homogeneous equation with constant coefficients]
+% \mymark{**}%
+% If $P(t)$ is a polynomial with real coefficients.
+% Every solution
+% $u\colon \RR\to \RR$ of the differential equation
+% \[
+%   P(D) [u] = 0
+% \]
+% can be written in the form
+% \begin{equation}
+% \label{eq:4725549774}
+%   u(x) = \sum_{k=1}^N \sum_{j=1}^{n_k} c_{kj} x^j e^{\lambda_k x}
+%         + \sum_{k=1}^M \sum_{j=1}^{m_l} x^j e^{\alpha_k x} (a_{kj} \cos(\beta_k x) + b_{kj}\sin(\beta_k x))
+% \end{equation}
+% where $\lambda_1, \dots, \lambda_N$ are the real roots of the polynomial $P(t)$, $n_1, \dots, n_N$ are the respective multiplicities,
+% $\alpha_k \pm i \beta_k$ are the conjugate complex (non-real) roots of the polynomial $P$ with $k=1,\dots, M$ each with multiplicity $m_k$ and finally $c_{kj}, a_{kj}, b_{kj}\in \RR$ are arbitrary constants.
+% \end{theorem}
+% %
+% \begin{proof}
+% We know that the complex functions
+% \begin{equation}\label{eq:739647}
+%   x^j e^{\lambda_k x}, \qquad
+%   x^j e^{(\alpha_k+i\beta_k)x}
+% \end{equation}
+% are solutions of the equation if $j$ is less than the multiplicity of the corresponding real root $\lambda_k$ or complex $\alpha_k + i \beta_k$.
+% Thus
+% \[
+%   u_{k,j}(x) = x^j e^{\lambda_k x}
+% \]
+% is a solution if $j<n_k$.
+% For the complex roots, we apply Euler's formula:
+% \begin{align}\label{eq:49544467}
+% x^j e^{\alpha_k x}\cos (\beta_k x) &=
+%   \frac 1 2 x^j e^{(\alpha_k +i \beta_k)x}
+%   + \frac 1 2 x^j e^{(\alpha_k - i \beta_k)x}\\
+% x^j e^{\alpha_k x}\sin (\beta_k x) &=
+%     \frac 1 {2i} x^j e^{(\alpha_k +i \beta_k)x}
+%     - \frac 1 {2i} x^j e^{(\alpha_k - i \beta_k)x}
+% \end{align}
+% thus even the functions
+% \[
+%   v_{kj}(x) = x^j e^{\alpha_k x}\cos x, \qquad
+%   w_{kj}(x) = x^j e^{\alpha_k x}\sin x
+% \]
+% being a linear combination of solutions, are also
+% solutions.
+% These solutions are also independent because
+% the functions in \eqref{eq:739647} are (by the previous theorem) and can be reduced to \eqref{eq:49544467}
+% via Euler's formula.
+% 
+% We have thus found a set formed by
+% \[
+%   n = \sum_{k=1}^N n_k + 2 \sum_{k=1}^M m_k
+% \]
+% independent real solutions. The number $n$ is equal to the sum of the multiplicities of the 
+% (real and complex) roots of the polynomial $P$ and thus, by the fundamental theorem of algebra, 
+% coincides with the degree of $P$. We then know that the solution space of $P(D)[u]=0$ has 
+% dimension $n$ and therefore we have found a basis of all real solutions. 
+% This means that every solution can be written in the form~\eqref{eq:4725549774}.
+% \end{proof}
+% 
+\begin{remark}[phase of oscillating solutions]
+When writing the linear combinations of the functions 
+\eqref{eq:489571798},
+it may be useful to observe
+that every linear combination of sines and cosines
+with the same frequency $\beta$ is a single wave
+possibly phase-shifted by an angle $\theta$:
+\[
+  a \cos (\beta x) + b \sin (\beta x)
+  =
+  \rho \cos(\beta x - \theta)
+\]
+where $\rho = \abs{a+ib} = \sqrt{a^2+b^2}$ and 
+$\theta=\arg(a+ib)$. 
+Indeed,
+setting $a=\rho\cos \theta$, $b=\rho \sin \theta$, we have,
+thanks to the addition formula:
+\[
+   a \cos (\beta x) + b \sin (\beta x)
+   = \rho\enclose{\cos \theta \cos(\beta x) + \sin \theta \sin (\beta x)}
+   = \rho \cos(\beta x - \theta).
+\]
+\end{remark}
+
+\subsection{Non-homogeneous linear equations}
+
+Theorem~\ref{th:edo_lineare_ordine_n}
+tells us that the solutions of a 
+non-homogeneous linear equation (whether with constant coefficients or not)
+\[
+  L[u]=g
+\]
+can all be written in the form $u = u_* + \ker L$ where 
+$u_*$ is any fixed solution of the non-homogeneous equation 
+and $\ker L$ is the set of solutions of the associated homogeneous equation 
+\[
+  L[u] =0. 
+\]
+Then, assuming we know how to solve the homogeneous equation 
+(which we do if the coefficients are constant),
+to find all the solutions of the non-homogeneous equation, it will suffice 
+to find just one particular solution $u_*$.
+
+In the following, we will see two methods for determining a particular solution 
+when we have a non-homogeneous equation with constant coefficients. 
+The first method (of similarity) applies when the known term $g(x)$ takes a
+specific form,
+the second method (of variation of constants) applies in general, but it might
+be
+more laborious than the first.
+
+\begin{theorem}[method of similarity]
+\mymark{***}
+Consider the complex non-homogeneous equation
+\begin{equation}\label{eq:3976734956}
+ P(D) [u] = q(x) e^{\lambda x}.
+\end{equation}
+with $P$ and $q$ polynomials with complex coefficients.
+Let $m$ be the multiplicity of $\lambda$ as a root of $P$ ($m=0$ if $\lambda$ is
+not a root of $P$).
+Then a particular solution of~\eqref{eq:3976734956} can be written in the form
+\begin{equation}
+\label{eq:945396}
+u_*(x) = p(x) x^m e^{\lambda x}
+\end{equation}
+with $p$ an (unknown) polynomial of degree equal to the degree of $q$.
+\end{theorem}
+%
+\begin{proof}
+If $u_*(x) = x^m p(x) e^{\lambda x}$, we want to understand how the operator
+$P(D)$ acts on $u_*$, in particular
+given any polynomial $q$, we want to understand
+if there exists a polynomial $p$, of the same degree as $q$, such that applying
+$P(D)$ to $u_*(x)$ results in $q(x) e^{\lambda x}$.
+
+Factor the polynomial $P(z)$:
+\[
+  P(z) = (z-\lambda_1)^{m_1}\dots (z-\lambda_n)^{m_n}
+\]
+where $\lambda_1, \dots, \lambda_n\in \CC$ are the distinct roots of $P(z)$ and
+$m_1,\dots,m_n\in \NN$ are the respective multiplicities. Thus, the operator
+$P(D)$ can be factored in the corresponding form:
+\[
+   P(D) = (D-\lambda_1)^{m_1} \dots (D-\lambda_n)^{m_n}.
+\]
+
+Let $V^n_m$ be the vector space of polynomials of the form $x^m p(x)$ with $\deg
+p<n$.
+A basis of $V^n_m$ are the monomials $x^m, x^{m+1}, \dots, x^{m+n-1}$, and thus
+$V^n_m$ is a
+vector space of dimension $n$.
+
+The proof of the theorem is based on the observation of how the operator
+$(D-\lambda_k)^{m_k}$
+acts on functions of the type $u(x) = p(x) e^{\lambda x}$ with $p\in V^n_m$. In
+general, if $p$ is a
+polynomial, we have
+\[
+ (D-\lambda_k) [p(x)\cdot e^{\lambda x}]
+ = \Enclose{(\lambda -\lambda_k)p(x) + p'(x)} \cdot e^{\lambda x}.
+\]
+We must then distinguish two cases. If $\lambda\neq \lambda_k$, then the
+function $p(x) e^{\lambda x}$ is transformed into the function $q(x) e^{\lambda
+x}$ where $q$ is a polynomial of the same degree as $p$, since the highest
+degree term of $p$ is multiplied by $\lambda-\lambda_k$ while the polynomial
+$p'$ has a degree lower than that of $p$ and therefore does not influence the
+highest degree term. If we call $T_k\colon V^n_0 \to V^n_0$ the linear operator
+that maps the polynomial $p(x)$ to the polynomial $q(x)=(\lambda-\lambda_k) p(x)
++ p'(x)$, we observe that $T_k$ is injective because, since $T_k$ preserves the
+degree of the polynomial, the only polynomial that can go to zero is the zero
+polynomial. Thus, by the rank theorem, $T_k$ is bijective, and consequently,
+$T_k^{m_k} \colon V^n_0 \to V^n_0$ is bijective.
+
+If instead $\lambda = \lambda_k$, we now observe that the operator $T_k$ 
+is nothing but the derivative: $q(x) = p'(x)$. 
+And if $m=m_k$ is the multiplicity of $\lambda$ as a root of $P$, 
+the operator $T_k^m$ is nothing but the $m$-th derivative. 
+This operator is not invertible on $V^n_0$ because it sends to zero all 
+polynomials of degree less than $m$. But if we start from a polynomial in
+$V^n_m$,
+then the operator $T_k^m\colon V^n_m \to V^n_0$ becomes invertible: 
+indeed, in $V^n_m$, there are polynomials of the form 
+$a_m x^m + a_{m+1}x^{m+1} + \dots + a_{n+m}x^{n+m}$
+and taking the $m$-th derivative can only result in the zero polynomial if all 
+the coefficients are zero.
+It follows that, if $\lambda = \lambda_k$, 
+the operator $T_k^m\colon V^n_m \to V^n_0$ is invertible.
+
+We have reached the conclusion. If we take a polynomial $p(x)$ in $V^n_m$ and
+apply $P(D)$
+to the corresponding function $u(x) =p(x) e^{\lambda x}$,
+we can sequentially apply the operators $(D-\lambda_k)^{m_k}$. 
+These act on the function $u$ by modifying the polynomial $p$.
+If $\lambda$ is a root of $P$, at the first step, we apply the operator
+$(D-\lambda_k)^{m_k}$
+with $\lambda_k=\lambda$ and $m_k=m$ so that the polynomial $p\in V^n_m$ is
+transformed,
+in a one-to-one manner, into a polynomial of $V^n_0$. 
+Then, I apply all the other operators $(D-\lambda_k)^{m_k}$ with $\lambda_k \neq
+\lambda$
+transforming the polynomial of $V^n_0$ into another polynomial of $V^n_0$, but
+always in a one-to-one manner.
+It follows that in the end, we obtain a one-to-one map between $V^n_m \to
+V^n_0$, and whatever
+$q\in V^n_0$, we know there exists a $u\in V^n_m$ that is mapped to $q$.
+\end{proof}
+
+\begin{remark}
+Note that in the previous proof, we investigated the
+structure of the differential operator $D$ with constant
+coefficients.
+What we did is actually the process of
+Jordan decomposition of a linear operator.
+The operator $D$
+has as eigenvectors the functions $e^{\lambda_k x}$ with $\lambda_k$
+roots of the polynomial $P$.
+It is observed, however, that functions of the form
+$x^j e^{\lambda_k x}$ are \emph{generalized eigenvectors}
+since iterating the operator $D-\lambda_k$ sends them to an eigenvector
+and they are thus a basis of the eigenspace relative to the eigenvector
+$\lambda_k$.
+
+The basis formed by the functions of the form $\frac{x^j}{j!} e^{\lambda_j x}$
+is
+a \emph{fan basis}, and the matrix representing the operator
+$D$ turns out to be a block matrix in Jordan form: the
+eigenvalues are on the diagonal, and a row of $1$s is found above the
+diagonal.
+
+The kernel of the operator $P(D)$ decomposes as a direct sum
+of the kernels of the operators $(D-\lambda_k)^{m_k}$.
+\end{remark}
+
+\begin{definition}[Wronskian]
+Let $u_1, \dots, u_n$ be functions of class $C^{n-1}$.
+The matrix
+\begin{equation}\label{eq:wronksiano}
+  W(x) =
+    \begin{pmatrix}
+    u_1(x) & u_2(x) & \dots & u_n(x) \\
+    u_1'(x) & u_2'(x) & \dots & u_n'(x) \\
+    \vdots & & & \vdots\\
+    u_1^{(n-1)}(x) & u_2^{(n-1)}(x) & \dots & u_n^{(n-1)}(x)
+    \end{pmatrix}
+\end{equation}
+is called the \emph{Wronskian matrix}.
+\mymargin{Wronskian matrix}%
+\index{Wronskian matrix}%
+\index{matrix!Wronskian}%
+\index{Wronskian}%
+The determinant of this matrix
+$w(x) = \det W(x)$ is called the
+\emph{Wronskian determinant}%
+\mymargin{Wronskian determinant}\index{determinant!Wronskian}.
+\end{definition}
+
+\begin{theorem}%
+\label{th:wronksiano}%
+Let $I\subset \RR$ be a non-empty open interval and let $a_j\in C^0(I,\CC)$.
+Let $u_1, \dots, u_n$ be functions of class $C^n$ solutions
+of the homogeneous linear equation in normal form:
+\begin{equation}\label{eq:092784}
+  u^{(n)} = \sum_{j=1}^n a_j(x) u^{(j-1)}(x).
+\end{equation}
+Let $W(x)$ be the Wronskian matrix~\eqref{eq:wronksiano}.
+Then the following properties are equivalent:
+\begin{enumerate}
+\item \label{item:4736201} the functions $u_1,\dots, u_n$ are linearly independent;
+\item \label{item:4736202} for every $x\in I$, we have $\det W(x)\neq 0$;
+\item \label{item:4736203} there exists $x\in I$ such that $\det W(x)\neq 0$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Obviously, \ref{item:4736202} implies \ref{item:4736203}.
+
+We prove that \ref{item:4736203} implies \ref{item:4736201}.
+Passing to the contrapositive implication, we must show that
+if $u_1,\dots, u_n$ are linearly dependent, then for every $x\in I$, we have
+$\det W(x)=0$. But if the functions are dependent, it means there exists $\vec
+\lambda \neq 0$ such that
+\begin{equation}\label{eq:3675893}
+  \lambda_1 u_1(x) + \dots + \lambda_n u_n(x) = 0 \qquad \forall x\in I.
+\end{equation}
+Differentiating, we obtain:
+\[
+\begin{cases}
+  \lambda_1 u_1(x) + \dots + \lambda_n u_n(x) = 0\\
+  \lambda_1 u'_1(x) + \dots + \lambda_n u'_n(x) = 0\\
+  \dots\\
+  \lambda_1 u^{(n-1)}_1(x) + \dots + \lambda_n u^{(n-1)}_n(x) = 0
+\end{cases}
+\]
+or
+\[
+  W(x) \, \vec \lambda = 0 \qquad \forall x\in I.
+\]
+But then the matrix $W(x)$ is not invertible, and therefore $\det W(x)=0$, as we
+wanted to prove.
+
+Finally, we prove that \ref{item:4736201} implies \ref{item:4736202}
+that is, if $v_1, \dots, v_n$ are independent, then $\det W(x) \neq 0$ for every
+$x\in I$.
+Fixed $x\in I$, consider the functional $J(v) = (v(x),v'(x), \dots,
+v^{(n-1)}(x))$ so that we have
+\[
+  W(x) = \enclose{J(u_1), \dots, J(u_n)}.
+\]
+According to theorem~\ref{th:edo_lineare_ordine_n}, we recall that $J$ turns out
+to be an isomorphism of vector spaces, so if $v_1,\dots,v_n$ are independent,
+then $J(v_1),\dots, J(v_n)$ must be independent.
+But since the columns of the matrix $W(x)$ are independent, it means that $\det
+W(x)\neq 0$, as we wanted to prove.
+\end{proof}
+
+\begin{theorem}[method of variation of arbitrary constants]
+\mymark{***}%
+Consider a generic non-homogeneous linear differential equation of order $n$ in
+normal form:
+\begin{equation}\label{eq:395467435}
+  u^{(n)}(x) = \sum_{k=0}^{n-1} a_k(x) u^{(k)}(x) + b(x)
+\end{equation}
+where $a_0, \dots, a_{n-1}, b\in C^0(A,\CC)$ are functions defined on an open
+set $A\subset \RR$
+and we seek a solution $u\in C^n(A,\CC)$.
+
+If $v_1, \dots, v_n\in C^n(A,\CC)$ are independent solutions of the associated
+homogeneous equation:
+\begin{equation*}
+  u^{(n)}(x) = \sum_{k=0}^{n-1} a_k(x) u^{(k)}(x)
+\end{equation*}
+then
+there exist functions $c_k\in C^1(A,\CC)$
+for $k=0,1, \dots, n-1$
+such that
+\begin{equation}\label{eq:02154676}
+  \begin{cases}
+    c'_1 v_1 + \dots + c'_n v_n = 0 \\
+    c'_1 v_1' + \dots + c'_n v_n' = 0 \\
+    \vdots\\
+    c'_1 v_1^{(n-2)} + \dots + c'_n v_n^{(n-2)} = 0 \\
+    c'_1 v_1^{(n-1)} + \dots + c'_n v_n^{(n-1)} = b(x).
+  \end{cases}
+\end{equation}
+And in such a case, the function
+\[
+ u(x) = \sum_{k=1}^n c_k(x) v_k(x)
+\]
+solves the non-homogeneous equation~\eqref{eq:395467435}.
+\end{theorem}
+%
+\begin{proof}
+First, observe that if there exist functions $c_k$ that
+satisfy the system~\eqref{eq:02154676}, then the function $u = c_1
+\cdot v_1 + \dots + c_n \cdot v_n$ solves the non-homogeneous
+equation. Indeed, from the product differentiation formula, we have:
+\[
+  u' = \sum_{k=1}^n c_k v_k' + \sum_{k=1}^n c_k' v_k
+     = \sum_{k=1}^n c_k v_k'
+\]
+since the second term is zero by hypothesis~\eqref{eq:02154676}.
+But then we can proceed with the derivatives:
+\[
+  u'' = \sum_{k=1}^n c_k v_k'' + \sum_{k=1}^n c_k' v_k'
+      = \sum_{k=1}^n c_k v_k''
+\]
+up to the $(n-1)$-th derivative:
+\[
+  u^{(n-1)} = \sum_{k=1}^n c_k v_k^{(n-1)}.
+\]
+For the last derivative, we have:
+\[
+  u^{(n)} = \sum_{k=1}^n c_k v_k^{(n)} + \sum_{k=1}^n c_k' v_k^{(n-1)}
+          = \sum_{k=1}^n c_k v_k^{(n)} + b.
+\]
+But then it is observed that we have
+\begin{align*}
+ u^{(n)} + \sum_{j=0}^{n-1} a_j u^{(j)}
+  &= \sum_{k=1}^n c_k v_k^{(n)} + b + \sum_{j=0}^{n-1} a_j \sum_{k=1}^n c_k
+ v_k^{(j)} \\
+  &= \sum_{k=1}^n c_k \Enclose{v_k^{(n)} + \sum_{j=0}^{n-1} a_j v_k^{(j)}} + b =
+ b
+\end{align*}
+ since the functions $v_j$, by hypothesis, solve the homogeneous equation.
+
+ It remains only to verify that there exist functions $c_k\in
+ C^1(A,\CC)$ that satisfy the system~\eqref{eq:02154676}.
+ It is observed that the system~\eqref{eq:02154676} is written in the form
+ \[
+   W(x) \vec c'(x) = \vec b(x)
+ \]
+ where $W(x)$ is the Wronskian matrix $W(x)$ associated
+ with the solutions $v_1, \dots, v_n$, $\vec c(x) = (c_1(x), \dots,
+ c_n(x))$, and $\vec b(x) = (0, \dots, 0, b(x))$.
+ Since $v_1, \dots, v_n$ are independent by hypothesis,
+ by theorem~\ref{th:wronksiano},
+ we know that
+ $\det W(x)\neq 0$ for every $x$, and therefore the system $W(x) \vec d(x) =
+ \vec b(x)$
+ admits a unique solution $d(x)$ for every $x\in I$.
+ Since $W(x)$ and $\vec b(x)$ have continuous coefficients,
+  the solution $\vec d(x) = W(x)^{-1} \vec b(x)$ must also be continuous (that
+ the coefficients of the matrix $W(x)^{-1}$ are continuous can be seen, for
+ example, by writing $W(x)^{-1}$ using the matrix of cofactors and exploiting
+ the fact that the determinant is a continuous function)
+ and therefore, fixed a point $x_0\in I$,
+ we can define
+ \[
+   c_k(x) = \int_{x_0}^x d_k(t)\, dt
+ \]
+ to determine the functions $c_k$.
+\end{proof}
+
+\begin{exercise}
+Find all solutions of the non-homogeneous linear equation with
+constant coefficients:
+\[
+  u''(x) + u(x) = \frac{1}{\cos x}.    
+\]
+\end{exercise}
+\begin{proof}[Solution.]
+The associated polynomial is $P(\lambda) = \lambda^2 + 1$ which 
+has two conjugate complex roots $\pm i$.
+Two independent solutions of the homogeneous equation $u''+u=0$ are thus 
+(as known):
+\[
+ u_1(x) = \cos x, \qquad u_2(x) = \sin x.
+\]
+The general solution of the homogeneous equation is thus of the form:
+\[
+  u(x) = A \cos x + B \sin x.  
+\]
+
+To find a particular solution of the non-homogeneous equation, 
+we use the method of variation of constants, i.e.,
+we seek a solution of the form:
+\[
+  u_*(x) = A(x) \cos x + B(x) \sin x.
+\]
+The coefficients $A(x)$ and $B(x)$ are determined by solving the system 
+\[
+\begin{cases}
+  A'(x) \cdot \cos x &+ B'(x)\cdot \sin x = 0, \\
+  A'(x) \cdot (-\sin x) &+ B'(x)\cdot \cos x = \frac{1}{\cos x}.
+\end{cases}  
+\]
+We find therefore 
+\[
+ \begin{cases}
+  A'(x) = -\frac{\sin x}{\cos x} \cdot B'(x) \\
+  B'(x) = 1
+ \end{cases}  
+\]
+from which, integrating, we find
+\[
+  A(x) = \ln\abs{\cos x}, \qquad B(x) = x
+\]
+and therefore 
+\[
+ u_*(x) = \cos x\cdot \ln \abs{\cos x } + x\sin x.  
+\]
+
+All solutions of the given equation are thus written as the sum of the 
+particular solution of the non-homogeneous equation plus the general solution of
+the
+homogeneous equation:
+\[
+ u(x) = a \cos x + b \sin x + \cos x \cdot \ln \abs{\cos x} + x \sin x.  
+\]
+\end{proof}

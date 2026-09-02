@@ -1,0 +1,387 @@
+\section{The Exponential Series}
+
+Consider the function $f \colon \CC \to \CC$
+defined by 
+\begin{equation}\label{eq:def_exp}
+f(z) = \sum_{k=0}^{+\infty} \frac{z^k}{k!}.
+\end{equation}
+The function is defined on the entire $\CC$ since (thanks to the ratio test)
+it is easy to verify that the radius of convergence of this series is
+$R=+\infty$.
+
+Our goal will be to prove that $f(z)=e^z$ for every $z\in \CC$.
+In fact, one could take~\ref{eq:def_exp} as the definition 
+of the complex exponential and define the real exponential 
+function and the trigonometric functions accordingly.
+
+\begin{theorem}[Properties of the Exponential Series]
+\label{th:exp_complesso}%
+Let $f$ be the function defined by ~\eqref{eq:def_exp}.
+We have:
+\begin{enumerate}
+\item
+$\displaystyle f(0) = 1$;
+
+\item
+$\displaystyle f(\bar z) = \overline{f(z)}$;
+
+\item
+for every $z,w \in \CC$
+\[
+  f(z+w) = f(z) \cdot f(w);
+\]
+
+\item
+for every $z\in \CC$, $f(z) \neq 0$ and
+\[
+ f(-z) = \frac{1}{f(z)};
+\]
+
+\item the function $f\colon \CC \to \CC$ is continuous;
+
+\item we have
+\begin{equation}\label{eq:limite_exp_complesso}
+   \lim_{z\to 0}\frac{f(z)-1}{z} = 1.
+\end{equation}
+\end{enumerate}
+\end{theorem}
+%
+\begin{proof}
+\mymark{*}
+\begin{enumerate}
+\item
+The property $f(0)=1$ is obtained by direct verification (recall that $0^0=1$
+and $0!=1$).
+
+\item The property $f(\bar z) = \overline{f(z)}$ is obtained
+by taking the limit of the following equality between partial sums
+which exploits the properties of the conjugate of a sum and a product:
+\[
+\sum_{k=0}^{n} \frac{\bar z^k}{k!} = \overline{\sum_{k=0}^n \frac{z^k}{k!}}.
+\]
+
+\item
+Consider the infinite matrix
+\[
+m_{k,j}  = \frac{z^k}{k!} \cdot \frac{w^j}{j!}.
+\]
+Then on one hand
+\begin{align*}
+ f(z+w)
+ &= \sum_{n=0}^{+\infty} \frac{(z+w)^n}{n!}\\
+  &= \sum_{n=0}^{+\infty} \frac{1}{n!}\sum_{k=0}^n \frac{n!}{k!(n-k)!} z^k\cdot
+ w^{n-k}\\
+ &= \sum_{n=0}^{+\infty} \sum_{k=0}^n m_{k, n-k}
+\end{align*}
+and on the other
+\begin{align*}
+ f(z) \cdot f(w)
+ &= \sum_{k=0}^{+\infty}\frac{z^k}{k!} \sum_{j=0}^{+\infty}\frac{w^j}{j!}
+ = \sum_{k=0}^{+\infty}\sum_{j=0}^{+\infty}\frac{z^k}{k!} \frac{w^j}{j!} \\
+ &= \sum_{k=0}^{+\infty}\sum_{j=0}^{+\infty} m_{k,j}.
+\end{align*}
+
+The result follows from theorem~\ref{th:somma_Cauchy}.
+
+\item
+Since
+\[
+  1 = f(0) = f(z-z) = f(z) \cdot f(-z)
+\]
+we deduce that $f(z)\neq 0$ and $f(-z) =  1 / f(z)$.
+
+\item
+Continuity follows from the general result on the continuity of
+the sum of a power series: theorem~\ref{th:continuita_somma_serie}.
+
+\item
+Directly from definition~\eqref{eq:def_exp}
+we obtain
+\[
+ f(z) - 1 = \sum_{k=1}^{+\infty} \frac{z^k}{k!}
+ = z \cdot \sum_{k=0}^{+\infty} \frac{z^k}{(k+1)!}.
+\]
+Now observe that the series $\sum \frac{z^k}{(k+1)!}$ has an infinite radius of
+convergence and hence is absolutely convergent for every $z\in \CC$.
+In particular, the sum of this series is continuous and
+therefore we have
+\[
+\lim_{z\to 0}\frac{\exp(z) - 1}{z}
+   =  \lim_{z\to 0} \sum_{k=0}^{+\infty} \frac{z^k}{(k+1)!}
+   = \sum_{k=0}^{+\infty}\frac{0^k}{(k+1)!} = 1.
+\]
+\end{enumerate}
+\end{proof}
+
+\begin{theorem}[Coincidence Between Exponential Function and Exponential Series]%
+\label{th:exp=ex}%
+\label{th:serie_esponenziale}%
+\index{function!exponential}%
+\mymark{***}%
+For every $x\in \RR$ we have
+\[
+  \sum_{k=0}^{+\infty} \frac{x^k}{k!} = e^x.
+\]
+\end{theorem}
+%
+\begin{proof}\mymark{**}
+We want to apply theorem~\ref{th:isomorfismo}.
+Let $f(x)=\sum_{k=0}^{+\infty} \frac{x^k}{k!}$, 
+$f\colon \RR\to\RR$ we know,
+from the previous theorem, that $f(x+y)=f(x)\cdot f(y)$.
+We need to verify that $f$ is increasing.
+First, note that if $x> 0$ the series defining
+$f(x)$ has positive terms and the first term is $1$.
+Thus for every $x> 0$ we have $f(x)>1$.
+In particular, let $a=f(1)$, then $a>1$.
+Moreover, if $y>x$ we have $f(y-x)>1$ and thus
+\[
+ f(y) = f(x+y-x) = f(x)\cdot f(y-x) > f(x).
+\]
+The function is therefore strictly increasing. 
+Thus it is a monotonic homomorphism from the additive group $\RR$ to 
+the multiplicative group $(0,+\infty)$.
+Given $a=f(1)$, we know,
+from what was seen in section~\ref{sec:esponenziale},
+that there is a unique function with these properties and thus 
+it must be: 
+\[
+  f(x)= a^x.
+\]
+We only need to prove that $a=e$.
+But thanks to theorem~\ref{th:exp_complesso}
+just proven, we know that as $x\to 0$ we have
+\[
+  \frac{f(x)-1}{x}\to 1.
+\]
+On the other hand, we know that $f(x)=a^x$ and thus
+by the notable limit (corollary~\ref{cor:limite_notevole_e})
+\[
+\frac{f(x)-1}{x} = \frac{a^{x}-1}{x}
+= \frac{e^{x \ln a}-1}{x \ln a} \cdot \ln a
+\to \ln a.
+\]
+We deduce that $\ln a= 1$, which means $a=e$.
+\end{proof}
+
+With some effort, it would also be possible to prove that 
+indeed $f(z)=e^z$ (in the previous theorem, we proved it 
+only for $x\in \RR$). 
+It would involve verifying that the function 
+$\phi(x) = f\enclose{i\frac{x}{2\pi}}$
+has the properties stated in theorem~\ref{th:omomorfismo_U}.
+However, it will be simpler to use derivatives, so we will postpone this 
+verification to the next chapter.
+
+In corollary~\ref{cor:limite_notevole_ex}
+we proved that 
+for every $x\in \RR$ we have
+\[
+  e^x = \lim_{n\to +\infty} \enclose{1+\frac x n}^n.  
+\]
+The following theorem tells us that the exponential series $f(z)$ 
+satisfies the same property for every $z \in \CC$.
+Thus, it indeed provides an alternative proof 
+of the identity $f(x) = e^x$ and a further indication 
+of the coincidence between $f(z)$ and $e^z$.
+
+\begin{theorem}[Notable Limit of Complex Exponential]%
+\label{th:limite_notevole_esponenziale_complesso}%
+\mymark{*}%
+For every $z\in \CC$ it holds that
+\[
+  \sum_{k=0}^{+\infty} \frac{z^k}{k!} = \lim_{n \to +\infty} \enclose{1+\frac z n}^n  
+\]
+\end{theorem}
+%
+\begin{proof}
+\mymark{*}
+Using the binomial expansion, we observe that
+\[
+ \enclose{1+\frac z n}^n
+ = \sum_{k=0}^n \binom{n}{k} \frac{z^k}{n^k}
+ = \sum_{k=0}^n \frac{z^k}{k!} \cdot \frac{n!}{n^k\cdot (n-k)!}.
+\]
+For each $k\le n$, let
+\begin{align*}
+ c(n,k)
+  &= \frac{n!}{n^k\cdot (n-k)!}
+  = \frac{n \cdot (n-1) \cdot \ldots \cdot(n-k+1)}{n^k} \\
+    &= \frac{n}{n}\cdot {\frac {n-1} n} \cdot \frac {n-2} {n} \cdot \ldots \cdot
+  \frac{n-k+1}{n}
+\end{align*}
+we observe that $0\le c(n,k)\le 1$ as it is
+a product of non-negative numbers less than or equal to $1$.
+Moreover, for fixed $k$, we have $c(n,k)  \to 1$ as $n\to +\infty$
+since each factor $\frac{n-j}{n}$ tends
+to $1$ as $n\to +\infty$ (note that for fixed $k$, the number of factors $k$ is
+fixed).
+
+Let $z\in \CC$ be fixed and let
+\[
+  S = \sum_{k=0}^{+\infty} \frac{\abs{z}^k}{k!}.
+\]
+We know that the exponential series is absolutely convergent
+for every $z\in \CC$ (since the radius of convergence is $+\infty$)
+so $S$ is a real (finite) number.
+Thus, by theorem \ref{th:coda} (the tail theorem), we know that for every
+$\eps>0$
+there exists $M$ such that
+\[
+   \sum_{k=M+1}^{+\infty} \frac{\abs{z}^k}{k!} < \eps.
+\]
+
+For fixed $k\le M$, since $c(n,k)\to 1$,
+there exists $N_k > M$ such that for every $n>N_k$
+we have $1-c(n,k) < \eps$
+(recall that $c(n,k)\le 1$).
+Then take
+\[
+  N=\max\ENCLOSE{N_k\colon k\le M}
+\]
+so that for every $n>N$ and for every $k\le M$, we have $0 \le 1-c(n,k) < \eps$.
+Then, for every $n>N$, we can split the sum from $0$ to $n$ into two
+sums from $0$ to $M$ and from $M+1$ to $n$:
+\begin{align*}
+\abs{\sum_{k=0}^n \frac{z^k}{k!} - \enclose{1+\frac z n}^n}
+&= \abs{\sum_{k=0}^n \enclose{\frac{z^k}{k!} - c(n,k)\frac{z^k}{k!}}}
+= \abs{\sum_{k=0}^n  (1-c(n,k))\frac{z^k}{k!}} \\
+&\le \sum_{k=0}^n  (1-c(n,k))\frac{\abs{z}^k}{k!} \\
+  &= \sum_{k=0}^{M} (1-c(n,k)) \frac{\abs{z}^k}{k!}
+   + \sum_{k=M+1}^n (1-c(n,k)) \frac{\abs{z}^k}{k!} \\
+&\le \sum_{k=0}^{M} \eps \frac{\abs{z}^k}{k!}
+   + \sum_{k=M+1}^n \frac{\abs{z}^k}{k!} \\
+&\le  \eps \sum_{k=0}^{+\infty} \frac{\abs{z}^k}{k!}
+    + \eps \\
+&\le \eps S + \eps
+= \eps (S+1).
+\end{align*}
+
+Since $\eps>0$ was arbitrary, we have verified
+through the definition that
+\[
+\sum_{k=0}^n \frac{z^k}{k!} - \enclose{1+\frac z n}^n \to 0
+\]
+that is
+\[
+\lim_{n\to +\infty} \enclose{1+\frac z n}^n = \sum_{k=0}^{+\infty} \frac{z^k}{k!}.
+\]
+\end{proof}
+
+\begin{table}
+\begin{center}
+\begin{tabular}{r}
+\ttfamily\footnotesize 2.7182818284 5904523536 0287471352 6624977572 4709369995 \\
+\ttfamily\footnotesize   9574966967 6277240766 3035354759 4571382178 5251664274 \\
+\ttfamily\footnotesize   2746639193 2003059921 8174135966 2904357290 0334295260 \\
+\ttfamily\footnotesize   5956307381 3232862794 3490763233 8298807531 9525101901 \\
+\ttfamily\footnotesize   1573834187 9307021540 8914993488 4167509244 7614606680 \\
+\ttfamily\footnotesize   8226480016 8477411853 7423454424 3710753907 7744992069 \\
+\ttfamily\footnotesize   5517027618 3860626133 1384583000 7520449338 2656029760 \\
+\ttfamily\footnotesize   6737113200 7093287091 2744374704 7230696977 2093101416 \\
+\ttfamily\footnotesize   9283681902 5515108657 4637721112 5238978442 5056953696 \\
+\ttfamily\footnotesize   7707854499 6996794686 4454905987 9316368892 3009879312 \\
+\ttfamily\footnotesize   7736178215 4249992295 7635148220 8269895193 6680331825 \\
+\ttfamily\footnotesize   2886939849 6465105820 9392398294 8879332036 2509443117 \\
+\ttfamily\footnotesize   3012381970 6841614039 7019837679 3206832823 7646480429 \\
+\ttfamily\footnotesize   5311802328 7825098194 5581530175 6717361332 0698112509 \\
+\ttfamily\footnotesize   9618188159 3041690351 5988885193 4580727386 6738589422 \\
+\ttfamily\footnotesize   8792284998 9208680582 5749279610 4841984443 6346324496 \\
+\ttfamily\footnotesize   8487560233 6248270419 7862320900 2160990235 3043699418 \\
+\ttfamily\footnotesize   4914631409 3431738143 6405462531 5209618369 0888707016 \\
+\ttfamily\footnotesize   7683964243 7814059271 4563549061 3031072085 1038375051 \\
+\ttfamily\footnotesize   0115747704 1718986106 8739696552 1267154688 9570350354
+\end{tabular}
+\end{center}
+\caption{The first 1000 decimal digits of the number $e$
+calculated using the method employed in the proof
+of theorem~\ref{th:approx_e}.
+See the code on page~\pageref{code:compute_e}.}
+\label{fig:cifre_e}
+\index{$e$!decimal digits}
+\index{digits!$e$}
+\end{table}
+
+\begin{theorem}[Approximation of the Exponential]
+  \label{th:approx_exp}%
+  \label{th:approx_e}%
+  \index{$\exp$!approximation}%
+  \index{approximation!of $\exp$}%
+  If $\abs{x}\le 1$, then 
+  \begin{equation}\label{eq:stima_exp}
+    \abs{e^x - \sum_{k=0}^n \frac{x^k}{k!}}
+    \le \sum_{k={n+1}}^{+\infty} \frac{\abs{x}^k}{k!}
+    \le \frac{\abs{x}^{n+1}}{n\cdot n!}.
+  \end{equation}
+  In particular, setting $x=1$, we find
+  \begin{equation}\label{eq:stima_e}
+     0 < e - \sum_{k=0}^n \frac{1}{k!} \le \frac{1}{n \cdot n!}
+  \end{equation}
+  and for $n=5$, we obtain
+  \begin{equation}
+    2.716 < e < 2.719
+  \end{equation}
+  \end{theorem}
+  %
+  \begin{proof}
+  The tail of the exponential series can be estimated 
+  using the sum of a geometric series:
+  \begin{align*}
+    \abs{e^x - \sum_{k=0}^n \frac {x^k} {k!}}
+    & \le \sum_{k=n+1}^{+\infty} \frac{\abs{x}^k}{k!} 
+     = \sum_{k=0}^{+\infty}\frac{\abs{x}^{n+k+1}}{(n+k+1)!} \\
+    & \le \sum_{k=0}^{+\infty}\frac{\abs{x}^{n+1+k}}{(n+1)^{k+1}\cdot n!}
+          = \frac{\abs{x}^{n+1}}{(n+1)\cdot n!}\sum_{k=0}^{+\infty}
+     \enclose{\frac{\abs{x}}{(n+1)}}^k \\
+        & = \frac{\abs{x}^{n+1}}{(n+1)\cdot n!} \cdot
+    \frac{1}{1-\frac{\abs{x}}{(n+1)}}
+     = \frac{\abs{x}^{n+1}}{(n+1-\abs{x})\cdot n!}.
+  \end{align*}
+  If $\abs{x}\le 1$, we thus obtain the estimate~\eqref{eq:stima_exp}.
+  If $x=1$, the exponential series has positive terms and thus 
+  approximates $e$ from below: we thus obtain~\eqref{eq:stima_e}.
+  For $n=5$, we have
+  \[
+   \sum_{k=0}^5 \frac{1}{k!} = 1 + 1 + \frac 1 2 + \frac{1}{6} + \frac {1}{24} + \frac{1}{120}
+   = \frac{326}{120}
+  \]
+  Thus on one hand
+  \[
+    e \ge \frac{326}{120} \ge 2.716
+  \]
+  and on the other
+  \[
+   e \le \frac{326}{120} + \frac{1}{5\cdot 5!}
+     \le 2.717 + 0.002 = 2.719
+  \]
+\end{proof}
+  
+\begin{theorem}[Irrationality of $e$]
+\mymargin{$e\not\in \QQ$}%
+\index{$e\not\in \QQ$}%
+\mymark{**}%
+\index{irrationality!of $e$}%
+\index{$e$!is irrational}%
+The number $e$ is irrational.
+\end{theorem}
+%
+\begin{proof}
+For every $n\in \NN$, we have 
+\[
+  n! \cdot e = \sum_{k=0}^{+\infty} \frac{n!}{k!}
+   = \sum_{k=0}^n \frac{n!}{k!} + n!\sum_{k=n+1}^{+\infty} \frac{1}{k!}.
+\]
+The first term in the previous sum is an integer
+since if $k\le n$, the ratio $n!/k!$ is an integer.
+Thanks to theorem~\ref{th:approx_e}
+for the second term, if $n>1$, we have:
+\[
+0 < n! \cdot \sum_{k=n+1}^{+\infty} \frac{1}{k!}
+\le \frac{1}{n} < 1.
+\]
+It follows that for every $n\ge 2$, the number $n! e$
+is strictly between two consecutive integers and thus is never 
+an integer. Therefore, $e$ cannot be rational because 
+if it were $e=\frac p q$, then $n! e \in \ZZ$ for every 
+$n>q$.
+\end{proof}

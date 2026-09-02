@@ -1,0 +1,341 @@
+\section{Operations with Landau Symbols}
+\label{sec:landau}
+
+The
+\index{Landau symbols}%
+\index{Landau!symbols of}%
+\index{small $o$}%
+\index{small o}%
+\index{big $O$}%
+\index{big O}%
+Landau notations, small $o$ and big $O$, are extremely convenient for handling
+asymptotic estimates. However, one must be very careful with how these notations
+are used, as otherwise, one risks making gross errors. Some counterintuitive
+results are, for example:
+\begin{enumerate}
+\item $o(x) - o(x) = o(x)$ (and not $0$),
+\item $o(x^2) = o(x)$ but not $o(x) = o(x^2)$.
+\end{enumerate}
+
+The second example, in particular, tells us that the equality symbol is not
+actually used appropriately in this context, as it does not possess the
+symmetric property. In this section, we propose a formally precise definition of
+the small $o$ (and big $O$) object and a rigorous way to manipulate and compare
+it.
+
+\begin{definition}[small $o$, big $O$]
+Let $A\subset \RR$, $x_0$ be an accumulation point of $A$, and let $g\colon A
+\to \RR$ be a positive function on $A$. We then define the sets of
+functions\mynote{%
+recall that $A^B$ denotes the set of functions $f\colon B \to A$}:
+\begin{align*}
+  o(g) &= \ENCLOSE{f\in \RR^A \colon \lim_{x\to x_0}\frac{f(x)}{g(x)} = 0};\\
+    O(g) &= \ENCLOSE{f\in \RR^A \colon \limsup_{x\to x_0}\abs{\frac{f(x)}{g(x)}}
+  < + \infty}\\
+              &= \ENCLOSE{f\in \RR^A \colon \exists U\in \U_{x_0}, C>0 \colon
+       \forall x \in U\colon \abs{\frac{f(x)}{g(x)}}\le C}.
+\end{align*}
+\end{definition}
+
+Expressions such as:
+\[
+  \sin x - x = o(x^2), \qquad \text{for $x\to 0$}
+\]
+should thus be interpreted as
+\[
+  f \in o(g)
+\]
+where $f(x) = \sin x -x $ and $g(x) = x^2$.
+In this section, we will write:
+\begin{equation}\label{eq:39523}
+  \sin x - x \in o(x^2)
+\end{equation}
+to emphasize this interpretation (and to highlight the fact that the relation is
+not symmetric at all).
+
+We can now proceed to interpret operations between sets. In general, if $A$ and
+$B$ are sets of objects on which an operation $*$ is defined (which could be
+addition, multiplication, division...), we define:
+\[
+  A * B = \ENCLOSE{a*b \colon a \in A, b\in B}.
+\]
+Similarly, if $A$ is a set on whose elements an operation $*$ with an object $b$
+is defined, we will define:
+\[
+  A * b = \ENCLOSE{a*b\colon a \in A}, \qquad
+  b * A = \ENCLOSE{b*a\colon a \in A}.
+\]
+For example, the expression
+\[
+  \sin x = x + o(x^2)
+\]
+should formally be understood as
+\[
+  \sin x  \in x + o(x^2)
+\]
+where the set $x+ o(x^2)$ is the set of all functions
+$f$ that can be written in the form $f(x) = x+h(x)$ with $h\in o(x^2)$, i.e.,
+$h$ such that $h(x)/x^2 \to 0$. It follows that this expression is equivalent to
+\eqref{eq:39523} since if $\sin x = x + h(x)$ with $h\in o(x^2)$, it means that
+$\sin x- x \in o(x^2)$.
+
+We can then state the algebraic rules for manipulating Landau symbols.
+
+\begin{theorem}[Operations with Landau Symbols]
+Let $A\subset \RR$, $x_0\in [-\infty, +\infty]$ be an accumulation point for
+$A$. Let $f,g \colon A \to \RR$ be positive functions, $c\in \RR$, $c\neq 0$,
+$n\in \NN$, $n\neq 0$. Then, for $x\to x_0$, we have:
+\begin{align*}
+0 \in o(f) &\subset O(f) & f&\in O(f)& \\
+c \cdot o(f) &= o(f) & c \cdot O(f) &= O(f)\\
+o(f)+o(f) &= o(f) & O(f)+O(f) &= O(f)\\
+o(f)-o(f) &= o(f) & O(f)-O(f) &= O(f)\\
+o(f\cdot g) &= f \cdot o(g) & O(f\cdot g) &= f\cdot O(g)\\
+o(g/f) &= o(g) / f & O(g/f) &= O(g) / f\\
+o(f)\cdot o(g) &\subset o(f\cdot g) & O(f)\cdot O(g) &\subset O(f\cdot g) \\
+o(f)\cdot O(g) & \subset o(f\cdot g)&  & \\
+(o(f))^n &\subset o(f^n) & (O(f))^n &\subset O(f^n)\\
+o(o(f)) &\subset o(f) & O(O(f)) &\subset O(f)\\
+o(O(f)) &\subset o(f) & O(o(f)) &\subset o(f)
+.
+\end{align*}
+It is observed, in particular, that $o(f)$ and $O(f)$ are vector subspaces of
+$\RR^A$.
+
+It is also possible to apply variable changes.
+If $f\in o(g)$ for $x\to x_0$ and $h(t) \to x_0$ for $t\to t_0$, then
+\[
+  f \circ h \in o(g\circ h) \qquad \text{for $t\to t_0$}.
+\]
+\end{theorem}
+%
+\begin{proof}
+Since $0/f = 0$, it is obvious that $0\in o(f)$.
+The inclusion $o(f) \subset O(f)$ follows from the fact that if $h\in o(f)$, it
+means that $h/f\to 0$ for $x\to x_0$. But then there exists a neighborhood of
+$x_0$ in which $\abs{h/f}<1$, and thus $h\in O(f)$. Obviously, $f\in O(f)$ since
+$f/f=1$ is a bounded function.
+
+If $h\in c \cdot o(f)$, it means that $h = c \cdot (h/c)$ and $h/c \in o(f)$,
+i.e., $(h/c)/f \to 0$. But this is equivalent to $h/f\to 0$ since $c$ is a
+non-zero constant. The case of big $O$ is handled similarly.
+
+The set $o(f)+o(f)$ consists of functions of the form $h+k$ with $h,k \in o(f)$.
+But we have
+\[
+  \frac{h+k}{f} = \frac{h}{f} + \frac{k}{f} \to 0 + 0 = 0.
+\]
+Thus $o(f)+o(f) \subset o(f)$. Conversely, observe that if $h\in o(f)$, it can
+be written as $h = h/2 + h/2$, and from what has been seen before, we know that
+$h/2 \in o(f)$. Thus $o(f) \subset o(f) + o(f)$.
+A similar reasoning can be applied to $O(f)$: the sum of two locally bounded
+functions is also locally bounded.
+
+Observe that $o(f)-o(f) = o(f) + (-1)\cdot o(f) = o(f) + o(f) = o(f)$
+from what has already been seen. The same holds for $O(f)-O(f)$.
+
+If $h\in o(fg)$, it means that $h/(fg)\to 0$. But then $h = f\cdot (h/f)$ with
+$h/f \in o(g)$ since $(h/f)/g = h/(fg)\to 0$. Thus $h \in fo(g)$, and
+consequently $o(fg)\subset f \cdot o(g)$. Conversely, if $h \in f\cdot o(g)$, it
+means that $h = f \cdot(h/f)$ with $h/f \in o(g)$, i.e., $(h/f)/g \to 0$. Thus
+$h/(fg) \to 0$, which means $h\in o(fg)$.
+A similar reasoning can be applied to big $O$.
+
+The results for division are reduced to those of multiplication by observing
+that division by $f$ is equivalent to multiplication by $1/f$.
+
+If $h\in o(f)$ and $k\in o(g)$, we want to show that $hk\in o(fg)$.
+But this is obvious since $(hk)/(fg) = (h/f)\cdot(k/g) \to 0\cdot 0 = 0$. We
+have shown that $o(f)o(g)\subset o(fg)$. A similar result holds in the other two
+cases $O(f)O(g)\subset O(fg)$ and $o(f)O(g)\subset o(fg)$, observing that the
+product of two bounded functions is bounded, and the product of a bounded
+function with an infinitesimal is infinitesimal.
+
+Regarding the power $(o(f))^n$, observe that:
+\begin{align*}
+  (o(f))^n &= \ENCLOSE{h^n \colon h\in o(f)}
+      \subset \ENCLOSE{h_1 \cdots h_n \colon h_1, \dots, h_n \in o(f)}\\
+      &= o(f) \cdots o(f) \subset o(f^n).
+\end{align*}
+
+If $h\in o(o(f))$, it means that there exists $k\in o(f)$ and $h\in o(k)$. Thus
+$k/f\to 0$ and $h/k\to 0$. But then $h/f = (h/k)\cdot (k/f) \to 0\cdot 0 = 0$,
+thus $h \in o(f)$. We have therefore shown that $o(o(f)) \subset o(f)$. A
+similar demonstration can be made for big $O$. The inclusions $o(O(f))\subset
+o(f)$ and $O(o(f))\subset o(f)$ are demonstrated similarly, observing that the
+product of a bounded function with an infinitesimal is infinitesimal.
+
+Regarding the change of variable, we need to verify that
+\[
+  \frac{f(h(t))}{g(h(t))} \to 0
+  \qquad\text{for $t\to t_0$}
+\]
+if $f\in o(g)$ and if $h(t)\to x_0$ for $t \to t_0$. But this is nothing other
+than the change of variable $x=h(t)$ in the limit $f(x)/g(x)\to 0$ for $x\to
+x_0$.
+\end{proof}
+
+\begin{example}
+Knowing that for $x\to 0$, we have
+\[
+\sin x \in x + o(x^2), \qquad \cos x \in 1 - \frac {x^2}{2} + o(x^3)
+\]
+and recalling that $x^3 \in o (x^2)$, we can deduce, using the properties of the
+previous theorem:
+\begin{align*}
+2\cos x  - \sin x
+&\in 2 - x^2 + 2o(x^3) - x - o(x^2)\\
+&= 2- x - x^2 + o(x^3) + o(x^2)\\
+&= 2- x - x^2 + o(o(x^2)) + o(x^2)\\
+ &\subset 2 - x - x^2 + o(x^2) + o(x^2)\\
+ &= 2-x-x^2 + o(x^2).
+\end{align*}
+Usually, all these steps are implied, the symbol $=$ is used instead of $\in$
+and $\subset$, and often only one $o(\cdot)$ is preferred at the end of each
+expression.
+\end{example}
+
+\begin{example}
+With the same assumptions as the previous example, we could write:
+\begin{align*}
+(\sin^2 x)\cdot(2-2\cos x)^3
+&\in (x+o(x^2))^2 \cdot (2 - (2- x^2 - 2o(x^3))^3 \\
+&= (x+o(x^2))^2 \cdot (x^2+o(x^3))^3 \\
+&= (x^2 + 2 x o(x^2) + (o(x^2))^2) \\
+&\quad \cdot (x^6 + 3 x^4 o(x^3) + 3 x^2(o(x^3))^2 + (o(x^3))^3)\\
+&\subset (x^2 + o(x^3) + o(x^4))\cdot(x^6 + o(x^7) + o(x^8) + o(x^9)) \\
+&= (x^2 + o(x^3)) \cdot(x^6+o(x^7)) \\
+&= x^8 + x^2o(x^7) + o(x^3) x^6 + o(x^3)o(x^7)\\
+&= x^8 + o(x^9) + o(x^9) + o(x^{10})
+= x^8 + o(x^9).
+\end{align*}
+\end{example}
+
+\begin{example}
+We can also perform an exercise with the change of variable.
+Observing that $y=1-\cos x\to 0$ for $x\to 0$
+and knowing that $\sin y = y + o(y^2)$ for $y\to 0$
+and that $2-2\cos x = x^2 + o(x^2)$ for $x\to 0$,
+we can write
+that for $x\to 0$:
+\begin{align*}
+\sin(2-2\cos x)
+& \in (2-2\cos x) + o((2-2\cos x)^2) \\
+& \subset x^2 + o(x^2) + o((x^2+o(x^2))^2) \\
+& \subset x^2 + o(x^2) + o(O(x^4)) \\
+& \subset x^2 + o(x^2) + o(x^4) \\
+& = x^2 + o(x^2).
+\end{align*}
+\end{example}
+
+\begin{exercise}
+Prove (out of simple curiosity) that the inverse inclusions to those stated in
+the theorem also hold:
+\begin{gather*}
+o(f\cdot g) \subset o(f) \cdot o(g), \qquad
+o(f\cdot g) \subset O(f) \cdot o(g), \\
+o(f\cdot g) \subset o(f) \cdot O(g), \\
+o(f) \subset o(o(f)),  \qquad
+O(f) \subset O(O(f)).
+\end{gather*}
+Observe instead that $(o(f))^2 \neq o(f)\cdot o(f)$.
+\end{exercise}
+
+The Taylor formula can be very useful for determining the nature of a series, as
+in the following.
+\begin{exercise}
+Determine the values of $\alpha \in \RR$ for which the series
+\[
+  \sum_{k=1}^{+\infty}(-1)^k \enclose{\frac 1 k - \sin \frac 1 k}^\alpha
+\]
+converges absolutely and those for which it converges.
+\end{exercise}
+\begin{proof}[Solution.]
+Let $f(x) = x - \sin x$,
+through Taylor expansion, we know that,
+for $x\to 0$:
+\begin{align*}
+   f^\alpha(x) &= \enclose{x - \sin x}^\alpha
+   =  \enclose{\frac{x^3}{6} + o(x^3)}^\alpha
+   = \frac{x^{3\alpha}}{6^\alpha}\enclose{1+o(1)}^\alpha\\
+   & = \frac{x^{3\alpha}}{6^\alpha}\enclose{1 + \alpha \cdot o(1) + o(o(1))}
+   = \frac{x^{3\alpha}}{6^\alpha}\enclose{1 + o(1)}.
+\end{align*}
+Since for $k\to +\infty$, we have $x=1/k \to 0$, we can
+write:
+\[
+  a_k = \enclose{f(1/k)}^\alpha = \enclose{\frac 1 k - \sin \frac 1 k}^\alpha
+  = \frac{1}{6^\alpha \cdot k^{3\alpha}} \enclose{1+o(1)}
+  \sim \frac{1}{6^\alpha \cdot k^{3\alpha}}.
+\]
+Observe that the given series is $\sum (-1)^k a_k$ and that $a_k>0$. Thus, by
+the asymptotic comparison test, if $3\alpha > 1$, i.e., if $\alpha >1/3$,
+the given series converges absolutely, whereas if $\alpha \le 1/3$, the series
+does not converge absolutely (but it might converge).
+Also note that if $\alpha \le 0$, the term $a_k$ is not even infinitesimal, and
+thus the series cannot converge.
+
+For $\alpha \in (0,1/3]$, we can try to use the Leibniz criterion:
+the sequence $a_k$ is infinitesimal, and we need to verify that it is also
+eventually decreasing.
+Having set $a_k = \enclose{f(1/k)}^\alpha$, it will be sufficient to show that
+the function $f(x)$ is increasing in a right neighborhood of $0$.
+By the properties of the Taylor polynomial, we know that the Taylor polynomial
+of order $2$ of $f'(x)$ is equal to the derivative of the Taylor polynomial of
+$f(x)$ of order $3$. Thus, we can immediately assert (but it would have been
+equally quick to calculate the derivative and then expand it) that
+\[
+  f'(x)
+  = \enclose{\frac{x^3}{6}}'  + o(x^2)
+  = \frac{x^2}{2} + o(x^2) = x^2 \enclose{\frac 1 2 + o(1)}
+\]
+thus, by the permanence of the sign, there must exist a neighborhood of $0$ in
+which
+$1/2 + o(1)$ is positive, and therefore in such a neighborhood, it results that
+$f'(x)\ge 0$
+i.e., $f$ is increasing.
+Thus, $f^\alpha$ is also increasing, and for sufficiently large $k$,
+$a_k$ is decreasing. We can then apply the Leibniz criterion and
+conclude that the series is convergent for every $\alpha >0$.
+\end{proof}
+
+\begin{exercise}
+  Prove that the following series is convergent:
+  \[
+    \sum_k \sqrt{k} \enclose{k\tg{\frac 1 k} - \cos \frac 1 k}.
+  \]
+\end{exercise}
+\begin{proof}[Solution]
+In this exercise, we use the notion of big $O$ (but the exercise could also be
+solved using small $o$, as usual).
+For $x\to 0$, we have: %
+\mynote{%
+here we exploit the fact that the third-order Taylor expansion exists 
+and using the big $O$ notation, we avoid having to remember the coefficient
+$c=\frac 1 3$ that appears in the formula}
+\[
+  \tg x = x + c x^3 + o(x^3) = x + O(x^3)
+\]
+and similarly
+\[
+  \cos x = 1 + O(x^2)
+\]
+from which
+\[
+  \frac{\tg x}{x} - \cos x = O(x^2).
+\]
+Thus, for $k\to +\infty$, we have
+\[
+  a_k = \sqrt{k} \enclose{k\tan{\frac 1 k} - \cos \frac 1 k}
+      = \sqrt{k} \cdot O\enclose{\frac 1 {k^2}} = O\enclose{\frac 1 {k^{\frac 3
+   2}}}.
+\]
+This means that for sufficiently large $k$, there exists a constant $C$
+such that
+\[
+  a_k \le \frac{C}{k^{\frac 3 2}}.
+\]
+Since we know that the series $\sum \frac{1}{k^p}$ is convergent
+if $p>1$, by the comparison test, $\sum a_k$ (which is a series with positive
+terms) is also convergent.
+\end{proof}

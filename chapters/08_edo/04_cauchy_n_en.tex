@@ -1,0 +1,96 @@
+\section{The Cauchy Problem for Equations of Order $n$}
+
+The Cauchy problem for equations of order $n$ is the problem of determining the
+solution of an ordinary differential equation of order $n$ in normal form,
+coupled with an initial condition for the value of the function and all its
+derivatives up to order $n-1$. Given $\Omega\subset \RR\times \RR^n$ open, $f\in
+C^0(\Omega)$, $\vec y = (y_1, \dots, y_n) \in \RR^n$, the task is to find an
+interval $I\subset \RR$ and a function $u\in C^n(I)$ that satisfies the
+following conditions:
+\begin{equation}\label{eq:problema_cauchy_ordine_n}
+  \begin{cases}
+    u^{(n)}(x) = f(x,u(x), u'(x), \dots, u^{(n-1)}(x))\\
+    u(x_0) = y_1 \\
+    u'(x_0) = y_2 \\
+    \ \vdots \\
+    u^{(n-1)}(x_0) = y_n.
+  \end{cases}
+\end{equation}
+
+\begin{theorem}[Existence and Uniqueness for Equations of Order $n$]
+\label{th:cauchy_lipschitz_ordine_n}
+\mymargin{local existence and uniqueness}%
+\index{local existence and uniqueness}
+Let $f\colon \Omega\to \RR$ be a function that satisfies the Cauchy-Lipschitz
+condition. Then the Cauchy problem~\eqref{eq:problema_cauchy_ordine_n} admits a
+unique local solution. That is, there exists a $\delta>0$ such that for every
+interval $I\subset [x_0-\delta,x_0+\delta]$, there exists a unique $u\in C^n(I)$
+that satisfies~\eqref{eq:problema_cauchy_ordine_n}.
+
+\mymargin{global existence and uniqueness}%
+\index{global existence and uniqueness}
+If $\Omega$ is of the form $\Omega = I \times \RR^n$ with $I\subset \RR$ an open
+interval and if $f$ is also sublinear (as in the hypotheses of global
+existence), then the Cauchy problem~\eqref{eq:problema_cauchy_ordine_n} admits a
+unique solution defined on the entire $I$.
+\end{theorem}
+%
+\begin{proof}
+If $u\in C^n$ is a scalar function, we can consider the vector function $\vec u
+\in C^1$ whose components are $u$ and its first $n-1$ derivatives:
+\[
+\vec u(x) = (u(x), u'(x), \dots, u^{(n-1)}(x))
+\]
+that is, $u_k(x) = u^{(k-1)}(x)$ for $k=1,\dots ,n$ with $\vec u(x) = (u_1(x),
+\dots, u_n(x))$.
+
+With this transformation, the problem~\eqref{eq:problema_cauchy_ordine_n} can be
+rewritten in the form:
+\[
+ \begin{cases}
+   u_1'(x) = u_2 \\
+   %u_2'(x) = u_3 \\
+   \ \vdots \\
+   u_{n-1}'(x) = u_n \\
+   u_n'(x) = f(x, u_1(x), u_2(x), \dots, u_n(x))\\\\
+   u_1(x_0) = y_1\\
+   \ \vdots \\
+   u_{n}(x_0) = y_n
+ \end{cases}
+\]
+that is, setting $\vec f(x,\vec y) = (y_2, y_3, \dots, y_n, f(x, \vec y))$, we
+have a vector function $\vec f\colon \Omega \to \RR^n$ and the
+problem~\eqref{eq:problema_cauchy_ordine_n} is equivalent to
+\begin{equation}\label{eq:437583}
+  \begin{cases}
+   \vec u'(x) = \vec f(x,\vec u(x))\\
+   \vec u(x_0) = \vec y.
+  \end{cases}
+\end{equation}
+Since $f$ is continuous, $\vec f$ is also continuous. We verify if $\vec f$
+satisfies the Lipschitz condition. By hypothesis, $f$ satisfies it, that is,
+there exists $L>0$ such that:
+\[
+  \abs{f(x,\vec y)-f(x,\vec z)} \le L\abs{\vec y - \vec z}.
+\]
+Then we have
+\begin{align*}
+\abs{\vec f(x,\vec y) - \vec f(x,\vec z)}
+  &= \sqrt{\sum_{k=2}^n \abs{y_k-z_k}^2 + \abs{f(x,\vec y)-f(x,\vec z)}^2} \\
+  &\le \sqrt{\abs{\vec y - \vec z}^2 + L^2 \abs{\vec y - \vec z}^2}
+  = \sqrt{1+L^2}\cdot \abs{\vec y - \vec z}.
+\end{align*}
+Thus, the function $\vec f$ satisfies the hypotheses of the Cauchy-Lipschitz
+theorem: therefore, there exists a solution $\vec u$ of this problem in an
+appropriate interval centered at the point $x_0$. Setting $u=u_1$ (the first
+component of $\vec u$), it is observed that $u$ is of class $C^n$. Indeed, we
+know that $\vec u$ is of class $C^1$, and since $u_1' = u_2$, $u_2' = u_3$,
+\dots, $u_{n-1}'=u_n$, and since $u_n\in C^1$, it follows that $u=u_1$ is of
+class $C^n$ and is a solution of the problem
+\eqref{eq:problema_cauchy_ordine_n}. Uniqueness also follows directly from the
+equivalence of the two formulations.
+
+Global existence follows similarly from the theorem for first-order systems. It
+suffices to observe that if the function $f$ satisfies the sublinearity
+hypothesis, then $\vec f$ also satisfies it.
+\end{proof}

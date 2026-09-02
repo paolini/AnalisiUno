@@ -1,0 +1,422 @@
+\section{Calculation of Antiderivatives}
+
+As previously mentioned, we will use the notation $\int f$ to denote the
+antiderivatives of the function $f$. Instead of writing $F\in \int f$ to
+indicate that $F$ is an antiderivative of $f$, we may write more simply, albeit
+with an abuse of notation, $\int f = F$, remembering (as we did with the
+notation of the little $o$) that this relation is not symmetric at all.
+Traditionally, one writes
+\begin{equation}\label{eq:4137878}
+  \int \cos x\, dx = \sin x + c 
+\end{equation}
+but we could also write more simply:
+\mynote{%
+The way of writing \eqref{eq:4137878} is only apparently better
+than~\eqref{eq:489417} because in some cases not all antiderivatives can be
+determined up to a constant (see example~\ref{ex:primitive_non_connesso}).
+Therefore, the rule (generally valid for all notations that require
+interpretation) is to use the notation of indefinite integrals with caution and
+awareness: one must be aware of the meaning of what is written and use a
+notation that is understandable to the audience.
+}%
+\begin{equation}\label{eq:489417}
+  \int \cos x\, dx = \sin x.
+\end{equation}
+
+\begin{theorem}[Antiderivatives of Some Elementary Functions]
+\index{integral!elementary functions}
+For every $\alpha \in \RR$, $\alpha\neq -1$, we have
+\begin{gather*}
+\int x^\alpha\, dx \ni \frac{x^{\alpha+1}}{\alpha+1},
+\qquad
+\int \frac{1}{x}\, dx \ni \ln\abs{x}
+\\
+\int e^x \, dx \ni e^x,
+\qquad
+\int \cos x\, dx \ni \sin x,
+\qquad
+\int \sin x\, dx \ni -\cos x
+\\
+\int \cosh x \, dx \ni \sinh x,\qquad
+\int \sinh x \, dx \ni \cosh x, \\
+\int \frac{1}{1+x^2}\, dx \ni \arctg x, \qquad
+\int \frac{1}{\sqrt{1-x^2}}\, dx \ni \arcsin x, \\
+\int \frac{1}{\sqrt{x^2+1}}\, dx \ni \settsinh x = \ln\enclose{x+\sqrt{x^2+1}}\\
+\int \frac{1}{\sqrt{x^2-1}}\, dx \ni \settcosh x = \ln\enclose{x+\sqrt{x^2-1}}.
+\end{gather*}
+\end{theorem}
+%
+\begin{proof}
+It suffices to refer to the corresponding table of derivatives of elementary
+functions (theorem~\ref{th:derivate_elementari}).
+\end{proof}
+
+\begin{theorem}[Linearity of the Indefinite Integral]
+For every $\lambda,\mu \in \RR$ and if $f$, $g$ are arbitrary functions, we
+have:
+\[
+  \int \enclose{\lambda f + \mu g} \supset \lambda \int f + \mu \int g
+\]
+\end{theorem}
+%
+\begin{proof}
+Every element of the set on the right-hand side can be written in the form
+$\lambda F + \mu G$ with $F\in \int f$ and $G\in \int g$. Thus, we have $F'=f$
+and $G'=g$, from which it follows that
+\[
+  (\lambda F + \mu G)' = \lambda f + \mu g
+\]
+and therefore
+\[
+  \lambda F + \mu G \in \int (\lambda f + \mu g)
+\]
+as we needed to prove.
+\end{proof}
+
+\begin{example}\label{ex:234045}
+  Calculate $\int (2x-1)^2\, dx$.
+\end{example}
+\begin{proof}[Solution.]
+  We have 
+  \[
+  \int (x-1)^2\, dx = \int \enclose{4x^2 - 4x +1}\, dx 
+  \ni 4\frac{x^3}{3} - 4 \frac {x^2}{2} + x
+  = \frac 4 3 x^3 - 2 x^2 + x.
+  \]
+\end{proof}
+
+\begin{theorem}[Change of Variable in Integrals]
+The following properties hold:
+\begin{enumerate}
+\item
+If $g\colon A \to \RR$ is differentiable and $f\colon g(A) \to \RR$, then
+\mymargin{direct substitution}%
+\index{substitution!direct}%
+\index{integral!direct substitution}%
+\begin{equation}\label{eq:sostituzione_1}
+  \int f(g(x)) g'(x)\, dx \supset
+  \Enclose{\int f(y) \, dy}_{y=g(x)}
+\end{equation}
+where it is understood that
+\[
+ \Enclose{F(y)}_{y=g(x)} = F(g(x));
+\]
+
+\item
+If $g\in C^1([a,b])$ and $f\in C^0(g([a,b]))$, then
+\mymargin{change of variable}%
+\index{change!of variable}%
+\index{integral!change of variable}%
+\begin{equation}\label{eq:sostituzione_2}
+ \int_{g(a)}^{g(b)} f(x)\, dx = \int_a^b f(g(t))\, g'(t)\, dt;
+\end{equation}
+
+\item
+If $I$ is an interval, $g\in C^1(I)$ is injective, and $f\in C^0(g(I))$, then
+$g^{-1}$ is defined on the interval $g(I)$ and we have
+\mymargin{inverse substitution}%
+\index{substitution!inverse}%
+\index{integral!inverse substitution}%
+\begin{equation}\label{eq:239455}
+  \int f(x)\, dx \supset \Enclose{\int f(g(t)) g'(t)\, dt}_{t=g^{-1}(x)}
+\end{equation}
+\end{enumerate}
+\end{theorem}
+%
+\begin{proof}
+For~\eqref{eq:sostituzione_1}, it suffices to observe that if $F(y)$ is any
+antiderivative of $f(y)$, then $F(g(x))$ is an antiderivative of $f(g(x))\cdot
+g'(x)$ (just apply the chain rule for differentiation). Thus, every element of
+the set on the right in~\eqref{eq:sostituzione_1} is an element of the set on
+the left.
+
+To prove~\eqref{eq:sostituzione_2}, we know that $f$, being continuous, admits
+at least one antiderivative $F(x)$. From the previous point, we know that
+$F(g(t))$ is an antiderivative of $f(g(t))g'(t)$ (just differentiate to verify
+it). Thus, using the fundamental theorem of calculus, we obtain:
+\[
+\int_{g(a)}^{g(b)}\!\! f(x) \, dx
+= \Enclose{F(x)}_{g(a)}^{g(b)}
+= F(g(b)) - F(g(a))
+= \Enclose{F(g(t))}_a^b
+=\int_a^b\! f(g(t))g'(t)\, dt.
+\]
+
+To prove~\eqref{eq:239455}, let $F$ be any function element of the set on the
+right-hand side of the relation. We will have $F(x) = H(g^{-1}(x))$ with $H(t)$
+an antiderivative of $f(g(t))g'(t)$. But then, by the fundamental theorem of
+calculus, fixed $t_0 \in I$, we have, by~\eqref{eq:sostituzione_2},
+\mynote{If $g^{-1}$ were differentiable, the proof would be immediate, but in general, it may happen that the derivative of $g$ vanishes at some point, and thus $g^{-1}$ might not be differentiable.}%
+\begin{align*}
+  F(x) - F(g(t_0))
+  &= H(g^{-1}(x)) - H(t_0)
+  = \int_{t_0}^{g^{-1}(x)} f(g(t)) g'(t)\, dt
+  = \int_{g(t_0)}^x f(s)\, ds
+\end{align*}
+from which, by theorem~\ref{th:torricelli-barrow}, we can differentiate both
+sides to obtain $F'(x) = f(x)$. Thus, the function $F$ is an element of the set
+on the left-hand side of the relation~\eqref{eq:239455}, as we wanted to prove.
+\end{proof}
+
+The formulas of the previous theorem are usually written in the form
+\[
+  \int f(g(x)) g'(x)\, dx = \int f(y) \, dy
+\]
+where it is understood that the variables $x$ and $y$ must satisfy the relation
+$y=g(x)$ (or, conversely, $x=g^{-1}(y)$). To memorize this formula, it is common
+to define the \emph{differential} of a function $g$ as $dg(x) = g'(x)\, dx$
+(consistently with the notation $g' = dg / dx$) so that if $y=g(x)$, we have $dy
+= g'(x)\, dx$. We will not provide a formal definition of what a differential is
+here, but we will certainly use this convenient notation, thinking of it simply
+as a typographical convenience.
+
+\begin{example}
+Calculate $\int (2x-1)^2\, dx$.
+\end{example}
+\begin{proof}[Solution.]
+We can make the change of variable $y=2x-1$, $dy = 2\, dx$. Thus,
+\begin{align*}
+\int (2x-1)^2\, dx 
+&= \frac 1 2 \int (2x-1)^2\, 2dx
+\supset \frac 1 2 \Enclose{\int y^2\, dy}_{y=2x-1}
+\ni \frac 1 2 \Enclose{\frac{y^3}{3}}_{y=2x-1}\\
+&= \frac 1 6 \enclose{2x-1}^3 = \frac{8x^3 - 12x^3 + 6 x - 1}{6}
+= \frac 4 3 x^3 - \frac 2 x^2 + x - \frac 1 6.
+\end{align*}
+We observe that this antiderivative is different from the one found in
+example~\ref{ex:234045}, but it differs from it by a constant. Therefore, both
+results are correct.
+\end{proof}
+\begin{example}
+Calculate
+$\int \cos^2 x \, dx$.
+\end{example}
+\begin{proof}[Solution.]
+Recalling that $\cos(2t) = \cos^2 t - \sin^2 t = 2\cos^2 t - 1$, we have $\cos^2
+t = \frac{1+\cos(2t)}2$ (bisection formula). Thus,
+\[
+\int \cos^2 t\, dt
+= \int\frac{1+\cos(2t)}{2}\, dt
+= \int \frac 1 2 \, dt + \int \frac{\cos(2t)}{2}\, dt.
+\]
+Clearly, $\int \frac 1 2 \, dt  = \frac t 2$.
+In the second integral, we can make a change of variable, setting $2t=s$, from
+which $2dt = ds$:
+\begin{align*}
+\int \frac{\cos(2t)}{2}\, dt
+&= \frac 1 4 \int \cos(2t)\, 2dt
+= \frac 1 4 \Enclose{\int \cos s \, ds}_{s=2t}
+= \frac 1 4 \Enclose{\sin s}_{s=2t}\\
+&= \frac 1 4 \sin(2t)
+= \frac{1}{2}\sin t \cdot \cos t.
+\end{align*}
+Ultimately, we obtain
+\[
+  \int \cos^2 x \, dx = \frac{t+\sin t \cdot \cos t}{2}.
+\]
+\end{proof}
+
+
+\begin{example}
+Calculate
+$\int \sqrt{1-x^2}\, dx$.
+\end{example}
+\begin{proof}
+The integrand function is defined for $x\in [-1,1]$. We consider making the
+substitution $x=\sin t$ with $t\in [-\pi/2, \pi/2]$. We observe that on
+$[-\pi/2,\pi/2]$, the function $\sin t$ is differentiable, invertible, and its
+inverse is $t = \arcsin x$. Informally, we have
+\[
+ x= \sin t, \qquad dx = \cos t \, dt
+\]
+from which we obtain the formula
+\[
+ \int \sqrt{1-x^2}\, dx = \Enclose{\int \sqrt{1-\sin^2(t)} \cos t\, dt}_{t=\arcsin x}.
+\]
+Now observe that for $t\in [-\pi/2, \pi/2]$, we have $\sqrt{1-\sin^2(t)}=\cos
+t$, and thus the integral becomes
+\[
+ \int \sqrt{1-\sin^2(t)}\cos t\, dt = \int \cos^2(t)\, dt.
+\]
+We calculated this last integral in the previous exercise. Thus, we obtain:
+\begin{align*}
+ \int \sqrt{1-x^2}\, dx
+ &\stackrel{(x=\sin t)}= \int \cos^2(t)\, dt
+ = \frac{t + \sin t \cos t}{2} \\
+ &= \frac{t + (\sin t) \sqrt{1-\sin^2 t}}{2} \\
+ &\stackrel{(t=\arcsin x)}= \frac{\arcsin x + x \sqrt{1-x^2}}{2}.
+\end{align*}
+\end{proof}
+
+Note that the graph $y=\sqrt{1-x^2}$ from the previous example is a semicircle,
+and thus the integral
+\[
+ \int_{-1}^1 \sqrt{1-x^2}\, dx = \Enclose{\frac{\arcsin x +x\sqrt{1-x^2}}{2}}_{-1}^{1}
+ = \frac{\pi}{2}.
+\]
+represents the area of a unit semicircle.
+
+\begin{exercise}
+Calculate
+\[
+ \int \sqrt{1+x^2}\, dx, \qquad \int \sqrt{x^2-1}\, dx.  
+\]
+
+Hint: Analogous to the integral of $\sqrt{1-x^2}$, you can perform the
+substitution $t=\sinh x$ in the first integral and $t=\cosh x$ in the second.
+\end{exercise}
+
+\begin{theorem}[Integration by Parts]
+\mymark{*}%
+\mymargin{integral by parts}%
+\index{integral!by parts}%
+Let $f\colon A\subset \RR \to \RR$ be any function, let $g\colon A \to\RR$ be a
+differentiable function, and let $F \in \int f$. Then
+\[
+  \int f\cdot g \supset F \cdot g - \int F \cdot g'.
+\]
+
+In particular, if $f\in C^0([a,b])$ and $g\in C^1([a,b])$ and $F \in \int f$, we
+have
+\[
+  \int_a^b f\cdot g = \Enclose{F\cdot g}_a^b - \int_a^b F \cdot g'.
+\]
+\end{theorem}
+%
+\begin{proof}
+\mymark{*}
+Every function in the set on the right can be written in the form $F\cdot g - H$
+with $H \in \int F \cdot g'$. Thus, $H' = F \cdot g'$ and, by hypothesis,
+$F'=f$, from which it follows that
+\[
+(F\cdot g - H)' = F' \cdot g + F \cdot g' - H' = F' \cdot g
+= f\cdot g
+\]
+which is what we needed to prove.
+
+The second part of the theorem follows directly from the fundamental theorem of
+calculus (valid since both $f\cdot g$ and $F \cdot g'$ are continuous
+functions), observing that
+\[
+\Enclose{F\cdot g - \int F \cdot g'}_a^b
+= \Enclose{F\cdot g}_a^b - \int_a^b F \cdot g'.
+\]
+\end{proof}
+
+\begin{example}
+We want to calculate
+\[
+  \int x \cos x\, dx.
+\]
+The method of integration by parts allows us to reduce the integral of a product
+to an integral of a product where one of the factors is integrated and the other
+is differentiated. In this case, it will be convenient to differentiate the
+factor $x$ and integrate the factor $\cos x$ so as to reduce to the integral of
+$1\cdot \sin x$, which we know how to solve. Specifically, we have
+\[
+ \int x \cos x\, dx = x \sin x - \int 1 \cdot \sin x \, dx
+  = x \sin x + \cos x.
+\]
+\end{example}
+
+\begin{example}
+  \label{ex:822309}
+We want to calculate
+\[
+ \int e^x \cos x\, dx.
+\]
+In this case, if we use integration by parts, we can reduce this integral to
+$\int e^x \sin x$. Integrating again by parts, we will again reduce to $\int e^x
+\cos x$. However, if in these steps we obtain the original quantity with a
+changed sign, we can solve the resulting equation to find the desired result.
+
+Specifically:
+\begin{align*}
+\int e^x \cos x\, dx
+&= e^x \sin x - \int e^x \sin x\, dx\\
+ &= e^x \sin x - \Enclose{e^x(-\cos x) - \int e^x(-\cos x)\, dx} \\
+ &= e^x \sin x + e^x \cos x - \int e^x \cos x \, dx
+\end{align*}
+from which:
+\[
+ 2 \cdot \int e^x \cos x\, dx  = e^x \sin x + e^x \cos x
+\]
+that is,
+\[
+  \int e^x \cos x\, dx = \frac{e^x(\sin x + \cos x)}{2}.
+\]
+\end{example}
+
+\begin{theorem}[More Antiderivatives of Elementary Functions]
+\mymark{***}
+We have
+\begin{align*}
+  \int \ln x\, dx  &= x \ln x - x, \\
+  \int \arctg x\, dx &= x \arctg x - \ln \sqrt{1+x^2},\\
+  \int \arcsin x\, dx &= x \arcsin x + \sqrt{1-x^2},\\
+  \int \arccos x\, dx &= x \arccos x - \sqrt{1-x^2}.
+\end{align*}
+\end{theorem}
+%
+\begin{proof}
+\mymark{***}
+The idea, in all cases, is that the derivative of the integrand function is much
+simpler than the function itself (in the first two cases, it is a rational
+function, in the other two, an irrational but not transcendental function). It
+may therefore be useful to apply integration by parts in the form:
+\[
+  \int f(x)\, dx = \int 1\cdot f(x)\, dx = x f(x) - \int x f'(x)\, dx.
+\]
+In the first case, we have:
+\[
+\int \ln x\, dx = x \ln x - \int x \frac{1}{x}\, dx
+ = x \ln x - \int 1 dx = x \ln x - x.
+\]
+In the second case:
+\[
+\int \arctg x\, dx = x \arctg x - \int \frac{x}{1+x^2}\, dx.
+\]
+We then perform a change of variable $y=1+x^2$:
+\begin{align*}
+\int \frac{x}{1+x^2}\, dx
+&= \frac{1}{2}\int \frac{1}{1+x^2} 2x \, dx
+\stackrel{y=1+x^2} = \frac{1}{2}\int \frac 1 y\, dy \\
+&= \frac{\ln y}{2} = \frac{1}{2}\ln\enclose{1+x^2}
+\end{align*}
+from which, in conclusion:
+\[
+ \int \arctg x\, dx = x \arctg x - \frac 1 2 \ln\enclose{1+x^2}.
+\]
+In the third case:
+\[
+ \int 1\cdot \arcsin x\, dx = x\cdot \arcsin x - \int\frac{x}{\sqrt{1-x^2}}\, dx  
+\]
+and by performing the substitution $y=1-x^2$, we arrive at 
+\[
+  \int \arcsin x\, dx = x \cdot \arcsin x + \sqrt{1-x^2}.  
+\]
+The last integral is carried out similarly.
+\end{proof}
+
+\begin{remark}
+If the method of integration by parts is applied in the search for the
+antiderivative of the function $\frac{1}{x\ln x}$, integrating the factor $\frac
+1 x$ and differentiating the factor $\frac 1 {\ln x}$, a seemingly disconcerting
+phenomenon occurs:
+\begin{align*}
+  \int \frac{1}{x\ln x}\,dx
+    &= \ln x \cdot \frac{1}{\ln x} - \int \ln x \cdot \frac{\frac 1 x}{-\ln^2
+  x}\, dx\\
+  &= 1 + \int \frac{1}{x\ln x}\, dx.
+\end{align*}
+One might think of simplifying the integrals on both sides of the equality to
+obtain $0=1$. This cannot be done because, let us remember, the indefinite
+integral is a set of functions (the antiderivatives of the function
+$\frac{1}{x\ln x}$ in this case), and we know that adding a constant to an
+antiderivative yields another antiderivative. Therefore, it should not be
+surprising that adding $1$ to the set of antiderivatives leaves it unchanged.
+
+For the record: the integral in question can be calculated by substitution,
+setting $y=\ln x$ and finding $F(x) = \ln\abs{\ln x}$ as one of the
+antiderivatives.
+\end{remark}

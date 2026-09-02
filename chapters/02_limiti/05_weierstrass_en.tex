@@ -1,0 +1,130 @@
+\section{The Weierstrass Theorem}
+
+Recall that in definition~\ref{def:funzione_limitata} we defined the concepts of
+maximum, minimum, supremum, and infimum of a real-valued function.
+
+\begin{lemma}[minimizing/maximizing sequences]%
+\mymargin{minimizing sequences}%
+\index{sequence!minimizing}%
+\index{sequence!maximizing}%
+Let $A$ be a non-empty set and let $f\colon A \to \RR$ be a function. Then there
+exist two sequences $a_n$ and $b_n$ of points in $A$ such that
+\[
+  \lim_{n\to +\infty} f(a_n) = \inf f(A), \qquad
+  \lim_{n\to +\infty} f(b_n) = \sup f(A).
+\]
+\end{lemma}
+\mymargin{minimizing sequences}
+%
+\begin{proof}
+Recall that $f(A) = \ENCLOSE{f(x)\colon x \in A}$ is the image of the function
+$f$. We will prove the statement for the infimum; an analogous result can be
+obtained for the supremum.
+
+Let $m=\inf f(A)$.
+If $m=-\infty$, it means that $f(A)$ is not bounded below, in particular for
+every $n\in \RR$ there exists $a_n$ such that $f(a_n) < - n$.
+Thus (by comparison) $f(a_n) \to -\infty$ as we wanted to demonstrate.
+
+If $m\in \RR$, by the characterizing properties of the infimum, we know that for
+every $\eps>0$ there exists $a\in A$ such that $f(a) < m + \eps$.
+For every $n\in\NN$, we can choose $\eps=1/n$ and thus obtain a sequence $a_n$
+such that $f(a_n) < m + 1/n$.
+On the other hand, since $m$ is a lower bound of $f(A)$, we know that $m \le
+f(a_n)$.
+We thus have $m \le f(a_n) < m+ 1/n$, and by the squeeze theorem, we can
+conclude that $f(a_n) \to m$ as $n\to +\infty$.
+\end{proof}
+
+\begin{theorem}[Weierstrass]%
+\label{th:weierstrass}%
+\mymark{***}%
+\mymargin{Weierstrass theorem}%
+\index{theorem!Weierstrass}%
+\index{Weierstrass!theorem}%
+\mynote{see historical notes on page~\pageref{note:isoperimetrico}}%
+Let $a,b\in \RR$, $a\le b$, and $f\colon [a,b]\to \RR$ be a continuous function.
+Then there exist points of maximum and minimum for $f$ on $[a,b]$.
+\end{theorem}
+%
+\begin{proof}
+\mymark{***}%
+We will only prove that $f$ has a minimum; the proof for the maximum proceeds in
+an entirely analogous manner.
+
+Let $m= \inf f([a,b])$.
+By the previous lemma, we know that there exists a minimizing sequence $a_n$,
+i.e., such that $a_n \in [a,b]$ and $f(a_n)\to m$ as $n\to +\infty$.
+
+By the Bolzano-Weierstrass theorem, from the sequence $a_n$, we can extract a
+convergent subsequence $a_{n_k}$: $a_{n_k} \to x_0$.
+Since $a_{n_k} \in [a,b]$, by the theorem of sign permanence, we also have $x_0
+\in [a,b]$ (apply the sign permanence to the sequences $a_{n_k}-a$ and
+$b-a_{n_k}$).
+
+Thus, we have a sequence $a_{n_k}\to x_0$ with $a_{n_k}\in [a,b]$ and $x_0 \in
+[a,b]$. Since $f$ is continuous, we will have $f(a_{n_k}) \to f(x_0)$.
+But we knew that $f(a_n)\to m$, and thus also $f(a_{n_k}) \to m$.
+We conclude that $f(x_0) = m$, i.e., $m$, the infimum, is a value assumed by the
+function and is therefore a minimum.
+On its part, $x_0$ is a point of absolute minimum.
+\end{proof}
+
+\begin{corollary}[boundedness of continuous functions]
+Let $f\colon [a,b]\to \RR$ be a continuous function. Then $f$ is bounded.
+\end{corollary}
+\begin{proof}
+Since $f$ has a maximum $M$ and a minimum $m$, we have $f(x)\in [m,M]$ for every
+$x\in[a,b]$.
+Obviously, $m>-\infty$ and $M<+\infty$ since $m$ and $M$ are values of the
+function $f$.
+\end{proof}
+
+It often happens that one needs to determine whether a continuous function
+$f\colon I\to \RR$ defined on an interval $I$ assumes maximum or minimum values,
+but usually, the interval $I$ is not closed and bounded. More frequently, one
+falls into this generalized form of the Weierstrass theorem.
+\begin{theorem}[Generalized Weierstrass]%
+  \label{th:weierstrass_generalizzato}%
+  \mymark{***}%
+  \mymargin{generalized Weierstrass theorem}%
+  \index{theorem!generalized Weierstrass}%
+  \index{Weierstrass!generalized theorem}%
+Let $a\ge -\infty$, $b\le +\infty$, with $a<b$, and let $f\colon (a,b)\to \RR$
+be a continuous function.
+If 
+\[
+ \lim_{x\to a^+} f(x) = +\infty, \qquad 
+ \lim_{x\to b^+} f(x) = +\infty
+\]
+then $f$ assumes a minimum value at at least one point in $(a,b)$.
+\end{theorem}
+\begin{proof}
+Let $m=\inf f((a,b))$.
+By the previous lemma, there exists a minimizing sequence $a_n$, i.e., such that
+$a_n \in (a,b)$ and $f(a_n)\to m$ as $n\to +\infty$.
+By the Bolzano-Weierstrass theorem~\ref{th:bolzano_weierstrass}, from the
+sequence $a_n$, we can extract a convergent subsequence $a_{n_k}$: $a_{n_k} \to
+x_0$.
+By the sign permanence theorem~\ref{th:permanenza_segno}, it must be $x_0 \in
+[a,b]$.
+But if $x_0=a$, we would have $f(a_{n_k}) \to +\infty$, contradicting the fact
+that $a_n$ is a minimizing sequence.
+The same would happen if $x_0=b$. Thus $x_0 \in (a,b)$.
+We conclude as in the Weierstrass theorem, by the continuity of $f$ at $x_0$, we
+deduce $f(x_0) = m$, and thus $x_0$ is a point of minimum.
+\end{proof}
+
+\begin{exercise}
+In each of the following cases, decide whether there exists a function with the
+indicated characteristics:
+\begin{enumerate}
+  \item $f\colon \RR\to (0,1)$ continuous and bijective;
+  \item $f\colon \RR\to [0,1]$ continuous and surjective;
+  \item $f\colon [0,1]\to \RR$ continuous and surjective;
+  \item $f\colon (0,1]\to \RR$ continuous and surjective;
+  \item $f\colon (0,1]\to \RR$ bijective. 
+\end{enumerate}
+\end{exercise}
+%%%%%%%%%%%
+%%%%%%%%%%%

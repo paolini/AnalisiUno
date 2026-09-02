@@ -1,0 +1,477 @@
+\begin{figure}
+  \centering
+  \begin{tikzpicture}[node distance=2cm]
+    \draw node at (0,0)[name=insieme]{set};
+    \draw node at (-1,-1)[name=sv]{vector space};
+    \draw node at (-1,-3)[name=sn]{normed space};
+    \draw node at (-1,-5)[name=euclideo]{Euclidean space};
+    \draw node at (2,-1)[name=st]{topological space};
+    \draw node at (2,-2)[name=sm]{metric space};
+    \draw node at (2,-3.5)[name=completo]{complete space};
+    \draw node at (1,-4.5)[name=banach]{Banach};
+    \draw node at (1,-6)[name=hilbert]{Hilbert};
+    \draw[->](sv) -- (insieme);
+    \draw[->](st) -- (insieme);
+    \draw[->](sn) -- (sv);
+    \draw[->](sm) -- (st);
+    \draw[->](euclideo) -- (sn);
+    \draw[->](hilbert) -- (euclideo);
+    \draw[->](hilbert) -- (banach);
+    \draw[->](banach) -- (completo);
+    \draw[->](completo) -- (sm);
+    \draw[->](sn) -- (sm);
+    \draw[->](banach) -- (sn);
+
+    \begin{scope}[black!40]
+    \draw node at (-2,0)[name=insiemeT]{$\in,\subset,\cup$};
+    \draw (insiemeT) -- (insieme);
+    \draw node at (-3,-1)[name=svT]{$+,\cdot$};
+    \draw (svT) -- (sv);
+    \draw node at (-3,-3)[name=snT]{$\abs{v}$};
+    \draw (snT) -- (sn);
+    \draw node at (-3,---5)[name=euclideoT]{$\langle v,w\rangle$};
+    \draw (euclideoT) -- (euclideo);
+    \draw node at (5,0)[name=stT]{$\lim, \stackrel\circ A, \bar A$};
+    \draw (stT) -- (st);
+    \draw node at (5,-1.75)[name=smT]{$d(x,y)$, Lip};
+    \draw (smT) -- (sm);
+    \end{scope}
+
+    \begin{scope}[black!75]
+    \draw node at (5,-1)[name=Rbar,left]{$\bar \RR$};
+    \draw[->](Rbar) -- (st);
+      \draw node at (5,-2.5)[name=Q,left]{$\QQ$};
+      \draw[->](Q) -- (sm);
+      \draw node at (5,-4)[name=Sn,left]{$\mathbb S^n$};
+      \draw[->](Sn) -- (completo);
+      \draw node at (4.5,-5)[name=Cn,left]{$\mathcal C^n$, $L^p$, $\ell^p$};
+      \draw[->](Cn) -- (banach);
+      \draw node at (4,-6.5)[name=L2,left]{$L^2$, $\ell^2$};
+      \draw[->](L2) -- (hilbert);
+      \draw node at (1,-7)[name=Rn]{$\RR^n$};
+      \draw[->](Rn) -- (hilbert);
+    \end{scope}
+  \end{tikzpicture}
+\caption{Mathematical structures abstracting the space $\RR^n$.
+The black arrow means: ``is a'',
+the dark arrow: ``is an example of'',
+the light line: ``is a typical operation of''.}
+\label{fig:spazi}
+\end{figure}
+
+Abstraction is a typical activity in mathematics. The results we have seen so
+far mostly concern the space $\RR$ of real numbers and partly the space $\CC$ of
+complex numbers. However, it is evident that many of these results extend to
+other more general situations. Identifying the fundamental properties underlying
+a theorem is perhaps the most important activity performed by mathematics.
+Typically, identifying these properties not only generalizes a result but also
+simplifies its proof. Indeed, once the minimal hypotheses of the theorem are
+identified, the tools at our disposal are also reduced, making it easier to
+understand which ones should be used. On the other hand, we cannot take this
+attempt at generalization to the extreme, as it quickly becomes apparent that
+the array of spaces that gradually cover all possible types becomes enormous,
+and keeping all the definitions in mind becomes too burdensome.
+
+Refer to Figure~\ref{fig:spazi} for a relational overview of the spaces we will
+now introduce. Vector spaces (linear algebra) are assumed to be known, as they
+are usually covered in geometry courses. Topological spaces will only be briefly
+mentioned as they will not be directly useful for our purposes, and a complete
+treatment would require a significant amount of time. For the same reason, other
+very relevant spaces (such as groups and differential manifolds) are completely
+absent from this classification.
+
+\begin{definition}[metric space]
+\mymark{**}
+\label{def:distanza}
+We will say that $d\colon X\times X\to\RR$ is a \emph{distance}%
+\mymargin{distance}%
+\index{distance} on $X$
+if for every $x,y,z\in X$ the following properties hold:
+\begin{enumerate}
+\item
+  $d(x,y)\ge 0$ (positivity);
+\item
+  $d(x,y)\le d(x,z) + d(z,y)$ (triangle inequality);
+\item
+  $d(x,y)=0$ if and only if $x=y$ (separation);
+\item
+  $d(x,y) = d(y,x)$ (symmetry).
+\end{enumerate}
+
+If $d$ is a distance, we will say that $X$ is a
+\emph{metric space}
+\mymargin{metric space}%
+\index{space!metric}%
+(with distance $d$).
+\end{definition}
+
+Observe that from the triangle inequalities:
+\[
+  d(x,z) \le d(x,y) + d(y,z), \qquad
+  d(y,z) \le d(x,y) + d(x,z)
+\]
+one obtains the \emph{reverse triangle inequality}:
+\mymargin{reverse triangle inequality}
+\index{inequality!triangle!reverse}
+\[
+  d(x,y) \ge \abs{d(x,z) - d(y,z)}.
+\]
+
+\begin{definition}[convergence]%
+  \label{def:convergenza_metrica}%
+\mymark{*}%
+If $x_n \in X$ is a sequence of points in a metric space $X$
+and $x\in X$, we will say that $x_n$ converges to $x$ and write
+\[
+  x_n \to x
+\]
+if $d(x_n,x)\to 0$ as $n\to +\infty$.
+\end{definition}
+
+Note that the usual convergence in $\RR$ is nothing other than the convergence
+of $\RR$ viewed as a metric space with the Euclidean distance $d(x,y) =
+\abs{x-y}$.
+
+With the artifice $d(x_n,y_n) - d(x,y) = d(x_n,y_n) - d(x_n,y) + d(x_n,y) -
+d(x,y)$ and using the reverse triangle inequality, one can easily solve the
+following.
+
+\begin{exercise}[continuity of distance]
+Prove that if $x_n\to x$ and $y_n\to y$, then $d(x_n,y_n) \to d(x,y)$.
+\end{exercise}
+
+If we wish to define a distance on a vector space $V$, it will be natural to
+require that the distance is compatible with the vector space structure, and
+thus that it is invariant under translations and homogeneous with respect to
+dilations. With this requirement, the distance $d(x,y)$ between two points must
+be equal to the distance of $x-y$ from the origin. The distance from the origin
+is called a \emph{norm} and is the basis of the following definition.
+
+\begin{definition}[normed space]
+\mymark{*}
+\label{def:norma}
+Let $V$ be a vector space over the field $\RR$.
+A function $\phi \colon V\to \RR$ is said to be a \emph{norm}%
+\mymargin{norm}%
+\index{norm} on $V$ if
+for every $v,w\in V$ and for every $\lambda \in \RR$
+the following properties hold:
+\begin{enumerate}
+\item
+  $\phi(v) \ge 0$ (positivity);
+\item
+  $\phi(\lambda v) = \abs{\lambda} \cdot \phi(v)$ (homogeneity and symmetry);
+\item
+  $\phi(v+w) \le \phi(v) + \phi(w)$
+  (triangle inequality);
+\item
+  $\phi(v)=0$ if and only if $v=0$ (separation).
+\end{enumerate}
+
+If $\phi$ is a norm on $V$, we will say that
+$V$
+is a \emph{normed vector space}%
+\mymargin{normed}%
+\index{normed} by $\phi$.
+
+If $\phi$ is a norm, the function $d(v,w) = \phi(v-w)$
+is clearly a distance called the
+\emph{induced distance}
+\mymargin{induced distance}%
+\index{distance!induced}%
+by $\phi$.
+In particular, every normed space is also a metric space with respect to the
+distance induced by the norm.
+%Moreover, the triangle inequality
+%ensures that the norm $\phi\colon V\to \RR$ is a continuous function.
+\end{definition}
+
+Usually, the notations $\abs{v}$ or $\Abs{v}$ are used to indicate
+a norm $\phi(v)$.
+
+Since a normed space is also a metric space, convergence is defined in normed
+spaces. It is easy to verify that the norm is continuous with respect to such
+convergence, in the sense that if $v_k \to v$
+(that is, $\phi(v_k-v)\to 0$) then $\phi(v_k)\to \phi(v)$.
+
+\begin{definition}[Euclidean space]
+\label{def:prodotto_scalare}%
+Let $V$ be a vector space over the field $\RR$.
+A function $b\colon V\times V \to \RR$ is said to be a \emph{positive definite
+inner product}%
+\mymargin{positive definite inner product}%
+\index{product!inner}%
+\index{definite!positive}
+on $V$ if
+$b$ is a bilinear, symmetric, and positive definite form, that is, if
+for every $u,v,w\in V$ and for every $\lambda, \mu \in \RR$
+the following properties hold:
+\begin{enumerate}
+\item $b(v,v) \ge 0$ (positivity);
+\item $b(\lambda u + \mu v, w) = \lambda b(u,w) + \mu b(v,w)$
+and $b(u,\lambda v+ \mu w) = \lambda b(u,v) + \mu b(u,w)$
+(bilinearity);
+\item $b(v,w) = b(w,v)$ (symmetry);
+\item $b(v,v) = 0$ if and only if $v=0$ (non-degeneracy).
+\end{enumerate}
+
+If $b$ is a positive definite inner product on $V$, we will say that $V$ is a
+\emph{Euclidean space} (with inner product $b$).
+
+Usually, the notations $v\cdot w$, $(v,w)$, $\langle v,w\rangle$
+or $\langle v \vert w\rangle$ are used to denote an inner product $b(v,w)$.
+\end{definition}
+
+If $b$ is a positive definite inner product on $V$, the following theorem
+guarantees that
+the function $\phi(v) = \sqrt{\langle v,v\rangle}$ is a norm on $V$.
+
+Thus, a Euclidean space naturally has the structure of a normed space and a
+metric space.
+
+\begin{theorem}[properties of the inner product]
+\label{th:spazio_euclideo}%
+Let $V$ be a Euclidean space with a (positive definite) inner product $\langle
+v, w\rangle$.
+Define $\abs{v} = \sqrt{\langle v,v\rangle}$.
+Then $\abs{v}$ is a norm on $V$
+and for every $v,w\in V$ the following properties hold:
+\begin{enumerate}
+\item \emph{binomial expansion}%
+\mymargin{binomial expansion}%
+\index{expansion!binomial}
+\begin{equation}\label{eq:binomio_vettoriale}%
+  \abs{v+w}^2 = \abs{v}^2 + 2 \langle v,w\rangle + \abs{w}^2;
+\end{equation}
+\item \emph{Pythagorean theorem}%
+\mymargin{Pythagorean theorem}%
+\index{theorem!Pythagorean}
+\index{Pythagoras!theorem}%
+\begin{equation}\label{eq:Pitagora}
+  \langle v,w\rangle=0 \implies \abs{v-w}^2 = \abs{v}^2 + \abs{w}^2;
+\end{equation}
+\item \emph{Young's inequality}%
+\mymargin{Young's inequality}%
+\index{inequality!Young's}
+\index{Young!inequality of}%
+\begin{equation}\label{eq:Young}
+  \langle v,w\rangle \le \frac{\abs{v}^2 + \abs{w}^2}{2};
+\end{equation}
+\item \emph{Cauchy-Schwarz inequality}%
+\mymargin{Cauchy-Schwarz inequality}%
+\index{inequality!Cauchy-Schwarz}%
+\index{Cauchy-Schwarz!inequality of}%
+\begin{equation}\label{eq:Cauchy_Schwarz}
+   \langle v,w \rangle \le \abs{v} \cdot \abs{w};
+\end{equation}
+\item \emph{parallelogram law}%
+\mymargin{parallelogram law}%
+\index{law!parallelogram}
+\index{parallelogram!law of}
+\begin{equation}\label{eq:parallelogramma}
+  \abs{v+w}^2 + \abs{v-w}^2 = 2 \abs{v}^2 + 2\abs{w}^2;
+\end{equation}
+\item \emph{continuity}
+\[
+  \text{if $v_k\to v$ and $w_k\to w$, then
+  $\langle v_k,w_k\rangle \to \langle v,w \rangle$}.
+\]
+\end{enumerate}
+\end{theorem}
+%
+\begin{proof}
+First, observe that $\abs{v}$ is well-defined for every $v\in V$
+since the inner product $\langle v,v\rangle$ is by definition never negative.
+Then, in general, using bilinearity, we have the usual expansion of the square
+of the binomial:
+\begin{align*}
+  \abs{v+w}^2
+  &= \langle v+w, v+w\rangle
+  = \langle v+w, v\rangle + \langle v+w, w\rangle \\
+  &= \langle v,v\rangle + 2\langle v,w \rangle + \langle w,w\rangle
+  = \abs{v}^2 + 2\langle v,w \rangle + \abs{w}^2.
+\end{align*}
+The Pythagorean theorem follows immediately.
+But then Young's inequality is easily obtained:
+\[
+  0 \le \abs{v-w}^2 = \abs{v}^2 + \abs{w}^2 - 2 \langle v,w\rangle
+\]
+and the parallelogram law:
+\[
+  \abs{v+w}^2 + \abs{v-w}^2
+  = \abs{v}^2 + 2\langle v,w \rangle + \abs {w}^2
+    + \abs{v}^2 - 2\langle v,w\rangle + \abs{w}^2.
+\]
+Now, if $\abs{v}=\abs{w}=1$, Young's inequality tells us that
+\[
+  \langle v,w \rangle \le 1.
+\]
+But then for every $v\neq 0$ and $w \neq 0$, the Cauchy-Schwarz inequality is
+obtained:
+\[
+\frac{\langle v,w\rangle}{\abs{v}\cdot \abs{w}}
+ = \left\langle \frac{v}{\abs{v}} , \frac{w}{\abs{w}}\right\rangle
+ \le 1.
+\]
+If instead $v=0$ or $w=0$, the Cauchy-Schwarz inequality is obvious since
+for every $u\in V$, we have
+$\langle 0, u\rangle = \langle u,0\rangle = 0$ by bilinearity.
+
+The properties of positivity, homogeneity, symmetry, and separation of 
+the norm $\abs{v}$ follow directly from the analogous properties 
+of the inner product $\langle v,w\rangle$.  
+The triangle inequality follows from the 
+Cauchy-Schwarz inequality,
+indeed:
+\[
+ \abs{v+w}^2 = \langle v+w, v+w\rangle 
+ = \abs{v}^2 + \abs{w}^2 + 2 \langle v,w\rangle 
+ \le \abs v^2 + \abs w^2 + 2 \abs{v}\cdot \abs{w}
+ = \enclose{\abs{v} + \abs{w}}^2
+\]
+from which $\abs{v+w} \le \abs{v} + \abs{w}$.
+
+
+Regarding continuity,
+remember that $v_k \to v$ means $\abs{v_k-v}\to 0$.
+We can then write
+\begin{align*}
+  \langle v_k,w_k\rangle - \langle v,w\rangle
+&= \langle v_k,w_k\rangle - \langle v, w_k\rangle +  \langle v,w_k\rangle -
+\langle v,w\rangle \\
+&= \langle v_k - v, w_k\rangle + \langle v, w_k -w\rangle
+\end{align*}
+and, using Cauchy-Schwarz, if $v_k\to v$ and $w_k\to w$, we obtain
+\begin{align*}
+\abs{\langle v_k,w_k\rangle - \langle v,w\rangle}
+&\le \abs{v_k-v}\cdot \abs{w_k} + \abs{v}\cdot \abs{w_k-w}\\
+&\to 0\cdot \abs{w} + \abs{v}\cdot 0 = 0.
+\end{align*}
+\end{proof}
+
+The vector space $\RR^n$ has a canonical Euclidean structure,
+as in the following.
+
+\begin{definition}[Euclidean structure of $\RR^n$]%
+\label{def:124124}%
+\mymark{*}%
+A vector $\vec x\in \RR^n$ is defined as an $n$-tuple of real numbers:
+\[
+  \vec x = (x_1, \dots, x_n).
+\]
+On $\RR^n$, we can then define the inner product:
+\index{inner product!of $\RR^n$}
+\[
+  \vec x\cdot \vec y
+   = \sum_{k=1}^n x_k y_k
+   = x_1 y_1 + \dots + x_n y_n
+\]
+This inner product induces the Euclidean norm:
+\index{norm!Euclidean of $\RR^n$}%
+\[
+  \abs{\vec x} = \sqrt{\vec x \cdot \vec x}
+  = \sqrt{x_1^2 + x_2^2+ \dots + x_n^2}.
+\]
+The distance induced by this norm is called the \emph{Euclidean distance}%
+\mymargin{Euclidean distance}%
+\index{distance!Euclidean}:
+\[
+  d(\vec x, \vec y)
+  = \abs{\vec x-\vec y}
+  = \sqrt{(x_1-y_1)^2 + \dots + (x_n-y_n)^2}.
+\]
+
+In the case $n=1$, the norm coincides with the absolute value, which
+justifies the use of the same notation.
+
+If we identify $\CC$ with $\RR^2$ by associating the complex number $z=x+iy$
+with the point $(x,y)\in \RR^2$, we can observe that the Euclidean norm
+coincides with the modulus of the complex number:
+\[
+  \abs{z} = \sqrt{x^2 + y^2} = \abs{(x,y)}.
+\]
+
+Thus, $\RR$, $\CC$, $\RR^n$,
+are Euclidean spaces, normed spaces, and metric spaces with respect to the
+canonical
+Euclidean structure.
+\end{definition}
+
+\begin{example}[Manhattan distance]
+On $\RR^2$, we can define a norm, called the \emph{Manhattan norm}%
+\mymargin{Manhattan norm}%
+\index{norm!Manhattan},
+\index{Manhattan!norm}
+as follows:
+\[
+  \phi(\vec x) = \abs{x_1} + \abs{x_2}.
+\]
+The induced distance $d(p,q)$
+\index{distance!Manhattan}%
+\index{Manhattan!distance}%
+represents the length of the shortest path to
+go from $p$ to $q$ moving only horizontally or vertically
+(as if we were on the streets of Manhattan).
+
+The Manhattan norm is not Euclidean in the sense that it is not possible to
+define
+an inner product that induces this norm. Indeed, if such an
+inner product existed, the parallelogram law
+\eqref{eq:parallelogramma} would have to hold, but we observe that choosing $v=(1,0)$ and $w=(0,1)$
+we have
+\[
+  \phi(v+w)^2 + \phi(v-w)^2
+  = 8
+  \neq 4
+  = 2\phi(v)^2 + 2\phi(w)^2.
+\]
+
+The set $B_R(\vec x_0) = \ENCLOSE{\vec x \in \RR^2\colon \phi(\vec x-\vec x_0) <
+R}$
+of points in $\RR^2$ that are less than $R$ away from the point $\vec x_0$
+(see definition~\ref{def:palla})
+is a square
+with diagonals, of length $2R$, parallel to the coordinate axes.
+If as a norm $\phi$ we had chosen the canonical Euclidean norm of $\RR^2$,
+the set $B_R(\vec x_0)$ would have been a circle of radius $R$
+centered at $\vec x_0$.
+In general, norms induced by an inner product are recognized
+by the shape of these sets: only when ellipses
+(or ellipsoids if we are in higher dimension) are obtained, the norm is
+Euclidean.
+For other norms, one may obtain generic convex symmetric sets
+with respect to the center $\vec x_0$.
+\end{example}
+
+\begin{example}[$p$-norm]
+\label{ex:norma_p}%
+For every $p\ge 1$, one can define on $\RR^n$ the norm
+\mymargin{$p$-norm}%
+\index{$p$-norm}%
+\index{norm!$p$ in $\RR^n$}%
+\[
+  \abs{\vec x}_p = \sqrt[p]{\abs{x_1}^p + \abs{x_2}^p + \dots + \abs{x_n}^p}.
+\]
+
+One can also define
+\[
+  \abs{\vec x}_\infty = \lim_{p\to +\infty} \abs{\vec x}_p
+   = \max\ENCLOSE{\abs{x_1}, \abs{x_2}, \dots, \abs{x_n}}.
+\]
+
+For $p=2$, one obtains the Euclidean norm of definition~\ref{def:124124}
+$\abs{v}_2=\abs{v}$.
+For $p=1$
+on $\RR^2$, one obtains the Manhattan norm.
+For $p=+\infty$, one obtains again
+the Manhattan norm up to a 45-degree rotation and a scaling
+by a factor of $\sqrt 2$:
+\[
+  \abs{(x_1,x_2)}_\infty
+  = \abs{\enclose{\frac{x_1-x_2} 2, \frac {x_1+x_2}2}}_1
+\]
+
+It could be shown that only for $p=2$ is the norm $\abs{\vec x}_p$ induced
+by an inner product, as only for $p=2$ is the
+parallelogram law~\eqref{eq:parallelogramma} valid.
+\end{example}

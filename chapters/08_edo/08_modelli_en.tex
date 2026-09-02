@@ -1,0 +1,248 @@
+\section{Biological Growth Models}
+\index{model!biological}%
+
+\subsection{Malthusian Model}
+\index{model!Malthusian}%
+\index{Malthus!Malthusian model}%
+\index{exponential!Malthusian model}%
+
+The simplest model of population growth is one in which it is assumed that the
+population has sufficient nourishment and space for indefinite growth. In this
+model, the function $u(x)$ represents the number of individuals at time $x$, and
+it is assumed that the growth rate of the population $u'(x)$ is proportional to
+the number of individuals:
+\[
+  u'(x) = A u(x).  
+\]
+The solution to this simple linear equation (exercise~\ref{ex:58230978}) is
+$u(x) = u_0\cdot  e^{A x}$ where $u_0=u(0)$ is the population at the initial
+time $x=0$. This means that if $A>1$, the population grows indefinitely, tending
+to $+\infty$ as $x\to +\infty$ with exponential speed. If $A<1$, the population
+tends to zero (i.e., becomes extinct) also with exponential speed.
+
+\subsection{Logistic Equation}
+\index{equation!logistic}%
+\index{logistic!differential equation}%
+\index{growth!logistic}%
+
+To make the Malthusian model more realistic, one must consider the fact that
+individuals share a common space and that the presence of many individuals in
+the same space reduces resources and thus negatively contributes to population
+growth. We therefore assume that the negative effect on a unit of population is
+proportional to the total population: $-Bu$, while the Malthusian increase is
+still given by the coefficient $A$ per unit of population. Thus, we have
+\[
+  u'(x)  = (A-Bu(x))\cdot u(x)
+\]
+This is a separable variables equation. The functions $u(x) = 0$ and $u(x) =
+\frac{A}{B}$ are stationary (i.e., constant) solutions. The first represents an
+empty population, which therefore can never grow. The solution $u=\frac{A}{B}$
+represents a population in perfect equilibrium. To simplify the notation, we can
+make the change of variable $v(x) = \frac{B}{A}\cdot u(x/A)$, which leads us to
+the equivalent equation $v'=(1-v)\cdot v$. We can then assume $A=1$ and $B=1$
+and return to the variable $u$:
+\begin{equation}\label{eq:ode_logistica}
+  u' = (1-u) u.  
+\end{equation}
+
+\newsavebox{\qrOdeLogistica}\sbox{\qrOdeLogistica}{%
+\myqrshortdoclink{ode_logistica}{The solutions of the logistic equation~\eqref{eq:ode_logistica}}}
+\begin{figure}
+  \includegraphics[width=\textwidth]{ode_logistica.pdf}
+  \caption{
+The solutions of the logistic equation~\eqref{eq:ode_logistica}.
+\ifwidemargin\\\\\fi%
+\usebox{\qrOdeLogistica}}
+\label{fig:ode_logistica}
+\end{figure}
+
+Having identified the stationary solutions $u=0$ and $u=1$, we can separate the
+variables and integrate:
+\[
+ \int \frac{u'}{(1-u)u}\, dx = x - x_0.
+\]
+The integral decomposes using the method of partial fractions:
+\[
+  \int \frac{u'}{(1-u)u}\, dx
+  = \int \frac{1}{(1-u)u}\, du 
+  = \int \Enclose{\frac{1}{u} + \frac{1}{1-u}}\, du 
+  = \ln \abs{u} - \ln\abs{1-u}
+  = \ln \abs{\frac{u}{1-u}}.
+\]
+Thus, from 
+\[
+\abs{\frac{u}{1-u}} = e^{x-x_0}  
+\]
+we obtain, with some algebraic manipulation,
+\[
+    u(x) = 1 - \frac{1}{1\pm e^{x-x_0}}.
+\]
+The graph of these functions is depicted in Figure~\ref{fig:ode_logistica}. In
+Chapter~\ref{sec:studio_qualitativo_edo}, we will see how it is quite simple to
+obtain the qualitative behavior of the solution graphs of this equation without
+having to explicitly determine the solutions.
+
+\subsection{The Volterra-Lotka Model}
+\index{model!Volterra-Lotka}%
+\index{Volterra!predator-prey model}%
+\index{Lotka!predator-prey model}%
+\index{predator/prey}%
+
+The Volterra-Lotka predator/prey model is the first example of a mathematical
+model applied to biology. \index{Volterra Vito}%
+The Italian mathematician Vito Volterra was interested in understanding, through
+a mathematical model, the seemingly paradoxical phenomenon whereby the decline
+in fishing activities during World War I led to a decrease in the quantity of
+edible fish and a simultaneous relative increase in predatory species such as
+sharks upon the resumption of fishing.
+
+In the predator/prey model devised by Volterra, we denote by $u(x)$ the size of
+the prey population and by $v(x)$ the size of the predator population as time
+$x$ varies. The model is thus represented by a system of first-order nonlinear
+equations:
+\begin{equation}\label{eq:preda_predatore}
+  \begin{cases}
+    u' = A u - B u v \\
+    v' = C u v - D v
+  \end{cases}
+\end{equation}
+with $A,B,C,D$ positive real constants. The growth factor of the prey is
+dictated by a Malthusian law $A u$, which represents the self-sufficiency of the
+prey (it is assumed they have sufficient nourishment to grow indefinitely). The
+term $-B u v$ represents the killing of prey by predators: it is a term
+proportional to both the prey population $u$ and the predator population $v$ (as
+if each prey had a probability proportional to $v$ of encountering a predator).
+The term $C u v$ represents the corresponding growth of predators due to the
+nourishment provided by the prey. Conversely, predators cannot sustain
+themselves autonomously, so the term $-D v$ represents the natural extinction of
+predators in the absence of nourishment.
+
+Some solutions of the system~\eqref{eq:preda_predatore} can be found explicitly.
+For example, if $v=0$, we revert to the Malthusian equation for $u$ and find
+$u(x) = k e^{Ax}$: the prey grows exponentially in the absence of predators.
+Similarly, if $u=0$, we find $v(x) = k e^{-Dx}$: the predators become extinct
+with exponential speed in the absence of prey.
+
+We can also find stationary (i.e., constant) solutions by setting $u'=0$ and
+$v'=0$. We rewrite the system in the form:
+\begin{equation}\label{eq:preda_predatore_2}
+  \begin{cases}
+    u' = u \cdot (A - B v) \\
+    v' = v \cdot (C u - D).
+  \end{cases}
+\end{equation}
+and observe that to simultaneously nullify $u'$ and $v'$, we must have either
+$u=0$ and $v=0$ (a solution in which there are neither prey nor predators) or we
+can have $u=\frac D C$ and $v=\frac A B$, which is a non-trivial equilibrium
+point between the two species.
+
+We can obtain rather precise information if we can identify an integral of the
+system, that is, a function $H(u,v)$ that remains constant along the solutions:
+$\frac {d}{dx} H(u(x),v(x)) = 0$. By taking the ratio of the two equations of
+the system~\eqref{eq:preda_predatore_2}, we obtain
+\[
+  \frac{v'}{u'} 
+  = \frac{v \cdot (C u - D)}{u \cdot (A - B v)}
+\]
+separating the variables
+\[
+  \frac{A - B v}{v} v' = \frac{C u - D}{u} u'
+\]
+integrating in $dx$
+\[
+  \int \frac{A - B v}{v} v'\, dx  = \int \frac{C u - D}{u} u'  \, dx
+\]
+making the changes of variable $u=u(x)$, $v=v(x)$, $du = u'\, dx$, $dv=v'\, dx$
+and performing the divisions:
+\[     
+  \int \Enclose{\frac A v - B}\, dv = \int \Enclose{C  - \frac D u}\, du
+\]
+from which, for some constant $k$:
+\[
+  A \ln v - B v = C u - D\ln u + k.
+\]
+This means that the function 
+\[
+  H(u,v) = B v + C u - A \ln v - D \ln u
+\]
+is constant along the curves $(u(x),v(x))$. Thus, the trajectories of the system
+with $u>0$ and $v>0$ are bounded, because if $u$ or $v$ were to go to infinity,
+the terms $Bv-A\ln v$ or $Cu - D \ln u$ would also go to infinity, and the
+function $H$ could not remain constant.
+
+\newsavebox{\qrEdoVolterra}\sbox{\qrEdoVolterra}{%
+  \myqrshortdoclink{edo_volterra}{Orbits of the predator/prey system~\ref{eq:preda_predatore}}}
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=\textwidth]{ode_volterra.pdf}
+  \end{center}
+  \caption{
+  The orbits of the predator/prey system~\eqref{eq:preda_predatore} 
+  with the choice of parameters $A=B=C=D=1$.
+  \ifwidemargin\\\\\fi%
+  \usebox{\qrEdoVolterra}}
+  \label{fig:ode_volterra}
+\end{figure}
+
+Consider now a solution $u(x),v(x)$ that at time $x_0$ is on the segment
+$u=\frac DC$ and $v\in \openinterval{0}{\frac A B}$ (refer to
+Figure~\ref{fig:ode_volterra} where we have set $\frac AB=1$ and $\frac DC=1$).
+Since $v<\frac A B$, we have $u'>0$, and thus the curve moves to the right. As
+soon as $u>\frac DC$, we also have $v'>0$, and thus the curve moves upward.
+Since $u$ cannot tend to infinity, the solution must eventually reach the line
+$v=\frac AB$ where the derivative of $u$ vanishes, and the curve moves
+vertically. It then becomes $v>\frac AB$ where $u'<0$. The coordinate $u$ thus
+decreases, and since $v$ cannot tend to infinity, $u$ must reach the value
+$\frac DC$ where $v'=0$. Then it continues with $u<\frac DC$ where $v'<0$. Thus,
+both $u$ and $v$ decrease. However, they must remain positive because the
+function $H$ tends to infinity also when $u\to 0$ or $v\to 0$, and the axes
+$u=0$ and $v=0$ are orbits of the explicit solutions we found initially, and due
+to the uniqueness of solutions, it is not possible for different orbits to meet
+at a point. Thus, at some point, we will again have $v= \frac AB$ and $u\in
+\openinterval{0}{\frac DC}$, and then $v<\frac AB$ with $u'>0$ and $v'<0$. Our
+curve will therefore again reach at some time $x_1>x_0$ the segment from which
+we started: $u=\frac DC$ and $v\in \openinterval{0}{\frac AB}$. Throughout this
+path, $H$ has remained constant, so we will have
+$H(u(x_1),v(x_1))=H(u(x_2),v(x_2))$. But $u(x_1)=u(x_2) = \frac DC$, and setting
+$f(v) = H(D/C,v)$, we observe that
+\begin{align*}
+   f(v) = B v + D - A \ln v - D \ln \frac DC.
+\end{align*}
+studying the sign of the derivative $f'(v)=B-\frac{A}{v}$, we observe that for
+$v<\frac AB$, the derivative is strictly negative, thus the function $f$ is
+strictly decreasing in the interval $v\in(0,D/C)$, hence injective. Since
+$f(v(x_1)) = f(v(x_2))$, we deduce that $v(x_1)=v(x_2)$. This means that the
+curve closes, and the solutions are therefore periodic with period $T=x_2-x_1$.
+
+Taking any point in the quadrant $u>0$, $v>0$ (excluding the critical point),
+the solution starting from that point will follow a path that, based on the
+considerations we have already made, is forced to eventually cross the segment
+we considered and is, in fact, one of those we have already studied.
+
+This qualitative study describes the behavior of the solutions of the
+system~\ref{eq:preda_predatore}: try to interpret the biological significance of
+what we have deduced. Numerical methods (such as those used to obtain
+Figure~\ref{fig:ode_volterra}) allow us to obtain quantitative information with
+the desired precision.
+
+We can now also answer the initial question posed to Vito Volterra, namely, to
+explain what happens in the presence of human fishing activity. The system
+studied so far describes the behavior in the absence of fishing activity (i.e.,
+what was observed by naturalists at the end of World War I). In the presence of
+intensive fishing, we must assume that the quantity of fish caught is
+proportional, for each species, to the size of the species itself. Thus, we must
+subtract a term $Eu$ from the first equation and a corresponding term $Ev$ from
+the second:
+\begin{equation}
+  \begin{cases}
+    u' = A u - B u v - Eu = (A-E) u - B uv\\
+    v' = C u v - D v - Ev = C uv - (D+E) v.
+  \end{cases}
+\end{equation}
+We observe that the system remains of the same type, only the coefficient $A$
+has decreased, becoming $A-E$, while the coefficient $D$ has increased, becoming
+$D+E$. Thus, the equilibrium point $u=\frac DC$, $v=\frac AB$ has shifted to the
+right and downward since $D$ has increased and $A$ has decreased. This means
+that on average, fishing activity favors an increase in prey and a decrease in
+predators. Conversely, the decrease in fishing activity leads to a decrease in
+prey and an increase in predators.

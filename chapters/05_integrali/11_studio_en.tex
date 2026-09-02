@@ -1,0 +1,196 @@
+\section{study of integral functions}
+
+\begin{theorem}[derivative of an integral function]
+Let $I\subset \RR$ be an interval and $f\colon I \to \RR$ a locally
+Riemann-integrable function. Let $a,b\colon A \to I$ be functions defined on a
+set $A \subset \RR$. Then the function $F\colon A \to \RR$ is well-defined as
+\[
+  F(x) = \int_{a(x)}^{b(x)} f(t)\, dt.
+\]
+If furthermore $f$ is continuous and $a,b$ are differentiable, then $F$ is also
+differentiable and we have
+\[
+  F'(x) = f(b(x)) \cdot b'(x) - f(a(x)) \cdot a'(x).
+\]
+\end{theorem}
+%
+\begin{proof}
+By the stated hypotheses, for every $x\in A$, $f$ is integrable over the
+interval $[a(x),b(x)]$, and thus the function $F$ is well-defined. Fixing
+$x_0\in I$, we can consider the integral function
+\[
+  G(x) = \int_{x_0}^x f(t)\, dt
+\]
+and write
+\[
+  F(x)
+    = \Enclose{G(x)}_{a(x)}^{b(x)}
+    = G(b(x)) - G(a(x)).
+\]
+If $f$ is continuous, we can apply the fundamental theorem of calculus, which
+ensures that $G$ is differentiable and $G'(x) = f(x)$ for every $x\in I$.
+Therefore, if $a$ and $b$ are also differentiable, we have, by the chain rule:
+\[
+F'(x)
+= G'(b(x)) \cdot b'(x) - G'(a(x)) \cdot a'(x)
+= f(b(x)) \cdot b'(x) - f(a(x)) \cdot a'(x).
+\]
+\end{proof}
+
+\begin{example}
+The function
+\[
+ F(x) = \int_{x^2}^{x^4} \frac{1}{\ln t}\, dt
+\]
+is defined for every $x\in \RR\setminus\ENCLOSE{0,1,-1}$ since in this case the
+interval $[x^2,x^4]$ is contained within the domain of the integrand function.
+Furthermore, we have
+\[
+F'(x)
+= \frac{4x^3}{\ln (x^4)} - \frac{2x}{\ln (x^2)}
+= \frac{x^3-x}{\ln \abs{x}}.
+\]
+\end{example}
+
+\begin{theorem}[integral of the small $o$]
+Let $f(x)$ be a continuous function defined on an interval $[0,b]$ such that as
+$x\to 0^+$, we have $f(x) = o(x^\alpha)$ for some $\alpha\ge 0$. Then, setting
+\[
+  F(x) = \int_0^x f(t)\, dt
+\]
+it follows that $F(x) = o(x^{\alpha+1})$. More concisely, we can write
+\[
+  \int_0^x o(t^\alpha)\, dt = o (x^{\alpha+1}),
+  \qquad \text{as $x\to 0^+$}
+\]
+if the integrand function is continuous.
+\end{theorem}
+%
+\begin{proof}
+By the mean value theorem for integrals (theorem~\ref{th:media_integrale}), for
+every $x\in [0,b]$, there must exist $c(x)\in[0,x]$ such that
+\[
+  F(x)
+  = \int_0^x f(t)\, dt
+  = x \cdot f(c(x)).
+\]
+Thus, since $0\le c(x)\le x$, we have
+\[
+\abs{\frac{F(x)}{x^{\alpha+1}}}
+= \abs{\frac{f(c(x))}{x^\alpha}}
+= \abs{\frac{f(c(x))}{c^\alpha(x)}}
+\cdot \abs{\frac{c(x)}{x}}^\alpha
+\le \abs{\frac{f(c(x))}{c^\alpha(x)}} \to 0
+\]
+since $f(x) = o(x^\alpha)$ and as $x\to 0$, also $c(x)\to 0$, we indeed have
+\[
+  \lim_{x\to 0} \frac{f(c(x))}{c^\alpha(x)} = 0.
+\]
+\end{proof}
+
+\begin{example}
+We wish to calculate
+\[
+  \lim_{x\to 0^+} \frac{1}{x^4}\int_{\sin^2 x}^{\sin x} \frac{2- t\sin t - 2 \cos t}{e^t - 1}\, dt.
+\]
+Calling $f(x)$ the integrand function, it is not difficult to verify, using
+Taylor's formulas, that
+\[
+  f(x)
+  = \frac{\frac{x^4}{12}-o(x^4)}{x+o(x)}
+  = \frac{x^3}{12} + o(x^3), \qquad \text{as $x\to 0$}.
+\]
+In particular, the function $f$ can be extended by continuity by setting
+$f(0)=0$. Thus, by the previous theorem,
+\[
+  F(x) = \int_0^x f(t)\, dt
+  = \int_0^x \enclose{\frac{t^3}{12}+o(t^3)}\, dt
+  = \frac{x^4}{48} + o(x^4)
+\]
+from which
+\begin{align*}
+ \frac{1}{x^4} \int_{\sin^2 x}^{\sin x}
+ f(t) \, dt
+ &= \frac{F(\sin x) - F(\sin^2 x)}{x^4}\\
+  &= \frac{\frac{(\sin x)^4}{48} + o(\sin^4 x) - \frac{(\sin^2 x)^4}{48} +
+ o(\sin^8 x)}{x^4} \\
+ &= \frac{\frac{x^4}{48} + o(x^4)}{x^4} \to \frac{1}{48}.
+\end{align*}
+\end{example}
+
+\begin{example}
+We wish to calculate
+\[
+  \lim_{x\to 0^+} \int_{x}^{2x} \frac{1}{t+\sin t}\, dt.
+\]
+Setting
+\[
+  f(x) = \frac{1}{x+\sin x}
+\]
+we have
+\[
+ f(x)
+  = \frac{1}{2x+o(x^2)} = \frac{1}{2x(1+o(x))}
+  = \frac{1+o(x)}{2x} = \frac{1}{2x} + o(1).
+\]
+The function $f(x)-\frac 1{2x} = o(1)$ can be extended by continuity even at
+$x=0$, and thus we can apply the previous theorem to obtain
+\begin{align*}
+  \int_x^{2x} f(t)\, dt
+  &= \int_x^{2x} \enclose{\frac 1 {2t} + o(1)}\, dt \\
+  &= \frac 1 2 \Enclose{\ln t}_x^{2x} +  \Enclose{o(t)}_x^{2x} \\
+  &= \frac {\ln 2x - \ln x} 2 + o(2x) - o(x)
+  = \frac {\ln 2} 2 + o(x) \to \frac{\ln 2}{2}.
+\end{align*}
+\end{example}
+
+\begin{theorem}
+Let $a,b\colon J \to \RR$ be two functions defined on an interval $J$ with
+values in an interval $I$. Let $x_0$ be an accumulation point of $J$ and let $a$
+be an accumulation point of $I$. Suppose further that as $x\to x_0$, we have
+$a(x)\to a$, $b(x)\to a$. Let $f,g\colon I \to \RR$ be continuous functions. If
+$f(x)\sim g(x)$ as $x\to a$, then we have
+\[
+  \int_{a(x)}^{b(x)} f(t)\, dt
+  \sim \int_{a(x)}^{b(x)} g(t)\, dt
+  \qquad \text{as $x\to x_0$}.
+\]
+\end{theorem}
+%
+\begin{proof}
+Let $F$ be an antiderivative of $f$ and $G$ an antiderivative of $g$. Then
+\[
+  \frac{\displaystyle\int_{a(x)}^{b(x)}f(t)\, dt}{\displaystyle\int_{a(x)}^{b(x)} g(t)\, dt}
+  = \frac{F(b(x)) - F(a(x))}{G(b(x))-G(a(x))}.
+\]
+Applying Cauchy's theorem~\ref{th:cauchy}, we have
+\[
+\frac{F(b(x)) - F(a(x))}{G(b(x))-G(a(x))}
+= \frac{F'(c(x))}{G'(c(x))}
+= \frac{f(c(x))}{g(c(x))}
+\]
+for some $c(x)$ between $a(x)$ and $b(x)$. Since $a(x)\to a$ and $b(x)\to a$, it
+follows that $c(x)\to a$ as $x\to x_0$. Furthermore, since $f(x)\sim g(x)$ as
+$x\to a$, by changing the variable in the limit, we can deduce that
+\[
+\frac{f(c(x))}{g(c(x))} \to 1 \qquad \text{as $x\to x_0$}.
+\]
+\end{proof}
+
+\begin{example}
+We wish to calculate
+\[
+  \lim_{x\to 0 }\int_{x^2}^{3x^2} \frac{\tg t}{t^2}\, dt.
+\]
+Since as $x\to 0$ we have
+\[
+  \frac{\tg x}{x^2} \sim \frac 1 x
+\]
+and since
+\[
+  \int_{x^2}^{3x^2}\frac{1}{t}\, dt
+  = \ln(3x^2) - \ln(x^2) = \ln 3
+\]
+thanks to the previous theorem, we can deduce that the desired limit is indeed
+$\ln 3$.
+\end{example}

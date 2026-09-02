@@ -1,0 +1,330 @@
+\section{Riemann Integral}
+
+\begin{definition}[Riemann integral]%
+\label{def:integrale}%
+\mymark{***}%
+\index{integral!definition}%
+\index{definition!of integral}%
+\index{Riemann!integral of}%
+Let $a,b\in \RR$, $a \le b$.
+A set $P\subset [a,b]$ is said to be a \emph{Riemann partition}%
+\mymargin{Riemann partition}%
+\index{partition!of Riemann}
+\index{Riemann!partition of}
+\index{Riemann partition}
+\index{Riemann!partition of}
+of the interval $[a,b]$ if $P$ is a finite set such that $a,b\in P$.
+In particular, $P$ can be written as
+\[
+ P = \ENCLOSE{ x_0, x_1, \dots, x_N}
+\]
+with
+\[
+  a = x_0 < x_1 < \dots < x_{N-1} < x_N = b.
+\]
+
+Let $f\colon [a,b] \to \RR$ be a bounded function.
+Given any partition $P$ of $[a,b]$, we define
+the \emph{upper sums} and the \emph{lower sums}%
+\mymargin{upper/lower sums}%
+\index{upper/lower sums}
+\index{Riemann!upper sums}
+\index{Riemann!lower sums}
+as
+\begin{align*}
+S^*(f,P)
+&= \sum_{k=1}^N (x_k - x_{k-1}) \cdot \sup f([x_{k-1},x_k]) \\
+S_*(f,P)
+&= \sum_{k=1}^N (x_k - x_{k-1}) \cdot \inf f([x_{k-1},x_k]).
+\end{align*}
+Finally, we define
+\begin{align*}
+  I^*(f) &= \inf \ENCLOSE{S^*(f,P) \colon \text{$P$ partition of $[a,b]$}}
+  \\
+  I_*(f) &= \sup \ENCLOSE{S_*(f,P) \colon \text{$P$ partition of $[a,b]$}}.
+\end{align*}
+
+If $I^*(f) = I_*(f)$, we say that $f$ is
+\emph{Riemann-integrable}%
+\mymargin{Riemann integral}%
+\index{integral!of Riemann}%
+\index{Riemann!integral of}%
+\index{integrability}%
+\index{integral}%
+\index{integral!definition}%
+and we say that the \emph{integral} of $f$ over $[a,b]$ is
+the common value $I^*(f)=I_*(f)$, which will be denoted by
+\[
+  \int_a^b f
+  \qquad{\text{or by}} \qquad
+  \int_a^b f(x)\, dx.
+\]
+
+If $b<a$ and if $f$ is Riemann-integrable on $[b,a]$,
+we define by convention:
+\[
+  \int_a^b f = -\int_b^a f.
+\]
+\end{definition}
+
+\begin{lemma}
+Let $f\colon[a,b]\to \RR$ be a bounded function.
+If $P$ and $Q$ are any two partitions of the interval
+$[a,b]$, then
+\begin{equation}\label{eq:5112309}
+  S_*(f,P) \le S_*(f,P\cup Q)\le S^*(f,P\cup Q) \le S^*(f,Q).
+\end{equation}
+Consequently, $I_*(f) \le I^*(f)$.
+\end{lemma}
+\begin{proof}
+    Let $P$ be any partition of $[a,b]$ and let $y\in [a,b]$ be any point.
+  Setting $P' = P \cup \ENCLOSE{y}$, we want to show
+  that
+  \begin{equation}\label{eq:39543}
+    S_*(f,P) \le S_*(f,P') \le S^*(f,P') \le S^*(f,P).
+  \end{equation}
+  If $y\in P$, there is nothing to prove since
+    it would result in $P'=P$, and the inequality $S_*(f,P') \le S^*(f,P')$ is
+  always satisfied since every supremum appearing in the definition of $S^*$ is
+  greater than or equal to the corresponding
+  infimum appearing in the definition of $S_*$.
+    Suppose then that $y \not \in P$ and thus that $y$ is between two
+  consecutive points $x_{k-1}, x_k$ of the partition $P$:
+  \[
+    a= x_0 < x_1 < \dots < x_{k-1} < y < x_k < \dots < x_N=b.
+  \]
+  Then the sums defining $S_*(f,P)$ and $S_*(f,P')$ 
+  differ only on the interval $[x_{k-1},x_k]$. 
+  % and we have
+  % \begin{align*}
+  %   S_*(f,P') - S_*(f,P)
+  %  &= (y-x_{k-1})\cdot \!\!\inf_{[x_{k-1},y]}\!\!\! f
+  %  + (x_k - y)\cdot\! \inf_{[y,x_k]}\! f\\
+  %  &\quad - (x_k - x_{k-1})\cdot \!\!\inf_{[x_{k-1}, x_k]}\!\!\!f
+  % \end{align*}
+  Observing that
+  \[
+  \inf f([x_{k-1}, x_k])
+  \le \inf f([x_{k-1},y])
+  \qquad \text{and} \qquad
+  \inf f([x_{k-1}, x_k])
+  \le \inf f([y,x_k])
+  \]
+  we obtain 
+  \begin{align*}
+    (x_k - x_{k-1})\cdot \inf f([x_{k-1}, x_k])
+    & = (y - x_{k-1} + x_k - y)\cdot \inf f([x_{k-1}, x_k]) \\
+    & \le (y-x_{k-1})\cdot \inf f([x_{k-1},y]) + (x_k - y)\cdot \inf f([y,x_k])
+  \end{align*}
+  and thus $S_*(f,P) \le S_*(f,P')$.
+  Similarly, we obtain $S^*(f,P) \ge S^*(f,P')$.
+  Therefore, \eqref{eq:39543} is proven.
+  Now, if $P$ and $Q$ are any partitions, we observe that $P\cup Q$ 
+  can be obtained from $P$ by adding one point at a time from $Q$. 
+  Iterating \eqref{eq:39543}, we obtain \eqref{eq:5112309}.
+  Taking the infimum over $Q$
+  yields $S_*(f,P) \le I^*(f)$, and taking the supremum over 
+  $P$ yields $I_*(f) \le I^*(f)$.
+  \end{proof}
+
+
+\begin{theorem}[integrability criteria]
+\label{th:criteri_integrabilita}%
+\mymark{*}%
+\mymargin{integrability criteria}%
+\index{criterion!of integrability}%
+Let $f\colon[a,b]\to \RR$ be a bounded function.
+\begin{enumerate}
+\item
+The function $f$ is Riemann-integrable if and only if
+for every $\eps>0$ there exists a partition $P$
+such that
+\[
+  S^*(f,P) - S_*(f,P) < \eps.
+\]
+
+\item
+If $f$ is Riemann-integrable on $[a,b]$, then
+there exists a sequence $P_n$ of partitions such that
+\begin{equation}\label{eq:93765}
+  \lim_{n\to +\infty} S^*(f,P_n)
+  = \lim_{n\to+\infty} S_*(f,P_n)
+  = \int_a^b f.
+\end{equation}
+Conversely, if $f$ is bounded and there exists a sequence $P_n$ 
+of partitions of $[a,b]$ such that
+\begin{equation*}
+  \lim_{n\to +\infty} \enclose{S^*(f,P_n) - S_*(f,P_n)} = 0
+\end{equation*}
+then the function $f$ is Riemann-integrable and \eqref{eq:93765} holds.
+\end{enumerate}
+\end{theorem}
+%
+\begin{proof}
+If there exists a partition $P$ such that $S^*(f,P)-S_*(f,P) < \eps$, we can
+immediately conclude that
+\[
+I^*(f) - I_*(f) \le S^*(f,P) - S_*(f,P) < \eps.
+\]
+If this is true for every $\eps >0$, we deduce that $I^*(f) - I_*(f) = 0$ and
+thus that $f$ is Riemann-integrable.
+
+Conversely, for any $f$, by the properties
+of $\sup$ and $\inf$,
+there exist partitions $Q$ and $R$ such that
+\[
+  I^*(f) \ge S^*(f,Q) - \frac\eps 2
+  \qquad\text{and}\qquad
+  I_*(f) \le S_*(f,R) + \frac\eps 2
+\]
+from which, by the previous lemma, setting $P=Q\cup R$,
+if $f$ is Riemann-integrable,
+we obtain
+\begin{align*}
+S^*(f,P)-S_*(f,P) 
+&\le S^*(f,Q) - S_*(f,R) \\
+&\le I^*(f) + \frac\eps 2 - \enclose{I_*(f) - \frac \eps 2} = \eps.
+\end{align*}
+
+Now, let us prove the second point.
+Suppose first that $f$ is Riemann-integrable on $[a,b]$.
+Then, by the previous point, for every $n\in \NN$, setting $\eps=1/n$, we can
+find a partition $P_n$ such that
+\[
+  S^*(f,P_n) - S_*(f,P_n) < \frac 1 n
+\]
+from which
+\[
+  I^*(f) \le S^*(f,P_n) \le S_*(f,P_n) + \frac 1 n
+   \le I_*(f) + \frac 1 n
+\]
+therefore, taking the limit as $n\to +\infty$,
+since $I^*(f) = I_*(f) = \int_a^b f$, it must hold that
+\[
+  \lim S^*(f,P_n) = \lim S_*(f,P_n) = \int_a^b f.
+\]
+
+Conversely, if
+\[
+ \lim_{n\to +\infty} S^*(f,P_n) - S_*(f,P_n) = 0
+\]
+for every $\eps>0$, there exists $n$ such that
+\[
+  S^*(f,P_n) - S_*(f,P_n) < \eps.
+\]
+By the previous point, we conclude that $f$ is Riemann-integrable.
+On the other hand, we know that
+\[
+  S_*(f,P_n) \le I_*(f) = \int_a^b f = I^*(f) \le S^*(f,P_n)
+\]
+thus, if $S^*(f,P_n) - S_*(f,P_n) \to 0$, necessarily
+the integral coincides with the limits of $S^*(f,P_n)$ and of
+$S_*(f,P_n)$.
+\end{proof}
+
+The following exercise was carried out by Archimedes (287 BC - 212 BC) 
+to calculate the area of a parabolic sector (method of exhaustion).
+
+\begin{example}[calculation of the integral by partitions]%
+\label{ex:integrale_quadrato}%
+We show that for every $b>0$, the function $f(x)=x^2$ is Riemann-integrable on
+the interval $[0,b]$ and we have
+\[
+ \int_0^b x^2\, dx = \frac{b^3}{3}.
+\]
+\end{example}
+\begin{proof}
+Consider the \emph{equally spaced} partitions of the interval $[0,b]$, that is,
+divide $[0,b]$ into $N$ intervals each of width $b/N$:
+\[
+P_N = \ENCLOSE{\frac{kb}{N}\colon k \in 0, 1, \dots, N}.
+\]
+We have
+\[
+  S^*(f,P_N) 
+      = \sum_{k=1}^N \frac b N \sup f\enclose{\Enclose{\frac{k-1}{N} b,\frac k N
+   b}}
+   = \frac{b}{N} \sum_{k=1}^N \frac{k^2b^2}{N^2}
+   = \frac{b^3}{N^3} \sum_{k=1}^N k^2.
+\]
+Recall that (see exercise~\ref{ex:somma_quadrati}):
+\[
+  \sum_{k=1}^N k^2 = \frac{N(N+1)(2N+1)}{6} = \frac{2N^3+3N^2+N}{6}
+  \sim \frac 1 3 N^3,\qquad \text{as $N\to +\infty$}.
+\]
+Thus, we have
+\[
+  S^*(f,P_N) \to \frac {b^3} 3, \qquad \text{as $N\to +\infty$}.
+\]
+Similarly, we find
+\[
+  S_*(f,P_N) 
+    = \sum_{k=1}^N \frac{b}{N}\inf f\enclose{\Enclose{\frac{k-1} N b,\frac k N
+  b}}
+  = \frac{b}{N}\sum_{k=1}^N \frac{(k-1)^2b^2}{N^2}
+  = \frac{b^3}{N^3} \sum_{k=0}^{N-1} k^2
+\]
+and thus 
+\[
+    S_*(f,P_N) \sim \frac {b^3} {N^3} \frac {(N-1)^3} 3 \to \frac {b^3} 3,
+  \qquad \text{as $N\to +\infty$}.
+\]
+The proof is then concluded by applying
+the criterion \eqref{eq:93765} of the previous
+theorem~\ref{th:criteri_integrabilita}.
+\end{proof}
+
+\begin{theorem}[integral of a constant]
+\label{th:integrale_costante}
+If $f\colon[a,b]\to \RR$ is constant: $f(x) = c$, then
+$f$ is Riemann-integrable and we have
+\[
+  \int_a^b f = c\cdot (b-a).
+\]
+\end{theorem}
+%
+\begin{proof}
+Since on every $A\subset [a,b]$ we have
+\[
+  \sup_A f = \inf_A f = c
+\]
+it is easy to verify that
+\[
+  S^*(f,P) = S_*(f,P) = c\cdot (b-a)
+\]
+for any partition $P$ of $[a,b]$. The result follows immediately.
+\end{proof}
+
+Not all functions are Riemann-integrable, as shown by the following example.
+\begin{example}[Dirichlet function]
+\mymark{**}
+\mymargin{Dirichlet function}
+\index{function!of Dirichlet}
+\index{integrability!counterexample}
+Let $a<b$ and let $f\colon[a,b]\to \RR$ be the function defined by
+\[
+ f(x) =
+ \begin{cases}
+   1 & \text{if $x\in \QQ$}\\
+   0 & \text{if $x\not \in \QQ$}.
+ \end{cases}
+\]
+Then $f$ is not Riemann-integrable.
+\end{example}
+%
+\begin{proof}
+\mymark{*}
+Let $P=\ENCLOSE{x_0, x_1, \dots, x_N}$ with $a=x_0 < x_1 < \dots < x_N = b$
+be any partition of $[a,b]$.
+Then it suffices to observe that, due to the density of rationals
+(theorem~\ref{th:densita_frazioni}),
+and of irrationals (exercise~\ref{ex:densita_irrazionali}),
+in any subinterval $I=[x_{k-1}, x_k]$, there are infinitely many rational points
+and infinitely many irrational points. Thus $\sup f(I)=1$ and $\inf f(I)=0$, and
+consequently
+\begin{align*}
+  S^*(f,P) &= \sum_{k=1}^N (x_k - x_{k-1})\cdot 1 = b-a \\
+  S_*(f,P) &= \sum_{k=1}^N (x_k - x_{k-1})\cdot 0 = 0
+\end{align*}
+from which $I^*(f) = b-a \neq 0 = I_*(f)$.
+\end{proof}

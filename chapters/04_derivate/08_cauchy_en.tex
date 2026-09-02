@@ -1,0 +1,213 @@
+\section{Cauchy's and de l'Hospital's Theorems}
+
+\begin{theorem}[Cauchy]
+\label{th:cauchy}%
+\mymark{**}%
+\index{theorem!Cauchy's}%
+\mymargin{Cauchy}%
+\index{Cauchy}%
+Let $a,b\in \RR$, $a < b$.
+\mynote{If $b<a$, the theorem is still valid by interpreting $[a,b]=[b,a]$.}%
+Let $f\colon[a,b]\to \RR$ and $g\colon[a,b]\to \RR$ be functions continuous on
+the entire interval $[a,b]$ and differentiable on $(a,b)$.
+Suppose further that $g'(x)\neq 0$ for every $x\in (a,b)$.
+Then $g(b) \neq g(a)$ and there exists $x_0\in(a,b)$ such that
+\[
+  \frac{f'(x_0)}{g'(x_0)} = \frac{f(b)-f(a)}{g(b)-g(a)}.
+\]
+\end{theorem}
+%
+\begin{proof}
+\mymark{**}
+Consider the auxiliary function
+\[
+ h(x) = (g(b)-g(a))f(x) - (f(b)-f(a))g(x).
+\]
+By direct verification, we observe that
+\[
+  h(b) = g(b)f(a) - f(b)g(a) = h(a).
+\]
+Thus, $h$ satisfies the hypotheses of Rolle's theorem, and there exists a point
+$x_0\in(a,b)$ such that $h'(x_0) = 0$.
+However, since
+\[
+  h'(x) = (g(b) - g(a)) f'(x) - (f(b)-f(a)) g'(x)
+\]
+we obtain
+\[
+ (g(b)-g(a))f'(x_0) = (f(b) - f(a))g'(x_0).
+\]
+By hypothesis, we know that $g'(x_0)\neq 0$.
+Moreover, necessarily $g(b) - g(a)\neq 0$ because otherwise we could apply
+Rolle's theorem to the function $g$ and obtain that $g'$ vanishes at some point
+in $(a,b)$, which we have excluded by hypothesis.
+Thus, we can divide both sides by $(g(b)-g(a))$ and by $g'(x_0)$ to obtain the
+equality stated in the theorem.
+\end{proof}
+
+\begin{theorem}[de l'Hospital $0/0$]
+\mymark{***}
+Let $I\subset \RR$ be an interval, $x_0\in [-\infty,+\infty]$ an accumulation
+point of $I$, and let $f,g \colon I\setminus\ENCLOSE{x_0} \to \RR$ be
+differentiable functions.
+Suppose that $g'(x)\neq 0$ for every $x\in I\setminus\ENCLOSE{x_0}$.
+If
+\[
+  \lim_{x\to x_0} f(x) = 0 \qquad \text{and}\qquad \lim_{x\to x_0} g(x) = 0
+\]
+and if the limit
+\[
+  \ell = \lim_{x\to x_0}\frac{f'(x)}{g'(x)}
+\]
+exists (finite or infinite), then we have
+\[
+  \lim_{x\to x_0} \frac{f(x)}{g(x)} = \ell.
+\]
+\end{theorem}
+%
+\begin{proof}
+\mymark{**}
+We must distinguish different cases depending on whether $x_0$ is finite or
+infinite and whether it is an interior point or an endpoint of the interval $I$.
+Once the proof is established for the first case, all others can be reduced to
+it.
+
+\emph{Case 1:} suppose $I=[x_0, b]$. In this case, we can extend the functions $f$ and $g$ at the point $x_0$ by setting:
+\[
+\tilde f(x) =
+\begin{cases}
+  f(x) & \text{if $x\in (x_0,b]$}\\
+  0 & \text{if $x=x_0$,}
+\end{cases}
+\qquad
+\tilde g(x) =
+\begin{cases}
+  g(x) & \text{if $x\in (x_0,b]$}\\
+  0 & \text{if $x=x_0$.}
+\end{cases}
+\]
+Since by hypothesis $f(x) \to 0$ and $g(x)\to 0$ as $x\to x_0$, it follows that
+$\tilde f$ and $\tilde g$ are continuous functions on the entire interval
+$[x_0,b]$.
+Moreover, by hypothesis, they are differentiable on the interval $(x_0,b]$ since
+the extension at $x=x_0$ does not alter the derivatives at other points.
+In particular, the extended functions satisfy the hypotheses of Cauchy's theorem
+on every interval $[x_0,x]$ with $x\in (x_0,b]$, thus we can assert that for
+every $x$ there exists $c(x)\in (x_0,x)$ such that
+\[
+  \frac{f(x)}{g(x)}
+  = \frac{\tilde f(x) - \tilde f(x_0)}
+  {\tilde g(x)- \tilde g(x_0)}
+  = \frac{\tilde f'(c(x))}{\tilde g'(c(x))}
+  = \frac{f'(c(x))}{g'(c(x))}.
+\]
+But since $x_0< c(x) < x$, as $x\to x_0$, we have $c(x)\to x_0$ and therefore,
+through a change of variable (Theorem~\ref{th:limite_composta}), we can assert
+that
+\[
+    \lim_{x\to x_0} \frac{f(x)}{g(x)}
+  = \lim_{x\to x_0}\frac{f'(c(x))}{g'(c(x))}
+  = \lim_{x\to x_0}\frac{f'(x)}{g'(x)} = \ell.
+\]
+
+\emph{Case 2:} suppose $I$ is arbitrary and $x_0$ is finite.
+Since the functions are defined on $I\setminus\ENCLOSE{x_0}$, we can always
+assume $x_0\in I$. Moreover, since limits depend only on values in a
+neighborhood of the point $x_0$, we can always assume that $I$ is a closed and
+bounded interval.
+In the previous step, we considered the case where $x_0$ was the lower bound of
+$I$, but similarly, we can handle the case where $x_0$ is the upper bound. If
+instead $x_0$ is an interior point of $I$, we can consider the right and left
+limits separately and reduce to the cases where $x_0$ was an endpoint.
+
+\emph{Case 3:} suppose $x_0=+\infty$. In this case, the interval $I$ contains an interval $[a,+\infty)$ with $a\in\RR$.
+Again, we want to reduce to the first case through the change of variable
+$t=1/x$. Setting $F(t) = f(1/t)$ and $G(t)= g(1/t)$, we observe that $F$ and $G$
+are defined on the interval $(0,1/a]$, tend to zero as $t\to 0^+$, are
+differentiable,
+\[
+  F'(t) = -\frac{f'(1/t)}{t^2}, \qquad
+  G'(t) = -\frac{g'(1/t)}{t^2}
+\]
+and thus
+\[
+  \lim_{t\to 0^+} \frac{F'(t)}{G'(t)}
+  = \lim_{t\to 0^+} \frac{f'(1/t)}{g'(1/t)}
+  = \lim_{x\to +\infty} \frac{f'(x)}{g'(x)} = \ell.
+\]
+Therefore, applying the theorem in the already proven case, we can assert that
+\[
+  \lim_{x\to +\infty} \frac{f(x)}{g(x)} = \lim_{t\to 0^+} \frac{F(t)}{G(t)} = \ell.
+\]
+
+\emph{Case 4:} the case $x_0 = -\infty$ proceeds analogously to the previous case.
+\end{proof}
+
+\begin{theorem}[de l'Hospital $\cdot/\infty$]
+\mymark{*}
+\index{theorem!de l'Hospital's}
+\mymargin{de l'Hospital}%
+\index{de l'Hospital}
+Let $a,b\in [-\infty,+\infty]$ with $a<b$.
+Let $f,g \colon (a,b)\to \RR$ be differentiable functions.
+If
+\[
+ \lim_{x\to a^+} \abs{g(x)} = +\infty,
+\]
+if $g'(x) \neq 0$ for every $x\in (a,b)$
+and if the limit (finite or infinite)
+\[
+  \ell = \lim_{x\to a^+}\frac{f'(x)}{g'(x)}
+\]
+exists, then
+we have
+\[
+ \lim_{x\to a^+}\frac{f(x)}{g(x)} = \ell.
+\]
+
+An analogous result holds when taking limits as $x\to b^-$ instead of $x\to
+a^+$, and consequently also in the case where the function is defined on a
+"punctured" interval $f\colon (a,b)\setminus\ENCLOSE{x_0} \to \RR$ and we
+consider the "full" limits as $x\to x_0$.
+\end{theorem}
+%
+\begin{proof}
+Suppose, for the sake of contradiction, that we do not have
+\[
+  \lim_{x\to a^+} \frac{f(x)}{g(x)} = \ell.
+\]
+Then, by the theorem linking function limits and sequence limits, there must
+exist a sequence $a_k\in (a,b)$, $a_k\to a$ such that we do not have
+\[
+  \lim_{k\to +\infty} \frac{f(a_k)}{g(a_k)} = \ell.
+\]
+If the sequence $f(a_k) / g(a_k)$ is bounded, then by the Bolzano-Weierstrass
+theorem, there exists a subsequence converging to a value $m\neq \ell$ (if all
+subsequences converged to $\ell$, the entire sequence would converge to $\ell$).
+If instead $f(a_k) / g(a_k)$ is unbounded, we can extract a subsequence that
+diverges to $+\infty$ or $-\infty$. In any case, there exists a sequence, which
+we will still call $a_k$, and there exists $m\in \bar \RR$ such that
+\[
+  \lim_{k \to +\infty} \frac{f(a_k)}{g(a_k)} = m \neq \ell.
+\]
+Now consider a neighborhood $U$ of $m$ and a neighborhood $V$ of $\ell$ such
+that $U\cap V = \emptyset$.
+Since $f'(x) / g'(x) \to \ell$ as $x\to a$, there exists a $c\in (a,b)$ such
+that for every $x\in (a,c)$ we have
+\[
+  \frac{f'(x)}{g'(x)} \in V.
+\]
+Now consider the following incremental ratio
+\begin{align*}
+\frac{f(a_k) - f(x)}{g(a_k) - g(x)}
+=\frac{\frac{f(a_k)}{g(a_k)}-\frac{f(x)}{g(a_k)}}{1-\frac{g(x)}{g(a_k)}}
+\end{align*}
+and observe that the right side tends to $m$ as $k\to +\infty$ since
+$f(a_k)/g(a_k) \to m$ and given that $\abs{g(a_k)}\to +\infty$, we have
+$f(x)/g(a_k)\to 0$ and $g(x)/g(a_k) \to 0$.
+Thus, there will exist a $k$ for which the right side lies in the neighborhood
+$U$ of $m$. On the left side, we can apply Cauchy's theorem and thus find a
+point $y\in(a_k,c)$ for which this side equals $f'(y)/g'(y)$. But since $y\in
+(a,c)$, we must have $f'(y)/g'(y) \in V$. This is a contradiction since $U\cap V
+= \emptyset$.
+\end{proof}

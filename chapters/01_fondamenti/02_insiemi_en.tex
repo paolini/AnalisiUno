@@ -1,0 +1,668 @@
+\section{set theory}
+
+In the preceding paragraphs, we have seen that predicates can be combined and
+quantified. But what are the elementary predicates that we can consider to found
+all of mathematics? Set theory provides us with the formalization of the concept
+of \emph{membership}: the basic predicate (the only one we will need) is a
+predicate of the form $x \in A$, which means "the object $x$ is an element of
+the set $A$". Set theory does not explain (nor does it define) what objects and
+sets are because these are primitive concepts (just as \emph{points} and
+\emph{lines} are for Euclidean geometry). Set theory simply provides us with the
+formal rules that can be used to handle predicates of the form $x\in A$. For
+example, an \emph{axiom} of set theory is the following.
+
+\begin{axiom}[empty set]
+\[
+  \exists A \colon \lnot \exists x\colon x \in A
+\]
+\end{axiom}
+
+The axiom means: "there exists a set $A$ that contains no element $x", that is,
+we are saying that the \emph{empty set}%
+\mymargin{empty set}%
+\index{empty set} exists, which is usually denoted by the symbol $\emptyset$. We will thus write $\exists\emptyset\colon \forall x\colon \lnot(x\in \emptyset)$. We can then introduce a demonstrative context in which $\emptyset$ is a constant, and the axiom becomes more simply $\forall x\colon \lnot (x\in \emptyset)$.
+
+Other appropriate axioms of set theory guarantee the existence of the union
+$A\cup B$, intersection $A\cap B$, and difference $A\setminus B$ of any two sets
+$A$ and $B$. These operations between sets can be traced back to the membership
+relation and can thus be defined as follows.
+
+\begin{axiom}[operations between sets]
+If $A$ and $B$ are sets, then the sets $A\cup B$ (union), $A\cap B$
+(intersection), and $A\setminus B$ (difference) exist.
+\mymargin{union intersection difference}%
+\index{union}%
+\index{intersection}%
+\index{difference}%
+Formally:
+\begin{align*}
+    \forall A,B\colon \exists A\cup B \colon \forall x\colon x\in A\cup B &\iff (x\in A) \lor (x\in B),\\
+    \forall A,B\colon \exists A\cap B \colon \forall x\colon x\in A\cap B &\iff (x\in A) \land (x\in B),\\
+    \forall A,B\colon \exists A\setminus B \colon \forall x\colon x\in A\setminus B &\iff (x\in A) \land \lnot (x \in B).
+\end{align*}
+\end{axiom}
+
+The negation of membership $\lnot (x \in A)$ is usually abbreviated as $x \not
+\in A$.
+
+Using the simple membership relation, we can define the relations of inclusion
+and equality between sets: $A \subset B$ is read as "$A$ is a subset of $B$", $A
+\supset B$ is read as "$A$ is a superset of $B$", and $A=B$ is read as "$A$ is
+equal to $B$". These relations are defined by the following properties:
+\begin{align*}
+  A \subset B &\iff \forall x\colon (x\in A \implies x\in B)\\
+  A \supset B &\iff \forall x\colon (x\in A \implied x\in B)\\
+  A = B &\iff \forall x\colon (x\in A \iff x \in B).
+\end{align*}
+In words, we will say that $A$ is a subset of $B$, $A \subset B$, if every
+element of $A$ is also an element of $B$. We will say that $A$ and $B$ are
+equal, $A=B$, if $A$ and $B$ have the same elements. Obviously, the relation
+$\supset$ is nothing but the inverse relation of $\subset$, that is, $A\supset
+B$ if and only if $B\subset A$. We will also write $A \neq B$ to indicate the
+opposite relation of equality, that is: $\lnot(A=B)$. Note that $A=B$ is
+equivalent to $(A\subset B) \land (B\subset A)$.
+
+It is trivial to observe that $\forall A\colon A\subset A$ since $x\in A
+\implies x\in A$. Thus, the axiom of equality, $A=A$, can actually be proven.
+
+The relation $A \subset B$ means that every element of $A$ is also an element of
+$B$, and therefore there are no elements of $A$ that are not in $B$, that is,
+$A$ is not larger than $B$. As a mnemonic device, note that the symbol $\subset$
+is oriented so that the smaller set is on the narrower side of the relation,
+just as in the inequality $3 \le 5$, the smaller number is on the narrower side
+of the symbol $\le$. To prove that the relation $A \subset B$ is true, one must
+take any element of $A$ and prove that this element is also an element of $B$.
+To prove that the equality $A=B$ holds, one typically proceeds by separately
+proving the two inclusions $A\subset B$ and $B\subset A$.
+
+The ability to construct sets of sets is very useful. For this reason, set
+theory usually makes no distinction between objects and sets of objects. In the
+primitive relation $x\in A$, $x$ can also be a set. We can then imagine that
+every object in our universe is a set. In this way, the equality relation $A=B$
+that we have defined above is well-defined for every pair of objects (or sets,
+which is the same) $A$ and $B$.
+
+Since the elements of a set $\mathcal A$ are themselves sets, it is possible to
+consider the union $\bigcup \mathcal A$ and, if\mynote{%
+The intersection of an empty family of sets would yield the universal set, which
+we will see cannot be defined.
+} 
+$\mathcal A \neq \emptyset$, the intersection $\bigcap \mathcal A$ of all the
+elements of $\mathcal A$. This extends the concept of union and intersection
+even to possibly infinite families.
+
+\begin{axiom}[arbitrary union and intersection]
+If $\mathcal A$ is any set, the set $\bigcup \mathcal A$ exists, and if
+$\mathcal A \neq \emptyset$, the set $\bigcap \mathcal A$ exists with the
+following properties:
+\begin{align*}
+  x \in \bigcup \mathcal A & \iff \exists A \in \mathcal A \colon x\in A, \\
+  x \in \bigcap \mathcal A & \iff \forall A \in \mathcal A \colon x\in A.
+\end{align*}
+\end{axiom}
+An alternative notation is the following:
+\[
+ \bigcup \mathcal A = \bigcup_{A\in \mathcal A} A, \qquad 
+ \bigcap \mathcal A = \bigcap_{A\in \mathcal A} A.  
+\]
+This notation highlights the fact that the set $\bigcup \mathcal A$ is the union
+of all the elements $A$ of the set $\mathcal A$, while $\bigcap \mathcal A$ is
+the intersection of all the elements of $\mathcal A$. The set $\mathcal A$ is
+often called a \emph{family} of sets because its elements are treated as sets
+rather than objects.
+
+Another axiom of set theory guarantees that for every $x$, there exists a set
+whose only element is $x$.
+\begin{axiom}[singleton]
+  For every $x$, there exists the set $\ENCLOSE{x}$, called a \emph{singleton}%
+\mymargin{singleton}%
+\index{singleton}
+  such that:
+  \[
+    y \in \ENCLOSE{x} \iff y=x.
+  \]
+\end{axiom}
+By taking the union of singletons, we can define (by enumeration) sets that
+contain a finite number of objects:
+\begin{align*}
+  \ENCLOSE{a,b} &= \ENCLOSE{a} \cup \ENCLOSE{b} \\
+  \ENCLOSE{a, b, c} &= \ENCLOSE{a,b} \cup \ENCLOSE{c}\\
+  \ENCLOSE{a, b, c, d} &= \ENCLOSE{a,b,c} \cup \ENCLOSE{d}\\
+  &\quad\vdots
+\end{align*}
+
+However, be careful: the set $\ENCLOSE{a,b}$ contains two elements only if
+$a\neq b$, in fact, if $a=b$, it can be easily verified that
+\begin{equation}\label{eq:4775523}
+\ENCLOSE{a,a} = \ENCLOSE{a}.
+\end{equation}
+
+\begin{exercise}
+  Verify \eqref{eq:4775523} using the formal definitions given earlier.
+\end{exercise}
+\begin{proof}[Solution.]
+Using the definitions of union, singleton, and logical disjunction, we have the
+equivalence of the following predicates:
+\begin{gather*}
+  x \in \ENCLOSE{a,a}  \\
+  x \in \ENCLOSE{a} \cup \ENCLOSE{a}\\
+  (x \in \ENCLOSE{a}) \lor (x \in \ENCLOSE{a})\\
+  (x = a) \lor (x = a) \\
+  x = a \\
+  x \in \ENCLOSE{a}
+\end{gather*}
+and thus $\ENCLOSE{a,a}=\ENCLOSE{a}$ by the definition of equality between sets.
+\end{proof}
+
+If $P(x)$ is a predicate in a single variable $x$, we would like to be able to
+define the set of all objects $x$ that make the predicate $P$ true.
+Surprisingly, if we were to add this axiom (called the naive specification
+axiom) to set theory, we would encounter a paradox%
+\index{naive set theory}%
+\index{sets!naive theory}%
+\index{Cantor, Georg}%
+\index{Frege}%
+\index{Russell}%
+\mynote{Georg Cantor (1845--1918), Bertrand Russell (1872--1970) see historical notes on page~\pageref{nota:Cantor}}.
+
+\begin{theorem}[Russell's paradox]
+\label{th:Russell}%
+There does not exist a set $R$ such that for every $x$, we have
+\[
+   x\in R \iff x\not \in x
+\]
+(such a set could be defined in this way through a \emph{naive} specification
+axiom: $R=\ENCLOSE{x\colon x\not \in x}$).
+\end{theorem}
+%
+\begin{proof}
+  If it existed, we would have:
+  \[
+    R \in R 
+    \iff R\not \in R
+  \]
+    and this contradicts the principle of non-contradiction (a predicate and its
+  negation cannot both be true).
+\end{proof}
+
+To avoid inconsistency, it is necessary to limit the \emph{specification axiom}
+to the construction of subsets of already constructed sets.
+
+\begin{axiom}[specification]
+    If $P$ is any predicate with a free variable $x$ and if $B$ is a set, then
+  there exists the set $\ENCLOSE {x\in B\colon P(x)}$ formed by all the elements
+  of $B$ that satisfy the predicate $P$:
+\[
+  a \in \ENCLOSE{x\in B\colon P(x)} \iff (a \in B \land P(a)).
+\]
+\end{axiom}
+
+If we now try to repeat Russell's reasoning given a set $A$, we can construct
+the set $R=\ENCLOSE{x\in A\colon x\not \in x}$ and discover that it cannot be
+$R\in R$ (otherwise it should be $R\not \in R$, absurd). But it could very well
+be $R\not \in R$ if also $R\not \in A$. Thus, it follows that given any set $A$,
+there is a set that is not an element of $A$: we must therefore resign ourselves
+to the fact that there is no \emph{universal} set containing every other set,
+but at least we do not obtain a contradiction%
+\mynote{%
+On the other hand, we cannot exclude that a contradiction exists. 
+In fact, Goedel has shown that it is not possible to prove that there are no
+contradictions in the axiomatic system we are considering.
+}.
+
+To complete set theory, we also introduce the concept of the \emph{power set}%
+\mymargin{power set}%
+\index{set!power set}
+\index{$\mathcal P(\cdot)$}% 
+that is, the set of all subsets of a given set.
+\begin{axiom}[power set]
+\label{def:insieme_parti}%
+If $A$ is a set, the set $\P(A)$ of the parts of $A$ exists, which is the set of
+all subsets of $A$:
+\begin{equation}\label{eq:insieme_delle_parti}
+  x \in \mathcal P(A) \iff x \subset A.
+\end{equation}
+\end{axiom}
+
+\subsection{Von Neumann's finite ordinals}
+
+With the only axioms we have introduced so far, we can construct an arbitrarily
+large number of finite sets through a construction due to Von Neumann. We can
+define
+\begin{equation}\label{eq:vonNeumann}
+  \begin{aligned}
+  0&=\emptyset, &
+  1&=0\cup\ENCLOSE{0}, &
+  2&=1\cup\ENCLOSE{1}, &
+  3&=2\cup\ENCLOSE{2}, &
+  4&=3\cup\ENCLOSE{3},\\
+  5&=4\cup\ENCLOSE{4}, &
+  6&=5\cup\ENCLOSE{5}, &
+  7&=6\cup\ENCLOSE{6}, &
+  8&=7\cup\ENCLOSE{7}, &
+  9&=8\cup\ENCLOSE{8}.
+  \end{aligned}
+\end{equation}
+By making these definitions explicit, we observe that:
+$0=\ENCLOSE{}$ is a set with zero elements, 
+$1=\ENCLOSE{0}=\ENCLOSE{\ENCLOSE{}}$ is a set with one element (zero),
+$2=\ENCLOSE{0,1}=\ENCLOSE{\ENCLOSE{},\ENCLOSE{\ENCLOSE{}}}$ is a set with two
+elements (the two preceding ones),
+$3=\ENCLOSE{0,1,2}=\ENCLOSE{\ENCLOSE{},\ENCLOSE{\ENCLOSE{}},\ENCLOSE{\ENCLOSE{},\ENCLOSE{\ENCLOSE{}}}}$
+is a set with three elements (the three preceding ones),
+etc.
+Proceeding at will, it is possible to define an arbitrarily large number of
+finite sets, each different from the other.
+
+These particular sets certainly exist, and we can therefore use them in the
+following to make examples of finite sets. It is also possible (but not
+necessary) to use these sets to define natural numbers (see the Axiom of
+Infinity~\ref{axiom:infinito}).
+
+\begin{exercise}
+Verify that $4\in 5$, 
+that $4\subset 5$, 
+and that $4\neq 5$.
+\end{exercise}
+
+\subsection{relations}
+
+Thanks to the previous axioms, it is possible to define the Cartesian product of
+two sets: this will be a very important concept in the following. First, we must
+define the concept of a \emph{pair}%
+\mymargin{pair}%
+\index{pair}: given
+$a,b$, we define the pair $(a,b)$ with the first element $a$ and the second
+element $b$ as an object that has this property:%
+\mynote{%
+A formal way to define the pair using sets is due to Kuratowski:
+\[
+   (a,b) = \ENCLOSE{\ENCLOSE{a},\ENCLOSE{a,b}}.
+\]
+It is not difficult to verify that this definition satisfies the 
+property~\eqref{eq:coppia}.
+Thus, we can define the product set
+\begin{align*}
+  A\times B = \big\{&C\in \mathcal P(\mathcal P(A\cup B))\colon \\ 
+  & \exists a\colon \exists b\colon a\in A, b\in B, \\
+  & C=\ENCLOSE{\ENCLOSE{a},\ENCLOSE{a,b}}\big\}
+\end{align*}
+}%
+\begin{equation}\label{eq:coppia}
+  (a, b) = (a', b') \iff (a=a') \land (b=b').
+\end{equation}
+We are thus requiring that a pair be identified by the two elements that compose
+it, in which, however, the order in which they are listed is important (unlike
+the set $\ENCLOSE{a,b}$, in which the order of elements is irrelevant). In the
+following, we will also use the notation $a \mapsto b$ to indicate the pair
+$(a,b)$ and will call it an \emph{arrow}%
+\mymargin{arrow}%
+\index{arrow} from $a$ to $b$.
+
+The \emph{Cartesian product} $A\times B$ of two sets $A$ and $B$ is the set of
+all pairs whose first element is in $A$ and the second element is in $B$:
+\[
+  (a, b) \in A \times B \iff (a\in A \land b\in B).
+\]
+
+If we represent the elements of $A$ as points on a horizontal line (the
+$x$-axis) and the elements of $B$ as points on a vertical line (the $y$-axis),
+the elements of $A\times B$ can be represented as points in the plane that
+project onto $A$ on the $x$-axis and onto $B$ on the $y$-axis (see
+figure~\ref{fig:funzione}).
+  
+A \emph{relation}%
+\mymargin{relation}%
+\index{relation} $R$ between the elements of a set $A$ and the elements of a set $B$ is nothing but a subset of $A\times B$, that is, $R\in \mathcal P(A\times B)$. For a relation $R\subset A\times B$, the infix notation $aRb$ is used to indicate $(a,b)\in R$. Alternatively, with the arrow notation, we can write $a \stackrel R \mapsto b$ to indicate that the arrow $a\mapsto b$ is an element of $R$. For example, if we take $A=B=\ENCLOSE{1,2,3}$ and consider the relation $R=\ENCLOSE{(1,2),(1,3),(2,3)}$, the predicate $aRb$ represents the usual order relation $a<b$ on the three numbers considered.
+
+\subsubsection{equivalence relations}
+
+\begin{definition}[equivalence relation]
+\label{def:equivalenza}%
+\label{def:insieme_quoziente}%
+Let $R\subset A\times A$ be a relation on the set $A$. We will say that $R$ is
+an \emph{equivalence relation}%
+\mymargin{equivalence relation}%
+\index{relation!equivalence} if the following properties (typical of equality) hold for every $x,y,z\in A$:
+\begin{enumerate}
+  \item reflexive: $x R x$;
+  \item symmetric: if $x R y$, then $y R x$;
+  \item transitive: if $x R y$ and $yRz$, then $x R z$.
+\end{enumerate}
+If $R$ is an equivalence relation, we will say that $x$ is equivalent to $y$
+(via $R$) when $xRy$. Given $x \in A$, the set of all elements $y\in A$ that are
+equivalent to $x$ is called the \emph{equivalence class}%
+\mymargin{equivalence class}%
+\index{class!equivalence} of $x$. It is defined in this way:
+\[
+  [x]_R = \ENCLOSE{y\in A \colon xRy}.  
+\]
+If $R$ is an equivalence relation on $A$, we define the \emph{quotient set}%
+\mymargin{quotient set}%
+\index{set!quotient}%
+$A/R$
+as the set of all equivalence classes:
+\[
+ A/R 
+ = \ENCLOSE{[x]_R\colon x\in A} 
+ = \ENCLOSE{B\in \mathcal P(A)\colon \exists x\in A\colon B=[x]_R}.  
+\]
+\end{definition}
+
+If $R$ is an equivalence relation on $A$, the quotient set $A/R$ represents the
+set of objects in $A$ where equivalent objects are identified with each other.
+We will often say that $A/R$ represents $A$ modulo the equivalence $R$.
+
+For example, if $A=\ENCLOSE{1,2,3,4,5}$ and we take $D=\ENCLOSE{1,3,5}$ (the odd
+numbers) and $P=\ENCLOSE{2,4}=A\setminus D$ (the even numbers), we can define a
+relation $R$ on $A$ by the property:
+\[
+ x R  y \iff (x\in P \land y\in P) \lor (x\in D \land y\in D).
+\]
+The relation $R$ represents the property of the elements of $A$ of having the
+same "parity". We will have $[1]_R = [3]_R=[5]_R= D$ and $[2]_R=[4]_R=P$. Thus
+\[
+   A/R = \ENCLOSE{P,D} = \ENCLOSE{\ENCLOSE{2,4},\ENCLOSE{1,3,5}}
+\]
+and, indeed, this set has two elements $P$ and $D$, which is what is obtained by
+identifying the numbers of $A$ based on the property of being even or odd.
+
+The quotient set $A/R$ is a \emph{partition}%
+\mymargin{partition}%
+\index{partition} of $A$ because it is formed by disjoint sets whose union is all of $A$. In fact, giving a partition of $A$ is equivalent to giving an equivalence relation.
+
+\subsubsection{order relations}
+
+\begin{definition}[order relation]
+  \label{def:ordine}%
+  A relation
+  $\le$ on a set $X$ is said to be an
+  \emph{order relation}%
+\mymargin{order relation}%
+\index{relation!order}
+  if it satisfies the following properties (for every $x,y,z\in X$):
+  \begin{enumerate}
+    \item[1.] reflexive: $x\le x$;
+    \item[2.] antisymmetric: $x\le y \land y\le x \implies x=y$;
+    \item[3.] transitive: $x\le y \land y\le z \implies x\le z$.
+  \end{enumerate}
+  Furthermore, the order relation $\le$
+  is said to be a \emph{total order}%
+\mymargin{total order}%
+  (or \emph{linear}) 
+  \index{ordering!total}%
+  \index{ordering!linear}%
+  \index{total!order}%
+  \index{linear!order}%
+  and $X$ is said to be \emph{totally ordered} if
+  \index{totally ordered}%
+  \begin{enumerate}
+    \item[4.] trichotomy: $x\le y \lor y\le x$.
+  \end{enumerate}
+\end{definition}
+
+\begin{definition}
+  \label{def:massimo}%
+  \label{def:minimo}%
+  \label{def:maggiorante}%
+  \label{def:minorante}%
+  \label{def:sup}%
+  \label{def:inf}%
+    Let $\le$ be an order relation on a set $X$, let $A\subset X$, and let $x\in
+  X$.
+
+    We will say that $x$ is an \emph{upper bound} of $A$ if for every $a\in A$,
+  we have $a\le x$.
+  \mymargin{upper bound, lower bound}%
+    We will say that $x$ is a \emph{lower bound} of $A$ if for every $a\in A$,
+  we have $x\le a$.
+  
+  We will say that $x$ is the \emph{maximum} of $A$ 
+  and write $x=\max A$,
+  if $x$ is an upper bound of $A$ and $x\in A$.
+  \mymargin{maximum, minimum}
+  We will say that $x$ is the \emph{minimum} of $A$ 
+  and write $x=\min A$,
+  if $x$ is a lower bound of $A$ and $x\in A$.
+  
+  We will say that $x$ is the \emph{supremum} of $A$ 
+  and write $x=\sup A$,
+  if $x$ is an upper bound of $A$
+  and there are no upper bounds of $A$ smaller than $x$
+  ($x$ is the minimum of the upper bounds).
+  \mymargin{supremum and infimum}%
+  We will say that $x$ is the \emph{infimum} of $A$ 
+  and write $x=\inf A$,
+  if $x$ is a lower bound of $A$
+  and there are no lower bounds of $A$ larger than $x$
+  ($x$ is the maximum of the lower bounds).
+
+  If the set $A$ has at least one upper bound $x\in X$, we will say that $A$ 
+  \mymargin{bounded}%
+  \index{bounded}%
+  \index{set!bounded}%
+  is \emph{bounded above}. 
+    If $A$ has at least one lower bound, we will say that $A$ is \emph{bounded
+  below}.
+    If $A$ is both bounded above and bounded below, we will say that $A$ is
+  \emph{bounded}.
+\end{definition}
+
+Note that the maximum and minimum of a set $A$, if they exist, are unique. In
+fact, if $x$ and $y$ are both maxima of $A$, we must have $x\le y$ since $y$ is
+a maximum, but also $y\le x$ since $x$ is also a maximum. Thus, $x=y$ by the
+antisymmetric property. The same holds for the minimum. Since the supremum is
+the minimum of the upper bounds, and the infimum is the maximum of the lower
+bounds, the supremum and infimum, if they exist, are also unique. If the maximum
+(or minimum) exists, then it coincides with the supremum (or infimum).
+Conversely, we will see examples where the supremum exists but is not an element
+of the set (thus it is not a maximum, and the maximum does not exist).
+
+In general, if $\le$ is an order relation on $X$, the inverse relation $\ge$ is
+defined by setting $x\ge y$ when $y\le x$. The reflexive property identifies
+\emph{wide} orderings. The corresponding strict ordering $<$ is defined by
+setting $x < y$ when $x\le y \land x\neq y$, and the inverse relation $>$ is
+defined by setting $x>y$ when $y<x$.
+
+\begin{example} 
+  Let $X=\ENCLOSE{1,2,3,4}$. 
+    It can be verified that there is a unique total order relation on $X$ for
+  which $1 \le 2$, $2 \le 3$, and $3 \le 4$ (we will write more briefly $1 \le 2
+  \le 3 \le 4$).
+  This relation is defined by the set of pairs:
+  \[
+    R_\le = \ENCLOSE{
+          (1,1),(1,2),(1,3),(1,4),
+          (2,2),(2,3),(2,4),
+          (3,3),(3,4),
+          (4,4)}
+  \]
+  in the sense that $x\le y$ if $(x,y)\in R_\le$.
+  The inverse relation $\ge$ corresponds to:
+  \[
+    R_\ge = \ENCLOSE{
+          (1,1),(2,1),(3,1),(4,1),
+          (2,2),(3,2),(4,2),
+          (3,3),(4,3),
+          (4,4)}
+  \]
+  and the strict relations $<$ and $>$ correspond to:
+  \begin{align*}
+    R_< &= \ENCLOSE{
+          (1,2),(1,3),(1,4),
+          (2,3),(2,4),
+          (3,4)}, \\
+    R_> &= \ENCLOSE{
+          (2,1),(3,1),(4,1),
+          (3,2),(4,2),
+          (4,3)}.
+  \end{align*}
+
+  Taking $A=\ENCLOSE{1,3}\subset X$, we have $\max A = \sup A = 3$ and 
+  $\min A = \inf A = 1$.
+  The upper bounds of $A$ are $3$ and $4$. 
+  There is a unique lower bound, which is $1$.
+\end{example}
+
+\begin{example}
+If we take the set $A=\ENCLOSE{1,2,3}$ and consider the relation on $X=\mathcal
+P(A)$ defined by $x\le y$ if $x\subset y$, we obtain an order relation that is
+not total.
+In fact, if $x=\ENCLOSE{1,2}$ and $y=\ENCLOSE{2,3}$, it is neither true that
+$x\subset y$ nor that $y\subset x$.
+We have $\max \P(A) = \sup \P(A) = A$ and $\min \P(A) = \inf \P(A) = \emptyset$.
+\end{example}
+
+\begin{example}
+The set $\NN$ of natural numbers (introduced in chapter~\ref{sec:naturali}) has
+no upper bounds, so it has neither a maximum nor a supremum.
+In fact, given any natural number, there is always another larger one.
+
+If we add an element $\infty$ to the set of natural numbers, which we define to
+be larger than any natural number, we obtain a totally ordered set
+$X=\NN\cup\ENCLOSE{\infty}\supset \NN$ such that $\max X = \infty$ and $\sup \NN
+= \infty$ in $X$. But $\infty$ is not an element of $\NN$, so it is not a
+maximum of $\NN$ in $X$.
+\end{example}
+
+\begin{definition}[dense ordering]
+  \label{def:ordinamento_denso}%
+  An ordering is said to be
+  \emph{dense}%
+\mymargin{dense ordering}%
+\index{dense} or \emph{divisible} 
+  if between two distinct points there is always an intermediate point:
+  \index{dense!subset}%
+  \index{dense!ordering}%
+  \index{subset!dense}%
+  \index{ordering!dense}%
+  \mynote{More generally, if $X$ is a totally ordered set and $A\subset X$, $A$ is said to be dense in $X$ if given any $x,y\in X$ with $x<y$, there exists $c\in A$ such that $x<c<y$.}
+  \[
+   x < y \implies \exists c \colon x < c < y.
+  \]
+\end{definition}
+
+\begin{example}
+An example of a dense ordering is that given on the set of points of a geometric
+line. Given two distinct points $P$ and $Q$ on the line, there is always an
+intermediate point between $P$ and $Q$ (for example, the midpoint).
+
+Intuitively, we observe that if we have a dense ordering on a set and the set
+contains at least two points, then the set contains infinitely many points since
+there is an intermediate point, and then another intermediate point between the
+intermediate point and one of the two points, and so on...
+\end{example}
+
+\begin{definition}[continuous ordering]
+  \label{def:ordinamento_continuo}%
+  A dense ordering $\le$ on a set $X$ is said to be
+  \emph{continuous}%
+\mymargin{continuous ordering}%
+\index{continuous}
+  \index{continuity!ordering}%
+  \index{order!continuous}%
+  (or \emph{Dedekind-complete})
+  \index{Dedekind-complete}%
+  \index{complete!Dedekind}%
+  if given any non-empty subsets $A,B$ of $X$
+    such that for every $a\in A$ and every $b\in B$, we have $a\le b$
+    (concisely, we will write $A\le B$ and say that $A$ and $B$ are 
+    \emph{separated})
+    then there exists $c\in X$ such that for every $a\in A$ and every $b\in B$, 
+    we have $a\le c \le b$ (concisely, we will write $A\le c \le B$
+    and say that $c$ is a separation element between $A$ and $B$).
+\end{definition}
+
+In words, the previous definition is expressed by saying that a densely ordered
+set is \emph{continuous} if every pair of separated subsets admits a separation
+element. In many texts, this condition is called \emph{completeness} or, more
+precisely, \emph{Dedekind completeness}.
+\index{completeness!Dedekind}%
+\index{Dedekind!complete}%
+
+\begin{example}
+A set can be dense but not continuous. 
+For example, if we take two distinct points $P$, $Q$ on an oriented line, such
+that $P<Q$, then take the midpoint $M$ between $P$ and $Q$, then the midpoint
+between all the previous points, and so on, intuitively, we obtain a set of
+points $X$ that turns out to be dense. But if we take the set $A$ of points of
+$X$ that are less than twice as far from $P$ as they are from $Q$, and the set
+$B=X\setminus A$, it is clear that the two sets are non-empty and separated, but
+there is no separation point between $A$ and $B$ because such a point should be
+at a distance of $\frac 1 3 PQ$ from $P$, while all the points of $X$ have a
+distance from $P$ that is expressed as a fraction of $PQ$ with a power of $2$ as
+the denominator.
+\end{example}
+
+\mynote{
+We will avoid using the definition of continuity on orderings that are not
+dense; otherwise, all finite sets would have a continuous ordering, and even
+sets like $\NN$ and $\ZZ$ would result in being continuous, which goes against
+the intuition of continuity we have in mind.
+}
+
+\begin{theorem}[existence of the $\sup$]%
+  \label{th:sup}%
+  \mymark{**}%
+  Let $X$ be a set with a continuous ordering.
+  If $A\subset X$ is a non-empty set
+  and bounded above, then $\sup A$ (the supremum) exists.
+  If $A\subset X$ is a non-empty set and bounded below, 
+  then $\inf A$ (the infimum) exists.
+
+  If $X$ has a minimum, then $\sup\emptyset = \min X$
+  and if $X$ has a maximum, then $\inf\emptyset = \max X$.
+  \end{theorem}
+  %
+  \begin{proof}
+  \mymark{*}
+  Consider the set of upper bounds of $A$:
+  \[
+  B = \ENCLOSE{ b\in \RR \colon b \ge A}.
+  \]
+  Given $a\in A$ and $b\in B$, since $b$ is an upper bound of $A$,
+  we must have $a\le b$. Thus, $A$ and $B$ are separated.
+  Moreover, $A$ is non-empty by hypothesis, and $B$ is non-empty because 
+  $A$ is bounded above, and thus there exists at least one upper bound of $A$.
+  Therefore, since the ordering is continuous by hypothesis,
+    there must exist $c\in X$ that is an upper bound of $A$ and a lower bound of
+  $B$.
+  Since $c$ is an upper bound of $A$, we have $c\in B$.
+  But $c$ is also a lower bound of $B$, so $c=\min B$.
+  Being $c$ the minimum of the upper bounds of $A$, it is, by definition,
+  $c= \sup A$.
+
+  An analogous proof holds for the infimum.
+
+  As for the empty set, note that every $x\in X$ 
+  is both an upper bound and a lower bound of the empty set.
+  Thus, the set of upper bounds and the set of lower bounds coincide with $X$.
+    The minimum of the upper bounds is thus $\min X$, and the maximum of the
+  lower bounds is $\max X$.
+\end{proof}
+
+We observe that the existence of the $\sup$
+of non-empty and bounded above sets
+is indeed a condition equivalent to the axiom of continuity.
+In fact, if $A\le B$, certainly $\sup A$, if it exists, is an element 
+of separation between $A$ and $B$.
+
+The geometric line is an example of a set that 
+we would like to have the property of continuity.
+This is because when a line is drawn that crosses a geometric figure, 
+we would like to have the certainty that, 
+if the line has a point inside the figure and a point outside, 
+then it also has a point of intersection (for us, this will be the theorem 
+of zeros~\ref{th:zeri}).
+These points of intersection can be  
+seen as points of separation between the points
+inside and the points outside the figure:
+for this reason, we are interested in the properties of continuity.
+
+The issue is delicate and not trivial. 
+Instead of aiming to formalize the axioms of Euclidean geometry,
+we will have a more algebraic approach in the sense that we will define 
+the geometric line using the set $\RR$ of real numbers.
+Much of this chapter will be essentially dedicated to this purpose.
+But see the discussion on Euclid and Hilbert in the historical notes 
+at the end of the chapter.

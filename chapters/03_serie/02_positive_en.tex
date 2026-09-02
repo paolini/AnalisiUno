@@ -1,0 +1,437 @@
+\section{series with positive terms}
+
+\index{series!with positive terms}
+In the following, we will consider series whose terms are positive real numbers
+(or at least non-negative).
+When we write $a_n >0$ (or $a_n \ge 0$), it will always be implied that $a_n\in
+\RR$ since for non-real complex numbers we have not defined the order relation.
+
+\begin{theorem}[nature of series with positive terms]\label{th:serie_positiva}
+\mymark{***}%
+\mymargin{nature of series with positive terms}%
+\index{nature!of a series with positive terms}%
+If $a_n\ge 0$, the series $\sum a_n$ is regular:
+either it converges or it diverges to $+\infty$.
+\end{theorem}
+%
+\begin{proof}
+\mymark{***}
+If $a_n \ge 0$, since $S_{n+1} = S_n + a_n$, it means that the sequence $S_n$ of
+partial sums is increasing.
+Thus, the limit of $S_n$ exists and cannot be negative.
+\end{proof}
+
+\begin{theorem}[comparison test]
+\mymark{**}
+\mymargin{comparison test}
+\index{test!comparison for series}
+Let $\sum a_n$ and $\sum b_n$ be series with positive terms that are compared:
+$0\le a_n\le b_n$.
+Then
+\[
+  \sum_{k=0}^{+\infty} a_k \le \sum_{k=0}^{+\infty} b_k.
+\]
+In particular, if $\sum b_n$ converges, then $\sum a_n$ also converges, and if
+$\sum a_n$ diverges, then $\sum b_n$ also diverges.
+
+This latter result holds even if $0 \le a_n \ll b_n$.
+\end{theorem}
+%
+\begin{proof}
+\mymark{*}
+If $S_n$ are the partial sums of $\sum a_n$ and $R_n$ are the partial sums of
+$\sum b_n$, we have $S_n \le R_n$, and the result reduces to the comparison
+between sequences.
+
+In the case where $a_n \ll b_n$, by definition, we know that $\frac{a_n}{b_n}\to
+0$, and therefore, from the definition of limit, we know that there exists $N$
+such that for every $n>N$, we have (having chosen $\eps=1$)
+\[
+  \frac{a_n}{b_n} < 1.
+\]
+Thus, we obtain $a_n \le b_n$ for all $n$ except at most a finite number.
+Knowing that the nature of the series does not change if the series is modified
+on a finite number of terms, we reduce to the previous case.
+\end{proof}
+
+\begin{example}\label{ex:52573}
+\mymark{***}
+The series
+\begin{equation}\label{eq:296453}
+ \sum_{k=1}^{+\infty} \frac{1}{k^2}
+\end{equation}
+is convergent.
+Indeed, observing that for every $n>0$, we have
+\[
+  \frac{1}{(n+1)^2} \le \frac{1}{n(n+1)}
+\]
+we can assert that
+\[
+  \sum_{k=1}^{+\infty} \frac{1}{k^2}
+  = 1 + \sum_{k=1}^{+\infty} \frac{1}{(k+1)^2}
+  \le 1+ \sum_{k=1}^{+\infty} \frac{1}{k(k+1)}
+  = 2
+\]
+since we have reduced to the telescopic series of Mengoli, which has a sum equal
+to $1$.
+
+We thus know that the series~\eqref{eq:296453} is convergent without knowing
+exactly what its sum is.
+However, we can numerically find approximations of the sum by summing the first
+terms and estimating the error using the series of Mengoli, whose sum we know
+how to calculate.
+Indeed, if $S_N$ is the partial sum of the first $N$ terms and $S = \lim S_N$ is
+the sum of the series, since $1/(k+1)^2 \le 1/(k^2+k)$, we have
+\[
+S_N
+\le S
+\le S_N + \sum_{k=N}^{+\infty} \frac{1}{k(k+1)}
+\le S_N + \frac{1}{N}.
+\]
+To calculate the first 6 exact decimal places, it will suffice to sum the first
+million terms of the series.
+This can be done, for example, with the code provided on
+page~\pageref{code:series}, obtaining $S\approx 1.644934$.
+
+Using much more advanced tools, Euler \index{Euler}
+(Leonard Euler, 1707--1783) managed to express the sum of this series using
+fundamental mathematical constants (we will do so with a different method in
+exercise~\ref{ex:Basilea}).
+\end{example}
+
+\begin{corollary}[asymptotic comparison test]
+\mymark{*}
+\mymargin{asymptotic comparison test}
+\index{test!asymptotic comparison}
+If $a_n$ and $b_n$ are sequences with positive terms, asymptotically equivalent
+(definition~\ref{def:ordine_infinito}), then the corresponding series $\sum a_n$
+and $\sum b_n$ have the same nature.
+\end{corollary}
+%
+\begin{proof}
+\mymark{*}
+Series with positive terms cannot be indeterminate, so it is sufficient to
+verify that if one series converges, the other also converges.
+Since $a_n / b_n$ is convergent, this ratio must also be bounded
+(theorem~\ref{th:limitatezza_successione_convergente}), so there exists $C\in
+\RR$ such that
+\[
+   a_n \le C \cdot b_n.
+\]
+If the series $\sum b_n$ converges, then $\sum C \cdot b_n$ also converges, and
+by comparison, $\sum a_n$ also converges.
+
+Conversely, by swapping the roles of $a_n$ and $b_n$, we verify that if $a_n$
+converges, then $b_n$ also converges.
+\end{proof}
+
+\begin{example}
+The series
+\[
+\sum_n \frac{n^2+2n+3}{2n^4-n^3+n+1}
+\]
+is convergent. Indeed, it can be easily verified that
+\[
+   \frac{n^2+2n+3}{2n^4-n^3+n+1} \sim \frac{1}{2n^2}.
+\]
+But we know that the series $\sum 1/n^2$ is convergent, consequently, the series
+$\sum 1/(2n^2)$ is also convergent (by the linearity of the sum,
+theorem~\ref{th:linearita_somma_serie}), and therefore, by asymptotic
+comparison, the given series is also convergent.
+\end{example}
+
+In chapter \ref{sec:serie_segno_variabile}, we will see that the asymptotic
+convergence test can only be applied to series with positive terms.
+
+\begin{theorem}[root test]
+\mymargin{root test}
+\index{test!root}
+Let $\sum a_n$ be a series with non-negative terms (i.e., $a_n\ge 0$) such that
+\mymark{***}
+$\sqrt[n]{a_n} \to \ell \in [0,+\infty]$.
+If $\ell<1$, then the series converges.
+If $\ell>1$, then the series diverges.
+
+More generally, the result is valid with
+\[
+  \ell = \limsup \sqrt[n]{a_n}
+\]
+even in the case where the limit of $\sqrt[n]{a_n}$ does not exist.
+\end{theorem}
+%
+\begin{proof}
+\mymark{***}
+In the case $\ell < 1$, we take $q$ with $\ell < q < 1$ and set $\eps = q-\ell$.
+By the definition of limit $\sqrt[n]{a_n}\to \ell$ (but it suffices that
+$\limsup \sqrt[n]{a_n}=\ell$), we know there exists $N$ such that for every $n >
+N$, we have
+\[
+  \sqrt[n]{a_n} < \ell + \eps = q
+\]
+that is
+\[
+   a_n < q^n.
+\]
+Knowing that $\sum q^n$ converges, and knowing that the nature of the series
+does not change by modifying a finite number of terms, by comparison, we can
+conclude that the series $\sum a_n$ also converges.
+
+If $\ell>1$, we have that $\sqrt[n]{a_n}>1$ and therefore $a_n>1$ for infinitely
+many values of $n$. The sequence $a_n$ is not infinitesimal, and thus the series
+cannot converge.
+\end{proof}
+
+\begin{example}
+The series
+\[
+  \sum_k 2^{(\ln k) - k}
+\]
+is convergent. Indeed, we have
+\[
+ \sqrt[k]{2^{\ln k - k}}
+ = 2^{\frac{\ln k - k}{k}}
+ = 2^{\frac{\ln k }k - 1}
+ \to 2^{-1}
+ = \frac{1}{2}
+ < 1.
+\]
+\end{example}
+
+\begin{theorem}[ratio test]
+\mymark{***}
+\mymargin{ratio test}
+\index{test!ratio for series}
+Let $\sum a_n$ be a series with positive terms ($a_n > 0$) such that $a_{n+1} /
+a_n \to \ell \in [0,+\infty]$.
+If $\ell <1$, then the series converges.
+If $\ell > 1$, the series diverges.
+\end{theorem}
+%
+\begin{proof}
+\mymark{*}
+It would not be difficult to provide a direct proof, similar to the proof given
+for the root test.
+However, we can observe that by the Cesàro convergence criterion
+(theorem~\ref{th:criterio_cesaro}), we have $\sqrt[n]{a_n} \to \ell$, so we
+reduce to the root test without needing further proofs.
+\end{proof}
+
+\begin{example}
+\mymark{***}
+For every $x\ge 0$, the series
+\[
+  \sum \frac{x^n}{n!}
+\]
+converges.
+\end{example}
+%
+\begin{proof}
+We apply the ratio test.
+Setting $a_n = x^n / n!$, we have
+\[
+\frac{a_{n+1}}{a_n}
+= \frac{x^{n+1}}{(n+1)!}\cdot \frac{n!}{x^n}
+= \frac{x}{n+1} \to 0 < 1.
+\]
+Thus, the series converges.
+\end{proof}
+
+\subsection{associativity of the sum of a series}
+
+\begin{example}
+Setting $a_k = (-1)^k$, we know that the corresponding series:
+\[
+  1 - 1 + 1 - 1 + 1 \dots
+\]
+is indeterminate because the partial sums are
+\[
+  S_n = \sum_{k=0}^n (-1)^k
+  = \begin{cases}
+   1 & \text{if $n$ is even}\\
+   0 & \text{if $n$ is odd.}
+  \end{cases}
+\]
+However, if we associate the terms in pairs, we obtain the series
+\[
+  (1-1) + (1-1) + (1-1) \dots = 0 + 0 + 0 + \dots = 0
+\]
+which is convergent.
+The reason is that the sequence of partial sums of this new series is a
+particular subsequence (the one with even indices) of the sequence of partial
+sums of the original series. Therefore, it should not surprise us that even
+though the original series was indeterminate, it is possible to associate the
+terms of the series in such a way as to obtain a regular series (in this case,
+convergent).
+In fact, by the Bolzano-Weierstrass theorem~\ref{th:bolzano_weierstrass}, we
+know that it is always possible to extract a regular (convergent or divergent)
+subsequence from any sequence.
+Even when a convergent series is extracted from an indeterminate series, the sum
+of the series can depend on how the terms are associated.
+For example, in the previous series, if we only took the sums with odd indices,
+we would obtain:
+\[
+  1 + (-1+1) + (-1+1) + \dots = 1.
+\]
+\end{example}
+
+The previous example shows us that by associating the terms of an indeterminate
+series, it is possible to obtain series with different nature and sum.
+The following theorem tells us that this "bad" phenomenon can only occur when
+starting from an indeterminate series.
+If the series is regular, then we can associate its terms without changing
+either its nature or its sum.
+In particular, this is true for series with positive terms.
+
+\begin{theorem}[associativity of regular series]%
+\label{th:serie_associativa}%
+If $\sum a_k$ is a series, choosing any increasing sequence $k_n$ with $k_0=0$,
+we can consider the series $\sum b_n$ whose terms
+\[
+  b_n = \sum_{j=k_n}^{k_{n+1}-1} a_j
+\]
+are obtained by associating the terms of $a_k$ into consecutive groups delimited
+by the sequence of indices $k_n$.
+
+If the series $\sum a_k$ is regular (convergent or divergent), then the series
+$\sum b_n$ is also regular, and we have
+\[
+\sum_{n=0}^{+\infty} b_n
+= \sum_{k=0}^{+\infty} a_k.
+\]
+
+In particular, this holds if the series $\sum a_k$ is with positive terms.
+\end{theorem}
+%
+\begin{proof}
+Let $S_k = \sum_{j=0}^k a_j$ be the partial sums of the series $\sum a_j$. Then
+the partial sums of the series $\sum b_n$ are nothing but the subsequence
+$S_{k_n}$.
+Thus, if $S_k$ converges, every subsequence of it also converges to the same
+limit.
+
+The theorem~\ref{th:serie_positiva} tells us that series with positive terms are
+regular and therefore satisfy the hypotheses of the theorem.
+\end{proof}
+
+\subsection{the harmonic series}
+
+We observe that the ratio test does not apply to the \emph{harmonic series}%
+\mymargin{harmonic series}%
+\index{series!harmonic}%
+\[
+  \sum_k \frac{1}{k}
+\]
+since
+\[
+ \frac{\frac{1}{k+1}}{\frac{1}{k}}
+ = \frac{k}{k+1} \to 1.
+\]
+
+To understand whether the harmonic series converges or diverges, we present the
+method of \emph{condensation}, which will be stated in general in the next
+theorem but can be better understood when applied to the particular case of the
+harmonic series.
+
+We will show that the harmonic series diverges.
+The idea is simply to associate the terms of the harmonic series into groups of
+length powers of two and estimate the sum of each group from below with the
+smallest term (i.e., the last) of each group:
+\begin{align*}
+ \sum_{k=1}^{+\infty} \frac{1}{k}
+ & = 1 + \frac 1 2
+     + \enclose{\frac 1 3 + \frac 1 4}
+     + \enclose{\frac 1 5 + \frac 1 6 + \frac 1 7 + \frac 1 8}
+     + \dots\\
+ & > 1 + \frac 1 2 + 2 \cdot \frac 1 4 + 4 \cdot \frac 1 8 + \dots \\
+   & = 1 + \frac 1 2 + \frac 1 2 + \frac 1 2 + \dots
+    = +\infty.
+\end{align*}
+
+\begin{theorem}[Cauchy's condensation test]%
+\label{th:condensazione}%
+\mymark{**}%
+\mymargin{Cauchy's condensation test}%
+\index{test!Cauchy's condensation}%
+\index{condensation!Cauchy's test}%
+\index{Cauchy!condensation test}%
+Let $a_n$ be a decreasing sequence of non-negative real numbers: $a_n \ge 0$.
+Then the series $\sum a_k$ converges if and only if the series
+\[
+  \sum 2^k a_{2^k}
+\]
+converges.
+\end{theorem}
+%
+\begin{proof}
+\mymark{**}
+For convenience, suppose the sums start from $k=1$.
+It involves grouping the terms $a_k$ into groups of powers of two:
+\begin{align*}
+  b_0 & = a_1, \\
+  b_1 &= a_2 +  a_3, \\
+  b_2 &= a_4 +  a_5 +  a_6 +  a_7, \\
+  b_3 &= a_8 +  a_9 +  a_{10} + \dots + a_{15}, \\
+  &\vdots\\
+  b_n &= a_{2^n} +  a_{2^{n}+1} + \dots + a_{2^{n+1}-1},\\
+  &\vdots
+\end{align*}
+Thanks to theorem~\ref{th:serie_associativa} on the associativity of series with
+positive terms, we know that
+  \[
+  \sum_{k=1}^{+\infty} a_k = \sum_{n=0}^{+\infty} b_n.
+  \]
+Each term $b_n$ is the sum of $2^n$ terms of the sequence $a_k$, which, being a
+decreasing sequence, can be estimated from above and below with the first and
+last term of each sum, thus:
+\[
+  2^n a_{2^{n+1}-1} \le b_n \le 2^n a_{2^{n}}.
+\]
+By hypothesis, the series $\sum 2^n a_{2^n}$ is convergent, so by comparison,
+the series $\sum b_n$ is also convergent.
+
+Conversely, if the series $\sum 2^n a_{2^n}$ is divergent, then the series $\sum
+2^{n+1} a_{2^{n+1}}$ is also divergent, and knowing that $b_n\ge 2^n
+a_{2^{n+1}-1}\ge \frac 1 2 2^{n+1} a_{2^{n+1}}$, we obtain, by comparison, that
+the series $\sum b_n$ is also divergent.
+\end{proof}
+
+\begin{corollary}[generalized harmonic series]
+\mymark{***}
+\mymargin{generalized harmonic series}%
+\index{series!harmonic!generalized}
+The series
+\[
+ \sum_n \frac{1}{n^\alpha}
+\]
+converges if $\alpha>1$,
+diverges if $0\le \alpha\le 1$.
+\end{corollary}
+%
+\begin{proof}
+\mymark{***}
+We apply the condensation test. Setting $a_n = \frac 1{n^\alpha}$, we have
+\[
+  \sum_n 2^n a_{2^n} = \sum_n 2^n \frac{1}{(2^n)^\alpha}
+  = \sum_n 2^{n(1-\alpha)}
+  = \sum_n \enclose{2^{(1-\alpha)}}^n
+\]
+which is a geometric series with ratio $q=2^{1-\alpha}$.
+If $\alpha>1$, then $q<1$, and the harmonic series is convergent; if $\alpha \le
+1$, then $q\ge 1$, and the harmonic series is divergent.
+\end{proof}
+
+\begin{exercise}
+Use the condensation test to prove that the series
+\[
+  \sum \frac{1}{n \cdot \ln n}
+\]
+diverges.
+\end{exercise}
+
+\begin{exercise}
+    Determine the values of the parameters $\alpha\in \RR$ and $\beta\in \RR$
+  for which the following series is convergent:
+  \[
+    \sum \frac{1}{n^\alpha (\ln n)^\beta}.
+  \]
+\end{exercise}

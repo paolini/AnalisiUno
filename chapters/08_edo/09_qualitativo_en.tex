@@ -1,0 +1,281 @@
+\section{Qualitative Study of Solutions}
+\label{sec:studio_qualitativo_edo}
+
+It is not always possible to explicitly determine the solutions of a
+differential equation. We therefore aim to find methods to determine some
+salient properties of the solutions without having to determine them explicitly.
+We will consider only first-order equations in normal form:
+\begin{equation}\label{eqdiff}
+	u'(x)= f(x,u(x))
+\end{equation}
+with $f\colon \Omega \subset \RR^2\to \RR$.
+
+Recall that if $f$ satisfies the Cauchy-Lipschitz condition
+(definition~\ref{def:cauchy_lipschitz}), particularly if $f$ is of class $C^1$,
+then the graphs of the maximal solutions of the differential
+equation~\eqref{eqdiff} \emph{fiber} the region $\Omega$ in the sense that
+through every point of $\Omega$ passes a unique maximal solution
+(Cauchy-Lipschitz theorem~\ref{th:cauchy_lipschitz} and
+proposition~\ref{prop:separazione_soluzioni}). Furthermore,
+proposition~\ref{prop:edo_massimale} tells us that the maximal solutions exit
+any compact contained in $\Omega$, meaning they always reach the boundary of
+$\Omega$.
+
+\begin{example}\label{ex:edo_4630b}
+Let $u$ be the maximal solution of the Cauchy problem
+\[
+	\begin{cases}
+		u' = \cos(u^2)\cdot \sin x, \\
+		u(0) = 0.
+	\end{cases}
+\]
+Show that $u$ is defined on all of $\RR$ (thus the solution is global). Show
+that $u$ is even. Show that $u$ is periodic. Show that $u(x)\ge 0$ for every
+$x\in \RR$.
+\end{example}
+\newsavebox{\qredoquattro}\sbox{\qredoquattro}{%
+\myqrshortdoclink{edo_4630b}{Qualitative study example \getrefnumber{ex:edo_4630b}}}
+\begin{figure}
+  \centering\includegraphics[width=\textwidth]{edo_4630b}
+  \caption{Qualitative study of example~\ref{ex:edo_4630b}.
+  \ifwidemargin\\\\\fi%
+  \usebox{\qredoquattro}}
+  \label{fig:edo_4630b}
+\end{figure}
+%
+\begin{proof}[Solution.]
+In this case, we have $f(x,y)=\cos y^2\cdot \sin x$, which is a function of
+class $C^1$ on all of $\Omega=\RR^2$. Thus, the theorem of existence and
+uniqueness of solutions holds. We also note (by direct verification) that
+setting $H=\sqrt{\frac \pi 2}$, the constant functions $u_0(x)=-H$ and
+$u_1(x)=H$ are solutions of the differential equation (\ref{eqdiff}) since
+$f\enclose{x,\pm H}=0$ for every $x\in \RR$ (stationary solutions). By
+proposition~\ref{prop:separazione_soluzioni}, the graph of the solution $u(x)$
+cannot touch the graphs of the two functions $u_0$ and $u_1$, and since $u(0)=0$
+and $u$ is a continuous function, it means that for every $x$, we have $-H <
+u(x) < H$. Now consider the compact $K_M=[-M,M] \times [-H,H]$. We know that the
+maximal solution $u(x)$ of the Cauchy problem under consideration must exit
+every compact $K_M$ (proposition~\ref{prop:edo_massimale}). However, since
+$u(x)\in (-H,H)$, it means that necessarily the graph of the maximal solution
+$u(x)$ reaches the two vertical segments $x=-M$ and $x=M$, and thus the maximal
+interval of existence contains the interval $[-M,M]$. Since this is true for
+every $M$, the maximal interval of existence of the solution is $I=\RR$, and
+thus the solution is global.
+
+Let us prove that $u$ is even. Let $v(x)=u(-x)$. We have 
+\[ 
+    v'(x) = -u'(-x) 
+    = -\cos(u^2(-x))\cdot \sin(-x) 
+    = \cos(v^2(x))\cdot \sin(x)
+\]
+from which it follows that $v$ satisfies the same differential equation of which
+$u$ is a solution. Moreover, $v(0)=u(0)=0$, and therefore $u$ and $v$ are
+solutions of the same Cauchy problem. By the uniqueness of the solution, it must
+be that $u(x)=v(x)$ for every $x$, and therefore $u(-x)=u(x)$, as we wanted to
+prove.
+
+Now let us prove that $u$ is $2\pi$-periodic. Let $w(x)=u(x+2\pi)$. Then we have
+\[
+  w'(x) = u'(x+2\pi) = \cos(u^2(x+2\pi))\cdot \sin(x+2\pi) 
+  = \cos(w^2(x))\cdot \sin(x) 
+\]
+thus, again, $w$ satisfies the same differential equation of which $w$ is a
+solution. Moreover, we have
+\[
+  u(-2\pi) - w(-2\pi) = u(2\pi) - u(0) = w(0) - u(0).
+\]
+This means that $u-v$ takes opposite signs at the points $a=-2\pi$ and $b=0$,
+and therefore, by the intermediate value theorem~\ref{th:valori_intermedi},
+there must be a point where $u-v$ vanishes. At this point, we have two solutions
+of the same Cauchy problem, and thus, by the uniqueness of the solution, we must
+conclude that $u(x)=v(x)$ for every $x$. This means that $u$ is $2\pi$-periodic.
+
+Since $\abs{u(x)}<H$ with $H^2=\pi 2$, we have that $\cos(u^2(x))>0$, and
+therefore $u'(x)$ has the same sign as $\sin x$: on the interval $[0,\pi]$, the
+function $u(x)$ is increasing, and on $[\pi,2\pi]$, it is decreasing. Since $u$
+is $2\pi$-periodic, we have that $u(2\pi)=u(0)=0$, and therefore $0$ is the
+minimum value assumed by $u$.
+
+See figure~\ref{fig:edo_4630b}.
+\end{proof}
+
+\subsection{Monotonicity and Critical Points of Solutions}
+
+After determining the regions of $\Omega$ where the theorem of existence and
+uniqueness holds, it is useful to study the sign of $f$. Indeed, the solutions
+$u(x)$ of the differential equation (\ref{eqdiff}) will be strictly increasing
+where $f>0$, strictly decreasing where $f<0$, and will have a critical point
+where $f=0$.
+
+A notable first case is when $f$ vanishes on a horizontal line $y=c$. In this
+case, the constant function $u(x)=c$ is a solution of the differential equation
+(\ref{eqdiff}). Moreover (under the hypothesis $f\in C^1$), this constant cannot
+be crossed by other solutions of the differential equation.
+
+It is important to understand whether the solutions of the differential equation
+cross the curve $\{f=0\}$. Indeed, this allows us to determine the sign of the
+derivative $u'(x)$ and thus obtain important information about the behavior of
+the solution $u(x)$ (monotonicity, relative maxima and minima...).
+
+More generally, it is interesting to understand when a solution of a
+differential equation can cross a given curve.
+
+\begin{theorem}\label{nonpassa}
+Let $u(x)$ be a solution of the differential equation $(\ref{eqdiff})$ defined
+on an interval $I$, and let $v(x)$ be any function defined on $I$, of class
+$C^1$, such that its graph is entirely contained within the domain $\Omega$ of
+definition of $f$. Suppose that at a fixed point $x_0$ internal to $I$, we have
+$u(x_0)<v(x_0)$, and suppose further that for every $x>x_0$, we have
+$v'(x)>f(x,v(x))$. Then for every $x>x_0$, we have $u(x)<v(x)$.
+
+Similarly, if $u(x_0)>v(x_0)$ and if for every $x$, we have $v'(x)<f(x,v(x))$,
+it will result that $u(x)>v(x)$ for every $x>x_0$.
+
+Analogous results hold for $x<x_0$.
+\end{theorem}
+
+\begin{proof}
+Suppose for contradiction that the set $J=\{x\in I: x\ge x_0\ \mathrm{and}\
+u(x)=v(x)\}$ is not empty. This set is closed and bounded below, so if it is not
+empty, it admits a minimum. Let $\bar x$ be the minimum of $J$. Certainly, $\bar
+x>x_0$ since $u(\bar x)=v(\bar x)$. Moreover, for every $x\in \left[x_0,\bar
+x\right[$, we have $u(x)-v(x)<0$, and therefore $u'(\bar x) \ge v'(\bar x)$
+(since the left-hand incremental ratio of $u-v$ is always positive).
+
+This is a contradiction since by hypothesis, we have $u'(\bar x) = f(\bar x,
+u(\bar x)) = f(\bar x ,v(\bar x)) < v'(\bar x)$.
+\end{proof}
+
+For example, if $v(x)$ is a function whose graph is contained in $\{f=0\}$
+(i.e., $f(x,v(x))=0$), then a solution $u(x)$ of the differential equation can
+cross the curve $v(x)$ from above to below at points where $v'(x)>0$ and from
+below to above at points where $v'(x)<0$.
+
+\newsavebox{\qrexoqt}\sbox{\qrexoqt}{%
+\myqrshortdoclink{qrexoqt}{the graph of the solution of example \getrefnumber{ex843}}}
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth]{ex843.pdf}
+\caption{The graph of the solution of the Cauchy problem in example~\ref{ex843}
+\ifwidemargin\\\\\fi%
+\usebox{\qrexoqt}}
+\label{fig:ex843}
+\end{figure}
+%
+\begin{example}\label{ex843}
+Consider the following Cauchy problem
+\[
+\begin{cases}
+  u'=1-x u^3\\
+  u(0)=0
+\end{cases}
+\]
+admits a solution $u(x)$ defined on all of $\RR$.
+\end{example}
+%
+\begin{proof}[Solution.]
+Setting $f(x,y)=1 - xy^3$, we have that $f$ vanishes on the graph of the
+function $u_0(x)=1/\sqrt[3] x$. For $x>0$, the solution is increasing when it is
+below the function $u_0$ and is decreasing when it is above. Moreover, since
+$u_0'<0$, the solutions can cross the function $u_0(x)$ only by passing from
+below to above.
+
+Let $u(x)$ be the solution of the Cauchy problem in question, defined on a
+maximal interval $I$. The initial data is $(0,0)\in \{f>0\}$. Thus, the solution
+is strictly increasing in a neighborhood of $0$.
+
+We want to show first that the solution necessarily meets both branches of the
+graph of $u_0(x)$. Indeed, let $\eps>0$ be sufficiently small to belong to the
+interval $I$ of existence of the solution, and let $\delta=u(\eps)$. Consider
+the compact $K=\{(x,y): \eps/2 \le x \le 1/\delta^2,\ 0\le y\le
+1/\sqrt[3]{x}\}$. The point $(\eps,u(\eps))$ is internal to the compact $K$, but
+the solution must exit the compact for some $x>\eps$. However, the solution
+cannot touch the line $y=0$ since within the compact, it remains always positive
+and increasing. Nor can it touch the vertical segment $x=1/\delta^2$,
+$y\in[0,\delta]$ since $u(\eps)=\delta$ and for $x>0$, the solution is strictly
+increasing. Thus, necessarily the solution must meet the graph of the function
+$u_0(x)=1/\sqrt[3]{x}$ at a point $\bar x>0$.
+
+At the point $x=\bar x$, the solution $u(x)$ crosses the curve $u_0(x)$. Indeed,
+at this point $u'(\bar x)=0$ while $u_0'(\bar x)<0$. Thus, in a right
+neighborhood of $\bar x$, the solution is above the curve $u_0(x)$ and therefore
+is decreasing (at $\bar x$, the solution presents a relative maximum).
+
+Theorem~\ref{nonpassa} further guarantees that the solution cannot cross the
+graph of the function $u_0$ again since $u'_0<0$. Thus, the solution is
+decreasing and bounded. Therefore (as usual using
+proposition~\ref{prop:edo_massimale}), we can deduce that the maximal solution
+is defined for every $x>0$.
+
+An analogous reasoning is done for $x<0$, obtaining the global existence of the
+solution.
+\end{proof}
+
+\begin{example}
+Show that the Cauchy problem
+\[
+\begin{cases}
+	u' = -x(u^3 - \sin x) \\
+	u(0) = 0
+\end{cases}
+\]
+admits a solution $u(x)$ defined on all of $\RR$.
+\end{example}
+%
+\begin{proof}
+Let $u(x)$ be the maximal solution of the Cauchy problem defined on a maximal
+interval $I$.
+
+First, we show that $\vert u(x) \vert < 2$ for every $x\in I$. Indeed, for
+$x>0$, on the curve $u_1(x)=2$, we have $f(x,2) = -x (8-\sin x) < -x < 0 =
+u_1'(x)$. Thus, by Theorem~\ref{nonpassa}, the solution for $x>0$ can never
+cross the line $y=2$. A similar argument is made for the line $y=-2$ and also
+for $x<0$, showing that the graph of the solution can never touch the lines
+$y=2$ and $y=-2$ either for $x>0$ or for $x<0$, and thus $u(x)$ is bounded (in
+fact, one can be more precise and show that $\vert u(x)\vert \le 1$).
+
+At this point, as usual, we apply Theorem~\ref{prop:edo_massimale} to the
+compacts $K_M=[-M,M]\times[-2,2]$, showing that the solution must have global
+existence.
+\end{proof}
+
+\subsection{Comparison Theorems}
+
+\begin{theorem}
+Let $I\subset \RR$ be an interval on which two differentiable functions $f(x)$
+and $g(x)$ are defined. Let $x_1<x_2$ be two points of $I$. If $f(x_1)<g(x_1)$
+and $f(x_2)>g(x_2)$, then there exists a point $\bar x \in (x_1,x_2)$ such that
+$f(\bar x)=g(\bar x)$ and $f'(\bar x)\ge g'(\bar x)$.
+\end{theorem}
+
+\begin{theorem}
+Consider two functions $u(x)$ and $v(x)$ solutions of the respective Cauchy
+problems
+\[
+\begin{cases}
+  u'(x)  = f(x,u(x))\\
+  u(x_0) = u_0
+\end{cases}
+\qquad
+\begin{cases}
+  v'(x) = g(x,v(x))\\
+  v(x_0) = v_0
+\end{cases}
+\]
+on an interval $I$ that contains the point $x_0$. Let $\Omega\subset \RR^2$ be a
+subset of the domains of definition of $f$ and $g$ such that the graphs of the
+solutions $u(x)$ and $v(x)$ are contained in $\Omega$ as $x$ varies in $I$.
+Suppose that for every $(x,y)\in\Omega$, we have $f(x,y)<g(x,y)$. Then for every
+$x\in I$, $x> x_0$, we have $u(x)< v(x)$, while for every $x\in I$, $x<x_0$, we
+have $u(x)>v(x)$.
+\end{theorem}
+
+\begin{theorem}
+Let $f\colon (x_0,+\infty)\to \RR$ be a function of class $C^1$ such that the
+limit
+\[
+  \lim_{x\to +\infty} f'(x) = \ell
+\]
+exists, finite or infinite. If $\ell\neq 0$, then $f$ cannot have a horizontal
+asymptote as $x\to +\infty$.
+\end{theorem}

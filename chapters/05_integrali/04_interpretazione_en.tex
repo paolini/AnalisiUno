@@ -1,0 +1,72 @@
+\section{Geometric Interpretation of the Integral}
+\index{integral!geometric interpretation}%
+\index{interpretation!geometric of the integral}%
+%%%%
+
+The following result establishes a correspondence between the Riemann integral
+and the Peano-Jordan measure, providing a formal way to assign the Riemann
+integral the meaning of the (signed) area of the subgraph of the integrand
+function. In the following, we will never use this result, which serves only to
+satisfy our intuition.
+
+\begin{theorem}[geometric interpretation of the integral]
+Let $f\colon[a,b]\to \RR$ be a bounded function, $a\leq b$. Define 
+\begin{align*}
+  E^+ &= \ENCLOSE{(x,y)\in [a,b]\times\RR\colon 0\le y \le f(x)}, \\
+  E^- &= \ENCLOSE{(x,y)\in [a,b]\times\RR\colon f(x)\le y \le 0}   
+\end{align*}
+Then $f$ is Riemann-integrable on $[a,b]$ if and only if the sets $E^+$ and
+$E^-$ are Peano-Jordan measurable. In such a case, it holds that:
+\[
+   \int_a^b f = m(E^+) - m(E^-)  
+\]
+where $m$ is the Peano-Jordan measure.
+\end{theorem}
+%
+\begin{proof}
+\emph{Step 1:} Suppose that $f(x)\ge 0$ for every $x\in [a,b]$. If $P=\ENCLOSE{x_0,x_1, \dots, x_N}$ is a partition of $[a,b]$, it is clear that, setting $I_k = [x_k,x_{k+1}]$, the union of the rectangles $R_k = I_k \times [0,\inf f(I_k)]$ gives us a polyrectangle contained in $E^+$. And $S_*(f,P)$ precisely represents the measure of such a polyrectangle. Thus, $m_*(E^+)\ge S_*(f,P)$ for every partition $P$, and therefore $m_*(E^+)\ge I_*(f,P)$. Reasoning analogously with the rectangles whose height is the $\sup$ of $f$, we observe that $S^*(f,P)$ represents the measure of a polyrectangle containing $E^+$, and thus $m^*(E^+)\le I^*(f,P)$.
+
+On the other hand, given any polyrectangle contained in $E^+$, we can consider
+the partition $P$ formed by $a$, $b$, and all the $x$ coordinates of the
+vertical sides of the rectangles composing the polyrectangle. It is clear that
+the polyrectangle will then be contained in the union of the rectangles
+determined by $P$ with height the infimum of $f$. Thus, $m_*(E^+)\le I_*(f)$.
+Similarly, if we take a polyrectangle that contains $E^+$, we can first cut all
+the rectangles with the lines $x=a$ and $x=b$ and remove any rectangles that are
+to the left of $x=a$ or to the right of $x=b$. This decreases the measure of the
+polyrectangle and maintains the inclusion of $E^+$. At this point, consider the
+partition $P$ obtained by taking the points $a$, $b$, and all the $x$
+coordinates of the vertical sides of the rectangles that form the polyrectangle.
+It is then clear that the measure of the original polyrectangle is greater than
+or equal to $S^*(f,P)$, and thus $m^*(E^+)\ge I^*(f)$.
+
+Therefore, since $m_*(E^+)=I_*(f)$ and $m^*(E^+)=I_*(f)$, it follows that if
+$f\ge0$, then $f$ is Riemann-integrable if and only if $E^+$ is Peano-Jordan
+measurable, and in such a case, we have $\int_a^b f = m(E^+)$.
+
+\emph{Step 2:} Let $f\colon[a,b]\to \RR$ be arbitrary. Then we have $f = f^+ - f^-$. We can apply the previous step to $f^+$ and $f^-$. Observe that the set $E^+$ of $f^-$ is nothing but the reflection (with respect to the x-axis) of the set $E^-$ of $f$, and these sets have the same Peano-Jordan measure. Thus, if $f$ is Riemann-integrable, then $f^+$ and $f^-$ are also Riemann-integrable (Theorem~\ref{th:reticolo}), so $E^+$ and $E^-$ are Peano-Jordan measurable by the previous step, and we have 
+\begin{equation}
+  \label{47694}
+\int_a^b f = \int_a^b f^+ - \int_a^b f^- = m(E^+) - m(E^-).  
+\end{equation}
+Conversely, if $E^+$ and $E^-$ are Peano-Jordan measurable, then $f^+$ and $f^-$
+are Riemann-integrable (by the previous step), and also $f=f^+-f^-$ is
+Riemann-integrable (Theorem~\ref{th:integrale_lineare}), and again \eqref{47694}
+must hold.
+\end{proof}
+
+\begin{example}[area of the trapezoid]
+Let $f(x) = mx + q$ be a linear function defined on an interval $[a,b]$, and
+suppose that $f(a)\ge 0$ and $f(b)\ge 0$. The set $E^+=\ENCLOSE{(x,y)\colon x\in
+[a,b], 0\le y \le f(x)}$ is thus a trapezoid with (vertical) bases $f(a)$ and
+$f(b)$ and (horizontal) height $b-a$. Its area will thus be
+\begin{align*}
+  \int_a^b f 
+  &= \int_a^b (mx+q)\, dx 
+  = m\int_a^b x\, dx + \int_a^b q\, dx
+  = \frac{m}{2}(b^2-a^2) + (b-a) q\\ 
+  &= \frac 1 2 (b-a)(mb+ma+2q)
+  = \frac 1 2 (b-a)(f(a) + f(b))
+\end{align*}
+which is indeed the elementary formula for calculating the area of a trapezoid.
+\end{example}

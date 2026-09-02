@@ -1,0 +1,887 @@
+\section{Subsequences}
+%%%%%%%%%%%
+%%%%%%%%%%%
+
+\begin{definition}[subsequence]
+\mymark{*}
+If $a_n$ is a sequence and $n_k$ is a strictly increasing sequence whose values
+are natural numbers, then the sequence
+$b_k = a_{n_k}$ is called a \emph{subsequence}%
+\mymargin{subsequence}%
+\index{subsequence} of $a_n$
+(or also a \emph{sequence extracted} from $a_n$).
+\end{definition}
+
+Recalling that a sequence $a_n$ is nothing but a function
+$\vec a\colon \NN \to \RR$, the sequence $n_k$ corresponds to a function
+$\vec n\colon \NN \to \NN$ and the subsequence $a_{n_k}$ corresponds to the
+composite function $\vec a \circ \vec n$.
+
+Note that in the previous definition the variable $n$ represents
+a dummy variable when we write the sequence $a_n$, but
+it also represents the name of the fixed sequence $n_k$.
+This overload
+of meaning is intentional and, if used correctly, simplifies
+notations, as the sequence $n_k$ is substituted for the
+variable $n$, with the same name, in the sequence $a_n$.
+The subsequence $a_{n_k}$ turns out to be a sequence in the variable $k$, not in
+the variable $n$.
+
+\begin{example}
+Let $a_n = n^2$ be the sequence of perfect squares:
+\begin{center}
+\begin{tabular}{l|rrrrrrrrr}
+$n$   & $0$ & $1$ & $2$ & $3$ & $4$  & $5$  & $6$  & \dots \\ \hline
+$a_n$ & $0$ & $1$ & $4$ & $9$ & $16$ & $25$ & $36$ & \dots
+\end{tabular}
+\end{center}
+Consider the sequence of even numbers $n_k = 2k$.
+The corresponding subsequence of perfect squares
+$b_k = a_{n_k}$
+represents the sequence of squares of even numbers:
+\begin{center}
+\begin{tabular}{l|rrrrrrrrr}
+$k$       & $0$ & $1$ & $2$ & $3$ & $4$  & $5$  & $6$  & \dots \\ \hline
+$n_k$ & $0$ & $2$ & $4$ & $6$ & $8$ & $10$ & $12$ & \dots \\
+$a_{n_k}$ & $0$ & $4$ & $16$ & $36$ & $64$ & $100$ & $144$ & \dots
+\end{tabular}
+\end{center}
+In practice, we have
+  $b_k = a_{n_k} = a_{2k} = (2k)^2$.
+
+We have indeed \emph{extracted} some of the terms of the original sequence.
+\end{example}
+
+\begin{example}
+If $a_n = (-1)^n$ and $n_k=2k$ then $a_{n_k} = 1$.
+We see that an irregular sequence
+can contain a regular subsequence.
+\end{example}
+
+Observe that if $\vec n\colon \NN\to \NN$ is a
+strictly increasing function
+(that is, $n_k=\vec n(k)$ is a strictly increasing sequence of indices)
+then setting $A=\vec n(\NN)=\ENCLOSE{n_k\colon k\in \NN}$ we have that
+$\vec n \colon \NN \to A$ is a bijection. Thus $A$ is an infinite set.
+Conversely, given any infinite set $A\subset \NN$, there exists a
+unique sequence $\vec n\colon \NN \to A$ that is bijective and strictly
+increasing:
+it suffices to set, by induction,
+$n_0 = \min A$, $n_1 = \min \ENCLOSE{n\in A \colon n > n_0}$
+and, in general,
+ $n_{k+1} = \min\ENCLOSE{ n\in A \colon n > n_k}$.
+
+Thus we can identify the subsequences of a sequence
+$\vec a \colon \NN \to \RR$ with the restrictions to infinite subsets of $\NN$.
+In the previous example, we considered the subsequence
+of all terms with even indices $n_k=2k$ to obtain the subsequence
+$a_{n_k} = a_{2k}$. We can equivalently think of taking the set of
+all even numbers $A=2\NN$ and consider the sequence restricted to only
+even indices:
+\[
+  a_0, a_2, a_4, \dots
+\]
+If we renumber the even indices using all natural numbers, we obtain
+the subsequence $b_k=a_{n_k}$:
+\[
+  b_0 = a_0,\ b_1 = a_2,\ b_2 = a_4,\ \dots,\ b_k = a_{n_k},\ \dots
+\]
+
+\begin{lemma}[monotone subsequences]%
+\label{lem:estratte_monotone}%
+Every sequence $a_n\in \RR$ has a monotone subsequence $a_{n_k}$.
+Moreover, if $\sup a_n = +\infty$, there is a strictly increasing subsequence
+$a_{n_k}$
+that tends to $+\infty$.
+\end{lemma}
+%
+\begin{proof}
+Consider the set $P$ of "peak" points, i.e., the indices
+of those terms of the sequence that are greater than or equal to all subsequent
+terms:
+\[
+  P = \ENCLOSE{n\in \NN\colon m\ge n \implies a_n\ge a_m}.
+\]
+If $P$ is finite,
+it means that there exists an index $n_1\in \NN$ such
+that there are no peaks from $n_1$ onwards. In particular, $n_1$ is not a peak
+point,
+so there must exist $n_2>n_1$ such that $a_{n_2}>a_{n_1}$.
+But neither is $n_2$ a peak point, so there must exist $n_3>n_2$ such
+that $a_{n_3}>a_{n_2}$... proceeding inductively, we can thus define
+a sequence $n_k$ of indices such that $a_{n_k}$ turns out to be strictly
+increasing.
+
+In particular, if $\sup a_n = +\infty$, we are in the previous situation
+because clearly, in this case, $P$ is empty since for every $n\in \NN$,
+there must exist $m\in \NN$ such that $a_m > \max\ENCLOSE{a_0, a_1, \dots a_n}$
+and certainly $m>n$.
+
+If, on the other hand, $P$ is infinite, then listing its elements in order, we
+will obtain
+a sequence $n_1 < n_2 < n_3, \dots$ of indices each of which corresponds to a
+peak value.
+If $j>k$, then $n_j>n_k$, and since $n_k\in P$, it means that
+$a_{n_j} \le a_{n_k}$.
+Thus the sequence $a_{n_k}$ turns out to be decreasing.
+\end{proof}
+
+
+\begin{theorem}[Bolzano-Weierstrass]\label{th:Bolzano}
+\label{th:bolzano_weierstrass}%
+\mymark{***}%
+\mymargin{Bolzano-Weierstrass}%
+\index{Bolzano-Weierstrass}%
+\index{theorem!of Bolzano-Weierstrass}%
+Every sequence $a_n$ has a regular subsequence.
+More precisely, if $a_n$ is a bounded sequence,
+then there exists a convergent subsequence
+$a_{n_k}$.
+If $a_n$ is an unbounded sequence, then
+there exists a divergent subsequence $a_{n_k}$.
+\end{theorem}
+%
+\begin{proof}
+\mymark{***}
+Let us start with the real case $a_n\in \RR$.
+Lemma~\ref{lem:estratte_monotone} guarantees
+that there exists a monotone subsequence $a_{n_k}$.
+But by Theorem~\ref{th:limite_successione_monotona}, we immediately conclude
+that $a_{n_k}$ has a limit.
+If $a_n$ is bounded, then $a_{n_k}$ is also bounded, and therefore
+in this case, the limit is finite, and thus the extracted sequence is
+convergent.
+
+If $a_n$ is not bounded above, the lemma
+guarantees that the extracted sequence tends to $+\infty$
+and thus is divergent.
+By symmetry (for example, considering $b_n=-a_n$), if $a_n$ is not bounded
+below,
+there exists an extracted sequence that tends to $-\infty$, and thus in
+this case, the extracted sequence is divergent.
+
+If $a_n$ is a sequence of complex numbers, we can write
+$a_n = x_n + i y_n$ with
+$x_n$ and $y_n$ being real sequences. If $a_n$ is bounded, it means that
+$\abs{a_n}$
+is bounded above. But it turns out that $\abs{x_n} \le \abs{a_n}$ and
+$\abs{y_n}\le \abs{a_n}$, so if $a_n$ is bounded, both the real part
+$x_n$ and the imaginary part $y_n$ are bounded sequences.
+Then $x_n$ admits a convergent subsequence $x_{n_k}$.
+But $y_{n_k}$ is also bounded, and therefore it also admits a
+sub-subsequence $y_{n_{k_j}}$ that is convergent.
+Thus the sub-subsequence $a_{n_{k_j}}$ is convergent.
+
+If $a_n\in \CC$ is not bounded, by applying the theorem to its modulus
+$\abs{a_n}$,
+we find that there is an extracted sequence $a_{n_k}$ such that
+$\abs{a_{n_k}}\to +\infty$.
+But this means that $a_{n_k}\to \infty \in \bar \CC$.
+\end{proof}
+
+%%%%%%%%%%%%
+%%%%%%%%%%%%
+\subsection{limit points}
+%%%%%%%%%%%%
+%%%%%%%%%%%%
+
+\begin{theorem}[bridge between function limits and sequence limits]%
+\label{th:ponte}%
+\mymark{***}%
+Let $A \subset \RR$, $f\colon A \to \RR$, let $x_0$ be an accumulation point of
+$A$, and let
+$\ell \in [-\infty, +\infty]$.
+The following two conditions are equivalent:
+\begin{enumerate}
+\item $\displaystyle \lim_{x\to x_0} f(x) = \ell$;
+\item for every sequence $a_n\to x_0$ with $a_n\in A\setminus\ENCLOSE{x_0}$, it holds that
+\[
+\lim_{n\to+\infty} f(a_n) = \ell. 
+\]
+\end{enumerate}
+\end{theorem}
+%
+\begin{proof}
+\mymark{***}
+If for $x\to x_0$ we have $f(x)\to \ell$ and if $a_n \to x_0$ with $a_n\in
+A\setminus\ENCLOSE{x_0}$, the sequence $f(a_n)$ is nothing but the composition
+of the function $f$ with the function $n\mapsto a_n$. We can then apply
+the theorem on the limit of the composite function to obtain that $f(a_n)\to
+\ell$.
+
+Conversely, suppose we know that for every sequence $a_n\to x_0$, we have
+$f(a_n)\to \ell$. We want to show that $f(x)\to \ell$. We do this by
+contradiction: suppose there exists a neighborhood $U$ of $\ell$ such that for
+any neighborhood $V$ of $x_0$, it is not the case that
+$f((A\setminus\ENCLOSE{x_0})\cap V)\subset U$.
+We can consider, for each $n\in \NN$, neighborhoods $V_n$ that are increasingly
+smaller. For example, in the case $x_0 \in \RR$, we could choose $V_n =
+(x_0-1/n, x_0+1/n)$; in the case $x_0 = +\infty$, we could choose $V_n =
+(n,+\infty]$; and in the case $x_0=-\infty$, we could choose $V_n = [-\infty,
+-n)$.
+If, by contradiction, $f((A\setminus\ENCLOSE{x_0}\cap V_n))$ were not contained
+in $U$,
+it would mean that for each $n\in\NN$, there exists $a_n \in
+(A\setminus\ENCLOSE{x_0})\cap V_n$ such that $f(a_n)\not \in U$. But then $a_n$
+would be a sequence in
+$A\setminus \ENCLOSE{x_0}$ with limit $x_0$
+(since for every neighborhood of $x_0$, there exists an $N$ such that $V_N$ is
+contained in that neighborhood, and for every $n>N$, we have $V_n\subset V_N$)
+but $f(a_n)$ could not have limit $\ell$
+(since it is outside the neighborhood $U$).
+But this contradicts the hypothesis and thus concludes the proof of the theorem.
+\end{proof}
+\begin{proposition}[characteristic property of convergence]
+  \label{prop:convergenza}
+Let $f\colon A\subset \RR\to \RR$ and $x_0$ be an accumulation point of $A$.
+Let $\ell\in \bar \RR$.
+If for every $a_n\to x_0$, $a_n\in A\setminus\ENCLOSE{x_0}$,
+there exists a subsequence $a_{n_k}$ such that $f(a_{n_k})\to \ell$, 
+then $f(x)\to \ell$ as $x\to x_0$.
+\end{proposition}
+%
+\begin{proof}
+  If, by contradiction, $f(x) \not\to \ell$,
+  there would exist a neighborhood $U\in \B_\ell$
+  such that frequently $f(x) \not \in U$.
+  This means that there exists a sequence
+  $a_n\to x_0$ with $a_n\neq x_0$ such that $f(a_n)\not \in U$.
+  But then from $f(a_n)$,
+  it is not possible to extract a subsequence
+  that has limit $\ell$, and this is contrary to the
+  hypotheses.
+\end{proof}
+
+\begin{definition}[limit points, upper limit, lower limit]
+  Let $f\colon A\subset \RR \to \RR$ be a function and $x_0\in \bar \RR$ 
+  an accumulation point for $A$.
+  A quantity $\ell\in \bar\RR$ is said to be
+  a \emph{limit point}%
+\mymargin{limit point}%
+\index{limit!point} of $f(x)$ as $x\to x_0$ if 
+  for every $U$ neighborhood of $\ell$, $f(x)\in U$ 
+  frequently as $x\to x_0$.
+  
+  If we denote by $L\subset \bar\RR$ the set
+  of limit points, we can define the \emph{upper limit} and the
+  \emph{lower limit}
+  \mymargin{upper/lower limit}%
+\index{limit!upper/lower}
+  respectively as
+  \[
+  \limsup_{x\to x_0} f(x) = \sup L, \qquad
+  \liminf_{x\to x_0} f(x) = \inf L.
+  \]
+\end{definition}
+  
+\begin{proposition}[countable base of neighborhoods]%
+  \label{prop:base_numerabile}%
+    For every $\ell\in \bar \RR$, there exists a sequence $U_n$ of neighborhoods
+  of $\ell$
+  with the following properties:
+  \begin{enumerate}
+    \item $U_{n+1}\subset U_n$;
+    \item for every $U$ neighborhood of $\ell$, there exists $n\in \NN$ such that $U_n\subset U$;
+    \item if $a_n\in U_n$, then $a_n\to \ell$.
+  \end{enumerate}
+\end{proposition}
+\begin{proof}
+We can explicitly define the neighborhoods $U_n$ as follows:
+\[
+  U_n = 
+  \begin{cases}
+    \openinterval{\ell-\frac 1 n}{\ell+\frac 1 n} & \text{if $\ell\in \RR$}\\ 
+    \opencloseinterval{n}{+\infty} & \text{if $\ell=+\infty$}\\
+    \closeopeninterval{-\infty}{-n} & \text{if $\ell=-\infty$.}
+  \end{cases}
+\]
+The first property is obviously satisfied.
+The Archimedean property of real numbers guarantees the validity of the second 
+property, from which the third follows immediately.
+\end{proof}
+
+\begin{proposition}[characterization of limit points]
+  Let $f\colon A\subset \RR\to \RR$, $x_0\in \bar \RR$ 
+  be an accumulation point for $A$. 
+  The following are equivalent:
+  \begin{enumerate}
+    \item $\ell$ is a limit point of $f(x)$ as $x\to x_0$.
+    \item There exists a sequence $a_n\in A$, $a_n\neq x_0$, $a_n\to x_0$ 
+    such that $f(a_n)\to \ell$.
+  \end{enumerate}
+\end{proposition}
+%
+\begin{proof}
+    Let $U_n$ be neighborhoods of $\ell$ and $V_n$ be neighborhoods of $x_0$
+  defined
+  as in Proposition~\ref{prop:base_numerabile}.
+  If $\ell$ is a limit point of $f(x)$ as $x\to x_0$, 
+  it means that for every $U$ neighborhood of $\ell$ and for every $V$ 
+  neighborhood of $x_0$, there exists $x\in A\cap V\setminus\ENCLOSE{x_0}$ 
+  such that $f(x)\in U$.
+  Thus for every $n$, there exists $a_n\in A \cap V\setminus\ENCLOSE{x_0}$ 
+  such that $a_n\in V_n$ and $f(a_n)\in U_n$. 
+  This means that $a_n\to x_0$, $a_n\neq x_0$, $f(a_n)\to \ell$ 
+  as desired.
+  
+  Conversely, if there exists such a sequence $a_n\to x_0$, then 
+  for every $V$ neighborhood of $x_0$, it is eventually true that $a_n\in V$.
+  And if $f(a_n)\to \ell$, for every $U$ neighborhood of $\ell$,
+  it is also eventually true that $f(a_n)\in U$.
+  Thus there exists $n$ such that $a_n\in V$ and $f(a_n)\in U$, confirming 
+  that $f(x)\in U$ frequently. 
+\end{proof}
+
+Very often we will consider the limit points of a sequence $a_n$
+as $n\to +\infty$.
+In this case, the previous characterization tells us that $\ell$ 
+is a limit point of $a_n$ as $n\to+\infty$ if there exists 
+a sequence of indices $n_k\to+\infty$ such that $a_{n_k}\to \ell$.
+We could also assume $n_k$ to be strictly increasing since if 
+$n_k\to \infty$, we can extract from $n_k$ a strictly increasing subsequence. 
+Thus the set of limit points of a sequence $a_n$ 
+corresponds to the set of limits of all possible 
+subsequences of $a_n$.
+
+\begin{example}
+  The sequence $a_n=(-1)^n$ has two limit points:
+  \[
+    \limsup_{n\to +\infty}(-1)^n = 1, \qquad \liminf_{n\to+\infty} (-1)^n = -1.
+  \]
+  Indeed, the subsequence of terms with even indices is constant $1$, while
+  that of terms with odd indices is constant $-1$.
+  There cannot be other limit points because if there were $a_{n_k}\to \ell$,
+  then certainly $a_{n_k}=1$ frequently or $a_{n_k}=-1$
+  frequently, from which either $\ell=1$ or $\ell=-1$.
+\end{example}
+%
+\begin{example}
+  Since $\#\QQ=\#\NN$, there exists a function $\vec a \colon \NN \to \QQ$
+  that is surjective. Using the density property of rational numbers,
+  it can be shown that the set of limit points of the corresponding sequence
+  $a_n = \vec a(n)$ is the entire $\bar \RR$.
+\end{example}
+
+\begin{exercise}
+  Consider the sequence $a_n = \sqrt n -\lfloor \sqrt n\rfloor$.
+  Calculate 
+  \[
+    \liminf_{n\to+\infty} a_n, \qquad 
+    \limsup_{n\to+\infty} a_n.
+  \]
+  What is the set of limit points of $a_n$ as $n\to +\infty$?
+\end{exercise}
+
+%
+\begin{theorem}[properties of the upper/lower limit]
+Let $f\colon A\subset \RR \to \RR$ and let $x_0$ be an accumulation point for
+$A$.
+Let $L$ be the set of limit points of $f(x)$ as $x\to x_0$. 
+Then:
+\begin{enumerate}
+  \item %1
+  $L\neq \emptyset$;
+
+  \item %2
+  $\displaystyle\limsup_{x\to x_0} f(x) \ge \liminf_{x\to x_0} f(x)$;
+
+  \item %3
+  if $\displaystyle\limsup_{x\to x_0} f(x) = \liminf_{x\to x_0} f(x) = \ell$, 
+  then $\displaystyle\lim_{x\to x_0} f(x) = \ell$;
+
+  \item %4
+  the set of limit points is closed under taking limits:
+  if $\ell_k\in L$ and $\ell_k \to \ell$ for some $\ell \in \bar \RR$, 
+  then $\ell \in L$;
+
+  \item %5
+    $\displaystyle\limsup_{x\to x_0} f(x)$ and $\displaystyle\liminf_{x\to x_0}
+  f(x)$ are limit points;
+
+  \item %6
+  the condition
+  $\displaystyle\limsup_{x\to x_0} f(x) = \ell$ is equivalent to
+  \[
+  \begin{cases}
+   \forall q > \ell \colon f(x) < q \text{ eventually,} \\
+   \forall q < \ell \colon f(x) > q \text{ frequently,}
+  \end{cases}
+  \]
+    and the condition $\displaystyle\liminf_{x\to x_0} f(x) = \ell$ is
+  equivalent to
+  \[
+  \begin{cases}
+  \forall q > \ell \colon f(x) < q \text{ frequently,} \\
+  \forall q < \ell \colon f(x) > q \text{ eventually;}
+  \end{cases}
+  \]
+
+  \item %7
+  if $a_n$ is a sequence 
+  \[
+    \limsup_{n\to +\infty} a_n = \lim_{n\to +\infty} \sup_{k\ge n} a_k,
+    \quad
+    \liminf_{n\to +\infty} a_n = \lim_{n\to +\infty} \inf_{k\ge n} a_k.
+  \]
+ \end{enumerate}
+\end{theorem}
+%
+\begin{proof}
+  Regarding point 1.\
+  the Bolzano-Weierstrass theorem~\ref{th:bolzano_weierstrass}
+  guarantees that $L\neq \emptyset$, and
+  therefore $\sup L \ge \inf L$, from which point 2 follows.
+
+  For point 3.\ if $\limsup = \liminf = \ell$, it means that $L=\ENCLOSE{\ell}$
+  has only one element. But by the corollary to the Bolzano-Weierstrass theorem,
+  we know that from every sequence $f(a_n)$ with $a_n\to x_0$, 
+  it is possible to extract a regular subsequence. 
+  The limit of such a subsequence must be an element of $L$,
+  and therefore it can only be $\ell$. 
+  Then, by Proposition~\ref{prop:convergenza},
+  we deduce that the entire sequence has limit $\ell$.
+
+  For point 4.\ let $\ell_k\in L$ be a sequence of limit points
+  and let $\ell\in \bar \RR$ be such that $\ell_k \to \ell$ as $k\to +\infty$.
+  Now consider the sequence $U_n$ of neighborhoods of $\ell$ 
+  given by Proposition~\ref{prop:base_numerabile}.
+  Since $\ell_k\to \ell$, for every $n$, there must exist $k_n$ such 
+  that $\ell_{k_n}\in U_n$. Without loss of generality, we can 
+  directly assume that $\ell_n\in U_n$.
+  Consider also the neighborhoods $V_n$ of $x_0$ given again 
+  by Proposition~\ref{prop:base_numerabile}.
+  For each $\ell_n \in L$, there must exist a sequence $a_k\to x_0$ 
+  with $a_k\neq x_0$ such that $f(a_k)\to \ell_n$.
+  But then there certainly exists $k=k_n$ such that $a_{k_n}\in V_n$ 
+  and $f(a_{k_n})\in U_n$. 
+  Setting $b_n = a_{k_n}$, we have found a sequence $b_n$ 
+  such that $b_n\to x_0$ (since $b_n\in V_n$) and $f(b_n)\to \ell$
+  since $f(b_n)\in U_n$. Thus $\ell$ is also a limit point. 
+
+  For point 5,
+  since $L\neq \emptyset$, the characterization of the $\sup$
+    guarantees that there exists a sequence $\ell_n\in L$ such that $\ell_n \to
+  \sup L$.
+  But then, by the previous point, we must have $\sup L \in L$.
+  The same holds for the $\inf$.
+
+  For point 6.\ we demonstrate it for the $\limsup$ (for the $\liminf$,
+  it will be analogous). If $\limsup f(x) = \ell$ and if it were frequently
+  $f(x) \ge q > \ell$, then there would exist a sequence $a_n\to x_0$, 
+  $a_n\neq x_0$ such that $f(a_n)\ge q$.
+  This sequence would have a regular subsequence
+  that has a limit $\ge q> \ell$, which is absurd.
+  Thus it must be eventually true that $f(x) < q$ for every $q>\ell$.
+  Conversely, if it were eventually true that $f(x) \le q < \ell$ for every
+  sequence $a_n\to x_0$ with $a_n\neq x_0$, it would have to be 
+  $f(a_n) \le q$, and this contradicts the fact that $\ell>q$ 
+  is a limit point.
+
+  Conversely, if for every $q>\ell$, it is eventually true that $f(x)<q$,
+  it means that for every sequence $a_n\to x_0$, it is eventually true that
+  $f(a_n) < q$, and therefore if $f(a_n)\to \ell$,
+  it must be $\ell\le q$. 
+  Thus every $q>\ell$ is an upper bound of $L$, and $\sup L\le \ell$.
+  If then for every $q<\ell$, it is frequently true that $f(x)\ge q$,
+  it means that there exists a sequence $a_n\to x_0$, $a_n\neq x_0$ 
+  such that $f(a_n)\ge q$. 
+  By the Bolzano-Weierstrass theorem, it will be possible to find 
+  a convergent subsequence $f(a_{n_k})\to \ell'\ge q$.
+  Thus for every $q<\ell$, it results
+  $\sup L \ge q$, from which ultimately $\sup L = \ell$. 
+
+  For point 7.\ we demonstrate it for the $\limsup$ (for the $\liminf$,
+  it will be analogous).
+  Setting $A_n = \sup_{k\ge n} a_k$, observe that $A_n$ is decreasing
+  since as $n$ increases, the set
+  $\ENCLOSE{k\colon k \ge n}$ decreases (in the sense of set inclusion),
+  and therefore
+  the $\sup$ does not increase.
+  Thus $\ell=\lim A_n$ certainly exists in $\bar \RR$.
+  Moreover, by the definition of limit, for every $\ell'>\ell$,
+  it must be eventually true that
+  $A_n < \ell'$, and therefore
+  (since obviously $a_n \le A_n$), it will also be
+  $a_n < \ell'$ eventually.
+  Conversely, given $\ell'<\ell$, it will be eventually true that
+  $A_n > \ell'$. But this means that there exists $k>n$
+  for which $a_k > \ell'$, and therefore
+  it results $a_n > \ell'$ frequently.
+  By the previous point, we can then conclude that
+  $\ell = \limsup a_n$.
+\end{proof}
+
+\begin{theorem}[operations with $\limsup$ and $\liminf$]
+    Let $f,g\colon A\subset \RR\to\RR$ and let $x_0$ be an accumulation point of
+  $A$.
+  \begin{enumerate}
+    \item 
+      As $x\to x_0$, we have 
+      \begin{align*}
+      \limsup_{x\to x_0} (-f(x)) &= -\liminf_{x\to x_0} f(x)\\ 
+      \liminf_{x\to x_0} (-f(x)) &= -\limsup_{x\to x_0} f(x);
+      \end{align*}
+    \item
+      if $\lambda \ge 0$, then
+        \begin{align*}
+        \limsup_{x\to x_0} (\lambda \cdot f(x)) &= \lambda \cdot \limsup_{x\to x_0} f(x), \\
+        \liminf_{x\to x_0} (\lambda \cdot f(x)) &= \lambda \cdot \liminf_{x\to x_0} f(x);
+        \end{align*}
+    \item
+    moreover
+    \begin{gather*}
+    \limsup_{x\to x_0} (f(x) + g(x)) \le \limsup_{x\to x_0} f(x) + \limsup_{x\to x_0} g(x),\\
+    \liminf_{x\to x_0} (f(x) + g(x)) \ge \liminf_{x\to x_0} f(x) + \liminf_{x\to x_0} g(x);
+    \end{gather*}
+    \item
+    and finally, if $f(x) \ge g(x)$, then
+    \[
+     \limsup_{x\to x_0} f(x) \ge \limsup_{x\to x_0} g(x), \qquad \liminf_{x\to x_0} f(x) \ge \liminf_{x\to x_0} g(x).
+    \]
+  \end{enumerate}
+\end{theorem}
+%
+\begin{proof}
+  For point 1.\ it suffices to observe that if the function $f(x)$ has $L$ as
+  the set of limit points, then the function $-f(x)$ has $-L$ as limit
+  points. Therefore $\sup (-L) = -\inf L$ and $\inf(-L) = -\sup L$.
+
+  For point 2.\ note that if $L$ is the set of limit points
+  of $f(x)$, then the set of limit points of $\lambda f(x)$ is $\lambda L$.
+  If $\lambda \ge 0$, then $\sup \lambda L = \lambda \sup L$
+    and $\inf \lambda L = \lambda \inf L$ (if $\lambda<0$, instead, $\inf$ and
+  $\sup$
+  are exchanged, as in point 1).
+
+    For point 3.\ consider the case of the $\limsup$ (for the $\liminf$, it will
+  be analogous).
+  If $\ell = \limsup(f(x)+g(x))$, it means that there exists a sequence
+  $a_n\to x_0$ such that $f(a_n)+g(a_n)\to \ell$. 
+  But I can extract a subsequence
+  such that the first addend $f(a_{n_k})$ also has a limit. 
+  And then I can extract
+  a sub-subsequence so that the second addend $g(a_{n_{k_j}})$
+  also has a limit. 
+  Thus we will have $f(a_{n_{k_j}}) \to \ell_1$, $g(a_{n_{k_j}} \to \ell_2$
+  with $\ell_1+\ell_2=\ell$.
+    But then by the definition of $\limsup$, we will have $\limsup f(x) \ge
+  \ell_1$
+    and $\limsup g(x) \ge \ell_2$, from which $\limsup f(x) + \limsup g(x) \ge
+  \ell_1+\ell_2 = \ell$.
+
+  For point 4.\ note that if $\ell = \limsup f(x)$, then
+  for every $q>\ell$, it is eventually true that
+  $f(x)<q$, and consequently also $g(x) < q$ eventually.
+  Thus $\limsup g(x) \le \ell$.
+  If instead we set $\ell = \liminf h(x)$, then
+  for every $q<l$, it is eventually true that $g(x) \ge q$, but
+  then also $f(x)\ge q$ eventually, and therefore
+  $\liminf f(x) \ge \ell$.
+\end{proof}
+    
+\begin{theorem}[Cesàro convergence]
+  \label{th:criterio_cesaro}%
+  \mymark{*}%
+  \mymargin{Cesàro}%
+\index{Cesàro}%
+  \index{criterion!of Cesàro ratio}%
+  \index{sum!of Cesàro}%
+  Let $a_n$ be a sequence.
+  \begin{enumerate}
+  \item
+    If
+    $   a_n \to \ell \in \bar \RR$,
+    then
+    \[
+    \frac 1 n \cdot \displaystyle\sum_{k=1}^n a_k \to \ell.
+    \]
+  
+  \item
+    If $a_n>0$,
+    $\displaystyle\frac{a_{n+1}}{a_n} \to \ell \in [0,+\infty]$,
+    then
+    $\displaystyle \sqrt[n]{a_n}\to \ell$.
+  \end{enumerate}
+  \end{theorem}
+  %
+  \begin{proof}
+  Let us prove the first point.
+  For every $q<\ell$, since $a_n\to \ell$, there must exist $N$ such that 
+  $a_n\ge q$ if $n> N$. 
+  Thus 
+  \[
+    b_n = \frac 1 n \sum_{k=1}^{n} a_k 
+    \ge \frac 1 n \sum_{k=1}^N a_k + \frac 1 n \sum_{k=N+1}^n q 
+    = \frac{\sum_{k=1}^N a_k}{n} + \frac{n-N}{n}\cdot q \to q.
+  \]
+  This means that for every $q<\ell$, $\liminf b_n \ge q$, and 
+  thus $\liminf b_n \ge \ell$.
+  Conversely, for every $q>\ell$, reasoning analogously, we obtain 
+  that $b_n$ does not exceed a sequence that tends to $q$.
+  Thus $\limsup b_n\le \ell$. 
+  Putting things together, we deduce that $\lim b_n = \ell$.
+    
+  Point 2 can be reduced to point 1.
+  Indeed,
+  \[
+    \ln \sqrt[n]{a_n}
+    = \ln \sqrt[n]{a_0\cdot \frac{a_1}{a_0} \cdots \frac{a_n}{a_{n-1}}}
+    = \frac{\ln a_0 + \ln \frac{a_1}{a_0} + \dots + \ln \frac{a_n}{a_{n-1}}}{n}.
+  \]
+  Setting $x_n = \ln \frac{a_n}{a_{n-1}}$,
+  if $\frac{a_n}{a_{n-1}}\to \ell$,
+    we have $x_n\to \ln \ell$ (interpreting $\ln 0 = -\infty$ and $\ln
+  (+\infty)=+\infty$), and thus
+  \[
+    \ln \sqrt[n]{a_n} = \frac{\ln a_0}{n} + \frac{x_1 + \dots + x_n}{n}
+    \to \ln \ell.
+  \]
+  Taking the exponential of both sides, we find the desired result.
+  \end{proof}
+  
+  \begin{exercise}\label{ex:7340098}
+  Apply the previous result to
+  verify that
+  \[
+     \lim \sqrt[n]{n} = 1
+  \]
+ and
+ \index{factorial!asymptotic estimate}%
+ \[
+   \lim \frac{n}{\sqrt[n]{n!}} = e.
+ \]
+ \end{exercise}
+ \mynote{In exercise~\ref{ex:7340098}, it is shown that 
+ \[
+  \sqrt[n]{n!} \sim \frac{n}{e}  
+  \qquad\text{as $n\to +\infty$.}
+ \]
+Note that it is not possible to raise both sides of this asymptotic estimate to
+the $n$th power.
+Indeed, in Theorem~\ref{th:stirling}, we will find this asymptotic estimate for
+the factorial:
+ \[
+  n! \sim \sqrt{2\pi n} \cdot \frac{n^n}{e^n}.
+ \]
+ See example~\ref{ex:498124} for a similar result.%
+ }
+
+ \begin{exercise}
+ Consider the sequence
+ \[
+ a_n =
+ \begin{cases}
+    2^n &\text{if $n$ is even},\\
+    n\cdot 2^n &\text{if $n$ is odd}.
+ \end{cases}
+ \]
+ Verify that the sequence $a_n$
+  can be tested with the root criterion but
+  not with the ratio criterion.
+  Use this example to show that the implications
+  stated in Theorem~\ref{th:criterio_cesaro} cannot
+  be reversed.
+\end{exercise}  
+
+\subsection{the zero theorem}
+
+\begin{theorem}[zero theorem]
+\mymark{***}%
+\mymargin{zero theorem}%
+\index{theorem!zero theorem}%
+\label{th:zeri}%
+Let $f\colon[a,b] \to \RR$ be a continuous function
+such that $f(a)\le 0$ and $f(b)\ge 0$.
+\mynote{If $b<a$, it is understood that $[a,b]=[b,a]$.}
+Then there exists
+ $c\in [a,b]$ such that $f(c)=0$.
+\end{theorem}
+
+\begin{proof}
+\mymark{***}
+The proof we adopt is of particular importance as
+it not only allows us to prove the existence of the point $c$ that solves
+$f(x)=0$
+but also presents us with
+an algorithm, the \emph{bisection method}%
+\mymargin{bisection method}%
+\index{method!bisection method},
+\index{bisection!method of}
+that can be effectively used to approximate
+such a solution.
+
+We can assume without loss of generality that $a<b$.
+Set $A_0 = a$, $B_0= b$, and consider the midpoint $C_0 = (A_0+B_0)/2$.
+Choose between the two intervals $[A_0, C_0]$ and $[C_0,B_0]$ the one for which
+the sign at the two ends is opposite (or, in a fortunate case, zero).
+More precisely, if $f(C_0)\ge 0$, set $[A_1,B_1] = [A_0,C_0]$; otherwise,
+choose $[A_1,B_1] = [C_0,B_0]$ so that, in any case,
+$f(A_1)\le 0$, $f(B_1)\ge 0$.
+
+Consider the midpoint $C_1$ of the new interval $[A_1,B_1]$ and repeat
+the process indefinitely. What we obtain are two sequences
+$A_n$, $B_n$ with these properties (which could be proven by induction):
+\begin{enumerate}
+\item $A_n < B_n$, $B_n - A_n = (b-a)/2^n$;
+\item $A_n$ is increasing, $B_n$ is decreasing;
+\item $f(A_n)\le 0$, $f(B_n)\ge 0$.
+\end{enumerate}
+
+Since $A_n$ is monotonic, we know that $A_n$ converges $A_n\to c$.
+Moreover, since $A_n \in [a,b]$, also $c\in [a,b]$ (by the permanence of
+the sign of the sequences $A_n-a$ and $b-A_n$).
+Passing to the limit in the equality $B_n = A_n + (b-a)/2^n$,
+we obtain that also $B_n \to c$. Since $f$ is continuous,
+we will have
+\[
+f(A_n) \to f(c), \qquad
+f(B_n) \to f(c).
+\]
+But $f(A_n)\le 0$, and therefore by the permanence of the sign, also $f(c)\le
+0$.
+On the other hand, $f(B_n) \ge 0$, and therefore $f(c)\ge 0$.
+Thus we obtain $f(c) = 0$, as we wanted to prove.
+\end{proof}
+
+\begin{example}\label{ex:75445}
+Solve the equation
+\[
+  x^5-x-1=0.
+\]
+\end{example}
+%
+\begin{proof}[Solution]
+Let $f(x) = x^5-x-1$. It is clear that the function $f\colon \RR\to \RR$
+is continuous (as it is a composition of continuous functions).
+Observe that $f(0) = -1$ and $f(2)=29$, so the function
+satisfies the hypotheses of the zero theorem on the interval $[0,2]$.
+We know, therefore, that the equation in question has at least one solution
+in this interval.
+
+Using the bisection method, we can determine a solution
+with arbitrary precision. Setting $A_0=0$, $B_0=2$, we have verified that
+$f(A_0)<0$ and $f(B_0)>0$.
+Take the midpoint
+$C_0=1$ and calculate the function: $f(C_0)=-1 < 0$. We know
+then that a solution must be contained in the interval
+$[A_1,B_1] = [C_0,B_0] = [1,2]$ because the hypotheses
+of the zero theorem also hold in this interval.
+The midpoint of this interval is $C_1=3/2 = 1.5$,
+and it turns out that $f(3/2) = 163/32>0$, so the next interval
+we will consider is $[A_2,B_2]=[1,3/2]$.
+To avoid working with too many decimal places, instead of dividing
+this interval exactly in half, we consider an intermediate point
+$C_2 = 6/5 = 1.2$ where $f(C_2)=901/3125>0$.
+We know then that a solution is contained in the interval
+$[A_3,B_3] = [1,1.2]$. Take the midpoint $C_3=11/10=1.1$
+and find $f(C_3) = -48949/10^5 <0$. We have thus obtained
+that there exists $x\in (1.1,1.2)$ such that $f(x)=0$. We know then
+that $\abs{x-1.15} < 0.05$, i.e., we have found $x$ with an error
+less than $0.05$.
+
+With much patience, one can proceed
+with the bisection method until verifying
+that $f(116/10^2)$ $=$ $-596583424/10^{10}<0$ and
+$f(117/10^2)=224480357/10^{10}>0$, from which
+it is obtained that a solution is contained between $1.16$ and $1.17$ with an
+error
+less than $0.005$.
+With a calculator (see, for example, the code on page \pageref{code:bisection}),
+more significant digits can be obtained: $x=1.1673039782614187\ldots$
+\end{proof}
+
+\begin{table}
+\begin{center}
+\begin{tabular}{r}
+$\sqrt 2 \approx $ \ttfamily\footnotesize 
+1.4142135623 7309504880 1688724209 6980785696 7187537694 \\
+\ttfamily\footnotesize
+8073176679 7379907324 7846210703 8850387534 3276415727 \\
+% 3501384623 0912297024 9248360558 5073721264 4121497099 \\ \ttfamily\footnotesize
+% 9358314132 2266592750 5592755799 9505011527 8206057147 \\ \ttfamily\footnotesize
+% 0109559971 6059702745 3459686201 4728517418 6408891986 \\ \ttfamily\footnotesize
+% 0955232923 0484308714 3214508397 6260362799 5251407989 \\ \ttfamily\footnotesize
+% 6872533965 4633180882 9640620615 2583523950 5474575028 \\ \ttfamily\footnotesize
+% 7759961729 8355752203 3753185701 1354374603 4084988471 \\ \ttfamily\footnotesize
+% 6038689997 0699004815 0305440277 9031645424 7823068492 \\ \ttfamily\footnotesize
+% 9369186215 8057846311 1596668713 0130156185 6898723723 \\ \ttfamily\footnotesize
+% 5288509264 8612494977 1542183342 0428568606 0146824720 \\ \ttfamily\footnotesize
+% 7714358548 7415565706 9677653720 2264854470 1585880162 \\ \ttfamily\footnotesize
+% 0758474922 6572260020 8558446652 1458398893 9443709265 \\ \ttfamily\footnotesize
+% 9180031138 8246468157 0826301005 9485870400 3186480342 \\ \ttfamily\footnotesize
+% 1948972782 9064104507 2636881313 7398552561 1732204024 \\ \ttfamily\footnotesize
+% 5091227700 2269411275 7362728049 5738108967 5040183698 \\ \ttfamily\footnotesize
+% 6836845072 5799364729 0607629969 4138047565 4823728997 \\ \ttfamily\footnotesize
+% 1803268024 7442062926 9124859052 1810044598 4215059112 \\ \ttfamily\footnotesize
+% 0249441341 7285314781 0580360337 1077309182 8693147101 \\ \ttfamily\footnotesize
+% 7111168391 6581726889 4197587165 8215212822 9518488472 \\
+\\
+$\sqrt 3 \approx$ \ttfamily\footnotesize 
+1.7320508075 6887729352 7446341505 8723669428 0525381038 \\
+\ttfamily\footnotesize
+0628055806 9794519330 1690880003 7081146186 7572485757 \\
+\\
+$\phi = \frac{\sqrt 5+1}{2} \approx $ \ttfamily\footnotesize 
+1.6180339887 4989484820 4586834365 6381177203 0917980576 \\
+\ttfamily\footnotesize
+2862135448 6227052604 6281890244 9707207204 1893911375
+  \end{tabular}
+\end{center}
+\caption{The first 100 decimal digits of some
+constants calculated with the bisection method used in the proof
+of Theorem~\ref{th:zeri}.
+See the code on page~\pageref{code:bisection}.}
+\label{fig:cifre_sqrt2}
+\index{$\sqrt 2$!decimal digits}
+\index{digits!$\sqrt 2$}
+\end{table}
+
+\begin{theorem}[intermediate value theorem]
+\label{th:valori_intermedi}%
+\mymark{**}%
+\mymargin{intermediate value property}%
+\index{property!intermediate value}%
+\index{theorem!intermediate value}%
+Let $I\subset \RR$ be an interval and $f\colon I \to \RR$ a
+continuous function.
+Then if $f$ assumes two values $y_1$ and $y_2$, it also assumes all intermediate
+values between $y_1$ and $y_2$.
+In other words: a continuous function
+maps intervals into intervals.
+\end{theorem}
+%
+\begin{proof}
+If $y_1$ and $y_2$ are values assumed by $f$, it means
+that there exist $x_1,x_2 \in I$ such that $f(x_1)= y_1$ and $f(x_2)=y_2$.
+Then, given $y$, consider the function $g(x) = f(x)-y$.
+If $y$ is intermediate between $y_1$ and $y_2$, the function $g$ will
+assume opposite signs at $x_1$ and $x_2$, and thus, by the zero theorem,
+there must be a point $x$ where $g$ vanishes. At this point,
+we have $f(x)=y$, as we wanted to prove.
+\end{proof}
+
+\begin{lemma}
+\label{ex:inversa_monotona}%
+If $I$ is an interval of $\RR$, every function $f\colon I \to \RR$
+that is injective and continuous is strictly monotonic.
+\end{lemma}
+%
+\begin{proof}
+It can be observed that a function is strictly monotonic if it maintains
+intermediate values, i.e., if given three points
+$x<y<z$, it always results that $f(y)$ is an intermediate value between $f(x)$
+and $f(z)$:
+\[
+  f(x)< f(y) <f(z) \qquad\text{or} \qquad f(x)> f(y) > f(z).
+\]
+If this did not happen, for example, if it were $f(y)>f(z)>f(x)$ with $x<y<z$,
+then by the continuity of $f$, there would have to exist an intermediate value
+between $x$ and $y$ where the function assumes the value $f(z)$. But then the
+function
+would not be injective.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%

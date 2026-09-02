@@ -1,0 +1,1253 @@
+\section{Natural Numbers}
+\label{sec:naturali}
+
+Although the properties of natural numbers should be intuitively well-known,
+their formalization is not trivial. In particular, some proofs will be
+complicated because when we need to prove many obvious facts, we must be careful
+not to use properties that seem obvious to us but have not yet been proven. For
+this reason, it is perfectly legitimate to skip the proofs on a first reading to
+understand the general sense of the discussion and then, if necessary, go back
+to delve into the details.
+
+The natural numbers $0,1,2,\dots$ are the numbers we use for counting or for
+iterations. There is a first natural number, which for us will be $0$, and then
+for every natural number $n$, there is a successor which we will call
+$\sigma(n)$. Starting from $0$ and moving to the successor, all natural numbers
+are reached.
+
+\begin{definition}[Peano's axioms]
+  \label{def:assiomi_peano}%
+  \label{def:naturali}%
+  \mynote{Giuseppe Peano (1858--1932) see historical notes on page~\pageref{nota:Peano}} 
+  \index{numbers!natural}%
+  \index{$\NN$}%
+  \index{Peano}%
+  \index{axioms!of Peano}%
+  \index{set!inductive}%
+  \index{inductive}%
+Given a set $\NN$, 
+an element $0\in \NN$, 
+and a function $\sigma\colon \NN\to\NN$, 
+we will say that $(\NN,0,\sigma)$
+satisfies Peano's axioms,
+or more simply that $\NN$ is a set of natural numbers,
+if the following properties hold: 
+\mynote{The function $\sigma$ gives us the successor of each number. 
+We will define $1=\sigma(0)$, $2=\sigma(1)$, $3=\sigma(2)$, \dots
+The first Peano axiom states that different numbers have 
+different successors. 
+The second axiom tells us that the first 
+natural number, for us $0$, 
+is not the successor of any other number while every other number 
+has a predecessor. The third axiom, the principle of induction, 
+tells us that every natural number can be reached from $0$ 
+by making a finite number of steps to the successor.}
+\begin{enumerate}
+  \item $\sigma$ is injective;
+  \item $\sigma(\NN) = \NN \setminus\ENCLOSE{0}$;
+  \item if $A\subset \NN$ and 
+  \begin{enumerate} 
+    \item[(i)] $0\in A$ 
+    \item[(ii)] $n\in A \implies \sigma(n)\in A$
+  \end{enumerate}
+  then $A=\NN$.
+\end{enumerate}
+\end{definition}
+
+From now on, when we use the symbol $\NN$, we will always assume that $\NN$ is a
+set that satisfies the previous definition. We will see in
+Theorem~\ref{th:unicitaN} that two different sets that satisfy Peano's axioms
+are isomorphic, meaning they can be put in a one-to-one correspondence while
+maintaining the same structure. In this sense, we can say that Peano's axioms
+uniquely characterize the set of natural numbers. Therefore, we will say that
+$\NN$ is \emph{the} set of natural numbers rather than \emph{a} set of natural
+numbers.
+
+Given $n\in \NN$, the number $\sigma(n)$ is called the \emph{successor}%
+\mymargin{successor}%
+\index{successor} of $n$. 
+The number $0\in \NN$, which by axiom is not the successor of any other 
+natural number, is called \emph{zero}%
+\mymargin{zero}%
+\index{zero}. 
+For convenience, we also give names to the other \emph{decimal digits}
+\mymargin{decimal digits}%
+\index{digits!decimal}%
+that is, the first natural numbers
+(later we will introduce positional notation to represent every natural number 
+with a sequence of decimal digits):
+\begin{equation}\label{eq:cifre}
+\begin{gathered}
+ 1 \defeq \sigma(0),\quad  
+ 2 \defeq \sigma(1),\quad
+ 3 \defeq \sigma(2),\quad 
+ 4 \defeq \sigma(3),\quad
+ 5 \defeq \sigma(4),\\ 
+ 6 \defeq \sigma(5),\quad 
+ 7 \defeq \sigma(6),\quad 
+ 8 \defeq \sigma(7),\quad 
+ 9 \defeq \sigma(8)
+\end{gathered}
+\end{equation}
+and we observe that $\sigma$ is the usual counting operation:
+ \[
+ 0 \stackrel\sigma\mapsto 1 \stackrel\sigma\mapsto 2 \stackrel\sigma\mapsto 
+ 3 \stackrel\sigma\mapsto 4 \stackrel\sigma\mapsto 5 \stackrel\sigma\mapsto 
+ 6 \stackrel\sigma\mapsto \dots  n \stackrel\sigma\mapsto \sigma(n) \dots
+ \]
+
+The first two Peano axioms (definition~\ref{def:assiomi_peano}) 
+serve to ensure that in this process of \emph{counting}%
+\mymargin{counting}%
+\index{counting}
+we always find different numbers (we never go back) since no number 
+can have $0$ or a previously encountered number as a successor (which 
+if not zero is the successor of another number).
+This property is in some ways paradoxical
+(Galileo's paradox, or Hilbert's hotel paradox)
+\index{paradox!of Galileo}%
+\index{paradox!of infinite sets}%
+\index{Hilbert's hotel}%
+\index{Hilbert!hotel}%
+and for Dedekind, it is the definition of an infinite set (we will introduce it
+shortly).%
+\mynote{Galileo Galilei (1564--1642) see historical notes on page~\pageref{nota:Galileo}}%
+
+The axioms of set theory that we have seen in previous chapters
+do not guarantee the existence of infinite sets, and therefore if 
+we want to ensure that the set of natural numbers actually exists, 
+we must add an additional axiom. 
+
+We could simply require by axiom that there exists a set $\NN$ that satisfies
+Peano's axioms~\ref{def:assiomi_peano}.
+For example, we could require 
+that the set of Von Neumann ordinals \eqref{eq:vonNeumann} exists. 
+\mynote{
+If we denote by $P(\alpha)$ the predicate 
+$\emptyset\in \alpha \land \forall n\colon (n\in \alpha \implies
+n\cup\ENCLOSE{n}\in \alpha)$
+then the axiom that guarantees the existence of the set $\omega$ of finite
+ordinals
+can be written in the form:
+    $\exists \omega\colon (P(\omega) \land \forall \alpha\colon
+  P(\alpha)\implies \omega\subset \alpha)$.
+    The function $\sigma\colon\omega\to\omega$ would then be $\sigma(n) =
+  n\cup\ENCLOSE n$.
+}
+
+But it seems more natural to simply require that at least one infinite set
+exists,
+as we will see that this is sufficient to guarantee the existence of the set of
+natural numbers
+(Theorem~\ref{th:esistenza_naturali}, where it is shown that every infinite set
+contains a set
+that satisfies Peano's axioms).
+
+Let us therefore investigate for a moment what it means for a set to be
+infinite.
+To give a definition independent of the existence of natural numbers, we can use
+an idea due to Dedekind:
+a set $X$ is infinite if it can be put in a one-to-one correspondence 
+with one of its proper subsets: 
+there exists $f\colon X\to X$ such that $f$ is injective but not surjective. 
+Intuitively, this cannot happen in a finite set: 
+if $X$ is finite, we expect that every subset of it is strictly smaller than $X$
+and therefore cannot be put in correspondence with all of $X$.
+
+\begin{definition}[infinite set]
+  \label{def:infinito}%
+  We will say that a set $X$ is \emph{finite}
+  \index{set!finite}%
+  \index{finite!set}%
+  \index{Dedekind!finite}%
+  (more precisely: Dedekind-finite)
+  if every injective function $f\colon X\to X$ is also surjective.
+  \mymargin{finite set}%
+\index{finite set}%
+
+  We will say that a set $X$ is \emph{infinite} 
+  (more precisely Dedekind-infinite)
+  \index{set!infinite}%
+  \index{infinite!set}%
+  \index{Dedekind!infinite}%
+  if it is not finite, that is,
+  if there exists $f\colon X\to X$ injective but not surjective.
+  \mymargin{infinite set}%
+\index{infinite set}%
+\end{definition}
+
+As we have already observed, Peano's axioms (definition~\ref{def:assiomi_peano})
+require that the function $\sigma\colon \NN\to\NN$ be injective but not
+surjective.
+It follows that $\NN$ must be an infinite set.
+
+But it cannot be excluded that all sets are finite (and therefore $\NN$ does not
+exist)
+unless we introduce the following axiom.
+
+\begin{axiom}[infinite]
+  \label{axiom:infinito}%
+  There exists an infinite set. 
+\end{axiom}
+
+Thanks to the previous axiom, the following theorem guarantees
+the existence of a set $\NN$ that satisfies Peano's axioms.
+
+\begin{theorem}[existence of natural numbers]
+  \label{th:esistenza_naturali}%
+If $X$ is any infinite set (definition~\ref{def:infinito}),
+there exist $\NN\subset X$, $0\in \NN$, and $\sigma\colon \NN\to\NN$ 
+that satisfy Peano's axioms (definition~\ref{def:assiomi_peano}).
+\end{theorem}
+%
+\begin{proof}
+If $X$ is infinite, there exists $f\colon X\to X$ injective but not surjective. 
+Choose arbitrarily $0\in X\setminus f(X)$. 
+Given a subset $I\subset X$, we will say that $I$ is \emph{inductive}
+\mymargin{inductive}%
+\index{inductive}%
+if $0\in I \land (n\in I\implies f(n)\in I)$. 
+We can then define:
+\[
+  \NN = \bigcap \ENCLOSE{I\subset X\colon \text{$I$ inductive}}.
+\]
+It is easily verified that $\NN$ is also an inductive subset of $X$.
+\mynote{In definition~\ref{def:restrizione}, the symbol
+$\llcorner$ is introduced for function restriction.}
+Thus, for every $n\in \NN$, we have $f(n)\in \NN$, and therefore we can 
+define $\sigma\colon \NN\to \NN$ as the restriction of $f$ 
+to $\NN$: $\sigma=f\llcorner \NN$.
+
+We then observe that $\sigma$ satisfies Peano's axioms.
+The first axiom is a consequence of the injectivity of $f$.
+The second is verified by how we chose $0$.
+To verify the third axiom, consider any set 
+$A\subset \NN$ such that $0\in A$ and such that if $n\in A$, then $n+1\in A$.
+By definition, $A$ is inductive, and therefore certainly 
+$\NN\subset A$ since $\NN$, as defined,
+is a subset of every inductive set.
+\end{proof}
+
+The previous construction tells us that the set $\NN$ is the smallest infinite
+set
+in the sense that: if $X$ is infinite, then $X$ contains an isomorphic copy of
+$\NN$.
+\mynote{
+Thanks to Theorem~\ref{th:cantor_bernstein}, we could say that if we have two
+sets
+that satisfy Peano's axioms, since there is an injective embedding of each
+into the other (Theorem~\ref{th:esistenza_naturali}), 
+then there exists a one-to-one correspondence between the two sets.
+In Theorem~\ref{th:unicitaN}, we will see that not only does a one-to-one
+correspondence exist,
+but also that there exists such a correspondence that preserves the structure 
+(i.e., the operation $\sigma$ and the element $0$). 
+}
+
+\subsection{principle of induction}
+
+The last of Peano's axioms 
+tells us that if a subset of the natural numbers contains zero and contains the
+successor of each of its elements, then it contains all the natural numbers.
+It serves to ensure that the counting process exhausts all 
+natural numbers, and therefore there are no \emph{unreachable} naturals
+starting from zero.
+This property is usually used through the following.
+
+\mynote{%
+Formally, we should say that $P$ is a function from $\NN$ to $\{V,F\}$
+where $V$,$F$ are two distinct values that we interpret as true and false.
+In fact, the concept of \emph{predicate} is not defined within the 
+formal system, but it is an external concept.
+But it is obvious that to each predicate $P$ corresponds 
+a function $P\colon \NN\to \{V,F\}$ and vice versa.
+}
+
+\index{principle!of induction}%
+\index{mathematical induction}%
+\begin{theorem}[principle of induction]
+  Let $P(n)$ be a predicate.
+  If 
+  \begin{enumerate}
+    \item $P(0)$ holds
+    \item $\forall n\in \NN\colon P(n)\implies P(n+1)$
+  \end{enumerate} 
+  then $\forall n\in \NN\colon P(n)$.
+\end{theorem}
+%
+\begin{proof}
+  Consider the set $A=\{n\in \NN\colon P(n)\}$.
+  Thanks to the hypotheses of the theorem, we can apply the third
+  property of natural numbers to deduce that $A=\NN$.
+  Thus, $P(n)$ is satisfied for every $n\in\NN$.
+\end{proof}
+
+Through the principle of induction, it is also possible 
+to define functions (or operations) by induction.
+Thanks to the following Theorem~\ref{th:induzione}, 
+if we want to define a function $f\colon\NN\to X$,
+it will suffice to declare the value of $f(0)$ and define $f(n+1)$ 
+(i.e., $f(\sigma(n)))$ in terms of $f(n)$.
+This method of defining a function is called 
+\emph{recursive definition} (or by recurrence) as it defines 
+the value of the function on the $n$-th term by recurring
+to the value assigned on the previous terms.
+
+\begin{theorem}[definition by induction]
+  \label{th:induzione}%
+  Let $X$ be a set, let $\alpha\in X$, and let $g\colon X\to X$ be a function.
+  Then there exists a unique function $f\colon \NN \to X$ such that
+  \begin{equation}\label{eq:4835628}
+    \begin{cases}
+      f(0) = \alpha, \\
+      f(\sigma(n)) = g(f(n)).
+    \end{cases}
+  \end{equation}
+  Thus, we will have
+  \[
+    f(0) = \alpha,\quad
+    f(1) = g(\alpha),\quad
+    f(2) = g(g(\alpha)),\quad
+    f(3) = g(g(g(\alpha)))\dots
+  \]
+    More generally, if we have $\alpha\in X$ and a function $g\colon \NN \times
+  X \to X$,
+  there will exist a unique function $f\colon \NN \to X$ such that
+  %
+  \begin{equation}
+    \begin{cases}
+      f(0) = \alpha, \\
+      f(\sigma(n)) = g(n, f(n)).
+    \end{cases}
+  \end{equation}
+\end{theorem}
+%
+\begin{proof}
+We must remember that functions $f\colon \NN \to X$ are nothing but relations 
+and thus subsets of the product $\NN\times X$.
+The properties~\eqref{eq:4835628} are thus written in the form 
+$(0,\alpha)\in f$ and $(n,x) \in f \implies (\sigma(n),g(x))\in f$
+(if $f(n)=x$ then $f(\sigma(n))=g(x)$).
+The idea is therefore to take the smallest subset of $\NN\times X$ 
+that can represent a function with the required properties.
+Consider the family of sets:
+\[
+\mathcal F = \ENCLOSE{F\in \mathcal P(\NN\times X)\colon 
+  (0,\alpha)\in F,\quad (n,x)\in F \Rightarrow (\sigma(n),g(x))\in F}.
+\]
+Clearly, $\mathcal F$ is not empty since $\NN\times X \in \mathcal F$.
+We can then take its intersection and define a set $f$:
+\[
+  f = \bigcap_{F\in \mathcal F} F.
+\]
+The set $f$ we have defined represents a relation between $\NN$ and $X$.
+Since $(0,\alpha)\in F$ for every $F\in \mathcal F$, it must be 
+$(0,\alpha)\in f$.
+Moreover, if $(n,x)\in f$, then $(n,x)\in F$ for every $F\in \mathcal F$, 
+and therefore $(\sigma(n),g(x))\in F$ for every $F\in \mathcal F$,
+from which $(\sigma(n),g(x))\in f$. This means that $f\in \mathcal F$.
+
+We now want to prove that $f$ is a function, i.e., that it is uniquely defined 
+on all of $\NN$.
+First, consider the set on which $f$ is defined 
+and that is $A=\ENCLOSE{n\in \NN\colon \exists x\in X\colon (n,x)\in f}$,
+and prove, by induction, that $A=\NN$.
+Indeed, $(0,\alpha)\in f$, so $0\in A$. 
+And if $n\in A$, we know that there exists $x\in X$ such that $(n,x)\in f$, 
+and thus, being $f\in \mathcal F$, also $(\sigma(n),g(x))\in f$,
+from which $\sigma(n)\in A$. 
+We have shown that $f$ is defined on all of $\NN$.
+
+Now, let's prove that $f$ is unique. Consider 
+the set on which $f$ is uniquely defined: 
+$B=\ENCLOSE{n\in \NN\colon \exists! x\in X\colon (n,x)\in f}$.
+Again, we want to prove by induction that $B=\NN$. 
+To prove that $0\in B$, since we already know that $(0,\alpha)\in f$, 
+we must prove that if $x\neq \alpha$, then $(0,x)\not\in f$.
+So let $x\neq \alpha$ and consider 
+the set $F=f\setminus\ENCLOSE{(0,x)}$.
+Clearly, $F\in \mathcal F$ since $(0,\alpha)\in F$
+because $(0,\alpha)\in f$ and $(0,\alpha)\neq (0,x)$.
+Moreover, if $(n,y)\in F$, then $(n,y)\in f$, 
+and therefore $(\sigma(n),g(y)) \in f$.
+But certainly $(\sigma(n),g(y))\neq (0,x)$ since $\sigma(n)\neq 0$, 
+thus $(\sigma(n),g(y))\in F$.
+Since $F\in \mathcal F$, it must be $f\subset F$, and thus 
+$(0,x)\not \in f$. Therefore, $f$ is uniquely defined at $0$.
+
+We must now show that if $n\in B$, then also $\sigma(n)\in B$.
+If $n\in B$, it means that there is a unique $x\in X$ such that $(n,x)\in f$.
+Certainly, also $(\sigma(n),g(x))\in f$.
+Then take $y\neq g(x)$, and we want to prove that $(\sigma(n),y)\not \in f$.
+Consider, similarly to before, the set $F=f\setminus\ENCLOSE{(\sigma(n),y)}$
+and try to prove that $F\in \mathcal F$.
+Clearly, $(0,\alpha)\in F$ because $(0,\alpha)\in f$, 
+and it cannot be $(0,\alpha)=(\sigma(n),y)$ since $\sigma(n)\neq 0$.
+If we now suppose that $(m,z)\in F$, then certainly $(m,z)\in f$, 
+and thus $(\sigma(m),g(z))\in f$: 
+we must show that $(\sigma(m),g(z))\in F$. 
+On the other hand, if it were $(\sigma(m), g(z))=(\sigma(n),y)$, 
+it would have to be $m=n$ since $\sigma$ is injective. 
+But since $f$ is uniquely defined on $n$, it must then also be 
+$(n,z) = (n,x)$, and therefore $g(z)=g(x) \neq y$. 
+Thus, $(\sigma(m),g(z))\in F$, and $F\in \mathcal F$.
+But then $f\subset F$, and thus $(\sigma(n),y)\not \in f$.
+This means that $f$ is uniquely defined also at $\sigma(n)$.
+By induction, $B=\NN$, and $f$ is a function $f\colon \NN\to X$.
+
+Obviously, since $f\in \mathcal F$, we know that $f$ 
+satisfies the properties required by the theorem.
+
+In the second part of the theorem, where $g\colon \NN\times X \to X$,
+we can consider the set $Y=\NN\times X$ and the function 
+$G\colon Y\to Y$ defined by $G(n,x) = (\sigma(n), g(n,x))$.
+Then, applying the first part, we can find $F\colon \NN\to Y$
+such that $F(0) = (0,\alpha)$ and $F(\sigma(n)) = G(F(n))$.
+It will suffice to take as $f(n)$ the second component of $G(n)$.
+\end{proof}
+
+\begin{theorem}[addition on $\NN$]
+  \label{th:addizione_naturali}%
+  \index{addition!on $\NN$}%
+  \mymargin{addition}%
+On $\NN$, there is a uniquely defined addition operation 
+that satisfies the following properties:
+\begin{equation}\label{eq:3408923}
+  \begin{cases}
+    n + 0 = n,\\
+    n + \sigma(m) = \sigma(n+m).
+  \end{cases}
+\end{equation}
+
+This operation makes $\NN$ a commutative additive monoid 
+with the neutral element $0$.
+\end{theorem}
+\begin{proof}
+The addition operation is uniquely defined 
+thanks to Theorem~\ref{th:induzione}.
+
+To prove that $\NN$ is a commutative monoid, we must verify
+that $0$ is the neutral element and that the associative 
+and commutative properties hold.
+
+Clearly, $n+0=n$ by definition~\eqref{eq:3408923}. 
+We now verify that $0+m=m$ as well, and we do this by induction on $m$.
+If $m=0$, it is true by definition.
+Regarding $0+\sigma(m)$, we have by definition:
+$0+\sigma(m)=\sigma(0+m)$, and by the inductive hypothesis, $0+m=m$.
+Thus, $0+\sigma(m)=\sigma(m)$, which is what we wanted to prove.
+
+We verify the associative property: $n+(m+k) = (n+m)+k$, and 
+we do this by induction on $k$. 
+If $k=0$, then $n+(m+0)=n+m=(n+m)+0$, by the previous properties.
+For the inductive step, we evaluate (always using
+definition~\eqref{eq:3408923}):
+$n+(m+\sigma(k)) = n+\sigma(m+k) =\sigma(n+(m+k))$.
+The inductive hypothesis guarantees that $n+(m+k)=(n+m)+k$, and therefore:
+$n+(m+\sigma(k)) = \sigma((n+m)+k) = (n+m)+\sigma(k)$,
+which is what we wanted to prove.
+
+Finally, we verify the commutative property: $n+m=m+n$.
+We do this by induction on $m$. 
+If $m=0$, it is trivial due to the properties of the neutral element.
+The inductive step is immediately 
+obtained thanks to definition~\ref{eq:3408923} 
+and the inductive hypothesis: 
+$n+\sigma(m) = \sigma(n+m) = \sigma(m+n) = m+\sigma(n)$.
+\end{proof}
+
+\begin{example}\label{ex235}
+  Prove that $2+3=5$.
+\end{example}  
+%
+\begin{proof}[Solution]
+Recall that, by definition \eqref{eq:cifre}, 
+$1=\sigma(0)$, $2=\sigma(1)$, $3=\sigma(2)$, $4=\sigma(3)$, and $5=\sigma(4)$.
+We need to use the properties $n+\sigma(m) = \sigma(n+m)$ 
+and $n+0=n$:
+\begin{align*}
+2+3 &= 2 + \sigma(2) = \sigma(2+2) = \sigma(2+\sigma(1))
+=\sigma(\sigma(2+1)) = \sigma(\sigma(2+\sigma(0)))\\
+&=\sigma(\sigma(\sigma(2+0)))
+=\sigma(\sigma(\sigma(2)))
+=\sigma(\sigma(3))
+=\sigma(4)=5.
+\end{align*}
+\end{proof}
+
+\mymargin{$\sigma(n)=n+1$}%
+Since $\sigma(n) = \sigma(n+0) = n+\sigma(0) = n+1$, 
+we can avoid using the \emph{successor} function in the future 
+and write directly $n+1$ to indicate the successor of $n$.
+
+We have defined addition $n+m$ 
+as the iteration of the successor function.
+In general, it is possible to define multiplication by a natural number 
+as a repeated sum, and exponentiation (with a natural exponent)
+as a repeated multiplication.
+This can be done on $\NN$ as on any monoid.
+
+\begin{theorem}[iterated operations]
+\label{th:operazioni_iterate}%
+\label{th:operazione_ripetuta}%
+If $M$ is an additive monoid (definition~\ref{def:monoide}),
+we can define by induction the multiplication $n\cdot x$ between a natural 
+number $n\in \NN$ and an element $x$ of the monoid:
+\[
+\begin{cases}
+  0\cdot x = 0 \in M \\
+  (n+1)\cdot x = n\cdot x + x.
+\end{cases}
+\]
+
+Moreover, the following properties hold
+(valid for every $n,m\in \NN$ and every $x,y\in M$):
+\begin{enumerate}
+  \item absorbing element: $0\cdot x = 0$ and $n\cdot 0 = 0$;
+  \item distributive properties: 
+    $n\cdot (x+y)=n\cdot x + n\cdot y$
+    and $(n+m)\cdot x = n\cdot x + m\cdot x$;
+  \item associative property: $n\cdot (m\cdot x)= (n\cdot m)\cdot x$.
+\end{enumerate}
+
+The same can obviously be done in multiplicative monoids
+if we define the power $x^n$ as a repeated product:
+\[
+\begin{cases}
+  x^0 &= 1 \in M \\
+  x^{n+1} &= x^n \cdot x,
+\end{cases}
+\]
+the properties are analogous:
+\begin{enumerate}
+  \item trivial powers: $x^0=1$, $1^n=1$;
+  \item power of a product: $(x\cdot y)^n = x^n\cdot y^n$;
+  \item product of powers: $x^{n+m}=x^n\cdot x^m$;
+  \item power of a power: $(x^m)^n = x^{m\cdot n}$.
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+The properties will be proven by induction.
+Let's consider the case where $M$ is an additive monoid.
+The absorbing property $0\cdot x = 0$ is given by definition,
+while $n\cdot 0 = 0$ is immediately proven 
+by induction; indeed, for $n=0$, we have $0\cdot 0 = 0$, 
+and the inductive step is $(n+1)\cdot 0 = n\cdot 0 + 0 = 0 + 0 = 0$.
+
+For the first distributive property: $n\cdot (x+y)=n\cdot x + n\cdot y$,
+the base case is verified: $0\cdot(x+y) = 0 = 0 + 0 = 0\cdot x + 0\cdot y$.
+The inductive step becomes: 
+$(n+1)\cdot(x+y)
+=n\cdot(x+y)+x+y
+=n\cdot x + x + n\cdot y + y 
+=(n+1)\cdot x + (n+1)\cdot y$.
+The second $(n+m)\cdot x = n\cdot x + m\cdot x$
+for $n=0$ is trivial: $(0+m)\cdot x = m\cdot x = 0\cdot x + m\cdot x$.
+The inductive step:
+$(n+1+m)\cdot x = (n+m)\cdot x + x 
+= n\cdot x + x + m\cdot x
+= (n+1)\cdot x + m\cdot x$.
+
+The associative property: $(n\cdot m)\cdot x = n\cdot (m\cdot x)$
+is obvious for $n=0$: $(0\cdot m)\cdot x = 0 = 0\cdot x = 0\cdot (m\cdot x)$.
+For the inductive step, we also use the distributive property:
+$((n+1)\cdot m)\cdot x 
+= (n\cdot m+m)\cdot x 
+= (n\cdot m)\cdot x + m\cdot x
+= n\cdot (m\cdot x)+m\cdot x
+= (n+1)\cdot (m\cdot x)$.
+
+For the multiplicative monoid, the properties are exactly 
+the same; only the notation with which we write them changes:
+instead of the sum on $M$, we write a product, and instead of the product, 
+we write a power. 
+\end{proof}
+
+\begin{exercise}
+  Prove that $2\cdot 3 = 6$ and that $2^3 = 8$.
+\end{exercise}
+  
+We define the ordering of $\NN$ 
+with the idea that a number $m$ is \emph{larger} than $n$ 
+if it is obtained by adding something to $n$.
+\index{relation!order on $\NN$}%
+\mymargin{ordering of $\NN$}%
+\[
+    n\le m \iff \exists k\in \NN \colon n+k = m.
+\]
+
+\begin{theorem}[properties of operations on $\NN$]
+\label{th:operazioni_naturali}%
+\index{multiplication!on $\NN$}%
+\index{exponentiation!on $\NN$}%
+The operations of addition, multiplication, exponentiation, 
+and ordering defined on $\NN$
+satisfy the following properties.
+Properties of addition and multiplication:
+\begin{enumerate}
+    \item neutral element:
+      $n + 0 = 0 + n = n$,
+      $n\cdot 1 = 1\cdot n = n$;
+    \item absorbing element:
+      $n\cdot 0 = 0$;
+    \item associative property: 
+      $(n+m)+k = n+(m+k)$, $(n\cdot m)\cdot k = n \cdot (m\cdot k)$
+    \item commutative property: 
+      $n+m = m+n$, $n\cdot m = m\cdot n$;
+    \item distributive property:
+     $k\cdot (n+m) = k\cdot n + k\cdot m$;
+    \item invariant property:
+     if $m+k = n+k$, then $m=n$;
+    \item cancellation of product: if $m\cdot n=0$, then $m=0$ or $n=0$;
+\end{enumerate}
+properties of exponentiation:
+\begin{enumerate}
+  \item $n^0 = 1$;
+  \item $n^1 = n$;
+  \item $n^{m+k} = n^m \cdot n^k$;
+  \item $(n^m)^k = n^{m\cdot k}$;
+  \item $(n\cdot m)^k = n^k \cdot m^k$;
+\end{enumerate}
+properties of ordering:
+\begin{enumerate}
+  \item $n\le n$ (reflexive property);
+  \item if $n\le m$ and $m\le k$, then $n\le k$ (transitive property);
+  \item if $n\le m$ and $m\le n$, then $n=m$ (antisymmetric property);
+  \item either $n\le m$ or $m\le n$ (dichotomy);
+  \item monotonicity:
+   if $m\le n$, then 
+   $m+k\le n+k$, $m\cdot k \le n\cdot k$,
+   $k^m \le k^n$, and $m^k \le n^k$. 
+\end{enumerate}
+\end{theorem}
+%
+\begin{proof}
+Many of these properties are valid in any monoid and have already 
+been proven in Theorem~\ref{th:operazioni_iterate}:
+neutral element, absorbing element, associative property, 
+distributive property, and all properties of powers.
+The fact that addition is commutative and associative has already been proven 
+in Theorem~\ref{th:addizione_naturali}.
+Let's prove the remaining properties.
+
+Prove the invariant property $n+k=m+k \implies n=m$ 
+by induction on $k$.
+For $k=0$, the property is trivial.  
+For the inductive step, observe that if $m+k+1=n+k+1$,
+then, thanks to the injectivity of $\sigma$, 
+it must be $m+k = n+k$,
+and by the inductive hypothesis, we conclude $m=n$, as we needed to prove.
+  
+The property $1\cdot n=n$ is a consequence 
+of the definition: $(0+1)\cdot n = 0\cdot n + n = 0 + n = n$. 
+The property $n\cdot 1=n$ can be proven by induction.
+If $n=0$, it is given by definition. 
+For the inductive step, we have $(n+1)\cdot 1 = n\cdot 1 + 1$,
+and being $n\cdot 1=n$ by the inductive hypothesis, 
+we conclude $(n+1)\cdot 1 = n+1$, which is what we needed to prove.
+
+The commutative property $n\cdot m=m\cdot n$ can be proven 
+easily by induction on $n$. 
+For $n=0$, it is trivial, thanks to the absorbing property.
+For the inductive step, observe that $(n+1)\cdot m = n\cdot m + m$,
+and supposing by the inductive hypothesis that $n\cdot m=m\cdot n$, 
+and using the distributive property, we obtain:
+$(n+1)\cdot m = m\cdot n + m\cdot 1 = m\cdot (n+1)$,
+which is what we needed to prove.
+
+To prove the cancellation of the product, suppose for contradiction that 
+the product of two numbers different from $0$ can be zero.
+A natural number different from zero is the successor of another natural number,
+so we could write $(n+1)\cdot(m+1)=0$. 
+But $(n+1)\cdot(m+1) = n\cdot m + n + m + 1$ is the successor of a natural
+number,
+so it cannot be zero.
+
+Let's see the properties of ordering.
+The fact that $n+0=n$ proves the reflexive property: $n\ge n$.
+  
+For the transitive property, it is sufficient to observe
+that if $n=m+j$ and $m=k+l$, then $n=k+l+j$.
+
+For the antisymmetric property, suppose we have $n=m+k$ 
+and $m=n+j$. 
+We deduce that $ m = m+k+j$, from which $k+j=0$.
+If it were $k\neq 0$ or $j\neq 0$, the left side would be the successor 
+of a natural number, but $0$ is not the successor of any natural number.
+This means that $k=j=0$, and therefore $n=m$, as we wanted to prove.
+
+To show that the ordering is total, we must 
+proceed with an inductive proof. 
+By induction on $n\in \NN$, we want to show 
+that for every $m\in \NN$, we have $n\le m$ or $m\le n$. 
+If $n=0$, the fact is obvious since $m=m+0$, and therefore $m\ge 0$
+for every $m\in \NN$.
+Fixed $m$ and $n$, suppose now we know that $n\le m$ or $m\le n$,
+and we prove that then $n+1\le m$ or $m\le n+1$.
+If $m\le n$, it means that $n = m + k$ for some 
+$k\in \NN$. But then $n+1 = m + k + 1$, and therefore 
+it also holds that $m\le n+1$. 
+If instead $n\le m$, it means that there exists $k\in \NN$ 
+such that $m=n+k$. If $k\neq 0$, then $k=1+j$ with $j\in \NN$,
+from which $m=n+1+j$, and thus also $n+1\le m$.
+If $k=0$, then $n=m$, and thus $n+1=m+1$, which leads us 
+to the reverse inequality $m \le n+1$.
+In any case, the inductive step is proven.
+
+Now, let's prove the monotonicity of sum and product.
+Let $m\le n$ and let $k$ be arbitrary.
+Since $m\le n$, we have $n=m+j$. 
+Thus,
+\[
+n+k = m + j + k \ge m+k   
+\] 
+and
+\[
+m\cdot k = (n+j)\cdot k = n\cdot k + j\cdot k \ge n\cdot k.  
+\]
+
+To verify the monotonicity of powers, we proceed by induction.
+It will suffice to prove that $m^k\le(m+1)^k$ and $k^m\le k^{m+1}$.
+We do this, in turn, by induction:
+\[
+(m+1)^{k+1} = (m+1)\cdot (m+1)^k \ge m\cdot m^k
+\]
+and (assuming $k\ge 1$)
+\[
+k^{m+1} = k\cdot k^m \ge 1\cdot k^m = k^m. 
+\]
+\end{proof}
+
+\begin{exercise}[notable products]
+Using the distributive property, prove that, for $a,b\in \NN$, we have:
+\[
+(a+b)^2 = a^2+2ab+b^2,
+\qquad
+(a+b)^3 = a^3 + 3a^2b + 3ab^2 + b^3.
+\]
+\end{exercise}
+
+The invariant property tells us 
+that if there exists $k\in \NN$ such that $n+k=m$,
+then such $k$ is unique. 
+\index{difference}%
+\index{subtraction}%
+\mymargin{difference}
+Thus, if $m\ge n$, we can define the difference $k=m-n$
+as that unique $k$ such that $n+k=m$.
+
+Similarly, if there exists $k\in \NN$ such that $m=k\cdot n$,
+we will say that $m$ is a \emph{multiple} of $n$, 
+\index{multiple}%
+\mymargin{multiples and divisors}%
+or that $n$ \emph{divides} $m$ (we can write $n\vert m$).
+We will say that $n$ is \emph{even} if $n$ is divisible by two,
+otherwise, we will say that $n$ is \emph{odd}.
+If $n\neq 0$ and $m=k\cdot n$, then $k$ is unique 
+(it can be verified using the cancellation property of the product)
+and is called the \emph{quotient} of $m$ divided by $n$, 
+\index{quotient}%
+we will write: $k=\frac m n$.
+
+Note that we have defined $n^0=1$ for every $n\in \NN$,
+including $n=0$. 
+Thus, we have deliberately defined $0^0=1$:
+this (controversial) definition will prove useful.
+Note instead that $0^n=0$ only if $n\neq 0$.
+Indeed, any number multiplied by $0$ gives zero, 
+so a repeated multiplication gives zero 
+if there is at least one zero factor. 
+But in the product $0^0$, there are $0$ zero factors, so there is actually no 
+multiplication by $0$. 
+It is therefore natural that the result is $1$, 
+the neutral element of multiplication.
+
+\begin{exercise}
+  Prove that for every $n\in \NN$, we have:
+  \[
+    n \text{ odd} \implies \exists k\in \NN\colon n=2k+1.
+  \]
+\end{exercise}
+  
+\begin{exercise}
+  Prove by induction that for every $n\in \NN$, $n\ge 4$, we have 
+  \[  
+    2^n \ge n^2.
+  \]
+  In other words, prove that for every $n\in \NN$, we have 
+  \[
+    2^{n+4} \ge (n+4)^2.  
+  \]
+  \end{exercise}
+  
+\subsection{finite sequences or n-tuples}
+\index{n-tuples}%
+\index{sequence!finite}%
+
+We have already seen that if $A$ is a set, we can define the set 
+of pairs of elements of $A$ with the Cartesian product between sets: 
+$A\times A$. 
+What does a repeated product represent?
+The sets $(A\times A)\times A$ and $A\times(A\times A)$ are not 
+equal, as the first is a set of pairs whose first element 
+is itself a pair, while the second set is a set of pairs 
+whose second element is a pair:
+\begin{gather*}
+  (A\times A)\times A = \ENCLOSE{((a_0,a_1),a_2)\colon a_0,a_1,a_2\in A},
+  \\
+  A \times (A\times A) = \ENCLOSE{(a_0,(a_1,a_2))\colon a_0,a_1,a_2\in A}.
+\end{gather*}
+These sets are very similar to each other and could be identified.
+Another very similar set is the set $A^{3}$.  
+Using Von Neumann's definition, $3 = \ENCLOSE{0,1,2}$, the set 
+$A^{3}$ represents the set of all functions 
+$\vec a\colon \ENCLOSE{0,1,2}\to A$.
+The function $\vec a$ is uniquely determined by its value at the 
+three points of the domain: $a_0 = \vec a(0)$, $a_1=\vec a(1)$, $a_2=\vec a(2)$
+since $\vec a = \ENCLOSE{0\mapsto a_0, 1\mapsto a_1, 2\mapsto a_2}$.
+We can therefore identify $\vec a$ with the triple (or vector) of values:
+\[
+  \vec a = (a_0, a_1, a_2), \qquad a_0,a_1,a_2 \in A.  
+\]
+The values $a_0$, $a_1$, and $a_2$ are also called \emph{coordinates}
+or \emph{components} of the \emph{vector} $\vec a$.
+\mymargin{coordinates, components, vector}%
+\index{coordinates, components, vector}%
+\index{coordinates!vector}%
+\index{components!vector}%
+\index{vector}%
+Indeed, the set $A^{2}$ can be identified with $A\times A$, the set 
+$A^{3}$ will be the set of triples of elements of $A$, and in general, if
+$n\in\NN$,
+we identify $A^{n}$ with the set of $n$-tuples (read: n-tuples) of elements 
+\index{n-tuples}%
+of $A$:%
+\mynote{
+  We are here identifying $n\in \NN$ with the set $\ENCLOSE{0,1,\dots, n-1}$.}%
+\[
+   \vec a \in A^{n} \iff 
+   \vec a = (a_0, a_1, \dots, a_{n-1}).  
+\]
+
+Historically, we have become accustomed to counting starting from $1$ instead of
+$0$.
+For this reason, it is usual to number the elements of an $n$-tuple with indices
+ranging from $1$ to $n$ instead of from $0$ to $n-1$.
+Thus, if $\vec a \in A^{3}$, it will be usual to write 
+$\vec a = (a_1, a_2, a_3)$ instead of $\vec a = (a_0, a_1, a_2)$.
+
+\subsection{sums and products with a variable number of terms}
+\index{summation}%
+\index{product notation}%
+
+We now introduce the concept of iterated sum (and product) on $\NN$.
+We will generally consider any monoid $A$, so 
+the definitions we give will be usable on $\NN$ 
+as an additive monoid (and thus we will have iterated sums)
+or as a multiplicative monoid (so we will have iterated products).
+Furthermore, the same definition will be usable 
+on numerical sets that we have not yet defined, such as 
+$\QQ$, $\RR$, and $\CC$.
+
+In general, if $A$ is a monoid (definition~\ref{def:monoide}) additive 
+(or multiplicative), we can make sums (or products) of an arbitrary 
+(but finite) number of terms (or factors) of $A$.
+More precisely, if $\vec a \in A^n$ 
+is an $n$-tuple of elements of $A$, 
+we want to define its sum and product:
+\mynote{In this context, it is usual to number the elements of the 
+$n$-tuple starting from index $1$ instead of index $0$.}
+\begin{equation}\label{eq:6122112}
+\sum_{k=1}^n a_k = a_1 + a_2 + \dots + a_n,
+\qquad 
+\prod_{k=1}^n a_k = a_1 \cdot a_2 \dots a_n.
+\end{equation}
+Formally, a definition by induction must be given. 
+It will suffice to say that the sum (or product)
+of zero terms (or factors) equals the neutral element 
+of the operation, i.e., $0$ for the sum (and $1$ for the product).
+The sum of $n+1$ terms (or $n+1$ factors) is the sum of the first $n$ 
+to which we add the last term (or multiply by the last factor).
+Formally:
+\[
+  \begin{cases}
+    \displaystyle\sum_{k=1}^{0} a_k = 0, \\
+    \displaystyle\sum_{k=1}^{n+1} a_k = \enclose{\sum_{k=1}^{n} a_k} + a_{n+1};
+  \end{cases}  \qquad
+  \begin{cases}
+    \displaystyle\prod_{k=1}^{0} a_k = 1, \\
+    \displaystyle\prod_{k=1}^{n+1} a_k = \enclose{\prod_{k=1}^{n} a_k} \cdot a_{n+1}.
+  \end{cases}
+\]
+The variable $k$ that appears in formulas~\eqref{eq:6122112} is \emph{dummy}: 
+any other variable that does not appear elsewhere can be used in its place.
+The expressions we have written depend on $n$ but not on $k$.
+
+It is naturally possible to also make a sum starting from an index 
+different from $0$:
+\[
+  \sum_{k=m+1}^{m+n} a_k = \sum_{j=1}^{n} a_{m+j}.
+\]
+From a mnemonic point of view, we have made 
+a \emph{change of variable} $k=m+j$:
+for $j=1$, we find $k=m+1$, and for $j=n$, we find $k=m+n$.
+
+Note that it results in:
+\[
+  x^n = \prod_{k=1}^n x
+\]
+since the recursive definition of power coincides 
+with the recursive definition of 
+the product of $n$ factors equal to $x$.
+
+\begin{theorem}
+In a commutative additive monoid, we have:
+  \[
+  \sum_{k=1}^n  \enclose{a_k + b_k} 
+  = \sum_{k=1}^n a_k + \sum_{k=1}^n b_k.
+  \]
+
+Let $f\colon A\to A$ be an \emph{additive} function,
+i.e., $f(0) = 0$ and $f(x+y)=f(x)+f(y)$.
+Then 
+  \[
+    \sum_{k=1}^n  f(a_k) = f\enclose{\sum_{k=1}^n a_k}.
+  \]
+
+Finally, it results in 
+  \[
+  \sum_{k=1}^{m+n} a_k = \sum_{k=1}^m a_k + \sum_{k=1}^n a_{k+m}
+  \]
+or 
+  \[
+  \sum_{k=1}^{m+n} a_k = \sum_{k=1}^m a_k + \sum_{k=m+1}^{m+n} a_k.  
+  \]
+\end{theorem}
+\begin{proof}
+  The proofs can be carried out 
+  by induction.
+\end{proof}
+
+\begin{exercise}
+  \label{ex:somma_lineare}%
+  Prove that 
+  \[
+    \sum_{k=1}^n k = \frac{n\cdot (n+1)}{2}
+  \]
+\end{exercise}
+The result of the sum can be remembered as follows:
+the average of an arithmetic progression $\frac{1+2+ \dots + n}{n}$ 
+is equal to the average between the first 
+and the last term of the progression: $\frac{1+n}{2}$.
+\begin{proof}[Solution]
+We prove it by induction.
+For $n=0$, the sum is equal to $0$ by definition.
+If the formula is true for a certain $n$, we have 
+\[
+  \sum_{k=1}^{n+1} k = \enclose{\sum_{k=1}^n k} + (n+1)
+   = \frac{n\cdot(n+1)}{2} + (n+1) 
+   = \frac{(n+2)(n+1)}{2}
+\]
+which is what we wanted to prove.
+\end{proof}
+
+\begin{exercise}
+\label{ex:somma_quadrati}
+  Find a formula to explicitly calculate:
+  \[
+    \sum_{k=1}^n k^2.
+  \]
+\end{exercise}
+\begin{proof}[Solution.]
+We want a formula similar to those proven in the previous exercises. 
+This time, however, we have to find the formula ourselves.
+We present a method that allows, in general, 
+to find the formula to calculate $\sum_{k=1}^n k^{m+1}$
+if we know the formula for $\sum_{k=1}^n k^m$.
+
+Observe that the difference 
+of two consecutive cubic terms turns out to be quadratic:
+\[
+(k+1)^3 - k^3 = 3 k^2 + 3k + 1.  
+\]
+Summing both sides of the previous equation, we obtain:
+\begin{equation}\label{eq:309838}
+\sum_{k=1}^n (k+1)^3 - \sum_{k=1}^n k^3 
+= 3\sum_{k=1}^n k^2+3\sum_{k=1}^n k+\sum_{k=1}^n 1.
+\end{equation}
+On the right side, the sum we want to calculate appears 
+(multiplied by 3)
+along with two other sums whose values we already know. 
+It will then suffice to determine the value of the left side, where 
+we observe that the terms of the two sums cancel each other out, 
+\mynote{%
+it is called a \emph{telescopic sum}
+\index{sum!telescopic}%
+\index{telescopic}%
+since the terms of the two summations close into each other 
+like the tubes of a telescope.} %
+except for the last of the first sum 
+and the first of the second: 
+\[
+  \sum_{k=1}^n(k+1)^3 - \sum_{k=1}^n k^3 = (n+1)^3 - 1^3.
+\]
+Multiply equation~\eqref{eq:309838} by 2,
+highlight the sum of squares, and 
+use the formula $2\sum_{k=1}^n k = n(n+1)$
+to obtain:
+\begin{align*}
+  6 \sum_{k=1}^n k^2 
+  &=  2(n+1)^3 - 3 n(n+1) - 2n - 2
+  = (n+1) \cdot \Enclose{2(n+1)^2 - 3n} - 2(n+1)\\
+  &= (n+1)\cdot \Enclose{2n^2+4n+2 -3n - 2}
+   = (n+1)\cdot \Enclose{2n^2+n} 
+   = n \cdot (n+1)(2n+1)
+\end{align*}
+from which 
+\begin{equation}\label{eq:somma_quadrati}
+  \sum_{k=1}^n k^2 = \frac{n\cdot (n+1)(2n+1)}{6}.
+\end{equation}
+\end{proof}
+
+\begin{exercise}
+Prove that 
+\[
+  \sum_{k=1}^n k^3 = \frac{n^2\cdot (n+1)^2}{4}.
+\]
+You can use the method of the previous exercise to find an explicit formula 
+or, trivially, just verify by induction that the formula is valid.
+\end{exercise}
+
+\begin{exercise}
+  \label{ex:somma_geometrica}%
+Note that if we take a geometric progression 
+(successive powers with the same base), 
+for example:
+\[
+  x = 3^3 + 3^4 + 3^5 + 3^6
+\]
+each term is equal to the previous one multiplied by $3$.
+Thus, if we multiply the entire sum by the base,
+\[
+  3x = 3^4 + 3^5 + 3^6 + 3^7
+\]
+we obtain the initial sum with one more term at the end 
+and one less term at the beginning. 
+\mynote{This is also a \emph{telescopic sum}}
+By making the difference, all terms cancel except 
+the first and the last
+\[
+ 3x - x = 3^7 - 3^3  
+\]
+and we can solve for $x$.
+
+Formalize the previous reasoning to prove that 
+fixed $a\neq 1$, we have for every natural $n$:
+  \[
+    \sum_{k=0}^n a^k = \frac{a^{n+1}-1}{a-1}.
+  \] 
+\end{exercise}
+
+Denote by $\Enclose{n} = \ENCLOSE{0,1,2, \dots, n-1}$.
+If $\sigma\colon \Enclose{n} \to \Enclose{n}$
+is bijective (such a function is called a \emph{permutation}%
+\mymargin{permutation}%
+\index{permutation})
+then a change of variable $k=g(j)$ can be made:
+\[
+    \sum_{k=0}^{n-1} a_k = \sum_{j=0}^{n-1} a_{\sigma(j)}.
+\]
+This equality can be easily proven in the case 
+where $\sigma$ swaps only two indices, leaving all others fixed 
+(transposition), and then it can be extended to all permutations
+by observing that every permutation can be written as a composition 
+of transpositions.
+
+This property is essentially the commutative property of the sum 
+extended to any number of terms.
+Thanks to this property, we can define the sum of a function 
+defined on any finite set. 
+If $f\colon X \to M$
+where $M$ is a monoid, 
+and $\sigma\colon \Enclose{n} \to X$ is a bijection,
+then we can define 
+\[
+  \sum_{x\in X} f(x) = \sum_{j=0}^{n-1} f(\sigma(j))  
+\]
+since the sum on the right side does not depend on the bijection $\sigma$ that 
+we have chosen.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{well-ordering and uniqueness of natural numbers}
+
+Refer to definitions~\ref{def:minimo}
+for the concept of minimum, upper bound, and lower bound.
+%
+\begin{theorem}[principle of well-ordering]
+  \label{th:buon_ordinamento}
+  Let $A\subset \NN$, $A\neq \emptyset$. 
+  Then $A$ has a minimum.
+\end{theorem}
+%
+\begin{proof}
+  Observe that if $n\in \NN$ is a lower bound of $A\subset \NN$, 
+  then either $n\in A$ and thus $n$ is the minimum of $A$,
+  or $n+1$ is also a lower bound of $A$ since 
+  there are no natural numbers strictly between $n$ and $n+1$.
+  \mynote{If there were a natural number between $n$ and $n+1$, 
+  subtracting $n$, we would have a natural number between $0$ and $1$. 
+  But there is no $x\in \NN$ such that $0<x<1$.
+  Indeed, if $x\in \NN$, $x>0$, then $x\neq 0$, and therefore 
+  there exists $m\in \NN$ such that $x=m+1$. 
+  But then $x\ge 1$.}
+  Thus, if $A$ had no minimum, by the principle of induction, 
+  every $n\in\NN$ would be a lower bound of $A$.
+  In such a case, $A$ would have to be empty because if there existed $a\in A$, 
+  certainly $a+1$ would not be a lower bound of $A$.
+\end{proof}
+
+We now want to prove that the set of natural numbers is essentially 
+unique in the sense that if there are two sets that satisfy Peano's 
+axioms, then it is possible to put the elements of the two sets 
+in correspondence so that zero maps to zero and corresponding numbers 
+have corresponding successors.
+
+\begin{theorem}[uniqueness of natural numbers]
+  \label{th:unicitaN}%
+  If $\NN$ and $\NN'$ are two sets that satisfy Peano's axioms 
+  with zero $0\in \NN$ and $0'\in \NN'$ and successor functions 
+  $\sigma$ on $\NN$ and $\sigma'$ on $\NN'$, then
+  there exists a bijective function $f\colon \NN\to \NN'$ such that 
+  $f(0) = 0'$ and $f(\sigma(n)) = \sigma'(f(n))$.
+\end{theorem}
+%
+\begin{proof}
+We can define $f$ by induction:
+\[
+\begin{cases}
+  f(0) = 0' \\ 
+  f(\sigma(n)) = \sigma'(f(n))
+\end{cases}  
+\]
+so it remains only to prove that $f$ is a bijection.
+
+To prove that $f$ is injective, consider the set 
+\[
+  A=\ENCLOSE{a\in \NN\colon \exists b\in \NN\colon b\neq a, f(a)=f(b)}.
+\]
+If this set is empty, then $f$ is indeed injective.
+Suppose then, for contradiction, that $A$ is not empty.
+In such a case, we can consider the minimum $a=\min A$ 
+(thanks to Theorem~\ref{th:buon_ordinamento}).
+There must then exist $b\in \NN$ such that $b\neq a$ and $f(b)=f(a)$.
+Obviously, $b\in A$, and therefore $b>a$ since
+$a$ is the minimum. Thus, $b>0$, and $f(b) = f(\sigma(b-1))
+=\sigma'(f(b-1))$. If $a=0$, we have $f(a)=0'$, and therefore from $f(a)=f(b)$, 
+we obtain that $0'$ is in the image of $\sigma'$, which is contrary 
+to Peano's axioms. 
+If instead $a>0$, we will have, as for $b$,
+$f(a)=\sigma'(f(a-1))$, and thus $\sigma'(f(a-1)) = \sigma'(f(b-1))$.
+By the injectivity of $\sigma'$, we deduce $f(a-1)=f(b-1)$, from which 
+$a-1 \in A$. But this is absurd since $a$ was the minimum of $A$.
+
+To prove that $f$ is surjective, consider the image 
+$B'=f(\NN)$ and use the principle of induction on $\NN'$ 
+to prove that $B'=\NN'$.
+First, $0'\in B'$ since $0'=f(0)$.
+If then $n'\in B'$, then there exists $n\in \NN$ such that $f(n)=n'$.
+But then $f(\sigma(n))=\sigma'(f(n))=\sigma'(n')$, 
+and thus also $\sigma'(n')\in B$. 
+\end{proof}
+
+\subsection{decimal representation of natural numbers}
+
+To efficiently represent any natural number, we use the 
+\emph{decimal positional notation}%
+\mymargin{decimal positional notation}%
+\index{notation!decimal positional}.
+Recall that the decimal digits $0,1,2,\dots, 9$ were defined in~\eqref{eq:cifre}
+on page~\pageref{eq:cifre}.
+The number represented by a finite sequence of decimal digits can be 
+defined recursively: a sequence of a single digit represents the number 
+corresponding to the digit itself, a sequence of $n+1$ digits represents the 
+number represented by the first $n$ digits, multiplied by $d=9+1$ (i.e., ten),
+and added to the last digit. 
+For example, the sequence of digits $4701$ (read: four thousand seven hundred
+one)
+is defined as follows:
+\[ 
+  4701 = ((4\cdot d+7)\cdot d+0)\cdot d+1, \qquad d=9+1.
+\]
+Observing that $10 = 1\cdot d + 0 = d$, it will be written:
+\begin{align*}
+  4701 
+  & = ((4\cdot 10 + 7)\cdot 10 +0)\cdot 10 + 1 \\
+    & = \mathbf 4\cdot 10^3 + \mathbf 7\cdot 10^2 + \mathbf 0\cdot 10^1 +
+  \mathbf 1 \cdot 10^0.
+\end{align*}
+
+\begin{table}
+  \begin{center}
+    \def\tabcolsep{3pt}
+    \begin{tabular}{>{\small}r|>{\small}r>{\small}r>{\small}r>{\small}r>{\small}r>{\small}r>{\small}r>{\small}r>{\small}r}
+      $+$       & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\ \hline
+      1         & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\
+      2         & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 \\
+      3         & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 \\
+      4         & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 \\
+      5         & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 \\
+      6         & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 \\
+      7         & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 & 16 \\
+      8         & 9 & 10 & 11 & 12 & 13 & 14 & 15 & 16 & 17 \\
+      9         & 10 & 11 & 12 & 13 & 14 & 15 & 16 & 17 & 18
+      \end{tabular}
+      \qquad
+      \begin{tabular}{>{\small}r|r>{\small}r>{\small}r>{\small}r>{\small}r>{\small}r>{\small}r>{\small}r>{\small}r}
+        $\cdot$       & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\ \hline
+        2         & 4 & 6 & 8 & 10 & 12 & 14 & 16 & 18 \\
+        3         & 6 & 9 & 12 & 15 & 18 & 21 & 24 & 27 \\
+        4         & 8 & 12 & 16 & 20 & 24 & 28 & 32 & 36 \\
+        5         & 10 & 15 & 20 & 25 & 30 & 35 & 40 & 45 \\
+        6         & 12 & 18 & 24 & 30 & 36 & 42 & 48 & 54 \\
+        7         & 14 & 21 & 28 & 35 & 42 & 49 & 56 & 63 \\
+        8         & 16 & 24 & 32 & 40 & 48 & 56 & 64 & 72 \\
+        9         & 18 & 27 & 36 & 45 & 54 & 63 & 72 & 81
+      \end{tabular}
+    \end{center}
+    \caption{The \emph{tables} of addition and multiplication.}
+    \label{tab:tabelline}
+\end{table}
+
+Proceeding as in example~\ref{ex235}, one can construct the \emph{table}
+of sums, where the sums of all pairs of decimal digits are reported
+(table~\ref{tab:tabelline}).
+Exploiting the definition and the distributive property of the product 
+(Theorem~\ref{th:operazioni_naturali}),
+it will not be difficult 
+to construct the \emph{table} of multiplication, where the products of 
+pairs of decimal digits are reported. 
+For example, once it is proven that $7\cdot 7 = 49$, one can proceed 
+to prove that $7\cdot 8 = 56$ as follows:
+\begin{align*}
+  7\cdot 8 &= 7\cdot (7+1) = 7\cdot 7 + 7 = 49+7 
+  = (4\cdot 10 + 9) + 7 = 4\cdot 10 + 16 \\
+  &= 4\cdot 10 + 10\cdot 1 + 6 = 5\cdot 10 + 6 = 56.
+\end{align*}
+
+Once the \emph{tables} are memorized, it is possible to perform the operations
+of addition
+and multiplication on any pair of natural numbers expressed in decimal form. 
+The algorithm is that of column addition and multiplication that we learned in
+elementary school. The correctness of these algorithms can be understood with an
+example.
+Let's try to prove that $34\cdot 56 = 1904$:
+\begin{align*}
+\mathbf{34}\cdot \mathbf{56} 
+  &= \mathbf{34}\cdot (\mathbf 5\cdot 10+ \mathbf 6) 
+   = \mathbf{34}\cdot \mathbf 6 + (\mathbf{34}\cdot \mathbf 5) \cdot 10 \\
+    &= (\mathbf 3\cdot 10 + \mathbf 4)\cdot \mathbf 6 + (\mathbf 3\cdot 10 +
+  \mathbf 4)\cdot \mathbf 5 \cdot 10 \\
+    &= \mathbf{18}\cdot 10 + \mathbf{24} + (\mathbf{15}\cdot 10 +
+  \mathbf{20})\cdot 10 \\
+  &= \mathbf{1}\cdot 10^2+(\mathbf

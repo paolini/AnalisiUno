@@ -1,0 +1,379 @@
+\section{classes of regularity}
+
+Let $A\subset \RR$ and let $f\colon A\to \RR$ be a function defined on $A$.
+We will say that $f$ is of class $C^0$ if $f$ is continuous.
+We can define $C^0(A)$ as the set of continuous functions defined on $A$ (with
+values in $\RR$).
+If $f$ is differentiable (on all of $A$) and the derivative of $f$ is also
+continuous (on all of $A$), we will say that $f$ is of class $C^1$ and we will
+write $f\in C^1(A)$.
+Continuing: if $f$ is differentiable and $f'$ is also differentiable and if the
+second derivative $f''$ is continuous, we will say that $f$ is of class $C^2$.
+And so on.
+
+It is important to note that $C^1(A)$ does not coincide with the set of
+differentiable functions on $A$.
+Indeed, we have already seen in example~\ref{ex:derivata_non_continua} that
+there exist differentiable functions whose derivative is not continuous and
+therefore such functions, although differentiable, are not of class $C^1$.
+
+To formally define the set of functions of class $C^k$ for each $k\in \NN$, we
+must provide a definition by induction.
+We also define the class $C^{\infty}(A)$, which is the set of functions that are
+differentiable $k$ times for every $k\in \NN$.
+
+\begin{definition}[functions of class $C^k$]
+\mymark{**}
+Given $A\subset \RR$, we denote by $\RR^A$ the set of all functions $f\colon A
+\to \RR$.
+For each $k\in \NN$, we define $C^k(A) \subset \RR^A$ as follows:
+\mymargin{$C^k$}%
+\index{$C^k$}
+\begin{enumerate}
+\item if $k=0$, we set
+\[
+  C^0(A) = \ENCLOSE{f\in \RR^A \colon \text{$f$ continuous}}.
+\]
+\item
+  if $k>0$, we define inductively
+  \[
+    C^{k}(A) = \ENCLOSE{f\in \RR^A \colon \text{$f$ differentiable and $f'\in
+  C^{k-1}(A)$}}.
+  \]
+\end{enumerate}
+Clearly, if $j\ge k$, we have $C^j(A) \subset C^k(A)$, thus $C^k(A)$ is a
+decreasing family (with respect to set inclusion), and it makes sense to define:
+\mymargin{$C^\infty$}%
+\index{$C^\infty$}
+\[
+    C^\infty(A) = \ENCLOSE{f\in \RR^A\colon \forall k \in \NN\colon f\in C^k(A)}
+  = \bigcap_{k\in \NN} C^k(A).
+\]
+
+Functions $f\in C^k(A)$ are differentiable $k$ times.
+We use the notation $f^{(j)}$%
+\mymargin{$f^{(j)}$}%
+\index{$f^{(j)}$} to denote the $j$-th derivative of a function $f$.
+Thus, we have
+\[
+  f^{(0)} = f, \qquad
+  f^{(1)} = f', \qquad
+  f^{(2)} = f'', \dots
+\]
+\end{definition}
+
+We have already observed that $\RR^A$ is a real vector space.
+The spaces $C^k(A)$ for $k=0, \dots, \infty$ are a decreasing family of vector
+subspaces of $\RR^A$.
+Indeed, we know that the linear combination of continuous functions is
+continuous and that the linear combination of differentiable functions is
+differentiable.
+
+\begin{theorem}
+The functions $x$, $e^x$, $\ln x$, $\sin x$, $\cos x$, $\tan x$, $\arctan x$ are
+of class $C^\infty$.
+Sum, difference, product, quotient, and composition of functions of class $C^n$
+are also of class $C^n$ for $n=0,1,2,\dots,\infty$.
+\end{theorem}
+\begin{proof}
+We verify by induction that if $f,g \in C^n$, then $f+g \in C^n$.
+For $n=0$, we know that the sum of continuous functions is continuous: $f,g\in
+C^0$ implies $f+g\in C^0$.
+For $n>1$, if $f,g\in C^n$, then $f$ and $g$ are differentiable, and we have
+$(f+g)'=f'+g'$ (theorem~\ref{th:derivate_operazioni}).
+But by definition of $C^n$, we have $f',g'\in C^{n-1}$, and by the inductive
+hypothesis, $f'+g'\in C^{n-1}$, thus $f+g\in C^n$.
+
+A similar proof can be made for the product $f\cdot g$ by observing that
+$(f\cdot g)' = f'g + fg'$ and that if $f,g\in C^n$, then $f',g'\in C^{n-1}$,
+thus $f'g,fg'\in C^{n-1}$ and $f'g+fg'\in C^{n-1}$.
+
+The same holds for composition since $(f\circ g)' = (f'\circ g)\cdot g'$.
+
+Thus, the sum, product, and composition of functions of class $C^n$ are of class
+$C^n$, and the same holds for functions of class $C^\infty$.
+
+Now note that the functions $-x$ and $\frac 1 x$ are of class $C^\infty$ (we can
+explicitly compute their derivatives of any order), and therefore if $f\in C^n$,
+then $-f$ and $\frac 1 f$ are of class $C^n$ due to the property of composition.
+It follows that the difference and the quotient of functions of class $C^n$ are
+also of class $C^n$.
+
+We can then consider the elementary functions listed in the statement and
+observe that they are all differentiable functions and that their derivative can
+be expressed as a sum, product, quotient, or composition of the same elementary
+functions.
+Thus, if all these functions are of class $C^n$, then their derivative is also
+of class $C^n$.
+But if the derivative is of class $C^n$, then the function is of class
+$C^{n+1}$, and thus, by induction, all elementary functions are of class
+$C^\infty$.
+\end{proof}
+
+\begin{example}
+  The function 
+  \[
+    \frac{e^{x-\arctan x^2}}{1+\ln x}
+  \]
+  is of class $C^\infty$.
+\end{example}
+
+\begin{definition}[Lipschitz functions]
+\mymark{**}
+\mymargin{Lipschitz function}
+\index{function!Lipschitz}
+\index{Lipschitz}
+A function $f\colon A\subset \RR \to \RR$ is said to be \emph{Lipschitz} (or
+$L$-Lipschitz if we want to emphasize the dependence on $L$) if there exists
+$L>0$ such that for every $x,y\in A$, we have
+\[
+  \abs{f(x) - f(y)} \le L\cdot  \abs{x-y}.
+\]
+The smallest constant $L$ for which the previous relation is satisfied is called
+the \emph{Lipschitz constant}
+\mymargin{Lipschitz constant}
+\index{constant!Lipschitz}
+of $f$.
+\end{definition}
+
+\begin{theorem}[Lipschitz criterion]
+\mymark{**}
+Let $A\subset \RR$ and let $f\colon A \to \RR$ be a Lipschitz function with
+Lipschitz constant $L$.
+If $f$ is differentiable at a point $x\in A$, then $\abs{f'(x)}\le L$.
+Conversely, if $f\colon I \subset \RR \to \RR$ is a differentiable function
+defined on an interval $I$ and if there exists $L$ such that for every $x\in I$,
+we have $\abs{f'(x)}\le L$, then $f$ is Lipschitz.
+\end{theorem}
+%
+\begin{proof}
+If $f$ is Lipschitz, it means that the difference quotient is bounded.
+That is, there exists $L>0$ such that
+\[
+  \abs{\frac{f(x) - f(y)}{x-y}} \le L \qquad \forall x,y\in A.
+\]
+Thus, the derivative, which is the limit of the difference quotient, if it
+exists, is also bounded by the same constant: $\abs{f'(x)}\le L$ for every $x
+\in A$.
+
+Conversely, if the derivative is bounded $\abs{f'(z)}\le L$ for every $z \in I$
+and if $x,y\in I$ are any points, then, by the Mean Value Theorem, the
+difference quotient of $f$ is equal to the derivative at some point $z\in(x,y)$:
+\[
+  \abs{\frac{f(x) - f(y)}{x-y}} = \abs{f'(z)} \le L.
+\]
+and thus the function is $L$-Lipschitz:
+\[
+  \abs{f(x)- f(y)} \le L \abs{x-y}.
+\]
+\end{proof}
+
+\begin{definition}[Hölder functions]
+Let $\alpha>0$.
+\mymargin{Hölder function}
+\index{function!Hölder}
+\index{Hölder}
+A function $f\colon A \subset \RR \to \RR$ is said to be $\alpha$-Hölder if
+there exists a constant $C>0$ such that
+\begin{equation}\label{eq:2964536}
+  \abs{f(x) - f(y)} \le C \abs{x-y}^\alpha.
+\end{equation}
+\end{definition}
+
+\begin{definition}[uniform continuity]
+\mymark{**}%
+A function $f\colon A \subset \RR \to \RR$ is said to be \emph{uniformly
+continuous}
+\index{uniform continuity}%
+\index{continuity!uniform}%
+\mymargin{uniform continuity}%
+if
+\[
+ \forall \eps>0\colon \exists \delta > 0 \colon
+ \forall x,y\in A \colon \abs{x-y} < \delta \implies \abs{f(x)-f(y)} < \eps.
+\]
+\end{definition}
+
+\begin{theorem}
+Every Lipschitz function is $1$-Hölder (and vice versa).
+Every $\alpha$-Hölder function is uniformly continuous.
+Every uniformly continuous function is continuous.
+Every $\alpha$-Hölder function with $\alpha>1$ has a zero derivative.
+\end{theorem}
+%
+\begin{proof}
+The first three statements follow directly from the definitions.
+For the last observation, note that if $\alpha>1$ in
+inequality~\eqref{eq:2964536}, one can divide by $\abs{x-y}$ and thus the
+difference quotient tends to zero as $y\to x$.
+\end{proof}
+
+\begin{definition}[modulus of continuity]
+Let $f\colon A\subset \RR \to\RR$ be a function.
+We define the \emph{modulus of continuity}%
+\mymargin{modulus of continuity}%
+\index{modulus!of continuity} of $f$ as the function $M\colon$ $[0,+\infty) \to [0,+\infty]$ defined by
+\[
+  M(r) = \sup \ENCLOSE{\abs{f(x)-f(y)}\colon x,y \in A, \abs{x-y} \le r}.
+\]
+\end{definition}
+
+\begin{theorem}[properties of the modulus of continuity]
+Let $f\colon A\to \RR$ and let $M\colon [0,+\infty)\to [0,+\infty)$ be its
+modulus of continuity.
+The function $M(r)$ is increasing.
+
+The function $f$ is uniformly continuous if and only if
+\[
+  \lim_{r\to 0} M(r) = 0.
+\]
+
+The function $f$ is Lipschitz if and only if there exists $L$ such that
+\[
+  M(r) \le Lr.
+\]
+
+The function $f$ is $\alpha$-Hölder if and only if there exists $C$ such that
+\[
+  M(r) \le C r^\alpha.
+\]
+\end{theorem}
+%
+\begin{proof}
+Observe that the condition
+\[
+   M(r) \le c
+\]
+is equivalent to
+\[
+\forall x,y\in A \colon \abs{x-y}\le r \implies  \abs{f(x)-f(y)} \le c.
+\]
+The condition $M(r)\to 0$ as $r \to 0$ means
+\[
+ \forall \eps>0\colon \exists \delta>0 \colon \forall r>0\colon r<\delta \implies M(r)<\eps
+\]
+and thus becomes the condition of uniform continuity.
+
+The conditions of Lipschitz continuity and $\alpha$-Hölder continuity also
+follow immediately.
+\end{proof}
+
+\begin{theorem}[restriction / gluing of uniformly continuous functions]
+Let $f\colon A \subset \RR \to \RR$ be a uniformly continuous function. If
+$B\subset A$, the restriction $f_{|B}$ of $f$ to $B$ is also uniformly
+continuous.
+
+Let $I,J\subset \RR$ be intervals such that $I\cap J \neq \emptyset$.
+Let $f\colon I \cup J \to \RR$ be a function. If $f_{|I}$ and $f_{|J}$ are
+uniformly continuous, then $f$ is uniformly continuous.
+\end{theorem}
+\begin{proof}
+The first part, regarding the restriction of a uniformly continuous function,
+follows directly from the definition: if any property holds for every $x,y\in
+A$, then it certainly holds for every $x,y\in B$ when $B\subset A$.
+
+For the second part of the statement: suppose $f$ is uniformly continuous on $I$
+and on $J$.
+Let $\eps>0$ be given, and let $\delta_1$ and $\delta_2$ be the values of
+$\delta$ given by the conditions of uniform continuity of $f$ on $I$ and on $J$,
+respectively. Consider $\delta = \min\ENCLOSE{\delta_1, \delta_2}$.
+Now let $x,y$ be any points in $I\cup J$ with $\abs{x-y}< \delta$.
+
+There are two possible cases:
+$x$ and $y$ are in the same interval ($I$ or $J$) or they are in different
+intervals, one in $I$ and the other in $J$.
+In the first case, since $\delta < \delta_1$ and $\delta< \delta_2$, the uniform
+continuity of $f$ on $I$ and on $J$ ensures that $\abs{f(x)-f(y)} < \eps$ in any
+case. In the second case, there must exist a point $z \in I\cap J$ that is an
+intermediate point between $x$ and $y$.
+Then, using the triangle inequality:
+\[
+  \abs{f(x) - f(y)} \le \abs{f(x) - f(z)} + \abs{f(z) - f(y)}
+     \le \eps + \eps.
+\]
+thus (except for replacing $\eps$ with $\eps/2$) in this case as well, the
+desired estimate is obtained.
+\end{proof}
+
+\begin{theorem}[Heine-Cantor]
+  \label{th:heine_cantor}%
+  \mymark{***}%
+  \index{theorem!Heine-Cantor}%
+  \mymargin{Heine-Cantor}%
+Let $a,b\in \RR$, $a<b$.
+Let $f\colon [a,b]\to \RR$ be a continuous function.
+Then $f$ is uniformly continuous.
+\end{theorem}
+%
+\begin{proof}
+\mymark{***}%
+Suppose for contradiction that $f$ is not uniformly continuous. Then $f$
+satisfies the negation of the property
+\[
+ \forall \eps>0\colon \exists \delta > 0 \colon
+ \forall x,y\in [a,b] \colon \abs{x-y} < \delta \implies \abs{f(x)-f(y)} < \eps
+\]
+which is
+\[
+ \exists \eps>0\colon \forall \delta > 0 \colon
+ \exists x,y \in [a,b] \colon \abs{x-y} < \delta \land \abs{f(x)-f(y)} \ge \eps.
+\]
+Thus, given $\eps>0$ that satisfies the previous property, we can take
+$\delta=1/k$ for each $k\in \NN$, obtaining two sequences $x_k$, $y_k$ such that
+\[
+  \abs{x_k-y_k} < \frac 1 k \qquad\text{and}\qquad \abs{f(x_k) - f(y_k)} \ge \eps.
+\]
+By the Bolzano-Weierstrass theorem, there will exist a convergent subsequence
+$x_{k_j} \to c$.
+Since $\abs{x_k-y_k}\to 0$, we must also have $y_{k_j}\to c$.
+But then, by the continuity of $f$:
+\[
+ \abs{f(x_{k_j})-f(y_{k_j})} \to \abs{f(c) - f(c)} = 0
+\]
+in contradiction with the condition $\abs{f(x_k)-f(y_k)}\ge \eps$.
+\end{proof}
+
+\begin{theorem}[asymptote]
+\index{theorem!asymptote}
+\mymargin{asymptote theorem}
+Let $f\colon [a,+\infty) \to \RR$ be a continuous function and let $g\colon
+[a,+\infty) \to \RR$ be a uniformly continuous function such that
+\[
+  \lim_{x\to +\infty} f(x) - g(x) = 0.
+\]
+Then $f$ is also uniformly continuous.
+
+In particular, if $f$ has an \emph{oblique asymptote}%
+\mymargin{oblique asymptote}%
+\index{asymptote!oblique} that is, if there exist $m\in \RR$ and $q\in \RR$ such that
+\[
+  \lim_{x\to +\infty} f(x) - (mx + q)  = 0
+\]
+then $f$, if continuous, is uniformly continuous.
+
+A similar result holds for functions defined on intervals of the type
+$(-\infty,a]$ (taking limits at $-\infty$) and thus for functions defined on all
+of $\RR$ (taking limits both at $+\infty$ and $-\infty$).
+\end{theorem}
+
+\begin{proof}
+For every $\eps>0$, there exists $M>a$ such that $\abs{f(x)-g(x)} < \eps/3$ for
+every $x\ge M$. On the other hand, the function $f$, by the Heine-Cantor
+theorem, is uniformly continuous on $[a,M+1]$, and thus there exists
+$\delta_1>0$ such that for $x,y \in [a,M+1]$ with $\abs{x-y}< \delta_1$, we have
+$\abs{f(x)-f(y)} < \eps$. On the other hand, $g$ is uniformly continuous on
+$[M,+\infty)$, and therefore there exists $\delta_2$ such that for $x,y\in
+[M,+\infty)$ with $\abs{x-y} < \delta_2$, we have $\abs{g(x)-g(y)} < \eps/3$.
+But in this latter case, we have:
+\begin{align*}
+  \abs{f(x)-f(y)} &\le \abs{f(x) - g(x)} + \abs{g(x) - g(y)} + \abs{g(y)-f(y)} \\
+  & \le \frac{\eps}{3} + \frac{\eps}{3} + \frac{\eps}{3} = \eps.
+\end{align*}
+Thus, setting $\delta = \min\ENCLOSE{1, \delta_1, \delta_2}$, for any $x,y\in
+[a,+\infty)$ with $\abs{x-y}< \delta$, we are certainly in one of the two
+previous cases, and therefore, in any case, we obtain $\abs{f(x)-f(y)} < \eps$,
+as we needed to prove.
+
+In the particular case $g(x) = mx +q$, it is simply observed that $g$ is
+uniformly continuous since it is $L$-Lipschitz with $L=\abs{m}$.
+\end{proof}

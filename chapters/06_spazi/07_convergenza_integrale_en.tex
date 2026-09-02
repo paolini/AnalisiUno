@@ -1,0 +1,774 @@
+\section{Integral Convergence}
+\label{sec:convergenza_integrale}
+
+Motivated by the way the norm of a vector in $\RR^n$ is defined, it is natural
+to give the following definition of the \emph{Euclidean norm} for a function
+$f\colon (a,b)\to \RR$:
+\[
+  \Abs{f}_2 = \sqrt{\int_a^b \abs{f(x)}^2\, dx}.
+\]
+This definition makes sense, as an improper integral, if the function $f$ is
+locally Riemann-integrable on the interval $(a,b)$
+(definition~\ref{def:localmente_riemann}). In such a case, the integral exists,
+but it might take the value $+\infty$. We then define
+\[
+\H(a,b) =
+\ENCLOSE{\text{$f$ locally Riemann-integrable on $(a,b)$}\colon \Abs{ f}_2< +\infty}.
+\]
+
+We will now attempt to demonstrate that the norm we have introduced is indeed a
+norm (in the sense of definition~\ref{def:norma}) that renders $\H(a,b)$ an
+infinite-dimensional Euclidean vector space.
+
+First of all, it is clear that for any $f$, we have $\Abs{ f}_2\ge 0$. Moreover,
+it is trivial to observe that the norm is homogeneous: if $t\in \RR$, we have:
+\[
+  \Abs{t\cdot f}_2= \abs{t}\cdot \Abs{f}_2.
+\]
+Thus, if $f\in \H(a,b)$, then $t f\in \H(a,b)$ for every $t \in \RR$. If $f,g\in
+\H(a,b)$, by the parallelogram law~\eqref{eq:parallelogramma} valid in $\RR$, we
+have
+\[
+  (f(x) + g(x))^2 \le 2f^2(x) + 2 g^2(x)
+\]
+and thus if $f,g \in \H(a,b)$, then $f+g\in \H(a,b)$. Therefore, $\H(a,b)$ is a
+vector space.
+
+Note that if $f$ and $g$ are locally Riemann-integrable, then $f+g$ is also
+locally Riemann-integrable, and thanks to theorem~\ref{th:composta_integrabile},
+so are $f^2$, $g^2$, and $(f+g)^2$. Consequently, $f\cdot g =
+\frac{(f+g)^2-f^2-g^2}{2}$ is Riemann-integrable. For $f,g\in \H(a,b)$, we can
+then define the inner product:
+\begin{equation}\label{eq:854392}
+  \langle f, g\rangle = \int_a^b f(x) \cdot g(x)\, dx.
+\end{equation}
+Young's inequality~\eqref{eq:Young} valid in $\RR$ tells us that
+\[
+  \abs{f(x) \cdot g(x)} \le \frac{f^2(x)+g^2(x)}{2}
+\]
+and thus ensures that the integral~\eqref{eq:854392} is absolutely convergent.
+Therefore, if $f,g\in \H(a,b)$, the inner product $\langle f,g\rangle$ is
+well-defined and is a finite number. At this point, it is easy to verify that
+$\langle f,g\rangle$ is a symmetric non-negative bilinear form. Thus, it
+satisfies all the formal properties given in
+definition~\ref{def:prodotto_scalare} of an inner product, except that it is not
+guaranteed that $\langle f,f\rangle = 0$ implies $f=0$. Indeed, this property is
+false because if the function $f^2(x)$ has a zero integral, it is not
+necessarily identically zero: the integral, in fact, does not change if the
+function is modified at a single point.
+
+To address this issue, we must identify two functions $f,g\in \H(a,b)$ if
+$\Abs{f-g}_2=0$:
+\[
+  f \sim g  \iff \Abs{f-g}_2=0.
+\]
+We call $H(a,b)$ the quotient:
+\[
+  H(a,b) = \H(a,b)/\sim
+\]
+that is, the vector space of functions in $\H(a,b)$ where two functions are
+identified if the norm of their difference is zero.
+
+The quotient space $H(a,b)$ is finally an Euclidean space. It indeed retains the
+vector space structure (since the set of $f\in \H(a,b)$ with $\Abs{f}_2=0$ is a
+vector space), and the inner product $\langle f,g\rangle$ (and consequently the
+norm $\Abs{f}_2$) is well-defined on $H(a,b)$, and in addition to the properties
+we have already demonstrated, we can now assert that $\langle f,f\rangle =
+\Abs{f}_2=0$ if and only if $f=0$.
+
+\begin{remark}
+The notation $H(a,b)$ that we choose to use for defining this space is not
+standard. The letter $H$ refers to Hilbert, as the study of this particular
+space led to the abstraction of the concept of a Hilbert space. What we will see
+in the following is that this space is not complete and thus is not actually a
+Hilbert space. In fact, the use of improper integrals is an attempt to extend
+the Riemann integral to make this space complete. Only with the definition of
+the Lebesgue integral (1875--1941) was it possible to extend the Riemann
+integral to a broader class of functions to complete the space. The analogue of
+the space $H(a,b)$ defined via the Lebesgue integral is usually called $L^2$.
+The exponent $2$ is due to the fact that it would be possible to define $L^p$
+spaces in a manner analogous to what was done in example~\ref{ex:norma_p}. It
+would still hold that only for $p=2$ are these normed spaces Euclidean, that is,
+only for $p=2$ is the norm induced by an inner product. All $L^p$ spaces are
+complete and thus are Banach spaces. But $L^2$ is also a Hilbert space, as it is
+equipped with an inner product. Indeed, we could say that $L^2$ is the
+quintessential Hilbert space and is also denoted by the name $H^0$ (in this
+case, the exponent denotes the differentiability of the functions, as in $C^0$).
+\end{remark}
+
+The elements of $H(a,b)$ are not functions, but equivalence classes of
+functions. In the following, however, we will treat $f\in H(a,b)$ as if it were
+$f\in \H(a,b)$, ensuring that our statements remain valid if, instead of a
+function $f$, an equivalent function is taken. In particular, it will make sense
+to consider the integrals of these functions because the value of the integral
+does not depend on the chosen representative, but it will not make sense to
+consider the value that the functions take at a single point, as this depends on
+the representative.
+
+\subsection{Fourier Series}
+\index{Fourier!series}%
+\index{series!Fourier}%
+
+The space $H(a,b)$ is a real vector space on which we have managed to define an
+inner product and thus a norm. We would like to find an orthonormal basis on
+$H(a,b)$ with respect to which it is possible to write the coordinates of the
+vectors (i.e., the functions) of $H(a,b)$. Since $H(a,b)$ does not have finite
+dimension, we cannot hope to find a basis with a finite number of elements. We
+therefore introduce the following.
+
+\begin{definition}[Hilbertian basis]
+\index{Hilbert!basis}%
+Let $V$ be an Euclidean space. Let $e_k\in V$ with $k\in \NN$. We will say that
+$e_k$ is an \emph{orthonormal system}%
+\mymargin{orthonormal system}\index{orthonormal system} if $\langle e_k, e_j\rangle = 0$ when $k\neq j$ and $\langle e_k, e_k\rangle = 1$ for every $k\in \NN$. We will say that $e_k$ is a \emph{Hilbertian basis}%
+\mymargin{Hilbertian basis}\index{basis!Hilbertian} if it is an orthonormal system and moreover for every $v\in V$, there exist $c_k\in \RR$ with $k\in\NN$ such that
+\begin{equation}\label{eq:49346}
+  v = \sum_{k=0}^{+\infty} c_k e_k.
+\end{equation}
+\end{definition}
+
+\begin{theorem}[Bessel's inequality]
+\label{th:bessel}%
+Let $e_0, e_1, e_2, \dots$ be an orthonormal system in an Euclidean space $V$.
+For every $v\in V$ and for every $k\in \NN$, let $c_k = \langle v,e_k\rangle$.
+Then the \emph{Bessel's inequality}%
+\mymargin{Bessel's inequality}\index{inequality!Bessel's} holds:
+\index{Bessel!inequality of}
+\begin{equation}\label{eq:disuguaglianza_Bessel}
+\sum_{k=0}^{+\infty} c_k^2 \le \abs{v}^2.
+\end{equation}
+
+Moreover, the equality
+\begin{equation}\label{eq:487562}
+\sum_{k=0}^{+\infty} c_k^2 = \abs{v}^2
+\end{equation}
+holds if and only if \eqref{eq:49346} holds.
+
+We can therefore assert that the orthonormal system $e_0, e_1, e_2, \dots$ is a
+Hilbertian basis if and only if for every $v\in V$, the
+equality~\eqref{eq:487562} holds.
+\end{theorem}
+%
+\begin{proof}
+Given $v\in V$, let $c_k = \langle v,e_k\rangle$ and
+\[
+   v_N = \sum_{k=0}^N c_k e_k, \qquad w_N = v - v_N.
+\]
+Observe that for every $n\in \NN$, we have $\langle v_N,w_N\rangle=0$ ($w_N$ is
+orthogonal to $v_N$) because if $n\le N$:
+\[
+  \langle w_N , e_n \rangle
+  = \langle v, e_n\rangle - \sum_{k=0}^N c_k \langle e_k, e_n\rangle
+  = \langle v,e_n\rangle - c_n = 0
+\]
+and therefore
+\[
+ \langle w_N, v_N \rangle = \sum_{k=0}^N c_k \langle w_N, e_k\rangle = 0.
+\]
+Thus, we can conclude, thanks to the Pythagorean theorem~\eqref{eq:Pitagora}
+\begin{align*}
+  \abs{v}^2
+  &= \abs{v_N + w_N}^2
+  = \abs{v_N}^2 + \abs{w_N}^2 \\
+  &\ge \abs{v_N}^2 = \abs{\sum_{k=0}^N c_k e_k}^2
+  = \sum_{k=0}^N c_k^2.
+\end{align*}
+Taking the limit as $N\to +\infty$, we obtain Bessel's inequality.
+
+We have seen that $\abs{w_N}^2 = \abs{v}^2 - \abs{v_N}^2$, thus the condition
+$\abs{w_N}^2\to 0$ is equivalent to Bessel's equality: $\abs{v_N}^2 \to
+\abs{v}^2$. The system is Hilbertian, by definition, if and only if $v_N \to v$,
+i.e., if $w_N\to 0$.
+\end{proof}
+
+Our goal is now to produce a Hilbertian basis for $H(0,2\pi)$. A basis for
+$H(a,b)$ can be obtained consequently by appropriately translating and rescaling
+the functions of the basis of $H(0,2\pi)$. The previous theorem tells us that if
+$H(a,b)$ admits a Hilbertian basis $e_k$, then every function $u\in H(a,b)$ can
+be simply represented by a numerical sequence $x_k = (u, e_k)$ such that
+\[
+    \Abs{u}_2 = \sqrt{\sum_k x_k^2}.
+\]
+\mynote{%
+If $u$ represents the intensity of the acoustic signal emitted by a musical
+instrument playing a certain note, we can imagine that $u$ is a periodic
+function with frequency $\nu$ equal to the frequency of the note emitted. The
+functions $e_k$ of the Hilbertian basis are sinusoidal functions, each with
+frequency $\nu k$. The coefficients $x_k$ in the decomposition $u = \sum x_k
+u_k$ represent the intensities of each of these fundamental frequencies and
+determine the \emph{timbre} of the musical instrument.
+}
+
+Consider the following trigonometric functions%
+\mynote{%
+From an algebraic point of view, it would be much simpler to consider functions
+with complex values:
+\[
+  e_k(x) = \frac{e^{ikx}}{\sqrt{2\pi}}
+\]
+varying $k\in \ZZ$. However, we prefer to remain within the realm of real
+functions to avoid introducing the Hermitian structure of complex vector
+spaces.}%
+:
+\begin{equation}\label{eq:54741346}
+\begin{aligned}
+  e_0 (x) &= \frac{1}{\sqrt{2\pi}} \\
+  e_{2k+1}(x) &= \frac{\sin(kx)}{\sqrt{\pi}} \qquad k=0,1,\dots\\
+  e_{2k}(x) &= \frac{\cos(kx)}{\sqrt{\pi}} \qquad k=1,2,\dots
+\end{aligned}
+\end{equation}
+Obviously
+\[
+  \Abs{e_0}_2=\sqrt{\int_{0}^{2\pi} \enclose{\frac{1}{\sqrt{2\pi}}}^2\, dx} = 1
+\]
+but it is also easy to verify that
+\[
+  \int_{0}^{2\pi} \cos^2 (kx)\, dx
+  = \frac{1}{k}\int_{0}^{2k\pi} \cos^2 y\, dy
+  = \int_{0}^{2\pi} \cos^2 y\, dy = \pi
+\]
+from which we obtain $\Abs{e_{2k}}_2 = 1$. Since the sine function is the
+translation of the cosine function, we similarly obtain that
+$\Abs{e_{2k+1}}_2=1$. Thus, the vectors $e_0,e_1,\dots$ are all of unit modulus.
+Using Euler's formula, one can find the \emph{Werner's formula}%
+\mymargin{Werner's formula}\index{Werner's formula}:
+\index{Werner!formula of}%
+\index{formula!Werner's}%
+\begin{align*}
+ \sin(mx)\cos(nx)
+ &= \frac{e^{imx}-e^{-imx}}{2i}\cdot \frac{e^{inx}+e^{-inx}}{2}\\
+ &= \frac{e^{i(m+n)x}}{4i} - \frac{e^{-i(m+n)x}}{4i} 
+  + \frac{e^{i(m-n)x}}{4i} - \frac{e^{-i(m-n)x}}{4i}\\
+ &= \frac{\sin\enclose{(m+n)x}}{2} + \frac{\sin\enclose{(m-n)x}}{2}
+\end{align*}
+from which, if $m\neq n$:
+\begin{align*}
+ \int_{0}^{2\pi} \sin(mx)\cos(nx)\, dx &=
+ -\frac 1 {2(m+n)} \Enclose{\cos\enclose{(m+n)x}}_{0}^{2\pi} \\
+  &\quad - \frac{1}{2(m-n)}\Enclose{\cos\enclose{(m-n)x}}_{0}^{2\pi} = 0
+\end{align*}
+and if $m=n$, the result is still the same. This means that $\langle
+e_{2n},e_{2m+1}\rangle = 0$. A similar argument can be made for the functions
+$\sin(mx)\sin(nx)$ and $\cos(mx)\cos(nx)$, finding, in those cases as well, that
+such products have zero integral over the interval $[0,2\pi]$. For our memory,
+the Werner's formulas found in these last cases are:
+\mynargin{Werner's formulas}%
+\index{Werner's formulas}%
+\index{Werner!formula of}%
+\index{formula!Werner's}%
+\begin{align*}
+  \cos(mx) \cos(nx) &=  \frac{\cos((m+n)x)}{2} + \frac{\cos((m-n)x)}{2}\\
+  \sin(mx) \sin(nx) &=  \frac{\cos((m-n)x)}{2} - \frac{\cos((m+n)x)}{2}.
+\end{align*}
+
+It follows that the functions $e_0,e_1,e_2,\dots$ defined by~\eqref{eq:54741346}
+form an orthonormal system in $H(0,2\pi)$ since we have:
+\[
+  \langle e_n, e_m \rangle =
+  \begin{cases} 1 &\text{if $m=n$}\\
+  0 & \text{otherwise}.
+  \end{cases}
+\]
+Consequently, the functions $e_0,e_1,e_2, \dots$ are linearly independent in
+$H(0,2\pi)$ because if a linear combination of them is zero:
+\[
+  \sum_{k=0}^n \lambda_k e_k = 0
+\]
+then, taking the inner product with $e_j$, we obtain:
+\[
+  0 = \langle \sum_{k=0}^n \lambda_k e_k , e_j\rangle
+  = \sum_{k=0}^n \lambda_k \langle e_k, e_j\rangle
+  = \lambda_j
+\]
+and thus all the coefficients $\lambda_j$ are zero. We can, in particular,
+deduce that $H(0,2\pi)$ has infinite dimension.
+
+\begin{definition}[trigonometric polynomials]
+A function $f$ is said to be a \emph{trigonometric polynomial}%
+\mynargin{trigonometric polynomial}\index{trigonometric polynomial} if there exists a polynomial in two variables $P(X,Y)$ such that
+\[
+  f(x) = P(\cos x, \sin x).
+\]
+\end{definition}
+
+We can verify that $f$ is a trigonometric polynomial if and only if it is
+possible to write $f$ as a finite linear combination of the functions $e_k$ just
+introduced, that is, if there exist $c_0, c_1, \dots, c_n\in \RR$ such that
+\[
+  f = \sum_{k=0} c_k e_k.
+\]
+It suffices to reduce the trigonometric functions to the complex exponential,
+using Euler's formula:
+\begin{align*}
+   \cos(nx) + i \sin(nx)
+   &= e^{inx} = (e^{ix})^n
+   = \enclose{\cos x + i \sin x}^n\\
+   &= \sum_{k=0}^n {n \choose k} i^k \enclose{\sin x}^k \enclose{\cos x}^{n-k}
+\end{align*}
+from which, taking the real part and the imaginary part, one can express
+$\cos(nx)$ and $\sin(nx)$ as polynomials in $\sin x$ and $\cos x$. More
+precisely, for the cosine, only the terms with even $k$ are obtained:
+\begin{align*}
+\cos(nx) &= \sum_{k=0}^{\floor{\frac n 2}} {n \choose 2k} (-1)^k \enclose{\sin x}^{2k} \enclose{\cos x}^{n-2k}\\
+&= \sum_{k=0}^{\floor{\frac n 2}}{n \choose 2k} \enclose{\cos^2 x -1}^k
+\enclose{\cos x}^{n-2k}
+\end{align*}
+that is,
+\[
+  \cos(nx) = T_n(\cos x)
+\]
+where
+\[
+    T_n(x) = \sum_{k=0}^{\floor{\frac n 2}}{n \choose 2k} \enclose{x^2 -1}^k
+  x^{n-2k}
+\]
+is called the \emph{Chebyshev polynomial of the first kind}.
+\index{polynomial!Chebyshev}%
+\index{Chebyshev!polynomial of}%
+This means that each of the functions $e_k$ we introduced in~\eqref{eq:54741346}
+is a trigonometric polynomial, and therefore any finite combination of such
+functions is still a trigonometric polynomial.
+
+Conversely, to verify that every trigonometric polynomial can be represented as
+a finite linear combination of the elements $e_k$, we can observe that if $f(x)
+= P(\cos x,\sin x)$ is a trigonometric polynomial, then using Euler's formulas,
+one can write $f(x) = Q(e^{ix}, e^{-ix})$ where $Q$ is a polynomial with complex
+coefficients. But observing that
+\[
+  \enclose{e^{ix}}^n = e^{inx}
+\]
+one obtains that $f(x)$ can be written as a complex linear combination of the
+functions $e^{ikx}$ and $e^{-ikx}$. Using Euler's formulas again, one deduces
+that $f(x)$ can be written as a complex linear combination of the functions
+$\cos(ikx)$ and $\sin(ikx)$:
+\[
+  f(x) = \sum_{k=0}^n \enclose{z_k \cos(kx) + w_k \sin(kx)}.
+\]
+But since we know that $f(x)$ is a real function, the sum of the imaginary parts
+of this linear combination is zero, and thus we have obtained that $f(x)$ is a
+real linear combination of the functions $e_n$.
+
+\begin{definition}[Fourier series]
+If $f\in \H(0,2\pi)$, the coefficients $c_k = \langle f, e_k\rangle$ are called
+the \emph{Fourier coefficients}%
+\mynargin{Fourier coefficients}\index{Fourier coefficients} of $f$, and the series
+\[
+  \sum_{k=0}^{+\infty} c_k e_k
+\]
+is called the \emph{Fourier series}%
+\mynargin{Fourier series}\index{Fourier series} of $f$. The trigonometric polynomial
+\[
+  f_N = \sum_{k=0}^{N} c_k e_k
+\]
+is called the \emph{Fourier expansion}%
+\mynargin{Fourier expansion}\index{Fourier expansion} of order $N$ for $f$.
+\end{definition}
+
+\begin{example}
+Let us calculate the Fourier expansion of the function:
+\[
+  f(x) = 
+  \begin{cases}
+    1 & \text{if $x\in [0,\pi]$}\\
+    -1 & \text{if $x\in (\pi,2\pi]$}.
+  \end{cases}
+\]
+Regarding $c_0 = \langle f, e_0\rangle$, we have trivially: 
+\[
+c_0 = \int_0^{2\pi} f(x) \cdot \frac{1}{\sqrt{2\pi}}\, dx 
+  = \frac{1}{\sqrt{2\pi}}\Enclose{\int_0^\pi 1 \, dx + \int_0^\pi (-1)\, dx}
+  = 0.  
+\]
+For $c_{2k} = \langle f, e_{2k}\rangle$, we have 
+\begin{align*}
+  c_{2k}
+  &= \int_0^{2\pi} f(x)\frac{\cos (kx)}{\sqrt{\pi}}\, dx \\
+  &= \frac{1}{\sqrt \pi} \Enclose{\int_0^\pi \cos (kx)\, dx 
+  - \int_{\pi}^{2\pi} \cos(kx)\, dx}
+  = 0 
+\end{align*}
+for reasons of symmetry.
+To calculate $c_{2k+1}=\langle f, e_{2k+1}\rangle$, we find 
+\begin{align*}
+  c_{2k+1}
+  &= \int_0^\pi \frac{\sin(kx)}{\sqrt \pi}\, dx 
+    - \int_\pi^{2\pi} \frac{\sin(kx)}{\sqrt \pi}\, dx \\
+  &= \frac{2}{\sqrt \pi}\int_0^\pi \sin(kx)\, dx
+  = \frac{2}{k\sqrt \pi}\int_0^{k\pi}\sin t\, dt\\
+  &= 
+  \begin{cases}
+    0 & \text{if $k$ is even,}\\
+    \frac{4}{k\sqrt \pi} & \text{if $k$ is odd.}
+  \end{cases}
+\end{align*}
+We then find that   
+\[
+ f_{2n+1}(x)
+ = \sum_{k=0}^n \frac{4}{(2k+1)\sqrt \pi}\sin((2k+1)x).
+\]
+See figure~\ref{fig:fourier}.
+\end{example}
+
+\begin{figure}
+  \begin{center}
+  \includegraphics[height=5cm]{fourier.png}
+  \end{center}
+  \captionsetup{singlelinecheck=off}
+  \caption{The Fourier expansion of the function
+  that equals $1$ on $[0,\pi]$ and $-1$ on $[\pi,2\pi]$:
+  $
+  f_{61}(x)=
+  \frac{4\sin(x)}{\pi} + \frac{4\sin(3x)}{3\pi} + \frac{4\sin(5x)}{5\pi} + \frac{4\sin(7x)}{7\pi} + \frac{4\sin(9x)}{9\pi} + \frac{4\sin(11x)}{11\pi} + \frac{4\sin(13x)}{13\pi} + \frac{4\sin(15x)}{15\pi} + \frac{4\sin(17x)}{17\pi} + \frac{4\sin(19x)}{19\pi} + \frac{4\sin(21x)}{21\pi} + \frac{4\sin(23x)}{23\pi} + \frac{4\sin(25x)}{25\pi} + \frac{4\sin(27x)}{27\pi} + \frac{4\sin(29x)}{29\pi} + \frac{4\sin(31x)}{31\pi}
+  $.
+  The code to calculate the coefficients and generate the graph
+  is found on page~\pageref{code:Fourier}.
+  It can be noted that at the jump point $x=\pi$, 
+  the Fourier expansion has an oscillation greater than the original jump 
+  (Gibbs phenomenon).
+  \index{Gibbs!phenomenon of}
+  \index{phenomenon of Gibbs}
+  The increase in oscillation is about 9\% and is independent 
+  of the number of terms used in the Fourier expansion.
+%  This means that the Fourier series, while converging in norm $\Abs{\cdot}_2$,
+%  does not converge uniformly.
+  }
+  \label{fig:fourier}
+  \end{figure}
+    
+It is natural to ask whether what we have introduced is a \emph{Hilbertian
+basis} because only in such a case do the Fourier expansions approximate the
+function. To achieve this result, we must assume the validity of the following
+theorem, which would now be too lengthy to prove.
+
+\begin{theorem}[density of trigonometric polynomials]
+For every continuous function $f\in C^0([0,2\pi])$ with $f(0)=f(2\pi)$, there
+exists a sequence $g_k\in \H(0,2\pi)$ of trigonometric polynomials (i.e., finite
+linear combinations of the system $\ENCLOSE{e_k}$) such that $g_k$ converges
+uniformly to $f$.
+
+In particular, the set of trigonometric polynomials is dense, with the uniform
+norm, in the vector subspace
+\[
+  C^0_0([a,b]) 
+  = \ENCLOSE{u\in C^0([a,b])\colon u(a)=u(b)=0}
+  \subset C^0([a,b]).
+\]
+\end{theorem}
+
+Observe that uniform convergence is stronger than convergence in $H(a,b)$
+because we have, trivially:
+\[
+  \Abs{f}_2^2 = \int_a^b f(x)^2\, dx
+  \le \int_a^b \Abs{f}_\infty^2\, dx
+  = (b-a) \cdot \Abs{f}_\infty^2.
+\]
+Thus, the previous theorem guarantees that every continuous function in
+$\H(a,b)$ can be approximated, with respect to the norm $\Abs{\cdot}_2$, by
+trigonometric polynomials. The following theorem allows us to extend this
+property to all functions in $\H(a,b)$.
+
+\begin{theorem}[density of continuous functions]
+Given any $f\in H(a, b)$, for every $\eps>0$, there exists a continuous function
+$g\colon [a,b]\to \RR$ with $g(a)=g(b)=0$ such that $\Abs{f-g}_2<\eps$.
+
+In other words: $C^0_0([a,b])=\ENCLOSE{u\in C^0\colon u(a)=u(b)=0}$ is a dense
+subspace in $H(a,b)$, that is, a set whose closure (in the topology of $H(a,b)$)
+is all of $H(a,b)$.
+\end{theorem}
+%
+\begin{proof}
+\emph{Step 1. Suppose $f$ is bounded on $(a,b)$.}
+In this case, we can think of $f$ as being defined on $[a,b]$, and the integral
+is a "proper" Riemann integral. Let $M=\sup \abs{f}([a,b])$. For the conditions
+of integrability, we know that for every $\eps>0$, it is possible to find a
+subdivision $a=x_0 < x_1 < \dots < x_n =b$ on which the integral of $f$ differs
+from the upper and lower integrals by less than $\frac{\eps}{2M}$. We can take
+as the function $g$ a linear interpolation, that is, a function such that
+$g(x_k) = f(x_k)$ on the points of the subdivision and that is linear on each
+subinterval $[x_k,x_{k+1}]$. The function $g$ thus defined is bounded, on each
+subinterval, between the $\inf$ and the $\sup$ of $f$, and thus we will have:
+\[
+ \int_a^b \abs{f(x)-g(x)}\, dx < \frac{\eps}{M}.
+\]
+However, since $\Abs{f}_\infty\le M$, we also have $\Abs{g}_\infty\le M$, and
+therefore $\Abs{f-g}_2\le 2M$. But then
+\[
+  \Abs{f-g}_2^2 = \int_a^b \abs{f-g}^2
+  \le \int_a^b \Abs{f-g}_\infty \cdot \abs{f(x)-g(x)}\, dx
+  \le 2M \frac{\eps}{2M} = \eps.
+\]
+
+\emph{Step 2. General case.}
+If the function is absolutely integrable in the improper sense on $(a,b)$ but is
+not bounded, by the definition of improper integral, for every $\eps>0$, we can
+find an interval $[\alpha,\beta]\subset (a,b)$ on which $f^2$ (and thus $f$) is
+bounded, and the integral of $f^2$ on $(a,\alpha]$ and on $[\beta,b)$ is less
+than $\eps$. Let $M=\sup \abs{f}([\alpha,\beta])$. Applying the previous step on
+the interval $[\alpha,\beta]$, we obtain a continuous function $g$ defined on
+$[\alpha,\beta]$ such that $\abs{g(x)}\le M$ and $\int\abs{f-g}^2\le \eps$. The
+idea is now to take a point $\alpha'\in(a,\alpha)$ and a point
+$\beta'\in(\beta,b)$ and extend the function $g$ over the entire $[a,b]$ by
+setting $g=0$ on the intervals $[a,\alpha']$ and $[\beta',b]$ and making a
+linear interpolation on the intervals $[\alpha',\alpha]$ and $[\beta,\beta']$.
+
+Using the inequality $(f-g)^2 \le (f-g)^2+(f+g)^2 = 2f^2+2g^2$ (otherwise, one
+could use Cauchy-Schwarz twice) and choosing $\alpha'$ very close to $\alpha$ so
+that $\alpha-\alpha'<\eps/M^2$, we obtain
+\[
+  \int_a^\alpha \abs{f-g}^2 
+  = \int_a^{\alpha'} f^2 + \int_{\alpha'}^\alpha \abs{f-g}^2
+  \le \eps + 2\eps + 2M^2\cdot(\alpha-\alpha')
+  \le 5\eps.
+\]
+A similar inequality will hold on the interval $[\beta,b]$. Thus, we obtain in
+conclusion
+\[
+\int_a^b \abs{f-g}^2
+\le 5\eps + \eps + 5\eps  = 11 \eps
+\]
+and the theorem is proven with $11\eps$ instead of $\eps$.
+\end{proof}
+
+Thanks to the two previous theorems, we know that every $f\in \H(a,b)$ can be
+approximated by trigonometric polynomials $g_N\to f$, that is, by functions of
+the form:
+\[
+  g_N = \sum_{k=0}^{N} a_{k,N} e_k.
+\]
+Here, we are assuming that the trigonometric polynomial $g_N$ has an order not
+exceeding $N$, but this can always be assumed by discarding or repeating the
+terms of the sequence.
+
+If we now consider the Fourier expansions:
+\begin{equation}\label{eq:48948784}
+  f_N = \sum_{k=0}^N c_k e_k, \qquad c_k = \langle f,e_k\rangle
+\end{equation}
+we remember that for every $k\le N$, we have
+\[
+   \langle f-f_N, e_k \rangle
+   = \sum_{k=0}^N \enclose{\langle f,e_k\rangle - c_k} = 0
+\]
+and therefore
+\[
+  \langle f-f_N , g_N -f_N\rangle
+  = \sum_{k=0}^N \langle f-f_N, (a_{k,N}-c_k) e_k \rangle
+  = 0.
+\]
+Thus, applying the Pythagorean theorem~\ref{th:spazio_euclideo},
+\[
+  \Abs{f-f_N}_2^2 = \Abs{f-g_N}_2^2 - \Abs{f_N-g_N}_2^2
+  \le \Abs{f-g_N}_2^2 \to 0.
+\]
+
+Thanks to theorem~\ref{th:bessel}, we have thus obtained the following.
+\begin{theorem}[Fourier series]
+If $f\in \H(0,2\pi)$ and $c_k$, $f_N$ are defined by~\eqref{eq:48948784}, then
+$f_k\to f$ in norm $\Abs{\cdot}_2$. In particular, Bessel's equality holds
+\begin{equation}\label{eq:uguaglianza_Bessel}
+  \sum_{k=0}^{+\infty} c_k^2 = \Abs{f}_2^2.
+\end{equation}
+\end{theorem}
+
+
+This means, therefore, that the orthonormal system we have introduced is a
+Hilbertian basis and thus that every function $f\in \H(0,2\pi)$ is approximated
+with respect to the norm $\Abs{\cdot }_2$ by the Fourier expansions.
+
+Recall that if $\Abs{f_N-f}_2 \to 0$, it is not necessarily the case that
+pointwise convergence $f_N(x)\to f(x)$ holds for every $x\in (0,2\pi)$ because
+the limit is unique in $H(a,b)$ but not in $\H(a,b)$, and thus it is possible
+(and indeed can happen) that the pointwise limit of the Fourier expansions
+differs, at some points, from the function being approximated.
+
+Unfortunately, the space $H(a,b)$ is not complete, as can be seen in the
+following example.
+
+\begin{example}[thickened rationals]
+\label{ex:incompletezza_di_H}%
+We demonstrate that the space $H(0,1)$ is not complete.
+
+We know that the set $[0,1]\cap \QQ$ is countable, so there exists a sequence
+$q_k$ that lists all the rational numbers in the interval $[0,1]$. Let $r_k =
+\frac{1}{4\cdot 2^k}$ and consider the intervals $I_k = [q_k-r_k,q_k+r_k]$. Take
+the sequence of functions $f_n\colon [0,1]\to \RR$ defined by
+\[
+  f_n(x) =
+  \begin{cases}
+  1 &\text{if } x\in\displaystyle\bigcup_{k=1}^{n} I_k\\
+  0 & \text{otherwise}
+  \end{cases}
+\]
+Contrary to what one might think, these functions $f_n$ never become identically
+equal to $1$. Indeed, it can be observed that
+\[
+  \int_0^1 f_n(x)\, dx
+  \le \sum_{k=1}^n \int_{q_k-r_k}^{q_k+r_k} 1\, dx
+  = \sum_{k=1}^n \frac{1}{2\cdot 2^k}
+  \le \frac{1}{2}\sum_{k=1}^{+\infty}\frac{1}{2^k} = \frac 1 2.
+\]
+
+It can be shown that $f_k$ is a Cauchy sequence in $H(0,1)$ and that it does not
+converge in $H(0,1)$.
+\end{example}
+
+\begin{proof}
+To verify that $f_n$ is a Cauchy sequence, we can simply observe that if $n\ge
+m$, then $f_n$ and $f_m$ differ only on the intervals $I_k$ with $k$ between $m$
+and $n$. Thus:
+\[
+  \int_0^1 \abs{f_n - f_m}
+  \le \sum_{k=m+1}^{+\infty} \int_{q_k-r_k}^{q_k+r_k} 1\,dx
+  = \sum_{k=m+1}^{+\infty}\frac{1}{2\cdot 2^k} = \frac{1}{2^{m+1}}.
+\]
+Since $f_n$ and $f_m$ take only the values $0$ and $1$, $\abs{f_n-f_m}$ also
+takes only the values $0$ and $1$, so $\abs{f_n-f_m}^2=\abs{f_n-f_m}$. We have
+thus verified that for $n\ge m$, we have:
+\[
+  \Abs{ f_n - f_m}_2 \le \sqrt{\frac{1}{2^{m+1}}}.
+\]
+It is therefore clear that for any chosen $\eps>0$, we can choose $N$ such that
+$1/2^N \le \eps^2$, from which it follows that if $n,m\ge N$, then
+$\Abs{f_n-f_m}_2 \le \eps$. That is: $f_n$ is a Cauchy sequence.
+
+Now suppose, for contradiction, that there exists $f\in H(0,1)$ such that
+$\Abs{f_n-f}_2 \to 0$. First of all, since each $f_k\le 1$, we can assume that
+$f\le 1$ as well because otherwise, we could take $g(x) = \min\ENCLOSE{f(x),1}$
+and would clearly have $\Abs{f_n - g}_2 \le \Abs{f_n -f}_2 \to 0$. In practice,
+we are saying that by modifying the function $f$ without changing its integral,
+we can assume that $f(x)\le 1$ for every $x\in[0,1]$.
+
+Fixing an interval $I_n$, for $k\to +\infty$, we have:
+\[
+  0\le \int_{q_n-r_n}^{q_n+r_n}\abs{f_k(x)-f(x)}^2\, dx
+  \le \int_0^1 \abs{f_k(x)-f(x)}^2\, dx = \Abs{ f_k -f}_2^2 \to 0.
+\]
+But now if $k\ge n$, it follows that $f_k=1$ on $I_n$, and therefore the value
+of the integral above does not depend on $k$ and must therefore be identically
+zero:
+\[
+  \int_{q_n-r_n}^{q_n+r_n} (1-f(x)) \, dx = 0
+\]
+and thus we can assert that $\sup f(I_n) = 1$ because if $\sup f(I_n) = \lambda
+< 1$, the integral of $1-f(x)$ would be positive on the interval $I_n$.
+
+We now want to demonstrate that on every interval $[a,b]\subset[0,1]$, if $b>a$,
+we have $\sup f([a,b])=1$. Take $N$ large enough so that $r_N < (b-a)/3$. Then
+the interval $[a+r_N, b-r_N]$ has a width greater than $r_N$ and contains
+infinitely many rational numbers. There are therefore infinitely many indices
+$n$ for which $q_n$ is in such an interval. Among these infinitely many, there
+is certainly one with index $n\ge N$ (because the $q_n$ with $n<N$ are finite in
+number). But if $q_n \in [a+r_N,b-r_N]$, then $I_n\subset[a,b]$, and therefore
+$\sup f([a,b])\ge \sup f(I_n) = 1$.
+
+This means that for every Riemann subdivision of the interval $[0,1]$, the
+$\sup$ of $f$ on the subintervals of the subdivision is $1$, and therefore the
+upper integral of $f$ is also $1$. Thus, being $f$ integrable,
+\[
+  \int_a^b f(x) = 1.
+\]
+
+We now want to conclude that this is in contradiction with the inequality
+\[
+  \int_a^b f_n(x) \le \frac 1 2
+\]
+that we observed at the beginning. Indeed, by the Cauchy-Schwarz inequality,
+\begin{align*}
+  \int_0^1 \abs{f(x)-f_n(x)}\, dx
+  \le \Abs{f-f_n}_2\cdot \Abs{1}_2  \to 0
+\end{align*}
+and therefore, by the criterion of absolute convergence,
+\[
+  \int_0^1 (f(x) - f_n(x))\, dx \to 0.
+\]
+But we have seen that
+\[
+  \int_0^1 (f(x) - f_n(x))\, dx
+  = \int_0^1 f(x)\, dx - \int_0^1 f_n(x)\, dx
+  \ge 1 - \frac 1 2 = \frac 1 2
+\]
+thus obtaining a contradiction.
+\end{proof}
+
+The fact that we have found a Hilbertian basis for $H(0,2\pi)$ (and thus for
+every $H(a,b)$) allows us to say that every function in $H(0,2\pi)$ can be
+represented by its coordinates $c_k$ such that Bessel's equality holds:
+\[
+  \Abs{f}_2 = \sqrt{\sum_{k=0}^{+\infty} c_k^2}.
+\]
+We have indeed defined a correspondence:
+\[
+  \phi \colon H(0,2\pi) \to \ell^2,
+  \qquad
+  \ell^2=\ENCLOSE{c\in \RR^\NN \colon \sum_{k=0}^{+\infty} c_k^2<+\infty}
+\]
+defined by
+\[
+  c_k = \phi(f) = \langle f, e_k\rangle.
+\]
+Clearly, such $\phi$ is linear. Since $e_k$ is a Hilbertian basis, it is easy to
+verify that $\phi$ is also injective. If on $\ell^2$, we define the inner
+product and the corresponding norm:
+\[
+  \langle x,y\rangle = \sum_{k=0}^{+\infty} x_k y_k, \qquad
+  \abs{x}_2 = \sqrt{\sum_{k=0}^{+\infty}} x_k^2
+\]
+Bessel's equality tells us that $\phi$ preserves the norm and thus the structure
+of an Euclidean space. It could be shown that $\ell^2$ is complete, and this
+means that $\phi$ is not surjective because the sequence $f_n$ considered in
+example~\ref{ex:incompletezza_di_H} is Cauchy in $H(0,2\pi)$, thus $\phi(f_n)$
+is Cauchy in $\ell^2$ and thus converges in $\ell^2$. The limit $c$ of the
+sequence $\phi(f_n)$ represents a sequence of Fourier coefficients that cannot
+be obtained from any function $f\in H(0,2\pi)$.
+
+We can use Fourier series to solve the following\mynote{see historical notes on
+page~\pageref{note:Basilea}}.
+
+\begin{exercise}[Basel problem]
+\label{ex:Basilea}%
+We demonstrate that
+\begin{equation}\label{eq:basilea}
+  \sum_{k=1}^{+\infty} \frac{1}{k^2} = \frac{\pi^2}{6}.
+\end{equation}
+\end{exercise}
+%%
+%%
+\begin{proof}[Solution.]
+Let us calculate the Fourier coefficients of the function $f(x)=x$ in
+$H(0,2\pi)$. We have
+\[
+  c_0 = \int_0^{2\pi} f(x)\cdot e_0(x)\, dx = \int_0^{2\pi}
+ \frac{x}{\sqrt{2\pi}}\, dx =
+ \frac{1}{\sqrt{2\pi}}\Enclose{\frac{x^2}{2}}_0^{2\pi}
+  = \sqrt{2\pi^3}
+\]
+then
+\begin{align*}
+  c_{2k+1} &= \int_0^{2\pi} x \cdot \frac{\sin(kx)}{\sqrt \pi}\, dx \\
+   &= \Enclose{\frac{x(-\cos(kx))}{k\sqrt \pi}}_0^{2\pi}
+   - \int_0^{2\pi} \frac{-\cos(kx)}{k\sqrt \pi}\, dx\\
+   &= \frac{-2\pi}{k\sqrt \pi} - 0 = -\frac{2\sqrt \pi}{k}
+\end{align*}
+and finally
+\begin{align*}
+  c_{2k} &= \int_0^{2\pi} x \cdot \frac{\cos (kx)}{\sqrt \pi}\, dx \\
+  &= \Enclose{\frac{x \sin(kx)}{\sqrt \pi k}}_0^{2\pi}
+  - \int_0^{2\pi} \frac{\sin(kx)}{\sqrt \pi k}\, dx
+  = 0.
+\end{align*}
+Then Bessel's equation~\eqref{eq:uguaglianza_Bessel} tells us that
+\[
+  \Abs{x}_2^2 = \sum_{k=0}^{+\infty} c_k^2
+  = c_0^2 + \sum_{k=0}^{+\infty} c_{2k+1}^2
+  = 2\pi^3 + \sum_{k=1}^{+\infty} \frac{4\pi}{k^2}.
+\]
+But it is easy to calculate
+\[
+ \Abs{x}_2^2 = \int_0^{2\pi} x^2\, dx = \Enclose{\frac{x^3}{3}}_0^{2\pi}
+  = \frac{8\pi^3}{3}
+\]
+and therefore
+\[
+  \frac{8\pi^3}{3} = 2\pi^3 + 4\pi \sum_{k=1}^{+\infty}\frac{1}{k^2}
+\]
+from which the desired result follows.
+\end{proof}

@@ -1,0 +1,333 @@
+\section{Algebraic Structures}
+
+We will soon define numerical structures on which the operations of addition and
+multiplication are defined. In general, we want to define what is meant by an
+\emph{operation}.
+\mymargin{operation}%
+\index{operation}%
+
+An \emph{operation} on the set $A$ is a function $f\colon A\to(A\to A)$. Given
+$a,b\in A$, we have that $f(a)$ is a function $A\to A$, and thus $f(a)(b)$ will
+be an element of $A$. Typically, operations are denoted by symbols such as $+$,
+$\cdot$, $/$, $\times$, etc. If $*$ is an operation, instead of writing
+$*(a)(b)$, we will write $a*b$.
+
+Note that a function $f\colon A\to (A\to A)$ is equivalent to a function
+$g\colon A\times A \to A$ by setting $g(a,b) = f(a)(b)$. Thus, one can
+equivalently think of an operation as a function of two variables.
+
+\begin{example}
+The usual addition operation $+$ defined on numerical sets is an operation. If
+$\NN$ is the set of natural numbers (which we will define shortly), we can think
+of $+\colon \NN\to (\NN\to \NN)$ as a function that associates to a number $n\in
+\NN$ the function $+n$ that increments its argument by $n$: $(+3)(5)=3+5=8$.
+\end{example}
+
+When operation symbols are used in an expression, the problem of establishing
+the precedence of operations arises. For example, if we write $a*b*c$, we must
+decide whether we mean $(a*b)*c$ (left associativity) or $a*(b*c)$ (right
+associativity). If $(a*b)*c=a*(b*c)$, we will say that the operation is
+associative, in which case it is obviously unnecessary to insert parentheses. If
+parentheses are not inserted, it is usually understood that the association is
+to the left. For example, $5-4-3 = (5-4)-3$ and not $5-(4-3)$. In some rare
+cases, associativity is to the right; a typical example is exponentiation:
+$2^{3^2} = 2^{(3^2)} \neq (2^3)^2$. The reason is that $(a^b)^c$ is more easily
+written as $a^{b\cdot c}$. In programming languages that implement the
+exponentiation operation, one must be very careful: in some languages (e.g.,
+Fortran), exponentiation associates to the left like other operations, while in
+other languages (e.g., Python), it associates to the right.
+
+When different operations appear in the same expression, some operations take
+precedence over others. For example, in $a+b\cdot c$, multiplication takes
+precedence over addition, so the expression should be interpreted as $a+(b\cdot
+c)$, not as $(a+b)\cdot c$. Addition and subtraction have the same precedence
+and should therefore be interpreted from left to right: $a-b+c = (a-b)+c$. For
+division, we will rarely use the symbol $/$; in that case, division associates
+to the left and has the same precedence as multiplication: $a/b/c=(a/b)/c$,
+$a/b\cdot c=(a/b)\cdot c$. This rule is sometimes counterintuitive, so we will
+avoid writing expressions of this type, especially because the multiplication
+dot can be omitted, as in $a/bc$, making the expression even more ambiguous.
+When in doubt: use parentheses! To denote division, we will more often use the
+fraction symbol $\frac a b$, which does not require specifying associativity and
+precedence since the length of the fraction line determines how the operands are
+associated:
+\[
+  \frac{\,\frac a b\,}{c}=(a/b)/c, \qquad 
+  \frac{a}{\,\frac bc\,}=a/(b/c).
+\]  
+
+The numerical sets we aim to define (natural, integer, rational, real, complex
+numbers) are all equipped with the two operations of addition and
+multiplication, as well as (except for complex numbers) an order relation. Based
+on the properties that these operations satisfy, they can fall into the
+following abstract algebraic structures.
+
+For now, we will list the structures that we will encounter later. As we
+identify examples of sets that fall into these structures, the meaning of these
+definitions will become clearer.
+
+\begin{definition}[Monoid]%
+  \label{def:monoide}%
+    Let $A$ be a set on which an operation $*$ is defined. If the operation is
+  associative: $x*(y*z) = (x*y)*z$ and has an identity element $e\in A$ such
+  that $e*x = x*e = x$, we will say that $A$ is a \emph{monoid}. If, in
+  addition, the operation is commutative, $x*y=y*x$, we will say that $A$ is a
+  \emph{commutative monoid} (or abelian).
+  
+    When the symbol of addition $+$ is used for the operation $*$, we will say
+  that the monoid is additive. In this case, the identity element is called
+  \emph{zero} and is denoted by $0$. If instead we use the symbol of
+  multiplication $x\cdot y$, we will say that the monoid is multiplicative. In
+  this case, the identity element is called \emph{unity} and is usually denoted
+  by $1$.
+\end{definition}
+  
+\begin{example}
+The set of natural numbers is a commutative monoid both with the addition
+operation $+$ (additive monoid) and with the multiplication operation $\cdot$
+(multiplicative monoid).
+\end{example}
+  
+\begin{definition}[Group]
+  \label{def:gruppo}%
+    A set $G$ on which an \emph{operation} $*$ is defined is said to be a
+  \emph{group}%
+\mymargin{group}%
+\index{group} if the operation has the following properties:
+  \begin{enumerate}
+    \item Associative: $\forall x,y,z\in G\colon (x*y)*z = x*(y*z)$;
+    \index{property!associative}%
+    \index{associativity}%
+    \item Existence of identity element: 
+    \index{element!identity}%
+    \index{identity}%
+    $\exists e\in G\colon \forall x\in G \colon e*x=x*e = x$;
+    \item Existence of inverse: 
+    \index{element!inverse}%
+    \index{inverse}%
+    $\forall x\in G\colon \exists y\in G\colon x*y=y*x=e$.
+  \end{enumerate}
+  Additionally, the group is said to be \emph{abelian}%
+\mymargin{abelian group}%
+\index{abelian} or \emph{commutative} if the property holds:
+  \begin{enumerate}
+    \item[4.] Commutative: $\forall x,y\in G\colon x*y = y*x$.
+    \index{property!commutative}%
+    \index{commutativity}% 
+  \end{enumerate}
+  
+    When the operation is denoted by the symbol $+$ (addition), we will say that
+  the group is additive, and we will denote the identity element by $0$
+  \index{zero}%
+    (zero), and the inverse of $x$ will be called \emph{opposite} and denoted by
+  $-x$.
+  \index{opposite}%
+    If instead the symbol $\cdot$ (multiplication) is used, we will say that the
+  group is multiplicative, the identity element may be denoted by the symbol $1$
+  (one or unity), and
+  \index{one}\index{unity}%
+    the inverse of $x$ may be called \emph{reciprocal} and is usually denoted by
+  $x^{-1}$ or $\frac 1 x$.
+  \index{reciprocal}%
+\end{definition}
+  
+The identity element of a group is unique. If $x$ and $y$ were two identity
+elements, we would have $x = x*y = y$. The inverse is also unique: indeed, if
+$y$ and $z$ were two inverses of $x$, we would have $y = y * x * z = z$.
+
+\begin{example}
+    The set of integers $\ZZ$ (which we will define later) with the addition
+  operation is an abelian group. The identity element is zero, and the opposite
+  of $x$ is $-x$. On $\ZZ$, we will also define the multiplication operation,
+  but $\ZZ$ with the multiplication operation is not a group because not all
+  elements have a multiplicative inverse in $\ZZ$.
+\end{example}
+
+\begin{example}[Symmetric Group]
+    If $X$ is any set, one can consider the set $X!$ of bijective functions on
+  $X$:
+  \[
+    X! = \ENCLOSE{f\colon X\to X\colon f \text{ bijective}}.
+  \]
+    When $X$ is a finite set, the bijective functions on $X$ are also called
+  \emph{permutations} because they permute the elements of $X$.
+
+    As an exercise, one can verify that the operation $\circ$ of composition
+  makes $X!$ a group. This group is called the \emph{symmetric group} of $X$ (it
+  is also usually denoted by $S_X$). The symmetric group is not abelian if $X$
+  has more than two elements.
+\end{example}
+
+\begin{definition}[Ring and Field]
+  \label{def:anello}%
+  \label{def:campo}%
+    Let $A$ be a set on which two operations are defined: addition and
+  multiplication. We will say that $A$ is a \emph{ring} if $A$ is an abelian
+  group with respect to addition, if multiplication is associative $(x\cdot
+  y)\cdot z = x\cdot (y\cdot z)$, and if the distributive property holds
+  $x\cdot(y+z) = x\cdot y + x\cdot z$, $(x+y)\cdot z = x\cdot z + y\cdot z$.
+
+    If, in addition, there exists an element $1\in A$ that is the identity for
+  multiplication, we will say that $A$ is a ring \emph{with unity}.
+
+    If multiplication is commutative, we will say that $A$ is a
+  \emph{commutative ring}.
+
+    If $A$ is a ring and $A\setminus \ENCLOSE{0}$ turns out to be an abelian
+  group for the multiplication operation (thus there is a unity $1\neq 0$ and
+  every non-zero element has a multiplicative inverse), we will say that $A$ is
+  a \emph{field}.
+\end{definition}
+
+\begin{example}
+    The set of integers $\ZZ$ (which we will define shortly) is a commutative
+  ring with unity but is not a field. The set of rational numbers $\QQ$ (which
+  we will define shortly) is a field.
+\end{example}
+
+A ring $A$ is an additive group, so in rings, the identity element of addition
+is denoted by $0$. The additive inverse of $a\in A$ is called the
+\emph{opposite} and is denoted by $-a$. Thus, the operation of subtraction is
+also defined: $a-b = a+(-b)$.
+
+The same holds in a field $R$ where, in addition, every non-zero element also
+has a multiplicative inverse. If $x\in R\setminus\ENCLOSE{0}$, its
+multiplicative inverse is called the \emph{reciprocal} and is denoted by $1/x$
+or $x^{-1}$. Thus, the operation of division is also defined: $a/b = a\cdot
+(1/b)$ if $b\neq 0$.
+
+In general, if $A$ is a ring, the familiar properties hold:
+\[
+  0\cdot x = x\cdot 0 = 0, \qquad
+  (-1)\cdot x = x \cdot (-1) = -x.
+\]
+To prove the first, we have:
+\[
+  0\cdot x = 0\cdot x + x + (-x) = (0+1)\cdot x + (-x) = x + (-x) = 0
+\]
+and writing the addends in the opposite order, we also obtain $x\cdot 0 = 0$. We
+will say that $0$ is an \emph{absorbing element}
+\mymargin{absorbing element}%
+\index{element!absorbing}%  
+\index{absorbing}%
+for multiplication. Then we can also prove the second property:
+\[
+   (-1)\cdot x = (-1)\cdot x + x + (-x) = (-1 + 1)\cdot x + (-x) = 0 + (-x) = -x
+\]
+and again, writing the addends in the opposite order, we obtain $x\cdot(-1)=-x$.
+
+If $A$ is a field, the \emph{zero-product property} holds:
+\index{zero-product}%
+\mymargin{zero-product}%
+\[
+  x\cdot y = 0 \iff x=0 \lor y=0.
+\]
+The implication to the left is the absorbing property, which we have already
+verified. Conversely, if $x\cdot y = 0$ and $x\neq 0$, then we can multiply both
+sides by $x^{-1}$ to obtain $y=x^{-1}\cdot 0 = 0$.
+
+\begin{definition}[Totally Ordered Group]
+  \label{def:gruppo_ordinato}%
+  \label{def:campo_ordinato}%
+  We will say that $G$ is a \emph{totally ordered group}
+\mymargin{totally ordered group}%
+\index{group!ordered}% 
+    if $G$ is a group (with operation $*$), if it is also a totally ordered set
+  (with relation $\le$), and if the group operation preserves the ordering,
+  i.e., the property holds:
+  \begin{enumerate}
+    \item[1.] Monotonicity:
+    if $x\le y$, then for every $z$, we have:
+      \[
+      x*z \le y*z \qquad\text{and}\qquad z*x \le z*y.
+      \] 
+  \end{enumerate}
+    We will say that the totally ordered group is \emph{dense} or
+  \emph{continuous} if the order relation also has such properties.
+
+  We will say that $R$ is an \emph{ordered field}
+\mymargin{ordered field}%
+\index{field!ordered}%
+    if it is a field, if with respect to addition it is a totally ordered
+  abelian group (thus addition preserves the ordering $x\le y \implies x+z\le
+  y+z$), and if, in addition, multiplication by a positive number preserves the
+  ordering:
+  \begin{enumerate}
+    \item[2.] Monotonicity: 
+    if $x\le y$ and $0\le z$, then $x\cdot z \le y\cdot z$. 
+  \end{enumerate} 
+
+    We will say that the ordered field is \emph{continuous} if the ordering is
+  continuous.
+\end{definition}
+
+\begin{example}
+We will see that $\ZZ$ (the set of integers) is an example of a totally ordered
+additive group but not dense.
+\end{example}
+
+\begin{example}
+We will see that $\QQ$ (the set of rational numbers) is an example of a dense
+ordered field but not continuous, while $\RR$ (the set of real numbers) is (in a
+certain sense the only) example of a continuous ordered field.
+\end{example}
+
+\begin{example}
+A trivial example of a dense and continuous totally ordered group is
+$X=\ENCLOSE{0}$.
+\end{example}
+
+If $G$ is a totally ordered additive group with identity element $0$, we have:
+\[
+  x\le y  \iff 0 \le y-x.
+\]
+This means that the ordering is uniquely determined by comparison with the
+identity element, i.e., by knowing which elements are positive.
+
+If $G$ is a totally ordered additive group, we can express a monotonicity
+property for strict inequalities: if $x<y$, then $x+z<y+z$ and $z+x<z+y$. This
+is to observe that if the equality $x+z=y+z$ holds, by adding $-z$ to both
+sides, we obtain $x=y$.
+
+If $R$ is an ordered field and we take $x\in R$, we can observe that $x\ge 0$ if
+and only if $-x\le 0$. Indeed, it suffices to add $-x$ to the first inequality
+to obtain the second and vice versa to add $x$ to the second to obtain the first
+(monotonicity of addition).
+
+We now verify the validity of the sign rule for the product: if $x\ge 0$ and
+$y\ge 0$, then $x\cdot y \ge 0$, $(-x)\cdot (-y) \ge 0$, $(-x)\cdot y = x \cdot
+(-y) \le 0$. The first property, $x\cdot y\ge 0$, is given by hypothesis
+(monotonicity property of the product applied to $y\ge 0$ by multiplying both
+sides by $x\ge 0$). Consequently, $-(x\cdot y)\le 0$, i.e., $(-x)\cdot y \le 0$
+and $x\cdot (-y) \le 0$. Changing the sign again on this last inequality, we
+obtain $(-x)\cdot(-y)\ge 0$.
+
+Thus, we can deduce that for every $x\in R$, we have $x^2=x\cdot x\ge 0$ because
+whether $x\ge 0$ or $x\le 0$, the product will always be $\ge 0$.
+
+In particular, we can deduce that $1=1\cdot 1\ge 0$. And since by hypothesis of
+the field, $1\neq 0$, we must have $1>0$.
+
+\begin{exercise}
+Let $R$ be an ordered field, $m\in R$, $m>0$. Then $m^{-1}>0$. Moreover (if
+$m>0$) for every $x,y\in R$, we have:
+\[
+  x<y \iff m\cdot x < m\cdot y.
+\]
+\end{exercise}
+
+\begin{exercise}
+Prove that every ordered field is dense.
+\end{exercise}
+\begin{proof}[Solution.]
+Given $x,y\in R$ with $x<y$, we must find $z\in R$ such that $x<z<y$. If $x<y$,
+we have $x+x<x+y<y+y$, which we can rewrite as
+\[
+(1+1)\cdot x < x+y < (1+1)\cdot y.
+\]
+Setting $2=1+1$, multiplying by the inverse of $2$ (which is positive), we
+obtain
+\[
+x < \frac{x+y}{2} < y.
+\]
+\end{proof}

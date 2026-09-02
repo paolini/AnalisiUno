@@ -1,0 +1,415 @@
+\section{Power Series}
+%%%
+
+If $a_k$ is a sequence of complex numbers, and $z_0\in \CC$, 
+the series
+\[
+ \sum a_k \cdot (z-z_0)^k
+\]
+dependent on the parameter $z\in \CC$ is called a
+\emph{power series}%
+\mymargin{power series}%
+\index{series!power series}
+with coefficients $a_k$ centered at $z_0$.
+If we denote by $A\subset \CC$ the set of complex numbers $z$
+for which the power series converges
+\[
+A= \ENCLOSE{z\in \CC \colon \sum a_k (z-z_0)^k \text{ is convergent}}
+\]
+the sum of the series results in a function
+$f \colon A \to \CC$ defined by
+\[
+  f(z) = \sum_{k=0}^{+\infty} a_k (z-z_0)^k.
+\]
+The set $A$ is called the \emph{set of convergence}%
+\mymargin{set of convergence}%
+\index{set!of convergence}
+(or \emph{domain of convergence}) of the power series $\sum a_k (z-z_0)^k$.
+
+From now on, to simplify notation, 
+we will assume $z_0=0$ so that 
+the series becomes $\sum a_k \cdot z^k$. 
+In general, one can perform the change of variable $w=z-z_0$ 
+to reduce to the case $z_0=0$.
+
+As usual, we may consider power series
+with the index $k$ starting from $1$ instead of $0$
+(or from any other natural number).
+This is not significant, as we can always consider $a_k=0$ for terms
+not participating in the summation.
+
+We also observe that for $k=0$ and $z=z_0$, 
+the corresponding term of the series is
+$a_0 \cdot 0^0 = a_0$ since we have defined $0^0=1$. Thus, we can also write:
+\[
+  \sum_{k=0}^{+\infty} a_k z^k = a_0 + a_1 z + a_2 z^2 + \dots + a_n z^n + \dots.
+\]
+Power series thus resemble polynomials, but with infinitely many terms.
+
+\begin{example}[the geometric series]
+The power series with coefficients $a_k=1$ is the
+geometric series $\sum z^k$.
+Thanks to theorem~\ref{th:serie_geometrica} 
+we know that the set of convergence is the circle
+$A=\ENCLOSE{z\in \CC \colon \abs{z}<1}$
+and for $z\in A$ we can calculate the sum of the series:
+\[
+ f(z) = \sum_{k=0}^{+\infty} z^k  = \frac{1}{1-z}.
+\]
+If $\abs{z}\ge 1$ the series cannot converge because the term $z^k$ is not
+infinitesimal: $\abs{z^k} = \abs{z}^k \ge 1$.
+\end{example}
+
+\begin{example}
+\label{ex:477474}
+The power series $\sum \frac{z^n}{n^n}$ (obtained by setting $a_n=1/n^n$)
+has the set of convergence $A=\CC$
+since
+\[
+\sqrt[n]{\abs{\frac{z^n}{n^n}}} = \frac{\abs{z}}{n} \to 0 < 1
+\]
+and thus by the root test, the series in question converges absolutely
+for any $z\in \CC$.
+\end{example}
+
+\begin{theorem}[convergence of power series]
+\mymark{***}%
+If the power series $\sum a_k z^k$ converges at a point $z\in \CC$
+(in fact, it suffices that the sequence $a_k z^k$ is bounded)
+then the series
+converges absolutely for every $w\in \CC$ such that $\abs{w}< \abs{z}$.
+Conversely, if the series does not converge at a point $z\in \CC$
+then
+it does not converge at any $w$ such that $\abs{w} > \abs{z}$ (in fact, the
+sequence
+$a_n w^n$ is not even bounded, let alone infinitesimal).
+\end{theorem}
+%
+\begin{proof}
+\mymark{*}
+If the series $\sum a_k z^k$ converges, it means that the sequence
+$a_k z^k$ is infinitesimal and, in particular, is bounded.
+Thus, there exists $M$ such that for every $k\in \NN$
+\[
+ \abs{a_k z^k} \le M.
+\]
+If $z=0$, there is nothing to prove.
+If $z\neq 0$, we have
+\[
+ \abs{a_k} \le \frac{M}{\abs{z}^k}.
+\]
+Now, chosen any $w\in \CC$ with $\abs{w} < \abs{z}$, we have
+\[
+  \abs{a_k w^k} = \abs{a_k}\cdot \abs{w}^k \le M \frac{\abs{w}^k}{\abs{z}^k}
+  = M q^k
+\]
+having set $q = \frac{\abs{w}}{\abs{z}}$.
+Since $q<1$, the geometric series $\sum q^k$ converges and, by comparison,
+the series $\sum \abs{a_k w^k}$ also converges.
+Thus, the series $\sum a_k w^k$ converges absolutely.
+
+Conversely, suppose that $\sum a_k z^k$ does not converge
+and take $w$ with $\abs{w} > \abs{z}$.
+Then $\sum a_k w^k$ cannot converge,
+in fact, $a_k w^k$ cannot even be bounded because
+if it were, then, by exchanging the roles of $z$ and $w$,
+from the previous point, the series $\sum a_k z^k$ would have to converge.
+\end{proof}
+
+\begin{corollary}[the set of convergence is circular]%
+\mymark{**}
+\label{cor:insieme_convergenza}%
+Let $\sum a_k z^k$ be a power series and let $A$ be its set of convergence.
+Then $A$ is not empty and setting
+\[
+  R= \sup \ENCLOSE{\abs{z}\colon z\in A}.
+\]
+it follows that $R\in[0,+\infty]$ and $A$ coincides with the circle centered at
+$0$
+and of radius $R$ except for the boundary points, in the sense that:
+\begin{equation}\label{eq:48463}
+   \ENCLOSE{z\in \CC \colon \abs{z} < R}
+   \subset A
+   \subset \ENCLOSE{z\in \CC \colon \abs{z}\le R}.
+\end{equation}
+Moreover, the series converges absolutely for every $z\in \CC$ with $\abs{z}<R$
+while
+the generic term $a_k z^k$ is not even bounded (and hence the series does not
+converge)
+when $\abs{z}>R$.
+\end{corollary}
+%
+\begin{proof}
+If $\abs{z}<R$, it means there exists $z_0\in A$ such that $\abs{z_0} >
+\abs{z}$.
+But since the series converges at $z_0$ (by definition of $A$), thanks to the
+previous theorem, we can assert that the series converges, indeed, converges
+absolutely
+at $z$. Thus, we obtain the first inclusion in~\eqref{eq:48463}.
+
+If instead we take $z\in \CC$ with $\abs{z}>R$, then
+certainly the series does not converge at $z$, otherwise (by the definition of
+$R$)
+we would have $R\ge \abs{z}$.
+Moreover, we can certainly consider a point $z_1\in\CC$
+such that $R < \abs{z_1} \le \abs{z}$ and the power series cannot converge at
+$z_1$ either.
+But then, by the previous theorem,
+we deduce that $a_k z^k$ is not even bounded.
+
+We have thus shown the existence of $R\in \bar \RR$ that satisfies
+\eqref{eq:48463}.
+Clearly, it results $R\ge 0$ because $A$ is a non-empty set
+(for every power series, we have $0\in A$).
+\end{proof}
+
+\begin{definition}[radius of convergence]
+\mymark{**}
+The \emph{radius of convergence}%
+\mymargin{radius of convergence}%
+\index{radius!of convergence} of a power series $\sum a_k z^k$
+is the value $R\in[0,+\infty]$
+given by corollary~\ref{cor:insieme_convergenza}:
+\begin{align*}
+    R &= \sup \ENCLOSE{\abs{z}\colon z\in \CC,\ \sum a_k z^k \text{ is
+  convergent}}.
+\end{align*}
+\end{definition}
+
+\begin{theorem}[calculation of the radius of convergence]
+\mymark{***}
+\label{th:calcolo_raggio_convergenza}
+Let $\sum a_n z^n$ be a power series. If the limit exists
+\begin{equation}\label{eq:9267345623}
+  \lim_{n\to+\infty}\sqrt[n]{\abs{a_n}} =\ell
+\end{equation}
+then $R=1/\ell$ is the radius of convergence of the series
+(where $R=+\infty$ if $\ell = 0$ and $R=0$ if $\ell=+\infty$).
+
+The same holds if the limit exists
+\[
+  \lim_{n\to +\infty} \frac{\abs{a_{n+1}}}{\abs{a_n}} = \ell.
+\]
+
+More generally, it results $R=1/\ell$ if we set
+\[
+   \ell = \limsup_{n\to +\infty} \sqrt[n]{\abs{a_n}}.
+\]
+even in the case where the limit in~\eqref{eq:9267345623}
+does not exist.
+\end{theorem}
+%
+\begin{proof}
+\mymark{***}
+Let $r\ge 0$.
+Applying the root test to the series $\sum \abs{a_n} r^n$, we have
+\[
+  \sqrt[n]{\abs{a_n} r^n}
+  = r \sqrt[n]{\abs{a_n}} \to r\ell.
+\]
+Thus, if we choose an $r < 1/\ell$, we have $r \ell<1$ and the series
+$\sum a_n z^n$ converges
+absolutely for $z=r$.
+Therefore, for every $r<1/\ell$,
+we find that $r\in A$: it follows that $R\ge 1/\ell$.
+If instead we choose $r > 1/\ell$, we have $r \ell > 1$ and thus
+$\abs{a_n} r^n \to +\infty$ and the series cannot be convergent
+at $z=r$. This means that $R\le 1/\ell$.
+
+The root test also applies in the case where $\ell$ is defined
+via $\limsup$.
+
+In the case where the limit of the ratio $\abs{a_{n+1}} / \abs{a_n}$
+exists, we know (thanks to the Cesàro convergence criterion
+theorem~\ref{th:criterio_cesaro}) that
+the limit of the root coincides with the limit of the ratio, and thus
+we reduce to the previous case (or we can repeat the proof
+using the ratio test instead of the root test).
+\end{proof}
+
+\begin{example}
+In example~\ref{ex:serie_log}, we have seen
+that the set of convergence of the power series
+\[
+  \sum_{k=1}^{+\infty} \frac{z^k}{k}
+\]
+is
+\[
+  A = \ENCLOSE{ z\in \CC \colon \abs{z}\le 1, z\neq 1}.
+\]
+The radius of convergence must therefore be $R=1$, and this can be
+easily verified with one of the previous criteria. For example:
+\[
+  \lim_{n\to+\infty} \frac{\frac{1}{n+1}}{\frac{1}{n}}
+  = \lim_{n\to+\infty} \frac{n}{n+1} = 1
+\]
+from which $R=1/1=1$.
+Note that neither of the two inclusions in \eqref{eq:48463}
+is, in this case, an equality.
+\end{example}
+
+\begin{theorem}[stability of the radius of convergence]
+\label{th:raggio_serie_derivate}
+The power series $\sum a_k z^k$ and $\sum k a_k z^k$ have
+the same radius of convergence.
+\end{theorem}
+%
+\begin{proof}
+  Let $R$ be the radius of convergence of the series $\sum a_k z^k$ 
+  and $r$ the radius of convergence of the series $\sum k a_k z^k$.
+  
+  Since for $k>0$ we have $\abs{a_k z^k} \le \abs{k a_k z^k}$,
+  the series $\sum a_k z^k$ converges absolutely at points 
+  where the series $\sum k a_k z^k$ converges absolutely.
+  This means that $R\ge r$.
+
+  Now, taken a point $w$ with $\abs{w}<R$, consider any
+  point $z$ with $\abs{w}<\abs{z}<R$.
+  The series $\sum a_k z^k$ converges absolutely at $z$, 
+  so $\abs{a_k z^k}$ is infinitesimal and bounded.
+  There exists $M$ such that $\abs{a_k z^k}\le M$, 
+  which means $\abs{a_k} \le \frac{M}{\abs{z}^k}$.
+  But then 
+  \[
+    \abs{k a_k w^k} 
+    \le k \abs{a_k} \abs{w}^k
+    \le k M \frac{\abs{w}^k}{\abs{z}^k}
+  \]
+  from which, setting $q=\frac{\abs w}{\abs z}$, we obtain 
+  $\abs{k a_k w^k} \le k M q^k$. 
+  Since $q<1$, we know that the series $\sum k M q^k$ 
+  is convergent, and thus, by comparison, also the 
+  series $\sum k a_k w^k$ is absolutely convergent.
+  Since this is true for every $w$ with $\abs{w}<R$,
+  it means that $r\ge R$, and this concludes the proof.
+\end{proof}
+%
+\begin{proof}[Alternative Proof]
+Since $\sqrt[k]{k}\to 1$, we have
+\[
+  \limsup \sqrt[k]{\abs{k a_k}} = \limsup \sqrt[k]{\abs{a_k}}.
+\]
+By theorem~\ref{th:calcolo_raggio_convergenza}, we obtain
+that the two corresponding power series have the same radius of convergence.
+\end{proof}
+
+\begin{theorem}(continuity of power series)
+\label{th:continuita_somma_serie}%
+\mymargin{continuity of power series}%
+\index{continuity!of power series}%
+Let $\sum a_k z^k$ be a power series with radius of convergence $R$.
+Then, setting $B=\ENCLOSE{z\in \CC\colon \abs{z}<R}$, the function $f\colon B
+\to \CC$
+defined by
+\[
+ f(z) = \sum_{k=0}^{+\infty} a_k z^k
+\]
+is continuous (on $B$).
+\end{theorem}
+%
+\begin{proof}
+Suppose $R>0$, otherwise there is nothing to prove.
+Fix $r<R$ and consider two points $z,w\in \CC$ 
+with $\abs{z}<r$ and $\abs{w}<r$.
+Recall that we have 
+\[
+  z^n - w^n = (z-w)\cdot(z^{n-1} + wz^{n-2} + \dots + w^{n-2}z + w^{n-1}).
+\]
+Observing that for each addend on the right side, we have 
+$\abs{w^k z^{n-k-1}}\le r^{n-1}$, and since there are $n$ addends, we obtain 
+\[
+  \abs{z^n - w^n} \le \abs{z-w}\cdot n\cdot  r^{n-1}.
+\]
+Thus, 
+\begin{align*}
+  \abs{f(z)-f(w)} 
+  &= \abs{\sum_{n=0}^{+\infty} a_n z^n - \sum_{n=0}^{+\infty} a_n w^n}
+   = \abs{\sum_{n=0}^{+\infty} a_n (z^n - w^n)} \\
+& \le \sum_{n=0}^{+\infty} \abs{a_n} \cdot \abs{z^n - w^n}
+\le \abs{z-w}\sum_{n=0}^{+\infty} \abs{a_n} n r^{n-1}.
+\end{align*}
+But we know that the series $\sum n a_n z^n$ 
+has the same radius of convergence $R$ as the original series 
+(by theorem~\ref{th:raggio_serie_derivate}),
+thus the series $\sum n a_n r^n$ is absolutely convergent and, 
+dividing by $r$, 
+we find that the series $\sum n a_n r^{n-1}$
+is convergent. 
+Setting $L = \sum_{n=0}^{+\infty} n \abs{a_n} r^{n-1}$,
+from what is written above, we can conclude that 
+\[
+\abs{f(z)-f(w)} \le L\cdot \abs{z-w}.
+\]
+Thus, for every $\eps>0$, chosen $\delta = \frac{\eps}{L}$,
+if $\abs{z-w}<\delta$, it results $\abs{f(z)-f(w)}\le \eps$.
+This means that the function $f$ is continuous at the point $z$, and 
+this is true for every $z$ with $\abs{z}<R$.
+\end{proof}
+
+The previous theorem guarantees that the sum of a power series
+is a continuous function within the radius of convergence.
+At points exactly on the boundary of the radius of convergence,
+the function $f$ might not be continuous.
+However, if the series converges at a
+boundary point, the sum of the series is continuous if we approach the point of
+convergence along the radius of the disk of convergence, as stated in the
+following theorem.
+
+\begin{theorem}[Abel's lemma]
+\mymark{*}%
+\label{th:lemma_abel}%
+\index{lemma!of Abel}%
+\index{Abel!lemma of}%
+Let
+\[
+  f(z) = \sum_{k=0}^{+\infty} a_k z^k
+\]
+be the sum of a power series. 
+If the series converges at a point $z_0\in \CC$, $z_0\neq 0$, 
+then the series converges for every $z=t z_0$ with $t\in [0,1]$, and moreover,
+the function
+\[
+  t \mapsto f(tz_0)
+\]
+is continuous at the point $t=1$.
+\end{theorem}
+%
+\begin{proof}
+Without loss of generality, we can assume that $f(z_0)=0$; indeed, it suffices
+to replace the first term of the series, $a_0$, with $a_0' = a_0 - f(z_0)$ and
+prove the theorem for the modified series.
+Thus, setting
+\[
+  A_n = \sum_{k=0}^{n-1} a_k z_0^k
+\]
+we have that $A_n \to f(z_0) = 0$ and, by definition, $A_0 = 0$.
+Using the formula \eqref{eq:somma_per_parti} for summation by parts, for $t\in
+[0,1)$
+we have
+\begin{align*}
+\sum_{k=0}^n a_k \cdot (tz_0)^k
+= \sum_{k=0}^n a_k z_0^k \cdot t^k
+= A_{n+1} \cdot t^{n+1} + \sum_{k=0}^n A_{k+1}\cdot (t^k - t^{k+1})
+\end{align*}
+and for $n\to +\infty$, we obtain
+\[
+  f(t\cdot z_0) = f(z_0)\cdot 0 + \sum_{k=0}^{+\infty}A_{k+1}(t^k-t^{k+1})
+  = (1-t)\sum_{k=0}^{+\infty} A_{k+1} t^k.
+\]
+Since $A_n \to 0$, for every $\eps>0$, there exists $m$ such that for every $k >
+m$, we have $\abs{A_k} \le  \eps$. Thus, for every $t\in [0,1)$, we have
+\begin{align*}
+\abs{f(t\cdot z_0)}
+ &\le (1-t)\sum_{k=0}^{m-1} \abs{A_{k+1}} t^k
+  + (1-t)\sum_{k=m}^{+\infty} \abs{A_{k+1}} t^k \\
+  &\le (1-t)\cdot \sum_{k=0}^{m-1}\abs{A_{k+1}} + (1-t)\cdot \eps \cdot
+ \frac{t^{m}}{1-t} \\
+ &\le (1-t)\sum_{k=0}^{m-1}\abs{A_{k+1}} + \eps.
+\end{align*}
+Chosen $\delta \le \frac{\eps} {\sum_{k=0}^{m-1} \abs{A_{k+1}}}$, if
+$\abs{1-t}<\delta$, we have
+\[
+  \abs{f(t\cdot z_0)-f(z_0)} = \abs{f(t\cdot z_0)} < 2\eps
+\]
+which means that $t\mapsto f(t\cdot z_0)$ is continuous at the point $t=1$.
+\end{proof}

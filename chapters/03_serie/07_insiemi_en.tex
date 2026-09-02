@@ -1,0 +1,115 @@
+\section{sums over arbitrary sets}
+\index{series!over arbitrary sets}%
+\index{sums!over arbitrary sets}%
+%%%%%%%%%%
+
+\begin{lemma}\label{lemma:12734}
+  Let $A$ be a countable set and let 
+  $\alpha\colon \NN\to A$ and $\beta\colon \NN\to A$ 
+  be two bijective functions.
+  Let $f\colon A\to \RR$ (or 
+  $f\colon A \to \CC$) be a function such that 
+  \begin{equation}\label{eq:12734}
+    \sum_{k=0}^{+\infty} \abs{f(\alpha(k))} < +\infty,  
+  \end{equation}
+  or let $f\colon A\to [0,+\infty)$ be any function. 
+  Then we have
+  \begin{equation}\label{eq:12735}
+    \sum_{k=0}^{+\infty} f(\alpha(k)) =
+    \sum_{j=0}^{+\infty} f(\beta(j)). 
+  \end{equation}
+\end{lemma}
+%
+\begin{proof}
+Set $a_k=f(\alpha (k))$ and $\sigma = \alpha^{-1}\circ \beta$, we have 
+$a_{\sigma(j)} = f(\beta (j))$.
+Thus, if~\eqref{eq:12734} holds, we can 
+apply theorem~\ref{th:convergenza_incondizionata}
+to obtain~\eqref{eq:12735}.
+
+If instead $f(x)\ge 0$, we obviously have $\abs{f(x)}=f(x)$,
+thus if at least one of the two sums in~\eqref{eq:12735}
+is finite, we apply theorem~\ref{th:convergenza_incondizionata}
+to the series $\sum a_k$ and thus obtain the equality 
+in~\eqref{eq:12735}.
+If instead both series are divergent
+(since they are series with non-negative terms, there are no other
+possibilities!)
+the equality~\eqref{eq:12735} still holds
+since $+\infty = +\infty$.
+\end{proof}
+
+\begin{definition}[arbitrary sums]
+Let $f\colon A\to [0,+\infty]$ be a function defined on a countable set 
+$A$ (i.e., $\#A \le \#\NN$).
+Then we define
+  \[
+    \sum_{x\in A}f(x)
+    = \sum_{k=0}^{+\infty} f(\sigma(k)) 
+  \]
+where $\sigma\colon \NN\to A$ is any bijective function
+(the result does not depend on $\sigma$ thanks to lemma~\ref{lemma:12734}).
+
+If $f\colon A\to \CC$ or $f\colon A\to \RR$ (still with $A$ countable),
+we say that $f$ is summable if $\sum_{x\in A}\abs{f(x)}<+\infty$. 
+In such a case, we can define $\sum_{x\in A} f(x)$ as before,
+since even in this case the sum does not depend
+on the order of the addends.
+
+If $A=\ENCLOSE{a_0, \dots, a_{n-1}}$ is a finite set, we can define 
+\[
+  \sum_{x\in A} f(x) = \sum_{k=0}^{n-1} f(a_k)
+\]
+and it is clear that the sum does not depend on the order of the addends.
+\end{definition}
+
+\begin{theorem}[summable families]
+    Let $A = \displaystyle\bigcup_{n\in \NN} A_n$ be a union of disjoint sets:
+  $A_n\cap A_m=\emptyset$ if $n\neq m$.
+  Suppose that $A$ is countable (or finite).
+  Let $f\colon A \to \RR$ be non-negative or $f\colon A \to \CC$ 
+  a summable function (i.e., $\displaystyle\sum_{x\in A}\abs{f(x)}< +\infty$).
+  Then 
+  \[
+    \sum_{x\in A}f(x) = \sum_{n\in \NN} \sum_{x\in A_n} f(x).  
+  \]
+\end{theorem}
+%
+\begin{proof}
+Let $x_k$ be an enumeration of the elements of $A$ and define 
+the double-index sequence:
+\[
+  a_{n,k} = \begin{cases}
+    f(x_k) & \text{if $x_k\in A_n$}\\
+    0 & \text{otherwise.}
+  \end{cases}  
+\]
+For each $k\in \NN$, the following sum 
+has only one non-zero addend:
+\[
+ \sum_{n=0}^{+\infty}  a_{n,k} = f(x_k)
+\]
+while for each $n\in \NN$, we have 
+\[
+ \sum_{k=0}^{+\infty} a_{n,k} = \sum_{x\in A_n} f(x)  
+\]
+since the non-zero terms of the sequence 
+$a_{n,k}$ are equal to the value of $f$ on an enumeration 
+of the elements of $A_n$.
+
+Then we have
+\[
+ \sum_{k=0}^{+\infty}\sum_{n=0}^{+\infty} \abs{a_{n,k}}
+ = \sum_{k=0}^{+\infty} {f(x_k)} = \sum_{x\in A} \abs{f(x_k)}.
+\]
+If this last sum is finite or if the terms are all non-negative,
+we can then interchange the two sums thanks to theorem~\ref{th:scambio_somma}:
+\[
+  \sum_{x\in A} f(x) 
+  = \sum_{k=0}^{+\infty} \sum_{n=0}^{+\infty} a_{n,k}
+  = \sum_{n=0}^{+\infty} \sum_{k=0}^{+\infty} a_{n,k}
+  = \sum_{n\in \NN} \sum_{x\in A_n}f(x).  
+\]
+\end{proof}
+
+%%%

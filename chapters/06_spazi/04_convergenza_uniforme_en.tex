@@ -1,0 +1,269 @@
+\section{Uniform Convergence}
+
+\begin{definition}[uniform convergence]
+\mymark{***}
+Let $A$ be a non-empty set and
+$f\colon A \to \RR$.
+We define the \emph{uniform norm}%
+\mymargin{uniform norm}\index{norm!uniform} (or $\sup$ norm)
+of $f$ as
+\[
+  \Abs{f}_\infty = \sup_{x\in A} \abs{f(x)}
+\]
+
+If $g\colon A \to \RR$ as well,
+we define the \emph{uniform distance}
+\mymargin{uniform distance}
+\index{distance!uniform}
+between $f$ and $g$ as
+\[
+  d_\infty(f,g) = \sup_{x\in A} \abs{f(x)-g(x)}.
+\]
+
+If $f_k$ is a sequence of functions and $f$ is a function, we say that $f_k$
+\emph{converges uniformly}
+\mymargin{uniform convergence}%
+\index{convergence!uniform}%
+to $f$
+and we write
+\[
+f_k \To f
+\] if
+$d_\infty(f_k,f)\to 0$.
+\end{definition}
+
+
+\begin{example}
+\label{ex:466533}
+The sequence
+\[
+f_k(x) = \sqrt{x^2 + \frac{1}{k}}
+\]
+converges uniformly (on all of $\RR$) to the function $f(x) = \abs{x}$. Indeed,
+setting $g_k(x) = f_k(x) - f(x)$,
+the function $g_k$ is differentiable for $x\neq 0$ and for $x>0$ we have
+\[
+  g'_k(x) = \frac{x}{\sqrt{x^2+\frac 1 k}} - 1 < 0.
+\]
+Thus, the function $g_k$ is decreasing on $[0,+\infty)$. By symmetry (it is an
+even function), it is increasing on $(-\infty, 0]$.
+Therefore, the maximum of $g_k$ is at $x=0$. Clearly, $g_k \ge 0$, so we have:
+\[
+  \Abs{f_k - f}_\infty = \sup_{x\in \RR} g_k(x) = g_k(0) = \frac{1}{\sqrt k} \to 0.
+\]
+Thus, $f_k \To f$.
+\end{example}
+
+Observe that in general $\Abs{f}_\infty$ and $d_\infty(f,g)$ can take the value
+$+\infty$ (for example, if $A=\RR$, $f(x)=x$ and $g(x)=0$)
+and therefore they are not necessarily
+a norm and a distance.
+
+\begin{theorem}[properties of the uniform norm]
+The uniform norm satisfies all the properties of a norm
+(Definition~\ref{def:norma}), except that it can take values in $[0,+\infty]$
+instead of $[0,+\infty)$.
+\end{theorem}
+%
+\begin{proof}
+Clearly, the uniform norm does not take negative values as it is the supremum of
+a (non-empty) set of non-negative real numbers. Moreover, if $\Abs{f}_\infty=0$,
+it means that $\abs{f(x)}=0$ for every $x$, and thus $f=0$ (separation
+property).
+
+Homogeneity follows from the homogeneity of the absolute value, as we have
+\[
+  \sup_{x\in A} \abs{(\lambda \cdot f)(x)}
+  = \sup_{x\in A}\abs{\lambda \cdot f(x)}
+  = \sup_{x\in A}\abs{\lambda}\cdot \abs{f(x)}
+  = \abs{\lambda} \cdot \sup_{x\in A}\abs{f(x)}.
+\]
+
+The triangle inequality follows from the triangle inequality of the absolute
+value, which is preserved when taking the supremum:
+\[
+  \sup_{x\in A} \abs{f(x)+g(x)}
+  \le \sup_{x\in A} \Enclose{\abs{f(x)} + \abs{g(x)}}
+  \le \sup_{x\in A} \abs{f(x)} + \sup_{x\in A} \abs{g(x)}.
+\]
+\end{proof}
+
+\begin{theorem}[completeness of bounded functions]%
+  \label{th:limitate_completo}%
+Let $A$ be a set.
+The vector space
+of bounded functions $f\colon A \to \RR$
+(that is, functions with finite uniform norm)
+\[
+  \B(A) = \ENCLOSE{f\in \RR^A\colon \Abs{f}_\infty < +\infty }
+\]
+endowed with the uniform norm $\Abs{\cdot}_\infty$ is a Banach space (i.e., a
+normed and complete vector space).
+On this Banach space, the distance induced by the norm is the uniform distance
+$d_\infty$, and the convergence induced by the distance is uniform convergence.
+\end{theorem}
+%
+\begin{proof}
+By definition, it is verified that the uniform norm $\Abs{\cdot}_\infty$ takes
+finite values on $\B(A)$.
+Thus, according to the previous theorem, $\Abs{\cdot}_\infty$ is indeed a norm,
+and $\B(A)$ is therefore a normed space. We now demonstrate that it is complete,
+i.e., that Cauchy sequences converge.
+
+Let $f_k$ be a Cauchy sequence in $\B(A)$.
+Then for every $x\in A$, $f_k(x)$ is a Cauchy sequence in $\RR$ since (by
+definition of $\sup$)
+\[
+  \abs{f_k(x) - f_j(x)} \le \Abs{f_k - f_j}_\infty
+\]
+and thus if $\Abs{f_k- f_j}_\infty < \eps$
+it follows that for fixed $x\in A$, $\abs{f_k(x)-f_j(x)} < \eps$.
+
+Therefore, for every $x\in A$, the numerical sequence $f_k(x)$ converges since
+$\RR$ is complete. Setting $f(x) = \lim f_k(x)$, we have thus found a candidate
+limit for the sequence.
+We must now show that $f\in \B(A)$ and that $f_k$ converges uniformly to $f$.
+For every $\eps>0$, by the Cauchy condition, there must exist $N\in \NN$ such
+that if $k,j>N$, then
+\[
+  d_\infty(f_k,f_j) < \eps.
+\]
+But then for every $x\in A$, for every $k>N$, and for every $j>N$, we have:
+\[
+  \abs{f_k(x) - f(x)} \le \abs{f_k(x) - f_j(x)} +
+  \abs{f_j(x) - f(x)} < \eps + \abs{f_j(x)-f(x)}.
+\]
+Since for every $x$, $f_j(x) \to f(x)$, for every $x$, there exists a $j$ such
+that $\abs{f_j(x)-f(x)} < \eps$, and thus we can conclude that
+\[
+  \abs{f_k(x)-f(x)} < 2\eps.
+\]
+Taking the $\sup$ for $x\in A$, we obtain
+\[
+  \Abs{f_k -f}_\infty \le 2 \eps.
+\]
+We have thus verified the definition of limit $\Abs{f_k -f}_\infty\to 0$. In
+particular, $\Abs{f}_\infty < +\infty$ since the triangle inequality holds
+\[
+  \Abs{f}_\infty \le \Abs{f-f_k}_\infty + \Abs{f_k}_\infty < +\infty
+\]
+as $\Abs{f-f_k}_\infty \to 0$ and $\Abs{f_k}_\infty < +\infty$.
+\end{proof}
+
+\begin{definition}[pointwise convergence]
+\mymark{***}
+Let $f_k\colon A \to \RR$ be a sequence of functions
+and let $f\colon A \to \RR$ be a function.
+If for every $x\in A$, $f_k(x)\to f(x)$, we say that
+the sequence $f_k$
+\emph{converges pointwise}
+\mymargin{pointwise convergence}
+\index{convergence!pointwise}
+to $f$.
+\end{definition}
+
+\begin{theorem}[uniform convergence implies pointwise convergence]
+\mymark{***}
+Let $f_k\colon A \to \RR$ be a sequence of functions.
+If $f_k$ converges uniformly to a function $f$, then $f_k$ converges pointwise
+to $f$.
+\end{theorem}
+%
+\begin{proof}
+It is sufficient to observe that for every $x\in A$, we have
+\[
+  \abs{f_k(x)-f(x)} \le \sup_{y\in A} \abs{f_k(y)-f(y)}
+   = \Abs{f_k-f}_\infty \to 0.
+\]
+\end{proof}
+
+\begin{example}[sequence that converges pointwise but not uniformly]
+\mymark{***}%
+\label{ex:puntuale_non_uniforme}%
+Let $f_k\colon [0,1]\to \RR$ be the sequence of functions defined by
+$f_k(x)=x^k$. If $x\in[0,1)$, we have $x^k \to 0$, while if $x=1$, we have $x^k
+\to 1$.
+Thus, the sequence $f_k$ converges pointwise to the function
+\[
+f(x) =
+ \begin{cases}
+  0 & \text{if $x\in [0,1)$}\\
+  1 & \text{if $x=1$}.
+ \end{cases}
+\]
+However, observe that
+\[
+  d_\infty(f_k,f) = \sup_{x\in [0,1]} \abs{f_k(x)-f(x)}
+  \ge \lim_{x\to 1^-} \abs{f_k(x) - f(x)} = 1.
+\]
+thus there cannot be uniform convergence of $f_k$ to $f$.
+\end{example}
+
+It is easy to convince oneself that the sequence $f_k$ in the previous example,
+besides not converging uniformly, does not admit any uniformly convergent
+subsequence. Therefore, such a sequence cannot be contained in any compact
+subset of $C^0([0,1])$. In particular, the unit disk
+\[
+  D = \ENCLOSE{f\in C^0([0,1])\colon \Abs{f}_\infty \le 1}
+\]
+is a closed and bounded set that is not compact.
+
+\begin{theorem}[continuity of the uniform limit]
+\mymark{***}%
+Let $X$ be a metric space and let $f_k\colon X\to \RR$
+be continuous functions that
+converge uniformly to a function $f\colon X \to \RR$. 
+Then $f$ is also continuous.
+\end{theorem}
+%
+\begin{proof}
+\mymark{***}
+Fixing $x_0\in X$, it suffices to show that for every $\eps>0$
+there exists $\delta>0$ such that if $d(x,x_0)< \delta$, then $\abs{f(x)-f(x_0)}
+< 3 \eps$.
+By definition of uniform convergence, given $\eps>0$,
+there exists an $N\in \NN$ (in fact, infinitely many) such that
+$d_\infty(f_N,f)< \eps$. By the continuity of $f_N$, for the same $\eps$, there
+exists $\delta>0$
+such that if $d(x,x_0) < \delta$, then $\abs{f_N(x)-f_N(x_0)} < \eps$. But then
+if $d(x,x_0)<\delta$, we have
+\begin{align*}
+\abs{f(x)-f(x_0)}
+&\le \abs{f(x) - f_N(x)}
+ + \abs{f_N(x)-f_N(x_0)}
+ + \abs{f_N(x_0) - f(x_0)} \\
+ &\le \Abs{f-f_N}_\infty + \eps + \Abs{f-f_N}_\infty
+  \le 3\eps.
+\end{align*}
+\end{proof}
+
+\begin{theorem}[completeness of $C^0({[a,b]})$]%
+\label{th:C0_completo}
+\mymark{***}%
+\mymargin{$C^0([a,b])$ is complete}%
+\index{completeness!of $C^0([a,b])$}%
+The space $C^0([a,b])$ of continuous functions defined on a closed and bounded
+interval,
+endowed with the uniform norm $\Abs{\cdot}_\infty$, is a Banach space (i.e., a
+normed and complete vector space).
+\end{theorem}
+%
+\begin{proof}
+By the Weierstrass theorem, every continuous function defined on the compact
+$[a,b]$ is bounded.
+Thus, $C^0([a,b])$ is a vector subspace of $\B([a,b])$. 
+Moreover, the previous theorem (continuity of the limit) tells us that
+$C^0([a,b])$ is a closed subspace of $\B([a,b])$.
+But $\B([a,b])$ is complete, and therefore $C^0([a,b])$, being closed in
+$\B([a,b])$, is also complete.
+\end{proof}
+
+The uniform norm is the natural norm on $C^0([a,b])$ as it makes it a complete
+space. For this reason, the uniform norm on continuous functions
+is also called the \emph{$C^0$ norm} and can be denoted as follows:
+\index{$\Abs{\cdot}_{C^0}$}
+\index{norm!$C^0$}
+\[
+  \Abs{f}_{C^0} = \Abs{f}_{C^0([a,b])} = \Abs{f}_\infty
+  \qquad\text{for $f\in C^0([a,b])$.}
+\]

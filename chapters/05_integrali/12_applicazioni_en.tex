@@ -1,0 +1,330 @@
+\section{Some Applications of Integral Calculus}
+
+\begin{theorem}[Irrationality of $\pi$]
+\mymargin{$\pi$ is irrational}
+\index{$\pi$!irrationality}
+\index{irrationality!of $\pi$}
+The number $\pi$ is irrational.
+\end{theorem}
+%
+\begin{proof}
+Our first objective is to find recursive formulas for the computation of the
+following integral:
+\[
+  I_n = \int_0^\pi x^n (\pi-x)^n \sin x\, dx.
+\]
+First, observe that we have
+\[
+  I_0 = \int_0^\pi \sin x\, dx = \Enclose{-\cos x}_0^\pi = 2
+\]
+and, using integration by parts:
+\begin{align*}
+  I_1 &= \int_0^\pi x(\pi-x)\sin x\, dx\\
+      &= \Enclose{x(\pi-x)(-\cos x)}_0^\pi
+       -\int_0^\pi (\pi-2x)(-\cos x)\, dx \\
+      &= \int_0^\pi (\pi-2x)\cos x\, dx
+      = \pi \int_0^\pi \cos x\, dx - 2 \int_0^\pi x\cos x\, dx \\
+      &= - 2 \enclose{\Enclose{x\sin x}_0^\pi - \int_0^\pi \sin x\, dx}
+      = 2 \Enclose{\cos x}_0^\pi = 4.
+\end{align*}
+For $n\ge 2$, we proceed similarly. The function $x^n (\pi-x)^n$ vanishes at the
+integration limits, so by integrating by parts, we obtain:
+\[
+    I_n = \int_0^\pi \Enclose{n x^{n-1}(\pi-x)^n - n x^n (\pi-x)^{n-1}} \cos x\,
+  dx
+\]
+The function in the square brackets also vanishes at the integration limits, and
+thus integrating again by parts, we obtain:
+\begin{align*}
+  I_n &= -\int_0^\pi \big[n(n-1) x^{n-2}(\pi-x)^n
+    - 2n^2 x^{n-1}(\pi-x)^{n-1} \\
+  &\qquad\quad   + n(n-1) x^n(\pi-x)^{n-2}\big] \sin(x)\, dx \\
+    &= 2n^2 I_{n-1} - (n^2-n) \int_0^\pi \Enclose{(\pi-x)^2 +
+  x^2}x^{n-2}(\pi-x)^{n-2} \sin x\, dx \\
+    &= 2n^2 I_{n-1} - (n^2-n) \int_0^\pi \Enclose{\pi^2 -
+  2x(\pi-x)}x^{n-2}(\pi-x)^{n-2}\sin x\, dx \\
+  &= 2n^2 I_{n-1} - (n^2-n) \pi^2 I_{n-2} + 2(n^2-n) I_{n-1}
+\end{align*}
+from which
+\begin{align}\label{eq:9530978}
+   I_n = (4n^2-2n)I_{n-1} -(n^2-n)\pi^2 I_{n-2}.
+\end{align}
+
+Now, suppose for contradiction that $\pi = \frac p q$ with $p,q\in \NN$ and
+consider the sequence
+\[
+   a_n = \frac{q^{2n}}{n!} I_n.
+\]
+From the relation~\eqref{eq:9530978}, we deduce a recursive relation for $a_n$:
+\begin{align*}
+    a_n &= \frac{q^{2n}}{n!}\enclose{-(n^2-n)\frac{p^2}{q^2}
+  \frac{(n-2)!}{q^{2n-4}}a_{n-2}
+  + (4n^2-2n) \frac{(n-1)!}{q^{2n-2}}a_{n-1}} \\
+  &= - q^2 p^2 a_{n-2} + (4n-2)q^2 a_{n-1}
+\end{align*}
+which tells us, in particular, that if $a_{n-2}$ and $a_{n-1}$ are integers,
+then $a_n$ is also an integer (since it is a sum of products of integers).
+Since the first two terms:
+\[
+  a_0 = I_0 = 2, \qquad
+  a_1 = q^2 I_1 = 4 q^2
+\]
+are integers, we can deduce by induction that all terms of the sequence $a_n$
+are integers.
+
+On the other hand, observing that $y=x(\pi-x)$ is the graph of a parabola with
+axis $x=\frac \pi 2$, we know that for every $x$, $x(\pi-x) \le
+\frac{\pi^2}{4}$, and thus
+\[
+  0 \le x^n(\pi-x)^n \sin x
+    \le x^n (\pi-x)^n \le \frac{\pi^{2n}}{4^n}.
+\]
+Therefore,
+\[
+  0 \le I_n \le \frac{\pi^{2n+1}}{4^n}
+\]
+which implies
+\[
+  0 \le a_n \le \frac{q^{2n}}{n!}\frac{\pi^{2n+1}}{4^n}.
+\]
+Since $n! \gg C^n$, we can thus assert that $a_n\to 0$.
+On the other hand, we have seen that $a_n \in \ZZ$ and certainly $a_n > 0$ since
+$I_n \neq 0$ because $f_n$ is a continuous, non-negative, and non-zero function.
+But it is not possible for a sequence of positive integers to converge to zero:
+we have thus reached a contradiction.
+\end{proof}
+
+\begin{theorem}[Wallis Product]
+\label{th:wallis}%
+\mymark{*}%
+\mymargin{Wallis product}%
+\index{$\pi$!Wallis product}%
+\index{Wallis!approximation of $\pi$}%
+\index{formula!of Wallis}%
+We have
+\[
+  \frac{\pi}{2}
+  = \prod_{k=1}^{+\infty} \frac{(2k)^2}{(2k-1)(2k+1)}
+  = \frac{2}{1}
+  \cdot \frac{2}{3}
+  \cdot \frac{4}{3}
+  \cdot \frac{4}{5}
+  \cdot \frac{6}{5}
+  \cdot \frac{6}{7}
+  \cdot \frac{8}{7}
+  \cdot \frac{8}{9}
+  \dots
+\]
+And consequently, we obtain the following asymptotic estimate for the
+\emph{central binomial coefficient}%
+\mymargin{central binomial}%
+\index{binomial!central}
+\[
+ {2n \choose n} \sim \frac{4^n}{\sqrt{\pi n}}
+ \qquad \text{as $n\to +\infty$.}
+\]
+\end{theorem}
+%
+\begin{proof}
+Consider the sequence of integrals:
+\[
+  I_n = \int_0^\pi \sin^n(x)\, dx.
+\]
+Since $0\le \sin^n(x) \le 1$ for every $x\in [0,\pi]$ and since
+$\sin^{n+1}(x)\le \sin^n(x)$ for every $x\in[0,\pi]$, it is clear that $I_n$ is
+a decreasing sequence of positive numbers.
+
+From a direct calculation, we find that
+\[
+  I_0 = \int_0^\pi 1\, dx = \pi, \qquad
+  I_1 = \int_0^\pi \sin(x)\, dx = \Enclose {-\cos x}_0^\pi = 2.
+\]
+If $n\ge 2$,
+integrating by parts, we find instead a recursive relation
+\begin{align*}
+ I_n &= \int_0^\pi \sin^{n-1}(x) \sin x\, dx \\
+          &= \Enclose{-\sin^{n-1} x \cos x }_0^\pi + (n-1)\int_0^\pi \sin^{n-2}
+     x \cos^2 x \, dx \\
+     &= 0 + (n-1)\int_0^\pi\sin^{n-2}x\cdot (1-\sin^2 x)\, dx \\
+     &= (n-1) I_{n-2} - (n-1) I_{n}
+\end{align*}
+from which
+\begin{equation}
+\label{eq:187464}%
+  I_n = \frac{n-1}{n} I_{n-2}.
+\end{equation}
+This recursive formula allows us to calculate separately the even and odd terms
+of the sequence using the notation of the \emph{semi-factorial} (see
+Remark~\ref{rem:doppio_fattoriale}):
+\begin{align*}
+  I_{2n}
+    &= \frac{2n-1}{2n}\cdot \frac{2n-3}{2n-2} \cdots \frac {3}{4}\cdot
+  \frac{1}{2} \cdot I_0
+  = \frac{(2n-1)!!}{(2n)!!} \cdot \pi \\
+  I_{2n+1} &= \frac{2n}{2n+1}\cdot \frac {2n-2}{2n-1} \cdots
+  \frac{4}{5}\cdot \frac{2}{3} \cdot I_1
+  = \frac{(2n)!!}{(2n+1)!!}\cdot 2.
+\end{align*}
+
+Recalling that $I_n$ is decreasing, we observe that
+\[
+  \frac{I_{2n+2}}{I_{2n}}
+  \le \frac{I_{2n+1}}{I_{2n}}
+  \le \frac{I_{2n}}{I_{2n}} = 1
+\]
+and thanks to~\eqref{eq:187464}
+\[
+ \frac{I_{2n+2}}{I_{2n}}
+ = \frac{2n+1}{2n+2} \to 1
+\]
+from which we obtain that $\frac{I_{2n+1}}{I_{2n}}\to 1$.
+
+In conclusion, since $\pi$ appears in the formula for the even terms but not in
+that for the odd terms, and since the two expressions are asymptotic, we can
+obtain the formula for calculating $\frac \pi 2$:
+\begin{align*}
+\frac{\pi}{2}
+&= \frac{\pi}{2} \lim_{n\to +\infty} \frac{I_{2n+1}}{I_{2n}}
+= \lim_{n\to +\infty} \frac{\frac{(2n)!!}{(2n+1)!!}}{\frac{(2n-1)!!}{(2n)!!}}
+= \lim_{n\to +\infty} \frac{\enclose{(2n)!!}^2}{(2n+1)!!(2n-1)!!} \\
+&= \lim_{n\to +\infty} \frac{(2n)(2n)(2n-2)(2n-2) \cdots 4\cdot 4 \cdot 2 \cdot
+2}
+  {(2n+1)(2n-1)(2n-1)(2n-3)(2n-3)\cdots 3 \cdot 3 \cdot 1}.
+\end{align*}
+
+To obtain an asymptotic estimate of the central binomial coefficient, recall
+that (Remark~\ref{rem:doppio_fattoriale})
+\begin{align*}
+  (2n)!! &= 2^n n! \\
+  (2n+1)!! &= \frac{(2n+1)!}{2^n n!}
+\end{align*}
+thus the asymptotic estimate of Wallis can be written as
+\begin{align*}
+ \sqrt{\frac{\pi}{2}}
+ &\sim \frac{(2n)!!}{\sqrt{2n+1}(2n-1)!!}
+  = \frac{2^n n!\sqrt{2n+1}}{\frac{(2n+1)!}{2^n n!}} \\
+ &= \frac{\enclose{2^n (n!)}^2 \sqrt{2n+1}}{(2n+1)!} 
+ \sim \frac{4^n (n!)^2}{\sqrt{2n}(2n)!}
+\end{align*}
+from which
+\[
+{2n \choose n}
+= \frac{(2n)!}{(n!)^2}
+\sim \frac{4^n}{\sqrt{\pi n}}.
+\]
+\end{proof}
+
+\begin{theorem}[Stirling's Formula]
+\label{th:stirling}%
+\mymark{*}%
+\mymargin{Stirling's formula}%
+\index{formula!of Stirling}%
+\index{Stirling formula of}%
+\index{factorial!Stirling's formula}%
+We have
+\[
+  n! \sim \sqrt{2\pi n}\cdot \frac{n^n}{e^n}
+  \qquad \text{as $n\to +\infty$.}
+\]
+\end{theorem}
+%
+\begin{proof}
+Observe that the thesis:
+\[
+  \lim_{n\to +\infty}\frac{\sqrt{n} \cdot n^n}{n!\cdot e^n } = \frac{1}{\sqrt{2\pi}}
+\]
+is equivalent, by taking logarithms, to proving that
+\[
+   \lim_{n\to +\infty} \enclose{\frac 1 2 \ln n + n \ln n - \ln(n!) - n}
+   = -\frac 1 2 \ln (2\pi).
+\]
+The first part of the proof will aim to demonstrate that the preceding limit
+exists and is finite. Finally, to find the exact value, we will use Wallis's
+formula.
+The quantity $n\ln n - n$ is, up to an additive constant, the integral of the
+logarithm over the interval $[1,n]$.
+We have already seen in Example~\ref{ex:498124} that $\ln(n!)$ is obtained by
+approximating this integral with rectangles.
+If we proceed instead with an approximation using trapezoids, we obtain a more
+precise estimate that will give us the additional term $\frac 1 2 \ln n$,
+necessary for the limit to converge.
+
+Observe in general that if $f:[a,b]\to \RR$ is a concave function, then the
+graph of $f$ is bounded between the line passing through the endpoints
+$(a,f(a))$, $(b,f(b))$ (secant line) and any tangent line, for example, the
+tangent line at $((a+b)/2,f((a+b)/2))$.
+Consequently, the area under the graph, i.e., $\int_a^b f(x)\, dx$, is bounded
+between the areas of the two corresponding right trapezoids. The height of both
+trapezoids is $(b-a)$, and the area is calculated by multiplying the height by
+the average of the bases. In the case of the trapezoid with the oblique side on
+the secant, the average of the bases is $(f(a)+f(b))/2$, in the case of the
+trapezoid with the oblique side on the tangent line at the midpoint, the average
+of the bases is equal to the section at the midpoint: $f((a+b)/2)$. Thus, for
+every concave $f$:
+\[
+   (b-a)\cdot  \frac{f(a) + f(b)}{2}
+   \le \int_a^b f(x) \, dx
+   \le (b-a) \cdot f\enclose{\frac{a+b}{2}}.
+\]
+
+Applying these estimates to the function $f(x) = \ln x$ on the interval $[k,
+k+1]$, we obtain:
+\[
+\frac{\ln(k) + \ln(k+1)}{2}
+\le \int_k^{k+1} \ln x\, dx
+\le \ln \enclose{k+\frac 1 2}.
+\]
+
+Let $a_k$ be the difference between the first two quantities.
+Clearly, $a_k\ge 0$
+and it results in
+\begin{align*}
+a_k
+ &= \int_k^{k+1} \ln x\, dx - \frac{\ln (k) + \ln(k+1)}{2}\\
+ & \le \ln\enclose{k+\frac 1 2} - \frac{\ln(k) + \ln(k+1)}{2} \\
+ & = \frac 1 2 \ln\frac{\enclose{k+\frac 1 2}^2}{k(k+1)}
+  = \frac 1 2 \ln\enclose{1+\frac{1}{4(k^2+k)}}\\
+ & = \frac 1 {8k^2} + o\enclose{\frac 1 {k^2}}
+ \qquad \text{as $k\to+\infty$.}
+\end{align*}
+The series $\sum a_k$ is thus convergent, meaning the sequence
+\[
+  A_n = \sum_{k=1}^n a_k
+\]
+is convergent. Let $\ell$ be the limit of $A_n$. We have:
+\begin{align*}
+A_n
+&= \sum_{k=1}^{n-1} \int_{k}^{k+1} \ln x\, dx -
+\sum_{k=1}^{n-1} \frac{\ln k + \ln(k+1)}{2} \\
+&= \int_{1}^{n} \ln x\, dx - \sum_{k=2}^{n-1} \ln k - \frac{\ln 1}{2}
+-\frac{\ln n}{2} \\
+&= \Enclose{ x \ln x -x}_1^n
+- \sum_{k=1}^n \ln k + \frac{\ln n}{2} \\
+&= n \ln n - n + 1 - \ln(n!) + \frac {\ln n}{2} \to \ell
+ \end{align*}
+from which
+\[
+e^{A_n} = \frac{n^n\cdot e \cdot \sqrt{n}}{e^n \cdot n!} \to e^\ell
+\]
+hence, setting $c=e/e^\ell$,
+\[
+  n! \sim c\cdot\frac{n^n \sqrt{n}}{e^n}.
+\]
+To determine the unknown constant $c$, we can exploit Wallis's formula on the
+central binomial coefficient:
+\begin{align*}
+\frac{4^n}{\sqrt{\pi n}}
+ &\sim
+{2n \choose n}
+= \frac{(2n)!}{(n!)^2}
+\sim \frac{\displaystyle c \frac{(2n)^{2n}\sqrt{2n}}{e^{2n}}}
+{\displaystyle\enclose{c\frac{n^n\sqrt n}{e^n}}^2} \\
+&= \frac{2^{2n}\sqrt{2}}{c\sqrt{n}}
+= \frac{4^n \sqrt 2}{c\sqrt n}
+\end{align*}
+from which we obtain
+\[
+  \frac{1}{\sqrt \pi} \sim \frac{\sqrt 2}{c}
+\]
+and therefore $c=\sqrt{2\pi}$.
+\end{proof}

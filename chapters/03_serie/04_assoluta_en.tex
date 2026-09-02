@@ -1,0 +1,216 @@
+\section{absolute convergence}
+
+For series with positive terms, we have many convergence criteria that, in
+general, do not apply to series with arbitrary signs or to series of complex
+numbers. However, the convergence of the latter can sometimes be easily reduced
+to the convergence of series with positive terms by considering the modulus of
+each term.
+
+\begin{definition}[absolute convergence]
+\mymark{***}
+We say that a series (with real or complex terms) $\sum a_n$ is \emph{absolutely
+convergent}%
+\mymargin{absolutely convergent}%
+\index{absolutely!convergent} if the series $\sum \abs{a_n}$ is convergent.
+\end{definition}
+
+\begin{theorem}[absolute convergence]\label{th:convergenza_assoluta}
+\mymark{***}%
+If a series $\sum a_n$ (real or complex) is absolutely convergent, then it is
+convergent and the following holds:
+\[
+  \abs{\sum_{k=0}^{+\infty} a_k} \le \sum_{k=0}^{+\infty} \abs{a_k}.
+\]
+\end{theorem}
+%
+\begin{proof}
+\mymark{*}
+Initially, suppose that the $a_n$ are real numbers. Define $a_n^+ =
+\max\ENCLOSE{0, a_n}$ and $a_n^- = -\min \ENCLOSE{0, a_n}$. That is, if $a_n\ge
+0$, then $a_n^+ = a_n$ and $a_n^-=0$; if $a_n\le 0$, then $a_n^+ =0$ and $a_n^-
+= -a_n$. Thus, $a_n^+\ge 0$, $a_n^-\ge 0$,
+\[
+   a_n = a_n^+  - a_n^-
+   \qquad\text{and}\qquad
+   \abs{a_n} = a_n^+ + a_n^-.
+\]
+Then, if $\sum \abs{a_n}$ converges, by comparison, both $\sum a_n^+$ and $\sum
+a_n^-$ converge. Therefore, by the theorem on the sum of limits, $\sum a_n =
+\sum a_n^+ - \sum a_n^-$, and hence $\sum a_n$ also converges.
+
+If we have a sequence of complex numbers $a_n = x_n + i y_n$ and if $\sum
+\abs{a_n}$ converges, then by comparison, both $\sum \abs{x_n}$ and
+$\sum\abs{y_n}$ converge (note that $\abs{x} \le \abs{x+iy}$ and $\abs{y}\le
+\abs{x+iy}$). Thus, $\sum x_n$ and $\sum y_n$ converge by what has already been
+demonstrated for series with real terms. But then $\sum i y_n$ and $\sum a_n =
+\sum (x + iy_n)$ also converge.
+
+Now, let us set
+\[
+  S_n  = \sum_{k=0}^n a_k.
+\]
+By the subadditivity of the modulus, we know that for finite sums, we have
+\[
+ \abs{S_n} =\abs{\sum_{k=0}^n a_k}
+ \le \sum_{k=0}^n \abs{a_k} \le \sum_{k=0}^{+\infty} \abs{a_k}.
+\]
+And by the continuity of the modulus, setting $S= \lim S_n$, we have
+\[
+  \abs{\sum_{k=0}^{+\infty} a_k}
+  = \abs{S}
+  = \lim_{n\to +\infty} \abs{S_n}
+  \le \sum_{k=0}^{+\infty} \abs{a_k}.
+\]
+\end{proof}
+
+\begin{theorem}[exchange of series]
+\label{th:scambio_somma}
+Let $a_{k,j}\in \RR$ or $a_{k,j}\in \CC$ be a two-index sequence $k\in \NN$,
+$j\in \NN$. If
+\begin{equation}\label{eq:499655}
+  \sum_{k=0}^{+\infty}\sum_{j=0}^{+\infty}\abs{a_{k,j}}<+\infty  
+  \qquad \text{or} \qquad
+  \sum_{j=0}^{+\infty}\sum_{k=0}^{+\infty}\abs{a_{k,j}}<+\infty  
+\end{equation}
+then
+\begin{equation}\label{eq:scambio_somma}
+  \sum_{k=0}^{+\infty} \sum_{j=0}^{+\infty} a_{k,j}
+  = \sum_{j=0}^{+\infty} \sum_{k=0}^{+\infty} a_{k,j}.
+\end{equation}
+\end{theorem}
+%
+\begin{proof}
+Since the statement is symmetric in $k$ and $j$, we can assume that the first of
+the two alternatives in hypothesis~\eqref{eq:499655} is satisfied: $\sum_k
+\sum_j \abs{a_{k,j}}<+\infty$.
+
+It is understood, of course, that for each $k$, the series $\sum_j
+\abs{a_{k,j}}$ is convergent, hence $\sum_j a_{k,j}$ is absolutely convergent.
+% and, by theorem~\ref{th:convergenza_assoluta}, 
+% also $\sum_k \abs{\sum_j a_{k,j}} 
+% \le \sum_k \sum_j \abs{a_{k,j}}$
+% is absolutely convergent.
+Obviously, 
+$\sum_k \abs{a_{k,j}} \le \sum_k \sum_j \abs{a_{k,j}}$
+and thus for each $j$, the series 
+$\sum_k a_{k,j}$ is also absolutely convergent.
+Setting
+\[
+S = \sum_{k=0}^{+\infty}\sum_{j=0}^{+\infty} a_{k,j},
+\qquad
+S_n = \sum_{j=0}^{n-1}\sum_{k=0}^{+\infty} a_{k,j}  
+\]
+we need to show that $S_n \to S$
+as $n\to +\infty$. 
+We apply the definition of limit:
+let $\eps>0$ be fixed.
+By the tail theorem~\ref{th:coda}, there exists $K$ such that 
+\[
+  \sum_{k=K}^{+\infty} \sum_{j=0}^{+\infty} \abs{a_{k,j}}<\frac \eps 2
+\]
+and for each $k<K$, there exists $J_k$ such that 
+\[
+  \sum_{j=J_k}^{+\infty} \abs{a_{k,j}} < \frac{\eps}{2K}.  
+\]
+Thus, setting $J=\max\ENCLOSE{J_0,J_1, \dots, J_{K-1}}$, if $n>J$, we have:
+\begin{align*}
+  \abs{S-S_n}
+  &= \abs{\sum_{k=0}^{+\infty}\sum_{j=0}^{+\infty}a_{k,j} 
+  - \sum_{j=0}^{n-1}\sum_{k=0}^{+\infty}a_{k,j}}
+  = 
+  \abs{\sum_{k=0}^{+\infty}\sum_{j=0}^{+\infty}a_{k,j} 
+  - \sum_{k=0}^{+\infty}\sum_{j=0}^{n-1}a_{k,j}}\\
+  &=
+  \abs{\sum_{k=0}^{+\infty}\sum_{j=n}^{+\infty}a_{k,j} }
+  = \abs{\sum_{k=0}^{K-1}\sum_{j=n}^{+\infty} a_{k,j}
+   + \sum_{k=K}^{+\infty}\sum_{j=n}^{+\infty} a_{k,j}}\\
+   &\le \sum_{k=0}^{K-1}\sum_{j=n}^{+\infty} \abs{a_{k,j}}
+    + \sum_{k=K}^{+\infty}\sum_{j=0}^{+\infty} \abs{a_{k,j}}
+   \le \sum_{k=0}^{K-1}\sum_{j=J_k}^{+\infty} \abs{a_{k,j}}
+   + \frac \eps 2
+  \le \frac \eps 2 + \frac \eps 2 = \eps
+\end{align*}
+as we wanted to demonstrate.
+\end{proof}
+
+\begin{theorem}[unconditional convergence]%
+\label{th:convergenza_incondizionata}%
+\mymark{*}%
+\index{convergence!unconditional}%
+If $\sum a_k$ is an absolutely convergent series and $\sigma\colon \NN \to \NN$
+is any bijective function (permutation of natural numbers), then
+\[
+  \sum_{k=0}^{+\infty} a_k
+  = \sum_{j=0}^{+\infty} a_{\sigma(j)}.
+\]
+\end{theorem}
+\begin{proof}
+Define the two-index sequence $b_{k,j}$ as follows:
+\[
+  b_{k,j} = \begin{cases}
+    a_k & \text{if $k=\sigma(j)$},\\
+    0 & \text{otherwise}.
+  \end{cases}  
+\] 
+Clearly, $\sum_j \abs{b_{k,j}} = \abs{a_k}$, and thus $\sum_k \sum_j
+\abs{b_{k,j}} = \sum_k \abs{a_k} < +\infty$. Therefore, by
+theorem~\ref{th:scambio_somma}
+\[
+ \sum_{k=0}^{+\infty} a_k 
+ = \sum_{k=0}^{+\infty} \sum_{j=0}^{+\infty}b_{k,j}
+ = \sum_{j=0}^{+\infty} \sum_{k=0}^{+\infty}b_{k,j}
+ = \sum_{j=0}^{+\infty} a_{\sigma(j)}.  
+\]
+\end{proof}
+
+\begin{theorem}[Cauchy sums]
+  \label{th:somma_Cauchy}%
+Let $a_{k,j}\in \RR$ or $a_{k,j}\in \CC$ be a two-index sequence $k\in \NN$,
+$j\in\NN$. If
+\[
+  \sum_{k=0}^{+\infty} \sum_{j=0}^{+\infty} \abs{a_{k,j}} < +\infty
+  \qquad\text{or}\qquad 
+  \sum_{n=0}^{+\infty} \sum_{k=0}^n \abs{a_{k,n-k}} < +\infty
+\]  
+then 
+\begin{equation}\label{eq:somma_Cauchy}
+  \sum_{k=0}^{+\infty} \sum_{j=0}^{+\infty} a_{k,j}
+   = \sum_{n=0}^{+\infty} \sum_{k=0}^{n} a_{k,n-k}.
+\end{equation}
+\end{theorem}
+%
+\begin{proof}
+Set 
+\[
+  b_{k,n} = \begin{cases}
+    a_{k,n-k} & \text{if $k\le n$}\\
+    0 & \text{if $k>n$}.
+  \end{cases}  
+\]
+Then observe that 
+\begin{align*}
+  \sum_{k=0}^{+\infty} \sum_{n=0}^{+\infty} b_{k,n}
+  &= \sum_{k=0}^{+\infty} \sum_{n=k}^{+\infty} a_{k,n-k} 
+  = \sum_{k=0}^{+\infty} \sum_{j=0}^{+\infty} a_{k,j}
+  \\
+  \sum_{n=0}^{+\infty}\sum_{k=0}^{+\infty} b_{k,n} 
+  &= \sum_{n=0}^{+\infty}\sum_{k=0}^{n} a_{k,n-k}
+\end{align*}
+and similarly
+\begin{align*}
+  \sum_{k=0}^{+\infty} \sum_{n=0}^{+\infty} \abs{b_{k,n}}
+  &= \sum_{k=0}^{+\infty} \sum_{j=0}^{+\infty} \abs{a_{k,j}}
+  \\
+  \sum_{n=0}^{+\infty} \sum_{k=0}^{+\infty} \abs{b_{k,n}}
+  &= \sum_{n=0}^{+\infty} \sum_{k=0}^{n} \abs{a_{k,n-k}}.  
+\end{align*}
+Thus, theorem~\ref{th:scambio_somma} can be applied to exchange the sums of the
+series with terms $b_{k,n}$ to obtain the result:
+\[
+  \sum_{k=0}^{+\infty} \sum_{j=0}^{+\infty} a_{k,j}
+  = \sum_{k=0}^{+\infty}\sum_{n=0}^{+\infty} b_{k,n} 
+  = \sum_{n=0}^{+\infty} \sum_{k=0}^{+\infty} b_{k,n}
+  = \sum_{n=0}^{+\infty} \sum_{k=0}^{n} a_{k,n-k}.
+\]
+%from which~\eqref{eq:somma_Cauchy}.
+\end{proof}

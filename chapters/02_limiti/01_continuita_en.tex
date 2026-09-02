@@ -1,0 +1,1247 @@
+\section{Continuous Functions}
+\label{sec:continuita}
+
+Intuitively, a continuous function has the property that if at a point $x_0$ it
+assumes a value $y_0=f(x_0)$, then at points sufficiently close to $x_0$, the
+values assumed will not differ significantly from the value $y_0$. In the
+following definition, this is formalized: given the point $x_0$ and choosing an
+error $\eps>0$ that we are willing to tolerate in the function's values, we can
+find an error $\delta>0$ such that at points differing from $x_0$ by less than
+$\delta$, the function's value differs from $y_0$ by less than $\eps$.
+
+If $x$ and $y$ are two points in $\RR$, their distance is given by $\abs{x-y}$.
+An inequality of the form $\abs{x-y}<r$ means that the point $x$ is located in
+the interval $(x-r,x+r)$. In the following, we will focus on functions with
+domain and codomain in the real numbers. However, we will observe that many of
+the definitions and theorems can be stated and proved identically for functions
+with domain and codomain in the complex numbers%
+\footnote{There are actually four relevant cases: real domain and codomain, complex domain and codomain, real domain and complex codomain, complex domain and real codomain. To indicate that the domain is a subset of the complex numbers, we will say that the function $f$ is \emph{of complex variable}, while to indicate that the function $f$ has a codomain in the complex numbers, we will say that $f$ is \emph{complex-valued} or simply that $f$ is complex. The case of complex functions of complex variable is obviously the most general case. However, it can sometimes be useful to restrict to the real variable where we have the linear structure given by the ordering. To maintain the ordering, the real and complex cases also differ in the points at infinity: in the real case, we introduce two, $+\infty$ and $-\infty$, while in the complex case, a single point $\infty$ is introduced.}
+On a first reading, it is advisable to disregard the complex case. Even when $x$
+and $y$ are points in $\CC$, the modulus of the difference $\abs{x-y}$
+represents the distance between the two points $x$ and $y$. Given $y\in \CC$ and
+$r>0$
+\mynote{The condition $r>0$ makes no sense if $r\in \CC$, so if this condition is imposed, it is implied that $r\in \RR$}
+the condition $\abs{x-y}<r$ identifies the points $x$ that are located within a
+circle of radius $r$ around $y$.
+
+\begin{definition}[continuous function]
+  \label{def:continua}%
+  \index{function!continuous}%
+  \index{continuity}%
+    Let $f\colon A \subset \RR \to \RR$ (or $f\colon A\subset \CC \to \CC$) be a
+  function. We say that $f$ is \emph{continuous at the point}%
+\mymargin{continuous at the point}%
+\index{continuous!at the point} $x_0\in A$ if
+  \begin{equation}\label{eq:continuita}
+  \forall \eps>0 \colon \exists \delta>0 \colon
+  \forall x\in A\colon
+  \abs{x-x_0} < \delta \implies \abs{f(x)-f(x_0)} < \eps.
+  \end{equation}
+  
+  We say that $f$ is \emph{continuous}%
+\mymargin{continuous}%
+\index{continuous} if it is continuous at every point $x_0 \in A$.
+  \end{definition}
+  
+  %%%%%%%%%%%%%%%%%%%
+  %%%%%%%%%%%%%%%%%%%
+  %%%%%%%%%%%%%%%%%%%
+  
+  Note: the function $f(x)=\frac{1}{x}$
+  assumes very different values near $x=0$ (for example $f(0.01)-f(-0.01)=200$)
+  but this does not prevent the function from being continuous since the point
+  $x=0$ does not belong to the domain and therefore,
+  according to the previous definition, it is neither meaningful nor important
+  to verify if the function is continuous at that point.
+  
+  \begin{theorem}[continuity of the reciprocal]
+  \label{th:cont_reciproco}%
+  The function $f\colon \RR\setminus\ENCLOSE{0}\to \RR$ defined
+  by $f(x)=\frac 1 x$ is a continuous function.
+  \end{theorem}
+  %
+  \begin{proof}
+  Let $x,x_0\neq 0$.
+  If we take $\delta < \frac{\abs{x_0}}2$
+  and if $\abs{x-x_0} < \delta$, then,
+  by the reverse triangle inequality,
+  $\abs{x} > \frac{\abs{x_0}}2$. Thus
+  \[
+  \abs{\frac 1 x - \frac 1 {x_0}}
+  = \frac{\abs{x-x_0}}{\abs{x\cdot x_0}}
+  \le \frac{2\delta}{\abs{x_0}^2}.
+  \]
+  Therefore, the condition $\abs{f(x)-f(x_0)}<\eps$
+  is obtained if $\delta$ is chosen such that
+  $\delta < \frac{\abs{x_0}^2\cdot \eps}{2}$.
+  \end{proof}
+  
+  \begin{example}
+  The \emph{sign function}%
+\mymargin{sign function}%
+\index{function!sign} $\sgn\colon \RR \to \RR$ defined by
+  \[
+    \sgn(x) = \begin{cases}
+    1 & \text{if $x> 0$}\\
+    0 & \text{if $x=0$}\\
+    -1 & \text{if $x<0$}
+    \end{cases}
+  \]
+  is an example of a non-continuous function.
+  \end{example}
+  %
+  \begin{proof}
+  We verify that the function is not continuous
+  at the point $x_0=0$.
+  Indeed, if $x\neq 0$, we have
+  \[
+  \abs{\sgn(x)-\sgn(x_0)} = \abs{\sgn(x)} = 1
+  \]
+  and therefore, if we choose $\eps<1$, it is not possible
+  to find $\delta>0$ such that the continuity condition~\eqref{eq:continuita}
+  holds at the point $x_0=0$.
+  \end{proof}
+  
+  \begin{exercise}
+  Prove that the functions $f(x) = x$ and $g(x)=\abs{x}$ are continuous.
+  Prove that the functions $h(x) = \lfloor x\rfloor$ and $k(x)=\lceil x \rceil$
+  are not continuous (but are continuous at every point
+  $x_0\in \RR \setminus \ZZ$).
+  \end{exercise}
+  
+  \begin{definition}[operations on functions]
+  Let $A \subset \RR$ (or $A\subset \CC$) 
+  and let $f,g$ be functions $A \to \RR$ (or $A\to \CC$).
+  We can then define
+  $f+g$, $-f$, $f-g$, $f\cdot g$, $\abs f$, $f^n$ (with $n\in \NN$)
+  and (if $g(x)\neq 0$ for every $x\in A$) also $f/g$
+  as functions $A \to \RR$ (or $A\to \CC$) through the following obvious
+  definitions
+  \begin{gather*}
+  (f+g)(x) = f(x) + g(x), \qquad
+  (f-g)(x) = f(x) - g(x), \\
+  (f\cdot g)(x) = f(x) \cdot g(x), \qquad
+  (f/g)(x) = f(x) / g(x), \\
+  (-f)(x) = -(f(x)), \qquad
+  \abs f(x) = \abs{f(x)}, \qquad
+  f^n(x) = (f(x))^n.
+  \end{gather*}
+  
+  If $f\colon A \to B$ and $g\colon B\to C$, we recall
+  that we have defined the composite function
+  $g\circ f\colon A \to C$:
+  \[
+    (g\circ f)(x) = g(f(x)).
+  \]
+  
+    If $c\in \RR$ (or $c\in \CC$) is a number, we will sometimes consider
+  $c\colon A \to \RR$ as a \emph{constant} function.
+  It is therefore understood that $c\cdot f$ is the function defined by
+  $(c\cdot f)(x) = c\cdot (f(x))$.
+  The sum and scalar multiplication make the set $\RR^A$
+  of functions $A \to \RR$ a vector space over the field $\RR$
+  (the same holds for $\CC^A$ with $A\subset \CC$).
+  \end{definition}
+  
+  \begin{theorem}[composition of continuous functions]
+  \label{th:continuita_composizione}%
+  If $f$ and $g$ are functions (real or complex) defined and continuous
+  at the same point $x_0$ (real or complex),
+  then also
+  \[
+    f+g, \qquad
+    f\cdot g, \qquad
+    f-g, \qquad
+    \abs{f}, \qquad
+    f^n\quad \text{(with $n\in \NN$)}
+  \]
+  are functions defined and continuous at the point $x_0$.
+  If moreover $g(x_0)\neq 0$, then the function
+  $f/g$
+  is defined and continuous at the point $x_0$.
+  
+  If $f\colon A\subset \RR \to \RR$ is a function continuous
+  at the point $x_0\in A$ and
+  $g\colon B\subset \RR \to \RR$ is a function
+  continuous at the point $y_0=f(x_0)\in B$, then the function $g\circ f$
+  defined on $f^{-1}(B)$ is continuous at the point $x_0$
+  (the same holds by replacing $\CC$ with $\RR$).
+  \end{theorem}
+  %
+  \begin{proof}
+  First, we show the continuity
+  of the composition $g\circ f$.
+  For the continuity of $f$ at $x_0$ and of $g$ at $y_0=f(x_0)$,
+  we have that for every $\eps>0$, there exists a $\gamma>0$
+  and for every $\gamma>0$, there exists a $\delta>0$ such that
+  \begin{align*}
+   \abs{x-x_0}< \delta &\implies \abs{f(x)-f(x_0)}<\gamma,\\
+   \abs{y-y_0}< \gamma & \implies \abs{g(y)-g(y_0)}<\eps
+  \end{align*}
+  from which
+  \[
+  \abs{x-x_0}< \delta
+  \implies \abs{f(x)-f(x_0)}< \gamma
+  \implies \abs{g(f(x))-g(f(x_0))} < \eps
+  \]
+  which is nothing but the condition of
+  continuity~\eqref{eq:continuita} for $g\circ f$.
+  
+  If $f$ and $g$ are continuous at the point $x_0$,
+  then for every $\eps'>0$, there exist $\delta_1$
+  and $\delta_2$ such that
+  \begin{align*}
+   \abs{x-x_0} < \delta_1 &\implies \abs{f(x)-f(x_0)} < \eps',
+   \\
+   \abs{x-x_0} < \delta_2 &\implies \abs{g(x)-g(x_0)} < \eps'.
+  \end{align*}
+  In particular, choosing $\delta = \min\ENCLOSE{\delta_1,\delta_2}$,
+  if $\abs{x-x_0} < \delta$, both estimates hold simultaneously:
+  \[
+   \abs{f(x)-f(x_0)}< \eps', \qquad
+   \abs{g(x)-g(x_0)}< \eps'.
+  \]
+  
+  Thus, for the sum, we observe that if $\abs{x-x_0}<\delta$,
+  we have
+  \begin{align*}
+   \abs{(f+g)(x) - (f+g)(x_0)}
+    &= \abs{f(x)+g(x)-f(x_0)-g(x_0)}\\
+    &\le \abs{f(x)-f(x_0)} + \abs{g(x)-g(x_0)}
+    \le 2 \eps'.
+  \end{align*}
+  Given $\eps>0$, it will suffice to choose $\eps' = \eps / 2$
+  and $\delta$ as above to obtain the condition of continuity.
+  
+  For the product, we have
+  \begin{align*}
+    \MoveEqLeft \abs{f(x)g(x)-f(x_0)g(x_0)}\\
+    &= \abs{f(x)g(x) - f(x_0)g(x) + f(x_0)g(x) - f(x_0)g(x_0)}\\
+        &\le \abs{f(x)-f(x_0)}\cdot\abs{g(x)} + \abs{f(x_0)}\cdot
+    \abs{g(x)-g(x_0)} \\
+    &\le \eps' \abs{g(x)} + \abs{f(x_0)} \eps'.
+  \end{align*}
+  Now observe that $\abs{g(x)}\le \abs{g(x)-g(x_0)} + \abs{g(x_0)}$
+  and therefore $\abs{g(x)}\le \abs{g(x_0)}+\eps'$, from which:
+  \begin{align*}
+    \abs{f(x)g(x)-f(x_0)g(x_0)}
+    &\le \eps' \enclose{\abs{g(x_0)}+\eps'} + \abs{f(x_0)} \eps' \\
+    &= \eps' \cdot(\abs{f(x_0)} + \abs{g(x_0)} + \eps').
+  \end{align*}
+  We can easily make this quantity less than
+  any $\eps>0$: it will suffice to take $\eps'<1$ and
+  \[
+    \eps' < \frac{\eps}{\abs{f(x_0)} + \abs{g(x_0)} + 1}.
+  \]
+  
+  The function $f^n$ is continuous by induction on $n$
+  as it is the product of continuous functions: $f^{n+1} = f^{n} \cdot f$.
+  
+  We have already seen that the function $h(x) = \frac{1}{x}$ is continuous,
+  thus if $g$ is continuous, the function $\frac{1}{g(x)} = h\circ g$
+  is continuous as it is the composition of continuous functions. 
+  Consequently, the function $\frac{f}{g} = f \cdot \frac{1}{g}$
+  is continuous, being the product of continuous functions.
+  
+  Similarly, the function $f-g$ is the sum of $f$ with $-g$, and
+  the function $-g$ is the composition of $g$ with $h(x)=-x$.
+  It is immediate to verify that the function $h(x)=-x$ is continuous,
+  and thus the difference $f-g$ is continuous.
+  The same holds for the function $\abs f$, which is the composition
+  of $f$ with the function $h(x) = \abs{x}$.
+  \end{proof}
+  
+  The previous theorem is very important and useful as
+  it guarantees that any function defined through an expression
+  involving only the functions and operations
+  listed in the theorem's statement is certainly
+  a continuous function. As in the following example.
+  
+  \begin{example}
+  The function
+  \[
+  f(x) = \frac{(x-3)\cdot x -\frac{1}{x+x^2}}{\abs{x-\frac{1-x^3}{x}}}
+  \]
+  is continuous.
+  
+  It is understood that this function is defined on the set of $x\in \RR$
+  for which all the involved operations are defined, i.e.,
+  $f\colon D \subset \RR \to \RR$
+  with
+  \[
+        D = \ENCLOSE{x\in \RR \colon x+x^2 \neq 0,\ x\neq 0,\
+    \abs{x-\frac{1-x^3}{x}}\neq 0}.
+  \]
+  \end{example}
+  \begin{proof}
+  To convince oneself that this function $f$ is continuous,
+  note that the functions $x$ and the constants $3$ and $1$ are
+  continuous functions.
+  But then, by theorem~\ref{th:continuita_composizione},
+  the functions $x-3$ and $x^2=x\cdot x$ are also continuous.
+  Thus, $(x-3)\cdot x$, $x+x^2$, $x^3$, and $1-x^3$ are continuous.
+  Consequently, $\frac 1{1+x^2}$ and $\frac{1-x^3}{x}$ are continuous.
+  Then, $(x-3)\cdot x - \frac 1{1+x^2}$ and $x-\frac{1-x^3}{x}$
+  are continuous, and so is $\abs{x-\frac{1-x^3}{x}}$. Finally,
+  $f(x)$ is continuous.
+  \end{proof}
+  
+  In particular, it is clear that the linear and quadratic functions 
+  introduced in previous sections are continuous functions
+  as they are obtained by summing and multiplying continuous functions.
+  
+  %%%%%%%%%%%%%%%%%%%
+  
+\begin{theorem}[continuity of monotone functions]
+    \label{th:monotona_continua}%
+    \mymark{*}%
+    \index{function!continuous}%
+    \index{function!monotone}%
+    \index{function!surjective}%
+    \index{criterion!continuity of monotone functions}%
+    Let $A\subset \RR$ and let
+    $f\colon A \to \RR$ be a monotone function.
+    If $f(A)$ is an interval, then $f$ is continuous.
+\end{theorem}
+  %
+  \begin{proof}
+  Without loss of generality, we can assume that $f$ 
+  is increasing. 
+  
+  Take a point $x_0\in A$ and let $\eps>0$ be given.
+  Choose any $\eps'$ with $0<\eps'<\eps$.
+  We want to find $x_1<x_0$ such that  
+  for every $x\in [x_1,x_0]\cap A$, we have $f(x)\ge f(x_0)-\eps'$.
+  Since $f(A)$ is an interval containing the point $f(x_0)$, 
+  there are two possibilities: either $f(x)\ge f(x_0)-\eps'$ for every $x\in A$
+  and we can choose $x_1<x_0$ arbitrarily,
+  or there exists $x_1\in A$ such that $f(x_1)=f(x_0) - \eps'$.
+  In this second case, it must be $x_1<x_0$ (since $f$ is increasing),
+  and by monotonicity, we have, as desired, $f(x)\ge f(x_1) \ge f(x_0)-\eps'$ 
+  for every $x\in [x_1,x_0]$.
+  
+  Similarly, we can find $x_2>x_0$ such 
+  that for every $x\in [x_0,x_2]\cap A$, we have $f(x) \le f(x_0)+\eps'$.
+  Since $f$ is increasing, if $x\ge x_0$, we also have $f(x)\ge f(x_0)$, 
+  and if $x\le x_0$, we have $f(x) \le f(x_0)$. 
+  Thus, for every $x\in [x_1,x_2]$, we have $\abs{f(x)-f(x_0)}\le\eps'<\eps$.
+  It will suffice to choose $\delta = \min\ENCLOSE{x_0-x_1,x_2-x_0}$ 
+  to obtain the continuity of $f$ at $x_0$:
+  \[
+  \forall x\in A\colon \abs{x-x_0}<\delta \implies \abs{f(x)-f(x_0)}<\eps.
+  \]
+\end{proof}
+  %
+
+The previous theorem (theorem~\ref{th:monotona_continua}) 
+allows us to assert that for $a>0$, $a\neq 1$, 
+the functions $\exp_a$ and $\log_a$ are continuous. 
+Indeed, these functions are monotone bijections between 
+the intervals $\RR$ and $\RR_+$.
+
+The trigonometric functions $\sin$ and $\cos$ are also continuous functions.
+In fact, we know that $\sin \colon [-\tau/4,\tau /4]\to [-1,1]$
+and $\cos\colon [0,\tau/2]\to [-1,1]$ are strictly monotone 
+and bijective, thus they are continuous on these intervals. 
+Thanks to the properties of symmetry and periodicity
+(or using the addition formulas), it is easy to verify 
+that these functions are continuous on the entire $\RR$.
+
+Thanks to theorem~\ref{th:continuita_composizione}, we know 
+that if $n\in \NN$, the function $x^n$ is continuous over its 
+entire domain $\RR$. 
+The inverse function $\sqrt[n]{x}$ is also increasing and 
+bijective as a function $[0,+\infty)\to[0,+\infty)$ and thus 
+it is also continuous.
+By symmetry (see exercise~\ref{ex:simmetrica_continua}), 
+we can conclude 
+%that both the power $x^n$ 
+that the roots $\sqrt[n]{x}$ are 
+continuous functions over their entire domain.
+Also, the function $f(x) = x^\alpha$, $f\colon [0,+\infty)\to [0,+\infty]$ 
+with $\alpha>0$ is increasing and invertible (the inverse is $x^{\frac 1
+\alpha}$)
+and thus it is surjective and continuous.
+If $\alpha<0$, the function $f(x)=x^\alpha$ is defined on the interval 
+$(0,+\infty)$ and is also continuous as it is the composition of continuous
+functions: $x^{\alpha} = \frac{1}{x^{-\alpha}}$.
+
+%
+\begin{exercise}\label{ex:simmetrica_continua}
+  Let $f\colon \RR\to \RR$ be an even or odd function.
+  If the restriction of $f$ to the interval $[0,+\infty)$ 
+  is continuous, then $f$ is continuous on the entire $\RR$.
+\end{exercise}
+
+\subsection{Limit}
+
+If a function $f$ is not defined at a point $x_0$, it makes no sense to ask
+whether it is continuous at that point. 
+However, we can ask whether it is possible to define the function at the point 
+$x_0$ by assigning an appropriate value $\ell$ to make $f$ continuous 
+at that point. 
+If this is possible, we say that the function $f(x)$ has a limit $\ell$ 
+as $x$ approaches $x_0$, and we write:
+\mynote{This is read as: ``$f(x)$ tends to $\ell$ as $x$ tends to $x_0$''.}
+\[
+  f(x) \to \ell \qquad \text{as $x\to x_0$}
+\]
+(we will soon provide a more precise and general definition).
+
+For example, the function $f(x) = \frac{x^2-1}{x-1}$ is defined for $x\neq 1$
+and coincides, if $x\neq 1$, with the linear function $\tilde f(x) = x+1$
+defined
+on the entire $\RR$. 
+Since $\tilde f$ is continuous and $\tilde f(1)=2$,
+we will write:
+\[
+  \frac{x^2-1}{x-1} \to 2
+  \qquad \text{as $x\to 1$.}
+\]
+
+If we extend $f$ with a value $\ell$ at the point $x_0$, we generally obtain 
+the function 
+\[
+  \tilde f(x) = \begin{cases}
+    f(x) & \text{if $x\neq x_0$}\\
+    \ell & \text{if $x=x_0$}
+  \end{cases}  
+\]
+and the continuity of $\tilde f$ at the point $x_0$ is expressed as:
+\[
+\forall\eps>0\colon \exists \delta>0\colon
+\abs{x-x_0}<\delta \implies \abs{\tilde f(x)-\tilde f(x_0)}<\eps.  
+\]
+Observe that if $x=x_0$, then obviously $\abs{\tilde f(x)-\tilde f(x_0)}
+= 0 < \eps$, so we can assume, in the previous condition, 
+that $x\neq x_0$, and thus $\tilde f(x)=f(x)$. 
+Moreover, since $\tilde f(x_0)=\ell$ 
+and $\tilde f(x)=f(x)$ if $x\neq x_0$,
+we obtain 
+the following condition:
+\begin{equation}\label{eq:55338}
+\forall \eps>0\colon \exists \delta >0 \colon 
+  \forall x\neq x_0\colon
+  \abs{x-x_0}<\delta \implies \abs{f(x) - \ell} < \eps.
+\end{equation}
+The~\eqref{eq:55338} could thus be used to define 
+the concept of limit $f(x)\to \ell$ as $x\to x_0$.
+However, it will be very useful to extend the concept of limit $f(x)\to \ell$ 
+as $x\to x_0$ even in cases where $\ell$ and/or $x_0$ may 
+be infinite (i.e., elements of the extended real numbers $\bar \RR$).
+
+To do this, observe that
+if we define%
+\mynote{%
+The letter $B$ stands for \emph{ball} because 
+more generally (if we were in $\RR^3$ instead of $\RR$),
+the set of points that are less than $\rho$ away from a fixed point 
+is the interior of a filled sphere. 
+In geometry, a filled sphere is called a \emph{ball} 
+if it contains only the interior points (and not the spherical surface)
+and is called a \emph{disk} or \emph{closed ball} if it also contains 
+the points on the surface.
+}
+$B_\rho(x_0) = \ENCLOSE{x\in \RR \colon \abs{x-x_0}<\rho}$,
+the condition \eqref{eq:55338}
+can also be written in the form 
+\[
+  \forall \eps>0\colon \exists \delta >0 \colon 
+  x \in B_\delta(x_0)\setminus\ENCLOSE{x_0} \implies f(x) \in B_\eps(\ell)  
+\]
+which in turn can be written in the form:
+\[
+  \forall \eps>0\colon \exists \delta >0 \colon 
+  f(B_\delta(x_0)\setminus\ENCLOSE{x_0}) \subset  B_\eps(\ell).    
+\]
+
+The idea is that sets of the type
+$B_\rho(x_0)$ 
+represent points \emph{close} to the point $x_0$. 
+By analogy, we might think that points \emph{close} 
+to $+\infty$ are points of any half-line 
+of the type $(M,+\infty]$.
+We then give the following.
+
+
+\begin{definition}[neighborhood]
+For $x\in \RR$, we define the family of \emph{neighborhoods}%
+\mymargin{neighborhoods}%
+\index{neighborhood} (basic) of $x$
+as the set of all open, symmetric intervals centered at $x$:
+\[
+  \B_x = \ENCLOSE{ (x-\eps, x+\eps) \colon \eps>0}.
+\]
+We then define the families 
+of \emph{right neighborhoods} and \emph{left neighborhoods}
+\mymargin{right/left neighborhoods}%
+\index{neighborhoods!right/left}
+\index{neighborhoods}
+of $x$ as
+\[
+  \B_{x^+} = \ENCLOSE{ [x, x+\eps) \colon \eps>0},
+  \qquad
+  \B_{x^-} = \ENCLOSE{ (x-\eps , x] \colon \eps>0}
+\]
+and the families of neighborhoods of $+\infty$ and $-\infty$ as follows
+\[
+  \B_{+\infty} = \ENCLOSE{ (\alpha,+\infty], \colon \alpha \in \RR },\qquad
+  \B_{-\infty} = \ENCLOSE{ [-\infty, -\beta), \colon \beta\in \RR}.
+\]
+
+For every $x\in \bar \RR = [-\infty, +\infty]$,
+the neighborhoods $\B_x$ are defined, and for
+every $x\in \RR$, the neighborhoods $\B_{x^+}$ and $\B_{x^-}$ are defined.
+
+More generally, if $x\in \CC$ or $x\in \RR^n$,
+neighborhoods of $x$ are defined 
+using the norm $\abs{\cdot}$.
+Setting $B_\rho(x) = \ENCLOSE{y\colon \abs{y-x}<\rho}$
+(ball of radius $\rho$ centered at $x$),
+the family of neighborhoods of $x$ is nothing but
+\[
+  \B_x = \ENCLOSE{B_\rho(x)\colon \rho>0}.
+\]
+In the case $x\in \RR$, we obtain the same definition given above.
+
+In $\CC$ or $\RR^n$, there is no ordering, so 
+typically only one point at infinity is added: $\infty$.
+The neighborhoods of $\infty$
+are given by the exterior of a ball:
+\[
+  \B_\infty = \ENCLOSE{\ENCLOSE{y\colon \abs{y}> R}\colon R>0}.
+\]
+
+Also on $\RR$, one can consider a single point 
+at infinity (which we might denote by $\infty$)
+instead of the two points $+\infty$ and $-\infty$. 
+The neighborhoods of $\infty$ in $\RR$ will then be of the form $[-\infty,-R)
+\cup (R,+\infty]$.
+\end{definition}
+
+\mynote{To define the concept of limit, we defined the concept of basic neighborhood. Formally, a (generic) neighborhood of a point $x_0$ is any set that contains a basic neighborhood of $x_0$. 
+In the definitions we will use, it will be sufficient to consider 
+the basic neighborhoods, but it is good to know that the definition
+of neighborhood includes a larger family of sets.
+In general, a family of sets $\B$ is said to be a 
+\emph{base of neighborhoods} of $x_0$ if it satisfies the following properties:
+(1) every element of $\B$ contains $x$ as an element,
+(2) the intersection of two elements of $\B$ contains an element of $\B$.
+}
+
+\begin{definition}[continuous function (with neighborhoods)]
+  \label{def:continua_intorni}
+  Let $f\colon A\to B$ with $A$ and $B$ subsets of $\bar \RR$, $\bar \CC$, 
+  or $\RR^n$. 
+    We say that $f$ is continuous at the point $x_0$ if the following property
+  holds:
+  \[
+    \forall V \in \B_{f(x_0)} \colon \exists U \in \B_{x_0} \colon f(U) \subset V.
+  \]
+
+  It is clear, from the previous discussion, that this definition 
+  extends Definition~\ref{def:continua}.
+\end{definition}
+
+We can then explicitly state the definition of limit for real functions 
+of a real variable. 
+But the same identical definition can be given for functions defined 
+between spaces on which we have defined the concept of \emph{basic
+neighborhood},
+namely $\bar \RR$, $\bar \CC$, and $\RR^n$.
+
+\begin{definition}[limit of a function]
+\mymark{***}
+Let $A\subset \RR$ and $f\colon A \to \RR$.
+Let $x_0\in [-\infty,+\infty]$
+% be an accumulation point of $A$ 
+and let $\ell \in [-\infty,+\infty]$.
+Then we say that the function $f$ has a limit $\ell$ as $x$ tends to $x_0$ 
+and we write\mymargin{limit of a function}%
+\index{limit!of a function}
+\[
+  f(x) \to \ell \qquad \text{as $x\to x_0$}
+\]
+if for every neighborhood of $\ell$, there exists a neighborhood of $x_0$ such
+that
+the function evaluated in the neighborhood of $x_0$, possibly excluding $x_0$,
+assumes values
+in the neighborhood of $\ell$:
+\begin{equation}\label{eq:def_limite}
+  \forall V \in \B_\ell \colon \exists U \in \B_{x_0} \colon f(U\setminus\ENCLOSE{x_0}) \subset V.
+\end{equation}
+
+The same definition can be given by restricting to the right/left neighborhoods
+of the point $x_0$ (in the case $x_0 \in \RR$). We will then obtain the
+definitions
+of \emph{right limit} and \emph{left limit}
+\mymargin{right/left limit}%
+\index{limit!right/left} %
+simply by replacing $\B_{x_0^+}$ or $\B_{x_0^-}$ instead of 
+$\B_{x_0}$ in the previous definition.
+In such a case, we will write $f(x)\to \ell$ as $x\to x_0^+$ for the right limit
+and $f(x)\to \ell$ as $x\to x_0^-$ for the left limit.
+
+Finally, the result of the limit can also be $\ell^+$ or $\ell^-$, 
+in which case we will use $\B_{\ell^+}$ or $\B_{\ell^-}$ 
+instead of $\B_{\ell}$.
+
+The same definition applies to complex functions $f\colon A\subset \CC \to \CC$ 
+in an identical manner.
+\end{definition}
+  
+\begin{example}
+Consider the sign function:
+\[
+\sgn(x) =
+\begin{cases}
+  1 & \text{if $x>0$},\\
+  0 & \text{if $x=0$},\\
+  -1 & \text{if $x<0$}.
+\end{cases}
+\]
+It can be verified that
+\[
+\sgn(x) \to 1 \qquad \text{as $x\to 0^+$}
+\]
+and
+\[
+\sgn(x) \to -1 \qquad \text{as $x\to 0^-$}
+\]
+\end{example}
+
+We have already seen that in the case where $x_0\in \RR$ and $\ell\in \RR$ 
+are both finite, 
+the definition of limit $f(x)\to \ell$ as $x\to x_0$
+translates into the condition~\eqref{eq:55338}.
+
+Even in other cases, by making the definitions of neighborhood explicit,
+more explicit conditions can be obtained.
+For example, the condition $f(x)\to -\infty$ as $x\to x_0^+$
+translates as follows:
+\[
+\forall \beta\in \RR\colon \exists \delta>0 \colon x_0 < x < x_0+\delta 
+\implies f(x) < -\beta.  
+\]
+Since there are five different cases for the point $x_0$:
+$x_0\in \RR$, $x_0^+$, $x_0^-$, $+\infty$, $-\infty$, and as many 
+cases for $\ell$ (in fact, the result of the limit 
+can also be \emph{right} or \emph{left}), a total of 25 different limit
+definitions are obtained.
+
+In all these limit definitions, it is implied that the points 
+$x$ considered are points 
+of the domain of $f\colon A \subset \RR \to \RR$.
+It then happens that if there exists a neighborhood $V\in \B_{x_0}$
+such that $A \cap V \setminus \ENCLOSE{x_0}$ is empty, then 
+the limit condition is empty and is therefore always satisfied 
+regardless of the value of $\ell$. 
+It is therefore useless to take the limit as $x\to x_0$ 
+if $x_0$ does not satisfy the following.
+
+\begin{definition}[accumulation point]
+  \mymark{*}
+  Let $A\subset  \RR$ be a set and $x_0\in [-\infty, +\infty]$.
+  We say that $x_0$ is an \emph{accumulation point}%
+\mymargin{accumulation point}%
+\index{point!accumulation} of $A$
+    if every neighborhood of $x_0$ contains points of $A$ different from $x_0$,
+  i.e.:
+  \[
+   \forall U \in \B_{x_0}\colon (A\setminus \ENCLOSE{x_0}) \cap U \neq \emptyset.
+  \]
+
+  The same definition can be given for $x_0^+$ and $x_0^-$ 
+  using the right/left neighborhoods of $x_0$. 
+
+  The same definition can be applied 
+  when $A\subset \CC$ and $x_0\in \bar \CC$.
+\end{definition}
+
+\begin{theorem}[uniqueness of the limit]
+\mymark{*}
+Let $A\subset \RR$, $f\colon A \to \RR$, $x_0$
+be an accumulation point for $A$, and $\ell_1, \ell_2\in [-\infty,+\infty]$.
+If as $x\to x_0$, we have
+\[
+  f(x) \to \ell_1 \qquad\text{and}\qquad f(x) \to \ell_2
+\]
+then $\ell_1=\ell_2$.
+
+An analogous result holds for the right and left limits: $x\to x_0^+$, 
+$x\to x_0^-$.
+The same result holds on $\CC$
+taking $\ell_1,\ell_2\in \bar \CC$.
+\end{theorem}
+%
+\begin{proof}
+\mymark{*}
+Suppose, for contradiction, that $\ell_1\neq \ell_2$.
+Then there exists a neighborhood $V_1$ of $\ell_1$ and a neighborhood $V_2$ of
+$\ell_2$
+such that $V_1\cap V_2 = \emptyset$ (just take sufficiently small
+neighborhoods).
+But for the definitions of limit $f(x)\to \ell_1$ and $f(x)\to \ell_2$, 
+there must exist $U_1$ and $U_2$ neighborhoods of $x_0$ on which we have 
+$f(U_1)\subset V_1$ and $f(U_2)\subset V_2$. 
+But then $f((A\setminus\ENCLOSE{x_0})\cap U_1)\cap
+f((A\setminus\ENCLOSE{x_0})\cap U_2)\subset V_1\cap V_2 = \emptyset$...
+and this is absurd because certainly $U_1\cap U_2$ 
+contains points of $A$ different from $x_0$ since 
+$U_1$ and $U_2$ are contained within each other and $x_0$ 
+is an accumulation point for $A$.
+\end{proof}
+
+The previous theorem guarantees that if $x_0$ is an accumulation point 
+of the domain of $f$, then the limit as $x\to x_0$, if it exists, is unique. 
+In such a case, we can then give the following.
+%
+\begin{definition}[limit operator]
+Let $f\colon A\subset \RR \to \RR$ be a function and $x_0$ 
+an accumulation point for $A$. 
+If there exists $\ell\in\closeinterval{-\infty}{+\infty}$ such that
+$f(x)\to \ell$ as $x\to x_0$, then we set
+\[
+  \lim_{x\to x_0} f(x) = \ell.
+\]
+The same can be done for the right limit $x\to x_0^+$ 
+and the left limit $x\to x_0^-$.
+The same definition can be given for functions of complex variable and/or value 
+taking $x_0\in \bar \CC$ 
+and/or $\ell\in \bar \CC$.
+\end{definition}
+
+We have seen that at an accumulation point, if the limit 
+exists, then it is unique.
+However, it will be useful to observe that, in fact, the limit may not 
+exist, as can be verified with an example.
+
+\begin{example}[in general, the limit does not exist]
+The limit 
+\[
+  \lim_{x\to 0} \frac{x}{\abs{x}}
+\]
+does not exist. 
+\end{example}
+\begin{proof}
+Indeed, observe that the function $f(x) = \frac{x}{\abs x}$ 
+equals $1$ if $x>0$ and $-1$ if $x<0$.
+Thus, if the limit existed and were $\ell\in \bar \RR$, 
+choosing $\eps=1$, there should exist an interval neighborhood of $0$ 
+of the form $\openinterval{-\delta}{\delta}$ such that 
+$\abs{f(x)-\ell}<1$ for every $x$ in that interval.
+In particular, since in that interval there are certainly 
+both positive and negative numbers, we must have 
+simultaneously
+\[
+  \abs{1-\ell}<1, \qquad 
+  \abs{-1-\ell}<1  
+\]
+which is impossible because, by the triangle inequality, 
+\[
+ 2 = \abs{1-(-1)} 
+ \le \abs{1-\ell} + \abs{-1-\ell}
+ < 1 + 1 = 2
+\]
+which is absurd.
+\end{proof}
+
+Note that in the previous example, the limit as $x\to 0$ 
+does not exist, but in fact, both the limit as $x\to 0^+$ 
+(value $1$) and the limit as $x\to 0^-$ (value $-1$) exist.
+We can exhibit a ``pathological'' example of a function 
+that does not admit a limit (neither from the right nor from the left)
+at any point:
+\[
+  f(x) = 
+  \begin{cases}
+     1 & \text{if $x\in \QQ$}\\ 
+     0 & \text{if $x\in \RR\setminus \QQ$}.
+  \end{cases}
+\]
+In every interval $\openinterval a b$ with $a<b$, this function 
+assumes both the value $0$ and the value $1$ 
+since both $\QQ$ and $\RR\setminus \QQ$ intersect 
+the interval (they are dense sets).
+But if $f$ had a limit $\ell$, there should exist an interval 
+in which the values differ by less than $\eps$ from $\ell$, and thus 
+it should be $\abs{1-\ell}<\eps$ and $\abs{0-\ell}<\eps$
+which is impossible if we choose $\eps < \frac 1 2$.
+
+\begin{theorem}[connection between limits and continuity]%
+\mymark{***}%
+  Let $A\subset \RR$, $f\colon A \to \RR$. 
+  If $x_0\in A$ is an accumulation point of $A$,
+  then $f$ is continuous at $x_0$ if and only if
+  \[
+    \lim_{x\to x_0}f(x) = f(x_0).
+  \]
+  If $x_0\in A$ is not an accumulation point, we say 
+  that $x_0$ is an \emph{isolated point}%
+\mymargin{isolated point}%
+\index{point!isolated} of $A$.
+  In such a case, the function $f$ is always continuous at the point $x_0$.
+
+An analogous result holds for complex functions and/or functions of complex
+variable.
+\end{theorem}
+  
+  \begin{proof}
+  According to definition~\ref{def:continua}, the function $f$ is continuous at
+  the point $x_0\in \RR$ if
+  \[
+   \forall \eps>0 \colon \exists \delta >0 \colon
+   \forall x \in A\colon
+   \abs{x-x_0}<\delta \implies \abs{f(x)-f(x_0)} < \eps
+  \]
+  while the definition of limit $f(x)\to f(x_0)$ as $x\to x_0$
+  expands to
+  \[
+  \forall \eps>0 \colon \exists \delta>0\colon
+  \forall x \in A, x\neq x_0\colon
+  \abs{x-x_0}<\delta \implies \abs{f(x)-f(x_0)} < \eps.
+  \]
+  The only difference is that in the definition of limit
+  there is the condition $x\neq x_0$. But since for $x=x_0$
+  we have $\abs{f(x)-f(x_0)}=0$, such a condition is in this case 
+  unnecessary, and therefore the two definitions are equivalent.
+
+  If the point $x_0$ is isolated, the definition of continuity
+  is always satisfied because there exists a $\delta>0$ 
+  such that the point $x=x_0$ is the only point of $A$ 
+  in the neighborhood $(x_0-\delta,x_0+\delta)$.
+  \end{proof}
+
+\begin{example}
+  It is not difficult to convince oneself that the only accumulation points 
+  for the set $\ZZ$ are $+\infty$ and $-\infty$.
+  Thus, any function $f\colon \ZZ \to \RR$ is continuous because 
+  all the points of its domain are isolated points.
+\end{example}
+  
+\begin{theorem}[locality of the limit]%
+\label{th:localita_limite}%
+The limit of a function as $x\to x_0$ depends only on the values of $f$
+in a neighborhood of $x_0$ and does not depend on the value of $f$ at $x_0$.
+
+More precisely: if $A,B\subset \RR$, $f\colon A\to \RR$, $g\colon B\to \RR$, 
+$x_0\in \RR$ are such that 
+there exists a neighborhood $V$ of $x_0$ for which 
+$(A\setminus\ENCLOSE{x_0}) \cap  V = (B\setminus \ENCLOSE{x_0}) \cap V$ 
+and $f(x)=g(x)$ for every $x\in(A\setminus\ENCLOSE{x_0}) \cap  V$, 
+then if $f(x)\to \ell$ as $x\to x_0$, also $g(x)\to \ell$ 
+as $x\to x_0$.
+
+The same result holds for complex functions and/or functions of complex
+variable.
+\end{theorem}
+%
+\begin{proof}
+  It suffices to observe that in the definition of limit 
+  it is not restrictive to assume that the neighborhood of the point $x_0$ 
+  is always taken within the neighborhood $V$ on which 
+  the two functions coincide.
+\end{proof}
+
+\begin{theorem}[restriction of the limit]
+If a function has a limit $\ell$ as $x\to x_0$ 
+and if we restrict the domain of the function, 
+then the limit of the function does not change. 
+More precisely,
+if $f\colon A \to \RR$ is a function such that $f(x)\to \ell$ as $x\to x_0$
+and if $B \subset A$ and $g\colon B\to \RR$ is the restriction of $f$ 
+to $B$, then also $g(x)\to \ell$ as $x\to x_0$. 
+\end{theorem}
+%
+\begin{proof}
+The theorem follows immediately from the definition of limit if we observe
+that by restricting the domain, the condition for the validity of the limit is
+weakened
+since the neighborhoods of $x_0$ are intersected with the domain of the
+function.
+\end{proof}
+
+Note that unlike the theorem on the locality of the limit, it is
+possible that the restricted function $g$ has a limit when the function
+$f$ did not have a limit.
+Also note that in both these theorems, it will be appropriate 
+that $x_0$ is an accumulation point; otherwise, the condition $f(x)\to \ell$ 
+is empty.
+
+\begin{theorem}[relationship between limit, right limit, and left limit]%
+\mymark{*}%
+Let $A\subset \RR$, $f\colon A \to \RR$ be a function, and $x_0$ an accumulation
+point
+of $A$. Let $A^+ = A \cap [x_0,+\infty)$ and $A^- = A \cap (-\infty, x_0]$.
+
+If $x_0$ is an accumulation point of both $A^+$ and $A^-$,
+then we have
+\[
+  \lim_{x\to x_0} f(x) = \ell
+\]
+if and only if
+\[
+  \lim_{x\to x_0^+} f(x) = \lim_{x\to x_0^-} f(x) = \ell.
+\]
+
+If $x_0$ is an accumulation point of $A^+$ but not of $A^-$, then
+the limits
+\[
+  \lim_{x\to x_0} f(x) \qquad \text{and}\qquad \lim_{x\to x_0^+} f(x)
+\]
+are equivalent. Similarly, if $x_0$ is an accumulation point
+of $A^-$ but not of $A^+$, the limits
+\[
+  \lim_{x\to x_0} f(x) \qquad \text{and}\qquad \lim_{x\to x_0^-} f(x)
+\]
+are equivalent.
+\end{theorem}
+%
+\begin{proof}
+It is simply a matter of verifying the definitions of limit using the fact that
+neighborhoods of a point $x_0$ are formed by the union of right and left
+neighborhoods.
+\end{proof}
+
+\begin{theorem}[limit of the composite function/change of variable]
+\label{th:limite_composta}
+Let $A\subset \RR$, $B\subset \RR$,
+$x_0$ be an accumulation point of $A$,
+$y_0$ be an accumulation point of $B$,
+$\ell\in [-\infty,+\infty]$.
+Let $f\colon A \to B$, $g\colon B\to \RR$
+be functions such that $f(x)\neq y_0$ if $x\neq x_0$ and 
+\[
+  \lim_{x\to x_0} f(x) = y_0,
+\qquad
+  \lim_{y\to y_0} g(y) = \ell.
+\]
+Then in the second limit, we can set $y=f(x)$ and instead of $y\to y_0$, 
+we can put $x\to x_0$ (since the first limit tells us that if $x\to x_0$, 
+then $y\to y_0$), and thus it holds:
+\[
+ \lim_{x\to x_0} g(f(x)) = \ell.
+\]
+\end{theorem}
+%
+\begin{proof}
+Since $g(y)\to \ell$,
+for every $U$ neighborhood of $\ell$, there must exist a $V$ neighborhood of
+$y_0$
+such that $g((B\setminus\ENCLOSE{y_0})\cap V) \subset U$,
+and since $f(x)\to y_0$, there must exist a neighborhood $W$ of $x_0$
+such that $f((A\setminus\ENCLOSE{x_0})\cap W) \subset V$.
+But since by hypothesis $f$ assumes values in $B\setminus\ENCLOSE{y_0}$,
+we also have $f((A\setminus\ENCLOSE{x_0})\cap W)\subset
+(B\setminus\ENCLOSE{y_0}) \cap V$,
+and therefore
+\[
+    g(f((A\setminus\ENCLOSE{x_0})\cap W)) \subset g((B\setminus \ENCLOSE{y_0})
+  \cap V)
+  \subset U
+\]
+which means that $g(f(x)) \to \ell$.
+\end{proof}
+
+\begin{exercise}
+  Provide an example of a function $f\colon\RR\to \RR$ 
+  and a function $g\colon\RR\to \RR$ such that 
+  \[
+  \lim_{x\to 0} f(x) = 0, \qquad 
+  \lim_{x\to 0} g(x) = 0
+  \]
+  but
+  \[
+  \lim_{x\to 0} g(f(x)) = 1.
+  \]
+  Which hypothesis in the previous theorem is missing?
+\end{exercise}
+
+\begin{theorem}[limit of monotone functions]%
+  \mymark{**}%
+  \label{th:limite_funzione_monotona}%
+Let $f\colon A \subset \RR \to \RR$ be an increasing function. 
+If $x_0$ is a left accumulation point for $A$, 
+the following limit exists and equals
+\[
+   \lim_{x\to x_0^-}f(x) = \sup f(\ENCLOSE{x\in A\colon x<x_0})
+\]
+and if $x_0$ is a right accumulation point for $A$, 
+the following limit exists and equals
+\[
+   \lim_{x\to x_0^+} f(x) = \inf f(\ENCLOSE{x\in A\colon x>x_0}).
+\]
+In particular, if $+\infty$ is an accumulation point for $A$, 
+we have 
+\[
+  \lim_{x\to +\infty} f(x) = \sup f(A)
+\]
+and if $-\infty$ is an accumulation point for $A$, we have 
+\[
+  \lim_{x\to -\infty} f(x) = \inf f(A).
+\]
+
+The same results hold for decreasing functions, 
+exchanging $\sup$ and $\inf$.
+\end{theorem}
+%
+\begin{proof}\mymark{**}
+Suppose $f$ is increasing and consider the left limit $x\to x_0^-$. It may also
+be $x_0=+\infty$, in which case the left limit $x\to x_0^-$ is equivalent to
+$x\to +\infty$.
+Let $B=\ENCLOSE{x\in A\colon x<x_0}$
+and $\ell=\sup f(B)$, and recall the properties that characterize 
+the supremum
+(we know that $B$ is not empty because $x_0^-$ is assumed 
+to be an accumulation point for $A$):
+\begin{gather*}
+  \forall x \in B \colon f(x) \le \ell \\
+  \forall y < \ell \colon \exists \alpha \in B \colon f(\alpha) > y.
+\end{gather*}
+Since $f$ is increasing, from the second condition, 
+we obtain that for every $x>\alpha$, we have $f(x)\ge f(\alpha)> y$,
+and combining the two conditions, we obtain that for every $y<\ell$,
+there exists $\alpha\in\RR$ such that for every $x>\alpha$, we have $y<f(x)\le
+\ell$.
+Certainly, we have $\alpha < x_0$ because $\alpha\in B$.   
+Thus, the condition $x>\alpha$ identifies a left neighborhood 
+of the point $x_0$, and we have $f(x)\to \ell$ as $x\to x_0^-$.
+
+A similar reasoning can be applied for the right limit  
+and for decreasing functions.
+\end{proof}
+
+\begin{exercise}
+  Using the previous theorem, study the \emph{discontinuities}
+  of monotone functions. 
+  Prove that the set of points where a monotone function 
+  is \emph{not} continuous can be put in a one-to-one correspondence 
+  with a subset of $\QQ$, and thus this set is countable.
+\end{exercise}
+
+The previous theorem applies in particular to exponential functions, powers,
+roots, and logarithms at the extremes of their domains. For example, it is clear
+that if $x_0\in (0,+\infty)$,
+we have 
+\[
+  \lim_{x\to x_0} \log_a x = \log_a x_0
+\]
+since the logarithm is a continuous function. 
+If $a>1$, the logarithm is increasing, and its image is the entire $\RR$, 
+thus we have 
+\[
+  \lim_{x\to 0^+} \log_a x = \inf \RR = -\infty
+  \qquad
+  \lim_{x\to +\infty} \log_a x = \sup \RR = +\infty.
+\]
+For the exponential, we have 
+\[
+ \lim_{x\to x_0} a^x = a^{x_0}
+\]
+if $x_0\in \RR$ for continuity. 
+If $a>1$, the exponential is increasing 
+and has an image of $(0,+\infty)$, thus 
+\[
+  \lim_{x\to -\infty} a^x = 0, \qquad 
+  \lim_{x\to +\infty} a^x = +\infty.
+\]
+If $0<a<1$, the limits at infinity 
+are exchanged since $a^{x}= \frac{1}{a^{-x}}$.
+For powers, we have, if $x_0\in[0,+\infty)$ and $\alpha>0$,
+\[
+  \lim_{x\to x_0} x^\alpha = x_0^\alpha
+\]
+for continuity. Instead, since $x^\alpha$ is increasing and bijective 
+on $[0,+\infty)$, we have 
+\[
+  \lim_{x\to +\infty} x^\alpha = +\infty.
+\]
+If $\alpha<0$, the function $x^\alpha$ is continuous, decreasing, and bijective 
+on $(0,+\infty)$, and thus in this case:
+\[
+  \lim_{x\to +\infty} x^\alpha = 0.
+\]
+All these \emph{notable} limits can be easily 
+remembered if we keep in mind the graphs of elementary functions
+Figures~\ref{fig:esponenziale_logaritmo} (on page
+\pageref{fig:esponenziale_logaritmo})
+and~\ref{fig:potenza_intera_radice} (on page
+\pageref{fig:potenza_intera_radice}).
+
+Also, the absolute value function $f(x)=\abs{x}$ is separately 
+monotone on the intervals $[0,+\infty)$ and $(-\infty,0]$. 
+Thus, we know that 
+\[
+  \lim_{x\to +\infty} \abs{x} = \abs{+\infty} = +\infty, 
+  \lim_{x\to -\infty} \abs{x} = \abs{-\infty} = +\infty.
+\]
+If $x_0\in \RR$, obviously we also have
+\[
+  \lim_{x\to x_0} \abs{x_0} = \abs{x_0}
+\]
+since it is trivial to verify that the function $\abs{x}$ is continuous.
+The same holds for the \emph{modulus} function $\abs{z}$ when $z\in \CC$.
+
+It will also be useful to observe that the following property holds 
+\[
+\lim_{x\to x_0} \abs{f(x)} = 0 \iff 
+\lim_{x\to x_0} f(x) = 0
+\]
+valid because the definitions of limit $f(x)\to 0$ and $\abs{f(x)}\to 0$ 
+coincide since $\abs{f(x)-0} = \big\lvert{\abs{f(x)} - 0}\big\rvert$.
+
+\begin{theorem}[permanence of the sign]%
+  \label{th:permanenza_segno}%
+\mymark{***}%
+\index{permanence of the sign}%
+\index{theorem!of the permanence of the sign}%
+\mymargin{permanence of the sign}%
+If
+\[
+  \lim_{x\to x_0} f(x) > 0
+\]
+then there exists a neighborhood $U$ of $x_0$ such that 
+for every $x\in U$, we have $f(x) > 0$.
+
+Conversely, if there exists a neighborhood $U$ of $x_0$ such that for every $x
+\in U$,
+we have $f(x)\ge 0$, and if there exists $\ell$ such that 
+\[
+    \lim_{x\to x_0} f(x) = \ell
+\]
+then $\ell\ge 0$.
+\end{theorem}
+%
+Intuitively, the previous theorem tells us that, 
+if we are dealing with a continuous function,
+we can remove the limit operator in strict inequalities 
+(and the inequality is preserved in a neighborhood of the limit point),
+while we can add a limit operator in wide inequalities
+(and the inequality is preserved at the limit).
+%
+\begin{proof}
+Let $\ell\in [-\infty,+\infty]$ be the value of the limit.
+If $\ell>0$, there certainly exists a neighborhood $V$ of $\ell$ 
+such that $V\subset (0,+\infty]$: if $\ell\in \RR$, just take 
+$V=(\ell/2,3 \ell/2)$, if $\ell=+\infty$, just take $V=(1,+\infty]$.
+By the definition of limit, there exists $U$ neighborhood of $x_0$ 
+such that $f(U)\subset V$, and the result follows.
+
+For the converse, we reason by contradiction. 
+If the limit $\ell$ of $f$ existed and were $\ell < 0$,
+then by the previous point (applied to $-f$), we should 
+conclude that there is a neighborhood of $x_0$ in which $f(x)<0$.
+But then it is not possible that there is a neighborhood in which $f(x)\ge 0$.
+\end{proof}
+
+\begin{theorem}[operations with limits of functions]
+  \label{th:operazioni_limiti}%
+  \index{limit!of the sum}%
+  \index{limit!of the product}%
+  \index{limit!of the quotient}%
+\mymark{***}%
+If
+\[
+  \lim_{x\to x_0}f(x) = \ell_1,\qquad
+  \lim_{x\to x_0}g(x) = \ell_2
+\]
+then we have
+\begin{gather*}
+  \lim_{x\to x_0} \enclose{f(x) + g(x)} = \ell_1 + \ell_2, \qquad
+  \lim_{x\to x_0} \enclose{f(x) - g(x)} = \ell_1 - \ell_2, \\
+  \lim_{x\to x_0} f(x)\cdot g(x) = \ell_1 \cdot \ell_2, \qquad
+  \lim_{x\to x_0} \frac{f(x)}{g(x)} = \frac{\ell_1}{\ell_2}
+\end{gather*}
+provided that the operations used on the right side of the equalities
+are defined\mynote{%
+See section~\ref{sec:reali_estesi}.
+The cases where the operations are not defined are usually called 
+\emph{indeterminate forms}
+\index{indeterminate forms}
+and are: $+\infty - (+\infty)$, 
+$-\infty - (-\infty)$, $+\infty + (-\infty)$, 
+$-\infty + (+\infty)$, $0\cdot (+\infty)$, $+\infty \cdot 0$
+$0\cdot (-\infty)$, $-\infty \cdot 0$, $\frac 0 0$,
+$\frac{+\infty}{+\infty}$, $\frac{-\infty}{-\infty}$,
+$\frac{+\infty}{-\infty}$, $\frac{-\infty}{+\infty}$. 
+}.
+Moreover, if $g(x)\to 0^+$, 
+we have
+\[
+    \lim_{x\to x_0} \frac{1}{g(x)} = +\infty
+\]
+(informally, we might write: $\frac{1}{0^+} = +\infty$).
+
+The same results hold for functions of complex variable and/or value.
+In fact, limits at $\infty$ behave better, since 
+$g(z)\to 0$ is equivalent to $1/g(z)\to \infty$.
+
+\end{theorem}
+%
+\begin{proof}
+Consider the sum of the limits
+and first the case where $\ell_1$ and $\ell_2$ 
+are both finite. 
+In this case,
+given any neighborhood $U=(\ell-\eps,\ell+\eps)$ 
+of $\ell=\ell_1+\ell_2$,
+if we take the neighborhoods $U_1=(\ell_1-\eps/2,\ell_1+\eps/2)$ 
+and $U_2 = (\ell_2-\eps/2,\ell_2+\eps/2)$, we can find 
+neighborhoods $V_1$ and $V_2$ of $x_0$ such that 
+$f(V_1\setminus\ENCLOSE{x_0}) \subset U_1$ and 
+$f(V_2\setminus \ENCLOSE{x_0}) \subset U_2$,
+and a fortiori, this holds if we take $V=V_1\cap V_2$ 
+instead of $V_1$ and $V_2$. 
+Since $U_1+U_2 = U$, we then have 
+$(f+g)(V\setminus\ENCLOSE{x_0})\subset U$.
+
+Still in the case of the sum, 
+if $\ell_1=+\infty$ and $\ell_2\neq -\infty$,
+then $\ell_1+\ell_2=+\infty$, and 
+given a neighborhood of $+\infty$ 
+of the form $U=(\alpha,+\infty]$ with $\alpha>0$,
+we can take 
+$U_1 = (2\alpha,+\infty)$ and $U_2 = (\ell_2-\alpha,\ell_2+\alpha)$ 
+if $\ell_2\in \RR$, or $U_2 = (\alpha,+\infty)$ if $\ell_2=+\infty$.
+In any case, we have $U_1+U_2 = U$, and we proceed as in the previous case.
+The case $\ell_1=-\infty$ is proved in a completely analogous manner.
+
+For the difference, just observe that $f(x)-g(x) = f(x) + (-g(x))$.
+If $\ell_2$ is finite, the continuity of the function $h(y)=-y$
+guarantees that $-g(x)\to -\ell_2$.
+The same is easily verified when $\ell_2$ is infinite 
+(just observe that if $U=(\alpha,+\infty]$ is a neighborhood of $+\infty$,
+then $-U = [-\infty,-\alpha)$ is a neighborhood of $-\infty$). 
+Thus, the limit of the difference reduces to the limit of the sum.
+
+For the product, we recall that thanks 
+to theorem~\ref{th:isomorfismo}, the totally ordered additive group $\RR =
+\openinterval{-\infty}{+\infty}$
+is isomorphic to the multiplicative group $\RR_+ = \openinterval 0 {+\infty}$,
+and consequently, $\bar \RR = \closeinterval{-\infty}{+\infty}$
+corresponds to $\closeinterval {0^+}{+\infty}$.
+(The isomorphism $\RR_+\to \RR$ is given by the function $\log_a x$ with fixed
+$a>1$,
+this function preserves the neighborhoods of the corresponding points except
+that
+the neighborhoods of $-\infty$ transform into right neighborhoods of $0$).
+
+Thus, if $f > 0$ and $g > 0$, the results for the limit of the product 
+are consequences of the analogous results for the limit of the sum.
+Changing the sign of one or both functions allows us 
+to reduce to the case $f > 0$ and $g > 0$ when the two functions assume 
+a constant sign in at least one neighborhood of the point $x_0$.
+By the theorem of permanence of the sign, this is true if 
+$\ell_1\neq 0$ and $\ell_2\neq 0$: the limit of the product in this case 
+is thus $\ell_1\cdot \ell_2$.
+If instead $\ell_1=0$ and $\ell_2\in\RR$, we know that $f(x)\to 0$ 
+is equivalent to $\abs{f(x)}\to 0$, so in this case, we can replace $f(x)$ with
+$\abs{f(x)}\ge 0$
+(the possible points where $f(x)=0$ are irrelevant and can be removed 
+from the domain of $f$ to ensure $\abs{f}>0$) and obtain that the limit 
+of the product is $0$.
+The same happens if $\ell_2=0$ with the function $g(x)$.
+
+Regarding the quotient, theorem~\ref{th:isomorfismo}
+tells us that the additive properties of the opposite become (via logarithm)
+multiplicative properties of the reciprocal, at least

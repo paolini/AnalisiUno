@@ -1,0 +1,457 @@
+\section{logic}
+
+If, as Galileo stated, mathematics is the language of nature, it is important
+that mathematics itself is expressed in a language that is as objective and
+unambiguous as possible. \emph{Logic} is the mathematical discipline that deals
+with the study and formalization of mathematical language. In this chapter, we
+summarize in a concise and intuitive manner some concepts and simultaneously
+establish the notations that will be used subsequently.
+
+Logic studies \emph{formal systems}%
+\mymargin{formal systems}%
+\index{formal systems} (also known as \emph{logical-deductive systems} or \emph{axiomatic systems}) which are mechanical, unambiguous descriptions of a formal language. We speak in the plural of \emph{formal systems} because each field of mathematics (or other sciences) could develop its own specialized formal system for that field. The first formal system was developed by Euclid to describe the properties of points, lines, and circles in the plane (the \emph{Euclidean geometry}). At Euclid's time, the formalization was still intuitive and incomplete; the modern formalization of this system was completed by Hilbert, two thousand years later. Peano introduced an axiomatic system to describe the properties of natural numbers. Dedekind identified the axioms to describe real numbers. Cantor introduced the \emph{set theory} within which it was possible to include all other mathematical theories. This theory was formalized by Zermelo and Fraenkel, and it is this theory that we will use in our course.
+
+All formal systems describe a language. To describe a language, we must first
+specify what the \emph{symbols}%
+\mymargin{symbols}%
+\index{symbols} of that language are. In general, we can think of symbols as letters (or characters, in computer language) that can be used to compose sentences. Typical symbols of mathematical theories are, for example: \texttt{x}, \texttt{y}, \texttt{5}, \texttt{7}, \texttt{+}, \texttt{=}, \texttt{)}, \texttt{:}, etc. In computer languages, symbols correspond to the characters present on a computer keyboard. In natural languages, one would take the individual letters of the alphabet as symbols, possibly adding punctuation characters. A finite sequence of symbols is called a \emph{formula}%
+\mymargin{formula}%
+\index{formula} (we could also call them \emph{sentences}). For example: \texttt{x7)+} could be a formula consisting of four symbols. Among all formulas, a formal system must identify those that could be called \emph{well-formed formulas}, i.e., the formulas to which we actually want to assign meaning. For example, the formula $x+5=7$ could be a well-formed formula because we are able to assign it a meaning. The formal system does not assign meaning to well-formed formulas (meaning is an extrapolation of our mind) but simply must provide rules to determine which are well-formed formulas and which are not. Since every symbol we use can be represented on a computer, we can think of formulas as strings in programming languages, and we can think that the formal system must describe an algorithm (i.e., a mechanical procedure) capable of determining whether a formula is well-formed or not. Among the \emph{well-formed formulas}, the formal system must finally specify which are the \emph{theorems}. Again, this must be done through a purely mechanical algorithm to ensure that theorems are objective and universal: there can be no disagreement on the validity of a theorem; there may be disagreement on the interpretation of such a theorem. Typically, formal systems are \emph{deductive}. In \emph{deductive} systems, some formulas are identified and called \emph{axioms}, which are immediately recognized as theorems. For example, we will see that the first axiom of set theory is 
+\[
+  \exists X\colon \not \exists y\colon y\in X
+\]
+which could be read as 
+\begin{displayquote}
+there exists a set $X$ for which no $y$ is an element of $X$
+\end{displayquote}
+and expresses the existence of the empty set. In addition to axioms, a deductive
+system specifies \emph{inference rules}, which are ways in which formulas can be
+modified or composed such that if the starting formulas are theorems, the
+resulting formula is also a theorem. Aristotle's \emph{syllogisms} can be used
+as examples of inference rules. Suppose the formulas \texttt{"Socrates is a
+man"} and \texttt{"man is an animal"} are both theorems. Then we can define an
+inference rule that tells us that if \texttt{"X is a Y"} is a theorem and
+\texttt{"Y is a Z"} is a theorem, then \texttt{"X is a Z"} is also a theorem.
+With this inference rule, it is possible to deduce that \texttt{"Socrates is an
+animal"} is a theorem. It is clear that if formal rules can be mechanically
+defined through an algorithm, then theorems can also be mechanically determined
+through an algorithm. Research in mathematics consists of exploring the space of
+well-formed formulas to determine which are actually theorems. Providing the
+\emph{proof}%
+\mymargin{proof}%
+\index{proof} of a theorem means exhibiting the entire chain of formulas and inference rules that allow obtaining the theorem from the axioms.
+
+\subsection{propositions, logical operators}
+
+All this is a mechanical process, but in reality, it is obvious that formal
+systems are defined in such a way as to have some kind of intuitive meaning for
+us. In this way, the search for proofs is not a purely mechanical process but
+follows lines of thought that may require intuition, inventiveness, and even
+aesthetic sense. Typically, at an intuitive level, we want to assign a truth
+value to well-formed formulas: we would like to say that some formulas are
+\emph{true}%
+\mymargin{true}%
+\index{true} and others are \emph{false}%
+\mymargin{false}%
+\index{false}. In such a case, well-formed formulas are usually called \emph{propositions}%
+\mymargin{propositions}%
+\index{proposition} (in natural language, we would say: \emph{statements}). An example of a (false) proposition could be: \texttt{2+2=5}.
+
+It is possible to combine multiple propositions using logical operators. If $P$
+and $Q$ are propositions, one can construct the proposition $P \land Q$, called
+\emph{logical conjunction}%
+\mymargin{conjunction}%
+\index{logical conjunction}. This proposition can be read as ``$P$ and $Q$'' and is a proposition that is true only if both $P$ and $Q$ are true (see table~\ref{tab:verita_operatori_logici} for a schematic summary). Often, logical conjunction is implied: if a list of propositions $P,Q,R$ is made, it is usually understood as their conjunction $P \land Q \land R$, meaning they must all be true. The \emph{logical disjunction}%
+\mymargin{disjunction}%
+\index{logical disjunction} denoted by $P \lor Q$ can be read as ``$P$ or $Q$'' and is a proposition that is true if at least one of $P$ or $Q$ is true. The \emph{logical negation}%
+\mymargin{negation}%
+\index{logical negation} denoted by $\lnot P$ is a proposition that can be read as ``not $P$'' and is true when $P$ is false and false when $P$ is true.
+
+Logical operators that are frequently used are \emph{implications}%
+\mymargin{implications}%
+\index{implication}. The proposition $P\Rightarrow Q$ can be read as ``$P$ implies $Q$'' and means that $Q$ is true if $P$ is true. Do not confuse the truth value of $P\Rightarrow Q$ with the truth value of $Q$. If $P$ is true, then $P\Rightarrow Q$ is true or false depending on whether $Q$ is true or false. But if $P$ is false, then the implication $P\Rightarrow Q$ is true regardless of the value of $Q$. In fact, $P\Rightarrow Q$ is equivalent to $Q \lor \lnot P$ because for the truth of $P\Rightarrow Q$, it suffices that $Q$ is true (when $P$ is true) or that $P$ is false.
+
+The reverse arrow $P\Leftarrow Q$ can be used to invert the implication: it is
+equivalent to $Q \Rightarrow P$. If both implications $(P \Leftarrow Q) \land
+(P\Rightarrow Q)$ hold, it is easy to convince oneself that $P$ and $Q$ must
+have the same truth value: we will then say that they are equivalent and write
+$P \Leftrightarrow Q$.
+
+In table~\ref{tab:verita_operatori_logici}, all the truth values that can be
+obtained by combining two propositions are reported. In
+table~\ref{tab:operatori_logici}, some properties of these operators are
+reported: these properties can be understood by interpreting their meaning but
+can also be mechanically deduced. To mechanically verify the validity of one of
+these logical expressions, it is sufficient to create a table in which all
+possible truth values of $P$, $Q$, and $R$ are inserted (in total, there will be
+$8$ cases), and for each of these, the truth value of each operation performed
+must be calculated, verifying that each complete expression assumes the value
+$T$ (true). We will say that these are \emph{tautologies}%
+\index{tautology}%
+\mymargin{tautology}%
+i.e., logical expressions whose validity does not depend on the truth value of
+its terms.
+
+\begin{table}
+\begin{center}
+  \begin{tabular}{cc|cccccc}
+    $P$ & $Q$ & $\neg P$ & $P\land Q$ & $P\lor Q$ & $P\Rightarrow Q$ &
+    $P\Leftarrow Q$ & $P\Leftrightarrow Q$ \\\hline
+    \texttt{F} & \texttt{F} & \texttt{V} & \texttt{F} & \texttt{F} & \texttt{V} & \texttt{V} & \texttt{V} \\
+    \texttt{F} & \texttt{V} & \texttt{V} & \texttt{F} & \texttt{V} & \texttt{V} & \texttt{F} & \texttt{F} \\
+    \texttt{V} & \texttt{F} & \texttt{F} & \texttt{F} & \texttt{V} & \texttt{F} & \texttt{V} & \texttt{F} \\
+    \texttt{V} & \texttt{V} & \texttt{F} & \texttt{V} & \texttt{V} & \texttt{V} & \texttt{V} & \texttt{V} \\
+    \end{tabular}
+\end{center}
+\caption{The truth table of logical operators. 
+$\texttt{F}$ means \emph{false}, $\texttt{V}$ means \emph{true}.}
+\label{tab:verita_operatori_logici}
+\end{table}
+
+\begin{table}
+\begin{tabular}{rcll}
+                                                    &$\neg (P \land \neg P)$&
+                          & non-contradiction \\
+                                                  &$P \lor \neg P$&
+                         & excluded middle \\
+                                                  $\neg \neg P$ & $\iff$ & $ P$
+                         & double negation\\
+                                                                        $P \land
+                                    Q$ & $\iff$ & $ Q \land P$
+                                    & symmetry\\
+                                                                          $P
+                                     \lor Q$ & $\iff$ & $ Q \lor P$
+                                     & \\
+                                                            $\neg (P\land Q)$ &
+                              $\iff$ & $ (\neg P) \lor (\neg Q)$      & De
+                              Morgan's laws\\
+                                                              $\neg (P\lor Q)$ &
+                               $\iff$ & $ (\neg P) \land (\neg Q)$     & \\
+                                                        $(P\land Q) \lor R$ &
+                            $\iff$ & $ (P\lor R) \land (Q \lor R)$  &
+                            distributive property\\
+                                                        $(P\lor Q) \land R$ &
+                            $\iff$ & $ (P\land R) \lor (Q \land R)$ & \\
+                                                        $(P \Rightarrow Q)$ &
+                            $\iff$ & $ (Q \Leftarrow P)$            &
+                            antisymmetry\\
+                                                        $(P\Rightarrow Q)$ &
+                            $\iff$ & $ (\neg Q\Rightarrow\neg P)$   &
+                            contrapositive implication\\
+                                                $\neg (P\Rightarrow Q)$ & $\iff$
+                        & $ P \land (\neg Q)$            & counterexample\\
+                                                          $P\Rightarrow Q$ &
+                             $\iff$ & $ \lnot(P \land (\neg Q))$     & proof by
+                             contradiction
+\end{tabular}
+\caption{Some properties of logical operators. These propositions are all true regardless of the truth values of the propositions $P$ and $Q$. In particular, logical equivalences tell us that the propositions on both sides of the equivalence always assume the same truth value and are therefore interchangeable.}
+\label{tab:operatori_logici}
+\end{table}
+
+To formally define the logic of propositional calculus, we must have an
+underlying system that tells us what the basic propositions are, i.e., the terms
+we can substitute in place of $P$, $Q$, $R$. These will be propositions (i.e.,
+well-formed formulas). Once the basic propositions are defined, any formula of
+the form $(P)\land(Q)$, $(P)\lor(Q)$, $(P)\implies(Q)$, $(P)\impliedby (Q)$,
+$(P)\Leftrightarrow(Q)$, and $\lnot(P)$ is also a proposition (i.e.,
+well-formed) if $P$ and $Q$ are. The formal system uses the symbols: $\land$
+$\lor$ $\implies$ $\impliedby$ $\Leftrightarrow$ $\lnot$ $($ $)$ in addition to
+all the symbols needed to compose the basic propositions.
+
+The simplest possible case is one in which we have only two basic propositions
+$F$ and $V$ and two axioms: $V$ and $\lnot (F)$. The interpretation of the
+system is that $V$ is true while $F$ is false.
+
+The inference rules of propositional calculus can be given in different ways. 
+\index{inference rules}%
+\mymargin{inference rules}%
+Let us try to explain (without too many formalities) the system called
+\emph{natural deduction}. This system presents, for each of the logical
+operators (negation, conjunction, disjunction, implication), two formal rules:
+one that allows the introduction of the operator and one that allows the
+elimination of the operator.
+
+The simplest rules are those concerning logical conjunction. If $P$ and $Q$ are
+theorems, we can deduce that $(P)\land (Q)$ is also a theorem (introduction of
+conjunction).
+\index{logical conjunction}%
+\index{introduction!conjunction}%
+\mymargin{introduction conjunction}%
+Conversely, if $(P)\land (Q)$ is a theorem, we can deduce that both $P$ and $Q$
+are theorems (elimination of conjunction).
+\index{elimination!conjunction}%
+\mymargin{elimination conjunction}%
+For example, if we have the theorem $1+1=2$ and the theorem $2+1=3$, then we can
+deduce that $(1+1=2) \land (2+1=3)$ is a theorem. Conversely, if $(1+1=2)\land
+(2+1=3)$ is a theorem, then we can deduce that $2+1=3$ is a theorem.
+
+The introduction of logical disjunction is also a very simple rule: if $P$ is a
+theorem, then $(P)\lor (Q)$ and $(Q)\lor (P)$ are theorems, regardless of the
+proposition $Q$.
+\index{introduction disjunction}%
+\mymargin{introduction disjunction}%
+For example, if $1+1=2$ is a theorem, we can deduce that $(1+1=2) \lor (1+1\neq
+2)$ is a theorem. The rule of elimination of disjunction is slightly more
+complicated. If $(P)\lor (Q)$ is a theorem and both $(P)\implies (R)$ and
+$(Q)\implies (R)$ are theorems, we can deduce that $R$ is a theorem.
+\mymargin{elimination disjunction}%
+For example, if we have the theorems: 
+\[
+\begin{gathered}
+  (x>1) \implies (x^2>1)\\ 
+  (x<-1) \implies (x^2>1)\\  
+  (x>1) \lor (x<-1)
+\end{gathered}
+\]
+then we can deduce that $x^2>1$ is a theorem.
+
+Regarding logical implication, the rule of elimination is called \emph{modus
+ponens} and is perhaps the most important of the inference rules.
+\index{modus ponens}%
+\mymargin{modus ponens}%
+The rule tells us that if we have the theorem $P$ and the theorem $(P)\implies
+(Q)$, we can assert that $Q$ is also a theorem. For example, if we have proven
+$(1+1=2) \implies (2+1=3)$ and we have proven $1+1=2$, then we can deduce
+$2+1=3$. This formal rule gives meaning to logical implication.
+
+The rule of \emph{introduction of implication} is more complicated to formalize
+and requires the introduction of a new concept: the \emph{demonstrative
+context}.
+\index{demonstrative context}%
+\mymargin{demonstrative context}%
+A \emph{context} is essentially a new formal system that inherits all the axioms
+and formal rules of the original formal system but with additional properties
+that typically allow obtaining theorems that were not possible in the original
+formal system. For the introduction of logical implication, the rule is as
+follows. To assert that $(P)\implies (Q)$ is a theorem, we introduce a new
+context in which all previously proven theorems are axioms, and additionally,
+$P$ is an additional axiom. If in this context we manage to obtain $Q$ as a
+theorem, then we can say that $(P)\implies (Q)$ is a theorem in the original
+formal system. Note that $Q$ might not be a theorem in the original context; it
+is only in the hypothetical context where we have assumed (hypothetically) that
+$P$ was a theorem.
+
+Let us try, for example, to prove the most controversial rule of the truth
+tables, namely that $F\implies V$ (where $F$ stands for false and $V$ stands for
+true). What we need to do is verify that if $\lnot P$ is a theorem (i.e., $P$ is
+false) and if $Q$ is a theorem (i.e., $Q$ is true), then $P\implies Q$ is a
+theorem. We should use the rule of introduction of logical implication. So,
+suppose hypothetically that $P$ is a theorem. Since $Q$ was a theorem in the
+original context, $Q$ remains a theorem in the hypothetical context where we
+have assumed that $P$ is an axiom. We can then, outside the context, deduce
+$P\implies Q$ as was to be demonstrated.
+
+For example, instead of $P$, we can substitute $2\neq 2$, and for $Q$, we can
+substitute $1=1$. We would then want to prove that $2\neq 2 \implies 1=1$ is a
+theorem. Let us try to do it formally with all the details.
+
+Suppose we have a formal system containing the symbols $1$, $2$, $=$, $\neq$ in
+addition to all the symbols of propositional logic (i.e., $\land$, $\lor$,
+$\lnot$, $\implies$, $($ and $)$). We call the symbols $1$ and $2$
+\emph{constants}. Suppose that all formulas of the form $x\neq y$ and $x=y$ are
+propositions (well-formed formulas) if we substitute any constant for $x$ and
+$y$. Suppose that $x\neq y$ is synonymous with $\lnot (x=y)$. Finally, suppose
+that $x=x$ is an axiom if we substitute any constant for $x$.
+
+Outside the formal system, when presenting a proof, we will list our theorems,
+numbering each line for reference. We use curly braces $\{$ and $\}$ to enclose
+demonstrative contexts. In square brackets, we indicate the formal rules we are
+using.
+\begin{theorem}[example of formal proof]
+  $2 \neq 2 \implies 1=1$.
+\end{theorem}
+%  
+\begin{proof}
+  \begin{align}
+    &\{ & &\text{[begin hypothetical context]} \\ 
+    &\quad 2\neq 2 & & \text{[hypothesis]}  \\
+    &\quad 1=1 & & \text{[axiom]} \\
+    &\} & & \text{[end of hypothetical context]} \\
+    &2\neq 2 \implies 1=1 & & \text{[introduction of implication]}
+  \end{align}
+\end{proof}
+
+% For example, we can prove that 
+% $1=2 \implies (2=3 \implies 1=3)$.
+% We start by introducing a hypothetical context in which $1=2$.
+% In this context, we introduce a new \emph{sub}-context 
+% in which $2=3$. In the sub-context, we have as (hypothetical) theorems
+% both $1=2$ and $2=3$. 
+% An axiom of equality (which we have not yet mentioned)
+% will allow us to say that if $x=y$, then in any theorem 
+% we can replace occurrences of $x$ with $y$ and vice versa.
+% Thus, if (hypothetically) $1=2$ and $2=3$, we can replace 
+% $2$ with $1$ in the equality $2=3$ to obtain $1=3$.
+% Note that $1=3$ is false. 
+% But it would indeed be a theorem under the (absurd) hypothesis
+% that $1=2$ and $2=3$.
+% Thus, we can deduce $2=3 \implies 1=3$ in the context 
+% where we have hypothesized $1=2$. 
+% And we can deduce $1=2 \implies (2=3 \implies 1=3)$ in the
+% general context. This last one is a true theorem,
+% valid without additional hypotheses.
+
+Returning to the inference rules of propositional calculus, particularly to
+logical negation.
+\index{logical negation}%
+\mymargin{removal negation}%
+For removal, the rule is that of double negation: if $\lnot (\lnot (P))$ is a
+theorem, then $P$ is also a theorem. For example, if $\lnot (\lnot (1=1))$ is a
+theorem, then $1=1$ is also a theorem.
+\mymargin{introduction negation}%
+The rule of introduction of logical negation is proof by contradiction.
+\index{proof!by contradiction}%
+\index{contradiction!proof by}%
+If we introduce a formal context in which we assume (for contradiction) that $P$
+is a theorem and, in the context, we manage to obtain a contradiction (e.g.,
+$\lnot (P)$), then we can assert that (outside the context) $\lnot (P)$ is a
+theorem.
+
+For example, if $1=1$ is a theorem, we can prove that $\lnot \lnot (1=1)$ is
+also a theorem. Indeed, suppose for contradiction $\lnot \lnot \lnot (1=1)$.
+Then, through the elimination of double negation, we can deduce $\lnot (1=1)$.
+But this contradicts $\lnot \lnot (1=1)$. Thus, we have proven that $\lnot \lnot
+(1=1)$.
+
+The formal rules we have introduced are sufficient to prove the validity of the
+truth tables of logical operators.
+
+\begin{exercise}
+Try to use the formal inference rules of propositional calculus to prove the
+validity of the truth tables.
+\end{exercise}
+
+\subsection{predicates, quantifiers}
+
+A \emph{predicate}%
+\mymargin{predicate}%
+\index{predicate} is a proposition that contains one or more variables, and thus its truth value may depend on the value assigned to the variables. An example of a predicate is $x+2=5$, which is true if $x=3$ and false otherwise.
+
+The variables $x,y,\dots$ are nothing more than symbols of the formal system.
+Usually, the last letters of the alphabet are used. Since the letters of the
+alphabet are finite in number and since we want to have the possibility of
+introducing new variables indefinitely, we decide that a variable can be
+composed of a sequence of multiple symbols. For example, one can use the prime:
+$x$, $x'$, $x''$ or use a sequence of letters: $\textrm{area}$, $\sin$ to have
+an unlimited amount of different names available.
+
+If a predicate depends on one or more variables, these are called \emph{free
+variables}%
+\mymargin{free variables}%
+\index{free variables}. It is possible to \emph{bind} a free variable using a quantifier. The \emph{universal quantifier}%
+\mymargin{universal quantifier}%
+\index{universal quantifier} denoted by the symbol $\forall$ is used to assert that the predicate is true for every possible value of the quantified variable. For example, the proposition $\forall x\colon x+2=5$ means: ``for every $x$, $x+2=5$ holds'' and is a false proposition. The quantifier $\forall x$ makes the variable $x$ of the predicate $x+2=5$ \emph{mute} in the sense that the truth value of the proposition no longer depends on the value of that variable, which is no longer a free variable but serves only as a placeholder. Indeed, if I change the name of a mute variable, the truth value does not change. For example, writing $\forall x\colon x+1=1+x$ is equivalent to $\forall z\colon z+1=1+z$.
+
+The \emph{existential quantifier}%
+\mymargin{existential quantifier}%
+\index{existential quantifier} denoted by the symbol $\exists$ is used to assert that the predicate is true for at least one value of the quantified variable. For example, the proposition $\exists x\colon x+2=5$ means: ``there exists at least one $x$ for which $x+2=5$ holds''. What is obtained is a proposition in which the variable $x$ is mute. In this case, the proposition is true because for $x=3$, the predicate is true.
+
+A predicate can depend on multiple variables, and it is therefore possible to
+insert multiple quantifiers. In such a case, the order of the quantifiers can be
+relevant. Of the following propositions, the first is true, while the second is
+false:
+\begin{gather*}
+\forall x\colon \exists y\colon x+2=y \\
+\exists y\colon \forall x\colon x+2=y.
+\end{gather*}
+Intuitively, the first statement tells us that for every number $x$, there
+exists a number $y$ that differs by $2$ from $x$. The second tells us that there
+is a number $y$ that differs by $2$ from any number $x$.
+
+\begin{table}
+  \begin{center}
+    \begin{tabular}{lcl}
+    $\lnot \forall x \colon P(x)$ & $\iff$ & $\exists x \colon \lnot P(x)$\\
+    $\lnot \exists x \colon P(x)$ & $\iff$ & $\forall x \colon \lnot P(x)$\\
+    \end{tabular}
+  \end{center}
+  \caption{De Morgan's laws for logical quantifiers.}
+  \label{tab:proprieta_quantificatori}
+\end{table}
+
+It is useful to know how to transform one logical quantifier into another
+through negations using De Morgan's laws reported in
+table~\ref{tab:proprieta_quantificatori}.
+
+Often, the universal quantifier is implied. For example, if one writes
+$x+y=y+x$, it is understood that all free variables are quantified using the
+universal quantifier: $\forall x\colon \forall y\colon x+y=y+x$. The punctuation
+mark $\colon$ can be omitted, and quantification can be done simultaneously on
+multiple variables. We could therefore write: $\forall x\forall y\colon x+y =
+y+x$ or even $\forall x,y\colon x+y = y+x$. Sometimes, if it does not create
+ambiguity, quantifiers can be written at the end of the sentence
+\[
+  x+y=y+x \quad \forall x\forall y.
+\]
+
+A proposition cannot contain free variables, otherwise its truth value could
+depend on those variables and would not be well-defined.
+\mymargin{constants}%
+\index{constants}%
+However, it can be understood that some variables are \emph{constants}, meaning
+they represent a specific object. For example, in the proposition $\forall x:
+\pi > -x^2$, it is understood that $\pi$ is a constant, i.e., a specific number.
+Even the digits $0$, $1$, $2$ are usually always understood as constants.
+
+Along with predicate calculus, the equality symbol \texttt{=} is usually
+introduced. How equality is defined depends on how the objects treated by our
+formal system are defined, something we will do for set theory in the next
+section. However, regardless of how equality is defined, the following axioms
+are required to hold.
+
+\begin{axiom}[extensionality]
+If $P$ is a predicate in which the variables $x$ and $y$ appear free, and if
+$x=y$, then in $P$, I can substitute one or more occurrences of the variable $y$
+with the variable $x$ (and vice versa).
+\end{axiom}
+
+\begin{axiom}[equality]
+\[
+  \forall x\colon x=x.  
+\]
+\end{axiom}
+
+For predicate calculus, we must also specify the inference rules for the
+introduction and elimination of quantifiers.
+
+\mymargin{elimination $\forall$}%
+\index{quantifier!universal}%
+The elimination of the universal quantifier is very simple. If we have a theorem
+of the form $\forall x\colon P(x)$ and if a constant $c$ has been introduced in
+the demonstrative context, then we can deduce $P(c)$.
+\mymargin{introduction $\forall$}%
+Conversely, to introduce the universal quantifier, we must open a demonstrative
+context in which we assume that $x$ is a constant about which we have no
+information (i.e., $x$ is not used as a constant outside the context). If in the
+context we manage to prove a proposition $P(x)$, we can then deduce, outside the
+context, the theorem $\forall x\colon P(x)$.
+
+In practice, it will be said: given any $x$, we have proven $P(x)$, so we can
+assert that $\forall x\colon P(x)$.
+
+\index{quantifier!existential}%
+\mymargin{elimination $\exists$}%
+Regarding the existential quantifier, the rule of elimination tells us that if
+we have a theorem of the form $\exists x\colon P(x)$, we can introduce a
+demonstrative context in which a constant $c$ is defined that has the property
+$P(c)$. If in that context I manage to obtain a theorem that does not depend on
+$c$, then that theorem is valid even outside the context.
+\mymargin{introduction $\exists$}%
+The rule of introduction tells us instead that if we have a theorem of the form
+$P(c)$, with $c$ any constant, we can then deduce $\exists x\colon P(x)$.
+
+As an example, we state and formally prove a simple theorem.
+
+\begin{theorem}[example of formal proof]
+  \[ \forall x \exists y\colon x=y \]
+\end{theorem}
+\begin{proof}
+  \begin{align}
+    &\forall x\colon x = x & & \text{[axiom]} \label{ff1}\\
+    &\{ & &\text{[fix any $x$]}\\
+    &\quad x=x  & & \text{[elimination $\forall$ from \eqref{ff1}]}\\ 
+    &\quad \exists y\colon x=y & &\text{[introduction $\exists$]}\\
+    &\} & &\\
+    &\forall x\exists y\colon x=y & &\text{[introduction $\forall$]} 
+  \end{align}
+\end{proof}

@@ -1,0 +1,615 @@
+\section{Convexity}
+\index{concave}%
+\index{convex}%
+
+\begin{definition}[convex function]
+\mymark{**}
+Let $I\subset \RR$ be an interval.
+A function $f\colon I\to \RR$
+is said to be
+\emph{convex}
+\mymargin{convex function}%
+\index{function!convex}%
+\index{convex!function}%
+if for every $x,y\in I$ and for every $t\in [0,1]$ we have
+\[
+f((1-t)x + ty) \le (1-t) f(x) + t f(y).
+\]
+
+Similarly, we say that $f$ is \emph{concave} 
+\mymargin{concave function}%
+\index{function!concave}%
+\index{concave!function}%
+if the reverse inequality holds:
+\[
+f((1-t)x + ty) \ge (1-t) f(x) + t f(y)
+\]
+(or, equivalently, if $-f$ is convex).
+\end{definition}
+
+Observe that the line in the plane passing through the points $(x,f(x))$ and
+$(y,f(y))$ can be parametrized uniformly for $t\in \RR$
+by
+\[
+  (1-t) (x,f(x)) + t(y,f(y)) = ((1-t)x + ty, (1-t) f(x) + tf(y)).
+\]
+Clearly, for $t=0$ we obtain the point $(x,f(x))$, for $t=1$ the point
+$(y,f(y))$, and for $t\in[0,1]$ the segment joining these points. The convexity
+condition of the function $f$ thus corresponds to requiring that every chord
+(segment) joining two points of the graph lies "above" the graph of the
+function.
+
+\begin{definition}[convex set]
+\mymark{*}
+A set $E\subset \RR^n$ is said to be \emph{convex}%
+\mymargin{convex}%
+\index{convex} if given
+any two points $a,b\in E$, the entire segment $[a,b]=\ENCLOSE{(1-t)a+tb\colon
+t\in [0,1]}$ is contained in $E$.
+\end{definition}
+
+\begin{theorem}[epigraph of convex functions]
+Let $I\subset \RR$ and $f\colon I\subset \RR\to \RR$ be a function.
+Then the following are equivalent:
+\begin{enumerate}
+\item $I$ is an interval and $f$ is convex;
+\item the \emph{epigraph of $f$}%
+\mymargin{epigraph of $f$}%
+\index{epigraph}%
+(or \emph{supergraph})
+\index{epigraph}%
+i.e., the set
+\[
+  E = \ENCLOSE{(x,y)\in \RR^2\colon x\in I, y\ge f(x)}
+\]
+is convex.
+\end{enumerate}
+
+For concave functions, the \emph{subgraph} $\ENCLOSE{(x,y)\colon y\le f(x)}$
+will be convex.
+\end{theorem}
+%
+\begin{proof}
+Suppose that $I$ is an interval and $f$ is convex. 
+To prove that the epigraph $E$ is convex, consider two points $a,b\in E$ 
+and any point $p$ on the segment $[a,b]$.
+If $a=(x_a, y_a)$, $b=(x_b,y_b)$, $p=(x_p, y_p)$
+then there exists a $t\in [0,1]$ such that $x_p = (1-t)x_a + t x_b$ and
+$y_p=(1-t)y_a + t y_b$.
+Since $a,b\in E$, we know that $y_a \ge f(x_a)$ and $y_b\ge f(x_b)$. 
+Thus, necessarily, we have
+\[
+  y_p \ge (1-t)f(x_a) + t f(x_b).
+\]
+But since $f$ is convex, we have:
+\[
+  (1-t)f(x_a) + t f(x_b) \ge f((1-t)x_a + t x_b) = f(x_p).
+\]
+Thus $y_p\ge f(x_p)$, which means $p\in E$.
+
+Conversely, suppose we know that $E$ is convex. Let $x,y\in I$ be any points.
+Then the points $a=(x,f(x))$ and $b=(y,f(y))$ are certainly points of $E$, and
+therefore the entire segment $[a,b]$ must be contained in $E$. Thus, for every
+$t\in [0,1]$, the point $p = ((1-t)x + t y,$ $(1-t)f(x)+ tf(y))$ must lie in
+$E$. Firstly, it must be that $(1-t)x+ty\in I$, and if this is true for every
+$t\in[0,1]$, it means that $I$ is an interval. Secondly, if $p\in E$, it means
+that
+\[
+  (1-t)f(x) +t f(y) \ge f((1-t)x + t y)
+\]
+which corresponds to the definition of a convex function.
+\end{proof}
+
+
+\begin{lemma}[incremental ratio of a convex function]
+\mymark{*}%
+\label{lemma:547091}%
+Let $I$ be an interval of $\RR$ and let $f\colon I\to \RR$.
+Given $x,y\in I$ with $x\neq y$, we define the \emph{incremental ratio}
+of $f$ as:
+\[
+  R(x,y) = \frac{f(y) - f(x)}{y-x}.
+\]
+Then the following conditions are equivalent:
+\begin{enumerate}
+\item $f$ is convex;
+\item for every $x,y,z\in I$ if $x<y<z$ then $R(x,y)\le R(y,z)$;
+\item for every $x,y,z\in I$ if $x<y<z$ then $R(x,y)\le R(x,z)$;
+\item for every $x,y,z\in I$ if $x<y<z$ then $R(x,z)\le R(y,z)$;
+\item the function $R(x,y)$ is increasing in each of the two variables.
+\end{enumerate}
+\end{lemma}
+%
+\begin{proof}
+Attention:
+the lemma is obvious if one uses the correct geometric interpretation
+(the incremental ratio is the slope of the corresponding chord).
+What follows is the algebraic translation of what
+is geometrically obvious but inevitably becomes cumbersome
+and more difficult to understand.
+
+Let $x,y,z\in I$ with $x<y<z$.
+Setting $t=(y-x)/(z-x)$, we have $y=(1-t)x + tz$,
+ $y-x = t(z-x)$, $z-y = (1-t)(z-x)$.
+Then we have
+ \begin{equation*}
+ \begin{aligned}
+ R(x,z) - R(x,y)
+ &= \frac{f(z)-f(x)}{z-x} - \frac{f(y)-f(x)}{y-x} \\
+  &= t\frac{f(z)-f(x)}{y-x} - \frac{f(y)-f(x)}{y-x} \\
+  &= \frac{tf(z) + (1-t) f(x) - f(y)}{y-x}
+ \end{aligned}
+ \end{equation*}
+
+The convexity condition of $f$ is
+\[
+  f(y) \le (1-t)f(x) + tf(z)
+\]
+and is therefore equivalent to the condition $R(x,y) \le R(x,z)$.
+Thus, conditions 1 and 3 are equivalent.
+
+But with a direct verification, we observe that
+\[
+  R(x,z) = t R(x,y) + (1-t) R(y,z)
+\]
+from which we obtain
+\[
+  R(y,z) - R(x,z) = t[R(y,z) - R(x,y)]
+\]
+or also
+\[
+ R(x,z) - R(x,y) = (1-t) [R(y,z) - R(x,y)].
+\]
+It follows that the quantities
+\[
+  R(y,z) - R(x,y), \qquad
+  R(x,z) - R(x,y), \qquad
+  R(y,z) - R(x,z)
+\]
+all have the same sign. Therefore, conditions 2, 3, and 4 are equivalent (if one
+of the three holds, all three hold).
+
+If the three conditions 2, 3, and 4 hold, it is easy to verify that the function
+$R(x,y)$ is increasing in both variables. First of all, by symmetry, since
+$R(x,y) = R(y,x)$, it is sufficient to verify that $R(x,y)$ is increasing in the
+second variable $y$ for each fixed $x$. Therefore, given $z>y$, we need to show
+that $R(x,z) \ge R(x,y)$.
+We then have three possibilities depending on whether $x<y$ or $y<x<z$ or $z<x$.
+In the first case, we have $x<y<z$, and thus the inequality $R(x,y) \le R(x,z)$
+corresponds to condition 3.
+In the second case, we have $y<x<z$, and the condition $R(x,y)\le R(x,z)$ can be
+written as $R(y,x) \le R(x,z)$, which, by appropriately rearranging the
+variables, is condition 2. If, finally, $y < z < x$, the condition $R(x,y) \le
+R(x,z)$ can be written as $R(y,x) \le R(z,x)$, which, by rearranging the
+variables, is condition 4.
+
+Conversely (and finally), if the function $R(x,y)$ is increasing in both
+variables, in particular, it is increasing in the second variable, and therefore
+if $x<y<z$, we have $R(x,y) \le R(x,z)$. It follows that condition 5 implies 3
+and therefore all other conditions.
+\end{proof}
+
+\begin{theorem}
+\mymark{***}
+Let $I\subset \RR$ be an interval and $f\colon I \to \RR$ a differentiable
+function on all of $I$.
+Then the following are equivalent:
+\begin{enumerate}
+\item $f$ is convex;
+\item for every $x_0 \in I$ and for every $x\in I$, we have
+\[
+   f(x) \ge f'(x_0) (x-x_0) + f(x_0)
+\]
+(geometrically: the graph of the function lies above the tangent line);
+\item $f'$ is increasing.
+\end{enumerate}
+
+Similarly, for concave functions, the graph will "lie below" the tangent line,
+and the derivative will be decreasing.
+\end{theorem}
+%
+\begin{proof}
+\mymark{**}
+Observe that
+\[
+  f'(x_0) = \lim_{x\to x_0} R(x_0,x).
+\]
+If $f$ is convex, then, by the lemma, the incremental ratio $R(x_0,x)$ is
+increasing, and therefore $f'(x_0) = \inf_{x>x_0} R(x_0,x)$. In particular,
+$f'(x_0) \le R(x_0,x)$ for every $x> x_0$. Similarly, we find $f'(x_0) \ge
+R(x_0,x)$ if $x<x_0$.
+In any case, it follows that for every $x$, we have
+\[
+(R(x_0,x)- f'(x_0))(x-x_0)\ge 0
+\]
+or equivalently
+\[
+  f(x) - f(x_0) - f'(x_0)(x-x_0) \ge 0.
+\]
+Thus, condition 1 implies condition 2.
+
+If condition 2 holds, given $x,y \in I$, we have
+\[
+  f(x) - f(y) \ge f'(y)(x-y)
+\]
+if we exchange $x$ and $y$ and change the sign of both sides, we obtain
+\[
+  f(x) - f(y) \le f'(x)(x-y)
+\]
+putting together the two inequalities,
+if we now assume that $x>y$, we obtain precisely
+$f'(x) \ge f'(y)$, i.e., $f'$ is increasing (condition 3).
+
+Now suppose we know that $f'$ is increasing 
+and prove that if $x<y<z$, then $R(x,y) \le R(y,z)$.
+By the mean value theorem, there exist $s\in (x,y)$ 
+and $t\in (y,z)$ such that $f'(s) = R(x,y)$ and $f'(t) = R(y,z)$.
+But $s<t$, thus $f'(s) \le f'(t)$, i.e., $R(x,y) \le R(y,z)$
+as we wanted to prove.
+\end{proof}
+
+\begin{corollary}[convexity criterion via second derivative]
+\mymark{***}
+Let $I\subset \RR$ be an interval and let $f\colon I \to \RR$ be a twice
+differentiable function (i.e., $f$ is differentiable and $f'$ is also
+differentiable).
+Then $f$ is convex if and only if $f''(x)\ge 0$ for every $x\in I$.
+Similarly, $f$ is concave if and only if $f''\le 0$.
+\end{corollary}
+\begin{proof}
+\mymark{***}
+By the previous criterion, $f$ is convex if and only if $f'$ is increasing. By
+the monotonicity criterion, $f'$ is increasing if and only if $f'' \ge 0$.
+Similar considerations apply to concavity.
+\end{proof}
+
+\begin{theorem}
+Let $a\in \RR$, $b\in \bar \RR$, $a<b$.
+Let $f\colon [a,b)\to \RR$ be a convex function 
+in $(a,b)$ and continuous at $a$. 
+Then $f$ is convex on the entire $[a,b)$. 
+A similar result holds for functions defined on 
+left-open intervals $(a,b]$
+or on intervals open on both sides $(a,b)$.
+\end{theorem}
+%
+\begin{proof}
+It suffices to show that if $x<y<z$, then $R(x,y)\le R(y,z)$.
+The inequality holds for $x>a$ since $f$ is convex 
+in $(a,b)$, and thus, by taking the limit as $x\to a$, 
+thanks to the continuity of $f$ at $a$,
+the inequality is also proven when $x=a$.
+\end{proof}
+
+\begin{example}
+The function $f(x) = \sqrt{x}$ is defined on $[0,+\infty)$ but is differentiable
+only on $(0,+\infty)$. Its derivative is $f'(x) = x^{-\frac 1 2 }/2$ and the
+second derivative is $f''(x) = -x^{-\frac 3 2}/4 < 0$. Thus, the function is
+concave on the open interval $(0,+\infty)$. But being continuous, we can
+conclude that $f$ is concave on the entire domain $[0,+\infty)$.
+\end{example}
+
+\begin{comment}
+\begin{theorem}[continuity of convex functions]
+Let $a,b \in \bar \RR$ with $a< b$.
+Let $f\colon (a,b) \to \RR$ be a convex function. Then $f$ is continuous.
+\end{theorem}
+%
+\begin{proof}
+Let $x_0 \in (a,b)$ and let $y,z \in (a,b)$ with $y < x_0 < z$.
+By the lemma on incremental ratios, we know that for every $x\in (y,z)$ we have
+\[
+   R(x_0, y) \le R(x_0,x) \le R(x_0,z).
+\]
+In particular, there exists a constant $C$ such that
+\[
+  \abs{R(x_0,x)} \le C,\qquad \forall x \in (y,z).
+\]
+Multiplying by $\abs{x-x_0}$, we then obtain
+\[
+   \abs{f(x) - f(x_0)} \le C \abs{x-x_0}
+\]
+and as $x\to x_0$, the right side tends to zero, and therefore by comparison,
+the left side must also tend to zero. Thus $f(x)\to f(x_0)$
+and $f$ is continuous at $x_0$.
+\end{proof}
+\end{comment}
+
+\begin{theorem}[differentiability of convex functions]
+    Let $I\subset \RR$ be an interval and let $f\colon I \to \RR$ be a convex
+  function.
+    If $x_0\in (\inf I, \sup I)$, the right and left derivatives of $f$ at $x_0$
+  exist and are finite:
+  \begin{align*}
+    f'_+(x_0) &= \lim_{x\to x_0^+} \frac{f(x)-f(x_0)}{x-x_0}\\
+    f'_-(x_0)  &= \lim_{x\to x_0^-} \frac{f(x)-f(x_0)}{x-x_0}  
+  \end{align*}
+  and we have
+  \[
+    f'_-(x_0) \le f'_+(x_0).
+  \]
+  Moreover, if $\inf I < x_1 < x_2 < \sup I$, we have 
+  \[
+    f'_+(x_1) \le f'_-(x_2).
+  \]
+  It follows that $f$ is continuous at all interior points of $I$ 
+  and that the set of points where $f$ is not differentiable 
+  is at most countable.
+  \end{theorem}
+  %
+  \begin{proof}
+    In lemma~\ref{lemma:547091}, we observed that the incremental ratio
+    \[
+      R(x_0,x) = \frac{f(x)-f(x_0)}{x-x_0}
+    \] 
+    of a convex function is increasing with respect to the variable $x$. 
+    Thus, by theorem~\ref{th:limite_funzione_monotona}, we 
+    have 
+    \[
+      f'_-(x_0) = \sup_{x<x_0} R(x_0,x)>-\infty, \qquad 
+      f'_+(x_0) = \inf_{x>x_0} R(x_0,x)<+\infty
+    \]
+    and since if $x<x_0$ and $y>x_0$, we have $R(x_0,x)\le R(x_0,y)$, 
+    we deduce that $f'_-(x_0)\le f'_+(x_0)$, and both limits 
+    are thus finite. If $x_1 < x_2$, then for any 
+    point $x$ with $x_1<x<x_2$, we have (again by lemma~\ref{lemma:547091})
+    \[
+      R(x_1,x) \le R(x,x_2)
+    \]
+    and thus, taking the limit, we find $f'_+(x_1) \le f'_-(x_2)$.
+    The right and left derivatives thus exist at all interior points 
+    of the interval $I$. 
+        In particular, $f$ is continuous at such points since it is continuous
+    both from the right
+    and from the left.
+    The points of non-differentiability of $f$ are the points where 
+    the right and left derivatives differ. 
+    But to each point $x$ of non-differentiability, 
+        I can associate the non-empty open interval $I_x = (f'_-(x),f'_+(x))$,
+    and for
+        the properties just seen, it is clear that these intervals are pairwise
+    disjoint
+        since if $x_1<x_2$, the right endpoint of $I_{x_1}$ is less than or
+    equal to the left endpoint
+    of $I_{x_2}$.
+        Since each of these intervals contains at least one rational number, we
+    conclude that
+        the number of points of discontinuity cannot be greater than the
+    cardinality
+    of the rational numbers.
+  \end{proof}
+  
+  \begin{theorem}[supporting line]
+    \label{th:supporto_convessa}%
+    Let $I\subset \RR$ be an interval, $f\colon I\to\RR$ a convex function, 
+        and $x_0$ an interior point of $I$. Then there exists an affine linear
+    function
+    \[
+      L(x) = mx+q
+    \]
+    such that $f(x_0) = L(x_0)$ and for every $x\in I$, we have $f(x)\ge L(x)$.
+  \end{theorem}
+  %
+  \begin{proof}
+        It suffices to choose any $m\in [f'_-(x_0),f'_+(x_0)]$ and consider the
+    affine linear function $L(x) = m(x-x_0) + f(x_0)$. If $x>x_0$, then we have
+    $R(x_0,x)\ge m$,
+    and thus $f(x) - f(x_0) \ge m (x-x_0) = L(x)$. Conversely, if $x<x_0$, 
+    we have $R(x_0,x)\le m$, hence, again, $f(x)-f(x_0) \ge m(x-x_0) = L(x)$.
+  \end{proof}
+  %
+  The following theorem can also be stated for integrals 
+  as we will see in theorem~\ref{th:jensen}. 
+  The proof is essentially identical and is valid even 
+  for convex functions of multiple variables.
+  %
+  \begin{theorem}[barycentric combinations/Jensen's inequality]
+    \mymark{*}%
+    \label{th:combinazioni_baricentriche}%
+    \index{barycentric combinations}%
+    \index{inequality!Jensen's}%
+    \index{Jensen!inequality}%
+        If $f$ is a convex function defined on an interval $I$, given $x_1,
+    \dots, x_n \in I$ and $\lambda_1, \dots, \lambda_n\in \RR$ such that
+    $\sum_{k=1}^n \lambda_k = 1$ and $\lambda_k \ge 0$ for each $k=1, \dots, n$,
+    then
+    \[
+      f\enclose{\sum_{k=1}^n \lambda_k x_k}
+      \le \sum_{k=1}^n \lambda_k f(x_k).
+    \]
+    For concave functions, the reverse inequality holds.
+    \end{theorem}
+    %
+    \begin{comment}
+    \begin{proof}
+        We proceed by induction on $n$. In the case $n=1$, we have
+    $\lambda_1=1$, and the two sides of the inequality are indeed equal.
+    Assuming the theorem is proven for a certain $n$, we proceed to prove it for
+    $n+1$.
+    Observe that
+    \begin{align*}
+      \sum_{k=1}^{n+1} \lambda_k x_k
+      &= \sum_{k=1}^n \lambda_k x_k  + \lambda_{n+1} x_{n+1} \\
+            &= (1-\lambda_{n+1})\sum_{k=1}^n\frac{\lambda_k}{1-\lambda_{n+1}}
+      x_k + \lambda_{n+1} x_{n+1}.
+    \end{align*}
+    Since
+    \[
+      \sum_{k=1}^{n+1} \lambda_k = 1
+    \]
+    we have
+    \[
+      \sum_{k=1}^n \frac{\lambda_k}{1-\lambda_{n+1}}
+      = \frac{1-\lambda_{n+1}}{1-\lambda_{n+1}} = 1.
+    \]
+    Thus, by the inductive hypothesis, we have
+    \[
+      f\enclose{\sum_{k=1}^n\frac{\lambda_k}{1-\lambda_{n+1}} x_k}
+      \le \sum_{k=1}^n \frac{\lambda_k}{1-\lambda_{n+1}}f(x_k).
+    \]
+    Using the convexity of $f$ again with $t=\lambda_{n+1}$, we have
+    \begin{align*}
+    f\enclose{\sum_{k=1}^{n+1} \lambda_k x_k}
+        &=f\enclose{(1-\lambda_{n+1})\sum_{k=1}^n
+    \frac{\lambda_k}{1-\lambda_{n+1}}x_k + \lambda_{n+1}x_{n+1}}\\
+        &\le (1-\lambda_{n+1})f\enclose{\sum_{k=1}^n
+    \frac{\lambda_k}{1-\lambda_{n+1}}x_k} + \lambda_{n+1}f(x_{n+1}) \\
+        &\le (1-\lambda_{n+1})\sum_{k=1}^n \frac{\lambda_k}{1-\lambda_{n+1}}
+    f(x_k) + \lambda_{n+1} f(x_{n+1})\\
+    &= \sum_{k=1}^{n+1}\lambda_k f(x_k).
+    \end{align*}
+    as we wanted to prove.
+    \end{proof}
+  \end{comment}
+  %    
+  \begin{proof}
+  Let 
+  \[
+    \bar x =  \sum_{k=1}^n \lambda_k x_k.
+  \]
+  By the previous theorem~\ref{th:supporto_convessa}, 
+  we know that there exists a line $L(x) = mx + q$ 
+  such that $L(\bar x) = f(\bar x)$ 
+  and $L(x)\le f(x)$ for every $x \in I$.
+  Then we have 
+  \[
+  L \enclose{\sum_{k=1}^n \lambda_k x_k}
+  = \sum_{k=1}^n m \lambda_k x_k + q \sum_{k=1}^n \lambda_k 
+  = \sum_{k=1}^n \lambda_k L(x_k).  
+  \]
+  Thus 
+  \[
+  f(\bar x) = L(\bar x) = \sum_{k=1}^n \lambda_k L(x_k) \le 
+  \sum_{k=1}^n \lambda_k f(x_k).
+  \]
+  \end{proof}
+
+\begin{example}[inequality between arithmetic mean and geometric mean]
+\label{ex:AMGM}%
+  \mymark{*}%
+\index{inequality!arithmetic mean geometric mean}%
+Observe that the function $f(x) = \ln x$ is concave, indeed we have
+$f''(x) = -1/x^2 < 0$. Thus, by the previous theorem, if $\lambda_1 + \dots +
+\lambda_n =1$, $\lambda_k \ge 0$, we have
+\[
+    \ln\enclose{\sum_{k=1}^n \lambda_k x_k}
+    \ge \sum_{k=1}^n \lambda_k \ln x_k.
+\]
+Exponentiating both sides, we obtain
+\[
+  \sum_{k=1}^n \lambda_k x_k \ge \prod_{k=1}^n x_k^{\lambda_k}.
+\]
+In the particular case $\lambda_k = 1/n$, we obtain
+the inequality between \emph{arithmetic mean} (AM for anglophones)
+and \emph{geometric mean}
+\mymargin{arithmetic geometric mean}%
+\index{arithmetic geometric mean}%
+\index{mean!arithmetic}%
+\index{mean!geometric}%
+\index{AM}%
+\index{GM}%
+(GM):
+\[
+  \frac{x_1 + \dots + x_n}{n} \ge \sqrt[n]{x_1\cdots x_n}.
+\]
+\end{example}
+
+\begin{exercise}[subadditivity of concave functions]
+\index{subadditivity!of concave functions}%
+\index{function!concave!subadditive}%
+\index{concave!subadditive}%
+Let $f\colon [0,+\infty) \to \RR$ be a concave function with $f(0)\ge 0$. Then
+$f$ is subadditive, i.e.:
+\[
+  f(x+y) \le f(x) + f(y),\qquad \forall x,y\ge 0.
+\]
+\end{exercise}
+%
+\begin{proof}
+If $x=y=0$, the inequality is obvious.
+Otherwise, $x+y>0$, and we have
+\begin{align*}
+f(x) &= f\enclose{\frac{y}{x+y}\cdot 0 + \frac{x}{x+y}\cdot (x+y)}\\ &\ge
+\frac{y}{x+y}f(0) + \frac{x}{x+y}f(x+y)
+\ge \frac{x}{x+y}f(x+y).
+\end{align*}
+Exchanging $x$ with $y$ and summing, we obtain:
+\[
+  f(x) + f(y) \ge \frac{x}{x+y}f(x+y) + \frac{y}{x+y}f(x+y) = f(x+y).
+\]
+\end{proof}
+
+Note that by expanding the inequality $(x-y)^2\ge 0$, we obtain:
+\[
+  x y \le \frac{x^2 + y^2}{2}.
+\]
+This inequality can be generalized to different exponents 
+as seen in the following.
+
+\begin{theorem}[Young's inequality]%
+\label{th:young}%
+\index{Young!inequality}%
+\index{inequality!Young's}%
+If $p>1$, $q>1$, $\frac{1}{p}+\frac{1}{q}=1$, $x,y\ge 0$:
+\begin{equation}\label{eq:young}
+  x y \le \frac{x^p}{p} + \frac{y^q}{q}.
+\end{equation}
+\end{theorem}
+%
+\begin{proof}
+We use the convexity inequality for the function $\exp(x)=e^x$. 
+Since the second derivative of the exponential is positive, the function $\exp$ 
+is convex, and thus, if $x>0$ and $y>0$, we have:
+\begin{align*}
+ x\cdot y 
+  &= \exp(\ln x + \ln y)
+  = \exp\enclose{\frac 1 p \ln (x^p) + \frac 1 q \ln (y^q)}  \\
+  &\le \frac 1 p \cdot \exp \ln (x^p) + \frac 1 q \exp \ln (y^q)
+  = \frac{x^p}{p} + \frac{y^q}{q}.
+\end{align*}
+If $x=0$ or $y=0$, the inequality is obvious since the left side 
+of~\eqref{eq:young} is zero.
+\end{proof}
+
+\begin{theorem}[Hölder's inequality]
+If $a_k\ge 0$ and $b_k\ge 0$ for $k\in \NN$
+and let $p>1$ and $q>1$ such that $\frac 1 p + \frac 1 q = 1$.
+Then 
+\[
+ \sum_k a_k b_k  \le \enclose{\sum_k a_k^p}^{1 \over p} \cdot \enclose{\sum_k b_k^q}^{1\over q}.
+\]
+\end{theorem}
+\begin{proof}
+Let 
+\[
+A = \enclose{\sum_k a_k^p}^{1 \over p}, \qquad 
+B = \enclose{\sum_k b_k^q}^{1\over q}.
+\]
+If $A>0$ and $B>0$, we can divide the left side of the inequality 
+by the right side and apply Young's inequality~\eqref{eq:young}:
+\begin{align*}
+  \frac{\sum_k a_k b_k}{A\cdot B} 
+  & = \sum_k \frac{a_k}{A}\cdot \frac{b_k}{B} 
+  \le \sum_k \frac 1 p \frac{a_k^p}{A^p} + \frac 1 q \frac{b_k^q}{B^q} \\
+  &= \frac 1 p \frac{\sum_k a_k^p}{A^p} + \frac 1 q \frac{\sum_k b_k^q}{B^q}
+  = \frac 1 p + \frac 1 q = 1.
+\end{align*}
+And the theorem is proven. 
+
+If $A=0$, all terms $a_k$ would be zero, and the inequality 
+reduces trivially to $0\le 0$. The same holds if $B=0$.  
+\end{proof}
+
+In the case $p=q=2$, we obtain the 
+\emph{Cauchy-Schwarz inequality}%
+\mymargin{Cauchy-Schwarz inequality}%
+\index{inequality!Cauchy-Schwarz}%
+\index{inequality!Cauchy-Schwarz}%
+\index{Cauchy-Schwarz!inequality}%
+\index{Schwarz!Cauchy-Schwarz inequality}%
+\[
+   \sum_k \abs{a_k b_k} \le \sqrt{\sum_k a_k^2} \cdot \sqrt{\sum_k b_k^2}
+\]
+which, however, could be more easily proven 
+for a generic inner product, as we will do 
+in theorem~\ref{th:spazio_euclideo}.

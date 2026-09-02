@@ -1,0 +1,150 @@
+\section{Summation by Parts}
+\begin{theorem}[Summation by Parts]
+\label{th:somma_per_parti}%
+Let $a_k$ and $B_k$ be sequences (real or complex).
+Define
+\[
+  A_n = \sum_{k=0}^{n-1} a_k, \qquad
+  b_n = B_{n+1} - B_n
+\]
+then
+\mymargin{summation by parts}%
+\index{summation!by parts}%
+\begin{equation}\label{eq:somma_per_parti}
+ \sum_{k=m}^{n-1} a_k B_k = A_n B_n - A_m B_m - \sum_{k=m}^{n-1} A_{k+1}b_k.
+\end{equation}
+\end{theorem}
+%
+\begin{proof}
+Observe that $a_n = A_{n+1}-A_n$, thus
+\begin{align*}
+  A_n B_n - A_m B_m
+  &= \sum_{k=m}^{n-1} (A_{k+1}B_{k+1}-A_k B_k)\\
+  &= \sum_{k=m}^{n-1} (A_{k+1}B_{k+1}-A_{k+1}B_k + A_{k+1}B_k - A_k B_k)\\
+  &= \sum_{k=m}^{n-1} A_{k+1}b_k + \sum_{k=m}^{n-1} a_k B_k.
+\end{align*}
+\end{proof}
+
+If we take $a_k=(-1)^k$, it can be observed that $A_n = \sum_{k=0}^{n-1} (-1)^k$
+is a bounded sequence since $A_n = 1$ if $n$ is odd while
+$A_n=0$ if $n$ is even.
+If instead we choose a sequence $B_n$ that is positive,
+decreasing, and infinitesimal
+and set $b_n = B_{n+1}-B_n$
+we have
+\[
+  \sum_{k=0}^{+\infty} \abs{b_k}
+  = \lim_{n\to+\infty}\sum_{k=0}^{n-1} (B_k-B_{k+1})
+  = \lim_{n\to +\infty} (B_0 - B_n) = B_0 < +\infty.
+\]
+Thus, the following theorem is an extension of the
+Leibniz criterion for alternating series.
+
+\begin{theorem}[Dirichlet's Criterion]%
+\label{th:dirichlet}%
+\index{criterion!of Dirichlet}%
+\index{Dirichlet!criterion of}%
+Let $a_n$ and $B_n$ be sequences (real or complex)
+and set $\displaystyle A_n = \sum_{k=0}^{n-1} a_k$,
+$b_n = B_{n+1} - B_n$.
+If $A_n$ is bounded,
+$B_n\to 0$
+and $\sum \abs{b_n} < +\infty$
+then the series $\sum a_k B_k$ is convergent.
+\end{theorem}
+%
+\begin{proof}
+By the summation by parts formula~\eqref{eq:somma_per_parti}
+ we have
+\begin{equation}\label{eq:3498954}
+ \sum_{k=0}^{n-1} a_k B_k
+ = A_n B_n - A_0 B_0 - \sum_{k=0}^{n-1} A_{k+1}b_k.
+\end{equation}
+The first term $A_n B_n$ tends to zero as $n\to +\infty$
+since it is the product of a bounded sequence and an infinitesimal.
+The second term is constant.
+The series $\sum A_{k+1} b_k$ is absolutely convergent
+since $\abs{A_n}\le L$ is bounded
+and $\sum b_n$ is absolutely convergent, we have
+\[
+  \sum \abs{A_{k+1}} \cdot \abs{b_k}
+  \le L \cdot \sum \abs{b_k} < +\infty.
+\]
+
+Thus, the limit of the sum on the right-hand side converges, and therefore
+the sum on the left-hand side
+of equation~\eqref{eq:3498954}
+is convergent as $n\to +\infty$.
+\end{proof}
+
+\begin{example}\label{ex:serie_log}
+Given $z\in \CC$, $\abs{z} \le 1$, $z\neq 1$, the series
+\[
+  \sum_{k=1}^{+\infty} \frac{z^k}{k}
+\]
+is convergent.
+\end{example}
+\begin{proof}
+Note that for $\abs{z}<1$, one can easily apply
+the ratio or root test to the series of moduli.
+But for $\abs{z}=1$, those tests do not apply, and
+one must instead use Theorem~\ref{th:dirichlet}.
+
+Setting $a_k=z^k$, it is observed that $\sum a_k$ is a
+geometric series and (since $z\neq 1$) we have
+\[
+  A_n = \sum_{k=0}^{n-1} z^k = \frac{1-z^n}{1-z}
+\]
+which is bounded, indeed:
+\[
+  \abs{A_n} = \frac{\abs{1-z^n}}{\abs{1-z}} \le \frac{1+\abs{z^n}}{\abs{1-z}}
+  = \frac{2}{\abs{1-z}}.
+\]
+While setting $B_n = 1/n$, it is clear that, being $B_n$ real,
+decreasing, we have
+\begin{align*}
+\sum_{k=1}^{+\infty} \abs{B_{k+1}-B_{k}}
+&= \lim_{n\to +\infty}\sum_{k=1}^{n-1} (B_k-B_{k+1})
+= \lim_{n\to +\infty}(B_1 - B_n)\\
+&= \lim_{n\to +\infty}\enclose{1 - \frac{1}{n}} = 1
+< +\infty.
+\end{align*}
+Thus, Theorem~\ref{th:dirichlet} is applied
+to obtain the convergence
+of the given series.
+
+Note that if $\abs{z}>1$, the series in question does not
+converge because the general term $z^k/k$ is not infinitesimal.
+For $z=1$, the harmonic series is obtained, which also does not converge.
+\end{proof}
+
+\begin{exercise}
+  The series
+  \[
+    \sum_{k=1}^{+\infty} \frac{\sin k}{k}
+  \]
+  is convergent.
+  \end{exercise}
+  \begin{proof}
+  We apply Theorem~\ref{th:dirichlet}.
+  Setting $a_k = \sin k$ and $B_k=1/k$
+  we have
+  \[
+    A_n = \sum_{k=0}^{n-1} \sin k = \Im \sum_{k=0}^{n-1} e^{ik}.
+  \]
+  We then observe that $e^{ik}=(e^i)^k$, and thus $A_n$ is the imaginary part
+  of the sum of a geometric series. 
+  It can therefore be calculated explicitly
+  \[
+    A_n = \Im \frac{1-(e^i)^n}{1-e^i}
+  \]
+  from which
+  \[
+    \abs{A_n} \le \abs{\frac{1-e^{in}}{1-e^i}} \le \frac{1+\abs{e^{in}}}{\abs{1-e^i}}
+    = \frac{2}{\abs{1-e^i}}
+  \]
+  and thus $A_n$ is bounded.
+  
+  On the other hand, setting $B_k = 1/k$, it is clear that $B_k$ is
+  decreasing and infinitesimal.
+  \end{proof}

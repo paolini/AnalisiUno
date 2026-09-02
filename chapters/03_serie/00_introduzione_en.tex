@@ -1,0 +1,313 @@
+Given a sequence $a_n$ of real or complex numbers, we can consider the sequence
+of the so-called \emph{partial sums}%
+\mymargin{partial sums}%
+\index{sums!partial}
+\[
+  S_n = \sum_{k=0}^{n-1} a_k.
+\]
+\mynote{The sum starts from $k=0$ because we want to use all the terms of the sequence, but in many cases, the sequence will have its first index at $k=1$, and thus it will be natural to start from $k=1$. The last term is $n-1$ so that $S_n$ is the sum of the first $n$ terms of the sequence. Nothing would change if we chose $n$ instead of $n-1$.}
+We can write more concisely $S_n = \sum a_n$.
+Intuitively, it means summing the terms of the sequence $a_k$ for $k$ starting
+from $0$ up to $k=n-1$:
+\[
+  \sum_{k=0}^{n-1} a_k = a_0 + a_1 + a_2 + \dots + a_{n-1}.
+\]
+Formally, the sum $S_n=\displaystyle \sum_{k=0}^n a_k$ is defined recursively by
+the following relations:
+\[
+  \begin{cases}
+    S_0 = 0, \\
+    S_{n+1} = S_n + a_{n}.
+  \end{cases}
+\]
+
+The numbers $a_n$ are called \emph{terms}%
+\mymargin{terms}%
+\index{term} of the series.
+\index{terms!of a series}\index{series!terms}%
+If the sequence of partial sums admits a limit, the limit is called the
+\emph{sum}%
+\mymargin{sum}%
+\index{sum}
+\index{sum!of a series}\index{series!sum}%
+of the series and is denoted by
+\[
+  \sum_{k=0}^{+\infty} a_k 
+  = \lim_{n\to +\infty} S_n 
+  = \lim_{n\to+\infty} \sum_{k=0}^{n-1} a_k.
+\]
+
+The terminology already introduced for sequences also applies to series, which
+are indeed sequences themselves. In particular, a series can be convergent,
+divergent, or indeterminate. This is the \emph{nature of the series}.
+\mymargin{nature}%
+\index{nature!of a series}%
+\index{series!nature}%
+
+More generally, one can consider the sum starting from a certain index $m\in
+\ZZ$. Given $m$, one can, for example, consider the series:
+\[
+  S_n = \sum_{k=m}^{n-1} a_k
+\]
+which is defined for every $n\in\NN$, $n\ge m$ as
+\[
+  S_n = a_m + a_{m+1} + \dots + a_{n-1}.
+\]
+
+\begin{example}
+Consider the series $S_n$ defined as the sum of natural numbers from $1$ to $n$:
+\[
+  S_n 
+  = \sum_{k=0}^{n-1} (k+1)
+  = \sum_{k=1}^{n} k
+  = 1 + 2 + \dots + n.
+\]
+We know that (exercise~\ref{ex:somma_lineare})
+\[
+  S_n = \frac{n(n+1)}{2}.
+\]
+And by the definition of limit, it can be verified that $S_n \to +\infty$.
+
+This is expressed by saying that the series $\sum n$ is divergent:
+\[
+  \sum_{k=0}^{+\infty} (k+1)
+  = \sum_{k=1}^{+\infty} k 
+  = +\infty.
+\]
+\end{example}
+
+\begin{example}[the geometric series]
+Given $q \in \RR$ or $q\in \CC$, to the sequence
+$  a_n = q^n$
+of terms
+\[
+  a_0 = 1,\qquad
+  a_1 = q,\qquad
+  a_2 = q^2,\qquad
+  a_3 = q^3, \dots
+\]
+is associated the
+\emph{geometric series}%
+\mymargin{geometric series}%
+\index{series!geometric}
+$\sum q^n$
+whose partial sums are
+\[
+  S_0 = 0, \qquad
+  S_1 = 1, \qquad
+  S_2 = 1 + q, \qquad
+  S_3 = 1 + q + q^2, \qquad
+  \dots
+\]
+\end{example}
+
+The following theorem shows us how, for different values of $q$, the geometric
+series assumes all possible natures: convergent, divergent, indeterminate.
+
+\begin{theorem}[sum of the geometric series]
+\label{th:serie_geometrica}%
+\mymark{***}%
+\mymargin{sum of the geometric series}%
+\index{sum!of the geometric series}%
+Let $q\in \CC$. If $q\neq 1$, we have
+\[
+ \sum_{k=0}^{n-1} q^k  = \frac{1-q^n}{1-q}.
+\]
+If $\abs{q} < 1$, the geometric series converges:
+\[
+ \sum_{k=0}^{+\infty} q^k = \frac{1}{1-q}.
+\]
+
+If $\abs{q}\ge 1$, the series does not converge, but we must distinguish whether
+the series is considered with real or complex values to determine its nature.
+
+If we consider the series with real values (thus $q\in \RR$), if $q\ge 1$, the
+series diverges to $+\infty$; if $q\le -1$, the series is indeterminate.
+
+If we consider the series with complex values $q\in \CC$, if $\abs{q}>1$, the
+series diverges to $\infty$, the same happens if $q=1$. If $\abs{q}=1$ but
+$q\neq 1$, the series is indeterminate.
+\end{theorem}
+%
+\begin{proof}
+The first result concerns a finite sum. We have
+\[
+  (1-q)\cdot \sum_{k=0}^{n-1} q^k
+  = \sum_{k=0}^{n-1} q^k - q \cdot \sum_{k=0}^{n-1} q^k
+  = \sum_{k=0}^{n-1} q^k - \sum_{k=1}^{n} q^k
+  = 1 - q^n
+\]
+from which, if $q\neq 1$, the desired result is obtained.
+
+Taking the limit as $n\to +\infty$, if $\abs{q} < 1$, it is noted that
+$\abs{q^n} = \abs{q}^{n} \to 0$, and the series thus converges to $\frac
+1{1-q}$.
+
+Now consider the series with real values. If $q>1$, we observe that $q^n\to
++\infty$, and thus the series diverges to $+\infty$ (in fact, in this case,
+$1-q$ is negative). If $q=1$, we have $q^k=1$, and thus
+$\displaystyle\sum_{k=0}^{n-1} q^k = n \to +\infty$.
+
+For the other cases, we observe that
+\[
+  \sum_{k=0}^{n-1} q^k = \frac{1-q^n}{1-q}
+  = \frac{1}{1-q} - \frac{1}{1-q}\cdot q^k
+\]
+and thus the nature of the series coincides with the nature of the sequence
+$q^k$. If we consider the sequence with complex values and if $\abs{q}>1$, the
+series is divergent to $\infty$ since $\abs{q^k}=\abs{q}^k\to +\infty$. If
+instead, we consider the series with real values and $q<-1$ (the case $q\ge 1$
+has already been considered), the series is indeterminate since in absolute
+value it tends to $+\infty$, but the sign of the even terms is opposite to the
+sign of the odd terms.
+
+We still need to consider the case $\abs{q}=1$, $q\neq 1$. If $q$ is real, there
+is only the case $q=-1$, and we know that $(-1)^k$ is indeterminate. Even if $q$
+is complex, we want to show that the sequence $q^k$ is indeterminate: if it were
+not, we would have $q^k\to \ell$ with $\abs{\ell}=1$ since $\abs{q^k}=1$, and
+taking the limit in the equality
+\[
+  q^{k+2} = q\cdot q^{k+1}
+\]
+we would have $\ell = q\cdot \ell$, from which (dividing by $\ell$) we obtain
+$q=1$. Thus, if $q\neq 1$, the sequence $q^k$ is indeterminate, and so is the
+geometric series.
+\end{proof}
+
+\begin{theorem}[linearity of the sum]
+\label{th:linearita_somma_serie}%
+\mymargin{linearity of the infinite sum}%
+\index{linearity of the infinite sum}
+If $\sum a_n$ and $\sum b_n$ are convergent, then for every $\lambda,\mu\in \RR$
+(or $\CC$), $\sum (\lambda a_n + \mu b_n)$ is also convergent, and we have
+\[
+ \sum_{k=0}^{+\infty} (\lambda a_n + \mu b_n)
+ = \lambda \sum_{k=0}^{+\infty} a_n  + \mu \sum_{k=0}^{+\infty} b_n.
+\]
+\end{theorem}
+%
+\begin{proof}
+If $S_n$ and $R_n$ are the partial sums of the series $\sum a_n$ and $\sum b_n$,
+then the partial sums of the series $\sum (\lambda a_n + \mu b_n)$ are $\lambda
+S_n + \mu R_n$ (since the distributive and commutative properties hold for
+finite sums). But if $S_n \to S$ and $R_n \to R$, then $\lambda S_n + \mu R_n
+\to \lambda S + \mu R$.
+\end{proof}
+
+We observe that series (like sequences) form a vector space in which the
+operations of sum and scalar multiplication are performed term by term: $\sum
+a_n + \sum b_n = \sum (a_n + b_n)$, $\lambda \sum a_n = \sum (\lambda a_n)$. The
+previous theorem then tells us that convergent series (like convergent
+sequences) form a subspace, and the sum of the series (like the limit of the
+sequence) is a linear operator defined on this subspace.
+
+\begin{theorem}[necessary condition for convergence]
+\mymark{***}
+\mymargin{necessary condition}%
+\index{necessary condition}
+If the series $\sum a_n$ converges, then $a_n \to 0$.
+\end{theorem}
+%
+\begin{proof}
+\mymark{***}
+If the series $\sum a_n$ converges, it means that the partial sums $S_n =
+\displaystyle\sum_{k=0}^{n-1} a_k$ converge: $S_n \to S$. But then
+\[
+  a_n = S_n - S_{n-1} \to S - S = 0.
+\]
+\end{proof}
+
+\begin{theorem}[stability of the nature]%
+\index{nature!of a series}%
+\index{stability!of the nature}%
+\index{series!stability of the nature}%
+\index{series!that differ on a finite number of terms}%
+If the two sequences $a_n$ and $b_n$ differ only on a finite number
+\mymargin{stability of the nature}%
+of terms, then the corresponding series $\sum a_n$ and $\sum b_n$ have the same
+nature.
+\end{theorem}
+%
+\begin{proof}
+If the sequences differ on a finite number of terms, it means that there exists
+an $N\in \NN$ such that for every $k>N$, we have $a_k=b_k$. Thus, if we denote
+by $S_n = \sum_{k=0}^{n-1} a_k$ and $R_n = \sum_{k=0}^{n-1} b_k$ the
+corresponding sequences of partial sums, for every $n>N$, we have
+\[
+  S_n - R_n
+    = \sum_{k=0}^{n-1} a_k - \sum_{k=0}^{n-1} b_k
+    = \sum_{k=0}^{N-1} (a_k - b_k) 
+    = C
+\]
+where $C$ is a constant independent of $n$. Therefore, for $n>N$, we have
+\[
+  S_n = R_n + C.
+\]
+If the limit of $R_n$ does not exist, then the limit of $S_n$ does not exist
+either (otherwise, since $R_n = S_n -C$, the limit of $R_n$ should also exist).
+If the limit of $R_n$ is infinite, then the limit of $S_n$ is equal to the limit
+of $R_n$. And if the limit of $R_n$ is finite, then the limit of $S_n$ is also
+finite.
+
+Thus, the nature of the sequence $S_n$ is the same as that of the sequence
+$R_n$, i.e., the two series have the same nature.
+\end{proof}
+
+If a series has its first term with an index different from $0$, one can always
+reduce it (with a change of variable) to a series whose index starts from zero.
+For example (making the change of variable $j=k-1$ from which $j=0$ when $k=1$
+and remembering that the index used in the sums of the series is a dummy
+variable):
+\[
+ \sum_{k=1}^{+\infty} \frac{1}{2^k}
+ = \sum_{j=0}^{+\infty} \frac{1}{2^{j+1}}
+ = \sum_{k=0}^{+\infty} \frac{1}{2^{k+1}}.
+\]
+
+It should also be noted that according to the previous theorem, the first index
+from which one starts summing is not relevant concerning the nature of the
+series. However, if the series is convergent, its sum may vary, for example:
+\[
+ \sum_{k=1}^{+\infty} \frac{1}{2^k}
+ = \enclose{\sum_{k=0}^{+\infty} \frac{1}{2^k}} - 2^0.
+\]
+
+Note well: in many books, $\infty$ is written instead of $+\infty$. It is
+therefore very common to omit the $+$ sign in front of $\infty$ in the
+terminology of series (and also sequences) since the indices are understood to
+be natural numbers, and thus $-\infty$ would not make sense.
+
+However, there are cases where it may be useful to use negative indices, for
+example, if $a_k$ is defined for every $k\in \ZZ$, one could define (but we will
+not do so):
+\[
+  \sum_{k=-\infty}^{+\infty} a_k
+  = \sum_{k=0}^{+\infty} a_k +
+  \sum_{k=1}^{+\infty} a_{(-k)}
+\]
+requiring that both series on the right side of the equality exist and do not
+have infinite sums of opposite signs.
+
+\begin{theorem}[tail of a convergent series]
+\label{th:coda}%
+\mymark{*}%
+Let $\sum a_n$ be a convergent series. Then
+\[
+  \lim_{n\to +\infty} \sum_{k=n}^{+\infty} a_k = 0.
+\]
+\end{theorem}
+%
+\begin{proof}
+\mymark{*}
+Let
+\[
+  S_n = \sum_{k=0}^{n-1} a_k,
+\]
+by the definition of a convergent series, we know that there exists a finite $S$
+such that $S_n \to S$. We then observe that
+\[
+  \sum_{k=n}^{+\infty} a_k = \lim_{N\to+\infty} \sum_{k=n}^{N-1} a_k
+   = \lim_{N\to +\infty} S_N - S_n = S - S_n
+\]
+and, for $n\to +\infty$, we obviously have $S - S_n \to S - S = 0$.
+\end{proof}

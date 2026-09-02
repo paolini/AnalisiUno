@@ -1,0 +1,80 @@
+\section{Further Insights}
+
+The results presented thus far did not require any notion of differential
+calculus and could be understood using only the concepts from
+chapter~\ref{ch:successioni}. In this chapter, however, we will employ some
+concepts related to differential calculus.
+
+\begin{theorem}[criterion for the stability of a fixed point]
+Let $x_0\in \RR$, $R>0$, $I=(x_0 - R, x_0+R)$, and $f\colon I \to \RR$ be a
+function that has $x_0$ as a fixed point. If $f$ is $L$-Lipschitz on $I$ with
+$L<1$, then $I$ is an invariant interval for $f$, and if $a_n$ is a sequence
+satisfying the recurrence relation $a_{n+1} = f(a_n)$ with $a_0 \in I$, then
+$a_n \to x_0$ as $n\to +\infty$.
+
+In particular, if $f\in C^1(I)$ with a fixed point $x_0 \in I$ and
+$\sup\ENCLOSE{\abs{f'(x)}\colon x\in I} < 1$, then $I$ is invariant, and every
+sequence $a_n$ defined recursively by $a_{n+1}=f(a_n)$ with $a_0 \in I$
+converges to $x_0$.
+
+Even more specifically, if $f$ is of class $C^1$ in a neighborhood of a point
+$x_0$, if $x_0$ is a fixed point of $f$, and $\abs{f'(x_0)}<1$, then there
+exists a neighborhood $I$ of $x_0$ that is invariant for $f$, and every sequence
+$a_n$ defined recursively by $a_{n+1}= f(a_n)$ with $a_0\in I$ converges to
+$x_0$.
+\end{theorem}
+%
+\begin{proof}
+Observe that if $f$ is of class $C^1$ in a neighborhood of $x_0$ and
+$\abs{f'(x_0)} < 1$, then, by continuity, there exists $L<1$ such that
+$\abs{f'(x)} < L$ for every $x$ in a neighborhood $I$ of $x_0$. Thus,
+$\sup\ENCLOSE{\abs{f'(x)}\colon x \in I} \le L < 1$, and the function $f$ is
+therefore $L$-Lipschitz. It is clear then that the second and third parts of the
+theorem reduce to the first, which we will now prove.
+
+If $f$ is $L$-Lipschitz and $x_0$ is a fixed point of $f$, we observe that
+\[
+\abs{f(x) - x_0} = \abs{f(x) - f(x_0)} \le L \abs{x-x_0}
+\]
+from which, if $\abs{x - x_0} < R$, it follows that $\abs{f(x) - x_0} < R$.
+Thus, $I = (x_0-R, x_0+R)$ is invariant. We can then prove by induction that
+\[
+ \abs{a_n - x_0} \le L^n \cdot \abs{a_0-x_0}.
+\]
+Indeed, for $n=0$, the relation is an equality. The inductive step is obtained
+by observing that
+\begin{align*}
+\abs{a_{n+1} - x_0}
+ &= \abs{f(a_n) - f(x_0)}
+ \le L \abs{a_n - x_0} \\
+ &\le L\cdot L^n\abs{a_0-x_0}
+ = L^{n+1}\abs{a_0-x_0}.
+\end{align*}
+
+But now, if $L<1$, we have $L^n\to 0$, and thus $\abs{a_n -x_0} \to 0$, as we
+wanted to demonstrate.
+\end{proof}
+
+\begin{theorem}[instability of the fixed point]
+Let $f$ be of class $C^1$ in a neighborhood of its fixed point $x_0$. If
+$\abs{f'(x_0)}>1$, then there does not exist a sequence $a_n$ that satisfies the
+recursive relation $a_{n+1} = f(a_n)$ and such that $a_n \to x_0$, unless $a_n =
+x_0$ from a certain index $n$ onwards.
+\end{theorem}
+%
+\begin{proof}
+By the continuity of the derivative, there will exist $L>1$ and an interval $I$
+around $x_0$ such that for every $x\in I$, we have $\abs{f'(x)} > 1$. If $a_n
+\to x_0$, then from a certain index $n$ onwards, we will have $a_n \in I$. If
+$a_n$ satisfies the recursive relation $a_{n+1} = f(a_n)$, we can then apply the
+Mean Value Theorem to obtain that for every $n$, there exists $b_n$ between
+$x_0$ and $a_n$ such that:
+\begin{align*}
+  \abs{a_{n+1} - x_0}
+  &= \abs{f(a_n) - f(x_0)}
+  = \abs{f'(b_n)(a_n - x_0)} \\
+  &\ge L \cdot \abs{a_n - x_0} \ge \abs{a_n - x_0}.
+\end{align*}
+It follows that the distance $\abs{a_n - x_0}$ must be increasing, and thus the
+only possibility for $a_n \to x_0$ is that $a_n = x_0$.
+\end{proof}

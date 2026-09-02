@@ -1,0 +1,681 @@
+\section{Limit Passage Under the Integral Sign}
+\label{sec:scambio_integrale_limite}%
+
+In example~\ref{ex:gamma_eulero}, we defined a function $\Gamma(x)$ via the
+integral in $dt$ of a function that depends on the parameter $x$:
+\[
+  \Gamma(x) = \int_0^{+\infty} 
+  e^{-t}t^{x-1}\, dt.
+\] 
+If the integrand function $f(x,t)=e^{-t}t^{x-1}$ is continuous and
+differentiable, it is natural to ask whether the integral function $\Gamma$ is
+also continuous and differentiable. If it is differentiable, it is natural to
+ask how the derivative can be calculated.
+
+In general, these questions can be easily answered if we are able to interchange
+the limit and integral operators. Indeed, we observe that
+\begin{align*}
+  \lim_{x\to x_0} \Gamma(x) 
+  &= \lim_{x\to x_0} \int_0^{+\infty} e^{-t}t^{x-1} \, dt 
+  \stackrel{?}= \int_0^{+\infty} \lim_{x\to x_0} e^{-t}t^{x-1}\, dt\\
+  &= \int_0^{+\infty} e^{-t}t^{x_0-1}\, dt
+  = \Gamma(x_0)
+\end{align*}
+and 
+\begin{align*}
+  \Gamma'(x) 
+  &= \frac{d}{dx} \int_0^{+\infty}e^{-t}t^{x-1}\, dx
+  \stackrel{?}= \int_0^{+\infty} \frac{d}{dx}e^{-t}t^{x-1}\, dt \\
+  &= \int_0^{+\infty} e^{-t}t^{x-1}\ln t\, dt.
+\end{align*}
+In both cases, the only step not formally justified is the one marked with a
+question mark. The purpose of this chapter is to determine some conditions that
+allow the interchange of the limit with the integral and the interchange of the
+derivative with the integral.
+
+\begin{example}%
+The sequence $f_n(x)=x^n$ from example~\ref{ex:puntuale_non_uniforme} converges
+pointwise to the function that is $0$ on the interval $[0,1)$.
+
+In this case, the limit can be interchanged with the integral:
+\begin{align*}
+\lim_{n\to +\infty} \int_{-1}^1 f_n(x)\, dx 
+&= \lim_{n\to+\infty} \Enclose{\frac{x^{n+1}}{n+1}}_{-1}^1
+ = \lim_{n\to+\infty} \frac{1}{n+1} = 0 \\
+\int_{-1}^1 \lim_{n\to+\infty} f_n(x)\, dx 
+&= \int_{-1}^1 f(x)\, dx = 0.
+\end{align*}
+\end{example}
+
+The previous example tells us that the interchange between the limit and the
+integral can be done in certain cases. Unfortunately, pointwise convergence is
+not a sufficient hypothesis, as seen in the following example.
+
+\begin{example}
+Consider the sequence of functions $f_n\colon[0,1]\to\RR$ defined by 
+\[
+ f_n(x) = \frac{nx}{1+n^2x^4}.  
+\]
+Clearly, for every $x\in \RR$:
+\[
+  \lim_{n\to+\infty} \frac{nx}{1+n^2x^4} = 0.
+\]
+Thus, the sequence $f_n$ converges pointwise to the identically zero function
+$f=0$. However, the interchange of the limit with the integral in this case is
+not possible since it results in
+\begin{align*}
+\lim_{n\to +\infty} \int_0^1 f_n(x)\, dx 
+&= \lim_{n\to +\infty} \int_0^1 \frac{nx}{1+n^2x^4}\, dx \\
+&=\lim_{n\to +\infty} \frac 1 2 \Enclose{\arctg(nx^2)}_0^1 
+ = \frac 1 2 \lim_{n\to +\infty} \arctg n = \frac \pi 4 
+\end{align*}
+while obviously 
+\[
+ \int_0^1 \lim_{n\to +\infty} f_n(x)\, dx = \int_0^1 0\, dx = 0.
+\]
+\end{example}
+
+The reason why in the previous example it is not possible to pass to the limit
+under the integral sign is due to the fact that the function $f_n(x)$, although
+tending to zero at every point $x\in \RR$, becomes very large near $x=0$ as $n$
+increases. In fact, the graph of the function $f_n(x)$ is obtained from the
+graph of the function $f(x) = \frac{x}{1+x^4}$ by compressing the variable $x$
+by a factor of $n$ and expanding the variable $y$ by the same factor $n$. This
+ensures that the area under the graph remains unchanged. The function $f_n$ has
+a maximum point at $x=\frac{1}{\sqrt[4]3 \sqrt n}$ (this can be verified by
+studying the sign of the derivative) and at this point, it assumes a value that
+tends to infinity as $n\to +\infty$.
+
+However, if there is uniform convergence and the integral is not improper, the
+following holds.
+
+\begin{theorem}[Limit Passage Under the Integral Sign]%
+  \label{th:scambio_limite_integrale}%
+  \mymark{***}%
+    Let $f_n,f\colon [a,b] \to \RR$ be bounded and Riemann integrable functions
+  on the closed and bounded interval $[a,b]$. Suppose further that there is
+  uniform convergence: $f_n \rightrightarrows f$. Then
+  \[
+      \lim_{n\to+\infty} \int_a^b f_n(x)\, dx 
+      = \int_a^b f(x)\, dx.
+  \]
+
+  Moreover, for any chosen $c\in [a,b]$, let
+  \[
+    F_k(x) = \int_{c}^x f_k(t)\, dt,
+    \qquad
+    F(x) = \int_{c}^x f(t)\, dt
+  \]
+  then there is uniform convergence $F_k \rightrightarrows F$.
+\end{theorem}
+  %
+\begin{proof}
+    If $f_n$ and $f$ are Riemann-integrable, then $f_n-f$ and $\abs{f_n-f}$ are
+  also integrable (theorem~\ref{th:reticolo}) and we have:
+  \begin{align*}
+    \abs{\int_a^b f_n(x)\, dx - \int_a^b f(x)\, dx}
+    &\le \int_a^b \abs{f_n(x)-f(x)}\, dx \\
+    &\le \int_a^b \sup_{t\in[a,b]} \abs{f_n(t)-f(t)}\, dx \\
+    &= \sup_{t\in [a,b]}\abs{f_n(t)-f(t)}\cdot \int_a^b 1\, dx
+    \to 0.
+  \end{align*}
+
+  If we then define $F$ and $F_k$ as in the statement, we have
+  \begin{align*}
+  \Abs{F_k-F}_\infty
+  &= \sup_{x\in [a,b]} \abs{\int_c^x f_k(t)-f(t)\, dt} \\
+  &\le \sup_{x\in [a,b]} \abs{x-c} \cdot \Abs{f_k-f}_\infty \\
+  &\le (b-a) \cdot \Abs{f_k-f}_\infty
+  \to 0.
+  \end{align*}
+\end{proof}
+  
+We recall that continuous functions are locally Riemann integrable. Thus, the
+previous theorem allows us to assert that the integral operator $S\colon
+C^0([a,b]) \to C^0([a,b])$
+\[
+S(f)(x) = \int_{c}^x f(t)\, dt
+\]
+(which, for a fixed $c \in [a,b]$, associates to a function $f\in C^0([a,b])$
+its integral function) is a continuous operator with respect to the uniform
+norm.
+
+Unfortunately, the previous theorem cannot be generally valid for improper
+integrals, as we have the following counterexample.
+
+\begin{example}\label{ex:convergenza_non_dominata}
+  Consider the sequence of functions $f_n\colon \RR\to\RR$
+  \[
+    f_n(x) = \frac 1 n \cdot \frac{1}{1+\enclose{\frac{x-n} n}^2}.
+  \]
+  It can be observed that $\sup_{x\in \RR} \abs{f_n(x)} = f_n(n) = \frac 1 n$ 
+  and therefore $f_n \rightrightarrows 0$ on all of $\RR$. 
+  Despite this, we have 
+  \[
+  \int_{-\infty}^{+\infty} f_n(x) \, dx  
+  = \int_{-\infty}^{+\infty} \frac{1}{1+t^2}\, dt = \pi
+  \]
+  and thus the integrals do not tend to zero.
+\end{example}
+%
+In the previous example, the functions $f_n$ have a bell shape. As $n$
+increases, the bell shifts towards $+\infty$, and it also lowers and widens in
+such a way as to keep the integral constant. The \emph{mass} enclosed by the
+bell is thus disappearing at infinity while the functions tend to zero.
+
+To be able to pass to the limit within an improper integral, we need an
+additional hypothesis: the sequence of functions must be \emph{dominated} by a
+single integrable function, as we see in the following theorem. Moreover, the
+hypothesis of uniform convergence can be relaxed by requiring that it holds only
+on intervals strictly contained within the integration interval $(a,b)$. In this
+way, the theorem also applies in the case where the interval $(a,b)$ is
+unbounded or the integrand function tends to infinity at the endpoints of the
+interval.
+
+\begin{theorem}[Dominated Convergence Locally Uniform]%
+  \label{th:convergenza_dominata_uniforme}%
+  \mymargin{dominated uniform convergence}%
+\index{dominated uniform convergence}%
+  \index{theorem!of dominated convergence}%
+  Let $f_k\colon (a,b) \to \RR$ and $f\colon (a,b)\to \RR$ be functions 
+  locally Riemann integrable
+  on the interval $(a,b)$ with $-\infty \le a < b \le +\infty$
+  such that for every $[\alpha,\beta]\subset (a,b)$ 
+  there is uniform convergence: $f_k\rightrightarrows f$ 
+  on the interval $[\alpha,\beta]$.
+  
+  Suppose further that there exists $g\colon (a,b)\to \RR$
+    integrable in the improper sense on $(a,b)$ with a convergent integral and
+  such
+  that
+  \[
+  \abs{f_k(x)}\le g(x)
+  \]
+  for every $k\in \NN$ and every $x\in (a,b)$.
+    
+  Then $f_k$ and $f$ have a convergent improper integral on $(a,b)$ and we have
+  \[
+    \lim_{k\to+\infty} \int_a^b f_k(x)\, dx = \int_a^b f(x)\, dx.
+  \]
+\end{theorem}
+%
+\begin{proof}
+  Each $f_k$ is absolutely integrable in the improper sense because
+  $\abs{f_k}\le g$ where $g$ has a finite integral by hypothesis.
+  Since $f_k(x)\to f(x)$ for every $x\in (a,b)$
+  we also have $\abs{f(x)}\le g(x)$ for every $x\in (a,b)$ 
+  and thus the integral of $f$ is also absolutely convergent on $(a,b)$.
+  
+  Since the improper integral is convergent, we know that 
+  for every $\eps>0$ there exist $\alpha>a$ and $\beta<b$ such that
+  \[
+    \int_\beta^b g(x)\, dx < \eps, \qquad 
+    \int_a^\alpha g(x)\, dx < \eps.
+  \]
+    But on $[\alpha ,\beta]$ we have the convergence of the integrals by the
+  previous theorem
+  thus there exists $N$ such that for every $k > N$ we have 
+  \[
+   \abs{\int_\alpha^\beta f_k(x)\, dx - \int_\alpha^\beta f(x)\, dx} \le \eps. 
+  \]
+  Combining these two facts, we obtain,
+  for every $k>N$
+  \begin{align*}
+    \MoveEqLeft{\abs{\int_a^b f_k(x)\, dx - \int_a^b f(x)\, dx}} \le \abs{\int_\alpha^\beta f_k(x)\, dx - \int_\alpha^\beta f(x)\, dx} \\
+    & \quad + \abs{\int_a^\alpha (f_k(x) - f(x))\, dx }
+      + \abs{\int_\beta^b (f_k(x) - f(x))\, dx } \\
+    &\le \eps 
+    + \int_a^\alpha \abs{f_k(x)}\, dx + \int_a^\alpha\abs{f(x)}\, dx
+    + \int_\beta^b \abs{f_k(x)}\, dx + \int_\beta^b\abs{f(x)}\, dx\\
+    &\le \eps 
+    + 2 \int_a^\alpha g(x)\,dx
+    + 2 \int_\beta^b g(x)\,dx 
+    \le 5 \eps.
+  \end{align*}
+  We have thus verified the thesis through the definition of limit.
+\end{proof}
+
+\begin{example}
+The sequence $f_k(x) = \sin(x^k)$ converges pointwise to $f(x)=0$ on the
+interval
+$\closeopeninterval{0}{1}$ and the convergence is uniform on every interval
+$[0,\beta]$
+with $\beta < 1$ (verify this!).
+Moreover, $\abs{f_k(x)} = \sin(x^k) \le \sin(1)$ for every $x\in \Enclose{0,1}$
+and $\int_0^1 \sin(1)\, dx = \sin(1)< +\infty$.
+Thus, we can apply the dominated convergence theorem and,
+by interchanging the limit with the integral, we can deduce that
+\[
+  \int_0^1 \sin (x^k)\, dx \to 0, \qquad \text{as $k\to +\infty$.}
+\]
+\end{example}
+
+In theorem~\ref{th:convergenza_dominata}
+the hypothesis that there exists a function $g$ that "dominates" the entire
+sequence
+is essential, as we have seen in example~\ref{ex:convergenza_non_dominata}.
+Instead, the hypothesis that the sequence converges uniformly is not really
+necessary:
+pointwise convergence (provided the sequence is dominated) is sufficient 
+to allow the passage to the limit under the integral sign.
+In its generality, this result (Lebesgue's Dominated Convergence Theorem) 
+is proven for the Lebesgue integral.
+\index{Lebesgue!integral of}%
+\index{theorem!dominated convergence}%
+\index{convergence!dominated}%
+\index{theorem!Lebesgue}%
+\index{integral!of Lebesgue}%
+However, we are able to state a slightly weaker version valid for improper
+Riemann integrals that can be very useful in many practical cases.
+
+\begin{theorem}[Dominated Convergence]
+  \mymargin{dominated convergence}%
+  \index{dominated convergence}%
+  \label{th:convergenza_dominata}%
+  \mymark{**}%
+Let $I\subset \RR$ be an interval and let 
+$-\infty \le a < b \le +\infty$.
+Let $f\colon I \times(a,b)\to \RR$ be a continuous function 
+and let $g\colon(a,b)\to \RR$ be a continuous function with a 
+convergent (improper) integral
+\[
+ \int_a^b g(t)\, dt < +\infty
+\]
+such that for every $x\in I$ and for every $t\in(a,b)$, $\abs{f(x,t)} \le g(t)$.
+
+Then for every $x\in I$, the integral $\int_a^b f(x,t)\, dt$ is convergent and
+is continuous
+in the variable $x$, i.e.:
+\[
+  \lim_{y\to x} \int_a^b f(y,t)  \, dt 
+  = \int_a^b f(x,t)\, dt.
+\]
+\end{theorem}
+%
+\begin{proof}
+Note that the index $k\to +\infty$, $k\in \NN$ 
+in theorem~\ref{th:convergenza_dominata_uniforme} 
+can be easily replaced with 
+a continuous parameter $y\to x$, $x\in \RR$
+thanks to theorem~\ref{th:ponte} (connection between function limit 
+and sequence limit).
+We therefore want to reduce to theorem~\ref{th:convergenza_dominata_uniforme} 
+and to do this, we will demonstrate that for a fixed $[\alpha,\beta]\subset
+(a,b)$
+and a fixed $x\in I$, there is uniform convergence 
+of the functions $t\mapsto f(y,t)$ to the function $t\mapsto f(x,t)$
+as $y\to x$. 
+
+Without loss of generality, we can assume that $I$ is a closed and bounded
+interval
+that contains the fixed point $x$. 
+The function $f$ is thus continuous on the sequentially compact set $I\times
+[\alpha,\beta]$
+and therefore is uniformly continuous
+by the Heine-Cantor Theorem~\ref{th:HeineCantor} (in two variables).
+This means that for every $\eps>0$, there exists $\delta>0$ such that for every
+$x,y\in I$
+and for every $s,t\in[\alpha,\beta]$, we have:
+\[
+\sqrt{(x-y)^2+(t-s)^2} < \delta \implies \abs{f(x,t)-f(y,s)} < \eps.  
+\]
+But then for every $\eps>0$, if $x\in I$ and $\abs{x-y} < \delta$, we have 
+\[
+  \sup_{t\in\closeinterval{\alpha}{\beta}} \abs{f(y,t)-f(x,t)} \le \eps
+\]
+and therefore
+\[
+  \lim_{y\to x}  \sup_t \abs{f(y,t), f(x,t)} = 0.
+\]
+as we wanted to demonstrate.
+\end{proof}
+%
+The dominated convergence theorem is often used 
+to interchange the derivative with the integral as stated in the following.
+%
+\begin{theorem}[Derivative Passage Under the Integral Sign]%
+  \mymark{**}%
+  \label{th:derivata_integrale}%
+  \mymargin{interchange of derivative with integral}%
+\index{interchange of derivative with integral}%
+Let $f\colon I\times(a,b)\to \RR$ be a continuous function, 
+where $I\subset \RR$ is an interval and $-\infty \le a < b \le +\infty$.
+Suppose that for every $t\in (a,b)$, the function is differentiable with respect
+to $x$
+for every $x\in I$
+and that the derivative $\frac{\partial f}{\partial x}$ is continuous over the
+entire rectangle
+$I\times(a,b)$.
+Suppose finally that for every $x\in I$, the integral
+$\int_a^b f(x,t)\, dt$ is convergent and that
+there exists a function $G\colon(a,b)\to \RR$ locally Riemann integrable 
+with a convergent integral $\int_a^b G(t)\, dt$ such that for every $x\in I$ 
+and for every $t\in (a,b)$, we have 
+\[
+  \abs{\frac{\partial f}{\partial x}(x,t)} \le G(t).
+\]
+
+Then for every $x\in I$, we have
+\[
+  \frac{d}{dx} \int_a^b f(x,t)\, dt = \int_a^b \frac{\partial f}{\partial x}(x,t)\, dt.  
+\]
+\end{theorem}
+%
+\begin{proof}
+Fix $x_0\in I$ and define 
+\[
+ g(x,t) = \begin{cases}
+ \frac{f(x,t) - f(x_0,t)}{x-x_0} &\text{if $x\neq x_0$}\\
+ \frac{\partial f}{\partial x}(x,t) & \text{if $x = x_0$}.
+\end{cases}  
+\]
+We then observe that the derivative of the integral at the point $x_0$ 
+is:
+\begin{align*}
+    \Enclose{\frac{d}{dx} \int_a^b f(x,t)\, dt}_{x=x_0}
+    &= \lim_{x\to x_0} \frac{\int_a^b f(x,t)\, dt - \int_a^b f(x_0,t)\, dt
+  }{x-x_0}\\
+  &= \lim_{x\to x_0} \int_a^b g(x,t)\, dt  
+\end{align*}
+while the integral of the derivative is 
+$\int_a^b g(x_0,t)\, dt.$
+It will suffice to demonstrate that it is possible to apply
+theorem~\ref{th:convergenza_dominata}
+to the function $g(x,t)$.
+
+It is easy to verify that $G$ dominates $g$ because by the Lagrange theorem, we
+know
+that for every $x$ and for every $t$, there exists $x'$ with
+$\abs{x'-x_0}<\abs{x-x_0}$ such that
+\[
+  \abs{g(x,t)} = \abs{\frac{\partial f}{\partial x}(x',t)} \le G(t).
+\]
+
+We only need to demonstrate that the function $g\colon I\times (a,b)\to \RR$ 
+is continuous. 
+Clearly, if $x\neq x_0$, the function is continuous; it remains to verify that
+it is also continuous at the points $(x_0,t_0)$ for every $t_0\in (a,b)$.
+Since by hypothesis $\partial f / \partial x$ is continuous, we know 
+that 
+\[
+  \forall \eps>0 \colon \exists \delta>0\colon 
+  {\scriptstyle\sqrt{(x-x_0)^2+(t-t_0)^2}<\delta} 
+  \implies \abs{\frac{\partial f}{\partial x}(x,t) - \frac{\partial f}{\partial x}(x_0,t_0)}<\eps.
+\]
+Applying, as before, the Lagrange theorem, we know that if $(x,t)$ is within
+$\delta$ of $(x_0,t_0)$, we have
+\[
+\abs{g(x,t) - g(x_0,t_0)} 
+= \abs{\frac{\partial f}{\partial x}(x',t) - \frac{\partial f}{\partial
+x}(x_0,t_0)}
+ < \eps.
+\]
+This concludes the proof of the continuity of $g(x,t)$.
+\end{proof}
+
+\begin{exercise}[Derivative of the $\Gamma$ Function]
+  Show that the function $\Gamma$ defined by (see example~\ref{ex:gamma_eulero})
+  \[
+   \Gamma(x) = \int_0^{+\infty} e^{-t}\cdot t^{x-1}\, dt 
+  \]
+  is differentiable and its derivative is 
+  \[
+  \Gamma'(x) = \int_0^{+\infty} e^{-t}\cdot \ln t \cdot t^{x-1}\, dt.  
+  \]
+\end{exercise}
+\begin{proof}[Solution.]
+It suffices to verify that we can apply theorem~\ref{th:derivata_integrale}
+to the function 
+\[
+  f(x,t) = e^{-t}t^{x-1}
+\]
+whose partial derivative with respect to $x$ is 
+\[
+  \frac{\partial f}{\partial x}(x,t) = e^{-t}\cdot \ln t \cdot t^{x-1}.  
+\]
+Clearly, this function is continuous; we just need to find a function 
+that dominates it. Fixing $x_0>0$, we can restrict the domain of the 
+variable $x$ to the interval $\closeinterval{\frac{x_0} 2}{2x_0}$ and consider
+the function 
+\[
+    g(t) = e^{-t} \cdot \abs{\ln t}\cdot \max\ENCLOSE{t^{\frac {x_0} 2
+  -1},t^{2x_0 -1}}.
+\]
+This is a continuous function (as it is a composition of continuous functions, 
+noting that the maximum between two continuous functions is a continuous
+function).
+Moreover, for $t\to 0^+$, we have 
+\[
+  g(t) \sim \abs{\ln t}\cdot t^{\frac{x_0}{2}-1} 
+  \ll t^{-1+\eps}
+\]
+provided we take $\eps < \frac{x_0}{2}$.
+Thus, the integral $\int_0^1 g(t)\, dt$ is convergent by 
+the asymptotic comparison criterion.
+If instead $t\to +\infty$, we have 
+\[
+  g(t) \sim e^{-t}\cdot \ln t \cdot t^{2x_0-1} \ll \frac{1}{t^2}  
+\]
+since the exponential tends to zero much faster 
+than the logarithm and power tend to infinity.
+Thus, by the asymptotic comparison criterion, 
+the integral $\int_1^{+\infty} g(t)\, dt$ is also convergent.
+\end{proof}
+
+The method used in the following examples is sometimes called
+ \emph{Feynman's trick}%
+\mymargin{Feynman's trick}\index{trick!of Feynman}:
+\index{Feynman!trick for integrals}%
+\index{trick!of Feynman!for integrals}%
+it involves multiplying the integrand function by a function 
+that depends on a parameter so that differentiating with respect to the
+parameter
+simplifies the integrand function.
+
+\begin{exercise}[Integral of the Gaussian]
+  \label{ex:integrale_gaussiana}%
+  \index{function!Gaussian}%
+  \index{integral!Gaussian}%
+  \index{Gauss!function of}%
+Prove that 
+\[
+  \int_{-\infty}^{+\infty} e^{-s^2}\, ds = \sqrt \pi.
+\]
+\end{exercise}
+%
+\begin{proof}[Solution.]
+As seen in example~\ref{ex:integrale_gaussiana_finito},
+we know that the integral
+\[
+  I = \int_{0}^{+\infty} e^{-s^2}\, ds
+\]
+is finite. 
+The sought integral is $2I$ (by symmetry).
+Consider the following function
+\[ 
+  F(x) = \int_0^{+\infty} \frac{e^{-x^2(1+t^2)}}{1+t^2}\, dt.
+\]
+We can easily calculate 
+\[
+    F(0) = \int_0^{+\infty} \frac{1}{1+t^2}\, dt = \Enclose{\arctg
+  t}_0^{+\infty} = \frac \pi 2.
+\]
+While if $x>1$, we have 
+\[
+  0\le \frac{e^{-x^2(1+t^2)}}{1+t^2}
+  = e^{-x^2}\cdot \frac{e^{-x^2t^2}}{1+t^2}
+  \le e^{-x^2}\cdot e^{-t^2}
+\]
+and therefore for $x\to +\infty$:
+\[
+  0\le F(x) \le e^{-x^2} \int_0^x e^{-t^2}\, dt \le e^{-x^2}\cdot I \to 0.
+\]
+Now calculate the derivative of $F$ by applying
+theorem~\ref{th:derivata_integrale}.
+The integrand function has a derivative 
+\[
+ \frac{\partial}{\partial x}\enclose {\frac{e^{-x^2(1+t^2)}}{1+t^2}}
+ = -2x e^{-x^2(1+t^2)}.
+\]
+If we restrict the variable $x$ to an interval $\closeinterval{x_1}{x_2}$,
+we have 
+\[
+ \abs{-2x e^{-x^2(1+t^2)}}
+ \le 2 x_2 e^{-x_1^2(1+t^2)} \ll \frac{1}{1+t^2}
+ \qquad\text{for } t\to+\infty
+\]
+and the dominating function $\frac{1}{1+t^2}$ has a finite integral over the
+interval
+$\openinterval{0}{+\infty}$. 
+We can therefore interchange the derivative with the integral to obtain 
+\[
+ F'(x) = - 2 x\int_0^{+\infty} e^{-x^2(1+t^2)}\, dt
+       = - 2 x e^{-x^2}\int_0^{+\infty} e^{-x^2t^2}\, dt. 
+\]
+With the change of variable $s=xt$, $ds=x dt$, we obtain
+\[
+ F'(x) = -2 e^{-x^2}\int_0^{+\infty} e^{-s^2}\, ds = - 2 e^{-x^2}\cdot I.
+\]
+But then on one hand, we have 
+\[
+  \int_0^{+\infty} F'(x)\, dx 
+  = \Enclose{F(x)}_0^{+\infty}  = 0 - \frac{\pi}{2}.
+\]
+On the other hand, 
+\[
+ \int_0^{+\infty} F'(x)\, dx 
+ = - 2 I \cdot \int_0^{+\infty} e^{-x^2}\, dx
+ = - 2 I^2. 
+\]
+We conclude that $2I^2 = \frac \pi 2$, hence 
+$2I=\sqrt \pi$, as we wanted to prove.
+\end{proof}
+
+\begin{exercise}[Notable Integral]
+  \label{ex:integrale_sin_integrale}%
+Show that 
+  \[
+    \int_0^{+\infty} \frac{\sin t}{t}\, dt = \frac \pi 2.
+  \] 
+\end{exercise}
+\begin{proof}
+For every $x \ge 0$, consider the function 
+\[
+  F(x) = \int_0^{+\infty} \frac{\sin t}{t}e^{-tx}\, dt
+\]
+so that the required integral is nothing but $F(0)$.
+For every $x>0$,
+we can differentiate the function using theorem~\ref{th:derivata_integrale}
+since the derivative of the integrand function 
+\[
+  \frac{\partial}{\partial x}\enclose{\frac{\sin t}{t}e^{-tx}} 
+  = -\sin t \cdot e^{-tx}
+\]
+is dominated by the function $g(t) = e^{- \eps t}$ if $x>\eps$ and 
+$g$ has a convergent integral.
+Thus, we have 
+\[
+  F'(x) = - \int_0^{+\infty} \sin t \cdot e^{-tx}\, dt. 
+\]
+This integral can be calculated by integrating by parts twice 
+(see exercise~\ref{ex:821685}) and we find 
+$F'(x) = -\frac{1}{1+x^2}$, from which
+\[
+  F(x) = -\arctg x + c
+\]
+for some $c \in \RR$.
+
+To determine $c$, 
+we now want to verify that $F(x) \to 0$ as $x\to +\infty$.
+We can do this by applying Theorem~\ref{th:convergenza_dominata}, observing that
+the function $f(x,t) = \frac{\sin t}{t}e^{-tx}$ is dominated by $g(t) = e^{-t}$,
+for $x\ge 1$.
+
+Thus, $c=\frac{\pi} 2$ and we have, for every $x>0$,
+\[
+  F(x) = \frac{\pi} 2 - \arctg x.
+\]
+
+The required integral is $F(0)$, and the formula just found tells us that
+$F(x)\to \frac \pi 2$ as $x\to 0$.
+It remains only to demonstrate that $F(x)\to F(0)$ as 
+$x\to 0$, i.e.,
+\[
+  \lim_{x\to 0} \int_0^{+\infty} f(x,t) \, dt
+  = \int_0^{+\infty} f(0,t) \, dt.
+\]
+Unfortunately, it is not possible to directly use the theorems 
+of limit passage under the integral sign because 
+the integral on the right side, i.e., the required integral, is not 
+absolutely convergent, and therefore it will not be possible to find 
+a \emph{dominating} function as required in the hypotheses of the theorem.
+
+The idea is thus to reduce the non-absolutely convergent integral 
+to an absolutely convergent integral by means of integration by parts, 
+as we did in example~\ref{ex:48864}.
+
+Indeed, we have 
+\begin{align*}
+F(0) - F(x) 
+  = \int_0^{+\infty} \frac{\sin t}{t}\, dt  - \int_0^{+\infty} \frac{\sin
+ t}{t}e^{-xt}\, dt \\
+ & = \int_0^{+\infty} \frac{\sin t}{t}\enclose{1-e^{-xt}}\, dt.
+\end{align*}
+Now, we split the integral over the two intervals $\closeinterval{0}{\pi}$ 
+and $\closeopeninterval{\pi}{+\infty}$.
+On the first interval, there will be no problems: the integrand function 
+indeed tends uniformly to zero, and the integral tends to zero 
+by theorem~\ref{th:scambio_limite_integrale}.
+
+On the second interval, however, we need to perform integration by parts:
+\begin{align*}
+  \int_\pi^{+\infty} \frac{\sin t}{t}\, dt 
+  &= \Enclose{\frac{-\cos t}{t}}_{\pi}^{+\infty}
+    - \int_{\pi}^{+\infty} \frac{\cos t}{t^2}\, dt \\
+  &= -\frac{1}{\pi} - \int_{\pi}^{+\infty} \frac {\cos t}{t^2}\, dt.\\
+\end{align*}
+Then (we omit the calculation details, 
+it involves integrating by parts twice as 
+we did in example~\ref{ex:48864}):
+\[
+\int \sin t\cdot e^{-tx}\, dt 
+= -h(x,t)
+\]
+with 
+\[
+h(x,t)= \frac{\cos t+x\sin t}{1+x^2}e^{-xt}.  
+\]
+Thus 
+\begin{align*}
+  \int_\pi^{+\infty} \frac{\sin t}{t} e^{-xt}\, dt 
+    &= \Enclose{-\frac{\cos t+ x \sin t}{1+x^2}e^{-tx}\cdot
+  \frac{1}{t}}_{\pi}^{+\infty}
+  - \int_\pi^{+\infty}\frac{h(x,t)}{t^2}\, dt.\\  
+    &= -\frac 1 \pi\cdot \frac{1}{1+x^2}e^{-\pi x} -
+  \int_\pi^{+\infty}\frac{h(x,t)}{t^2}\, dt.
+\end{align*}
+and
+\begin{align*}
+\int_\pi^{+\infty} \frac{\sin t}{t}\, dt 
+-\int_\pi^{+\infty} \frac{\sin t}{t} e^{-xt}\, dt
+&= -\frac 1 \pi \enclose{1-\frac{e^{-\pi x}}{1+x^2}}
+-\int_\pi^{+\infty} \frac{\cos(t) - h(x,t)}{t^2}\, dt 
+\end{align*}
+It is now easy to verify that if $t\in(0,+\infty)$
+and $x\in[0,1]$, we have 
+\[
+\abs{\cos t - h(x,t)} \le \abs{\cos t} + \frac{\abs{\cos t}+x\abs{\sin t}}{1+x^2}
+\le 1+ \frac{1+x}{1+x^2} \le 1 + \frac 2 1 = 3
+\]
+thus $\abs{\cos t - h(x,t)}/t^2 \le 3/t^2$, and having $1/t^2$ 
+a convergent integral over $[\pi,+\infty)$, thanks 
+to theorem~\ref{th:convergenza_dominata}, we conclude 
+that 
+\[
+\lim_{x\to 0} \int_\pi^{+\infty} \frac{\cos t - h(x,t)}{t^2}\, dt 
+= \int_{\pi}^{+\infty} \frac{\cos t - h(0,t)}{t^2}\, dt 
+= 0.  
+\]
+But then we have demonstrated that $F(x)\to F(0)$ as $x\to 0$, 
+and we have concluded the proof.
+\end{proof}

@@ -1,0 +1,357 @@
+\section{Complex Polynomials}
+\label{ch:ancora_polinomi}
+
+\subsection{The Fundamental Theorem of Algebra}
+
+The fundamental theorem of algebra states that every non-constant polynomial has
+at least one zero in the complex plane.
+\mynote{see the historical notes at the end of the chapter}
+To prove the theorem, we must extend Weierstrass's theorem to functions of a
+complex variable.
+In the real Weierstrass theorem, the function is defined on a closed and bounded
+interval.
+In the complex plane, the concept of an \emph{interval} does not exist since
+there is no ordering, but we will see that Weierstrass's theorem remains valid
+for continuous functions defined on closed and bounded sets according to the
+following definitions.
+
+\begin{definition}[Sequential Closure]
+A set $A\subset \CC$ is said to be \emph{sequentially closed}
+\mymargin{sequentially closed}%
+\index{sequentially!closed}%
+if for any sequence of points $a_n\in A$, if $a_n \to a$ for some $a\in \CC$,
+then $a\in A$.
+\end{definition}
+
+\begin{definition}[Boundedness]
+A set $A\subset \CC$ is said to be \emph{bounded}%
+\mymargin{bounded}%
+\index{bounded}
+if
+\[
+  \sup \ENCLOSE{ \abs{z}\colon z \in A} < +\infty.
+\]
+\end{definition}
+
+Note that a sequence $a_n\in \CC$ is bounded (see
+chapter~\ref{sec:successione_limitata}) if and only if its image
+$\ENCLOSE{a_n\colon n\in \NN}\subset \CC$ is a bounded set.
+
+\begin{theorem}[Complex Weierstrass]
+Let $A\subset \CC$ be a non-empty, sequentially closed, and bounded set, and let
+$f\colon A \to \RR$ be a continuous function.
+Then $f$ attains a maximum and a minimum on $A$.
+\end{theorem}
+%
+\begin{proof}
+We prove the existence of the minimum; the proof for the maximum is perfectly
+analogous.
+Let $m=\inf f(A)$.
+Since $A$ is non-empty, by the lemma on the existence of minimizing sequences,
+there exists a sequence $z_n \in A$ such that $f(z_n) \to m$.
+Since $A$ is bounded, we can apply the Bolzano-Weierstrass theorem to find $z\in
+\CC$ and a subsequence $z_{n_k} \to z$. Since $A$ is sequentially closed, we can
+assert that $z\in A$. Since $f$ is continuous, we conclude that
+\[
+f(z) = \lim_{k\to+\infty} f(z_{n_k}) = m
+\]
+and thus $z$ is a point of minimum for $f$.
+\end{proof}
+
+\begin{theorem}[Existence of Minimum for Coercive Functions]
+Let $f\colon \CC \to \RR$ be a continuous function such that for every sequence
+$z_n \to \infty$ (i.e., $\abs{z_n}\to +\infty$), we have $f(z_n) \to +\infty$.
+Then $f$ attains a minimum.
+\end{theorem}
+%
+\begin{proof}
+Consider the set
+\[
+  A = \ENCLOSE{z \in \CC \colon f(z) \le f(0)}.
+\]
+Clearly, $0\in A$, so $A$ is non-empty.
+The set $A$ is also sequentially closed because if $z_k\in A$, then $f(0) -
+f(z_k)\ge 0$, and by continuity, $f(0)-f(z_k)\to f(0)-f(z)$, and by the sign
+permanence theorem, we obtain $f(0)-f(z) \ge 0$, i.e., $z \in A$.
+Now, we demonstrate that $A$ is also bounded.
+If it were not, there would exist, by contradiction, a sequence $z_n \in A$ such
+that $\abs{z_n}\to +\infty$, i.e., $z_n \to \infty$.
+But then, by hypothesis on $f$, we would have $f(z_n)\to +\infty$, which
+contradicts the condition $f(z_n) \le f(0)$.
+Since $A$ is non-empty, sequentially closed, and bounded, and since $f\colon A
+\to \RR$ is continuous, we can apply the complex Weierstrass theorem to deduce
+that $f$ attains a minimum on $A$ at some point $w \in A$.
+But since $0\in A$, we certainly have $f(w)\le f(0)$, and for every $z\in \CC
+\setminus A$, we have $f(z) > f(0)$ by the definition of $A$.
+Thus, $w$ is the minimum of $f$ on the entire $\CC$, not just on $A$.
+\end{proof}
+
+\begin{theorem}[Fundamental Theorem of Algebra]
+\label{th:fondamentale_algebra}
+\mymargin{fundamental theorem of algebra}%
+\index{fundamental theorem of algebra}%
+Let $f(z)$ be a polynomial of degree $N\ge 1$ with complex coefficients:
+\[
+  f(z) = \sum_{j=0}^N a_j \cdot z^j
+\]
+with $a_j\in \CC$ for $j=0,\dots,N$ and $a_N \neq 0$.
+Then there exists $w\in \CC$ such that $f(w) = 0$.
+\end{theorem}
+%
+\begin{proof}
+    First, observe that $\abs{f(z)}$ is coercive, meaning that if $z_n \to
+  \infty$, then $\abs{f(z_n)}\to +\infty$.
+  Indeed, we have
+  \begin{align*}
+    \abs{f(z_n)}
+    &= \abs{\sum_{j=0}^N a_j z_n^j}
+    = \abs{a_N z_n^N  + \sum_{j=0}^{N-1} a_j z_n^j}\\
+    &= \abs{z_n}^N \cdot \abs{a_N + \sum_{j=0}^{N-1} \frac{a_j}{z_n^{N-j}}}
+    \to +\infty
+  \end{align*}
+  if $z_n \to \infty$.
+  
+    We know that all polynomials are continuous functions since they are sums of
+  products of continuous functions, and the modulus is also a continuous
+  function, so $\abs{f(z)}$ is certainly a continuous function.
+  
+    Thus, we can apply the theorem on the existence of a minimum for coercive
+  functions: there exists $w\in \CC$ such that $\abs{f(w)}$ is minimal.
+  
+  To conclude the theorem, it suffices to show that $f(w)=0$.
+    The idea we want to develop is that complex polynomials, if they assume a
+  value $f(w)$ at a point $w\in \CC$, then they also assume all values close to
+  it because \emph{locally}, the polynomial resembles a power $z^n$, and the
+  equation $z^n=c$ always has a solution, as we have already seen.
+    Thus, near $w$, there will be points where $f$ assumes values whose modulus
+  is less than $f(w)$, unless $f(w)=0$, in which case it is obviously impossible
+  to have numbers with a modulus less than $0$.
+  
+  We can write the polynomial $f(z)$ in the form
+  \[
+    f(z) = \sum_{j=0}^N b_j (z-w)^j
+  \]
+    since the translation of a polynomial is still a polynomial of the same
+  degree.
+  Proving that $f(w)=0$ is therefore equivalent to proving that $b_0=0$.
+  Suppose, for contradiction, that $b_0\neq 0$. 
+    The behavior of the polynomial near the point $w$ is dominated by the lowest
+  degree terms: some of these may be zero, but we can consider the first index
+  $k>0$ for which $b_k\neq 0$. Then we can write:
+  \[
+      f(z) = b_0 + b_k(z-w)^k + \sum_{j=k+1}^N b_j (z-w)^j.
+  \]
+Now write $z-w$, $b_0$, and $b_k$ in exponential form:
+$z - w = \rho e^{i\theta}$, $b_0 = r e^{i \alpha_0}$,
+$b_k = r_k e^{i\alpha_k}$ 
+and apply the triangle inequality
+  \begin{align*}
+    \abs{f(z)} 
+    &= \abs{r e^{i\alpha} + r_k \rho^k e^{i(\theta k+\alpha_k)} 
+    + \sum_{j=k+1}^N b_j \rho^j e^{i\theta j}} \\
+    &\le \abs{r e^{i\alpha} + r_k \rho^k e^{i(\theta k + \alpha_k )}} 
+    + \sum_{j=k+1}^N \abs{b_j} \rho^j.
+  \end{align*}
+To reach a contradiction, we want to show that there exists $z$ (i.e., there
+exist $\rho$ and $\theta$) for which the value of the function is less in
+modulus than $r = \abs{b_0} = \abs{f(w)}$.
+First, if $\rho$ is sufficiently small, we can make the powers $\rho^j$ with
+$j>k$ arbitrarily small: it suffices to choose $\rho\le 1$ and $\rho \le
+r_k/(2\sum \abs{b_j})$ so that we have
+\[
+  \sum_{j=k+1}^N \abs{b_j} \rho^j
+  \le \rho^{k+1} \sum_{j=k+1}^N \abs{b_j} \le r_k\frac{\rho^{k}}{2}.
+\]
+Regarding the term $r e^{i\alpha} + r_k \rho^k e^{i(\theta k + \alpha_k)}$, it
+will suffice to choose $\theta = (\pi + \alpha - \alpha_k) /k$ so that the two
+addends have opposite phases and the sum is destructive:
+\[
+  \abs{r e^{i\alpha} + r_k \rho^k e^{i(\theta k + \alpha_k)}}
+  = \abs{e^{i\alpha}(r + r_k \rho^k e^{i\pi})}
+  = r - r_k\rho^k.
+\]
+Ultimately, we have
+\[
+\abs{f(z)} = \abs{f(w+\rho e^{i\theta})} 
+\le r - r_k\rho^k + r_k\frac{\rho^k}{2} 
+< r = \abs{f(w)}
+\]
+which is a contradiction since $\abs{f(w)}$ was supposed to be the minimum
+value.
+\end{proof}
+  
+\subsection{Factorization of Polynomials}
+
+\begin{theorem}[Factorization of Complex Polynomials]
+\index{decomposition!of complex polynomials}%
+\index{factorization!of complex polynomials}%
+\index{polynomial!complex factorization}%
+Let $p(z)$ be a non-zero polynomial. Then, given $n=\deg p$, there exist complex
+numbers $z_1, z_2, \dots, z_n$ and a non-zero complex number $c$ such that
+\begin{equation}\label{eq:34985}
+  p(z) = c \prod_{k=1}^n (z-z_k).
+\end{equation}
+The $z_k$ are unique up to order, and $c$ is uniquely determined.
+\end{theorem}
+%
+\begin{proof}
+We prove the theorem by induction on $n=\deg p$. If $n=0$, the polynomial $p$ is
+constant: $p(z) = c$. Recalling that a product of $n=0$ factors is equal to $1$,
+we obtain the desired result.
+
+Now let $p(z)$ be any polynomial of degree $n>0$. By the fundamental theorem of
+algebra, we know there exists a complex number $z_n$ such that $p(z_n)=0$. By
+Ruffini's theorem, we have
+\[
+  p(z) = (z-z_n) q(z)
+\]
+with $q$ being some polynomial of degree $n-1$. By the inductive hypothesis, we
+can then assume there exist complex numbers $z_1, \dots, z_{n-1}$ and $c$ such
+that
+\[
+   q(z) = c \prod_{k=1}^{n-1} (z-z_k)
+\]
+and the thesis follows.
+\end{proof}
+
+In the factorization~\eqref{eq:34985}, the \emph{roots} $z_k$ may repeat. If we
+group together the factors corresponding to the same root, we obtain a
+decomposition of the form
+\begin{equation}\label{eq:358925}
+P(z) = c \prod_{k=1}^m (z-z_k)^{p_k}
+\end{equation}
+with $z_1, \dots, z_m$ being distinct complex numbers (the roots of the
+polynomial $P$) and $p_k$ being positive integers.
+The exponent $p_k$ is called the \emph{multiplicity}%
+\mymargin{multiplicity}%
+\index{multiplicity} of the root $z_k$, and it holds that
+\[
+  p_1 + \dots + p_m = n.
+\]
+This equality is expressed by saying that a polynomial $P\in \CC[z]$ of degree
+$n$ always has $n$ roots counted with their multiplicity.
+The distinct roots are instead $m\le n$.
+
+If $P\in \RR[x]$ is a polynomial with real coefficients, it is not guaranteed to
+have roots: for example, the polynomial $x^2+1$ has no real roots since
+$x^2+1>0$ as happens in any ordered field.
+It may then be useful to consider $P$ as a polynomial in $\CC[x]$ with real
+coefficients.
+
+If $P\in \RR[x]$ is a polynomial with real coefficients
+\[
+  P = \sum_{k=0}^n a_k x^k, \qquad a_k\in \RR
+\]
+we can consider $P$ also as a polynomial in $\CC[x]$, since $a_k\in \RR\subset
+\CC$.
+The following theorem provides a criterion for distinguishing polynomials with
+real coefficients within $\CC[x]$.
+
+\begin{theorem}
+\label{th:caratterizzazione_polinomi_reali}%
+If $P\in \CC[x]$ is a polynomial with complex coefficients
+\[
+  P = \sum_{k=0}^n a_k x^k,\qquad a_k\in \CC
+\]
+and if there exists an infinite set $A\subset \RR$ such that for every $x\in A$,
+we have $P(x)\in \RR$, then $a_k\in\RR$ for every $k=0,\dots,n$, and thus $P\in
+\RR[x]$.
+
+In particular, if the polynomial function associated with $P\in\CC[x]$ maps
+$\RR$ to $\RR$, then $P$ is a polynomial with real coefficients.
+\end{theorem}
+%
+\begin{proof}
+Consider the polynomial:
+\[
+  Q = \sum_{k=0}^n (a_k-\bar a_k) x^k.
+\]
+Then for every $x\in A$, we have
+\[
+  Q(x) = \sum_{k=0}^n a_k x^k - \sum_{k=0}^n \bar a_k x^k
+     = P(x) - \overline{P(x)} = P(x) - P(x) = 0
+\]
+since if $x\in \RR$, it follows that
+$\overline{x^k} = {\bar x}^k = x^k$.
+Since $A$ is infinite,
+by the polynomial zero theorem
+(theorem~\ref{th:annullamento_polinomi}),
+we deduce that $Q=0$.
+But then all the coefficients of $Q$ must
+be zero, i.e., $\bar a_k = a_k$.
+It follows that $a_k\in \RR$ for every $k=0,\dots,n$.
+\end{proof}
+
+Referring to the factorization of polynomials with complex coefficients, we can
+also factor polynomials with real coefficients if we are content with having
+quadratic factors instead of linear ones.
+
+\begin{theorem}[Factorization of Real Polynomials]
+  \label{th:fattorizzazione_polinomio_reale}%
+If $P\in \RR[x]$ is a polynomial with real coefficients, we can write
+\begin{equation}\label{eq:35549}
+    P = a \cdot \prod_{k=1}^n (x-x_k)^{p_k} \cdot \prod_{j=1}^m (x^2 + \alpha_j
+  x + \beta_j)^{q_j}
+\end{equation}
+where $a\in \RR$, $x_k\in \RR$, $p_k\in \NN\setminus\ENCLOSE{0}$,
+$\alpha_j,\beta_j\in \RR$, $q_j\in \NN\setminus\ENCLOSE{0}$
+with $\alpha_j^2 - 4 \beta_j < 0$
+and
+\[
+  \sum_{k=1}^n p_k + 2 \sum_{j=1}^m q_j = \deg P.
+\]
+
+The factorization~\eqref{eq:35549} is unique up to the order of the factors.
+
+The numbers $x_1,\dots,x_n$ are all the distinct real roots of the polynomial
+$P$ with respective multiplicities $p_1,\dots,p_n$, while all the distinct
+complex (non-real) roots will be $\mu_1,\dots, \mu_m$ and $\bar \mu_1, \dots,
+\bar \mu_m$ with
+\[
+  x^2 + \alpha_j x + \beta_j = (x-\mu)\cdot(x-\bar \mu)
+\]
+from which
+\[
+  \alpha_j = -2\Re \mu_j, \qquad \beta_j=\abs{\mu_j}^2
+\]
+and $q_j$ will be the multiplicities of the roots $\mu_j$ and $\bar \mu_j$.
+\end{theorem}
+%
+\begin{proof}
+First, observe that if $P$ has real coefficients, we have
+\[
+  \overline{P(z)} = P(\bar z), \qquad \forall z\in \CC
+\]
+thus if $\mu$ is a root of $P$, then $\bar \mu$ is also a root of $P$.
+Now, if $\mu$ is a non-real root of $P$, we know that in the complex field, $P$
+is divisible by $x-\mu$ (Ruffini's theorem~\ref{th:Ruffini}):
+\[
+  P = (x-\mu) \cdot P_1.
+\]
+But $\bar \mu$ is also a root of $P$, and since $\bar \mu \neq \mu$, we must
+have
+\[
+Q(\bar \mu) = \frac{P(\bar \mu)}{\bar \mu - \mu} = 0
+\]
+and thus, applying Ruffini's theorem again,
+\[
+ P = (x-\mu)\cdot (x-\bar \mu)\cdot P_2.
+\]
+Now observe that
+\[
+(x-\mu)\cdot(x-\bar \mu) = x^2 - (\mu + \bar \mu) x + \mu \bar \mu
+ = x^2 - 2 (\Re \mu)\cdot x + \abs{\mu}^2
+\]
+is a polynomial with real coefficients, and since $P_2$ is obtained by dividing
+$P$ by this polynomial, $P_2$ is also a polynomial with real coefficients.
+
+Repeating the same procedure on the polynomial $P_2$, we can factor $P$ by
+reducing the degree in steps of $2$ until all non-real complex roots are
+exhausted by pairing them two by two.
+Thus, if $\mu$ is a complex root of the real polynomial $P$, the multiplicity of
+$\mu$ is equal to the multiplicity of $\bar \mu$.
+
+Afterward, we can complete the factorization by dividing by the linear factors
+$x-x_k$ corresponding to the real roots of the polynomial $P$.
+We will then obtain the desired factorization.
+\end{proof}

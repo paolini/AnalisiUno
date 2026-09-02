@@ -1,0 +1,367 @@
+\section{completeness}
+
+\begin{definition}[Cauchy sequences]
+\mymark{***}
+\index{sequence!Cauchy}
+\index{Cauchy!Cauchy sequence}
+Let $(X,d)$ be a metric space and $x_k$ a sequence of points in $X$.
+We say that $x_k$ is a
+\emph{Cauchy sequence}
+\mymargin{Cauchy sequence}
+if
+\[
+ \forall \eps>0\colon \exists n\in \NN\colon \forall j>n \colon \forall k > n \colon d(x_j,x_k) < \eps.
+\]
+\end{definition}
+
+The property that defines Cauchy sequences
+can also be written as:
+\[
+  \lim_{k \to +\infty} \sup_{j\ge k} d(x_j, x_k) = 0.
+\]
+
+\begin{theorem}[convergent sequences are Cauchy]
+\mymark{**}%
+\label{th:se_converge_cauchy}
+Let $x_k\to x$ be a convergent sequence in a metric space $(X,d)$. Then $x_k$ is
+Cauchy.
+\end{theorem}
+%
+\begin{proof}
+\mymark{**}
+By definition, if $x_k \to x$ we have
+\[
+  \forall \eps>0\colon \exists n\in \NN \colon
+  \forall k>n \colon d(x_k,x)< \eps.
+\]
+Applying the triangle inequality, for every $j,k>n$
+we obtain the desired result:
+\[
+  d(x_j, x_k) \le d(x_k,x) + d(x,x_j) \le 2\eps.
+\]
+\end{proof}
+
+\begin{definition}[completeness]
+\mymark{***}
+\mymargin{completeness}
+\index{completeness}
+A metric space $(X,d)$ is said to be \emph{complete}%
+\mymargin{complete}\index{complete}
+if every Cauchy sequence is convergent.
+\end{definition}
+
+The prototype of a complete metric space is $\RR$, as we will see in
+theorem~\ref{th:R-completo}.
+An example of a non-complete metric space is $\QQ$.
+Indeed, if we take a
+sequence $q_n \in\QQ$ with $q_n\to \sqrt 2$, the sequence $q_n$ is convergent
+in $\RR$ and hence is Cauchy in $\RR$. But since $q_n\in \QQ$, it follows
+that $q_n$ is Cauchy also in $\QQ$ (the Cauchy condition is the same).
+However, in $\QQ$, such a sequence does not converge since $\sqrt 2\not \in
+\QQ$.
+
+\begin{definition}[Banach space]
+A normed vector space is said to be a
+\emph{Banach space}%
+\mymargin{Banach space}%
+\index{space!Banach}%
+\index{Banach!Banach space}
+if, as a metric space, it is complete.
+If the norm is Euclidean, i.e., it derives from an inner product, the space is
+called
+a \emph{Hilbert space}.
+\mymargin{Hilbert space}%
+\index{space!Hilbert}
+\end{definition}
+
+\begin{lemma}
+\label{lm:cauchy_limitata}
+Every Cauchy sequence is bounded
+(more precisely: if $x_n$ is a Cauchy sequence in a metric space $X$, then the
+set $\ENCLOSE{x_n\colon n\in \NN}$
+is a bounded set).
+\end{lemma}
+%
+\begin{proof}
+Let $x_k \in \RR$ be a Cauchy sequence.
+Given $\eps>0$, we know there exists $N\in \NN$
+such that for every $k,j>N$ we have
+$d(x_k,x_j) < \eps$. 
+In particular, for every $k>N$, we have
+\[
+  d(x_k, x_{N+1}) < \eps.
+\]
+Thus, chosen
+\[
+    R > \max\ENCLOSE{d(x_0,x_1), d(x_0,x_2), \dots, d(x_0,x_N), d(x_0, x_{N+1})
+  + \eps}
+\]
+we observe that for every $k\in \NN$, $d(x_0, x_k)< R$ because 
+if $k \le N$, we have chosen $R$ to be larger than $d(x_0,x_k)$, and if $k > N$,
+then
+\[
+  d(x_0,x_k) \le d(x_0,x_{N+1}) + d(x_{N+1},x_k)
+    \le d(x_0,x_{N+1}) + \eps < R.
+\]
+
+This means that for every $k\in \NN$, $x_k \in B_{R}(x_0)$ 
+which is the definition of boundedness in a
+metric space.
+\end{proof}
+
+\begin{lemma}
+\label{lm:cauchy_estratta_convergente}
+If a Cauchy sequence has a convergent subsequence, then the entire sequence is
+convergent.
+\end{lemma}
+%
+\begin{proof}
+Let $x_k$ be the Cauchy sequence and let $x_{k_j}\to x$ be a convergent
+subsequence.
+Then for every $\eps>0$
+there exists $m$ such that if $k,j>m$, then $d(x_k ,x_j) < \eps$.
+Since $x_{k_j} \to x$, we can find $j$ such that $k_j > m$ and $d(x_{k_j},x) <
+\eps$. But then
+\[
+  d(x_k,x) \le d(x_k, x_{k_j}) + d(x_{k_j},x)
+   \le 2 \eps.
+\]
+And this is true for every $k > m$, from which it follows that the definition of
+limit $x_k \to x$ is satisfied.
+\end{proof}
+
+\begin{theorem}[completeness of $\RR$]
+\mymark{***}%
+\mymargin{$\RR$ is complete}%
+\index{completeness!of $\RR$}%
+\label{th:R-completo}%
+$\RR$ is complete.
+\end{theorem}
+%
+\begin{proof}
+\mymark{***}
+We need to show that if $x_k$ is a Cauchy sequence in $\RR$, then $x_k$
+converges.
+By lemma~\ref{lm:cauchy_limitata}, we know that $x_k$ is bounded.
+But then, by the Bolzano-Weierstrass theorem, we know that $x_k$ has
+a convergent subsequence.
+Thanks to lemma~\ref{lm:cauchy_estratta_convergente}, we can thus conclude
+that the sequence $x_k$ itself is convergent.
+\end{proof}
+
+\begin{corollary}[completeness of $\RR^n$ and $\CC$]
+The spaces $\RR^n$ and $\CC$ (with the usual Euclidean distance)
+are complete.
+\end{corollary}
+%
+\begin{proof}
+It suffices to observe that the convergence (or the Cauchy condition) of a
+sequence in $\RR^n$
+occurs if and only if each component of the sequence is convergent (or Cauchy)
+in $\RR$.
+Thus, since $\RR$ is complete, $\RR^n$ is also complete. 
+As a metric space, $\CC$ is isomorphic to $\RR^2$, hence it is also complete.
+\end{proof}
+
+\begin{theorem}[completeness of compact spaces]
+Every compact metric space is complete.
+\end{theorem}
+%
+\begin{proof}
+Since the space is compact, every Cauchy sequence
+admits a convergent subsequence.
+But then, thanks to lemma~\ref{lm:cauchy_estratta_convergente},
+the entire sequence converges, and thus the space is complete.
+\end{proof}
+
+\begin{theorem}[closed subsets in compact and complete spaces]%
+\label{th:chiuso_completo}%
+\label{th:compatto_completo}%
+Let $(X,d)$ be a metric space and let $A\subset X$ be a closed subset in $X$. If
+$X$ is compact, then $A$ is also compact; if $X$ is complete, then $A$ is also
+complete.
+\end{theorem}
+\begin{proof}
+If $X$ is compact, from every sequence in $A$, one can extract a convergent
+subsequence to a point in $X$.
+But since $A$ is closed, the point lies in $A$, and thus the subsequence is
+convergent in $A$.
+
+A Cauchy sequence in $A$ is also Cauchy in $X$. 
+If $X$ is complete, such a sequence converges to a point in $X$. 
+If $A$ is closed, that point is in $A$, and thus the sequence converges in $A$.
+\end{proof}
+
+\begin{theorem}[extendability of uniformly continuous functions]
+\mymark{**}%
+\label{th:estensione_uniformemente_continua}%
+Let $f\colon A \subset X \to Y$ be a function defined on a subset $A$
+of a metric space $X$ with values in a complete metric space $Y$
+(for example, $X=\RR$ and $Y=\RR$). If $f$ is uniformly continuous, then
+there exists a unique continuous function $\tilde f \colon \bar A \to Y$
+such that for every $x\in A$, we have $\tilde f(x) = f(x)$.
+Moreover, $\tilde f$ is also uniformly continuous.
+\end{theorem}
+%
+\begin{proof}
+The first observation is
+that if a function $f$ is uniformly continuous, then $f$
+maps Cauchy sequences to Cauchy sequences.
+Indeed, if $f$ is uniformly continuous, we have
+\[
+ \forall \eps>0\colon \exists \delta>0 \colon d(x,y)<\delta \implies d(f(x),f(y))<\eps
+\]
+and if $a_n$ is Cauchy, we have
+\[
+ \exists N\in\NN \colon k,j>N \implies d(a_k,a_j)< \delta
+\]
+thus combining the two properties
+we obtain the Cauchy condition for $f(a_k)$:
+\[
+\forall \eps>0\colon \exists N\in \NN\colon k,j>N \implies d(f(a_k),f(a_j))< \eps.
+\]
+
+Given a point $x \in \bar A$, there certainly exists $a_n \in A$ with $a_n\to
+x$.
+We want to show that $f(a_n)$ has a limit in $Y$ and that this limit does not
+depend on the chosen sequence $a_n$. If $a_n \to a$, then $a_n$ is Cauchy in $X$
+(theorem~\ref{th:se_converge_cauchy}).
+From what was said before, we can assert that $f(a_n)$ is also Cauchy
+and thus converges in $Y$, since $Y$ is complete by hypothesis.
+Moreover, the $\lim f(a_n)$ does not depend on the chosen sequence because
+if $b_n\to x$ were another sequence, we could construct a sequence
+$c_n$ that alternates the points of $a_n$ and $b_n$ (setting, for example,
+$c_{2n} = a_n$ and
+$c_{2n+1} = b_n$). Also $c_n \to x$ and is Cauchy, thus $f(c_n)$ converges.
+But $f(a_n)$ and $f(b_n)$ are subsequences of $f(c_n)$ and thus converge
+to the same limit.
+We have thus shown that for every $x\in \bar A$, there exists $\ell \in Y$
+such that if $a_n\to x$, $a_n\in A$, then $f(a_n) \to \ell$. We can
+therefore define $\tilde f(x)=\ell$. If there exists a continuous extension of
+$f$, it can only be defined in this way, since continuous functions
+map convergent sequences to convergent sequences.
+
+On the other hand, we can show that $\tilde f$ is a uniformly continuous
+function.
+Indeed, for every $\eps>0$, we can choose $\delta>0$ given by the uniform
+continuity of $f$: given $x,y\in \bar A$ with $d(x,y)<\delta/3$, there will
+exist
+$x_n,y_n \in A$ with $x_n\to x$, $y_n\to y$. We can then find $n$
+sufficiently large such that
+$d(x_n,x)<\delta/3$, $d(y_n,y)<\delta/3$,
+$d(f(x_n),\tilde f(x)) < \eps$, $d(f(y_n),\tilde f(y)) < \eps$.
+We will then have
+$d(x_n,y_n)< d(x_n,x)+d(x,y)+d(y,y_n) < \delta$, thus $d(f(x_n),f(y_n))<\eps$
+and in conclusion
+\[
+d(f(x),f(y))
+\le d(f(x),f(x_n)) + d(f(x_n),f(y_n)) + d(f(y_n),f(y))
+\le 3\eps.
+\]
+We have thus demonstrated the uniform continuity of $\tilde f$ with $3\eps$
+instead of
+$\eps$ and $\delta/3$
+instead of $\delta$.
+\end{proof}
+
+\begin{definition}[Lipschitz]
+\mymark{***}
+Let $f\colon X \to Y$ be a function defined between two metric spaces.
+Given $L\ge 0$,
+we say that $f$ is $L$-Lipschitz if
+\index{function!Lipschitz}
+for every $x,y \in X$, we have
+\[
+  d(f(x),f(y)) \le L \cdot d(x,y).
+\]
+We say that $f$ is Lipschitz if there exists $L\ge 0$ such that $f$ is
+$L$-Lipschitz.
+\end{definition}
+
+\begin{theorem}
+\label{th:lipschitz_uniformemente_continua}%
+\mymark{*}%
+If $f\colon X \to Y$ is Lipschitz, then
+$f$ is sequentially continuous, i.e.,
+\[
+  x_k \to x \implies f(x_k)\to f(x).
+\]
+\end{theorem}
+%
+\begin{proof}
+If $x_k\to x$, it means that $d(x_k,x) \to 0$, therefore
+\[
+  d(f(x_k), f(x)) \le L \cdot d(x_k,x) \to 0.
+\]
+\end{proof}
+
+We observe that the distance $d(x,y)$ of a metric space $X$ is always a
+$1$-Lipschitz function with respect to each of the two variables $x$ and $y$.
+Indeed, by the reverse triangle inequality, we have
+\[
+  \abs{d(x_1,y) - d(x_2,y)} \le d(x_1, x_2).
+\]
+Consequently, the norm of a normed space is also $1$-Lipschitz. 
+In particular, the distance and the norm are continuous functions.
+
+\begin{theorem}[Banach-Caccioppoli contraction principle or fixed point theorem]
+\mymark{***}%
+\mymargin{contraction theorem}%
+\index{theorem!Banach-Caccioppoli}%
+\index{theorem!contraction}%
+\index{fixed point}%
+\index{contraction}%
+\index{Caccioppoli!contraction theorem}%
+\index{Banach!contraction theorem}%
+\label{th:banach-caccioppoli}%
+Let $X$ be a non-empty complete metric space and let $f\colon X \to X$ be an
+$L$-Lipschitz function with $L<1$ (we will say that $f$ is a
+\emph{contraction}).
+Then there exists a unique point
+$x\in X$ such that $f(x) = x$.
+\end{theorem}
+%
+\begin{proof}
+\mymark{***}
+Consider any point $p \in X$ and define
+the sequence $x_k\in X$ through the recursive definition
+\[
+\begin{cases}
+  x_0 = p \\
+  x_{k+1} = f(x_k).
+\end{cases}
+\]
+Since $f$ is $L$-Lipschitz, we will have
+\begin{align*}
+  d(x_2, x_1) &= d(f(x_1),f(x_0)) \le L \cdot d(x_1,x_0) \\
+  d(x_3, x_2) &= d(f(x_2),f(x_1)) \le L \cdot d(x_2,x_1)
+  \le L^2 \cdot d(x_1, x_0) \\
+  d(x_4, x_3) &= d(f(x_3),f(x_2)) \le L \cdot d(x_3,x_2)
+  \le L^3 \cdot d(x_1, x_0) \\
+  &\vdots
+\end{align*}
+we can then prove inductively that
+for every $m\in \NN$, we have
+\[
+  d(x_{m+1}, x_m) \le L^m \cdot d(x_1, x_0).
+\]
+But then for every $k\in \NN$ and for every $j>k$,
+using the triangle inequality and summing the geometric series,
+we have
+\[
+  d(x_k,x_j) \le \sum_{m=k}^{j-1} d(x_m, x_{m+1})
+   \le \sum_{m=k}^{j-1} L^m \cdot d(x_1, x_0)
+   = \frac{L^k-L^j}{1-L} d(x_1,x_0).
+\]
+Since $L<1$, if $k\to +\infty$ and $j>k$, this quantity tends to zero, and thus
+it follows that $x_k$ is a Cauchy sequence. Being $X$ complete by hypothesis, we
+know that the sequence converges $x_k \to x$ to a point $x\in X$.
+By the continuity of $f$, taking the limit in the equation
+$x_{k+1} = f(x_k)$, we obtain $x = f(x)$.
+We have thus found a fixed point.
+If $y\in X$ were another fixed point, we would have:
+\[
+  d(x,y) = d(f(x),f(y)) \le L \cdot d(x,y)
+\]
+which is absurd if $L<1$ and $x\neq y$.
+\end{proof}

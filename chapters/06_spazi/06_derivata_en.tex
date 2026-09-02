@@ -1,0 +1,424 @@
+\section{Exchange of Derivative with Limit}
+
+\begin{theorem}[Exchange of Limit with Derivative]
+\mymark{***}
+Let $I\subset \RR$ be an interval and let $f_k\in C^1(I)$ be functions such that
+$f_k(x_0)$ converges for at least one point $x_0\in I$ and the sequence of
+derivatives $f_k'$ converges to a function $g\colon I \to \RR$ uniformly on
+every closed and bounded interval $[a,b]\subset I$. Then there exists $f\in
+C^1(I)$ such that $f'=g$ and $f_k$ converges to $f$ uniformly on every closed
+and bounded interval $[a,b]\subset I$. Under these hypotheses, the derivative
+can be exchanged with the limit:
+\[
+  \lim_{k\to +\infty}\enclose{\frac{d}{dx} f_k(x)}
+  = f'(x)
+  = \frac{d}{dx} \enclose{\lim_{k\to +\infty} f_k(x)},
+  \qquad \forall x \in I.
+\]
+\end{theorem}
+%
+\begin{proof}
+\mymark{***}
+By hypothesis, there exists $y_0\in \RR$ such that $f_k(x_0) \to y_0$. Define
+\[
+  f(x) = y_0 + \int_{x_0}^x g(t)\, dt.
+\]
+By the continuity of the uniform limit, we know that $g$ is continuous, thus we
+can apply the fundamental theorem of calculus to deduce that $f'=g$. We now show
+that on every interval $[a,b]\subset I$, we have $f_k \To f$. By the fundamental
+theorem of integral calculus, we have:
+\[
+  \int_{x_0}^x f_k'(t) dt = f_k(x) - f_k(x_0)
+\]
+thus
+\begin{align*}
+  \sup_{x\in [a,b]}\abs{f_k(x) - f(x)}
+    &= \sup_{x\in [a,b]} \abs{f_k(x_0) + \int_{x_0}^x f_k'(t) - y_0 -
+  \int_{x_0}^x g(t)\, dt} \\
+    &\le \abs{f_k(x_0) - y_0} + \sup_{x\in [a,b]}\abs{\int_{x_0}^x \abs{f_k'(t)
+  - g(t)}\, dt} \\
+  &\le \abs{f_k(x_0) - y_0} + (b-a)\Abs{f_k' - g} \to 0.
+\end{align*}
+\end{proof}
+
+The space $C^1([a,b])$ is a vector subspace of $C^0([a,b])$ but it is not
+closed, as deduced from example~\ref{ex:466533} (one could even prove that $C^1$
+is dense in $C^0$), thus $C^1$ is not complete with respect to the uniform norm.
+To transform the space $C^1([a,b])$ into a Banach space, we can define a
+stronger norm, such as the following:
+\[
+  \Abs{f}_{C^1} = \Abs{f}_\infty + \Abs{f'}_\infty.
+\]
+\begin{theorem}[$C^1$ Banach Space]
+\mymark{*}
+The vector space $C^1([a,b])$ endowed with the norm $\Abs{\cdot}_{C^1}$ is a
+Banach space.
+\end{theorem}
+%
+\begin{proof}
+It is easy to verify that $\Abs{\cdot}_{C^1}$ is a norm on $C^1([a,b])$, we only
+need to verify that the space is complete. Let $f_k$ be a Cauchy sequence with
+respect to the $C^1$ norm. Then $f_k'$ and $f_k$ are both Cauchy sequences in
+$C^0$ since $\Abs{f_k}_\infty \le \Abs{f_k}_{C^1}$ and $\Abs{f_k'}_\infty \le
+\Abs{f_k}_{C^1}$. Therefore, by the completeness of $C^0$, we know that there
+exist $f,g\in C^0([a,b])$ such that $f_k\To f$ and $f_k'\To g$. Based on the
+theorem of exchange of limit with derivative, we can assert that $f\in C^1$ and
+$f'=g$, thus
+\[
+  \Abs{f_k-f}_{C^1} = \Abs{f_k-f}_\infty + \Abs{f_k'-g}_\infty \to 0.
+\]
+\end{proof}
+
+The theorem of exchange of limit with integral tells us that the integral
+operator $S\colon C^0 \to C^1$ is continuous between the two Banach spaces. The
+differential operator $D\colon C^1 \to C^0$ $f\mapsto Df = f'$ is obviously
+continuous as well.
+
+\section{Series of Functions}
+
+If $f_k\colon A \to \RR$ is a sequence of functions defined on the same set $A$,
+we can consider (as we have already done for numerical sequences) the sequence
+of partial sums:
+\[
+  S_n(x) = \sum_{k=0}^n f_k(x), \qquad x\in A.
+\]
+This sequence is called the \emph{series} corresponding to the sequence of
+functions $f_k$ and is sometimes denoted as $\sum f_n$. For each $x$ where the
+series is convergent, we can define the \emph{sum}%
+\mymargin{sum}\index{sum} of the series
+\[
+  S(x) = \sum_{k=0}^{+\infty} f_k(x) = \lim_{n\to +\infty} S_n(x).
+\]
+The sum $S$ is thus the pointwise limit of the sequence of partial sums $S_n$.
+
+The theorems we have proven for sequences of functions are therefore valid for
+series of functions as well. It suffices to remember that the \emph{uniform
+convergence of the series}%
+\mymargin{uniform convergence of a series}%
+\index{series!uniform convergence}%
+\index{convergence!uniform of a series}%
+  is the uniform convergence of the partial sums. Thus $\sum f_k$ converges
+ uniformly to $S$ if $S_n \To S$, that is, if
+\[
+  \Abs{S - S_n}_\infty = \Abs{\sum_{k=n+1}^{+\infty} f_k}_\infty \to 0
+  \qquad \text{as $n\to +\infty$.}
+\]
+
+\begin{theorem}[Integral of a Series of Functions]
+\label{th:integrale_serie}
+\mymark{**}%
+\index{theorem!integration of a series of functions}%
+\index{series!integral}%
+\mymargin{integral of a series}%
+\index{integral!of a series}%
+Let $f_k\colon [a,b]\to\RR$ be a sequence of continuous functions defined on the
+interval $[a,b]\subset \RR$. If the series $\sum f_k$ converges uniformly, then
+the integral can be exchanged with the sum of the series:
+\[
+  \int_a^b \enclose{\sum_{k=0}^{+\infty} f_k(t)}\, dt
+  = \sum_{k=0}^{+\infty} \enclose{\int_a^b f_k(t)\, dt}
+  \qquad \forall x \in I.
+\]
+\end{theorem}
+\begin{proof}
+\mymark{**}
+The proof is a simple consequence of the fact that the exchange can be made on
+finite sums and the passage to the limit can be made thanks to the theorem of
+exchange of limit with integral.
+
+Let $S_n = \sum f_n$ be the sequence of partial sums and let $S$ be the limit of
+the partial sums. By hypothesis, $S_n\To S$. Applying the theorem of exchange of
+integral with limit, we have
+\[
+  \lim_{n\to +\infty} \int_a^b S_n(t)\, dt = \int_a^b S(t)\, dt.
+\]
+But on one hand, exploiting the additivity of the integral on finite sums:
+\begin{align*}
+  \lim_{n\to +\infty} \int_a^b S_n(t)\, dt
+   &= \lim_{n\to+\infty}\int_a^b \enclose{\sum_{k=0}^n f_k(t)} \,  dt\\
+   &= \lim_{n\to+\infty}\sum_{k=0}^n \enclose{\int_a^b f_k(t)\, dt}\\
+   &= \sum_{k=0}^\infty \enclose{\int_a^b f_k(t)\, dt}
+\end{align*}
+and on the other hand:
+\[
+  \int_a^b S(t)\, dt = \int_a^b \enclose{\sum_{k=0}^{+\infty} f_k(t)}\, dt.
+\]
+\end{proof}
+
+\begin{theorem}[Derivative of a Series of Functions]
+\mymark{**}
+\index{theorem!differentiation of a series of functions}
+\index{series!derivative}
+\mymargin{differentiation of a series}
+Let $f_k\colon I\to\RR$ be a sequence of continuous functions defined on the
+interval $I$. If the functions $f_k$ are of class $C^1$ and the series of
+derivatives $\sum f_k'$ converges uniformly on every closed and bounded interval
+$[a,b]\subset I$ and if there is at least one point $x_0\in I$ such that the
+series $\sum f_k(x_0)$ converges, then
+\[
+  \frac{d}{dx} \sum_{k=0}^{+\infty} f_k(x) = \sum_{k=0}^{+\infty} \frac{d}{dx}f_k(x)
+  \qquad \forall x \in I.
+\]
+\end{theorem}
+
+\begin{proof}
+\mymark{**}
+Let $S_n$ be the sequence of partial sums. By hypothesis, we know that there
+exists a function $T\colon I \to \RR$ such that $S_n' \To T$ in every interval
+$[a,b]\subset I$. We also know that $S_n(x_0)$ converges. Thus we can apply the
+theorem of exchange of limit with derivative to obtain that there exists $S\in
+C^1(I)$ such that $S_n(x)\to S(x)$ for every $x\in I$ and
+\[
+   S'(x) = T(x) \qquad \forall x\in I.
+\]
+But on one hand
+\begin{align*}
+S'(x)
+&= \frac{d}{dx} \lim_{n\to +\infty} S_n(x) \\
+&= \frac{d}{dx} \sum_{k=0}^{+\infty} f_k(x)
+\end{align*}
+and on the other hand
+\begin{align*}
+T(x)
+&= \lim_{n\to +\infty} S_n'(x)
+ = \lim_{n\to +\infty} \frac{d}{dx} \sum_{k=0}^n f_k(x) \\
+&= \lim_{n\to +\infty} \sum_{k=0}^n f_k'(x)
+ = \sum_{k=0}^{+\infty} f_k'(x).
+\end{align*}
+\end{proof}
+
+The uniform convergence of a series is not very simple to verify. The following
+condition is simpler and will be shown to be stronger.
+
+\begin{definition}[Total Convergence of a Series of Functions]
+\mymark{***}
+Let $f_k\colon A \to \RR$ be functions defined on a set $A\subset \RR$. We say
+that the series of functions $\sum f_k$ \emph{converges totally}%
+\mymargin{total convergence}%
+\index{convergence!total}%
+if the numerical series $\sum \Abs{f_k}_\infty$ is convergent.
+\end{definition}
+
+\begin{theorem}[Total Convergence]
+\mymark{***}
+If the series $\sum f_n$ converges totally, then it converges uniformly.
+\end{theorem}
+%
+\begin{proof}
+\mymark{***}
+For fixed $x$, the series $\sum f_n(x)$ converges absolutely since
+\[
+  \sum_{k=0}^\infty \abs{f_n(x)}
+  \le \sum_{k=0}^\infty \Abs{f_n}_\infty < +\infty.
+\]
+Thus the series converges and setting
+\[
+  S_n(x) = \sum_{k=0}^n f_k(x), \qquad
+  S(x) = \sum_{k=0}^{+\infty} f_k(x)
+\]
+we have that $S_n\to S$ pointwise. To show that $S_n \To S$, it suffices to
+observe that as $n\to +\infty$, we have:
+\[
+  \abs{S(x) - S_n(x)}
+  = \abs{\sum_{k=n+1}^{+\infty} f_k(x)}
+  \le \sum_{k=n+1}^{+\infty}\abs{f_k(x)}
+  \le \sum_{k=n+1}^{+\infty}\Abs{f_k}_\infty \to 0.
+\]
+\end{proof}
+
+\begin{theorem}[Total Convergence of Power Series]
+\label{th:convergenza_totale}
+\mymark{***}%
+Let $\sum a_n z^n$ be a power series and let $R\in[0,+\infty]$ be its radius of
+convergence. Then the series converges totally on every disk $D_r$ with $r<R$.
+\end{theorem}
+%
+\begin{proof}
+Now observe that on the disk of radius $r$, we have $\Abs{a_k z^k}_\infty =
+\abs{a_k} r^k$ and thus
+\[
+\sum_{k=0}^{+\infty} \Abs{a_k z_k}_\infty
+= \sum_{k=0}^{+\infty} \abs{a_k}r^k < +\infty
+\]
+since the series $\sum a_k z^k$ converges absolutely for $z=r$ being $r<R$.
+\end{proof}
+
+\begin{corollary}
+\label{cor:derivata_serie_potenze}
+\mymark{**}
+The power series
+\[
+  f(x) = \sum_{k=0}^{+\infty} a_k x^k
+\]
+has the same radius of convergence $R$ as the series of derivatives
+\[
+  g(x) = \sum_{k=1}^{+\infty} k a_k x^{k-1}
+\]
+and for $x\in (-R,R)$, we have
+\[
+  f'(x) = g(x).
+\]
+\end{corollary}
+%
+\begin{proof}
+That the two series have the same radius of convergence has already been proven
+in Theorem~\ref{th:raggio_serie_derivate}. In the previous theorem, we showed
+that on every interval $[-r,r]$ with $r<R$, the power series with sum $f$
+converges totally. Thus it converges uniformly, and we can exchange the
+derivative with the sum to obtain $f'(x) = g(x)$.
+\end{proof}
+
+\begin{example}
+We know that the power series
+\[
+f(x) = \sum_{k=1}^{+\infty} \frac{x^k}{k}
+\]
+has a radius of convergence $R=1$ (using, for example, the ratio test). The
+series of derivatives is
+\[
+ g(x) = \sum_{k=1}^{+\infty} x^{k-1} = \sum_{k=0}^{+\infty}x^k = \frac{1}{1-x}.
+\]
+Thus for $\abs{x}<1$, we have
+\[
+  f'(x) = g(x) = \frac{1}{1-x}
+\]
+from which
+\[
+ f(x) = f(0) + \int_0^x f'(t)\, dt = \int_0^x \frac{1}{1-t}\, dt
+  = \Enclose{-\ln(1-t)}_0^x = -\ln(1-x).
+\]
+We have thus discovered that
+\[
+  \sum_{k=1}^{+\infty} \frac{x^k}{k} = - \ln (1-x) \qquad\text{for every $x\in (-1,1)$.}
+\]
+Observe now that the series with sum $f(x)$ does not converge for $x=1$
+(harmonic series) but converges for $x=-1$ (Leibniz's test). By
+Theorem~\ref{th:lemma_abel} (Abel's lemma), we know that the function $f(x)$ is
+continuous at the point $x=-1$, and thus we can conclude that
+\[
+  \sum_{k=1}^{+\infty} \frac{x^k}{k} = -\ln(1-x)
+  \qquad \forall x \in [-1,1).
+\]
+In particular, we have found the sum of the alternating harmonic series:
+\[
+  \sum_{k=1}^{+\infty} \frac{(-1)^{k+1}}{k} = - f(x) = \ln 2.
+\]
+
+Observe that this information is consistent with the Taylor expansion of
+$\ln(1+x)$ that we had already determined. However, it is not a consequence of
+it, as the Taylor expansion gives us information only for $x\to 0$, whereas now
+we have obtained information for every $x$ in $[-1,1)$.
+ \end{example}
+
+\begin{example}
+We apply the previous idea to the function $\arctg$. We have
+\[
+  \arctg'(x) = \frac{1}{1+x^2} = \sum_{k=0}^{+\infty} (-x^2)^k
+  = \sum_{k=0}^{+\infty} (-1)^k x^{2k}
+  = \sum_{k=0}^{+\infty} \frac{(-1)^k}{2k+1}(x^{2k+1})'.
+\]
+The series
+\[
+ f(x) = \sum_{k=0}^{+\infty}\frac{(-1)^k}{2k+1} x^{2k+1}
+\]
+has a radius of convergence $R=1$, and thus for every $x\in(-1,1)$, we know that
+the series of derivatives converges to the derivative of the series, from which
+\[
+  f'(x) = \arctg' x.
+\]
+Since $f(0) = 0 = \arctg 0$, we can conclude that $f(x) =\arctg x$ for every
+$x\in (-1,1)$. The series is also convergent for $x=1$, by Leibniz's test. By
+continuity (Abel's Lemma), we obtain that $f(1) = \arctg 1$. Thus
+\[
+  \arctg x = \sum_{k=0}^{+\infty}\frac{(-1)^k}{2k+1}x^{2k+1}
+  \qquad \forall x \in (-1,1].
+\]
+In particular, for $x=1$, we obtain the \emph{Gregory-Leibniz} formula%
+\mymargin{Gregory-Leibniz}\index{Gregory-Leibniz}
+\index{$\pi$!Gregory-Leibniz formula}
+\index{Gregory!approximation $\pi$}
+\index{Leibniz!approximation $\pi$}
+\index{formula!Gregory-Leibniz for $\pi/4$}
+\[
+  \frac{\pi}{4} = \sum_{k=0}^{+\infty} \frac{(-1)^k}{2k+1} =
+   1 - \frac{1}{3} + \frac{1}{5} - \frac{1}{7} + \dots
+\]
+\end{example}
+
+The following example uses total convergence to construct a continuous function
+that is not differentiable at any point. Functions of this kind are not merely
+mathematical curiosities but can be useful for modeling natural phenomena, such
+as Brownian motion or the behavior of a stock index.
+
+\begin{example}[Weierstrass Function]
+Let $a=\frac 1 8$ and $b=512$, consider the function $W\colon \RR \to \RR$,
+defined by
+\[
+   W(x) = \sum_{k=0}^{+\infty} a^k \cos(b^k \pi x).
+\]
+The function $W$ is continuous at every point of $\RR$ but is not differentiable
+at any point of $\RR$.
+\end{example}
+\begin{proof}
+Let $f_k(x) = a^k \cos(b^k \pi x)$, we have $\Abs{f_k}_{\infty} \leq a^k$, and
+therefore, since $\sum a^k$ is convergent, the series of functions $W = \sum
+f_k$ converges totally on $\RR$ and thus converges uniformly. Since each $f_k$
+is continuous, $W$ is also continuous.
+
+It is much more delicate to prove that $W$ is not differentiable at any point of
+$\RR$. The idea is that the function $f_k$ has a derivative that oscillates with
+amplitude $\pi a^k b^k$, while its modulus, as already seen, has amplitude
+$a^k$. If we take two points that have a distance of the order of $b^m$, the
+function $f_m$ is the one that contributes most to the difference of the
+incremental ratio of $f$, since for $k<m$, the functions oscillate relatively
+little, while for $k>m$, the functions have very small amplitude. We develop
+this idea.
+
+Fix any $x\in \RR$. Our goal is to find a sequence $\delta_n\to 0$ such that
+\begin{equation}\label{eq:30234354}
+  \abs{\frac{W(x+\delta_n) - W(x)}{\delta_n}} \to +\infty.
+\end{equation}
+This implies that $W$ is not differentiable at $x$. Since the cosine has period
+$2\pi$, we are certain that in the interval $[4\pi,6\pi]$, the function $\theta
+\mapsto \cos(b^n \pi x+\theta)$ assumes all values between $-1$ and $1$. Thus
+there exists $\theta_n \in [4\pi,6\pi]$ such that
+\[
+   \abs{\cos (b^n \pi x + \theta_n) - \cos(b^n\pi x)} = 1.
+\]
+Set $\delta_n = \frac{\theta_n}{b^n \pi}$ so that
+\[
+  \abs{\cos (b^n \pi (x+\delta_n))- \cos(b^n \pi x)} = 1.
+\]
+We then use the following estimates
+\[
+  \abs{\cos(b^k\pi (x + \delta_n)) - \cos(b^k \pi x)}
+  \begin{cases}
+    \le b^k\pi\delta_n &\text{if $k<n$},\\
+    = 1 &\text{if $k=n$},\\
+    \le 2 &\text{if $k>n$}.
+  \end{cases}
+\]
+We have therefore:
+\begin{align*}
+    \abs{\frac{W(x+\delta_n) - W(x)}{\delta_n}} 
+        &= \frac{\pi b^n}{\theta_n}\cdot
+    \abs{\sum_{k=0}^{+\infty}a^k\Enclose{\cos(b^k\pi (x + \delta_n) - \cos(b^k
+    \pi x)}}  \\
+        &\ge \frac{\pi b^n}{\theta_n}\cdot \Enclose{a^n - \sum_{k=0}^{n-1} a^k
+    b^{k-n} \theta_n - \sum_{k=n+1}^{+\infty} 2a^k} \\
+        &\ge \frac{a^n b^n}{6} -
+    \frac{b^n}{4}\Enclose{\frac{6\pi}{b^n}\sum_{k=0}^{n-1} (ab)^k + 2 a^{n+1}
+    \frac{1}{1-a}} \\
+        &\ge \frac{a^n b^n}{6} -\frac {3\pi} 2\cdot  \frac{(ab)^n-1}{ab-1} -
+    \frac{a^n b^n}{2}\cdot \frac{a}{a-1}\\
+        &\ge (ab)^n \Enclose{\frac 1 6 - 5\cdot \frac{1}{ab-1} - \frac 1 2 \cdot
+    \frac{1}{1-a}} \\
+    &= (ab)^n \frac{(ab-1)(1-a)-30(1-a)-3a(ab-1)}{6(ab-1)(1-a)}.
+\end{align*}
+The choices of $a$ and $b$ ensure that we have $ab>1$, $1-a>0$, and
+\begin{align*}
+(ab-1)(1-a)-30(1-a)-3a(ab-1)
+&= ab(1-4a) - 31 + 34a > 0.
+\end{align*}
+Thus, we obtain \eqref{eq:30234354} as desired.
+\end{proof}
