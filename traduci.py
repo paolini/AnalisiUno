@@ -23,6 +23,7 @@ REGOLE TASSATIVE:
 3. Traduci il testo dei titoli (\\chapter, \\section, \\subsection), gli enunciati di teoremi, definizioni, lemmi e le dimostrazioni.
 4. Mantieni i nomi dei comandi degli ambienti standard.
 5. Restituisci ESCLUSIVAMENTE il codice LaTeX tradotto, senza formattazione Markdown (no ```latex).
+6. Quando fai riferimento ad un teorema, lemma, definizione... scrivi Theorem, Lemma, Definition usando l'iniziale maiuscola anche se in italiano si usa la minuscola.
 """
 
 def translate_file_content(content: str) -> str:
