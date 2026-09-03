@@ -1,4 +1,8 @@
-all: AnalisiUnoFonts.pdf AnalisiUno.pdf README.md
+all: ita en
+
+ita: AnalisiUnoFonts.pdf AnalisiUno.pdf README.md
+
+en: AnalisiUnoEn.pdf
 
 README.md: make-docs.sh AnalisiUno.myaux
 	bash $<
@@ -6,10 +10,10 @@ README.md: make-docs.sh AnalisiUno.myaux
 AnalisiUnoFonts.pdf: AnalisiUno.pdf
 	gs -o AnalisiUnoFonts.pdf -sDEVICE=pdfwrite -dEmbedAllFonts=true AnalisiUno.pdf
 
-AnalisiUno.pdf AnalisiUno.myaux: AnalisiUno.tex chapters/*.tex figures/* code/* figures/figurePJAinside.tex figures/figurePJBinside.tex figures/figurePJAoutside.tex figures/figurePJBoutside.tex
+AnalisiUno.pdf AnalisiUno.myaux: AnalisiUno.tex *.tex chapters/*.tex chapters/*/*.tex figures/* code/* figures/figurePJAinside.tex figures/figurePJBinside.tex figures/figurePJAoutside.tex figures/figurePJBoutside.tex
 	latexmk -pdf -file-line-error -halt-on-error -interaction=nonstopmode $<
 
-AnalisiUnoEn.pdf AnalisiUnoEn.myaux: AnalisiUnoEn.tex chapters/*.tex figures/* code/* figures/figurePJAinside.tex figures/figurePJBinside.tex figures/figurePJAoutside.tex figures/figurePJBoutside.tex
+AnalisiUnoEn.pdf AnalisiUnoEn.myaux: AnalisiUnoEn.tex *.tex chapters/*.tex chapters/*/*.tex figures/* code/* figures/figurePJAinside.tex figures/figurePJBinside.tex figures/figurePJAoutside.tex figures/figurePJBoutside.tex
 	latexmk -pdf -file-line-error -halt-on-error -interaction=nonstopmode $<
 
 Fondamenti.pdf::
