@@ -918,6 +918,18 @@ di $A^-$ ma non di $A^+$ risultano equivalenti
 Si tratta semplicemente di verificare le definizioni di limite sfruttando il fatto che intorni di un punto $x_0$ sono formati dall'unione di intorno destro e intorno sinistro.
 \end{proof}
 
+\mynote{L'ipotesi $f(x)\neq y_0$ se $x\neq x_0$ è decisamente strana, 
+e difficile da ricordare. 
+Si potrebbe anche sostituire con l'ipotesi 
+che $g$ sia continua in $y_0$ oppure con l'ipotesi (ancora più strana)
+$y_0 \not \in B$.
+Il motivo per cui è necessaria questa strana ipotesi è che nella definizione 
+di limite \eqref{eq:def_limite} abbiamo messo la condizione, innaturale, $x\neq x_0$.
+Una formulazione più naturale della definizione di limite 
+sarebbe quella di permettere che 
+sia $x=x_0$ quando $x\to x_0$ e di scrivere esplicitamente 
+$x\neq x_0$ quando serve.
+}
 \begin{theorem}[limite della funzione composta/cambio di variabile]
 \label{th:limite_composta}
 Siano $A\subset \RR$, $B\subset \RR$,
@@ -940,20 +952,40 @@ allora $y\to y_0$) e dunque vale:
 \end{theorem}
 %
 \begin{proof}
-Visto che $g(y)\to \ell$
-per ogni $U$ intorno di $\ell$ deve esistere un $V$ intorno di $y_0$
-tale che $g((B\setminus\ENCLOSE{y_0})\cap V) \subset U$
-e visto  che $f(x)\to y_0$ deve esistere un intorno $W$ di $x_0$
-tale che $f((A\setminus\ENCLOSE{x_0})\cap W) \subset V$.
-Ma visto che per ipotesi $f$ assume valori in $B\setminus\ENCLOSE{y_0}$
-si ha anche $f((A\setminus\ENCLOSE{x_0})\cap W)\subset (B\setminus\ENCLOSE{y_0}) \cap V$
-e quindi
+Estendiamo $f$ e $g$ per continuità:
 \[
-  g(f((A\setminus\ENCLOSE{x_0})\cap W)) \subset g((B\setminus \ENCLOSE{y_0}) \cap V)
-  \subset U
+  \tilde f(x) = \begin{cases}
+    f(x) & \text{se $x\neq x_0$},\\
+    y_0 & \text{se $x=x_0$},
+  \end{cases}, \qquad
+  \tilde g(y) = \begin{cases}
+    g(y) & \text{se $y\neq y_0$},\\
+    \ell & \text{se $y=y_0$}.
+  \end{cases}
 \]
-che significa che $g(f(x)) \to \ell$.
+Ora $\tilde f$ è continua in $x_0$ e $\tilde g$ è continua in $y_0$,
+dunque, per il teorema~\ref{th:continuita_composizione} di continuità
+della funzione composta, la funzione $\tilde g \circ \tilde f$ è continua in $x_0$.
+Ora se $x\neq x_0$ si ha $\tilde f(x)=f(x)$ e,
+visto che $f(x)\neq y_0$, si ha anche $\tilde g(\tilde f(x)) = g(f(x))$.
+Dunque il limite di $\tilde g \circ \tilde f$ per $x\to x_0$ coincide con il limite di $g(f(x))$ per $x\to x_0$.
 \end{proof}
+%
+% \begin{proof}
+% Visto che $g(y)\to \ell$
+% per ogni $U$ intorno di $\ell$ deve esistere un $V$ intorno di $y_0$
+% tale che $g((B\setminus\ENCLOSE{y_0})\cap V) \subset U$
+% e visto  che $f(x)\to y_0$ deve esistere un intorno $W$ di $x_0$
+% tale che $f((A\setminus\ENCLOSE{x_0})\cap W) \subset V$.
+% Ma visto che per ipotesi $f$ assume valori in $B\setminus\ENCLOSE{y_0}$
+% si ha anche $f((A\setminus\ENCLOSE{x_0})\cap W)\subset (B\setminus\ENCLOSE{y_0}) \cap V$
+% e quindi
+% \[
+%   g(f((A\setminus\ENCLOSE{x_0})\cap W)) \subset g((B\setminus \ENCLOSE{y_0}) \cap V)
+%   \subset U
+% \]
+% che significa che $g(f(x)) \to \ell$.
+% \end{proof}
 
 \begin{exercise}
   Si faccia un esempio di una funzione $f\colon\RR\to \RR$ 
