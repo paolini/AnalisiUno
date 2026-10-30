@@ -70,6 +70,12 @@ LaTeX.
 Il materiale è costantemente in evoluzione 
 e certamente contiene errori e incoerenze. Ogni suggerimento o commento è 
 benvenuto! 
+
+# LICENZA 
+
+© [2014-2026] [Emanuele Paolini] 
+Quest'opera è rilasciata sotto licenza [Creative Commons Attribuzione - Condividi allo stesso modo 4.0 Internazionale (CC BY-SA 4.0)](https://creativecommons.org/licenses/by-sa/4.0/deed.it). 
+
 # release
 
 Releases (PDF format) are available at the github repository: <https://github.com/paolini/AnalisiUno/tags>
