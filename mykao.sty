@@ -15,6 +15,12 @@
 \RequirePackage{xstring} % Parse strings
 \RequirePackage{afterpage} % Run commands after specific pages
 \RequirePackage{imakeidx} % For the index; must be loaded before the 'caption' and 'hyperref' packages
+% Workaround varioref v1.6i (2026): se \extrasenglish non e' ancora definito
+% varioref lo ridefinisce ricorsivamente -> "TeX capacity exceeded".
+% Lo predefiniamo vuoto (babel poi vi aggiunge con \addto).
+\expandafter\ifx\csname extrasenglish\endcsname\relax
+  \expandafter\let\csname extrasenglish\endcsname\@empty
+\fi
 \RequirePackage{varioref} % For the cross-references; must be loaded before the 'hyperref' and 'cleveref' packages
 
 % Define \Ifthispageodd (with a capital 'i') to make kaobook compatible with older KOMAScript versions
