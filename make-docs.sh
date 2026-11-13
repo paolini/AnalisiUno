@@ -13,7 +13,8 @@ out=README.md
 INTRODUZIONE=chapters/00_introduzione.tex
 # truncate
 echo "writing file" ${out}
-echo "" >| ${out}
+echo "[![DOI](https://zenodo.org/badge/105351342.svg)](https://doi.org/10.5281/zenodo.24164701)" >| ${out}
+echo "" >> ${out}
 
 # extracting documentation from latex source
 grep "%% README" "${INTRODUZIONE}" | cut -f1 -d"%" | sed "s/\\\\emph{\\([^}]*\\)}/\\*\\1\\*/g" >> ${out}
@@ -162,6 +163,7 @@ grep "%% README" "${INTRODUZIONE}" \
 cat <<EOF >> ${out}
 <h2>collegamenti utili</h2>
 <ul>
+  <li><a href="online/">leggi il libro online</a></li>
   <li><a href="https://github.com/paolini/AnalisiUno">codice sorgente</a></li>
   <li><a href="https://github.com/paolini/AnalisiUno/releases/latest">ultimo rilascio
   (da qui puoi scaricare il file PDF)</a></li>

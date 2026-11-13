@@ -1,0 +1,48 @@
+name: versione HTML su GitHub Pages
+# Compila la versione HTML (make html) e pubblica il sito:
+#   docs/      -> https://paolini.github.io/AnalisiUno/        (come prima)
+#   html/out/  -> https://paolini.github.io/AnalisiUno/online/
+# Richiede: Settings > Pages > Source = "GitHub Actions".
+on:
+  push:
+    tags:
+      - '[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]'  # rilascio IT: es. 2026-11-13
+  workflow_dispatch:  # lancio a mano dalla pagina Actions
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: ghcr.io/xu-cheng/texlive-full:latest  # Alpine, come per i PDF
+    steps:
+      - uses: actions/checkout@v4
+      - name: dipendenze (node per KaTeX, pdftocairo per le figure)
+        run: apk add --no-cache nodejs npm poppler-utils
+      - name: make html
+        run: make html
+      - name: assembla il sito
+        run: |
+          mkdir _site
+          cp -r docs/. _site/
+          cp -r html/out _site/online
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
