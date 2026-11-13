@@ -29,10 +29,29 @@ clean:
 	latexmk -C AnalisiUno.tex
 	@rm *.mw
 
+# versione HTML (make4ht, vedi html/AnalisiUnoHtml.tex), output in html/out/
+.PHONY: html html-plastex
+HTML_BUILD = html/build
+HTML_OUT = html/out
+FIG_SVG = $(patsubst %.pdf,%.svg,$(wildcard figures/*.pdf))
+html: html/mathjax-config.js $(FIG_SVG)
+	mkdir -p $(HTML_BUILD) $(HTML_OUT)
+	cp html/style.css $(HTML_BUILD)/
+	make4ht -B $(HTML_BUILD) -d $(HTML_OUT) -c html/config.cfg -e html/build.lua \
+		-f html5+common_domfilters html/AnalisiUnoHtml.tex "3"
+	cp html/mathjax-config.js $(HTML_OUT)/
+	python3 html/postprocess.py $(HTML_BUILD)/AnalisiUnoHtml.aux $(HTML_OUT)
+
+figures/%.svg: figures/%.pdf
+	pdftocairo -svg $< $@
+
+html/mathjax-config.js: html/mathjax_macros.py AnalisiUno-custom.tex
+	python3 $< AnalisiUno-custom.tex $@
+
+# vecchio esperimento con plasTeX
 # devi scaricare il renderer MathJax e installarlo:
 # sudo mv MathJax MathJaxS5 /usr/local/lib/python3.8/dist-packages/
-html:
+html-plastex:
 	plastex --renderer=MathJax --imager gspdfpng --split-level=1 PlasTex.tex
-#	plastex --renderer=MathJax --imager=gspdfpng PlasTex.tex
 
 build_site: all

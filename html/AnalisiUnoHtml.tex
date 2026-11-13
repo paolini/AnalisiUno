@@ -1,0 +1,79 @@
+% File principale per la versione HTML (make4ht / tex4ht).
+% Usa la classe book al posto di mykaobook: i contenuti (chapters/*)
+% e le macro (AnalisiUno-custom.tex) sono gli stessi della versione PDF.
+% Compilare con: make html  (dalla radice del repository)
+\documentclass{book}
+\usepackage[T1]{fontenc}
+\usepackage[italian]{babel}
+\usepackage{amsmath,amssymb,amsthm,thmtools}
+\usepackage{mathtools}
+% pacchetti caricati da mykaobook nella versione PDF
+\usepackage[usenames,dvipsnames,table]{xcolor}
+\usepackage{array,booktabs,multirow}
+\usepackage{hyphenat}
+\usepackage{listings}
+\usepackage{comment}
+\usepackage{eucal}
+\usepackage{graphicx}
+\usepackage{caption,subcaption}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{cd,calc,backgrounds}
+\usepackage{csquotes}
+\usepackage{marginnote}
+\usepackage{imakeidx}
+\usepackage{hyperref}
+\usepackage{refcount}
+
+\input{AnalisiUno-custom.tex}
+
+% nel PDF \mymargin usa tcolorbox: in HTML basta una nota a margine,
+% lo stile lo da' il CSS
+\renewcommand{\mymargin}[1]{\marginnote{#1}}
+
+% comment.sty legge riga per riga e si rompe dentro figure con tex4ht
+\RenewDocumentEnvironment{comment}{+b}{}{}
+
+% \\ nelle didascalie (usato prima dei QR code): diventa <br />
+\DeclareRobustCommand\captionnewline{\HCode{<br />}}
+\AtBeginDocument{%
+  \let\origcaption\caption
+  \renewcommand\caption{\let\\\captionnewline\origcaption}}
+
+\graphicspath{{figures/}}
+\makeindex[title=Indice analitico]
+
+\title{Appunti di Analisi Matematica Uno}
+\author{Emanuele Paolini}
+\date{}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\input{chapters/00_introduzione}
+
+\input{chapters/01_fondamenti}
+\input{chapters/02_limiti}
+\input{chapters/03_serie}
+\input{chapters/04_derivate}
+\input{chapters/05_integrali}
+\input{chapters/06_spazi}
+\input{chapters/07_ricorrenza}
+\input{chapters/08_edo}
+
+\appendix
+\input{chapters/99_appendix}
+
+\nocite{forallx}
+\nocite{Giusti}
+\nocite{Courant}
+\nocite{Marcellini}
+\nocite{Rudin}
+\nocite{PaganiSalsa}
+\bibliography{biblio}
+\bibliographystyle{plain}
+
+\printindex
+\end{document}
