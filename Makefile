@@ -35,6 +35,7 @@ HTML_BUILD = html/build
 HTML_OUT = html/out
 FIG_SVG = $(patsubst %.pdf,%.svg,$(wildcard figures/*.pdf))
 html: html/mathjax-config.js $(FIG_SVG)
+	rm -rf $(HTML_OUT)
 	mkdir -p $(HTML_BUILD) $(HTML_OUT)
 	cp html/style.css $(HTML_BUILD)/
 	make4ht -B $(HTML_BUILD) -d $(HTML_OUT) -c html/config.cfg -e html/build.lua \

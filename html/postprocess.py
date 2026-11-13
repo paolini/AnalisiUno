@@ -10,6 +10,11 @@ Inoltre ricostruisce i mini-indici delle pagine dei capitoli a partire
 dall'indice generale: quelli generati da tex4ht sono sfasati (prendono
 voci di altri capitoli).
 
+Infine sposta le pagine in una cartella per capitolo (vedi i nomi
+assegnati in config.cfg): 02_limiti.html -> limiti/index.html,
+02_limiti--06_radianti.html -> limiti/radianti.html, la pagina principale
+diventa index.html; e aggiorna tutti i link.
+
 Uso: python3 postprocess.py build/AnalisiUnoHtml.aux out/
 """
 import datetime
@@ -17,6 +22,9 @@ import glob
 import os
 import re
 import sys
+import unicodedata
+
+MAIN = 'AnalisiUnoHtml.html'  # pagina principale (diventa index.html)
 
 def read_labels(aux):
     """etichetta -> (ancora, numero)"""
@@ -53,7 +61,7 @@ def inside_text(s, pos):
 LEVEL = {'likechapterToc': 0, 'chapterToc': 0, 'appendixToc': 0,
          'likesectionToc': 1, 'sectionToc': 1}
 
-def fix_minitocs(outdir, main='AnalisiUnoHtml.html'):
+def fix_minitocs(outdir, main=MAIN):
     toc = open(os.path.join(outdir, main), encoding='utf8').read()
     entries = re.findall(r"<span class='(\w+Toc)'>(.*?)</span>", toc, re.S)
     for i, (cls, body) in enumerate(entries):
@@ -75,6 +83,86 @@ def fix_minitocs(outdir, main='AnalisiUnoHtml.html'):
                    s, count=1, flags=re.S)
         if t != s:
             open(f, 'w', encoding='utf8').write(t)
+
+def strip_num(name):
+    """02_limiti -> limiti, 08_esponenziale_complesso -> esponenziale-complesso"""
+    return re.sub(r'^\d+_', '', name).replace('_', '-')
+
+def slug(text):
+    text = unicodedata.normalize('NFKD', text)
+    text = ''.join(c for c in text if not unicodedata.combining(c)).lower()
+    return re.sub(r'[^a-z0-9]+', '-', text).strip('-')
+
+def page_title(path):
+    s = open(path, encoding='utf8').read()
+    m = re.search(r'<title>(.*?)</title>', s, re.S)
+    t = re.sub(r'<[^>]*>|&[a-z]+;', '', m.group(1)) if m else ''
+    return re.sub(r'^[A-Z0-9.]+\s+', '', t.strip())  # toglie il numero
+
+# nomi scelti a mano, al posto di quelli generati automaticamente, es.
+#   'edo/funzioni-vettoriali-e-di-piu-variabili.html': 'edo/vettoriali.html'
+RENAME = {
+}
+
+def toc_titles(outdir):
+    """pagina -> titolo nell'indice generale (il titolo breve, se c'e')"""
+    toc = open(os.path.join(outdir, MAIN), encoding='utf8').read()
+    titles = {}
+    for page, title in re.findall(r"<a href='([^'#]*)[^']*'[^>]*>(.*?)</a>", toc, re.S):
+        titles.setdefault(page, re.sub(r'<[^>]*>|&[a-z]+;', '', title))
+    return titles
+
+def new_names(outdir):
+    """nome piatto -> nuovo percorso relativo a outdir"""
+    names = {MAIN: 'index.html'}
+    used = set(names.values())
+    titles = toc_titles(outdir)
+    for f in sorted(os.listdir(outdir)):
+        if not f.endswith('.html') or f == MAIN:
+            continue
+        base = f[:-5]
+        chap, _, sec = base.partition('--')
+        if not base:
+            new = 'indice.html'                       # \tableofcontents
+        elif not re.match(r'\d+_', chap):
+            new = f                                   # bibliografia.html, ...
+        elif not sec:
+            new = strip_num(chap) + '/index.html'
+        else:
+            if sec.startswith('@'):
+                # sezione senza file sorgente proprio: nome dal titolo
+                title = titles.get(f) or page_title(os.path.join(outdir, f))
+                sec = slug(title) or sec[1:]
+            new = strip_num(chap) + '/' + strip_num(sec) + '.html'
+        new = RENAME.get(new, new)
+        stem, k = new[:-5], 2
+        while new in used:
+            new, k = '%s-%d.html' % (stem, k), k + 1
+        used.add(new)
+        names[f] = new
+    return names
+
+URL = re.compile(r"""((?:href|src)=)(['"])(.*?)\2|(\\href\{)([^}]*)(\})""")
+
+def relocate(outdir):
+    names = new_names(outdir)
+
+    def fix(url, here):
+        if not url or re.match(r'[a-z][a-z0-9+.-]*:|/|#', url, re.I):
+            return url
+        path, hash_, frag = url.partition('#')
+        if frag in names or frag.endswith('.html'):
+            hash_ = frag = ''  # link "su" di tex4ht: ancora inesistente nei mini-indici
+        new = names.get(path, path)
+        return os.path.relpath(new, os.path.dirname(here) or '.') + hash_ + frag
+
+    for old, new in names.items():
+        s = open(os.path.join(outdir, old), encoding='utf8').read()
+        s = URL.sub(lambda m: m.group(1) + m.group(2) + fix(m.group(3), new) + m.group(2)
+                    if m.group(1) else m.group(4) + fix(m.group(5), new) + m.group(6), s)
+        os.remove(os.path.join(outdir, old))
+        os.makedirs(os.path.dirname(os.path.join(outdir, new)), exist_ok=True)
+        open(os.path.join(outdir, new), 'w', encoding='utf8').write(s)
 
 def main(aux, outdir):
     labels = read_labels(aux)
@@ -102,6 +190,7 @@ def main(aux, outdir):
         if t != s:
             open(f, 'w', encoding='utf8').write(t)
     fix_minitocs(outdir)
+    relocate(outdir)
     for lab in sorted(missing):
         print('postprocess: etichetta non trovata:', lab, file=sys.stderr)
 
