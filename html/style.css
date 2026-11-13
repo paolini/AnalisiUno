@@ -1,6 +1,7 @@
 /* Stile per la versione HTML di "Appunti di Analisi Matematica Uno".
-   Note a margine a lato del testo su schermi larghi (stile kaobook/Tufte),
-   in linea su schermi stretti. */
+   Note a margine a lato del testo su schermi larghi (stile kaobook/Tufte);
+   su schermi stretti le note diventano un'icona con popover e le parole
+   chiave si nascondono. */
 :root {
   --text: #1a1a1a;
   --muted: #555;
@@ -32,15 +33,40 @@ h1, h2, h3, h4 { font-weight: normal; line-height: 1.2; }
 
 /* note a margine */
 .marginnote {
-  float: right; clear: right;
+  float: right; clear: right; display: block;
   width: var(--margin-w); margin-right: calc(-1 * var(--margin-w) - 2rem);
   margin-top: .2rem; margin-bottom: .6rem;
   font-size: .8rem; line-height: 1.35; color: var(--muted);
-  border-left: 2px solid var(--rule); padding-left: .5rem;
+  font-style: normal;  /* tex4ht mette .marginnote in corsivo */
+  border: 0; border-left: 2px solid var(--rule); padding: 0 0 0 .5rem;
+  /* annulla lo stile predefinito dei popover: qui la nota e' a margine */
+  position: static; inset: auto; height: auto; overflow: visible; background: none;
 }
+.marginnote.keyword { font-style: italic; }
+.mn-icon { display: none; }
 @media (max-width: 62rem) {
   .marginnote {
-    float: none; display: block; width: auto; margin: .4rem 0 .4rem 1.5rem;
+    float: none; width: auto; margin: .4rem 0 .4rem 1.5rem;
+  }
+  .marginnote.keyword { display: none; }
+  /* note come icona + popover (browser senza Popover API: nota nel testo) */
+  @supports selector(:popover-open) {
+    .mn-icon {
+      display: inline; border: 0; background: none; padding: 0 .1em; margin: 0;
+      font: inherit; font-size: .9em; line-height: 1; vertical-align: super;
+      color: var(--link); cursor: pointer;
+    }
+    .mn-icon::before { content: "\24D8"; }
+    .marginnote[popover]:not(:popover-open) { display: none; }
+    .marginnote[popover]:popover-open {
+      position: fixed; inset: 0; margin: auto; box-sizing: border-box;
+      width: min(30rem, calc(100vw - 2rem)); height: fit-content; max-height: 80vh;
+      overflow: auto; padding: 1rem 1.2rem;
+      font-size: .95rem; line-height: 1.45; color: var(--text); background: var(--bg);
+      border: 1px solid var(--rule); border-radius: .5rem;
+      box-shadow: 0 .5rem 2rem rgba(0, 0, 0, .3);
+    }
+    .marginnote[popover]::backdrop { background: rgba(0, 0, 0, .25); }
   }
 }
 
