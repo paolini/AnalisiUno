@@ -1,0 +1,68 @@
+/* Stile per la versione HTML di "Appunti di Analisi Matematica Uno".
+   Note a margine a lato del testo su schermi larghi (stile kaobook/Tufte),
+   in linea su schermi stretti. */
+:root {
+  --text: #1a1a1a;
+  --muted: #555;
+  --bg: #fdfdfb;
+  --rule: #ccc;
+  --link: #1a4f8b;
+  --measure: 40rem;
+  --margin-w: 15rem;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --text: #e4e4e0; --muted: #aaa; --bg: #18181a; --rule: #444; --link: #8ab4f8; }
+}
+html { font-size: 17px; }
+body {
+  background: var(--bg); color: var(--text);
+  font-family: "Latin Modern Roman", "Computer Modern Serif", Georgia, serif;
+  line-height: 1.5;
+  max-width: calc(var(--measure) + var(--margin-w) + 3rem);
+  margin: 0 auto; padding: 1rem 16px 4rem;
+}
+body > * { max-width: var(--measure); }
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+h1, h2, h3, h4 { font-weight: normal; line-height: 1.2; }
+.chapterHead { font-size: 2.2rem; margin-top: 2rem; }
+.sectionHead { font-size: 1.6rem; margin-top: 2.5rem; border-bottom: 1px solid var(--rule); }
+.subsectionHead { font-size: 1.25rem; margin-top: 2rem; }
+.titleHead { text-align: center; font-size: 2.2rem; }
+
+/* note a margine */
+.marginnote {
+  float: right; clear: right;
+  width: var(--margin-w); margin-right: calc(-1 * var(--margin-w) - 2rem);
+  margin-top: .2rem; margin-bottom: .6rem;
+  font-size: .8rem; line-height: 1.35; color: var(--muted);
+  border-left: 2px solid var(--rule); padding-left: .5rem;
+}
+@media (max-width: 62rem) {
+  .marginnote {
+    float: none; display: block; width: auto; margin: .4rem 0 .4rem 1.5rem;
+  }
+}
+
+/* teoremi, definizioni, ecc. */
+.newtheorem { margin: 1.2rem 0; }
+.newtheorem .head { font-weight: bold; }
+.proof { margin: .8rem 0 1.2rem; }
+.proof .head { font-style: italic; }
+
+/* formule e figure */
+.mathjax-block, .mathjax-env, mjx-container[display="true"] {
+  overflow-x: auto; overflow-y: hidden;
+}
+figure.figure, div.figure, .tikzpicture { text-align: center; }
+img, svg { max-width: 100%; height: auto; }
+table.tabular { margin: 0 auto; border-collapse: collapse; }
+
+/* navigazione tra le pagine */
+.crosslinks { font-size: .85rem; color: var(--muted); }
+.crosslinks a { margin-right: .5rem; }
+.tableofcontents span { display: block; }
+.tableofcontents .sectionToc { margin-left: 1.5rem; }
+.tableofcontents .subsectionToc { margin-left: 3rem; font-size: .9rem; }
+.marginnote .mathjax-block, .marginnote .mathjax-env { display: block; }
+.extlink::before { content: "\2197\00a0"; }
