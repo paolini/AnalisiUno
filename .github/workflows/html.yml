@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     container: ghcr.io/xu-cheng/texlive-full:latest  # Alpine, come per i PDF
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: dipendenze (node per KaTeX, pdftocairo per le figure)
         run: apk add --no-cache nodejs npm poppler-utils
       - name: make html
@@ -33,7 +33,7 @@ jobs:
           mkdir _site
           cp -r docs/. _site/
           cp -r html/out _site/online
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v5
         with:
           path: _site
 
@@ -45,4 +45,4 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
