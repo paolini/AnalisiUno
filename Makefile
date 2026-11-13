@@ -42,6 +42,7 @@ html: $(HTML_BUILD)/macros.tex $(KATEX) $(FIG_SVG)
 	cp html/style.css $(HTML_BUILD)/
 	make4ht -B $(HTML_BUILD) -d $(HTML_OUT) -c html/config.cfg -e html/build.lua \
 		-f html5+common_domfilters html/AnalisiUnoHtml.tex "3"
+	cp html/statistiche.js $(HTML_OUT)/
 	python3 html/postprocess.py $(HTML_BUILD)/AnalisiUnoHtml.aux $(HTML_OUT)
 	node html/katex_render.js $(HTML_BUILD)/macros.tex $(HTML_OUT)
 	mkdir -p $(HTML_OUT)/katex/fonts
