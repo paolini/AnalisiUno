@@ -1,9 +1,7 @@
-"""Estrae da AnalisiUno-custom.tex le macro matematiche e scrive
-mathjax-config.js, che le definisce in MathJax (con \\newcommand e \\let)
-prima di comporre la pagina.
-Uso: python3 mathjax_macros.py AnalisiUno-custom.tex mathjax-config.js
+"""Estrae da AnalisiUno-custom.tex le macro matematiche e le scrive come
+definizioni \\newcommand e \\let, una per riga, per katex_render.js.
+Uso: python3 tex_macros.py AnalisiUno-custom.tex macros.tex
 """
-import json
 import re
 import sys
 
@@ -81,15 +79,4 @@ def convert(src):
 
 if __name__ == '__main__':
     src = open(sys.argv[1], encoding='utf8').read()
-    defs = convert(src)
-    js = (
-        "// generato da mathjax_macros.py: non modificare\n"
-        "window.MathJax = window.MathJax || {};\n"
-        "window.MathJax.tex = Object.assign(window.MathJax.tex || {}, {tags: 'none'});\n"
-        "window.MathJax.startup = {\n"
-        "  pageReady() {\n"
-        "    // definisce le macro prima di comporre la pagina\n"
-        "    return MathJax.tex2chtmlPromise(%s).then(() => MathJax.startup.defaultPageReady());\n"
-        "  }\n"
-        "};\n") % json.dumps(defs)
-    open(sys.argv[2], 'w', encoding='utf8').write(js)
+    open(sys.argv[2], 'w', encoding='utf8').write(convert(src))
