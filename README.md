@@ -1,3 +1,4 @@
+[![DOI](https://zenodo.org/badge/105351342.svg)](https://doi.org/10.5281/zenodo.24164701)
 
 Queste note sono nate come appunti per il corso di Analisi Matematica 
 del corso di studi in Fisica dell'Università 

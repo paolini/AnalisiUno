@@ -89,6 +89,17 @@
 
 %% thmtools configuration
 
+% Workaround: dal kernel LaTeX 2025-11 \newtheorem{a}[b] usa \newcounteralias,
+% ma thmtools (v0.76) ha gia' creato l'alias \c@a: errore "\c@a already defined".
+% Se l'alias esiste gia' (identico) lo saltiamo.
+\makeatletter
+\@ifundefined{newcounteralias}{}{%
+  \let\thmtfix@newcounteralias\newcounteralias
+  \renewcommand*\newcounteralias[2]{%
+    \expandafter\ifx\csname c@#1\expandafter\endcsname\csname c@#2\endcsname
+    \else\thmtfix@newcounteralias{#1}{#2}\fi}}
+\makeatother
+
 \declaretheoremstyle[
 spaceabove=6pt, spacebelow=6pt,
 headfont=\normalfont\bfseries\itshape,

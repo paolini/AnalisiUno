@@ -29,10 +29,41 @@ clean:
 	latexmk -C AnalisiUno.tex
 	@rm *.mw
 
+# versione HTML (make4ht, vedi html/AnalisiUnoHtml.tex), output in html/out/
+# formule composte con KaTeX (html/katex_render.js, richiede node e npm)
+.PHONY: html html-plastex
+HTML_BUILD = html/build
+HTML_OUT = html/out
+FIG_SVG = $(patsubst %.pdf,%.svg,$(wildcard figures/*.pdf))
+KATEX = html/node_modules/katex/dist
+html: $(HTML_BUILD)/macros.tex $(KATEX) $(FIG_SVG)
+	rm -rf $(HTML_OUT)
+	mkdir -p $(HTML_BUILD) $(HTML_OUT)
+	cp html/style.css $(HTML_BUILD)/
+	make4ht -B $(HTML_BUILD) -d $(HTML_OUT) -c html/config.cfg -e html/build.lua \
+		-f html5+common_domfilters html/AnalisiUnoHtml.tex "3"
+	cp html/statistiche.js $(HTML_OUT)/
+	python3 html/postprocess.py $(HTML_BUILD)/AnalisiUnoHtml.aux $(HTML_OUT)
+	node html/katex_render.js $(HTML_BUILD)/macros.tex $(HTML_OUT)
+	mkdir -p $(HTML_OUT)/katex/fonts
+	cp $(KATEX)/katex.min.css $(HTML_OUT)/katex/
+	cp $(KATEX)/fonts/*.woff2 $(HTML_OUT)/katex/fonts/
+
+figures/%.svg: figures/%.pdf
+	pdftocairo -svg $< $@
+
+$(HTML_BUILD)/macros.tex: html/tex_macros.py AnalisiUno-custom.tex
+	mkdir -p $(HTML_BUILD)
+	python3 $< AnalisiUno-custom.tex $@
+
+$(KATEX): html/package.json
+	cd html && npm install --no-audit --no-fund
+	touch $@
+
+# vecchio esperimento con plasTeX
 # devi scaricare il renderer MathJax e installarlo:
 # sudo mv MathJax MathJaxS5 /usr/local/lib/python3.8/dist-packages/
-html:
+html-plastex:
 	plastex --renderer=MathJax --imager gspdfpng --split-level=1 PlasTex.tex
-#	plastex --renderer=MathJax --imager=gspdfpng PlasTex.tex
 
 build_site: all

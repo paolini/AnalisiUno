@@ -1,0 +1,95 @@
+/* Stile per la versione HTML di "Appunti di Analisi Matematica Uno".
+   Note a margine a lato del testo su schermi larghi (stile kaobook/Tufte);
+   su schermi stretti le note diventano un'icona con popover e le parole
+   chiave si nascondono. */
+:root {
+  --text: #1a1a1a;
+  --muted: #555;
+  --bg: #fdfdfb;
+  --rule: #ccc;
+  --link: #1a4f8b;
+  --measure: 40rem;
+  --margin-w: 15rem;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --text: #e4e4e0; --muted: #aaa; --bg: #18181a; --rule: #444; --link: #8ab4f8; }
+}
+html { font-size: 17px; }
+body {
+  background: var(--bg); color: var(--text);
+  font-family: "Latin Modern Roman", "Computer Modern Serif", Georgia, serif;
+  line-height: 1.5;
+  max-width: calc(var(--measure) + var(--margin-w) + 3rem);
+  margin: 0 auto; padding: 1rem 16px 4rem;
+}
+body > * { max-width: var(--measure); }
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+h1, h2, h3, h4 { font-weight: normal; line-height: 1.2; }
+.chapterHead { font-size: 2.2rem; margin-top: 2rem; }
+.sectionHead { font-size: 1.6rem; margin-top: 2.5rem; border-bottom: 1px solid var(--rule); }
+.subsectionHead { font-size: 1.25rem; margin-top: 2rem; }
+.titleHead { text-align: center; font-size: 2.2rem; }
+
+/* note a margine */
+.marginnote {
+  float: right; clear: right; display: block;
+  width: var(--margin-w); margin-right: calc(-1 * var(--margin-w) - 2rem);
+  margin-top: .2rem; margin-bottom: .6rem;
+  font-size: .8rem; line-height: 1.35; color: var(--muted);
+  font-style: normal;  /* tex4ht mette .marginnote in corsivo */
+  border: 0; border-left: 2px solid var(--rule); padding: 0 0 0 .5rem;
+  /* annulla lo stile predefinito dei popover: qui la nota e' a margine */
+  position: static; inset: auto; height: auto; overflow: visible; background: none;
+}
+.marginnote.keyword { font-style: italic; }
+.mn-icon { display: none; }
+@media (max-width: 62rem) {
+  .marginnote {
+    float: none; width: auto; margin: .4rem 0 .4rem 1.5rem;
+  }
+  .marginnote.keyword { display: none; }
+  /* note come icona + popover (browser senza Popover API: nota nel testo) */
+  @supports selector(:popover-open) {
+    .mn-icon {
+      display: inline; border: 0; background: none; padding: 0 .1em; margin: 0;
+      font: inherit; font-size: .9em; line-height: 1; vertical-align: super;
+      color: var(--link); cursor: pointer;
+    }
+    .mn-icon::before { content: "\24D8"; }
+    .marginnote[popover]:not(:popover-open) { display: none; }
+    .marginnote[popover]:popover-open {
+      position: fixed; inset: 0; margin: auto; box-sizing: border-box;
+      width: min(30rem, calc(100vw - 2rem)); height: fit-content; max-height: 80vh;
+      overflow: auto; padding: 1rem 1.2rem;
+      font-size: .95rem; line-height: 1.45; color: var(--text); background: var(--bg);
+      border: 1px solid var(--rule); border-radius: .5rem;
+      box-shadow: 0 .5rem 2rem rgba(0, 0, 0, .3);
+    }
+    .marginnote[popover]::backdrop { background: rgba(0, 0, 0, .25); }
+  }
+}
+
+/* teoremi, definizioni, ecc. */
+.newtheorem { margin: 1.2rem 0; }
+.newtheorem .head { font-weight: bold; }
+.proof { margin: .8rem 0 1.2rem; }
+.proof .head { font-style: italic; }
+
+/* formule e figure */
+/* le formule display troppo larghe scorrono orizzontalmente */
+.katex-display { overflow-x: auto; overflow-y: hidden; }
+.katex-display { padding: .3em 2px; }  /* KaTeX sporge di 2px a destra con \tag */
+.katex .hline { border-top: none; }  /* tex4ht usa la stessa classe per le sue tabelle */
+figure.figure, div.figure, .tikzpicture { text-align: center; }
+img, svg { max-width: 100%; height: auto; }
+table.tabular { margin: 0 auto; border-collapse: collapse; }
+
+/* navigazione tra le pagine */
+.crosslinks { font-size: .85rem; color: var(--muted); }
+.crosslinks a { margin-right: .5rem; }
+.tableofcontents span { display: block; }
+.tableofcontents .sectionToc { margin-left: 1.5rem; }
+.tableofcontents .subsectionToc { margin-left: 3rem; font-size: .9rem; }
+.marginnote .mathjax-block, .marginnote .mathjax-env { display: block; }
+.extlink::before { content: "\2197\00a0"; }

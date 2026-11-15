@@ -21,8 +21,10 @@ Vogliamo ora mostrare che è possibile scegliere la costante $\tau$
 in modo tale che la linea descritta da $\phi$ percorra la circonferenza 
 con \emph{velocità} unitaria.
 \mynote{Ricordiamo che $\tau$ è il periodo delle funzioni $\phi$,
-$\cos$ e $\sin$}%
-Se seguo il punto $f(t)$ a partire dall'istante $t=0$ per un breve tempo 
+$\cos$ e $\sin$. 
+Possiamo ad esempio pensare a $\tau = 360$ 
+se vogliamo misurare gli angoli in gradi sessagesimali.}%
+Se seguo il punto $\phi(t)$ a partire dall'istante $t=0$ per un breve tempo 
 $\Delta t\neq 0$
 osservo che il punto si sposta tra $f(0) = (1,0)$ e 
 $f(\Delta t) = (\cos \Delta t, \sin \Delta t)$.
@@ -38,7 +40,7 @@ $\Delta y = \sin \Delta t$.
 \mynote{Ricordiamo che $\sin 0 = 0$}
 Dunque la velocità sarà pari alla componente verticale della velocità 
 e sarà, intuitivamente, il limite di $\frac{\Delta y}{\Delta t}$ ovvero 
-\mynote{Vedremo tra poco che questo limite è la  
+\mynote{Vedremo nel prossimo capitolo che questo limite è la  
 \emph{derivata} della funzione $f$ nel punto $t=0$.}
 \[
 \lim_{\Delta t\to 0} \frac{\sin(\Delta t)}{\Delta t}.  
@@ -82,8 +84,8 @@ dal Teorema~\ref{th:omomorfismo_U}.
 Scriveremo $\phi_\tau$,
 $\sin_\tau$ e $\cos_\tau$ quando è utile mettere in evidenza 
 la dipendenza da $\tau$. 
-In questo capitolo definiremo il numero $\pi$ e a quel 
-punto si sceglierà sempre $\tau=2\pi$ come misura dell'angolo giro.
+In questo capitolo definiremo il numero $\pi$ e da quel momento 
+in poi useremo sempre $\tau=2\pi$ come misura dell'angolo giro.
 
 Se scegliamo due diverse misure $\tau$ e $\sigma$ per l'angolo giro, 
 la relazione tra le due funzioni è semplicemente:
@@ -95,12 +97,55 @@ definiscono in modo univoco $\phi_1$ in base al Teorema~\ref{th:omomorfismo_U}.
 
 \begin{theorem}
 \label{teo_limite_pi}
-Per ogni $x\in \RR$ con $0<x \le \frac \tau 2$, la successione
+\mbox{}
+\begin{enumerate}
+\item Se $n\in \NN$, $t>0$ e $nt < \frac \tau 4$ si ha
+\begin{equation}\label{eq:4813509}
+  n\sin_\tau t\le \tg_\tau nt.
+\end{equation}
+\item La successione
 \[
-    a_n = n \sin_\tau \frac x n
+    a_n = n \sin_\tau \frac {\tau / 2} n
 \]
-converge ad un limite finito, positivo.
+è strettamente crescente e converge ad un limite finito, positivo.
+\end{enumerate}
 \end{theorem}
+%
+\begin{figure}
+  \centering%
+  \begin{tikzpicture}[scale=3]
+    \pgfmathsetmacro{\n}{7}
+    \pgfmathsetmacro{\a}{180/\n}
+    \fill[gray!10] (1,0) arc (0:180:1) -- cycle;
+    \foreach \k in {1,...,6} \draw[gray] (0,0) -- (\k*\a:1);
+    \draw[thick] (-1,0) -- (1,0);
+    \draw[thick] (1,0) arc (0:180:1);
+    \foreach \k in {0,...,6} {
+      \pgfmathtruncatemacro{\odd}{mod(\k,2)}
+      \ifnum\odd=0
+        \pgfmathsetmacro{\v}{(\k+1)*\a}\pgfmathsetmacro{\r}{\k*\a}
+      \else
+        \pgfmathsetmacro{\v}{\k*\a}\pgfmathsetmacro{\r}{(\k+1)*\a}
+      \fi
+      \draw[very thick] (\v:1) -- (\r:{cos(\a)});
+    }
+    \foreach \k in {0,...,7} {
+      \fill (\k*\a:1) circle (0.5pt);
+    }
+    \draw (0.25,0) arc (0:\a:0.25);
+    \node at ({\a/2}:0.45) {\scriptsize $\frac{\tau/2}{n}$};
+    \node[right] at (\a:1) {\small $\left(\cos\frac{\tau/2}{n}, \sin\frac{\tau/2}{n}\right)$};
+    \fill (0,0) circle (0.5pt) node[below] {$0$};
+    \node[below] at (1,0) {$1$};
+    \node[below] at (-1,0) {$-1$};
+  \end{tikzpicture}
+  \caption{%
+  Il semicerchio unitario diviso in $n=7$ spicchi uguali.
+  Ogni segmento spesso ha lunghezza $\sin_\tau \frac{\tau/2}{n}$
+  e dunque la loro somma è $a_n = n\sin_\tau\frac{\tau/2}{n}$.
+  }
+  \label{fig:limite_pi}
+\end{figure}
 %
 \begin{proof}
 Faremo uso della funzione $\tg x= \frac{\sin x}{\cos x}$.
@@ -123,16 +168,11 @@ hanno valori compresi tra $0$ e $1$.
 Queste proprietà sono garantite 
 dal teorema~\ref{th:proprieta_trigonometriche}.
 La funzione $\tg x$ a sua volta è definita se $0\le x < \frac \tau 4$
-(visto che $\cos \frac \tau 4=$, la tangente non è definita per $x=\frac \tau 4$).
+(visto che $\cos \frac \tau 4 = 0$, la tangente non è definita per $x=\frac \tau 4$).
 
 \emph{Passo 1:}
-vogliamo dimostrare che se $n\in \NN$ e $t>0$, si ha
-\begin{equation}\label{eq:4813509}
-  nt <\frac \tau 4
-  \implies
-  n\sin t\le \tg nt.
-\end{equation}
-Lo dimostriamo per induzione.
+dimostriamo il punto 1 dell'enunciato, cioè \eqref{eq:4813509}, 
+per induzione su $n$.
 Se $n=0$ è ovvio.
 Supponendo \eqref{eq:4813509} vera per un certo $n$
 vogliamo ora dimostrare che se $(n+1)t < \frac \tau 4$
@@ -149,61 +189,113 @@ Dunque si ha:
   &\ge n\sin t + \sin t
   =(n+1)\sin t. 
 \end{align*}
+%
+\begin{figure}
+  \centering%
+  \begin{tikzpicture}[scale=2.5]
+    \pgfmathsetmacro{\t}{14}
+    \pgfmathsetmacro{\T}{4*\t}
+    \fill[gray!10] (0,0) -- (1,0) arc (0:\T:1) -- cycle;
+    \foreach \k in {1,...,3} \draw[gray] (0,0) -- (\k*\t:1);
+    \draw[thick] (0,0) -- (1,0);
+    \draw[thick] (1,0) arc (0:\T:1);
+    \draw[thick] (0,0) -- ({1},{tan(\T)});
+    \draw[very thick] (1,0) -- ({1},{tan(\T)})
+      node[midway, right] {$\tg nt$};
+    \foreach \k in {0,...,3} {
+      \pgfmathtruncatemacro{\odd}{mod(\k,2)}
+      \ifnum\odd=0
+        \pgfmathsetmacro{\v}{(\k+1)*\t}\pgfmathsetmacro{\r}{\k*\t}
+      \else
+        \pgfmathsetmacro{\v}{\k*\t}\pgfmathsetmacro{\r}{(\k+1)*\t}
+      \fi
+      \draw[very thick] (\v:1) -- (\r:{cos(\t)});
+    }
+    \foreach \k in {0,...,4} {
+      \fill (\k*\t:1) circle (0.6pt);
+    }
+    \draw (0.3,0) arc (0:\t:0.3);
+    \node at ({\t/2}:0.42) {\small $t$};
+    \node[left] at ({cos(\t)},0.08) {\small $\sin t$};
+    \fill (0,0) circle (0.6pt) node[below] {$0$};
+    \node[below] at (1,0) {$1$};
+  \end{tikzpicture}
+  \caption{%
+  Il punto 1 del Teorema~\ref{teo_limite_pi}
+  con $n=4$: la spezzata è formata da $n$ segmenti
+  di lunghezza $\sin t$ ed è più corta del segmento verticale
+  di lunghezza $\tg nt$.
+  }
+  \label{fig:passo1_pi}
+\end{figure}
 
 \emph{Passo 2:}
-dimostriamo che se $n\ge 2$ allora risulta $a_{n+1} \ge a_n$.
-Per poter applicare \eqref{eq:4813509} 
-ci serve avere $nt < \frac \tau 4$ cioè $\frac x {n+1}< \frac \tau 4$
-che è vero essendo $x\le \frac \tau 2$ e $n\ge 2$.
-Dunque, posto $t = \frac{x}{n(n+1)}$, si ha:
+dimostriamo che $a_{n+1} > a_n$ per ogni $n\ge 1$.
+Per $n=1$ si ha $a_1 = \sin \frac \tau 2 = 0 < 2 = 2\sin\frac \tau 4 = a_2$.
+Supponiamo quindi $n\ge 2$.
+Posto $t = \frac{\tau / 2}{n(n+1)}$ si ha:
+$nt = \frac {\tau / 2} {n+1} < \frac \tau 4$
+e dunque possiamo applicare \eqref{eq:4813509} 
+con $t$ e $n$ così scelti per ottenere
 \begin{align*}
-  a_n &= n \sin\frac{x}{n+1} 
-    = n \sin (n+1)t
+  a_n &= n \sin\frac{\tau / 2}{n} 
+    = n \sin (n+1) t
     = n \sin nt \cos t + n \sin t \cos nt\\
     &\le n \sin nt \cos t + \tg nt \cos nt
     \qquad\text{[per \eqref{eq:4813509}]}\\
-    &\le n \sin nt + \sin nt
-    = (n+1) \sin nt = (n+1) \sin \frac x n.
+    &< n \sin nt + \sin nt
+    = (n+1) \sin nt = (n+1) \sin \frac{\tau / 2}{n+1} = a_{n+1}
 \end{align*}
+dove nell'ultima disuguaglianza abbiamo usato 
+$\tg nt \cos nt = \sin nt$ e
+$\sin nt \cos t < \sin nt$, che è vera in quanto
+$0 < t < nt < \frac \tau 4$ e dunque $\sin nt > 0$ e $\cos t < 1$.
 
 \emph{Passo 3:}
 la successione $a_{3n}$ è limitata.
 Infatti si ha
 \begin{align*}
- a_{3n} = 3n \sin \frac x {3n} 
- \le 3\tg \frac x 3
+ a_{3n} = 3n \sin \frac {\tau / 2} {3n} 
+ \le 3\tg \frac {\tau / 2} 3
 \end{align*}
 dove abbiamo potuto applicare~\eqref{eq:4813509}
-visto che $\frac x 3 < \frac{\tau }{2}$
-essendo $x\le \frac {\tau} 2$.
+visto che $\frac {\tau / 2} 3 < \frac{\tau }{4}$
+(per questo abbiamo scelto $3n$ come indice).
 
 \emph{Passo 4: conclusione.}
-Per il passo 2 la successione $a_{n+1}$ è crescente,
+Per il passo 2 la successione $a_n$ è strettamente crescente,
 dunque per il Teorema~\ref{th:limite_successione_monotona} la successione 
 ha limite $a_n\to \ell$ per $n\to +\infty$.
-Visto che $a_n \ge a_2$ per ogni $n\ge 2$ si ha $\ell \ge a_2 >0$.
+Visto che $a_n \ge a_2 = 2$ per ogni $n\ge 2$ si ha $\ell \ge a_2 >0$.
 E, per il passo 3, non può essere $\ell=+\infty$ altrimenti $a_{3n}$ 
 non sarebbe limitata.
 \end{proof}
 
-Diamo una interpretazione geometrica del risultato precedente.
-Vogliamo calcolare la lunghezza di un arco di misura $x$
-sulla circonferenza unitaria. 
-Dividiamo l'arco in $n$ parti uguali e consideriamo 
-la poligonale formata dalle corde sugli $n$ angoli di misura 
-$\frac {x} n$. 
-In generale la corda sull'angolo $\alpha$ di una circonferenza 
-di raggio $r$ misura $2r \sin \frac \alpha 2$.
-Dunque la poligonale costruita sull'arco $x$ 
-misura $n\sin\frac{x}{2n}$.
-Vorremmo quindi definire $\pi$ come il limite di questa successione.
+Le figure~\ref{fig:limite_pi} e \ref{fig:passo1_pi} illustrano l'interpretazione geometrica 
+dei passaggi algebrici svolti nella dimostrazione precedente.
+Il punto chiave, intuitivamente evidente, è che $2a_n$ è il perimetro 
+del poligono regolare di $n$ lati inscritto nella circonferenza unitaria
+(i segmenti della figura~\ref{fig:limite_pi} sono metà dei lati di tale poligono:
+due segmenti consecutivi formano una corda).
+Al crescere di $n$ questo perimetro cresce e approssima dal basso 
+la lunghezza della circonferenza, 
+dunque $a_n$ approssima dal basso la lunghezza della semicirconferenza.
+Nel passo 2 per confrontare i poligoni con $n$ e $n+1$ lati 
+abbiamo preso in considerazione la suddivisione comune 
+della semicirconferenza in $n(n+1)$ archi uguali.
+
+La seguente definizione corrisponde dunque alla definizione 
+geometrica di $\pi$ come metà della lunghezza della circonferenza unitaria.
 
 \begin{definition}[$\pi$ costante fondamentale della trigonometria]%
   \label{def:pi}%
+  \index{pi@$\pi$}%
+  \index{tau@$\tau$}%
+  \index{definizione!$\pi$}
 Definiamo
 \[
  \pi 
-  \defeq \lim_{n\to +\infty} n\cdot \sin_\tau \frac \tau {2n}.
+  \defeq \lim_{n\to +\infty} n\cdot \sin_\tau \frac {\tau / 2}{n},
 \]
 dove $\sin_\tau$ è la funzione $\sin$ costruita nel 
 teorema~\ref{def:sin_cos} con periodo $\tau$.
@@ -212,78 +304,88 @@ non dipende dalla scelta di $\tau$.
 Questo limite esiste ed è finito e positivo per il Teorema~\ref{teo_limite_pi}.
 \end{definition}
 
-Scegliendo $\tau = 360$ si trova $a_4 = 4 \sin_\tau \frac{180}{4} = 2 \sqrt 2 > 2.8$ da cui,
-per la proprietà di monotonia di $a_n$, si trova $\pi > 2.8$.
-Osservando che $a_{2^n} = 2^n \sin_\tau \frac{45}{2^{n-2}}\le 4 \tg_\tau 45 = 4$
-si ottiene $\pi<4$.
+D'ora in poi fisseremo $\tau = 2\pi$ come misura dell'angolo giro.
+In questo modo la misura di un angolo coincide, con la lunghezza
+dell'arco corrispondente. 
+L'angolo unitario, che corrisponde ad un arco di lunghezza pari al raggio,
+sarà quindi pari a $1$ e si chiama \emph{radiante}.
+\mymargin{radiante}\index{radiante}%
+
+Memorizziamo quindi i valori notevoli di $\sin$, $\cos$ e $\tg$
+come riportati nella tabella~\ref{tab:valori_notevoli_sin_cos}.
+%
+\begin{table}
+  \centering
+  \[
+  \renewcommand{\arraystretch}{1.6}
+  \begin{array}{c|ccccc}
+    x      & 0 & \frac \pi 6 & \frac \pi 4 & \frac \pi 3 & \frac \pi 2 \\ \hline
+    \sin x & 0 & \frac 1 2 & \frac{\sqrt 2}2 & \frac{\sqrt 3}2 & 1 \\
+    \cos x & 1 & \frac{\sqrt 3}2 & \frac{\sqrt 2}2 & \frac 1 2 & 0 \\
+    \tg x  & 0 & \frac{\sqrt 3}3 & 1 & \sqrt 3 & \not\exists
+  \end{array}
+  \]
+  \caption{%
+  Valori notevoli delle funzioni $\sin$, $\cos$ e $\tg$
+  (si veda l'esercizio~\ref{ex:valori_notevoli_trigonometria}).}
+  \label{tab:valori_notevoli_sin_cos}
+\end{table}
+
+Risulta $a_6 = 6 \sin \frac{\pi}{6} = 3$
+da cui, visto che $a_n$ è strettamente crescente 
+(teorema~\ref{teo_limite_pi}), si trova $\pi > a_6 = 3$.
+D'altra parte per ogni $n\ge 1$ si ha 
+\[
+  a_{6n} = 6 \cdot n \sin \frac{\pi/6}{n} \le 6 \tg \frac{\pi}{6} = 2\sqrt 3 < 3.5
+\]
+(per il punto 1 del teorema~\ref{teo_limite_pi}, con $t=\frac{\pi/6}{n}$)
+e passando al limite per $n\to+\infty$ si ottiene $\pi\le 2\sqrt 3<3.5$. 
+Dunque 
+\[
+  3 < \pi < 3.5.
+\]
 Troveremo dei metodi molto più raffinati per determinare i valori approssimati 
 di $\pi$, si veda ad esempio l'esercizio~\ref{ex:cifre_pi} e la 
 tabella~\ref{tab:cifre_pi}.
 
 \begin{theorem}[limite notevole $\sin$]
   \label{th:limite_notevole_sin}%
-Per ogni $x\in\RR$, $x\neq 0$ si ha 
-\[
-\lim_{x\to 0}\frac{\sin_{\tau} x}{x}
-= \frac{2\pi}{\tau}.
-\]
-In particolare se scegliamo $\tau = 2\pi$ si ha
-il limite notevole:
+  \mymargin{$\frac{\sin x}{x}\to 1$ per $x\to 0$}%
+Si ha
 \begin{equation}\label{eq:limite_notevole_sin}
  \lim_{x\to 0} \frac{\sin x}{x} = 1.
 \end{equation}
 \end{theorem}
 %
 \begin{proof}
-Mostriamo innanzitutto che si ha
-\begin{equation}\label{eq:771743}
-   \lim_{t\to+\infty} t \sin_\tau \frac{\tau}{2t} = \pi.
-\end{equation}
-Infatti 
-\begin{equation}\label{eq:4961077}
-  \frac{\lfloor t \rfloor}{\lceil t \rceil} \cdot \lceil t \rceil \sin_\tau \frac{\tau}{2\lceil t \rceil}
-  \le \lfloor t \rfloor \sin_\tau \frac{\tau}{2\lceil t \rceil}
-  \le t \sin_\tau \frac{\tau}{2t} 
-  \le \lceil t \rceil \sin_\tau \frac{\tau}{2\lfloor t \rfloor}
-  \le \frac{\lceil t \rceil}{\lfloor t \rfloor} \cdot \lfloor t \rfloor \sin_\tau \frac{\tau}{2\lfloor t \rfloor}
-\end{equation}
-e visto che 
-\[
-  \frac{\lfloor t \rfloor}{\lceil t \rceil}\to 1, \qquad
-  \frac{\lceil t \rceil}{\lfloor t \rfloor}\to 1
+Sia $x\in \opencloseinterval{0}{\frac \pi 2}$ e poniamo 
+$n = \lfloor \frac \pi x \rfloor$ 
+cosicché $n\ge 2$ e
+\[ 
+  \frac{\pi}{n+1} < x \le \frac{\pi}{n}.
 \]
-per la definizione di $\pi$, entrambi gli estremi della catena 
-di disuguaglianze~\eqref{eq:4961077} tendono a $\pi$
-e dunque per il teorema dei carabinieri
-si ottiene il limite volute~\eqref{eq:771743}.
-Con il cambio di variabile $x=\frac 1 t$ si ottiene 
-il limite~\eqref{eq:limite_notevole_sin} quando $x\to 0^+$.
-Il limite completo per $x\to 0$ si ottiene per simmetria.
+Visto che $\sin$ è crescente sull'intervallo $\closeinterval{0}{\frac \pi 2}$
+e posto $a_n = n \sin \frac{\pi}{n}$ si ha
+\[
+  \frac{n}{n+1} \cdot \frac{a_{n+1}}{\pi}
+  = \frac{\sin \frac{\pi}{n+1}}{\frac{\pi}{n}} 
+  \le \frac{\sin x}{x} 
+  \le \frac{\sin \frac{\pi}{n}}{\frac{\pi}{n+1}}
+  = \frac{n+1}{n} \cdot \frac{a_n}{\pi}.
+\]
+Per $x\to 0^+$ si ha $n = \lfloor \frac \pi x \rfloor \to +\infty$
+e per definizione di $\pi$ (definizione~\ref{def:pi}) si ha $a_n \to \pi$.
+Dunque, per il teorema sul limite di funzione composta 
+(teorema~\ref{th:limite_composta}), 
+i due termini estremi tendono entrambi a $1$
+e per il teorema dei carabinieri si ottiene,
+come voluto:
+\[
+   \lim_{x\to 0^+} \frac{\sin x}{x} = 1.
+\]
+Osservando che $\frac{\sin(-x)}{-x} = \frac{\sin x}{x}$, 
+si ottiene lo stesso limite per $x\to 0^-$.
 \end{proof}
-
-D'ora in avanti sceglieremo $\tau=2\pi$ come periodo 
-delle funzioni trigonometriche.
-E d'ora in avanti si intenderà $\sin = \sin_{2\pi}$, 
-$\cos = \cos_{2\pi}$. Si avrà quindi il limite notevole 
-\[
-   \lim_{x\to 0} \frac{\sin x}{x} = 1.  
-\]
-
-Quando introdurremo le derivate potremo anche osservare che 
-questa scelta del periodo $\tau=2\pi$ 
-fa sì che il punto di coordinate
-$(\cos t,\sin t)$ si muova con velocità unitaria lungo 
-la circonferenza unitaria. 
-Dunque tale punto percorre un arco di lunghezza $t$ nel tempo $t$.
-In particolare in un periodo $\tau=2\pi$ il punto percorre l'intera 
-circonferenza e dunque risulta che $2\pi$ è la lunghezza 
-della circonferenza unitaria (ovvero $2\pi r$ è la lunghezza della circonferenza 
-di raggio $r$).
-Al tempo $t=1$ il punto $(\cos t,\sin t)$ individua un angolo che 
-viene chiamato \emph{radiante} in quanto corrisponde ad un arco di lunghezza 
-pari al raggio (unitario). 
-Dunque il \emph{radiante} è l'unità di misura naturale per misurare gli angoli 
-e le funzioni $\sin$ e $\cos$ d'ora in poi saranno fissate con tale unità di misura.
 
 \newsavebox{\qrfigtrigo}\sbox{\qrfigtrigo}{\myurlhere{figtrigo}{funzioni trigonometriche}}%
 \begin{figure}
