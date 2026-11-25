@@ -1,7 +1,6 @@
 name: versione HTML su GitHub Pages
-# Compila la versione HTML (make html) e pubblica il sito:
-#   docs/      -> https://paolini.github.io/AnalisiUno/        (come prima)
-#   html/out/  -> https://paolini.github.io/AnalisiUno/online/
+# Compila la versione HTML (make html) e la pubblica su
+# https://paolini.github.io/AnalisiUno/ (pagina iniziale, libro, rimandi dei QR code).
 # Richiede: Settings > Pages > Source = "GitHub Actions".
 on:
   push:
@@ -30,9 +29,10 @@ jobs:
         run: make html
       - name: assembla il sito
         run: |
-          mkdir _site
-          cp -r docs/. _site/
-          cp -r html/out _site/online
+          cp -r html/out _site
+          # il libro e' stato per poco in online/: rimanda alla radice
+          mkdir _site/online
+          echo '<!doctype html><meta charset="utf-8"><meta http-equiv="refresh" content="0; url=../">' > _site/online/index.html
       - uses: actions/upload-pages-artifact@v5
         with:
           path: _site

@@ -1,8 +1,8 @@
 [![DOI](https://zenodo.org/badge/105351342.svg)](https://doi.org/10.5281/zenodo.24164701)
 
-Queste note sono nate come appunti per il corso di Analisi Matematica 
+Questo testo è nato dagli appunti per il corso di Analisi Matematica 
 del corso di studi in Fisica dell'Università 
-di Pisa negli anni accademici dal 2017/18 al 2024/25. 
+di Pisa svolto negli anni accademici dal 2017/18 al 2026/27. 
  
 Le note (come il corso a cui fanno riferimento) 
 riguardano l'analisi delle funzioni di una variabile 
@@ -10,9 +10,8 @@ reale.
 Gli argomenti trattati sono serie e successioni numeriche, 
 successioni ricorsive, 
 il calcolo differenziale e il calcolo integrale. 
-Viene fatta un minimo di analisi funzionale allo scopo di considerare, 
-come ultimo argomento, lo studio delle equazioni differenziali ordinarie. 
-Da subito vengono introdotti i numeri complessi che vengono utilizzati 
+Viene fatta un minimo di analisi funzionale allo scopo di introdurre la convergenza uniforme. Vengono introdotte le equazioni differenziali ordinarie. 
+Da subito vengono presentati i numeri complessi che vengono utilizzati 
 laddove possono aiutare a dare una visione più unitaria e concettualmente 
 più semplice degli argomenti trattati (in particolare nello studio delle serie 
 di potenze, nella definizione delle funzioni trigonometriche, nella risoluzione delle equazioni differenziali lineari). 
@@ -21,13 +20,16 @@ Le note sono estensive, non c'è alcun tentativo di concisione.
 L'obiettivo è quello di raccogliere tutti quei risultati che non sempre è 
 possibile esporre in maniera dettagliata e rigorosa a lezione. 
 Troveremo, ad esempio, 
-definizioni equivalenti della funzione esponenziale e 
-delle funzioni trigonometriche (con $e$ e $\pi$). 
-Proponiamo la dimostrazione del teorema fondamentale dell'algebra, 
+delle definizioni 
+formali della funzione esponenziale, delle funzioni trigonometriche, e dei loro limiti notevoli. 
+Proponiamo anche la dimostrazione del teorema fondamentale dell'algebra, 
 della formula di Stirling e di Wallis, 
 e dell'irrazionalità di $e$ e di $\pi$. 
+Esponiamo i teoremi di scambio della derivata con l'integrale e con il limite. Questi teoremi vengono usati per il calcolo di alcuni integrali non elementari come $\int_0^{+\infty} \frac{\sin x}{x} dx$ e $\int_0^{+\infty} e^{-x^2} dx$. 
+In un lungo esercizio (che utilizza quasi tutto il materiale del corso) vengono calcolati i primi termini dello sviluppo in serie del periodo delle piccole oscillazioni di un pendolo. 
+ 
 Viene proposta una definizione formale dei simboli di Landau 
-$o$-piccolo e $O$-grande con i relativi teoremi per trattare queste espressioni. 
+$o$-piccolo e $O$-grande con i relativi teoremi per manipolare queste espressioni. 
 Lo stesso viene fatto per il simbolo di integrale indefinito. 
 Vengono trattati quei risultati algebrici che permettono di 
 giustificare gli algoritmi per il calcolo delle primitive 
@@ -58,7 +60,8 @@ Dunque lo stesso teorema astratto
 (isomorfismo dei gruppi totalmente ordinati densi e continui) 
 viene utilizzato per costruire la moltiplicazione, 
 le funzioni esponenziali e le funzioni trigonometriche. 
-Le figure non sono frequenti ma a margine di molte di esse  
+ 
+Le figure non sono frequenti. A margine di alcune di esse 
 è presente un *QR-code* (un quadrato formato da una nuvola di pixel) 
 che permette di accedere alla figura  
 *online* e modicarne i parametri.  
@@ -83,7 +86,7 @@ Releases (PDF format) are available at the github repository: <https://github.co
 
 # compiling 
 
-files `README.md` and `docs/index.html` are created from sources with the command:
+file `README.md` is created from sources with the command:
 
     bash make-docs.sh
 
@@ -92,6 +95,7 @@ the `pdf` file can be obtained with the command:
     latexmk --pdf AnalisiUno
 
 The `Makefile` should automate the previous commands.
+The HTML version (published at <https://paolini.github.io/AnalisiUno/>) is built with `make html`.
 
 # compilation with docker
 

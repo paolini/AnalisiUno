@@ -4,7 +4,7 @@ ita: AnalisiUnoFonts.pdf AnalisiUno.pdf README.md
 
 en: AnalisiUnoEn.pdf
 
-README.md: make-docs.sh AnalisiUno.myaux
+README.md: make-docs.sh chapters/00_introduzione.tex
 	bash $<
 
 AnalisiUnoFonts.pdf: AnalisiUno.pdf
@@ -44,6 +44,7 @@ html: $(HTML_BUILD)/macros.tex $(KATEX) $(FIG_SVG)
 		-f html5+common_domfilters html/AnalisiUnoHtml.tex "3"
 	cp html/statistiche.js $(HTML_OUT)/
 	python3 html/postprocess.py $(HTML_BUILD)/AnalisiUnoHtml.aux $(HTML_OUT)
+	python3 html/sito.py html/rimandi.json $(HTML_OUT)
 	node html/katex_render.js $(HTML_BUILD)/macros.tex $(HTML_OUT)
 	mkdir -p $(HTML_OUT)/katex/fonts
 	cp $(KATEX)/katex.min.css $(HTML_OUT)/katex/
