@@ -10,7 +10,7 @@ reale.
 Gli argomenti trattati sono serie e successioni numeriche, 
 successioni ricorsive, 
 il calcolo differenziale e il calcolo integrale. 
-Viene fatta un minimo di analisi funzionale allo scopo di introdurre la convergenza uniforme. Vengono introdotte le equazioni differenziali ordinarie. 
+Viene fatto un minimo di analisi funzionale allo scopo di introdurre la convergenza uniforme. Vengono introdotte le equazioni differenziali ordinarie. 
 Da subito vengono presentati i numeri complessi che vengono utilizzati 
 laddove possono aiutare a dare una visione più unitaria e concettualmente 
 più semplice degli argomenti trattati (in particolare nello studio delle serie 
@@ -20,8 +20,8 @@ Le note sono estensive, non c'è alcun tentativo di concisione.
 L'obiettivo è quello di raccogliere tutti quei risultati che non sempre è 
 possibile esporre in maniera dettagliata e rigorosa a lezione. 
 Troveremo, ad esempio, 
-delle definizioni 
-formali della funzione esponenziale, delle funzioni trigonometriche, e dei loro limiti notevoli. 
+le definizioni 
+formali della funzione esponenziale e delle funzioni trigonometriche, con la dimostrazione dei loro limiti notevoli. 
 Proponiamo anche la dimostrazione del teorema fondamentale dell'algebra, 
 della formula di Stirling e di Wallis, 
 e dell'irrazionalità di $e$ e di $\pi$. 
@@ -64,9 +64,10 @@ le funzioni esponenziali e le funzioni trigonometriche.
 Le figure non sono frequenti. A margine di alcune di esse 
 è presente un *QR-code* (un quadrato formato da una nuvola di pixel) 
 che permette di accedere alla figura  
-*online* e modicarne i parametri.  
-Di seguito in questa pagina trovate l'elenco 
-con i collegamenti alle figure interattive. 
+*online* e modificarne i parametri.  
+La versione online del libro si trova alla pagina 
+<https://paolini.github.io/AnalisiUno/>, 
+dove sono raccolti anche i collegamenti a tutte le figure interattive. 
  
 Queste note sono rese disponibili liberamente sia in formato PDF che 
 in forma di sorgente 
